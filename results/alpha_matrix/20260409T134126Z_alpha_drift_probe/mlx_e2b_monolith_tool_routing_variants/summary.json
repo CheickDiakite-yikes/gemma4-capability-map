@@ -1,0 +1,53 @@
+{
+  "runs": 8.0,
+  "success_rate": 1.0,
+  "failure_breakdown": {
+    "malformed_call": 1
+  },
+  "metric_averages": {
+    "arg_exact": 1.0,
+    "avoidable_retries": 0.125,
+    "completion_tokens": 77.5,
+    "controller_repair_count": 1.0,
+    "hallucinated_tool_rate": 0.0,
+    "interface_reliability_score": 0.9687,
+    "latency_ms": 4056.5,
+    "malformed_call_rate": 0.125,
+    "prompt_tokens": 730.125,
+    "recovery_correct": 0.875,
+    "steps_taken": 1.0,
+    "success": 1.0,
+    "tool_exact": 1.0
+  },
+  "failing_variants": [],
+  "avg_latency_ms": 4056.5,
+  "avg_prompt_tokens": 730.12,
+  "avg_completion_tokens": 77.5,
+  "run_group_id": "20260409T134126Z",
+  "matrix_name": "alpha_drift_probe",
+  "experiment_id": "mlx_e2b_monolith_tool_routing_variants",
+  "pipeline": "monolith",
+  "track": "tool_routing",
+  "backend": "mlx",
+  "reasoner_backend": "mlx",
+  "router_backend": null,
+  "retriever_backend": null,
+  "reasoner": "google/gemma-4-E2B-it",
+  "router": null,
+  "retriever": null,
+  "max_new_tokens": 48,
+  "planning_max_new_tokens": null,
+  "final_max_new_tokens": null,
+  "thinking_enabled": false,
+  "variants": true,
+  "status": "completed",
+  "completed_runs": 8,
+  "total_runs": 8,
+  "remaining_runs": 0,
+  "notes": [
+    "Focuses on schema drift, context drift, and code-switched routing prompts."
+  ],
+  "last_run_id": "20260409T134226Z_monolith_tool_010_validator_ready_tool_010_validator_ready_context_irrelevant_tool_output",
+  "last_task_id": "tool_010_validator_ready",
+  "last_variant_id": "tool_010_validator_ready_context_irrelevant_tool_output"
+}

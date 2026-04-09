@@ -1,0 +1,163 @@
+{
+  "run_group_id": "20260409T085427Z",
+  "matrix_name": "alpha_mlx_default",
+  "experiments": [
+    {
+      "runs": 10.0,
+      "success_rate": 0.9,
+      "avg_latency_ms": 2418.4,
+      "avg_prompt_tokens": 231.3,
+      "avg_completion_tokens": 6.2,
+      "run_group_id": "20260409T085427Z",
+      "matrix_name": "alpha_mlx_default",
+      "experiment_id": "mlx_e2b_monolith_thinking_clean",
+      "pipeline": "monolith",
+      "track": "thinking",
+      "backend": "mlx",
+      "reasoner_backend": "mlx",
+      "router_backend": null,
+      "retriever_backend": null,
+      "reasoner": "google/gemma-4-E2B-it",
+      "router": null,
+      "retriever": null,
+      "max_new_tokens": 48,
+      "planning_max_new_tokens": null,
+      "final_max_new_tokens": null,
+      "thinking_enabled": false,
+      "variants": false,
+      "status": "completed",
+      "completed_runs": 10,
+      "total_runs": 10,
+      "remaining_runs": 0,
+      "notes": [
+        "Local default reasoning baseline for text and image thinking tasks."
+      ],
+      "last_run_id": "20260409T085452Z_monolith_think_010_repo_reasoning_think_010_repo_reasoning_clean",
+      "last_task_id": "think_010_repo_reasoning",
+      "last_variant_id": "think_010_repo_reasoning_clean"
+    },
+    {
+      "runs": 10.0,
+      "success_rate": 1.0,
+      "avg_latency_ms": 6189.9,
+      "avg_prompt_tokens": 169.3,
+      "avg_completion_tokens": 5.1,
+      "run_group_id": "20260409T085427Z",
+      "matrix_name": "alpha_mlx_default",
+      "experiment_id": "hf_e2b_monolith_thinking_off_clean",
+      "pipeline": "monolith",
+      "track": "thinking",
+      "backend": "hf",
+      "reasoner_backend": "hf",
+      "router_backend": null,
+      "retriever_backend": null,
+      "reasoner": "google/gemma-4-E2B-it",
+      "router": null,
+      "retriever": null,
+      "max_new_tokens": 64,
+      "planning_max_new_tokens": null,
+      "final_max_new_tokens": null,
+      "thinking_enabled": false,
+      "variants": false,
+      "status": "completed",
+      "completed_runs": 10,
+      "total_runs": 10,
+      "remaining_runs": 0,
+      "notes": [
+        "HF reference slice without thinking for direct comparison."
+      ],
+      "last_run_id": "20260409T085556Z_monolith_think_010_repo_reasoning_think_010_repo_reasoning_clean",
+      "last_task_id": "think_010_repo_reasoning",
+      "last_variant_id": "think_010_repo_reasoning_clean"
+    },
+    {
+      "runs": 10.0,
+      "success_rate": 0.7,
+      "avg_latency_ms": 25545.2,
+      "avg_prompt_tokens": 170.3,
+      "avg_completion_tokens": 125.9,
+      "run_group_id": "20260409T085427Z",
+      "matrix_name": "alpha_mlx_default",
+      "experiment_id": "hf_e2b_monolith_thinking_on_clean",
+      "pipeline": "monolith",
+      "track": "thinking",
+      "backend": "hf",
+      "reasoner_backend": "hf",
+      "router_backend": null,
+      "retriever_backend": null,
+      "reasoner": "google/gemma-4-E2B-it",
+      "router": null,
+      "retriever": null,
+      "max_new_tokens": 256,
+      "planning_max_new_tokens": null,
+      "final_max_new_tokens": null,
+      "thinking_enabled": true,
+      "variants": false,
+      "status": "completed",
+      "completed_runs": 10,
+      "total_runs": 10,
+      "remaining_runs": 0,
+      "notes": [
+        "HF native thinking slice on the full thinking track.",
+        "Uses a larger token budget because thought and final answer share the same decode path in the local HF runner."
+      ],
+      "last_run_id": "20260409T090015Z_monolith_think_010_repo_reasoning_think_010_repo_reasoning_clean",
+      "last_task_id": "think_010_repo_reasoning",
+      "last_variant_id": "think_010_repo_reasoning_clean"
+    }
+  ],
+  "probes": [
+    {
+      "id": "hf_e4b_probe_cached",
+      "kind": "smoke_probe",
+      "backend": "hf",
+      "model": "google/gemma-4-E4B-it",
+      "source": "/Users/cheickdiakite/Codex/moonie/results/raw/hf_smoke_e4b.json",
+      "status": "completed",
+      "load_elapsed_ms": 1597752,
+      "runtime_device": "mps",
+      "load_mode": "vision",
+      "notes": [
+        "Reserved local probe lane for E4B on this Mac."
+      ]
+    }
+  ],
+  "improvements": [
+    {
+      "experiment_id": "mlx_e2b_monolith_thinking_clean",
+      "current_run_group_id": "20260409T085427Z",
+      "previous_run_group_id": "20260409T074743Z",
+      "success_rate_delta": 0.2,
+      "avg_latency_ms_delta": -691.9,
+      "latency_improvement_ms": 691.9,
+      "current_success_rate": 0.9,
+      "previous_success_rate": 0.7,
+      "current_avg_latency_ms": 2418.4,
+      "previous_avg_latency_ms": 3110.3
+    },
+    {
+      "experiment_id": "hf_e2b_monolith_thinking_off_clean",
+      "current_run_group_id": "20260409T085427Z",
+      "previous_run_group_id": "20260409T074743Z",
+      "success_rate_delta": 0.4,
+      "avg_latency_ms_delta": -10169.9,
+      "latency_improvement_ms": 10169.9,
+      "current_success_rate": 1.0,
+      "previous_success_rate": 0.6,
+      "current_avg_latency_ms": 6189.9,
+      "previous_avg_latency_ms": 16359.8
+    },
+    {
+      "experiment_id": "hf_e2b_monolith_thinking_on_clean",
+      "current_run_group_id": "20260409T085427Z",
+      "previous_run_group_id": "20260409T074743Z",
+      "success_rate_delta": 0.3,
+      "avg_latency_ms_delta": -13911.1,
+      "latency_improvement_ms": 13911.1,
+      "current_success_rate": 0.7,
+      "previous_success_rate": 0.4,
+      "current_avg_latency_ms": 25545.2,
+      "previous_avg_latency_ms": 39456.3
+    }
+  ]
+}

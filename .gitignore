@@ -1,0 +1,23 @@
+.DS_Store
+.env
+.env.local
+.venv/
+.uv-cache/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.py[cod]
+**/__pycache__/
+
+# Local app/editor state
+.streamlit/
+
+# Generated runtime artifacts
+results/raw/
+results/runtime/
+results/alpha_slice/
+results/**/progress.json
+results/**/*traces.jsonl
+results/**/requests.jsonl
+results/**/events.jsonl
+results/**/*.log

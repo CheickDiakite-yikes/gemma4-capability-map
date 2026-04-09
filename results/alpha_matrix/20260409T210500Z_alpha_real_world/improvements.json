@@ -1,0 +1,38 @@
+[
+  {
+    "experiment_id": "hf_e2b_real_world_thinking_variants",
+    "current_run_group_id": "20260409T210500Z",
+    "previous_run_group_id": "20260409T203500Z",
+    "success_rate_delta": 0.0,
+    "avg_latency_ms_delta": 152.5,
+    "latency_improvement_ms": -152.5,
+    "current_success_rate": 0.0,
+    "previous_success_rate": 0.0,
+    "current_avg_latency_ms": 1016.75,
+    "previous_avg_latency_ms": 864.25
+  },
+  {
+    "experiment_id": "hf_e2b_real_world_retrieval_variants",
+    "current_run_group_id": "20260409T210500Z",
+    "previous_run_group_id": "20260409T203500Z",
+    "success_rate_delta": 0.0,
+    "avg_latency_ms_delta": -364.06,
+    "latency_improvement_ms": 364.06,
+    "current_success_rate": 0.875,
+    "previous_success_rate": 0.875,
+    "current_avg_latency_ms": 2855.44,
+    "previous_avg_latency_ms": 3219.5
+  },
+  {
+    "experiment_id": "hf_e2b_real_world_routing_variants",
+    "current_run_group_id": "20260409T210500Z",
+    "previous_run_group_id": "20260409T200500Z",
+    "success_rate_delta": -0.1667,
+    "avg_latency_ms_delta": 120.75,
+    "latency_improvement_ms": -120.75,
+    "current_success_rate": 0.5,
+    "previous_success_rate": 0.6666666666666666,
+    "current_avg_latency_ms": 7339.0,
+    "previous_avg_latency_ms": 7218.25
+  }
+]

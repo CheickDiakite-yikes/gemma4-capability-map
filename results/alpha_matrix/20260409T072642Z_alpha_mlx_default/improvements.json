@@ -1,0 +1,26 @@
+[
+  {
+    "experiment_id": "mlx_e2b_monolith_tool_routing_clean",
+    "current_run_group_id": "20260409T072642Z",
+    "previous_run_group_id": "20260409T072323Z",
+    "success_rate_delta": 0.6,
+    "avg_latency_ms_delta": 1759.0,
+    "latency_improvement_ms": -1759.0,
+    "current_success_rate": 1.0,
+    "previous_success_rate": 0.4,
+    "current_avg_latency_ms": 6756.0,
+    "previous_avg_latency_ms": 4997.0
+  },
+  {
+    "experiment_id": "mlx_e2b_modular_full_stack_clean",
+    "current_run_group_id": "20260409T072642Z",
+    "previous_run_group_id": "20260409T072323Z",
+    "success_rate_delta": 0.2,
+    "avg_latency_ms_delta": 489.8,
+    "latency_improvement_ms": -489.8,
+    "current_success_rate": 0.8,
+    "previous_success_rate": 0.6,
+    "current_avg_latency_ms": 3856.5,
+    "previous_avg_latency_ms": 3366.7
+  }
+]

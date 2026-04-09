@@ -1,0 +1,71 @@
+{
+  "run_group_id": "20260409T073109Z",
+  "matrix_name": "alpha_mlx_default",
+  "experiments": [
+    {
+      "runs": 10.0,
+      "success_rate": 0.8,
+      "avg_latency_ms": 3366.5,
+      "avg_prompt_tokens": 364.6,
+      "avg_completion_tokens": 34.3,
+      "run_group_id": "20260409T073109Z",
+      "matrix_name": "alpha_mlx_default",
+      "experiment_id": "mlx_e2b_modular_full_stack_clean",
+      "pipeline": "modular",
+      "track": "full_stack",
+      "backend": "mlx",
+      "reasoner_backend": "mlx",
+      "router_backend": "heuristic",
+      "retriever_backend": "heuristic",
+      "reasoner": "google/gemma-4-E2B-it",
+      "router": "google/functiongemma-270m",
+      "retriever": "google/embeddinggemma-300m",
+      "max_new_tokens": 48,
+      "planning_max_new_tokens": 48,
+      "final_max_new_tokens": 96,
+      "thinking_enabled": false,
+      "variants": false,
+      "status": "completed",
+      "completed_runs": 10,
+      "total_runs": 10,
+      "remaining_runs": 0,
+      "notes": [
+        "Uses heuristic routing until local FunctionGemma execution is validated.",
+        "Uses a larger final-answer budget so end-to-end summaries do not truncate after correct tool execution."
+      ],
+      "last_run_id": "20260409T073143Z_modular_agent_010_parallel_audit_patch_agent_010_parallel_audit_patch_clean",
+      "last_task_id": "agent_010_parallel_audit_patch",
+      "last_variant_id": "agent_010_parallel_audit_patch_clean"
+    }
+  ],
+  "probes": [
+    {
+      "id": "hf_e4b_probe_cached",
+      "kind": "smoke_probe",
+      "backend": "hf",
+      "model": "google/gemma-4-E4B-it",
+      "source": "/Users/cheickdiakite/Codex/moonie/results/raw/hf_smoke_e4b.json",
+      "status": "completed",
+      "load_elapsed_ms": 1597752,
+      "runtime_device": "mps",
+      "load_mode": "vision",
+      "notes": [
+        "Reserved local probe lane for E4B on this Mac."
+      ]
+    }
+  ],
+  "improvements": [
+    {
+      "experiment_id": "mlx_e2b_modular_full_stack_clean",
+      "current_run_group_id": "20260409T073109Z",
+      "previous_run_group_id": "20260409T072642Z",
+      "success_rate_delta": 0.0,
+      "avg_latency_ms_delta": -490.0,
+      "latency_improvement_ms": 490.0,
+      "current_success_rate": 0.8,
+      "previous_success_rate": 0.8,
+      "current_avg_latency_ms": 3366.5,
+      "previous_avg_latency_ms": 3856.5
+    }
+  ]
+}

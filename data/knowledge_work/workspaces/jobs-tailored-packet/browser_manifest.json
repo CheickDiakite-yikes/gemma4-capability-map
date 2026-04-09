@@ -1,0 +1,92 @@
+{
+  "workspace_id": "jobs-tailored-packet",
+  "lane": "replayable_core",
+  "role_family": "job_application_ops",
+  "tools": [
+    "browser",
+    "calendar",
+    "documents",
+    "repo",
+    "spreadsheets"
+  ],
+  "browser_surfaces": [
+    {
+      "stage_id": "kwa_jobs_tailored_packet_stage_1",
+      "task_refs": [
+        "retr_011_approval_policy"
+      ],
+      "browser_plan": [
+        {
+          "action": "open_seeded_workspace",
+          "target": "workspace://jobs-tailored-packet",
+          "surface": "workspace",
+          "purpose": "Open the seeded workspace for stage 1",
+          "expected_signal": "seeded workspace loaded",
+          "verification_checks": [
+            "workspace opened"
+          ],
+          "captured_fields": [],
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        },
+        {
+          "action": "inspect_seeded_surface",
+          "target": "workspace://jobs-tailored-packet/retr_011_approval_policy",
+          "surface": "job_portal",
+          "purpose": "Review the mirrored browser surface or local document state",
+          "expected_signal": "required seeded context inspected",
+          "verification_checks": [
+            "surface inspected",
+            "required fields visible"
+          ],
+          "captured_fields": [
+            "candidate_name",
+            "job_title",
+            "submission_status"
+          ],
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        }
+      ]
+    },
+    {
+      "stage_id": "kwa_jobs_tailored_packet_stage_2",
+      "task_refs": [
+        "think_009_budget_summary"
+      ],
+      "browser_plan": [
+        {
+          "action": "open_seeded_workspace",
+          "target": "workspace://jobs-tailored-packet",
+          "surface": "workspace",
+          "purpose": "Open the seeded workspace for stage 2",
+          "expected_signal": "seeded workspace loaded",
+          "verification_checks": [
+            "workspace opened"
+          ],
+          "captured_fields": [],
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        },
+        {
+          "action": "inspect_seeded_surface",
+          "target": "workspace://jobs-tailored-packet/think_009_budget_summary",
+          "surface": "job_portal",
+          "purpose": "Review the mirrored browser surface or local document state",
+          "expected_signal": "required seeded context inspected",
+          "verification_checks": [
+            "surface inspected",
+            "required fields visible"
+          ],
+          "captured_fields": [
+            "candidate_name",
+            "job_title",
+            "submission_status"
+          ],
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        }
+      ]
+    }
+  ]
+}

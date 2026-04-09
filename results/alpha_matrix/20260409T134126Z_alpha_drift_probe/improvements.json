@@ -1,0 +1,50 @@
+[
+  {
+    "experiment_id": "mlx_e2b_monolith_thinking_variants",
+    "current_run_group_id": "20260409T134126Z",
+    "previous_run_group_id": "20260409T133025Z",
+    "success_rate_delta": 0.0,
+    "avg_latency_ms_delta": -365.83,
+    "latency_improvement_ms": 365.83,
+    "current_success_rate": 0.9166666666666666,
+    "previous_success_rate": 0.9166666666666666,
+    "current_avg_latency_ms": 2122.17,
+    "previous_avg_latency_ms": 2488.0
+  },
+  {
+    "experiment_id": "mlx_e2b_monolith_tool_routing_variants",
+    "current_run_group_id": "20260409T134126Z",
+    "previous_run_group_id": "20260409T133914Z",
+    "success_rate_delta": 0.0,
+    "avg_latency_ms_delta": 154.38,
+    "latency_improvement_ms": -154.38,
+    "current_success_rate": 1.0,
+    "previous_success_rate": 1.0,
+    "current_avg_latency_ms": 4056.5,
+    "previous_avg_latency_ms": 3902.12
+  },
+  {
+    "experiment_id": "mlx_e2b_hybrid_retrieval_variants",
+    "current_run_group_id": "20260409T134126Z",
+    "previous_run_group_id": "20260409T133025Z",
+    "success_rate_delta": 0.0,
+    "avg_latency_ms_delta": 254.24,
+    "latency_improvement_ms": -254.24,
+    "current_success_rate": 1.0,
+    "previous_success_rate": 1.0,
+    "current_avg_latency_ms": 2883.62,
+    "previous_avg_latency_ms": 2629.38
+  },
+  {
+    "experiment_id": "mlx_e2b_modular_full_stack_variants",
+    "current_run_group_id": "20260409T134126Z",
+    "previous_run_group_id": "20260409T133025Z",
+    "success_rate_delta": 0.0,
+    "avg_latency_ms_delta": 322.18,
+    "latency_improvement_ms": -322.18,
+    "current_success_rate": 1.0,
+    "previous_success_rate": 1.0,
+    "current_avg_latency_ms": 2648.91,
+    "previous_avg_latency_ms": 2326.73
+  }
+]

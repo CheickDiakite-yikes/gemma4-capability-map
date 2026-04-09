@@ -1,0 +1,1 @@
+Tighten the risk section and keep the action recommendation explicit.

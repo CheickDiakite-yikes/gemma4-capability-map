@@ -1,0 +1,101 @@
+{
+  "runs": 12.0,
+  "success_rate": 0.8333333333333334,
+  "failure_breakdown": {
+    "answer_mismatch": 2,
+    "failed": 2,
+    "image_grounding_miss": 2
+  },
+  "metric_averages": {
+    "answer_match": 0.8333,
+    "avoidable_retries": 0.0,
+    "completion_tokens": 7.25,
+    "controller_repair_count": 0.0,
+    "exact_match": 0.8333,
+    "hallucinated_tool_rate": 0.0,
+    "latency_ms": 659.4167,
+    "malformed_call_rate": 0.0,
+    "prompt_tokens": 247.3333,
+    "steps_taken": 0.0,
+    "success": 0.8333
+  },
+  "failing_variants": [
+    {
+      "task_id": "think_011_incident_screenshot_toggle",
+      "variant_id": "think_011_incident_screenshot_toggle_clean",
+      "failure_tags": [
+        "failed",
+        "answer_mismatch",
+        "image_grounding_miss"
+      ],
+      "latency_ms": 954.0,
+      "interface_reliability_score": 0.0,
+      "controller_repair_count": 0
+    },
+    {
+      "task_id": "think_012_billing_invoice_lock",
+      "variant_id": "think_012_billing_invoice_lock_clean",
+      "failure_tags": [
+        "failed",
+        "answer_mismatch",
+        "image_grounding_miss"
+      ],
+      "latency_ms": 980.0,
+      "interface_reliability_score": 0.0,
+      "controller_repair_count": 0
+    }
+  ],
+  "avg_latency_ms": 659.42,
+  "avg_prompt_tokens": 247.33,
+  "avg_completion_tokens": 7.25,
+  "run_group_id": "20260409T180500Z",
+  "matrix_name": "alpha_integrated_specialists",
+  "experiment_id": "mlx_e2b_monolith_thinking_clean",
+  "pipeline": "monolith",
+  "track": "thinking",
+  "backend": "mlx",
+  "reasoner_backend": "mlx",
+  "router_backend": null,
+  "retriever_backend": null,
+  "reasoner": "google/gemma-4-E2B-it",
+  "router": null,
+  "retriever": null,
+  "max_new_tokens": 48,
+  "planning_max_new_tokens": null,
+  "final_max_new_tokens": null,
+  "thinking_enabled": false,
+  "variants": false,
+  "status": "completed",
+  "completed_runs": 12,
+  "total_runs": 12,
+  "remaining_runs": 0,
+  "notes": [
+    "Local default reasoning baseline for text and image thinking tasks.",
+    "Runs on the balanced 12-task thinking track."
+  ],
+  "warmup": {
+    "reasoner": {
+      "backend": "mlx",
+      "requested_model": "google/gemma-4-E2B-it",
+      "effective_model": "mlx-community/gemma-4-e2b-it-4bit",
+      "runtime_device": "mlx",
+      "load_mode": "vision",
+      "configured_device": "mps",
+      "service": {}
+    }
+  },
+  "runtime_bundle": {
+    "reasoner": {
+      "backend": "mlx",
+      "requested_model": "google/gemma-4-E2B-it",
+      "effective_model": "mlx-community/gemma-4-e2b-it-4bit",
+      "runtime_device": "mlx",
+      "load_mode": "vision",
+      "configured_device": "mps",
+      "service": {}
+    }
+  },
+  "last_run_id": "20260409T165757Z_monolith_think_010_repo_reasoning_think_010_repo_reasoning_clean",
+  "last_task_id": "think_010_repo_reasoning",
+  "last_variant_id": "think_010_repo_reasoning_clean"
+}

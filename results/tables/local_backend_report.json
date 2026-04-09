@@ -1,0 +1,29 @@
+{
+  "decision": {
+    "apple_silicon_default_reasoner_backend": "mlx",
+    "reason": "MLX E2B matches the validated multimodal alpha slice on this Mac with materially lower load and warm inference latency than HF.",
+    "hf_role": "native thinking validation and larger or slower experimental runs"
+  },
+  "hf_e2b": {
+    "load_elapsed_ms": 43401,
+    "warm_text_latency_ms": 747.0,
+    "warm_image_latency_ms": 4050.0,
+    "alpha_success_rate": 1.0,
+    "alpha_avg_latency_ms": 58777.5,
+    "alpha_runs": 2.0
+  },
+  "mlx_e2b": {
+    "load_elapsed_ms": 16749,
+    "warm_text_latency_ms": 431.0,
+    "warm_image_latency_ms": 1374.0,
+    "alpha_success_rate": 1.0,
+    "alpha_avg_latency_ms": 9231.5,
+    "alpha_runs": 2.0
+  },
+  "hf_e4b_probe": {
+    "status": "completed",
+    "load_elapsed_ms": 1597752,
+    "runtime_device": "mps",
+    "load_mode": "vision"
+  }
+}

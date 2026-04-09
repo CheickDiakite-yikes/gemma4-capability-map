@@ -1,0 +1,62 @@
+[
+  {
+    "experiment_id": "mlx_e2b_monolith_thinking_clean",
+    "current_run_group_id": "20260409T070145Z",
+    "previous_run_group_id": "20260409T065403Z",
+    "success_rate_delta": 0.0,
+    "avg_latency_ms_delta": -131.5,
+    "latency_improvement_ms": 131.5,
+    "current_success_rate": 0.4,
+    "previous_success_rate": 0.4,
+    "current_avg_latency_ms": 2520.0,
+    "previous_avg_latency_ms": 2651.5
+  },
+  {
+    "experiment_id": "mlx_e2b_monolith_tool_routing_clean",
+    "current_run_group_id": "20260409T070145Z",
+    "previous_run_group_id": "20260409T065403Z",
+    "success_rate_delta": 0.0,
+    "avg_latency_ms_delta": 754.0,
+    "latency_improvement_ms": -754.0,
+    "current_success_rate": 0.0,
+    "previous_success_rate": 0.0,
+    "current_avg_latency_ms": 3147.4,
+    "previous_avg_latency_ms": 2393.4
+  },
+  {
+    "experiment_id": "mlx_e2b_hybrid_retrieval_clean",
+    "current_run_group_id": "20260409T070145Z",
+    "previous_run_group_id": "20260409T065403Z",
+    "success_rate_delta": 0.0,
+    "avg_latency_ms_delta": 778.0,
+    "latency_improvement_ms": -778.0,
+    "current_success_rate": 1.0,
+    "previous_success_rate": 1.0,
+    "current_avg_latency_ms": 2290.7,
+    "previous_avg_latency_ms": 1512.7
+  },
+  {
+    "experiment_id": "mlx_e2b_modular_full_stack_clean",
+    "current_run_group_id": "20260409T070145Z",
+    "previous_run_group_id": "20260409T065403Z",
+    "success_rate_delta": 0.0,
+    "avg_latency_ms_delta": 821.8,
+    "latency_improvement_ms": -821.8,
+    "current_success_rate": 0.0,
+    "previous_success_rate": 0.0,
+    "current_avg_latency_ms": 2290.9,
+    "previous_avg_latency_ms": 1469.1
+  },
+  {
+    "experiment_id": "hf_e2b_monolith_thinking_off_clean",
+    "current_run_group_id": "20260409T070145Z",
+    "previous_run_group_id": "20260409T065858Z",
+    "success_rate_delta": 0.0,
+    "avg_latency_ms_delta": 446.4,
+    "latency_improvement_ms": -446.4,
+    "current_success_rate": 0.3,
+    "previous_success_rate": 0.3,
+    "current_avg_latency_ms": 15612.5,
+    "previous_avg_latency_ms": 15166.1
+  }
+]

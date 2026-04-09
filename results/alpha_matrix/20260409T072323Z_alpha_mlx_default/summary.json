@@ -1,0 +1,112 @@
+{
+  "run_group_id": "20260409T072323Z",
+  "matrix_name": "alpha_mlx_default",
+  "experiments": [
+    {
+      "runs": 10.0,
+      "success_rate": 0.4,
+      "avg_latency_ms": 4997.0,
+      "avg_prompt_tokens": 553.1,
+      "avg_completion_tokens": 64.7,
+      "run_group_id": "20260409T072323Z",
+      "matrix_name": "alpha_mlx_default",
+      "experiment_id": "mlx_e2b_monolith_tool_routing_clean",
+      "pipeline": "monolith",
+      "track": "tool_routing",
+      "backend": "mlx",
+      "reasoner_backend": "mlx",
+      "router_backend": null,
+      "retriever_backend": null,
+      "reasoner": "google/gemma-4-E2B-it",
+      "router": null,
+      "retriever": null,
+      "max_new_tokens": 48,
+      "thinking_enabled": false,
+      "variants": false,
+      "status": "completed",
+      "completed_runs": 10,
+      "total_runs": 10,
+      "remaining_runs": 0,
+      "notes": [
+        "Local default structured tool-use baseline."
+      ],
+      "last_run_id": "20260409T072414Z_monolith_tool_010_validator_ready_tool_010_validator_ready_clean",
+      "last_task_id": "tool_010_validator_ready",
+      "last_variant_id": "tool_010_validator_ready_clean"
+    },
+    {
+      "runs": 10.0,
+      "success_rate": 0.6,
+      "avg_latency_ms": 3366.7,
+      "avg_prompt_tokens": 241.6,
+      "avg_completion_tokens": 38.0,
+      "run_group_id": "20260409T072323Z",
+      "matrix_name": "alpha_mlx_default",
+      "experiment_id": "mlx_e2b_modular_full_stack_clean",
+      "pipeline": "modular",
+      "track": "full_stack",
+      "backend": "mlx",
+      "reasoner_backend": "mlx",
+      "router_backend": "heuristic",
+      "retriever_backend": "heuristic",
+      "reasoner": "google/gemma-4-E2B-it",
+      "router": "google/functiongemma-270m",
+      "retriever": "google/embeddinggemma-300m",
+      "max_new_tokens": 48,
+      "thinking_enabled": false,
+      "variants": false,
+      "status": "completed",
+      "completed_runs": 10,
+      "total_runs": 10,
+      "remaining_runs": 0,
+      "notes": [
+        "Uses heuristic routing until local FunctionGemma execution is validated."
+      ],
+      "last_run_id": "20260409T072450Z_modular_agent_010_parallel_audit_patch_agent_010_parallel_audit_patch_clean",
+      "last_task_id": "agent_010_parallel_audit_patch",
+      "last_variant_id": "agent_010_parallel_audit_patch_clean"
+    }
+  ],
+  "probes": [
+    {
+      "id": "hf_e4b_probe_cached",
+      "kind": "smoke_probe",
+      "backend": "hf",
+      "model": "google/gemma-4-E4B-it",
+      "source": "/Users/cheickdiakite/Codex/moonie/results/raw/hf_smoke_e4b.json",
+      "status": "completed",
+      "load_elapsed_ms": 1597752,
+      "runtime_device": "mps",
+      "load_mode": "vision",
+      "notes": [
+        "Reserved local probe lane for E4B on this Mac."
+      ]
+    }
+  ],
+  "improvements": [
+    {
+      "experiment_id": "mlx_e2b_monolith_tool_routing_clean",
+      "current_run_group_id": "20260409T072323Z",
+      "previous_run_group_id": "20260409T070145Z",
+      "success_rate_delta": 0.4,
+      "avg_latency_ms_delta": 1849.6,
+      "latency_improvement_ms": -1849.6,
+      "current_success_rate": 0.4,
+      "previous_success_rate": 0.0,
+      "current_avg_latency_ms": 4997.0,
+      "previous_avg_latency_ms": 3147.4
+    },
+    {
+      "experiment_id": "mlx_e2b_modular_full_stack_clean",
+      "current_run_group_id": "20260409T072323Z",
+      "previous_run_group_id": "20260409T072136Z",
+      "success_rate_delta": 0.0,
+      "avg_latency_ms_delta": -59.8,
+      "latency_improvement_ms": 59.8,
+      "current_success_rate": 0.6,
+      "previous_success_rate": 0.6,
+      "current_avg_latency_ms": 3366.7,
+      "previous_avg_latency_ms": 3426.5
+    }
+  ]
+}

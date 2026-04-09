@@ -1,0 +1,96 @@
+{
+  "runs": 2.0,
+  "success_rate": 1.0,
+  "failure_breakdown": {},
+  "metric_averages": {
+    "answer_match": 1.0,
+    "arg_exact": 1.0,
+    "avoidable_retries": 0.0,
+    "completion_tokens": 170.0,
+    "controller_repair_count": 2.0,
+    "final_state_match": 1.0,
+    "hallucinated_tool_rate": 0.0,
+    "interface_reliability_score": 1.0,
+    "latency_ms": 28887.5,
+    "malformed_call_rate": 0.0,
+    "prompt_tokens": 1155.0,
+    "recovery_correct": 1.0,
+    "steps_taken": 2.0,
+    "success": 1.0,
+    "tool_exact": 1.0
+  },
+  "failing_variants": [],
+  "avg_latency_ms": 28887.5,
+  "avg_prompt_tokens": 1155.0,
+  "avg_completion_tokens": 170.0,
+  "run_group_id": "20260409T180500Z",
+  "matrix_name": "alpha_integrated_specialists",
+  "experiment_id": "hf_e2b_modular_full_stack_real_specialists_clean",
+  "pipeline": "modular",
+  "track": "full_stack",
+  "backend": "hf",
+  "reasoner_backend": "hf",
+  "router_backend": "hf",
+  "retriever_backend": "hf",
+  "reasoner": "google/gemma-4-E2B-it",
+  "router": "google/functiongemma-270m-it",
+  "retriever": "google/embeddinggemma-300m",
+  "max_new_tokens": 48,
+  "planning_max_new_tokens": 48,
+  "final_max_new_tokens": 96,
+  "thinking_enabled": false,
+  "variants": false,
+  "status": "completed",
+  "completed_runs": 2,
+  "total_runs": 2,
+  "remaining_runs": 0,
+  "notes": [
+    "Narrow clean modular full-stack lane where both real specialists are active.",
+    "Uses only the current retrieval-bearing full-stack tasks so specialist effects are observable rather than incidental."
+  ],
+  "warmup": {
+    "reasoner": {
+      "backend": "hf",
+      "requested_model": "google/gemma-4-E2B-it",
+      "effective_model": "google/gemma-4-E2B-it",
+      "runtime_device": "mps",
+      "load_mode": "vision",
+      "configured_device": "mps",
+      "service": {}
+    },
+    "router": {
+      "backend": "hf",
+      "requested_model": "google/functiongemma-270m-it",
+      "effective_model": "google/functiongemma-270m-it",
+      "runtime_device": "mps",
+      "configured_device": "auto"
+    }
+  },
+  "runtime_bundle": {
+    "reasoner": {
+      "backend": "hf",
+      "requested_model": "google/gemma-4-E2B-it",
+      "effective_model": "google/gemma-4-E2B-it",
+      "runtime_device": "mps",
+      "load_mode": "vision",
+      "configured_device": "mps",
+      "service": {}
+    },
+    "router": {
+      "backend": "hf",
+      "requested_model": "google/functiongemma-270m-it",
+      "effective_model": "google/functiongemma-270m-it",
+      "runtime_device": "mps",
+      "configured_device": "auto"
+    },
+    "retriever": {
+      "backend": "hf",
+      "requested_model": "google/embeddinggemma-300m",
+      "effective_model": "google/embeddinggemma-300m",
+      "loaded": false
+    }
+  },
+  "last_run_id": "20260409T171509Z_modular_agent_012_billing_guardrail_patch_agent_012_billing_guardrail_patch_clean",
+  "last_task_id": "agent_012_billing_guardrail_patch",
+  "last_variant_id": "agent_012_billing_guardrail_patch_clean"
+}

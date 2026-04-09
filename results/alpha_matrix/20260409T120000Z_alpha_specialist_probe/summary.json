@@ -1,0 +1,116 @@
+{
+  "run_group_id": "20260409T120000Z",
+  "matrix_name": "alpha_specialist_probe",
+  "expected_experiments": 1,
+  "completed_experiments": 1,
+  "failed_experiments": 0,
+  "matrix_complete": true,
+  "experiments": [
+    {
+      "runs": 4.0,
+      "success_rate": 1.0,
+      "failure_breakdown": {},
+      "metric_averages": {
+        "answer_match": 1.0,
+        "avoidable_retries": 0.0,
+        "completion_tokens": 11.0,
+        "controller_repair_count": 0.0,
+        "exact_match": 1.0,
+        "hallucinated_tool_rate": 0.0,
+        "latency_ms": 10545.25,
+        "malformed_call_rate": 0.0,
+        "prompt_tokens": 357.0,
+        "steps_taken": 0.0,
+        "success": 1.0
+      },
+      "failing_variants": [],
+      "avg_latency_ms": 10545.25,
+      "avg_prompt_tokens": 357.0,
+      "avg_completion_tokens": 11.0,
+      "run_group_id": "20260409T120000Z",
+      "matrix_name": "alpha_specialist_probe",
+      "experiment_id": "hf_e2b_monolith_thinking_multilingual_multimodal",
+      "pipeline": "monolith",
+      "track": "thinking",
+      "backend": "hf",
+      "reasoner_backend": "hf",
+      "router_backend": null,
+      "retriever_backend": null,
+      "reasoner": "google/gemma-4-E2B-it",
+      "router": null,
+      "retriever": null,
+      "max_new_tokens": 64,
+      "planning_max_new_tokens": null,
+      "final_max_new_tokens": null,
+      "thinking_enabled": false,
+      "variants": true,
+      "status": "completed",
+      "completed_runs": 4,
+      "total_runs": 4,
+      "remaining_runs": 0,
+      "notes": [
+        "Focused multilingual multimodal check after strengthening French screenshot prompts and answer matching.",
+        "Runs in-process to avoid the fresh-process HF import penalty observed in the local worker probe.",
+        "Intended to confirm the last known drift miss before wider scaling."
+      ],
+      "warmup": {
+        "reasoner": {
+          "backend": "hf",
+          "requested_model": "google/gemma-4-E2B-it",
+          "effective_model": "google/gemma-4-E2B-it",
+          "runtime_device": "mps",
+          "load_mode": "vision",
+          "configured_device": "mps",
+          "service": {}
+        }
+      },
+      "runtime_bundle": {
+        "reasoner": {
+          "backend": "hf",
+          "requested_model": "google/gemma-4-E2B-it",
+          "effective_model": "google/gemma-4-E2B-it",
+          "runtime_device": "mps",
+          "load_mode": "vision",
+          "configured_device": "mps",
+          "service": {}
+        }
+      },
+      "last_run_id": "20260409T155957Z_monolith_think_006_screenshot_security_think_006_screenshot_security_efficiency_dim_256",
+      "last_task_id": "think_006_screenshot_security",
+      "last_variant_id": "think_006_screenshot_security_efficiency_dim_256"
+    }
+  ],
+  "probes": [],
+  "improvements": [],
+  "failure_breakdown": {},
+  "backend_preflight": {
+    "generated_at": "2026-04-09T14:52:44.337917+00:00",
+    "hardware": {
+      "platform": "Darwin",
+      "platform_version": "Darwin Kernel Version 25.4.0: Thu Mar 19 19:33:25 PDT 2026; root:xnu-12377.101.15~1/RELEASE_ARM64_T6041",
+      "machine": "arm64",
+      "cpu_count": 12,
+      "memory_gb": 24.0
+    },
+    "auth": {
+      "token_present": true,
+      "token_source": "HF_TOKEN"
+    },
+    "offline_mode_enabled": false,
+    "model_sources": {
+      "google/gemma-4-E2B-it": "google/gemma-4-E2B-it",
+      "google/gemma-4-E4B-it": "google/gemma-4-E4B-it",
+      "google/functiongemma-270m": "google/functiongemma-270m",
+      "google/embeddinggemma-300m": "google/embeddinggemma-300m"
+    },
+    "mlx_runtime_probe": {
+      "ok": false,
+      "elapsed_ms": 12537,
+      "returncode": -6,
+      "stdout": "",
+      "stderr": "*** Terminating app due to uncaught exception 'NSRangeException', reason: '*** -[__NSArray0 objectAtIndex:]: index 0 beyond bounds for empty array'\n*** First throw call stack:\n(\n\t0   CoreFoundation                      0x0000000181912bf0 __exceptionPreprocess + 176\n\t1   libobjc.A.dylib                     0x000000018139e91c objc_exception_throw + 88\n\t2   CoreFoundation                      0x000000018193ab58 CFArrayApply + 0\n\t3   libmlx.dylib                        0x000000010531d528 _ZN3mlx4core5metal6DeviceC2Ev + 204\n\t4   libmlx.dylib                        0x0000000105320de0 _ZN3mlx4core5metal6deviceENS0_6DeviceE + 80\n\t5   libmlx.dylib                        0x00000001052f2668 _ZN3mlx4core5metal14MetalAllocatorC2Ev + 64\n\t6   libmlx.dylib                        0x00000001052f2504 _ZN3mlx4core9allocator9allocatorEv + 80\n\t7   libmlx.dylib                        0x000000010461d6bc _ZN3mlx4core5array4initIPKjEEvT_ + 64\n\t8   libmlx.dylib                        0x000000010461d5f4 _ZN3mlx4core5arrayC2IjEESt16initializer_listIT_ENS0_5DtypeE + 152\n\t9   libmlx.dylib                        0x0000000104616bc4 _ZN3mlx4core6random3keyEy + 72\n\t10  core.cpython-313-darwin.so          0x0000000102df1488 _ZNK3mlx4core5array6nbytesEv + 704988\n\t11  core.cpython-313-darwin.so          0x0000000102df2f30 _ZNK3mlx4core5array6nbytesEv + 711812\n\t12  core.cpython-313-darwin.so          0x0000000102d3d030 PyInit_core + 420\n\t13  python3.13                          0x0000000102202a4c PyModule_ExecDef + 304\n\t14  python3.13                          0x00000001023b1d94 _imp_exec_dynamic + 64\n\t15  python3.13                          0x00000001021ffd4c cfunction_vectorcall_O + 104\n\t16  python3.13                          0x0000000102328784 _PyEval_EvalFrameDefault + 62120\n\t17  python3.13                          0x00000001021841a4 _PyObject_VectorcallTstate.824 + 88\n\t18  python3.13                          0x00000001021856b0 object_vacall + 268\n\t19  python3.13                          0x0000000102185514 PyObject_CallMethodObjArgs + 124\n\t20  python3.13                          0x00000001023ae67c PyImport_ImportModuleLevelObject + 3688\n\t21  python3.13                          0x000000010233ea40 _PyEval_EvalFrameDefault + 152932\n\t22  python3.13                          0x0000000102316a14 PyEval_EvalCode + 148\n\t23  python3.13                          0x00000001023e5820 run_eval_code_obj + 100\n\t24  python3.13                          0x00000001023e5208 run_mod + 168\n\t25  python3.13                          0x00000001023e79e8 _PyRun_SimpleStringFlagsWithName + 256\n\t26  python3.13                          0x000000010240f428 Py_RunMain + 908\n\t27  python3.13                          0x0000000102410efc pymain_main + 516\n\t28  python3.13                          0x0000000102113d24 main + 56\n\t29  dyld                                0x000000018142bda4 start + 6992\n)\nlibc++abi: terminating due to uncaught exception of type NSException"
+    },
+    "recommended_local_reasoner_backend": "hf",
+    "source": "/Users/cheickdiakite/Codex/moonie/results/tables/backend_preflight.json"
+  }
+}

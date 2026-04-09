@@ -1,0 +1,92 @@
+{
+  "workspace_id": "finance-ic-memo",
+  "lane": "replayable_core",
+  "role_family": "finance",
+  "tools": [
+    "browser",
+    "calendar",
+    "documents",
+    "repo",
+    "spreadsheets"
+  ],
+  "browser_surfaces": [
+    {
+      "stage_id": "kwa_finance_ic_memo_stage_1",
+      "task_refs": [
+        "retr_011_approval_policy"
+      ],
+      "browser_plan": [
+        {
+          "action": "open_seeded_workspace",
+          "target": "workspace://finance-ic-memo",
+          "surface": "workspace",
+          "purpose": "Open the seeded workspace for stage 1",
+          "expected_signal": "seeded workspace loaded",
+          "verification_checks": [
+            "workspace opened"
+          ],
+          "captured_fields": [],
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        },
+        {
+          "action": "inspect_seeded_surface",
+          "target": "workspace://finance-ic-memo/retr_011_approval_policy",
+          "surface": "data_room",
+          "purpose": "Review the mirrored browser surface or local document state",
+          "expected_signal": "required seeded context inspected",
+          "verification_checks": [
+            "surface inspected",
+            "required fields visible"
+          ],
+          "captured_fields": [
+            "metric",
+            "value",
+            "evidence"
+          ],
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        }
+      ]
+    },
+    {
+      "stage_id": "kwa_finance_ic_memo_stage_2",
+      "task_refs": [
+        "agent_011_runbook_guided_patch"
+      ],
+      "browser_plan": [
+        {
+          "action": "open_seeded_workspace",
+          "target": "workspace://finance-ic-memo",
+          "surface": "workspace",
+          "purpose": "Open the seeded workspace for stage 2",
+          "expected_signal": "seeded workspace loaded",
+          "verification_checks": [
+            "workspace opened"
+          ],
+          "captured_fields": [],
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        },
+        {
+          "action": "inspect_seeded_surface",
+          "target": "workspace://finance-ic-memo/agent_011_runbook_guided_patch",
+          "surface": "spreadsheet",
+          "purpose": "Review the mirrored browser surface or local document state",
+          "expected_signal": "required seeded context inspected",
+          "verification_checks": [
+            "surface inspected",
+            "required fields visible"
+          ],
+          "captured_fields": [
+            "metric",
+            "value",
+            "evidence"
+          ],
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+reasoners:
+  - id: google/gemma-4-E2B-it
+    role: smoke
+    backend: mlx
+    validated_backends: ["mlx", "hf", "hf_service"]
+    notes:
+      - Prefer MLX on Apple Silicon only after `scripts/preflight_backends.py` confirms the runtime is healthy.
+      - Use HF when validating native thinking-mode behavior.
+      - On this Mac, prefer direct in-process HF for bounded specialist slices because fresh-process HF imports are expensive.
+      - Use `hf_service` for repeated local benchmark slices only when the worker path is healthy enough to justify the extra process layer.
+      - Once weights are cached locally, prefer `GEMMA4_OFFLINE=1` for reproducible local HF runs.
+    family: gemma4
+    context_window: 128000
+    multimodal: true
+  - id: google/gemma-4-E4B-it
+    role: primary
+    backend: hf
+    validated_backends: ["hf"]
+    notes:
+      - HF on MPS loads successfully on this Mac but is too slow for interactive multimodal alpha work.
+      - Treat as probe-only locally or run on a stronger external box.
+    family: gemma4
+    context_window: 128000
+    multimodal: true
+  - id: google/gemma-4-31B-it
+    role: external_subset
+    backend: hf
+    family: gemma4
+    context_window: 256000
+    multimodal: true
+routers:
+  - id: google/functiongemma-270m-it
+    role: modular_router
+    backend: hf
+    family: functiongemma
+    supports_parallel: true
+    supports_multi_step: false
+    notes:
+      - The Hugging Face repo currently reports manual gating for this token/session; check `scripts/probe_specialist_access.py` before treating router experiments as runnable.
+      - Treat as a bounded specialist router first; validate on tool-routing slices before promoting to broader full-stack claims.
+retrievers:
+  - id: google/embeddinggemma-300m
+    role: primary
+    backend: hf
+    family: embeddinggemma
+    dims: [128, 256, 512, 768]
+    quantization: ["none", "int8", "int4"]
+    notes:
+      - The Hugging Face repo currently reports manual gating for this token/session; check `scripts/probe_specialist_access.py` before treating retrieval specialist experiments as runnable.
+      - Prefer the real HF retriever on specialist probe matrices so retrieval claims are not inherited from heuristic ranking alone.

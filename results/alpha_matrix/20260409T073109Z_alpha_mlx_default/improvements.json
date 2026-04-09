@@ -1,0 +1,14 @@
+[
+  {
+    "experiment_id": "mlx_e2b_modular_full_stack_clean",
+    "current_run_group_id": "20260409T073109Z",
+    "previous_run_group_id": "20260409T072642Z",
+    "success_rate_delta": 0.0,
+    "avg_latency_ms_delta": -490.0,
+    "latency_improvement_ms": 490.0,
+    "current_success_rate": 0.8,
+    "previous_success_rate": 0.8,
+    "current_avg_latency_ms": 3366.5,
+    "previous_avg_latency_ms": 3856.5
+  }
+]

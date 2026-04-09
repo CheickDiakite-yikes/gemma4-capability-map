@@ -1,0 +1,81 @@
+matrix:
+  name: alpha_specialist_drift
+  description: >
+    Specialist-backed factorized drift probe using real FunctionGemma and
+    EmbeddingGemma on the bounded lanes where those specialists are now validated.
+    Includes a narrow modular full-stack lane that combines both specialists in
+    retrieval-bearing tasks.
+  experiments:
+    - id: hf_e2b_hybrid_retrieval_real_embeddinggemma_variants
+      pipeline: hybrid
+      track: retrieval
+      execution_mode: in_process
+      backend: hf
+      reasoner_backend: hf
+      retriever_backend: hf
+      reasoner: google/gemma-4-E2B-it
+      retriever: google/embeddinggemma-300m
+      reasoner_device: mps
+      max_new_tokens: 48
+      timeout_minutes: 45
+      thinking: false
+      variants: true
+      task_ids:
+        - retr_003_incident_multimodal
+        - retr_008_billing_lock
+        - retr_010_rollout_mode
+        - retr_011_approval_policy
+        - retr_012_rollout_toggle_multimodal
+      notes:
+        - Real EmbeddingGemma drift lane across multilingual, multimodal, and reduced-budget retrieval variants.
+        - Expands beyond the earlier bounded retrieval specialist probe with two additional retrieval tasks.
+    - id: hf_e2b_modular_tool_routing_real_functiongemma_variants
+      pipeline: modular
+      track: tool_routing
+      execution_mode: in_process
+      backend: hf
+      reasoner_backend: hf
+      router_backend: hf
+      retriever_backend: heuristic
+      reasoner: google/gemma-4-E2B-it
+      router: google/functiongemma-270m-it
+      reasoner_device: mps
+      max_new_tokens: 48
+      timeout_minutes: 45
+      planning_max_new_tokens: 48
+      final_max_new_tokens: 64
+      thinking: false
+      variants: true
+      task_ids:
+        - tool_009_parallel_context_check
+        - tool_010_validator_ready
+        - tool_011_latest_budget_lookup
+        - tool_012_billing_patch_record
+      notes:
+        - Real FunctionGemma drift lane after the schema-repair and runtime-adapter fixes.
+        - Adds two new clean routing tasks so schema and context robustness are measured on more than the original bounded pair.
+    - id: hf_e2b_modular_full_stack_real_specialists_variants
+      pipeline: modular
+      track: full_stack
+      execution_mode: in_process
+      backend: hf
+      reasoner_backend: hf
+      router_backend: hf
+      retriever_backend: hf
+      reasoner: google/gemma-4-E2B-it
+      router: google/functiongemma-270m-it
+      retriever: google/embeddinggemma-300m
+      reasoner_device: mps
+      max_new_tokens: 48
+      timeout_minutes: 45
+      planning_max_new_tokens: 48
+      final_max_new_tokens: 96
+      thinking: false
+      variants: true
+      task_ids:
+        - agent_010_parallel_audit_patch
+        - agent_011_runbook_guided_patch
+        - agent_012_billing_guardrail_patch
+      notes:
+        - Narrow modular full-stack drift lane where the real retriever and real router are both active.
+        - Mixes parallel audit, retrieval-guided repo patching, and multimodal billing guardrail flows.

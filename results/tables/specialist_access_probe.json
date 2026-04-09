@@ -1,0 +1,34 @@
+{
+  "generated_at": "2026-04-09T16:29:40.603345+00:00",
+  "auth_token_present": true,
+  "auth_token_source": "HF_TOKEN",
+  "models": [
+    {
+      "model": "google/gemma-4-E2B-it",
+      "api_status": 200,
+      "config_status": 200,
+      "gated": false,
+      "private": false,
+      "pipeline_tag": "any-to-any",
+      "access": "available"
+    },
+    {
+      "model": "google/functiongemma-270m-it",
+      "api_status": 200,
+      "config_status": 200,
+      "gated": "manual",
+      "private": false,
+      "pipeline_tag": "text-generation",
+      "access": "available"
+    },
+    {
+      "model": "google/embeddinggemma-300m",
+      "api_status": 200,
+      "config_status": 200,
+      "gated": "manual",
+      "private": false,
+      "pipeline_tag": "sentence-similarity",
+      "access": "available"
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "workspace_id": "finance-live-comps",
+  "lane": "live_web_stress",
+  "role_family": "finance",
+  "tools": [
+    "browser",
+    "calendar",
+    "documents",
+    "repo",
+    "spreadsheets"
+  ],
+  "browser_surfaces": [
+    {
+      "stage_id": "kwa_finance_live_comps_revision_stage_1",
+      "task_refs": [
+        "agent_001_budget_compare"
+      ],
+      "browser_plan": [
+        {
+          "action": "open_public_page",
+          "target": "live://agent_001_budget_compare",
+          "surface": "public_web",
+          "purpose": "Inspect live public context for stage 1",
+          "expected_signal": "public page content loaded",
+          "verification_checks": [
+            "page loaded",
+            "source captured"
+          ],
+          "captured_fields": [
+            "title",
+            "summary"
+          ],
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        },
+        {
+          "action": "capture_notes",
+          "target": "live://agent_001_budget_compare#notes",
+          "surface": "document",
+          "purpose": "Extract facts into a dry-run working note",
+          "expected_signal": "notes captured without side effects",
+          "verification_checks": [
+            "note captured",
+            "no external mutation"
+          ],
+          "captured_fields": [
+            "fact",
+            "source"
+          ],
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        },
+        {
+          "action": "prepare_sandbox_submission",
+          "target": "sandbox://finance-live-comps/agent_001_budget_compare",
+          "surface": "document",
+          "purpose": "Prepare a sandbox submission package without sending it to a production endpoint",
+          "expected_signal": "sandbox payload ready",
+          "verification_checks": [
+            "sandbox target selected",
+            "submission blocked from production"
+          ],
+          "captured_fields": [
+            "payload_id",
+            "dry_run"
+          ],
+          "sandbox_endpoint": "https://sandbox.local/finance-live-comps/agent_001_budget_compare",
+          "allow_submission": false
+        }
+      ]
+    }
+  ]
+}

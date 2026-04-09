@@ -1,0 +1,14 @@
+pipelines:
+  monolith:
+    uses_retriever: false
+    uses_router: false
+    description: Gemma 4 plans, routes, retrieves by context or tool, and answers.
+  hybrid:
+    uses_retriever: true
+    uses_router: false
+    description: EmbeddingGemma retrieves and Gemma 4 plans, routes, and answers.
+  modular:
+    uses_retriever: true
+    uses_router: true
+    description: EmbeddingGemma retrieves, FunctionGemma proposes tool calls, and Gemma 4 plans and synthesizes.
+

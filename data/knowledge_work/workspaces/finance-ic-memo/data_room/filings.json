@@ -1,0 +1,12 @@
+{
+  "documents": [
+    {
+      "name": "earnings_release.pdf",
+      "status": "seeded"
+    },
+    {
+      "name": "management_commentary.md",
+      "status": "seeded"
+    }
+  ]
+}

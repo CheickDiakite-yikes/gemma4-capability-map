@@ -1,0 +1,18 @@
+tracks:
+  thinking:
+    modalities: ["text", "image"]
+    stressors: ["language", "context", "efficiency"]
+    metrics: ["success", "exact_match", "latency_ms", "prompt_tokens", "completion_tokens"]
+  tool_routing:
+    modalities: ["text"]
+    stressors: ["language", "schema", "context"]
+    metrics: ["tool_exact", "arg_exact", "malformed_call_rate", "validator_recovery_rate"]
+  retrieval:
+    modalities: ["text", "image"]
+    stressors: ["language", "context", "efficiency"]
+    metrics: ["recall_at_k", "mrr", "ndcg", "evidence_hit_rate", "token_budget_used"]
+  full_stack:
+    modalities: ["text", "image"]
+    stressors: ["language", "schema", "context", "efficiency"]
+    metrics: ["success", "steps_taken", "avoidable_retries", "wrong_final_state_rate"]
+

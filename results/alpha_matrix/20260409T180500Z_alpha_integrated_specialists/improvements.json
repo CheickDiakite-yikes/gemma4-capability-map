@@ -1,0 +1,74 @@
+[
+  {
+    "experiment_id": "mlx_e2b_monolith_thinking_clean",
+    "current_run_group_id": "20260409T180500Z",
+    "previous_run_group_id": "20260409T091910Z",
+    "success_rate_delta": -0.1667,
+    "avg_latency_ms_delta": -1794.68,
+    "latency_improvement_ms": 1794.68,
+    "current_success_rate": 0.8333333333333334,
+    "previous_success_rate": 1.0,
+    "current_avg_latency_ms": 659.42,
+    "previous_avg_latency_ms": 2454.1
+  },
+  {
+    "experiment_id": "mlx_e2b_monolith_tool_routing_clean",
+    "current_run_group_id": "20260409T180500Z",
+    "previous_run_group_id": "20260409T091910Z",
+    "success_rate_delta": -0.0833,
+    "avg_latency_ms_delta": -2298.7,
+    "latency_improvement_ms": 2298.7,
+    "current_success_rate": 0.9166666666666666,
+    "previous_success_rate": 1.0,
+    "current_avg_latency_ms": 1891.0,
+    "previous_avg_latency_ms": 4189.7
+  },
+  {
+    "experiment_id": "mlx_e2b_hybrid_retrieval_clean",
+    "current_run_group_id": "20260409T180500Z",
+    "previous_run_group_id": "20260409T091910Z",
+    "success_rate_delta": 0.0,
+    "avg_latency_ms_delta": -1930.03,
+    "latency_improvement_ms": 1930.03,
+    "current_success_rate": 1.0,
+    "previous_success_rate": 1.0,
+    "current_avg_latency_ms": 731.67,
+    "previous_avg_latency_ms": 2661.7
+  },
+  {
+    "experiment_id": "mlx_e2b_modular_full_stack_clean",
+    "current_run_group_id": "20260409T180500Z",
+    "previous_run_group_id": "20260409T090608Z",
+    "success_rate_delta": 0.0,
+    "avg_latency_ms_delta": -1595.53,
+    "latency_improvement_ms": 1595.53,
+    "current_success_rate": 1.0,
+    "previous_success_rate": 1.0,
+    "current_avg_latency_ms": 1044.17,
+    "previous_avg_latency_ms": 2639.7
+  },
+  {
+    "experiment_id": "hf_e2b_monolith_thinking_off_clean",
+    "current_run_group_id": "20260409T180500Z",
+    "previous_run_group_id": "20260409T090608Z",
+    "success_rate_delta": -0.0833,
+    "avg_latency_ms_delta": -4778.18,
+    "latency_improvement_ms": 4778.18,
+    "current_success_rate": 0.9166666666666666,
+    "previous_success_rate": 1.0,
+    "current_avg_latency_ms": 1518.92,
+    "previous_avg_latency_ms": 6297.1
+  },
+  {
+    "experiment_id": "hf_e2b_monolith_thinking_on_clean",
+    "current_run_group_id": "20260409T180500Z",
+    "previous_run_group_id": "20260409T090608Z",
+    "success_rate_delta": -0.25,
+    "avg_latency_ms_delta": -13740.2,
+    "latency_improvement_ms": 13740.2,
+    "current_success_rate": 0.75,
+    "previous_success_rate": 1.0,
+    "current_avg_latency_ms": 19631.0,
+    "previous_avg_latency_ms": 33371.2
+  }
+]

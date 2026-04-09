@@ -1,0 +1,29 @@
+{
+  "runs": 0.0,
+  "avg_latency_ms": 0.0,
+  "avg_prompt_tokens": 0.0,
+  "avg_completion_tokens": 0.0,
+  "run_group_id": "20260409T065257Z",
+  "matrix_name": "alpha_mlx_default",
+  "experiment_id": "mlx_e2b_hybrid_retrieval_clean",
+  "pipeline": "hybrid",
+  "track": "retrieval",
+  "backend": "mlx",
+  "reasoner_backend": "mlx",
+  "router_backend": null,
+  "retriever_backend": "hf",
+  "reasoner": "google/gemma-4-E2B-it",
+  "router": null,
+  "retriever": "google/embeddinggemma-300m",
+  "max_new_tokens": 48,
+  "thinking_enabled": false,
+  "variants": false,
+  "status": "failed",
+  "completed_runs": 0,
+  "total_runs": 10,
+  "remaining_runs": 10,
+  "notes": [
+    "Uses MLX for the reasoner and HF EmbeddingGemma for retrieval."
+  ],
+  "error": "OSError: You are trying to access a gated repo.\nMake sure to have access to it at https://huggingface.co/google/embeddinggemma-300m.\n403 Client Error. (Request ID: Root=1-69d74cdc-5293066b2edfe64b6fdc814e;ec0acbee-d236-4d4a-a839-ee46280f8471)\n\nCannot access gated repo for url https://huggingface.co/google/embeddinggemma-300m/resolve/main/config.json.\nAccess to model google/embeddinggemma-300m is restricted and you are not in the authorized list. Visit https://huggingface.co/google/embeddinggemma-300m to ask for access."
+}

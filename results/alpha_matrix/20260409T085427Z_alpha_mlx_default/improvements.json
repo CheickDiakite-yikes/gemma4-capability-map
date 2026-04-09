@@ -1,0 +1,38 @@
+[
+  {
+    "experiment_id": "mlx_e2b_monolith_thinking_clean",
+    "current_run_group_id": "20260409T085427Z",
+    "previous_run_group_id": "20260409T074743Z",
+    "success_rate_delta": 0.2,
+    "avg_latency_ms_delta": -691.9,
+    "latency_improvement_ms": 691.9,
+    "current_success_rate": 0.9,
+    "previous_success_rate": 0.7,
+    "current_avg_latency_ms": 2418.4,
+    "previous_avg_latency_ms": 3110.3
+  },
+  {
+    "experiment_id": "hf_e2b_monolith_thinking_off_clean",
+    "current_run_group_id": "20260409T085427Z",
+    "previous_run_group_id": "20260409T074743Z",
+    "success_rate_delta": 0.4,
+    "avg_latency_ms_delta": -10169.9,
+    "latency_improvement_ms": 10169.9,
+    "current_success_rate": 1.0,
+    "previous_success_rate": 0.6,
+    "current_avg_latency_ms": 6189.9,
+    "previous_avg_latency_ms": 16359.8
+  },
+  {
+    "experiment_id": "hf_e2b_monolith_thinking_on_clean",
+    "current_run_group_id": "20260409T085427Z",
+    "previous_run_group_id": "20260409T074743Z",
+    "success_rate_delta": 0.3,
+    "avg_latency_ms_delta": -13911.1,
+    "latency_improvement_ms": 13911.1,
+    "current_success_rate": 0.7,
+    "previous_success_rate": 0.4,
+    "current_avg_latency_ms": 25545.2,
+    "previous_avg_latency_ms": 39456.3
+  }
+]

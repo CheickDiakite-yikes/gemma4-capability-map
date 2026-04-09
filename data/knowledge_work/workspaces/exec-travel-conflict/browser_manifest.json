@@ -1,0 +1,92 @@
+{
+  "workspace_id": "exec-travel-conflict",
+  "lane": "replayable_core",
+  "role_family": "executive_assistant",
+  "tools": [
+    "browser",
+    "calendar",
+    "documents",
+    "repo",
+    "spreadsheets"
+  ],
+  "browser_surfaces": [
+    {
+      "stage_id": "kwa_exec_travel_conflict_resolution_stage_1",
+      "task_refs": [
+        "agent_002_reschedule_sarah"
+      ],
+      "browser_plan": [
+        {
+          "action": "open_seeded_workspace",
+          "target": "workspace://exec-travel-conflict",
+          "surface": "workspace",
+          "purpose": "Open the seeded workspace for stage 1",
+          "expected_signal": "seeded workspace loaded",
+          "verification_checks": [
+            "workspace opened"
+          ],
+          "captured_fields": [],
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        },
+        {
+          "action": "inspect_seeded_surface",
+          "target": "workspace://exec-travel-conflict/agent_002_reschedule_sarah",
+          "surface": "calendar",
+          "purpose": "Review the mirrored browser surface or local document state",
+          "expected_signal": "required seeded context inspected",
+          "verification_checks": [
+            "surface inspected",
+            "required fields visible"
+          ],
+          "captured_fields": [
+            "subject",
+            "time",
+            "decision"
+          ],
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        }
+      ]
+    },
+    {
+      "stage_id": "kwa_exec_travel_conflict_resolution_stage_2",
+      "task_refs": [
+        "agent_013_ambiguous_vendor_defer"
+      ],
+      "browser_plan": [
+        {
+          "action": "open_seeded_workspace",
+          "target": "workspace://exec-travel-conflict",
+          "surface": "workspace",
+          "purpose": "Open the seeded workspace for stage 2",
+          "expected_signal": "seeded workspace loaded",
+          "verification_checks": [
+            "workspace opened"
+          ],
+          "captured_fields": [],
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        },
+        {
+          "action": "inspect_seeded_surface",
+          "target": "workspace://exec-travel-conflict/agent_013_ambiguous_vendor_defer",
+          "surface": "calendar",
+          "purpose": "Review the mirrored browser surface or local document state",
+          "expected_signal": "required seeded context inspected",
+          "verification_checks": [
+            "surface inspected",
+            "required fields visible"
+          ],
+          "captured_fields": [
+            "subject",
+            "time",
+            "decision"
+          ],
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        }
+      ]
+    }
+  ]
+}

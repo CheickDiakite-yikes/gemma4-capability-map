@@ -1,0 +1,66 @@
+{
+  "runs": 12.0,
+  "success_rate": 0.9166666666666666,
+  "failure_breakdown": {
+    "answer_mismatch": 1,
+    "failed": 1,
+    "image_grounding_miss": 1
+  },
+  "metric_averages": {
+    "answer_match": 0.9167,
+    "avoidable_retries": 0.0,
+    "completion_tokens": 7.6667,
+    "controller_repair_count": 0.0,
+    "exact_match": 0.9167,
+    "hallucinated_tool_rate": 0.0,
+    "latency_ms": 2122.1667,
+    "malformed_call_rate": 0.0,
+    "prompt_tokens": 332.9167,
+    "steps_taken": 0.0,
+    "success": 0.9167
+  },
+  "failing_variants": [
+    {
+      "task_id": "think_006_screenshot_security",
+      "variant_id": "think_006_screenshot_security_language_fr",
+      "failure_tags": [
+        "failed",
+        "answer_mismatch",
+        "image_grounding_miss"
+      ],
+      "latency_ms": 1116.0,
+      "interface_reliability_score": 0.0,
+      "controller_repair_count": 0
+    }
+  ],
+  "avg_latency_ms": 2122.17,
+  "avg_prompt_tokens": 332.92,
+  "avg_completion_tokens": 7.67,
+  "run_group_id": "20260409T134126Z",
+  "matrix_name": "alpha_drift_probe",
+  "experiment_id": "mlx_e2b_monolith_thinking_variants",
+  "pipeline": "monolith",
+  "track": "thinking",
+  "backend": "mlx",
+  "reasoner_backend": "mlx",
+  "router_backend": null,
+  "retriever_backend": null,
+  "reasoner": "google/gemma-4-E2B-it",
+  "router": null,
+  "retriever": null,
+  "max_new_tokens": 48,
+  "planning_max_new_tokens": null,
+  "final_max_new_tokens": null,
+  "thinking_enabled": false,
+  "variants": true,
+  "status": "completed",
+  "completed_runs": 12,
+  "total_runs": 12,
+  "remaining_runs": 0,
+  "notes": [
+    "Factorized thinking drift probe across language, context, and image-grounding tasks."
+  ],
+  "last_run_id": "20260409T134151Z_monolith_think_007_doc_image_summary_think_007_doc_image_summary_efficiency_dim_256",
+  "last_task_id": "think_007_doc_image_summary",
+  "last_variant_id": "think_007_doc_image_summary_efficiency_dim_256"
+}

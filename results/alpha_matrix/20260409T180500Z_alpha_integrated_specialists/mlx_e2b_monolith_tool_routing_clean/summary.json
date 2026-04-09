@@ -1,0 +1,88 @@
+{
+  "runs": 12.0,
+  "success_rate": 0.9166666666666666,
+  "failure_breakdown": {
+    "arg_mismatch": 1,
+    "failed": 1
+  },
+  "metric_averages": {
+    "arg_exact": 0.9167,
+    "avoidable_retries": 0.0,
+    "completion_tokens": 62.25,
+    "controller_repair_count": 0.6667,
+    "hallucinated_tool_rate": 0.0,
+    "interface_reliability_score": 0.9687,
+    "latency_ms": 1891.0,
+    "malformed_call_rate": 0.0,
+    "prompt_tokens": 693.75,
+    "recovery_correct": 1.0,
+    "steps_taken": 1.0833,
+    "success": 0.9167,
+    "tool_exact": 1.0
+  },
+  "failing_variants": [
+    {
+      "task_id": "tool_012_billing_patch_record",
+      "variant_id": "tool_012_billing_patch_record_clean",
+      "failure_tags": [
+        "failed",
+        "arg_mismatch"
+      ],
+      "latency_ms": 1691.0,
+      "interface_reliability_score": 0.625,
+      "controller_repair_count": 0
+    }
+  ],
+  "avg_latency_ms": 1891.0,
+  "avg_prompt_tokens": 693.75,
+  "avg_completion_tokens": 62.25,
+  "run_group_id": "20260409T180500Z",
+  "matrix_name": "alpha_integrated_specialists",
+  "experiment_id": "mlx_e2b_monolith_tool_routing_clean",
+  "pipeline": "monolith",
+  "track": "tool_routing",
+  "backend": "mlx",
+  "reasoner_backend": "mlx",
+  "router_backend": null,
+  "retriever_backend": null,
+  "reasoner": "google/gemma-4-E2B-it",
+  "router": null,
+  "retriever": null,
+  "max_new_tokens": 48,
+  "planning_max_new_tokens": null,
+  "final_max_new_tokens": null,
+  "thinking_enabled": false,
+  "variants": false,
+  "status": "completed",
+  "completed_runs": 12,
+  "total_runs": 12,
+  "remaining_runs": 0,
+  "notes": [
+    "Local default structured tool-use baseline on the expanded 12-task routing track."
+  ],
+  "warmup": {
+    "reasoner": {
+      "backend": "mlx",
+      "requested_model": "google/gemma-4-E2B-it",
+      "effective_model": "mlx-community/gemma-4-e2b-it-4bit",
+      "runtime_device": "mlx",
+      "load_mode": "vision",
+      "configured_device": "mps",
+      "service": {}
+    }
+  },
+  "runtime_bundle": {
+    "reasoner": {
+      "backend": "mlx",
+      "requested_model": "google/gemma-4-E2B-it",
+      "effective_model": "mlx-community/gemma-4-e2b-it-4bit",
+      "runtime_device": "mlx",
+      "load_mode": "vision",
+      "configured_device": "mps",
+      "service": {}
+    }
+  },
+  "last_run_id": "20260409T165830Z_monolith_tool_012_billing_patch_record_tool_012_billing_patch_record_clean",
+  "last_task_id": "tool_012_billing_patch_record",
+  "last_variant_id": "tool_012_billing_patch_record_clean"
+}

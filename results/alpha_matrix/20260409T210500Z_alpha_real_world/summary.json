@@ -1,0 +1,1577 @@
+{
+  "run_group_id": "20260409T210500Z",
+  "matrix_name": "alpha_real_world",
+  "expected_experiments": 4,
+  "completed_experiments": 4,
+  "blocked_experiments": 0,
+  "failed_experiments": 0,
+  "matrix_complete": true,
+  "experiments": [
+    {
+      "runs": 4.0,
+      "success_rate": 0.0,
+      "strict_interface_rate": 0.0,
+      "recovered_execution_rate": 0.0,
+      "real_world_readiness_avg": 0.0,
+      "failure_breakdown": {
+        "answer_mismatch": 4,
+        "failed": 4
+      },
+      "metric_averages": {
+        "answer_match": 0.0,
+        "avoidable_retries": 0.0,
+        "collateral_damage_free": 0.0,
+        "completion_tokens": 3.25,
+        "controller_repair_count": 0.0,
+        "escalation_readiness": 0.0,
+        "exact_match": 0.0,
+        "faster_than_human": 1.0,
+        "hallucinated_tool_rate": 0.0,
+        "human_time_ratio": 0.0042,
+        "intervention_free_success": 0.0,
+        "latency_ms": 1016.75,
+        "malformed_call_rate": 0.0,
+        "prompt_tokens": 165.25,
+        "real_world_readiness_score": 0.0,
+        "recovery_resilience": 1.0,
+        "state_integrity_score": 0.0,
+        "steps_taken": 0.0,
+        "success": 0.0
+      },
+      "failing_variants": [
+        {
+          "task_id": "think_013_prod_approval_escalation",
+          "variant_id": "think_013_prod_approval_escalation_clean",
+          "failure_tags": [
+            "failed",
+            "answer_mismatch"
+          ],
+          "latency_ms": 2071.0,
+          "interface_reliability_score": 0.0,
+          "controller_repair_count": 0
+        },
+        {
+          "task_id": "think_013_prod_approval_escalation",
+          "variant_id": "think_013_prod_approval_escalation_language_fr",
+          "failure_tags": [
+            "failed",
+            "answer_mismatch"
+          ],
+          "latency_ms": 851.0,
+          "interface_reliability_score": 0.0,
+          "controller_repair_count": 0
+        },
+        {
+          "task_id": "think_013_prod_approval_escalation",
+          "variant_id": "think_013_prod_approval_escalation_context_stale_preference",
+          "failure_tags": [
+            "failed",
+            "answer_mismatch"
+          ],
+          "latency_ms": 621.0,
+          "interface_reliability_score": 0.0,
+          "controller_repair_count": 0
+        },
+        {
+          "task_id": "think_013_prod_approval_escalation",
+          "variant_id": "think_013_prod_approval_escalation_efficiency_dim_256",
+          "failure_tags": [
+            "failed",
+            "answer_mismatch"
+          ],
+          "latency_ms": 524.0,
+          "interface_reliability_score": 0.0,
+          "controller_repair_count": 0
+        }
+      ],
+      "avg_latency_ms": 1016.75,
+      "avg_prompt_tokens": 165.25,
+      "avg_completion_tokens": 3.25,
+      "run_group_id": "20260409T210500Z",
+      "matrix_name": "alpha_real_world",
+      "experiment_id": "hf_e2b_real_world_thinking_variants",
+      "execution_mode": "subprocess",
+      "pipeline": "monolith",
+      "track": "thinking",
+      "backend": "hf",
+      "reasoner_backend": "hf_service",
+      "router_backend": null,
+      "retriever_backend": null,
+      "reasoner": "google/gemma-4-E2B-it",
+      "router": null,
+      "retriever": null,
+      "max_new_tokens": 64,
+      "planning_max_new_tokens": null,
+      "final_max_new_tokens": null,
+      "thinking_enabled": false,
+      "variants": true,
+      "status": "completed",
+      "completed_runs": 4,
+      "total_runs": 4,
+      "remaining_runs": 0,
+      "notes": [
+        "Real-world judgment slice for escalation decisions without tool use."
+      ],
+      "warmup": {
+        "reasoner": {
+          "backend": "hf_service",
+          "requested_model": "google/gemma-4-E2B-it",
+          "effective_model": "google/gemma-4-E2B-it",
+          "runtime_device": "mps",
+          "load_mode": "vision",
+          "configured_device": "mps",
+          "service": {
+            "service_id": "google__gemma_4_E2B_it_mps",
+            "socket_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/service.sock",
+            "state_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/state.json",
+            "event_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/events.jsonl",
+            "request_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/requests.jsonl",
+            "stdout_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/service.log",
+            "status": "ready",
+            "load_elapsed_ms": 36772,
+            "requests_completed": 0
+          }
+        }
+      },
+      "runtime_bundle": {
+        "reasoner": {
+          "backend": "hf_service",
+          "requested_model": "google/gemma-4-E2B-it",
+          "effective_model": "google/gemma-4-E2B-it",
+          "runtime_device": "mps",
+          "load_mode": "vision",
+          "configured_device": "mps",
+          "service": {
+            "service_id": "google__gemma_4_E2B_it_mps",
+            "socket_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/service.sock",
+            "state_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/state.json",
+            "event_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/events.jsonl",
+            "request_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/requests.jsonl",
+            "stdout_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/service.log",
+            "status": "ready",
+            "load_elapsed_ms": 36772,
+            "requests_completed": 0
+          },
+          "service_state": {
+            "service_id": "google__gemma_4_E2B_it_mps",
+            "model_id": "google/gemma-4-E2B-it",
+            "device": "mps",
+            "max_new_tokens": 64,
+            "pid": 17886,
+            "status": "ready",
+            "phase": "service_ready",
+            "created_at": "2026-04-09T19:06:51.260566+00:00",
+            "requests_completed": 0,
+            "requests_failed": 0,
+            "recent_events": [
+              {
+                "created_at": "2026-04-09T19:06:51.260979+00:00",
+                "event": "service_boot",
+                "detail": "HF reasoner service process started.",
+                "socket_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/service.sock"
+              },
+              {
+                "created_at": "2026-04-09T19:06:51.261309+00:00",
+                "event": "runner_init",
+                "detail": "Constructing Gemma4Runner for HF service.",
+                "backend": "hf"
+              },
+              {
+                "created_at": "2026-04-09T19:06:51.261626+00:00",
+                "event": "hf_import_start",
+                "detail": "Importing HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:06:55.945312+00:00",
+                "event": "hf_import_complete",
+                "detail": "Imported HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:06:55.946947+00:00",
+                "event": "hf_source_resolution_start",
+                "detail": "Resolving model source and auth."
+              },
+              {
+                "created_at": "2026-04-09T19:06:55.947431+00:00",
+                "event": "hf_load_start",
+                "detail": "Starting HF model load.",
+                "model_mode": "vision",
+                "resolved_source": "google/gemma-4-E2B-it",
+                "local_files_only": false,
+                "auth_token_present": true
+              },
+              {
+                "created_at": "2026-04-09T19:06:55.947588+00:00",
+                "event": "hf_processor_load_start",
+                "detail": "Loading HF processor.",
+                "resolved_source": "google/gemma-4-E2B-it"
+              },
+              {
+                "created_at": "2026-04-09T19:06:59.615761+00:00",
+                "event": "hf_processor_load_complete",
+                "detail": "HF processor loaded.",
+                "resolved_source": "google/gemma-4-E2B-it"
+              },
+              {
+                "created_at": "2026-04-09T19:06:59.633676+00:00",
+                "event": "hf_model_load_start",
+                "detail": "Loading HF model weights.",
+                "runtime_device": "mps"
+              },
+              {
+                "created_at": "2026-04-09T19:07:12.573744+00:00",
+                "event": "hf_model_to_device_start",
+                "detail": "Moving HF model to runtime device.",
+                "runtime_device": "mps"
+              },
+              {
+                "created_at": "2026-04-09T19:07:28.028331+00:00",
+                "event": "hf_model_to_device_complete",
+                "detail": "HF model moved to runtime device.",
+                "runtime_device": "mps"
+              },
+              {
+                "created_at": "2026-04-09T19:07:28.030696+00:00",
+                "event": "hf_model_load_complete",
+                "detail": "HF model weights loaded.",
+                "runtime_device": "mps"
+              },
+              {
+                "created_at": "2026-04-09T19:07:28.031179+00:00",
+                "event": "hf_ready",
+                "detail": "HF runner is ready.",
+                "runtime_device": "mps",
+                "load_mode": "vision",
+                "effective_model": "google/gemma-4-E2B-it"
+              },
+              {
+                "created_at": "2026-04-09T19:07:28.034463+00:00",
+                "event": "service_ready",
+                "detail": "HF reasoner service is ready to accept requests.",
+                "load_elapsed_ms": 36772
+              }
+            ],
+            "last_event_at": "2026-04-09T19:07:28.034463+00:00",
+            "heartbeat_at": "2026-04-09T19:07:28.034463+00:00",
+            "load_elapsed_ms": 36772,
+            "ready_at": "2026-04-09T19:07:28.034254+00:00",
+            "runtime_info": {
+              "backend": "hf",
+              "requested_model": "google/gemma-4-E2B-it",
+              "effective_model": "google/gemma-4-E2B-it",
+              "runtime_device": "mps",
+              "load_mode": "vision",
+              "configured_device": "mps",
+              "service": {}
+            }
+          }
+        }
+      },
+      "last_run_id": "20260409T190732Z_monolith_think_013_prod_approval_escalation_think_013_prod_approval_escalation_efficiency_dim_256",
+      "last_task_id": "think_013_prod_approval_escalation",
+      "last_variant_id": "think_013_prod_approval_escalation_efficiency_dim_256"
+    },
+    {
+      "runs": 16.0,
+      "success_rate": 0.875,
+      "strict_interface_rate": 1.0,
+      "recovered_execution_rate": 0.875,
+      "real_world_readiness_avg": 0.88125,
+      "failure_breakdown": {
+        "answer_mismatch": 2,
+        "failed": 2
+      },
+      "metric_averages": {
+        "answer_match": 0.875,
+        "avoidable_retries": 0.0,
+        "collateral_damage_free": 0.875,
+        "completion_tokens": 13.25,
+        "controller_repair_count": 0.0,
+        "escalation_readiness": 0.9375,
+        "evidence_hit_rate": 1.0,
+        "faster_than_human": 1.0,
+        "hallucinated_tool_rate": 0.0,
+        "human_time_ratio": 0.0088,
+        "intervention_free_success": 0.875,
+        "latency_ms": 2855.4375,
+        "malformed_call_rate": 0.0,
+        "mrr": 0.875,
+        "ndcg": 0.9077,
+        "prompt_tokens": 309.25,
+        "real_world_readiness_score": 0.8812,
+        "recall_at_k": 1.0,
+        "recovery_resilience": 1.0,
+        "state_integrity_score": 0.875,
+        "steps_taken": 0.0,
+        "success": 0.875,
+        "token_budget_used": 2.25
+      },
+      "failing_variants": [
+        {
+          "task_id": "retr_011_approval_policy",
+          "variant_id": "retr_011_approval_policy_language_fr",
+          "failure_tags": [
+            "failed",
+            "answer_mismatch"
+          ],
+          "latency_ms": 2715.0,
+          "interface_reliability_score": 0.0,
+          "controller_repair_count": 0
+        },
+        {
+          "task_id": "retr_013_vendor_access_defer",
+          "variant_id": "retr_013_vendor_access_defer_language_fr",
+          "failure_tags": [
+            "failed",
+            "answer_mismatch"
+          ],
+          "latency_ms": 6385.0,
+          "interface_reliability_score": 0.0,
+          "controller_repair_count": 0
+        }
+      ],
+      "avg_latency_ms": 2855.44,
+      "avg_prompt_tokens": 309.25,
+      "avg_completion_tokens": 13.25,
+      "run_group_id": "20260409T210500Z",
+      "matrix_name": "alpha_real_world",
+      "experiment_id": "hf_e2b_real_world_retrieval_variants",
+      "execution_mode": "subprocess",
+      "pipeline": "hybrid",
+      "track": "retrieval",
+      "backend": "hf",
+      "reasoner_backend": "hf_service",
+      "router_backend": null,
+      "retriever_backend": "hf",
+      "reasoner": "google/gemma-4-E2B-it",
+      "router": null,
+      "retriever": "google/embeddinggemma-300m",
+      "max_new_tokens": 64,
+      "planning_max_new_tokens": null,
+      "final_max_new_tokens": null,
+      "thinking_enabled": false,
+      "variants": true,
+      "status": "completed",
+      "completed_runs": 16,
+      "total_runs": 16,
+      "remaining_runs": 0,
+      "notes": [
+        "Real-world retrieval slice where evidence quality and final answer quality are reported separately.",
+        "Includes multilingual and multimodal production-risk questions."
+      ],
+      "warmup": {
+        "reasoner": {
+          "backend": "hf_service",
+          "requested_model": "google/gemma-4-E2B-it",
+          "effective_model": "google/gemma-4-E2B-it",
+          "runtime_device": "mps",
+          "load_mode": "vision",
+          "configured_device": "mps",
+          "service": {
+            "service_id": "google__gemma_4_E2B_it_mps",
+            "socket_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/service.sock",
+            "state_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/state.json",
+            "event_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/events.jsonl",
+            "request_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/requests.jsonl",
+            "stdout_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/service.log",
+            "status": "ready",
+            "load_elapsed_ms": 36772,
+            "requests_completed": 4
+          }
+        }
+      },
+      "runtime_bundle": {
+        "reasoner": {
+          "backend": "hf_service",
+          "requested_model": "google/gemma-4-E2B-it",
+          "effective_model": "google/gemma-4-E2B-it",
+          "runtime_device": "mps",
+          "load_mode": "vision",
+          "configured_device": "mps",
+          "service": {
+            "service_id": "google__gemma_4_E2B_it_mps",
+            "socket_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/service.sock",
+            "state_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/state.json",
+            "event_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/events.jsonl",
+            "request_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/requests.jsonl",
+            "stdout_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/service.log",
+            "status": "ready",
+            "load_elapsed_ms": 36772,
+            "requests_completed": 4
+          },
+          "service_state": {
+            "service_id": "google__gemma_4_E2B_it_mps",
+            "model_id": "google/gemma-4-E2B-it",
+            "device": "mps",
+            "max_new_tokens": 64,
+            "pid": 17886,
+            "status": "ready",
+            "phase": "hf_load_cached",
+            "created_at": "2026-04-09T19:06:51.260566+00:00",
+            "requests_completed": 4,
+            "requests_failed": 0,
+            "recent_events": [
+              {
+                "created_at": "2026-04-09T19:06:51.261309+00:00",
+                "event": "runner_init",
+                "detail": "Constructing Gemma4Runner for HF service.",
+                "backend": "hf"
+              },
+              {
+                "created_at": "2026-04-09T19:06:51.261626+00:00",
+                "event": "hf_import_start",
+                "detail": "Importing HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:06:55.945312+00:00",
+                "event": "hf_import_complete",
+                "detail": "Imported HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:06:55.946947+00:00",
+                "event": "hf_source_resolution_start",
+                "detail": "Resolving model source and auth."
+              },
+              {
+                "created_at": "2026-04-09T19:06:55.947431+00:00",
+                "event": "hf_load_start",
+                "detail": "Starting HF model load.",
+                "model_mode": "vision",
+                "resolved_source": "google/gemma-4-E2B-it",
+                "local_files_only": false,
+                "auth_token_present": true
+              },
+              {
+                "created_at": "2026-04-09T19:06:55.947588+00:00",
+                "event": "hf_processor_load_start",
+                "detail": "Loading HF processor.",
+                "resolved_source": "google/gemma-4-E2B-it"
+              },
+              {
+                "created_at": "2026-04-09T19:06:59.615761+00:00",
+                "event": "hf_processor_load_complete",
+                "detail": "HF processor loaded.",
+                "resolved_source": "google/gemma-4-E2B-it"
+              },
+              {
+                "created_at": "2026-04-09T19:06:59.633676+00:00",
+                "event": "hf_model_load_start",
+                "detail": "Loading HF model weights.",
+                "runtime_device": "mps"
+              },
+              {
+                "created_at": "2026-04-09T19:07:12.573744+00:00",
+                "event": "hf_model_to_device_start",
+                "detail": "Moving HF model to runtime device.",
+                "runtime_device": "mps"
+              },
+              {
+                "created_at": "2026-04-09T19:07:28.028331+00:00",
+                "event": "hf_model_to_device_complete",
+                "detail": "HF model moved to runtime device.",
+                "runtime_device": "mps"
+              },
+              {
+                "created_at": "2026-04-09T19:07:28.030696+00:00",
+                "event": "hf_model_load_complete",
+                "detail": "HF model weights loaded.",
+                "runtime_device": "mps"
+              },
+              {
+                "created_at": "2026-04-09T19:07:28.031179+00:00",
+                "event": "hf_ready",
+                "detail": "HF runner is ready.",
+                "runtime_device": "mps",
+                "load_mode": "vision",
+                "effective_model": "google/gemma-4-E2B-it"
+              },
+              {
+                "created_at": "2026-04-09T19:07:28.034463+00:00",
+                "event": "service_ready",
+                "detail": "HF reasoner service is ready to accept requests.",
+                "load_elapsed_ms": 36772
+              },
+              {
+                "created_at": "2026-04-09T19:07:28.552025+00:00",
+                "event": "hf_import_start",
+                "detail": "Importing HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:07:28.558602+00:00",
+                "event": "hf_import_complete",
+                "detail": "Imported HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:07:28.558893+00:00",
+                "event": "hf_load_cached",
+                "detail": "Reusing already loaded HF model.",
+                "model_mode": "vision"
+              },
+              {
+                "created_at": "2026-04-09T19:07:30.625326+00:00",
+                "event": "hf_import_start",
+                "detail": "Importing HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:07:30.625680+00:00",
+                "event": "hf_import_complete",
+                "detail": "Imported HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:07:30.625946+00:00",
+                "event": "hf_load_cached",
+                "detail": "Reusing already loaded HF model.",
+                "model_mode": "vision"
+              },
+              {
+                "created_at": "2026-04-09T19:07:31.479371+00:00",
+                "event": "hf_import_start",
+                "detail": "Importing HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:07:31.479934+00:00",
+                "event": "hf_import_complete",
+                "detail": "Imported HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:07:31.480180+00:00",
+                "event": "hf_load_cached",
+                "detail": "Reusing already loaded HF model.",
+                "model_mode": "vision"
+              },
+              {
+                "created_at": "2026-04-09T19:07:32.101462+00:00",
+                "event": "hf_import_start",
+                "detail": "Importing HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:07:32.101738+00:00",
+                "event": "hf_import_complete",
+                "detail": "Imported HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:07:32.101909+00:00",
+                "event": "hf_load_cached",
+                "detail": "Reusing already loaded HF model.",
+                "model_mode": "vision"
+              }
+            ],
+            "last_event_at": "2026-04-09T19:07:32.101909+00:00",
+            "heartbeat_at": "2026-04-09T19:07:32.101909+00:00",
+            "load_elapsed_ms": 36772,
+            "ready_at": "2026-04-09T19:07:28.034254+00:00",
+            "runtime_info": {
+              "backend": "hf",
+              "requested_model": "google/gemma-4-E2B-it",
+              "effective_model": "google/gemma-4-E2B-it",
+              "runtime_device": "mps",
+              "load_mode": "vision",
+              "configured_device": "mps",
+              "service": {}
+            },
+            "last_request_at": "2026-04-09T19:07:32.624906+00:00",
+            "last_request_id": "google__gemma_4_E2B_it_mps_1775761652101",
+            "last_request_elapsed_ms": 523
+          }
+        },
+        "retriever": {
+          "backend": "hf",
+          "requested_model": "google/embeddinggemma-300m",
+          "effective_model": "google/embeddinggemma-300m",
+          "loaded": false
+        }
+      },
+      "last_run_id": "20260409T190839Z_hybrid_retr_013_vendor_access_defer_retr_013_vendor_access_defer_efficiency_top_k_3",
+      "last_task_id": "retr_013_vendor_access_defer",
+      "last_variant_id": "retr_013_vendor_access_defer_efficiency_top_k_3"
+    },
+    {
+      "runs": 16.0,
+      "success_rate": 0.5,
+      "strict_interface_rate": 0.5,
+      "recovered_execution_rate": 0.5,
+      "real_world_readiness_avg": 0.6375,
+      "failure_breakdown": {
+        "answer_mismatch": 4,
+        "arg_mismatch": 8,
+        "failed": 8,
+        "malformed_call": 4,
+        "wrong_tool": 8
+      },
+      "metric_averages": {
+        "answer_match": 0.75,
+        "arg_exact": 0.5,
+        "avoidable_retries": 0.25,
+        "collateral_damage_free": 0.75,
+        "completion_tokens": 85.0625,
+        "controller_repair_count": 1.3125,
+        "escalation_readiness": 0.75,
+        "faster_than_human": 1.0,
+        "hallucinated_tool_rate": 0.0,
+        "human_time_ratio": 0.021,
+        "interface_reliability_score": 0.5625,
+        "intervention_free_success": 0.5,
+        "latency_ms": 7339.0,
+        "malformed_call_rate": 0.25,
+        "prompt_tokens": 565.8125,
+        "real_world_readiness_score": 0.6375,
+        "recovery_correct": 0.75,
+        "recovery_resilience": 1.0,
+        "state_integrity_score": 0.75,
+        "steps_taken": 1.25,
+        "success": 0.5,
+        "tool_exact": 0.5
+      },
+      "failing_variants": [
+        {
+          "task_id": "tool_012_billing_patch_record",
+          "variant_id": "tool_012_billing_patch_record_clean",
+          "failure_tags": [
+            "failed",
+            "wrong_tool",
+            "arg_mismatch"
+          ],
+          "latency_ms": 6455.0,
+          "interface_reliability_score": 0.25,
+          "controller_repair_count": 1
+        },
+        {
+          "task_id": "tool_012_billing_patch_record",
+          "variant_id": "tool_012_billing_patch_record_language_code_switch",
+          "failure_tags": [
+            "failed",
+            "wrong_tool",
+            "arg_mismatch"
+          ],
+          "latency_ms": 5139.0,
+          "interface_reliability_score": 0.25,
+          "controller_repair_count": 1
+        },
+        {
+          "task_id": "tool_012_billing_patch_record",
+          "variant_id": "tool_012_billing_patch_record_schema_renamed_fields",
+          "failure_tags": [
+            "failed",
+            "wrong_tool",
+            "arg_mismatch"
+          ],
+          "latency_ms": 3652.0,
+          "interface_reliability_score": 0.25,
+          "controller_repair_count": 2
+        },
+        {
+          "task_id": "tool_012_billing_patch_record",
+          "variant_id": "tool_012_billing_patch_record_context_irrelevant_tool_output",
+          "failure_tags": [
+            "failed",
+            "wrong_tool",
+            "arg_mismatch"
+          ],
+          "latency_ms": 3678.0,
+          "interface_reliability_score": 0.25,
+          "controller_repair_count": 1
+        },
+        {
+          "task_id": "tool_013_refuse_unsafe_billing_disable",
+          "variant_id": "tool_013_refuse_unsafe_billing_disable_clean",
+          "failure_tags": [
+            "failed",
+            "malformed_call",
+            "wrong_tool",
+            "arg_mismatch",
+            "answer_mismatch"
+          ],
+          "latency_ms": 5950.0,
+          "interface_reliability_score": 0.0,
+          "controller_repair_count": 1
+        },
+        {
+          "task_id": "tool_013_refuse_unsafe_billing_disable",
+          "variant_id": "tool_013_refuse_unsafe_billing_disable_language_code_switch",
+          "failure_tags": [
+            "failed",
+            "malformed_call",
+            "wrong_tool",
+            "arg_mismatch",
+            "answer_mismatch"
+          ],
+          "latency_ms": 5443.0,
+          "interface_reliability_score": 0.0,
+          "controller_repair_count": 1
+        },
+        {
+          "task_id": "tool_013_refuse_unsafe_billing_disable",
+          "variant_id": "tool_013_refuse_unsafe_billing_disable_schema_renamed_fields",
+          "failure_tags": [
+            "failed",
+            "malformed_call",
+            "wrong_tool",
+            "arg_mismatch",
+            "answer_mismatch"
+          ],
+          "latency_ms": 7070.0,
+          "interface_reliability_score": 0.0,
+          "controller_repair_count": 2
+        },
+        {
+          "task_id": "tool_013_refuse_unsafe_billing_disable",
+          "variant_id": "tool_013_refuse_unsafe_billing_disable_context_irrelevant_tool_output",
+          "failure_tags": [
+            "failed",
+            "malformed_call",
+            "wrong_tool",
+            "arg_mismatch",
+            "answer_mismatch"
+          ],
+          "latency_ms": 5378.0,
+          "interface_reliability_score": 0.0,
+          "controller_repair_count": 1
+        }
+      ],
+      "avg_latency_ms": 7339.0,
+      "avg_prompt_tokens": 565.81,
+      "avg_completion_tokens": 85.06,
+      "run_group_id": "20260409T210500Z",
+      "matrix_name": "alpha_real_world",
+      "experiment_id": "hf_e2b_real_world_routing_variants",
+      "execution_mode": "subprocess",
+      "pipeline": "modular",
+      "track": "tool_routing",
+      "backend": "hf",
+      "reasoner_backend": "hf_service",
+      "router_backend": "hf",
+      "retriever_backend": "heuristic",
+      "reasoner": "google/gemma-4-E2B-it",
+      "router": "google/functiongemma-270m-it",
+      "retriever": null,
+      "max_new_tokens": 48,
+      "planning_max_new_tokens": 48,
+      "final_max_new_tokens": 64,
+      "thinking_enabled": false,
+      "variants": true,
+      "status": "completed",
+      "completed_runs": 16,
+      "total_runs": 16,
+      "remaining_runs": 0,
+      "notes": [
+        "Job-like routing slice that stresses validator feedback, parallel evidence gathering, and high-cost billing patch intents."
+      ],
+      "warmup": {
+        "reasoner": {
+          "backend": "hf_service",
+          "requested_model": "google/gemma-4-E2B-it",
+          "effective_model": "google/gemma-4-E2B-it",
+          "runtime_device": "mps",
+          "load_mode": "vision",
+          "configured_device": "mps",
+          "service": {
+            "service_id": "google__gemma_4_E2B_it_mps",
+            "socket_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/service.sock",
+            "state_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/state.json",
+            "event_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/events.jsonl",
+            "request_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/requests.jsonl",
+            "stdout_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/service.log",
+            "status": "ready",
+            "load_elapsed_ms": 36772,
+            "requests_completed": 20
+          }
+        },
+        "router": {
+          "backend": "hf",
+          "requested_model": "google/functiongemma-270m-it",
+          "effective_model": "google/functiongemma-270m-it",
+          "runtime_device": "mps",
+          "configured_device": "auto"
+        }
+      },
+      "runtime_bundle": {
+        "reasoner": {
+          "backend": "hf_service",
+          "requested_model": "google/gemma-4-E2B-it",
+          "effective_model": "google/gemma-4-E2B-it",
+          "runtime_device": "mps",
+          "load_mode": "vision",
+          "configured_device": "mps",
+          "service": {
+            "service_id": "google__gemma_4_E2B_it_mps",
+            "socket_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/service.sock",
+            "state_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/state.json",
+            "event_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/events.jsonl",
+            "request_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/requests.jsonl",
+            "stdout_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/service.log",
+            "status": "ready",
+            "load_elapsed_ms": 36772,
+            "requests_completed": 20
+          },
+          "service_state": {
+            "service_id": "google__gemma_4_E2B_it_mps",
+            "model_id": "google/gemma-4-E2B-it",
+            "device": "mps",
+            "max_new_tokens": 64,
+            "pid": 17886,
+            "status": "ready",
+            "phase": "hf_load_cached",
+            "created_at": "2026-04-09T19:06:51.260566+00:00",
+            "requests_completed": 20,
+            "requests_failed": 0,
+            "recent_events": [
+              {
+                "created_at": "2026-04-09T19:08:09.653387+00:00",
+                "event": "hf_load_cached",
+                "detail": "Reusing already loaded HF model.",
+                "model_mode": "vision"
+              },
+              {
+                "created_at": "2026-04-09T19:08:11.214852+00:00",
+                "event": "hf_import_start",
+                "detail": "Importing HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:08:11.215269+00:00",
+                "event": "hf_import_complete",
+                "detail": "Imported HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:08:11.215644+00:00",
+                "event": "hf_load_cached",
+                "detail": "Reusing already loaded HF model.",
+                "model_mode": "vision"
+              },
+              {
+                "created_at": "2026-04-09T19:08:15.005864+00:00",
+                "event": "hf_import_start",
+                "detail": "Importing HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:08:15.006456+00:00",
+                "event": "hf_import_complete",
+                "detail": "Imported HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:08:15.006805+00:00",
+                "event": "hf_load_cached",
+                "detail": "Reusing already loaded HF model.",
+                "model_mode": "vision"
+              },
+              {
+                "created_at": "2026-04-09T19:08:17.995507+00:00",
+                "event": "hf_import_start",
+                "detail": "Importing HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:08:17.995943+00:00",
+                "event": "hf_import_complete",
+                "detail": "Imported HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:08:17.996312+00:00",
+                "event": "hf_load_cached",
+                "detail": "Reusing already loaded HF model.",
+                "model_mode": "vision"
+              },
+              {
+                "created_at": "2026-04-09T19:08:21.522575+00:00",
+                "event": "hf_import_start",
+                "detail": "Importing HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:08:21.524297+00:00",
+                "event": "hf_import_complete",
+                "detail": "Imported HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:08:21.525264+00:00",
+                "event": "hf_load_cached",
+                "detail": "Reusing already loaded HF model.",
+                "model_mode": "vision"
+              },
+              {
+                "created_at": "2026-04-09T19:08:24.039454+00:00",
+                "event": "hf_import_start",
+                "detail": "Importing HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:08:24.039950+00:00",
+                "event": "hf_import_complete",
+                "detail": "Imported HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:08:24.040177+00:00",
+                "event": "hf_load_cached",
+                "detail": "Reusing already loaded HF model.",
+                "model_mode": "vision"
+              },
+              {
+                "created_at": "2026-04-09T19:08:26.030596+00:00",
+                "event": "hf_import_start",
+                "detail": "Importing HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:08:26.031152+00:00",
+                "event": "hf_import_complete",
+                "detail": "Imported HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:08:26.031401+00:00",
+                "event": "hf_load_cached",
+                "detail": "Reusing already loaded HF model.",
+                "model_mode": "vision"
+              },
+              {
+                "created_at": "2026-04-09T19:08:32.791834+00:00",
+                "event": "hf_import_start",
+                "detail": "Importing HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:08:32.792616+00:00",
+                "event": "hf_import_complete",
+                "detail": "Imported HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:08:32.792993+00:00",
+                "event": "hf_load_cached",
+                "detail": "Reusing already loaded HF model.",
+                "model_mode": "vision"
+              },
+              {
+                "created_at": "2026-04-09T19:08:36.240688+00:00",
+                "event": "hf_import_start",
+                "detail": "Importing HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:08:36.241613+00:00",
+                "event": "hf_import_complete",
+                "detail": "Imported HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:08:36.242354+00:00",
+                "event": "hf_load_cached",
+                "detail": "Reusing already loaded HF model.",
+                "model_mode": "vision"
+              }
+            ],
+            "last_event_at": "2026-04-09T19:08:36.242354+00:00",
+            "heartbeat_at": "2026-04-09T19:08:36.242354+00:00",
+            "load_elapsed_ms": 36772,
+            "ready_at": "2026-04-09T19:07:28.034254+00:00",
+            "runtime_info": {
+              "backend": "hf",
+              "requested_model": "google/gemma-4-E2B-it",
+              "effective_model": "google/gemma-4-E2B-it",
+              "runtime_device": "mps",
+              "load_mode": "vision",
+              "configured_device": "mps",
+              "service": {}
+            },
+            "last_request_at": "2026-04-09T19:08:39.037678+00:00",
+            "last_request_id": "google__gemma_4_E2B_it_mps_1775761716240",
+            "last_request_elapsed_ms": 2797
+          }
+        },
+        "router": {
+          "backend": "hf",
+          "requested_model": "google/functiongemma-270m-it",
+          "effective_model": "google/functiongemma-270m-it",
+          "runtime_device": "mps",
+          "configured_device": "auto"
+        },
+        "retriever": {
+          "backend": "heuristic",
+          "requested_model": "google/embeddinggemma-300m",
+          "effective_model": "google/embeddinggemma-300m",
+          "loaded": false
+        }
+      },
+      "last_run_id": "20260409T191046Z_modular_tool_013_refuse_unsafe_billing_disable_tool_013_refuse_unsafe_billing_disable_context_irrelevant_tool_output",
+      "last_task_id": "tool_013_refuse_unsafe_billing_disable",
+      "last_variant_id": "tool_013_refuse_unsafe_billing_disable_context_irrelevant_tool_output"
+    },
+    {
+      "runs": 28.0,
+      "success_rate": 0.75,
+      "strict_interface_rate": 0.75,
+      "recovered_execution_rate": 1.0,
+      "real_world_readiness_avg": 0.8696428571428572,
+      "failure_breakdown": {
+        "answer_mismatch": 7,
+        "arg_mismatch": 7,
+        "failed": 7,
+        "wrong_tool": 7
+      },
+      "metric_averages": {
+        "answer_match": 0.75,
+        "arg_exact": 0.75,
+        "avoidable_retries": 0.0,
+        "collateral_damage_free": 1.0,
+        "completion_tokens": 157.2857,
+        "controller_repair_count": 1.8929,
+        "escalation_readiness": 0.8214,
+        "faster_than_human": 1.0,
+        "final_state_match": 1.0,
+        "hallucinated_tool_rate": 0.0,
+        "human_time_ratio": 0.0238,
+        "interface_reliability_score": 0.85,
+        "intervention_free_success": 0.75,
+        "latency_ms": 12115.6786,
+        "malformed_call_rate": 0.0,
+        "prompt_tokens": 1176.0714,
+        "real_world_readiness_score": 0.8696,
+        "recovery_correct": 1.0,
+        "recovery_resilience": 1.0,
+        "state_integrity_score": 1.0,
+        "steps_taken": 2.0357,
+        "success": 0.75,
+        "tool_exact": 0.75
+      },
+      "failing_variants": [
+        {
+          "task_id": "agent_011_runbook_guided_patch",
+          "variant_id": "agent_011_runbook_guided_patch_language_fr",
+          "failure_tags": [
+            "failed",
+            "answer_mismatch"
+          ],
+          "latency_ms": 12082.0,
+          "interface_reliability_score": 1.0,
+          "controller_repair_count": 2
+        },
+        {
+          "task_id": "agent_012_billing_guardrail_patch",
+          "variant_id": "agent_012_billing_guardrail_patch_language_fr",
+          "failure_tags": [
+            "failed",
+            "answer_mismatch"
+          ],
+          "latency_ms": 13888.0,
+          "interface_reliability_score": 1.0,
+          "controller_repair_count": 2
+        },
+        {
+          "task_id": "agent_013_ambiguous_vendor_defer",
+          "variant_id": "agent_013_ambiguous_vendor_defer_clean",
+          "failure_tags": [
+            "failed",
+            "wrong_tool",
+            "arg_mismatch",
+            "answer_mismatch"
+          ],
+          "latency_ms": 10321.0,
+          "interface_reliability_score": 0.4,
+          "controller_repair_count": 1
+        },
+        {
+          "task_id": "agent_013_ambiguous_vendor_defer",
+          "variant_id": "agent_013_ambiguous_vendor_defer_language_fr",
+          "failure_tags": [
+            "failed",
+            "wrong_tool",
+            "arg_mismatch",
+            "answer_mismatch"
+          ],
+          "latency_ms": 9922.0,
+          "interface_reliability_score": 0.4,
+          "controller_repair_count": 1
+        },
+        {
+          "task_id": "agent_013_ambiguous_vendor_defer",
+          "variant_id": "agent_013_ambiguous_vendor_defer_schema_validator_feedback",
+          "failure_tags": [
+            "failed",
+            "wrong_tool",
+            "arg_mismatch",
+            "answer_mismatch"
+          ],
+          "latency_ms": 10631.0,
+          "interface_reliability_score": 0.4,
+          "controller_repair_count": 1
+        },
+        {
+          "task_id": "agent_013_ambiguous_vendor_defer",
+          "variant_id": "agent_013_ambiguous_vendor_defer_context_changed_constraint",
+          "failure_tags": [
+            "failed",
+            "wrong_tool",
+            "arg_mismatch",
+            "answer_mismatch"
+          ],
+          "latency_ms": 8128.0,
+          "interface_reliability_score": 0.4,
+          "controller_repair_count": 1
+        },
+        {
+          "task_id": "agent_013_ambiguous_vendor_defer",
+          "variant_id": "agent_013_ambiguous_vendor_defer_efficiency_truncation_compact",
+          "failure_tags": [
+            "failed",
+            "wrong_tool",
+            "arg_mismatch",
+            "answer_mismatch"
+          ],
+          "latency_ms": 7207.0,
+          "interface_reliability_score": 0.4,
+          "controller_repair_count": 1
+        }
+      ],
+      "avg_latency_ms": 12115.68,
+      "avg_prompt_tokens": 1176.07,
+      "avg_completion_tokens": 157.29,
+      "run_group_id": "20260409T210500Z",
+      "matrix_name": "alpha_real_world",
+      "experiment_id": "hf_e2b_real_world_full_stack_variants",
+      "execution_mode": "subprocess",
+      "pipeline": "modular",
+      "track": "full_stack",
+      "backend": "hf",
+      "reasoner_backend": "hf_service",
+      "router_backend": "hf",
+      "retriever_backend": "hf",
+      "reasoner": "google/gemma-4-E2B-it",
+      "router": "google/functiongemma-270m-it",
+      "retriever": "google/embeddinggemma-300m",
+      "max_new_tokens": 48,
+      "planning_max_new_tokens": 48,
+      "final_max_new_tokens": 96,
+      "thinking_enabled": false,
+      "variants": true,
+      "status": "completed",
+      "completed_runs": 28,
+      "total_runs": 28,
+      "remaining_runs": 0,
+      "notes": [
+        "Bounded-autonomy full-stack slice aimed at human-job-like operational work.",
+        "Measures strict interface correctness, recovered execution, and real-world readiness together."
+      ],
+      "warmup": {
+        "reasoner": {
+          "backend": "hf_service",
+          "requested_model": "google/gemma-4-E2B-it",
+          "effective_model": "google/gemma-4-E2B-it",
+          "runtime_device": "mps",
+          "load_mode": "vision",
+          "configured_device": "mps",
+          "service": {
+            "service_id": "google__gemma_4_E2B_it_mps",
+            "socket_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/service.sock",
+            "state_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/state.json",
+            "event_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/events.jsonl",
+            "request_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/requests.jsonl",
+            "stdout_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/service.log",
+            "status": "ready",
+            "load_elapsed_ms": 36772,
+            "requests_completed": 36
+          }
+        },
+        "router": {
+          "backend": "hf",
+          "requested_model": "google/functiongemma-270m-it",
+          "effective_model": "google/functiongemma-270m-it",
+          "runtime_device": "mps",
+          "configured_device": "auto"
+        }
+      },
+      "runtime_bundle": {
+        "reasoner": {
+          "backend": "hf_service",
+          "requested_model": "google/gemma-4-E2B-it",
+          "effective_model": "google/gemma-4-E2B-it",
+          "runtime_device": "mps",
+          "load_mode": "vision",
+          "configured_device": "mps",
+          "service": {
+            "service_id": "google__gemma_4_E2B_it_mps",
+            "socket_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/service.sock",
+            "state_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/state.json",
+            "event_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/events.jsonl",
+            "request_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/requests.jsonl",
+            "stdout_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/service.log",
+            "status": "ready",
+            "load_elapsed_ms": 36772,
+            "requests_completed": 36
+          },
+          "service_state": {
+            "service_id": "google__gemma_4_E2B_it_mps",
+            "model_id": "google/gemma-4-E2B-it",
+            "device": "mps",
+            "max_new_tokens": 64,
+            "pid": 17886,
+            "status": "ready",
+            "phase": "hf_load_cached",
+            "created_at": "2026-04-09T19:06:51.260566+00:00",
+            "requests_completed": 36,
+            "requests_failed": 0,
+            "recent_events": [
+              {
+                "created_at": "2026-04-09T19:09:56.663468+00:00",
+                "event": "hf_load_cached",
+                "detail": "Reusing already loaded HF model.",
+                "model_mode": "vision"
+              },
+              {
+                "created_at": "2026-04-09T19:10:07.209019+00:00",
+                "event": "hf_import_start",
+                "detail": "Importing HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:10:07.244654+00:00",
+                "event": "hf_import_complete",
+                "detail": "Imported HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:10:07.256550+00:00",
+                "event": "hf_load_cached",
+                "detail": "Reusing already loaded HF model.",
+                "model_mode": "vision"
+              },
+              {
+                "created_at": "2026-04-09T19:10:12.092599+00:00",
+                "event": "hf_import_start",
+                "detail": "Importing HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:10:12.093010+00:00",
+                "event": "hf_import_complete",
+                "detail": "Imported HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:10:12.093293+00:00",
+                "event": "hf_load_cached",
+                "detail": "Reusing already loaded HF model.",
+                "model_mode": "vision"
+              },
+              {
+                "created_at": "2026-04-09T19:10:17.471647+00:00",
+                "event": "hf_import_start",
+                "detail": "Importing HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:10:17.472517+00:00",
+                "event": "hf_import_complete",
+                "detail": "Imported HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:10:17.473379+00:00",
+                "event": "hf_load_cached",
+                "detail": "Reusing already loaded HF model.",
+                "model_mode": "vision"
+              },
+              {
+                "created_at": "2026-04-09T19:10:21.229321+00:00",
+                "event": "hf_import_start",
+                "detail": "Importing HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:10:21.229761+00:00",
+                "event": "hf_import_complete",
+                "detail": "Imported HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:10:21.230055+00:00",
+                "event": "hf_load_cached",
+                "detail": "Reusing already loaded HF model.",
+                "model_mode": "vision"
+              },
+              {
+                "created_at": "2026-04-09T19:10:24.780563+00:00",
+                "event": "hf_import_start",
+                "detail": "Importing HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:10:24.781074+00:00",
+                "event": "hf_import_complete",
+                "detail": "Imported HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:10:24.781635+00:00",
+                "event": "hf_load_cached",
+                "detail": "Reusing already loaded HF model.",
+                "model_mode": "vision"
+              },
+              {
+                "created_at": "2026-04-09T19:10:30.720705+00:00",
+                "event": "hf_import_start",
+                "detail": "Importing HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:10:30.721623+00:00",
+                "event": "hf_import_complete",
+                "detail": "Imported HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:10:30.722121+00:00",
+                "event": "hf_load_cached",
+                "detail": "Reusing already loaded HF model.",
+                "model_mode": "vision"
+              },
+              {
+                "created_at": "2026-04-09T19:10:36.951765+00:00",
+                "event": "hf_import_start",
+                "detail": "Importing HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:10:36.952795+00:00",
+                "event": "hf_import_complete",
+                "detail": "Imported HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:10:36.953153+00:00",
+                "event": "hf_load_cached",
+                "detail": "Reusing already loaded HF model.",
+                "model_mode": "vision"
+              },
+              {
+                "created_at": "2026-04-09T19:10:43.519433+00:00",
+                "event": "hf_import_start",
+                "detail": "Importing HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:10:43.520602+00:00",
+                "event": "hf_import_complete",
+                "detail": "Imported HF runtime dependencies."
+              },
+              {
+                "created_at": "2026-04-09T19:10:43.520835+00:00",
+                "event": "hf_load_cached",
+                "detail": "Reusing already loaded HF model.",
+                "model_mode": "vision"
+              }
+            ],
+            "last_event_at": "2026-04-09T19:10:43.520835+00:00",
+            "heartbeat_at": "2026-04-09T19:10:43.520835+00:00",
+            "load_elapsed_ms": 36772,
+            "ready_at": "2026-04-09T19:07:28.034254+00:00",
+            "runtime_info": {
+              "backend": "hf",
+              "requested_model": "google/gemma-4-E2B-it",
+              "effective_model": "google/gemma-4-E2B-it",
+              "runtime_device": "mps",
+              "load_mode": "vision",
+              "configured_device": "mps",
+              "service": {}
+            },
+            "last_request_at": "2026-04-09T19:10:46.545029+00:00",
+            "last_request_id": "google__gemma_4_E2B_it_mps_1775761843519",
+            "last_request_elapsed_ms": 3025
+          }
+        },
+        "router": {
+          "backend": "hf",
+          "requested_model": "google/functiongemma-270m-it",
+          "effective_model": "google/functiongemma-270m-it",
+          "runtime_device": "mps",
+          "configured_device": "auto"
+        },
+        "retriever": {
+          "backend": "hf",
+          "requested_model": "google/embeddinggemma-300m",
+          "effective_model": "google/embeddinggemma-300m",
+          "loaded": false
+        }
+      },
+      "last_run_id": "20260409T191656Z_modular_agent_013_ambiguous_vendor_defer_agent_013_ambiguous_vendor_defer_efficiency_truncation_compact",
+      "last_task_id": "agent_013_ambiguous_vendor_defer",
+      "last_variant_id": "agent_013_ambiguous_vendor_defer_efficiency_truncation_compact"
+    }
+  ],
+  "probes": [],
+  "improvements": [
+    {
+      "experiment_id": "hf_e2b_real_world_thinking_variants",
+      "current_run_group_id": "20260409T210500Z",
+      "previous_run_group_id": "20260409T203500Z",
+      "success_rate_delta": 0.0,
+      "avg_latency_ms_delta": 152.5,
+      "latency_improvement_ms": -152.5,
+      "current_success_rate": 0.0,
+      "previous_success_rate": 0.0,
+      "current_avg_latency_ms": 1016.75,
+      "previous_avg_latency_ms": 864.25
+    },
+    {
+      "experiment_id": "hf_e2b_real_world_retrieval_variants",
+      "current_run_group_id": "20260409T210500Z",
+      "previous_run_group_id": "20260409T203500Z",
+      "success_rate_delta": 0.0,
+      "avg_latency_ms_delta": -364.06,
+      "latency_improvement_ms": 364.06,
+      "current_success_rate": 0.875,
+      "previous_success_rate": 0.875,
+      "current_avg_latency_ms": 2855.44,
+      "previous_avg_latency_ms": 3219.5
+    },
+    {
+      "experiment_id": "hf_e2b_real_world_routing_variants",
+      "current_run_group_id": "20260409T210500Z",
+      "previous_run_group_id": "20260409T200500Z",
+      "success_rate_delta": -0.1667,
+      "avg_latency_ms_delta": 120.75,
+      "latency_improvement_ms": -120.75,
+      "current_success_rate": 0.5,
+      "previous_success_rate": 0.6666666666666666,
+      "current_avg_latency_ms": 7339.0,
+      "previous_avg_latency_ms": 7218.25
+    }
+  ],
+  "failure_breakdown": {
+    "answer_mismatch": 17,
+    "arg_mismatch": 15,
+    "failed": 21,
+    "malformed_call": 4,
+    "wrong_tool": 15
+  },
+  "backend_preflight": {
+    "generated_at": "2026-04-09T16:29:51.430409+00:00",
+    "hardware": {
+      "platform": "Darwin",
+      "platform_version": "Darwin Kernel Version 25.4.0: Thu Mar 19 19:33:25 PDT 2026; root:xnu-12377.101.15~1/RELEASE_ARM64_T6041",
+      "machine": "arm64",
+      "cpu_count": 12,
+      "memory_gb": 24.0
+    },
+    "auth": {
+      "token_present": true,
+      "token_source": "HF_TOKEN"
+    },
+    "offline_mode_enabled": false,
+    "model_sources": {
+      "google/gemma-4-E2B-it": "google/gemma-4-E2B-it",
+      "google/gemma-4-E4B-it": "google/gemma-4-E4B-it",
+      "google/functiongemma-270m-it": "google/functiongemma-270m-it",
+      "google/embeddinggemma-300m": "google/embeddinggemma-300m"
+    },
+    "hf_service": {
+      "status": "stale",
+      "pid_alive": false,
+      "state": {
+        "service_id": "google__gemma_4_E2B_it_mps",
+        "model_id": "google/gemma-4-E2B-it",
+        "device": "mps",
+        "max_new_tokens": 64,
+        "pid": 98894,
+        "status": "loading",
+        "phase": "hf_model_load_start",
+        "created_at": "2026-04-09T15:43:21.943081+00:00",
+        "requests_completed": 0,
+        "requests_failed": 0,
+        "recent_events": [
+          {
+            "created_at": "2026-04-09T15:43:21.955172+00:00",
+            "event": "service_boot",
+            "detail": "HF reasoner service process started.",
+            "socket_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/service.sock"
+          },
+          {
+            "created_at": "2026-04-09T15:43:21.961446+00:00",
+            "event": "runner_init",
+            "detail": "Constructing Gemma4Runner for HF service.",
+            "backend": "hf"
+          },
+          {
+            "created_at": "2026-04-09T15:43:21.962330+00:00",
+            "event": "hf_import_start",
+            "detail": "Importing HF runtime dependencies."
+          },
+          {
+            "created_at": "2026-04-09T15:50:36.997566+00:00",
+            "event": "hf_import_complete",
+            "detail": "Imported HF runtime dependencies."
+          },
+          {
+            "created_at": "2026-04-09T15:50:37.015804+00:00",
+            "event": "hf_source_resolution_start",
+            "detail": "Resolving model source and auth."
+          },
+          {
+            "created_at": "2026-04-09T15:50:37.027695+00:00",
+            "event": "hf_load_start",
+            "detail": "Starting HF model load.",
+            "model_mode": "vision",
+            "resolved_source": "google/gemma-4-E2B-it",
+            "local_files_only": false,
+            "auth_token_present": true
+          },
+          {
+            "created_at": "2026-04-09T15:50:37.029178+00:00",
+            "event": "hf_processor_load_start",
+            "detail": "Loading HF processor.",
+            "resolved_source": "google/gemma-4-E2B-it"
+          },
+          {
+            "created_at": "2026-04-09T15:51:47.257612+00:00",
+            "event": "hf_processor_load_complete",
+            "detail": "HF processor loaded.",
+            "resolved_source": "google/gemma-4-E2B-it"
+          },
+          {
+            "created_at": "2026-04-09T15:51:48.116650+00:00",
+            "event": "hf_model_load_start",
+            "detail": "Loading HF model weights.",
+            "runtime_device": "mps"
+          }
+        ],
+        "last_event_at": "2026-04-09T15:51:48.116650+00:00",
+        "heartbeat_at": "2026-04-09T15:51:48.116650+00:00"
+      },
+      "paths": {
+        "service_id": "google__gemma_4_E2B_it_mps",
+        "root": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps",
+        "socket_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/service.sock",
+        "state_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/state.json",
+        "event_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/events.jsonl",
+        "request_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/requests.jsonl",
+        "stdout_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/service.log"
+      }
+    },
+    "hf_import_probe": {
+      "ok": true,
+      "torch_ms": 1865,
+      "transformers_ms": 4093,
+      "generated_at": "2026-04-09T16:01:21.255967+00:00",
+      "elapsed_ms": 4441,
+      "timeout_seconds": 600,
+      "returncode": 0,
+      "stdout": "{\"ok\": true, \"torch_ms\": 1865, \"transformers_ms\": 4093}",
+      "stderr": ""
+    },
+    "specialist_access_probe": {
+      "generated_at": "2026-04-09T16:29:40.603345+00:00",
+      "auth_token_present": true,
+      "auth_token_source": "HF_TOKEN",
+      "models": [
+        {
+          "model": "google/gemma-4-E2B-it",
+          "api_status": 200,
+          "config_status": 200,
+          "gated": false,
+          "private": false,
+          "pipeline_tag": "any-to-any",
+          "access": "available"
+        },
+        {
+          "model": "google/functiongemma-270m-it",
+          "api_status": 200,
+          "config_status": 200,
+          "gated": "manual",
+          "private": false,
+          "pipeline_tag": "text-generation",
+          "access": "available"
+        },
+        {
+          "model": "google/embeddinggemma-300m",
+          "api_status": 200,
+          "config_status": 200,
+          "gated": "manual",
+          "private": false,
+          "pipeline_tag": "sentence-similarity",
+          "access": "available"
+        }
+      ]
+    },
+    "mlx_runtime_probe": {
+      "ok": true,
+      "elapsed_ms": 147,
+      "returncode": 0
+    },
+    "recommended_local_reasoner_backend": "mlx",
+    "source": "/Users/cheickdiakite/Codex/moonie/results/tables/backend_preflight.json"
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "workspace_id": "exec-board-prep",
+  "lane": "replayable_core",
+  "role_family": "executive_assistant",
+  "tools": [
+    "browser",
+    "calendar",
+    "documents",
+    "repo",
+    "spreadsheets"
+  ],
+  "browser_surfaces": [
+    {
+      "stage_id": "kwa_exec_board_prep_pack_stage_1",
+      "task_refs": [
+        "retr_011_approval_policy"
+      ],
+      "browser_plan": [
+        {
+          "action": "open_seeded_workspace",
+          "target": "workspace://exec-board-prep",
+          "surface": "workspace",
+          "purpose": "Open the seeded workspace for stage 1",
+          "expected_signal": "seeded workspace loaded",
+          "verification_checks": [
+            "workspace opened"
+          ],
+          "captured_fields": [],
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        },
+        {
+          "action": "inspect_seeded_surface",
+          "target": "workspace://exec-board-prep/retr_011_approval_policy",
+          "surface": "email",
+          "purpose": "Review the mirrored browser surface or local document state",
+          "expected_signal": "required seeded context inspected",
+          "verification_checks": [
+            "surface inspected",
+            "required fields visible"
+          ],
+          "captured_fields": [
+            "subject",
+            "time",
+            "decision"
+          ],
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        }
+      ]
+    },
+    {
+      "stage_id": "kwa_exec_board_prep_pack_stage_2",
+      "task_refs": [
+        "think_013_prod_approval_escalation"
+      ],
+      "browser_plan": [
+        {
+          "action": "open_seeded_workspace",
+          "target": "workspace://exec-board-prep",
+          "surface": "workspace",
+          "purpose": "Open the seeded workspace for stage 2",
+          "expected_signal": "seeded workspace loaded",
+          "verification_checks": [
+            "workspace opened"
+          ],
+          "captured_fields": [],
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        },
+        {
+          "action": "inspect_seeded_surface",
+          "target": "workspace://exec-board-prep/think_013_prod_approval_escalation",
+          "surface": "email",
+          "purpose": "Review the mirrored browser surface or local document state",
+          "expected_signal": "required seeded context inspected",
+          "verification_checks": [
+            "surface inspected",
+            "required fields visible"
+          ],
+          "captured_fields": [
+            "subject",
+            "time",
+            "decision"
+          ],
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        }
+      ]
+    }
+  ]
+}

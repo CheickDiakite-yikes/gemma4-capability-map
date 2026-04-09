@@ -1,0 +1,92 @@
+{
+  "workspace_id": "finance-partner-deck",
+  "lane": "replayable_core",
+  "role_family": "finance",
+  "tools": [
+    "browser",
+    "calendar",
+    "documents",
+    "repo",
+    "spreadsheets"
+  ],
+  "browser_surfaces": [
+    {
+      "stage_id": "kwa_finance_partner_deck_revision_stage_1",
+      "task_refs": [
+        "agent_010_parallel_audit_patch"
+      ],
+      "browser_plan": [
+        {
+          "action": "open_seeded_workspace",
+          "target": "workspace://finance-partner-deck",
+          "surface": "workspace",
+          "purpose": "Open the seeded workspace for stage 1",
+          "expected_signal": "seeded workspace loaded",
+          "verification_checks": [
+            "workspace opened"
+          ],
+          "captured_fields": [],
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        },
+        {
+          "action": "inspect_seeded_surface",
+          "target": "workspace://finance-partner-deck/agent_010_parallel_audit_patch",
+          "surface": "spreadsheet",
+          "purpose": "Review the mirrored browser surface or local document state",
+          "expected_signal": "required seeded context inspected",
+          "verification_checks": [
+            "surface inspected",
+            "required fields visible"
+          ],
+          "captured_fields": [
+            "metric",
+            "value",
+            "evidence"
+          ],
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        }
+      ]
+    },
+    {
+      "stage_id": "kwa_finance_partner_deck_revision_stage_2",
+      "task_refs": [
+        "agent_012_billing_guardrail_patch"
+      ],
+      "browser_plan": [
+        {
+          "action": "open_seeded_workspace",
+          "target": "workspace://finance-partner-deck",
+          "surface": "workspace",
+          "purpose": "Open the seeded workspace for stage 2",
+          "expected_signal": "seeded workspace loaded",
+          "verification_checks": [
+            "workspace opened"
+          ],
+          "captured_fields": [],
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        },
+        {
+          "action": "inspect_seeded_surface",
+          "target": "workspace://finance-partner-deck/agent_012_billing_guardrail_patch",
+          "surface": "spreadsheet",
+          "purpose": "Review the mirrored browser surface or local document state",
+          "expected_signal": "required seeded context inspected",
+          "verification_checks": [
+            "surface inspected",
+            "required fields visible"
+          ],
+          "captured_fields": [
+            "metric",
+            "value",
+            "evidence"
+          ],
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        }
+      ]
+    }
+  ]
+}

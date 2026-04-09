@@ -1,0 +1,10 @@
+stressors:
+  language:
+    variants: ["fr", "ar", "code_switch"]
+  schema:
+    variants: ["renamed_fields", "reordered_schema", "enum_trap", "validator_feedback"]
+  context:
+    variants: ["long_history", "stale_preference", "irrelevant_tool_output", "changed_constraint"]
+  efficiency:
+    variants: ["dim_128", "dim_256", "top_k_3", "top_k_10", "truncation_compact"]
+

@@ -1,0 +1,161 @@
+matrix:
+  name: alpha_integrated_specialists
+  description: >
+    Broader alpha benchmark matrix using MLX E2B as the local default on this Apple
+    Silicon machine while also folding in the validated HF specialist lanes for
+    EmbeddingGemma retrieval, FunctionGemma routing, and a narrow clean modular
+    full-stack path that uses both specialists together.
+  experiments:
+    - id: mlx_e2b_monolith_thinking_clean
+      pipeline: monolith
+      track: thinking
+      backend: mlx
+      reasoner_backend: mlx
+      reasoner: google/gemma-4-E2B-it
+      reasoner_device: mps
+      max_new_tokens: 48
+      thinking: false
+      variants: false
+      notes:
+        - Local default reasoning baseline for text and image thinking tasks.
+        - Runs on the balanced 12-task thinking track.
+    - id: mlx_e2b_monolith_tool_routing_clean
+      pipeline: monolith
+      track: tool_routing
+      backend: mlx
+      reasoner_backend: mlx
+      reasoner: google/gemma-4-E2B-it
+      reasoner_device: mps
+      max_new_tokens: 48
+      thinking: false
+      variants: false
+      notes:
+        - Local default structured tool-use baseline on the expanded 12-task routing track.
+    - id: mlx_e2b_hybrid_retrieval_clean
+      pipeline: hybrid
+      track: retrieval
+      backend: mlx
+      reasoner_backend: mlx
+      retriever_backend: heuristic
+      reasoner: google/gemma-4-E2B-it
+      retriever: google/embeddinggemma-300m
+      reasoner_device: mps
+      max_new_tokens: 48
+      thinking: false
+      variants: false
+      notes:
+        - Local default retrieval baseline on the balanced 12-task retrieval track.
+        - Keeps heuristic retrieval as the fast local reference for comparison against real EmbeddingGemma.
+    - id: mlx_e2b_modular_full_stack_clean
+      pipeline: modular
+      track: full_stack
+      backend: mlx
+      reasoner_backend: mlx
+      router_backend: heuristic
+      retriever_backend: heuristic
+      reasoner: google/gemma-4-E2B-it
+      router: google/functiongemma-270m-it
+      retriever: google/embeddinggemma-300m
+      reasoner_device: mps
+      max_new_tokens: 48
+      planning_max_new_tokens: 48
+      final_max_new_tokens: 96
+      thinking: false
+      variants: false
+      notes:
+        - Local default full-stack baseline with heuristic specialists.
+        - Uses a larger final-answer budget so end-to-end summaries do not truncate after correct tool execution.
+    - id: hf_e2b_monolith_thinking_off_clean
+      pipeline: monolith
+      track: thinking
+      backend: hf
+      reasoner_backend: hf
+      reasoner: google/gemma-4-E2B-it
+      reasoner_device: mps
+      max_new_tokens: 64
+      thinking: false
+      variants: false
+      notes:
+        - HF reference slice without thinking for direct comparison against MLX and HF thinking-on.
+    - id: hf_e2b_monolith_thinking_on_clean
+      pipeline: monolith
+      track: thinking
+      backend: hf
+      reasoner_backend: hf
+      reasoner: google/gemma-4-E2B-it
+      reasoner_device: mps
+      max_new_tokens: 384
+      thinking: true
+      variants: false
+      notes:
+        - HF native thinking slice on the full thinking track.
+        - Uses a larger token budget because thought and final answer share the same decode path in the local HF runner.
+    - id: hf_e2b_hybrid_retrieval_real_embeddinggemma_clean
+      pipeline: hybrid
+      track: retrieval
+      execution_mode: in_process
+      backend: hf
+      reasoner_backend: hf
+      retriever_backend: hf
+      reasoner: google/gemma-4-E2B-it
+      retriever: google/embeddinggemma-300m
+      reasoner_device: mps
+      max_new_tokens: 48
+      timeout_minutes: 45
+      thinking: false
+      variants: false
+      notes:
+        - Real EmbeddingGemma clean retrieval lane on the full 12-task retrieval track.
+        - Runs in-process to amortize HF startup overhead on this Mac.
+    - id: hf_e2b_modular_tool_routing_real_functiongemma_clean
+      pipeline: modular
+      track: tool_routing
+      execution_mode: in_process
+      backend: hf
+      reasoner_backend: hf
+      router_backend: hf
+      retriever_backend: heuristic
+      reasoner: google/gemma-4-E2B-it
+      router: google/functiongemma-270m-it
+      reasoner_device: mps
+      max_new_tokens: 48
+      timeout_minutes: 45
+      planning_max_new_tokens: 48
+      final_max_new_tokens: 64
+      thinking: false
+      variants: false
+      notes:
+        - Real FunctionGemma clean routing lane on the full 12-task routing track.
+        - Incorporates the schema-repair and runtime-argument adapter fixes from the latest specialist pass.
+    - id: hf_e2b_modular_full_stack_real_specialists_clean
+      pipeline: modular
+      track: full_stack
+      execution_mode: in_process
+      backend: hf
+      reasoner_backend: hf
+      router_backend: hf
+      retriever_backend: hf
+      reasoner: google/gemma-4-E2B-it
+      router: google/functiongemma-270m-it
+      retriever: google/embeddinggemma-300m
+      reasoner_device: mps
+      max_new_tokens: 48
+      timeout_minutes: 45
+      planning_max_new_tokens: 48
+      final_max_new_tokens: 96
+      thinking: false
+      variants: false
+      task_ids:
+        - agent_011_runbook_guided_patch
+        - agent_012_billing_guardrail_patch
+      notes:
+        - Narrow clean modular full-stack lane where both real specialists are active.
+        - Uses only the current retrieval-bearing full-stack tasks so specialist effects are observable rather than incidental.
+  probes:
+    - id: hf_e4b_probe_cached
+      kind: smoke_probe
+      backend: hf
+      model: google/gemma-4-E4B-it
+      source: results/raw/hf_smoke_e4b.json
+      notes:
+        - Reserved local probe lane for E4B on this Mac.

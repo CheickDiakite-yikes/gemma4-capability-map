@@ -1,0 +1,12 @@
+{
+  "threads": [
+    {
+      "subject": "Board prep",
+      "status": "needs brief"
+    },
+    {
+      "subject": "Vendor ambiguity",
+      "status": "needs clarification"
+    }
+  ]
+}

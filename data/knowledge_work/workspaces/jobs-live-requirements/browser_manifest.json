@@ -1,0 +1,73 @@
+{
+  "workspace_id": "jobs-live-requirements",
+  "lane": "live_web_stress",
+  "role_family": "job_application_ops",
+  "tools": [
+    "browser",
+    "calendar",
+    "documents",
+    "repo",
+    "spreadsheets"
+  ],
+  "browser_surfaces": [
+    {
+      "stage_id": "kwa_jobs_live_requirements_extract_stage_1",
+      "task_refs": [
+        "tool_010_validator_ready"
+      ],
+      "browser_plan": [
+        {
+          "action": "open_public_page",
+          "target": "live://tool_010_validator_ready",
+          "surface": "public_web",
+          "purpose": "Inspect live public context for stage 1",
+          "expected_signal": "public page content loaded",
+          "verification_checks": [
+            "page loaded",
+            "source captured"
+          ],
+          "captured_fields": [
+            "title",
+            "summary"
+          ],
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        },
+        {
+          "action": "capture_notes",
+          "target": "live://tool_010_validator_ready#notes",
+          "surface": "document",
+          "purpose": "Extract facts into a dry-run working note",
+          "expected_signal": "notes captured without side effects",
+          "verification_checks": [
+            "note captured",
+            "no external mutation"
+          ],
+          "captured_fields": [
+            "fact",
+            "source"
+          ],
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        },
+        {
+          "action": "prepare_sandbox_submission",
+          "target": "sandbox://jobs-live-requirements/tool_010_validator_ready",
+          "surface": "job_portal",
+          "purpose": "Prepare a sandbox submission package without sending it to a production endpoint",
+          "expected_signal": "sandbox payload ready",
+          "verification_checks": [
+            "sandbox target selected",
+            "submission blocked from production"
+          ],
+          "captured_fields": [
+            "payload_id",
+            "dry_run"
+          ],
+          "sandbox_endpoint": "https://sandbox.local/jobs-live-requirements/tool_010_validator_ready",
+          "allow_submission": false
+        }
+      ]
+    }
+  ]
+}

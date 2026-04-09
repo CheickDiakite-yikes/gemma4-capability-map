@@ -1,0 +1,12 @@
+{
+  "runs": 6.0,
+  "artifact_quality_avg": 0.875,
+  "strict_interface_avg": 1.0,
+  "recovered_execution_avg": 1.0,
+  "real_world_readiness_avg": 0.9725,
+  "escalation_correctness_avg": 1.0,
+  "lane": "live_web_stress",
+  "created_at": "20260409T204026Z",
+  "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work/20260409T204026Z_live_web_stress"
+}

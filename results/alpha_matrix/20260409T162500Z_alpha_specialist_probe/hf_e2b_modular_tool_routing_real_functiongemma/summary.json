@@ -1,0 +1,44 @@
+{
+  "runs": 0.0,
+  "avg_latency_ms": 0.0,
+  "avg_prompt_tokens": 0.0,
+  "avg_completion_tokens": 0.0,
+  "run_group_id": "20260409T162500Z",
+  "matrix_name": "alpha_specialist_probe",
+  "experiment_id": "hf_e2b_modular_tool_routing_real_functiongemma",
+  "pipeline": "modular",
+  "track": "tool_routing",
+  "backend": "hf",
+  "reasoner_backend": "hf",
+  "router_backend": "hf",
+  "retriever_backend": "heuristic",
+  "reasoner": "google/gemma-4-E2B-it",
+  "router": "google/functiongemma-270m-it",
+  "retriever": null,
+  "max_new_tokens": 48,
+  "planning_max_new_tokens": 48,
+  "final_max_new_tokens": 64,
+  "thinking_enabled": false,
+  "variants": true,
+  "status": "blocked",
+  "completed_runs": 0,
+  "total_runs": 0,
+  "remaining_runs": 0,
+  "notes": [
+    "Bounded FunctionGemma probe on parallel and validator-sensitive routing surfaces.",
+    "Runs in-process to amortize HF runtime startup and keep specialist results operational on this Mac.",
+    "Keeps multi-step planning in Gemma 4 while replacing heuristic routing with a real specialist backend."
+  ],
+  "access_blockers": [
+    {
+      "role": "router",
+      "model": "google/functiongemma-270m-it",
+      "backend": "hf",
+      "access": "gated_denied",
+      "api_status": 200,
+      "config_status": 403,
+      "gated": "manual"
+    }
+  ],
+  "error": "Blocked before launch due to model access restrictions."
+}

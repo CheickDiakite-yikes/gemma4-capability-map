@@ -1,0 +1,16 @@
+[
+  {
+    "id": "hf_e4b_probe_cached",
+    "kind": "smoke_probe",
+    "backend": "hf",
+    "model": "google/gemma-4-E4B-it",
+    "source": "/Users/cheickdiakite/Codex/moonie/results/raw/hf_smoke_e4b.json",
+    "status": "completed",
+    "load_elapsed_ms": 1597752,
+    "runtime_device": "mps",
+    "load_mode": "vision",
+    "notes": [
+      "Reserved local probe lane for E4B on this Mac."
+    ]
+  }
+]

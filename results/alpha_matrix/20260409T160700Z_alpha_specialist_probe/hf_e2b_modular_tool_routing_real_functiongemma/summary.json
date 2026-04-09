@@ -1,0 +1,59 @@
+{
+  "runs": 0.0,
+  "metric_averages": {},
+  "failing_variants": [],
+  "avg_latency_ms": 0.0,
+  "avg_prompt_tokens": 0.0,
+  "avg_completion_tokens": 0.0,
+  "run_group_id": "20260409T160700Z",
+  "matrix_name": "alpha_specialist_probe",
+  "experiment_id": "hf_e2b_modular_tool_routing_real_functiongemma",
+  "pipeline": "modular",
+  "track": "tool_routing",
+  "backend": "hf",
+  "reasoner_backend": "hf",
+  "router_backend": "hf",
+  "retriever_backend": "heuristic",
+  "reasoner": "google/gemma-4-E2B-it",
+  "router": "google/functiongemma-270m",
+  "retriever": null,
+  "max_new_tokens": 48,
+  "planning_max_new_tokens": 48,
+  "final_max_new_tokens": 64,
+  "thinking_enabled": false,
+  "variants": true,
+  "status": "failed",
+  "completed_runs": 0,
+  "total_runs": 8,
+  "remaining_runs": 8,
+  "notes": [
+    "Bounded FunctionGemma probe on parallel and validator-sensitive routing surfaces.",
+    "Runs in-process to amortize HF runtime startup and keep specialist results operational on this Mac.",
+    "Keeps multi-step planning in Gemma 4 while replacing heuristic routing with a real specialist backend."
+  ],
+  "runtime_bundle": {
+    "reasoner": {
+      "backend": "hf",
+      "requested_model": "google/gemma-4-E2B-it",
+      "effective_model": "google/gemma-4-E2B-it",
+      "runtime_device": null,
+      "load_mode": null,
+      "configured_device": "mps",
+      "service": {}
+    },
+    "router": {
+      "backend": "hf",
+      "requested_model": "google/functiongemma-270m",
+      "effective_model": "google/functiongemma-270m",
+      "runtime_device": null,
+      "configured_device": "auto"
+    },
+    "retriever": {
+      "backend": "heuristic",
+      "requested_model": "google/embeddinggemma-300m",
+      "effective_model": "google/embeddinggemma-300m",
+      "loaded": false
+    }
+  },
+  "error": "OSError: google/functiongemma-270m is not a local folder and is not a valid model identifier listed on 'https://huggingface.co/models'\nIf this is a private repository, make sure to pass a token having permission to this repo either by logging in with `hf auth login` or by passing `token=<your_token>`"
+}

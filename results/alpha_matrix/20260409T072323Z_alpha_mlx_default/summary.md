@@ -1,0 +1,24 @@
+# Alpha Matrix Summary
+
+- Run group: `20260409T072323Z`
+- Matrix: `alpha_mlx_default`
+
+## Experiments
+
+| Experiment | Status | Pipeline | Track | Backend | Success | Avg latency ms | Runs |
+| --- | --- | --- | --- | --- | ---: | ---: | ---: |
+| mlx_e2b_monolith_tool_routing_clean | completed | monolith | tool_routing | mlx | 0.4 | 4997.0 | 10.0 |
+| mlx_e2b_modular_full_stack_clean | completed | modular | full_stack | mlx | 0.6 | 3366.7 | 10.0 |
+
+## Probes
+
+| Probe | Status | Backend | Model | Load ms | Device |
+| --- | --- | --- | --- | ---: | --- |
+| hf_e4b_probe_cached | completed | hf | google/gemma-4-E4B-it | 1597752 | mps |
+
+## Improvements
+
+| Experiment | Success delta | Latency improvement ms |
+| --- | ---: | ---: |
+| mlx_e2b_monolith_tool_routing_clean | 0.4 | -1849.6 |
+| mlx_e2b_modular_full_stack_clean | 0.0 | 59.8 |

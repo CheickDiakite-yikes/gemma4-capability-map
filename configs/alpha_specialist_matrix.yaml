@@ -1,0 +1,75 @@
+matrix:
+  name: alpha_specialist_probe
+  description: >
+    Real specialist-backend probe on bounded slices. Uses Hugging Face backends for
+    FunctionGemma and EmbeddingGemma so routing and retrieval claims are grounded in
+    actual specialist models rather than heuristics.
+  experiments:
+    - id: hf_e2b_monolith_thinking_multilingual_multimodal
+      pipeline: monolith
+      track: thinking
+      execution_mode: in_process
+      backend: hf
+      reasoner_backend: hf
+      reasoner: google/gemma-4-E2B-it
+      reasoner_device: mps
+      max_new_tokens: 64
+      limit: 4
+      timeout_minutes: 30
+      thinking: false
+      variants: true
+      task_ids:
+        - think_006_screenshot_security
+        - think_011_incident_screenshot_toggle
+        - think_012_billing_invoice_lock
+      notes:
+        - Focused multilingual multimodal check after strengthening French screenshot prompts and answer matching.
+        - Runs in-process to avoid the fresh-process HF import penalty observed in the local worker probe.
+        - Intended to confirm the last known drift miss before wider scaling.
+    - id: hf_e2b_hybrid_retrieval_real_embeddinggemma
+      pipeline: hybrid
+      track: retrieval
+      execution_mode: in_process
+      backend: hf
+      reasoner_backend: hf
+      retriever_backend: hf
+      reasoner: google/gemma-4-E2B-it
+      retriever: google/embeddinggemma-300m
+      reasoner_device: mps
+      max_new_tokens: 48
+      limit: 10
+      timeout_minutes: 30
+      thinking: false
+      variants: true
+      task_ids:
+        - retr_003_incident_multimodal
+        - retr_010_rollout_mode
+      notes:
+        - Real EmbeddingGemma probe on the bounded retrieval drift slice.
+        - Runs in-process to amortize HF runtime startup and keep specialist results operational on this Mac.
+        - Uses prefix-aware retrieval with dimension and quantization stressors from generated variants.
+    - id: hf_e2b_modular_tool_routing_real_functiongemma
+      pipeline: modular
+      track: tool_routing
+      execution_mode: in_process
+      backend: hf
+      reasoner_backend: hf
+      router_backend: hf
+      retriever_backend: heuristic
+      reasoner: google/gemma-4-E2B-it
+      router: google/functiongemma-270m-it
+      reasoner_device: mps
+      max_new_tokens: 48
+      limit: 10
+      timeout_minutes: 30
+      planning_max_new_tokens: 48
+      final_max_new_tokens: 64
+      thinking: false
+      variants: true
+      task_ids:
+        - tool_009_parallel_context_check
+        - tool_010_validator_ready
+      notes:
+        - Bounded FunctionGemma probe on parallel and validator-sensitive routing surfaces.
+        - Runs in-process to amortize HF runtime startup and keep specialist results operational on this Mac.
+        - Keeps multi-step planning in Gemma 4 while replacing heuristic routing with a real specialist backend.

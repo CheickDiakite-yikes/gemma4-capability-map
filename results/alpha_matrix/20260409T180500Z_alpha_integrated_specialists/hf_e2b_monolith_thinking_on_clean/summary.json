@@ -1,0 +1,118 @@
+{
+  "runs": 12.0,
+  "success_rate": 0.75,
+  "failure_breakdown": {
+    "answer_mismatch": 1,
+    "answer_missing": 2,
+    "failed": 3,
+    "generation_truncated": 2,
+    "image_grounding_miss": 1,
+    "thinking_overflow": 2
+  },
+  "metric_averages": {
+    "answer_match": 0.75,
+    "avoidable_retries": 0.0,
+    "completion_tokens": 219.5833,
+    "controller_repair_count": 0.0,
+    "exact_match": 0.75,
+    "hallucinated_tool_rate": 0.0,
+    "latency_ms": 19631.0,
+    "malformed_call_rate": 0.0,
+    "prompt_tokens": 195.6667,
+    "steps_taken": 0.0,
+    "success": 0.75
+  },
+  "failing_variants": [
+    {
+      "task_id": "think_006_screenshot_security",
+      "variant_id": "think_006_screenshot_security_clean",
+      "failure_tags": [
+        "failed",
+        "answer_mismatch",
+        "image_grounding_miss"
+      ],
+      "latency_ms": 38425.0,
+      "interface_reliability_score": 0.0,
+      "controller_repair_count": 0
+    },
+    {
+      "task_id": "think_007_doc_image_summary",
+      "variant_id": "think_007_doc_image_summary_clean",
+      "failure_tags": [
+        "failed",
+        "answer_missing",
+        "generation_truncated",
+        "thinking_overflow"
+      ],
+      "latency_ms": 34121.0,
+      "interface_reliability_score": 0.0,
+      "controller_repair_count": 0
+    },
+    {
+      "task_id": "think_011_incident_screenshot_toggle",
+      "variant_id": "think_011_incident_screenshot_toggle_clean",
+      "failure_tags": [
+        "failed",
+        "answer_missing",
+        "generation_truncated",
+        "thinking_overflow"
+      ],
+      "latency_ms": 31409.0,
+      "interface_reliability_score": 0.0,
+      "controller_repair_count": 0
+    }
+  ],
+  "avg_latency_ms": 19631.0,
+  "avg_prompt_tokens": 195.67,
+  "avg_completion_tokens": 219.58,
+  "run_group_id": "20260409T180500Z",
+  "matrix_name": "alpha_integrated_specialists",
+  "experiment_id": "hf_e2b_monolith_thinking_on_clean",
+  "pipeline": "monolith",
+  "track": "thinking",
+  "backend": "hf",
+  "reasoner_backend": "hf",
+  "router_backend": null,
+  "retriever_backend": null,
+  "reasoner": "google/gemma-4-E2B-it",
+  "router": null,
+  "retriever": null,
+  "max_new_tokens": 384,
+  "planning_max_new_tokens": null,
+  "final_max_new_tokens": null,
+  "thinking_enabled": true,
+  "variants": false,
+  "status": "completed",
+  "completed_runs": 12,
+  "total_runs": 12,
+  "remaining_runs": 0,
+  "notes": [
+    "HF native thinking slice on the full thinking track.",
+    "Uses a larger token budget because thought and final answer share the same decode path in the local HF runner."
+  ],
+  "warmup": {
+    "reasoner": {
+      "backend": "hf",
+      "requested_model": "google/gemma-4-E2B-it",
+      "effective_model": "google/gemma-4-E2B-it",
+      "runtime_device": "mps",
+      "load_mode": "vision",
+      "configured_device": "mps",
+      "service": {}
+    }
+  },
+  "runtime_bundle": {
+    "reasoner": {
+      "backend": "hf",
+      "requested_model": "google/gemma-4-E2B-it",
+      "effective_model": "google/gemma-4-E2B-it",
+      "runtime_device": "mps",
+      "load_mode": "vision",
+      "configured_device": "mps",
+      "service": {}
+    }
+  },
+  "last_run_id": "20260409T170434Z_monolith_think_010_repo_reasoning_think_010_repo_reasoning_clean",
+  "last_task_id": "think_010_repo_reasoning",
+  "last_variant_id": "think_010_repo_reasoning_clean"
+}

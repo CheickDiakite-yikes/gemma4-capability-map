@@ -1,0 +1,14 @@
+[
+  {
+    "experiment_id": "hf_e2b_modular_tool_routing_real_functiongemma",
+    "current_run_group_id": "20260409T172000Z",
+    "previous_run_group_id": "20260409T170500Z",
+    "success_rate_delta": 0.0,
+    "avg_latency_ms_delta": -339.25,
+    "latency_improvement_ms": 339.25,
+    "current_success_rate": 1.0,
+    "previous_success_rate": 1.0,
+    "current_avg_latency_ms": 7841.25,
+    "previous_avg_latency_ms": 8180.5
+  }
+]

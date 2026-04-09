@@ -1,0 +1,170 @@
+{
+  "run_group_id": "20260409T161500Z",
+  "matrix_name": "alpha_specialist_probe",
+  "description": "Real specialist-backend probe on bounded slices. Uses Hugging Face backends for FunctionGemma and EmbeddingGemma so routing and retrieval claims are grounded in actual specialist models rather than heuristics.\n",
+  "created_at": "2026-04-09T16:16:26.875850+00:00",
+  "config_path": "/Users/cheickdiakite/Codex/moonie/configs/alpha_specialist_matrix.yaml",
+  "python_version": "3.13.5 | packaged by Anaconda, Inc. | (main, Jun 12 2025, 11:23:37) [Clang 14.0.6 ]",
+  "platform": "macOS-26.4-arm64-arm-64bit-Mach-O",
+  "hardware_profile": {
+    "platform": "Darwin",
+    "platform_version": "Darwin Kernel Version 25.4.0: Thu Mar 19 19:33:25 PDT 2026; root:xnu-12377.101.15~1/RELEASE_ARM64_T6041",
+    "machine": "arm64",
+    "cpu_count": 12,
+    "memory_gb": 24.0
+  },
+  "experiments": [
+    {
+      "id": "hf_e2b_modular_tool_routing_real_functiongemma",
+      "pipeline": "modular",
+      "track": "tool_routing",
+      "execution_mode": "in_process",
+      "backend": "hf",
+      "reasoner_backend": "hf",
+      "router_backend": "hf",
+      "retriever_backend": "heuristic",
+      "reasoner": "google/gemma-4-E2B-it",
+      "router": "google/functiongemma-270m-it",
+      "reasoner_device": "mps",
+      "max_new_tokens": 48,
+      "limit": 10,
+      "timeout_minutes": 30,
+      "planning_max_new_tokens": 48,
+      "final_max_new_tokens": 64,
+      "thinking": false,
+      "variants": true,
+      "task_ids": [
+        "tool_009_parallel_context_check",
+        "tool_010_validator_ready"
+      ],
+      "notes": [
+        "Bounded FunctionGemma probe on parallel and validator-sensitive routing surfaces.",
+        "Runs in-process to amortize HF runtime startup and keep specialist results operational on this Mac.",
+        "Keeps multi-step planning in Gemma 4 while replacing heuristic routing with a real specialist backend."
+      ]
+    }
+  ],
+  "probes": [],
+  "backend_preflight": {
+    "generated_at": "2026-04-09T16:03:33.630289+00:00",
+    "hardware": {
+      "platform": "Darwin",
+      "platform_version": "Darwin Kernel Version 25.4.0: Thu Mar 19 19:33:25 PDT 2026; root:xnu-12377.101.15~1/RELEASE_ARM64_T6041",
+      "machine": "arm64",
+      "cpu_count": 12,
+      "memory_gb": 24.0
+    },
+    "auth": {
+      "token_present": true,
+      "token_source": "HF_TOKEN"
+    },
+    "offline_mode_enabled": false,
+    "model_sources": {
+      "google/gemma-4-E2B-it": "google/gemma-4-E2B-it",
+      "google/gemma-4-E4B-it": "google/gemma-4-E4B-it",
+      "google/functiongemma-270m": "google/functiongemma-270m",
+      "google/embeddinggemma-300m": "google/embeddinggemma-300m"
+    },
+    "hf_service": {
+      "status": "stale",
+      "pid_alive": false,
+      "state": {
+        "service_id": "google__gemma_4_E2B_it_mps",
+        "model_id": "google/gemma-4-E2B-it",
+        "device": "mps",
+        "max_new_tokens": 64,
+        "pid": 98894,
+        "status": "loading",
+        "phase": "hf_model_load_start",
+        "created_at": "2026-04-09T15:43:21.943081+00:00",
+        "requests_completed": 0,
+        "requests_failed": 0,
+        "recent_events": [
+          {
+            "created_at": "2026-04-09T15:43:21.955172+00:00",
+            "event": "service_boot",
+            "detail": "HF reasoner service process started.",
+            "socket_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/service.sock"
+          },
+          {
+            "created_at": "2026-04-09T15:43:21.961446+00:00",
+            "event": "runner_init",
+            "detail": "Constructing Gemma4Runner for HF service.",
+            "backend": "hf"
+          },
+          {
+            "created_at": "2026-04-09T15:43:21.962330+00:00",
+            "event": "hf_import_start",
+            "detail": "Importing HF runtime dependencies."
+          },
+          {
+            "created_at": "2026-04-09T15:50:36.997566+00:00",
+            "event": "hf_import_complete",
+            "detail": "Imported HF runtime dependencies."
+          },
+          {
+            "created_at": "2026-04-09T15:50:37.015804+00:00",
+            "event": "hf_source_resolution_start",
+            "detail": "Resolving model source and auth."
+          },
+          {
+            "created_at": "2026-04-09T15:50:37.027695+00:00",
+            "event": "hf_load_start",
+            "detail": "Starting HF model load.",
+            "model_mode": "vision",
+            "resolved_source": "google/gemma-4-E2B-it",
+            "local_files_only": false,
+            "auth_token_present": true
+          },
+          {
+            "created_at": "2026-04-09T15:50:37.029178+00:00",
+            "event": "hf_processor_load_start",
+            "detail": "Loading HF processor.",
+            "resolved_source": "google/gemma-4-E2B-it"
+          },
+          {
+            "created_at": "2026-04-09T15:51:47.257612+00:00",
+            "event": "hf_processor_load_complete",
+            "detail": "HF processor loaded.",
+            "resolved_source": "google/gemma-4-E2B-it"
+          },
+          {
+            "created_at": "2026-04-09T15:51:48.116650+00:00",
+            "event": "hf_model_load_start",
+            "detail": "Loading HF model weights.",
+            "runtime_device": "mps"
+          }
+        ],
+        "last_event_at": "2026-04-09T15:51:48.116650+00:00",
+        "heartbeat_at": "2026-04-09T15:51:48.116650+00:00"
+      },
+      "paths": {
+        "service_id": "google__gemma_4_E2B_it_mps",
+        "root": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps",
+        "socket_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/service.sock",
+        "state_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/state.json",
+        "event_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/events.jsonl",
+        "request_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/requests.jsonl",
+        "stdout_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/service.log"
+      }
+    },
+    "hf_import_probe": {
+      "ok": true,
+      "torch_ms": 1865,
+      "transformers_ms": 4093,
+      "generated_at": "2026-04-09T16:01:21.255967+00:00",
+      "elapsed_ms": 4441,
+      "timeout_seconds": 600,
+      "returncode": 0,
+      "stdout": "{\"ok\": true, \"torch_ms\": 1865, \"transformers_ms\": 4093}",
+      "stderr": ""
+    },
+    "mlx_runtime_probe": {
+      "ok": true,
+      "elapsed_ms": 1712,
+      "returncode": 0
+    },
+    "recommended_local_reasoner_backend": "mlx",
+    "source": "/Users/cheickdiakite/Codex/moonie/results/tables/backend_preflight.json"
+  }
+}

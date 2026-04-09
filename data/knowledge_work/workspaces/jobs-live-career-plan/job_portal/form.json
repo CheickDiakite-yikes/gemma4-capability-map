@@ -1,0 +1,9 @@
+{
+  "fields": [
+    "candidate_name",
+    "job_title",
+    "resume",
+    "cover_letter"
+  ],
+  "submission_mode": "dry_run"
+}

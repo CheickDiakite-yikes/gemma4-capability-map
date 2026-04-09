@@ -1,0 +1,12 @@
+{
+  "events": [
+    {
+      "title": "Board meeting",
+      "state": "scheduled"
+    },
+    {
+      "title": "Vendor sync",
+      "state": "ambiguous"
+    }
+  ]
+}

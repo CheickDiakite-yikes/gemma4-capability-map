@@ -1,0 +1,98 @@
+matrix:
+  name: alpha_mlx_default
+  description: >
+    Broader alpha benchmark matrix using MLX E2B as the Apple Silicon local default,
+    HF E2B for explicit thinking-mode slices, and a reserved HF E4B probe lane.
+  experiments:
+    - id: mlx_e2b_monolith_thinking_clean
+      pipeline: monolith
+      track: thinking
+      backend: mlx
+      reasoner_backend: mlx
+      reasoner: google/gemma-4-E2B-it
+      reasoner_device: mps
+      max_new_tokens: 48
+      thinking: false
+      variants: false
+      notes:
+        - Local default reasoning baseline for text and image thinking tasks.
+    - id: mlx_e2b_monolith_tool_routing_clean
+      pipeline: monolith
+      track: tool_routing
+      backend: mlx
+      reasoner_backend: mlx
+      reasoner: google/gemma-4-E2B-it
+      reasoner_device: mps
+      max_new_tokens: 48
+      thinking: false
+      variants: false
+      notes:
+        - Local default structured tool-use baseline.
+    - id: mlx_e2b_hybrid_retrieval_clean
+      pipeline: hybrid
+      track: retrieval
+      backend: mlx
+      reasoner_backend: mlx
+      retriever_backend: heuristic
+      reasoner: google/gemma-4-E2B-it
+      retriever: google/embeddinggemma-300m
+      reasoner_device: mps
+      max_new_tokens: 48
+      thinking: false
+      variants: false
+      notes:
+        - Uses MLX for the reasoner and heuristic retrieval in the local default sweep.
+        - HF EmbeddingGemma access is gated on this machine and tracked separately.
+    - id: mlx_e2b_modular_full_stack_clean
+      pipeline: modular
+      track: full_stack
+      backend: mlx
+      reasoner_backend: mlx
+      router_backend: heuristic
+      retriever_backend: heuristic
+      reasoner: google/gemma-4-E2B-it
+      router: google/functiongemma-270m-it
+      retriever: google/embeddinggemma-300m
+      reasoner_device: mps
+      max_new_tokens: 48
+      planning_max_new_tokens: 48
+      final_max_new_tokens: 96
+      thinking: false
+      variants: false
+      notes:
+        - Uses heuristic routing until local FunctionGemma execution is validated.
+        - Uses a larger final-answer budget so end-to-end summaries do not truncate after correct tool execution.
+    - id: hf_e2b_monolith_thinking_off_clean
+      pipeline: monolith
+      track: thinking
+      backend: hf
+      reasoner_backend: hf
+      reasoner: google/gemma-4-E2B-it
+      reasoner_device: mps
+      max_new_tokens: 64
+      thinking: false
+      variants: false
+      notes:
+        - HF reference slice without thinking for direct comparison.
+    - id: hf_e2b_monolith_thinking_on_clean
+      pipeline: monolith
+      track: thinking
+      backend: hf
+      reasoner_backend: hf
+      reasoner: google/gemma-4-E2B-it
+      reasoner_device: mps
+      max_new_tokens: 384
+      thinking: true
+      variants: false
+      notes:
+        - HF native thinking slice on the full thinking track.
+        - Uses a larger token budget because thought and final answer share the same decode path in the local HF runner.
+        - Increased from 256 to 384 after observing repeated thinking-overflow truncation on clean tasks.
+  probes:
+    - id: hf_e4b_probe_cached
+      kind: smoke_probe
+      backend: hf
+      model: google/gemma-4-E4B-it
+      source: results/raw/hf_smoke_e4b.json
+      notes:
+        - Reserved local probe lane for E4B on this Mac.

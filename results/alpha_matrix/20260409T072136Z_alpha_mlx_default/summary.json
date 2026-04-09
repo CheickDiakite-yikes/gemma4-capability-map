@@ -1,0 +1,113 @@
+{
+  "run_group_id": "20260409T072136Z",
+  "matrix_name": "alpha_mlx_default",
+  "experiments": [
+    {
+      "runs": 4.0,
+      "success_rate": 0.5,
+      "avg_latency_ms": 8010.75,
+      "avg_prompt_tokens": 523.0,
+      "avg_completion_tokens": 52.75,
+      "run_group_id": "20260409T072136Z",
+      "matrix_name": "alpha_mlx_default",
+      "experiment_id": "mlx_e2b_monolith_tool_routing_clean",
+      "pipeline": "monolith",
+      "track": "tool_routing",
+      "backend": "mlx",
+      "reasoner_backend": "mlx",
+      "router_backend": null,
+      "retriever_backend": null,
+      "reasoner": "google/gemma-4-E2B-it",
+      "router": null,
+      "retriever": null,
+      "max_new_tokens": 48,
+      "thinking_enabled": false,
+      "variants": false,
+      "status": "failed",
+      "completed_runs": 4,
+      "total_runs": 10,
+      "remaining_runs": 6,
+      "notes": [
+        "Local default structured tool-use baseline."
+      ],
+      "last_run_id": "20260409T072208Z_monolith_tool_004_repo_read_tool_004_repo_read_clean",
+      "last_task_id": "tool_004_repo_read",
+      "last_variant_id": "tool_004_repo_read_clean",
+      "error": "KeyError: 'Image not found: screenshot'"
+    },
+    {
+      "runs": 10.0,
+      "success_rate": 0.6,
+      "avg_latency_ms": 3426.5,
+      "avg_prompt_tokens": 241.6,
+      "avg_completion_tokens": 38.0,
+      "run_group_id": "20260409T072136Z",
+      "matrix_name": "alpha_mlx_default",
+      "experiment_id": "mlx_e2b_modular_full_stack_clean",
+      "pipeline": "modular",
+      "track": "full_stack",
+      "backend": "mlx",
+      "reasoner_backend": "mlx",
+      "router_backend": "heuristic",
+      "retriever_backend": "heuristic",
+      "reasoner": "google/gemma-4-E2B-it",
+      "router": "google/functiongemma-270m",
+      "retriever": "google/embeddinggemma-300m",
+      "max_new_tokens": 48,
+      "thinking_enabled": false,
+      "variants": false,
+      "status": "completed",
+      "completed_runs": 10,
+      "total_runs": 10,
+      "remaining_runs": 0,
+      "notes": [
+        "Uses heuristic routing until local FunctionGemma execution is validated."
+      ],
+      "last_run_id": "20260409T072246Z_modular_agent_010_parallel_audit_patch_agent_010_parallel_audit_patch_clean",
+      "last_task_id": "agent_010_parallel_audit_patch",
+      "last_variant_id": "agent_010_parallel_audit_patch_clean"
+    }
+  ],
+  "probes": [
+    {
+      "id": "hf_e4b_probe_cached",
+      "kind": "smoke_probe",
+      "backend": "hf",
+      "model": "google/gemma-4-E4B-it",
+      "source": "/Users/cheickdiakite/Codex/moonie/results/raw/hf_smoke_e4b.json",
+      "status": "completed",
+      "load_elapsed_ms": 1597752,
+      "runtime_device": "mps",
+      "load_mode": "vision",
+      "notes": [
+        "Reserved local probe lane for E4B on this Mac."
+      ]
+    }
+  ],
+  "improvements": [
+    {
+      "experiment_id": "mlx_e2b_monolith_tool_routing_clean",
+      "current_run_group_id": "20260409T072136Z",
+      "previous_run_group_id": "20260409T070145Z",
+      "success_rate_delta": 0.5,
+      "avg_latency_ms_delta": 4863.35,
+      "latency_improvement_ms": -4863.35,
+      "current_success_rate": 0.5,
+      "previous_success_rate": 0.0,
+      "current_avg_latency_ms": 8010.75,
+      "previous_avg_latency_ms": 3147.4
+    },
+    {
+      "experiment_id": "mlx_e2b_modular_full_stack_clean",
+      "current_run_group_id": "20260409T072136Z",
+      "previous_run_group_id": "20260409T070145Z",
+      "success_rate_delta": 0.6,
+      "avg_latency_ms_delta": 1135.6,
+      "latency_improvement_ms": -1135.6,
+      "current_success_rate": 0.6,
+      "previous_success_rate": 0.0,
+      "current_avg_latency_ms": 3426.5,
+      "previous_avg_latency_ms": 2290.9
+    }
+  ]
+}

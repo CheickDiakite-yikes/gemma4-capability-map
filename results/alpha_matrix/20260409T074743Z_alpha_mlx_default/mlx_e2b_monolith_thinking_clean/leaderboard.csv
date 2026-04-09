@@ -1,0 +1,11 @@
+run_id,task_id,variant_id,track,architecture,backend,thinking_enabled,language_stressor,schema_stressor,context_stressor,efficiency_stressor,answer_match,avoidable_retries,completion_tokens,controller_repair_count,exact_match,hallucinated_tool_rate,latency_ms,malformed_call_rate,prompt_tokens,steps_taken,success
+20260409T074802Z_monolith_think_001_math_think_001_math_clean,think_001_math,think_001_math_clean,thinking,monolith,mlx,False,,,,,1.0,0,12,0,1.0,0.0,19241,0.0,19,0,1.0
+20260409T074804Z_monolith_think_002_discount_think_002_discount_clean,think_002_discount,think_002_discount_clean,thinking,monolith,mlx,False,,,,,0.0,0,48,0,0.0,0.0,1173,0.0,30,0,0.0
+20260409T074804Z_monolith_think_003_policy_reasoning_think_003_policy_reasoning_clean,think_003_policy_reasoning,think_003_policy_reasoning_clean,thinking,monolith,mlx,False,,,,,1.0,0,22,0,1.0,0.0,689,0.0,88,0,1.0
+20260409T074806Z_monolith_think_004_code_fix_think_004_code_fix_clean,think_004_code_fix,think_004_code_fix_clean,thinking,monolith,mlx,False,,,,,0.0,0,48,0,0.0,0.0,1346,0.0,25,0,0.0
+20260409T074806Z_monolith_think_005_release_owner_think_005_release_owner_clean,think_005_release_owner,think_005_release_owner_clean,thinking,monolith,mlx,False,,,,,1.0,0,12,0,1.0,0.0,424,0.0,63,0,1.0
+20260409T074808Z_monolith_think_006_screenshot_security_think_006_screenshot_security_clean,think_006_screenshot_security,think_006_screenshot_security_clean,thinking,monolith,mlx,False,,,,,1.0,0,48,0,1.0,0.0,2216,0.0,301,0,1.0
+20260409T074811Z_monolith_think_007_doc_image_summary_think_007_doc_image_summary_clean,think_007_doc_image_summary,think_007_doc_image_summary_clean,thinking,monolith,mlx,False,,,,,1.0,0,48,0,1.0,0.0,2363,0.0,298,0,1.0
+20260409T074812Z_monolith_think_008_schedule_choice_think_008_schedule_choice_clean,think_008_schedule_choice,think_008_schedule_choice_clean,thinking,monolith,mlx,False,,,,,1.0,0,48,0,1.0,0.0,1407,0.0,33,0,1.0
+20260409T074813Z_monolith_think_009_budget_summary_think_009_budget_summary_clean,think_009_budget_summary,think_009_budget_summary_clean,thinking,monolith,mlx,False,,,,,1.0,0,18,0,1.0,0.0,719,0.0,56,0,1.0
+20260409T074814Z_monolith_think_010_repo_reasoning_think_010_repo_reasoning_clean,think_010_repo_reasoning,think_010_repo_reasoning_clean,thinking,monolith,mlx,False,,,,,0.0,0,48,0,0.0,0.0,1525,0.0,30,0,0.0

@@ -1,0 +1,96 @@
+matrix:
+  name: alpha_real_world
+  description: >
+    Real-world autonomy probe focused on bounded, job-like tasks where the model
+    must preserve state, recover without human correction, and synthesize the
+    right action from text, tools, and screenshots.
+  experiments:
+    - id: hf_e2b_real_world_thinking_variants
+      pipeline: monolith
+      track: thinking
+      execution_mode: subprocess
+      backend: hf
+      reasoner_backend: hf_service
+      reasoner: google/gemma-4-E2B-it
+      reasoner_device: mps
+      max_new_tokens: 64
+      timeout_minutes: 30
+      thinking: false
+      variants: true
+      task_ids:
+        - think_013_prod_approval_escalation
+      notes:
+        - Real-world judgment slice for escalation decisions without tool use.
+    - id: hf_e2b_real_world_retrieval_variants
+      pipeline: hybrid
+      track: retrieval
+      execution_mode: subprocess
+      backend: hf
+      reasoner_backend: hf_service
+      retriever_backend: hf
+      reasoner: google/gemma-4-E2B-it
+      retriever: google/embeddinggemma-300m
+      reasoner_device: mps
+      max_new_tokens: 64
+      timeout_minutes: 45
+      thinking: false
+      variants: true
+      task_ids:
+        - retr_003_incident_multimodal
+        - retr_011_approval_policy
+        - retr_012_rollout_toggle_multimodal
+        - retr_013_vendor_access_defer
+      notes:
+        - Real-world retrieval slice where evidence quality and final answer quality are reported separately.
+        - Includes multilingual and multimodal production-risk questions.
+    - id: hf_e2b_real_world_routing_variants
+      pipeline: modular
+      track: tool_routing
+      execution_mode: subprocess
+      backend: hf
+      reasoner_backend: hf_service
+      router_backend: hf
+      retriever_backend: heuristic
+      reasoner: google/gemma-4-E2B-it
+      router: google/functiongemma-270m-it
+      reasoner_device: mps
+      max_new_tokens: 48
+      planning_max_new_tokens: 48
+      final_max_new_tokens: 64
+      timeout_minutes: 45
+      thinking: false
+      variants: true
+      task_ids:
+        - tool_009_parallel_context_check
+        - tool_010_validator_ready
+        - tool_012_billing_patch_record
+        - tool_013_refuse_unsafe_billing_disable
+      notes:
+        - Job-like routing slice that stresses validator feedback, parallel evidence gathering, and high-cost billing patch intents.
+    - id: hf_e2b_real_world_full_stack_variants
+      pipeline: modular
+      track: full_stack
+      execution_mode: subprocess
+      backend: hf
+      reasoner_backend: hf_service
+      router_backend: hf
+      retriever_backend: hf
+      reasoner: google/gemma-4-E2B-it
+      router: google/functiongemma-270m-it
+      retriever: google/embeddinggemma-300m
+      reasoner_device: mps
+      max_new_tokens: 48
+      planning_max_new_tokens: 48
+      final_max_new_tokens: 96
+      timeout_minutes: 45
+      thinking: false
+      variants: true
+      task_ids:
+        - agent_002_reschedule_sarah
+        - agent_010_parallel_audit_patch
+        - agent_011_runbook_guided_patch
+        - agent_012_billing_guardrail_patch
+        - agent_013_ambiguous_vendor_defer
+      notes:
+        - Bounded-autonomy full-stack slice aimed at human-job-like operational work.
+        - Measures strict interface correctness, recovered execution, and real-world readiness together.
