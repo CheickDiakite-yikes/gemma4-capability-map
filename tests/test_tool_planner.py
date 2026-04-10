@@ -456,3 +456,86 @@ def test_planner_repairs_visual_region_placeholder_without_overwriting_image_id(
     assert repaired[0].name == "read_region_text"
     assert repaired[0].arguments == {"image_id": "img-form-phone", "region_id": "form-err-002"}
     assert "repaired_arguments:read_region_text" in notes
+
+
+def test_planner_rejects_refine_selection_without_prior_visual_selection() -> None:
+    messages = [
+        Message(role="system", content="visual_image_ids: img-form-live-phone"),
+        Message(
+            role="user",
+            content="Using the local visual executor path, narrow the live application errors to the phone issue and read back that message.",
+        ),
+    ]
+
+    repaired, notes = plan_or_repair_tool_calls(
+        raw_output='{"name":"refine_selection","arguments":{"selection_id":"sel-001","filter_query":"phone"}}',
+        parsed_calls=[
+            ToolCall(
+                name="refine_selection",
+                arguments={"selection_id": "sel-001", "filter_query": "phone"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+        messages=messages,
+        media=["img-form-live-phone"],
+        tool_specs=[SPECS["extract_layout"], SPECS["refine_selection"], SPECS["read_region_text"]],
+    )
+
+    assert repaired[0].name == "extract_layout"
+    assert repaired[0].arguments == {"image_id": "img-form-live-phone", "target_query": "validation error"}
+    assert "controller_fallback_planner" in notes
+
+
+def test_planner_repairs_visual_region_from_latest_local_refinement_context() -> None:
+    messages = [
+        Message(role="system", content="visual_image_ids: img-form-live-phone"),
+        Message(
+            role="user",
+            content="Using the local visual executor path, narrow the live application errors to the phone issue and read back that message.",
+        ),
+        Message(
+            role="tool",
+            content='{"tool_name":"extract_layout","status":"pass","arguments":{"image_id":"img-form-live-phone","target_query":"validation error"},"output":{"selection_id":"sel-001","region_ids":["form-err-001","form-err-002"],"region_id":"form-err-001"}}',
+        ),
+        Message(
+            role="tool",
+            content='{"tool_name":"refine_selection","status":"pass","arguments":{"selection_id":"sel-001","filter_query":"phone"},"output":{"selection_id":"sel-002","image_id":"img-form-live-phone","region_ids":["form-err-002"]}}',
+        ),
+    ]
+
+    repaired, notes = plan_or_repair_tool_calls(
+        raw_output='call:tool_name{arg:<escape>value<escape>}{"name":"read_region_text","arguments":{"image_id":"data/assets/visual_form.png","region_id":"sel-001"}}',
+        parsed_calls=[
+            ToolCall(
+                name="read_region_text",
+                arguments={"image_id": "data/assets/visual_form.png", "region_id": "sel-001"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+        messages=messages,
+        media=["img-form-live-phone"],
+        tool_specs=[SPECS["extract_layout"], SPECS["refine_selection"], SPECS["read_region_text"]],
+    )
+
+    assert repaired[0].name == "read_region_text"
+    assert repaired[0].arguments == {"image_id": "img-form-live-phone", "region_id": "form-err-002"}
+    assert "repaired_arguments:read_region_text" in notes
+
+
+def test_planner_uses_slide_callout_target_for_policy_revision_tasks() -> None:
+    calls = plan_tool_calls(
+        messages=[
+            Message(role="system", content="visual_image_ids: img-slide-policy"),
+            Message(
+                role="user",
+                content="Inspect the slide callouts, keep only the action callout, and use it to revise the recommendation with the latest policy.",
+            ),
+        ],
+        media=["img-slide-policy"],
+        tool_specs=[SPECS["extract_layout"], SPECS["refine_selection"], SPECS["read_region_text"]],
+    )
+
+    assert calls[0].name == "extract_layout"
+    assert calls[0].arguments == {"image_id": "img-slide-policy", "target_query": "slide callout"}

@@ -161,13 +161,22 @@ Exploratory stopped pilot:
     - `kwa_jobs_live_visual_form_hold`
     - `kwa_finance_live_visual_invoice_hold`
 - The dashboard stale-selection regression is closed in the planner/controller path; do not resume from the earlier conclusion that `kwa_exec_visual_dashboard_brief` was the blocker for the in-process specialist lane.
-- The current concentrated misses for `hf_gemma4_e2b_specialists_cpu` are:
-  - replayable:
-    - `kwa_finance_visual_invoice_hold`
-  - live:
-    - `kwa_finance_live_visual_invoice_hold`
-    - `kwa_jobs_live_visual_form_hold`
-- That means the next debugging target is no longer “run the direct-HF specialists full lane.” That work is done. The next target is to isolate why those remaining visual invoice/form episodes still lose `strict_interface` or `recovered_execution` under the in-process specialist path.
+- The visual invoice/form referent-repair regression is now closed in bounded reruns for both service-backed and direct-HF specialist paths:
+  - replayable service-backed:
+    - `results/knowledge_work/model_backed_hf_service_specialists_smoke_finance_visual_replayable_v1`
+  - live service-backed:
+    - `results/knowledge_work/model_backed_hf_service_specialists_smoke_finance_visual_live_v1`
+    - `results/knowledge_work/model_backed_hf_service_specialists_smoke_jobs_visual_live_v1`
+  - replayable direct-HF specialists:
+    - `results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_finance_visual_replayable_v2`
+  - live direct-HF specialists:
+    - `results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_finance_visual_live_v2`
+    - `results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_jobs_visual_live_v2`
+- Those targeted reruns now show `strict_interface = 1.0` and `recovered_execution = 1.0` on all three previously failing episodes.
+- The remaining weakness on the invoice pair is shared by the service-backed control: `artifact_quality = 0.7692`. Treat that as a softer artifact/readiness target, not as an open visual orchestration failure.
+- The next target is therefore:
+  - rerun the direct-HF specialist full `24 / 18` lane when we want the broad comparison rows refreshed
+  - then harden invoice artifact quality and revision/readiness scoring instead of re-debugging the closed referent-repair path
 - The new atomic visual-tool benchmark is canonical at `results/visual_tool_orchestration/...`; use it when making claims about multimodal tool orchestration rather than inferring from KWA alone.
 - The board/reporting layer now depends on [`configs/model_registry.yaml`](../../configs/model_registry.yaml) plus the exports in [`results/history`](../../results/history); update both when adding new systems or public-style charts.
 - `kwa_finance_partner_deck_revision` is clean on the current corrected mixed-pressure visual reference; if it regresses again, treat it as a soft-realism target, not a hard interface failure.

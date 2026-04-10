@@ -1,0 +1,267 @@
+{
+  "run_group_id": "20260410T220308Z_live_web_stress",
+  "created_at": "20260410T220308Z",
+  "lane": "live_web_stress",
+  "system_id": "hf_service_gemma4_specialists_cpu",
+  "backend": "hf_service",
+  "reasoner_backend": "hf_service",
+  "router_backend": "hf",
+  "retriever_backend": "hf",
+  "reasoner": "google/gemma-4-E2B-it",
+  "router": "google/functiongemma-270m-it",
+  "retriever": "google/embeddinggemma-300m",
+  "reasoner_device": "mps",
+  "router_device": "cpu",
+  "retriever_device": "cpu",
+  "thinking": false,
+  "limit": 1,
+  "episode_count": 1,
+  "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
+  "runtime_bundle": {
+    "reasoner": {
+      "backend": "hf_service",
+      "requested_model": "google/gemma-4-E2B-it",
+      "effective_model": "google/gemma-4-E2B-it",
+      "runtime_device": "mps",
+      "load_mode": "vision",
+      "configured_device": "mps",
+      "service": {
+        "service_id": "google__gemma_4_E2B_it_mps",
+        "socket_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/service.sock",
+        "state_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/state.json",
+        "event_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/events.jsonl",
+        "request_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/requests.jsonl",
+        "stdout_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/service.log",
+        "status": "ready",
+        "load_elapsed_ms": 34302,
+        "requests_completed": 4
+      },
+      "service_state": {
+        "service_id": "google__gemma_4_E2B_it_mps",
+        "model_id": "google/gemma-4-E2B-it",
+        "device": "mps",
+        "max_new_tokens": 96,
+        "pid": 77100,
+        "status": "ready",
+        "phase": "hf_load_cached",
+        "created_at": "2026-04-10T22:00:34.397107+00:00",
+        "requests_completed": 4,
+        "requests_failed": 0,
+        "recent_events": [
+          {
+            "created_at": "2026-04-10T22:00:34.398220+00:00",
+            "event": "runner_init",
+            "detail": "Constructing Gemma4Runner for HF service.",
+            "backend": "hf"
+          },
+          {
+            "created_at": "2026-04-10T22:00:34.398409+00:00",
+            "event": "hf_import_start",
+            "detail": "Importing HF runtime dependencies."
+          },
+          {
+            "created_at": "2026-04-10T22:00:38.020310+00:00",
+            "event": "hf_import_complete",
+            "detail": "Imported HF runtime dependencies."
+          },
+          {
+            "created_at": "2026-04-10T22:00:38.020508+00:00",
+            "event": "hf_source_resolution_start",
+            "detail": "Resolving model source and auth."
+          },
+          {
+            "created_at": "2026-04-10T22:00:38.020727+00:00",
+            "event": "hf_load_start",
+            "detail": "Starting HF model load.",
+            "model_mode": "vision",
+            "resolved_source": "google/gemma-4-E2B-it",
+            "local_files_only": false,
+            "auth_token_present": true
+          },
+          {
+            "created_at": "2026-04-10T22:00:38.020871+00:00",
+            "event": "hf_processor_load_start",
+            "detail": "Loading HF processor.",
+            "resolved_source": "google/gemma-4-E2B-it"
+          },
+          {
+            "created_at": "2026-04-10T22:00:40.875760+00:00",
+            "event": "hf_processor_load_complete",
+            "detail": "HF processor loaded.",
+            "resolved_source": "google/gemma-4-E2B-it"
+          },
+          {
+            "created_at": "2026-04-10T22:00:40.894777+00:00",
+            "event": "hf_model_load_start",
+            "detail": "Loading HF model weights.",
+            "runtime_device": "mps"
+          },
+          {
+            "created_at": "2026-04-10T22:00:53.528293+00:00",
+            "event": "hf_model_to_device_start",
+            "detail": "Moving HF model to runtime device.",
+            "runtime_device": "mps"
+          },
+          {
+            "created_at": "2026-04-10T22:01:08.697624+00:00",
+            "event": "hf_model_to_device_complete",
+            "detail": "HF model moved to runtime device.",
+            "runtime_device": "mps"
+          },
+          {
+            "created_at": "2026-04-10T22:01:08.698804+00:00",
+            "event": "hf_model_load_complete",
+            "detail": "HF model weights loaded.",
+            "runtime_device": "mps"
+          },
+          {
+            "created_at": "2026-04-10T22:01:08.699288+00:00",
+            "event": "hf_ready",
+            "detail": "HF runner is ready.",
+            "runtime_device": "mps",
+            "load_mode": "vision",
+            "effective_model": "google/gemma-4-E2B-it"
+          },
+          {
+            "created_at": "2026-04-10T22:01:08.700613+00:00",
+            "event": "service_ready",
+            "detail": "HF reasoner service is ready to accept requests.",
+            "load_elapsed_ms": 34302
+          },
+          {
+            "created_at": "2026-04-10T22:01:21.259181+00:00",
+            "event": "hf_import_start",
+            "detail": "Importing HF runtime dependencies."
+          },
+          {
+            "created_at": "2026-04-10T22:01:21.261740+00:00",
+            "event": "hf_import_complete",
+            "detail": "Imported HF runtime dependencies."
+          },
+          {
+            "created_at": "2026-04-10T22:01:21.262111+00:00",
+            "event": "hf_load_cached",
+            "detail": "Reusing already loaded HF model.",
+            "model_mode": "vision"
+          },
+          {
+            "created_at": "2026-04-10T22:01:36.183266+00:00",
+            "event": "hf_import_start",
+            "detail": "Importing HF runtime dependencies."
+          },
+          {
+            "created_at": "2026-04-10T22:01:36.183954+00:00",
+            "event": "hf_import_complete",
+            "detail": "Imported HF runtime dependencies."
+          },
+          {
+            "created_at": "2026-04-10T22:01:36.184154+00:00",
+            "event": "hf_load_cached",
+            "detail": "Reusing already loaded HF model.",
+            "model_mode": "vision"
+          },
+          {
+            "created_at": "2026-04-10T22:02:35.780688+00:00",
+            "event": "hf_import_start",
+            "detail": "Importing HF runtime dependencies."
+          },
+          {
+            "created_at": "2026-04-10T22:02:35.781549+00:00",
+            "event": "hf_import_complete",
+            "detail": "Imported HF runtime dependencies."
+          },
+          {
+            "created_at": "2026-04-10T22:02:35.781849+00:00",
+            "event": "hf_load_cached",
+            "detail": "Reusing already loaded HF model.",
+            "model_mode": "vision"
+          },
+          {
+            "created_at": "2026-04-10T22:02:50.809053+00:00",
+            "event": "hf_import_start",
+            "detail": "Importing HF runtime dependencies."
+          },
+          {
+            "created_at": "2026-04-10T22:02:50.810239+00:00",
+            "event": "hf_import_complete",
+            "detail": "Imported HF runtime dependencies."
+          },
+          {
+            "created_at": "2026-04-10T22:02:50.810482+00:00",
+            "event": "hf_load_cached",
+            "detail": "Reusing already loaded HF model.",
+            "model_mode": "vision"
+          }
+        ],
+        "last_event_at": "2026-04-10T22:02:50.810482+00:00",
+        "heartbeat_at": "2026-04-10T22:02:50.810482+00:00",
+        "load_elapsed_ms": 34302,
+        "ready_at": "2026-04-10T22:01:08.700532+00:00",
+        "runtime_info": {
+          "backend": "hf",
+          "requested_model": "google/gemma-4-E2B-it",
+          "effective_model": "google/gemma-4-E2B-it",
+          "runtime_device": "mps",
+          "load_mode": "vision",
+          "configured_device": "mps",
+          "service": {}
+        },
+        "last_request_at": "2026-04-10T22:02:54.339483+00:00",
+        "last_request_id": "google__gemma_4_E2B_it_mps_1775858570809",
+        "last_request_elapsed_ms": 3530
+      }
+    },
+    "router": {
+      "backend": "hf",
+      "requested_model": "google/functiongemma-270m-it",
+      "effective_model": "google/functiongemma-270m-it",
+      "runtime_device": "cpu",
+      "configured_device": "cpu"
+    },
+    "retriever": {
+      "backend": "hf",
+      "requested_model": "google/embeddinggemma-300m",
+      "effective_model": "google/embeddinggemma-300m",
+      "loaded": true,
+      "configured_device": "cpu",
+      "runtime_device": "cpu"
+    }
+  },
+  "run_intent": "exploratory",
+  "warmup": {
+    "reasoner": {
+      "backend": "hf_service",
+      "requested_model": "google/gemma-4-E2B-it",
+      "effective_model": "google/gemma-4-E2B-it",
+      "runtime_device": "mps",
+      "load_mode": "vision",
+      "configured_device": "mps",
+      "service": {
+        "service_id": "google__gemma_4_E2B_it_mps",
+        "socket_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/service.sock",
+        "state_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/state.json",
+        "event_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/events.jsonl",
+        "request_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/requests.jsonl",
+        "stdout_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/service.log",
+        "status": "ready",
+        "load_elapsed_ms": 34302,
+        "requests_completed": 4
+      }
+    },
+    "router": {
+      "backend": "hf",
+      "requested_model": "google/functiongemma-270m-it",
+      "effective_model": "google/functiongemma-270m-it",
+      "runtime_device": "cpu",
+      "configured_device": "cpu"
+    },
+    "retriever": {
+      "backend": "hf",
+      "requested_model": "google/embeddinggemma-300m",
+      "effective_model": "google/embeddinggemma-300m",
+      "loaded": true,
+      "configured_device": "cpu",
+      "runtime_device": "cpu"
+    }
+  }
+}

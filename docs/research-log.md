@@ -2,6 +2,63 @@
 
 ## 2026-04-10
 
+### Bounded replayable/live reruns closed the visual invoice/form execution failures
+
+- Started from the concentrated direct-HF specialist misses in:
+  - `kwa_finance_visual_invoice_hold`
+  - `kwa_finance_live_visual_invoice_hold`
+  - `kwa_jobs_live_visual_form_hold`
+- Compared current-contract episode specs against the older full-lane service-backed traces and found a benchmarking drift issue:
+  - current invoice stage-2 episodes now point to `visual_015_slide_policy_revision_pressure` and `visual_018_live_slide_policy_revision_pressure`
+  - older full-lane service-backed traces were still using the pre-visual stage-2 path, so those broad rows were not exact apples-to-apples controls for the current episode contract
+- Hardened the planner/controller path in [`planner.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/tools/planner.py):
+  - stop defaulting `refine_selection` to fake `sel-001`
+  - stop defaulting `read_region_text` to placeholder region ids
+  - infer `slide callout` instead of collapsing slide-policy revision tasks back to `risk callout`
+  - add semantic preconditions so `refine_selection` and `read_region_text` must bind to the latest valid visual selection context
+  - force visual repair to use the latest logical `image_id` and region instead of stale asset-path or placeholder-shaped arguments
+- Added targeted regressions in [`tests/test_tool_planner.py`](/Users/cheickdiakite/Codex/moonie/tests/test_tool_planner.py):
+  - reject `refine_selection` with no prior visual selection
+  - repair `read_region_text` from the latest local refinement context
+  - preserve `slide callout` targets for policy-revision tasks
+- Verification after the planner hardening:
+  - targeted planner/visual/KWA tests: `55 passed`
+- Reran bounded controls sequentially to keep machine load safe after the earlier hard shutdown:
+  - service-backed replayable invoice:
+    - [`results/knowledge_work/model_backed_hf_service_specialists_smoke_finance_visual_replayable_v1/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_service_specialists_smoke_finance_visual_replayable_v1/summary.json)
+    - `artifact_quality_avg = 0.7692`
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 1.0`
+  - service-backed live invoice:
+    - [`results/knowledge_work/model_backed_hf_service_specialists_smoke_finance_visual_live_v1/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_service_specialists_smoke_finance_visual_live_v1/summary.json)
+    - `artifact_quality_avg = 0.7692`
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 1.0`
+  - service-backed live jobs form:
+    - [`results/knowledge_work/model_backed_hf_service_specialists_smoke_jobs_visual_live_v1/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_service_specialists_smoke_jobs_visual_live_v1/summary.json)
+    - `artifact_quality_avg = 1.0`
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 1.0`
+  - direct-HF specialists replayable invoice:
+    - [`results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_finance_visual_replayable_v2/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_finance_visual_replayable_v2/summary.json)
+    - `artifact_quality_avg = 0.7692`
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 1.0`
+  - direct-HF specialists live invoice:
+    - [`results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_finance_visual_live_v2/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_finance_visual_live_v2/summary.json)
+    - `artifact_quality_avg = 0.7692`
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 1.0`
+  - direct-HF specialists live jobs form:
+    - [`results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_jobs_visual_live_v2/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_jobs_visual_live_v2/summary.json)
+    - `artifact_quality_avg = 1.0`
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 1.0`
+- Interpretation:
+  - the remaining visual invoice/form bug family is closed as an execution/controller issue
+  - the invoice pair still carries a softer `artifact_quality_avg = 0.7692`, but that weakness is shared by the service-backed control and therefore should now be treated as an artifact/readiness target rather than an in-process-only orchestration failure
+  - the broad direct-HF specialist full-lane references are now known to be stale for those rows and should be refreshed with a future full `24 / 18` rerun when we want the board rows to reflect the fix
+
 ### Direct-HF specialist-backed full-lane comparison after the visual stale-selection planner fix
 
 - Fixed the visual planner/controller follow-up path in [`planner.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/tools/planner.py):

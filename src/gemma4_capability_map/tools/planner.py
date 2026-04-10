@@ -171,7 +171,7 @@ def _repair_tool_call(
     inferred_arguments = _project_arguments_to_schema(_infer_arguments(context, repaired_name), schema_properties)
     valid, _ = validate_tool_call(candidate, tool_specs)
     override_valid_arguments = _should_override_valid_arguments(candidate, inferred_arguments, context)
-    if valid and repaired_name == call.name and not override_valid_arguments:
+    if valid and repaired_name == call.name and not override_valid_arguments and _passes_semantic_preconditions(candidate, context):
         if candidate.arguments != call.arguments:
             notes.append(f"repaired_arguments:{repaired_name}")
         return candidate, notes
@@ -188,14 +188,14 @@ def _repair_tool_call(
         raw=raw_output,
     )
     valid, _ = validate_tool_call(merged, tool_specs)
-    if valid:
+    if valid and _passes_semantic_preconditions(merged, context):
         if merged.arguments != call.arguments:
             notes.append(f"repaired_arguments:{repaired_name}")
         return merged, notes
 
     inferred_only = _heuristic_call(repaired_name, inferred_arguments, raw_hint="repair")
     valid, _ = validate_tool_call(inferred_only, tool_specs)
-    if valid:
+    if valid and _passes_semantic_preconditions(inferred_only, context):
         notes.append(f"repaired_arguments:{repaired_name}")
         return inferred_only.model_copy(update={"raw": raw_output}), notes
     return None, notes
@@ -214,11 +214,18 @@ def _merge_repaired_arguments(
     inferred_arguments: dict[str, Any],
 ) -> dict[str, Any]:
     merged = dict(provided_arguments)
-    if tool_name in {"refine_selection", "read_region_text"}:
-        for key, inferred_value in inferred_arguments.items():
-            current_value = merged.get(key)
-            if current_value in (None, "") or (isinstance(current_value, str) and current_value.startswith("$")):
-                merged[key] = inferred_value
+    if tool_name == "refine_selection":
+        merged["selection_id"] = inferred_arguments.get("selection_id", "")
+        current_filter = merged.get("filter_query")
+        if "filter_query" in inferred_arguments and (
+            current_filter in (None, "") or (isinstance(current_filter, str) and current_filter.startswith("$"))
+        ):
+            merged["filter_query"] = inferred_arguments["filter_query"]
+        return merged
+
+    if tool_name == "read_region_text":
+        merged["image_id"] = inferred_arguments.get("image_id", "")
+        merged["region_id"] = inferred_arguments.get("region_id", "")
         return merged
 
     merged.update(inferred_arguments)
@@ -280,7 +287,10 @@ def _initial_calls(context: dict[str, Any], tool_specs: list[ToolSpec]) -> list[
     if "inspect_image" in tool_names and _contains_any(user_text, ["screenshot", "image", "look at", "inspect"]):
         return [_heuristic_call("inspect_image", _infer_arguments(context, "inspect_image"))]
 
-    if "extract_layout" in tool_names and _contains_any(user_text, ["table", "form", "dashboard", "layout", "slide", "callout", "metric", "invoice"]):
+    if "extract_layout" in tool_names and _contains_any(
+        user_text,
+        ["table", "form", "dashboard", "layout", "slide", "callout", "metric", "invoice", "validation", "error", "errors"],
+    ):
         return [_heuristic_call("extract_layout", _infer_arguments(context, "extract_layout"))]
 
     if "segment_entities" in tool_names and _contains_any(user_text, ["segment", "vehicles", "cars", "slots", "exits", "all "]):
@@ -394,7 +404,21 @@ def _next_calls_from_feedback(context: dict[str, Any], tool_specs: list[ToolSpec
     if latest_tool in {"extract_layout", "refine_selection"} and "read_region_text" in tool_names:
         if not pending_visual_filter and _contains_any(
             user_text,
-            ["read", "text", "table", "invoice", "totals", "validation", "what does it say", "tell me what it says"],
+            [
+                "read",
+                "text",
+                "table",
+                "invoice",
+                "totals",
+                "validation",
+                "what does it say",
+                "tell me what it says",
+                "read back",
+                "message",
+                "recommendation",
+                "policy",
+                "use it",
+            ],
         ):
             return [_heuristic_call("read_region_text", _infer_arguments(context, "read_region_text"))]
 
@@ -541,7 +565,7 @@ def _infer_arguments(context: dict[str, Any], tool_name: str) -> dict[str, Any]:
 
     if tool_name == "refine_selection":
         output = _feedback_output(latest_feedback)
-        selection_id = str(output.get("selection_id", "")) or "sel-001"
+        selection_id = str(output.get("selection_id", ""))
         pending_filter = _next_visual_filter(context)
         if pending_filter:
             filter_query = pending_filter
@@ -567,7 +591,9 @@ def _infer_arguments(context: dict[str, Any], tool_name: str) -> dict[str, Any]:
             query = "invoice totals table"
         elif _contains_any(user_text, ["form", "validation", "error"]):
             query = "validation error"
-        elif _contains_any(user_text, ["slide", "callout", "risk"]):
+        elif _contains_any(user_text, ["slide", "callout"]):
+            query = "slide callout"
+        elif "risk" in user_text:
             query = "risk callout"
         else:
             query = "dashboard metric"
@@ -581,7 +607,7 @@ def _infer_arguments(context: dict[str, Any], tool_name: str) -> dict[str, Any]:
             region_ids = output.get("region_ids", [])
             if isinstance(region_ids, list) and region_ids:
                 region_id = str(region_ids[0])
-        return {"image_id": image_id, "region_id": region_id or "region-001"}
+        return {"image_id": image_id, "region_id": region_id}
 
     if tool_name == "create_event":
         return {
@@ -664,7 +690,13 @@ def _should_override_valid_arguments(call: ToolCall, inferred_arguments: dict[st
         if inferred_arguments.get("entity_query") and not str(call.arguments.get("entity_query", "")).strip():
             return True
     if call.name == "refine_selection":
+        latest_visual_feedback = _latest_visual_selection_feedback(context)
+        if latest_visual_feedback is None:
+            return True
         provided_selection_id = str(call.arguments.get("selection_id", "")).strip()
+        inferred_selection_id = str(inferred_arguments.get("selection_id", "")).strip()
+        if inferred_selection_id and provided_selection_id != inferred_selection_id:
+            return True
         if inferred_arguments.get("selection_id") and (
             not provided_selection_id
             or provided_selection_id.startswith("$")
@@ -680,8 +712,17 @@ def _should_override_valid_arguments(call: ToolCall, inferred_arguments: dict[st
         if inferred_arguments.get("target_query") and not str(call.arguments.get("target_query", "")).strip():
             return True
     if call.name == "read_region_text":
+        latest_visual_feedback = _latest_visual_selection_feedback(context)
+        if latest_visual_feedback is None:
+            return True
         provided_image_id = str(call.arguments.get("image_id", "")).strip()
         provided_region_id = str(call.arguments.get("region_id", "")).strip()
+        inferred_image_id = str(inferred_arguments.get("image_id", "")).strip()
+        inferred_region_id = str(inferred_arguments.get("region_id", "")).strip()
+        if inferred_image_id and provided_image_id and provided_image_id != inferred_image_id:
+            return True
+        if inferred_region_id and provided_region_id and provided_region_id != inferred_region_id:
+            return True
         if inferred_arguments.get("image_id") and not str(call.arguments.get("image_id", "")).strip():
             return True
         if inferred_arguments.get("image_id") and provided_image_id.startswith("$"):
@@ -712,6 +753,39 @@ def _should_override_valid_arguments(call: ToolCall, inferred_arguments: dict[st
             if ":" not in provided_patch or " patch" in provided_patch.lower():
                 return True
     return False
+
+
+def _passes_semantic_preconditions(call: ToolCall, context: dict[str, Any]) -> bool:
+    if call.name == "refine_selection":
+        latest_visual_feedback = _latest_visual_selection_feedback(context)
+        if latest_visual_feedback is None:
+            return False
+        expected_selection_id = str(_feedback_output(latest_visual_feedback).get("selection_id", "")).strip()
+        provided_selection_id = str(call.arguments.get("selection_id", "")).strip()
+        if not provided_selection_id:
+            return False
+        return not expected_selection_id or provided_selection_id == expected_selection_id
+
+    if call.name == "read_region_text":
+        latest_visual_feedback = _latest_visual_selection_feedback(context)
+        if latest_visual_feedback is None:
+            return False
+        output = _feedback_output(latest_visual_feedback)
+        provided_image_id = str(call.arguments.get("image_id", "")).strip()
+        provided_region_id = str(call.arguments.get("region_id", "")).strip()
+        expected_image_id = str(output.get("image_id", "")).strip() or str(context.get("image_hint_id", "")).strip()
+        expected_region_ids = {str(output.get("region_id", "")).strip()}
+        region_ids = output.get("region_ids", [])
+        if isinstance(region_ids, list):
+            expected_region_ids.update(str(region_id).strip() for region_id in region_ids)
+        expected_region_ids.discard("")
+        if not provided_region_id:
+            return False
+        if expected_image_id and provided_image_id != expected_image_id:
+            return False
+        if expected_region_ids and provided_region_id not in expected_region_ids:
+            return False
+    return True
 
 
 def _best_tool_match(user_text: str, tool_specs: list[ToolSpec]) -> ToolSpec:
@@ -831,6 +905,13 @@ def _successful_tool_feedback(context: dict[str, Any]) -> list[dict[str, Any]]:
         for item in context["tool_feedback"]
         if isinstance(item, dict) and str(item.get("status", "")) == "pass"
     ]
+
+
+def _latest_visual_selection_feedback(context: dict[str, Any]) -> dict[str, Any] | None:
+    for item in reversed(_successful_tool_feedback(context)):
+        if str(item.get("tool_name", "")) in {"segment_entities", "extract_layout", "refine_selection"}:
+            return item
+    return None
 
 
 def _latest_successful_feedback(context: dict[str, Any], tool_name: str) -> dict[str, Any] | None:

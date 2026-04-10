@@ -37,20 +37,20 @@ Why:
 
 Focus:
 
-- debug the concentrated direct-HF specialist misses before widening to more systems blindly
-- current worst rows:
-  - replayable:
-    - `kwa_finance_visual_invoice_hold`
-  - live:
-    - `kwa_finance_live_visual_invoice_hold`
-    - `kwa_jobs_live_visual_form_hold`
+- refresh the direct-HF specialist full-lane comparison after the bounded visual invoice/form fix
+- then move the benchmark pressure onto softer realism instead of spending more time on a now-closed controller bug
 
 Why:
 
 - the new full-lane comparison already answered the first-order question:
   - real specialists help the direct-HF path materially
   - but they do not fully close the gap to the `hf_service` specialist-backed baseline
-- the next high-value work is to understand the remaining visual KWA losses, not to immediately pile on more systems with the same unresolved blind spot
+- the bounded replayable/live reruns now show the original visual invoice/form failures recover cleanly to:
+  - `strict_interface = 1.0`
+  - `recovered_execution = 1.0`
+- that means the next high-value work is:
+  - rerun the full direct-HF specialist `24 / 18` lane when we want the board row to reflect the fix
+  - push on the softer invoice artifact gap and richer visual-readiness pressure rather than re-debugging referent repair
 - `mlx` is still blocked locally, so it should not be the next execution target until the runtime exists on this machine
 
 ### 3. Deepen softer-realism scoring and harder episode design
@@ -59,6 +59,7 @@ Focus:
 
 - inspect clean runs that still have bounded role-readiness loss from artifact or revision quality
 - current examples:
+  - invoice visual KWA episodes where `artifact_quality_avg = 0.7692` even after clean execution recovery
   - bounded visual KWA slices with `artifact_quality_avg < 1.0`
   - future visual referent-carryover or stale-selection tasks
   - any regression in revision-heavy finance or jobs artifacts

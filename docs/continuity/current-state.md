@@ -219,13 +219,23 @@ Interpretation:
   - replayable `recovered_execution_avg`: `0.9375 -> 0.9792`
   - live `strict_interface_avg`: `0.9306 -> 0.9514`
   - live `recovered_execution_avg`: `0.9167 -> 0.9444`
-- the remaining losses are still concentrated in a small visual KWA subset rather than the broader non-visual workflow corpus
-- current concentrated misses for `hf_gemma4_e2b_specialists_cpu`:
-  - replayable:
-    - `kwa_finance_visual_invoice_hold`
-  - live:
-    - `kwa_finance_live_visual_invoice_hold`
-    - `kwa_jobs_live_visual_form_hold`
+- the original remaining losses were concentrated in a small visual KWA subset rather than the broader non-visual workflow corpus
+- those concentrated execution failures are now closed in bounded reruns after the planner repair:
+  - replayable service-backed control:
+    - [`results/knowledge_work/model_backed_hf_service_specialists_smoke_finance_visual_replayable_v1/summary.json`](../../results/knowledge_work/model_backed_hf_service_specialists_smoke_finance_visual_replayable_v1/summary.json)
+  - live service-backed controls:
+    - [`results/knowledge_work/model_backed_hf_service_specialists_smoke_finance_visual_live_v1/summary.json`](../../results/knowledge_work/model_backed_hf_service_specialists_smoke_finance_visual_live_v1/summary.json)
+    - [`results/knowledge_work/model_backed_hf_service_specialists_smoke_jobs_visual_live_v1/summary.json`](../../results/knowledge_work/model_backed_hf_service_specialists_smoke_jobs_visual_live_v1/summary.json)
+  - replayable direct-HF specialist control:
+    - [`results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_finance_visual_replayable_v2/summary.json`](../../results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_finance_visual_replayable_v2/summary.json)
+  - live direct-HF specialist controls:
+    - [`results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_finance_visual_live_v2/summary.json`](../../results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_finance_visual_live_v2/summary.json)
+    - [`results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_jobs_visual_live_v2/summary.json`](../../results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_jobs_visual_live_v2/summary.json)
+- those reruns now show:
+  - `strict_interface_avg = 1.0`
+  - `recovered_execution_avg = 1.0`
+  - the remaining invoice weakness is `artifact_quality_avg = 0.7692`, which is shared by the service-backed control and therefore is a softer artifact/readiness issue, not a still-open visual orchestration bug
+- the full-lane in-process specialist references above have not yet been rerun after this narrow fix, so use them as the last broad comparison snapshot, not as the final post-fix state for the visual invoice/form episodes
 - this is a useful deployment-level benchmark result:
   - same base model family
   - different execution path and specialist composition

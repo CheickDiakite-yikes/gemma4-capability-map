@@ -118,13 +118,22 @@ flowchart LR
 
 ## Research Questions
 
-The repo is organized around five research questions:
+The repo is now organized around seven linked research questions:
 
-1. How robust is Gemma 4 reasoning under drift?
-2. Where do interface failures appear before raw reasoning failures?
-3. When does a modular stack beat a monolithic stack?
-4. How much does local runtime posture affect measured capability?
-5. What separates a task-completing agent from a role-ready agent?
+1. **How robust is Gemma 4 reasoning under drift?**
+   We test language drift, stale context, long-history pressure, schema changes, and efficiency constraints to see where reasoning quality actually degrades.
+2. **Where do interface failures appear before raw reasoning failures?**
+   A central claim of the repo is that many agent failures are contract failures first: wrong tool, wrong argument, stale referent, malformed retry, or bad repair.
+3. **When does a specialist stack beat a monolithic stack?**
+   We compare Gemma-only systems against stacks that add FunctionGemma, EmbeddingGemma, and visual executors, then measure where modularity helps and where it adds coordination risk.
+4. **How much does local runtime posture change measured capability?**
+   The same nominal model can behave differently under `hf_service`, direct in-process HF, device placement, and other local runtime choices. The benchmark treats runtime posture as part of the experiment, not a deployment footnote.
+5. **Can a local agent orchestrate visual tools, not just answer multimodal questions?**
+   The `visual_tool_orchestration` track measures whether the agent can choose a visual tool, preserve referents across turns, refine selections, and land the correct final answer under replayable and live conditions.
+6. **What separates recovered task completion from production-safe work?**
+   The benchmark explicitly separates `strict_interface` from `recovered_execution` to answer whether the agent succeeds cleanly or only gets there after repairs that would matter in a real deployment.
+7. **What separates a task-completing agent from a role-ready agent?**
+   `KnowledgeWorkArena` pushes beyond completion into artifact quality, browser behavior, revision responsiveness, escalation judgment, memory retention, and human-time ratio, so the question becomes: can the system do the work in a way a human role would actually accept?
 
 ## Benchmark Surface
 
