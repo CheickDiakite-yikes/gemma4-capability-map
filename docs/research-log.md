@@ -2,6 +2,266 @@
 
 ## 2026-04-10
 
+### Direct-HF specialist-backed full-lane comparison after the visual stale-selection planner fix
+
+- Fixed the visual planner/controller follow-up path in [`planner.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/tools/planner.py):
+  - keep ordered pending visual filters instead of collapsing back to the earliest generic filter
+  - continue `refine_selection` after a successful `refine_selection` when the user request still contains a more specific visual constraint
+  - switch to `read_region_text` only after pending visual refinements are exhausted
+- Added targeted regressions in [`tests/test_tool_planner.py`](/Users/cheickdiakite/Codex/moonie/tests/test_tool_planner.py) for the real stale-selection recovery failure path:
+  - malformed or empty parsed controller output after one successful visual refinement
+  - post-final-refinement readback on the latest region
+- Verified the narrow fix first:
+  - targeted planner + visual tests: `25 passed`
+  - refreshed bounded service-backed visual smokes recovered on the dashboard episode:
+    - [`results/knowledge_work/model_backed_hf_service_specialists_smoke_replayable_refresh_v2/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_service_specialists_smoke_replayable_refresh_v2/summary.json)
+    - [`results/knowledge_work/model_backed_hf_service_specialists_smoke_live_refresh_v2/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_service_specialists_smoke_live_refresh_v2/summary.json)
+  - refreshed bounded direct-HF specialist smokes now match that recovered behavior:
+    - [`results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_replayable_v2/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_replayable_v2/summary.json)
+    - [`results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_live_v2/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_live_v2/summary.json)
+- Ran the full direct in-process HF specialist-backed exploratory references on the full KWA surface:
+  - replayable:
+    - [`results/knowledge_work/model_backed_hf_inprocess_specialists_full_replayable_v1/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_inprocess_specialists_full_replayable_v1/summary.json)
+    - `runs = 24`
+    - `artifact_quality_avg = 0.9834`
+    - `browser_workflow_avg = 0.9910`
+    - `strict_interface_avg = 0.9844`
+    - `recovered_execution_avg = 0.9792`
+    - `real_world_readiness_avg = 0.9452`
+  - live:
+    - [`results/knowledge_work/model_backed_hf_inprocess_specialists_full_live_v1/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_inprocess_specialists_full_live_v1/summary.json)
+    - `runs = 18`
+    - `artifact_quality_avg = 0.9779`
+    - `browser_workflow_avg = 1.0`
+    - `strict_interface_avg = 0.9514`
+    - `recovered_execution_avg = 0.9444`
+    - `real_world_readiness_avg = 0.9460`
+- Comparative interpretation:
+  - adding real specialists materially improves the direct-HF path relative to `hf_gemma4_e2b_reasoner_only`
+  - the recovery is real but incomplete; the direct-HF specialist-backed stack still trails the `hf_service` specialist-backed baseline on the full `24 / 18` surface
+  - the dashboard stale-selection issue is no longer the blocker
+  - the remaining concentrated misses are now:
+    - replayable:
+      - `kwa_finance_visual_invoice_hold`
+    - live:
+      - `kwa_finance_live_visual_invoice_hold`
+      - `kwa_jobs_live_visual_form_hold`
+- Rebuilt the history/board exports after the new comparative rows landed:
+  - [`results/history/knowledge_work_board_latest.csv`](/Users/cheickdiakite/Codex/moonie/results/history/knowledge_work_board_latest.csv)
+  - [`results/history/knowledge_work_history.md`](/Users/cheickdiakite/Codex/moonie/results/history/knowledge_work_history.md)
+
+### Direct-HF full-lane comparison versus the service-backed reasoner baseline
+
+- Added new registry-backed local systems in [`configs/model_registry.yaml`](/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml):
+  - `hf_gemma4_e2b_reasoner_only`
+  - `hf_gemma4_e2b_specialists_cpu`
+- Extended KWA system inference in [`scripts/run_knowledge_work_arena.py`](/Users/cheickdiakite/Codex/moonie/scripts/run_knowledge_work_arena.py) so direct in-process HF reasoner-only and specialist-backed runs resolve to stable `system_id` values instead of anonymous exploratory directories.
+- Added comparison regressions in:
+  - [`tests/test_knowledge_work_arena.py`](/Users/cheickdiakite/Codex/moonie/tests/test_knowledge_work_arena.py)
+  - [`tests/test_knowledge_work_board.py`](/Users/cheickdiakite/Codex/moonie/tests/test_knowledge_work_board.py)
+- Ran the new direct in-process HF reasoner-only full-lane exploratory references:
+  - replayable:
+    - [`results/knowledge_work/model_backed_hf_inprocess_reasoner_full_replayable_v1/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_inprocess_reasoner_full_replayable_v1/summary.json)
+    - `runs = 24`
+    - `artifact_quality_avg = 0.9834`
+    - `browser_workflow_avg = 0.9910`
+    - `strict_interface_avg = 0.9531`
+    - `recovered_execution_avg = 0.9375`
+    - `real_world_readiness_avg = 0.9330`
+  - live:
+    - [`results/knowledge_work/model_backed_hf_inprocess_reasoner_full_live_v1/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_inprocess_reasoner_full_live_v1/summary.json)
+    - `runs = 18`
+    - `artifact_quality_avg = 0.9779`
+    - `browser_workflow_avg = 1.0`
+    - `strict_interface_avg = 0.9306`
+    - `recovered_execution_avg = 0.9167`
+    - `real_world_readiness_avg = 0.9379`
+- Rebuilt history/board exports after the new system landed:
+  - [`results/history/knowledge_work_board_latest.csv`](/Users/cheickdiakite/Codex/moonie/results/history/knowledge_work_board_latest.csv)
+  - [`results/history/knowledge_work_history.md`](/Users/cheickdiakite/Codex/moonie/results/history/knowledge_work_history.md)
+- Comparative interpretation:
+  - the new direct-HF system is materially weaker than the `hf_service_gemma4_reasoner_only` full-lane baseline on both replayable and live lanes
+  - the weakness is not diffuse across the corpus
+  - the misses concentrate in the visual KWA episodes:
+    - replayable:
+      - `kwa_exec_visual_dashboard_brief`
+      - `kwa_jobs_visual_form_hold`
+      - `kwa_finance_visual_invoice_hold`
+    - live:
+      - `kwa_exec_live_visual_dashboard_brief`
+      - `kwa_jobs_live_visual_form_hold`
+      - `kwa_finance_live_visual_invoice_hold`
+  - that is a useful benchmark result because it isolates a deployment/runtime comparison:
+    - same base model family
+    - same benchmark surface
+    - different execution path
+    - different robustness on multimodal, referent-heavy KWA episodes
+- Operational note:
+  - the machine had a hard interruption during earlier probing, so the comparison wave was switched to a safer sequence:
+    - stop duplicate reasoner services
+    - validate a single replayable and a single live episode first
+    - only then run the full `24 / 18` comparison
+- Runtime environment note:
+  - `mlx` is still blocked locally because `scripts/preflight_backends.py` reports `ModuleNotFoundError: mlx`
+  - `google/gemma-4-E4B-it` remains probe-only locally on this Mac and should not be treated as the next full-lane comparison candidate
+
+### Visual tool orchestration, visual KWA slices, and corrected mixed-pressure widening
+
+- Added a new atomic benchmark family, `visual_tool_orchestration`, across:
+  - [`schemas.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/schemas.py)
+  - [`visual_eval.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/evals/visual_eval.py)
+  - [`visual_executor.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/tools/visual_executor.py)
+  - [`registry.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/tools/registry.py)
+  - [`base.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/pipelines/base.py)
+- The new visual tool family now exposes:
+  - `segment_entities(image_id, entity_query)`
+  - `refine_selection(selection_id, filter_query)`
+  - `extract_layout(image_id, target_query)`
+  - `read_region_text(image_id, region_id)`
+- Added a seeded visual executor for canonical scoring and a local visual executor path for live stress, behind the same tool contract so the benchmark measures orchestration instead of bespoke adapter logic.
+- Added a new visual gold corpus in [`visual_tools.jsonl`](/Users/cheickdiakite/Codex/moonie/data/gold/visual_tools.jsonl) plus generated assets from [`make_visual_assets.py`](/Users/cheickdiakite/Codex/moonie/scripts/make_visual_assets.py):
+  - replayable visual tasks: `8`
+  - live visual tasks: `4`
+  - total atomic corpus now: `64` gold tasks, `282` explicit variants
+- Canonical visual atomic lane references:
+  - replayable:
+    - [`results/visual_tool_orchestration/replayable_core/summary.json`](/Users/cheickdiakite/Codex/moonie/results/visual_tool_orchestration/replayable_core/summary.json)
+    - `runs = 8`
+    - `success_rate = 1.0`
+    - `strict_interface_rate = 1.0`
+    - `recovered_execution_rate = 1.0`
+    - `real_world_readiness_avg = 1.0`
+  - live:
+    - [`results/visual_tool_orchestration/live_web_stress/summary.json`](/Users/cheickdiakite/Codex/moonie/results/visual_tool_orchestration/live_web_stress/summary.json)
+    - `runs = 4`
+    - `success_rate = 1.0`
+    - `strict_interface_rate = 1.0`
+    - `recovered_execution_rate = 1.0`
+- Added six job-shaped visual KWA episodes in [`make_knowledge_work_arena.py`](/Users/cheickdiakite/Codex/moonie/scripts/make_knowledge_work_arena.py):
+  - replayable:
+    - `kwa_exec_visual_dashboard_brief`
+    - `kwa_jobs_visual_form_hold`
+    - `kwa_finance_visual_invoice_hold`
+  - live:
+    - `kwa_exec_live_visual_dashboard_brief`
+    - `kwa_jobs_live_visual_form_hold`
+    - `kwa_finance_live_visual_invoice_hold`
+- Bounded oracle visual KWA slices are now available:
+  - replayable:
+    - [`results/knowledge_work/kwa_visual_replayable_oracle_v1/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/kwa_visual_replayable_oracle_v1/summary.json)
+    - `artifact_quality_avg = 0.8932`
+    - `browser_workflow_avg = 0.9782`
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 1.0`
+    - `real_world_readiness_avg = 0.9141`
+  - live:
+    - [`results/knowledge_work/kwa_visual_live_oracle_v1/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/kwa_visual_live_oracle_v1/summary.json)
+    - `artifact_quality_avg = 0.8932`
+    - `browser_workflow_avg = 1.0`
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 1.0`
+    - `real_world_readiness_avg = 0.9165`
+- The first replayable specialist-backed visual KWA slice is now clean at:
+  - [`results/knowledge_work/model_backed_hf_specialists_visual_replayable_v3/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_specialists_visual_replayable_v3/summary.json)
+  - `artifact_quality_avg = 0.8932`
+  - `browser_workflow_avg = 0.9782`
+  - `strict_interface_avg = 1.0`
+  - `recovered_execution_avg = 1.0`
+  - `real_world_readiness_avg = 0.9141`
+- The decisive fixes were benchmark-contract and plumbing fixes, not a deep model change:
+  - the planner needed logical `image_id` hints instead of asset-path-only prompts
+  - visual placeholder values like `$selection` and `$region` needed explicit repair instead of passing through as valid arguments
+  - visual tasks needed the same answer-rescue path used by retrieval/full-stack tasks because terse outputs like `2 remain` were operationally correct but failed benchmark surface expectations
+- The canonical oracle KWA lanes were then rerun on the expanded corpus:
+  - replayable core:
+    - [`results/knowledge_work/replayable_core/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/replayable_core/summary.json)
+    - `runs = 24`
+    - `artifact_quality_avg = 0.9866`
+    - `browser_workflow_avg = 0.9910`
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 1.0`
+    - `real_world_readiness_avg = 0.9510`
+  - live web stress:
+    - [`results/knowledge_work/live_web_stress/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/live_web_stress/summary.json)
+    - `runs = 18`
+    - `artifact_quality_avg = 0.9822`
+    - `browser_workflow_avg = 1.0`
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 1.0`
+    - `real_world_readiness_avg = 0.9630`
+- Widened the fully specialist-backed mixed-pressure matrix again with the visual KWA additions and reran the corrected references:
+  - replayable:
+    - [`results/knowledge_work/model_backed_hf_specialists_cross_role_hardmix_visual_replayable_v2/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_specialists_cross_role_hardmix_visual_replayable_v2/summary.json)
+    - `runs = 18`
+    - `artifact_quality_avg = 0.9822`
+    - `browser_workflow_avg = 0.9880`
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 1.0`
+    - `real_world_readiness_avg = 0.9436`
+  - live:
+    - [`results/knowledge_work/model_backed_hf_specialists_cross_role_hardmix_visual_live_v2/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_specialists_cross_role_hardmix_visual_live_v2/summary.json)
+    - `runs = 15`
+    - `artifact_quality_avg = 0.9786`
+    - `browser_workflow_avg = 1.0`
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 1.0`
+    - `real_world_readiness_avg = 0.9555`
+- The earlier `visual_*_v1` mixed-pressure runs should be treated as diagnosis artifacts for image-id wiring and answer-surface rescue, not as the current model-backed references.
+- Extended the board/reporting layer with richer cuts in:
+  - [`knowledge_work_board.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/reporting/knowledge_work_board.py)
+  - [`streamlit_app.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/app/streamlit_app.py)
+  - new exports:
+    - [`results/history/knowledge_work_role_breakdown.csv`](/Users/cheickdiakite/Codex/moonie/results/history/knowledge_work_role_breakdown.csv)
+    - [`results/history/knowledge_work_category_breakdown.csv`](/Users/cheickdiakite/Codex/moonie/results/history/knowledge_work_category_breakdown.csv)
+    - [`results/history/knowledge_work_track_breakdown.csv`](/Users/cheickdiakite/Codex/moonie/results/history/knowledge_work_track_breakdown.csv)
+- The board now also exposes runtime-facing metadata from manifests when available:
+  - `warmup_load_ms`
+  - `last_request_elapsed_ms`
+  - `requests_completed`
+  - `total_cost_per_mtok`
+- Example local row now visible in [`knowledge_work_board_latest.csv`](/Users/cheickdiakite/Codex/moonie/results/history/knowledge_work_board_latest.csv):
+  - `Gemma 4 E2B + FunctionGemma + EmbeddingGemma (HF local)`
+  - `warmup_load_ms = 37909`
+  - `last_request_elapsed_ms = 4402`
+  - `requests_completed = 204`
+- Interpretation:
+  - there is now a clean atomic path to measure “one model reasons, one model sees/segments/extracts” behavior locally
+  - the job-shaped visual episodes are strong enough to keep in the specialist-backed widening matrix, but they still surface softer artifact-quality gaps rather than strict interface failures
+  - the benchmark is moving in the right direction: more realistic multimodal orchestration, still replayable, still separately scorable on strict vs recovered vs readiness
+- Ran the broader full-lane specialist-backed exploratory references on the entire generated KWA corpus:
+  - replayable:
+    - [`results/knowledge_work/model_backed_hf_specialists_replayable_full_v1/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_specialists_replayable_full_v1/summary.json)
+    - `runs = 24`
+    - `artifact_quality_avg = 0.9866`
+    - `browser_workflow_avg = 0.9910`
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 1.0`
+    - `real_world_readiness_avg = 0.9510`
+  - live:
+    - [`results/knowledge_work/model_backed_hf_specialists_live_full_v1/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_specialists_live_full_v1/summary.json)
+    - `runs = 18`
+    - `artifact_quality_avg = 0.9822`
+    - `browser_workflow_avg = 1.0`
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 1.0`
+    - `real_world_readiness_avg = 0.9630`
+- Interpretation:
+  - the current local specialist-backed stack is now stable on the entire generated KWA corpus, not only on narrower mixed-pressure subsets
+  - the remaining benchmark signal is increasingly about soft realism and comparative system evaluation, not keeping the current local stack alive through the existing corpus
+- Normalized historical KWA comparison metadata in the board layer:
+  - unknown or legacy slice-specific `system_id` values are now resolved back onto the registry-backed system identities
+  - latest-board selection now prefers `full_lane` exploratory runs over narrower subsets, which fixes the public comparison surface for reasoner-only vs specialist-backed full-corpus baselines
+- Tightened visual orchestration scoring and repair:
+  - visual argument matching now requires the latest valid `selection_id` / `region_id` referent, not any non-empty placeholder replacement
+  - planner repair for `refine_selection` and `read_region_text` now fills placeholder ids without overwriting valid user-intended filters like `support backlog`
+  - the canonical visual-tool lanes were rerun after that hardening and are now clean again at:
+    - [`results/visual_tool_orchestration/replayable_core/summary.json`](/Users/cheickdiakite/Codex/moonie/results/visual_tool_orchestration/replayable_core/summary.json)
+    - `runs = 11`
+    - `success_rate = 1.0`
+    - [`results/visual_tool_orchestration/live_web_stress/summary.json`](/Users/cheickdiakite/Codex/moonie/results/visual_tool_orchestration/live_web_stress/summary.json)
+    - `runs = 7`
+    - `success_rate = 1.0`
+
 ### Benchmark board and mixed-pressure specialist-backed widening
 
 - Added a registry-backed KWA board/reporting layer:

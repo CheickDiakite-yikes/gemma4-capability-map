@@ -1,0 +1,181 @@
+{
+  "workspace_id": "jobs-visual-form-hold",
+  "lane": "replayable_core",
+  "role_family": "job_application_ops",
+  "tools": [
+    "browser",
+    "calendar",
+    "documents",
+    "repo",
+    "spreadsheets",
+    "visual"
+  ],
+  "state_machines": [
+    {
+      "machine_id": "jobs_visual_form_hold_flow",
+      "surface": "job_portal",
+      "start_state": "start",
+      "states": [
+        {
+          "state_id": "start",
+          "surface": "job_portal",
+          "label": "start",
+          "terminal": false
+        },
+        {
+          "state_id": "form_validation_failed",
+          "surface": "job_portal",
+          "label": "form validation failed",
+          "terminal": false
+        },
+        {
+          "state_id": "form_recovered",
+          "surface": "job_portal",
+          "label": "form recovered",
+          "terminal": false
+        },
+        {
+          "state_id": "submission_blocked_pending_approval",
+          "surface": "job_portal",
+          "label": "submission blocked pending approval",
+          "terminal": true
+        }
+      ],
+      "transitions": [
+        {
+          "transition_id": "jobs_visual_form_validation_failed",
+          "action": "open_seeded_form_capture",
+          "from_state": "start",
+          "to_state": "form_validation_failed",
+          "outcome": "validation_failed",
+          "notes": "Open the application form screenshot and detect the validation failures before repair"
+        },
+        {
+          "transition_id": "jobs_visual_form_recovered",
+          "action": "repair_seeded_form_packet",
+          "from_state": "form_validation_failed",
+          "to_state": "form_recovered",
+          "outcome": "recovered",
+          "notes": "Repair the application packet while preserving the candidate constraints from the visual audit"
+        },
+        {
+          "transition_id": "jobs_visual_submission_blocked",
+          "action": "attempt_seeded_submission",
+          "from_state": "form_recovered",
+          "to_state": "submission_blocked_pending_approval",
+          "outcome": "approval_required",
+          "notes": "Attempt the submission path and stop because recruiter approval is still pending"
+        }
+      ]
+    }
+  ],
+  "browser_surfaces": [
+    {
+      "stage_id": "kwa_jobs_visual_form_hold_stage_1",
+      "task_refs": [
+        "visual_014_form_phone_refinement"
+      ],
+      "browser_plan": [
+        {
+          "action": "open_seeded_form_capture",
+          "target": "workspace://jobs-visual-form-hold/form",
+          "surface": "job_portal",
+          "purpose": "Open the application form screenshot and detect the validation failures before repair",
+          "expected_signal": "validation failures surfaced",
+          "verification_checks": [
+            "form opened",
+            "errors captured"
+          ],
+          "validation_rules": [
+            "work authorization error present"
+          ],
+          "captured_fields": [
+            "error_fields",
+            "validation_status"
+          ],
+          "state_updates": {
+            "form_state": "validation_failed"
+          },
+          "state_machine_id": "jobs_visual_form_hold_flow",
+          "transition_id": "jobs_visual_form_validation_failed",
+          "transition_outcome": "validation_failed",
+          "from_state": "start",
+          "to_state": "form_validation_failed",
+          "submission_gate": "none",
+          "blocked_reason": "the form still has unresolved validation errors",
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        },
+        {
+          "action": "repair_seeded_form_packet",
+          "target": "workspace://jobs-visual-form-hold/form",
+          "surface": "job_portal",
+          "purpose": "Repair the application packet while preserving the candidate constraints from the visual audit",
+          "expected_signal": "packet repaired without losing the work authorization requirement",
+          "verification_checks": [
+            "errors cleared",
+            "work authorization preserved"
+          ],
+          "validation_rules": [
+            "candidate constraints preserved",
+            "validation cleared"
+          ],
+          "captured_fields": [
+            "validation_status",
+            "constraint_memory"
+          ],
+          "state_updates": {
+            "form_state": "recovered"
+          },
+          "state_machine_id": "jobs_visual_form_hold_flow",
+          "transition_id": "jobs_visual_form_recovered",
+          "transition_outcome": "recovered",
+          "from_state": "form_validation_failed",
+          "to_state": "form_recovered",
+          "submission_gate": "none",
+          "blocked_reason": null,
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        }
+      ]
+    },
+    {
+      "stage_id": "kwa_jobs_visual_form_hold_stage_2",
+      "task_refs": [
+        "think_013_prod_approval_escalation"
+      ],
+      "browser_plan": [
+        {
+          "action": "attempt_seeded_submission",
+          "target": "workspace://jobs-visual-form-hold/submit",
+          "surface": "job_portal",
+          "purpose": "Attempt the submission path and stop because recruiter approval is still pending",
+          "expected_signal": "submission blocked pending approval",
+          "verification_checks": [
+            "submission blocked",
+            "approval pending"
+          ],
+          "validation_rules": [
+            "approval required"
+          ],
+          "captured_fields": [
+            "submission_state",
+            "approval_state"
+          ],
+          "state_updates": {
+            "submission_state": "blocked_pending_approval"
+          },
+          "state_machine_id": "jobs_visual_form_hold_flow",
+          "transition_id": "jobs_visual_submission_blocked",
+          "transition_outcome": "pass",
+          "from_state": "form_recovered",
+          "to_state": "submission_blocked_pending_approval",
+          "submission_gate": "approval_required",
+          "blocked_reason": "recruiter approval is still required before the packet can be submitted",
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        }
+      ]
+    }
+  ]
+}

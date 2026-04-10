@@ -1,0 +1,137 @@
+{
+  "workspace_id": "exec-visual-dashboard-brief",
+  "lane": "replayable_core",
+  "role_family": "executive_assistant",
+  "tools": [
+    "browser",
+    "calendar",
+    "documents",
+    "repo",
+    "spreadsheets",
+    "visual"
+  ],
+  "state_machines": [
+    {
+      "machine_id": "exec_visual_dashboard_flow",
+      "surface": "presentation",
+      "start_state": "start",
+      "states": [
+        {
+          "state_id": "start",
+          "surface": "presentation",
+          "label": "start",
+          "terminal": false
+        },
+        {
+          "state_id": "dashboard_triaged",
+          "surface": "presentation",
+          "label": "dashboard triaged",
+          "terminal": false
+        },
+        {
+          "state_id": "brief_drafted",
+          "surface": "document",
+          "label": "brief drafted",
+          "terminal": false
+        }
+      ],
+      "transitions": [
+        {
+          "transition_id": "exec_visual_dashboard_triaged",
+          "action": "open_seeded_dashboard_capture",
+          "from_state": "start",
+          "to_state": "dashboard_triaged",
+          "outcome": "pass",
+          "notes": "Open the dashboard screenshot and capture which panels are below target"
+        },
+        {
+          "transition_id": "exec_visual_brief_drafted",
+          "action": "open_seeded_brief_draft",
+          "from_state": "dashboard_triaged",
+          "to_state": "brief_drafted",
+          "outcome": "pass",
+          "notes": "Carry the dashboard findings into the executive brief draft before review"
+        }
+      ]
+    }
+  ],
+  "browser_surfaces": [
+    {
+      "stage_id": "kwa_exec_visual_dashboard_brief_stage_1",
+      "task_refs": [
+        "visual_013_dashboard_stale_selection_recovery"
+      ],
+      "browser_plan": [
+        {
+          "action": "open_seeded_dashboard_capture",
+          "target": "workspace://exec-visual-dashboard-brief/dashboard",
+          "surface": "presentation",
+          "purpose": "Open the dashboard screenshot and capture which panels are below target",
+          "expected_signal": "below-target panels identified",
+          "verification_checks": [
+            "dashboard opened",
+            "panel count captured"
+          ],
+          "validation_rules": [
+            "below-target panels isolated"
+          ],
+          "captured_fields": [
+            "below_target_panels",
+            "panel_count"
+          ],
+          "state_updates": {
+            "dashboard_state": "triaged"
+          },
+          "state_machine_id": "exec_visual_dashboard_flow",
+          "transition_id": "exec_visual_dashboard_triaged",
+          "transition_outcome": "pass",
+          "from_state": "start",
+          "to_state": "dashboard_triaged",
+          "submission_gate": "none",
+          "blocked_reason": null,
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        }
+      ]
+    },
+    {
+      "stage_id": "kwa_exec_visual_dashboard_brief_stage_2",
+      "task_refs": [
+        "retr_011_approval_policy"
+      ],
+      "browser_plan": [
+        {
+          "action": "open_seeded_brief_draft",
+          "target": "workspace://exec-visual-dashboard-brief/brief",
+          "surface": "document",
+          "purpose": "Carry the dashboard findings into the executive brief draft before review",
+          "expected_signal": "brief draft includes the visual findings and approval hold",
+          "verification_checks": [
+            "brief opened",
+            "approval language present"
+          ],
+          "validation_rules": [
+            "approval hold stated",
+            "visual findings preserved"
+          ],
+          "captured_fields": [
+            "brief_state",
+            "approval_state"
+          ],
+          "state_updates": {
+            "brief_state": "drafted"
+          },
+          "state_machine_id": "exec_visual_dashboard_flow",
+          "transition_id": "exec_visual_brief_drafted",
+          "transition_outcome": "pass",
+          "from_state": "dashboard_triaged",
+          "to_state": "brief_drafted",
+          "submission_gate": "none",
+          "blocked_reason": null,
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        }
+      ]
+    }
+  ]
+}

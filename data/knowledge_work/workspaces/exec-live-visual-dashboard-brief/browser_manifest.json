@@ -1,0 +1,136 @@
+{
+  "workspace_id": "exec-live-visual-dashboard-brief",
+  "lane": "live_web_stress",
+  "role_family": "executive_assistant",
+  "tools": [
+    "browser",
+    "calendar",
+    "documents",
+    "repo",
+    "spreadsheets",
+    "visual"
+  ],
+  "state_machines": [
+    {
+      "machine_id": "exec_live_visual_dashboard_flow",
+      "surface": "public_web",
+      "start_state": "start",
+      "states": [
+        {
+          "state_id": "start",
+          "surface": "public_web",
+          "label": "start",
+          "terminal": false
+        },
+        {
+          "state_id": "dashboard_triaged",
+          "surface": "public_web",
+          "label": "dashboard triaged",
+          "terminal": false
+        },
+        {
+          "state_id": "brief_drafted",
+          "surface": "document",
+          "label": "brief drafted",
+          "terminal": false
+        }
+      ],
+      "transitions": [
+        {
+          "transition_id": "exec_live_visual_dashboard_triaged",
+          "action": "open_live_dashboard_capture",
+          "from_state": "start",
+          "to_state": "dashboard_triaged",
+          "outcome": "pass",
+          "notes": "Load the live local dashboard capture and isolate the below-target panels"
+        },
+        {
+          "transition_id": "exec_live_visual_brief_drafted",
+          "action": "draft_live_brief",
+          "from_state": "dashboard_triaged",
+          "to_state": "brief_drafted",
+          "outcome": "pass",
+          "notes": "Draft the live executive brief in sandbox mode while preserving the approval hold"
+        }
+      ]
+    }
+  ],
+  "browser_surfaces": [
+    {
+      "stage_id": "kwa_exec_live_visual_dashboard_brief_stage_1",
+      "task_refs": [
+        "visual_016_live_dashboard_stale_selection_recovery"
+      ],
+      "browser_plan": [
+        {
+          "action": "open_live_dashboard_capture",
+          "target": "live://visual_009_live_dashboard_below_target",
+          "surface": "public_web",
+          "purpose": "Load the live local dashboard capture and isolate the below-target panels",
+          "expected_signal": "below-target panels captured",
+          "verification_checks": [
+            "page loaded",
+            "local visual executor response captured"
+          ],
+          "validation_rules": [
+            "below-target panels isolated"
+          ],
+          "captured_fields": [
+            "below_target_panels",
+            "panel_count"
+          ],
+          "state_updates": {
+            "dashboard_state": "triaged"
+          },
+          "state_machine_id": "exec_live_visual_dashboard_flow",
+          "transition_id": "exec_live_visual_dashboard_triaged",
+          "transition_outcome": "pass",
+          "from_state": "start",
+          "to_state": "dashboard_triaged",
+          "submission_gate": "none",
+          "blocked_reason": null,
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        }
+      ]
+    },
+    {
+      "stage_id": "kwa_exec_live_visual_dashboard_brief_stage_2",
+      "task_refs": [
+        "retr_011_approval_policy"
+      ],
+      "browser_plan": [
+        {
+          "action": "draft_live_brief",
+          "target": "sandbox://exec-live-visual-dashboard-brief/brief",
+          "surface": "document",
+          "purpose": "Draft the live executive brief in sandbox mode while preserving the approval hold",
+          "expected_signal": "sandbox brief updated",
+          "verification_checks": [
+            "brief saved",
+            "approval hold present"
+          ],
+          "validation_rules": [
+            "approval hold stated"
+          ],
+          "captured_fields": [
+            "brief_state",
+            "approval_state"
+          ],
+          "state_updates": {
+            "brief_state": "drafted"
+          },
+          "state_machine_id": "exec_live_visual_dashboard_flow",
+          "transition_id": "exec_live_visual_brief_drafted",
+          "transition_outcome": "pass",
+          "from_state": "dashboard_triaged",
+          "to_state": "brief_drafted",
+          "submission_gate": "sandbox_only",
+          "blocked_reason": null,
+          "sandbox_endpoint": "https://sandbox.local/exec-live-visual-dashboard-brief/brief",
+          "allow_submission": false
+        }
+      ]
+    }
+  ]
+}

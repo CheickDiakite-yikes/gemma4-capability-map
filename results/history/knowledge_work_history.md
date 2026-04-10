@@ -1,13 +1,13 @@
 # KnowledgeWorkArena History
 
-- Generated at: `2026-04-10T14:31:04.648805+00:00`
-- Total logged runs: `59`
-- Snapshot count: `62`
+- Generated at: `2026-04-10T21:43:05.367430+00:00`
+- Total logged runs: `87`
+- Snapshot count: `90`
 
 ## Latest Canonical by Lane
 
-- `live_web_stress`: readiness `0.96296`, browser `1.0`, strict `1.0`, recovered `1.0`, output `/Users/cheickdiakite/Codex/moonie/results/knowledge_work/live_web_stress`
-- `replayable_core`: readiness `0.9332571428571428`, browser `0.9928619047619048`, strict `1.0`, recovered `1.0`, output `/Users/cheickdiakite/Codex/moonie/results/knowledge_work/replayable_core`
+- `live_web_stress`: readiness `0.9629555555555557`, browser `1.0`, strict `1.0`, recovered `1.0`, output `/Users/cheickdiakite/Codex/moonie/results/knowledge_work/live_web_stress`
+- `replayable_core`: readiness `0.9509541666666667`, browser `0.991025`, strict `1.0`, recovered `1.0`, output `/Users/cheickdiakite/Codex/moonie/results/knowledge_work/replayable_core`
 
 ## Latest Exploratory by Lane
 

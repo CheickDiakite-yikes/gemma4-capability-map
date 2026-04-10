@@ -210,3 +210,56 @@ That is why `kwa_finance_partner_deck_revision` now shows the more truthful spli
 
 - weak `revision_responsiveness`
 - correct `memory_retention_score`
+
+## 26. Visual tool orchestration should be benchmarked as tool use, not just VLM QA
+
+The new `visual_tool_orchestration` track showed that scene-understanding work has the same benchmark shape as routing and retrieval:
+
+- choose the right visual tool
+- provide the right first query
+- refine the selection correctly
+- preserve the referent across follow-up turns
+- surface the final answer in the required operational form
+
+That is a better measure of local multimodal agency than a one-shot “what is in this image?” score.
+
+## 27. Multimodal failures can come from benchmark plumbing, not model weakness
+
+The first replayable specialist-backed visual KWA slice did not fail because the specialist-backed stack was bad at the visual job. It failed because the benchmark contract was incomplete:
+
+- the planner needed logical `image_id` hints instead of only asset paths
+- placeholder arguments like `$selection` and `$region` needed explicit repair
+- visual tasks needed the same answer-rescue path used elsewhere
+
+Once those landed, the bounded visual slice went clean on `strict_interface` and `recovered_execution`. That is the same durable lesson we saw on policy judgment: benchmark-contract quality changes the truth you measure.
+
+## 28. Softer realism is now the main source of useful remaining signal
+
+On the corrected visual-inclusive mixed-pressure model-backed slices, the big binary metrics are clean:
+
+- `strict_interface = 1.0`
+- `recovered_execution = 1.0`
+- `escalation_correctness = 1.0`
+
+The remaining weak signals are softer ones:
+
+- bounded visual artifact quality
+- revision responsiveness in `kwa_finance_partner_deck_revision`
+- role-readiness deltas despite otherwise clean execution
+
+That is a healthy benchmark state. The next useful work is to harden realism, not to manufacture more binary failures.
+
+## 29. The current local specialist-backed stack is now stable on the whole generated KWA corpus
+
+The broader exploratory full-lane runs are now clean on:
+
+- replayable `24` episodes
+- live `18` episodes
+
+with:
+
+- `strict_interface = 1.0`
+- `recovered_execution = 1.0`
+- `escalation_correctness = 1.0`
+
+That means the next benchmark question is no longer whether this local stack can survive the current corpus. It is how it compares against other systems on the same surface, and what new harder episodes are needed to keep the benchmark informative.

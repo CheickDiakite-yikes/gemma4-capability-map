@@ -191,6 +191,7 @@ def _write_pptx(path: Path, content: str) -> None:
     presentation = Presentation()
     slides = _slide_blocks(content)
     revision_diff = _bullets_under(content, "## Revision Diff")
+    review_response = _first_section(content, "## Review Response")
     brief = _first_section(content, "## Brief")
     sources = _sources(content)
     if not slides:
@@ -216,6 +217,11 @@ def _write_pptx(path: Path, content: str) -> None:
             paragraph.text = bullet
             paragraph.level = 1
             first = False
+    if review_response:
+        slide = presentation.slides.add_slide(presentation.slide_layouts[1])
+        slide.shapes.title.text = "Review Response"
+        body = slide.placeholders[1].text_frame
+        body.text = review_response
     if revision_diff:
         slide = presentation.slides.add_slide(presentation.slide_layouts[1])
         slide.shapes.title.text = "Revision Diff"
@@ -402,6 +408,8 @@ def _extract_pptx_text(path: Path) -> str:
         normalized_title = title.strip().lower()
         if normalized_title == "brief":
             lines.append("## Brief")
+        elif normalized_title == "review response":
+            lines.append("## Review Response")
         elif normalized_title == "revision diff":
             lines.append("## Revision Diff")
         elif normalized_title == "sources":
@@ -418,6 +426,8 @@ def _extract_pptx_text(path: Path) -> str:
                 if not text:
                     continue
                 if normalized_title == "brief":
+                    lines.append(text)
+                elif normalized_title == "review response":
                     lines.append(text)
                 elif normalized_title == "revision diff":
                     lines.append(f"- {text}")

@@ -6,6 +6,13 @@ models:
     params_b: 27.0
     component_kind: reasoner
     modality: multimodal
+  google/gemma-4-E4B-it:
+    display_name: Gemma 4 E4B IT
+    provider: google
+    family: gemma4
+    params_b: 27.0
+    component_kind: reasoner
+    modality: multimodal
   google/functiongemma-270m-it:
     display_name: FunctionGemma 270M IT
     provider: google
@@ -28,6 +35,9 @@ systems:
     provider: synthetic
     backend: oracle
     deployment: oracle_upper_bound
+    capability_family: oracle_upper_bound
+    executor_mode: seeded
+    modality: multimodal
     local: false
     reasoner: google/gemma-4-E2B-it
     router: google/functiongemma-270m-it
@@ -45,6 +55,9 @@ systems:
     provider: huggingface
     backend: hf_service
     deployment: local_reasoner
+    capability_family: reasoner_only
+    executor_mode: local_reasoner
+    modality: multimodal
     local: true
     reasoner: google/gemma-4-E2B-it
     router: ""
@@ -54,12 +67,33 @@ systems:
     input_cost_per_mtok: 0.0
     output_cost_per_mtok: 0.0
     color: "#2563EB"
+  hf_gemma4_e2b_reasoner_only:
+    display_name: Gemma 4 E2B (HF in-process)
+    short_label: Gemma 4 in-proc
+    provider: huggingface
+    backend: hf
+    deployment: local_reasoner_inprocess
+    capability_family: reasoner_only
+    executor_mode: local_reasoner
+    modality: multimodal
+    local: true
+    reasoner: google/gemma-4-E2B-it
+    router: ""
+    retriever: ""
+    reasoner_params_b: 27.0
+    total_params_b: 27.0
+    input_cost_per_mtok: 0.0
+    output_cost_per_mtok: 0.0
+    color: "#0F766E"
   hf_service_gemma4_specialists_cpu:
     display_name: Gemma 4 E2B + FunctionGemma + EmbeddingGemma (HF local)
     short_label: Gemma 4 + specialists local
     provider: huggingface
     backend: hf_service
     deployment: local_cpu_specialists
+    capability_family: specialist_stack
+    executor_mode: local_specialists
+    modality: multimodal
     local: true
     reasoner: google/gemma-4-E2B-it
     router: google/functiongemma-270m-it
@@ -71,3 +105,63 @@ systems:
     input_cost_per_mtok: 0.0
     output_cost_per_mtok: 0.0
     color: "#1D4ED8"
+  hf_gemma4_e2b_specialists_cpu:
+    display_name: Gemma 4 E2B + specialists (HF in-process)
+    short_label: Gemma 4 + specialists in-proc
+    provider: huggingface
+    backend: hf
+    deployment: local_specialists_inprocess
+    capability_family: specialist_stack
+    executor_mode: local_specialists
+    modality: multimodal
+    local: true
+    reasoner: google/gemma-4-E2B-it
+    router: google/functiongemma-270m-it
+    retriever: google/embeddinggemma-300m
+    reasoner_params_b: 27.0
+    router_params_b: 0.27
+    retriever_params_b: 0.3
+    total_params_b: 27.57
+    input_cost_per_mtok: 0.0
+    output_cost_per_mtok: 0.0
+    color: "#0D9488"
+  hf_specialists_cross_role_hardmix_visual:
+    display_name: Gemma 4 + specialists local (mixed-pressure + visual)
+    short_label: Gemma 4 local hardmix+visual
+    provider: huggingface
+    backend: hf_service
+    deployment: local_cpu_specialists
+    capability_family: specialist_stack
+    executor_mode: local_specialists
+    modality: multimodal
+    local: true
+    reasoner: google/gemma-4-E2B-it
+    router: google/functiongemma-270m-it
+    retriever: google/embeddinggemma-300m
+    reasoner_params_b: 27.0
+    router_params_b: 0.27
+    retriever_params_b: 0.3
+    total_params_b: 27.57
+    input_cost_per_mtok: 0.0
+    output_cost_per_mtok: 0.0
+    color: "#1E40AF"
+  kwa_visual_oracle:
+    display_name: Oracle KWA visual episodes
+    short_label: Oracle KWA visual
+    provider: synthetic
+    backend: oracle
+    deployment: oracle_upper_bound
+    capability_family: oracle_upper_bound
+    executor_mode: seeded
+    modality: multimodal
+    local: false
+    reasoner: google/gemma-4-E2B-it
+    router: google/functiongemma-270m-it
+    retriever: google/embeddinggemma-300m
+    reasoner_params_b: 27.0
+    router_params_b: 0.27
+    retriever_params_b: 0.3
+    total_params_b: 27.57
+    input_cost_per_mtok:
+    output_cost_per_mtok:
+    color: "#6B7280"

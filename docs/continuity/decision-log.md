@@ -99,3 +99,31 @@ Reason:
 
 - trace-backed rescoring is faster and cheaper
 - it keeps leaderboard deltas attributable to scoring logic instead of runtime variance
+
+### 11. `visual_tool_orchestration` is a first-class atomic track
+
+Operational rule:
+
+- use the dedicated visual tool family instead of baking visual selection logic into ad hoc KWA helpers
+- keep visual categories in `benchmark_tags` for v1:
+  - `visual_ui_ops`
+  - `visual_document`
+  - `visual_aerial`
+  - `visual_map`
+
+Reason:
+
+- multimodal tool orchestration is a distinct benchmark surface
+- it should be comparable to routing, retrieval, and full-stack execution rather than hidden inside one-off episodes
+
+### 12. Seeded visual replay is canonical; local visual execution is supplementary
+
+Operational rule:
+
+- publish visual-tool claims from the replayable seeded lane
+- use the local visual executor path as live stress, not as the only source of truth
+
+Reason:
+
+- seeded visual execution is deterministic and reproducible
+- local visual execution is valuable realism pressure, but it is not stable enough to replace the canonical lane

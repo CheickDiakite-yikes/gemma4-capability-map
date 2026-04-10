@@ -1,0 +1,257 @@
+{
+  "run_group_id": "20260410T203819Z_live_web_stress",
+  "created_at": "20260410T203819Z",
+  "lane": "live_web_stress",
+  "system_id": "model_backed_hf_reasoner_full",
+  "backend": "hf_service",
+  "reasoner_backend": "hf_service",
+  "router_backend": "heuristic",
+  "retriever_backend": "heuristic",
+  "reasoner": "google/gemma-4-E2B-it",
+  "router": "google/functiongemma-270m-it",
+  "retriever": "google/embeddinggemma-300m",
+  "reasoner_device": "auto",
+  "router_device": null,
+  "retriever_device": null,
+  "thinking": false,
+  "limit": null,
+  "episode_count": 18,
+  "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
+  "runtime_bundle": {
+    "reasoner": {
+      "backend": "hf_service",
+      "requested_model": "google/gemma-4-E2B-it",
+      "effective_model": "google/gemma-4-E2B-it",
+      "runtime_device": "mps",
+      "load_mode": "vision",
+      "configured_device": "auto",
+      "service": {
+        "service_id": "google__gemma_4_E2B_it_auto",
+        "socket_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_auto/service.sock",
+        "state_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_auto/state.json",
+        "event_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_auto/events.jsonl",
+        "request_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_auto/requests.jsonl",
+        "stdout_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_auto/service.log",
+        "status": "ready",
+        "load_elapsed_ms": 37909,
+        "requests_completed": 515
+      },
+      "service_state": {
+        "service_id": "google__gemma_4_E2B_it_auto",
+        "model_id": "google/gemma-4-E2B-it",
+        "device": "auto",
+        "max_new_tokens": 96,
+        "pid": 96150,
+        "status": "ready",
+        "phase": "hf_load_cached",
+        "created_at": "2026-04-10T03:40:37.926870+00:00",
+        "requests_completed": 515,
+        "requests_failed": 0,
+        "recent_events": [
+          {
+            "created_at": "2026-04-10T20:37:47.694364+00:00",
+            "event": "hf_load_cached",
+            "detail": "Reusing already loaded HF model.",
+            "model_mode": "vision"
+          },
+          {
+            "created_at": "2026-04-10T20:37:48.769536+00:00",
+            "event": "hf_import_start",
+            "detail": "Importing HF runtime dependencies."
+          },
+          {
+            "created_at": "2026-04-10T20:37:48.770088+00:00",
+            "event": "hf_import_complete",
+            "detail": "Imported HF runtime dependencies."
+          },
+          {
+            "created_at": "2026-04-10T20:37:48.770286+00:00",
+            "event": "hf_load_cached",
+            "detail": "Reusing already loaded HF model.",
+            "model_mode": "vision"
+          },
+          {
+            "created_at": "2026-04-10T20:37:52.681104+00:00",
+            "event": "hf_import_start",
+            "detail": "Importing HF runtime dependencies."
+          },
+          {
+            "created_at": "2026-04-10T20:37:52.681464+00:00",
+            "event": "hf_import_complete",
+            "detail": "Imported HF runtime dependencies."
+          },
+          {
+            "created_at": "2026-04-10T20:37:52.681643+00:00",
+            "event": "hf_load_cached",
+            "detail": "Reusing already loaded HF model.",
+            "model_mode": "vision"
+          },
+          {
+            "created_at": "2026-04-10T20:37:55.938998+00:00",
+            "event": "hf_import_start",
+            "detail": "Importing HF runtime dependencies."
+          },
+          {
+            "created_at": "2026-04-10T20:37:55.939428+00:00",
+            "event": "hf_import_complete",
+            "detail": "Imported HF runtime dependencies."
+          },
+          {
+            "created_at": "2026-04-10T20:37:55.939578+00:00",
+            "event": "hf_load_cached",
+            "detail": "Reusing already loaded HF model.",
+            "model_mode": "vision"
+          },
+          {
+            "created_at": "2026-04-10T20:37:57.279203+00:00",
+            "event": "hf_import_start",
+            "detail": "Importing HF runtime dependencies."
+          },
+          {
+            "created_at": "2026-04-10T20:37:57.279604+00:00",
+            "event": "hf_import_complete",
+            "detail": "Imported HF runtime dependencies."
+          },
+          {
+            "created_at": "2026-04-10T20:37:57.279769+00:00",
+            "event": "hf_load_cached",
+            "detail": "Reusing already loaded HF model.",
+            "model_mode": "vision"
+          },
+          {
+            "created_at": "2026-04-10T20:37:58.683783+00:00",
+            "event": "hf_import_start",
+            "detail": "Importing HF runtime dependencies."
+          },
+          {
+            "created_at": "2026-04-10T20:37:58.684338+00:00",
+            "event": "hf_import_complete",
+            "detail": "Imported HF runtime dependencies."
+          },
+          {
+            "created_at": "2026-04-10T20:37:58.684546+00:00",
+            "event": "hf_load_cached",
+            "detail": "Reusing already loaded HF model.",
+            "model_mode": "vision"
+          },
+          {
+            "created_at": "2026-04-10T20:38:02.094273+00:00",
+            "event": "hf_import_start",
+            "detail": "Importing HF runtime dependencies."
+          },
+          {
+            "created_at": "2026-04-10T20:38:02.094954+00:00",
+            "event": "hf_import_complete",
+            "detail": "Imported HF runtime dependencies."
+          },
+          {
+            "created_at": "2026-04-10T20:38:02.095135+00:00",
+            "event": "hf_load_cached",
+            "detail": "Reusing already loaded HF model.",
+            "model_mode": "vision"
+          },
+          {
+            "created_at": "2026-04-10T20:38:06.511481+00:00",
+            "event": "hf_import_start",
+            "detail": "Importing HF runtime dependencies."
+          },
+          {
+            "created_at": "2026-04-10T20:38:06.511832+00:00",
+            "event": "hf_import_complete",
+            "detail": "Imported HF runtime dependencies."
+          },
+          {
+            "created_at": "2026-04-10T20:38:06.511997+00:00",
+            "event": "hf_load_cached",
+            "detail": "Reusing already loaded HF model.",
+            "model_mode": "vision"
+          },
+          {
+            "created_at": "2026-04-10T20:38:10.496624+00:00",
+            "event": "hf_import_start",
+            "detail": "Importing HF runtime dependencies."
+          },
+          {
+            "created_at": "2026-04-10T20:38:10.497785+00:00",
+            "event": "hf_import_complete",
+            "detail": "Imported HF runtime dependencies."
+          },
+          {
+            "created_at": "2026-04-10T20:38:10.498017+00:00",
+            "event": "hf_load_cached",
+            "detail": "Reusing already loaded HF model.",
+            "model_mode": "vision"
+          }
+        ],
+        "last_event_at": "2026-04-10T20:38:10.498017+00:00",
+        "heartbeat_at": "2026-04-10T20:38:10.498017+00:00",
+        "load_elapsed_ms": 37909,
+        "ready_at": "2026-04-10T03:41:15.837652+00:00",
+        "runtime_info": {
+          "backend": "hf",
+          "requested_model": "google/gemma-4-E2B-it",
+          "effective_model": "google/gemma-4-E2B-it",
+          "runtime_device": "mps",
+          "load_mode": "vision",
+          "configured_device": "auto",
+          "service": {}
+        },
+        "last_request_at": "2026-04-10T20:38:14.431285+00:00",
+        "last_request_id": "google__gemma_4_E2B_it_auto_1775853490496",
+        "last_request_elapsed_ms": 3934
+      }
+    },
+    "router": {
+      "backend": "heuristic",
+      "requested_model": "google/functiongemma-270m-it",
+      "effective_model": "google/functiongemma-270m-it",
+      "runtime_device": null,
+      "configured_device": "auto"
+    },
+    "retriever": {
+      "backend": "heuristic",
+      "requested_model": "google/embeddinggemma-300m",
+      "effective_model": "google/embeddinggemma-300m",
+      "loaded": false,
+      "configured_device": "auto",
+      "runtime_device": null
+    }
+  },
+  "run_intent": "exploratory",
+  "warmup": {
+    "reasoner": {
+      "backend": "hf_service",
+      "requested_model": "google/gemma-4-E2B-it",
+      "effective_model": "google/gemma-4-E2B-it",
+      "runtime_device": "mps",
+      "load_mode": "vision",
+      "configured_device": "auto",
+      "service": {
+        "service_id": "google__gemma_4_E2B_it_auto",
+        "socket_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_auto/service.sock",
+        "state_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_auto/state.json",
+        "event_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_auto/events.jsonl",
+        "request_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_auto/requests.jsonl",
+        "stdout_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_auto/service.log",
+        "status": "ready",
+        "load_elapsed_ms": 37909,
+        "requests_completed": 515
+      }
+    },
+    "router": {
+      "backend": "heuristic",
+      "requested_model": "google/functiongemma-270m-it",
+      "effective_model": "google/functiongemma-270m-it",
+      "runtime_device": null,
+      "configured_device": "auto"
+    },
+    "retriever": {
+      "backend": "heuristic",
+      "requested_model": "google/embeddinggemma-300m",
+      "effective_model": "google/embeddinggemma-300m",
+      "loaded": false,
+      "configured_device": "auto",
+      "runtime_device": null
+    }
+  }
+}

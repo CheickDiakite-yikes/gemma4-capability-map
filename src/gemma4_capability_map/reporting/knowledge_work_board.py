@@ -13,6 +13,10 @@ ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_RESULTS_ROOT = ROOT / "results" / "knowledge_work"
 DEFAULT_HISTORY_DIR = ROOT / "results" / "history"
 DEFAULT_REGISTRY_PATH = ROOT / "configs" / "model_registry.yaml"
+SYSTEM_ID_ALIASES = {
+    "hf_specialists_cross_role_hardmix_visual": "hf_service_gemma4_specialists_cpu",
+    "model_backed_hf_reasoner_full": "hf_service_gemma4_reasoner_only",
+}
 
 
 def load_model_registry(path: str | Path = DEFAULT_REGISTRY_PATH) -> dict[str, dict[str, Any]]:
@@ -80,6 +84,10 @@ def write_board_exports(
             "escalation_correctness_avg": row.get("escalation_correctness_avg", ""),
             "input_cost_per_mtok": row.get("input_cost_per_mtok", ""),
             "output_cost_per_mtok": row.get("output_cost_per_mtok", ""),
+            "total_cost_per_mtok": row.get("total_cost_per_mtok", ""),
+            "warmup_load_ms": row.get("warmup_load_ms", ""),
+            "last_request_elapsed_ms": row.get("last_request_elapsed_ms", ""),
+            "requests_completed": row.get("requests_completed", ""),
         }
         for row in latest
     ]
@@ -94,6 +102,9 @@ def write_board_exports(
     _write_csv(target / "knowledge_work_board_runs.csv", rows)
     _write_csv(target / "knowledge_work_board_latest.csv", latest)
     _write_csv(target / "knowledge_work_scatter.csv", scatter_rows)
+    _write_csv(target / "knowledge_work_role_breakdown.csv", _flatten_breakdown_rows(latest, "role_breakdown_json", "role_family"))
+    _write_csv(target / "knowledge_work_category_breakdown.csv", _flatten_breakdown_rows(latest, "category_breakdown_json", "category"))
+    _write_csv(target / "knowledge_work_track_breakdown.csv", _flatten_breakdown_rows(latest, "track_breakdown_json", "track_tag"))
     return payload
 
 
@@ -102,7 +113,13 @@ def latest_board_rows(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     for row in rows:
         key = (str(row.get("system_id", "")), str(row.get("lane", "")), str(row.get("run_intent", "")))
         current = latest.get(key)
-        if current is None or str(row.get("created_at", "")) >= str(current.get("created_at", "")):
+        if current is None or (
+            _run_scope_priority(row.get("run_scope")) > _run_scope_priority(current.get("run_scope"))
+            or (
+                _run_scope_priority(row.get("run_scope")) == _run_scope_priority(current.get("run_scope"))
+                and str(row.get("created_at", "")) >= str(current.get("created_at", ""))
+            )
+        ):
             latest[key] = row
     return sorted(
         latest.values(),
@@ -111,6 +128,67 @@ def latest_board_rows(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
             str(row.get("run_intent", "")),
             -float(row.get("real_world_readiness_avg", 0.0)),
             -float(row.get("strict_interface_avg", 0.0)),
+            str(row.get("display_name", "")),
+        ),
+    )
+
+
+def build_intent_comparison_rows(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    latest = latest_board_rows(rows)
+    grouped: dict[tuple[str, str], dict[str, dict[str, Any]]] = {}
+    for row in latest:
+        system_id = str(row.get("system_id", ""))
+        lane = str(row.get("lane", ""))
+        intent = str(row.get("run_intent", ""))
+        grouped.setdefault((system_id, lane), {})[intent] = row
+
+    comparison_rows: list[dict[str, Any]] = []
+    for (system_id, lane), entries in grouped.items():
+        canonical = entries.get("canonical")
+        exploratory = entries.get("exploratory")
+        if not canonical and not exploratory:
+            continue
+        reference = canonical or exploratory or {}
+        canonical_readiness = _comparison_metric(canonical, "real_world_readiness_avg")
+        exploratory_readiness = _comparison_metric(exploratory, "real_world_readiness_avg")
+        canonical_strict = _comparison_metric(canonical, "strict_interface_avg")
+        exploratory_strict = _comparison_metric(exploratory, "strict_interface_avg")
+        canonical_browser = _comparison_metric(canonical, "browser_workflow_avg")
+        exploratory_browser = _comparison_metric(exploratory, "browser_workflow_avg")
+        comparison_rows.append(
+            {
+                "system_id": system_id,
+                "display_name": reference.get("display_name", ""),
+                "lane": lane,
+                "capability_family": reference.get("capability_family", ""),
+                "executor_mode": reference.get("executor_mode", ""),
+                "modality": reference.get("modality", ""),
+                "canonical_run_group_id": canonical.get("run_group_id", "") if canonical else "",
+                "exploratory_run_group_id": exploratory.get("run_group_id", "") if exploratory else "",
+                "canonical_readiness": canonical_readiness,
+                "exploratory_readiness": exploratory_readiness,
+                "readiness_delta": _delta(exploratory_readiness, canonical_readiness),
+                "canonical_strict_interface": canonical_strict,
+                "exploratory_strict_interface": exploratory_strict,
+                "strict_delta": _delta(exploratory_strict, canonical_strict),
+                "canonical_browser_workflow": canonical_browser,
+                "exploratory_browser_workflow": exploratory_browser,
+                "browser_delta": _delta(exploratory_browser, canonical_browser),
+                "canonical_episode_count": canonical.get("episode_count", "") if canonical else "",
+                "exploratory_episode_count": exploratory.get("episode_count", "") if exploratory else "",
+                "canonical_pass_count": canonical.get("pass_count", "") if canonical else "",
+                "exploratory_pass_count": exploratory.get("pass_count", "") if exploratory else "",
+                "canonical_refine_count": canonical.get("refine_count", "") if canonical else "",
+                "exploratory_refine_count": exploratory.get("refine_count", "") if exploratory else "",
+                "canonical_fail_count": canonical.get("fail_count", "") if canonical else "",
+                "exploratory_fail_count": exploratory.get("fail_count", "") if exploratory else "",
+            }
+        )
+    return sorted(
+        comparison_rows,
+        key=lambda row: (
+            str(row.get("lane", "")),
+            -float(row.get("exploratory_readiness", row.get("canonical_readiness", 0.0)) or 0.0),
             str(row.get("display_name", "")),
         ),
     )
@@ -125,6 +203,9 @@ def _snapshot_row(
 ) -> dict[str, Any]:
     system_id, system_meta = _resolve_system(manifest, registry)
     pass_count, refine_count, fail_count = _status_counts(leaderboard_rows)
+    role_breakdown = _group_metric_breakdown(leaderboard_rows, "role_family")
+    category_breakdown = _tag_metric_breakdown(leaderboard_rows)
+    track_breakdown = _tag_metric_breakdown(leaderboard_rows, prefix_filters=["visual_", "knowledge_work_arena"])
     reasoner = str(manifest.get("reasoner", "") or "")
     router = str(manifest.get("router", "") or "")
     retriever = str(manifest.get("retriever", "") or "")
@@ -134,22 +215,29 @@ def _snapshot_row(
     reasoner_params_b = _first_number(system_meta.get("reasoner_params_b"), reasoner_meta.get("params_b"))
     router_params_b = _first_number(system_meta.get("router_params_b"), router_meta.get("params_b"))
     retriever_params_b = _first_number(system_meta.get("retriever_params_b"), retriever_meta.get("params_b"))
+    input_cost_per_mtok = _first_number(system_meta.get("input_cost_per_mtok"))
+    output_cost_per_mtok = _first_number(system_meta.get("output_cost_per_mtok"))
     total_params_b = _first_number(
         system_meta.get("total_params_b"),
         _sum_present(reasoner_params_b, router_params_b, retriever_params_b),
     )
+    runtime_metrics = _extract_runtime_metrics(manifest)
 
     return {
         "run_group_id": manifest.get("run_group_id", path.name),
         "created_at": manifest.get("created_at", ""),
         "lane": manifest.get("lane", ""),
         "run_intent": _infer_run_intent(path, manifest),
+        "run_scope": _infer_run_scope(manifest),
         "system_id": system_id,
         "display_name": system_meta.get("display_name") or _fallback_display_name(manifest),
         "short_label": system_meta.get("short_label") or system_meta.get("display_name") or _fallback_display_name(manifest),
         "provider": system_meta.get("provider") or reasoner_meta.get("provider") or manifest.get("backend", ""),
         "deployment": system_meta.get("deployment") or manifest.get("backend", ""),
         "local": bool(system_meta.get("local", manifest.get("backend") == "hf_service")),
+        "capability_family": system_meta.get("capability_family", ""),
+        "executor_mode": system_meta.get("executor_mode", ""),
+        "modality": system_meta.get("modality") or reasoner_meta.get("modality", ""),
         "color": system_meta.get("color", ""),
         "backend": manifest.get("backend", ""),
         "reasoner_backend": manifest.get("reasoner_backend", ""),
@@ -165,8 +253,12 @@ def _snapshot_row(
         "router_params_b": router_params_b,
         "retriever_params_b": retriever_params_b,
         "total_params_b": total_params_b,
-        "input_cost_per_mtok": _first_number(system_meta.get("input_cost_per_mtok")),
-        "output_cost_per_mtok": _first_number(system_meta.get("output_cost_per_mtok")),
+        "input_cost_per_mtok": input_cost_per_mtok,
+        "output_cost_per_mtok": output_cost_per_mtok,
+        "total_cost_per_mtok": _sum_present(input_cost_per_mtok, output_cost_per_mtok),
+        "warmup_load_ms": runtime_metrics["warmup_load_ms"],
+        "last_request_elapsed_ms": runtime_metrics["last_request_elapsed_ms"],
+        "requests_completed": runtime_metrics["requests_completed"],
         "episode_count": int(manifest.get("episode_count", len(leaderboard_rows) or summary.get("runs", 0))),
         "pass_count": pass_count,
         "refine_count": refine_count,
@@ -177,6 +269,9 @@ def _snapshot_row(
         "recovered_execution_avg": float(summary.get("recovered_execution_avg", 0.0)),
         "real_world_readiness_avg": float(summary.get("real_world_readiness_avg", 0.0)),
         "escalation_correctness_avg": float(summary.get("escalation_correctness_avg", 0.0)),
+        "role_breakdown_json": json.dumps(role_breakdown, ensure_ascii=False, sort_keys=True),
+        "category_breakdown_json": json.dumps(category_breakdown, ensure_ascii=False, sort_keys=True),
+        "track_breakdown_json": json.dumps(track_breakdown, ensure_ascii=False, sort_keys=True),
         "output_dir": str(path.resolve()),
     }
 
@@ -186,23 +281,14 @@ def _resolve_system(
     registry: dict[str, dict[str, Any]],
 ) -> tuple[str, dict[str, Any]]:
     explicit = str(manifest.get("system_id", "") or "").strip()
+    explicit = SYSTEM_ID_ALIASES.get(explicit, explicit)
     systems = registry.get("systems", {})
-    if explicit:
+    if explicit and explicit in systems:
         return explicit, systems.get(explicit, {})
 
-    backend = str(manifest.get("backend", "") or "")
-    reasoner = str(manifest.get("reasoner", "") or "")
-    router = str(manifest.get("router", "") or "")
-    retriever = str(manifest.get("retriever", "") or "")
-
-    for system_id, meta in systems.items():
-        if (
-            str(meta.get("backend", "") or "") == backend
-            and str(meta.get("reasoner", "") or "") == reasoner
-            and str(meta.get("router", "") or "") == router
-            and str(meta.get("retriever", "") or "") == retriever
-        ):
-            return system_id, meta
+    matched = _match_registry_system(manifest, systems)
+    if matched is not None:
+        return matched
 
     derived = _slugify(
         "__".join(
@@ -216,7 +302,62 @@ def _resolve_system(
             if part
         )
     )
+    if explicit:
+        return explicit, {}
     return derived or "unknown_system", {}
+
+
+def _match_registry_system(
+    manifest: dict[str, Any],
+    systems: dict[str, dict[str, Any]],
+) -> tuple[str, dict[str, Any]] | None:
+    backend = str(manifest.get("backend", "") or "")
+    reasoner = str(manifest.get("reasoner", "") or "")
+    router = str(manifest.get("router", "") or "")
+    retriever = str(manifest.get("retriever", "") or "")
+    router_backend = str(manifest.get("router_backend", "") or "").strip().lower()
+    retriever_backend = str(manifest.get("retriever_backend", "") or "").strip().lower()
+
+    candidates: list[tuple[int, str, dict[str, Any]]] = []
+    for system_id, meta in systems.items():
+        if str(meta.get("backend", "") or "") != backend:
+            continue
+        if str(meta.get("reasoner", "") or "") and str(meta.get("reasoner", "") or "") != reasoner:
+            continue
+        if str(meta.get("router", "") or "") and str(meta.get("router", "") or "") != router:
+            continue
+        if str(meta.get("retriever", "") or "") and str(meta.get("retriever", "") or "") != retriever:
+            continue
+
+        executor_mode = str(meta.get("executor_mode", "") or "")
+        if executor_mode == "local_reasoner":
+            if router_backend not in {"", "heuristic"} or retriever_backend not in {"", "heuristic"}:
+                continue
+        elif executor_mode == "local_specialists":
+            if router_backend not in {"hf", "hf_service"} or retriever_backend not in {"hf", "hf_service"}:
+                continue
+        elif executor_mode == "seeded" and backend != "oracle":
+            continue
+
+        score = 0
+        if str(meta.get("reasoner", "") or "") == reasoner:
+            score += 4
+        if str(meta.get("router", "") or "") == router:
+            score += 2
+        if str(meta.get("retriever", "") or "") == retriever:
+            score += 2
+        if executor_mode == "local_reasoner" and router_backend in {"", "heuristic"} and retriever_backend in {"", "heuristic"}:
+            score += 3
+        if executor_mode == "local_specialists" and router_backend in {"hf", "hf_service"} and retriever_backend in {"hf", "hf_service"}:
+            score += 3
+        if system_id.startswith("hf_service_"):
+            score += 1
+        candidates.append((score, system_id, meta))
+
+    if not candidates:
+        return None
+    _, system_id, meta = max(candidates, key=lambda item: (item[0], item[1]))
+    return system_id, meta
 
 
 def _status_counts(rows: list[dict[str, str]]) -> tuple[int, int, int]:
@@ -253,7 +394,11 @@ def _write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
         "system_id",
         "lane",
         "run_intent",
+        "run_scope",
         "provider",
+        "capability_family",
+        "executor_mode",
+        "modality",
         "deployment",
         "local",
         "backend",
@@ -269,6 +414,10 @@ def _write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
         "total_params_b",
         "input_cost_per_mtok",
         "output_cost_per_mtok",
+        "total_cost_per_mtok",
+        "warmup_load_ms",
+        "last_request_elapsed_ms",
+        "requests_completed",
         "episode_count",
         "pass_count",
         "refine_count",
@@ -282,6 +431,9 @@ def _write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
         "created_at",
         "run_group_id",
         "output_dir",
+        "role_breakdown_json",
+        "category_breakdown_json",
+        "track_breakdown_json",
         "color",
         "reasoner_backend",
         "router_backend",
@@ -304,6 +456,32 @@ def _infer_run_intent(path: Path, manifest: dict[str, Any]) -> str:
     return "exploratory"
 
 
+def _infer_run_scope(manifest: dict[str, Any]) -> str:
+    episodes_path_value = str(manifest.get("episodes_path", "") or "").strip()
+    if not episodes_path_value:
+        return "unknown"
+    episodes_path = Path(episodes_path_value)
+    if not episodes_path.exists():
+        return "unknown"
+    try:
+        planned_episode_count = sum(1 for line in episodes_path.read_text(encoding="utf-8").splitlines() if line.strip())
+    except OSError:
+        return "unknown"
+    observed_episode_count = int(manifest.get("episode_count", 0) or 0)
+    if planned_episode_count and observed_episode_count >= planned_episode_count:
+        return "full_lane"
+    return "subset"
+
+
+def _run_scope_priority(value: object) -> int:
+    scope = str(value or "")
+    if scope == "full_lane":
+        return 2
+    if scope == "subset":
+        return 1
+    return 0
+
+
 def _fallback_display_name(manifest: dict[str, Any]) -> str:
     backend = str(manifest.get("backend", "") or "")
     reasoner = str(manifest.get("reasoner", "") or "")
@@ -315,6 +493,105 @@ def _fallback_display_name(manifest: dict[str, Any]) -> str:
     if retriever:
         parts.append(f"retriever={retriever}")
     return " | ".join(part for part in parts if part)
+
+
+def _flatten_breakdown_rows(
+    rows: list[dict[str, Any]],
+    column: str,
+    label: str,
+) -> list[dict[str, Any]]:
+    flattened: list[dict[str, Any]] = []
+    for row in rows:
+        raw = str(row.get(column, "") or "").strip()
+        if not raw:
+            continue
+        try:
+            payload = json.loads(raw)
+        except json.JSONDecodeError:
+            continue
+        for key, values in payload.items():
+            if not isinstance(values, dict):
+                continue
+            flattened.append(
+                {
+                    "system_id": row.get("system_id", ""),
+                    "display_name": row.get("display_name", ""),
+                    "lane": row.get("lane", ""),
+                    "run_intent": row.get("run_intent", ""),
+                    label: key,
+                    **values,
+                }
+            )
+    return flattened
+
+
+def _group_metric_breakdown(rows: list[dict[str, str]], key: str) -> dict[str, dict[str, float]]:
+    grouped: dict[str, list[dict[str, str]]] = {}
+    for row in rows:
+        label = str(row.get(key, "")).strip()
+        if not label:
+            continue
+        grouped.setdefault(label, []).append(row)
+    return {
+        label: {
+            "episodes": float(len(items)),
+            "pass_count": float(sum(1.0 for item in items if float(item.get("strict_interface_score", 0.0) or 0.0) >= 0.999 and float(item.get("recovered_execution_score", 0.0) or 0.0) >= 0.999)),
+            "refine_count": float(sum(1.0 for item in items if float(item.get("strict_interface_score", 0.0) or 0.0) < 0.999 and float(item.get("recovered_execution_score", 0.0) or 0.0) >= 0.999)),
+            "fail_count": float(sum(1.0 for item in items if float(item.get("recovered_execution_score", 0.0) or 0.0) < 0.999)),
+            "readiness_avg": round(sum(float(item.get("role_readiness_score", 0.0) or 0.0) for item in items) / len(items), 4),
+            "strict_avg": round(sum(float(item.get("strict_interface_score", 0.0) or 0.0) for item in items) / len(items), 4),
+            "browser_avg": round(sum(float(item.get("browser_workflow_score", 0.0) or 0.0) for item in items) / len(items), 4),
+            "artifact_avg": round(sum(float(item.get("artifact_quality_score", 0.0) or 0.0) for item in items) / len(items), 4),
+            "recovered_avg": round(sum(float(item.get("recovered_execution_score", 0.0) or 0.0) for item in items) / len(items), 4),
+        }
+        for label, items in grouped.items()
+    }
+
+
+def _tag_metric_breakdown(
+    rows: list[dict[str, str]],
+    *,
+    prefix_filters: list[str] | None = None,
+) -> dict[str, dict[str, float]]:
+    grouped: dict[str, list[dict[str, str]]] = {}
+    for row in rows:
+        tags = [tag.strip() for tag in str(row.get("benchmark_tags", "")).split(",") if tag.strip()]
+        for tag in tags:
+            if prefix_filters and not any(tag.startswith(prefix) or tag == prefix for prefix in prefix_filters):
+                continue
+            grouped.setdefault(tag, []).append(row)
+    return {
+        tag: {
+            "episodes": float(len(items)),
+            "pass_count": float(sum(1.0 for item in items if float(item.get("strict_interface_score", 0.0) or 0.0) >= 0.999 and float(item.get("recovered_execution_score", 0.0) or 0.0) >= 0.999)),
+            "refine_count": float(sum(1.0 for item in items if float(item.get("strict_interface_score", 0.0) or 0.0) < 0.999 and float(item.get("recovered_execution_score", 0.0) or 0.0) >= 0.999)),
+            "fail_count": float(sum(1.0 for item in items if float(item.get("recovered_execution_score", 0.0) or 0.0) < 0.999)),
+            "readiness_avg": round(sum(float(item.get("role_readiness_score", 0.0) or 0.0) for item in items) / len(items), 4),
+            "strict_avg": round(sum(float(item.get("strict_interface_score", 0.0) or 0.0) for item in items) / len(items), 4),
+            "artifact_avg": round(sum(float(item.get("artifact_quality_score", 0.0) or 0.0) for item in items) / len(items), 4),
+        }
+        for tag, items in grouped.items()
+    }
+
+
+def _extract_runtime_metrics(manifest: dict[str, Any]) -> dict[str, float | None]:
+    warmup_reasoner = ((manifest.get("warmup") or {}).get("reasoner") or {})
+    warmup_service = (warmup_reasoner.get("service") or {})
+    runtime_reasoner = ((manifest.get("runtime_bundle") or {}).get("reasoner") or {})
+    service_state = (runtime_reasoner.get("service_state") or {})
+    service_info = (runtime_reasoner.get("service") or {})
+    return {
+        "warmup_load_ms": _first_number(
+            warmup_service.get("load_elapsed_ms"),
+            service_state.get("load_elapsed_ms"),
+        ),
+        "last_request_elapsed_ms": _first_number(service_state.get("last_request_elapsed_ms")),
+        "requests_completed": _first_number(
+            service_state.get("requests_completed"),
+            service_info.get("requests_completed"),
+            warmup_service.get("requests_completed"),
+        ),
+    }
 
 
 def _first_number(*values: object) -> float | None:
@@ -331,6 +608,24 @@ def _first_number(*values: object) -> float | None:
 def _sum_present(*values: float | None) -> float | None:
     present = [float(value) for value in values if value is not None]
     return round(sum(present), 4) if present else None
+
+
+def _delta(value: object, baseline: object) -> float | None:
+    current = _first_number(value)
+    base = _first_number(baseline)
+    if current is None or base is None:
+        return None
+    return round(current - base, 4)
+
+
+def _comparison_metric(row: dict[str, Any] | None, key: str) -> float:
+    if not row:
+        return 0.0
+    return float(row.get(key, 0.0) or 0.0)
+
+
+def _delta(left: float, right: float) -> float:
+    return round(left - right, 4)
 
 
 def _slugify(text: str) -> str:

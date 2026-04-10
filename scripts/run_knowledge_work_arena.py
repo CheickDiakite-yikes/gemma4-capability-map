@@ -84,7 +84,7 @@ def main() -> None:
         "run_group_id": f"{created_at}_{args.lane}",
         "created_at": created_at,
         "lane": args.lane,
-        "system_id": args.system_id,
+        "system_id": _infer_system_id(args),
         "backend": args.backend,
         "reasoner_backend": args.reasoner_backend or args.backend,
         "router_backend": args.router_backend or "",
@@ -212,6 +212,64 @@ def main() -> None:
     _write_outputs(target_dirs, traces, summary_payload, manifest)
     _append_history_record(summary_payload, manifest)
     print(json.dumps(summary, indent=2, ensure_ascii=False))
+
+
+def _infer_system_id(args: argparse.Namespace) -> str | None:
+    if args.system_id:
+        return args.system_id
+
+    backend = str(args.backend or "")
+    reasoner = str(args.reasoner or "")
+    router = str(args.router or "")
+    retriever = str(args.retriever or "")
+    reasoner_backend = str(args.reasoner_backend or args.backend or "").lower()
+    router_backend = str(args.router_backend or "").lower()
+    retriever_backend = str(args.retriever_backend or "").lower()
+
+    if backend == "oracle":
+        return "oracle_gemma4_e2b"
+
+    if (
+        backend == "hf_service"
+        and reasoner == "google/gemma-4-E2B-it"
+        and reasoner_backend == "hf_service"
+        and router_backend in {"", "heuristic"}
+        and retriever_backend in {"", "heuristic"}
+    ):
+        return "hf_service_gemma4_reasoner_only"
+
+    if (
+        backend == "hf"
+        and reasoner == "google/gemma-4-E2B-it"
+        and reasoner_backend == "hf"
+        and router_backend in {"", "heuristic"}
+        and retriever_backend in {"", "heuristic"}
+    ):
+        return "hf_gemma4_e2b_reasoner_only"
+
+    if (
+        backend == "hf_service"
+        and reasoner == "google/gemma-4-E2B-it"
+        and router == "google/functiongemma-270m-it"
+        and retriever == "google/embeddinggemma-300m"
+        and reasoner_backend == "hf_service"
+        and router_backend in {"hf", "hf_service"}
+        and retriever_backend in {"hf", "hf_service"}
+    ):
+        return "hf_service_gemma4_specialists_cpu"
+
+    if (
+        backend == "hf"
+        and reasoner == "google/gemma-4-E2B-it"
+        and router == "google/functiongemma-270m-it"
+        and retriever == "google/embeddinggemma-300m"
+        and reasoner_backend == "hf"
+        and router_backend == "hf"
+        and retriever_backend == "hf"
+    ):
+        return "hf_gemma4_e2b_specialists_cpu"
+
+    return None
 
 
 def _append_history_record(summary: dict, manifest: dict) -> None:

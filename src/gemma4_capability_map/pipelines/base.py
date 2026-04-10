@@ -9,6 +9,7 @@ from gemma4_capability_map.evals.agent_eval import score_full_stack_trace
 from gemma4_capability_map.evals.retrieval_eval import score_retrieval_trace
 from gemma4_capability_map.evals.thinking_eval import score_thinking_trace
 from gemma4_capability_map.evals.tool_eval import score_tool_trace
+from gemma4_capability_map.evals.visual_eval import score_visual_trace
 from gemma4_capability_map.hardware import detect_hardware_profile
 from gemma4_capability_map.metrics.answer_match import answer_contains_all, answer_matches_task
 from gemma4_capability_map.models.base import Executor, Retriever, Runner
@@ -45,6 +46,10 @@ class BasePipeline:
         executor = bundle.executor.with_tool_specs(effective_task.tool_specs)
         retrieval_hits = self._retrieve(effective_task, variant, bundle)
         messages = [message.model_copy(deep=True) for message in effective_task.messages]
+        if effective_task.track == Track.VISUAL_TOOL_ORCHESTRATION:
+            image_ids = [str(key) for key in state.get("images", {}).keys() if str(key).strip()]
+            if image_ids:
+                messages.append(Message(role="system", content=f"visual_image_ids: {', '.join(sorted(image_ids))}"))
         stuffed_doc_ids: list[str] = []
         planning_outputs: list[str] = []
         planning_repair_notes: list[list[str]] = []
@@ -328,6 +333,8 @@ class BasePipeline:
             return score_tool_trace(task, trace)
         if task.track == Track.RETRIEVAL:
             return score_retrieval_trace(task, trace)
+        if task.track == Track.VISUAL_TOOL_ORCHESTRATION:
+            return score_visual_trace(task, trace)
         return score_full_stack_trace(task, trace)
 
     def _with_oracle_hint(
@@ -493,9 +500,12 @@ def _needs_answer_rescue(
     tool_steps: list[ToolResult],
     retrieval_hits: list[object],
 ) -> bool:
-    if language != "fr":
-        return False
-    if task.track not in {Track.RETRIEVAL, Track.FULL_STACK}:
+    rescue_eligible = False
+    if language == "fr" and task.track in {Track.RETRIEVAL, Track.FULL_STACK}:
+        rescue_eligible = True
+    if task.track == Track.VISUAL_TOOL_ORCHESTRATION:
+        rescue_eligible = True
+    if not rescue_eligible:
         return False
     if not task.expected_answer_contains:
         return False

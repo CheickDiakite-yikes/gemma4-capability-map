@@ -5,6 +5,7 @@ from dataclasses import dataclass, field
 from typing import Any, Callable
 
 from gemma4_capability_map.schemas import ToolSpec
+from gemma4_capability_map.tools.visual_executor import VisualExecutor, build_visual_executor
 
 ToolHandler = Callable[[dict[str, Any], dict[str, Any]], tuple[dict[str, Any], dict[str, Any]]]
 
@@ -27,8 +28,9 @@ class ToolRegistry:
         return list(self.specs.values())
 
 
-def build_default_registry() -> ToolRegistry:
+def build_default_registry(visual_executor: VisualExecutor | None = None) -> ToolRegistry:
     registry = ToolRegistry()
+    visual_executor = visual_executor or build_visual_executor()
     registry.register(
         ToolSpec(
             name="find_latest_file",
@@ -159,6 +161,66 @@ def build_default_registry() -> ToolRegistry:
         ),
         _inspect_image,
     )
+    registry.register(
+        ToolSpec(
+            name="segment_entities",
+            description="Segment or select entities in an image by query.",
+            schema={
+                "type": "object",
+                "properties": {
+                    "image_id": {"type": "string"},
+                    "entity_query": {"type": "string"},
+                },
+                "required": ["image_id", "entity_query"],
+            },
+        ),
+        _segment_entities(visual_executor),
+    )
+    registry.register(
+        ToolSpec(
+            name="refine_selection",
+            description="Refine a prior visual selection using a follow-up filter query.",
+            schema={
+                "type": "object",
+                "properties": {
+                    "selection_id": {"type": "string"},
+                    "filter_query": {"type": "string"},
+                },
+                "required": ["selection_id", "filter_query"],
+            },
+        ),
+        _refine_selection(visual_executor),
+    )
+    registry.register(
+        ToolSpec(
+            name="extract_layout",
+            description="Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+            schema={
+                "type": "object",
+                "properties": {
+                    "image_id": {"type": "string"},
+                    "target_query": {"type": "string"},
+                },
+                "required": ["image_id", "target_query"],
+            },
+        ),
+        _extract_layout(visual_executor),
+    )
+    registry.register(
+        ToolSpec(
+            name="read_region_text",
+            description="Read the text inside a previously selected region.",
+            schema={
+                "type": "object",
+                "properties": {
+                    "image_id": {"type": "string"},
+                    "region_id": {"type": "string"},
+                },
+                "required": ["image_id", "region_id"],
+            },
+        ),
+        _read_region_text(visual_executor),
+    )
     return registry
 
 
@@ -235,3 +297,30 @@ def _inspect_image(state: dict[str, Any], arguments: dict[str, Any]) -> tuple[di
         raise KeyError(f"Image not found: {arguments['image_id']}")
     return state, image
 
+
+def _segment_entities(visual_executor: VisualExecutor) -> ToolHandler:
+    def handler(state: dict[str, Any], arguments: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any]]:
+        return visual_executor.segment_entities(state, arguments["image_id"], arguments["entity_query"])
+
+    return handler
+
+
+def _refine_selection(visual_executor: VisualExecutor) -> ToolHandler:
+    def handler(state: dict[str, Any], arguments: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any]]:
+        return visual_executor.refine_selection(state, arguments["selection_id"], arguments["filter_query"])
+
+    return handler
+
+
+def _extract_layout(visual_executor: VisualExecutor) -> ToolHandler:
+    def handler(state: dict[str, Any], arguments: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any]]:
+        return visual_executor.extract_layout(state, arguments["image_id"], arguments["target_query"])
+
+    return handler
+
+
+def _read_region_text(visual_executor: VisualExecutor) -> ToolHandler:
+    def handler(state: dict[str, Any], arguments: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any]]:
+        return visual_executor.read_region_text(state, arguments["image_id"], arguments["region_id"])
+
+    return handler

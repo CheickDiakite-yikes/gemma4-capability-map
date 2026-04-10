@@ -23,7 +23,7 @@ def main() -> None:
     parser.add_argument("--max-new-tokens", type=int, default=256)
     parser.add_argument("--planning-max-new-tokens", type=int, default=None)
     parser.add_argument("--final-max-new-tokens", type=int, default=None)
-    parser.add_argument("--track", choices=["thinking", "tool_routing", "retrieval", "full_stack"], default=None)
+    parser.add_argument("--track", choices=["thinking", "tool_routing", "retrieval", "full_stack", "visual_tool_orchestration"], default=None)
     parser.add_argument("--task-id", action="append", default=[])
     parser.add_argument("--limit", type=int, default=12)
     parser.add_argument("--variants", action="store_true", help="Run generated variants instead of only clean runs.")

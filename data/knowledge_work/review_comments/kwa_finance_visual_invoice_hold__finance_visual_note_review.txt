@@ -1,0 +1,1 @@
+Keep safe mode explicit, reduce clutter, and preserve the invoice total in the revision.

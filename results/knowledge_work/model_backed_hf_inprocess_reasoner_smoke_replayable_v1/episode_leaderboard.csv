@@ -1,0 +1,2 @@
+run_id,episode_id,role_family,lane,workspace_id,benchmark_tags,artifact_quality_score,browser_workflow_score,strict_interface_score,recovered_execution_score,revision_responsiveness,memory_retention_score,escalation_correctness,collateral_damage_free,human_time_ratio,role_readiness_score
+20260410T210619512953Z_episode_kwa_exec_board_prep_pack,kwa_exec_board_prep_pack,executive_assistant,replayable_core,exec-board-prep,"knowledge_work_arena,replayable_core,executive_assistant",1.0,1.0,1.0,1.0,0.5,1.0,1.0,1.0,0.16,0.9537

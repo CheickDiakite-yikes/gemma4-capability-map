@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import importlib.util
 from pathlib import Path
 import sys
@@ -65,8 +66,8 @@ def _load_tasks() -> list[Task]:
 def test_episode_specs_validate_and_cover_both_lanes() -> None:
     replayable = build_replayable_episodes()
     live = build_live_web_episodes()
-    assert len(replayable) == 21
-    assert len(live) == 15
+    assert len(replayable) == 24
+    assert len(live) == 18
     assert {episode.role_family.value for episode in replayable} == {
         "executive_assistant",
         "job_application_ops",
@@ -78,6 +79,7 @@ def test_episode_specs_validate_and_cover_both_lanes() -> None:
     assert any(artifact.scoring_contract.required_formula_cells for episode in replayable + live for artifact in episode.artifacts)
     assert any(artifact.scoring_contract.required_heading_order for episode in replayable + live for artifact in episode.artifacts)
     assert any(artifact.scoring_contract.required_slide_bullets_by_title for episode in replayable + live for artifact in episode.artifacts)
+    assert any("visual_kwa" in episode.benchmark_tags for episode in replayable + live)
     assert all(stage.browser_plan for episode in replayable + live for stage in episode.stages)
 
 
@@ -267,6 +269,47 @@ def test_episode_runner_emits_structured_model_and_deck_artifacts() -> None:
     assert "## Revision Diff" in deck_artifact.content
     assert deck_artifact.file_format == "pptx"
     assert deck_artifact.file_path and deck_artifact.file_path.endswith(".pptx")
+
+
+def test_visual_kwa_episodes_exist_for_each_role_and_lane() -> None:
+    replayable = build_replayable_episodes()
+    live = build_live_web_episodes()
+    replayable_visual = [episode for episode in replayable if "visual_kwa" in episode.benchmark_tags]
+    live_visual = [episode for episode in live if "visual_kwa" in episode.benchmark_tags]
+
+    assert {episode.role_family.value for episode in replayable_visual} == {
+        "executive_assistant",
+        "job_application_ops",
+        "finance",
+    }
+    assert {episode.role_family.value for episode in live_visual} == {
+        "executive_assistant",
+        "job_application_ops",
+        "finance",
+    }
+    assert all(any(task_ref.startswith("visual_") for stage in episode.stages for task_ref in stage.task_refs) for episode in replayable_visual + live_visual)
+    assert all(episode.review_rounds for episode in replayable_visual + live_visual)
+    assert any("visual_013_dashboard_stale_selection_recovery" in task_ref for episode in replayable_visual for stage in episode.stages for task_ref in stage.task_refs)
+    assert any("visual_014_form_phone_refinement" in task_ref for episode in replayable_visual for stage in episode.stages for task_ref in stage.task_refs)
+    assert any("visual_015_slide_policy_revision_pressure" in task_ref for episode in replayable_visual for stage in episode.stages for task_ref in stage.task_refs)
+
+
+def test_partner_deck_revision_responsiveness_is_material() -> None:
+    tasks = _load_tasks()
+    bundle = RuntimeBundle(
+        reasoner=Gemma4Runner("google/gemma-4-E4B-it", backend="oracle"),
+        router=FunctionGemmaRunner("google/functiongemma-270m-it", backend="oracle"),
+        retriever=EmbeddingGemmaRetriever("google/embeddinggemma-300m", backend="heuristic"),
+        executor=DeterministicExecutor(registry=build_default_registry()),
+    )
+    runner = EpisodeRunner(tasks=tasks, bundle=bundle)
+    episode = next(episode for episode in build_replayable_episodes() if episode.episode_id == "kwa_finance_partner_deck_revision")
+    trace = runner.run(episode)
+
+    assert trace.scorecard.strict_interface_score == 1.0
+    assert trace.scorecard.recovered_execution_score == 1.0
+    assert trace.scorecard.memory_retention_score == 1.0
+    assert trace.scorecard.revision_responsiveness >= 0.5
 
 
 def test_live_web_episode_actions_are_dry_run_browser_steps() -> None:
@@ -648,3 +691,29 @@ def test_run_knowledge_work_arena_accepts_system_id() -> None:
         sys.argv = original_argv
 
     assert args.system_id == "hf_service_gemma4_specialists_cpu"
+
+
+def test_run_knowledge_work_arena_infers_direct_hf_system_ids() -> None:
+    reasoner_args = argparse.Namespace(
+        system_id=None,
+        backend="hf",
+        reasoner_backend="hf",
+        router_backend="heuristic",
+        retriever_backend="heuristic",
+        reasoner="google/gemma-4-E2B-it",
+        router="google/functiongemma-270m-it",
+        retriever="google/embeddinggemma-300m",
+    )
+    specialists_args = argparse.Namespace(
+        system_id=None,
+        backend="hf",
+        reasoner_backend="hf",
+        router_backend="hf",
+        retriever_backend="hf",
+        reasoner="google/gemma-4-E2B-it",
+        router="google/functiongemma-270m-it",
+        retriever="google/embeddinggemma-300m",
+    )
+
+    assert RUN_KWA_MODULE._infer_system_id(reasoner_args) == "hf_gemma4_e2b_reasoner_only"
+    assert RUN_KWA_MODULE._infer_system_id(specialists_args) == "hf_gemma4_e2b_specialists_cpu"

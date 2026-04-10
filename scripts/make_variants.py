@@ -19,6 +19,7 @@ DEFAULT_STRESSOR_FLAVORS = {
     "tool_routing": {"language": "code_switch", "schema": "renamed_fields", "context": "irrelevant_tool_output"},
     "retrieval": {"language": "fr", "context": "long_history", "efficiency": "top_k_3"},
     "full_stack": {"language": "fr", "schema": "validator_feedback", "context": "changed_constraint", "efficiency": "truncation_compact"},
+    "visual_tool_orchestration": {"language": "fr", "schema": "renamed_fields", "context": "changed_constraint"},
 }
 
 
@@ -86,4 +87,3 @@ def build_crossed_variant(task: Task, flavors: dict[str, str]) -> Variant:
 
 if __name__ == "__main__":
     main()
-

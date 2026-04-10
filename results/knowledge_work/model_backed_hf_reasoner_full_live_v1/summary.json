@@ -1,0 +1,13 @@
+{
+  "runs": 18.0,
+  "artifact_quality_avg": 0.9821944444444445,
+  "browser_workflow_avg": 1.0,
+  "strict_interface_avg": 1.0,
+  "recovered_execution_avg": 1.0,
+  "real_world_readiness_avg": 0.9629555555555557,
+  "escalation_correctness_avg": 1.0,
+  "lane": "live_web_stress",
+  "created_at": "20260410T203819Z",
+  "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_reasoner_full_live_v1"
+}

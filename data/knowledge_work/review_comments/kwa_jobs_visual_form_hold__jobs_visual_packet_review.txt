@@ -1,0 +1,1 @@
+Narrow the validation callout to the phone error, preserve the work authorization requirement, and keep the approval hold explicit.

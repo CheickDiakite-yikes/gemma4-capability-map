@@ -18,6 +18,7 @@ class Track(str, Enum):
     TOOL_ROUTING = "tool_routing"
     RETRIEVAL = "retrieval"
     FULL_STACK = "full_stack"
+    VISUAL_TOOL_ORCHESTRATION = "visual_tool_orchestration"
 
 
 class Domain(str, Enum):

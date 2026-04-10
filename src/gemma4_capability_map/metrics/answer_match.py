@@ -82,6 +82,18 @@ TOKEN_ALIASES = {
     "securite": "security",
     "facturation": "billing",
     "verrou": "lock",
+    "blanc": "white",
+    "blanche": "white",
+    "blanches": "white",
+    "blancs": "white",
+    "vide": "empty",
+    "vides": "empty",
+    "bloque": "blocked",
+    "bloquee": "blocked",
+    "bloquees": "blocked",
+    "tableau": "dashboard",
+    "erreur": "error",
+    "erreurs": "error",
 }
 
 

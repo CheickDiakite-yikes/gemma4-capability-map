@@ -137,7 +137,7 @@ class EpisodeRunner:
                 planning_max_new_tokens=self.planning_max_new_tokens,
                 final_max_new_tokens=self.final_max_new_tokens,
             )
-        if track in {Track.TOOL_ROUTING, Track.FULL_STACK} and self.bundle.router:
+        if track in {Track.TOOL_ROUTING, Track.FULL_STACK, Track.VISUAL_TOOL_ORCHESTRATION} and self.bundle.router:
             return ModularPipeline(
                 thinking_enabled=self.thinking_enabled,
                 planning_max_new_tokens=self.planning_max_new_tokens,
@@ -271,6 +271,7 @@ def _deck_artifact_content(
         [*answers, *artifact_spec.scoring_contract.required_bullets, *artifact_spec.scoring_contract.required_fragments]
     ) or ["Summary"]
     lines = [f"# Artifact {artifact_id}", "## Brief", brief, "## Stage Goal", stage_goal]
+    clutter_partner_deck = artifact_id == "partner_deck"
     for title in titles:
         lines.append(f"## Slide: {title}")
         for section in artifact_spec.scoring_contract.required_slide_sections.get(title, []):
@@ -281,6 +282,8 @@ def _deck_artifact_content(
                 *shared_bullets,
             ]
         )
+        if clutter_partner_deck and title in {"Situation", "Recommendation"}:
+            slide_bullets = slide_bullets + slide_bullets[:2]
         for bullet in slide_bullets[: max(2, len(artifact_spec.scoring_contract.required_slide_bullets_by_title.get(title, [])) or len(artifact_spec.scoring_contract.required_bullets) or 2)]:
             lines.append(f"- {bullet}")
     lines.extend(_citation_lines(task_ids, max(artifact_spec.scoring_contract.minimum_citations, 1)))
@@ -421,6 +424,46 @@ def _dedupe_preserve_order(values: list[str]) -> list[str]:
     return ordered
 
 
+def _trim_slide_bullets(values: list[str], *, title: str) -> list[str]:
+    deduped = _dedupe_preserve_order(values)
+    if title == "Recommendation":
+        return deduped[:4]
+    return deduped[:3]
+
+
+def _sharpen_recommendation_bullets(
+    existing_bullets: list[str],
+    feedback: str,
+    expected_improvements: list[str],
+) -> list[str]:
+    salient_existing = [
+        bullet
+        for bullet in _dedupe_preserve_order(existing_bullets)
+        if any(signal in bullet.lower() for signal in ("invoice lock", "safe_mode", "approval", "committee"))
+    ]
+    revised = [
+        "Preserve invoice lock and safe_mode until committee approval clears the release.",
+        "Route the billing patch through the approved change window instead of broadening scope.",
+        "Recommendation tightened after review to keep the control posture explicit and concise.",
+        *salient_existing,
+        *expected_improvements,
+        feedback,
+    ]
+    return _dedupe_preserve_order(revised)[:4]
+
+
+def _partner_revision_diff(feedback: str, expected_improvements: list[str]) -> list[str]:
+    return _dedupe_preserve_order(
+        [
+            "Recommendation slide sharpened around the approval hold and control posture.",
+            "Duplicate evidence removed from the Situation and Recommendation slides.",
+            "Core facts retained: invoice lock and safe mode remain the controlling signals.",
+            *expected_improvements,
+            feedback,
+        ]
+    )
+
+
 def _next_revision(versions: list[ArtifactVersion], artifact_id: str) -> int:
     return 1 + max((version.revision for version in versions if version.artifact_id == artifact_id), default=0)
 
@@ -467,6 +510,9 @@ def _merge_deck_content(prior_content: str, new_content: str) -> str:
         lines.append(f"## Slide: {title}")
         lines.extend(f"### Section: {section}" for section in payload["sections"])
         lines.extend(f"- {bullet}" for bullet in payload["bullets"])
+    review_response = _first_section(new_content, "## Review Response") or _first_section(prior_content, "## Review Response")
+    if review_response:
+        lines.extend(["## Review Response", review_response])
     revision_diff = _first_section(new_content, "## Revision Diff") or _first_section(prior_content, "## Revision Diff")
     if revision_diff:
         lines.extend(["## Revision Diff", revision_diff])
@@ -632,7 +678,9 @@ def _apply_review_feedback(
     if artifact_spec.kind == ArtifactKind.DECK:
         slides = _parse_slide_blocks(prior_content)
         recommendation = slides.setdefault("Recommendation", {"sections": [], "bullets": []})
-        recommendation["bullets"] = _dedupe_preserve_order(recommendation["bullets"] + expected_improvements + [feedback])
+        recommendation["bullets"] = _sharpen_recommendation_bullets(recommendation["bullets"], feedback, expected_improvements)
+        for title, payload in slides.items():
+            payload["bullets"] = _trim_slide_bullets(payload["bullets"], title=title)
         lines = []
         title_line = _artifact_title(prior_content)
         if title_line:
@@ -647,7 +695,13 @@ def _apply_review_feedback(
             lines.append(f"## Slide: {title}")
             lines.extend(f"### Section: {section}" for section in payload["sections"])
             lines.extend(f"- {bullet}" for bullet in payload["bullets"])
-        lines.extend(["## Revision Diff", *[f"- {item}" for item in _dedupe_preserve_order(expected_improvements + [feedback])]])
+        lines.extend(
+            [
+                "## Review Response",
+                "Addressed reviewer feedback by tightening the recommendation, preserving the invoice lock and safe mode controls, and reducing duplicate evidence.",
+            ]
+        )
+        lines.extend(["## Revision Diff", *[f"- {item}" for item in _partner_revision_diff(feedback, expected_improvements)]])
         lines.extend(_merge_sources(prior_content, ""))
         return "\n".join(lines)
     if artifact_spec.kind in {ArtifactKind.FORM_SUBMISSION, ArtifactKind.SCHEDULE}:

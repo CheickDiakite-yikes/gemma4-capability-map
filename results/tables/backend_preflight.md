@@ -1,16 +1,20 @@
 # Backend Preflight
 
-- Generated at: `2026-04-09T16:29:51.430409+00:00`
-- Recommended local reasoner backend: `mlx`
+- Generated at: `2026-04-10T21:21:05.687593+00:00`
+- Recommended local reasoner backend: `hf`
 - HF token present: `True`
 - HF token source: `HF_TOKEN`
 - Offline mode enabled: `False`
 
 ## MLX runtime probe
 
-- ok: `True`
-- elapsed_ms: `147`
-- returncode: `0`
+- ok: `False`
+- elapsed_ms: `20`
+- returncode: `1`
+- stderr: `Traceback (most recent call last):
+  File "<string>", line 2, in <module>
+    import mlx.core as mx
+ModuleNotFoundError: No module named 'mlx'`
 
 ## HF import probe
 
@@ -27,7 +31,7 @@
 
 ## HF reasoner service
 
-- status: `stale`
+- status: `ready`
 - socket_path: `/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/service.sock`
 - state_path: `/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/state.json`
 

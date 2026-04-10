@@ -14,11 +14,13 @@ This repo now contains two benchmark layers:
 
 ## Benchmark Shape
 
-- `52` gold atomic tasks
-- `232` explicit atomic variants
+- `64` gold atomic tasks
+- `282` explicit atomic variants
 - `16` real-world-tagged atomic tasks
-- `21` replayable-core `KnowledgeWorkArena` episodes
-- `15` live-web stress `KnowledgeWorkArena` episodes
+- `8` replayable-core visual-tool orchestration atomic tasks
+- `4` live-web stress visual-tool orchestration atomic tasks
+- `24` replayable-core `KnowledgeWorkArena` episodes in the generated corpus
+- `18` live-web stress `KnowledgeWorkArena` episodes in the generated corpus
 
 ## Canonical Atomic Benchmark Pointers
 
@@ -27,27 +29,59 @@ This repo now contains two benchmark layers:
 - atomic benchmark history:
   - [`results/history/history_report.md`](../../results/history/history_report.md)
 
+## Canonical Visual Tool Orchestration Pointers
+
+Replayable core:
+
+- [`results/visual_tool_orchestration/replayable_core/summary.json`](../../results/visual_tool_orchestration/replayable_core/summary.json)
+- current metrics:
+  - `runs = 11`
+  - `success_rate = 1.0`
+  - `strict_interface_rate = 1.0`
+  - `recovered_execution_rate = 1.0`
+  - `real_world_readiness_avg = 1.0`
+
+Live-web stress:
+
+- [`results/visual_tool_orchestration/live_web_stress/summary.json`](../../results/visual_tool_orchestration/live_web_stress/summary.json)
+- current metrics:
+  - `runs = 7`
+  - `success_rate = 1.0`
+  - `strict_interface_rate = 1.0`
+  - `recovered_execution_rate = 1.0`
+
+Interpretation:
+
+- the repo now has a first-class atomic benchmark for visual-tool orchestration, not just generic multimodal QA
+- the canonical track measures whether the reasoner picks the right visual tools, refines selections correctly, preserves referents across turns, and lands the right final answer
+- stricter placeholder-aware scoring is now live: follow-up `selection_id` and `region_id` arguments must point at the latest valid visual referent, not just any non-empty placeholder replacement
+- replayable scoring is seeded and deterministic; live-web stress uses the same tool surface with a local executor path
+
 ## Canonical KnowledgeWorkArena Pointers
 
 Replayable core:
 
 - [`results/knowledge_work/replayable_core/summary.json`](../../results/knowledge_work/replayable_core/summary.json)
 - current metrics:
-  - `artifact_quality_avg = 1.0`
-  - `browser_workflow_avg = 0.9929`
+  - `runs = 24`
+  - `artifact_quality_avg = 0.9866`
+  - `browser_workflow_avg = 0.9910`
   - `strict_interface_avg = 1.0`
   - `recovered_execution_avg = 1.0`
-  - `real_world_readiness_avg = 0.9333`
+  - `real_world_readiness_avg = 0.9510`
+  - `escalation_correctness_avg = 1.0`
 
 Live-web stress:
 
 - [`results/knowledge_work/live_web_stress/summary.json`](../../results/knowledge_work/live_web_stress/summary.json)
 - current metrics:
-  - `artifact_quality_avg = 1.0`
+  - `runs = 18`
+  - `artifact_quality_avg = 0.9822`
   - `browser_workflow_avg = 1.0`
   - `strict_interface_avg = 1.0`
   - `recovered_execution_avg = 1.0`
   - `real_world_readiness_avg = 0.9630`
+  - `escalation_correctness_avg = 1.0`
 
 Harder human-nuance episodes now included in the canonical oracle lanes:
 
@@ -60,9 +94,25 @@ Harder human-nuance episodes now included in the canonical oracle lanes:
   - `kwa_jobs_live_constraint_hold`
   - `kwa_finance_live_stale_assumption_hold`
 
+Visual KWA episodes now also exist and have bounded oracle references:
+
+- replayable visual KWA slice:
+  - [`results/knowledge_work/kwa_visual_replayable_oracle_v1/summary.json`](../../results/knowledge_work/kwa_visual_replayable_oracle_v1/summary.json)
+  - episodes:
+    - `kwa_exec_visual_dashboard_brief`
+    - `kwa_jobs_visual_form_hold`
+    - `kwa_finance_visual_invoice_hold`
+- live visual KWA slice:
+  - [`results/knowledge_work/kwa_visual_live_oracle_v1/summary.json`](../../results/knowledge_work/kwa_visual_live_oracle_v1/summary.json)
+  - episodes:
+    - `kwa_exec_live_visual_dashboard_brief`
+    - `kwa_jobs_live_visual_form_hold`
+    - `kwa_finance_live_visual_invoice_hold`
+
 Interpretation:
 
 - the canonical KWA lanes now cover stale context reconciliation, original-constraint preservation under pressure, and stale-assumption repair before approval-gated release
+- the generated KWA corpus is now larger than the canonical oracle lane pointers because the new visual episodes were validated in bounded slices first, then the full canonical oracle lanes were rerun on the expanded corpus
 - these are harder because the right move is often “repair and stop safely,” not just “complete the workflow”
 - the canonical runner no longer silently truncates the lane; `run_knowledge_work_arena.py` now defaults to full-lane execution unless `--limit` is explicitly set
 
@@ -80,6 +130,12 @@ Registry and exports:
   - [`results/history/knowledge_work_scatter.csv`](../../results/history/knowledge_work_scatter.csv)
 - board payload:
   - [`results/history/knowledge_work_board.json`](../../results/history/knowledge_work_board.json)
+- role breakdown:
+  - [`results/history/knowledge_work_role_breakdown.csv`](../../results/history/knowledge_work_role_breakdown.csv)
+- category breakdown:
+  - [`results/history/knowledge_work_category_breakdown.csv`](../../results/history/knowledge_work_category_breakdown.csv)
+- track breakdown:
+  - [`results/history/knowledge_work_track_breakdown.csv`](../../results/history/knowledge_work_track_breakdown.csv)
 
 UI surface:
 
@@ -93,8 +149,89 @@ UI surface:
 Interpretation:
 
 - the repo can now render internal leaderboard and scatter-style benchmark views from normalized run metadata
+- the board now supports role-family, category, track, modality, and executor-mode cuts
+- the board now also carries runtime-facing fields when manifests provide them:
+  - `warmup_load_ms`
+  - `last_request_elapsed_ms`
+  - `requests_completed`
+  - `total_cost_per_mtok`
 - the current board is good enough for internal benchmarking and chart production
 - the remaining gap to a public leaderboard is broader model coverage plus stronger latency and cost instrumentation
+
+## Current Full-Lane Comparative Systems
+
+The board now has five meaningful full-lane comparison rows:
+
+- canonical oracle:
+  - `oracle_gemma4_e2b`
+- exploratory local reasoner-only via `hf_service`:
+  - `hf_service_gemma4_reasoner_only`
+- exploratory local specialist-backed via `hf_service` + real HF specialists:
+  - `hf_service_gemma4_specialists_cpu`
+- exploratory local reasoner-only via direct in-process HF:
+  - `hf_gemma4_e2b_reasoner_only`
+- exploratory local specialist-backed via direct in-process HF:
+  - `hf_gemma4_e2b_specialists_cpu`
+
+New direct in-process HF references:
+
+- replayable:
+  - [`results/knowledge_work/model_backed_hf_inprocess_reasoner_full_replayable_v1/summary.json`](../../results/knowledge_work/model_backed_hf_inprocess_reasoner_full_replayable_v1/summary.json)
+  - `runs = 24`
+  - `artifact_quality_avg = 0.9834`
+  - `browser_workflow_avg = 0.9910`
+  - `strict_interface_avg = 0.9531`
+  - `recovered_execution_avg = 0.9375`
+  - `real_world_readiness_avg = 0.9330`
+- live:
+  - [`results/knowledge_work/model_backed_hf_inprocess_reasoner_full_live_v1/summary.json`](../../results/knowledge_work/model_backed_hf_inprocess_reasoner_full_live_v1/summary.json)
+  - `runs = 18`
+  - `artifact_quality_avg = 0.9779`
+  - `browser_workflow_avg = 1.0`
+  - `strict_interface_avg = 0.9306`
+  - `recovered_execution_avg = 0.9167`
+  - `real_world_readiness_avg = 0.9379`
+
+New direct in-process HF specialist-backed references:
+
+- replayable:
+  - [`results/knowledge_work/model_backed_hf_inprocess_specialists_full_replayable_v1/summary.json`](../../results/knowledge_work/model_backed_hf_inprocess_specialists_full_replayable_v1/summary.json)
+  - `runs = 24`
+  - `artifact_quality_avg = 0.9834`
+  - `browser_workflow_avg = 0.9910`
+  - `strict_interface_avg = 0.9844`
+  - `recovered_execution_avg = 0.9792`
+  - `real_world_readiness_avg = 0.9452`
+- live:
+  - [`results/knowledge_work/model_backed_hf_inprocess_specialists_full_live_v1/summary.json`](../../results/knowledge_work/model_backed_hf_inprocess_specialists_full_live_v1/summary.json)
+  - `runs = 18`
+  - `artifact_quality_avg = 0.9779`
+  - `browser_workflow_avg = 1.0`
+  - `strict_interface_avg = 0.9514`
+  - `recovered_execution_avg = 0.9444`
+  - `real_world_readiness_avg = 0.9460`
+
+Interpretation:
+
+- direct in-process HF is materially weaker than the existing `hf_service` reasoner-only baseline on the same full-lane KWA surface
+- adding real HF specialists improves the direct in-process path materially:
+  - replayable `strict_interface_avg`: `0.9531 -> 0.9844`
+  - replayable `recovered_execution_avg`: `0.9375 -> 0.9792`
+  - live `strict_interface_avg`: `0.9306 -> 0.9514`
+  - live `recovered_execution_avg`: `0.9167 -> 0.9444`
+- the remaining losses are still concentrated in a small visual KWA subset rather than the broader non-visual workflow corpus
+- current concentrated misses for `hf_gemma4_e2b_specialists_cpu`:
+  - replayable:
+    - `kwa_finance_visual_invoice_hold`
+  - live:
+    - `kwa_finance_live_visual_invoice_hold`
+    - `kwa_jobs_live_visual_form_hold`
+- this is a useful deployment-level benchmark result:
+  - same base model family
+  - different execution path and specialist composition
+  - meaningfully different full-lane behavior even after specialist recovery
+- `mlx` is still blocked locally because the runtime probe fails with `ModuleNotFoundError: mlx`
+- `google/gemma-4-E4B-it` remains probe-only locally on this Mac and should not be treated as the next serious full-lane comparison target
 
 ## Policy-Hardening Oracle Snapshots
 
@@ -292,7 +429,7 @@ Interpretation:
 
 Replayable mixed-pressure broad reference:
 
-- [`results/knowledge_work/model_backed_hf_specialists_cross_role_hardmix_replayable_v2/summary.json`](../../results/knowledge_work/model_backed_hf_specialists_cross_role_hardmix_replayable_v2/summary.json)
+- [`results/knowledge_work/model_backed_hf_specialists_cross_role_hardmix_visual_replayable_v2/summary.json`](../../results/knowledge_work/model_backed_hf_specialists_cross_role_hardmix_visual_replayable_v2/summary.json)
 - episodes:
   - broad cross-role core:
     - `kwa_exec_board_prep_pack`
@@ -308,17 +445,22 @@ Replayable mixed-pressure broad reference:
     - `kwa_exec_stale_brief_hold`
     - `kwa_jobs_constraint_preservation_hold`
     - `kwa_finance_stale_assumption_hold`
+  - visual additions:
+    - `kwa_exec_visual_dashboard_brief`
+    - `kwa_jobs_visual_form_hold`
+    - `kwa_finance_visual_invoice_hold`
 - aggregate metrics:
-  - `artifact_quality_avg = 1.0`
-  - `browser_workflow_avg = 0.9914`
+  - `runs = 18`
+  - `artifact_quality_avg = 0.9822`
+  - `browser_workflow_avg = 0.9880`
   - `strict_interface_avg = 1.0`
   - `recovered_execution_avg = 1.0`
-  - `real_world_readiness_avg = 0.9222`
+  - `real_world_readiness_avg = 0.9436`
   - `escalation_correctness_avg = 1.0`
 
 Live mixed-pressure broad reference:
 
-- [`results/knowledge_work/model_backed_hf_specialists_cross_role_hardmix_live_v1/summary.json`](../../results/knowledge_work/model_backed_hf_specialists_cross_role_hardmix_live_v1/summary.json)
+- [`results/knowledge_work/model_backed_hf_specialists_cross_role_hardmix_visual_live_v2/summary.json`](../../results/knowledge_work/model_backed_hf_specialists_cross_role_hardmix_visual_live_v2/summary.json)
 - episodes:
   - broad live cross-role core:
     - `kwa_exec_live_brief`
@@ -334,21 +476,113 @@ Live mixed-pressure broad reference:
     - `kwa_exec_live_stale_brief_hold`
     - `kwa_jobs_live_constraint_hold`
     - `kwa_finance_live_stale_assumption_hold`
+  - visual additions:
+    - `kwa_exec_live_visual_dashboard_brief`
+    - `kwa_jobs_live_visual_form_hold`
+    - `kwa_finance_live_visual_invoice_hold`
 - aggregate metrics:
-  - `artifact_quality_avg = 1.0`
+  - `runs = 15`
+  - `artifact_quality_avg = 0.9786`
   - `browser_workflow_avg = 1.0`
   - `strict_interface_avg = 1.0`
   - `recovered_execution_avg = 1.0`
-  - `real_world_readiness_avg = 0.9691`
+  - `real_world_readiness_avg = 0.9555`
   - `escalation_correctness_avg = 1.0`
 
 Interpretation:
 
-- the replayable `v1` mixed-pressure run is now only a diagnosis artifact for the refusal-versus-escalate billing miss
-- the corrected replayable reference is `model_backed_hf_specialists_cross_role_hardmix_replayable_v2`
+- the old non-visual mixed-pressure references are no longer the best summary of the current model-backed frontier
+- the corrected replayable reference is `model_backed_hf_specialists_cross_role_hardmix_visual_replayable_v2`
+- the corrected live reference is `model_backed_hf_specialists_cross_role_hardmix_visual_live_v2`
+- the earlier `visual_*_v1` runs should be treated as diagnosis artifacts for image-id plumbing and visual answer-surface rescue, not the current reference state
 - the current remaining softer realism signal is `kwa_finance_partner_deck_revision`:
   - revision responsiveness is still weak
   - memory retention is now scored correctly after the semantic scorer hardening
+
+## Specialist-Backed Visual KWA Snapshot
+
+Replayable visual slice:
+
+- [`results/knowledge_work/model_backed_hf_specialists_visual_replayable_v3/summary.json`](../../results/knowledge_work/model_backed_hf_specialists_visual_replayable_v3/summary.json)
+- episodes:
+  - `kwa_exec_visual_dashboard_brief`
+  - `kwa_jobs_visual_form_hold`
+  - `kwa_finance_visual_invoice_hold`
+- aggregate metrics:
+  - `artifact_quality_avg = 0.8932`
+  - `browser_workflow_avg = 0.9782`
+  - `strict_interface_avg = 1.0`
+  - `recovered_execution_avg = 1.0`
+  - `real_world_readiness_avg = 0.9141`
+
+Interpretation:
+
+- the specialist-backed stack now handles the job-shaped visual episodes cleanly in bounded form
+- the first failing replayable visual slice was a benchmark plumbing issue, not a stable model weakness: the planner needed logical image ids, and visual tasks needed second-pass answer rescue
+- the remaining gap on this bounded visual slice is softer artifact quality, not strict interface discipline
+
+## Full-Lane Specialist-Backed Exploratory References
+
+Replayable full generated corpus:
+
+- [`results/knowledge_work/model_backed_hf_specialists_replayable_full_v1/summary.json`](../../results/knowledge_work/model_backed_hf_specialists_replayable_full_v1/summary.json)
+- aggregate metrics:
+  - `runs = 24`
+  - `artifact_quality_avg = 0.9866`
+  - `browser_workflow_avg = 0.9910`
+  - `strict_interface_avg = 1.0`
+  - `recovered_execution_avg = 1.0`
+  - `real_world_readiness_avg = 0.9510`
+  - `escalation_correctness_avg = 1.0`
+
+Live full generated corpus:
+
+- [`results/knowledge_work/model_backed_hf_specialists_live_full_v1/summary.json`](../../results/knowledge_work/model_backed_hf_specialists_live_full_v1/summary.json)
+- aggregate metrics:
+  - `runs = 18`
+  - `artifact_quality_avg = 0.9822`
+  - `browser_workflow_avg = 1.0`
+  - `strict_interface_avg = 1.0`
+  - `recovered_execution_avg = 1.0`
+  - `real_world_readiness_avg = 0.9630`
+  - `escalation_correctness_avg = 1.0`
+
+Interpretation:
+
+- the current local specialist-backed stack is now clean on the entire generated KWA corpus in both replayable and live exploratory form
+- the remaining deltas on the full-lane runs are softer artifact/browser-readiness movements, not strict interface failures
+- this shifts the next benchmark frontier away from “can the stack survive the current corpus?” and toward broader system comparisons, richer public-style reporting, and harder new episode design
+
+## Full-Lane Reasoner-Only Exploratory References
+
+Replayable full generated corpus:
+
+- [`results/knowledge_work/model_backed_hf_reasoner_full_replayable_v1/summary.json`](../../results/knowledge_work/model_backed_hf_reasoner_full_replayable_v1/summary.json)
+- aggregate metrics:
+  - `runs = 24`
+  - `artifact_quality_avg = 0.9866`
+  - `browser_workflow_avg = 0.9910`
+  - `strict_interface_avg = 1.0`
+  - `recovered_execution_avg = 1.0`
+  - `real_world_readiness_avg = 0.9510`
+  - `escalation_correctness_avg = 1.0`
+
+Live full generated corpus:
+
+- [`results/knowledge_work/model_backed_hf_reasoner_full_live_v1/summary.json`](../../results/knowledge_work/model_backed_hf_reasoner_full_live_v1/summary.json)
+- aggregate metrics:
+  - `runs = 18`
+  - `artifact_quality_avg = 0.9822`
+  - `browser_workflow_avg = 1.0`
+  - `strict_interface_avg = 1.0`
+  - `recovered_execution_avg = 1.0`
+  - `real_world_readiness_avg = 0.9630`
+  - `escalation_correctness_avg = 1.0`
+
+Interpretation:
+
+- the comparative full-lane board now cleanly resolves `reasoner_only` versus `specialist_stack` through registry-backed system ids instead of ad hoc slice labels
+- the board prefers `full_lane` exploratory runs over narrower subset sweeps, so the top-line comparison surface is no longer shadowed by later partial slices
 
 ## Harder Human-Nuance Specialist-Backed Snapshots
 

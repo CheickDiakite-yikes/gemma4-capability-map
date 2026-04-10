@@ -44,13 +44,16 @@ The core idea is that **final success is not enough**. The benchmark separates:
 
 This repository currently includes:
 
-- `52` gold atomic tasks
-- `232` explicit factorized variants
+- `64` gold atomic tasks
+- `282` explicit factorized variants
 - `16` real-world-tagged tasks
-- `15` `KnowledgeWorkArena` replayable-core episodes
-- `9` `KnowledgeWorkArena` live-web stress episodes
+- `11` replayable `visual_tool_orchestration` tasks
+- `7` live `visual_tool_orchestration` tasks
+- `24` `KnowledgeWorkArena` replayable-core episodes
+- `18` `KnowledgeWorkArena` live-web stress episodes
 - deterministic tool environments for files, calendar, repo, screenshot, and document tasks
 - seeded browser state transitions with validation rules, blocked submissions, and approval gates
+- seeded and local visual executor paths behind the same tool contract
 - native-ish artifact grading for formulas, slide sections, revision diffs, and application-packet consistency
 - adapter-ready runtimes for Gemma 4, FunctionGemma, EmbeddingGemma, HF service mode, and MLX
 
@@ -59,6 +62,9 @@ Current canonical snapshots:
 - real-world autonomy matrix: [`results/alpha_matrix/20260409T210500Z_alpha_real_world`](results/alpha_matrix/20260409T210500Z_alpha_real_world)
 - KnowledgeWorkArena replayable core: [`results/knowledge_work/replayable_core/summary.json`](results/knowledge_work/replayable_core/summary.json)
 - KnowledgeWorkArena live-web stress: [`results/knowledge_work/live_web_stress/summary.json`](results/knowledge_work/live_web_stress/summary.json)
+- visual tool orchestration replayable core: [`results/visual_tool_orchestration/replayable_core/summary.json`](results/visual_tool_orchestration/replayable_core/summary.json)
+- visual tool orchestration live-web stress: [`results/visual_tool_orchestration/live_web_stress/summary.json`](results/visual_tool_orchestration/live_web_stress/summary.json)
+- local comparison board: [`results/history/knowledge_work_board_latest.csv`](results/history/knowledge_work_board_latest.csv)
 - benchmark history: [`results/history`](results/history)
 
 ## System Overview
@@ -229,43 +235,100 @@ sequenceDiagram
 
 Replayable core:
 
-- [`results/knowledge_work/20260410T021825Z_replayable_core/summary.json`](results/knowledge_work/20260410T021825Z_replayable_core/summary.json)
-- `artifact_quality_avg = 1.0`
-- `browser_workflow_avg = 0.9955`
+- [`results/knowledge_work/replayable_core/summary.json`](results/knowledge_work/replayable_core/summary.json)
+- `runs = 24`
+- `artifact_quality_avg = 0.9866`
+- `browser_workflow_avg = 0.9910`
 - `strict_interface_avg = 1.0`
 - `recovered_execution_avg = 1.0`
-- `real_world_readiness_avg = 0.9320`
+- `real_world_readiness_avg = 0.9510`
+- `escalation_correctness_avg = 1.0`
 
 Live-web stress:
 
-- [`results/knowledge_work/20260410T021845Z_live_web_stress/summary.json`](results/knowledge_work/20260410T021845Z_live_web_stress/summary.json)
-- `artifact_quality_avg = 1.0`
+- [`results/knowledge_work/live_web_stress/summary.json`](results/knowledge_work/live_web_stress/summary.json)
+- `runs = 18`
+- `artifact_quality_avg = 0.9822`
 - `browser_workflow_avg = 1.0`
 - `strict_interface_avg = 1.0`
 - `recovered_execution_avg = 1.0`
-- `real_world_readiness_avg = 0.9794`
+- `real_world_readiness_avg = 0.9630`
+- `escalation_correctness_avg = 1.0`
 
 The readiness difference is intentional. Replayable-core includes bounded operational drag like human-time ratio and escalation-aware work products, while live-web stress now also includes partial-progress hold episodes where the correct move is to stop at an approval gate rather than complete the workflow.
 
-### First Model-Backed KnowledgeWorkArena Evidence
+### Visual Tool Orchestration
 
-The first finished non-oracle `KnowledgeWorkArena` run on this machine is the executive hold pilot:
+The repo now also includes an atomic multimodal-tool benchmark, `visual_tool_orchestration`, for local scene understanding with iterative specialist calls.
 
-- [`results/knowledge_work/model_backed_hf_exec_hold/summary.json`](results/knowledge_work/model_backed_hf_exec_hold/summary.json)
-- backend: `hf_service` reasoner on `google/gemma-4-E2B-it` with stable heuristic router/retriever support
-- `artifact_quality_avg = 1.0`
-- `browser_workflow_avg = 0.9836`
-- `strict_interface_avg = 1.0`
-- `recovered_execution_avg = 1.0`
-- `real_world_readiness_avg = 0.9056`
+It tests whether a controller can:
 
-There is also a stopped multi-episode artifact pilot at [`results/knowledge_work/model_backed_hf_reasoner_pilot/summary.json`](results/knowledge_work/model_backed_hf_reasoner_pilot/summary.json). It completed two real-file episodes cleanly before being interrupted to isolate a finished single-episode baseline:
+- choose the right visual tool
+- keep the latest `selection_id` or `region_id` across follow-up turns
+- refine a selection instead of restarting extraction
+- answer with the right filtered count, region, or text
 
-- `kwa_jobs_tailored_packet`
-- `kwa_finance_three_statement_model`
-- partial average `real_world_readiness_avg = 0.9074`
+Current canonical visual results:
 
-The cold-start cost is currently material on this Apple Silicon machine. In the finished executive pilot, the `hf_service` reasoner spent about `345s` reaching ready state before episode execution began.
+- replayable:
+  - [`results/visual_tool_orchestration/replayable_core/summary.json`](results/visual_tool_orchestration/replayable_core/summary.json)
+  - `runs = 11`
+  - `success_rate = 1.0`
+  - `strict_interface_rate = 1.0`
+  - `recovered_execution_rate = 1.0`
+- live:
+  - [`results/visual_tool_orchestration/live_web_stress/summary.json`](results/visual_tool_orchestration/live_web_stress/summary.json)
+  - `runs = 7`
+  - `success_rate = 1.0`
+  - `strict_interface_rate = 1.0`
+  - `recovered_execution_rate = 1.0`
+
+This track is also wired into bounded KWA episodes, so visual referent carryover and policy-sensitive revision now show up inside job-shaped work rather than only in atomic tasks.
+
+### Current Local Comparison Surface
+
+The strongest current local comparison surface is the full-lane `24 / 18` `KnowledgeWorkArena` matrix.
+
+Service-backed local specialists remain the strongest local baseline on this machine:
+
+- replayable:
+  - [`results/knowledge_work/model_backed_hf_specialists_replayable_full_v1/summary.json`](results/knowledge_work/model_backed_hf_specialists_replayable_full_v1/summary.json)
+  - `strict_interface_avg = 1.0`
+  - `recovered_execution_avg = 1.0`
+  - `real_world_readiness_avg = 0.9510`
+- live:
+  - [`results/knowledge_work/model_backed_hf_specialists_live_full_v1/summary.json`](results/knowledge_work/model_backed_hf_specialists_live_full_v1/summary.json)
+  - `strict_interface_avg = 1.0`
+  - `recovered_execution_avg = 1.0`
+  - `real_world_readiness_avg = 0.9630`
+
+Direct in-process HF reasoner-only is materially weaker:
+
+- replayable:
+  - [`results/knowledge_work/model_backed_hf_inprocess_reasoner_full_replayable_v1/summary.json`](results/knowledge_work/model_backed_hf_inprocess_reasoner_full_replayable_v1/summary.json)
+  - `strict_interface_avg = 0.9531`
+  - `recovered_execution_avg = 0.9375`
+  - `real_world_readiness_avg = 0.9330`
+- live:
+  - [`results/knowledge_work/model_backed_hf_inprocess_reasoner_full_live_v1/summary.json`](results/knowledge_work/model_backed_hf_inprocess_reasoner_full_live_v1/summary.json)
+  - `strict_interface_avg = 0.9306`
+  - `recovered_execution_avg = 0.9167`
+  - `real_world_readiness_avg = 0.9379`
+
+Direct in-process HF with real specialists partially recovers that gap, but still trails the service-backed specialist path:
+
+- replayable:
+  - [`results/knowledge_work/model_backed_hf_inprocess_specialists_full_replayable_v1/summary.json`](results/knowledge_work/model_backed_hf_inprocess_specialists_full_replayable_v1/summary.json)
+  - `strict_interface_avg = 0.9844`
+  - `recovered_execution_avg = 0.9792`
+  - `real_world_readiness_avg = 0.9452`
+- live:
+  - [`results/knowledge_work/model_backed_hf_inprocess_specialists_full_live_v1/summary.json`](results/knowledge_work/model_backed_hf_inprocess_specialists_full_live_v1/summary.json)
+  - `strict_interface_avg = 0.9514`
+  - `recovered_execution_avg = 0.9444`
+  - `real_world_readiness_avg = 0.9460`
+
+That is the current benchmark-quality result: local specialist support helps the in-process path materially, but a deployment/runtime difference still remains measurable on the same corpus.
 
 ## What We Have Learned So Far
 
@@ -305,6 +368,7 @@ That now includes:
 - deck section structure and revision-diff checks
 - application-packet field consistency checks
 - browser validation and approval-gate transitions
+- visual referent carryover and stale-selection recovery
 
 ## Current Real-World Snapshot
 
@@ -526,15 +590,15 @@ Useful reporting entrypoints:
 
 ### Near term
 
-- harden escalation / defer / refuse judgment
-- push billing/refusal routing harder under real specialist backends
-- expand multilingual answer-surface robustness
-- deepen browser realism with validation-heavy dry-run flows and approval-blocked send paths
+- debug the remaining visual KWA misses in the direct-HF specialist lane
+- deepen revision responsiveness in artifact-heavy finance and jobs episodes
+- expand the board into more public-style system and category comparisons
+- run more local/open-weight systems against the same full-lane `24 / 18` surface
 
 ### Medium term
 
-- move more artifact graders from markdown structure to native-ish domain checks
-- expand KnowledgeWorkArena episodes across more job families
+- move more artifact graders from native-ish structural checks to deeper cell/layout/field validation
+- expand visual-tool orchestration with harder referent-carryover and ambiguous-filter tasks
 - strengthen replayable browser environments for application portals, spreadsheets, and slide workflows
 - grow the real-world corpus beyond the current `16` tagged tasks
 

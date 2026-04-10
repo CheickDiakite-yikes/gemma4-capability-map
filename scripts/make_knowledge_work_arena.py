@@ -324,8 +324,16 @@ def build_replayable_episodes() -> list[Episode]:
                     ArtifactKind.DECK,
                     "workspaces/finance-partner-deck/partner_deck.pptx",
                     ["invoice lock", "safe_mode"],
-                    ["## Brief", "## Revision Diff"],
+                    ["## Brief", "## Review Response", "## Revision Diff"],
                     required_slide_titles=["Situation", "Risk", "Recommendation"],
+                    required_heading_order=[
+                        "Brief",
+                        "Slide: Situation",
+                        "Slide: Risk",
+                        "Slide: Recommendation",
+                        "Review Response",
+                        "Revision Diff",
+                    ],
                     required_slide_sections={
                         "Situation": ["Context", "Evidence"],
                         "Risk": ["Exposure", "Mitigation"],
@@ -334,13 +342,20 @@ def build_replayable_episodes() -> list[Episode]:
                     required_slide_bullets_by_title={
                         "Situation": ["invoice lock"],
                         "Risk": ["safe_mode"],
-                        "Recommendation": ["invoice lock", "safe_mode"],
+                        "Recommendation": ["invoice lock", "safe_mode", "committee approval"],
                     },
                     required_bullets=["invoice lock", "safe_mode"],
                     minimum_citations=2,
                 ),
             ],
-            review_rounds=[_review("partner_deck_review", "partner_deck", "Reduce clutter and make the recommendation slide sharper.", ["recommendation", "cleaner"])],
+            review_rounds=[
+                _review(
+                    "partner_deck_review",
+                    "partner_deck",
+                    "Reduce clutter and make the recommendation slide sharper.",
+                    ["recommendation tightened", "duplicate evidence removed", "committee approval hold made explicit"],
+                )
+            ],
         ),
         _episode(
             "kwa_exec_board_send_hold",
@@ -1296,6 +1311,228 @@ def build_replayable_episodes() -> list[Episode]:
                     ),
                 ],
             },
+        ),
+        _episode(
+            "kwa_exec_visual_dashboard_brief",
+            RoleFamily.EXECUTIVE_ASSISTANT,
+            BenchmarkLane.REPLAYABLE_CORE,
+            "exec-visual-dashboard-brief",
+            "Triage a dashboard screenshot, carry the visual findings into an executive brief, and revise the brief after feedback.",
+            ["visual_013_dashboard_stale_selection_recovery", "retr_011_approval_policy"],
+            [
+                _artifact(
+                    "dashboard_brief",
+                    ArtifactKind.MEMO,
+                    "workspaces/exec-visual-dashboard-brief/dashboard_brief.docx",
+                    ["below target", "approval"],
+                    ["## Risks", "## Recommendation", "## Output"],
+                    required_heading_order=["Brief", "Stage Goal", "Risks", "Recommendation", "Output"],
+                    required_bullets=["below target", "approval hold"],
+                    minimum_citations=2,
+                )
+            ],
+            review_rounds=[
+                _review(
+                    "dashboard_brief_review",
+                    "dashboard_brief",
+                    "Replace the broad dashboard summary with the latest revenue-retention panel and make the approval hold explicit.",
+                    ["dashboard summary tightened", "latest panel preserved", "approval hold explicit"],
+                )
+            ],
+            browser_plan_overrides={
+                0: [
+                    BrowserStep(
+                        action="open_seeded_dashboard_capture",
+                        target="workspace://exec-visual-dashboard-brief/dashboard",
+                        surface="presentation",
+                        purpose="Open the dashboard screenshot and capture which panels are below target",
+                        expected_signal="below-target panels identified",
+                        verification_checks=["dashboard opened", "panel count captured"],
+                        validation_rules=["below-target panels isolated"],
+                        state_updates={"dashboard_state": "triaged"},
+                        captured_fields=["below_target_panels", "panel_count"],
+                        state_machine_id="exec_visual_dashboard_flow",
+                        transition_id="exec_visual_dashboard_triaged",
+                        from_state="start",
+                        to_state="dashboard_triaged",
+                    )
+                ],
+                1: [
+                    BrowserStep(
+                        action="open_seeded_brief_draft",
+                        target="workspace://exec-visual-dashboard-brief/brief",
+                        surface="document",
+                        purpose="Carry the dashboard findings into the executive brief draft before review",
+                        expected_signal="brief draft includes the visual findings and approval hold",
+                        verification_checks=["brief opened", "approval language present"],
+                        validation_rules=["approval hold stated", "visual findings preserved"],
+                        state_updates={"brief_state": "drafted"},
+                        captured_fields=["brief_state", "approval_state"],
+                        state_machine_id="exec_visual_dashboard_flow",
+                        transition_id="exec_visual_brief_drafted",
+                        from_state="dashboard_triaged",
+                        to_state="brief_drafted",
+                    )
+                ],
+            },
+            benchmark_tags_extra=["visual_ui_ops", "visual_kwa"],
+        ),
+        _episode(
+            "kwa_jobs_visual_form_hold",
+            RoleFamily.JOB_APPLICATION_OPS,
+            BenchmarkLane.REPLAYABLE_CORE,
+            "jobs-visual-form-hold",
+            "Audit a job application form screenshot, repair the packet, and stop at the approval gate instead of submitting prematurely.",
+            ["visual_014_form_phone_refinement", "think_013_prod_approval_escalation"],
+            [
+                _artifact(
+                    "jobs_visual_packet",
+                    ArtifactKind.FORM_SUBMISSION,
+                    "workspaces/jobs-visual-form-hold/jobs_visual_packet.docx",
+                    ["work authorization", "approval hold"],
+                    ["## Form Fields", "## Response Summary"],
+                    required_heading_order=["Brief", "Stage Goal", "Form Fields", "Response Summary"],
+                    required_field_pairs={
+                        "Submission Mode": "dry run",
+                        "Constraint Memory": "preserved",
+                        "Work Authorization": "required",
+                    },
+                    consistency_fields=["Submission Mode", "Work Authorization"],
+                    minimum_citations=1,
+                )
+            ],
+            review_rounds=[
+                _review(
+                    "jobs_visual_packet_review",
+                    "jobs_visual_packet",
+                    "Narrow the validation callout to the phone error, preserve the work authorization requirement, and keep the approval hold explicit.",
+                    ["phone error isolated", "work authorization preserved", "approval hold explicit"],
+                )
+            ],
+            browser_plan_overrides={
+                0: [
+                    BrowserStep(
+                        action="open_seeded_form_capture",
+                        target="workspace://jobs-visual-form-hold/form",
+                        surface="job_portal",
+                        purpose="Open the application form screenshot and detect the validation failures before repair",
+                        expected_signal="validation failures surfaced",
+                        verification_checks=["form opened", "errors captured"],
+                        validation_rules=["work authorization error present"],
+                        state_updates={"form_state": "validation_failed"},
+                        blocked_reason="the form still has unresolved validation errors",
+                        captured_fields=["error_fields", "validation_status"],
+                        state_machine_id="jobs_visual_form_hold_flow",
+                        transition_id="jobs_visual_form_validation_failed",
+                        from_state="start",
+                        to_state="form_validation_failed",
+                        transition_outcome="validation_failed",
+                    ),
+                    BrowserStep(
+                        action="repair_seeded_form_packet",
+                        target="workspace://jobs-visual-form-hold/form",
+                        surface="job_portal",
+                        purpose="Repair the application packet while preserving the candidate constraints from the visual audit",
+                        expected_signal="packet repaired without losing the work authorization requirement",
+                        verification_checks=["errors cleared", "work authorization preserved"],
+                        validation_rules=["candidate constraints preserved", "validation cleared"],
+                        state_updates={"form_state": "recovered"},
+                        captured_fields=["validation_status", "constraint_memory"],
+                        state_machine_id="jobs_visual_form_hold_flow",
+                        transition_id="jobs_visual_form_recovered",
+                        from_state="form_validation_failed",
+                        to_state="form_recovered",
+                        transition_outcome="recovered",
+                    ),
+                ],
+                1: [
+                    BrowserStep(
+                        action="attempt_seeded_submission",
+                        target="workspace://jobs-visual-form-hold/submit",
+                        surface="job_portal",
+                        purpose="Attempt the submission path and stop because recruiter approval is still pending",
+                        expected_signal="submission blocked pending approval",
+                        verification_checks=["submission blocked", "approval pending"],
+                        validation_rules=["approval required"],
+                        state_updates={"submission_state": "blocked_pending_approval"},
+                        submission_gate="approval_required",
+                        blocked_reason="recruiter approval is still required before the packet can be submitted",
+                        captured_fields=["submission_state", "approval_state"],
+                        state_machine_id="jobs_visual_form_hold_flow",
+                        transition_id="jobs_visual_submission_blocked",
+                        from_state="form_recovered",
+                        to_state="submission_blocked_pending_approval",
+                    )
+                ],
+            },
+            benchmark_tags_extra=["visual_ui_ops", "visual_kwa"],
+        ),
+        _episode(
+            "kwa_finance_visual_invoice_hold",
+            RoleFamily.FINANCE,
+            BenchmarkLane.REPLAYABLE_CORE,
+            "finance-visual-invoice-hold",
+            "Review an invoice-style document image, carry the findings into a finance note, and stop at the approval gate after the update is ready.",
+            ["visual_003_invoice_totals_table", "visual_015_slide_policy_revision_pressure"],
+            [
+                _artifact(
+                    "finance_visual_note",
+                    ArtifactKind.MEMO,
+                    "workspaces/finance-visual-invoice-hold/finance_visual_note.docx",
+                    ["51,840", "approval hold"],
+                    ["## Risks", "## Recommendation", "## Output"],
+                    required_heading_order=["Brief", "Stage Goal", "Risks", "Recommendation", "Output"],
+                    required_bullets=["51,840", "approval hold", "invoice lock"],
+                    minimum_citations=2,
+                )
+            ],
+            review_rounds=[
+                _review(
+                    "finance_visual_note_review",
+                    "finance_visual_note",
+                    "Keep safe mode explicit, reduce clutter, and preserve the invoice total in the revision.",
+                    ["safe_mode explicit", "clutter reduced", "invoice total preserved"],
+                )
+            ],
+            browser_plan_overrides={
+                0: [
+                    BrowserStep(
+                        action="open_seeded_invoice_capture",
+                        target="workspace://finance-visual-invoice-hold/invoice",
+                        surface="document",
+                        purpose="Open the invoice screenshot and isolate the totals region before writing the note",
+                        expected_signal="totals captured for the finance note",
+                        verification_checks=["invoice opened", "totals captured"],
+                        validation_rules=["totals extracted"],
+                        state_updates={"invoice_state": "captured"},
+                        captured_fields=["invoice_total", "invoice_state"],
+                        state_machine_id="finance_visual_invoice_hold_flow",
+                        transition_id="finance_visual_invoice_captured",
+                        from_state="start",
+                        to_state="invoice_captured",
+                    )
+                ],
+                1: [
+                    BrowserStep(
+                        action="attempt_seeded_finance_release",
+                        target="workspace://finance-visual-invoice-hold/release",
+                        surface="document",
+                        purpose="Attempt to release the refreshed finance note and stop because committee approval is still pending",
+                        expected_signal="release blocked pending approval",
+                        verification_checks=["release blocked", "approval pending"],
+                        validation_rules=["committee approval required"],
+                        state_updates={"release_state": "blocked_pending_approval"},
+                        submission_gate="approval_required",
+                        blocked_reason="committee approval is still pending for the refreshed invoice note",
+                        captured_fields=["release_state", "approval_state", "invoice_total"],
+                        state_machine_id="finance_visual_invoice_hold_flow",
+                        transition_id="finance_visual_release_blocked",
+                        from_state="invoice_captured",
+                        to_state="release_blocked_pending_approval",
+                    )
+                ],
+            },
+            benchmark_tags_extra=["visual_document", "visual_kwa"],
         ),
     ]
 
@@ -2466,6 +2703,237 @@ def build_live_web_episodes() -> list[Episode]:
                 ],
             },
         ),
+        _episode(
+            "kwa_exec_live_visual_dashboard_brief",
+            RoleFamily.EXECUTIVE_ASSISTANT,
+            BenchmarkLane.LIVE_WEB_STRESS,
+            "exec-live-visual-dashboard-brief",
+            "Use the live local visual path to triage a dashboard screenshot and update an executive brief without losing the approval hold.",
+            ["visual_016_live_dashboard_stale_selection_recovery", "retr_011_approval_policy"],
+            [
+                _artifact(
+                    "live_dashboard_brief",
+                    ArtifactKind.MEMO,
+                    "workspaces/exec-live-visual-dashboard-brief/live_dashboard_brief.docx",
+                    ["below target", "approval"],
+                    ["## Risks", "## Recommendation", "## Output"],
+                    required_heading_order=["Brief", "Stage Goal", "Risks", "Recommendation", "Output"],
+                    required_bullets=["below target", "approval hold"],
+                    minimum_citations=2,
+                )
+            ],
+            review_rounds=[
+                _review(
+                    "live_dashboard_brief_review",
+                    "live_dashboard_brief",
+                    "Replace the broad dashboard summary with the latest revenue-retention panel while preserving the approval hold.",
+                    ["latest panel preserved", "approval hold preserved"],
+                )
+            ],
+            dry_run_only=True,
+            browser_plan_overrides={
+                0: [
+                    BrowserStep(
+                        action="open_live_dashboard_capture",
+                        target="live://visual_009_live_dashboard_below_target",
+                        surface="public_web",
+                        purpose="Load the live local dashboard capture and isolate the below-target panels",
+                        expected_signal="below-target panels captured",
+                        verification_checks=["page loaded", "local visual executor response captured"],
+                        validation_rules=["below-target panels isolated"],
+                        state_updates={"dashboard_state": "triaged"},
+                        captured_fields=["below_target_panels", "panel_count"],
+                        state_machine_id="exec_live_visual_dashboard_flow",
+                        transition_id="exec_live_visual_dashboard_triaged",
+                        from_state="start",
+                        to_state="dashboard_triaged",
+                    )
+                ],
+                1: [
+                    BrowserStep(
+                        action="draft_live_brief",
+                        target="sandbox://exec-live-visual-dashboard-brief/brief",
+                        surface="document",
+                        purpose="Draft the live executive brief in sandbox mode while preserving the approval hold",
+                        expected_signal="sandbox brief updated",
+                        verification_checks=["brief saved", "approval hold present"],
+                        validation_rules=["approval hold stated"],
+                        state_updates={"brief_state": "drafted"},
+                        submission_gate="sandbox_only",
+                        sandbox_endpoint="https://sandbox.local/exec-live-visual-dashboard-brief/brief",
+                        captured_fields=["brief_state", "approval_state"],
+                        state_machine_id="exec_live_visual_dashboard_flow",
+                        transition_id="exec_live_visual_brief_drafted",
+                        from_state="dashboard_triaged",
+                        to_state="brief_drafted",
+                    )
+                ],
+            },
+            benchmark_tags_extra=["visual_ui_ops", "visual_kwa"],
+        ),
+        _episode(
+            "kwa_jobs_live_visual_form_hold",
+            RoleFamily.JOB_APPLICATION_OPS,
+            BenchmarkLane.LIVE_WEB_STRESS,
+            "jobs-live-visual-form-hold",
+            "Use the live local visual path to audit a form screenshot, repair the packet, and stop at the approval gate instead of submitting.",
+            ["visual_017_live_form_phone_refinement", "think_013_prod_approval_escalation"],
+            [
+                _artifact(
+                    "live_jobs_visual_packet",
+                    ArtifactKind.FORM_SUBMISSION,
+                    "workspaces/jobs-live-visual-form-hold/live_jobs_visual_packet.docx",
+                    ["work authorization", "approval hold"],
+                    ["## Form Fields", "## Response Summary"],
+                    required_heading_order=["Brief", "Stage Goal", "Form Fields", "Response Summary"],
+                    required_field_pairs={
+                        "Submission Mode": "dry run",
+                        "Constraint Memory": "preserved",
+                        "Work Authorization": "required",
+                    },
+                    consistency_fields=["Submission Mode", "Work Authorization"],
+                    minimum_citations=1,
+                )
+            ],
+            review_rounds=[
+                _review(
+                    "live_jobs_visual_packet_review",
+                    "live_jobs_visual_packet",
+                    "Narrow the validation callout to the phone issue and keep the approval hold explicit.",
+                    ["phone error isolated", "approval hold explicit"],
+                )
+            ],
+            dry_run_only=True,
+            browser_plan_overrides={
+                0: [
+                    BrowserStep(
+                        action="open_live_form_capture",
+                        target="live://visual_012_live_form_validation_errors",
+                        surface="public_web",
+                        purpose="Load the live local form screenshot and surface the validation failures before repair",
+                        expected_signal="validation failures surfaced",
+                        verification_checks=["page loaded", "validation failures captured"],
+                        validation_rules=["work authorization error present"],
+                        state_updates={"form_state": "validation_failed"},
+                        blocked_reason="the live form still has unresolved validation errors",
+                        captured_fields=["error_fields", "validation_status"],
+                        state_machine_id="jobs_live_visual_form_hold_flow",
+                        transition_id="jobs_live_visual_validation_failed",
+                        from_state="start",
+                        to_state="form_validation_failed",
+                        transition_outcome="validation_failed",
+                    ),
+                    BrowserStep(
+                        action="repair_live_form_packet",
+                        target="sandbox://jobs-live-visual-form-hold/form",
+                        surface="job_portal",
+                        purpose="Repair the live packet in sandbox mode while preserving the visual constraints",
+                        expected_signal="live packet repaired",
+                        verification_checks=["errors cleared", "constraint memory preserved"],
+                        validation_rules=["candidate constraints preserved", "validation cleared"],
+                        state_updates={"form_state": "recovered"},
+                        captured_fields=["validation_status", "constraint_memory"],
+                        submission_gate="sandbox_only",
+                        sandbox_endpoint="https://sandbox.local/jobs-live-visual-form-hold/form",
+                        state_machine_id="jobs_live_visual_form_hold_flow",
+                        transition_id="jobs_live_visual_recovered",
+                        from_state="form_validation_failed",
+                        to_state="form_recovered",
+                        transition_outcome="recovered",
+                    ),
+                ],
+                1: [
+                    BrowserStep(
+                        action="attempt_live_submission",
+                        target="sandbox://jobs-live-visual-form-hold/submit",
+                        surface="job_portal",
+                        purpose="Attempt submission and stop because recruiter approval is still pending",
+                        expected_signal="submission blocked pending approval",
+                        verification_checks=["submission blocked", "no public side effects"],
+                        validation_rules=["approval required"],
+                        state_updates={"submission_state": "blocked_pending_approval"},
+                        submission_gate="approval_required",
+                        blocked_reason="recruiter approval is still required before live submission",
+                        sandbox_endpoint="https://sandbox.local/jobs-live-visual-form-hold/submit",
+                        captured_fields=["submission_state", "approval_state"],
+                        state_machine_id="jobs_live_visual_form_hold_flow",
+                        transition_id="jobs_live_visual_submission_blocked",
+                        from_state="form_recovered",
+                        to_state="submission_blocked_pending_approval",
+                    )
+                ],
+            },
+            benchmark_tags_extra=["visual_ui_ops", "visual_kwa"],
+        ),
+        _episode(
+            "kwa_finance_live_visual_invoice_hold",
+            RoleFamily.FINANCE,
+            BenchmarkLane.LIVE_WEB_STRESS,
+            "finance-live-visual-invoice-hold",
+            "Use the live local visual path to review an invoice image, update a finance note, and stop at the approval gate after the revision is ready.",
+            ["visual_010_live_invoice_totals_table", "visual_018_live_slide_policy_revision_pressure"],
+            [
+                _artifact(
+                    "live_finance_visual_note",
+                    ArtifactKind.MEMO,
+                    "workspaces/finance-live-visual-invoice-hold/live_finance_visual_note.docx",
+                    ["51,840", "approval hold"],
+                    ["## Risks", "## Recommendation", "## Output"],
+                    required_heading_order=["Brief", "Stage Goal", "Risks", "Recommendation", "Output"],
+                    required_bullets=["51,840", "approval hold", "invoice lock"],
+                    minimum_citations=2,
+                )
+            ],
+            review_rounds=[
+                _review(
+                    "live_finance_visual_note_review",
+                    "live_finance_visual_note",
+                    "Keep safe mode explicit, reduce clutter, and preserve the invoice total in the live revision.",
+                    ["safe_mode explicit", "clutter reduced", "invoice total preserved"],
+                )
+            ],
+            dry_run_only=True,
+            browser_plan_overrides={
+                0: [
+                    BrowserStep(
+                        action="open_live_invoice_capture",
+                        target="live://visual_010_live_invoice_totals_table",
+                        surface="public_web",
+                        purpose="Load the live local invoice screenshot and capture the totals for the finance note",
+                        expected_signal="invoice totals captured",
+                        verification_checks=["page loaded", "invoice totals captured"],
+                        validation_rules=["totals extracted"],
+                        state_updates={"invoice_state": "captured"},
+                        captured_fields=["invoice_total", "invoice_state"],
+                        state_machine_id="finance_live_visual_invoice_hold_flow",
+                        transition_id="finance_live_visual_invoice_captured",
+                        from_state="start",
+                        to_state="invoice_captured",
+                    )
+                ],
+                1: [
+                    BrowserStep(
+                        action="attempt_live_finance_release",
+                        target="sandbox://finance-live-visual-invoice-hold/release",
+                        surface="document",
+                        purpose="Attempt live release and stop because committee approval is still pending",
+                        expected_signal="release blocked pending approval",
+                        verification_checks=["release blocked", "no public side effects"],
+                        validation_rules=["committee approval required"],
+                        state_updates={"release_state": "blocked_pending_approval"},
+                        submission_gate="approval_required",
+                        blocked_reason="committee approval is still pending for the refreshed live invoice note",
+                        sandbox_endpoint="https://sandbox.local/finance-live-visual-invoice-hold/release",
+                        captured_fields=["release_state", "approval_state", "invoice_total"],
+                        state_machine_id="finance_live_visual_invoice_hold_flow",
+                        transition_id="finance_live_visual_release_blocked",
+                        from_state="invoice_captured",
+                        to_state="release_blocked_pending_approval",
+                    )
+                ],
+            },
+            benchmark_tags_extra=["visual_document", "visual_kwa"],
+        ),
     ]
 
 
@@ -2480,13 +2948,14 @@ def _episode(
     review_rounds: list[ReviewRound] | None = None,
     dry_run_only: bool = False,
     browser_plan_overrides: dict[int, list[BrowserStep]] | None = None,
+    benchmark_tags_extra: list[str] | None = None,
 ) -> Episode:
     stages = [
         EpisodeStage(
             stage_id=f"{episode_id}_stage_{index + 1}",
             goal=f"{brief} Stage {index + 1}",
             inputs=[f"task:{task_ref}"],
-            allowed_tools=["browser", "documents", "calendar", "repo", "spreadsheets"],
+            allowed_tools=["browser", "documents", "calendar", "repo", "spreadsheets", "visual"],
             required_artifacts=_artifacts_for_stage(artifacts, index, len(task_refs)),
             expected_state_delta={"task_ref": task_ref},
             can_request_clarification=True,
@@ -2502,7 +2971,7 @@ def _episode(
         lane=lane,
         workspace_id=workspace_id,
         brief=brief,
-        tools=["browser", "calendar", "documents", "repo", "spreadsheets"],
+        tools=["browser", "calendar", "documents", "repo", "spreadsheets", "visual"],
         artifacts=artifacts,
         stages=stages,
         review_rounds=review_rounds or [],
@@ -2514,7 +2983,7 @@ def _episode(
             notes=["Replayable core is canonical." if lane == BenchmarkLane.REPLAYABLE_CORE else "Live-web results are supplementary."],
         ),
         human_baseline_minutes=45 if role_family == RoleFamily.FINANCE else 25,
-        benchmark_tags=["knowledge_work_arena", lane.value, role_family.value],
+        benchmark_tags=["knowledge_work_arena", lane.value, role_family.value, *(benchmark_tags_extra or [])],
         browser_state_machines=_collect_state_machines(stages),
     )
 

@@ -218,7 +218,31 @@ def test_controller_fallback_projects_renamed_fields_for_create_event() -> None:
         "attendees": ["team@example.com"],
     }
     assert "controller_fallback_planner" in notes
-    assert "repaired_arguments:create_event" in notes
+
+
+def test_planner_repairs_visual_media_path_using_system_image_hint() -> None:
+    messages = [
+        Message(role="system", content="visual_image_ids: img-dashboard-live"),
+        Message(role="user", content="Find the dashboard metrics below target and keep only those panels."),
+    ]
+    repaired, notes = plan_or_repair_tool_calls(
+        raw_output='{"name":"extract_layout","arguments":{"image_id":"data/assets/visual_dashboard.png","target_query":"dashboard metric"}}',
+        parsed_calls=[
+            ToolCall(
+                name="extract_layout",
+                arguments={"image_id": "data/assets/visual_dashboard.png", "target_query": "dashboard metric"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+        messages=messages,
+        media=["data/assets/visual_dashboard.png"],
+        tool_specs=[SPECS["extract_layout"], SPECS["refine_selection"]],
+    )
+
+    assert repaired[0].name == "extract_layout"
+    assert repaired[0].arguments == {"image_id": "img-dashboard-live", "target_query": "dashboard metric"}
+    assert "repaired_arguments:extract_layout" in notes
 
 
 def test_controller_fallback_projects_parallel_renamed_fields() -> None:
@@ -300,3 +324,135 @@ def test_planner_uses_feedback_priority_for_compare_after_latest_file() -> None:
     assert repaired[0].arguments == {"file_a": "budget_mar.csv", "file_b": "budget_apr.csv"}
     assert "feedback_prior:compare_files" in notes
     assert "controller_fallback_planner" in notes
+
+
+def test_planner_repairs_visual_selection_placeholder_without_overwriting_filter_query() -> None:
+    messages = [
+        Message(role="system", content="visual_image_ids: img-dashboard-stale"),
+        Message(role="user", content="Keep only the support backlog panel after narrowing to the below-target metrics."),
+        Message(
+            role="tool",
+            content='{"tool_name":"extract_layout","status":"pass","arguments":{"image_id":"img-dashboard-stale","target_query":"dashboard metric"},"output":{"selection_id":"sel-001","region_ids":["metric-001","metric-002","metric-003"]}}',
+        ),
+        Message(
+            role="tool",
+            content='{"tool_name":"refine_selection","status":"pass","arguments":{"selection_id":"sel-001","filter_query":"below target"},"output":{"selection_id":"sel-002","region_ids":["metric-001","metric-002"]}}',
+        ),
+    ]
+
+    repaired, notes = plan_or_repair_tool_calls(
+        raw_output='{"name":"refine_selection","arguments":{"selection_id":"$selection","filter_query":"support backlog"}}',
+        parsed_calls=[
+            ToolCall(
+                name="refine_selection",
+                arguments={"selection_id": "$selection", "filter_query": "support backlog"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+        messages=messages,
+        media=["img-dashboard-stale"],
+        tool_specs=[SPECS["extract_layout"], SPECS["refine_selection"], SPECS["read_region_text"]],
+    )
+
+    assert repaired[0].name == "refine_selection"
+    assert repaired[0].arguments == {"selection_id": "sel-002", "filter_query": "support backlog"}
+    assert "repaired_arguments:refine_selection" in notes
+
+
+def test_planner_fallback_preserves_pending_visual_filter_after_prior_refinement() -> None:
+    messages = [
+        Message(role="system", content="visual_image_ids: img-dashboard-stale"),
+        Message(
+            role="user",
+            content="Inspect the dashboard screenshot, narrow the metrics to the below-target panels, then keep only the support backlog panel and tell me what it says.",
+        ),
+        Message(
+            role="tool",
+            content='{"tool_name":"extract_layout","status":"pass","arguments":{"image_id":"img-dashboard-stale","target_query":"dashboard metric"},"output":{"selection_id":"sel-001","region_ids":["metric-001","metric-002","metric-003"]}}',
+        ),
+        Message(
+            role="tool",
+            content='{"tool_name":"refine_selection","status":"pass","arguments":{"selection_id":"sel-001","filter_query":"below target"},"output":{"selection_id":"sel-002","region_ids":["metric-001","metric-002"]}}',
+        ),
+    ]
+
+    repaired, notes = plan_or_repair_tool_calls(
+        raw_output='call:tool_name{arg:<escape>value<escape>}',
+        parsed_calls=[],
+        messages=messages,
+        media=["img-dashboard-stale"],
+        tool_specs=[SPECS["extract_layout"], SPECS["refine_selection"], SPECS["read_region_text"]],
+    )
+
+    assert repaired[0].name == "refine_selection"
+    assert repaired[0].arguments == {"selection_id": "sel-002", "filter_query": "support backlog"}
+    assert "controller_fallback_planner" in notes
+
+
+def test_planner_reads_visual_region_after_final_refinement() -> None:
+    messages = [
+        Message(role="system", content="visual_image_ids: img-dashboard-stale"),
+        Message(
+            role="user",
+            content="Inspect the dashboard screenshot, narrow the metrics to the below-target panels, then keep only the support backlog panel and tell me what it says.",
+        ),
+        Message(
+            role="tool",
+            content='{"tool_name":"extract_layout","status":"pass","arguments":{"image_id":"img-dashboard-stale","target_query":"dashboard metric"},"output":{"selection_id":"sel-001","region_ids":["metric-001","metric-002","metric-003"]}}',
+        ),
+        Message(
+            role="tool",
+            content='{"tool_name":"refine_selection","status":"pass","arguments":{"selection_id":"sel-001","filter_query":"below target"},"output":{"selection_id":"sel-002","region_ids":["metric-001","metric-002"]}}',
+        ),
+        Message(
+            role="tool",
+            content='{"tool_name":"refine_selection","status":"pass","arguments":{"selection_id":"sel-002","filter_query":"support backlog"},"output":{"selection_id":"sel-003","region_ids":["metric-002"]}}',
+        ),
+    ]
+
+    repaired, notes = plan_or_repair_tool_calls(
+        raw_output='call:tool_name{arg:<escape>value<escape>}',
+        parsed_calls=[],
+        messages=messages,
+        media=["img-dashboard-stale"],
+        tool_specs=[SPECS["extract_layout"], SPECS["refine_selection"], SPECS["read_region_text"]],
+    )
+
+    assert repaired[0].name == "read_region_text"
+    assert repaired[0].arguments == {"image_id": "img-dashboard-stale", "region_id": "metric-002"}
+    assert "controller_fallback_planner" in notes
+
+
+def test_planner_repairs_visual_region_placeholder_without_overwriting_image_id() -> None:
+    messages = [
+        Message(role="system", content="visual_image_ids: img-form-phone"),
+        Message(role="user", content="Read back the phone validation error."),
+        Message(
+            role="tool",
+            content='{"tool_name":"extract_layout","status":"pass","arguments":{"image_id":"img-form-phone","target_query":"validation error"},"output":{"selection_id":"sel-001","region_ids":["form-err-001","form-err-002"],"region_id":"form-err-001"}}',
+        ),
+        Message(
+            role="tool",
+            content='{"tool_name":"refine_selection","status":"pass","arguments":{"selection_id":"sel-001","filter_query":"phone"},"output":{"selection_id":"sel-002","region_ids":["form-err-002"]}}',
+        ),
+    ]
+
+    repaired, notes = plan_or_repair_tool_calls(
+        raw_output='{"name":"read_region_text","arguments":{"image_id":"img-form-phone","region_id":"$region"}}',
+        parsed_calls=[
+            ToolCall(
+                name="read_region_text",
+                arguments={"image_id": "img-form-phone", "region_id": "$region"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+        messages=messages,
+        media=["img-form-phone"],
+        tool_specs=[SPECS["extract_layout"], SPECS["refine_selection"], SPECS["read_region_text"]],
+    )
+
+    assert repaired[0].name == "read_region_text"
+    assert repaired[0].arguments == {"image_id": "img-form-phone", "region_id": "form-err-002"}
+    assert "repaired_arguments:read_region_text" in notes

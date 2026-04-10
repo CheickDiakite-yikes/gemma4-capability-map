@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 import altair as alt
@@ -8,13 +9,14 @@ import streamlit as st
 
 from gemma4_capability_map.knowledge_work.replay import load_episode_traces
 from gemma4_capability_map.metrics.failure_taxonomy import failure_tags
+from gemma4_capability_map.reporting.knowledge_work_board import build_intent_comparison_rows
 from gemma4_capability_map.traces.replay import load_traces
 
 
 def main() -> None:
     st.set_page_config(page_title="gemma4-capability-map", layout="wide")
     st.title("gemma4-capability-map")
-    st.caption("Failure explorer for reasoning, routing, retrieval, and full-stack Gemma benchmark traces.")
+    st.caption("Failure explorer for reasoning, routing, retrieval, visual tool orchestration, and full-stack Gemma benchmark traces.")
     mode = st.sidebar.selectbox("Explorer mode", ["task_traces", "knowledge_work_episodes", "knowledge_work_board"], index=0)
     if mode == "knowledge_work_board":
         _board_mode()
@@ -278,14 +280,37 @@ def _board_mode() -> None:
     if frame.empty:
         st.warning("No board rows found.")
         st.stop()
+    for column in (
+        "capability_family",
+        "executor_mode",
+        "modality",
+        "run_scope",
+        "total_cost_per_mtok",
+        "warmup_load_ms",
+        "last_request_elapsed_ms",
+        "requests_completed",
+        "role_breakdown_json",
+        "category_breakdown_json",
+        "track_breakdown_json",
+    ):
+        if column not in frame.columns:
+            frame[column] = ""
 
     lane_values = sorted(frame["lane"].dropna().unique().tolist())
     intent_values = sorted(frame["run_intent"].dropna().unique().tolist())
+    scope_values = sorted(value for value in frame.get("run_scope", pd.Series(dtype=str)).dropna().unique().tolist() if value)
     provider_values = sorted(frame["provider"].dropna().unique().tolist())
+    capability_values = sorted(value for value in frame.get("capability_family", pd.Series(dtype=str)).dropna().unique().tolist() if value)
+    modality_values = sorted(value for value in frame.get("modality", pd.Series(dtype=str)).dropna().unique().tolist() if value)
+    executor_values = sorted(value for value in frame.get("executor_mode", pd.Series(dtype=str)).dropna().unique().tolist() if value)
 
     selected_lanes = st.sidebar.multiselect("Lane", lane_values, default=lane_values)
     selected_intents = st.sidebar.multiselect("Run intent", intent_values, default=intent_values)
+    selected_scopes = st.sidebar.multiselect("Run scope", scope_values, default=scope_values)
     selected_providers = st.sidebar.multiselect("Provider", provider_values, default=provider_values)
+    selected_capabilities = st.sidebar.multiselect("Capability family", capability_values, default=capability_values)
+    selected_modalities = st.sidebar.multiselect("Modality", modality_values, default=modality_values)
+    selected_executors = st.sidebar.multiselect("Executor mode", executor_values, default=executor_values)
     local_mode = st.sidebar.selectbox("Deployment", ["all", "local only", "non-local only"], index=0)
     rank_metric = st.sidebar.selectbox(
         "Rank by",
@@ -300,7 +325,15 @@ def _board_mode() -> None:
         index=0,
     )
 
-    filtered = frame[frame["lane"].isin(selected_lanes) & frame["run_intent"].isin(selected_intents) & frame["provider"].isin(selected_providers)]
+    filtered = frame[
+        frame["lane"].isin(selected_lanes)
+        & frame["run_intent"].isin(selected_intents)
+        & frame["run_scope"].fillna("").isin(selected_scopes or scope_values or [""])
+        & frame["provider"].isin(selected_providers)
+        & frame["capability_family"].fillna("").isin(selected_capabilities or capability_values or [""])
+        & frame["modality"].fillna("").isin(selected_modalities or modality_values or [""])
+        & frame["executor_mode"].fillna("").isin(selected_executors or executor_values or [""])
+    ]
     if local_mode == "local only":
         filtered = filtered[filtered["local"] == True]  # noqa: E712
     elif local_mode == "non-local only":
@@ -321,6 +354,10 @@ def _board_mode() -> None:
                 "display_name",
                 "lane",
                 "run_intent",
+                "run_scope",
+                "capability_family",
+                "executor_mode",
+                "modality",
                 "episode_count",
                 "pass_count",
                 "refine_count",
@@ -332,6 +369,9 @@ def _board_mode() -> None:
                 "recovered_execution_avg",
                 "escalation_correctness_avg",
                 "total_params_b",
+                "warmup_load_ms",
+                "last_request_elapsed_ms",
+                "total_cost_per_mtok",
                 "input_cost_per_mtok",
                 "provider",
                 "local",
@@ -343,7 +383,16 @@ def _board_mode() -> None:
 
     x_axis = st.selectbox(
         "Scatter X",
-        ["total_params_b", "reasoner_params_b", "episode_count", "input_cost_per_mtok", "output_cost_per_mtok"],
+        [
+            "total_params_b",
+            "reasoner_params_b",
+            "episode_count",
+            "warmup_load_ms",
+            "last_request_elapsed_ms",
+            "input_cost_per_mtok",
+            "output_cost_per_mtok",
+            "total_cost_per_mtok",
+        ],
         index=0,
     )
     y_axis = st.selectbox(
@@ -385,6 +434,9 @@ def _board_mode() -> None:
                     "artifact_quality_avg",
                     "recovered_execution_avg",
                     "total_params_b",
+                    "warmup_load_ms",
+                    "last_request_elapsed_ms",
+                    "total_cost_per_mtok",
                 ],
             )
             .interactive()
@@ -392,10 +444,124 @@ def _board_mode() -> None:
         st.subheader("Performance Scatter")
         st.altair_chart(chart, use_container_width=True)
 
+    role_breakdown = _flatten_breakdown_frame(ranked, "role_breakdown_json", "role_family")
+    if not role_breakdown.empty:
+        st.subheader("Role Breakdown")
+        st.dataframe(role_breakdown, use_container_width=True, hide_index=True)
+        _render_breakdown_status_chart(role_breakdown, "role_family", "Role Status Breakdown")
+
+    category_breakdown = _flatten_breakdown_frame(ranked, "category_breakdown_json", "category")
+    if not category_breakdown.empty:
+        st.subheader("Category Breakdown")
+        st.dataframe(category_breakdown, use_container_width=True, hide_index=True)
+        _render_breakdown_status_chart(category_breakdown, "category", "Category Status Breakdown")
+
+    track_breakdown = _flatten_breakdown_frame(ranked, "track_breakdown_json", "track_tag")
+    if not track_breakdown.empty:
+        st.subheader("Track Breakdown")
+        st.dataframe(track_breakdown, use_container_width=True, hide_index=True)
+        _render_breakdown_status_chart(track_breakdown, "track_tag", "Track Status Breakdown")
+
+    comparison_rows = build_intent_comparison_rows(filtered.to_dict(orient="records"))
+    comparison_frame = pd.DataFrame(comparison_rows)
+    if not comparison_frame.empty:
+        st.subheader("Canonical vs Exploratory Comparison")
+        st.caption("Canonical and exploratory runs are shown side-by-side for each system and lane.")
+        st.dataframe(
+            comparison_frame[
+                [
+                    "display_name",
+                    "lane",
+                    "canonical_readiness",
+                    "exploratory_readiness",
+                    "readiness_delta",
+                    "canonical_strict_interface",
+                    "exploratory_strict_interface",
+                    "strict_delta",
+                    "canonical_browser_workflow",
+                    "exploratory_browser_workflow",
+                    "browser_delta",
+                ]
+            ],
+            use_container_width=True,
+            hide_index=True,
+        )
+        delta_chart = (
+            alt.Chart(comparison_frame)
+            .mark_bar()
+            .encode(
+                x=alt.X("display_name:N", sort="-y", title="System"),
+                y=alt.Y("readiness_delta:Q", title="Exploratory minus Canonical Readiness"),
+                color=alt.Color("capability_family:N", title="Capability Family"),
+                tooltip=[
+                    "display_name",
+                    "lane",
+                    "capability_family",
+                    "canonical_readiness",
+                    "exploratory_readiness",
+                    "readiness_delta",
+                    "canonical_strict_interface",
+                    "exploratory_strict_interface",
+                    "strict_delta",
+                    "canonical_browser_workflow",
+                    "exploratory_browser_workflow",
+                    "browser_delta",
+                ],
+            )
+        )
+        st.altair_chart(delta_chart, use_container_width=True)
+
     selected_label = st.selectbox("System", ranked["display_name"].tolist())
     selected = ranked.loc[ranked["display_name"] == selected_label].iloc[0].to_dict()
     st.subheader("System Overview")
     st.json(selected)
+
+
+def _flatten_breakdown_frame(frame: pd.DataFrame, column: str, label: str) -> pd.DataFrame:
+    rows: list[dict[str, object]] = []
+    for _, record in frame.iterrows():
+        raw = record.get(column, "")
+        if not isinstance(raw, str) or not raw.strip():
+            continue
+        try:
+            payload = json.loads(raw)
+        except json.JSONDecodeError:
+            continue
+        for key, values in payload.items():
+            if not isinstance(values, dict):
+                continue
+            rows.append(
+                {
+                    "display_name": record.get("display_name", ""),
+                    "lane": record.get("lane", ""),
+                    "run_intent": record.get("run_intent", ""),
+                    label: key,
+                    **values,
+                }
+            )
+    if not rows:
+        return pd.DataFrame()
+    return pd.DataFrame(rows).sort_values(["display_name", label]).reset_index(drop=True)
+
+
+def _render_breakdown_status_chart(frame: pd.DataFrame, label: str, title: str) -> None:
+    required = {"pass_count", "refine_count", "fail_count", label}
+    if frame.empty or not required.issubset(frame.columns):
+        return
+    counts = frame[[label, "pass_count", "refine_count", "fail_count"]].copy()
+    melted = counts.melt(id_vars=[label], var_name="status", value_name="count")
+    grouped = melted.groupby([label, "status"], as_index=False)["count"].sum()
+    chart = (
+        alt.Chart(grouped)
+        .mark_bar()
+        .encode(
+            x=alt.X(f"{label}:N", sort="-y", title=label.replace("_", " ").title()),
+            y=alt.Y("count:Q", title="Episode Count"),
+            color=alt.Color("status:N", title="Status"),
+            tooltip=[label, "status", "count"],
+        )
+    )
+    st.altair_chart(chart, use_container_width=True)
 
 
 def _trace_row(trace):

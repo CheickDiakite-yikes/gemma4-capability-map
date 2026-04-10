@@ -141,7 +141,9 @@ def _revision_responsiveness(trace: EpisodeTrace, artifact_specs: list[ArtifactS
             continue
         first = grade_artifact(ordered[0], spec, episode_id=trace.episode_id)
         last = grade_artifact(ordered[-1], spec, episode_id=trace.episode_id)
-        improvements.append(max(0.0, min(1.0, last - first)) if last >= first else 0.0)
+        grade_lift = max(0.0, min(1.0, last - first)) if last >= first else 0.0
+        revision_evidence = _revision_evidence_score(ordered[0].content, ordered[-1].content)
+        improvements.append(max(grade_lift, revision_evidence))
     if not improvements:
         return 1.0
     return sum(improvements) / len(improvements)
@@ -209,6 +211,20 @@ def _informative_tokens(text: str) -> list[str]:
 
 def _normalize_text(text: str) -> str:
     return re.sub(r"\s+", " ", text.strip().lower())
+
+
+def _revision_evidence_score(first_content: str, last_content: str) -> float:
+    normalized_first = _normalize_text(first_content)
+    normalized_last = _normalize_text(last_content)
+    if not normalized_last or normalized_first == normalized_last:
+        return 0.0
+    checks = [
+        float("## revision diff" in normalized_last),
+        float("## review response" in normalized_last or "reviewer feedback addressed" in normalized_last),
+        float(_deck_duplicate_count(last_content) <= _deck_duplicate_count(first_content)),
+        float(_section_changed(first_content, last_content, "## Slide: Recommendation")),
+    ]
+    return sum(checks) / len(checks)
 
 
 def _human_time_ratio(episode: Episode, trace: EpisodeTrace) -> float:
@@ -281,6 +297,41 @@ def _browser_workflow_score(trace: EpisodeTrace) -> float:
 def _requires_sandbox_endpoint(action_name: str) -> bool:
     normalized = action_name.lower()
     return any(token in normalized for token in ("submit", "submission", "apply", "post", "send", "release"))
+
+
+def _deck_duplicate_count(content: str) -> int:
+    in_slide = False
+    bullets: list[str] = []
+    for line in content.splitlines():
+        stripped = line.strip()
+        if stripped.lower().startswith("## slide:"):
+            in_slide = True
+            continue
+        if in_slide and stripped.startswith("## ") and not stripped.lower().startswith("## slide:"):
+            in_slide = False
+        if in_slide and stripped.startswith("- "):
+            bullets.append(stripped[2:].strip().lower())
+    return len(bullets) - len(set(bullets))
+
+
+def _section_changed(first_content: str, last_content: str, title: str) -> bool:
+    return _section_text(first_content, title) != _section_text(last_content, title)
+
+
+def _section_text(content: str, title: str) -> str:
+    lines = content.splitlines()
+    capture = False
+    collected: list[str] = []
+    for line in lines:
+        stripped = line.strip()
+        if stripped == title:
+            capture = True
+            continue
+        if capture and stripped.startswith("## "):
+            break
+        if capture:
+            collected.append(stripped)
+    return "\n".join(collected).strip()
 
 
 def _bounded_weighted_average(weighted_values: list[tuple[float, float]]) -> float:

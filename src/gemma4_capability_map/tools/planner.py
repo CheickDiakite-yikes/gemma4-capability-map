@@ -39,6 +39,15 @@ TOOL_NAME_ALIASES = {
     "suggest_patch": "propose_patch",
     "latest_file_lookup": "find_latest_file",
     "find_recent_file": "find_latest_file",
+    "segment_objects": "segment_entities",
+    "segment_vehicles": "segment_entities",
+    "segment_regions": "segment_entities",
+    "filter_selection": "refine_selection",
+    "narrow_selection": "refine_selection",
+    "extract_table": "extract_layout",
+    "extract_region": "extract_layout",
+    "read_region": "read_region_text",
+    "ocr_region": "read_region_text",
 }
 
 
@@ -168,8 +177,7 @@ def _repair_tool_call(
         return candidate, notes
 
     if override_valid_arguments:
-        merged_arguments = dict(provided_arguments)
-        merged_arguments.update(inferred_arguments)
+        merged_arguments = _merge_repaired_arguments(repaired_name, provided_arguments, inferred_arguments)
     else:
         merged_arguments = dict(inferred_arguments)
         merged_arguments.update(provided_arguments)
@@ -198,6 +206,23 @@ def _tool_schema_properties(tool_name: str, tool_specs: list[ToolSpec]) -> set[s
         key
         for key in next((tool.json_schema for tool in tool_specs if tool.name == tool_name), {}).get("properties", {})
     }
+
+
+def _merge_repaired_arguments(
+    tool_name: str,
+    provided_arguments: dict[str, Any],
+    inferred_arguments: dict[str, Any],
+) -> dict[str, Any]:
+    merged = dict(provided_arguments)
+    if tool_name in {"refine_selection", "read_region_text"}:
+        for key, inferred_value in inferred_arguments.items():
+            current_value = merged.get(key)
+            if current_value in (None, "") or (isinstance(current_value, str) and current_value.startswith("$")):
+                merged[key] = inferred_value
+        return merged
+
+    merged.update(inferred_arguments)
+    return merged
 
 
 def _project_arguments_to_schema(arguments: dict[str, Any], schema_properties: set[str]) -> dict[str, Any]:
@@ -254,6 +279,12 @@ def _initial_calls(context: dict[str, Any], tool_specs: list[ToolSpec]) -> list[
 
     if "inspect_image" in tool_names and _contains_any(user_text, ["screenshot", "image", "look at", "inspect"]):
         return [_heuristic_call("inspect_image", _infer_arguments(context, "inspect_image"))]
+
+    if "extract_layout" in tool_names and _contains_any(user_text, ["table", "form", "dashboard", "layout", "slide", "callout", "metric", "invoice"]):
+        return [_heuristic_call("extract_layout", _infer_arguments(context, "extract_layout"))]
+
+    if "segment_entities" in tool_names and _contains_any(user_text, ["segment", "vehicles", "cars", "slots", "exits", "all "]):
+        return [_heuristic_call("segment_entities", _infer_arguments(context, "segment_entities"))]
 
     if "compare_files" in tool_names and "compare" in user_text:
         return [_heuristic_call("compare_files", _infer_arguments(context, "compare_files"))]
@@ -336,6 +367,7 @@ def _next_calls_from_feedback(context: dict[str, Any], tool_specs: list[ToolSpec
 
     latest_tool = str(latest.get("tool_name", ""))
     user_text = context["user_text"]
+    pending_visual_filter = _next_visual_filter(context)
 
     if _needs_parallel_audit(user_text, tool_names):
         if "inspect_image" in tool_names and "inspect_image" not in successful_history:
@@ -355,6 +387,17 @@ def _next_calls_from_feedback(context: dict[str, Any], tool_specs: list[ToolSpec
     if latest_tool == "find_repo_file" and "read_repo_file" in tool_names:
         return [_heuristic_call("read_repo_file", _infer_arguments(context, "read_repo_file"))]
 
+    if latest_tool in {"segment_entities", "extract_layout", "refine_selection"} and "refine_selection" in tool_names:
+        if pending_visual_filter:
+            return [_heuristic_call("refine_selection", _infer_arguments(context, "refine_selection"))]
+
+    if latest_tool in {"extract_layout", "refine_selection"} and "read_region_text" in tool_names:
+        if not pending_visual_filter and _contains_any(
+            user_text,
+            ["read", "text", "table", "invoice", "totals", "validation", "what does it say", "tell me what it says"],
+        ):
+            return [_heuristic_call("read_region_text", _infer_arguments(context, "read_region_text"))]
+
     if latest_tool in {"inspect_image", "read_repo_file"} and "propose_patch" in tool_names:
         if _needs_parallel_audit(user_text, tool_names) and not _parallel_audit_ready(context, tool_names):
             return []
@@ -365,11 +408,14 @@ def _next_calls_from_feedback(context: dict[str, Any], tool_specs: list[ToolSpec
 
 def _planning_context(messages: list[Message], media: list[str]) -> dict[str, Any]:
     user_text = "\n".join(message.content for message in messages if message.role == "user").lower()
+    hint_text = "\n".join(message.content for message in messages if message.role in {"user", "system"}).lower()
     tool_feedback = [_parse_tool_feedback(message.content) for message in messages if message.role == "tool"]
     tool_feedback = [item for item in tool_feedback if item]
     latest_feedback = tool_feedback[-1] if tool_feedback else {}
     return {
         "user_text": user_text,
+        "hint_text": hint_text,
+        "image_hint_id": _extract_image_id(hint_text),
         "user_messages": [message.content for message in messages if message.role == "user"],
         "tool_feedback": tool_feedback,
         "latest_feedback": latest_feedback,
@@ -420,6 +466,7 @@ def _canonical_tool_name(name: str, tool_specs: list[ToolSpec]) -> str:
 
 def _infer_arguments(context: dict[str, Any], tool_name: str) -> dict[str, Any]:
     user_text = context["user_text"]
+    image_hint_id = str(context.get("image_hint_id", ""))
     latest_feedback = context["latest_feedback"]
     media = context["media"]
 
@@ -473,12 +520,68 @@ def _infer_arguments(context: dict[str, Any], tool_name: str) -> dict[str, Any]:
         return {"path": "config/billing.yaml" if "billing" in user_text else "config/settings.yaml"}
 
     if tool_name == "inspect_image":
-        image_id = _extract_image_id(" ".join(context["user_messages"]))
+        image_id = image_hint_id or _extract_image_id(" ".join(context["user_messages"]))
         if image_id:
             return {"image_id": image_id}
         if media:
             return {"image_id": media[0]}
         return {"image_id": "img-settings"}
+
+    if tool_name == "segment_entities":
+        image_id = image_hint_id or _extract_image_id(" ".join(context["user_messages"])) or (media[0] if media else "img-parking")
+        if _contains_any(user_text, ["slot", "slots"]):
+            query = "parking slot"
+        elif _contains_any(user_text, ["exit", "exits", "sortie", "sorties"]):
+            query = "exit"
+        elif _contains_any(user_text, ["metric", "metrics", "anomaly", "anomalies"]):
+            query = "metric anomaly"
+        else:
+            query = "vehicle" if _contains_any(user_text, ["vehicle", "vehicles", "car", "cars"]) else "entity"
+        return {"image_id": image_id, "entity_query": query}
+
+    if tool_name == "refine_selection":
+        output = _feedback_output(latest_feedback)
+        selection_id = str(output.get("selection_id", "")) or "sel-001"
+        pending_filter = _next_visual_filter(context)
+        if pending_filter:
+            filter_query = pending_filter
+        elif _contains_any(user_text, ["white", "blanc", "blanche", "blanches"]):
+            filter_query = "white"
+        elif _contains_any(user_text, ["below target", "below", "under target"]):
+            filter_query = "below target"
+        elif _contains_any(user_text, ["destructive"]):
+            filter_query = "destructive"
+        elif _contains_any(user_text, ["blocked", "bloque", "bloquee"]):
+            filter_query = "blocked"
+        elif _contains_any(user_text, ["empty", "vacant", "vacants"]):
+            filter_query = "empty"
+        elif _contains_any(user_text, ["error", "errors", "validation"]):
+            filter_query = "error"
+        else:
+            filter_query = "target"
+        return {"selection_id": selection_id, "filter_query": filter_query}
+
+    if tool_name == "extract_layout":
+        image_id = image_hint_id or _extract_image_id(" ".join(context["user_messages"])) or (media[0] if media else "img-dashboard")
+        if _contains_any(user_text, ["invoice", "totals", "table"]):
+            query = "invoice totals table"
+        elif _contains_any(user_text, ["form", "validation", "error"]):
+            query = "validation error"
+        elif _contains_any(user_text, ["slide", "callout", "risk"]):
+            query = "risk callout"
+        else:
+            query = "dashboard metric"
+        return {"image_id": image_id, "target_query": query}
+
+    if tool_name == "read_region_text":
+        output = _feedback_output(latest_feedback)
+        image_id = str(output.get("image_id", "")) or image_hint_id or _extract_image_id(" ".join(context["user_messages"])) or (media[0] if media else "img-invoice")
+        region_id = str(output.get("region_id", ""))
+        if not region_id:
+            region_ids = output.get("region_ids", [])
+            if isinstance(region_ids, list) and region_ids:
+                region_id = str(region_ids[0])
+        return {"image_id": image_id, "region_id": region_id or "region-001"}
 
     if tool_name == "create_event":
         return {
@@ -553,6 +656,41 @@ def _should_override_valid_arguments(call: ToolCall, inferred_arguments: dict[st
                 return True
             if provided_image_id and not provided_image_id.startswith("img-") and not Path(provided_image_id).exists():
                 return True
+    if call.name == "segment_entities":
+        provided_image_id = str(call.arguments.get("image_id", ""))
+        inferred_image_id = str(inferred_arguments.get("image_id", ""))
+        if inferred_image_id and provided_image_id != inferred_image_id and not provided_image_id.startswith("img-"):
+            return True
+        if inferred_arguments.get("entity_query") and not str(call.arguments.get("entity_query", "")).strip():
+            return True
+    if call.name == "refine_selection":
+        provided_selection_id = str(call.arguments.get("selection_id", "")).strip()
+        if inferred_arguments.get("selection_id") and (
+            not provided_selection_id
+            or provided_selection_id.startswith("$")
+        ):
+            return True
+        if inferred_arguments.get("filter_query") and not str(call.arguments.get("filter_query", "")).strip():
+            return True
+    if call.name == "extract_layout":
+        provided_image_id = str(call.arguments.get("image_id", ""))
+        inferred_image_id = str(inferred_arguments.get("image_id", ""))
+        if inferred_image_id and provided_image_id != inferred_image_id and not provided_image_id.startswith("img-"):
+            return True
+        if inferred_arguments.get("target_query") and not str(call.arguments.get("target_query", "")).strip():
+            return True
+    if call.name == "read_region_text":
+        provided_image_id = str(call.arguments.get("image_id", "")).strip()
+        provided_region_id = str(call.arguments.get("region_id", "")).strip()
+        if inferred_arguments.get("image_id") and not str(call.arguments.get("image_id", "")).strip():
+            return True
+        if inferred_arguments.get("image_id") and provided_image_id.startswith("$"):
+            return True
+        if inferred_arguments.get("region_id") and (
+            not provided_region_id
+            or provided_region_id.startswith("$")
+        ):
+            return True
     if call.name == "read_repo_file":
         provided_path = str(call.arguments.get("path", ""))
         inferred_path = str(inferred_arguments.get("path", ""))
@@ -620,6 +758,64 @@ def _normalize_name(value: str) -> str:
 
 def _contains_any(text: str, fragments: list[str]) -> bool:
     return any(fragment in text for fragment in fragments)
+
+
+_VISUAL_FILTER_PATTERNS: tuple[tuple[str, tuple[str, ...]], ...] = (
+    ("below target", ("below target", "below-target", "under target")),
+    ("support backlog", ("support backlog",)),
+    ("white", ("white", "blanc", "blanche", "blanches")),
+    ("phone", ("phone",)),
+    ("action", ("action",)),
+    ("destructive", ("destructive",)),
+    ("blocked", ("blocked", "bloque", "bloquee")),
+    ("empty", ("empty", "vacant", "vacants")),
+)
+
+
+def _normalize_phrase_text(text: str) -> str:
+    return re.sub(r"[^a-z0-9]+", " ", text.lower()).strip()
+
+
+def _canonical_visual_filter(text: str) -> str:
+    normalized = f" {_normalize_phrase_text(text)} "
+    for canonical, patterns in _VISUAL_FILTER_PATTERNS:
+        if any(f" {_normalize_phrase_text(pattern)} " in normalized for pattern in patterns):
+            return canonical
+    return _normalize_phrase_text(text)
+
+
+def _requested_visual_filters(user_text: str) -> list[str]:
+    normalized = f" {_normalize_phrase_text(user_text)} "
+    requested: list[str] = []
+    for canonical, patterns in _VISUAL_FILTER_PATTERNS:
+        if any(f" {_normalize_phrase_text(pattern)} " in normalized for pattern in patterns):
+            requested.append(canonical)
+    return requested
+
+
+def _successful_refine_filters(context: dict[str, Any]) -> list[str]:
+    filters: list[str] = []
+    for item in _successful_tool_feedback(context):
+        if str(item.get("tool_name", "")) != "refine_selection":
+            continue
+        arguments = item.get("arguments", {})
+        if not isinstance(arguments, dict):
+            continue
+        query = str(arguments.get("filter_query", "")).strip()
+        if query:
+            filters.append(_canonical_visual_filter(query))
+    return filters
+
+
+def _next_visual_filter(context: dict[str, Any]) -> str:
+    requested_filters = _requested_visual_filters(context["user_text"])
+    if not requested_filters:
+        return ""
+    used_filters = _successful_refine_filters(context)
+    for candidate in requested_filters:
+        if candidate not in used_filters:
+            return candidate
+    return ""
 
 
 def _feedback_output(feedback: dict[str, Any] | None) -> dict[str, Any]:

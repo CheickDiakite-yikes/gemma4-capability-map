@@ -278,6 +278,8 @@ def _native_alignment_checks(native: dict[str, object], golden: dict[str, object
         golden_bullets = golden.get("slide_bullets")
         if isinstance(native_bullets, dict) and isinstance(golden_bullets, dict) and golden_bullets:
             checks.append(float(_slide_bullets_align(native_bullets, golden_bullets)))
+        if isinstance(native_bullets, dict) and native_bullets:
+            checks.append(float(_deck_bullets_are_deduped(native_bullets)))
     return checks
 
 
@@ -311,6 +313,14 @@ def _slide_bullets_align(native_bullets: dict, golden_bullets: dict) -> bool:
         lowered_native = [str(value).strip().lower() for value in native_values]
         lowered_golden = [str(value).strip().lower() for value in golden_values]
         if not all(any(expected in actual for actual in lowered_native) for expected in lowered_golden):
+            return False
+    return True
+
+
+def _deck_bullets_are_deduped(native_bullets: dict) -> bool:
+    for bullets in native_bullets.values():
+        lowered = [str(value).strip().lower() for value in bullets if str(value).strip()]
+        if len(lowered) != len(set(lowered)):
             return False
     return True
 
