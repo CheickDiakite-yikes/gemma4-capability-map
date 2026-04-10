@@ -2,12 +2,26 @@ from __future__ import annotations
 
 import importlib.util
 from pathlib import Path
+import sys
 
 from gemma4_capability_map.io import dump_jsonl
 from gemma4_capability_map.knowledge_work.exporters import export_episode_leaderboard_csv
 from gemma4_capability_map.knowledge_work.loader import load_episodes
+from gemma4_capability_map.knowledge_work.native_artifacts import inspect_artifact
 from gemma4_capability_map.knowledge_work.replay import load_episode_traces, summarize_episode_traces
 from gemma4_capability_map.knowledge_work.runner import EpisodeRunner
+from gemma4_capability_map.knowledge_work.scoring import score_episode
+from gemma4_capability_map.knowledge_work.schemas import (
+    ArtifactKind,
+    ArtifactScoringContract,
+    ArtifactSpec,
+    ArtifactVersion,
+    BenchmarkLane,
+    Episode,
+    EpisodeTrace,
+    MemoryUpdate,
+    RoleFamily,
+)
 from gemma4_capability_map.models.embeddinggemma_runner import EmbeddingGemmaRetriever
 from gemma4_capability_map.models.functiongemma_runner import FunctionGemmaRunner
 from gemma4_capability_map.models.gemma4_runner import Gemma4Runner
@@ -26,6 +40,18 @@ SPEC.loader.exec_module(MODULE)
 build_replayable_episodes = MODULE.build_replayable_episodes
 build_live_web_episodes = MODULE.build_live_web_episodes
 
+BUILD_HISTORY_PATH = ROOT / "scripts" / "build_knowledge_work_history.py"
+HISTORY_SPEC = importlib.util.spec_from_file_location("build_knowledge_work_history", BUILD_HISTORY_PATH)
+HISTORY_MODULE = importlib.util.module_from_spec(HISTORY_SPEC)
+assert HISTORY_SPEC and HISTORY_SPEC.loader
+HISTORY_SPEC.loader.exec_module(HISTORY_MODULE)
+
+RUN_KWA_PATH = ROOT / "scripts" / "run_knowledge_work_arena.py"
+RUN_KWA_SPEC = importlib.util.spec_from_file_location("run_knowledge_work_arena", RUN_KWA_PATH)
+RUN_KWA_MODULE = importlib.util.module_from_spec(RUN_KWA_SPEC)
+assert RUN_KWA_SPEC and RUN_KWA_SPEC.loader
+RUN_KWA_SPEC.loader.exec_module(RUN_KWA_MODULE)
+
 
 def _load_tasks() -> list[Task]:
     from gemma4_capability_map.io import load_jsonl
@@ -39,8 +65,8 @@ def _load_tasks() -> list[Task]:
 def test_episode_specs_validate_and_cover_both_lanes() -> None:
     replayable = build_replayable_episodes()
     live = build_live_web_episodes()
-    assert len(replayable) == 15
-    assert len(live) == 9
+    assert len(replayable) == 21
+    assert len(live) == 15
     assert {episode.role_family.value for episode in replayable} == {
         "executive_assistant",
         "job_application_ops",
@@ -49,6 +75,9 @@ def test_episode_specs_validate_and_cover_both_lanes() -> None:
     assert any(artifact.scoring_contract.required_table_rows for episode in replayable for artifact in episode.artifacts)
     assert any(artifact.scoring_contract.required_field_pairs for episode in replayable for artifact in episode.artifacts)
     assert any(artifact.scoring_contract.required_slide_titles for episode in replayable for artifact in episode.artifacts)
+    assert any(artifact.scoring_contract.required_formula_cells for episode in replayable + live for artifact in episode.artifacts)
+    assert any(artifact.scoring_contract.required_heading_order for episode in replayable + live for artifact in episode.artifacts)
+    assert any(artifact.scoring_contract.required_slide_bullets_by_title for episode in replayable + live for artifact in episode.artifacts)
     assert all(stage.browser_plan for episode in replayable + live for stage in episode.stages)
 
 
@@ -89,6 +118,97 @@ def test_episode_runner_memory_is_isolated_between_runs() -> None:
     assert first.episode_id != second.episode_id
     assert all(update.stage_id.startswith(first.episode_id) for update in first.memory_updates)
     assert all(update.stage_id.startswith(second.episode_id) for update in second.memory_updates)
+
+
+def test_memory_retention_scores_preserved_patch_facts_without_verbatim_reason_block() -> None:
+    episode = Episode(
+        episode_id="kwa_memory_retention_semantic",
+        role_family=RoleFamily.FINANCE,
+        lane=BenchmarkLane.REPLAYABLE_CORE,
+        workspace_id="finance-memory",
+        brief="Retain the approved billing patch facts across revisions.",
+        artifacts=[
+            ArtifactSpec(
+                artifact_id="hold_note",
+                kind=ArtifactKind.MEMO,
+                path_or_target="workspace://finance-memory/hold_note.docx",
+                scoring_contract=ArtifactScoringContract(required_fragments=["invoice_lock: true"]),
+            )
+        ],
+    )
+    trace = EpisodeTrace(
+        run_id="memory-retention-semantic",
+        episode_id=episode.episode_id,
+        role_family=episode.role_family,
+        lane=episode.lane,
+        workspace_id=episode.workspace_id,
+        artifact_versions=[
+            ArtifactVersion(
+                artifact_id="hold_note",
+                revision=1,
+                content="Invoice Lock patch: `invoice_lock: true` in `config/billing.yaml`.",
+                source_stage="stage_1",
+            )
+        ],
+        memory_updates=[
+            MemoryUpdate(
+                stage_id="stage_1",
+                key="Finance hold stage",
+                value=(
+                    "Invoice Lock patch: `invoice_lock: true` in `config/billing.yaml`.\n\n"
+                    'Reason: The billing runbook states that "Invoice Lock" must remain enabled to prevent invoice edits.'
+                ),
+            )
+        ],
+    )
+
+    scorecard = score_episode(episode, trace)
+
+    assert scorecard.memory_retention_score == 1.0
+
+
+def test_memory_retention_still_fails_when_salient_fact_is_missing() -> None:
+    episode = Episode(
+        episode_id="kwa_memory_retention_missing",
+        role_family=RoleFamily.FINANCE,
+        lane=BenchmarkLane.REPLAYABLE_CORE,
+        workspace_id="finance-memory-missing",
+        brief="Do not over-credit unrelated retained content.",
+        artifacts=[
+            ArtifactSpec(
+                artifact_id="hold_note",
+                kind=ArtifactKind.MEMO,
+                path_or_target="workspace://finance-memory-missing/hold_note.docx",
+                scoring_contract=ArtifactScoringContract(required_fragments=["summary"]),
+            )
+        ],
+    )
+    trace = EpisodeTrace(
+        run_id="memory-retention-missing",
+        episode_id=episode.episode_id,
+        role_family=episode.role_family,
+        lane=episode.lane,
+        workspace_id=episode.workspace_id,
+        artifact_versions=[
+            ArtifactVersion(
+                artifact_id="hold_note",
+                revision=1,
+                content="General hold summary with no billing control details.",
+                source_stage="stage_1",
+            )
+        ],
+        memory_updates=[
+            MemoryUpdate(
+                stage_id="stage_1",
+                key="Finance hold stage",
+                value="Invoice Lock patch: `invoice_lock: true` in `config/billing.yaml`.",
+            )
+        ],
+    )
+
+    scorecard = score_episode(episode, trace)
+
+    assert scorecard.memory_retention_score == 0.0
 
 
 def test_episode_export_and_summary_round_trip(tmp_path: Path) -> None:
@@ -233,6 +353,30 @@ def test_partial_progress_hold_episode_records_approval_gate() -> None:
     assert "Target Company: Northwind Capital" in packet.content
     assert packet.file_format == "docx"
     assert packet.file_path and packet.file_path.endswith(".docx")
+    assert any(action.transition_outcome == "validation_failed" for action in trace.browser_actions)
+    assert any(action.transition_outcome == "recovered" for action in trace.browser_actions)
+
+
+def test_new_replayable_policy_hold_episodes_require_recovery_then_gate() -> None:
+    tasks = _load_tasks()
+    bundle = RuntimeBundle(
+        reasoner=Gemma4Runner("google/gemma-4-E4B-it", backend="oracle"),
+        router=FunctionGemmaRunner("google/functiongemma-270m-it", backend="oracle"),
+        retriever=EmbeddingGemmaRetriever("google/embeddinggemma-300m", backend="heuristic"),
+        executor=DeterministicExecutor(registry=build_default_registry()),
+    )
+    runner = EpisodeRunner(tasks=tasks, bundle=bundle)
+    replayable = {episode.episode_id: episode for episode in build_replayable_episodes()}
+
+    exec_trace = runner.run(replayable["kwa_exec_vendor_access_hold"])
+    assert any(action.transition_outcome == "validation_failed" for action in exec_trace.browser_actions)
+    assert any(action.transition_outcome == "recovered" for action in exec_trace.browser_actions)
+    assert any(action.submission_gate == "approval_required" for action in exec_trace.browser_actions)
+
+    finance_trace = runner.run(replayable["kwa_finance_billing_patch_hold"])
+    assert any(action.transition_outcome == "validation_failed" for action in finance_trace.browser_actions)
+    assert any(action.transition_outcome == "recovered" for action in finance_trace.browser_actions)
+    assert any(action.submission_gate == "blocked" for action in finance_trace.browser_actions)
 
 
 def test_episode_runner_emits_all_declared_artifacts_even_when_stage_count_is_smaller() -> None:
@@ -307,3 +451,200 @@ def test_browser_actions_emit_state_machine_transitions() -> None:
     assert any(action.state_machine_id for action in trace.browser_actions)
     assert any(action.transition_id for action in trace.browser_actions)
     assert any(action.from_state and action.to_state for action in trace.browser_actions)
+    assert any(action.transition_outcome == "validation_failed" for action in trace.browser_actions)
+    assert any(action.transition_outcome == "recovered" for action in trace.browser_actions)
+
+
+def test_new_live_policy_hold_episodes_require_recovery_then_gate() -> None:
+    tasks = _load_tasks()
+    bundle = RuntimeBundle(
+        reasoner=Gemma4Runner("google/gemma-4-E4B-it", backend="oracle"),
+        router=FunctionGemmaRunner("google/functiongemma-270m-it", backend="oracle"),
+        retriever=EmbeddingGemmaRetriever("google/embeddinggemma-300m", backend="heuristic"),
+        executor=DeterministicExecutor(registry=build_default_registry()),
+    )
+    runner = EpisodeRunner(tasks=tasks, bundle=bundle)
+    live = {episode.episode_id: episode for episode in build_live_web_episodes()}
+
+    jobs_trace = runner.run(live["kwa_jobs_live_screening_hold"])
+    assert any(action.transition_outcome == "validation_failed" for action in jobs_trace.browser_actions)
+    assert any(action.transition_outcome == "recovered" for action in jobs_trace.browser_actions)
+    assert any(action.submission_gate == "approval_required" for action in jobs_trace.browser_actions)
+
+    finance_trace = runner.run(live["kwa_finance_live_billing_patch_hold"])
+    assert any(action.transition_outcome == "validation_failed" for action in finance_trace.browser_actions)
+    assert any(action.transition_outcome == "recovered" for action in finance_trace.browser_actions)
+    assert any(action.submission_gate == "blocked" for action in finance_trace.browser_actions)
+
+
+def test_new_replayable_harder_human_episodes_preserve_latest_or_original_constraints() -> None:
+    tasks = _load_tasks()
+    bundle = RuntimeBundle(
+        reasoner=Gemma4Runner("google/gemma-4-E4B-it", backend="oracle"),
+        router=FunctionGemmaRunner("google/functiongemma-270m-it", backend="oracle"),
+        retriever=EmbeddingGemmaRetriever("google/embeddinggemma-300m", backend="heuristic"),
+        executor=DeterministicExecutor(registry=build_default_registry()),
+    )
+    runner = EpisodeRunner(tasks=tasks, bundle=bundle)
+    replayable = {episode.episode_id: episode for episode in build_replayable_episodes()}
+
+    exec_trace = runner.run(replayable["kwa_exec_stale_brief_hold"])
+    exec_artifact = next(version for version in exec_trace.artifact_versions if version.artifact_id == "stale_brief_packet")
+    assert "latest version" in exec_artifact.content.lower()
+    assert "stale v2" not in exec_artifact.content.lower()
+    assert exec_trace.scorecard.browser_workflow_score > 0.95
+
+    jobs_trace = runner.run(replayable["kwa_jobs_constraint_preservation_hold"])
+    jobs_artifact = next(version for version in jobs_trace.artifact_versions if version.artifact_id == "constraint_preservation_packet")
+    assert "Constraint Status: preserved" in jobs_artifact.content
+    assert "Candidate Preference: remote_only" in jobs_artifact.content
+    assert "onsite_only" not in jobs_artifact.content.lower()
+    assert any(action.transition_outcome == "validation_failed" for action in jobs_trace.browser_actions)
+    assert any(action.transition_outcome == "recovered" for action in jobs_trace.browser_actions)
+    assert any(action.submission_gate == "approval_required" for action in jobs_trace.browser_actions)
+
+    finance_trace = runner.run(replayable["kwa_finance_stale_assumption_hold"])
+    finance_model = next(version for version in finance_trace.artifact_versions if version.artifact_id == "stale_assumption_model")
+    assert "8.5m final" not in finance_model.content.lower()
+    assert finance_model.file_path and finance_model.file_path.endswith(".xlsx")
+    assert finance_trace.scorecard.browser_workflow_score > 0.95
+
+
+def test_new_live_harder_human_episodes_record_recovery_then_safe_stop() -> None:
+    tasks = _load_tasks()
+    bundle = RuntimeBundle(
+        reasoner=Gemma4Runner("google/gemma-4-E4B-it", backend="oracle"),
+        router=FunctionGemmaRunner("google/functiongemma-270m-it", backend="oracle"),
+        retriever=EmbeddingGemmaRetriever("google/embeddinggemma-300m", backend="heuristic"),
+        executor=DeterministicExecutor(registry=build_default_registry()),
+    )
+    runner = EpisodeRunner(tasks=tasks, bundle=bundle)
+    live = {episode.episode_id: episode for episode in build_live_web_episodes()}
+
+    exec_trace = runner.run(live["kwa_exec_live_stale_brief_hold"])
+    assert any(action.transition_outcome == "validation_failed" for action in exec_trace.browser_actions)
+    assert any(action.transition_outcome == "recovered" for action in exec_trace.browser_actions)
+    assert any(action.submission_gate == "approval_required" for action in exec_trace.browser_actions)
+
+    jobs_trace = runner.run(live["kwa_jobs_live_constraint_hold"])
+    jobs_artifact = next(version for version in jobs_trace.artifact_versions if version.artifact_id == "live_constraint_packet")
+    assert "Constraint Status: preserved" in jobs_artifact.content
+    assert "onsite_only" not in jobs_artifact.content.lower()
+    assert jobs_trace.scorecard.browser_workflow_score > 0.95
+
+    finance_trace = runner.run(live["kwa_finance_live_stale_assumption_hold"])
+    finance_note = next(version for version in finance_trace.artifact_versions if version.artifact_id == "live_stale_assumption_note")
+    assert "8.5m final" not in finance_note.content.lower()
+    assert any(action.submission_gate == "approval_required" for action in finance_trace.browser_actions)
+    assert finance_trace.scorecard.browser_workflow_score > 0.95
+
+
+def test_native_artifact_outputs_grade_against_real_files() -> None:
+    tasks = _load_tasks()
+    bundle = RuntimeBundle(
+        reasoner=Gemma4Runner("google/gemma-4-E4B-it", backend="oracle"),
+        router=FunctionGemmaRunner("google/functiongemma-270m-it", backend="oracle"),
+        retriever=EmbeddingGemmaRetriever("google/embeddinggemma-300m", backend="heuristic"),
+        executor=DeterministicExecutor(registry=build_default_registry()),
+    )
+    runner = EpisodeRunner(tasks=tasks, bundle=bundle)
+    replayable = build_replayable_episodes()
+
+    model_episode = next(episode for episode in replayable if episode.episode_id == "kwa_finance_three_statement_model")
+    model_trace = runner.run(model_episode)
+    model_artifact = next(version for version in model_trace.artifact_versions if version.artifact_id == "financial_model" and version.revision == 1)
+    assert model_artifact.file_path and model_artifact.file_path.endswith(".xlsx")
+    assert model_artifact.score >= 1.0
+
+    jobs_episode = next(episode for episode in replayable if episode.episode_id == "kwa_jobs_submission_hold")
+    jobs_trace = runner.run(jobs_episode)
+    jobs_artifact = next(version for version in jobs_trace.artifact_versions if version.artifact_id == "validated_packet")
+    assert jobs_artifact.file_path and jobs_artifact.file_path.endswith(".docx")
+    assert jobs_artifact.score >= 1.0
+
+    deck_episode = next(episode for episode in replayable if episode.episode_id == "kwa_finance_partner_deck_revision")
+    deck_trace = runner.run(deck_episode)
+    deck_artifact = [version for version in deck_trace.artifact_versions if version.artifact_id == "partner_deck"][-1]
+    assert deck_artifact.file_path and deck_artifact.file_path.endswith(".pptx")
+    assert deck_artifact.score >= 1.0
+
+    model_native = inspect_artifact(model_artifact.file_path)
+    assert model_native["formula_cells"]["E2"] == "=BASE_REVENUE+DELTA"
+    assert model_native["formula_cells"]["E3"] == "=BASE_EXPENSE+MARKETING_INCREASE"
+
+    deck_native = inspect_artifact(deck_artifact.file_path)
+    assert any("invoice lock" in bullet.lower() for bullet in deck_native["slide_bullets"]["Situation"])
+    assert any("safe_mode" in bullet.lower() for bullet in deck_native["slide_bullets"]["Recommendation"])
+
+
+def test_history_intent_inference_distinguishes_canonical_and_exploratory() -> None:
+    canonical = HISTORY_MODULE._infer_run_intent(Path("/tmp/replayable_core"), {"lane": "replayable_core"})
+    exploratory = HISTORY_MODULE._infer_run_intent(
+        Path("/tmp/model_backed_hf_specialists_policy_replayable_v6"),
+        {"lane": "replayable_core"},
+    )
+    explicit = HISTORY_MODULE._infer_run_intent(
+        Path("/tmp/custom"),
+        {"lane": "replayable_core", "run_intent": "canonical"},
+    )
+
+    assert canonical == "canonical"
+    assert exploratory == "exploratory"
+    assert explicit == "canonical"
+
+
+def test_history_markdown_report_separates_canonical_and_exploratory_sections() -> None:
+    report = {
+        "generated_at": "2026-04-10T00:00:00+00:00",
+        "total_runs": 2,
+        "snapshot_count": 2,
+        "latest_canonical_by_lane": [
+            {
+                "lane": "replayable_core",
+                "real_world_readiness_avg": 0.9,
+                "browser_workflow_avg": 1.0,
+                "strict_interface_avg": 1.0,
+                "recovered_execution_avg": 1.0,
+                "output_dir": "/tmp/replayable_core",
+            }
+        ],
+        "latest_exploratory_by_lane": [
+            {
+                "lane": "replayable_core",
+                "real_world_readiness_avg": 0.8,
+                "browser_workflow_avg": 0.9,
+                "strict_interface_avg": 1.0,
+                "recovered_execution_avg": 0.9,
+                "output_dir": "/tmp/replayable_core_exploratory",
+            }
+        ],
+        "best_by_lane": [],
+    }
+
+    markdown = HISTORY_MODULE._markdown_report(report)
+
+    assert "## Latest Canonical by Lane" in markdown
+    assert "## Latest Exploratory by Lane" in markdown
+    assert "/tmp/replayable_core_exploratory" in markdown
+
+
+def test_run_knowledge_work_arena_defaults_to_full_lane() -> None:
+    original_argv = sys.argv[:]
+    try:
+        sys.argv = ["run_knowledge_work_arena.py"]
+        args = RUN_KWA_MODULE.parse_args()
+    finally:
+        sys.argv = original_argv
+
+    assert args.limit is None
+
+
+def test_run_knowledge_work_arena_accepts_system_id() -> None:
+    original_argv = sys.argv[:]
+    try:
+        sys.argv = ["run_knowledge_work_arena.py", "--system-id", "hf_service_gemma4_specialists_cpu"]
+        args = RUN_KWA_MODULE.parse_args()
+    finally:
+        sys.argv = original_argv
+
+    assert args.system_id == "hf_service_gemma4_specialists_cpu"

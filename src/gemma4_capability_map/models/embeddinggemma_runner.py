@@ -10,14 +10,25 @@ from gemma4_capability_map.retrieval.ranking import rank_documents
 from gemma4_capability_map.schemas import Document, RetrievalHit
 
 
+_HF_EMBEDDER_CACHE: dict[tuple[str, str], object] = {}
+
+
 class EmbeddingGemmaRetriever(Retriever):
-    def __init__(self, model_id: str, backend: str = "heuristic") -> None:
+    def __init__(self, model_id: str, backend: str = "heuristic", device: str = "auto") -> None:
         self.model_id = model_id
         self.backend = backend
+        self.device = device
         self._corpora: dict[str, list[Document]] = defaultdict(list)
         self._model = None
         self._effective_model_id = model_id
+        self._runtime_device: str | None = None
         self._document_embedding_cache: dict[tuple[tuple[str, ...], int, str], list[list[float]]] = {}
+
+    def ensure_loaded(self) -> dict[str, Any]:
+        if self.backend == "hf":
+            self._ensure_hf_loaded()
+            self._encode_texts([_query_text("warmup")])
+        return self.runtime_info()
 
     def runtime_info(self) -> dict[str, Any]:
         return {
@@ -25,6 +36,8 @@ class EmbeddingGemmaRetriever(Retriever):
             "requested_model": self.model_id,
             "effective_model": self._effective_model_id,
             "loaded": self._model is not None,
+            "configured_device": self.device,
+            "runtime_device": self._runtime_device,
         }
 
     def set_corpora(self, corpora: dict[str, list[dict]]) -> None:
@@ -55,20 +68,7 @@ class EmbeddingGemmaRetriever(Retriever):
         dim: int,
         quantization: str,
     ) -> list[RetrievalHit]:
-        try:
-            from sentence_transformers import SentenceTransformer
-        except ImportError as exc:
-            raise RuntimeError("Install the hf extra to use the EmbeddingGemma HF backend.") from exc
-
-        if self._model is None:
-            token = load_hf_auth_token()
-            resolved_source = resolve_model_source(self.model_id)
-            self._model = SentenceTransformer(
-                resolved_source,
-                token=token,
-                local_files_only=should_use_local_files_only(resolved_source),
-            )
-            self._effective_model_id = resolved_source
+        self._ensure_hf_loaded()
 
         query_embedding = _project_embedding(self._encode_texts([_query_text(query)])[0], dim=dim, quantization=quantization)
         document_embeddings = self._document_embeddings(documents, dim=dim, quantization=quantization)
@@ -94,6 +94,33 @@ class EmbeddingGemmaRetriever(Retriever):
         except TypeError:
             encoded = self._model.encode(texts)
         return [_normalize(_to_list(vector)) for vector in encoded]
+
+    def _ensure_hf_loaded(self) -> None:
+        try:
+            import torch
+            from sentence_transformers import SentenceTransformer
+        except ImportError as exc:
+            raise RuntimeError("Install the hf extra to use the EmbeddingGemma HF backend.") from exc
+
+        if self._model is not None:
+            return
+
+        token = load_hf_auth_token()
+        resolved_source = resolve_model_source(self.model_id)
+        runtime_device = _pick_embedding_device(torch, preferred=self.device)
+        cache_key = (resolved_source, runtime_device)
+        cached = _HF_EMBEDDER_CACHE.get(cache_key)
+        if cached is None:
+            cached = SentenceTransformer(
+                resolved_source,
+                token=token,
+                local_files_only=should_use_local_files_only(resolved_source),
+                device=runtime_device,
+            )
+            _HF_EMBEDDER_CACHE[cache_key] = cached
+        self._model = cached
+        self._effective_model_id = resolved_source
+        self._runtime_device = runtime_device
 
 
 def _query_text(query: str) -> str:
@@ -137,3 +164,19 @@ def _to_list(vector: Any) -> list[float]:
     if hasattr(vector, "tolist"):
         return [float(value) for value in vector.tolist()]
     return [float(value) for value in vector]
+
+
+def _pick_embedding_device(torch: Any, preferred: str = "auto") -> str:
+    if preferred != "auto":
+        if preferred == "mps":
+            if getattr(torch.backends, "mps", None) and torch.backends.mps.is_available():
+                return "mps"
+            raise RuntimeError("Requested mps device, but MPS is not available.")
+        if preferred == "cuda":
+            if torch.cuda.is_available():
+                return "cuda"
+            raise RuntimeError("Requested cuda device, but CUDA is not available.")
+        if preferred == "cpu":
+            return "cpu"
+        raise ValueError(f"Unsupported device selection: {preferred}")
+    return "cpu"

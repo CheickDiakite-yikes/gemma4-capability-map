@@ -69,15 +69,24 @@ def plan_or_repair_tool_calls(
         return parsed_calls, []
 
     context = _planning_context(messages, media)
+    parallel_priority_calls = _parallel_audit_pending_calls(context, tool_specs)
     intent_priority_calls = _intent_priority_calls(context, tool_specs)
+    feedback_priority_calls = _next_calls_from_feedback(context, tool_specs)
     if intent_priority_calls == []:
         return [], ["intent_prior:refuse_or_escalate"]
 
     repaired_calls: list[ToolCall] = []
     repair_notes: list[str] = []
     candidate_calls = parsed_calls
-    if parsed_calls and intent_priority_calls and not _calls_match(parsed_calls, intent_priority_calls):
+    if parsed_calls and parallel_priority_calls and not _calls_match(parsed_calls, parallel_priority_calls):
+        repair_notes.append("parallel_audit_prior")
+        candidate_calls = []
+    if candidate_calls and intent_priority_calls and not _calls_match(candidate_calls, intent_priority_calls):
         repair_notes.append(f"intent_prior:{_classify_intent(context, tool_specs)}")
+        candidate_calls = []
+    if candidate_calls and feedback_priority_calls and not _calls_match(candidate_calls, feedback_priority_calls):
+        prioritized_name = feedback_priority_calls[0].name if feedback_priority_calls else "unknown"
+        repair_notes.append(f"feedback_prior:{prioritized_name}")
         candidate_calls = []
 
     for call in candidate_calls:
@@ -110,21 +119,14 @@ def plan_tool_calls(messages: list[Message], media: list[str], tool_specs: list[
         return []
 
     context = _planning_context(messages, media)
+    parallel_priority_calls = _parallel_audit_pending_calls(context, tool_specs)
+    if parallel_priority_calls:
+        return parallel_priority_calls
     intent_priority_calls = _intent_priority_calls(context, tool_specs)
     if intent_priority_calls is not None:
         return intent_priority_calls
     tool_names = {tool.name for tool in tool_specs}
-    history = [item.get("tool_name", "") for item in context["tool_feedback"]]
     user_text = context["user_text"]
-
-    if _needs_parallel_audit(user_text, tool_names):
-        pending = []
-        if "inspect_image" in tool_names and "inspect_image" not in history:
-            pending.append(_heuristic_call("inspect_image", _infer_arguments(context, "inspect_image"), raw_hint="parallel"))
-        if "read_repo_file" in tool_names and "read_repo_file" not in history:
-            pending.append(_heuristic_call("read_repo_file", _infer_arguments(context, "read_repo_file"), raw_hint="parallel"))
-        if pending:
-            return pending
 
     next_from_feedback = _next_calls_from_feedback(context, tool_specs)
     if next_from_feedback:
@@ -327,7 +329,7 @@ def _calls_match(parsed_calls: list[ToolCall], expected_calls: list[ToolCall]) -
 
 def _next_calls_from_feedback(context: dict[str, Any], tool_specs: list[ToolSpec]) -> list[ToolCall]:
     tool_names = {tool.name for tool in tool_specs}
-    history = [item.get("tool_name", "") for item in context["tool_feedback"]]
+    successful_history = [item.get("tool_name", "") for item in _successful_tool_feedback(context)]
     latest = context["latest_feedback"]
     if not latest or latest.get("status") != "pass":
         return []
@@ -336,9 +338,9 @@ def _next_calls_from_feedback(context: dict[str, Any], tool_specs: list[ToolSpec
     user_text = context["user_text"]
 
     if _needs_parallel_audit(user_text, tool_names):
-        if "inspect_image" in tool_names and "inspect_image" not in history:
+        if "inspect_image" in tool_names and "inspect_image" not in successful_history:
             return [_heuristic_call("inspect_image", _infer_arguments(context, "inspect_image"))]
-        if "read_repo_file" in tool_names and "read_repo_file" not in history:
+        if "read_repo_file" in tool_names and "read_repo_file" not in successful_history:
             return [_heuristic_call("read_repo_file", _infer_arguments(context, "read_repo_file"))]
 
     if latest_tool == "find_latest_file" and "compare_files" in tool_names:
@@ -354,6 +356,8 @@ def _next_calls_from_feedback(context: dict[str, Any], tool_specs: list[ToolSpec
         return [_heuristic_call("read_repo_file", _infer_arguments(context, "read_repo_file"))]
 
     if latest_tool in {"inspect_image", "read_repo_file"} and "propose_patch" in tool_names:
+        if _needs_parallel_audit(user_text, tool_names) and not _parallel_audit_ready(context, tool_names):
+            return []
         return [_heuristic_call("propose_patch", _infer_arguments(context, "propose_patch"))]
 
     return []
@@ -485,11 +489,28 @@ def _infer_arguments(context: dict[str, Any], tool_name: str) -> dict[str, Any]:
         }
 
     if tool_name == "propose_patch":
-        output = latest_feedback.get("output", {}) if isinstance(latest_feedback, dict) else {}
-        patch = str(output.get("recommended_patch") or output.get("patch") or "")
+        inspect_feedback = _latest_successful_feedback(context, "inspect_image")
+        read_feedback = _latest_successful_feedback(context, "read_repo_file")
+        output = _feedback_output(latest_feedback)
+        inspect_output = _feedback_output(inspect_feedback)
+        read_output = _feedback_output(read_feedback)
+        patch = _normalize_patch_text(
+            str(output.get("recommended_patch") or output.get("patch") or inspect_output.get("recommended_patch") or inspect_output.get("patch") or ""),
+            user_text,
+        )
         if not patch:
             patch = "invoice_lock: true" if _contains_any(user_text, ["invoice lock", "billing"]) else "safe_mode: true"
         path = _extract_path(" ".join(context["user_messages"]))
+        if not path:
+            read_path = str(read_output.get("path", ""))
+            if _looks_like_repo_path(read_path):
+                path = read_path
+        if not path:
+            patch_payload = output.get("patch")
+            if isinstance(patch_payload, dict):
+                candidate_path = str(patch_payload.get("path", ""))
+                if _looks_like_repo_path(candidate_path):
+                    path = candidate_path
         if not path:
             path = "config/billing.yaml" if "billing" in user_text or "invoice lock" in patch else "config/settings.yaml"
         return {"path": path, "patch": patch}
@@ -537,6 +558,21 @@ def _should_override_valid_arguments(call: ToolCall, inferred_arguments: dict[st
         inferred_path = str(inferred_arguments.get("path", ""))
         if inferred_path and provided_path and provided_path != inferred_path and "/" not in provided_path:
             return True
+    if call.name == "propose_patch":
+        provided_path = str(call.arguments.get("path", ""))
+        inferred_path = str(inferred_arguments.get("path", ""))
+        provided_patch = str(call.arguments.get("patch", ""))
+        inferred_patch = str(inferred_arguments.get("patch", ""))
+        if inferred_path and provided_path != inferred_path:
+            if _latest_successful_feedback(context, "read_repo_file") is not None:
+                return True
+            if not _looks_like_repo_path(provided_path):
+                return True
+        if inferred_patch and provided_patch != inferred_patch:
+            if _latest_successful_feedback(context, "inspect_image") is not None:
+                return True
+            if ":" not in provided_patch or " patch" in provided_patch.lower():
+                return True
     return False
 
 
@@ -584,6 +620,68 @@ def _normalize_name(value: str) -> str:
 
 def _contains_any(text: str, fragments: list[str]) -> bool:
     return any(fragment in text for fragment in fragments)
+
+
+def _feedback_output(feedback: dict[str, Any] | None) -> dict[str, Any]:
+    if not isinstance(feedback, dict):
+        return {}
+    output = feedback.get("output", {})
+    return output if isinstance(output, dict) else {}
+
+
+def _successful_tool_feedback(context: dict[str, Any]) -> list[dict[str, Any]]:
+    return [
+        item
+        for item in context["tool_feedback"]
+        if isinstance(item, dict) and str(item.get("status", "")) == "pass"
+    ]
+
+
+def _latest_successful_feedback(context: dict[str, Any], tool_name: str) -> dict[str, Any] | None:
+    for item in reversed(_successful_tool_feedback(context)):
+        if str(item.get("tool_name", "")) == tool_name:
+            return item
+    return None
+
+
+def _parallel_audit_pending_calls(context: dict[str, Any], tool_specs: list[ToolSpec]) -> list[ToolCall]:
+    tool_names = {tool.name for tool in tool_specs}
+    if not _needs_parallel_audit(context["user_text"], tool_names):
+        return []
+    successful_history = {item.get("tool_name", "") for item in _successful_tool_feedback(context)}
+    pending: list[ToolCall] = []
+    if "inspect_image" in tool_names and "inspect_image" not in successful_history:
+        pending.append(_heuristic_call("inspect_image", _infer_arguments(context, "inspect_image"), raw_hint="parallel"))
+    if "read_repo_file" in tool_names and "read_repo_file" not in successful_history:
+        pending.append(_heuristic_call("read_repo_file", _infer_arguments(context, "read_repo_file"), raw_hint="parallel"))
+    return pending
+
+
+def _parallel_audit_ready(context: dict[str, Any], tool_names: set[str]) -> bool:
+    if not _needs_parallel_audit(context["user_text"], tool_names):
+        return True
+    successful_history = {item.get("tool_name", "") for item in _successful_tool_feedback(context)}
+    return {"inspect_image", "read_repo_file"}.issubset(successful_history)
+
+
+def _normalize_patch_text(value: str, user_text: str) -> str:
+    text = value.strip()
+    lowered = text.lower()
+    if "invoice_lock" in text or "invoice lock" in lowered:
+        return "invoice_lock: true"
+    if "safe_mode" in text or "safe mode" in lowered:
+        return "safe_mode: true"
+    if ":" in text:
+        return text
+    if _contains_any(user_text, ["invoice lock", "billing"]):
+        return "invoice_lock: true"
+    if _contains_any(user_text, ["safe mode", "safer patch"]):
+        return "safe_mode: true"
+    return text
+
+
+def _looks_like_repo_path(value: str) -> bool:
+    return bool(re.search(r"/", value) and re.search(r"\.(?:ya?ml|json|toml|py|md|csv)$", value))
 
 
 def _extract_path(text: str) -> str:

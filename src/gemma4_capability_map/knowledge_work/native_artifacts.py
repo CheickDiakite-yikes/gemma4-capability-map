@@ -56,6 +56,22 @@ def extract_artifact_text(path: str | Path) -> str:
     return target.read_text(encoding="utf-8")
 
 
+def inspect_artifact(path: str | Path) -> dict[str, object]:
+    target = Path(path)
+    suffix = target.suffix.lower()
+    if suffix == ".xlsx":
+        return _inspect_xlsx(target)
+    if suffix == ".docx":
+        return _inspect_docx(target)
+    if suffix == ".pptx":
+        return _inspect_pptx(target)
+    content = target.read_text(encoding="utf-8")
+    return {
+        "format": suffix.lstrip(".") or "text",
+        "content": content,
+    }
+
+
 def _write_native_artifact(path: Path, content: str, spec: ArtifactSpec) -> None:
     suffix = path.suffix.lower()
     if suffix == ".xlsx":
@@ -134,6 +150,9 @@ def _write_xlsx(path: Path, content: str, spec: ArtifactSpec) -> None:
         for source in sources:
             sheet.cell(row=cursor, column=1, value=source)
             cursor += 1
+
+    for coordinate, formula in spec.scoring_contract.required_formula_cells.items():
+        sheet[coordinate] = formula
 
     for column_cells in sheet.columns:
         length = max(len(str(cell.value or "")) for cell in column_cells)
@@ -273,6 +292,51 @@ def _extract_xlsx_text(path: Path) -> str:
     return "\n".join(lines)
 
 
+def _inspect_xlsx(path: Path) -> dict[str, object]:
+    from openpyxl import load_workbook
+
+    workbook = load_workbook(path, data_only=False)
+    sheet = workbook.active
+    table_rows: list[list[str]] = []
+    formulas: dict[str, str] = {}
+    field_pairs: dict[str, str] = {}
+    formula_cells: dict[str, str] = {}
+    for row in sheet.iter_rows():
+        for cell in row:
+            if isinstance(cell.value, str) and cell.value.startswith("="):
+                formula_cells[cell.coordinate] = cell.value
+    row = 1
+    while row <= sheet.max_row:
+        label = str(sheet.cell(row=row, column=1).value or "")
+        value = sheet.cell(row=row, column=2).value
+        if label and label not in {"Formula Label", "Metric", "Notes", "Sources"} and value not in (None, ""):
+            field_pairs[label] = str(value)
+        if label == "Metric":
+            header = [str(sheet.cell(row=row, column=col).value or "") for col in range(1, 4)]
+            table_rows.append(header)
+            row += 1
+            while any(sheet.cell(row=row, column=col).value not in (None, "") for col in range(1, 4)):
+                table_rows.append([str(sheet.cell(row=row, column=col).value or "") for col in range(1, 4)])
+                row += 1
+            continue
+        if label == "Formula Label":
+            row += 1
+            while any(sheet.cell(row=row, column=col).value not in (None, "") for col in range(1, 3)):
+                formulas[str(sheet.cell(row=row, column=1).value or "")] = str(sheet.cell(row=row, column=2).value or "")
+                row += 1
+            continue
+        row += 1
+    return {
+        "format": "xlsx",
+        "sheet_title": sheet.title,
+        "table_rows": table_rows,
+        "field_pairs": field_pairs,
+        "formulas": formulas,
+        "formula_cells": formula_cells,
+        "content": _extract_xlsx_text(path),
+    }
+
+
 def _extract_docx_text(path: Path) -> str:
     from docx import Document
 
@@ -294,6 +358,38 @@ def _extract_docx_text(path: Path) -> str:
         else:
             lines.append(text)
     return "\n".join(lines)
+
+
+def _inspect_docx(path: Path) -> dict[str, object]:
+    from docx import Document
+
+    document = Document(path)
+    headings: list[str] = []
+    bullets: list[str] = []
+    paragraphs: list[str] = []
+    field_pairs: dict[str, str] = {}
+    for paragraph in document.paragraphs:
+        text = paragraph.text.strip()
+        if not text:
+            continue
+        paragraphs.append(text)
+        style = paragraph.style.name.lower() if paragraph.style and paragraph.style.name else ""
+        if "heading" in style:
+            headings.append(text)
+        if "bullet" in style:
+            bullets.append(text)
+        stripped = text.lstrip("-").strip()
+        if ":" in stripped:
+            key, value = stripped.split(":", 1)
+            field_pairs[key.strip()] = value.strip()
+    return {
+        "format": "docx",
+        "headings": headings,
+        "bullets": bullets,
+        "paragraphs": paragraphs,
+        "field_pairs": field_pairs,
+        "content": _extract_docx_text(path),
+    }
 
 
 def _extract_pptx_text(path: Path) -> str:
@@ -334,6 +430,38 @@ def _extract_pptx_text(path: Path) -> str:
                 else:
                     lines.append(f"- {text}")
     return "\n".join(lines)
+
+
+def _inspect_pptx(path: Path) -> dict[str, object]:
+    from pptx import Presentation
+
+    presentation = Presentation(path)
+    slide_titles: list[str] = []
+    slide_sections: dict[str, list[str]] = {}
+    slide_bullets: dict[str, list[str]] = {}
+    for slide in presentation.slides:
+        title = slide.shapes.title.text.strip() if slide.shapes.title and slide.shapes.title.text else "Slide"
+        slide_titles.append(title)
+        slide_sections[title] = []
+        slide_bullets[title] = []
+        for shape in slide.shapes:
+            if not getattr(shape, "has_text_frame", False) or shape == slide.shapes.title:
+                continue
+            for paragraph in shape.text_frame.paragraphs:
+                text = paragraph.text.strip()
+                if not text:
+                    continue
+                if text.startswith("Section: "):
+                    slide_sections[title].append(text.split(":", 1)[1].strip())
+                else:
+                    slide_bullets[title].append(text)
+    return {
+        "format": "pptx",
+        "slide_titles": slide_titles,
+        "slide_sections": slide_sections,
+        "slide_bullets": slide_bullets,
+        "content": _extract_pptx_text(path),
+    }
 
 
 def _first_section(content: str, title: str) -> str:

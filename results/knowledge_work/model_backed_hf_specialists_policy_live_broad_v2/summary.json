@@ -1,0 +1,13 @@
+{
+  "runs": 6.0,
+  "artifact_quality_avg": 1.0,
+  "browser_workflow_avg": 1.0,
+  "strict_interface_avg": 1.0,
+  "recovered_execution_avg": 1.0,
+  "real_world_readiness_avg": 0.9305499999999999,
+  "escalation_correctness_avg": 0.9166666666666666,
+  "lane": "live_web_stress",
+  "created_at": "20260410T043210Z",
+  "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_specialists_policy_live_broad_v2"
+}

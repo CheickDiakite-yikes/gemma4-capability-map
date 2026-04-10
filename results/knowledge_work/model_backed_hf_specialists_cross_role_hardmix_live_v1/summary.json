@@ -1,0 +1,9 @@
+{
+  "runs": 12.0,
+  "artifact_quality_avg": 1.0,
+  "browser_workflow_avg": 1.0,
+  "strict_interface_avg": 1.0,
+  "recovered_execution_avg": 1.0,
+  "real_world_readiness_avg": 0.9691333333333333,
+  "escalation_correctness_avg": 1.0
+}

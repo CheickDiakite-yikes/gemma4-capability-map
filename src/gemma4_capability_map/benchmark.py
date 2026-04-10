@@ -73,11 +73,15 @@ def build_runtime_bundle(
     retriever_id: str,
     reasoner_device: str,
     reasoner_max_new_tokens: int,
+    router_device: str | None = None,
+    retriever_device: str | None = None,
 ) -> RuntimeBundle:
     registry = build_default_registry()
     resolved_reasoner_backend = reasoner_backend or backend
     resolved_router_backend = router_backend or ("heuristic" if backend in {"hf", "hf_service", "mlx"} else backend)
     resolved_retriever_backend = retriever_backend or ("hf" if resolved_reasoner_backend in {"hf", "hf_service"} else "heuristic")
+    resolved_router_device = router_device or ("cpu" if resolved_router_backend == "hf" else "auto")
+    resolved_retriever_device = retriever_device or ("cpu" if resolved_retriever_backend == "hf" else "auto")
     return RuntimeBundle(
         reasoner=Gemma4Runner(
             reasoner_id,
@@ -85,8 +89,8 @@ def build_runtime_bundle(
             device=reasoner_device,
             max_new_tokens=reasoner_max_new_tokens,
         ),
-        router=FunctionGemmaRunner(router_id, backend=resolved_router_backend) if pipeline_name == "modular" else None,
-        retriever=EmbeddingGemmaRetriever(retriever_id, backend=resolved_retriever_backend) if pipeline_name in {"hybrid", "modular"} or any(task.track.value == "retrieval" for task in tasks) else None,
+        router=FunctionGemmaRunner(router_id, backend=resolved_router_backend, device=resolved_router_device) if pipeline_name == "modular" else None,
+        retriever=EmbeddingGemmaRetriever(retriever_id, backend=resolved_retriever_backend, device=resolved_retriever_device) if pipeline_name in {"hybrid", "modular"} or any(task.track.value == "retrieval" for task in tasks) else None,
         executor=DeterministicExecutor(registry=registry),
     )
 
@@ -102,6 +106,8 @@ def warm_runtime_bundle(bundle: RuntimeBundle, tasks: list[Task]) -> dict[str, d
         warmup["reasoner"] = bundle.reasoner.ensure_loaded(media=media)
     if bundle.router and hasattr(bundle.router, "ensure_loaded"):
         warmup["router"] = bundle.router.ensure_loaded()
+    if bundle.retriever and hasattr(bundle.retriever, "ensure_loaded"):
+        warmup["retriever"] = bundle.retriever.ensure_loaded()
     return warmup
 
 
@@ -162,6 +168,8 @@ def run_benchmark(
     final_max_new_tokens: int | None,
     limit: int,
     thinking_enabled: bool,
+    router_device: str | None = None,
+    retriever_device: str | None = None,
     on_trace: Callable[[RunTrace, int, int], None] | None = None,
     bundle: RuntimeBundle | None = None,
 ) -> list[RunTrace]:
@@ -176,6 +184,8 @@ def run_benchmark(
         router_id=router_id,
         retriever_id=retriever_id,
         reasoner_device=reasoner_device,
+        router_device=router_device,
+        retriever_device=retriever_device,
         reasoner_max_new_tokens=reasoner_max_new_tokens,
     )
     pipeline = build_pipeline(

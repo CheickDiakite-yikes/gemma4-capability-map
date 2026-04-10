@@ -28,6 +28,12 @@
           "terminal": false
         },
         {
+          "state_id": "model_validation_failed",
+          "surface": "spreadsheet",
+          "label": "model validation failed",
+          "terminal": false
+        },
+        {
           "state_id": "model_validated",
           "surface": "spreadsheet",
           "label": "model validated",
@@ -56,12 +62,20 @@
           "notes": "Open the seeded finance workspace"
         },
         {
-          "transition_id": "finance_committee_model_validated",
+          "transition_id": "finance_committee_model_validation_failed",
           "action": "validate_seeded_model",
           "from_state": "workspace_opened",
+          "to_state": "model_validation_failed",
+          "outcome": "validation_failed",
+          "notes": "Validate the committee model before issuing a recommendation and capture any blocking defects"
+        },
+        {
+          "transition_id": "finance_committee_model_validation_recovered",
+          "action": "repair_seeded_model",
+          "from_state": "model_validation_failed",
           "to_state": "model_validated",
-          "outcome": "pass",
-          "notes": "Validate the committee model before issuing a recommendation"
+          "outcome": "recovered",
+          "notes": "Repair the committee model, re-run the cross-check, and preserve the approval hold"
         },
         {
           "transition_id": "finance_committee_workspace_reopened",
@@ -105,6 +119,7 @@
           },
           "state_machine_id": "finance_committee_hold_flow",
           "transition_id": "finance_committee_workspace_opened",
+          "transition_outcome": "pass",
           "from_state": "planned",
           "to_state": "workspace_opened",
           "submission_gate": "none",
@@ -116,27 +131,65 @@
           "action": "validate_seeded_model",
           "target": "workspace://finance-committee-hold/model-validation",
           "surface": "spreadsheet",
-          "purpose": "Validate the committee model before issuing a recommendation",
-          "expected_signal": "model validation complete",
+          "purpose": "Validate the committee model before issuing a recommendation and capture any blocking defects",
+          "expected_signal": "model validation failed on the first pass",
           "verification_checks": [
             "formula check complete",
             "evidence rows present"
           ],
           "validation_rules": [
             "committee case formula present",
-            "conflict row present"
+            "conflict row present",
+            "reserve row reconciled"
           ],
           "captured_fields": [
             "metric",
             "formula",
-            "evidence"
+            "evidence",
+            "reserve_status"
           ],
           "state_updates": {
-            "model_state": "validated"
+            "model_state": "validation_failed"
           },
           "state_machine_id": "finance_committee_hold_flow",
-          "transition_id": "finance_committee_model_validated",
+          "transition_id": "finance_committee_model_validation_failed",
+          "transition_outcome": "validation_failed",
           "from_state": "workspace_opened",
+          "to_state": "model_validation_failed",
+          "submission_gate": "none",
+          "blocked_reason": "conflict reserve row was not reconciled into the committee case",
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        },
+        {
+          "action": "repair_seeded_model",
+          "target": "workspace://finance-committee-hold/model",
+          "surface": "spreadsheet",
+          "purpose": "Repair the committee model, re-run the cross-check, and preserve the approval hold",
+          "expected_signal": "model validation recovered with reconciled reserve row",
+          "verification_checks": [
+            "reserve row restored",
+            "formula check complete"
+          ],
+          "validation_rules": [
+            "committee case formula present",
+            "conflict row present",
+            "reserve row reconciled"
+          ],
+          "captured_fields": [
+            "metric",
+            "formula",
+            "evidence",
+            "reserve_status"
+          ],
+          "state_updates": {
+            "model_state": "validated",
+            "reserve_state": "reconciled"
+          },
+          "state_machine_id": "finance_committee_hold_flow",
+          "transition_id": "finance_committee_model_validation_recovered",
+          "transition_outcome": "recovered",
+          "from_state": "model_validation_failed",
           "to_state": "model_validated",
           "submission_gate": "none",
           "blocked_reason": null,
@@ -167,6 +220,7 @@
           },
           "state_machine_id": "finance_committee_hold_flow",
           "transition_id": "finance_committee_workspace_reopened",
+          "transition_outcome": "pass",
           "from_state": "model_validated",
           "to_state": "workspace_reopened",
           "submission_gate": "none",
@@ -196,6 +250,7 @@
           },
           "state_machine_id": "finance_committee_hold_flow",
           "transition_id": "finance_committee_release_blocked",
+          "transition_outcome": "pass",
           "from_state": "workspace_reopened",
           "to_state": "release_blocked_pending_approval",
           "submission_gate": "approval_required",

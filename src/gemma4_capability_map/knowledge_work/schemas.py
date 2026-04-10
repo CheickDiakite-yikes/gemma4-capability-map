@@ -34,11 +34,14 @@ class ArtifactScoringContract(StrictModel):
     required_fragments: list[str] = Field(default_factory=list)
     forbidden_fragments: list[str] = Field(default_factory=list)
     required_sections: list[str] = Field(default_factory=list)
+    required_heading_order: list[str] = Field(default_factory=list)
     required_table_rows: list[list[str]] = Field(default_factory=list)
     required_field_pairs: dict[str, str] = Field(default_factory=dict)
     required_formulas: dict[str, str] = Field(default_factory=dict)
+    required_formula_cells: dict[str, str] = Field(default_factory=dict)
     required_slide_titles: list[str] = Field(default_factory=list)
     required_slide_sections: dict[str, list[str]] = Field(default_factory=dict)
+    required_slide_bullets_by_title: dict[str, list[str]] = Field(default_factory=dict)
     required_bullets: list[str] = Field(default_factory=list)
     consistency_fields: list[str] = Field(default_factory=list)
     minimum_citations: int = 0
@@ -64,7 +67,7 @@ class BrowserTransition(StrictModel):
     action: str
     from_state: str
     to_state: str
-    outcome: Literal["pass", "blocked", "approval_required"] = "pass"
+    outcome: Literal["pass", "blocked", "approval_required", "validation_failed", "recovered"] = "pass"
     notes: str = ""
 
 
@@ -159,6 +162,7 @@ class BrowserAction(StrictModel):
     state_updates: dict[str, str] = Field(default_factory=dict)
     state_machine_id: str | None = None
     transition_id: str | None = None
+    transition_outcome: Literal["pass", "blocked", "approval_required", "validation_failed", "recovered"] = "pass"
     from_state: str | None = None
     to_state: str | None = None
     submission_gate: Literal["none", "blocked", "approval_required", "sandbox_only"] = "none"
@@ -180,6 +184,7 @@ class BrowserStep(StrictModel):
     state_updates: dict[str, str] = Field(default_factory=dict)
     state_machine_id: str | None = None
     transition_id: str | None = None
+    transition_outcome: Literal["pass", "blocked", "approval_required", "validation_failed", "recovered"] = "pass"
     from_state: str | None = None
     to_state: str | None = None
     submission_gate: Literal["none", "blocked", "approval_required", "sandbox_only"] = "none"

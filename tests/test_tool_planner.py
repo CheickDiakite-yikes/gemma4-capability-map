@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from copy import deepcopy
 
-from gemma4_capability_map.schemas import Message
+from gemma4_capability_map.schemas import Message, ToolCall
 from gemma4_capability_map.tools.planner import plan_or_repair_tool_calls, plan_tool_calls
 from gemma4_capability_map.tools.registry import build_default_registry
 
@@ -49,6 +49,90 @@ def test_planner_emits_parallel_audit_calls() -> None:
     assert [call.name for call in planned] == ["inspect_image", "read_repo_file"]
     assert planned[0].arguments == {"image_id": "img-parallel"}
     assert planned[1].arguments == {"path": "config/settings.yaml"}
+
+
+def test_controller_fallback_enforces_full_parallel_audit_batch() -> None:
+    messages = [Message(role="user", content="Check the screenshot and config file in parallel, then record the safe mode patch.")]
+    repaired, notes = plan_or_repair_tool_calls(
+        raw_output='{"name":"inspect_image","arguments":{"image_id":"img-audit"}}',
+        parsed_calls=[
+            ToolCall(
+                name="inspect_image",
+                arguments={"image_id": "img-audit"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+        messages=messages,
+        media=["img-audit"],
+        tool_specs=[SPECS["inspect_image"], SPECS["read_repo_file"], SPECS["propose_patch"]],
+    )
+    assert [call.name for call in repaired] == ["inspect_image", "read_repo_file"]
+    assert repaired[0].arguments == {"image_id": "img-audit"}
+    assert repaired[1].arguments == {"path": "config/settings.yaml"}
+    assert "parallel_audit_prior" in notes
+    assert "controller_fallback_planner" in notes
+
+
+def test_parallel_audit_feedback_requires_repo_read_before_patch() -> None:
+    messages = [
+        Message(role="user", content="Check the screenshot and config file in parallel, then record the safe mode patch."),
+        Message(
+            role="tool",
+            content='{"tool_name":"inspect_image","status":"pass","arguments":{"image_id":"img-audit"},"output":{"summary":"Audit panel shows Safe Mode disabled.","recommended_patch":"safe_mode: true"}}',
+        ),
+    ]
+    repaired, notes = plan_or_repair_tool_calls(
+        raw_output='{"name":"propose_patch","arguments":{"path":"img-audit","patch":"safe mode patch"}}',
+        parsed_calls=[
+            ToolCall(
+                name="propose_patch",
+                arguments={"path": "img-audit", "patch": "safe mode patch"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+        messages=messages,
+        media=["img-audit"],
+        tool_specs=[SPECS["inspect_image"], SPECS["read_repo_file"], SPECS["propose_patch"]],
+    )
+    assert len(repaired) == 1
+    assert repaired[0].name == "read_repo_file"
+    assert repaired[0].arguments == {"path": "config/settings.yaml"}
+    assert "parallel_audit_prior" in notes
+    assert "controller_fallback_planner" in notes
+
+
+def test_parallel_audit_repairs_patch_from_combined_feedback() -> None:
+    messages = [
+        Message(role="user", content="Check the screenshot and config file in parallel, then record the safe mode patch."),
+        Message(
+            role="tool",
+            content='{"tool_name":"inspect_image","status":"pass","arguments":{"image_id":"img-audit"},"output":{"summary":"Audit panel shows Safe Mode disabled.","recommended_patch":"safe_mode: true"}}',
+        ),
+        Message(
+            role="tool",
+            content='{"tool_name":"read_repo_file","status":"pass","arguments":{"path":"config/settings.yaml"},"output":{"path":"config/settings.yaml","content":"safe_mode: false"}}',
+        ),
+    ]
+    repaired, notes = plan_or_repair_tool_calls(
+        raw_output='{"name":"propose_patch","arguments":{"path":"img-audit","patch":"safe mode patch"}}',
+        parsed_calls=[
+            ToolCall(
+                name="propose_patch",
+                arguments={"path": "img-audit", "patch": "safe mode patch"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+        messages=messages,
+        media=["img-audit"],
+        tool_specs=[SPECS["inspect_image"], SPECS["read_repo_file"], SPECS["propose_patch"]],
+    )
+    assert len(repaired) == 1
+    assert repaired[0].name == "propose_patch"
+    assert repaired[0].arguments == {"path": "config/settings.yaml", "patch": "safe_mode: true"}
+    assert "repaired_arguments:propose_patch" in notes
 
 
 def test_planner_overrides_non_canonical_but_schema_valid_calendar_arguments() -> None:
@@ -187,3 +271,32 @@ def test_planner_prefers_patch_record_for_billing_patch_requests() -> None:
     assert len(planned) == 1
     assert planned[0].name == "propose_patch"
     assert planned[0].arguments == {"path": "config/billing.yaml", "patch": "invoice_lock: true"}
+
+
+def test_planner_uses_feedback_priority_for_compare_after_latest_file() -> None:
+    messages = [
+        Message(role="user", content="Find the latest budget file, compare it to last month, and summarize the delta."),
+        Message(
+            role="tool",
+            content='{"tool_name":"find_latest_file","status":"pass","arguments":{"directory":"finance","kind":"budget"},"output":{"file_name":"budget_apr.csv"}}',
+        ),
+    ]
+    repaired, notes = plan_or_repair_tool_calls(
+        raw_output='{"name":"find_latest_file","arguments":{"directory":"finance","kind":"budget"}}',
+        parsed_calls=[
+            ToolCall(
+                name="find_latest_file",
+                arguments={"directory": "finance", "kind": "budget"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+        messages=messages,
+        media=[],
+        tool_specs=[SPECS["find_latest_file"], SPECS["compare_files"]],
+    )
+
+    assert repaired[0].name == "compare_files"
+    assert repaired[0].arguments == {"file_a": "budget_mar.csv", "file_b": "budget_apr.csv"}
+    assert "feedback_prior:compare_files" in notes
+    assert "controller_fallback_planner" in notes

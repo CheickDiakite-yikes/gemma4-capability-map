@@ -55,3 +55,47 @@ Reason:
 
 - markdown-only stand-ins are too weak for role-readiness claims
 - `.xlsx`, `.pptx`, and `.docx` better reflect actual work products
+
+### 8. KWA history must distinguish canonical and exploratory runs
+
+Operational rule:
+
+- canonical lane pointers come from dedicated canonical summaries
+- exploratory pilots use `--no-update-latest --run-intent exploratory`
+- generated history must show at least:
+  - latest canonical by lane
+  - latest exploratory by lane
+  - best historical by lane
+
+Reason:
+
+- exploratory KWA runs materially inform research, but they should not shadow published benchmark state
+- future threads need a durable way to resume without re-deriving which run is authoritative
+
+### 9. Board and chart exports must be registry-backed
+
+Operational rule:
+
+- add new systems to [`configs/model_registry.yaml`](../../configs/model_registry.yaml)
+- keep board exports derived from:
+  - `system_id`
+  - `lane`
+  - `run_intent`
+
+Reason:
+
+- board-style comparisons break down when system metadata is inferred ad hoc from run directories
+- public-style reporting needs normalized params, provider, local/remote, and cost fields
+
+### 10. Scoring changes should be propagated by rescoring traces, not rerunning models by default
+
+Operational rule:
+
+- when scoring logic changes, use:
+  - `uv run python scripts/rescore_knowledge_work_runs.py <run_dir> ...`
+- rerun models only when the change affects execution rather than grading
+
+Reason:
+
+- trace-backed rescoring is faster and cheaper
+- it keeps leaderboard deltas attributable to scoring logic instead of runtime variance

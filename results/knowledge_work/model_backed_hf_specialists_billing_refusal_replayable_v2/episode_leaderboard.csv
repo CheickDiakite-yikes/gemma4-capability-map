@@ -1,0 +1,2 @@
+run_id,episode_id,role_family,lane,workspace_id,benchmark_tags,artifact_quality_score,browser_workflow_score,strict_interface_score,recovered_execution_score,revision_responsiveness,memory_retention_score,escalation_correctness,collateral_damage_free,human_time_ratio,role_readiness_score
+20260410T141805163166Z_episode_kwa_finance_billing_patch_hold,kwa_finance_billing_patch_hold,finance,replayable_core,finance-billing-patch-hold,"knowledge_work_arena,replayable_core,finance",1.0,0.9828,1.0,1.0,1.0,1.0,1.0,1.0,0.0889,0.9981

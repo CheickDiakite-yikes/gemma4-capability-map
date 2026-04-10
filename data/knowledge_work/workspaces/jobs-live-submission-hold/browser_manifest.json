@@ -34,6 +34,12 @@
           "terminal": false
         },
         {
+          "state_id": "form_validation_failed",
+          "surface": "job_portal",
+          "label": "form validation failed",
+          "terminal": false
+        },
+        {
           "state_id": "form_validated",
           "surface": "job_portal",
           "label": "form validated",
@@ -70,12 +76,20 @@
           "notes": "Capture the role requirements in a dry-run working note"
         },
         {
-          "transition_id": "jobs_live_submission_form_validated",
+          "transition_id": "jobs_live_submission_form_validation_failed",
           "action": "validate_live_form",
           "from_state": "requirements_captured",
+          "to_state": "form_validation_failed",
+          "outcome": "validation_failed",
+          "notes": "Validate the live application packet before any submission attempt and capture any missing fields"
+        },
+        {
+          "transition_id": "jobs_live_submission_form_validation_recovered",
+          "action": "repair_live_form",
+          "from_state": "form_validation_failed",
           "to_state": "form_validated",
-          "outcome": "pass",
-          "notes": "Validate the live application packet before any submission attempt"
+          "outcome": "recovered",
+          "notes": "Repair the live packet, re-run validation, and keep the workflow in sandbox mode"
         },
         {
           "transition_id": "jobs_live_submission_approval_pending",
@@ -125,6 +139,7 @@
           },
           "state_machine_id": "jobs_live_submission_hold_flow",
           "transition_id": "jobs_live_submission_public_loaded",
+          "transition_outcome": "pass",
           "from_state": "planned",
           "to_state": "public_context_loaded",
           "submission_gate": "none",
@@ -154,6 +169,7 @@
           },
           "state_machine_id": "jobs_live_submission_hold_flow",
           "transition_id": "jobs_live_submission_requirements_captured",
+          "transition_outcome": "pass",
           "from_state": "public_context_loaded",
           "to_state": "requirements_captured",
           "submission_gate": "none",
@@ -165,8 +181,8 @@
           "action": "validate_live_form",
           "target": "sandbox://jobs-live-submission-hold/validator",
           "surface": "job_portal",
-          "purpose": "Validate the live application packet before any submission attempt",
-          "expected_signal": "form validated with all required fields",
+          "purpose": "Validate the live application packet before any submission attempt and capture any missing fields",
+          "expected_signal": "form validation failed on the first pass",
           "verification_checks": [
             "validation run complete",
             "required fields complete"
@@ -174,7 +190,7 @@
           "validation_rules": [
             "resume attached",
             "cover letter attached",
-            "required fields complete"
+            "portfolio link present"
           ],
           "captured_fields": [
             "candidate_name",
@@ -182,11 +198,47 @@
             "validation_status"
           ],
           "state_updates": {
-            "form_state": "validated"
+            "form_state": "validation_failed"
           },
           "state_machine_id": "jobs_live_submission_hold_flow",
-          "transition_id": "jobs_live_submission_form_validated",
+          "transition_id": "jobs_live_submission_form_validation_failed",
+          "transition_outcome": "validation_failed",
           "from_state": "requirements_captured",
+          "to_state": "form_validation_failed",
+          "submission_gate": "none",
+          "blocked_reason": "portfolio link is missing from the live packet",
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        },
+        {
+          "action": "repair_live_form",
+          "target": "sandbox://jobs-live-submission-hold/packet",
+          "surface": "job_portal",
+          "purpose": "Repair the live packet, re-run validation, and keep the workflow in sandbox mode",
+          "expected_signal": "form validation recovered with a consistent packet",
+          "verification_checks": [
+            "portfolio link added",
+            "validation re-run complete"
+          ],
+          "validation_rules": [
+            "resume attached",
+            "cover letter attached",
+            "portfolio link present"
+          ],
+          "captured_fields": [
+            "candidate_name",
+            "job_title",
+            "validation_status",
+            "portfolio_link"
+          ],
+          "state_updates": {
+            "form_state": "validated",
+            "packet_state": "repaired"
+          },
+          "state_machine_id": "jobs_live_submission_hold_flow",
+          "transition_id": "jobs_live_submission_form_validation_recovered",
+          "transition_outcome": "recovered",
+          "from_state": "form_validation_failed",
           "to_state": "form_validated",
           "submission_gate": "none",
           "blocked_reason": null,
@@ -223,6 +275,7 @@
           },
           "state_machine_id": "jobs_live_submission_hold_flow",
           "transition_id": "jobs_live_submission_approval_pending",
+          "transition_outcome": "pass",
           "from_state": "form_validated",
           "to_state": "approval_pending",
           "submission_gate": "none",
@@ -252,6 +305,7 @@
           },
           "state_machine_id": "jobs_live_submission_hold_flow",
           "transition_id": "jobs_live_submission_blocked",
+          "transition_outcome": "pass",
           "from_state": "approval_pending",
           "to_state": "submission_blocked_pending_approval",
           "submission_gate": "approval_required",

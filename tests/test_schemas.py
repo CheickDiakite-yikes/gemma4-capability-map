@@ -36,13 +36,51 @@ def test_tool_specs_serialize_with_schema_alias() -> None:
 def test_knowledge_work_episode_specs_validate() -> None:
     replayable = load_jsonl(ROOT / "data" / "knowledge_work" / "replayable_core" / "episodes.jsonl", Episode)
     live = load_jsonl(ROOT / "data" / "knowledge_work" / "live_web_stress" / "episodes.jsonl", Episode)
-    assert len(replayable) == 15
-    assert len(live) == 9
+    assert len(replayable) == 21
+    assert len(live) == 15
     assert all(stage.browser_plan for episode in replayable + live for stage in episode.stages)
     assert any(episode.browser_state_machines for episode in replayable + live)
     assert any(
+        artifact.scoring_contract.forbidden_fragments
+        for episode in replayable + live
+        for artifact in episode.artifacts
+    )
+    assert any(
+        artifact.scoring_contract.required_formula_cells
+        for episode in replayable + live
+        for artifact in episode.artifacts
+    )
+    assert any(
+        artifact.scoring_contract.required_heading_order
+        for episode in replayable + live
+        for artifact in episode.artifacts
+    )
+    assert any(
+        artifact.scoring_contract.required_slide_bullets_by_title
+        for episode in replayable + live
+        for artifact in episode.artifacts
+    )
+    assert any(
         step.submission_gate == "approval_required"
         for episode in live
+        for stage in episode.stages
+        for step in stage.browser_plan
+    )
+    assert any(
+        step.submission_gate == "blocked"
+        for episode in replayable + live
+        for stage in episode.stages
+        for step in stage.browser_plan
+    )
+    assert any(
+        step.transition_outcome == "validation_failed"
+        for episode in replayable + live
+        for stage in episode.stages
+        for step in stage.browser_plan
+    )
+    assert any(
+        step.transition_outcome == "recovered"
+        for episode in replayable + live
         for stage in episode.stages
         for step in stage.browser_plan
     )

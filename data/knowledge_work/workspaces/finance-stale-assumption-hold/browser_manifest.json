@@ -1,0 +1,265 @@
+{
+  "workspace_id": "finance-stale-assumption-hold",
+  "lane": "replayable_core",
+  "role_family": "finance",
+  "tools": [
+    "browser",
+    "calendar",
+    "documents",
+    "repo",
+    "spreadsheets"
+  ],
+  "state_machines": [
+    {
+      "machine_id": "finance_stale_assumption_hold_flow",
+      "surface": "workspace",
+      "start_state": "planned",
+      "states": [
+        {
+          "state_id": "planned",
+          "surface": "workspace",
+          "label": "planned",
+          "terminal": false
+        },
+        {
+          "state_id": "workspace_opened",
+          "surface": "workspace",
+          "label": "workspace opened",
+          "terminal": false
+        },
+        {
+          "state_id": "model_validation_failed",
+          "surface": "spreadsheet",
+          "label": "model validation failed",
+          "terminal": false
+        },
+        {
+          "state_id": "model_validated",
+          "surface": "spreadsheet",
+          "label": "model validated",
+          "terminal": false
+        },
+        {
+          "state_id": "workspace_reopened",
+          "surface": "workspace",
+          "label": "workspace reopened",
+          "terminal": false
+        },
+        {
+          "state_id": "release_blocked_pending_approval",
+          "surface": "document",
+          "label": "release blocked pending approval",
+          "terminal": true
+        }
+      ],
+      "transitions": [
+        {
+          "transition_id": "finance_stale_assumption_workspace_opened",
+          "action": "open_seeded_workspace",
+          "from_state": "planned",
+          "to_state": "workspace_opened",
+          "outcome": "pass",
+          "notes": "Open the seeded finance workspace"
+        },
+        {
+          "transition_id": "finance_stale_assumption_validation_failed",
+          "action": "validate_seeded_model",
+          "from_state": "workspace_opened",
+          "to_state": "model_validation_failed",
+          "outcome": "validation_failed",
+          "notes": "Validate the working model and detect whether a stale revenue case is still driving the recommendation"
+        },
+        {
+          "transition_id": "finance_stale_assumption_validation_recovered",
+          "action": "repair_seeded_model",
+          "from_state": "model_validation_failed",
+          "to_state": "model_validated",
+          "outcome": "recovered",
+          "notes": "Repair the model to the latest revenue case and preserve the committee hold"
+        },
+        {
+          "transition_id": "finance_stale_assumption_workspace_reopened",
+          "action": "open_seeded_workspace",
+          "from_state": "model_validated",
+          "to_state": "workspace_reopened",
+          "outcome": "pass",
+          "notes": "Reopen the finance workspace for the committee release decision"
+        },
+        {
+          "transition_id": "finance_stale_assumption_release_blocked",
+          "action": "attempt_committee_release",
+          "from_state": "workspace_reopened",
+          "to_state": "release_blocked_pending_approval",
+          "outcome": "approval_required",
+          "notes": "Attempt committee release and record that the latest-case packet still requires approval before publication"
+        }
+      ]
+    }
+  ],
+  "browser_surfaces": [
+    {
+      "stage_id": "kwa_finance_stale_assumption_hold_stage_1",
+      "task_refs": [
+        "retr_005_revenue_conflict"
+      ],
+      "browser_plan": [
+        {
+          "action": "open_seeded_workspace",
+          "target": "workspace://finance-stale-assumption-hold",
+          "surface": "workspace",
+          "purpose": "Open the seeded finance workspace",
+          "expected_signal": "seeded workspace loaded",
+          "verification_checks": [
+            "workspace opened"
+          ],
+          "validation_rules": [],
+          "captured_fields": [],
+          "state_updates": {
+            "workspace_state": "opened"
+          },
+          "state_machine_id": "finance_stale_assumption_hold_flow",
+          "transition_id": "finance_stale_assumption_workspace_opened",
+          "transition_outcome": "pass",
+          "from_state": "planned",
+          "to_state": "workspace_opened",
+          "submission_gate": "none",
+          "blocked_reason": null,
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        },
+        {
+          "action": "validate_seeded_model",
+          "target": "workspace://finance-stale-assumption-hold/model-validation",
+          "surface": "spreadsheet",
+          "purpose": "Validate the working model and detect whether a stale revenue case is still driving the recommendation",
+          "expected_signal": "stale assumption detected in the model",
+          "verification_checks": [
+            "formula check complete",
+            "latest case compared"
+          ],
+          "validation_rules": [
+            "latest revenue case present",
+            "stale case removed",
+            "evidence rows present"
+          ],
+          "captured_fields": [
+            "assumption_state",
+            "latest_case",
+            "stale_case",
+            "validation_status"
+          ],
+          "state_updates": {
+            "model_state": "validation_failed",
+            "assumption_state": "stale"
+          },
+          "state_machine_id": "finance_stale_assumption_hold_flow",
+          "transition_id": "finance_stale_assumption_validation_failed",
+          "transition_outcome": "validation_failed",
+          "from_state": "workspace_opened",
+          "to_state": "model_validation_failed",
+          "submission_gate": "none",
+          "blocked_reason": "the recommendation still references the older 8.5M revenue case instead of the latest 8.2M conflict-adjusted case",
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        },
+        {
+          "action": "repair_seeded_model",
+          "target": "workspace://finance-stale-assumption-hold/model",
+          "surface": "spreadsheet",
+          "purpose": "Repair the model to the latest revenue case and preserve the committee hold",
+          "expected_signal": "latest case restored and model validated",
+          "verification_checks": [
+            "8.2M latest case restored",
+            "validation rerun complete"
+          ],
+          "validation_rules": [
+            "latest revenue case present",
+            "stale case removed",
+            "evidence rows present"
+          ],
+          "captured_fields": [
+            "assumption_state",
+            "latest_case",
+            "validation_status"
+          ],
+          "state_updates": {
+            "model_state": "validated",
+            "assumption_state": "latest_only"
+          },
+          "state_machine_id": "finance_stale_assumption_hold_flow",
+          "transition_id": "finance_stale_assumption_validation_recovered",
+          "transition_outcome": "recovered",
+          "from_state": "model_validation_failed",
+          "to_state": "model_validated",
+          "submission_gate": "none",
+          "blocked_reason": null,
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        }
+      ]
+    },
+    {
+      "stage_id": "kwa_finance_stale_assumption_hold_stage_2",
+      "task_refs": [
+        "think_013_prod_approval_escalation"
+      ],
+      "browser_plan": [
+        {
+          "action": "open_seeded_workspace",
+          "target": "workspace://finance-stale-assumption-hold",
+          "surface": "workspace",
+          "purpose": "Reopen the finance workspace for the committee release decision",
+          "expected_signal": "workspace reloaded",
+          "verification_checks": [
+            "workspace opened"
+          ],
+          "validation_rules": [],
+          "captured_fields": [],
+          "state_updates": {
+            "workspace_state": "opened"
+          },
+          "state_machine_id": "finance_stale_assumption_hold_flow",
+          "transition_id": "finance_stale_assumption_workspace_reopened",
+          "transition_outcome": "pass",
+          "from_state": "model_validated",
+          "to_state": "workspace_reopened",
+          "submission_gate": "none",
+          "blocked_reason": null,
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        },
+        {
+          "action": "attempt_committee_release",
+          "target": "workspace://finance-stale-assumption-hold/release",
+          "surface": "document",
+          "purpose": "Attempt committee release and record that the latest-case packet still requires approval before publication",
+          "expected_signal": "release blocked pending approval",
+          "verification_checks": [
+            "release blocked",
+            "approval status pending"
+          ],
+          "validation_rules": [
+            "committee approval required"
+          ],
+          "captured_fields": [
+            "release_state",
+            "approval_state",
+            "assumption_state"
+          ],
+          "state_updates": {
+            "release_state": "blocked_pending_approval"
+          },
+          "state_machine_id": "finance_stale_assumption_hold_flow",
+          "transition_id": "finance_stale_assumption_release_blocked",
+          "transition_outcome": "pass",
+          "from_state": "workspace_reopened",
+          "to_state": "release_blocked_pending_approval",
+          "submission_gate": "approval_required",
+          "blocked_reason": "committee approval is still pending for the latest-case recommendation",
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        }
+      ]
+    }
+  ]
+}

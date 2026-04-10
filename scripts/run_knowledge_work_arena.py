@@ -5,7 +5,7 @@ import json
 from datetime import UTC, datetime
 from pathlib import Path
 
-from gemma4_capability_map.benchmark import build_runtime_bundle, load_tasks
+from gemma4_capability_map.benchmark import build_runtime_bundle, load_tasks, runtime_bundle_snapshot, warm_runtime_bundle
 from gemma4_capability_map.io import dump_jsonl
 from gemma4_capability_map.knowledge_work.exporters import export_episode_leaderboard_csv
 from gemma4_capability_map.knowledge_work.loader import load_episodes
@@ -23,7 +23,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--episode-id", action="append", default=[])
     parser.add_argument("--output-dir", default=None)
     parser.add_argument("--no-update-latest", action="store_true")
-    parser.add_argument("--limit", type=int, default=12)
+    parser.add_argument("--limit", type=int, default=None)
     parser.add_argument("--backend", default="oracle")
     parser.add_argument("--reasoner-backend", default=None)
     parser.add_argument("--router-backend", default=None)
@@ -32,8 +32,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--router", default="google/functiongemma-270m-it")
     parser.add_argument("--retriever", default="google/embeddinggemma-300m")
     parser.add_argument("--reasoner-device", default="auto")
+    parser.add_argument("--router-device", default=None)
+    parser.add_argument("--retriever-device", default=None)
     parser.add_argument("--reasoner-max-new-tokens", type=int, default=96)
     parser.add_argument("--thinking", action="store_true")
+    parser.add_argument("--run-intent", choices=["canonical", "exploratory"], default=None)
+    parser.add_argument("--system-id", default=None)
     return parser.parse_args()
 
 
@@ -51,11 +55,14 @@ def main() -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
     latest_dir.mkdir(parents=True, exist_ok=True)
     target_dirs = (output_dir,) if args.no_update_latest else (output_dir, latest_dir)
+    run_intent = args.run_intent or ("exploratory" if args.no_update_latest else "canonical")
 
-    episodes = load_episodes(episodes_path)[: args.limit]
+    episodes = load_episodes(episodes_path)
     if args.episode_id:
         allowed = set(args.episode_id)
-        episodes = [episode for episode in load_episodes(episodes_path) if episode.episode_id in allowed][: args.limit]
+        episodes = [episode for episode in episodes if episode.episode_id in allowed]
+    if args.limit is not None:
+        episodes = episodes[: args.limit]
     tasks = load_tasks(track=None)
     bundle = build_runtime_bundle(
         tasks=tasks,
@@ -68,6 +75,8 @@ def main() -> None:
         router_id=args.router,
         retriever_id=args.retriever,
         reasoner_device=args.reasoner_device,
+        router_device=args.router_device,
+        retriever_device=args.retriever_device,
         reasoner_max_new_tokens=args.reasoner_max_new_tokens,
     )
     runner = EpisodeRunner(tasks=tasks, bundle=bundle, thinking_enabled=args.thinking)
@@ -75,6 +84,7 @@ def main() -> None:
         "run_group_id": f"{created_at}_{args.lane}",
         "created_at": created_at,
         "lane": args.lane,
+        "system_id": args.system_id,
         "backend": args.backend,
         "reasoner_backend": args.reasoner_backend or args.backend,
         "router_backend": args.router_backend or "",
@@ -82,10 +92,15 @@ def main() -> None:
         "reasoner": args.reasoner,
         "router": args.router,
         "retriever": args.retriever,
+        "reasoner_device": args.reasoner_device,
+        "router_device": args.router_device,
+        "retriever_device": args.retriever_device,
         "thinking": args.thinking,
         "limit": args.limit,
         "episode_count": len(episodes),
         "episodes_path": str(episodes_path.resolve()),
+        "runtime_bundle": runtime_bundle_snapshot(bundle),
+        "run_intent": run_intent,
     }
     _write_manifest(target_dirs, manifest)
     _write_progress(
@@ -97,6 +112,34 @@ def main() -> None:
             "completed_runs": 0,
             "planned_runs": len(episodes),
             "completed_episode_ids": [],
+        },
+    )
+    _write_progress(
+        target_dirs,
+        {
+            "status": "warming_runtime",
+            "lane": args.lane,
+            "created_at": created_at,
+            "completed_runs": 0,
+            "planned_runs": len(episodes),
+            "completed_episode_ids": [],
+        },
+    )
+    warmup = warm_runtime_bundle(bundle, tasks)
+    manifest["warmup"] = warmup
+    manifest["runtime_bundle"] = runtime_bundle_snapshot(bundle)
+    _write_manifest(target_dirs, manifest)
+    _write_progress(
+        target_dirs,
+        {
+            "status": "running",
+            "lane": args.lane,
+            "created_at": created_at,
+            "completed_runs": 0,
+            "planned_runs": len(episodes),
+            "completed_episode_ids": [],
+            "warmup": warmup,
+            "runtime_bundle": manifest["runtime_bundle"],
         },
     )
 

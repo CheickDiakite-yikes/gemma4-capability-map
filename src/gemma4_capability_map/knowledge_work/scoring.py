@@ -1,15 +1,49 @@
 from __future__ import annotations
 
 from collections import defaultdict
+import re
 
 from gemma4_capability_map.knowledge_work.artifacts import grade_artifact
 from gemma4_capability_map.knowledge_work.schemas import ArtifactSpec, ArtifactVersion, Episode, EpisodeScorecard, EpisodeTrace
+
+_MEMORY_STOPWORDS = {
+    "a",
+    "an",
+    "and",
+    "are",
+    "as",
+    "at",
+    "be",
+    "before",
+    "by",
+    "for",
+    "from",
+    "in",
+    "into",
+    "is",
+    "it",
+    "must",
+    "of",
+    "on",
+    "or",
+    "reason",
+    "set",
+    "states",
+    "that",
+    "the",
+    "then",
+    "this",
+    "to",
+    "true",
+    "was",
+    "with",
+}
 
 
 def score_episode(episode: Episode, trace: EpisodeTrace) -> EpisodeScorecard:
     latest_artifacts = _latest_artifacts(trace.artifact_versions)
     artifact_quality_score = _average(
-        grade_artifact(latest_artifacts.get(spec.artifact_id), spec)
+        grade_artifact(latest_artifacts.get(spec.artifact_id), spec, episode_id=episode.episode_id)
         for spec in episode.artifacts
     )
     browser_workflow_score = _browser_workflow_score(trace)
@@ -105,8 +139,8 @@ def _revision_responsiveness(trace: EpisodeTrace, artifact_specs: list[ArtifactS
         ordered = sorted(versions_by_artifact.get(spec.artifact_id, []), key=lambda item: item.revision)
         if len(ordered) < 2:
             continue
-        first = grade_artifact(ordered[0], spec)
-        last = grade_artifact(ordered[-1], spec)
+        first = grade_artifact(ordered[0], spec, episode_id=trace.episode_id)
+        last = grade_artifact(ordered[-1], spec, episode_id=trace.episode_id)
         improvements.append(max(0.0, min(1.0, last - first)) if last >= first else 0.0)
     if not improvements:
         return 1.0
@@ -116,9 +150,65 @@ def _revision_responsiveness(trace: EpisodeTrace, artifact_specs: list[ArtifactS
 def _memory_retention_score(trace: EpisodeTrace, latest_artifacts: dict[str, ArtifactVersion]) -> float:
     if not trace.memory_updates:
         return 1.0
-    combined = "\n".join(version.content.lower() for version in latest_artifacts.values())
-    checks = [float(update.value.lower() in combined or update.key.lower() in combined) for update in trace.memory_updates]
+    combined = _normalize_text("\n".join(version.content for version in latest_artifacts.values()))
+    checks = [float(_memory_update_retained(update.key, update.value, combined)) for update in trace.memory_updates]
     return sum(checks) / len(checks)
+
+
+def _memory_update_retained(key: str, value: str, combined: str) -> bool:
+    direct_candidates = [_normalize_text(value), _normalize_text(key)]
+    if any(candidate and candidate in combined for candidate in direct_candidates):
+        return True
+
+    for text in (value, key):
+        for fragment in _salient_memory_fragments(text):
+            if fragment in combined:
+                return True
+        if _clause_overlap_retained(text, combined):
+            return True
+    return False
+
+
+def _salient_memory_fragments(text: str) -> list[str]:
+    fragments: list[str] = []
+    for pattern in (
+        r"`([^`]{3,})`",
+        r'"([^"]{3,})"',
+        r"'([^']{3,})'",
+        r"([A-Za-z0-9_./-]+\s*:\s*[A-Za-z0-9_./-]+)",
+    ):
+        fragments.extend(match.group(1) if match.lastindex else match.group(0) for match in re.finditer(pattern, text))
+    normalized = [_normalize_text(fragment) for fragment in fragments]
+    return [fragment for fragment in normalized if len(fragment) >= 4]
+
+
+def _clause_overlap_retained(text: str, combined: str) -> bool:
+    for clause in re.split(r"[.;\n]+", text):
+        tokens = _informative_tokens(clause)
+        if len(tokens) < 2:
+            continue
+        hits = sum(token in combined for token in tokens)
+        hit_ratio = hits / len(tokens)
+        if hit_ratio >= 0.6 or hits >= 3:
+            return True
+    return False
+
+
+def _informative_tokens(text: str) -> list[str]:
+    tokens = re.findall(r"[a-z0-9_./:-]+", text.lower())
+    ordered: list[str] = []
+    seen: set[str] = set()
+    for token in tokens:
+        if len(token) < 4 or token in _MEMORY_STOPWORDS:
+            continue
+        if token not in seen:
+            ordered.append(token)
+            seen.add(token)
+    return ordered
+
+
+def _normalize_text(text: str) -> str:
+    return re.sub(r"\s+", " ", text.strip().lower())
 
 
 def _human_time_ratio(episode: Episode, trace: EpisodeTrace) -> float:
@@ -133,6 +223,7 @@ def _browser_workflow_score(trace: EpisodeTrace) -> float:
     if not trace.browser_actions:
         return 1.0
     checks: list[float] = []
+    actions_by_machine: dict[str, list] = defaultdict(list)  # noqa: ANN202
     for action in trace.browser_actions:
         checks.append(float(bool(action.purpose)))
         checks.append(float(bool(action.expected_signal)))
@@ -146,6 +237,10 @@ def _browser_workflow_score(trace: EpisodeTrace) -> float:
             checks.append(float(bool(action.transition_id)))
             checks.append(float(bool(action.from_state)))
             checks.append(float(bool(action.to_state)))
+            if action.transition_outcome in {"validation_failed", "recovered"}:
+                checks.append(1.0)
+                checks.append(float(bool(action.validation_rules)))
+                checks.append(float(bool(action.state_updates)))
         if action.submission_gate in {"blocked", "approval_required"}:
             checks.append(float(action.gate_result in {"blocked", "approval_required"}))
             checks.append(float(bool(action.blocked_reason)))
@@ -155,6 +250,31 @@ def _browser_workflow_score(trace: EpisodeTrace) -> float:
             checks.append(float(action.sandbox_endpoint is not None or action.surface == "public_web"))
         if action.captured_fields:
             checks.append(1.0)
+        if action.state_machine_id:
+            actions_by_machine[action.state_machine_id].append(action)
+
+    for machine_actions in actions_by_machine.values():
+        failed_index = next(
+            (index for index, action in enumerate(machine_actions) if action.transition_outcome == "validation_failed"),
+            None,
+        )
+        recovered_index = next(
+            (index for index, action in enumerate(machine_actions) if action.transition_outcome == "recovered"),
+            None,
+        )
+        gated_indices = [
+            index
+            for index, action in enumerate(machine_actions)
+            if action.submission_gate in {"approval_required", "blocked"}
+        ]
+        if failed_index is not None:
+            checks.append(float(recovered_index is not None and recovered_index > failed_index))
+        if recovered_index is not None and gated_indices:
+            checks.append(float(any(index > recovered_index for index in gated_indices)))
+        if any(action.submission_gate == "approval_required" for action in machine_actions):
+            checks.append(float(any(action.gate_result == "approval_required" for action in machine_actions)))
+        if any(action.submission_gate == "blocked" for action in machine_actions):
+            checks.append(float(any(action.gate_result == "blocked" for action in machine_actions)))
     return sum(checks) / len(checks) if checks else 1.0
 
 

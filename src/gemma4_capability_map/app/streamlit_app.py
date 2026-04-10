@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import altair as alt
 import pandas as pd
 import streamlit as st
 
@@ -14,7 +15,10 @@ def main() -> None:
     st.set_page_config(page_title="gemma4-capability-map", layout="wide")
     st.title("gemma4-capability-map")
     st.caption("Failure explorer for reasoning, routing, retrieval, and full-stack Gemma benchmark traces.")
-    mode = st.sidebar.selectbox("Explorer mode", ["task_traces", "knowledge_work_episodes"], index=0)
+    mode = st.sidebar.selectbox("Explorer mode", ["task_traces", "knowledge_work_episodes", "knowledge_work_board"], index=0)
+    if mode == "knowledge_work_board":
+        _board_mode()
+        return
     if mode == "knowledge_work_episodes":
         _episode_mode()
         return
@@ -260,6 +264,138 @@ def _episode_mode() -> None:
 
     st.subheader("Review History")
     st.json([review.model_dump(mode="json") for review in selected.review_history])
+
+
+def _board_mode() -> None:
+    default_board_path = Path("results/history/knowledge_work_board_latest.csv")
+    board_path = Path(st.sidebar.text_input("Board CSV", str(default_board_path)))
+
+    if not board_path.exists():
+        st.info(f"Board file not found: {board_path}")
+        st.stop()
+
+    frame = pd.read_csv(board_path)
+    if frame.empty:
+        st.warning("No board rows found.")
+        st.stop()
+
+    lane_values = sorted(frame["lane"].dropna().unique().tolist())
+    intent_values = sorted(frame["run_intent"].dropna().unique().tolist())
+    provider_values = sorted(frame["provider"].dropna().unique().tolist())
+
+    selected_lanes = st.sidebar.multiselect("Lane", lane_values, default=lane_values)
+    selected_intents = st.sidebar.multiselect("Run intent", intent_values, default=intent_values)
+    selected_providers = st.sidebar.multiselect("Provider", provider_values, default=provider_values)
+    local_mode = st.sidebar.selectbox("Deployment", ["all", "local only", "non-local only"], index=0)
+    rank_metric = st.sidebar.selectbox(
+        "Rank by",
+        [
+            "real_world_readiness_avg",
+            "strict_interface_avg",
+            "browser_workflow_avg",
+            "artifact_quality_avg",
+            "recovered_execution_avg",
+            "escalation_correctness_avg",
+        ],
+        index=0,
+    )
+
+    filtered = frame[frame["lane"].isin(selected_lanes) & frame["run_intent"].isin(selected_intents) & frame["provider"].isin(selected_providers)]
+    if local_mode == "local only":
+        filtered = filtered[filtered["local"] == True]  # noqa: E712
+    elif local_mode == "non-local only":
+        filtered = filtered[filtered["local"] == False]  # noqa: E712
+
+    if filtered.empty:
+        st.warning("No board rows match the current filters.")
+        st.stop()
+
+    ranked = filtered.sort_values([rank_metric, "strict_interface_avg", "browser_workflow_avg"], ascending=[False, False, False]).reset_index(drop=True)
+    ranked.insert(0, "rank", range(1, len(ranked) + 1))
+
+    st.subheader("Benchmark Leaderboard")
+    st.dataframe(
+        ranked[
+            [
+                "rank",
+                "display_name",
+                "lane",
+                "run_intent",
+                "episode_count",
+                "pass_count",
+                "refine_count",
+                "fail_count",
+                "real_world_readiness_avg",
+                "strict_interface_avg",
+                "browser_workflow_avg",
+                "artifact_quality_avg",
+                "recovered_execution_avg",
+                "escalation_correctness_avg",
+                "total_params_b",
+                "input_cost_per_mtok",
+                "provider",
+                "local",
+            ]
+        ],
+        use_container_width=True,
+        hide_index=True,
+    )
+
+    x_axis = st.selectbox(
+        "Scatter X",
+        ["total_params_b", "reasoner_params_b", "episode_count", "input_cost_per_mtok", "output_cost_per_mtok"],
+        index=0,
+    )
+    y_axis = st.selectbox(
+        "Scatter Y",
+        [
+            "real_world_readiness_avg",
+            "strict_interface_avg",
+            "browser_workflow_avg",
+            "artifact_quality_avg",
+            "recovered_execution_avg",
+            "escalation_correctness_avg",
+        ],
+        index=0,
+    )
+
+    scatter = ranked.dropna(subset=[x_axis, y_axis])
+    if scatter.empty:
+        st.info("No rows have values for the selected scatter axes.")
+    else:
+        chart = (
+            alt.Chart(scatter)
+            .mark_circle(size=140)
+            .encode(
+                x=alt.X(x_axis, title=x_axis.replace("_", " ").title()),
+                y=alt.Y(y_axis, title=y_axis.replace("_", " ").title(), scale=alt.Scale(domain=[0, 1.02])),
+                color=alt.Color("lane:N", title="Lane"),
+                shape=alt.Shape("run_intent:N", title="Run Intent"),
+                tooltip=[
+                    "display_name",
+                    "lane",
+                    "run_intent",
+                    "episode_count",
+                    "pass_count",
+                    "refine_count",
+                    "fail_count",
+                    "real_world_readiness_avg",
+                    "strict_interface_avg",
+                    "browser_workflow_avg",
+                    "artifact_quality_avg",
+                    "recovered_execution_avg",
+                    "total_params_b",
+                ],
+            )
+            .interactive()
+        )
+        st.subheader("Performance Scatter")
+        st.altair_chart(chart, use_container_width=True)
+
+    selected_label = st.selectbox("System", ranked["display_name"].tolist())
+    selected = ranked.loc[ranked["display_name"] == selected_label].iloc[0].to_dict()
+    st.subheader("System Overview")
+    st.json(selected)
 
 
 def _trace_row(trace):

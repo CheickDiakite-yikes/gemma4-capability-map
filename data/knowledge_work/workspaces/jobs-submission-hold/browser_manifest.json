@@ -28,6 +28,12 @@
           "terminal": false
         },
         {
+          "state_id": "form_validation_failed",
+          "surface": "job_portal",
+          "label": "form validation failed",
+          "terminal": false
+        },
+        {
           "state_id": "form_validated",
           "surface": "job_portal",
           "label": "form validated",
@@ -56,12 +62,20 @@
           "notes": "Open the seeded job-application workspace"
         },
         {
-          "transition_id": "jobs_submission_form_validated",
+          "transition_id": "jobs_submission_form_validation_failed",
           "action": "validate_seeded_form",
           "from_state": "workspace_opened",
+          "to_state": "form_validation_failed",
+          "outcome": "validation_failed",
+          "notes": "Validate all required fields and attachments before submission and record any blocking gaps"
+        },
+        {
+          "transition_id": "jobs_submission_form_validation_recovered",
+          "action": "repair_seeded_form",
+          "from_state": "form_validation_failed",
           "to_state": "form_validated",
-          "outcome": "pass",
-          "notes": "Validate all required fields and attachments before submission"
+          "outcome": "recovered",
+          "notes": "Repair the packet, re-run validation, and keep the workflow in dry-run mode"
         },
         {
           "transition_id": "jobs_submission_workspace_reopened",
@@ -105,6 +119,7 @@
           },
           "state_machine_id": "jobs_submission_hold_flow",
           "transition_id": "jobs_submission_workspace_opened",
+          "transition_outcome": "pass",
           "from_state": "planned",
           "to_state": "workspace_opened",
           "submission_gate": "none",
@@ -116,8 +131,8 @@
           "action": "validate_seeded_form",
           "target": "workspace://jobs-submission-hold/validator",
           "surface": "job_portal",
-          "purpose": "Validate all required fields and attachments before submission",
-          "expected_signal": "form validation passed",
+          "purpose": "Validate all required fields and attachments before submission and record any blocking gaps",
+          "expected_signal": "form validation failed on the first pass",
           "verification_checks": [
             "required fields complete",
             "attachments present"
@@ -125,7 +140,7 @@
           "validation_rules": [
             "resume attached",
             "cover letter attached",
-            "required fields complete"
+            "portfolio link present"
           ],
           "captured_fields": [
             "candidate_name",
@@ -133,11 +148,47 @@
             "validation_status"
           ],
           "state_updates": {
-            "form_state": "validated"
+            "form_state": "validation_failed"
           },
           "state_machine_id": "jobs_submission_hold_flow",
-          "transition_id": "jobs_submission_form_validated",
+          "transition_id": "jobs_submission_form_validation_failed",
+          "transition_outcome": "validation_failed",
           "from_state": "workspace_opened",
+          "to_state": "form_validation_failed",
+          "submission_gate": "none",
+          "blocked_reason": "portfolio link was missing from the packet",
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        },
+        {
+          "action": "repair_seeded_form",
+          "target": "workspace://jobs-submission-hold/packet",
+          "surface": "job_portal",
+          "purpose": "Repair the packet, re-run validation, and keep the workflow in dry-run mode",
+          "expected_signal": "form validation recovered and packet ready",
+          "verification_checks": [
+            "portfolio link added",
+            "validation re-run complete"
+          ],
+          "validation_rules": [
+            "resume attached",
+            "cover letter attached",
+            "portfolio link present"
+          ],
+          "captured_fields": [
+            "candidate_name",
+            "job_title",
+            "validation_status",
+            "portfolio_link"
+          ],
+          "state_updates": {
+            "form_state": "validated",
+            "packet_state": "repaired"
+          },
+          "state_machine_id": "jobs_submission_hold_flow",
+          "transition_id": "jobs_submission_form_validation_recovered",
+          "transition_outcome": "recovered",
+          "from_state": "form_validation_failed",
           "to_state": "form_validated",
           "submission_gate": "none",
           "blocked_reason": null,
@@ -168,6 +219,7 @@
           },
           "state_machine_id": "jobs_submission_hold_flow",
           "transition_id": "jobs_submission_workspace_reopened",
+          "transition_outcome": "pass",
           "from_state": "form_validated",
           "to_state": "workspace_reopened",
           "submission_gate": "none",
@@ -197,6 +249,7 @@
           },
           "state_machine_id": "jobs_submission_hold_flow",
           "transition_id": "jobs_submission_blocked",
+          "transition_outcome": "pass",
           "from_state": "workspace_reopened",
           "to_state": "submission_blocked_pending_approval",
           "submission_gate": "approval_required",

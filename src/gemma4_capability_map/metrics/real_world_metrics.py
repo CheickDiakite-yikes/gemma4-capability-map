@@ -16,6 +16,7 @@ def derive_real_world_metrics(
 
     success = float(base_metrics.get("success", 0.0))
     answer_match = float(base_metrics.get("answer_match", success))
+    escalation_metric = float(base_metrics.get("escalation_correctness", answer_match))
     recovery_correct = float(base_metrics.get("recovery_correct", 1.0 if not trace.tool_steps else 0.0))
     final_state_metric = base_metrics.get("final_state_match")
     if final_state_metric is not None:
@@ -34,7 +35,7 @@ def derive_real_world_metrics(
     )
     intervention_free_success = float(success >= 1.0 and avoidable_retries == 0)
     recovery_resilience = recovery_correct if profile.requires_recovery else 1.0
-    escalation_readiness = answer_match if profile.requires_escalation_judgment else 1.0
+    escalation_readiness = escalation_metric if profile.requires_escalation_judgment else 1.0
 
     weighted_components: list[tuple[float, float]] = [
         (0.35, success),

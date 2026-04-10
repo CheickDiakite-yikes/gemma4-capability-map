@@ -12,6 +12,9 @@ from gemma4_capability_map.tools.planner import plan_tool_calls, tool_catalog_te
 from gemma4_capability_map.tools.validators import normalize_tool_output
 
 
+_HF_ROUTER_CACHE: dict[tuple[str, str], tuple[object, object]] = {}
+
+
 class FunctionGemmaRunner(Runner):
     def __init__(
         self,
@@ -147,25 +150,30 @@ class FunctionGemmaRunner(Runner):
         token = load_hf_auth_token()
         resolved_source = resolve_model_source(self.requested_model_id)
         local_files_only = should_use_local_files_only(resolved_source)
-        self._tokenizer = AutoTokenizer.from_pretrained(
-            resolved_source,
-            token=token,
-            local_files_only=local_files_only,
-        )
         runtime_device = _pick_hf_device(torch, preferred=self.device)
-        load_kwargs: dict[str, Any] = {
-            "low_cpu_mem_usage": True,
-            "token": token,
-            "local_files_only": local_files_only,
-        }
-        if runtime_device == "cuda":
-            load_kwargs["torch_dtype"] = "auto"
-            load_kwargs["device_map"] = "auto"
-            self._model = AutoModelForCausalLM.from_pretrained(resolved_source, **load_kwargs)
-        else:
-            load_kwargs["torch_dtype"] = torch.float16 if runtime_device == "mps" else "auto"
-            self._model = AutoModelForCausalLM.from_pretrained(resolved_source, **load_kwargs)
-            self._model.to(runtime_device)
+        cached = _HF_ROUTER_CACHE.get((resolved_source, runtime_device))
+        if cached is None:
+            tokenizer = AutoTokenizer.from_pretrained(
+                resolved_source,
+                token=token,
+                local_files_only=local_files_only,
+            )
+            load_kwargs: dict[str, Any] = {
+                "low_cpu_mem_usage": True,
+                "token": token,
+                "local_files_only": local_files_only,
+            }
+            if runtime_device == "cuda":
+                load_kwargs["torch_dtype"] = "auto"
+                load_kwargs["device_map"] = "auto"
+                model = AutoModelForCausalLM.from_pretrained(resolved_source, **load_kwargs)
+            else:
+                load_kwargs["torch_dtype"] = torch.float16 if runtime_device == "mps" else "auto"
+                model = AutoModelForCausalLM.from_pretrained(resolved_source, **load_kwargs)
+                model.to(runtime_device)
+            cached = (tokenizer, model)
+            _HF_ROUTER_CACHE[(resolved_source, runtime_device)] = cached
+        self._tokenizer, self._model = cached
         self._runtime_device = runtime_device
         self._effective_model_id = resolved_source
         self.model_id = self._effective_model_id

@@ -5,6 +5,8 @@ import json
 from datetime import UTC, datetime
 from pathlib import Path
 
+from gemma4_capability_map.reporting.knowledge_work_board import build_board_rows, write_board_exports
+
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -12,14 +14,17 @@ ROOT = Path(__file__).resolve().parents[1]
 def main() -> None:
     runs = _load_runs(ROOT / "results" / "history" / "knowledge_work_runs.jsonl")
     snapshots = _load_snapshot_dirs(ROOT / "results" / "knowledge_work")
-    latest_by_lane = _latest_by_lane(snapshots)
+    latest_canonical_by_lane = _latest_by_lane(snapshots, intent="canonical")
+    latest_exploratory_by_lane = _latest_by_lane(snapshots, intent="exploratory")
     best_by_lane = _best_by_lane(snapshots)
 
     report = {
         "generated_at": datetime.now(UTC).isoformat(),
         "total_runs": len(runs),
         "snapshot_count": len(snapshots),
-        "latest_by_lane": latest_by_lane,
+        "latest_by_lane": latest_canonical_by_lane,
+        "latest_canonical_by_lane": latest_canonical_by_lane,
+        "latest_exploratory_by_lane": latest_exploratory_by_lane,
         "best_by_lane": best_by_lane,
         "recent_runs": runs[-20:],
     }
@@ -28,7 +33,9 @@ def main() -> None:
     history_dir.mkdir(parents=True, exist_ok=True)
     (history_dir / "knowledge_work_history.json").write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     (history_dir / "knowledge_work_history.md").write_text(_markdown_report(report), encoding="utf-8")
-    _write_csv(history_dir / "knowledge_work_canonical.csv", latest_by_lane)
+    _write_csv(history_dir / "knowledge_work_canonical.csv", latest_canonical_by_lane)
+    _write_csv(history_dir / "knowledge_work_exploratory.csv", latest_exploratory_by_lane)
+    write_board_exports(build_board_rows(ROOT / "results" / "knowledge_work"), history_dir)
     print(f"Wrote KnowledgeWorkArena history report to {history_dir}")
 
 
@@ -61,6 +68,7 @@ def _load_snapshot_dirs(root: Path) -> list[dict]:
             "run_group_id": manifest.get("run_group_id"),
             "created_at": manifest.get("created_at"),
             "lane": manifest.get("lane"),
+            "run_intent": _infer_run_intent(path, manifest),
             "backend": manifest.get("backend"),
             "reasoner": manifest.get("reasoner"),
             "episode_count": manifest.get("episode_count"),
@@ -95,11 +103,11 @@ def _role_breakdown(path: Path) -> dict[str, dict[str, float]]:
     return summary
 
 
-def _latest_by_lane(rows: list[dict]) -> list[dict]:
+def _latest_by_lane(rows: list[dict], intent: str) -> list[dict]:
     by_lane: dict[str, dict] = {}
     for row in rows:
         lane = str(row.get("lane", ""))
-        if lane:
+        if lane and row.get("run_intent") == intent:
             by_lane[lane] = row
     return sorted(by_lane.values(), key=lambda item: item["lane"])
 
@@ -146,10 +154,16 @@ def _markdown_report(report: dict) -> str:
         f"- Total logged runs: `{report['total_runs']}`",
         f"- Snapshot count: `{report['snapshot_count']}`",
         "",
-        "## Latest by Lane",
+        "## Latest Canonical by Lane",
         "",
     ]
-    for row in report["latest_by_lane"]:
+    for row in report["latest_canonical_by_lane"]:
+        lines.append(
+            f"- `{row['lane']}`: readiness `{row['real_world_readiness_avg']}`, browser `{row['browser_workflow_avg']}`, "
+            f"strict `{row['strict_interface_avg']}`, recovered `{row['recovered_execution_avg']}`, output `{row['output_dir']}`"
+        )
+    lines.extend(["", "## Latest Exploratory by Lane", ""])
+    for row in report["latest_exploratory_by_lane"]:
         lines.append(
             f"- `{row['lane']}`: readiness `{row['real_world_readiness_avg']}`, browser `{row['browser_workflow_avg']}`, "
             f"strict `{row['strict_interface_avg']}`, recovered `{row['recovered_execution_avg']}`, output `{row['output_dir']}`"
@@ -169,6 +183,16 @@ def _bounded_score(value: object) -> float:
     except (TypeError, ValueError):
         return 0.0
     return max(0.0, min(1.0, numeric))
+
+
+def _infer_run_intent(path: Path, manifest: dict) -> str:
+    manifest_intent = str(manifest.get("run_intent", "")).strip().lower()
+    if manifest_intent in {"canonical", "exploratory"}:
+        return manifest_intent
+    lane = str(manifest.get("lane", "")).strip()
+    if lane and path.name == lane:
+        return "canonical"
+    return "exploratory"
 
 
 if __name__ == "__main__":

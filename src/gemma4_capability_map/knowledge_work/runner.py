@@ -109,7 +109,7 @@ class EpisodeRunner:
             spec = artifact_specs.get(version.artifact_id)
             if spec is None:
                 continue
-            artifact_versions[index] = version.model_copy(update={"score": grade_artifact(version, spec)})
+            artifact_versions[index] = version.model_copy(update={"score": grade_artifact(version, spec, episode_id=episode.episode_id)})
 
         trace.artifact_versions = artifact_versions
         trace.memory_updates = memory_updates
@@ -267,7 +267,7 @@ def _deck_artifact_content(
     artifact_spec: ArtifactSpec,
 ) -> str:
     titles = artifact_spec.scoring_contract.required_slide_titles or ["Overview", "Recommendation"]
-    bullets = _dedupe_preserve_order(
+    shared_bullets = _dedupe_preserve_order(
         [*answers, *artifact_spec.scoring_contract.required_bullets, *artifact_spec.scoring_contract.required_fragments]
     ) or ["Summary"]
     lines = [f"# Artifact {artifact_id}", "## Brief", brief, "## Stage Goal", stage_goal]
@@ -275,7 +275,13 @@ def _deck_artifact_content(
         lines.append(f"## Slide: {title}")
         for section in artifact_spec.scoring_contract.required_slide_sections.get(title, []):
             lines.append(f"### Section: {section}")
-        for bullet in bullets[: max(2, len(artifact_spec.scoring_contract.required_bullets) or 2)]:
+        slide_bullets = _dedupe_preserve_order(
+            [
+                *artifact_spec.scoring_contract.required_slide_bullets_by_title.get(title, []),
+                *shared_bullets,
+            ]
+        )
+        for bullet in slide_bullets[: max(2, len(artifact_spec.scoring_contract.required_slide_bullets_by_title.get(title, [])) or len(artifact_spec.scoring_contract.required_bullets) or 2)]:
             lines.append(f"- {bullet}")
     lines.extend(_citation_lines(task_ids, max(artifact_spec.scoring_contract.minimum_citations, 1)))
     return "\n".join(lines)
@@ -387,6 +393,7 @@ def _browser_actions_for_stage(episode: Episode, stage, task_traces) -> list[Bro
             state_updates=dict(step.state_updates),
             state_machine_id=step.state_machine_id,
             transition_id=step.transition_id,
+            transition_outcome=step.transition_outcome,
             from_state=step.from_state,
             to_state=step.to_state,
             submission_gate=step.submission_gate,
