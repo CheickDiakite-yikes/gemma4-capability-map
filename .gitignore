@@ -21,3 +21,5 @@ results/**/*traces.jsonl
 results/**/requests.jsonl
 results/**/events.jsonl
 results/**/*.log
+results/knowledge_work/generated_artifacts/
+results/knowledge_work/checkpoint_smoke/

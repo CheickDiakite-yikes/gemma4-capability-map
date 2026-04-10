@@ -1,0 +1,16 @@
+{
+  "run_group_id": "20260410T021646Z_replayable_core",
+  "created_at": "20260410T021646Z",
+  "lane": "replayable_core",
+  "backend": "oracle",
+  "reasoner_backend": "oracle",
+  "router_backend": "",
+  "retriever_backend": "",
+  "reasoner": "google/gemma-4-E2B-it",
+  "router": "google/functiongemma-270m-it",
+  "retriever": "google/embeddinggemma-300m",
+  "thinking": false,
+  "limit": 15,
+  "episode_count": 15,
+  "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl"
+}

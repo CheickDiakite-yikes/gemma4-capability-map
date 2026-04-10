@@ -1,2 +1,2 @@
-metric,value,evidence
-revenue,0,seeded
+metric,value,formula,evidence
+revenue,0,=BASE+DELTA,seeded

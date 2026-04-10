@@ -2,11 +2,13 @@
   "documents": [
     {
       "name": "earnings_release.pdf",
-      "status": "seeded"
+      "status": "seeded",
+      "approval": "committee_pending"
     },
     {
       "name": "management_commentary.md",
-      "status": "seeded"
+      "status": "seeded",
+      "approval": "committee_pending"
     }
   ]
 }

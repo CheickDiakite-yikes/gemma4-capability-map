@@ -36,8 +36,11 @@ class ArtifactScoringContract(StrictModel):
     required_sections: list[str] = Field(default_factory=list)
     required_table_rows: list[list[str]] = Field(default_factory=list)
     required_field_pairs: dict[str, str] = Field(default_factory=dict)
+    required_formulas: dict[str, str] = Field(default_factory=dict)
     required_slide_titles: list[str] = Field(default_factory=list)
+    required_slide_sections: dict[str, list[str]] = Field(default_factory=dict)
     required_bullets: list[str] = Field(default_factory=list)
+    consistency_fields: list[str] = Field(default_factory=list)
     minimum_citations: int = 0
     expected_format: str | None = None
 
@@ -47,6 +50,30 @@ class ArtifactSpec(StrictModel):
     kind: ArtifactKind
     path_or_target: str
     scoring_contract: ArtifactScoringContract = Field(default_factory=ArtifactScoringContract)
+
+
+class BrowserState(StrictModel):
+    state_id: str
+    surface: Literal["workspace", "email", "calendar", "job_portal", "data_room", "spreadsheet", "presentation", "document", "public_web"] = "workspace"
+    label: str
+    terminal: bool = False
+
+
+class BrowserTransition(StrictModel):
+    transition_id: str
+    action: str
+    from_state: str
+    to_state: str
+    outcome: Literal["pass", "blocked", "approval_required"] = "pass"
+    notes: str = ""
+
+
+class BrowserStateMachine(StrictModel):
+    machine_id: str
+    surface: Literal["workspace", "email", "calendar", "job_portal", "data_room", "spreadsheet", "presentation", "document", "public_web"] = "workspace"
+    start_state: str
+    states: list[BrowserState] = Field(default_factory=list)
+    transitions: list[BrowserTransition] = Field(default_factory=list)
 
 
 class EpisodeStage(StrictModel):
@@ -98,6 +125,7 @@ class Episode(StrictModel):
     risk_guardrails: RiskGuardrails = Field(default_factory=RiskGuardrails)
     human_baseline_minutes: int = 30
     benchmark_tags: list[str] = Field(default_factory=list)
+    browser_state_machines: list[BrowserStateMachine] = Field(default_factory=list)
 
 
 class ArtifactVersion(StrictModel):
@@ -106,6 +134,8 @@ class ArtifactVersion(StrictModel):
     content: str
     score: float = 0.0
     source_stage: str
+    file_path: str | None = None
+    file_format: str | None = None
 
 
 class MemoryUpdate(StrictModel):
@@ -123,8 +153,17 @@ class BrowserAction(StrictModel):
     expected_signal: str = ""
     evidence: str = ""
     verification_checks: list[str] = Field(default_factory=list)
+    validation_rules: list[str] = Field(default_factory=list)
     verification_result: Literal["pass", "fail"] = "pass"
     captured_fields: list[str] = Field(default_factory=list)
+    state_updates: dict[str, str] = Field(default_factory=dict)
+    state_machine_id: str | None = None
+    transition_id: str | None = None
+    from_state: str | None = None
+    to_state: str | None = None
+    submission_gate: Literal["none", "blocked", "approval_required", "sandbox_only"] = "none"
+    gate_result: Literal["passed", "blocked", "approval_required"] = "passed"
+    blocked_reason: str | None = None
     sandbox_endpoint: str | None = None
     status: Literal["dry_run", "replayed", "planned"] = "planned"
 
@@ -136,7 +175,15 @@ class BrowserStep(StrictModel):
     purpose: str
     expected_signal: str
     verification_checks: list[str] = Field(default_factory=list)
+    validation_rules: list[str] = Field(default_factory=list)
     captured_fields: list[str] = Field(default_factory=list)
+    state_updates: dict[str, str] = Field(default_factory=dict)
+    state_machine_id: str | None = None
+    transition_id: str | None = None
+    from_state: str | None = None
+    to_state: str | None = None
+    submission_gate: Literal["none", "blocked", "approval_required", "sandbox_only"] = "none"
+    blocked_reason: str | None = None
     sandbox_endpoint: str | None = None
     allow_submission: bool = False
 

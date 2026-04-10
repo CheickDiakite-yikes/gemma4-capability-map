@@ -51,19 +51,27 @@ Artifact grading is now kind-aware instead of relying only on generic fragment c
   - required bullets
   - citation requirements
 - `spreadsheet` and `model`
-  - required markdown-table rows
+  - real `.xlsx` work products
+  - required table rows
+  - required formulas
   - evidence columns
   - citation requirements
 - `deck`
+  - real `.pptx` work products
   - required slide titles
   - slide bullet checks
+  - required slide sections
+  - revision diff preservation
   - citation requirements
 - `form_submission`
   - required field/value pairs
   - response-summary structure
+  - cross-field consistency checks
   - citation requirements
+- `memo`, `email`, `research_note`, and role packets
+  - real `.docx` work products when the episode contract expects them
 
-The current implementation still uses deterministic markdown artifacts, but the grading contracts now reflect the structure expected from real work products rather than plain keyword presence alone.
+Native artifacts are materialized through the runner and then re-read for grading. That means replayable-core now exercises real file-backed `.xlsx`, `.pptx`, and `.docx` benchmark outputs instead of markdown-only stand-ins for finance and job-application episodes.
 
 ## Browser Replay Metadata
 
@@ -76,18 +84,32 @@ Each episode stage can now carry an explicit browser plan. Traces retain:
 - expected signal
 - evidence
 - verification checks
+- validation rules
 - captured fields
+- state updates
+- submission-gate outcomes
+- blocked reasons
 - sandbox endpoint for dry-run submissions
 - dry-run versus replayed status
 
-Replayable-core stages use seeded workspace browser steps. Live-web stress stages use dry-run public-web steps and never record real external side effects.
+Replayable-core stages use seeded workspace browser steps. Live-web stress stages use dry-run public-web steps and never record real external side effects. Both lanes now include partial-progress hold cases where the correct behavior is to stop at an approval gate instead of forcing completion.
 
 `browser_workflow_score` is now part of the role-readiness blend. It rewards explicit purpose, evidence, verification, and safe submission behavior instead of counting browser activity alone as progress.
 
+Replayable-core now also carries explicit browser state machines:
+
+- state ids
+- transition ids
+- from/to state edges
+- approval-required transitions
+- blocked-submission transitions
+
+That makes it possible to score not just whether a browser step happened, but whether the workflow moved through the right validation and approval states.
+
 ## Current Seed Set
 
-- `12` replayable-core episodes
-- `6` live-web stress episodes
+- `15` replayable-core episodes
+- `9` live-web stress episodes
 
 Data lives under:
 
@@ -117,6 +139,48 @@ Run the live-web stress lane in dry-run mode:
 uv run python scripts/run_knowledge_work_arena.py --lane live_web_stress --backend oracle
 ```
 
+Run a model-backed replayable pilot without overwriting the canonical `latest` lane pointer:
+
+```bash
+uv run python scripts/run_knowledge_work_arena.py \
+  --lane replayable_core \
+  --backend hf_service \
+  --router-backend heuristic \
+  --retriever-backend heuristic \
+  --reasoner google/gemma-4-E2B-it \
+  --reasoner-device mps \
+  --reasoner-max-new-tokens 96 \
+  --episode-id kwa_exec_board_send_hold \
+  --limit 1 \
+  --output-dir results/knowledge_work/model_backed_hf_exec_hold \
+  --no-update-latest
+```
+
+Long model-backed runs now checkpoint after each episode via:
+
+- `manifest.json`
+- `progress.json`
+- `episode_traces.jsonl`
+- `episode_leaderboard.csv`
+- `summary.json`
+
 Episode outputs are written under:
 
 - [`results/knowledge_work`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work)
+
+## Current Research Notes
+
+- authoritative replayable-core full-lane snapshot:
+  - [`20260410T021825Z_replayable_core/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/20260410T021825Z_replayable_core/summary.json)
+- authoritative live-web stress full-lane snapshot:
+  - [`20260410T021845Z_live_web_stress/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/20260410T021845Z_live_web_stress/summary.json)
+- first finished non-oracle episode baseline:
+  - [`model_backed_hf_exec_hold/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_exec_hold/summary.json)
+  - `artifact_quality = 1.0`
+  - `browser_workflow = 0.9836`
+  - `strict_interface = 1.0`
+  - `recovered_execution = 1.0`
+  - `role_readiness = 0.9056`
+- exploratory multi-episode HF reasoner pilot:
+  - [`model_backed_hf_reasoner_pilot/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_reasoner_pilot/summary.json)
+  - stopped after two completed episodes to isolate a fully completed executive baseline

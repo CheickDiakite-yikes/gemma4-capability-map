@@ -9,6 +9,89 @@
     "repo",
     "spreadsheets"
   ],
+  "state_machines": [
+    {
+      "machine_id": "finance-three-statement_seeded_flow",
+      "surface": "workspace",
+      "start_state": "planned",
+      "states": [
+        {
+          "state_id": "planned",
+          "surface": "workspace",
+          "label": "planned",
+          "terminal": false
+        },
+        {
+          "state_id": "workspace_opened",
+          "surface": "workspace",
+          "label": "workspace opened",
+          "terminal": false
+        },
+        {
+          "state_id": "seeded_context_inspected",
+          "surface": "data_room",
+          "label": "seeded context inspected",
+          "terminal": false
+        },
+        {
+          "state_id": "model_validated",
+          "surface": "spreadsheet",
+          "label": "model validated",
+          "terminal": false
+        }
+      ],
+      "transitions": [
+        {
+          "transition_id": "retr_001_budget_delta_workspace_opened",
+          "action": "open_seeded_workspace",
+          "from_state": "planned",
+          "to_state": "workspace_opened",
+          "outcome": "pass",
+          "notes": "Open the seeded workspace for stage 1"
+        },
+        {
+          "transition_id": "retr_001_budget_delta_context_inspected",
+          "action": "inspect_seeded_surface",
+          "from_state": "workspace_opened",
+          "to_state": "seeded_context_inspected",
+          "outcome": "pass",
+          "notes": "Review the mirrored browser surface or local document state"
+        },
+        {
+          "transition_id": "retr_001_budget_delta_model_validated",
+          "action": "validate_seeded_model",
+          "from_state": "seeded_context_inspected",
+          "to_state": "model_validated",
+          "outcome": "pass",
+          "notes": "Cross-check the seeded model before recommendation or export"
+        },
+        {
+          "transition_id": "agent_001_budget_compare_workspace_opened",
+          "action": "open_seeded_workspace",
+          "from_state": "planned",
+          "to_state": "workspace_opened",
+          "outcome": "pass",
+          "notes": "Open the seeded workspace for stage 2"
+        },
+        {
+          "transition_id": "agent_001_budget_compare_context_inspected",
+          "action": "inspect_seeded_surface",
+          "from_state": "workspace_opened",
+          "to_state": "seeded_context_inspected",
+          "outcome": "pass",
+          "notes": "Review the mirrored browser surface or local document state"
+        },
+        {
+          "transition_id": "agent_001_budget_compare_model_validated",
+          "action": "validate_seeded_model",
+          "from_state": "seeded_context_inspected",
+          "to_state": "model_validated",
+          "outcome": "pass",
+          "notes": "Cross-check the seeded model before recommendation or export"
+        }
+      ]
+    }
+  ],
   "browser_surfaces": [
     {
       "stage_id": "kwa_finance_three_statement_model_stage_1",
@@ -25,7 +108,17 @@
           "verification_checks": [
             "workspace opened"
           ],
+          "validation_rules": [],
           "captured_fields": [],
+          "state_updates": {
+            "workspace_state": "opened"
+          },
+          "state_machine_id": "finance-three-statement_seeded_flow",
+          "transition_id": "retr_001_budget_delta_workspace_opened",
+          "from_state": "planned",
+          "to_state": "workspace_opened",
+          "submission_gate": "none",
+          "blocked_reason": null,
           "sandbox_endpoint": null,
           "allow_submission": false
         },
@@ -39,11 +132,54 @@
             "surface inspected",
             "required fields visible"
           ],
+          "validation_rules": [
+            "seeded fields visible"
+          ],
           "captured_fields": [
             "metric",
             "value",
             "evidence"
           ],
+          "state_updates": {
+            "surface_state": "inspected"
+          },
+          "state_machine_id": "finance-three-statement_seeded_flow",
+          "transition_id": "retr_001_budget_delta_context_inspected",
+          "from_state": "workspace_opened",
+          "to_state": "seeded_context_inspected",
+          "submission_gate": "none",
+          "blocked_reason": null,
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        },
+        {
+          "action": "validate_seeded_model",
+          "target": "workspace://finance-three-statement/model-validation/retr_001_budget_delta",
+          "surface": "spreadsheet",
+          "purpose": "Cross-check the seeded model before recommendation or export",
+          "expected_signal": "model cross-check complete",
+          "verification_checks": [
+            "formula check complete",
+            "evidence rows present"
+          ],
+          "validation_rules": [
+            "formula rows present",
+            "evidence rows present"
+          ],
+          "captured_fields": [
+            "metric",
+            "formula",
+            "evidence"
+          ],
+          "state_updates": {
+            "model_state": "validated"
+          },
+          "state_machine_id": "finance-three-statement_seeded_flow",
+          "transition_id": "retr_001_budget_delta_model_validated",
+          "from_state": "seeded_context_inspected",
+          "to_state": "model_validated",
+          "submission_gate": "none",
+          "blocked_reason": null,
           "sandbox_endpoint": null,
           "allow_submission": false
         }
@@ -64,7 +200,17 @@
           "verification_checks": [
             "workspace opened"
           ],
+          "validation_rules": [],
           "captured_fields": [],
+          "state_updates": {
+            "workspace_state": "opened"
+          },
+          "state_machine_id": "finance-three-statement_seeded_flow",
+          "transition_id": "agent_001_budget_compare_workspace_opened",
+          "from_state": "planned",
+          "to_state": "workspace_opened",
+          "submission_gate": "none",
+          "blocked_reason": null,
           "sandbox_endpoint": null,
           "allow_submission": false
         },
@@ -78,11 +224,54 @@
             "surface inspected",
             "required fields visible"
           ],
+          "validation_rules": [
+            "seeded fields visible"
+          ],
           "captured_fields": [
             "metric",
             "value",
             "evidence"
           ],
+          "state_updates": {
+            "surface_state": "inspected"
+          },
+          "state_machine_id": "finance-three-statement_seeded_flow",
+          "transition_id": "agent_001_budget_compare_context_inspected",
+          "from_state": "workspace_opened",
+          "to_state": "seeded_context_inspected",
+          "submission_gate": "none",
+          "blocked_reason": null,
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        },
+        {
+          "action": "validate_seeded_model",
+          "target": "workspace://finance-three-statement/model-validation/agent_001_budget_compare",
+          "surface": "spreadsheet",
+          "purpose": "Cross-check the seeded model before recommendation or export",
+          "expected_signal": "model cross-check complete",
+          "verification_checks": [
+            "formula check complete",
+            "evidence rows present"
+          ],
+          "validation_rules": [
+            "formula rows present",
+            "evidence rows present"
+          ],
+          "captured_fields": [
+            "metric",
+            "formula",
+            "evidence"
+          ],
+          "state_updates": {
+            "model_state": "validated"
+          },
+          "state_machine_id": "finance-three-statement_seeded_flow",
+          "transition_id": "agent_001_budget_compare_model_validated",
+          "from_state": "seeded_context_inspected",
+          "to_state": "model_validated",
+          "submission_gate": "none",
+          "blocked_reason": null,
           "sandbox_endpoint": null,
           "allow_submission": false
         }

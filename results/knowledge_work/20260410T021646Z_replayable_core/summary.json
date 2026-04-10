@@ -1,0 +1,13 @@
+{
+  "runs": 15.0,
+  "artifact_quality_avg": 0.9916666666666667,
+  "browser_workflow_avg": 0.9954933333333333,
+  "strict_interface_avg": 1.0,
+  "recovered_execution_avg": 1.0,
+  "real_world_readiness_avg": 0.9302866666666667,
+  "escalation_correctness_avg": 1.0,
+  "lane": "replayable_core",
+  "created_at": "20260410T021646Z",
+  "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work/20260410T021646Z_replayable_core"
+}

@@ -39,8 +39,8 @@ def _load_tasks() -> list[Task]:
 def test_episode_specs_validate_and_cover_both_lanes() -> None:
     replayable = build_replayable_episodes()
     live = build_live_web_episodes()
-    assert len(replayable) == 12
-    assert len(live) == 6
+    assert len(replayable) == 15
+    assert len(live) == 9
     assert {episode.role_family.value for episode in replayable} == {
         "executive_assistant",
         "job_application_ops",
@@ -133,12 +133,20 @@ def test_episode_runner_emits_structured_model_and_deck_artifacts() -> None:
     model_trace = runner.run(next(episode for episode in replayable if episode.episode_id == "kwa_finance_three_statement_model"))
     model_artifact = next(version for version in model_trace.artifact_versions if version.artifact_id == "financial_model" and version.revision == 1)
     assert "| Metric | Value | Evidence |" in model_artifact.content
+    assert "## Formulas" in model_artifact.content
+    assert "Revenue Forecast: =BASE_REVENUE+DELTA" in model_artifact.content
     assert "Source:" in model_artifact.content
+    assert model_artifact.file_format == "xlsx"
+    assert model_artifact.file_path and model_artifact.file_path.endswith(".xlsx")
 
     deck_trace = runner.run(next(episode for episode in replayable if episode.episode_id == "kwa_finance_partner_deck_revision"))
-    deck_artifact = next(version for version in deck_trace.artifact_versions if version.artifact_id == "partner_deck" and version.revision == 1)
+    deck_artifact = [version for version in deck_trace.artifact_versions if version.artifact_id == "partner_deck"][-1]
     assert "## Slide: Situation" in deck_artifact.content
     assert "## Slide: Recommendation" in deck_artifact.content
+    assert "### Section: Context" in deck_artifact.content
+    assert "## Revision Diff" in deck_artifact.content
+    assert deck_artifact.file_format == "pptx"
+    assert deck_artifact.file_path and deck_artifact.file_path.endswith(".pptx")
 
 
 def test_live_web_episode_actions_are_dry_run_browser_steps() -> None:
@@ -159,6 +167,32 @@ def test_live_web_episode_actions_are_dry_run_browser_steps() -> None:
     assert all(action.verification_checks for action in trace.browser_actions)
 
 
+def test_live_hold_episode_records_approval_gate_without_public_submission() -> None:
+    tasks = _load_tasks()
+    bundle = RuntimeBundle(
+        reasoner=Gemma4Runner("google/gemma-4-E4B-it", backend="oracle"),
+        router=FunctionGemmaRunner("google/functiongemma-270m-it", backend="oracle"),
+        retriever=EmbeddingGemmaRetriever("google/embeddinggemma-300m", backend="heuristic"),
+        executor=DeterministicExecutor(registry=build_default_registry()),
+    )
+    runner = EpisodeRunner(tasks=tasks, bundle=bundle)
+    episode = next(episode for episode in build_live_web_episodes() if episode.episode_id == "kwa_jobs_live_submission_hold")
+    trace = runner.run(episode)
+
+    assert any(action.submission_gate == "approval_required" for action in trace.browser_actions)
+    assert any(action.gate_result == "approval_required" for action in trace.browser_actions)
+    assert any(
+        action.sandbox_endpoint
+        for action in trace.browser_actions
+        if action.submission_gate == "approval_required"
+    )
+
+    packet = next(version for version in trace.artifact_versions if version.artifact_id == "live_validated_packet")
+    assert "Send Status: blocked_pending_approval" in packet.content
+    assert "Candidate Role: Research Associate" in packet.content
+    assert "Validation: consistent" in packet.content
+
+
 def test_replayable_schedule_artifact_includes_required_fields() -> None:
     tasks = _load_tasks()
     bundle = RuntimeBundle(
@@ -175,6 +209,30 @@ def test_replayable_schedule_artifact_includes_required_fields() -> None:
     assert "## Output" in schedule_artifact.content
     assert "Meeting: board" in schedule_artifact.content
     assert "Status: prepared" in schedule_artifact.content
+
+
+def test_partial_progress_hold_episode_records_approval_gate() -> None:
+    tasks = _load_tasks()
+    bundle = RuntimeBundle(
+        reasoner=Gemma4Runner("google/gemma-4-E4B-it", backend="oracle"),
+        router=FunctionGemmaRunner("google/functiongemma-270m-it", backend="oracle"),
+        retriever=EmbeddingGemmaRetriever("google/embeddinggemma-300m", backend="heuristic"),
+        executor=DeterministicExecutor(registry=build_default_registry()),
+    )
+    runner = EpisodeRunner(tasks=tasks, bundle=bundle)
+    episode = next(episode for episode in build_replayable_episodes() if episode.episode_id == "kwa_jobs_submission_hold")
+    trace = runner.run(episode)
+
+    assert any(action.submission_gate == "approval_required" for action in trace.browser_actions)
+    assert any(action.gate_result == "approval_required" for action in trace.browser_actions)
+    assert any(action.blocked_reason for action in trace.browser_actions if action.submission_gate == "approval_required")
+
+    packet = next(version for version in trace.artifact_versions if version.artifact_id == "validated_packet")
+    assert "Send Status: blocked_pending_approval" in packet.content
+    assert "Candidate Role: Research Associate" in packet.content
+    assert "Target Company: Northwind Capital" in packet.content
+    assert packet.file_format == "docx"
+    assert packet.file_path and packet.file_path.endswith(".docx")
 
 
 def test_episode_runner_emits_all_declared_artifacts_even_when_stage_count_is_smaller() -> None:
@@ -229,5 +287,23 @@ def test_workspace_seed_generation_writes_browser_manifest(tmp_path: Path) -> No
         assert (workspace_dir / "browser_manifest.json").exists()
         manifest = (workspace_dir / "browser_manifest.json").read_text(encoding="utf-8")
         assert "browser_surfaces" in manifest
+        assert "state_machines" in manifest
     finally:
         module.DATA_ROOT = original_data_root
+
+
+def test_browser_actions_emit_state_machine_transitions() -> None:
+    tasks = _load_tasks()
+    bundle = RuntimeBundle(
+        reasoner=Gemma4Runner("google/gemma-4-E4B-it", backend="oracle"),
+        router=FunctionGemmaRunner("google/functiongemma-270m-it", backend="oracle"),
+        retriever=EmbeddingGemmaRetriever("google/embeddinggemma-300m", backend="heuristic"),
+        executor=DeterministicExecutor(registry=build_default_registry()),
+    )
+    runner = EpisodeRunner(tasks=tasks, bundle=bundle)
+    episode = next(episode for episode in build_live_web_episodes() if episode.episode_id == "kwa_finance_live_committee_hold")
+    trace = runner.run(episode)
+
+    assert any(action.state_machine_id for action in trace.browser_actions)
+    assert any(action.transition_id for action in trace.browser_actions)
+    assert any(action.from_state and action.to_state for action in trace.browser_actions)

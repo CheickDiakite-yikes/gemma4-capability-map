@@ -47,9 +47,11 @@ This repository currently includes:
 - `52` gold atomic tasks
 - `232` explicit factorized variants
 - `16` real-world-tagged tasks
-- `12` `KnowledgeWorkArena` replayable-core episodes
-- `6` `KnowledgeWorkArena` live-web stress episodes
+- `15` `KnowledgeWorkArena` replayable-core episodes
+- `9` `KnowledgeWorkArena` live-web stress episodes
 - deterministic tool environments for files, calendar, repo, screenshot, and document tasks
+- seeded browser state transitions with validation rules, blocked submissions, and approval gates
+- native-ish artifact grading for formulas, slide sections, revision diffs, and application-packet consistency
 - adapter-ready runtimes for Gemma 4, FunctionGemma, EmbeddingGemma, HF service mode, and MLX
 
 Current canonical snapshots:
@@ -179,7 +181,7 @@ It is built for replayable, inspectable knowledge-work episodes with:
 
 - stage goals
 - seeded workspaces
-- browser plans
+- browser plans with validation and approval-gate state
 - artifact generation
 - revision rounds
 - memory updates
@@ -227,23 +229,43 @@ sequenceDiagram
 
 Replayable core:
 
-- [`results/knowledge_work/replayable_core/summary.json`](results/knowledge_work/replayable_core/summary.json)
+- [`results/knowledge_work/20260410T021825Z_replayable_core/summary.json`](results/knowledge_work/20260410T021825Z_replayable_core/summary.json)
 - `artifact_quality_avg = 1.0`
-- `browser_workflow_avg = 1.0`
+- `browser_workflow_avg = 0.9955`
 - `strict_interface_avg = 1.0`
 - `recovered_execution_avg = 1.0`
-- `real_world_readiness_avg = 0.93055`
+- `real_world_readiness_avg = 0.9320`
 
 Live-web stress:
 
-- [`results/knowledge_work/live_web_stress/summary.json`](results/knowledge_work/live_web_stress/summary.json)
+- [`results/knowledge_work/20260410T021845Z_live_web_stress/summary.json`](results/knowledge_work/20260410T021845Z_live_web_stress/summary.json)
 - `artifact_quality_avg = 1.0`
 - `browser_workflow_avg = 1.0`
 - `strict_interface_avg = 1.0`
 - `recovered_execution_avg = 1.0`
-- `real_world_readiness_avg = 1.0`
+- `real_world_readiness_avg = 0.9794`
 
-The readiness difference is intentional. Replayable-core includes bounded operational drag like human-time ratio and escalation-aware work products; live-web stress is currently smaller and more constrained.
+The readiness difference is intentional. Replayable-core includes bounded operational drag like human-time ratio and escalation-aware work products, while live-web stress now also includes partial-progress hold episodes where the correct move is to stop at an approval gate rather than complete the workflow.
+
+### First Model-Backed KnowledgeWorkArena Evidence
+
+The first finished non-oracle `KnowledgeWorkArena` run on this machine is the executive hold pilot:
+
+- [`results/knowledge_work/model_backed_hf_exec_hold/summary.json`](results/knowledge_work/model_backed_hf_exec_hold/summary.json)
+- backend: `hf_service` reasoner on `google/gemma-4-E2B-it` with stable heuristic router/retriever support
+- `artifact_quality_avg = 1.0`
+- `browser_workflow_avg = 0.9836`
+- `strict_interface_avg = 1.0`
+- `recovered_execution_avg = 1.0`
+- `real_world_readiness_avg = 0.9056`
+
+There is also a stopped multi-episode artifact pilot at [`results/knowledge_work/model_backed_hf_reasoner_pilot/summary.json`](results/knowledge_work/model_backed_hf_reasoner_pilot/summary.json). It completed two real-file episodes cleanly before being interrupted to isolate a finished single-episode baseline:
+
+- `kwa_jobs_tailored_packet`
+- `kwa_finance_three_statement_model`
+- partial average `real_world_readiness_avg = 0.9074`
+
+The cold-start cost is currently material on this Apple Silicon machine. In the finished executive pilot, the `hf_service` reasoner spent about `345s` reaching ready state before episode execution began.
 
 ## What We Have Learned So Far
 
@@ -276,6 +298,13 @@ HF, HF service mode, and MLX do not behave interchangeably on local Apple Silico
 ### 6. Domain-native grading matters
 
 The benchmark got stronger when artifacts stopped being graded as generic blobs and started being graded as schedules, forms, decks, memos, and models.
+
+That now includes:
+
+- spreadsheet and model formula checks
+- deck section structure and revision-diff checks
+- application-packet field consistency checks
+- browser validation and approval-gate transitions
 
 ## Current Real-World Snapshot
 
@@ -442,6 +471,23 @@ Refresh KnowledgeWorkArena history:
 uv run python scripts/build_knowledge_work_history.py
 ```
 
+Run a model-backed replayable-core pilot without replacing the canonical lane pointer:
+
+```bash
+uv run python scripts/run_knowledge_work_arena.py \
+  --lane replayable_core \
+  --backend hf_service \
+  --router-backend heuristic \
+  --retriever-backend heuristic \
+  --reasoner google/gemma-4-E2B-it \
+  --reasoner-device mps \
+  --reasoner-max-new-tokens 96 \
+  --episode-id kwa_exec_board_send_hold \
+  --limit 1 \
+  --output-dir results/knowledge_work/model_backed_hf_exec_hold \
+  --no-update-latest
+```
+
 ## Repository Layout
 
 ```text
@@ -465,6 +511,12 @@ Useful reporting entrypoints:
 
 - benchmark methodology: [`docs/methodology.md`](docs/methodology.md)
 - KnowledgeWorkArena design: [`docs/knowledge-work-arena.md`](docs/knowledge-work-arena.md)
+- continuity entrypoint: [`AGENT_CONTEXT.md`](AGENT_CONTEXT.md)
+- continuity system: [`docs/continuity/README.md`](docs/continuity/README.md)
+- current benchmark state: [`docs/continuity/current-state.md`](docs/continuity/current-state.md)
+- curated key learnings: [`docs/continuity/key-learnings.md`](docs/continuity/key-learnings.md)
+- next-step queue: [`docs/continuity/next-steps.md`](docs/continuity/next-steps.md)
+- session handoff: [`docs/continuity/session-handoff.md`](docs/continuity/session-handoff.md)
 - real-world autonomy notes: [`docs/real-world-benchmarking.md`](docs/real-world-benchmarking.md)
 - research log: [`docs/research-log.md`](docs/research-log.md)
 - benchmark history: [`results/history/history_report.md`](results/history/history_report.md)
@@ -477,7 +529,7 @@ Useful reporting entrypoints:
 - harden escalation / defer / refuse judgment
 - push billing/refusal routing harder under real specialist backends
 - expand multilingual answer-surface robustness
-- deepen browser realism with validation-heavy dry-run flows
+- deepen browser realism with validation-heavy dry-run flows and approval-blocked send paths
 
 ### Medium term
 

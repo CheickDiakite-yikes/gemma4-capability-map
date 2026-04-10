@@ -2,8 +2,10 @@ from __future__ import annotations
 
 from copy import deepcopy
 from datetime import UTC, datetime
+from pathlib import Path
 
 from gemma4_capability_map.knowledge_work.artifacts import grade_artifact
+from gemma4_capability_map.knowledge_work.native_artifacts import materialize_artifact
 from gemma4_capability_map.knowledge_work.scoring import score_episode
 from gemma4_capability_map.knowledge_work.schemas import ArtifactKind, ArtifactSpec, ArtifactVersion, BrowserAction, BrowserStep, Episode, EpisodeTrace, MemoryUpdate, StageTrace
 from gemma4_capability_map.pipelines.base import RuntimeBundle
@@ -21,16 +23,18 @@ class EpisodeRunner:
         thinking_enabled: bool = False,
         planning_max_new_tokens: int | None = None,
         final_max_new_tokens: int | None = None,
+        artifact_output_root: str | Path | None = None,
     ) -> None:
         self.task_index = {task.task_id: task for task in tasks}
         self.bundle = bundle
         self.thinking_enabled = thinking_enabled
         self.planning_max_new_tokens = planning_max_new_tokens
         self.final_max_new_tokens = final_max_new_tokens
+        self.artifact_output_root = Path(artifact_output_root) if artifact_output_root else None
 
     def run(self, episode: Episode) -> EpisodeTrace:
         trace = EpisodeTrace(
-            run_id=f"{datetime.now(UTC).strftime('%Y%m%dT%H%M%SZ')}_episode_{episode.episode_id}",
+            run_id=f"{datetime.now(UTC).strftime('%Y%m%dT%H%M%S%fZ')}_episode_{episode.episode_id}",
             episode_id=episode.episode_id,
             role_family=episode.role_family,
             lane=episode.lane,
@@ -74,14 +78,15 @@ class EpisodeRunner:
                 artifact_spec = next((artifact for artifact in episode.artifacts if artifact.artifact_id == artifact_id), None)
                 prior_content = _latest_artifact_content(artifact_versions, artifact_id)
                 rendered_content = _artifact_content(episode.brief, stage.goal, task_traces, artifact_id, artifact_spec)
-                artifact_versions.append(
-                    ArtifactVersion(
+                version = ArtifactVersion(
                         artifact_id=artifact_id,
                         revision=_next_revision(artifact_versions, artifact_id),
                         content=_merge_artifact_content(prior_content, rendered_content, artifact_spec),
                         source_stage=stage.stage_id,
                     )
-                )
+                if artifact_spec is not None:
+                    version = materialize_artifact(trace.run_id, version, artifact_spec, self.artifact_output_root)
+                artifact_versions.append(version)
             memory_updates.append(MemoryUpdate(stage_id=stage.stage_id, key=stage.goal, value="; ".join(task.final_answer for task in task_traces if task.final_answer)))
             browser_actions.extend(_browser_actions_for_stage(episode, stage, task_traces))
 
@@ -89,14 +94,15 @@ class EpisodeRunner:
             prior = _latest_artifact_content(artifact_versions, review.artifact_id)
             artifact_spec = next((artifact for artifact in episode.artifacts if artifact.artifact_id == review.artifact_id), None)
             revised_content = _apply_review_feedback(prior, review.feedback, review.expected_improvements, artifact_spec)
-            artifact_versions.append(
-                ArtifactVersion(
+            version = ArtifactVersion(
                     artifact_id=review.artifact_id,
                     revision=_next_revision(artifact_versions, review.artifact_id),
                     content=revised_content,
                     source_stage=f"review:{review.review_id}",
                 )
-            )
+            if artifact_spec is not None:
+                version = materialize_artifact(trace.run_id, version, artifact_spec, self.artifact_output_root)
+            artifact_versions.append(version)
 
         artifact_specs = {artifact.artifact_id: artifact for artifact in episode.artifacts}
         for index, version in enumerate(artifact_versions):
@@ -242,6 +248,10 @@ def _table_artifact_content(
     for row in rows:
         padded = row + [""] * max(0, 3 - len(row))
         lines.append(f"| {padded[0]} | {padded[1]} | {padded[2] or task_ids} |")
+    if artifact_spec.scoring_contract.required_formulas:
+        lines.append("## Formulas")
+        for label, formula in artifact_spec.scoring_contract.required_formulas.items():
+            lines.append(f"{label}: {formula}")
     if answers:
         lines.extend(["## Notes", *[f"- {answer}" for answer in answers]])
     lines.extend(_citation_lines(task_ids, max(artifact_spec.scoring_contract.minimum_citations, 1)))
@@ -263,6 +273,8 @@ def _deck_artifact_content(
     lines = [f"# Artifact {artifact_id}", "## Brief", brief, "## Stage Goal", stage_goal]
     for title in titles:
         lines.append(f"## Slide: {title}")
+        for section in artifact_spec.scoring_contract.required_slide_sections.get(title, []):
+            lines.append(f"### Section: {section}")
         for bullet in bullets[: max(2, len(artifact_spec.scoring_contract.required_bullets) or 2)]:
             lines.append(f"- {bullet}")
     lines.extend(_citation_lines(task_ids, max(artifact_spec.scoring_contract.minimum_citations, 1)))
@@ -293,10 +305,13 @@ def _form_artifact_content(
         lines.append(f"{field}: {value}")
     if artifact_spec.scoring_contract.required_fragments:
         lines.append(f"Packet Requirements: {'; '.join(artifact_spec.scoring_contract.required_fragments)}")
-    if answers:
-        lines.extend(["## Response Summary", *[f"- {answer}" for answer in answers]])
-    elif artifact_spec.scoring_contract.required_bullets:
-        lines.extend(["## Response Summary", *[f"- {item}" for item in artifact_spec.scoring_contract.required_bullets]])
+    summary_items = list(answers) if answers else list(artifact_spec.scoring_contract.required_bullets)
+    for field_name in artifact_spec.scoring_contract.consistency_fields:
+        value = fields.get(field_name)
+        if value:
+            summary_items.append(f"{field_name}: {value}")
+    if summary_items:
+        lines.extend(["## Response Summary", *[f"- {item}" for item in _dedupe_preserve_order(summary_items)]])
     lines.extend(_citation_lines(task_ids, max(artifact_spec.scoring_contract.minimum_citations, 1)))
     return "\n".join(lines)
 
@@ -366,8 +381,17 @@ def _browser_actions_for_stage(episode: Episode, stage, task_traces) -> list[Bro
             expected_signal=step.expected_signal,
             evidence=evidence or step.expected_signal,
             verification_checks=list(step.verification_checks),
+            validation_rules=list(step.validation_rules),
             verification_result="pass" if (evidence or step.expected_signal) else "fail",
             captured_fields=list(step.captured_fields),
+            state_updates=dict(step.state_updates),
+            state_machine_id=step.state_machine_id,
+            transition_id=step.transition_id,
+            from_state=step.from_state,
+            to_state=step.to_state,
+            submission_gate=step.submission_gate,
+            gate_result=_gate_result(step),
+            blocked_reason=step.blocked_reason,
             sandbox_endpoint=step.sandbox_endpoint,
             status="dry_run" if episode.lane.value == "live_web_stress" or not step.allow_submission else status,
         )
@@ -414,11 +438,14 @@ def _merge_artifact_content(prior_content: str, new_content: str, artifact_spec:
 
 
 def _merge_deck_content(prior_content: str, new_content: str) -> str:
-    prior_slides = _parse_slide_bullets(prior_content)
-    new_slides = _parse_slide_bullets(new_content)
-    merged_slides: dict[str, list[str]] = {}
+    prior_slides = _parse_slide_blocks(prior_content)
+    new_slides = _parse_slide_blocks(new_content)
+    merged_slides: dict[str, dict[str, list[str]]] = {}
     for title in [*prior_slides.keys(), *new_slides.keys()]:
-        merged_slides[title] = _dedupe_preserve_order(prior_slides.get(title, []) + new_slides.get(title, []))
+        merged_slides[title] = {
+            "sections": _dedupe_preserve_order(prior_slides.get(title, {}).get("sections", []) + new_slides.get(title, {}).get("sections", [])),
+            "bullets": _dedupe_preserve_order(prior_slides.get(title, {}).get("bullets", []) + new_slides.get(title, {}).get("bullets", [])),
+        }
     lines = []
     brief = _first_section(prior_content, "## Brief") or _first_section(new_content, "## Brief")
     stage_goal = _first_section(new_content, "## Stage Goal") or _first_section(prior_content, "## Stage Goal")
@@ -429,9 +456,13 @@ def _merge_deck_content(prior_content: str, new_content: str) -> str:
         lines.extend(["## Brief", brief])
     if stage_goal:
         lines.extend(["## Stage Goal", stage_goal])
-    for title, bullets in merged_slides.items():
+    for title, payload in merged_slides.items():
         lines.append(f"## Slide: {title}")
-        lines.extend(f"- {bullet}" for bullet in bullets)
+        lines.extend(f"### Section: {section}" for section in payload["sections"])
+        lines.extend(f"- {bullet}" for bullet in payload["bullets"])
+    revision_diff = _first_section(new_content, "## Revision Diff") or _first_section(prior_content, "## Revision Diff")
+    if revision_diff:
+        lines.extend(["## Revision Diff", revision_diff])
     lines.extend(_merge_sources(prior_content, new_content))
     return "\n".join(lines)
 
@@ -449,6 +480,9 @@ def _merge_table_content(prior_content: str, new_content: str) -> str:
         lines.extend(["## Stage Goal", stage_goal])
     if rows:
         lines.extend(["## Table", *rows])
+    formulas = _dedupe_preserve_order(_formula_lines(prior_content) + _formula_lines(new_content))
+    if formulas:
+        lines.extend(["## Formulas", *formulas])
     if notes:
         lines.extend(["## Notes", *[f"- {note}" for note in notes]])
     lines.extend(_merge_sources(prior_content, new_content))
@@ -502,21 +536,39 @@ def _first_section(content: str, title: str) -> str:
     return ""
 
 
-def _parse_slide_bullets(content: str) -> dict[str, list[str]]:
-    slides: dict[str, list[str]] = {}
+def _parse_slide_blocks(content: str) -> dict[str, dict[str, list[str]]]:
+    slides: dict[str, dict[str, list[str]]] = {}
     current: str | None = None
     for line in content.splitlines():
         stripped = line.strip()
         if stripped.lower().startswith("## slide:"):
             current = stripped.split(":", 1)[1].strip()
-            slides.setdefault(current, [])
+            slides.setdefault(current, {"sections": [], "bullets": []})
+        elif current and stripped.lower().startswith("### section:"):
+            slides[current]["sections"].append(stripped.split(":", 1)[1].strip())
         elif current and stripped.startswith("- "):
-            slides[current].append(stripped[2:].strip())
+            slides[current]["bullets"].append(stripped[2:].strip())
     return slides
 
 
 def _table_lines(content: str) -> list[str]:
     return [line for line in content.splitlines() if line.strip().startswith("|")]
+
+
+def _formula_lines(content: str) -> list[str]:
+    lines = content.splitlines()
+    formulas: list[str] = []
+    capture = False
+    for line in lines:
+        stripped = line.strip()
+        if stripped == "## Formulas":
+            capture = True
+            continue
+        if capture and stripped.startswith("## "):
+            break
+        if capture and stripped:
+            formulas.append(stripped)
+    return formulas
 
 
 def _bullets_under_section(content: str, title: str) -> list[str]:
@@ -571,9 +623,9 @@ def _apply_review_feedback(
         revised += f"\nReviewer feedback addressed: {feedback}"
         return revised
     if artifact_spec.kind == ArtifactKind.DECK:
-        slides = _parse_slide_bullets(prior_content)
-        recommendation = slides.setdefault("Recommendation", [])
-        recommendation[:] = _dedupe_preserve_order(recommendation + expected_improvements + [feedback])
+        slides = _parse_slide_blocks(prior_content)
+        recommendation = slides.setdefault("Recommendation", {"sections": [], "bullets": []})
+        recommendation["bullets"] = _dedupe_preserve_order(recommendation["bullets"] + expected_improvements + [feedback])
         lines = []
         title_line = _artifact_title(prior_content)
         if title_line:
@@ -584,9 +636,11 @@ def _apply_review_feedback(
         stage_goal = _first_section(prior_content, "## Stage Goal")
         if stage_goal:
             lines.extend(["## Stage Goal", stage_goal])
-        for title, bullets in slides.items():
+        for title, payload in slides.items():
             lines.append(f"## Slide: {title}")
-            lines.extend(f"- {bullet}" for bullet in bullets)
+            lines.extend(f"### Section: {section}" for section in payload["sections"])
+            lines.extend(f"- {bullet}" for bullet in payload["bullets"])
+        lines.extend(["## Revision Diff", *[f"- {item}" for item in _dedupe_preserve_order(expected_improvements + [feedback])]])
         lines.extend(_merge_sources(prior_content, ""))
         return "\n".join(lines)
     if artifact_spec.kind in {ArtifactKind.FORM_SUBMISSION, ArtifactKind.SCHEDULE}:
@@ -615,3 +669,11 @@ def _apply_review_feedback(
             revised += f"\n- {improvement}"
     revised += f"\nReviewer feedback addressed: {feedback}"
     return revised
+
+
+def _gate_result(step: BrowserStep) -> str:
+    if step.submission_gate == "blocked":
+        return "blocked"
+    if step.submission_gate == "approval_required":
+        return "approval_required"
+    return "passed"

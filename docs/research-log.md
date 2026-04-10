@@ -20,6 +20,16 @@
 - The real-world matrix is now service-backed and canonical on this machine:
   - the previous in-process real-world run stalled during repeated HF warmup and should not be treated as authoritative
   - [`20260409T210500Z_alpha_real_world`](/Users/cheickdiakite/Codex/moonie/results/alpha_matrix/20260409T210500Z_alpha_real_world) completed cleanly with subprocess-isolated experiments and `hf_service` as the Gemma 4 reasoner path
+- `KnowledgeWorkArena` has now been hardened beyond simple markdown-contract episodes:
+  - replayable-core grew to `15` episodes and live-web stress grew to `9`
+  - new partial-progress hold episodes now require the correct move to be `defer`, `escalate`, or `refuse to send` after useful work has already been completed
+  - browser traces now capture validation rules, state updates, approval gates, blocked reasons, sandbox endpoints for dry-run submissions, and explicit state-machine transitions
+  - finance and job artifacts now materialize as real `.xlsx`, `.pptx`, and `.docx` work products before grading
+  - artifact graders now check formulas, deck section structure, revision diffs, and application-packet consistency instead of only generic fragment presence
+  - long `KnowledgeWorkArena` runs now checkpoint after each episode through `progress.json`, partial traces, and partial summaries instead of only writing at the end
+  - the current canonical `KnowledgeWorkArena` summaries are [`results/knowledge_work/replayable_core/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/replayable_core/summary.json) and [`results/knowledge_work/live_web_stress/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/live_web_stress/summary.json)
+  - the first finished non-oracle episode baseline now exists at [`results/knowledge_work/model_backed_hf_exec_hold/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_exec_hold/summary.json)
+  - a broader multi-episode HF reasoner pilot exists at [`results/knowledge_work/model_backed_hf_reasoner_pilot/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_reasoner_pilot/summary.json), currently stopped after two completed episodes so the repo has a clean finished model-backed baseline plus a separate partial pilot artifact
 
 ### Backend findings
 
@@ -30,6 +40,13 @@
 - Service observability is now first-class through `state.json`, `events.jsonl`, `service.log`, and `requests.jsonl` under [`results/runtime/hf_reasoner`](/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner).
 - The first canonical real-world run justified `hf_service` as a research-execution primitive on this Mac even though preflight may still recommend `mlx` for the general local default. The issue was not inference speed alone; it was repeated HF warmup stability across a matrix.
 - The reusable worker is not the current default on this Mac. Cold fresh-process HF startup can be dominated by import cost before model loading; the live worker probe showed `torch` import around `75.6s` and `torch + transformers` around `214.4s`, while the warmed standalone import probe later measured `1.9s` and `4.1s`. That gap is now a tracked observability variable instead of an assumption.
+- The first finished model-backed `KnowledgeWorkArena` executive episode re-confirmed that cold service startup remains a first-order cost on this machine:
+  - fresh `hf_service` boot to ready on `google/gemma-4-E2B-it` took about `345s`
+  - once ready, the episode itself completed cleanly with `artifact_quality = 1.0`, `strict_interface = 1.0`, `recovered_execution = 1.0`, and `role_readiness = 0.9056`
+- The stopped two-episode HF reasoner pilot also produced usable partial evidence:
+  - completed `kwa_jobs_tailored_packet`
+  - completed `kwa_finance_three_statement_model`
+  - partial `role_readiness_avg = 0.9074`
 - Backend preflight now marks dead service workers as `stale` instead of treating their last `state.json` as a live `loading` service.
 - A dedicated import-timing artifact now exists at [`hf_import_probe.json`](/Users/cheickdiakite/Codex/moonie/results/tables/hf_import_probe.json) and [`hf_import_probe.md`](/Users/cheickdiakite/Codex/moonie/results/tables/hf_import_probe.md).
 

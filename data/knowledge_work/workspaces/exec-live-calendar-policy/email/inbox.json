@@ -2,11 +2,13 @@
   "threads": [
     {
       "subject": "Board prep",
-      "status": "needs brief"
+      "status": "needs brief",
+      "approval": "pending"
     },
     {
       "subject": "Vendor ambiguity",
-      "status": "needs clarification"
+      "status": "needs clarification",
+      "approval": "not_required"
     }
   ]
 }

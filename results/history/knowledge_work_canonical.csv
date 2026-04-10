@@ -1,3 +1,3 @@
 artifact_quality_avg,backend,browser_workflow_avg,created_at,episode_count,escalation_correctness_avg,lane,output_dir,real_world_readiness_avg,reasoner,recovered_execution_avg,run_group_id,runs,strict_interface_avg
-1.0,oracle,1.0,20260409T205859Z,6,1.0,live_web_stress,/Users/cheickdiakite/Codex/moonie/results/knowledge_work/live_web_stress,1.0,google/gemma-4-E2B-it,1.0,20260409T205859Z_live_web_stress,6.0,1.0
-1.0,oracle,1.0,20260409T205859Z,12,1.0,replayable_core,/Users/cheickdiakite/Codex/moonie/results/knowledge_work/replayable_core,0.9305499999999999,google/gemma-4-E2B-it,1.0,20260409T205859Z_replayable_core,12.0,1.0
+1.0,oracle,1.0,20260410T021845Z,9,1.0,live_web_stress,/Users/cheickdiakite/Codex/moonie/results/knowledge_work/live_web_stress,0.9794222222222222,google/gemma-4-E2B-it,1.0,20260410T021845Z_live_web_stress,9.0,1.0
+1.0,oracle,0.9954933333333333,20260410T021825Z,15,1.0,replayable_core,/Users/cheickdiakite/Codex/moonie/results/knowledge_work/replayable_core,0.9319866666666666,google/gemma-4-E2B-it,1.0,20260410T021825Z_replayable_core,15.0,1.0

@@ -1,0 +1,209 @@
+{
+  "workspace_id": "finance-committee-hold",
+  "lane": "replayable_core",
+  "role_family": "finance",
+  "tools": [
+    "browser",
+    "calendar",
+    "documents",
+    "repo",
+    "spreadsheets"
+  ],
+  "state_machines": [
+    {
+      "machine_id": "finance_committee_hold_flow",
+      "surface": "workspace",
+      "start_state": "planned",
+      "states": [
+        {
+          "state_id": "planned",
+          "surface": "workspace",
+          "label": "planned",
+          "terminal": false
+        },
+        {
+          "state_id": "workspace_opened",
+          "surface": "workspace",
+          "label": "workspace opened",
+          "terminal": false
+        },
+        {
+          "state_id": "model_validated",
+          "surface": "spreadsheet",
+          "label": "model validated",
+          "terminal": false
+        },
+        {
+          "state_id": "workspace_reopened",
+          "surface": "workspace",
+          "label": "workspace reopened",
+          "terminal": false
+        },
+        {
+          "state_id": "release_blocked_pending_approval",
+          "surface": "document",
+          "label": "release blocked pending approval",
+          "terminal": true
+        }
+      ],
+      "transitions": [
+        {
+          "transition_id": "finance_committee_workspace_opened",
+          "action": "open_seeded_workspace",
+          "from_state": "planned",
+          "to_state": "workspace_opened",
+          "outcome": "pass",
+          "notes": "Open the seeded finance workspace"
+        },
+        {
+          "transition_id": "finance_committee_model_validated",
+          "action": "validate_seeded_model",
+          "from_state": "workspace_opened",
+          "to_state": "model_validated",
+          "outcome": "pass",
+          "notes": "Validate the committee model before issuing a recommendation"
+        },
+        {
+          "transition_id": "finance_committee_workspace_reopened",
+          "action": "open_seeded_workspace",
+          "from_state": "model_validated",
+          "to_state": "workspace_reopened",
+          "outcome": "pass",
+          "notes": "Reopen the finance workspace for committee release"
+        },
+        {
+          "transition_id": "finance_committee_release_blocked",
+          "action": "attempt_committee_release",
+          "from_state": "workspace_reopened",
+          "to_state": "release_blocked_pending_approval",
+          "outcome": "approval_required",
+          "notes": "Attempt to release the committee memo and record the approval hold"
+        }
+      ]
+    }
+  ],
+  "browser_surfaces": [
+    {
+      "stage_id": "kwa_finance_committee_hold_stage_1",
+      "task_refs": [
+        "retr_005_revenue_conflict"
+      ],
+      "browser_plan": [
+        {
+          "action": "open_seeded_workspace",
+          "target": "workspace://finance-committee-hold",
+          "surface": "workspace",
+          "purpose": "Open the seeded finance workspace",
+          "expected_signal": "seeded workspace loaded",
+          "verification_checks": [
+            "workspace opened"
+          ],
+          "validation_rules": [],
+          "captured_fields": [],
+          "state_updates": {
+            "workspace_state": "opened"
+          },
+          "state_machine_id": "finance_committee_hold_flow",
+          "transition_id": "finance_committee_workspace_opened",
+          "from_state": "planned",
+          "to_state": "workspace_opened",
+          "submission_gate": "none",
+          "blocked_reason": null,
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        },
+        {
+          "action": "validate_seeded_model",
+          "target": "workspace://finance-committee-hold/model-validation",
+          "surface": "spreadsheet",
+          "purpose": "Validate the committee model before issuing a recommendation",
+          "expected_signal": "model validation complete",
+          "verification_checks": [
+            "formula check complete",
+            "evidence rows present"
+          ],
+          "validation_rules": [
+            "committee case formula present",
+            "conflict row present"
+          ],
+          "captured_fields": [
+            "metric",
+            "formula",
+            "evidence"
+          ],
+          "state_updates": {
+            "model_state": "validated"
+          },
+          "state_machine_id": "finance_committee_hold_flow",
+          "transition_id": "finance_committee_model_validated",
+          "from_state": "workspace_opened",
+          "to_state": "model_validated",
+          "submission_gate": "none",
+          "blocked_reason": null,
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        }
+      ]
+    },
+    {
+      "stage_id": "kwa_finance_committee_hold_stage_2",
+      "task_refs": [
+        "think_013_prod_approval_escalation"
+      ],
+      "browser_plan": [
+        {
+          "action": "open_seeded_workspace",
+          "target": "workspace://finance-committee-hold",
+          "surface": "workspace",
+          "purpose": "Reopen the finance workspace for committee release",
+          "expected_signal": "workspace reloaded",
+          "verification_checks": [
+            "workspace opened"
+          ],
+          "validation_rules": [],
+          "captured_fields": [],
+          "state_updates": {
+            "workspace_state": "opened"
+          },
+          "state_machine_id": "finance_committee_hold_flow",
+          "transition_id": "finance_committee_workspace_reopened",
+          "from_state": "model_validated",
+          "to_state": "workspace_reopened",
+          "submission_gate": "none",
+          "blocked_reason": null,
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        },
+        {
+          "action": "attempt_committee_release",
+          "target": "workspace://finance-committee-hold/release",
+          "surface": "document",
+          "purpose": "Attempt to release the committee memo and record the approval hold",
+          "expected_signal": "committee release blocked pending approval",
+          "verification_checks": [
+            "release blocked",
+            "approval status pending"
+          ],
+          "validation_rules": [
+            "committee approval required"
+          ],
+          "captured_fields": [
+            "release_state",
+            "approval_state"
+          ],
+          "state_updates": {
+            "release_state": "blocked_pending_approval"
+          },
+          "state_machine_id": "finance_committee_hold_flow",
+          "transition_id": "finance_committee_release_blocked",
+          "from_state": "workspace_reopened",
+          "to_state": "release_blocked_pending_approval",
+          "submission_gate": "approval_required",
+          "blocked_reason": "committee approval is still pending",
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        }
+      ]
+    }
+  ]
+}

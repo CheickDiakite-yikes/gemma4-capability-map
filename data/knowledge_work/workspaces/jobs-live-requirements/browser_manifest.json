@@ -9,6 +9,65 @@
     "repo",
     "spreadsheets"
   ],
+  "state_machines": [
+    {
+      "machine_id": "jobs-live-requirements_live_flow",
+      "surface": "public_web",
+      "start_state": "planned",
+      "states": [
+        {
+          "state_id": "planned",
+          "surface": "public_web",
+          "label": "planned",
+          "terminal": false
+        },
+        {
+          "state_id": "public_context_loaded",
+          "surface": "public_web",
+          "label": "public context loaded",
+          "terminal": false
+        },
+        {
+          "state_id": "notes_captured",
+          "surface": "document",
+          "label": "notes captured",
+          "terminal": false
+        },
+        {
+          "state_id": "sandbox_ready",
+          "surface": "job_portal",
+          "label": "sandbox ready",
+          "terminal": false
+        }
+      ],
+      "transitions": [
+        {
+          "transition_id": "tool_010_validator_ready_public_context_loaded",
+          "action": "open_public_page",
+          "from_state": "planned",
+          "to_state": "public_context_loaded",
+          "outcome": "pass",
+          "notes": "Inspect live public context for stage 1"
+        },
+        {
+          "transition_id": "tool_010_validator_ready_notes_captured",
+          "action": "capture_notes",
+          "from_state": "public_context_loaded",
+          "to_state": "notes_captured",
+          "outcome": "pass",
+          "notes": "Extract facts into a dry-run working note"
+        },
+        {
+          "transition_id": "tool_010_validator_ready_sandbox_ready",
+          "action": "prepare_sandbox_submission",
+          "from_state": "notes_captured",
+          "to_state": "sandbox_ready",
+          "outcome": "pass",
+          "notes": "Prepare a sandbox submission package without sending it to a production endpoint"
+        }
+      ]
+    }
+  ],
   "browser_surfaces": [
     {
       "stage_id": "kwa_jobs_live_requirements_extract_stage_1",
@@ -26,10 +85,22 @@
             "page loaded",
             "source captured"
           ],
+          "validation_rules": [
+            "public source reachable"
+          ],
           "captured_fields": [
             "title",
             "summary"
           ],
+          "state_updates": {
+            "page_state": "loaded"
+          },
+          "state_machine_id": "jobs-live-requirements_live_flow",
+          "transition_id": "tool_010_validator_ready_public_context_loaded",
+          "from_state": "planned",
+          "to_state": "public_context_loaded",
+          "submission_gate": "none",
+          "blocked_reason": null,
           "sandbox_endpoint": null,
           "allow_submission": false
         },
@@ -43,10 +114,22 @@
             "note captured",
             "no external mutation"
           ],
+          "validation_rules": [
+            "source facts recorded"
+          ],
           "captured_fields": [
             "fact",
             "source"
           ],
+          "state_updates": {
+            "notes_state": "captured"
+          },
+          "state_machine_id": "jobs-live-requirements_live_flow",
+          "transition_id": "tool_010_validator_ready_notes_captured",
+          "from_state": "public_context_loaded",
+          "to_state": "notes_captured",
+          "submission_gate": "none",
+          "blocked_reason": null,
           "sandbox_endpoint": null,
           "allow_submission": false
         },
@@ -60,10 +143,23 @@
             "sandbox target selected",
             "submission blocked from production"
           ],
+          "validation_rules": [
+            "payload validated",
+            "production endpoint blocked"
+          ],
           "captured_fields": [
             "payload_id",
             "dry_run"
           ],
+          "state_updates": {
+            "submission_state": "sandbox_ready"
+          },
+          "state_machine_id": "jobs-live-requirements_live_flow",
+          "transition_id": "tool_010_validator_ready_sandbox_ready",
+          "from_state": "notes_captured",
+          "to_state": "sandbox_ready",
+          "submission_gate": "sandbox_only",
+          "blocked_reason": null,
           "sandbox_endpoint": "https://sandbox.local/jobs-live-requirements/tool_010_validator_ready",
           "allow_submission": false
         }

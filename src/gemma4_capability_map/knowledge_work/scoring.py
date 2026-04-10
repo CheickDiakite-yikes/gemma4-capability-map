@@ -138,6 +138,19 @@ def _browser_workflow_score(trace: EpisodeTrace) -> float:
         checks.append(float(bool(action.expected_signal)))
         checks.append(float(bool(action.evidence)))
         checks.append(float(action.verification_result == "pass"))
+        if action.validation_rules:
+            checks.append(1.0)
+        if action.state_updates:
+            checks.append(1.0)
+        if action.state_machine_id:
+            checks.append(float(bool(action.transition_id)))
+            checks.append(float(bool(action.from_state)))
+            checks.append(float(bool(action.to_state)))
+        if action.submission_gate in {"blocked", "approval_required"}:
+            checks.append(float(action.gate_result in {"blocked", "approval_required"}))
+            checks.append(float(bool(action.blocked_reason)))
+        if action.submission_gate == "sandbox_only":
+            checks.append(float(action.gate_result == "passed"))
         if action.status == "dry_run" and _requires_sandbox_endpoint(action.action):
             checks.append(float(action.sandbox_endpoint is not None or action.surface == "public_web"))
         if action.captured_fields:
@@ -147,7 +160,7 @@ def _browser_workflow_score(trace: EpisodeTrace) -> float:
 
 def _requires_sandbox_endpoint(action_name: str) -> bool:
     normalized = action_name.lower()
-    return any(token in normalized for token in ("submit", "apply", "post", "send"))
+    return any(token in normalized for token in ("submit", "submission", "apply", "post", "send", "release"))
 
 
 def _bounded_weighted_average(weighted_values: list[tuple[float, float]]) -> float:

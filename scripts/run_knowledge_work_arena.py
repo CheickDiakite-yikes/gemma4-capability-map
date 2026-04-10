@@ -20,7 +20,9 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run KnowledgeWorkArena episodes.")
     parser.add_argument("--lane", choices=["replayable_core", "live_web_stress"], default="replayable_core")
     parser.add_argument("--episodes-path", default=None)
+    parser.add_argument("--episode-id", action="append", default=[])
     parser.add_argument("--output-dir", default=None)
+    parser.add_argument("--no-update-latest", action="store_true")
     parser.add_argument("--limit", type=int, default=12)
     parser.add_argument("--backend", default="oracle")
     parser.add_argument("--reasoner-backend", default=None)
@@ -48,8 +50,12 @@ def main() -> None:
     latest_dir = ROOT / "results" / "knowledge_work" / args.lane
     output_dir.mkdir(parents=True, exist_ok=True)
     latest_dir.mkdir(parents=True, exist_ok=True)
+    target_dirs = (output_dir,) if args.no_update_latest else (output_dir, latest_dir)
 
     episodes = load_episodes(episodes_path)[: args.limit]
+    if args.episode_id:
+        allowed = set(args.episode_id)
+        episodes = [episode for episode in load_episodes(episodes_path) if episode.episode_id in allowed][: args.limit]
     tasks = load_tasks(track=None)
     bundle = build_runtime_bundle(
         tasks=tasks,
@@ -65,19 +71,6 @@ def main() -> None:
         reasoner_max_new_tokens=args.reasoner_max_new_tokens,
     )
     runner = EpisodeRunner(tasks=tasks, bundle=bundle, thinking_enabled=args.thinking)
-    traces = [runner.run(episode) for episode in episodes]
-    dump_jsonl(output_dir / "episode_traces.jsonl", traces)
-    dump_jsonl(latest_dir / "episode_traces.jsonl", traces)
-    export_episode_leaderboard_csv(traces, output_dir / "episode_leaderboard.csv")
-    export_episode_leaderboard_csv(traces, latest_dir / "episode_leaderboard.csv")
-    summary = summarize_episode_traces(traces)
-    summary_payload = {
-        **summary,
-        "lane": args.lane,
-        "created_at": created_at,
-        "episodes_path": str(episodes_path.resolve()),
-        "output_dir": str(output_dir.resolve()),
-    }
     manifest = {
         "run_group_id": f"{created_at}_{args.lane}",
         "created_at": created_at,
@@ -94,9 +87,86 @@ def main() -> None:
         "episode_count": len(episodes),
         "episodes_path": str(episodes_path.resolve()),
     }
-    for directory in (output_dir, latest_dir):
-        (directory / "summary.json").write_text(json.dumps(summary_payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-        (directory / "manifest.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    _write_manifest(target_dirs, manifest)
+    _write_progress(
+        target_dirs,
+        {
+            "status": "starting",
+            "lane": args.lane,
+            "created_at": created_at,
+            "completed_runs": 0,
+            "planned_runs": len(episodes),
+            "completed_episode_ids": [],
+        },
+    )
+
+    traces = []
+    completed_episode_ids: list[str] = []
+    try:
+        for index, episode in enumerate(episodes, start=1):
+            trace = runner.run(episode)
+            traces.append(trace)
+            completed_episode_ids.append(episode.episode_id)
+            summary = summarize_episode_traces(traces)
+            summary_payload = {
+                **summary,
+                "lane": args.lane,
+                "created_at": created_at,
+                "episodes_path": str(episodes_path.resolve()),
+                "output_dir": str(output_dir.resolve()),
+            }
+            _write_outputs(target_dirs, traces, summary_payload, manifest)
+            _write_progress(
+                target_dirs,
+                {
+                    "status": "running" if index < len(episodes) else "completed",
+                    "lane": args.lane,
+                    "created_at": created_at,
+                    "completed_runs": len(traces),
+                    "planned_runs": len(episodes),
+                    "last_completed_episode_id": episode.episode_id,
+                    "completed_episode_ids": completed_episode_ids,
+                    "latest_summary": summary,
+                },
+            )
+    except Exception as exc:
+        partial_summary = summarize_episode_traces(traces)
+        _write_outputs(
+            target_dirs,
+            traces,
+            {
+                **partial_summary,
+                "lane": args.lane,
+                "created_at": created_at,
+                "episodes_path": str(episodes_path.resolve()),
+                "output_dir": str(output_dir.resolve()),
+            },
+            manifest,
+        )
+        _write_progress(
+            target_dirs,
+            {
+                "status": "failed",
+                "lane": args.lane,
+                "created_at": created_at,
+                "completed_runs": len(traces),
+                "planned_runs": len(episodes),
+                "completed_episode_ids": completed_episode_ids,
+                "error": f"{type(exc).__name__}: {exc}",
+                "latest_summary": partial_summary,
+            },
+        )
+        raise
+
+    summary = summarize_episode_traces(traces)
+    summary_payload = {
+        **summary,
+        "lane": args.lane,
+        "created_at": created_at,
+        "episodes_path": str(episodes_path.resolve()),
+        "output_dir": str(output_dir.resolve()),
+    }
+    _write_outputs(target_dirs, traces, summary_payload, manifest)
     _append_history_record(summary_payload, manifest)
     print(json.dumps(summary, indent=2, ensure_ascii=False))
 
@@ -111,6 +181,29 @@ def _append_history_record(summary: dict, manifest: dict) -> None:
     }
     with (history_dir / "knowledge_work_runs.jsonl").open("a", encoding="utf-8") as handle:
         handle.write(json.dumps(record, ensure_ascii=False) + "\n")
+
+
+def _write_outputs(
+    directories: tuple[Path, ...],
+    traces,
+    summary_payload: dict,
+    manifest: dict,
+) -> None:
+    for directory in directories:
+        dump_jsonl(directory / "episode_traces.jsonl", traces)
+        export_episode_leaderboard_csv(traces, directory / "episode_leaderboard.csv")
+        (directory / "summary.json").write_text(json.dumps(summary_payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        (directory / "manifest.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+
+def _write_manifest(directories: tuple[Path, ...], manifest: dict) -> None:
+    for directory in directories:
+        (directory / "manifest.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+
+def _write_progress(directories: tuple[Path, ...], progress_payload: dict) -> None:
+    for directory in directories:
+        (directory / "progress.json").write_text(json.dumps(progress_payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__":

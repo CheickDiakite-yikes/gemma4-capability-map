@@ -1,0 +1,16 @@
+{
+  "run_group_id": "20260410T023225Z_replayable_core",
+  "created_at": "20260410T023225Z",
+  "lane": "replayable_core",
+  "backend": "hf_service",
+  "reasoner_backend": "hf_service",
+  "router_backend": "heuristic",
+  "retriever_backend": "heuristic",
+  "reasoner": "google/gemma-4-E2B-it",
+  "router": "google/functiongemma-270m-it",
+  "retriever": "google/embeddinggemma-300m",
+  "thinking": false,
+  "limit": 4,
+  "episode_count": 4,
+  "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl"
+}

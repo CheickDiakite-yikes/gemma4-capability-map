@@ -9,6 +9,81 @@
     "repo",
     "spreadsheets"
   ],
+  "state_machines": [
+    {
+      "machine_id": "exec-inbox-triage_seeded_flow",
+      "surface": "workspace",
+      "start_state": "planned",
+      "states": [
+        {
+          "state_id": "planned",
+          "surface": "workspace",
+          "label": "planned",
+          "terminal": false
+        },
+        {
+          "state_id": "workspace_opened",
+          "surface": "workspace",
+          "label": "workspace opened",
+          "terminal": false
+        },
+        {
+          "state_id": "seeded_context_inspected",
+          "surface": "email",
+          "label": "seeded context inspected",
+          "terminal": false
+        },
+        {
+          "state_id": "approval_pending",
+          "surface": "document",
+          "label": "approval pending",
+          "terminal": true
+        }
+      ],
+      "transitions": [
+        {
+          "transition_id": "think_013_prod_approval_escalation_workspace_opened",
+          "action": "open_seeded_workspace",
+          "from_state": "planned",
+          "to_state": "workspace_opened",
+          "outcome": "pass",
+          "notes": "Open the seeded workspace for stage 1"
+        },
+        {
+          "transition_id": "think_013_prod_approval_escalation_context_inspected",
+          "action": "inspect_seeded_surface",
+          "from_state": "workspace_opened",
+          "to_state": "seeded_context_inspected",
+          "outcome": "pass",
+          "notes": "Review the mirrored browser surface or local document state"
+        },
+        {
+          "transition_id": "think_013_prod_approval_escalation_approval_pending",
+          "action": "record_approval_gate",
+          "from_state": "seeded_context_inspected",
+          "to_state": "approval_pending",
+          "outcome": "approval_required",
+          "notes": "Record that approval is still required before proceeding"
+        },
+        {
+          "transition_id": "retr_013_vendor_access_defer_workspace_opened",
+          "action": "open_seeded_workspace",
+          "from_state": "planned",
+          "to_state": "workspace_opened",
+          "outcome": "pass",
+          "notes": "Open the seeded workspace for stage 2"
+        },
+        {
+          "transition_id": "retr_013_vendor_access_defer_context_inspected",
+          "action": "inspect_seeded_surface",
+          "from_state": "workspace_opened",
+          "to_state": "seeded_context_inspected",
+          "outcome": "pass",
+          "notes": "Review the mirrored browser surface or local document state"
+        }
+      ]
+    }
+  ],
   "browser_surfaces": [
     {
       "stage_id": "kwa_exec_inbox_triage_stage_1",
@@ -25,7 +100,17 @@
           "verification_checks": [
             "workspace opened"
           ],
+          "validation_rules": [],
           "captured_fields": [],
+          "state_updates": {
+            "workspace_state": "opened"
+          },
+          "state_machine_id": "exec-inbox-triage_seeded_flow",
+          "transition_id": "think_013_prod_approval_escalation_workspace_opened",
+          "from_state": "planned",
+          "to_state": "workspace_opened",
+          "submission_gate": "none",
+          "blocked_reason": null,
           "sandbox_endpoint": null,
           "allow_submission": false
         },
@@ -39,11 +124,52 @@
             "surface inspected",
             "required fields visible"
           ],
+          "validation_rules": [
+            "seeded fields visible"
+          ],
           "captured_fields": [
             "subject",
             "time",
             "decision"
           ],
+          "state_updates": {
+            "surface_state": "inspected"
+          },
+          "state_machine_id": "exec-inbox-triage_seeded_flow",
+          "transition_id": "think_013_prod_approval_escalation_context_inspected",
+          "from_state": "workspace_opened",
+          "to_state": "seeded_context_inspected",
+          "submission_gate": "none",
+          "blocked_reason": null,
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        },
+        {
+          "action": "record_approval_gate",
+          "target": "workspace://exec-inbox-triage/approval-gate/think_013_prod_approval_escalation",
+          "surface": "document",
+          "purpose": "Record that approval is still required before proceeding",
+          "expected_signal": "approval gate recorded without external side effects",
+          "verification_checks": [
+            "approval status read",
+            "send blocked"
+          ],
+          "validation_rules": [
+            "approval status is pending"
+          ],
+          "captured_fields": [
+            "approval_state",
+            "decision"
+          ],
+          "state_updates": {
+            "approval_state": "pending"
+          },
+          "state_machine_id": "exec-inbox-triage_seeded_flow",
+          "transition_id": "think_013_prod_approval_escalation_approval_pending",
+          "from_state": "seeded_context_inspected",
+          "to_state": "approval_pending",
+          "submission_gate": "approval_required",
+          "blocked_reason": "required approval is still missing",
           "sandbox_endpoint": null,
           "allow_submission": false
         }
@@ -64,7 +190,17 @@
           "verification_checks": [
             "workspace opened"
           ],
+          "validation_rules": [],
           "captured_fields": [],
+          "state_updates": {
+            "workspace_state": "opened"
+          },
+          "state_machine_id": "exec-inbox-triage_seeded_flow",
+          "transition_id": "retr_013_vendor_access_defer_workspace_opened",
+          "from_state": "planned",
+          "to_state": "workspace_opened",
+          "submission_gate": "none",
+          "blocked_reason": null,
           "sandbox_endpoint": null,
           "allow_submission": false
         },
@@ -78,11 +214,23 @@
             "surface inspected",
             "required fields visible"
           ],
+          "validation_rules": [
+            "seeded fields visible"
+          ],
           "captured_fields": [
             "subject",
             "time",
             "decision"
           ],
+          "state_updates": {
+            "surface_state": "inspected"
+          },
+          "state_machine_id": "exec-inbox-triage_seeded_flow",
+          "transition_id": "retr_013_vendor_access_defer_context_inspected",
+          "from_state": "workspace_opened",
+          "to_state": "seeded_context_inspected",
+          "submission_gate": "none",
+          "blocked_reason": null,
           "sandbox_endpoint": null,
           "allow_submission": false
         }
