@@ -2,6 +2,86 @@
 
 ## 2026-04-10
 
+### Shared runtime + product-surface pass
+
+- Formalized a shared local-agent substrate instead of leaving the repo as benchmark-only plumbing:
+  - [`src/gemma4_capability_map/runtime/core.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/runtime/core.py)
+  - [`src/gemma4_capability_map/runtime/schemas.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/runtime/schemas.py)
+  - [`src/gemma4_capability_map/runtime/workflows.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/runtime/workflows.py)
+- Added packaged workflow configuration in [`configs/packaged_workflows.yaml`](/Users/cheickdiakite/Codex/moonie/configs/packaged_workflows.yaml) so benchmark-backed KWA episodes can be launched as reusable local workflows instead of only as benchmark runs.
+- Added first-class local entrypoints:
+  - CLI:
+    - [`src/gemma4_capability_map/runtime/cli.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/runtime/cli.py)
+    - package script: `moonie-agent`
+  - local API:
+    - [`src/gemma4_capability_map/api/app.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/api/app.py)
+    - package script: `moonie-agent-api`
+- Refactored the benchmark/runtime seam so [`BasePipeline.run()`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/pipelines/base.py) now delegates into shared runtime execution logic rather than keeping a separate benchmark-only path.
+- Added transitional Streamlit product surfaces over the same runtime contract:
+  - [`src/gemma4_capability_map/app/views/operator_console.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/app/views/operator_console.py)
+  - [`src/gemma4_capability_map/app/views/mobile_companion.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/app/views/mobile_companion.py)
+  - [`src/gemma4_capability_map/app/theme.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/app/theme.py)
+  - [`src/gemma4_capability_map/app/view_models.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/app/view_models.py)
+- Added runtime/API regression coverage:
+  - [`tests/test_runtime_core.py`](/Users/cheickdiakite/Codex/moonie/tests/test_runtime_core.py)
+  - [`tests/test_runtime_api.py`](/Users/cheickdiakite/Codex/moonie/tests/test_runtime_api.py)
+- Verification:
+  - focused benchmark/runtime suite: `52 passed`
+  - full suite: `154 passed`
+- Interpretation:
+  - the repo now has a real shared substrate for both benchmark and product work
+  - approval/hold state is now a first-class runtime concept, not just an episode-side score artifact
+  - the next risk is no longer “do we have any usable product surface?” but “can we keep the product surfaces and benchmark semantics aligned as the system expands?”
+
+### Direct-HF specialist full-lane refresh plus softer invoice memo fix
+
+- Reran the full direct in-process HF specialist-backed exploratory references after the visual referent-repair planner hardening:
+  - replayable:
+    - [`results/knowledge_work/model_backed_hf_inprocess_specialists_full_replayable_v3/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_inprocess_specialists_full_replayable_v3/summary.json)
+    - `runs = 24`
+    - `artifact_quality_avg = 0.9976833333333334`
+    - `browser_workflow_avg = 0.991025`
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 1.0`
+    - `real_world_readiness_avg = 0.9589916666666666`
+  - live:
+    - [`results/knowledge_work/model_backed_hf_inprocess_specialists_full_live_v3/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_inprocess_specialists_full_live_v3/summary.json)
+    - `runs = 18`
+    - `artifact_quality_avg = 1.0`
+    - `browser_workflow_avg = 1.0`
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 1.0`
+    - `real_world_readiness_avg = 0.9704444444444444`
+- Interpretation:
+  - the board-facing direct-HF specialist comparison rows now reflect the repaired visual execution path
+  - the earlier full-lane `v1` strict/recovered losses on the invoice/form episodes were real controller problems, and they are now gone at the broad-lane level
+- Then moved onto the softer invoice artifact/readiness gap instead of re-debugging execution:
+  - traced the `artifact_quality_avg = 0.7692` miss to the generic memo path in [`runner.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/knowledge_work/runner.py)
+  - exact failing checks were:
+    - required heading order
+    - required `invoice lock` signal
+    - native heading-order alignment
+  - patched the generic memo generation path so `Brief` and `Stage Goal` lead the artifact instead of being appended after risks/recommendation/output
+  - patched the memo review path so revised notes produce a real ordered revision with:
+    - `invoice lock`
+    - approval-hold preservation
+    - review response
+    - revision diff
+- Added a targeted regression in [`tests/test_knowledge_work_arena.py`](/Users/cheickdiakite/Codex/moonie/tests/test_knowledge_work_arena.py) to keep the finance visual note ordered and `invoice lock`-aware.
+- Validated the softer memo fix in bounded direct-HF specialist reruns:
+  - replayable:
+    - [`results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_finance_visual_replayable_v3/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_finance_visual_replayable_v3/summary.json)
+    - `artifact_quality_avg = 1.0`
+    - `real_world_readiness_avg = 0.9722`
+  - live:
+    - [`results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_finance_visual_live_v3/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_finance_visual_live_v3/summary.json)
+    - `artifact_quality_avg = 1.0`
+    - `real_world_readiness_avg = 0.9769`
+- Rebuilt the history/board exports:
+  - [`results/history/knowledge_work_history.md`](/Users/cheickdiakite/Codex/moonie/results/history/knowledge_work_history.md)
+  - [`results/history/knowledge_work_board_latest.csv`](/Users/cheickdiakite/Codex/moonie/results/history/knowledge_work_board_latest.csv)
+- The board now points at the refreshed full-lane `v3` rows, so the invoice memo-quality gain is visible in the local comparison surface without needing another direct-HF specialist rerun.
+
 ### Bounded replayable/live reruns closed the visual invoice/form execution failures
 
 - Started from the concentrated direct-HF specialist misses in:

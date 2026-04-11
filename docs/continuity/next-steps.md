@@ -2,18 +2,31 @@
 
 ## Immediate
 
-### 1. Push the board/reporting layer toward richer public-style cuts
+### 1. Harden the shared local-agent runtime as the common substrate
 
 Goal:
 
-- extend the registry-backed board into a more publishable benchmark surface with role, category, track, latency, and cost cuts
+- keep the benchmark and product surfaces on one execution model instead of drifting into separate orchestration paths
+
+Why:
+
+- the repo now has a real local runtime, CLI, local API, and Streamlit operator/mobile shells
+- those surfaces are only worth keeping if they remain benchmark-backed and trace-compatible
+- the next engineering risk is substrate divergence, not missing benchmark breadth
+
+### 2. Push the board/reporting layer toward richer public-style cuts
+
+Focus:
+
+- extend the registry-backed board into a more publishable benchmark + product surface with role, category, track, latency, cost, and packaged-workflow cuts
 
 Why:
 
 - the board now has role/category/track exports plus runtime-facing columns like `warmup_load_ms` and `last_request_elapsed_ms`
-- the next gap is comparison quality and wider system coverage, not basic data extraction
+- the new operator-console and mobile-companion views exist, but they still need richer shared view models and stronger product-level polish
+- the next gap is comparison quality and workflow/product visibility, not raw data extraction
 
-### 2. Broaden system coverage on the same full-lane surface
+### 3. Broaden system coverage on the same full-lane surface
 
 Focus:
 
@@ -29,40 +42,18 @@ Why:
 - the current `hf_service` specialist-backed stack now survives the full generated corpus cleanly
 - the board now resolves legacy run ids to the registry and prefers `full_lane` exploratory comparisons, so adding new systems will land on a cleaner public-style comparison surface
 - the next high-value benchmark question is comparative, not just wider volume
-- the new direct in-process HF specialist-backed system is now on the board and partially recovers the direct-HF reasoner-only drop, which sharpens the next comparative questions:
-  - which remaining in-process misses are visual-controller issues versus visual artifact-generation issues?
-  - do those misses stay concentrated in the same bounded visual KWA subset as we add more local/open-weight systems?
+- the direct in-process specialist-backed rows are now repaired enough that future misses should be more informative than the closed referent-repair bug family
 
-### 2a. Immediate comparative follow-up
-
-Focus:
-
-- refresh the direct-HF specialist full-lane comparison after the bounded visual invoice/form fix
-- then move the benchmark pressure onto softer realism instead of spending more time on a now-closed controller bug
-
-Why:
-
-- the new full-lane comparison already answered the first-order question:
-  - real specialists help the direct-HF path materially
-  - but they do not fully close the gap to the `hf_service` specialist-backed baseline
-- the bounded replayable/live reruns now show the original visual invoice/form failures recover cleanly to:
-  - `strict_interface = 1.0`
-  - `recovered_execution = 1.0`
-- that means the next high-value work is:
-  - rerun the full direct-HF specialist `24 / 18` lane when we want the board row to reflect the fix
-  - push on the softer invoice artifact gap and richer visual-readiness pressure rather than re-debugging referent repair
-- `mlx` is still blocked locally, so it should not be the next execution target until the runtime exists on this machine
-
-### 3. Deepen softer-realism scoring and harder episode design
+### 4. Deepen softer-realism scoring and harder episode design
 
 Focus:
 
 - inspect clean runs that still have bounded role-readiness loss from artifact or revision quality
 - current examples:
-  - invoice visual KWA episodes where `artifact_quality_avg = 0.7692` even after clean execution recovery
   - bounded visual KWA slices with `artifact_quality_avg < 1.0`
   - future visual referent-carryover or stale-selection tasks
   - any regression in revision-heavy finance or jobs artifacts
+  - broader visual memo/note artifacts that still rely on overly generic section synthesis
 
 Why:
 
@@ -70,7 +61,7 @@ Why:
 
 ## Near-Term
 
-### 4. Deepen visual-tool realism after the next widening
+### 5. Deepen visual-tool realism after the next widening
 
 Focus:
 
@@ -82,10 +73,21 @@ Focus:
   - visual KWA revision loops
   - visual referent carryover
   - visual artifact quality under approval-sensitive holds
-  - visual invoice/layout tasks where specialists still lose strict or recovered execution
+  - broader visual note/memo quality after review feedback rather than the now-closed invoice/form referent-repair path
 
 ## Ongoing Discipline
 
+- keep CLI/API/operator/mobile surfaces honest about current capability:
+  - packaged workflows are benchmark-backed bounded flows, not unbounded general autonomy
+- use the runtime event contract consistently:
+  - `created`
+  - `warming`
+  - `running`
+  - `approval_required`
+  - `completed`
+  - `approved`
+  - `denied`
+  - `failed`
 - keep canonical lane pointers clean
 - checkpoint long model-backed runs
 - rerun canonical oracle lanes after expanding the generated KWA corpus so continuity docs do not drift from the data roots

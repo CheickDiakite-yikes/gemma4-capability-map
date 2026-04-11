@@ -3,7 +3,6 @@ from __future__ import annotations
 import json
 from copy import deepcopy
 from dataclasses import dataclass
-from datetime import UTC, datetime
 
 from gemma4_capability_map.evals.agent_eval import score_full_stack_trace
 from gemma4_capability_map.evals.retrieval_eval import score_retrieval_trace
@@ -13,6 +12,7 @@ from gemma4_capability_map.evals.visual_eval import score_visual_trace
 from gemma4_capability_map.hardware import detect_hardware_profile
 from gemma4_capability_map.metrics.answer_match import answer_contains_all, answer_matches_task
 from gemma4_capability_map.models.base import Executor, Retriever, Runner
+from gemma4_capability_map.runtime.core import execute_task_trace
 from gemma4_capability_map.schemas import ExpectedEvent, JudgmentMode, Message, ModelBundleSpec, RunTrace, StateTransition, Task, ToolResult, Track, Variant
 from gemma4_capability_map.tools.executor import diff_state
 from gemma4_capability_map.tools.planner import plan_or_repair_tool_calls
@@ -40,275 +40,18 @@ class BasePipeline:
         self.final_max_new_tokens = final_max_new_tokens
 
     def run(self, task: Task, variant: Variant, bundle: RuntimeBundle) -> RunTrace:
-        effective_task = materialize_task(task, variant)
-        language_stressor = variant.stressors.get("language") if variant.stressors else None
-        state = deepcopy(effective_task.initial_state)
-        executor = bundle.executor.with_tool_specs(effective_task.tool_specs)
-        retrieval_hits = self._retrieve(effective_task, variant, bundle)
-        messages = [message.model_copy(deep=True) for message in effective_task.messages]
-        if effective_task.track == Track.VISUAL_TOOL_ORCHESTRATION:
-            image_ids = [str(key) for key in state.get("images", {}).keys() if str(key).strip()]
-            if image_ids:
-                messages.append(Message(role="system", content=f"visual_image_ids: {', '.join(sorted(image_ids))}"))
-        stuffed_doc_ids: list[str] = []
-        planning_outputs: list[str] = []
-        planning_repair_notes: list[list[str]] = []
-        planning_latencies: list[int] = []
-        planning_prompt_tokens: list[int] = []
-        planning_completion_tokens: list[int] = []
-        planning_runtime_metadata: list[dict[str, object]] = []
-        if retrieval_hits:
-            retrieval_context = "\n".join(f"{hit.doc_id}: {hit.content}" for hit in retrieval_hits)
-            messages.append(Message(role="tool", content=f"retrieval_hits:\n{retrieval_context}"))
-        elif self.name == "monolith" and effective_task.corpora:
-            corpus_id = next(iter(effective_task.corpora.keys()))
-            stuffed_doc_ids = [document.doc_id for document in effective_task.corpora[corpus_id]]
-            stuffed_context = "\n".join(f"{document.doc_id}: {document.content}" for document in effective_task.corpora[corpus_id])
-            messages.append(Message(role="system", content=f"stuffed_context:\n{stuffed_context}"))
-
-        tool_steps: list[ToolResult] = []
-        state_transitions: list[StateTransition] = []
-        expected_tool_events = [event for event in effective_task.expected_events if event.event_type == "tool_call"]
-        selector = bundle.router if self.name == "modular" and bundle.router and effective_task.tool_specs else bundle.reasoner
-        judgment_without_tools = bool(
-            effective_task.judgment_mode
-            and effective_task.judgment_mode.enabled
-            and not expected_tool_events
-        )
-
-        if effective_task.tool_specs and not judgment_without_tools:
-            while len(tool_steps) < max(1, len(expected_tool_events)):
-                next_expected = _next_expected_batch(expected_tool_events, len(tool_steps)) if expected_tool_events else None
-                planning_messages = self._with_oracle_hint(messages, next_expected=next_expected, final_answer=None, backend=selector.backend)
-                planning_turn = selector.generate(
-                    messages=planning_messages,
-                    media=effective_task.image_refs,
-                    tool_specs=effective_task.tool_specs,
-                    thinking=self.thinking_enabled,
-                    max_new_tokens=self.planning_max_new_tokens,
-                )
-                planning_outputs.append(planning_turn.raw_model_output)
-                planning_latencies.append(planning_turn.latency_ms)
-                planning_prompt_tokens.append(planning_turn.prompt_tokens)
-                planning_completion_tokens.append(planning_turn.completion_tokens)
-                planning_runtime_metadata.append(planning_turn.runtime_metadata)
-                planning_calls, repair_notes = plan_or_repair_tool_calls(
-                    raw_output=planning_turn.raw_model_output,
-                    parsed_calls=planning_turn.normalized_tool_call,
-                    messages=messages,
-                    media=effective_task.image_refs,
-                    tool_specs=effective_task.tool_specs,
-                )
-                planning_repair_notes.append(repair_notes)
-                if not planning_calls:
-                    break
-                for call in planning_calls:
-                    before = deepcopy(state)
-                    result = executor.step(state=state, tool_call=call, step=len(tool_steps) + 1)
-                    tool_steps.append(result)
-                    state = deepcopy(result.state_after)
-                    state_transitions.append(
-                        StateTransition(
-                            step=result.step,
-                            tool_name=result.selected_tool,
-                            before=before,
-                            after=state,
-                            diff=diff_state(before, state),
-                        )
-                    )
-                    tool_feedback = {
-                        "tool_name": result.selected_tool,
-                        "status": result.validator_result,
-                        "arguments": result.arguments,
-                        "output": result.output,
-                        "error": result.error,
-                    }
-                    messages.append(Message(role="tool", content=json.dumps(tool_feedback, ensure_ascii=False)))
-
-                    if result.validator_result == "fail" and effective_task.initial_state.get("validator_feedback_enabled") and next_expected:
-                        retry_messages = self._with_oracle_hint(
-                            messages,
-                            next_expected=next_expected,
-                            final_answer=None,
-                            backend=selector.backend,
-                        )
-                        retry_turn = selector.generate(
-                            messages=retry_messages,
-                            media=effective_task.image_refs,
-                            tool_specs=effective_task.tool_specs,
-                            thinking=self.thinking_enabled,
-                            max_new_tokens=self.planning_max_new_tokens,
-                        )
-                        planning_outputs.append(retry_turn.raw_model_output)
-                        planning_latencies.append(retry_turn.latency_ms)
-                        planning_prompt_tokens.append(retry_turn.prompt_tokens)
-                        planning_completion_tokens.append(retry_turn.completion_tokens)
-                        planning_runtime_metadata.append(retry_turn.runtime_metadata)
-                        retry_calls, retry_notes = plan_or_repair_tool_calls(
-                            raw_output=retry_turn.raw_model_output,
-                            parsed_calls=retry_turn.normalized_tool_call,
-                            messages=messages,
-                            media=effective_task.image_refs,
-                            tool_specs=effective_task.tool_specs,
-                        )
-                        planning_repair_notes.append(retry_notes)
-                        if retry_calls:
-                            retry_call = retry_calls[0]
-                            before_retry = deepcopy(state)
-                            retry_result = executor.step(state=state, tool_call=retry_call, step=len(tool_steps) + 1)
-                            tool_steps.append(retry_result)
-                            state = deepcopy(retry_result.state_after)
-                            state_transitions.append(
-                                StateTransition(
-                                    step=retry_result.step,
-                                    tool_name=retry_result.selected_tool,
-                                    before=before_retry,
-                                    after=state,
-                                    diff=diff_state(before_retry, state),
-                                )
-                            )
-                            feedback = {
-                                "tool_name": retry_result.selected_tool,
-                                "status": retry_result.validator_result,
-                                "arguments": retry_result.arguments,
-                                "output": retry_result.output,
-                                "error": retry_result.error,
-                            }
-                            messages.append(Message(role="tool", content=json.dumps(feedback, ensure_ascii=False)))
-                if len(tool_steps) >= len(expected_tool_events):
-                    break
-
-        final_messages = self._with_oracle_hint(
-            messages,
-            next_expected=None,
-            final_answer=effective_task.expected_answer_contains,
-            backend=bundle.reasoner.backend,
-        )
-        guidance_messages: list[Message] = []
-        if effective_task.judgment_mode and effective_task.judgment_mode.enabled:
-            guidance_messages.append(
-                Message(
-                    role="system",
-                    content=_judgment_guidance(effective_task.judgment_mode, language_stressor),
-                )
-            )
-        if effective_task.track == Track.THINKING:
-            thinking_guidance = _thinking_guidance(
-                language=language_stressor,
-                image_task=bool(effective_task.image_refs),
-            )
-            guidance_messages.append(
-                Message(
-                    role="system",
-                    content=thinking_guidance,
-                )
-            )
-        if tool_steps or retrieval_hits:
-            guidance_messages.append(
-                Message(
-                    role="system",
-                    content=_grounded_answer_guidance(language_stressor),
-                )
-            )
-        if guidance_messages:
-            final_messages = guidance_messages + final_messages
-        final_turn = bundle.reasoner.generate(
-            messages=final_messages,
-            media=effective_task.image_refs,
-            tool_specs=[],
-            thinking=self.thinking_enabled,
-            max_new_tokens=self.final_max_new_tokens,
-        )
-        resolved_final_answer = final_turn.final_answer
-        if not resolved_final_answer and not final_turn.thinking_text:
-            resolved_final_answer = final_turn.raw_model_output
-        second_pass_artifacts: dict[str, object] = {
-            "second_pass_used": False,
-            "second_pass_raw_output": "",
-            "second_pass_final_answer": "",
-            "second_pass_latency_ms": 0,
-        }
-        rescue_guidance: str | None = None
-        if _needs_judgment_answer_rescue(effective_task, resolved_final_answer):
-            rescue_guidance = _judgment_second_pass_guidance(effective_task, language_stressor)
-        elif _needs_answer_rescue(effective_task, language_stressor, resolved_final_answer, tool_steps, retrieval_hits):
-            rescue_guidance = _second_pass_guidance(language_stressor)
-        if rescue_guidance:
-            rescue_messages = [
-                Message(role="system", content=rescue_guidance),
-                *final_messages,
-                Message(
-                    role="assistant",
-                    content=f"Draft answer to rewrite:\n{resolved_final_answer}",
-                ),
-            ]
-            rescue_turn = bundle.reasoner.generate(
-                messages=rescue_messages,
-                media=[],
-                tool_specs=[],
-                thinking=False,
-                max_new_tokens=self.final_max_new_tokens,
-            )
-            rescue_answer = rescue_turn.final_answer or rescue_turn.raw_model_output
-            second_pass_artifacts = {
-                "second_pass_used": True,
-                "second_pass_raw_output": rescue_turn.raw_model_output,
-                "second_pass_final_answer": rescue_answer,
-                "second_pass_latency_ms": rescue_turn.latency_ms,
-            }
-            if answer_matches_task(effective_task, rescue_answer):
-                resolved_final_answer = rescue_answer
-
-        trace = RunTrace(
-            run_id=f"{datetime.now(UTC).strftime('%Y%m%dT%H%M%SZ')}_{self.name}_{effective_task.task_id}_{variant.variant_id}",
-            task_id=effective_task.task_id,
-            variant_id=variant.variant_id,
-            track=effective_task.track,
+        return execute_task_trace(
+            task=task,
+            variant=variant,
+            bundle=bundle,
             architecture=self.name,
             thinking_enabled=self.thinking_enabled,
-            model_bundle=ModelBundleSpec(
-                reasoner=bundle.reasoner.model_id,
-                router=bundle.router.model_id if bundle.router else None,
-                retriever=bundle.retriever.model_id if bundle.retriever else None,
-            ),
-            backend=bundle.reasoner.backend,
-            stressors=variant.stressors,
-            hardware_profile=detect_hardware_profile(),
-            prompt_artifacts={
-                "messages": [message.model_dump(mode="json") for message in messages],
-                "final_messages": [message.model_dump(mode="json") for message in final_messages],
-                "retrieved_doc_ids": [hit.doc_id for hit in retrieval_hits],
-                "stuffed_doc_ids": stuffed_doc_ids,
-                "planning_raw_outputs": planning_outputs,
-                "planning_repair_notes": planning_repair_notes,
-                "planning_max_new_tokens": self.planning_max_new_tokens or getattr(selector, "max_new_tokens", None),
-                "planning_latency_ms": planning_latencies,
-                "planning_prompt_tokens": planning_prompt_tokens,
-                "planning_completion_tokens": planning_completion_tokens,
-                "planning_runtime_metadata": planning_runtime_metadata,
-                "final_raw_output": final_turn.raw_model_output,
-                "final_thinking_text": final_turn.thinking_text,
-                "final_max_new_tokens": self.final_max_new_tokens or getattr(bundle.reasoner, "max_new_tokens", None),
-                "final_latency_ms": final_turn.latency_ms,
-                "final_prompt_tokens": final_turn.prompt_tokens,
-                "final_completion_tokens": final_turn.completion_tokens,
-                "final_runtime_metadata": final_turn.runtime_metadata,
-                **second_pass_artifacts,
-                "reasoner_runtime_info": _runtime_info(bundle.reasoner),
-                "router_runtime_info": _runtime_info(bundle.router),
-                "retriever_runtime_info": _runtime_info(bundle.retriever),
-            },
-            retrieval_hits=retrieval_hits,
-            tool_steps=tool_steps,
-            state_transitions=state_transitions,
-            final_answer=resolved_final_answer,
-            image_refs=effective_task.image_refs,
-            benchmark_tags=effective_task.benchmark_tags,
-            real_world_profile=effective_task.real_world_profile,
-            metrics={},
+            planning_max_new_tokens=self.planning_max_new_tokens,
+            final_max_new_tokens=self.final_max_new_tokens,
+            retrieve=self._retrieve,
+            score_trace=self._score_trace,
+            with_oracle_hint=self._with_oracle_hint,
         )
-        trace.metrics = self._score_trace(effective_task, trace)
-        return trace
 
     def _retrieve(self, task: Task, variant: Variant, bundle: RuntimeBundle):
         if not bundle.retriever:

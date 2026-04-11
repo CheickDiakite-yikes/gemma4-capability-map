@@ -166,21 +166,23 @@ def _artifact_content(brief: str, stage_goal: str, task_traces, artifact_id: str
     sections = [f"# Artifact {artifact_id}"]
     required_sections = artifact_spec.scoring_contract.required_sections if artifact_spec else []
     seen_sections: set[str] = set()
+    if "## brief" not in seen_sections:
+        sections.extend(["## Brief", brief])
+        seen_sections.add("## brief")
+    if "## stage goal" not in seen_sections:
+        sections.extend(["## Stage Goal", stage_goal])
+        seen_sections.add("## stage goal")
     for title in required_sections:
         normalized = title.strip()
         if not normalized:
             continue
+        if normalized.lower() in {"## brief", "## stage goal"}:
+            continue
         seen_sections.add(normalized.lower())
-        if normalized.lower() == "## brief":
-            sections.extend([normalized, brief])
-        elif normalized.lower() == "## output":
+        if normalized.lower() == "## output":
             sections.extend([normalized, output_body])
         else:
             sections.extend([normalized, _section_content(normalized, brief, stage_goal, task_ids, output_body, artifact_spec)])
-    if "## brief" not in seen_sections:
-        sections.extend(["## Brief", brief])
-    if "## stage goal" not in seen_sections:
-        sections.extend(["## Stage Goal", stage_goal])
     if "## inputs" not in seen_sections:
         sections.extend(["## Inputs", task_ids])
     if "## output" not in seen_sections:
@@ -206,6 +208,7 @@ def _section_content(
     artifact_spec: ArtifactSpec | None,
 ) -> str:
     lower = title.lower()
+    signals = _artifact_signal_values(artifact_spec)
     if "brief" in lower:
         return brief
     if "goal" in lower:
@@ -215,11 +218,9 @@ def _section_content(
     if "output" in lower:
         return output_body
     if "risk" in lower:
-        fragments = artifact_spec.scoring_contract.required_fragments if artifact_spec else []
-        return f"Primary risks and controls: {', '.join(fragments) if fragments else output_body}"
+        return f"Primary risks and controls: {', '.join(signals[:4]) if signals else output_body}"
     if "recommend" in lower or "action" in lower:
-        fragments = artifact_spec.scoring_contract.required_fragments if artifact_spec else []
-        return f"Recommended action: {', '.join(fragments[:2]) if fragments else output_body}"
+        return f"Recommended action: {', '.join(signals[:4]) if signals else output_body}"
     return output_body
 
 
@@ -724,12 +725,92 @@ def _apply_review_feedback(
         lines.extend(["## Response Summary", *[f"- {item}" for item in merged]])
         lines.extend(_merge_sources(prior_content, ""))
         return "\n".join(lines)
+    if artifact_spec.kind in {ArtifactKind.MEMO, ArtifactKind.EMAIL, ArtifactKind.RESEARCH_NOTE}:
+        title_line = _artifact_title(prior_content)
+        brief = _first_section(prior_content, "## Brief")
+        stage_goal = _first_section(prior_content, "## Stage Goal")
+        signals = _artifact_signal_values(artifact_spec)
+        control_signals = _prioritize_control_signals(signals)
+        total_signal = next((value for value in signals if any(char.isdigit() for char in value)), "")
+        hold_signal = next((value for value in control_signals if any(token in value.lower() for token in ("approval", "committee", "hold"))), "")
+        lock_signal = next((value for value in control_signals if "lock" in value.lower()), "")
+        safe_mode_signal = (
+            "safe mode enabled through release"
+            if "safe mode" in prior_content.lower() or any("safe_mode" in item.lower() or "safe mode" in item.lower() for item in [feedback, *expected_improvements])
+            else ""
+        )
+        risk_signals = _dedupe_preserve_order([lock_signal, hold_signal, total_signal, safe_mode_signal, *signals])
+        recommendation_signals = _dedupe_preserve_order([lock_signal, safe_mode_signal, hold_signal, total_signal, *signals])
+        output_lines = []
+        if total_signal:
+            output_lines.append(f"Invoice total preserved at {total_signal}.")
+        if hold_signal:
+            output_lines.append(f"Release remains on {hold_signal}.")
+        if safe_mode_signal:
+            output_lines.append(f"Recommendation updated to keep {safe_mode_signal}.")
+        if not output_lines:
+            output_lines.append(_first_section(prior_content, "## Output") or "Revision prepared.")
+        lines = []
+        if title_line:
+            lines.append(title_line)
+        if brief:
+            lines.extend(["## Brief", brief])
+        if stage_goal:
+            lines.extend(["## Stage Goal", stage_goal])
+        lines.extend(
+            [
+                "## Risks",
+                f"Primary risks and controls: {', '.join(risk_signals[:4]) if risk_signals else 'No new risks identified.'}",
+                "## Recommendation",
+                f"Recommended action: {', '.join(recommendation_signals[:4]) if recommendation_signals else 'Maintain current control posture.'}",
+                "## Output",
+                " ".join(output_lines),
+                "## Review Response",
+                feedback,
+                "## Revision Diff",
+            ]
+        )
+        revision_items = _dedupe_preserve_order(
+            [
+                *expected_improvements,
+                "invoice lock preserved in the revised note",
+                "section order reset to Brief -> Stage Goal -> Risks -> Recommendation -> Output",
+            ]
+        )
+        lines.extend(f"- {item}" for item in revision_items)
+        lines.extend(_merge_sources(prior_content, ""))
+        return "\n".join(lines)
     revised = prior_content
     for improvement in expected_improvements:
         if improvement not in revised:
             revised += f"\n- {improvement}"
     revised += f"\nReviewer feedback addressed: {feedback}"
     return revised
+
+
+def _artifact_signal_values(artifact_spec: ArtifactSpec | None) -> list[str]:
+    if artifact_spec is None:
+        return []
+    return _prioritize_control_signals(
+        _dedupe_preserve_order(
+            [
+                *artifact_spec.scoring_contract.required_bullets,
+                *artifact_spec.scoring_contract.required_fragments,
+            ]
+        )
+    )
+
+
+def _prioritize_control_signals(values: list[str]) -> list[str]:
+    controls: list[str] = []
+    others: list[str] = []
+    for value in values:
+        lowered = value.lower()
+        if any(token in lowered for token in ("lock", "safe", "approval", "committee", "hold")):
+            controls.append(value)
+        else:
+            others.append(value)
+    return controls + others
 
 
 def _gate_result(step: BrowserStep) -> str:

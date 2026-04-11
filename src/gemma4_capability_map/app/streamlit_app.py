@@ -7,17 +7,37 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 
+from gemma4_capability_map.app.theme import inject_theme
+from gemma4_capability_map.app.views import render_mobile_companion, render_operator_console
 from gemma4_capability_map.knowledge_work.replay import load_episode_traces
 from gemma4_capability_map.metrics.failure_taxonomy import failure_tags
 from gemma4_capability_map.reporting.knowledge_work_board import build_intent_comparison_rows
+from gemma4_capability_map.runtime.core import LocalAgentRuntime
 from gemma4_capability_map.traces.replay import load_traces
 
 
 def main() -> None:
-    st.set_page_config(page_title="gemma4-capability-map", layout="wide")
-    st.title("gemma4-capability-map")
-    st.caption("Failure explorer for reasoning, routing, retrieval, visual tool orchestration, and full-stack Gemma benchmark traces.")
-    mode = st.sidebar.selectbox("Explorer mode", ["task_traces", "knowledge_work_episodes", "knowledge_work_board"], index=0)
+    st.set_page_config(page_title="Moonie", layout="wide")
+    mode = st.sidebar.selectbox(
+        "Surface",
+        [
+            "operator_console",
+            "mobile_companion",
+            "knowledge_work_board",
+            "knowledge_work_episodes",
+            "task_traces",
+        ],
+        index=0,
+    )
+    inject_theme("mobile" if mode == "mobile_companion" else "desktop")
+    if mode == "operator_console":
+        render_operator_console(_runtime())
+        return
+    if mode == "mobile_companion":
+        render_mobile_companion(_runtime())
+        return
+    st.title("Moonie")
+    st.caption("Local-first benchmark explorer, operator console, and runtime shell for agent sessions.")
     if mode == "knowledge_work_board":
         _board_mode()
         return
@@ -167,6 +187,11 @@ def main() -> None:
 
     st.subheader("Final Answer")
     st.write(selected.final_answer)
+
+
+@st.cache_resource
+def _runtime() -> LocalAgentRuntime:
+    return LocalAgentRuntime()
 
 
 def _episode_mode() -> None:

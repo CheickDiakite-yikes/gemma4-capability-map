@@ -6,6 +6,19 @@ The repo is in a stronger state after hardening the canonical oracle KWA surface
 
 What just landed:
 
+- shared local-agent runtime substrate with:
+  - persistent sessions
+  - event timelines
+  - approval requests
+  - packaged workflows
+  - trace/artifact persistence
+- first-class local entrypoints:
+  - `moonie-agent`
+  - `moonie-agent-api`
+- Streamlit `operator_console` and `mobile_companion` surfaces over the same runtime contract
+- runtime/API regression coverage:
+  - `tests/test_runtime_core.py`
+  - `tests/test_runtime_api.py`
 - new atomic `visual_tool_orchestration` benchmark family with replayable and live lanes
 - seeded/local visual executor abstraction and four visual tools:
   - `segment_entities`
@@ -126,12 +139,16 @@ Exploratory stopped pilot:
 5. If making new benchmark claims, run:
    - `PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 .venv/bin/pytest -q`
 6. Treat [`current-state.md`](./current-state.md) as the canonical source of truth when `knowledge_work_history.md` and exploratory runs disagree.
+7. If touching the product surfaces, validate both:
+   - `uv run moonie-agent workflows`
+   - `uv run pytest tests/test_runtime_core.py tests/test_runtime_api.py`
 
 ## Highest-Value Next Work
 
-1. Extend the board/reporting layer into richer public-style charts using the role/category/track exports plus latency and cost metadata.
-2. Broaden system coverage on the same full-lane KWA surface instead of only widening volume further.
-3. Keep inspecting softer-realism signals instead of only binary failures.
+1. Harden the shared runtime so benchmark execution and product sessions keep one execution contract.
+2. Extend the operator console, mobile companion, and board into a more polished shared product/reporting surface.
+3. Broaden system coverage on the same full-lane KWA surface instead of only widening volume further.
+4. Keep inspecting softer-realism signals instead of only binary failures.
 
 ## Important Operational Notes
 
@@ -150,7 +167,7 @@ Exploratory stopped pilot:
 - The current mixed-pressure live reference is `model_backed_hf_specialists_cross_role_hardmix_visual_live_v2`; it is the current live counterpart to the replayable mixed-pressure visual slice.
 - The broader full-lane exploratory references are now `model_backed_hf_specialists_replayable_full_v1` and `model_backed_hf_specialists_live_full_v1`; use them when making claims about the current local specialist-backed stack on the full generated KWA corpus.
 - The new direct in-process HF full-lane exploratory references are `model_backed_hf_inprocess_reasoner_full_replayable_v1` and `model_backed_hf_inprocess_reasoner_full_live_v1`; they are weaker than `hf_service_gemma4_reasoner_only` and should be treated as a real comparative baseline, not as a replacement for the existing service-backed reasoner baseline.
-- The new direct in-process HF specialist-backed full-lane exploratory references are `model_backed_hf_inprocess_specialists_full_replayable_v1` and `model_backed_hf_inprocess_specialists_full_live_v1`; they materially improve on the direct-HF reasoner-only baseline but still remain weaker than `hf_service_gemma4_specialists_cpu`.
+- The new direct in-process HF specialist-backed full-lane exploratory references are `model_backed_hf_inprocess_specialists_full_replayable_v3` and `model_backed_hf_inprocess_specialists_full_live_v3`; they materially improve on the direct-HF reasoner-only baseline, recover the visual invoice/form execution misses cleanly at the full-lane level, and now absorb the invoice memo-quality repair into the board-facing rows.
 - The worst episodes for `hf_gemma4_e2b_reasoner_only` are the visual KWA episodes:
   - replayable:
     - `kwa_exec_visual_dashboard_brief`
@@ -173,12 +190,32 @@ Exploratory stopped pilot:
     - `results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_finance_visual_live_v2`
     - `results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_jobs_visual_live_v2`
 - Those targeted reruns now show `strict_interface = 1.0` and `recovered_execution = 1.0` on all three previously failing episodes.
-- The remaining weakness on the invoice pair is shared by the service-backed control: `artifact_quality = 0.7692`. Treat that as a softer artifact/readiness target, not as an open visual orchestration failure.
-- The next target is therefore:
-  - rerun the direct-HF specialist full `24 / 18` lane when we want the broad comparison rows refreshed
-  - then harden invoice artifact quality and revision/readiness scoring instead of re-debugging the closed referent-repair path
+- The direct-HF specialist full-lane `24 / 18` rerun is now done:
+  - replayable:
+    - `results/knowledge_work/model_backed_hf_inprocess_specialists_full_replayable_v3`
+    - `strict_interface = 1.0`
+    - `recovered_execution = 1.0`
+    - `artifact_quality = 0.9977`
+  - live:
+    - `results/knowledge_work/model_backed_hf_inprocess_specialists_full_live_v3`
+    - `strict_interface = 1.0`
+    - `recovered_execution = 1.0`
+    - `artifact_quality = 1.0`
+- The softer invoice artifact/readiness gap is also closed in bounded reruns after the memo generator/review path was hardened:
+  - replayable:
+    - `results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_finance_visual_replayable_v3`
+    - `artifact_quality = 1.0`
+  - live:
+    - `results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_finance_visual_live_v3`
+    - `artifact_quality = 1.0`
+- The public board still reflects the full-lane `v2` reruns, not the bounded `v3` invoice artifact fix. If the next thread wants that softer-readiness improvement visible in the board row, it needs one more full direct-HF specialist `24 / 18` rerun after the memo patch.
+- The public board now reflects the full-lane `v3` reruns, so the invoice memo-quality gain is visible in the local comparison rows.
 - The new atomic visual-tool benchmark is canonical at `results/visual_tool_orchestration/...`; use it when making claims about multimodal tool orchestration rather than inferring from KWA alone.
 - The board/reporting layer now depends on [`configs/model_registry.yaml`](../../configs/model_registry.yaml) plus the exports in [`results/history`](../../results/history); update both when adding new systems or public-style charts.
+- The repo is no longer benchmark-only:
+  - use the shared runtime entrypoints for product-surface work
+  - keep packaged workflows benchmark-backed and bounded
+  - do not let desktop/mobile shells invent a second orchestration model
 - `kwa_finance_partner_deck_revision` is clean on the current corrected mixed-pressure visual reference; if it regresses again, treat it as a soft-realism target, not a hard interface failure.
 - `mlx` should not be the next execution target on this machine until the runtime exists locally; the current probe still fails with `ModuleNotFoundError: mlx`.
 - `google/gemma-4-E4B-it` remains a probe-only local lane here and should not be promoted to full `24 / 18` until hardware/runtime conditions change.

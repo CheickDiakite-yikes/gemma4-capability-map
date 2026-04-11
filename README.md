@@ -56,6 +56,9 @@ This repository currently includes:
 - seeded and local visual executor paths behind the same tool contract
 - native-ish artifact grading for formulas, slide sections, revision diffs, and application-packet consistency
 - adapter-ready runtimes for Gemma 4, FunctionGemma, EmbeddingGemma, HF service mode, and MLX
+- a shared local agent runtime with persistent sessions, approval states, trace exports, and packaged workflows
+- a first-class local CLI plus local HTTP API for launching and reviewing benchmark-backed workflows
+- transitional operator-console and mobile-companion Streamlit surfaces built on the same runtime contract
 
 Current canonical snapshots:
 
@@ -67,25 +70,118 @@ Current canonical snapshots:
 - local comparison board: [`results/history/knowledge_work_board_latest.csv`](results/history/knowledge_work_board_latest.csv)
 - benchmark history: [`results/history`](results/history)
 
+## Local Agent Harness
+
+The repo is no longer just a benchmark harness. It now has an explicit product substrate:
+
+- `LocalAgentRuntime`
+  - shared session model, tool orchestration, approval flow, trace persistence, and packaged workflow execution
+- `moonie-agent`
+  - CLI for profiles, workflows, sessions, runs, approvals, and event inspection
+- `moonie-agent-api`
+  - local HTTP API for thin desktop and mobile clients
+- Streamlit surfaces
+  - `operator_console`
+  - `mobile_companion`
+  - benchmark board / episode / trace explorer modes
+
+The product and benchmark are meant to share one substrate:
+
+- benchmark-specific code owns tasks, replay, scoring, and corpora
+- product surfaces own session launch, review, approval, and artifact inspection
+- runtime changes should be validated against the same benchmark slices that exercise them
+
+### Packaged Workflow Families
+
+The first product-facing workflows are deliberately benchmark-backed and bounded:
+
+- local file and document revision
+- visual review and follow-up refinement
+- browser and approval-gated work
+- artifact generation across `.docx`, `.pptx`, and `.xlsx`
+
+Current packaged workflow examples:
+
+- `executive_stale_brief_packet`
+- `executive_visual_dashboard_review`
+- `jobs_visual_form_hold`
+- `finance_billing_patch_hold`
+- `finance_visual_invoice_review`
+
+These are not meant to pretend the system already has open-ended general autonomy. The current product layer is a controlled harness over benchmark-proven workflows with inspectable traces, explicit approvals, and reproducible outputs.
+
+## Surface Design Direction
+
+The repo now also has an explicit UI/UX direction for the product surfaces.
+
+### One Design Family, Two Expressions
+
+Desktop and mobile should feel like the same system, but not the same layout copied twice.
+
+Desktop expression:
+
+- dark
+- terminal-native
+- low-chrome
+- split-pane
+- operational and precise
+
+Mobile expression:
+
+- lighter
+- calmer
+- card-based
+- touch-first
+- companion-like and elegant
+
+Shared identity:
+
+- restrained visual language
+- rounded geometry
+- strong hierarchy
+- clear status treatment
+- smooth but quiet motion
+- delight through polish and legibility, not decorative excess
+
+### Desktop Priorities
+
+The desktop shell is the main operator console for this phase.
+
+- left rail for sessions, projects, and filters
+- center pane for conversation and task execution
+- right pane for traces, diffs, approvals, artifacts, and metrics
+- keyboard-first interaction
+- stable streaming and easy resumption
+- excellent diff and trace readability
+
+### Mobile Priorities
+
+The iOS surface is a companion, not a full orchestration workstation in this phase.
+
+- quick scan of active work
+- fast approve / deny / respond flows
+- result and artifact preview
+- lightweight session continuation
+- no attempt to cram full desktop trace analysis onto a phone
+
 ## System Overview
 
 ```mermaid
 flowchart TD
     A["Gold Tasks / Episode Specs"] --> B["Variant Generation"]
     A --> C["KnowledgeWorkArena Episodes"]
-    B --> D["Pipelines"]
+    B --> D["Atomic Pipelines"]
     C --> E["Episode Runner"]
-    D --> F["Monolith"]
-    D --> G["Hybrid"]
-    D --> H["Modular"]
-    F --> I["Trace Recorder"]
-    G --> I
-    H --> I
-    E --> I
-    I --> J["Metrics + Failure Taxonomy"]
-    J --> K["Leaderboards"]
-    J --> L["History Reports"]
-    J --> M["Streamlit Replay UI"]
+    D --> F["Shared Runtime Semantics"]
+    E --> F
+    F --> G["LocalAgentRuntime"]
+    G --> H["CLI + Local API"]
+    G --> I["Operator Console / Mobile Companion"]
+    F --> J["Trace Recorder"]
+    J --> K["Metrics + Failure Taxonomy"]
+    K --> L["Leaderboards"]
+    K --> M["History Reports"]
+    K --> N["Streamlit Benchmark Views"]
 ```
 
 ### Architecture Families
@@ -327,17 +423,19 @@ Direct in-process HF reasoner-only is materially weaker:
 Direct in-process HF with real specialists partially recovers that gap, but still trails the service-backed specialist path:
 
 - replayable:
-  - [`results/knowledge_work/model_backed_hf_inprocess_specialists_full_replayable_v1/summary.json`](results/knowledge_work/model_backed_hf_inprocess_specialists_full_replayable_v1/summary.json)
-  - `strict_interface_avg = 0.9844`
-  - `recovered_execution_avg = 0.9792`
-  - `real_world_readiness_avg = 0.9452`
+  - [`results/knowledge_work/model_backed_hf_inprocess_specialists_full_replayable_v3/summary.json`](results/knowledge_work/model_backed_hf_inprocess_specialists_full_replayable_v3/summary.json)
+  - `artifact_quality_avg = 0.9977`
+  - `strict_interface_avg = 1.0`
+  - `recovered_execution_avg = 1.0`
+  - `real_world_readiness_avg = 0.9590`
 - live:
-  - [`results/knowledge_work/model_backed_hf_inprocess_specialists_full_live_v1/summary.json`](results/knowledge_work/model_backed_hf_inprocess_specialists_full_live_v1/summary.json)
-  - `strict_interface_avg = 0.9514`
-  - `recovered_execution_avg = 0.9444`
-  - `real_world_readiness_avg = 0.9460`
+  - [`results/knowledge_work/model_backed_hf_inprocess_specialists_full_live_v3/summary.json`](results/knowledge_work/model_backed_hf_inprocess_specialists_full_live_v3/summary.json)
+  - `artifact_quality_avg = 1.0`
+  - `strict_interface_avg = 1.0`
+  - `recovered_execution_avg = 1.0`
+  - `real_world_readiness_avg = 0.9704`
 
-That is the current benchmark-quality result: local specialist support helps the in-process path materially, but a deployment/runtime difference still remains measurable on the same corpus.
+That is the current benchmark-quality result: local specialist support helps the in-process path materially, closes the earlier visual execution misses, and brings the broad-lane rows back to clean strict/recovered execution, but a deployment/runtime difference still remains measurable on the same corpus.
 
 ## What We Have Learned So Far
 
@@ -484,13 +582,77 @@ Run a deterministic smoke:
 uv run python scripts/run_eval.py --pipeline monolith --backend oracle --limit 12
 ```
 
-Launch the replay UI:
+Launch the Streamlit console and benchmark UI:
 
 ```bash
 uv run streamlit run src/gemma4_capability_map/app/streamlit_app.py
 ```
 
+Launch the local agent CLI:
+
+```bash
+uv run moonie-agent profiles
+uv run moonie-agent workflows
+uv run moonie-agent run --workflow-id executive_visual_dashboard_review --system-id oracle_gemma4_e2b
+```
+
+Launch the local agent API:
+
+```bash
+uv run moonie-agent-api --host 127.0.0.1 --port 8765
+```
+
+The Streamlit app now includes product-style surfaces as well as benchmark explorers. Use the `Surface` selector to switch between:
+
+- `operator_console`
+- `mobile_companion`
+- `knowledge_work_board`
+- `knowledge_work_episodes`
+- `task_traces`
+
 ## Common Workflows
+
+### Local agent harness
+
+List local runtime profiles:
+
+```bash
+uv run moonie-agent profiles
+```
+
+List packaged workflows:
+
+```bash
+uv run moonie-agent workflows
+```
+
+Run a review-free workflow synchronously:
+
+```bash
+uv run moonie-agent run \
+  --workflow-id executive_visual_dashboard_review \
+  --system-id oracle_gemma4_e2b \
+  --lane replayable_core
+```
+
+Run an approval-sensitive workflow in the background:
+
+```bash
+uv run moonie-agent run \
+  --workflow-id finance_visual_invoice_review \
+  --system-id hf_service_gemma4_specialists_cpu \
+  --lane replayable_core \
+  --background
+```
+
+Inspect and resolve sessions:
+
+```bash
+uv run moonie-agent sessions
+uv run moonie-agent show <session_id>
+uv run moonie-agent events <session_id>
+uv run moonie-agent approve <session_id> --note "Looks good."
+```
 
 ### Atomic benchmark
 
@@ -565,13 +727,18 @@ uv run python scripts/run_knowledge_work_arena.py \
 
 ```text
 configs/                     matrix and runtime configs
+configs/packaged_workflows.yaml
 data/gold/                  atomic benchmark tasks
 data/knowledge_work/        episode specs, workspace seeds, artifact goldens
 docs/                       methodology, research notes, design docs
 results/alpha_matrix/       benchmark run groups
 results/knowledge_work/     canonical KnowledgeWorkArena outputs
 results/history/            longitudinal reports and canonical pointers
+results/runtime/            local runtime sessions, events, traces, artifacts
 scripts/                    generators, runners, probes, report builders
+src/gemma4_capability_map/api/
+src/gemma4_capability_map/runtime/
+src/gemma4_capability_map/app/
 src/gemma4_capability_map/  benchmark runtime, metrics, pipelines, UI
 tests/                      regression and schema coverage
 ```
@@ -595,17 +762,26 @@ Useful reporting entrypoints:
 - benchmark history: [`results/history/history_report.md`](results/history/history_report.md)
 - KnowledgeWorkArena history: [`results/history/knowledge_work_history.md`](results/history/knowledge_work_history.md)
 
+Useful product/runtime entrypoints:
+
+- packaged workflows: [`configs/packaged_workflows.yaml`](configs/packaged_workflows.yaml)
+- runtime core: [`src/gemma4_capability_map/runtime/core.py`](src/gemma4_capability_map/runtime/core.py)
+- CLI: [`src/gemma4_capability_map/runtime/cli.py`](src/gemma4_capability_map/runtime/cli.py)
+- local API: [`src/gemma4_capability_map/api/app.py`](src/gemma4_capability_map/api/app.py)
+- Streamlit app router: [`src/gemma4_capability_map/app/streamlit_app.py`](src/gemma4_capability_map/app/streamlit_app.py)
+
 ## Roadmap
 
 ### Near term
 
-- debug the remaining visual KWA misses in the direct-HF specialist lane
+- harden the shared local runtime and keep benchmark execution aligned with it
 - deepen revision responsiveness in artifact-heavy finance and jobs episodes
-- expand the board into more public-style system and category comparisons
+- expand the operator console, mobile companion, and board into a stronger shared product surface
 - run more local/open-weight systems against the same full-lane `24 / 18` surface
 
 ### Medium term
 
+- turn the thin desktop and iOS shells into more complete product surfaces over the same local API
 - move more artifact graders from native-ish structural checks to deeper cell/layout/field validation
 - expand visual-tool orchestration with harder referent-carryover and ambiguous-filter tasks
 - strengthen replayable browser environments for application portals, spreadsheets, and slide workflows
@@ -624,6 +800,8 @@ Useful reporting entrypoints:
 - live-web stress is deliberately secondary to replayable-core
 - current artifact grading is much stronger than generic string matching, but still not a full native Office/browser runtime
 - some canonical snapshots are runtime-specific to this Apple Silicon development setup
+- the current desktop and mobile surfaces are thin alpha shells over the laptop runtime, not fully independent apps yet
+- packaged workflows are benchmark-backed bounded flows, not a claim of unbounded general-purpose local autonomy
 
 ## References
 

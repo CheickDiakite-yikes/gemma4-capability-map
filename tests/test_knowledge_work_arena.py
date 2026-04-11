@@ -312,6 +312,29 @@ def test_partner_deck_revision_responsiveness_is_material() -> None:
     assert trace.scorecard.revision_responsiveness >= 0.5
 
 
+def test_finance_visual_invoice_note_revision_preserves_invoice_lock_and_heading_order() -> None:
+    tasks = _load_tasks()
+    bundle = RuntimeBundle(
+        reasoner=Gemma4Runner("google/gemma-4-E4B-it", backend="oracle"),
+        router=FunctionGemmaRunner("google/functiongemma-270m-it", backend="oracle"),
+        retriever=EmbeddingGemmaRetriever("google/embeddinggemma-300m", backend="heuristic"),
+        executor=DeterministicExecutor(registry=build_default_registry()),
+    )
+    runner = EpisodeRunner(tasks=tasks, bundle=bundle)
+    episode = next(episode for episode in build_replayable_episodes() if episode.episode_id == "kwa_finance_visual_invoice_hold")
+    trace = runner.run(episode)
+
+    note = next(version for version in trace.artifact_versions if version.artifact_id == "finance_visual_note" and version.revision == 3)
+    native = inspect_artifact(Path(note.file_path))
+
+    assert note.score == 1.0
+    assert "invoice lock" in note.content.lower()
+    assert "## Review Response" in note.content
+    assert "## Revision Diff" in note.content
+    headings = native["headings"]
+    assert headings.index("Brief") < headings.index("Stage Goal") < headings.index("Risks") < headings.index("Recommendation") < headings.index("Output")
+
+
 def test_live_web_episode_actions_are_dry_run_browser_steps() -> None:
     tasks = _load_tasks()
     bundle = RuntimeBundle(

@@ -21,6 +21,10 @@ dependencies = [
   "streamlit>=1.44.0",
 ]
 
+[project.scripts]
+moonie-agent = "gemma4_capability_map.runtime.cli:main"
+moonie-agent-api = "gemma4_capability_map.api.app:main"
+
 [project.optional-dependencies]
 hf = [
   "accelerate>=1.7.0",

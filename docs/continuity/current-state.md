@@ -2,15 +2,27 @@
 
 ## Repository Scope
 
-This repo now contains two benchmark layers:
+This repo now contains:
 
-- atomic white-box capability benchmarking
-  - reasoning
-  - tool routing
-  - retrieval
-  - full-stack execution
-- `KnowledgeWorkArena`
-  - role-based, job-shaped episodes built on top of the atomic substrate
+- two benchmark layers:
+  - atomic white-box capability benchmarking
+    - reasoning
+    - tool routing
+    - retrieval
+    - full-stack execution
+  - `KnowledgeWorkArena`
+    - role-based, job-shaped episodes built on top of the atomic substrate
+- one shared local-agent runtime substrate:
+  - persistent sessions
+  - tool orchestration
+  - approval/hold/resume flow
+  - trace and artifact persistence
+  - packaged workflows
+- transitional product surfaces over that same substrate:
+  - CLI
+  - local API
+  - Streamlit `operator_console`
+  - Streamlit `mobile_companion`
 
 ## Benchmark Shape
 
@@ -141,6 +153,11 @@ UI surface:
 
 - Streamlit board mode now lives in:
   - [`src/gemma4_capability_map/app/streamlit_app.py`](../../src/gemma4_capability_map/app/streamlit_app.py)
+- operator-console and mobile-companion views now also live there, backed by:
+  - [`src/gemma4_capability_map/app/views/operator_console.py`](../../src/gemma4_capability_map/app/views/operator_console.py)
+  - [`src/gemma4_capability_map/app/views/mobile_companion.py`](../../src/gemma4_capability_map/app/views/mobile_companion.py)
+  - [`src/gemma4_capability_map/app/view_models.py`](../../src/gemma4_capability_map/app/view_models.py)
+  - [`src/gemma4_capability_map/app/theme.py`](../../src/gemma4_capability_map/app/theme.py)
 - the board is registry-backed and keyed by:
   - `system_id`
   - `lane`
@@ -157,6 +174,50 @@ Interpretation:
   - `total_cost_per_mtok`
 - the current board is good enough for internal benchmarking and chart production
 - the remaining gap to a public leaderboard is broader model coverage plus stronger latency and cost instrumentation
+
+## Shared Runtime / Product Surface Layer
+
+Core runtime:
+
+- [`src/gemma4_capability_map/runtime/core.py`](../../src/gemma4_capability_map/runtime/core.py)
+- [`src/gemma4_capability_map/runtime/schemas.py`](../../src/gemma4_capability_map/runtime/schemas.py)
+- [`src/gemma4_capability_map/runtime/workflows.py`](../../src/gemma4_capability_map/runtime/workflows.py)
+- [`configs/packaged_workflows.yaml`](../../configs/packaged_workflows.yaml)
+
+User-facing entrypoints:
+
+- CLI:
+  - [`src/gemma4_capability_map/runtime/cli.py`](../../src/gemma4_capability_map/runtime/cli.py)
+  - package entrypoint: `moonie-agent`
+- local API:
+  - [`src/gemma4_capability_map/api/app.py`](../../src/gemma4_capability_map/api/app.py)
+  - package entrypoint: `moonie-agent-api`
+
+Current shape:
+
+- packaged workflows are benchmark-backed KWA slices, not free-form general agents yet
+- runtime sessions now persist:
+  - session metadata
+  - event timelines
+  - approval requests
+  - artifact paths
+  - trace/manifests/summaries
+- the local API currently supports:
+  - health
+  - profile listing
+  - workflow listing
+  - session creation
+  - session detail/event/artifact reads
+  - approval resolution
+- the Streamlit operator-console and mobile-companion views sit on this same runtime contract
+
+Validation:
+
+- runtime + API regression coverage now exists in:
+  - [`tests/test_runtime_core.py`](../../tests/test_runtime_core.py)
+  - [`tests/test_runtime_api.py`](../../tests/test_runtime_api.py)
+- full suite status after the shared-runtime/product-surface pass:
+  - `154 passed`
 
 ## Current Full-Lane Comparative Systems
 
@@ -195,30 +256,30 @@ New direct in-process HF references:
 New direct in-process HF specialist-backed references:
 
 - replayable:
-  - [`results/knowledge_work/model_backed_hf_inprocess_specialists_full_replayable_v1/summary.json`](../../results/knowledge_work/model_backed_hf_inprocess_specialists_full_replayable_v1/summary.json)
+  - [`results/knowledge_work/model_backed_hf_inprocess_specialists_full_replayable_v3/summary.json`](../../results/knowledge_work/model_backed_hf_inprocess_specialists_full_replayable_v3/summary.json)
   - `runs = 24`
-  - `artifact_quality_avg = 0.9834`
+  - `artifact_quality_avg = 0.9977`
   - `browser_workflow_avg = 0.9910`
-  - `strict_interface_avg = 0.9844`
-  - `recovered_execution_avg = 0.9792`
-  - `real_world_readiness_avg = 0.9452`
+  - `strict_interface_avg = 1.0`
+  - `recovered_execution_avg = 1.0`
+  - `real_world_readiness_avg = 0.9590`
 - live:
-  - [`results/knowledge_work/model_backed_hf_inprocess_specialists_full_live_v1/summary.json`](../../results/knowledge_work/model_backed_hf_inprocess_specialists_full_live_v1/summary.json)
+  - [`results/knowledge_work/model_backed_hf_inprocess_specialists_full_live_v3/summary.json`](../../results/knowledge_work/model_backed_hf_inprocess_specialists_full_live_v3/summary.json)
   - `runs = 18`
-  - `artifact_quality_avg = 0.9779`
+  - `artifact_quality_avg = 1.0`
   - `browser_workflow_avg = 1.0`
-  - `strict_interface_avg = 0.9514`
-  - `recovered_execution_avg = 0.9444`
-  - `real_world_readiness_avg = 0.9460`
+  - `strict_interface_avg = 1.0`
+  - `recovered_execution_avg = 1.0`
+  - `real_world_readiness_avg = 0.9704`
 
 Interpretation:
 
 - direct in-process HF is materially weaker than the existing `hf_service` reasoner-only baseline on the same full-lane KWA surface
 - adding real HF specialists improves the direct in-process path materially:
-  - replayable `strict_interface_avg`: `0.9531 -> 0.9844`
-  - replayable `recovered_execution_avg`: `0.9375 -> 0.9792`
-  - live `strict_interface_avg`: `0.9306 -> 0.9514`
-  - live `recovered_execution_avg`: `0.9167 -> 0.9444`
+  - replayable `strict_interface_avg`: `0.9531 -> 1.0`
+  - replayable `recovered_execution_avg`: `0.9375 -> 1.0`
+  - live `strict_interface_avg`: `0.9306 -> 1.0`
+  - live `recovered_execution_avg`: `0.9167 -> 1.0`
 - the original remaining losses were concentrated in a small visual KWA subset rather than the broader non-visual workflow corpus
 - those concentrated execution failures are now closed in bounded reruns after the planner repair:
   - replayable service-backed control:
@@ -234,8 +295,24 @@ Interpretation:
 - those reruns now show:
   - `strict_interface_avg = 1.0`
   - `recovered_execution_avg = 1.0`
-  - the remaining invoice weakness is `artifact_quality_avg = 0.7692`, which is shared by the service-backed control and therefore is a softer artifact/readiness issue, not a still-open visual orchestration bug
-- the full-lane in-process specialist references above have not yet been rerun after this narrow fix, so use them as the last broad comparison snapshot, not as the final post-fix state for the visual invoice/form episodes
+  - the remaining invoice weakness was `artifact_quality_avg = 0.7692`, which showed the bug family had shifted from execution to artifact/readiness quality
+- the full-lane in-process specialist references above are now refreshed after the planner fix, and the board/history layer points at these `v2` rows
+- the softer invoice artifact/readiness gap is also now closed in bounded direct-HF reruns after the memo generator/review path was hardened:
+  - replayable:
+    - [`results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_finance_visual_replayable_v3/summary.json`](../../results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_finance_visual_replayable_v3/summary.json)
+    - `artifact_quality_avg = 1.0`
+    - `real_world_readiness_avg = 0.9722`
+  - live:
+    - [`results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_finance_visual_live_v3/summary.json`](../../results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_finance_visual_live_v3/summary.json)
+    - `artifact_quality_avg = 1.0`
+    - `real_world_readiness_avg = 0.9769`
+- the public full-lane board now reflects the broader `v3` reruns after the memo patch:
+  - replayable:
+    - `artifact_quality_avg = 0.9977`
+    - `real_world_readiness_avg = 0.9590`
+  - live:
+    - `artifact_quality_avg = 1.0`
+    - `real_world_readiness_avg = 0.9704`
 - this is a useful deployment-level benchmark result:
   - same base model family
   - different execution path and specialist composition
