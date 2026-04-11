@@ -26,13 +26,18 @@ This repo now contains:
 
 ## Benchmark Shape
 
-- `64` gold atomic tasks
-- `282` explicit atomic variants
+- `78` gold atomic tasks
+- `324` explicit atomic variants
 - `16` real-world-tagged atomic tasks
-- `8` replayable-core visual-tool orchestration atomic tasks
-- `4` live-web stress visual-tool orchestration atomic tasks
-- `24` replayable-core `KnowledgeWorkArena` episodes in the generated corpus
-- `18` live-web stress `KnowledgeWorkArena` episodes in the generated corpus
+- `26` atomic `visual_tool_orchestration` tasks in the current gold corpus
+- `26` replayable-core `KnowledgeWorkArena` episodes in the current generated corpus
+- `20` live-web stress `KnowledgeWorkArena` episodes in the current generated corpus
+
+Important distinction:
+
+- the generated corpora are now `78 / 324 / 26 / 20`
+- the older canonical oracle lane pointers under `results/knowledge_work/replayable_core` and `results/knowledge_work/live_web_stress` still reflect the last full oracle rerun on the earlier `24 / 18` surface
+- the current publishable-default comparison surface is the full-lane board matrix
 
 ## Canonical Atomic Benchmark Pointers
 
@@ -65,9 +70,11 @@ Live-web stress:
 Interpretation:
 
 - the repo now has a first-class atomic benchmark for visual-tool orchestration, not just generic multimodal QA
+- the gold corpus now contains `26` visual-tool tasks, while the current canonical lane pointers cover the `11` replayable and `7` live seeded tasks that have already been rerun end to end
 - the canonical track measures whether the reasoner picks the right visual tools, refines selections correctly, preserves referents across turns, and lands the right final answer
 - stricter placeholder-aware scoring is now live: follow-up `selection_id` and `region_id` arguments must point at the latest valid visual referent, not just any non-empty placeholder replacement
 - replayable scoring is seeded and deterministic; live-web stress uses the same tool surface with a local executor path
+- visual count scoring is now stricter: a count-heavy task no longer gets full credit just because the final prose mentions the expected number after the tool path produced the wrong selection count
 
 ## Canonical KnowledgeWorkArena Pointers
 
@@ -123,10 +130,78 @@ Visual KWA episodes now also exist and have bounded oracle references:
 
 Interpretation:
 
-- the canonical KWA lanes now cover stale context reconciliation, original-constraint preservation under pressure, and stale-assumption repair before approval-gated release
-- the generated KWA corpus is now larger than the canonical oracle lane pointers because the new visual episodes were validated in bounded slices first, then the full canonical oracle lanes were rerun on the expanded corpus
+- the canonical KWA oracle pointers still reflect the last full oracle rerun on `24 / 18`
+- the generated KWA corpus is now `26 / 20`, so the current publishable-default comparison surface is broader than those older oracle pointers
 - these are harder because the right move is often “repair and stop safely,” not just “complete the workflow”
 - the canonical runner no longer silently truncates the lane; `run_knowledge_work_arena.py` now defaults to full-lane execution unless `--limit` is explicitly set
+
+## Current Publishable Full-Lane Comparison Surface
+
+The current publishable-default board surface is the full-lane `26 / 20` matrix reflected in:
+
+- [`results/history/knowledge_work_board_latest.csv`](../../results/history/knowledge_work_board_latest.csv)
+
+Headline rows:
+
+- oracle full-lane reference:
+  - `oracle_gemma4_e2b`
+  - comparison batch:
+    - `20260411T142324Z_knowledge_work_full_lane`
+  - replayable:
+    - `runs = 26`
+    - `artifact_quality_avg = 0.9744807692307693`
+    - `strict_interface_avg = 0.9711538461538461`
+    - `recovered_execution_avg = 0.9615384615384616`
+    - `real_world_readiness_avg = 0.9668576923076924`
+  - live:
+    - `runs = 20`
+    - `artifact_quality_avg = 0.9696049999999999`
+    - `strict_interface_avg = 0.9625`
+    - `recovered_execution_avg = 0.95`
+    - `real_world_readiness_avg = 0.966045`
+- headline local Gemma stack:
+  - `hf_gemma4_e2b_specialists_cpu`
+  - comparison batch:
+    - `20260411T152330Z_knowledge_work_publishable_core`
+  - replayable:
+    - `runs = 26`
+    - `artifact_quality_avg = 0.9744807692307693`
+    - `strict_interface_avg = 0.9711538461538461`
+    - `recovered_execution_avg = 0.9615384615384616`
+    - `real_world_readiness_avg = 0.9668576923076924`
+  - live:
+    - `runs = 20`
+    - `artifact_quality_avg = 0.9696049999999999`
+    - `strict_interface_avg = 0.9625`
+    - `recovered_execution_avg = 0.95`
+    - `real_world_readiness_avg = 0.966045`
+- headline local control:
+  - `hf_gemma4_e2b_reasoner_only`
+  - replayable:
+    - `strict_interface_avg = 0.9038461538461539`
+    - `recovered_execution_avg = 0.8846153846153846`
+    - `real_world_readiness_avg = 0.9392653846153846`
+  - live:
+    - `strict_interface_avg = 0.875`
+    - `recovered_execution_avg = 0.85`
+    - `real_world_readiness_avg = 0.9347899999999999`
+
+Interpretation:
+
+- the strongest current claim in the repo is now explicit:
+  - our controller/runtime/specialist-stack learnings materially improved Gemma 4 as a full-stack local agent on the publishable-default `26 / 20` matrix
+- the headline local Gemma specialist stack now matches the oracle row on the same board surface
+- the reasoner-only Gemma control remains materially weaker, so the gain is attributable to the harness/controller/runtime work rather than to an easy benchmark surface
+- this is a strong publishable Gemma-improvement claim
+- it is not yet a valid Gemma-versus-Qwen claim because there is still no full-lane Qwen row in the repo
+- the repo now has Qwen-ready comparator support:
+  - `Qwen/Qwen3-8B` is registered as `hf_qwen3_8b_reasoner_only`
+  - the HF runner now has a tokenizer-based text path for non-Gemma text models
+  - the experimental matrix includes the Qwen row
+- the next real comparator step is operational now:
+  - install a local Qwen checkpoint
+  - point the runtime at it with `QWEN3_8B_PATH` or a generic local model root
+  - run the full `26 / 20` exploratory lane and let the board speak for itself
 
 ## Benchmark Board / Reporting Layer
 
@@ -142,6 +217,10 @@ Registry and exports:
   - [`results/history/knowledge_work_scatter.csv`](../../results/history/knowledge_work_scatter.csv)
 - board payload:
   - [`results/history/knowledge_work_board.json`](../../results/history/knowledge_work_board.json)
+- published external benchmark rows:
+  - [`results/history/knowledge_work_external_benchmarks.csv`](../../results/history/knowledge_work_external_benchmarks.csv)
+- published external benchmark summary:
+  - [`results/history/knowledge_work_external_benchmark_summary.json`](../../results/history/knowledge_work_external_benchmark_summary.json)
 - role breakdown:
   - [`results/history/knowledge_work_role_breakdown.csv`](../../results/history/knowledge_work_role_breakdown.csv)
 - category breakdown:
@@ -150,6 +229,13 @@ Registry and exports:
   - [`results/history/knowledge_work_track_breakdown.csv`](../../results/history/knowledge_work_track_breakdown.csv)
 
 UI surface:
+
+- the Streamlit board now has a dedicated `External Context` tab
+- that tab is intentionally provenance-separated:
+  - published external scores are context only
+  - Moonie leaderboard rows remain reproduced runs
+- first seeded external rows are official GPT-5.4 and Gemini 3.1 Pro benchmark results
+- Qwen is still the next reproduced local comparator target, not an external placeholder board row
 
 - Streamlit board mode now lives in:
   - [`src/gemma4_capability_map/app/streamlit_app.py`](../../src/gemma4_capability_map/app/streamlit_app.py)
@@ -216,12 +302,12 @@ Validation:
 - runtime + API regression coverage now exists in:
   - [`tests/test_runtime_core.py`](../../tests/test_runtime_core.py)
   - [`tests/test_runtime_api.py`](../../tests/test_runtime_api.py)
-- full suite status after the shared-runtime/product-surface pass:
-  - `154 passed`
+- full suite status after the current publishable-core reruns and controller/runtime hardening:
+  - `194 passed`
 
 ## Current Full-Lane Comparative Systems
 
-The board now has five meaningful full-lane comparison rows:
+The board now has meaningful full-lane comparison rows for:
 
 - canonical oracle:
   - `oracle_gemma4_e2b`
@@ -234,89 +320,15 @@ The board now has five meaningful full-lane comparison rows:
 - exploratory local specialist-backed via direct in-process HF:
   - `hf_gemma4_e2b_specialists_cpu`
 
-New direct in-process HF references:
-
-- replayable:
-  - [`results/knowledge_work/model_backed_hf_inprocess_reasoner_full_replayable_v1/summary.json`](../../results/knowledge_work/model_backed_hf_inprocess_reasoner_full_replayable_v1/summary.json)
-  - `runs = 24`
-  - `artifact_quality_avg = 0.9834`
-  - `browser_workflow_avg = 0.9910`
-  - `strict_interface_avg = 0.9531`
-  - `recovered_execution_avg = 0.9375`
-  - `real_world_readiness_avg = 0.9330`
-- live:
-  - [`results/knowledge_work/model_backed_hf_inprocess_reasoner_full_live_v1/summary.json`](../../results/knowledge_work/model_backed_hf_inprocess_reasoner_full_live_v1/summary.json)
-  - `runs = 18`
-  - `artifact_quality_avg = 0.9779`
-  - `browser_workflow_avg = 1.0`
-  - `strict_interface_avg = 0.9306`
-  - `recovered_execution_avg = 0.9167`
-  - `real_world_readiness_avg = 0.9379`
-
-New direct in-process HF specialist-backed references:
-
-- replayable:
-  - [`results/knowledge_work/model_backed_hf_inprocess_specialists_full_replayable_v3/summary.json`](../../results/knowledge_work/model_backed_hf_inprocess_specialists_full_replayable_v3/summary.json)
-  - `runs = 24`
-  - `artifact_quality_avg = 0.9977`
-  - `browser_workflow_avg = 0.9910`
-  - `strict_interface_avg = 1.0`
-  - `recovered_execution_avg = 1.0`
-  - `real_world_readiness_avg = 0.9590`
-- live:
-  - [`results/knowledge_work/model_backed_hf_inprocess_specialists_full_live_v3/summary.json`](../../results/knowledge_work/model_backed_hf_inprocess_specialists_full_live_v3/summary.json)
-  - `runs = 18`
-  - `artifact_quality_avg = 1.0`
-  - `browser_workflow_avg = 1.0`
-  - `strict_interface_avg = 1.0`
-  - `recovered_execution_avg = 1.0`
-  - `real_world_readiness_avg = 0.9704`
-
 Interpretation:
 
-- direct in-process HF is materially weaker than the existing `hf_service` reasoner-only baseline on the same full-lane KWA surface
-- adding real HF specialists improves the direct in-process path materially:
-  - replayable `strict_interface_avg`: `0.9531 -> 1.0`
-  - replayable `recovered_execution_avg`: `0.9375 -> 1.0`
-  - live `strict_interface_avg`: `0.9306 -> 1.0`
-  - live `recovered_execution_avg`: `0.9167 -> 1.0`
-- the original remaining losses were concentrated in a small visual KWA subset rather than the broader non-visual workflow corpus
-- those concentrated execution failures are now closed in bounded reruns after the planner repair:
-  - replayable service-backed control:
-    - [`results/knowledge_work/model_backed_hf_service_specialists_smoke_finance_visual_replayable_v1/summary.json`](../../results/knowledge_work/model_backed_hf_service_specialists_smoke_finance_visual_replayable_v1/summary.json)
-  - live service-backed controls:
-    - [`results/knowledge_work/model_backed_hf_service_specialists_smoke_finance_visual_live_v1/summary.json`](../../results/knowledge_work/model_backed_hf_service_specialists_smoke_finance_visual_live_v1/summary.json)
-    - [`results/knowledge_work/model_backed_hf_service_specialists_smoke_jobs_visual_live_v1/summary.json`](../../results/knowledge_work/model_backed_hf_service_specialists_smoke_jobs_visual_live_v1/summary.json)
-  - replayable direct-HF specialist control:
-    - [`results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_finance_visual_replayable_v2/summary.json`](../../results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_finance_visual_replayable_v2/summary.json)
-  - live direct-HF specialist controls:
-    - [`results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_finance_visual_live_v2/summary.json`](../../results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_finance_visual_live_v2/summary.json)
-    - [`results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_jobs_visual_live_v2/summary.json`](../../results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_jobs_visual_live_v2/summary.json)
-- those reruns now show:
-  - `strict_interface_avg = 1.0`
-  - `recovered_execution_avg = 1.0`
-  - the remaining invoice weakness was `artifact_quality_avg = 0.7692`, which showed the bug family had shifted from execution to artifact/readiness quality
-- the full-lane in-process specialist references above are now refreshed after the planner fix, and the board/history layer points at these `v2` rows
-- the softer invoice artifact/readiness gap is also now closed in bounded direct-HF reruns after the memo generator/review path was hardened:
-  - replayable:
-    - [`results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_finance_visual_replayable_v3/summary.json`](../../results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_finance_visual_replayable_v3/summary.json)
-    - `artifact_quality_avg = 1.0`
-    - `real_world_readiness_avg = 0.9722`
-  - live:
-    - [`results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_finance_visual_live_v3/summary.json`](../../results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_finance_visual_live_v3/summary.json)
-    - `artifact_quality_avg = 1.0`
-    - `real_world_readiness_avg = 0.9769`
-- the public full-lane board now reflects the broader `v3` reruns after the memo patch:
-  - replayable:
-    - `artifact_quality_avg = 0.9977`
-    - `real_world_readiness_avg = 0.9590`
-  - live:
-    - `artifact_quality_avg = 1.0`
-    - `real_world_readiness_avg = 0.9704`
-- this is a useful deployment-level benchmark result:
-  - same base model family
-  - different execution path and specialist composition
-  - meaningfully different full-lane behavior even after specialist recovery
+- the important publishable-default row is now `hf_gemma4_e2b_specialists_cpu`, not the older bounded direct-HF `v3` slices
+- the current direct in-process Gemma specialist row matches the oracle row on the full-lane `26 / 20` board surface
+- the direct in-process reasoner-only control remains materially weaker on that same surface
+- the bounded visual invoice/form reruns remain useful as diagnostic proof of where the controller and memo fixes came from, but they are no longer the headline comparison artifact
+- the current strongest claim is therefore:
+  - we materially improved Gemma 4 as a local full-stack agent on our own harder benchmark
+- the next missing comparative evidence is a real non-Gemma local stack on the same surface, not more re-runs of the now-clean Gemma specialist row
 - `mlx` is still blocked locally because the runtime probe fails with `ModuleNotFoundError: mlx`
 - `google/gemma-4-E4B-it` remains probe-only locally on this Mac and should not be treated as the next serious full-lane comparison target
 

@@ -7,6 +7,7 @@ from typing import Any
 from urllib.parse import parse_qs, urlparse
 
 from gemma4_capability_map.runtime.core import LocalAgentRuntime
+from gemma4_capability_map.runtime.schemas import ApprovalStatus
 
 
 class LocalAgentAPIHandler(BaseHTTPRequestHandler):
@@ -27,7 +28,13 @@ class LocalAgentAPIHandler(BaseHTTPRequestHandler):
             self._send_json({"workflows": self.runtime.list_workflows(lane=lane)})
             return
         if path == "/v1/sessions":
-            self._send_json({"sessions": [session.model_dump(mode="json") for session in self.runtime.list_sessions()]})
+            status = query.get("status", [None])[0]
+            self._send_json({"sessions": [session.model_dump(mode="json") for session in self.runtime.list_sessions(status=status)]})
+            return
+        if path == "/v1/approvals":
+            include_all = str(query.get("all", ["false"])[0]).lower() == "true"
+            approvals = self.runtime.list_approvals(status=None if include_all else ApprovalStatus.PENDING)
+            self._send_json({"approvals": [approval.model_dump(mode="json") for approval in approvals]})
             return
         if path.startswith("/v1/sessions/"):
             parts = path.split("/")
@@ -37,7 +44,27 @@ class LocalAgentAPIHandler(BaseHTTPRequestHandler):
                 return
             if len(parts) == 5 and parts[4] == "events":
                 after = int(query.get("after", ["0"])[0])
-                self._send_json({"events": [event.model_dump(mode="json") for event in self.runtime.get_events(session_id, after_sequence=after)]})
+                limit_raw = query.get("limit", [None])[0]
+                limit = int(limit_raw) if limit_raw not in {None, ""} else None
+                self._send_json({"events": [event.model_dump(mode="json") for event in self.runtime.get_events(session_id, after_sequence=after, limit=limit)]})
+                return
+            if len(parts) == 6 and parts[4] == "events" and parts[5] == "tail":
+                after = int(query.get("after", ["0"])[0])
+                timeout_s = float(query.get("timeout_s", ["15.0"])[0])
+                events = self.runtime.wait_for_events(session_id, after_sequence=after, timeout_s=timeout_s)
+                self._send_json({"events": [event.model_dump(mode="json") for event in events]})
+                return
+            if len(parts) == 5 and parts[4] == "stream":
+                after = int(query.get("after", ["0"])[0])
+                timeout_s = float(query.get("timeout_s", ["15.0"])[0])
+                payload = self.runtime.stream_session(session_id, after_sequence=after, timeout_s=timeout_s)
+                self._send_json(
+                    {
+                        "session": payload["session"].model_dump(mode="json"),
+                        "events": [event.model_dump(mode="json") for event in payload["events"]],
+                        "pending_approval": payload["pending_approval"].model_dump(mode="json") if payload["pending_approval"] else None,
+                    }
+                )
                 return
             if len(parts) == 5 and parts[4] == "artifacts":
                 session = self.runtime.get_session(session_id)
@@ -69,12 +96,37 @@ class LocalAgentAPIHandler(BaseHTTPRequestHandler):
             session_id = parts[3] if len(parts) > 3 else ""
             decision = str(body.get("decision", "approve"))
             note = str(body.get("note", ""))
+            resume = bool(body.get("resume", True))
             try:
-                session = self.runtime.resolve_approval(session_id, decision=decision, note=note)
+                session = self.runtime.resolve_approval(session_id, decision=decision, note=note, resume=resume)
             except Exception as exc:
                 self._send_json({"error": str(exc)}, status=400)
                 return
             self._send_json(session.model_dump(mode="json"))
+            return
+        if path.startswith("/v1/sessions/") and path.endswith("/resume"):
+            parts = path.split("/")
+            session_id = parts[3] if len(parts) > 3 else ""
+            note = str(body.get("note", ""))
+            background = bool(body.get("background", True))
+            try:
+                session = self.runtime.resume_session(session_id, note=note, background=background)
+            except Exception as exc:
+                self._send_json({"error": str(exc)}, status=400)
+                return
+            self._send_json(session.model_dump(mode="json"))
+            return
+        if path.startswith("/v1/sessions/") and path.endswith("/retry"):
+            parts = path.split("/")
+            session_id = parts[3] if len(parts) > 3 else ""
+            note = str(body.get("note", ""))
+            background = bool(body.get("background", True))
+            try:
+                session = self.runtime.retry_session(session_id, note=note, background=background)
+            except Exception as exc:
+                self._send_json({"error": str(exc)}, status=400)
+                return
+            self._send_json(session.model_dump(mode="json"), status=201)
             return
         self._send_json({"error": "Not found"}, status=404)
 

@@ -1,5 +1,116 @@
 # Research Log
 
+## 2026-04-11
+
+### Qwen-ready comparator support plus stricter visual count scoring
+
+- Added the first real non-Gemma comparator plumbing for local runs:
+  - registered `Qwen/Qwen3-8B` in [`configs/model_registry.yaml`](/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml)
+  - added `hf_qwen3_8b_reasoner_only` to [`configs/knowledge_work_matrix_experimental.yaml`](/Users/cheickdiakite/Codex/moonie/configs/knowledge_work_matrix_experimental.yaml)
+  - added explicit `QWEN3_8B_PATH` support in [`src/gemma4_capability_map/models/runtime_utils.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/models/runtime_utils.py)
+- Upgraded the HF reasoner path in [`src/gemma4_capability_map/models/gemma4_runner.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/models/gemma4_runner.py):
+  - Gemma multimodal models still use the processor/image-text path
+  - text-only models like Qwen now use a tokenizer/chat-template path instead of assuming a multimodal processor
+  - this closes the main architectural blocker for a real local Qwen run
+- Tightened visual realism scoring in [`src/gemma4_capability_map/evals/visual_eval.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/evals/visual_eval.py):
+  - count-heavy visual tasks no longer get full credit from a lucky final-answer number mention when the tool-side selection count is wrong
+- Added targeted regressions in:
+  - [`tests/test_gemma4_runner.py`](/Users/cheickdiakite/Codex/moonie/tests/test_gemma4_runner.py)
+  - [`tests/test_runtime_utils.py`](/Users/cheickdiakite/Codex/moonie/tests/test_runtime_utils.py)
+  - [`tests/test_knowledge_work_matrix_script.py`](/Users/cheickdiakite/Codex/moonie/tests/test_knowledge_work_matrix_script.py)
+  - [`tests/test_run_knowledge_work_arena_script.py`](/Users/cheickdiakite/Codex/moonie/tests/test_run_knowledge_work_arena_script.py)
+  - [`tests/test_visual_tool_orchestration.py`](/Users/cheickdiakite/Codex/moonie/tests/test_visual_tool_orchestration.py)
+- Verification:
+  - focused comparator/scoring slice: `46 passed`
+  - full suite: `205 passed`
+- Interpretation:
+  - the repo is now Qwen-ready, but still not Qwen-complete
+  - the next honest benchmark claim requires a real local Qwen checkpoint and a completed `26 / 20` board row
+  - the visual benchmark got harder in the right way without changing the task surface
+
+### External benchmark context layer with explicit claim boundaries
+
+- Added a new published external benchmark registry in [`configs/external_benchmarks.yaml`](/Users/cheickdiakite/Codex/moonie/configs/external_benchmarks.yaml).
+- Added external benchmark exports in [`src/gemma4_capability_map/reporting/knowledge_work_board.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/reporting/knowledge_work_board.py):
+  - [`results/history/knowledge_work_external_benchmarks.csv`](/Users/cheickdiakite/Codex/moonie/results/history/knowledge_work_external_benchmarks.csv)
+  - [`results/history/knowledge_work_external_benchmark_summary.json`](/Users/cheickdiakite/Codex/moonie/results/history/knowledge_work_external_benchmark_summary.json)
+- Added a dedicated `External Context` tab to the board in [`src/gemma4_capability_map/app/streamlit_app.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/app/streamlit_app.py).
+- Seeded the first official published rows with:
+  - GPT-5.4 benchmarks from OpenAI
+  - Gemini 3.1 Pro benchmarks from Google DeepMind
+- The board now makes the provenance boundary explicit:
+  - Moonie reproduced runs stay on the native leaderboard
+  - published external scores are shown as context only
+  - this avoids mixing our KWA results with vendor-reported public benchmark results as if they were same-harness rows
+- Interpretation:
+  - this strengthens the publishable story without weakening rigor
+  - we can now say “we improved Gemma 4 on our own benchmark, and here is the broader public benchmark context”
+  - we still cannot claim Gemma versus Qwen on the same surface until Qwen is actually run locally on the full `26 / 20` matrix
+- Verification:
+  - `tests/test_knowledge_work_board.py`: `13 passed`
+  - full suite: `199 passed`
+
+### Harder visual realism expansion plus non-Gemma comparator boundary
+
+- Expanded the atomic visual-tool gold corpus in [`scripts/make_gold.py`](/Users/cheickdiakite/Codex/moonie/scripts/make_gold.py):
+  - total atomic tasks: `78`
+  - total generated variants: `324`
+  - total `visual_tool_orchestration` tasks: `26`
+- Added new harder replayable/live realism tasks that specifically pressure multi-step visual state retention instead of one-shot OCR:
+  - backlog -> enablement-ops refinement
+  - latest-issue -> email refinement
+- The first implementation exposed a real planner weakness rather than a bad test:
+  - the controller skipped `refine_selection` and jumped straight from `extract_layout` to `read_region_text`
+  - this produced stale or under-refined answers on the new dashboard/form tasks
+- Fixed the planner in [`src/gemma4_capability_map/tools/planner.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/tools/planner.py):
+  - added explicit visual-filter support for `backlog`, `enablement ops`, and `email`
+  - preserved specificity so `support backlog` is not collapsed back to generic `backlog`
+  - kept the existing stale-selection and final-readback behavior intact
+- Comparator-readiness work also landed for future non-Gemma local systems:
+  - [`src/gemma4_capability_map/models/runtime_utils.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/models/runtime_utils.py) now supports derived env vars like `LOCAL_MODEL_QWEN_QWEN3_32B_PATH`
+  - [`scripts/preflight_backends.py`](/Users/cheickdiakite/Codex/moonie/scripts/preflight_backends.py) and [`scripts/probe_specialist_access.py`](/Users/cheickdiakite/Codex/moonie/scripts/probe_specialist_access.py) are now registry-driven rather than Gemma-hardcoded
+- Reality check:
+  - Qwen should be the first non-Gemma comparator
+  - there is still no local Qwen checkpoint, env path, or full-lane Qwen run on this machine
+  - therefore no honest Qwen row should be added yet
+- Verification:
+  - focused planner/schema/visual/runtime regressions: `55 passed`
+  - full suite after the realism + comparator-readiness pass: `198 passed`
+- Interpretation:
+  - the benchmark is harder in a meaningful way
+  - the new tasks surfaced controller weaknesses that are now fixed
+  - the next publishable comparison step is still a real local Qwen run, not a placeholder registry row
+
+### Publishable-default full-lane Gemma parity result
+
+- Reran the publishable-default full-lane matrix for the direct in-process Gemma specialist stack:
+  - `uv run python scripts/run_knowledge_work_matrix.py --system-id hf_gemma4_e2b_specialists_cpu`
+- Batch:
+  - [`results/knowledge_work_matrix/20260411T152330Z_knowledge_work_publishable_core`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260411T152330Z_knowledge_work_publishable_core)
+- Result:
+  - replayable:
+    - `runs = 26`
+    - `artifact_quality_avg = 0.9744807692307693`
+    - `strict_interface_avg = 0.9711538461538461`
+    - `recovered_execution_avg = 0.9615384615384616`
+    - `real_world_readiness_avg = 0.9668576923076924`
+  - live:
+    - `runs = 20`
+    - `artifact_quality_avg = 0.9696049999999999`
+    - `strict_interface_avg = 0.9625`
+    - `recovered_execution_avg = 0.95`
+    - `real_world_readiness_avg = 0.966045`
+- Board interpretation:
+  - [`results/history/knowledge_work_board_latest.csv`](/Users/cheickdiakite/Codex/moonie/results/history/knowledge_work_board_latest.csv) now shows the publishable-default direct in-process Gemma specialist row matching the oracle full-lane row on the same `26 / 20` surface
+  - the reasoner-only Gemma control remains materially weaker on that same board surface
+- Research interpretation:
+  - this is the current strongest evidence that the repo’s controller/runtime/specialist-stack learnings made Gemma 4 better as a local full-stack agent on our own benchmark
+  - this is a publishable Gemma-improvement claim
+  - it is not yet a publishable Gemma-versus-Qwen claim because there is still no local Qwen profile or full-lane Qwen run in the repo
+- Verification:
+  - full suite after the rerun and history rebuild:
+    - `194 passed`
+
 ## 2026-04-10
 
 ### Shared runtime + product-surface pass

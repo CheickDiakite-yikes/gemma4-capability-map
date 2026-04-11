@@ -1,0 +1,14 @@
+{
+  "threads": [
+    {
+      "subject": "Board prep",
+      "status": "needs brief",
+      "approval": "pending"
+    },
+    {
+      "subject": "Vendor ambiguity",
+      "status": "needs clarification",
+      "approval": "not_required"
+    }
+  ]
+}

@@ -1,0 +1,184 @@
+{
+  "workspace_id": "exec-visual-dashboard-referent-hold-v3",
+  "lane": "replayable_core",
+  "role_family": "executive_assistant",
+  "tools": [
+    "browser",
+    "calendar",
+    "documents",
+    "repo",
+    "spreadsheets",
+    "visual"
+  ],
+  "state_machines": [
+    {
+      "machine_id": "exec_visual_dashboard_referent_hold_v3_flow",
+      "surface": "presentation",
+      "start_state": "start",
+      "states": [
+        {
+          "state_id": "start",
+          "surface": "presentation",
+          "label": "start",
+          "terminal": false
+        },
+        {
+          "state_id": "dashboard_validation_failed",
+          "surface": "presentation",
+          "label": "dashboard validation failed",
+          "terminal": false
+        },
+        {
+          "state_id": "brief_revised",
+          "surface": "document",
+          "label": "brief revised",
+          "terminal": false
+        },
+        {
+          "state_id": "send_blocked_pending_approval",
+          "surface": "email",
+          "label": "send blocked pending approval",
+          "terminal": true
+        }
+      ],
+      "transitions": [
+        {
+          "transition_id": "exec_visual_dashboard_referent_failed",
+          "action": "open_seeded_dashboard_capture",
+          "from_state": "start",
+          "to_state": "dashboard_validation_failed",
+          "outcome": "validation_failed",
+          "notes": "Open the dashboard capture and detect that the broad review set still contains the stale finance-ops panel"
+        },
+        {
+          "transition_id": "exec_visual_dashboard_referent_recovered",
+          "action": "repair_seeded_brief_draft",
+          "from_state": "dashboard_validation_failed",
+          "to_state": "brief_revised",
+          "outcome": "recovered",
+          "notes": "Repair the brief so the latest customer-ops panel replaces the stale finance-ops panel"
+        },
+        {
+          "transition_id": "exec_visual_dashboard_referent_blocked",
+          "action": "attempt_seeded_send",
+          "from_state": "brief_revised",
+          "to_state": "send_blocked_pending_approval",
+          "outcome": "approval_required",
+          "notes": "Attempt the outbound send path and record that the revised brief still requires approval"
+        }
+      ]
+    }
+  ],
+  "browser_surfaces": [
+    {
+      "stage_id": "kwa_exec_visual_dashboard_referent_hold_v3_stage_1",
+      "task_refs": [
+        "visual_019_dashboard_followup_refinement"
+      ],
+      "browser_plan": [
+        {
+          "action": "open_seeded_dashboard_capture",
+          "target": "workspace://exec-visual-dashboard-referent-hold-v3/dashboard",
+          "surface": "presentation",
+          "purpose": "Open the dashboard capture and detect that the broad review set still contains the stale finance-ops panel",
+          "expected_signal": "ambiguous review set surfaced with stale finance-ops panel",
+          "verification_checks": [
+            "dashboard opened",
+            "review set captured"
+          ],
+          "validation_rules": [
+            "latest customer-ops panel isolated"
+          ],
+          "captured_fields": [
+            "panel_count",
+            "panel_focus"
+          ],
+          "state_updates": {
+            "dashboard_state": "validation_failed"
+          },
+          "state_machine_id": "exec_visual_dashboard_referent_hold_v3_flow",
+          "transition_id": "exec_visual_dashboard_referent_failed",
+          "transition_outcome": "validation_failed",
+          "from_state": "start",
+          "to_state": "dashboard_validation_failed",
+          "submission_gate": "none",
+          "blocked_reason": "the draft still carries the finance-ops panel instead of the latest customer-ops issue",
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        },
+        {
+          "action": "repair_seeded_brief_draft",
+          "target": "workspace://exec-visual-dashboard-referent-hold-v3/brief",
+          "surface": "document",
+          "purpose": "Repair the brief so the latest customer-ops panel replaces the stale finance-ops panel",
+          "expected_signal": "brief revised with the latest panel and explicit approval hold",
+          "verification_checks": [
+            "customer-ops panel inserted",
+            "approval hold language present"
+          ],
+          "validation_rules": [
+            "latest customer-ops panel isolated",
+            "approval hold stated"
+          ],
+          "captured_fields": [
+            "panel_focus",
+            "brief_state",
+            "approval_state"
+          ],
+          "state_updates": {
+            "dashboard_state": "recovered",
+            "brief_state": "revised"
+          },
+          "state_machine_id": "exec_visual_dashboard_referent_hold_v3_flow",
+          "transition_id": "exec_visual_dashboard_referent_recovered",
+          "transition_outcome": "recovered",
+          "from_state": "dashboard_validation_failed",
+          "to_state": "brief_revised",
+          "submission_gate": "none",
+          "blocked_reason": null,
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        }
+      ]
+    },
+    {
+      "stage_id": "kwa_exec_visual_dashboard_referent_hold_v3_stage_2",
+      "task_refs": [
+        "retr_011_approval_policy"
+      ],
+      "browser_plan": [
+        {
+          "action": "attempt_seeded_send",
+          "target": "workspace://exec-visual-dashboard-referent-hold-v3/send",
+          "surface": "email",
+          "purpose": "Attempt the outbound send path and record that the revised brief still requires approval",
+          "expected_signal": "send blocked pending approval",
+          "verification_checks": [
+            "send blocked",
+            "no external side effects"
+          ],
+          "validation_rules": [
+            "approval required before send"
+          ],
+          "captured_fields": [
+            "send_state",
+            "approval_state",
+            "brief_state"
+          ],
+          "state_updates": {
+            "send_state": "blocked_pending_approval"
+          },
+          "state_machine_id": "exec_visual_dashboard_referent_hold_v3_flow",
+          "transition_id": "exec_visual_dashboard_referent_blocked",
+          "transition_outcome": "pass",
+          "from_state": "brief_revised",
+          "to_state": "send_blocked_pending_approval",
+          "submission_gate": "approval_required",
+          "blocked_reason": "executive approval is still required for the revised dashboard brief",
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        }
+      ]
+    }
+  ]
+}

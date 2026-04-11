@@ -1,0 +1,28 @@
+{
+  "run_group_id": "20260411T132639Z",
+  "matrix_name": "knowledge_work_full_lane",
+  "description": "Registry-driven full-lane KnowledgeWorkArena comparison matrix for local-first systems.",
+  "created_at": "2026-04-11T13:26:39.321127+00:00",
+  "config_path": "/Users/cheickdiakite/Codex/moonie/configs/knowledge_work_matrix.yaml",
+  "registry_path": "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+  "run_intent": "exploratory",
+  "update_latest": false,
+  "runs": [
+    {
+      "run_id": "hf_service_gemma4_e4b_reasoner_only__replayable_core",
+      "system_id": "hf_service_gemma4_e4b_reasoner_only",
+      "lane": "replayable_core",
+      "limit": 24,
+      "run_intent": "exploratory",
+      "update_latest": false,
+      "backend": "hf_service",
+      "reasoner_backend": "hf_service",
+      "router_backend": "heuristic",
+      "retriever_backend": "heuristic",
+      "reasoner": "google/gemma-4-E4B-it",
+      "router": "",
+      "retriever": "",
+      "thinking": false
+    }
+  ]
+}

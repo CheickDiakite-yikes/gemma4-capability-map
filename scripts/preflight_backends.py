@@ -16,6 +16,7 @@ from gemma4_capability_map.models.runtime_utils import (
     recommended_reasoner_backend_from_probe,
     resolve_model_source,
 )
+from gemma4_capability_map.reporting.knowledge_work_board import DEFAULT_REGISTRY_PATH, load_model_registry
 
 
 def main() -> None:
@@ -33,12 +34,7 @@ def main() -> None:
             "token_source": detect_hf_token_source(),
         },
         "offline_mode_enabled": is_offline_mode_enabled(),
-        "model_sources": {
-            "google/gemma-4-E2B-it": resolve_model_source("google/gemma-4-E2B-it"),
-            "google/gemma-4-E4B-it": resolve_model_source("google/gemma-4-E4B-it"),
-            "google/functiongemma-270m-it": resolve_model_source("google/functiongemma-270m-it"),
-            "google/embeddinggemma-300m": resolve_model_source("google/embeddinggemma-300m"),
-        },
+        "model_sources": _registered_model_sources(),
         "hf_service": _default_service_snapshot(),
         "hf_import_probe": _load_existing_probe(output_dir / "hf_import_probe.json"),
         "specialist_access_probe": _load_existing_probe(output_dir / "specialist_access_probe.json"),
@@ -125,6 +121,12 @@ def _render_markdown(payload: dict[str, object]) -> str:
     for model_id, source in model_sources.items():
         lines.append(f"- `{model_id}` -> `{source}`")
     return "\n".join(lines) + "\n"
+
+
+def _registered_model_sources() -> dict[str, str]:
+    registry = load_model_registry(DEFAULT_REGISTRY_PATH)
+    models = registry.get("models", {})
+    return {model_id: resolve_model_source(model_id) for model_id in sorted(models)}
 
 
 def _default_service_snapshot() -> dict[str, object]:

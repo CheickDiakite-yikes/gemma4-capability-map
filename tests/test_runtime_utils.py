@@ -31,11 +31,32 @@ def test_resolve_model_source_uses_local_env_override(tmp_path, monkeypatch) -> 
     assert resolve_model_source("google/gemma-4-E2B-it") == str(local_model.resolve())
 
 
+def test_resolve_model_source_uses_qwen_env_override(tmp_path, monkeypatch) -> None:
+    local_model = tmp_path / "Qwen3-8B"
+    local_model.mkdir()
+    monkeypatch.setenv("QWEN3_8B_PATH", str(local_model))
+    assert resolve_model_source("Qwen/Qwen3-8B") == str(local_model.resolve())
+
+
 def test_resolve_model_source_uses_local_root(tmp_path, monkeypatch) -> None:
     local_model = tmp_path / "gemma-4-E4B-it"
     local_model.mkdir()
     monkeypatch.setenv("GEMMA_MODEL_ROOT", str(tmp_path))
     assert resolve_model_source("google/gemma-4-E4B-it") == str(local_model.resolve())
+
+
+def test_resolve_model_source_uses_generic_derived_env_override(tmp_path, monkeypatch) -> None:
+    local_model = tmp_path / "Qwen3-32B"
+    local_model.mkdir()
+    monkeypatch.setenv("LOCAL_MODEL_QWEN_QWEN3_32B_PATH", str(local_model))
+    assert resolve_model_source("Qwen/Qwen3-32B") == str(local_model.resolve())
+
+
+def test_resolve_model_source_uses_generic_model_root(tmp_path, monkeypatch) -> None:
+    local_model = tmp_path / "Qwen3-32B"
+    local_model.mkdir()
+    monkeypatch.setenv("LOCAL_MODEL_ROOT", str(tmp_path))
+    assert resolve_model_source("Qwen/Qwen3-32B") == str(local_model.resolve())
 
 
 def test_offline_mode_flag_and_local_files_only(monkeypatch) -> None:

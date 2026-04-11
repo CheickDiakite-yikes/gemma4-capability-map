@@ -1,0 +1,9 @@
+{
+  "run_id": "mlx_gemma4_e2b_reasoner_only__replayable_core",
+  "system_id": "mlx_gemma4_e2b_reasoner_only",
+  "lane": "replayable_core",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260411T132553Z_knowledge_work_full_lane/mlx_gemma4_e2b_reasoner_only__replayable_core",
+  "returncode": 1,
+  "stdout": "",
+  "stderr": "Traceback (most recent call last):\n  File \"/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/models/gemma4_runner.py\", line 459, in _ensure_mlx_loaded\n    from mlx_vlm import load as load_vlm\nModuleNotFoundError: No module named 'mlx_vlm'\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/Users/cheickdiakite/Codex/moonie/scripts/run_knowledge_work_arena.py\", line 353, in <module>\n    main()\n    ~~~~^^\n  File \"/Users/cheickdiakite/Codex/moonie/scripts/run_knowledge_work_arena.py\", line 129, in main\n    warmup = warm_runtime_bundle(bundle, tasks)\n  File \"/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/benchmark.py\", line 106, in warm_runtime_bundle\n    warmup[\"reasoner\"] = bundle.reasoner.ensure_loaded(media=media)\n                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^\n  File \"/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/models/gemma4_runner.py\", line 51, in ensure_loaded\n    self._ensure_mlx_loaded(media or [])\n    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^\n  File \"/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/models/gemma4_runner.py\", line 462, in _ensure_mlx_loaded\n    raise RuntimeError(\"Install the mlx extra to use the MLX backend.\") from exc\nRuntimeError: Install the mlx extra to use the MLX backend.\n"
+}

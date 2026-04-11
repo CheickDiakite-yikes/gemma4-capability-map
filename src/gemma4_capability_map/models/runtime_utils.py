@@ -27,6 +27,7 @@ _LOCAL_MODEL_PATH_ENV_MAP = {
     "google/functiongemma-270m": "FUNCTIONGEMMA_PATH",
     "google/functiongemma-270m-it": "FUNCTIONGEMMA_PATH",
     "google/embeddinggemma-300m": "EMBEDDINGGEMMA_PATH",
+    "qwen/qwen3-8b": "QWEN3_8B_PATH",
 }
 
 
@@ -60,7 +61,11 @@ def resolve_model_source(model_id: str) -> str:
         if env_path is not None:
             return env_path
 
-    for root_env_var in ("GEMMA_MODEL_ROOT", "GEMMA4_MODEL_ROOT"):
+    derived_env_path = _existing_path(os.getenv(_derived_model_path_env_var(model_id)))
+    if derived_env_path is not None:
+        return derived_env_path
+
+    for root_env_var in ("LOCAL_MODEL_ROOT", "MODEL_ROOT", "GEMMA_MODEL_ROOT", "GEMMA4_MODEL_ROOT"):
         root = _existing_path(os.getenv(root_env_var))
         if root is None:
             continue
@@ -157,6 +162,13 @@ def _existing_path(value: str | None) -> str | None:
     if candidate.exists():
         return str(candidate.resolve())
     return None
+
+
+def _derived_model_path_env_var(model_id: str) -> str:
+    normalized = "".join(char if char.isalnum() else "_" for char in model_id.upper())
+    while "__" in normalized:
+        normalized = normalized.replace("__", "_")
+    return f"LOCAL_MODEL_{normalized.strip('_')}_PATH"
 
 
 def _is_truthy(value: str | None) -> bool:

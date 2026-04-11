@@ -1,0 +1,12 @@
+matrix:
+  name: knowledge_work_publishable_core
+  description: Registry-driven publishable core KnowledgeWorkArena matrix for the current full lanes.
+  run_intent: exploratory
+  update_latest: false
+  systems:
+    - oracle_gemma4_e2b
+    - hf_gemma4_e2b_reasoner_only
+    - hf_gemma4_e2b_specialists_cpu
+  lanes:
+    - replayable_core
+    - live_web_stress

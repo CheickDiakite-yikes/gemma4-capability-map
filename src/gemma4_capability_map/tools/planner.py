@@ -78,6 +78,8 @@ def plan_or_repair_tool_calls(
         return parsed_calls, []
 
     context = _planning_context(messages, media)
+    if _visual_loop_complete(context):
+        return [], ["visual_complete"]
     parallel_priority_calls = _parallel_audit_pending_calls(context, tool_specs)
     intent_priority_calls = _intent_priority_calls(context, tool_specs)
     feedback_priority_calls = _next_calls_from_feedback(context, tool_specs)
@@ -89,6 +91,9 @@ def plan_or_repair_tool_calls(
     candidate_calls = parsed_calls
     if parsed_calls and parallel_priority_calls and not _calls_match(parsed_calls, parallel_priority_calls):
         repair_notes.append("parallel_audit_prior")
+        candidate_calls = []
+    if candidate_calls and _requires_stepwise_visual_control(candidate_calls):
+        repair_notes.append("visual_stepwise_prior")
         candidate_calls = []
     if candidate_calls and intent_priority_calls and not _calls_match(candidate_calls, intent_priority_calls):
         repair_notes.append(f"intent_prior:{_classify_intent(context, tool_specs)}")
@@ -128,6 +133,8 @@ def plan_tool_calls(messages: list[Message], media: list[str], tool_specs: list[
         return []
 
     context = _planning_context(messages, media)
+    if _visual_loop_complete(context):
+        return []
     parallel_priority_calls = _parallel_audit_pending_calls(context, tool_specs)
     if parallel_priority_calls:
         return parallel_priority_calls
@@ -147,6 +154,11 @@ def plan_tool_calls(messages: list[Message], media: list[str], tool_specs: list[
 
     fallback_tool = _best_tool_match(user_text, tool_specs)
     return [_heuristic_call(fallback_tool.name, _infer_arguments(context, fallback_tool.name), raw_hint="fallback")]
+
+
+def _requires_stepwise_visual_control(parsed_calls: list[ToolCall]) -> bool:
+    visual_tool_names = {"segment_entities", "extract_layout", "refine_selection", "read_region_text"}
+    return sum(1 for call in parsed_calls if call.name in visual_tool_names) > 1
 
 
 def _repair_tool_call(
@@ -265,6 +277,7 @@ def _canonical_argument_key(value: str) -> str:
 def _initial_calls(context: dict[str, Any], tool_specs: list[ToolSpec]) -> list[ToolCall]:
     user_text = context["user_text"]
     tool_names = {tool.name for tool in tool_specs}
+    image_context = f"{str(context.get('image_hint_id', ''))} {' '.join(str(item) for item in context.get('media', []))}".lower()
 
     if "update_event" in tool_names and _extract_event_id(" ".join(context["user_messages"])):
         return [_heuristic_call("update_event", _infer_arguments(context, "update_event"))]
@@ -288,8 +301,8 @@ def _initial_calls(context: dict[str, Any], tool_specs: list[ToolSpec]) -> list[
         return [_heuristic_call("inspect_image", _infer_arguments(context, "inspect_image"))]
 
     if "extract_layout" in tool_names and _contains_any(
-        user_text,
-        ["table", "form", "dashboard", "layout", "slide", "callout", "metric", "invoice", "validation", "error", "errors"],
+        f"{user_text} {image_context}",
+        ["table", "form", "dashboard", "layout", "slide", "callout", "metric", "invoice", "validation", "error", "errors", "phone", "work authorization"],
     ):
         return [_heuristic_call("extract_layout", _infer_arguments(context, "extract_layout"))]
 
@@ -415,12 +428,20 @@ def _next_calls_from_feedback(context: dict[str, Any], tool_specs: list[ToolSpec
                 "tell me what it says",
                 "read back",
                 "message",
+                "remaining message",
                 "recommendation",
                 "policy",
                 "use it",
+                "what remains",
+                "what remain",
+                "what's left",
+                "what is left",
             ],
         ):
             return [_heuristic_call("read_region_text", _infer_arguments(context, "read_region_text"))]
+
+    if latest_tool == "read_region_text":
+        return []
 
     if latest_tool in {"inspect_image", "read_repo_file"} and "propose_patch" in tool_names:
         if _needs_parallel_audit(user_text, tool_names) and not _parallel_audit_ready(context, tool_names):
@@ -569,6 +590,12 @@ def _infer_arguments(context: dict[str, Any], tool_name: str) -> dict[str, Any]:
         pending_filter = _next_visual_filter(context)
         if pending_filter:
             filter_query = pending_filter
+        elif _contains_any(user_text, ["enablement ops"]):
+            filter_query = "enablement ops"
+        elif _contains_any(user_text, ["backlog"]):
+            filter_query = "backlog"
+        elif _contains_any(user_text, ["email", "email issue", "email address"]):
+            filter_query = "email"
         elif _contains_any(user_text, ["white", "blanc", "blanche", "blanches"]):
             filter_query = "white"
         elif _contains_any(user_text, ["below target", "below", "under target"]):
@@ -587,9 +614,10 @@ def _infer_arguments(context: dict[str, Any], tool_name: str) -> dict[str, Any]:
 
     if tool_name == "extract_layout":
         image_id = image_hint_id or _extract_image_id(" ".join(context["user_messages"])) or (media[0] if media else "img-dashboard")
+        image_context = f"{image_id} {' '.join(str(item) for item in media)}".lower()
         if _contains_any(user_text, ["invoice", "totals", "table"]):
             query = "invoice totals table"
-        elif _contains_any(user_text, ["form", "validation", "error"]):
+        elif "form" in image_context or _contains_any(user_text, ["form", "validation", "error", "phone", "work authorization"]):
             query = "validation error"
         elif _contains_any(user_text, ["slide", "callout"]):
             query = "slide callout"
@@ -707,7 +735,11 @@ def _should_override_valid_arguments(call: ToolCall, inferred_arguments: dict[st
     if call.name == "extract_layout":
         provided_image_id = str(call.arguments.get("image_id", ""))
         inferred_image_id = str(inferred_arguments.get("image_id", ""))
+        provided_target_query = str(call.arguments.get("target_query", "")).strip()
+        inferred_target_query = str(inferred_arguments.get("target_query", "")).strip()
         if inferred_image_id and provided_image_id != inferred_image_id and not provided_image_id.startswith("img-"):
+            return True
+        if inferred_target_query and provided_target_query and provided_target_query != inferred_target_query:
             return True
         if inferred_arguments.get("target_query") and not str(call.arguments.get("target_query", "")).strip():
             return True
@@ -836,7 +868,14 @@ def _contains_any(text: str, fragments: list[str]) -> bool:
 
 _VISUAL_FILTER_PATTERNS: tuple[tuple[str, tuple[str, ...]], ...] = (
     ("below target", ("below target", "below-target", "under target")),
+    ("needs review", ("needs review", "need review")),
+    ("customer ops", ("customer ops", "customer operations")),
     ("support backlog", ("support backlog",)),
+    ("backlog", ("backlog",)),
+    ("enablement ops", ("enablement ops",)),
+    ("latest", ("latest issue first", "latest form issue first")),
+    ("latest action", ("latest action", "approval safe action", "approval-safe action")),
+    ("email", ("email", "email issue", "email address")),
     ("white", ("white", "blanc", "blanche", "blanches")),
     ("phone", ("phone",)),
     ("action", ("action",)),
@@ -861,9 +900,18 @@ def _canonical_visual_filter(text: str) -> str:
 def _requested_visual_filters(user_text: str) -> list[str]:
     normalized = f" {_normalize_phrase_text(user_text)} "
     requested: list[str] = []
+    if " latest issue first " in normalized and " phone issue " in normalized:
+        requested.append("latest")
+    shadowed_canonicals = {
+        "backlog": ("support backlog",),
+        "action": ("latest action",),
+    }
     for canonical, patterns in _VISUAL_FILTER_PATTERNS:
+        if any(f" {_normalize_phrase_text(pattern)} " in normalized for pattern in shadowed_canonicals.get(canonical, ())):
+            continue
         if any(f" {_normalize_phrase_text(pattern)} " in normalized for pattern in patterns):
-            requested.append(canonical)
+            if canonical not in requested:
+                requested.append(canonical)
     return requested
 
 
@@ -919,6 +967,17 @@ def _latest_successful_feedback(context: dict[str, Any], tool_name: str) -> dict
         if str(item.get("tool_name", "")) == tool_name:
             return item
     return None
+
+
+def _visual_loop_complete(context: dict[str, Any]) -> bool:
+    latest_feedback = context.get("latest_feedback")
+    if not isinstance(latest_feedback, dict):
+        return False
+    if str(latest_feedback.get("status", "")) != "pass":
+        return False
+    if str(latest_feedback.get("tool_name", "")) != "read_region_text":
+        return False
+    return _next_visual_filter(context) == ""
 
 
 def _parallel_audit_pending_calls(context: dict[str, Any], tool_specs: list[ToolSpec]) -> list[ToolCall]:

@@ -1,0 +1,15 @@
+matrix:
+  name: knowledge_work_full_lane_experimental
+  description: Registry-driven experimental KnowledgeWorkArena matrix for heavier or not-yet-publishable local systems.
+  run_intent: exploratory
+  update_latest: false
+  systems:
+    - hf_service_gemma4_reasoner_only
+    - hf_service_gemma4_specialists_cpu
+    - mlx_gemma4_e2b_reasoner_only
+    - hf_service_gemma4_e4b_reasoner_only
+    - hf_gemma4_e4b_reasoner_only
+    - hf_qwen3_8b_reasoner_only
+  lanes:
+    - replayable_core
+    - live_web_stress

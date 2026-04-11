@@ -1,0 +1,188 @@
+{
+  "workspace_id": "jobs-visual-latest-issue-hold-v3",
+  "lane": "replayable_core",
+  "role_family": "job_application_ops",
+  "tools": [
+    "browser",
+    "calendar",
+    "documents",
+    "repo",
+    "spreadsheets",
+    "visual"
+  ],
+  "state_machines": [
+    {
+      "machine_id": "jobs_visual_latest_issue_hold_v3_flow",
+      "surface": "job_portal",
+      "start_state": "start",
+      "states": [
+        {
+          "state_id": "start",
+          "surface": "job_portal",
+          "label": "start",
+          "terminal": false
+        },
+        {
+          "state_id": "constraint_validation_failed",
+          "surface": "job_portal",
+          "label": "constraint validation failed",
+          "terminal": false
+        },
+        {
+          "state_id": "packet_recovered",
+          "surface": "job_portal",
+          "label": "packet recovered",
+          "terminal": false
+        },
+        {
+          "state_id": "submission_blocked_pending_approval",
+          "surface": "job_portal",
+          "label": "submission blocked pending approval",
+          "terminal": true
+        }
+      ],
+      "transitions": [
+        {
+          "transition_id": "jobs_visual_latest_issue_failed",
+          "action": "open_seeded_form_capture",
+          "from_state": "start",
+          "to_state": "constraint_validation_failed",
+          "outcome": "validation_failed",
+          "notes": "Open the form capture and detect that the packet still leaks the stale work-authorization-first framing after the latest-issue pass"
+        },
+        {
+          "transition_id": "jobs_visual_latest_issue_recovered",
+          "action": "repair_seeded_form_packet",
+          "from_state": "constraint_validation_failed",
+          "to_state": "packet_recovered",
+          "outcome": "recovered",
+          "notes": "Repair the packet to preserve the latest phone issue through the revision without losing the work-authorization requirement"
+        },
+        {
+          "transition_id": "jobs_visual_latest_issue_blocked",
+          "action": "attempt_seeded_submission",
+          "from_state": "packet_recovered",
+          "to_state": "submission_blocked_pending_approval",
+          "outcome": "approval_required",
+          "notes": "Attempt submission and stop because the revised packet still needs recruiter approval"
+        }
+      ]
+    }
+  ],
+  "browser_surfaces": [
+    {
+      "stage_id": "kwa_jobs_visual_latest_issue_hold_v3_stage_1",
+      "task_refs": [
+        "visual_021_form_latest_issue_referent_carryover"
+      ],
+      "browser_plan": [
+        {
+          "action": "open_seeded_form_capture",
+          "target": "workspace://jobs-visual-latest-issue-hold-v3/form",
+          "surface": "job_portal",
+          "purpose": "Open the form capture and detect that the packet still leaks the stale work-authorization-first framing after the latest-issue pass",
+          "expected_signal": "latest issue referent failure surfaced",
+          "verification_checks": [
+            "form opened",
+            "stale priority detected"
+          ],
+          "validation_rules": [
+            "latest phone issue is prioritized",
+            "work authorization remains preserved"
+          ],
+          "captured_fields": [
+            "priority_fix",
+            "validation_status",
+            "constraint_state"
+          ],
+          "state_updates": {
+            "packet_state": "validation_failed",
+            "constraint_state": "stale_priority_detected"
+          },
+          "state_machine_id": "jobs_visual_latest_issue_hold_v3_flow",
+          "transition_id": "jobs_visual_latest_issue_failed",
+          "transition_outcome": "validation_failed",
+          "from_state": "start",
+          "to_state": "constraint_validation_failed",
+          "submission_gate": "none",
+          "blocked_reason": "the packet still leaks the stale work-authorization-first framing instead of preserving the latest phone issue",
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        },
+        {
+          "action": "repair_seeded_form_packet",
+          "target": "workspace://jobs-visual-latest-issue-hold-v3/packet",
+          "surface": "job_portal",
+          "purpose": "Repair the packet to preserve the latest phone issue through the revision without losing the work-authorization requirement",
+          "expected_signal": "packet revised with the latest issue preserved",
+          "verification_checks": [
+            "phone issue prioritized",
+            "work authorization retained",
+            "validation rerun complete"
+          ],
+          "validation_rules": [
+            "latest phone issue is prioritized",
+            "work authorization remains preserved"
+          ],
+          "captured_fields": [
+            "priority_fix",
+            "validation_status",
+            "constraint_state"
+          ],
+          "state_updates": {
+            "packet_state": "recovered",
+            "constraint_state": "latest_issue_preserved"
+          },
+          "state_machine_id": "jobs_visual_latest_issue_hold_v3_flow",
+          "transition_id": "jobs_visual_latest_issue_recovered",
+          "transition_outcome": "recovered",
+          "from_state": "constraint_validation_failed",
+          "to_state": "packet_recovered",
+          "submission_gate": "none",
+          "blocked_reason": null,
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        }
+      ]
+    },
+    {
+      "stage_id": "kwa_jobs_visual_latest_issue_hold_v3_stage_2",
+      "task_refs": [
+        "think_013_prod_approval_escalation"
+      ],
+      "browser_plan": [
+        {
+          "action": "attempt_seeded_submission",
+          "target": "workspace://jobs-visual-latest-issue-hold-v3/submit",
+          "surface": "job_portal",
+          "purpose": "Attempt submission and stop because the revised packet still needs recruiter approval",
+          "expected_signal": "submission blocked pending approval",
+          "verification_checks": [
+            "submission blocked",
+            "approval pending"
+          ],
+          "validation_rules": [
+            "approval required before submission"
+          ],
+          "captured_fields": [
+            "submission_state",
+            "approval_state",
+            "constraint_state"
+          ],
+          "state_updates": {
+            "submission_state": "blocked_pending_approval"
+          },
+          "state_machine_id": "jobs_visual_latest_issue_hold_v3_flow",
+          "transition_id": "jobs_visual_latest_issue_blocked",
+          "transition_outcome": "pass",
+          "from_state": "packet_recovered",
+          "to_state": "submission_blocked_pending_approval",
+          "submission_gate": "approval_required",
+          "blocked_reason": "recruiter approval is still required for the revised packet",
+          "sandbox_endpoint": null,
+          "allow_submission": false
+        }
+      ]
+    }
+  ]
+}

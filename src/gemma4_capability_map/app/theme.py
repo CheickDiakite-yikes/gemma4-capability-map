@@ -24,6 +24,13 @@ def inject_theme(mode: str = "desktop") -> None:
           padding-top: 1rem;
         }
         """
+    elif mode == "board":
+        css += """
+        .stApp [data-testid="block-container"] {
+          max-width: 1680px;
+          padding-top: 1rem;
+        }
+        """
     st.markdown(f"<style>{css}</style>", unsafe_allow_html=True)
 
 

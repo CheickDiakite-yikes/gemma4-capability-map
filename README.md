@@ -1,6 +1,6 @@
 # gemma4-capability-map
 
-`gemma4-capability-map` is a local-first, white-box benchmark for Gemma-native agent systems.
+`gemma4-capability-map` is a local-first benchmark and agent harness for Gemma-native systems.
 
 It started as an architecture benchmark for reasoning, tool use, retrieval, and efficiency drift across Gemma 4, FunctionGemma, and EmbeddingGemma. It now also includes **KnowledgeWorkArena**, a role-based benchmark layer for job-shaped autonomy episodes such as executive assistant workflows, job-application operations, and finance work.
 
@@ -44,13 +44,12 @@ The core idea is that **final success is not enough**. The benchmark separates:
 
 This repository currently includes:
 
-- `64` gold atomic tasks
-- `282` explicit factorized variants
+- `78` gold atomic tasks
+- `324` explicit factorized variants
 - `16` real-world-tagged tasks
-- `11` replayable `visual_tool_orchestration` tasks
-- `7` live `visual_tool_orchestration` tasks
-- `24` `KnowledgeWorkArena` replayable-core episodes
-- `18` `KnowledgeWorkArena` live-web stress episodes
+- `26` atomic `visual_tool_orchestration` tasks in the current gold corpus
+- `26` `KnowledgeWorkArena` replayable-core episodes in the current generated corpus
+- `20` `KnowledgeWorkArena` live-web stress episodes in the current generated corpus
 - deterministic tool environments for files, calendar, repo, screenshot, and document tasks
 - seeded browser state transitions with validation rules, blocked submissions, and approval gates
 - seeded and local visual executor paths behind the same tool contract
@@ -68,7 +67,14 @@ Current canonical snapshots:
 - visual tool orchestration replayable core: [`results/visual_tool_orchestration/replayable_core/summary.json`](results/visual_tool_orchestration/replayable_core/summary.json)
 - visual tool orchestration live-web stress: [`results/visual_tool_orchestration/live_web_stress/summary.json`](results/visual_tool_orchestration/live_web_stress/summary.json)
 - local comparison board: [`results/history/knowledge_work_board_latest.csv`](results/history/knowledge_work_board_latest.csv)
+- published external benchmark context: [`results/history/knowledge_work_external_benchmarks.csv`](results/history/knowledge_work_external_benchmarks.csv)
 - benchmark history: [`results/history`](results/history)
+
+Important distinction:
+
+- the generated corpora are now `78 / 324 / 26 / 20`
+- the older canonical oracle lane pointers under `results/knowledge_work/replayable_core` and `results/knowledge_work/live_web_stress` still reflect the last full oracle rerun on the earlier `24 / 18` surface
+- the current publishable-default comparison surface is the full-lane board matrix
 
 ## Local Agent Harness
 
@@ -90,6 +96,27 @@ The product and benchmark are meant to share one substrate:
 - benchmark-specific code owns tasks, replay, scoring, and corpora
 - product surfaces own session launch, review, approval, and artifact inspection
 - runtime changes should be validated against the same benchmark slices that exercise them
+
+### Published External Benchmark Context
+
+The board now carries a separate external benchmark context layer for published non-Moonie scores, for example:
+
+- GPT-5.4 official benchmark rows from OpenAI
+- Gemini 3.1 Pro official benchmark rows from Google DeepMind
+
+This layer is intentionally separate from Moonie-reproduced runs.
+
+- `results/history/knowledge_work_board_latest.csv`
+  - Moonie-reproduced runs on our own harness
+- `results/history/knowledge_work_external_benchmarks.csv`
+  - published external scores from official sources
+
+This distinction matters. It is valid to say:
+
+- we improved Gemma 4 materially on Moonie’s native benchmark
+- our current Gemma harness can be contextualized against published frontier results on public benchmarks
+
+It is not valid to merge those into one same-harness leaderboard unless Moonie has actually reproduced the external benchmark locally.
 
 ### Packaged Workflow Families
 
@@ -392,50 +419,70 @@ This track is also wired into bounded KWA episodes, so visual referent carryover
 
 ### Current Local Comparison Surface
 
-The strongest current local comparison surface is the full-lane `24 / 18` `KnowledgeWorkArena` matrix.
+The strongest current publishable-default comparison surface is the full-lane `26 / 20` `KnowledgeWorkArena` matrix reflected in [`results/history/knowledge_work_board_latest.csv`](results/history/knowledge_work_board_latest.csv).
 
-Service-backed local specialists remain the strongest local baseline on this machine:
-
-- replayable:
-  - [`results/knowledge_work/model_backed_hf_specialists_replayable_full_v1/summary.json`](results/knowledge_work/model_backed_hf_specialists_replayable_full_v1/summary.json)
-  - `strict_interface_avg = 1.0`
-  - `recovered_execution_avg = 1.0`
-  - `real_world_readiness_avg = 0.9510`
-- live:
-  - [`results/knowledge_work/model_backed_hf_specialists_live_full_v1/summary.json`](results/knowledge_work/model_backed_hf_specialists_live_full_v1/summary.json)
-  - `strict_interface_avg = 1.0`
-  - `recovered_execution_avg = 1.0`
-  - `real_world_readiness_avg = 0.9630`
-
-Direct in-process HF reasoner-only is materially weaker:
+The current local control is direct in-process Gemma 4 reasoner-only:
 
 - replayable:
   - [`results/knowledge_work/model_backed_hf_inprocess_reasoner_full_replayable_v1/summary.json`](results/knowledge_work/model_backed_hf_inprocess_reasoner_full_replayable_v1/summary.json)
-  - `strict_interface_avg = 0.9531`
-  - `recovered_execution_avg = 0.9375`
-  - `real_world_readiness_avg = 0.9330`
+  - `runs = 26`
+  - `strict_interface_avg = 0.9038461538461539`
+  - `recovered_execution_avg = 0.8846153846153846`
+  - `real_world_readiness_avg = 0.9392653846153846`
 - live:
   - [`results/knowledge_work/model_backed_hf_inprocess_reasoner_full_live_v1/summary.json`](results/knowledge_work/model_backed_hf_inprocess_reasoner_full_live_v1/summary.json)
-  - `strict_interface_avg = 0.9306`
-  - `recovered_execution_avg = 0.9167`
-  - `real_world_readiness_avg = 0.9379`
+  - `runs = 20`
+  - `strict_interface_avg = 0.875`
+  - `recovered_execution_avg = 0.85`
+  - `real_world_readiness_avg = 0.9347899999999999`
 
-Direct in-process HF with real specialists partially recovers that gap, but still trails the service-backed specialist path:
+The current headline local Gemma stack is direct in-process Gemma 4 plus real specialists:
 
 - replayable:
   - [`results/knowledge_work/model_backed_hf_inprocess_specialists_full_replayable_v3/summary.json`](results/knowledge_work/model_backed_hf_inprocess_specialists_full_replayable_v3/summary.json)
-  - `artifact_quality_avg = 0.9977`
-  - `strict_interface_avg = 1.0`
-  - `recovered_execution_avg = 1.0`
-  - `real_world_readiness_avg = 0.9590`
+  - `runs = 26`
+  - `artifact_quality_avg = 0.9744807692307693`
+  - `strict_interface_avg = 0.9711538461538461`
+  - `recovered_execution_avg = 0.9615384615384616`
+  - `real_world_readiness_avg = 0.9668576923076924`
 - live:
   - [`results/knowledge_work/model_backed_hf_inprocess_specialists_full_live_v3/summary.json`](results/knowledge_work/model_backed_hf_inprocess_specialists_full_live_v3/summary.json)
-  - `artifact_quality_avg = 1.0`
-  - `strict_interface_avg = 1.0`
-  - `recovered_execution_avg = 1.0`
-  - `real_world_readiness_avg = 0.9704`
+  - `runs = 20`
+  - `artifact_quality_avg = 0.9696049999999999`
+  - `strict_interface_avg = 0.9625`
+  - `recovered_execution_avg = 0.95`
+  - `real_world_readiness_avg = 0.966045`
 
-That is the current benchmark-quality result: local specialist support helps the in-process path materially, closes the earlier visual execution misses, and brings the broad-lane rows back to clean strict/recovered execution, but a deployment/runtime difference still remains measurable on the same corpus.
+The current oracle full-lane board row has those same top-line metrics on the same `26 / 20` surface:
+
+- replayable:
+  - `strict_interface_avg = 0.9711538461538461`
+  - `recovered_execution_avg = 0.9615384615384616`
+  - `real_world_readiness_avg = 0.9668576923076924`
+- live:
+  - `strict_interface_avg = 0.9625`
+  - `recovered_execution_avg = 0.95`
+  - `real_world_readiness_avg = 0.966045`
+
+That is the current benchmark-quality result:
+
+- we made Gemma 4 materially better as a local full-stack agent on our own harder benchmark surface
+- the reasoner-only Gemma control remains materially weaker, so the gain is not trivial
+- the headline local Gemma specialist row now matches the oracle row on the current publishable-default full-lane board surface
+
+### Honest Claim Boundary
+
+The repo can now honestly claim:
+
+- we improved Gemma 4 materially with our own controller/runtime/specialist-stack learnings
+- we made it a better full-stack local agent on our own benchmark
+- we have a publishable local Gemma-improvement result on a harder `KnowledgeWorkArena` surface
+
+The repo cannot honestly claim yet:
+
+- that Gemma 4 beats Qwen 3.5 on the same local benchmark surface
+
+Qwen should be the first real non-Gemma comparator, but there is still no local Qwen profile, cached local Qwen runtime, or completed full-lane Qwen row in the repo. That comparison should not be claimed until it exists in the board/history layer.
 
 ## What We Have Learned So Far
 
@@ -777,7 +824,8 @@ Useful product/runtime entrypoints:
 - harden the shared local runtime and keep benchmark execution aligned with it
 - deepen revision responsiveness in artifact-heavy finance and jobs episodes
 - expand the operator console, mobile companion, and board into a stronger shared product surface
-- run more local/open-weight systems against the same full-lane `24 / 18` surface
+- run more local/open-weight systems against the same full-lane `26 / 20` surface
+- add the first real non-Gemma local comparator, with Qwen as the first target once a real local checkpoint is available on this machine
 
 ### Medium term
 

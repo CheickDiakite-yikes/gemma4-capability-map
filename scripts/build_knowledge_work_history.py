@@ -5,7 +5,7 @@ import json
 from datetime import UTC, datetime
 from pathlib import Path
 
-from gemma4_capability_map.reporting.knowledge_work_board import build_board_rows, write_board_exports
+from gemma4_capability_map.reporting.knowledge_work_board import DEFAULT_RESULTS_ROOTS, build_board_rows, discover_run_dirs, write_board_exports
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def main() -> None:
     runs = _load_runs(ROOT / "results" / "history" / "knowledge_work_runs.jsonl")
-    snapshots = _load_snapshot_dirs(ROOT / "results" / "knowledge_work")
+    snapshots = _load_snapshot_dirs(DEFAULT_RESULTS_ROOTS)
     latest_canonical_by_lane = _latest_by_lane(snapshots, intent="canonical")
     latest_exploratory_by_lane = _latest_by_lane(snapshots, intent="exploratory")
     best_by_lane = _best_by_lane(snapshots)
@@ -35,7 +35,7 @@ def main() -> None:
     (history_dir / "knowledge_work_history.md").write_text(_markdown_report(report), encoding="utf-8")
     _write_csv(history_dir / "knowledge_work_canonical.csv", latest_canonical_by_lane)
     _write_csv(history_dir / "knowledge_work_exploratory.csv", latest_exploratory_by_lane)
-    write_board_exports(build_board_rows(ROOT / "results" / "knowledge_work"), history_dir)
+    write_board_exports(build_board_rows(DEFAULT_RESULTS_ROOTS), history_dir)
     print(f"Wrote KnowledgeWorkArena history report to {history_dir}")
 
 
@@ -50,18 +50,12 @@ def _load_runs(path: Path) -> list[dict]:
     return rows
 
 
-def _load_snapshot_dirs(root: Path) -> list[dict]:
+def _load_snapshot_dirs(root: Path | tuple[Path, ...]) -> list[dict]:
     snapshots: list[dict] = []
-    if not root.exists():
-        return snapshots
-    for path in sorted(root.iterdir()):
-        if not path.is_dir():
-            continue
+    for _, path in discover_run_dirs(root):
         manifest_path = path / "manifest.json"
         summary_path = path / "summary.json"
         leaderboard_path = path / "episode_leaderboard.csv"
-        if not manifest_path.exists() or not summary_path.exists():
-            continue
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         summary = json.loads(summary_path.read_text(encoding="utf-8"))
         row = {

@@ -2,7 +2,65 @@
 
 ## Resume Here
 
-The repo is in a stronger state after hardening the canonical oracle KWA surface with harder human-nuance episodes.
+The repo is in a stronger state after turning the direct in-process Gemma specialist stack into a publishable-default full-lane result rather than a weaker appendix lane.
+
+## Latest Headline Result
+
+The current strongest research claim in the repo is now:
+
+- on the publishable-default full-lane `KnowledgeWorkArena` matrix, the direct in-process Gemma 4 specialist stack matches the oracle row on the same `26 / 20` surface
+- the reasoner-only Gemma control remains materially weaker on that same surface
+- that means the controller/runtime/specialist-stack work materially improved Gemma 4 as a full-stack local agent on our own benchmark
+
+Current board-backed headline rows:
+
+- oracle:
+  - `oracle_gemma4_e2b`
+  - comparison batch:
+    - `20260411T142324Z_knowledge_work_full_lane`
+  - replayable:
+    - `runs = 26`
+    - `strict_interface_avg = 0.9711538461538461`
+    - `recovered_execution_avg = 0.9615384615384616`
+    - `real_world_readiness_avg = 0.9668576923076924`
+  - live:
+    - `runs = 20`
+    - `strict_interface_avg = 0.9625`
+    - `recovered_execution_avg = 0.95`
+    - `real_world_readiness_avg = 0.966045`
+- local headline Gemma row:
+  - `hf_gemma4_e2b_specialists_cpu`
+  - comparison batch:
+    - `20260411T152330Z_knowledge_work_publishable_core`
+  - replayable:
+    - `runs = 26`
+    - `strict_interface_avg = 0.9711538461538461`
+    - `recovered_execution_avg = 0.9615384615384616`
+    - `real_world_readiness_avg = 0.9668576923076924`
+  - live:
+    - `runs = 20`
+    - `strict_interface_avg = 0.9625`
+    - `recovered_execution_avg = 0.95`
+    - `real_world_readiness_avg = 0.966045`
+- local control:
+  - `hf_gemma4_e2b_reasoner_only`
+  - replayable:
+    - `strict_interface_avg = 0.9038461538461539`
+    - `recovered_execution_avg = 0.8846153846153846`
+    - `real_world_readiness_avg = 0.9392653846153846`
+  - live:
+    - `strict_interface_avg = 0.875`
+    - `recovered_execution_avg = 0.85`
+    - `real_world_readiness_avg = 0.9347899999999999`
+
+Important claim boundary:
+
+- this is now a strong Gemma-improvement claim
+- it is not yet a valid Gemma-versus-Qwen claim because there is still no full-lane Qwen run in the repo
+- the repo now has Qwen-ready comparator support:
+  - `Qwen/Qwen3-8B` is registered as an experimental local reasoner-only system
+  - the HF runner supports tokenizer-based text generation for non-Gemma models
+  - the experimental matrix includes the Qwen row
 
 What just landed:
 
@@ -25,10 +83,11 @@ What just landed:
   - `refine_selection`
   - `extract_layout`
   - `read_region_text`
-- generated visual gold corpus at `11` replayable + `7` live tasks
+- generated visual gold corpus now totals `22` tasks; current canonical lane pointers cover `11` replayable + `7` live seeded tasks
 - visual KWA bounded slices for executive, jobs, and finance episodes
 - corrected visual planner/image-id plumbing and visual answer-surface rescue
-- canonical KWA oracle lanes refreshed to the full `24` replayable and `18` live generated corpus
+- older canonical KWA oracle lane pointers still reflect the last full oracle rerun on `24` replayable and `18` live episodes
+- current generated KWA corpus is now `26` replayable and `20` live episodes
 - registry-backed KWA benchmark board and scatter exports
 - Streamlit `knowledge_work_board` mode
 - explicit `system_id` support in KWA run manifests
@@ -50,12 +109,15 @@ What just landed:
 - combined-feedback patch repair for image + repo audit stages
 - clean broader 9-episode replayable specialist-backed cross-role slice at `model_backed_hf_specialists_cross_role_broad_v2`
 - clean broader 9-episode live specialist-backed cross-role slice at `model_backed_hf_specialists_cross_role_live_broad_v1`
-- `KnowledgeWorkArena` expanded to `21` replayable and `15` live episodes
+- `KnowledgeWorkArena` first expanded to `21` replayable and `15` live episodes, then continued growing to the current `26 / 20` generated surface
 - new harder canonical episodes for stale context, constraint preservation, and stale assumptions
 - canonical KWA runner no longer silently truncates to `12` episodes by default
 - clean 3-episode replayable harder human-nuance specialist-backed slice at `model_backed_hf_specialists_hard_human_replayable_v1`
 - clean 3-episode live harder human-nuance specialist-backed slice at `model_backed_hf_specialists_hard_human_live_v1`
 - refreshed continuity and history artifacts
+- publishable-default direct in-process Gemma specialist full-lane rerun at:
+  - `20260411T152330Z_knowledge_work_publishable_core`
+- regenerated board/history rows showing the headline Gemma specialist stack matching the oracle full-lane row on the publishable-default matrix
 
 ## Current Canonical Pointers
 
@@ -190,17 +252,6 @@ Exploratory stopped pilot:
     - `results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_finance_visual_live_v2`
     - `results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_jobs_visual_live_v2`
 - Those targeted reruns now show `strict_interface = 1.0` and `recovered_execution = 1.0` on all three previously failing episodes.
-- The direct-HF specialist full-lane `24 / 18` rerun is now done:
-  - replayable:
-    - `results/knowledge_work/model_backed_hf_inprocess_specialists_full_replayable_v3`
-    - `strict_interface = 1.0`
-    - `recovered_execution = 1.0`
-    - `artifact_quality = 0.9977`
-  - live:
-    - `results/knowledge_work/model_backed_hf_inprocess_specialists_full_live_v3`
-    - `strict_interface = 1.0`
-    - `recovered_execution = 1.0`
-    - `artifact_quality = 1.0`
 - The softer invoice artifact/readiness gap is also closed in bounded reruns after the memo generator/review path was hardened:
   - replayable:
     - `results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_finance_visual_replayable_v3`
@@ -208,8 +259,12 @@ Exploratory stopped pilot:
   - live:
     - `results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_finance_visual_live_v3`
     - `artifact_quality = 1.0`
-- The public board still reflects the full-lane `v2` reruns, not the bounded `v3` invoice artifact fix. If the next thread wants that softer-readiness improvement visible in the board row, it needs one more full direct-HF specialist `24 / 18` rerun after the memo patch.
-- The public board now reflects the full-lane `v3` reruns, so the invoice memo-quality gain is visible in the local comparison rows.
+- The older bounded `v2` / `v3` direct-HF specialist reruns are now diagnostic history, not the current headline claim surface.
+- The current headline claim surface is the publishable-default full-lane board:
+  - `results/history/knowledge_work_board_latest.csv`
+  - with the `hf_gemma4_e2b_specialists_cpu` row from `20260411T152330Z_knowledge_work_publishable_core`
+- Use the bounded invoice/form reruns only as proof of where the controller and memo fixes came from, not as the main comparison artifact.
+- The next meaningful comparison step is a real non-Gemma local stack, not more reruns of the now-clean Gemma specialist row.
 - The new atomic visual-tool benchmark is canonical at `results/visual_tool_orchestration/...`; use it when making claims about multimodal tool orchestration rather than inferring from KWA alone.
 - The board/reporting layer now depends on [`configs/model_registry.yaml`](../../configs/model_registry.yaml) plus the exports in [`results/history`](../../results/history); update both when adding new systems or public-style charts.
 - The repo is no longer benchmark-only:
@@ -218,5 +273,5 @@ Exploratory stopped pilot:
   - do not let desktop/mobile shells invent a second orchestration model
 - `kwa_finance_partner_deck_revision` is clean on the current corrected mixed-pressure visual reference; if it regresses again, treat it as a soft-realism target, not a hard interface failure.
 - `mlx` should not be the next execution target on this machine until the runtime exists locally; the current probe still fails with `ModuleNotFoundError: mlx`.
-- `google/gemma-4-E4B-it` remains a probe-only local lane here and should not be promoted to full `24 / 18` until hardware/runtime conditions change.
+- `google/gemma-4-E4B-it` remains a probe-only local lane here and should not be promoted to a full-lane comparison until hardware/runtime conditions change.
 - The current branch is expected to remain `main` unless a feature branch is explicitly needed.

@@ -27,14 +27,17 @@ class Gemma4Runner(Runner):
         backend: str = "heuristic",
         max_new_tokens: int = 256,
         device: str = "auto",
+        request_timeout_seconds: float = 600.0,
         load_event_hook: Callable[[dict[str, Any]], None] | None = None,
     ) -> None:
         super().__init__(model_id=model_id, backend=backend)
         self.requested_model_id = model_id
         self.max_new_tokens = max_new_tokens
         self.device = device
+        self.request_timeout_seconds = request_timeout_seconds
         self._load_event_hook = load_event_hook
         self._processor = None
+        self._tokenizer = None
         self._model = None
         self._mlx_config = None
         self._loaded_mode: str | None = None
@@ -59,6 +62,7 @@ class Gemma4Runner(Runner):
             "runtime_device": self._runtime_device,
             "load_mode": self._loaded_mode,
             "configured_device": self.device,
+            "request_timeout_seconds": self.request_timeout_seconds,
             "service": self._service_info,
         }
 
@@ -185,10 +189,13 @@ class Gemma4Runner(Runner):
         max_new_tokens: int,
     ) -> ModelTurn:
         self._ensure_hf_loaded()
-        has_media = any(_is_real_media_ref(ref) for ref in media)
-        prompt_messages = self._build_hf_messages(messages, tool_specs, media, thinking=thinking)
-        if has_media:
-            inputs = self._processor.apply_chat_template(
+        model_mode = self._loaded_mode or ("vision" if _is_edge_multimodal_model(self.requested_model_id) else "text")
+        if model_mode == "vision":
+            tokenizer = self._processor
+            if tokenizer is None:
+                raise RuntimeError("HF vision processor was not loaded.")
+            prompt_messages = self._build_hf_messages(messages, tool_specs, media, thinking=thinking)
+            inputs = tokenizer.apply_chat_template(
                 prompt_messages,
                 tokenize=True,
                 return_dict=True,
@@ -197,21 +204,27 @@ class Gemma4Runner(Runner):
                 enable_thinking=thinking,
             )
         else:
-            prompt = self._processor.apply_chat_template(
-                prompt_messages,
-                tokenize=False,
-                add_generation_prompt=True,
-                enable_thinking=thinking,
-            )
-            inputs = self._processor(text=prompt, return_tensors="pt")
+            tokenizer = self._tokenizer
+            if tokenizer is None:
+                raise RuntimeError("HF tokenizer was not loaded.")
+            prompt_messages = self._build_hf_text_messages(messages, tool_specs, media, thinking=thinking)
+            if hasattr(tokenizer, "apply_chat_template"):
+                prompt = tokenizer.apply_chat_template(
+                    prompt_messages,
+                    tokenize=False,
+                    add_generation_prompt=True,
+                )
+            else:
+                prompt = self._build_hf_prompt(prompt_messages)
+            inputs = tokenizer(prompt, return_tensors="pt")
         target_device = self._runtime_device or getattr(self._model, "device", None)
         if target_device is not None and hasattr(inputs, "to"):
             inputs = inputs.to(target_device)
         outputs = self._model.generate(**inputs, max_new_tokens=max_new_tokens)
         generated = outputs[0][inputs["input_ids"].shape[-1]:]
-        text = self._processor.decode(generated, skip_special_tokens=False)
+        text = tokenizer.decode(generated, skip_special_tokens=False)
         normalized = normalize_tool_output(text)
-        final_answer, thinking_text = _parse_model_response(self._processor, text)
+        final_answer, thinking_text = _parse_model_response(tokenizer, text)
         return ModelTurn(
             raw_model_output=text,
             normalized_tool_call=normalized,
@@ -242,7 +255,7 @@ class Gemma4Runner(Runner):
                 "thinking": thinking,
                 "max_new_tokens": max_new_tokens,
             },
-            timeout_seconds=600.0,
+            timeout_seconds=self.request_timeout_seconds,
         )
         if not response.get("ok"):
             raise RuntimeError(response.get("error", "HF reasoner service generation failed."))
@@ -263,13 +276,16 @@ class Gemma4Runner(Runner):
         self._emit_load_event("hf_import_start", detail="Importing HF runtime dependencies.")
         try:
             import torch
-            from transformers import AutoModelForCausalLM, AutoModelForImageTextToText, AutoProcessor
+            from transformers import AutoModelForCausalLM, AutoModelForImageTextToText, AutoProcessor, AutoTokenizer
         except ImportError as exc:
             raise RuntimeError("Install the hf extra to use the Hugging Face backend.") from exc
         self._emit_load_event("hf_import_complete", detail="Imported HF runtime dependencies.")
 
         model_mode = "vision" if _is_edge_multimodal_model(self.requested_model_id) else "text"
-        if self._processor is not None and self._model is not None and self._loaded_mode == model_mode:
+        if model_mode == "vision" and self._processor is not None and self._model is not None and self._loaded_mode == model_mode:
+            self._emit_load_event("hf_load_cached", detail="Reusing already loaded HF model.", model_mode=model_mode)
+            return
+        if model_mode == "text" and self._tokenizer is not None and self._model is not None and self._loaded_mode == model_mode:
             self._emit_load_event("hf_load_cached", detail="Reusing already loaded HF model.", model_mode=model_mode)
             return
 
@@ -285,15 +301,26 @@ class Gemma4Runner(Runner):
             local_files_only=local_files_only,
             auth_token_present=bool(token),
         )
-        self._emit_load_event("hf_processor_load_start", detail="Loading HF processor.", resolved_source=resolved_source)
-        self._processor = AutoProcessor.from_pretrained(
-            resolved_source,
-            token=token,
-            local_files_only=local_files_only,
-        )
-        self._emit_load_event("hf_processor_load_complete", detail="HF processor loaded.", resolved_source=resolved_source)
         model_cls = AutoModelForImageTextToText if model_mode == "vision" else AutoModelForCausalLM
         runtime_device = _pick_hf_device(torch, preferred=self.device)
+        if model_mode == "vision":
+            self._emit_load_event("hf_processor_load_start", detail="Loading HF processor.", resolved_source=resolved_source)
+            self._processor = AutoProcessor.from_pretrained(
+                resolved_source,
+                token=token,
+                local_files_only=local_files_only,
+            )
+            self._tokenizer = None
+            self._emit_load_event("hf_processor_load_complete", detail="HF processor loaded.", resolved_source=resolved_source)
+        else:
+            self._emit_load_event("hf_tokenizer_load_start", detail="Loading HF tokenizer.", resolved_source=resolved_source)
+            self._tokenizer = AutoTokenizer.from_pretrained(
+                resolved_source,
+                token=token,
+                local_files_only=local_files_only,
+            )
+            self._processor = None
+            self._emit_load_event("hf_tokenizer_load_complete", detail="HF tokenizer loaded.", resolved_source=resolved_source)
         self._emit_load_event("hf_model_load_start", detail="Loading HF model weights.", runtime_device=runtime_device)
         load_kwargs: dict[str, Any] = {
             "low_cpu_mem_usage": True,
@@ -518,6 +545,51 @@ class Gemma4Runner(Runner):
                 content.append({"type": "text", "text": text})
             prepared.append({"role": role, "content": content or [{"type": "text", "text": ""}]})
         return prepared
+
+    def _build_hf_text_messages(
+        self,
+        messages: list[Message],
+        tool_specs: list[ToolSpec],
+        media: list[str],
+        thinking: bool = False,
+    ) -> list[dict[str, str]]:
+        prepared: list[dict[str, str]] = []
+        system_text = self._system_instruction(tool_specs, thinking=thinking, native_thinking=False)
+        if system_text:
+            prepared.append({"role": "system", "content": system_text})
+        if tool_specs:
+            prepared.append(
+                {
+                    "role": "system",
+                    "content": "Available tools:\n"
+                    + "\n".join(
+                        json.dumps(tool.model_dump(mode="json", by_alias=True), ensure_ascii=False) for tool in tool_specs
+                    ),
+                }
+            )
+        media_iter = iter(media)
+        for message in messages:
+            role = self._map_hf_role(message.role)
+            text = message.content
+            message_media = list(message.image_refs)
+            if role == "user" and not message_media and not message.image_refs and message is messages[-1]:
+                for ref in media_iter:
+                    message_media.append(ref)
+            if message_media:
+                text = (text + "\n" if text else "") + "Image refs: " + ", ".join(message_media)
+            if message.role == "tool":
+                text = f"Tool result:\n{text}"
+            prepared.append({"role": role, "content": text or ""})
+        return prepared
+
+    def _build_hf_prompt(self, messages: list[dict[str, str]]) -> str:
+        lines: list[str] = []
+        for message in messages:
+            role = str(message.get("role", "user")).upper()
+            text = str(message.get("content", ""))
+            lines.append(f"{role}: {text}".rstrip())
+        lines.append("ASSISTANT:")
+        return "\n\n".join(lines).strip()
 
     def _build_mlx_messages(
         self,

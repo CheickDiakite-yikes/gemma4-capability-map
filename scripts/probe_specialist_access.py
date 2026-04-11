@@ -7,15 +7,14 @@ from pathlib import Path
 
 import requests
 
+from gemma4_capability_map.reporting.knowledge_work_board import DEFAULT_REGISTRY_PATH, load_model_registry
 from gemma4_capability_map.benchmark import ROOT
 from gemma4_capability_map.models.runtime_utils import detect_hf_token_source, load_hf_auth_token
 
 
-DEFAULT_MODELS = [
-    "google/gemma-4-E2B-it",
-    "google/functiongemma-270m-it",
-    "google/embeddinggemma-300m",
-]
+def _default_models() -> list[str]:
+    registry = load_model_registry(DEFAULT_REGISTRY_PATH)
+    return sorted(registry.get("models", {}).keys())
 
 
 def main() -> None:
@@ -24,7 +23,7 @@ def main() -> None:
     parser.add_argument("--model", action="append", dest="models", default=[])
     args = parser.parse_args()
 
-    models = args.models or DEFAULT_MODELS
+    models = args.models or _default_models()
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
     json_path = output_dir / "specialist_access_probe.json"

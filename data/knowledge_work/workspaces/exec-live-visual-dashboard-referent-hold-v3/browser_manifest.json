@@ -1,0 +1,184 @@
+{
+  "workspace_id": "exec-live-visual-dashboard-referent-hold-v3",
+  "lane": "live_web_stress",
+  "role_family": "executive_assistant",
+  "tools": [
+    "browser",
+    "calendar",
+    "documents",
+    "repo",
+    "spreadsheets",
+    "visual"
+  ],
+  "state_machines": [
+    {
+      "machine_id": "exec_live_visual_dashboard_referent_hold_v3_flow",
+      "surface": "public_web",
+      "start_state": "planned",
+      "states": [
+        {
+          "state_id": "planned",
+          "surface": "public_web",
+          "label": "planned",
+          "terminal": false
+        },
+        {
+          "state_id": "dashboard_validation_failed",
+          "surface": "public_web",
+          "label": "dashboard validation failed",
+          "terminal": false
+        },
+        {
+          "state_id": "brief_revised",
+          "surface": "document",
+          "label": "brief revised",
+          "terminal": false
+        },
+        {
+          "state_id": "send_blocked_pending_approval",
+          "surface": "email",
+          "label": "send blocked pending approval",
+          "terminal": true
+        }
+      ],
+      "transitions": [
+        {
+          "transition_id": "exec_live_visual_dashboard_referent_failed",
+          "action": "open_live_dashboard_capture",
+          "from_state": "planned",
+          "to_state": "dashboard_validation_failed",
+          "outcome": "validation_failed",
+          "notes": "Load the live dashboard capture and detect that the broad review set still carries the stale finance-ops panel"
+        },
+        {
+          "transition_id": "exec_live_visual_dashboard_referent_recovered",
+          "action": "draft_live_brief",
+          "from_state": "dashboard_validation_failed",
+          "to_state": "brief_revised",
+          "outcome": "recovered",
+          "notes": "Repair the brief in sandbox mode so the latest customer-ops panel replaces the stale finance panel"
+        },
+        {
+          "transition_id": "exec_live_visual_dashboard_referent_blocked",
+          "action": "attempt_sandbox_send",
+          "from_state": "brief_revised",
+          "to_state": "send_blocked_pending_approval",
+          "outcome": "approval_required",
+          "notes": "Attempt the outbound path and record that the revised live brief still requires approval"
+        }
+      ]
+    }
+  ],
+  "browser_surfaces": [
+    {
+      "stage_id": "kwa_exec_live_visual_dashboard_referent_hold_v3_stage_1",
+      "task_refs": [
+        "visual_020_live_dashboard_followup_refinement"
+      ],
+      "browser_plan": [
+        {
+          "action": "open_live_dashboard_capture",
+          "target": "live://visual_020_live_dashboard_followup_refinement",
+          "surface": "public_web",
+          "purpose": "Load the live dashboard capture and detect that the broad review set still carries the stale finance-ops panel",
+          "expected_signal": "ambiguous review set surfaced with stale finance-ops panel",
+          "verification_checks": [
+            "page loaded",
+            "review set captured"
+          ],
+          "validation_rules": [
+            "latest customer-ops panel isolated"
+          ],
+          "captured_fields": [
+            "panel_count",
+            "panel_focus"
+          ],
+          "state_updates": {
+            "dashboard_state": "validation_failed"
+          },
+          "state_machine_id": "exec_live_visual_dashboard_referent_hold_v3_flow",
+          "transition_id": "exec_live_visual_dashboard_referent_failed",
+          "transition_outcome": "validation_failed",
+          "from_state": "planned",
+          "to_state": "dashboard_validation_failed",
+          "submission_gate": "none",
+          "blocked_reason": "the live draft still carries the finance-ops panel instead of the latest customer-ops issue",
+          "sandbox_endpoint": "https://sandbox.local/exec-live-visual-dashboard-referent-hold-v3/dashboard",
+          "allow_submission": false
+        },
+        {
+          "action": "draft_live_brief",
+          "target": "sandbox://exec-live-visual-dashboard-referent-hold-v3/brief",
+          "surface": "document",
+          "purpose": "Repair the brief in sandbox mode so the latest customer-ops panel replaces the stale finance panel",
+          "expected_signal": "brief revised with the latest panel and explicit approval hold",
+          "verification_checks": [
+            "customer-ops panel inserted",
+            "approval hold present"
+          ],
+          "validation_rules": [
+            "latest customer-ops panel isolated",
+            "approval hold stated"
+          ],
+          "captured_fields": [
+            "panel_focus",
+            "brief_state",
+            "approval_state"
+          ],
+          "state_updates": {
+            "dashboard_state": "recovered",
+            "brief_state": "revised"
+          },
+          "state_machine_id": "exec_live_visual_dashboard_referent_hold_v3_flow",
+          "transition_id": "exec_live_visual_dashboard_referent_recovered",
+          "transition_outcome": "recovered",
+          "from_state": "dashboard_validation_failed",
+          "to_state": "brief_revised",
+          "submission_gate": "sandbox_only",
+          "blocked_reason": null,
+          "sandbox_endpoint": "https://sandbox.local/exec-live-visual-dashboard-referent-hold-v3/brief",
+          "allow_submission": false
+        }
+      ]
+    },
+    {
+      "stage_id": "kwa_exec_live_visual_dashboard_referent_hold_v3_stage_2",
+      "task_refs": [
+        "retr_011_approval_policy"
+      ],
+      "browser_plan": [
+        {
+          "action": "attempt_sandbox_send",
+          "target": "sandbox://exec-live-visual-dashboard-referent-hold-v3/send",
+          "surface": "email",
+          "purpose": "Attempt the outbound path and record that the revised live brief still requires approval",
+          "expected_signal": "send blocked pending approval",
+          "verification_checks": [
+            "send blocked",
+            "no public side effects"
+          ],
+          "validation_rules": [
+            "approval required before send"
+          ],
+          "captured_fields": [
+            "send_state",
+            "approval_state",
+            "brief_state"
+          ],
+          "state_updates": {
+            "send_state": "blocked_pending_approval"
+          },
+          "state_machine_id": "exec_live_visual_dashboard_referent_hold_v3_flow",
+          "transition_id": "exec_live_visual_dashboard_referent_blocked",
+          "transition_outcome": "pass",
+          "from_state": "brief_revised",
+          "to_state": "send_blocked_pending_approval",
+          "submission_gate": "approval_required",
+          "blocked_reason": "executive approval is still required for the revised live dashboard brief",
+          "sandbox_endpoint": "https://sandbox.local/exec-live-visual-dashboard-referent-hold-v3/send",
+          "allow_submission": false
+        }
+      ]
+    }
+  ]
+}

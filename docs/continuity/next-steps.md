@@ -19,10 +19,12 @@ Why:
 Focus:
 
 - extend the registry-backed board into a more publishable benchmark + product surface with role, category, track, latency, cost, and packaged-workflow cuts
+- extend the new published external benchmark context layer with more official or clearly third-party rows, while keeping provenance labels explicit
 
 Why:
 
 - the board now has role/category/track exports plus runtime-facing columns like `warmup_load_ms` and `last_request_elapsed_ms`
+- the board now also has a clean separate published external context layer for frontier-model benchmark references
 - the new operator-console and mobile-companion views exist, but they still need richer shared view models and stronger product-level polish
 - the next gap is comparison quality and workflow/product visibility, not raw data extraction
 
@@ -30,19 +32,25 @@ Why:
 
 Focus:
 
-- keep the full-lane specialist-backed references as the local baseline
-- compare more systems against the same `24 / 18` KWA surface:
+- keep the current publishable-default Gemma specialist row as the local headline baseline
+- compare more systems against the same `26 / 20` KWA surface:
   - oracle
   - reasoner-only local
   - specialist-backed local
-  - any future alternative local stacks
+  - the first real non-Gemma local stack that can run end to end on this machine
 
 Why:
 
-- the current `hf_service` specialist-backed stack now survives the full generated corpus cleanly
-- the board now resolves legacy run ids to the registry and prefers `full_lane` exploratory comparisons, so adding new systems will land on a cleaner public-style comparison surface
-- the next high-value benchmark question is comparative, not just wider volume
-- the direct in-process specialist-backed rows are now repaired enough that future misses should be more informative than the closed referent-repair bug family
+- the current direct in-process Gemma specialist row now matches the oracle row on the publishable-default full-lane board surface
+- that gives the repo a strong “we made Gemma better” claim
+- the next missing evidence is not more Gemma self-comparison; it is a real non-Gemma comparator on the same matrix
+- external GPT/Gemini rows are now useful context, but they are not substitutes for a same-harness reproduced comparator
+- do not claim a Qwen comparison until there is a completed full-lane Qwen run in the board/history layer
+- the plumbing work is now done:
+  - `Qwen/Qwen3-8B` is registered
+  - the HF runner has a tokenizer-based text path for non-Gemma models
+  - the experimental matrix includes the Qwen row
+- Qwen should still be the first target once a real local checkpoint is available, because it is the clearest non-Gemma open-weight comparator for the publishable claim set
 
 ### 4. Deepen softer-realism scoring and harder episode design
 
@@ -68,6 +76,11 @@ Focus:
 - add harder referent-carryover, stale-selection, and ambiguous-filter visual tasks
 - push more visual episodes into job-shaped KWA slices instead of keeping them bounded
 - keep extending native artifact grading instead of relaxing it
+- the newest atomic realism additions are now:
+  - dashboard backlog -> enablement-ops refinement
+  - latest-issue -> email refinement
+- count-heavy visual tasks are now also stricter at scoring time:
+  - a wrong tool-side count no longer gets rescued by a lucky final-answer number mention
 - focus especially on contradictions where a model must preserve the latest human visual constraint after an earlier valid selection
 - use the new direct-HF full-lane comparison result to prioritize:
   - visual KWA revision loops
@@ -77,6 +90,11 @@ Focus:
 
 ## Ongoing Discipline
 
+- keep claims honest:
+  - strong current claim:
+    - we improved Gemma 4 materially as a local full-stack agent on our own benchmark
+  - non-claim until new evidence exists:
+    - we have not yet shown Gemma beating Qwen on the same local full-lane surface
 - keep CLI/API/operator/mobile surfaces honest about current capability:
   - packaged workflows are benchmark-backed bounded flows, not unbounded general autonomy
 - use the runtime event contract consistently:

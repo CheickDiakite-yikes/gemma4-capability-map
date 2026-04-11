@@ -20,6 +20,7 @@ def score_visual_trace(task: Task, trace: RunTrace) -> dict[str, float | int | b
     selection_accuracy = _selection_accuracy(expected_visual, actual_visual)
     count_accuracy = _count_accuracy(expected_visual, actual_visual, trace.final_answer)
     refinement_success = _refinement_success(expected_calls, actual_calls, expected_visual, actual_visual)
+    latest_filter_resolution = _latest_filter_resolution(expected_calls, actual_calls, expected_visual, actual_visual, trace.final_answer)
     referent_retention = _referent_retention(expected_calls, actual_calls)
     stale_selection_recovery = _stale_selection_recovery(expected_calls, actual_calls, referent_retention)
     unnecessary_tool_rate = _unnecessary_tool_rate(expected_calls, actual_calls)
@@ -33,6 +34,7 @@ def score_visual_trace(task: Task, trace: RunTrace) -> dict[str, float | int | b
             and selection_accuracy >= 0.999
             and count_accuracy >= 1.0
             and referent_retention >= 1.0
+            and latest_filter_resolution >= 1.0
             and stale_selection_recovery >= 1.0
             and final_answer_accuracy >= 1.0
             and recovery_correct >= 1.0
@@ -44,6 +46,7 @@ def score_visual_trace(task: Task, trace: RunTrace) -> dict[str, float | int | b
         "selection_accuracy": selection_accuracy,
         "count_accuracy": count_accuracy,
         "refinement_success": refinement_success,
+        "latest_filter_resolution": latest_filter_resolution,
         "referent_retention": referent_retention,
         "stale_selection_recovery": stale_selection_recovery,
         "unnecessary_tool_rate": unnecessary_tool_rate,
@@ -86,8 +89,14 @@ def _count_accuracy(expected_visual: dict[str, object], actual_visual: dict[str,
         return 1.0
     expected_int = int(expected_count)
     actual_count = actual_visual.get("count")
-    if actual_count is not None and int(actual_count) == expected_int:
-        return 1.0
+    if actual_count is not None:
+        try:
+            return float(int(actual_count) == expected_int)
+        except (TypeError, ValueError):
+            return 0.0
+    actual_ids = _actual_ids(actual_visual)
+    if actual_ids:
+        return float(len(actual_ids) == expected_int)
     return float(str(expected_int) in final_answer)
 
 
@@ -101,21 +110,78 @@ def _refinement_success(
         return 1.0
     if not any(step.selected_tool == "refine_selection" for step in actual_calls):
         return 0.0
+    expected_refine_calls = [event for event in expected_calls if event.tool_name == "refine_selection"]
+    if len(expected_refine_calls) < 2:
+        return float(_selection_accuracy(expected_visual, actual_visual) >= 0.999)
+    actual_refine_calls = [step for step in actual_calls if step.selected_tool == "refine_selection"]
+    if len(actual_refine_calls) < len(expected_refine_calls):
+        return 0.0
+    refine_counts = [_selection_count(step.output or {}) for step in actual_refine_calls]
+    narrowed = all(later <= earlier for earlier, later in zip(refine_counts, refine_counts[1:], strict=False))
+    return float(_selection_accuracy(expected_visual, actual_visual) >= 0.999 and narrowed)
+
+
+def _latest_filter_resolution(
+    expected_calls,
+    actual_calls,
+    expected_visual: dict[str, object],
+    actual_visual: dict[str, object],
+    final_answer: str,
+) -> float:
+    expected_refine_filters = [
+        str(event.arguments.get("filter_query", "")).strip().lower()
+        for event in expected_calls
+        if event.tool_name == "refine_selection"
+    ]
+    metadata = expected_visual.get("latest_filter_priority", {})
+    if not expected_refine_filters and not metadata:
+        return 1.0
+    expected_latest_filter = str(metadata.get("expected_filter", expected_refine_filters[-1] if expected_refine_filters else "")).strip().lower()
+    actual_refine_steps = [step for step in actual_calls if step.selected_tool == "refine_selection"]
+    if not actual_refine_steps or not expected_latest_filter:
+        return 0.0
+    expected_refine_steps = [event for event in expected_calls if event.tool_name == "refine_selection"]
+    if len(actual_refine_steps) < len(expected_refine_steps):
+        return 0.0
+    actual_latest_filter = str(actual_refine_steps[-1].arguments.get("filter_query", "")).strip().lower()
+    if actual_latest_filter != expected_latest_filter:
+        return 0.0
+    if len(actual_refine_steps) >= 2:
+        prior_filter = str(actual_refine_steps[-2].arguments.get("filter_query", "")).strip().lower()
+        if prior_filter == actual_latest_filter:
+            return 0.0
+
+    stale_fragments = [str(fragment).strip().lower() for fragment in metadata.get("stale_filter_fragments", [])]
+    normalized_answer = final_answer.lower()
+    if any(fragment and fragment in normalized_answer for fragment in stale_fragments):
+        return 0.0
+
+    if len(actual_refine_steps) >= 2:
+        prior_count = _selection_count(actual_refine_steps[-2].output or {})
+        latest_count = _selection_count(actual_refine_steps[-1].output or {})
+        if latest_count > prior_count:
+            return 0.0
+
     return float(_selection_accuracy(expected_visual, actual_visual) >= 0.999)
 
 
 def _stale_selection_recovery(expected_calls, actual_calls, referent_retention: float) -> float:
-    if not any(event.tool_name == "refine_selection" for event in expected_calls):
+    expected_refine_count = sum(1 for event in expected_calls if event.tool_name == "refine_selection")
+    if expected_refine_count == 0:
         return 1.0
+    if expected_refine_count < 2:
+        return float(referent_retention >= 1.0)
     selection_progress = [
         int(output.get("count", 0))
         for step in actual_calls
         for output in [step.output or {}]
         if "selection_id" in output and step.selected_tool in {"segment_entities", "extract_layout", "refine_selection"}
     ]
-    if len(selection_progress) < 2:
+    if len(selection_progress) < expected_refine_count + 1:
         return 0.0
-    return float(selection_progress[-1] < selection_progress[0] and referent_retention >= 1.0)
+    stale_reduction = selection_progress[1] < selection_progress[0]
+    latest_override = selection_progress[-1] <= selection_progress[-2]
+    return float(stale_reduction and latest_override and referent_retention >= 1.0)
 
 
 def _referent_retention(expected_calls, actual_calls) -> float:
@@ -145,6 +211,16 @@ def _unnecessary_tool_rate(expected_calls, actual_calls) -> float:
         return 0.0
     extra_calls = max(0, len(actual_calls) - len(expected_calls))
     return extra_calls / len(actual_calls)
+
+
+def _selection_count(output: dict[str, object]) -> int:
+    count = output.get("count")
+    if count is not None:
+        try:
+            return int(count)
+        except (TypeError, ValueError):
+            return 0
+    return len(_actual_ids(output))
 
 
 def _visual_arguments_match(expected_arguments: dict[str, object], actual_arguments: dict[str, object]) -> bool:

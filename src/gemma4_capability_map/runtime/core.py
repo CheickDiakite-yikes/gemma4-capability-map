@@ -310,6 +310,7 @@ class LocalAgentRuntime:
         self.tasks = load_tasks(track=None)
         self._lock = threading.RLock()
         self._threads: dict[str, threading.Thread] = {}
+        self._recover_interrupted_sessions()
 
     def list_system_profiles(self) -> list[SystemProfile]:
         profiles: list[SystemProfile] = []
@@ -325,6 +326,8 @@ class LocalAgentRuntime:
                     executor_mode=str(meta.get("executor_mode", "")),
                     modality=str(meta.get("modality", "")),
                     deployment=str(meta.get("deployment", "")),
+                    comparison_tier=str(meta.get("comparison_tier", "")),
+                    publishable_default=bool(meta.get("publishable_default", False)),
                     local=bool(meta.get("local", False)),
                     reasoner=str(meta.get("reasoner", "")),
                     router=str(meta.get("router", "")),
@@ -332,9 +335,20 @@ class LocalAgentRuntime:
                     total_params_b=float(meta.get("total_params_b", 0.0) or 0.0),
                     color=str(meta.get("color", "#64748B")),
                     recommended=system_id == "hf_service_gemma4_specialists_cpu",
+                    reasoner_max_new_tokens=int(meta.get("reasoner_max_new_tokens", DEFAULT_REASONER_MAX_NEW_TOKENS) or DEFAULT_REASONER_MAX_NEW_TOKENS),
+                    request_timeout_seconds=float(meta.get("request_timeout_seconds", 600.0) or 600.0),
+                    run_timeout_seconds=float(meta.get("run_timeout_seconds", 0.0) or 0.0),
                 )
             )
-        return sorted(profiles, key=lambda profile: (not profile.recommended, not profile.local, profile.display_name.lower()))
+        return sorted(
+            profiles,
+            key=lambda profile: (
+                not profile.recommended,
+                not profile.publishable_default,
+                not profile.local,
+                profile.display_name.lower(),
+            ),
+        )
 
     def list_workflows(self, lane: str | None = None) -> list[dict[str, Any]]:
         rows: list[dict[str, Any]] = []
@@ -363,29 +377,65 @@ class LocalAgentRuntime:
             )
         return sorted(rows, key=lambda row: (row["role_family"], row["title"]))
 
-    def list_sessions(self) -> list[AgentSession]:
-        sessions = [self._read_session(path.stem) for path in sorted(self.sessions_root.glob("*/session.json"), reverse=True)]
+    def list_sessions(self, status: str | None = None) -> list[AgentSession]:
+        sessions = [self._read_session(path.parent.name) for path in sorted(self.sessions_root.glob("*/session.json"), reverse=True)]
+        if status:
+            sessions = [session for session in sessions if session.status.value == status]
         return sorted(sessions, key=lambda session: session.updated_at, reverse=True)
 
-    def list_approvals(self) -> list[ApprovalRequest]:
+    def list_approvals(self, status: ApprovalStatus | None = ApprovalStatus.PENDING) -> list[ApprovalRequest]:
         approvals: list[ApprovalRequest] = []
         for session in self.list_sessions():
-            approvals.extend(approval for approval in session.approvals if approval.status == ApprovalStatus.PENDING)
+            approvals.extend(
+                approval
+                for approval in session.approvals
+                if status is None or approval.status == status
+            )
         return sorted(approvals, key=lambda approval: approval.created_at, reverse=True)
 
     def get_session(self, session_id: str) -> AgentSession:
         return self._read_session(session_id)
 
-    def get_events(self, session_id: str, after_sequence: int = 0) -> list[RuntimeEvent]:
-        path = self._events_path(session_id)
-        if not path.exists():
-            return []
-        events = [
-            RuntimeEvent.model_validate(json.loads(line))
-            for line in path.read_text(encoding="utf-8").splitlines()
-            if line.strip()
-        ]
-        return [event for event in events if event.sequence > after_sequence]
+    def get_events(self, session_id: str, after_sequence: int = 0, limit: int | None = None) -> list[RuntimeEvent]:
+        events = [event for event in self._read_events(session_id) if event.sequence > after_sequence]
+        if limit is not None and limit >= 0:
+            return events[:limit]
+        return events
+
+    def stream_session(
+        self,
+        session_id: str,
+        after_sequence: int = 0,
+        timeout_s: float = 15.0,
+        poll_s: float = 0.2,
+    ) -> dict[str, Any]:
+        session = self.get_session(session_id)
+        events = self.wait_for_events(session_id, after_sequence=after_sequence, timeout_s=timeout_s, poll_s=poll_s)
+        refreshed = self.get_session(session_id)
+        pending_approval = next((approval for approval in refreshed.approvals if approval.status == ApprovalStatus.PENDING), None)
+        return {
+            "session": refreshed,
+            "events": events,
+            "pending_approval": pending_approval,
+        }
+
+    def wait_for_events(
+        self,
+        session_id: str,
+        after_sequence: int = 0,
+        timeout_s: float = 15.0,
+        poll_s: float = 0.2,
+    ) -> list[RuntimeEvent]:
+        deadline = time.time() + timeout_s
+        while time.time() < deadline:
+            events = self.get_events(session_id, after_sequence=after_sequence)
+            if events:
+                return events
+            session = self.get_session(session_id)
+            if session.status in {SessionStatus.COMPLETED, SessionStatus.DENIED, SessionStatus.FAILED}:
+                return []
+            time.sleep(poll_s)
+        return self.get_events(session_id, after_sequence=after_sequence)
 
     def launch_session(
         self,
@@ -395,6 +445,10 @@ class LocalAgentRuntime:
         title: str | None = None,
         human_request: str = "",
         background: bool = True,
+        attempt: int = 1,
+        parent_session_id: str | None = None,
+        retry_of_session_id: str | None = None,
+        resumed_from_session_id: str | None = None,
     ) -> AgentSession:
         workflow = self._workflow(workflow_id)
         selected_lane = lane or workflow.default_lane
@@ -415,9 +469,16 @@ class LocalAgentRuntime:
             status=SessionStatus.PENDING,
             created_at=created_at,
             updated_at=created_at,
+            attempt=attempt,
+            parent_session_id=parent_session_id,
+            lineage_root_session_id=parent_session_id or session_id,
+            retry_of_session_id=retry_of_session_id,
+            resumed_from_session_id=resumed_from_session_id,
             human_request=human_request,
             latest_message="Session created.",
             progress_label="Queued",
+            last_activity_at=created_at,
+            resumable=True,
             preview_asset=_absolute_asset_path(workflow.preview_asset),
         )
         self._write_session(session)
@@ -434,12 +495,61 @@ class LocalAgentRuntime:
         deadline = time.time() + timeout_s
         while time.time() < deadline:
             session = self.get_session(session_id)
-            if session.status not in {SessionStatus.PENDING, SessionStatus.WARMING, SessionStatus.RUNNING}:
+            if session.status not in {SessionStatus.PENDING, SessionStatus.WARMING, SessionStatus.RUNNING, SessionStatus.RESUMING, SessionStatus.RETRYING}:
                 return session
             time.sleep(poll_s)
         return self.get_session(session_id)
 
-    def resolve_approval(self, session_id: str, decision: str, note: str = "") -> AgentSession:
+    def resume_session(self, session_id: str, note: str = "", background: bool = True) -> AgentSession:
+        session = self.get_session(session_id)
+        if session.status == SessionStatus.AWAITING_APPROVAL:
+            return self.resolve_approval(session_id, decision="approve", note=note, resume=True)
+        if session.status != SessionStatus.INTERRUPTED:
+            raise ValueError(f"Session `{session_id}` is not resumable from status `{session.status.value}`.")
+        session.status = SessionStatus.RESUMING
+        session.updated_at = _now()
+        session.latest_message = "Resuming interrupted session."
+        session.progress_label = "Resuming"
+        session.resumed_from_session_id = session.resumed_from_session_id or session.session_id
+        session.resumable = True
+        self._write_session(session)
+        self._append_event(session_id, "resumed", "Resuming interrupted session.", {"note": note})
+        if background:
+            thread = threading.Thread(target=self._run_session, args=(session_id,), daemon=True)
+            self._threads[session_id] = thread
+            thread.start()
+        else:
+            self._run_session(session_id)
+        return self.get_session(session_id)
+
+    def retry_session(self, session_id: str, note: str = "", background: bool = True) -> AgentSession:
+        source = self.get_session(session_id)
+        lineage_parent = source.lineage_root_session_id or source.parent_session_id or source.session_id
+        human_request = source.human_request
+        if note.strip():
+            suffix = note.strip()
+            human_request = f"{human_request}\n\nRetry note: {suffix}".strip()
+        retry_session = self.launch_session(
+            workflow_id=source.workflow_id,
+            system_id=source.system_id,
+            lane=source.lane,
+            title=source.title,
+            human_request=human_request,
+            background=background,
+            attempt=source.attempt + 1,
+            parent_session_id=lineage_parent,
+            retry_of_session_id=source.session_id,
+            resumed_from_session_id=source.resumed_from_session_id,
+        )
+        self._append_event(
+            source.session_id,
+            "retry_requested",
+            f"Retry launched as `{retry_session.session_id}`.",
+            {"retry_session_id": retry_session.session_id, "note": note},
+        )
+        return retry_session
+
+    def resolve_approval(self, session_id: str, decision: str, note: str = "", resume: bool = True) -> AgentSession:
         session = self.get_session(session_id)
         pending = next((approval for approval in session.approvals if approval.status == ApprovalStatus.PENDING), None)
         if pending is None:
@@ -457,10 +567,15 @@ class LocalAgentRuntime:
             else approval
             for approval in session.approvals
         ]
-        session.status = SessionStatus.COMPLETED if resolved_status == ApprovalStatus.APPROVED else SessionStatus.DENIED
+        session.status = SessionStatus.RESUMING if resolved_status == ApprovalStatus.APPROVED and resume else SessionStatus.COMPLETED if resolved_status == ApprovalStatus.APPROVED else SessionStatus.DENIED
         session.updated_at = _now()
-        session.latest_message = "Approval accepted." if resolved_status == ApprovalStatus.APPROVED else "Approval denied."
-        session.progress_label = "Complete" if resolved_status == ApprovalStatus.APPROVED else "Denied"
+        session.last_activity_at = session.updated_at
+        session.latest_message = "Approval accepted; resuming session." if resolved_status == ApprovalStatus.APPROVED and resume else "Approval accepted." if resolved_status == ApprovalStatus.APPROVED else "Approval denied."
+        session.progress_label = "Resuming" if resolved_status == ApprovalStatus.APPROVED and resume else "Complete" if resolved_status == ApprovalStatus.APPROVED else "Denied"
+        session.resumable = resolved_status == ApprovalStatus.APPROVED and resume
+        session.active_approval_id = None
+        if resolved_status == ApprovalStatus.APPROVED:
+            session.hold_reason = None
         self._write_session(session)
         self._append_event(
             session_id,
@@ -468,6 +583,29 @@ class LocalAgentRuntime:
             session.latest_message,
             {"note": note},
         )
+        self._append_event(
+            session_id,
+            "approval_resolved",
+            "Approval decision recorded.",
+            {
+                "approval_id": pending.approval_id,
+                "decision": decision,
+                "resume": resume,
+                "note": note,
+            },
+        )
+        if resolved_status == ApprovalStatus.APPROVED and resume:
+            self._append_event(session_id, "resumed", "Approval released the hold and finalized the session.", {"note": note})
+            finalized = self.get_session(session_id)
+            finalized.status = SessionStatus.COMPLETED
+            finalized.updated_at = _now()
+            finalized.last_activity_at = finalized.updated_at
+            finalized.latest_message = "Approval accepted and session finalized."
+            finalized.progress_label = "Complete"
+            finalized.resumable = False
+            finalized.hold_reason = None
+            self._write_session(finalized)
+            self._append_event(session_id, "completed", finalized.latest_message, {"resumed": True, "note": note})
         return self.get_session(session_id)
 
     def _run_session(self, session_id: str) -> None:
@@ -489,6 +627,7 @@ class LocalAgentRuntime:
             trace = runner.run(episode)
             summary = summarize_episode_traces([trace])
             runtime_trace = self._write_runtime_outputs(session, trace, summary, bundle_snapshot, warmup)
+            trace_session_metadata = _trace_session_metadata(trace)
             approvals = []
             approval = _approval_request_from_trace(session, trace, workflow)
             if approval is not None:
@@ -507,16 +646,49 @@ class LocalAgentRuntime:
             }
             updated_session.approvals = approvals
             updated_session.updated_at = _now()
+            updated_session.last_activity_at = updated_session.updated_at
+            updated_session.latest_artifact_title = trace_session_metadata["latest_artifact_title"]
+            updated_session.latest_artifact_path = trace_session_metadata["latest_artifact_path"]
+            updated_session.latest_revision_artifact_id = trace_session_metadata["latest_revision_artifact_id"]
+            updated_session.latest_review_feedback = trace_session_metadata["latest_review_feedback"]
+            updated_session.active_approval_id = approvals[0].approval_id if approvals else None
+            if runtime_trace.artifact_count:
+                self._append_event(
+                    session_id,
+                    "artifacts_ready",
+                    "Artifacts and revision outputs are ready.",
+                    {
+                        "artifact_count": runtime_trace.artifact_count,
+                        "review_count": runtime_trace.review_count,
+                        "latest_artifact_title": trace_session_metadata["latest_artifact_title"],
+                        "latest_artifact_path": trace_session_metadata["latest_artifact_path"],
+                    },
+                )
             if approvals:
                 updated_session.status = SessionStatus.AWAITING_APPROVAL
                 updated_session.latest_message = "Workflow reached an approval gate."
                 updated_session.progress_label = "Needs review"
+                updated_session.hold_reason = approvals[0].reason
+                updated_session.resumable = True
                 self._write_session(updated_session)
-                self._append_event(session_id, "approval_required", "Workflow stopped at an approval gate.", {"approval_id": approvals[0].approval_id})
+                self._append_event(
+                    session_id,
+                    "approval_required",
+                    "Workflow stopped at an approval gate.",
+                    {
+                        "approval_id": approvals[0].approval_id,
+                        "title": approvals[0].title,
+                        "reason": approvals[0].reason,
+                        "latest_artifact_title": trace_session_metadata["latest_artifact_title"],
+                    },
+                )
             else:
                 updated_session.status = SessionStatus.COMPLETED
                 updated_session.latest_message = "Workflow completed."
                 updated_session.progress_label = "Complete"
+                updated_session.hold_reason = None
+                updated_session.resumable = False
+                updated_session.active_approval_id = None
                 self._write_session(updated_session)
                 self._append_event(session_id, "completed", "Workflow completed.", {"summary": summary})
         except Exception as exc:
@@ -551,7 +723,8 @@ class LocalAgentRuntime:
             reasoner_device="auto",
             router_device="cpu" if router_backend == "hf" else None,
             retriever_device="cpu" if retriever_backend == "hf" else None,
-            reasoner_max_new_tokens=DEFAULT_REASONER_MAX_NEW_TOKENS,
+            reasoner_max_new_tokens=profile.reasoner_max_new_tokens or DEFAULT_REASONER_MAX_NEW_TOKENS,
+            request_timeout_seconds=profile.request_timeout_seconds or 600.0,
         )
         warmup = warm_runtime_bundle(bundle, self.tasks)
         return bundle, runtime_bundle_snapshot(bundle), warmup
@@ -592,6 +765,8 @@ class LocalAgentRuntime:
             summary_path=str(summary_path.resolve()),
             episode_trace_path=str(trace_path.resolve()),
             artifact_paths=artifact_paths,
+            artifact_count=len(artifact_paths),
+            review_count=len(trace.review_history),
             scorecard=trace.scorecard.model_dump(mode="json"),
             runtime_bundle=runtime_bundle,
             warmup=warmup,
@@ -621,9 +796,11 @@ class LocalAgentRuntime:
         session = self.get_session(session_id)
         session.status = SessionStatus.FAILED
         session.updated_at = _now()
+        session.last_activity_at = session.updated_at
         session.latest_message = f"{type(exc).__name__}: {exc}"
         session.progress_label = "Failed"
         session.last_error = session.latest_message
+        session.resumable = False
         self._write_session(session)
         self._append_event(session_id, "failed", session.latest_message, {})
 
@@ -631,6 +808,7 @@ class LocalAgentRuntime:
         session = self.get_session(session_id)
         session.status = status
         session.updated_at = _now()
+        session.last_activity_at = session.updated_at
         session.latest_message = latest_message
         session.progress_label = progress_label
         self._write_session(session)
@@ -650,18 +828,20 @@ class LocalAgentRuntime:
         path = self._session_path(session_id)
         if not path.exists():
             raise ValueError(f"Unknown session `{session_id}`.")
-        return AgentSession.model_validate(json.loads(path.read_text(encoding="utf-8")))
+        return AgentSession.model_validate(self._load_json_payload(path))
 
     def _write_session(self, session: AgentSession) -> None:
         with self._lock:
-            self._session_path(session.session_id).write_text(
+            if not session.last_activity_at:
+                session.last_activity_at = session.updated_at or session.created_at
+            self._atomic_write_text(
+                self._session_path(session.session_id),
                 json.dumps(session.model_dump(mode="json"), indent=2, ensure_ascii=False) + "\n",
-                encoding="utf-8",
             )
 
     def _append_event(self, session_id: str, kind: RuntimeEvent.__annotations__["kind"], message: str, payload: dict[str, Any]) -> RuntimeEvent:
         with self._lock:
-            events = self.get_events(session_id)
+            events = self._read_events(session_id)
             event = RuntimeEvent(
                 event_id=f"{session_id}:{len(events) + 1}",
                 session_id=session_id,
@@ -673,8 +853,85 @@ class LocalAgentRuntime:
             )
             path = self._events_path(session_id)
             existing = path.read_text(encoding="utf-8") if path.exists() else ""
-            path.write_text(existing + json.dumps(event.model_dump(mode="json"), ensure_ascii=False) + "\n", encoding="utf-8")
+            self._atomic_write_text(path, existing + json.dumps(event.model_dump(mode="json"), ensure_ascii=False) + "\n")
+            session = self._read_session(session_id)
+            session.last_event_sequence = event.sequence
+            session.updated_at = _now()
+            session.last_activity_at = session.updated_at
+            self._write_session(session)
             return event
+
+    def _read_events(self, session_id: str) -> list[RuntimeEvent]:
+        path = self._events_path(session_id)
+        if not path.exists():
+            return []
+        payload = self._load_text_payload(path)
+        events: list[RuntimeEvent] = []
+        for line in payload.splitlines():
+            if not line.strip():
+                continue
+            events.append(RuntimeEvent.model_validate(json.loads(line)))
+        return events
+
+    def _recover_interrupted_sessions(self) -> None:
+        for path in sorted(self.sessions_root.glob("*/session.json")):
+            session_id = path.parent.name
+            try:
+                session = self._read_session(session_id)
+            except Exception:
+                continue
+            if session.status not in {
+                SessionStatus.PENDING,
+                SessionStatus.WARMING,
+                SessionStatus.RUNNING,
+                SessionStatus.RESUMING,
+                SessionStatus.RETRYING,
+            }:
+                continue
+            session.status = SessionStatus.INTERRUPTED
+            session.updated_at = _now()
+            session.last_activity_at = session.updated_at
+            session.latest_message = "Session was interrupted before completion."
+            session.progress_label = "Interrupted"
+            session.resumable = True
+            session.hold_reason = "interrupted_runtime"
+            self._write_session(session)
+            if not any(event.kind == "interrupted" for event in self._read_events(session_id)):
+                self._append_event(session_id, "interrupted", session.latest_message, {})
+
+    def _backup_path(self, path: Path) -> Path:
+        return path.with_suffix(path.suffix + ".bak")
+
+    def _atomic_write_text(self, path: Path, content: str) -> None:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        backup = self._backup_path(path)
+        if path.exists():
+            backup.write_text(path.read_text(encoding="utf-8"), encoding="utf-8")
+        tmp_path = path.with_suffix(path.suffix + ".tmp")
+        tmp_path.write_text(content, encoding="utf-8")
+        tmp_path.replace(path)
+
+    def _load_text_payload(self, path: Path) -> str:
+        candidates = [path, self._backup_path(path)]
+        for candidate in candidates:
+            if not candidate.exists():
+                continue
+            try:
+                return candidate.read_text(encoding="utf-8")
+            except OSError:
+                continue
+        raise ValueError(f"Unable to load `{path}`.")
+
+    def _load_json_payload(self, path: Path) -> dict[str, Any]:
+        candidates = [path, self._backup_path(path)]
+        for candidate in candidates:
+            if not candidate.exists():
+                continue
+            try:
+                return json.loads(candidate.read_text(encoding="utf-8"))
+            except (json.JSONDecodeError, OSError):
+                continue
+        raise ValueError(f"Unable to decode `{path}`.")
 
 
 def materialize_task(task: Task, variant: Variant) -> Task:
@@ -767,6 +1024,27 @@ def _approval_request_from_trace(session: AgentSession, trace: Any, workflow: Pa
         created_at=_now(),
         context=context,
     )
+
+
+def _trace_session_metadata(trace: Any) -> dict[str, str]:
+    latest_artifact_title = ""
+    latest_artifact_path = ""
+    latest_revision_artifact_id = ""
+    latest_review_feedback = ""
+    if trace.artifact_versions:
+        latest_version = max(trace.artifact_versions, key=lambda version: (version.revision, version.artifact_id))
+        latest_artifact_title = latest_version.artifact_id
+        latest_artifact_path = latest_version.file_path or ""
+    if trace.review_history:
+        latest_review = trace.review_history[-1]
+        latest_revision_artifact_id = getattr(latest_review, "artifact_id", "") or ""
+        latest_review_feedback = getattr(latest_review, "feedback", "") or ""
+    return {
+        "latest_artifact_title": latest_artifact_title,
+        "latest_artifact_path": latest_artifact_path,
+        "latest_revision_artifact_id": latest_revision_artifact_id,
+        "latest_review_feedback": latest_review_feedback,
+    }
 
 
 def _tool_invocations_from_trace(trace: Any) -> list[ToolInvocation]:

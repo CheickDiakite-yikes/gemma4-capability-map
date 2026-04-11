@@ -11,6 +11,7 @@ from gemma4_capability_map.knowledge_work.exporters import export_episode_leader
 from gemma4_capability_map.knowledge_work.loader import load_episodes
 from gemma4_capability_map.knowledge_work.replay import summarize_episode_traces
 from gemma4_capability_map.knowledge_work.runner import EpisodeRunner
+from gemma4_capability_map.reporting.knowledge_work_board import DEFAULT_REGISTRY_PATH, load_model_registry
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -35,6 +36,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--router-device", default=None)
     parser.add_argument("--retriever-device", default=None)
     parser.add_argument("--reasoner-max-new-tokens", type=int, default=96)
+    parser.add_argument("--request-timeout-seconds", type=float, default=None)
     parser.add_argument("--thinking", action="store_true")
     parser.add_argument("--run-intent", choices=["canonical", "exploratory"], default=None)
     parser.add_argument("--system-id", default=None)
@@ -78,6 +80,7 @@ def main() -> None:
         router_device=args.router_device,
         retriever_device=args.retriever_device,
         reasoner_max_new_tokens=args.reasoner_max_new_tokens,
+        request_timeout_seconds=args.request_timeout_seconds,
     )
     runner = EpisodeRunner(tasks=tasks, bundle=bundle, thinking_enabled=args.thinking)
     manifest = {
@@ -95,6 +98,8 @@ def main() -> None:
         "reasoner_device": args.reasoner_device,
         "router_device": args.router_device,
         "retriever_device": args.retriever_device,
+        "reasoner_max_new_tokens": args.reasoner_max_new_tokens,
+        "request_timeout_seconds": args.request_timeout_seconds,
         "thinking": args.thinking,
         "limit": args.limit,
         "episode_count": len(episodes),
@@ -218,6 +223,10 @@ def _infer_system_id(args: argparse.Namespace) -> str | None:
     if args.system_id:
         return args.system_id
 
+    matched = _match_registry_system(args)
+    if matched:
+        return matched
+
     backend = str(args.backend or "")
     reasoner = str(args.reasoner or "")
     router = str(args.router or "")
@@ -269,6 +278,43 @@ def _infer_system_id(args: argparse.Namespace) -> str | None:
     ):
         return "hf_gemma4_e2b_specialists_cpu"
 
+    return None
+
+
+def _match_registry_system(args: argparse.Namespace, registry_path: str | Path = DEFAULT_REGISTRY_PATH) -> str | None:
+    registry = load_model_registry(registry_path)
+    systems = registry.get("systems", {})
+    backend = str(args.backend or "")
+    reasoner = str(args.reasoner or "")
+    router = str(args.router or "")
+    retriever = str(args.retriever or "")
+    reasoner_backend = str(args.reasoner_backend or args.backend or "").lower()
+    router_backend = str(args.router_backend or "").strip().lower()
+    retriever_backend = str(args.retriever_backend or "").strip().lower()
+
+    for system_id, meta in systems.items():
+        if str(meta.get("backend", "") or "") != backend:
+            continue
+        if str(meta.get("reasoner", "") or "") and str(meta.get("reasoner", "") or "") != reasoner:
+            continue
+        if str(meta.get("router", "") or "") and str(meta.get("router", "") or "") != router:
+            continue
+        if str(meta.get("retriever", "") or "") and str(meta.get("retriever", "") or "") != retriever:
+            continue
+
+        executor_mode = str(meta.get("executor_mode", "") or "")
+        if executor_mode == "local_reasoner":
+            if router_backend not in {"", "heuristic"} or retriever_backend not in {"", "heuristic"}:
+                continue
+        elif executor_mode == "local_specialists":
+            if router_backend not in {"hf", "hf_service"} or retriever_backend not in {"hf", "hf_service"}:
+                continue
+        elif executor_mode == "seeded" and backend != "oracle":
+            continue
+
+        if reasoner_backend and str(meta.get("backend", "") or "") not in {backend, reasoner_backend}:
+            continue
+        return system_id
     return None
 
 

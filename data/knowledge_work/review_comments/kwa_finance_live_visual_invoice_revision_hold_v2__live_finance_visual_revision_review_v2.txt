@@ -1,0 +1,1 @@
+Preserve the invoice total, remove the stale publication note, reduce clutter, and keep the approval hold explicit.

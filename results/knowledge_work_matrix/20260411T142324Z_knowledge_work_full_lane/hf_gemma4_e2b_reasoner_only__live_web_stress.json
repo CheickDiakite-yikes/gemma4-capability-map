@@ -1,0 +1,138 @@
+{
+  "run_id": "hf_gemma4_e2b_reasoner_only__live_web_stress",
+  "system_id": "hf_gemma4_e2b_reasoner_only",
+  "lane": "live_web_stress",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260411T142324Z_knowledge_work_full_lane/hf_gemma4_e2b_reasoner_only__live_web_stress",
+  "returncode": 0,
+  "stdout": "{\n  \"runs\": 20.0,\n  \"artifact_quality_avg\": 0.9696049999999999,\n  \"browser_workflow_avg\": 1.0,\n  \"strict_interface_avg\": 0.875,\n  \"recovered_execution_avg\": 0.85,\n  \"real_world_readiness_avg\": 0.9347899999999999,\n  \"escalation_correctness_avg\": 1.0\n}\n",
+  "stderr": "`torch_dtype` is deprecated! Use `dtype` instead!\n\nLoading weights:   0%|          | 0/2011 [00:00<?, ?it/s]\nLoading weights:  12%|█▏        | 251/2011 [00:00<00:00, 2252.64it/s]\nLoading weights:  25%|██▍       | 499/2011 [00:00<00:00, 2317.29it/s]\nLoading weights:  37%|███▋      | 752/2011 [00:00<00:00, 2358.63it/s]\nLoading weights:  49%|████▉     | 989/2011 [00:08<00:13, 73.43it/s]  \nLoading weights: 100%|██████████| 2011/2011 [00:08<00:00, 232.76it/s]\n",
+  "summary": {
+    "runs": 20.0,
+    "artifact_quality_avg": 0.9696049999999999,
+    "browser_workflow_avg": 1.0,
+    "strict_interface_avg": 0.875,
+    "recovered_execution_avg": 0.85,
+    "real_world_readiness_avg": 0.9347899999999999,
+    "escalation_correctness_avg": 1.0,
+    "lane": "live_web_stress",
+    "created_at": "20260411T142727Z",
+    "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260411T142324Z_knowledge_work_full_lane/hf_gemma4_e2b_reasoner_only__live_web_stress"
+  },
+  "manifest": {
+    "run_group_id": "20260411T142727Z_live_web_stress",
+    "created_at": "20260411T142727Z",
+    "lane": "live_web_stress",
+    "system_id": "hf_gemma4_e2b_reasoner_only",
+    "backend": "hf",
+    "reasoner_backend": "hf",
+    "router_backend": "heuristic",
+    "retriever_backend": "heuristic",
+    "reasoner": "google/gemma-4-E2B-it",
+    "router": "google/functiongemma-270m-it",
+    "retriever": "google/embeddinggemma-300m",
+    "reasoner_device": "auto",
+    "router_device": null,
+    "retriever_device": null,
+    "reasoner_max_new_tokens": 96,
+    "request_timeout_seconds": 600.0,
+    "thinking": false,
+    "limit": null,
+    "episode_count": 20,
+    "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
+    "runtime_bundle": {
+      "reasoner": {
+        "backend": "hf",
+        "requested_model": "google/gemma-4-E2B-it",
+        "effective_model": "google/gemma-4-E2B-it",
+        "runtime_device": "mps",
+        "load_mode": "vision",
+        "configured_device": "auto",
+        "request_timeout_seconds": 600.0,
+        "service": {}
+      },
+      "router": {
+        "backend": "heuristic",
+        "requested_model": "google/functiongemma-270m-it",
+        "effective_model": "google/functiongemma-270m-it",
+        "runtime_device": null,
+        "configured_device": "auto"
+      },
+      "retriever": {
+        "backend": "heuristic",
+        "requested_model": "google/embeddinggemma-300m",
+        "effective_model": "google/embeddinggemma-300m",
+        "loaded": false,
+        "configured_device": "auto",
+        "runtime_device": null
+      }
+    },
+    "run_intent": "exploratory",
+    "warmup": {
+      "reasoner": {
+        "backend": "hf",
+        "requested_model": "google/gemma-4-E2B-it",
+        "effective_model": "google/gemma-4-E2B-it",
+        "runtime_device": "mps",
+        "load_mode": "vision",
+        "configured_device": "auto",
+        "request_timeout_seconds": 600.0,
+        "service": {}
+      },
+      "router": {
+        "backend": "heuristic",
+        "requested_model": "google/functiongemma-270m-it",
+        "effective_model": "google/functiongemma-270m-it",
+        "runtime_device": null,
+        "configured_device": "auto"
+      },
+      "retriever": {
+        "backend": "heuristic",
+        "requested_model": "google/embeddinggemma-300m",
+        "effective_model": "google/embeddinggemma-300m",
+        "loaded": false,
+        "configured_device": "auto",
+        "runtime_device": null
+      }
+    }
+  },
+  "progress": {
+    "status": "completed",
+    "lane": "live_web_stress",
+    "created_at": "20260411T142727Z",
+    "completed_runs": 20,
+    "planned_runs": 20,
+    "last_completed_episode_id": "kwa_finance_live_visual_invoice_hold",
+    "completed_episode_ids": [
+      "kwa_exec_live_visual_dashboard_revision_hold_v2",
+      "kwa_exec_live_visual_dashboard_referent_hold_v3",
+      "kwa_exec_live_calendar_policy",
+      "kwa_exec_live_send_hold",
+      "kwa_jobs_live_requirements_extract",
+      "kwa_jobs_live_visual_constraint_override_hold_v2",
+      "kwa_jobs_live_visual_latest_issue_hold_v3",
+      "kwa_jobs_live_submission_hold",
+      "kwa_finance_live_visual_invoice_revision_hold_v2",
+      "kwa_finance_live_comps_revision",
+      "kwa_finance_live_committee_hold",
+      "kwa_exec_live_vendor_access_hold",
+      "kwa_jobs_live_screening_hold",
+      "kwa_finance_live_billing_patch_hold",
+      "kwa_exec_live_stale_brief_hold",
+      "kwa_jobs_live_constraint_hold",
+      "kwa_finance_live_stale_assumption_hold",
+      "kwa_exec_live_visual_dashboard_brief",
+      "kwa_jobs_live_visual_form_hold",
+      "kwa_finance_live_visual_invoice_hold"
+    ],
+    "latest_summary": {
+      "runs": 20.0,
+      "artifact_quality_avg": 0.9696049999999999,
+      "browser_workflow_avg": 1.0,
+      "strict_interface_avg": 0.875,
+      "recovered_execution_avg": 0.85,
+      "real_world_readiness_avg": 0.9347899999999999,
+      "escalation_correctness_avg": 1.0
+    }
+  }
+}

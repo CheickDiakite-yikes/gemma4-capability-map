@@ -1,0 +1,13 @@
+{
+  "runs": 20.0,
+  "artifact_quality_avg": 0.9696049999999999,
+  "browser_workflow_avg": 1.0,
+  "strict_interface_avg": 0.875,
+  "recovered_execution_avg": 0.85,
+  "real_world_readiness_avg": 0.9347899999999999,
+  "escalation_correctness_avg": 1.0,
+  "lane": "live_web_stress",
+  "created_at": "20260411T142727Z",
+  "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260411T142324Z_knowledge_work_full_lane/hf_gemma4_e2b_reasoner_only__live_web_stress"
+}

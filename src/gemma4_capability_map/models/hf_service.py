@@ -74,9 +74,18 @@ def ensure_hf_reasoner_service(
         return ready
 
     existing_state = read_service_state(paths["state_path"]) or {}
+    existing_status = str(existing_state.get("status", ""))
+    existing_pid_running = _pid_is_running(existing_state.get("pid"))
+    if existing_status == "ready" and existing_pid_running:
+        waited = _wait_for_existing_ready(paths, timeout_seconds=min(60.0, startup_timeout_seconds))
+        if waited is not None:
+            return waited
+        raise TimeoutError(
+            f"Existing HF reasoner service for {model_id} on {device} is running but unreachable; refusing to launch a duplicate process."
+        )
     waiting_for_existing = (
-        str(existing_state.get("status")) in {"starting", "loading"}
-        and _pid_is_running(existing_state.get("pid"))
+        existing_status in {"starting", "loading"}
+        and existing_pid_running
     )
 
     root = Path(paths["root"])
@@ -164,6 +173,22 @@ def _service_ready(paths: dict[str, str]) -> dict[str, Any] | None:
     enriched = dict(response)
     enriched["paths"] = paths
     return enriched
+
+
+def _wait_for_existing_ready(paths: dict[str, str], timeout_seconds: float) -> dict[str, Any] | None:
+    deadline = time.time() + timeout_seconds
+    while time.time() < deadline:
+        state = read_service_state(paths["state_path"]) or {}
+        pid = state.get("pid")
+        if state.get("status") == "failed":
+            return None
+        if pid and not _pid_is_running(pid):
+            return None
+        ready = _service_ready(paths)
+        if ready is not None:
+            return ready
+        time.sleep(1.0)
+    return None
 
 
 def _reset_service_artifacts(paths: dict[str, str]) -> None:
@@ -303,12 +328,15 @@ def serve_hf_reasoner_service(
                         runner=runner,
                         state=state,
                         state_file=state_file,
+                        event_log_file=event_log_file,
                         request_log_file=request_log_file,
                     )
                 except Exception as exc:
                     state["requests_failed"] = int(state.get("requests_failed", 0)) + 1
                     state["last_error"] = f"{type(exc).__name__}: {exc}"
                     state["last_request_at"] = _utc_now()
+                    state["active_request"] = None
+                    state["phase"] = "request_failed"
                     _write_state(state_file, state)
                     response = {"ok": False, "error": f"{type(exc).__name__}: {exc}"}
                 connection.sendall(json.dumps(response, ensure_ascii=False).encode("utf-8") + b"\n")
@@ -325,6 +353,7 @@ def _handle_request(
     runner: Any,
     state: dict[str, Any],
     state_file: Path,
+    event_log_file: Path,
     request_log_file: Path,
 ) -> dict[str, Any]:
     request_type = request.get("type")
@@ -345,6 +374,32 @@ def _handle_request(
     request_id = f"{state['service_id']}_{int(time.time() * 1000)}"
     messages = [Message.model_validate(item) for item in request.get("messages", [])]
     tool_specs = [ToolSpec.model_validate(item) for item in request.get("tool_specs", [])]
+    state["last_request_type"] = request_type
+    state["last_request_started_at"] = _utc_now()
+    state["active_request"] = {
+        "request_id": request_id,
+        "request_type": request_type,
+        "message_count": len(messages),
+        "media_count": len(request.get("media", [])),
+        "tool_spec_count": len(tool_specs),
+        "thinking": bool(request.get("thinking", False)),
+        "max_new_tokens": request.get("max_new_tokens"),
+    }
+    state["phase"] = "generating"
+    _write_state(state_file, state)
+    _record_event(
+        state=state,
+        state_file=state_file,
+        event_log_file=event_log_file,
+        event="request_started",
+        detail="HF reasoner service started a generation request.",
+        request_id=request_id,
+        message_count=len(messages),
+        media_count=len(request.get("media", [])),
+        tool_spec_count=len(tool_specs),
+        thinking=bool(request.get("thinking", False)),
+        max_new_tokens=request.get("max_new_tokens"),
+    )
     turn = runner.generate(
         messages=messages,
         media=list(request.get("media", [])),
@@ -357,7 +412,18 @@ def _handle_request(
     state["last_request_at"] = _utc_now()
     state["last_request_id"] = request_id
     state["last_request_elapsed_ms"] = elapsed_ms
+    state["active_request"] = None
+    state["phase"] = "request_complete"
     _write_state(state_file, state)
+    _record_event(
+        state=state,
+        state_file=state_file,
+        event_log_file=event_log_file,
+        event="request_completed",
+        detail="HF reasoner service completed a generation request.",
+        request_id=request_id,
+        elapsed_ms=elapsed_ms,
+    )
     _append_request_log(
         request_log_file,
         {

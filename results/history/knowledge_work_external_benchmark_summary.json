@@ -1,0 +1,105 @@
+{
+  "row_count": 11,
+  "model_count": 2,
+  "providers": [
+    "google",
+    "openai"
+  ],
+  "benchmarks": [
+    "APEX-Agents",
+    "ARC-AGI-2",
+    "BrowseComp",
+    "GPQA Diamond",
+    "MCP Atlas",
+    "OSWorld-Verified",
+    "SWE-Bench Pro",
+    "Terminal-Bench 2.0",
+    "Toolathlon"
+  ],
+  "benchmark_groups": [
+    "agentic_search",
+    "agentic_tool_use",
+    "coding_agent",
+    "computer_use",
+    "knowledge_work",
+    "reasoning"
+  ],
+  "latest_published_date": "2026-03-05",
+  "provider_counts": [
+    {
+      "provider": "google",
+      "rows": 7,
+      "models": 1
+    },
+    {
+      "provider": "openai",
+      "rows": 4,
+      "models": 1
+    }
+  ],
+  "benchmark_counts": [
+    {
+      "benchmark": "APEX-Agents",
+      "rows": 1,
+      "models": 1,
+      "best_score": 33.5,
+      "leader": "Gemini 3.1 Pro"
+    },
+    {
+      "benchmark": "ARC-AGI-2",
+      "rows": 1,
+      "models": 1,
+      "best_score": 77.1,
+      "leader": "Gemini 3.1 Pro"
+    },
+    {
+      "benchmark": "BrowseComp",
+      "rows": 2,
+      "models": 2,
+      "best_score": 85.9,
+      "leader": "Gemini 3.1 Pro"
+    },
+    {
+      "benchmark": "GPQA Diamond",
+      "rows": 1,
+      "models": 1,
+      "best_score": 94.3,
+      "leader": "Gemini 3.1 Pro"
+    },
+    {
+      "benchmark": "MCP Atlas",
+      "rows": 1,
+      "models": 1,
+      "best_score": 69.2,
+      "leader": "Gemini 3.1 Pro"
+    },
+    {
+      "benchmark": "OSWorld-Verified",
+      "rows": 1,
+      "models": 1,
+      "best_score": 75.0,
+      "leader": "GPT-5.4"
+    },
+    {
+      "benchmark": "SWE-Bench Pro",
+      "rows": 2,
+      "models": 2,
+      "best_score": 57.7,
+      "leader": "GPT-5.4"
+    },
+    {
+      "benchmark": "Terminal-Bench 2.0",
+      "rows": 1,
+      "models": 1,
+      "best_score": 68.5,
+      "leader": "Gemini 3.1 Pro"
+    },
+    {
+      "benchmark": "Toolathlon",
+      "rows": 1,
+      "models": 1,
+      "best_score": 54.6,
+      "leader": "GPT-5.4"
+    }
+  ]
+}

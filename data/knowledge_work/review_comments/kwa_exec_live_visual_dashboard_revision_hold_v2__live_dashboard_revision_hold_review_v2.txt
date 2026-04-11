@@ -1,0 +1,1 @@
+Replace the stale finance-ops panel with the latest customer-ops panel, keep the approval hold explicit, and show the revision delta.

@@ -63,7 +63,7 @@ def score_episode(episode: Episode, trace: EpisodeTrace) -> EpisodeScorecard:
         escalation_correctness = 1.0
     collateral_damage_free = _average(task_trace.metrics.get("collateral_damage_free", 1.0) for task_trace in stage_task_traces)
     revision_responsiveness = _revision_responsiveness(trace, episode.artifacts)
-    memory_retention_score = _memory_retention_score(trace, latest_artifacts)
+    memory_retention_score = _memory_retention_score(trace, latest_artifacts, episode.artifacts)
     human_time_ratio = _human_time_ratio(episode, trace)
     role_readiness_score = round(
         _bounded_weighted_average(
@@ -132,8 +132,11 @@ def _strict_interface_score(task_trace) -> float:  # noqa: ANN001
 
 def _revision_responsiveness(trace: EpisodeTrace, artifact_specs: list[ArtifactSpec]) -> float:
     versions_by_artifact: dict[str, list[ArtifactVersion]] = defaultdict(list)
+    reviews_by_artifact: dict[str, list] = defaultdict(list)  # noqa: ANN202
     for version in trace.artifact_versions:
         versions_by_artifact[version.artifact_id].append(version)
+    for review in trace.review_history:
+        reviews_by_artifact[review.artifact_id].append(review)
     improvements: list[float] = []
     for spec in artifact_specs:
         ordered = sorted(versions_by_artifact.get(spec.artifact_id, []), key=lambda item: item.revision)
@@ -143,18 +146,35 @@ def _revision_responsiveness(trace: EpisodeTrace, artifact_specs: list[ArtifactS
         last = grade_artifact(ordered[-1], spec, episode_id=trace.episode_id)
         grade_lift = max(0.0, min(1.0, last - first)) if last >= first else 0.0
         revision_evidence = _revision_evidence_score(ordered[0].content, ordered[-1].content)
-        improvements.append(max(grade_lift, revision_evidence))
+        review_alignment = _review_alignment_score(reviews_by_artifact.get(spec.artifact_id, []), ordered[-1].content)
+        latest_constraint_improvement = _latest_constraint_improvement_score(spec, ordered[0].content, ordered[-1].content)
+        stale_free_score = _artifact_stale_free_score({spec.artifact_id: ordered[-1]}, [spec])
+        base_revision = max(grade_lift, revision_evidence)
+        components = [base_revision]
+        if reviews_by_artifact.get(spec.artifact_id):
+            components.append(review_alignment)
+        if spec.scoring_contract.required_fragments or spec.scoring_contract.forbidden_fragments:
+            components.append(latest_constraint_improvement)
+            components.append(stale_free_score)
+        improvements.append(_average(components))
     if not improvements:
         return 1.0
     return sum(improvements) / len(improvements)
 
 
-def _memory_retention_score(trace: EpisodeTrace, latest_artifacts: dict[str, ArtifactVersion]) -> float:
-    if not trace.memory_updates:
-        return 1.0
-    combined = _normalize_text("\n".join(version.content for version in latest_artifacts.values()))
-    checks = [float(_memory_update_retained(update.key, update.value, combined)) for update in trace.memory_updates]
-    return sum(checks) / len(checks)
+def _memory_retention_score(
+    trace: EpisodeTrace,
+    latest_artifacts: dict[str, ArtifactVersion],
+    artifact_specs: list[ArtifactSpec],
+) -> float:
+    if trace.memory_updates:
+        combined = _normalize_text("\n".join(version.content for version in latest_artifacts.values()))
+        checks = [float(_memory_update_retained(update.key, update.value, combined)) for update in trace.memory_updates]
+        retained_score = sum(checks) / len(checks)
+    else:
+        retained_score = 1.0
+    stale_free_score = _artifact_stale_free_score(latest_artifacts, artifact_specs)
+    return retained_score * stale_free_score
 
 
 def _memory_update_retained(key: str, value: str, combined: str) -> bool:
@@ -227,6 +247,61 @@ def _revision_evidence_score(first_content: str, last_content: str) -> float:
     return sum(checks) / len(checks)
 
 
+def _review_alignment_score(review_rounds, content: str) -> float:  # noqa: ANN001
+    expected_improvements = [
+        improvement
+        for review in review_rounds
+        for improvement in getattr(review, "expected_improvements", [])
+    ]
+    if not expected_improvements:
+        return 1.0
+    normalized = _normalize_text(content)
+    checks: list[float] = []
+    for improvement in expected_improvements:
+        fragments = _salient_memory_fragments(improvement)
+        if not fragments:
+            fragments = [_normalize_text(improvement)]
+        checks.append(float(any(fragment and fragment in normalized for fragment in fragments)))
+    return _average(checks)
+
+
+def _latest_constraint_improvement_score(spec: ArtifactSpec, first_content: str, last_content: str) -> float:
+    checks: list[float] = []
+    required_fragments = spec.scoring_contract.required_fragments
+    forbidden_fragments = spec.scoring_contract.forbidden_fragments
+    if required_fragments:
+        first_required = _fragment_presence_score(first_content, required_fragments)
+        last_required = _fragment_presence_score(last_content, required_fragments)
+        checks.append(float(last_required >= first_required and last_required >= 0.999))
+    if forbidden_fragments:
+        first_stale = _fragment_absence_score(first_content, forbidden_fragments)
+        last_stale = _fragment_absence_score(last_content, forbidden_fragments)
+        checks.append(float(last_stale >= first_stale and last_stale >= 0.999))
+    return _average(checks) if checks else 1.0
+
+
+def _artifact_stale_free_score(latest_artifacts: dict[str, ArtifactVersion], artifact_specs: list[ArtifactSpec]) -> float:
+    checks: list[float] = []
+    for spec in artifact_specs:
+        version = latest_artifacts.get(spec.artifact_id)
+        if version is None or not spec.scoring_contract.forbidden_fragments:
+            continue
+        checks.append(_fragment_absence_score(version.content, spec.scoring_contract.forbidden_fragments))
+    return _average(checks) if checks else 1.0
+
+
+def _fragment_presence_score(content: str, fragments: list[str]) -> float:
+    normalized = _normalize_text(content)
+    checks = [float(_normalize_text(fragment) in normalized) for fragment in fragments if fragment.strip()]
+    return _average(checks) if checks else 1.0
+
+
+def _fragment_absence_score(content: str, fragments: list[str]) -> float:
+    normalized = _normalize_text(content)
+    checks = [float(_normalize_text(fragment) not in normalized) for fragment in fragments if fragment.strip()]
+    return _average(checks) if checks else 1.0
+
+
 def _human_time_ratio(episode: Episode, trace: EpisodeTrace) -> float:
     if episode.human_baseline_minutes <= 0:
         return 0.0
@@ -287,8 +362,27 @@ def _browser_workflow_score(trace: EpisodeTrace) -> float:
             checks.append(float(recovered_index is not None and recovered_index > failed_index))
         if recovered_index is not None and gated_indices:
             checks.append(float(any(index > recovered_index for index in gated_indices)))
+        terminal_gate_index = next(
+            (index for index, action in enumerate(machine_actions) if action.submission_gate in {"approval_required", "blocked"}),
+            None,
+        )
+        if terminal_gate_index is not None:
+            checks.append(float(terminal_gate_index == len(machine_actions) - 1))
         if any(action.submission_gate == "approval_required" for action in machine_actions):
             checks.append(float(any(action.gate_result == "approval_required" for action in machine_actions)))
+            approval_index = next(
+                (index for index, action in enumerate(machine_actions) if action.submission_gate == "approval_required"),
+                None,
+            )
+            if approval_index is not None:
+                checks.append(
+                    float(
+                        all(
+                            action.gate_result in {"approval_required", "blocked"}
+                            for action in machine_actions[approval_index:]
+                        )
+                    )
+                )
         if any(action.submission_gate == "blocked" for action in machine_actions):
             checks.append(float(any(action.gate_result == "blocked" for action in machine_actions)))
     return sum(checks) / len(checks) if checks else 1.0

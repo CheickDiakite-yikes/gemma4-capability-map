@@ -13,6 +13,9 @@ class SessionStatus(str, Enum):
     WARMING = "warming"
     RUNNING = "running"
     AWAITING_APPROVAL = "awaiting_approval"
+    RESUMING = "resuming"
+    RETRYING = "retrying"
+    INTERRUPTED = "interrupted"
     COMPLETED = "completed"
     DENIED = "denied"
     FAILED = "failed"
@@ -34,6 +37,8 @@ class SystemProfile(StrictModel):
     executor_mode: str = ""
     modality: str = ""
     deployment: str = ""
+    comparison_tier: str = ""
+    publishable_default: bool = False
     local: bool = False
     reasoner: str = ""
     router: str = ""
@@ -41,6 +46,9 @@ class SystemProfile(StrictModel):
     total_params_b: float = 0.0
     color: str = "#64748B"
     recommended: bool = False
+    reasoner_max_new_tokens: int = 96
+    request_timeout_seconds: float = 600.0
+    run_timeout_seconds: float = 0.0
 
 
 class ToolInvocation(StrictModel):
@@ -69,7 +77,21 @@ class RuntimeEvent(StrictModel):
     event_id: str
     session_id: str
     sequence: int
-    kind: Literal["created", "warming", "running", "approval_required", "completed", "approved", "denied", "failed"]
+    kind: Literal[
+        "created",
+        "warming",
+        "running",
+        "artifacts_ready",
+        "approval_required",
+        "approval_resolved",
+        "completed",
+        "approved",
+        "denied",
+        "failed",
+        "interrupted",
+        "resumed",
+        "retry_requested",
+    ]
     message: str
     created_at: str
     payload: dict[str, Any] = Field(default_factory=dict)
@@ -84,6 +106,8 @@ class RuntimeTrace(StrictModel):
     summary_path: str | None = None
     episode_trace_path: str | None = None
     artifact_paths: list[str] = Field(default_factory=list)
+    artifact_count: int = 0
+    review_count: int = 0
     scorecard: dict[str, Any] = Field(default_factory=dict)
     runtime_bundle: dict[str, Any] = Field(default_factory=dict)
     warmup: dict[str, Any] = Field(default_factory=dict)
@@ -102,10 +126,24 @@ class AgentSession(StrictModel):
     status: SessionStatus = SessionStatus.PENDING
     created_at: str
     updated_at: str
+    attempt: int = 1
+    parent_session_id: str | None = None
+    lineage_root_session_id: str | None = None
+    retry_of_session_id: str | None = None
+    resumed_from_session_id: str | None = None
     human_request: str = ""
     latest_message: str = ""
     progress_label: str = ""
+    last_activity_at: str = ""
+    hold_reason: str | None = None
+    resumable: bool = False
+    active_approval_id: str | None = None
+    last_event_sequence: int = 0
     preview_asset: str | None = None
+    latest_artifact_title: str = ""
+    latest_artifact_path: str = ""
+    latest_revision_artifact_id: str = ""
+    latest_review_feedback: str = ""
     artifact_paths: list[str] = Field(default_factory=list)
     tool_invocations: list[ToolInvocation] = Field(default_factory=list)
     approvals: list[ApprovalRequest] = Field(default_factory=list)

@@ -1,0 +1,155 @@
+benchmarks:
+  - model_id: openai_gpt_5_4
+    display_name: GPT-5.4
+    provider: openai
+    access: closed
+    benchmark: SWE-Bench Pro
+    benchmark_group: coding_agent
+    score: 57.7
+    score_unit: percent
+    source_scope: published_external
+    source_kind: official_release
+    source_org: OpenAI
+    published_date: "2026-03-05"
+    source_url: "https://openai.com/index/introducing-gpt-5-4/"
+    notes: "Official OpenAI published score for SWE-Bench Pro (Public)."
+  - model_id: openai_gpt_5_4
+    display_name: GPT-5.4
+    provider: openai
+    access: closed
+    benchmark: OSWorld-Verified
+    benchmark_group: computer_use
+    score: 75.0
+    score_unit: percent
+    source_scope: published_external
+    source_kind: official_release
+    source_org: OpenAI
+    published_date: "2026-03-05"
+    source_url: "https://openai.com/index/introducing-gpt-5-4/"
+    notes: "Official OpenAI published score for OSWorld-Verified."
+  - model_id: openai_gpt_5_4
+    display_name: GPT-5.4
+    provider: openai
+    access: closed
+    benchmark: Toolathlon
+    benchmark_group: agentic_tool_use
+    score: 54.6
+    score_unit: percent
+    source_scope: published_external
+    source_kind: official_release
+    source_org: OpenAI
+    published_date: "2026-03-05"
+    source_url: "https://openai.com/index/introducing-gpt-5-4/"
+    notes: "Official OpenAI published score for Toolathlon."
+  - model_id: openai_gpt_5_4
+    display_name: GPT-5.4
+    provider: openai
+    access: closed
+    benchmark: BrowseComp
+    benchmark_group: agentic_search
+    score: 82.7
+    score_unit: percent
+    source_scope: published_external
+    source_kind: official_release
+    source_org: OpenAI
+    published_date: "2026-03-05"
+    source_url: "https://openai.com/index/introducing-gpt-5-4/"
+    notes: "Official OpenAI published score for BrowseComp."
+  - model_id: google_gemini_3_1_pro
+    display_name: Gemini 3.1 Pro
+    provider: google
+    access: closed
+    benchmark: SWE-Bench Pro
+    benchmark_group: coding_agent
+    score: 54.2
+    score_unit: percent
+    source_scope: published_external
+    source_kind: official_model_card
+    source_org: Google DeepMind
+    published_date: "2026-02-19"
+    source_url: "https://deepmind.google/models/model-cards/gemini-3-1-pro/"
+    notes: "Official Google DeepMind model-card score for SWE-Bench Pro (Public)."
+  - model_id: google_gemini_3_1_pro
+    display_name: Gemini 3.1 Pro
+    provider: google
+    access: closed
+    benchmark: Terminal-Bench 2.0
+    benchmark_group: coding_agent
+    score: 68.5
+    score_unit: percent
+    source_scope: published_external
+    source_kind: official_model_card
+    source_org: Google DeepMind
+    published_date: "2026-02-19"
+    source_url: "https://deepmind.google/models/model-cards/gemini-3-1-pro/"
+    notes: "Official Google DeepMind model-card score for Terminal-Bench 2.0."
+  - model_id: google_gemini_3_1_pro
+    display_name: Gemini 3.1 Pro
+    provider: google
+    access: closed
+    benchmark: APEX-Agents
+    benchmark_group: knowledge_work
+    score: 33.5
+    score_unit: percent
+    source_scope: published_external
+    source_kind: official_model_card
+    source_org: Google DeepMind
+    published_date: "2026-02-19"
+    source_url: "https://deepmind.google/models/model-cards/gemini-3-1-pro/"
+    notes: "Official Google DeepMind model-card score for APEX-Agents."
+  - model_id: google_gemini_3_1_pro
+    display_name: Gemini 3.1 Pro
+    provider: google
+    access: closed
+    benchmark: MCP Atlas
+    benchmark_group: agentic_tool_use
+    score: 69.2
+    score_unit: percent
+    source_scope: published_external
+    source_kind: official_model_card
+    source_org: Google DeepMind
+    published_date: "2026-02-19"
+    source_url: "https://deepmind.google/models/model-cards/gemini-3-1-pro/"
+    notes: "Official Google DeepMind model-card score for MCP Atlas."
+  - model_id: google_gemini_3_1_pro
+    display_name: Gemini 3.1 Pro
+    provider: google
+    access: closed
+    benchmark: BrowseComp
+    benchmark_group: agentic_search
+    score: 85.9
+    score_unit: percent
+    source_scope: published_external
+    source_kind: official_model_card
+    source_org: Google DeepMind
+    published_date: "2026-02-19"
+    source_url: "https://deepmind.google/models/model-cards/gemini-3-1-pro/"
+    notes: "Official Google DeepMind model-card score for BrowseComp."
+  - model_id: google_gemini_3_1_pro
+    display_name: Gemini 3.1 Pro
+    provider: google
+    access: closed
+    benchmark: ARC-AGI-2
+    benchmark_group: reasoning
+    score: 77.1
+    score_unit: percent
+    source_scope: published_external
+    source_kind: official_model_card
+    source_org: Google DeepMind
+    published_date: "2026-02-19"
+    source_url: "https://deepmind.google/models/model-cards/gemini-3-1-pro/"
+    notes: "Official Google DeepMind model-card score for ARC-AGI-2."
+  - model_id: google_gemini_3_1_pro
+    display_name: Gemini 3.1 Pro
+    provider: google
+    access: closed
+    benchmark: GPQA Diamond
+    benchmark_group: reasoning
+    score: 94.3
+    score_unit: percent
+    source_scope: published_external
+    source_kind: official_model_card
+    source_org: Google DeepMind
+    published_date: "2026-02-19"
+    source_url: "https://deepmind.google/models/model-cards/gemini-3-1-pro/"
+    notes: "Official Google DeepMind model-card score for GPQA Diamond."

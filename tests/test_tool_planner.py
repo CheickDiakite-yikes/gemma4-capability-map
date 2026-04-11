@@ -539,3 +539,225 @@ def test_planner_uses_slide_callout_target_for_policy_revision_tasks() -> None:
 
     assert calls[0].name == "extract_layout"
     assert calls[0].arguments == {"image_id": "img-slide-policy", "target_query": "slide callout"}
+
+
+def test_planner_repairs_wrong_visual_target_query_for_form_tasks() -> None:
+    messages = [
+        Message(role="system", content="visual_image_ids: img-form-phone"),
+        Message(role="user", content="Inspect the form screenshot, narrow to the phone validation error, then read that message."),
+    ]
+
+    repaired, notes = plan_or_repair_tool_calls(
+        raw_output='{"name":"extract_layout","arguments":{"image_id":"img-form-phone","target_query":"dashboard metric"}}',
+        parsed_calls=[
+            ToolCall(
+                name="extract_layout",
+                arguments={"image_id": "img-form-phone", "target_query": "dashboard metric"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+        messages=messages,
+        media=["img-form-phone"],
+        tool_specs=[SPECS["extract_layout"], SPECS["refine_selection"], SPECS["read_region_text"]],
+    )
+
+    assert repaired[0].name == "extract_layout"
+    assert repaired[0].arguments == {"image_id": "img-form-phone", "target_query": "validation error"}
+    assert "repaired_arguments:extract_layout" in notes
+
+
+def test_planner_forces_stepwise_visual_control_for_multi_call_batch() -> None:
+    messages = [
+        Message(role="system", content="visual_image_ids: img-form-live-phone"),
+        Message(
+            role="user",
+            content="Using the local visual executor path, narrow the live application errors to the phone issue and read back that message.",
+        ),
+    ]
+
+    repaired, notes = plan_or_repair_tool_calls(
+        raw_output='[{"name":"refine_selection","arguments":{"selection_id":"","filter_query":"phone"}},{"name":"extract_layout","arguments":{"image_id":"img-form-live-phone","target_query":"dashboard metric"}},{"name":"refine_selection","arguments":{"selection_id":"sel-001","filter_query":"phone"}}]',
+        parsed_calls=[
+            ToolCall(
+                name="refine_selection",
+                arguments={"selection_id": "", "filter_query": "phone"},
+                source_format="json",
+                raw="{}",
+            ),
+            ToolCall(
+                name="extract_layout",
+                arguments={"image_id": "img-form-live-phone", "target_query": "dashboard metric"},
+                source_format="json",
+                raw="{}",
+            ),
+            ToolCall(
+                name="refine_selection",
+                arguments={"selection_id": "sel-001", "filter_query": "phone"},
+                source_format="json",
+                raw="{}",
+            ),
+        ],
+        messages=messages,
+        media=["img-form-live-phone"],
+        tool_specs=[SPECS["extract_layout"], SPECS["refine_selection"], SPECS["read_region_text"]],
+    )
+
+    assert len(repaired) == 1
+    assert repaired[0].name == "extract_layout"
+    assert repaired[0].arguments == {"image_id": "img-form-live-phone", "target_query": "validation error"}
+    assert "visual_stepwise_prior" in notes
+    assert "controller_fallback_planner" in notes
+
+
+def test_planner_forces_read_region_after_final_visual_refinement() -> None:
+    messages = [
+        Message(role="system", content="visual_image_ids: img-dashboard-followup"),
+        Message(
+            role="user",
+            content="Inspect the dashboard metrics, keep only the needs review panels, then the customer ops panel, and tell me what it says.",
+        ),
+        Message(
+            role="tool",
+            content='{"tool_name":"extract_layout","status":"pass","arguments":{"image_id":"img-dashboard-followup","target_query":"dashboard metric"},"output":{"selection_id":"sel-001","region_ids":["metric-101","metric-102","metric-103"]}}',
+        ),
+        Message(
+            role="tool",
+            content='{"tool_name":"refine_selection","status":"pass","arguments":{"selection_id":"sel-001","filter_query":"needs review"},"output":{"selection_id":"sel-002","region_ids":["metric-101","metric-102"]}}',
+        ),
+        Message(
+            role="tool",
+            content='{"tool_name":"refine_selection","status":"pass","arguments":{"selection_id":"sel-002","filter_query":"customer ops"},"output":{"selection_id":"sel-003","region_ids":["metric-102"]}}',
+        ),
+    ]
+
+    repaired, notes = plan_or_repair_tool_calls(
+        raw_output='[{"name":"extract_layout","arguments":{"image_id":"img-dashboard-followup","target_query":"dashboard metric"}}]',
+        parsed_calls=[
+            ToolCall(
+                name="extract_layout",
+                arguments={"image_id": "img-dashboard-followup", "target_query": "dashboard metric"},
+                source_format="json",
+                raw="{}",
+            ),
+            ToolCall(
+                name="refine_selection",
+                arguments={"selection_id": "sel-001", "filter_query": "needs review"},
+                source_format="json",
+                raw="{}",
+            ),
+            ToolCall(
+                name="refine_selection",
+                arguments={"selection_id": "sel-002", "filter_query": "customer ops"},
+                source_format="json",
+                raw="{}",
+            ),
+            ToolCall(
+                name="extract_layout",
+                arguments={"image_id": "img-dashboard-followup", "target_query": "dashboard metric"},
+                source_format="json",
+                raw="{}",
+            ),
+        ],
+        messages=messages,
+        media=["img-dashboard-followup"],
+        tool_specs=[SPECS["extract_layout"], SPECS["refine_selection"], SPECS["read_region_text"]],
+    )
+
+    assert len(repaired) == 1
+    assert repaired[0].name == "read_region_text"
+    assert repaired[0].arguments == {"image_id": "img-dashboard-followup", "region_id": "metric-102"}
+    assert "visual_stepwise_prior" in notes
+    assert "controller_fallback_planner" in notes
+
+
+def test_planner_requests_latest_filter_before_phone_followup() -> None:
+    messages = [
+        Message(role="system", content="visual_image_ids: img-form-latest"),
+        Message(
+            role="user",
+            content="Inspect the form errors, keep only the latest issue first, then narrow to the phone issue and read back the remaining message.",
+        ),
+        Message(
+            role="tool",
+            content='{"tool_name":"extract_layout","status":"pass","arguments":{"image_id":"img-form-latest","target_query":"validation error"},"output":{"selection_id":"sel-001","image_id":"img-form-latest","selection_kind":"regions","count":2,"region_ids":["form-err-201","form-err-202"],"region_id":"form-err-201"}}',
+        ),
+    ]
+
+    planned = plan_tool_calls(
+        messages=messages,
+        media=["img-form-latest"],
+        tool_specs=[SPECS["extract_layout"], SPECS["refine_selection"], SPECS["read_region_text"]],
+    )
+
+    assert len(planned) == 1
+    assert planned[0].name == "refine_selection"
+    assert planned[0].arguments == {"selection_id": "sel-001", "filter_query": "latest"}
+
+
+def test_planner_uses_extract_layout_for_live_phone_issue_cold_start() -> None:
+    planned = plan_tool_calls(
+        messages=[
+            Message(role="system", content="visual_image_ids: img-form-live-phone"),
+            Message(
+                role="user",
+                content="Using the local visual executor path, respect the latest recruiter note, isolate the phone issue first, and read back that message.",
+            ),
+        ],
+        media=["img-form-live-phone"],
+        tool_specs=[SPECS["extract_layout"], SPECS["refine_selection"], SPECS["read_region_text"]],
+    )
+
+    assert len(planned) == 1
+    assert planned[0].name == "extract_layout"
+    assert planned[0].arguments == {"image_id": "img-form-live-phone", "target_query": "validation error"}
+
+
+def test_planner_stops_after_visual_answer_region_is_read() -> None:
+    messages = [
+        Message(role="system", content="visual_image_ids: img-form-latest"),
+        Message(
+            role="user",
+            content="Inspect the form errors, keep only the latest issue first, then narrow to the phone issue and read back the remaining message.",
+        ),
+        Message(
+            role="tool",
+            content='{"tool_name":"extract_layout","status":"pass","arguments":{"image_id":"img-form-latest","target_query":"validation error"},"output":{"selection_id":"sel-001","image_id":"img-form-latest","selection_kind":"regions","count":2,"region_ids":["form-err-201","form-err-202"],"region_id":"form-err-201"}}',
+        ),
+        Message(
+            role="tool",
+            content='{"tool_name":"refine_selection","status":"pass","arguments":{"selection_id":"sel-001","filter_query":"latest"},"output":{"selection_id":"sel-002","image_id":"img-form-latest","selection_kind":"regions","count":1,"region_ids":["form-err-202"]}}',
+        ),
+        Message(
+            role="tool",
+            content='{"tool_name":"refine_selection","status":"pass","arguments":{"selection_id":"sel-002","filter_query":"phone"},"output":{"selection_id":"sel-003","image_id":"img-form-latest","selection_kind":"regions","count":1,"region_ids":["form-err-202"]}}',
+        ),
+        Message(
+            role="tool",
+            content='{"tool_name":"read_region_text","status":"pass","arguments":{"image_id":"img-form-latest","region_id":"form-err-202"},"output":{"image_id":"img-form-latest","region_id":"form-err-202","text":"Phone number format invalid","label":"validation error"}}',
+        ),
+    ]
+
+    planned = plan_tool_calls(
+        messages=messages,
+        media=["img-form-latest"],
+        tool_specs=[SPECS["extract_layout"], SPECS["refine_selection"], SPECS["read_region_text"]],
+    )
+    repaired, notes = plan_or_repair_tool_calls(
+        raw_output='{"name":"extract_layout","arguments":{"image_id":"img-form-latest","target_query":"validation error"}}',
+        parsed_calls=[
+            ToolCall(
+                name="extract_layout",
+                arguments={"image_id": "img-form-latest", "target_query": "validation error"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+        messages=messages,
+        media=["img-form-latest"],
+        tool_specs=[SPECS["extract_layout"], SPECS["refine_selection"], SPECS["read_region_text"]],
+    )
+
+    assert planned == []
+    assert repaired == []
+    assert notes == ["visual_complete"]

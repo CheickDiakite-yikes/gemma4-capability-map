@@ -41,6 +41,13 @@ SPEC.loader.exec_module(MODULE)
 build_replayable_episodes = MODULE.build_replayable_episodes
 build_live_web_episodes = MODULE.build_live_web_episodes
 
+MAKE_GOLD_PATH = ROOT / "scripts" / "make_gold.py"
+GOLD_SPEC = importlib.util.spec_from_file_location("make_gold_for_kwa_tests", MAKE_GOLD_PATH)
+GOLD_MODULE = importlib.util.module_from_spec(GOLD_SPEC)
+assert GOLD_SPEC and GOLD_SPEC.loader
+GOLD_SPEC.loader.exec_module(GOLD_MODULE)
+build_visual_tool_tasks = GOLD_MODULE.build_visual_tool_tasks
+
 BUILD_HISTORY_PATH = ROOT / "scripts" / "build_knowledge_work_history.py"
 HISTORY_SPEC = importlib.util.spec_from_file_location("build_knowledge_work_history", BUILD_HISTORY_PATH)
 HISTORY_MODULE = importlib.util.module_from_spec(HISTORY_SPEC)
@@ -57,17 +64,20 @@ RUN_KWA_SPEC.loader.exec_module(RUN_KWA_MODULE)
 def _load_tasks() -> list[Task]:
     from gemma4_capability_map.io import load_jsonl
 
-    tasks: list[Task] = []
+    tasks_by_id: dict[str, Task] = {}
     for path in sorted((ROOT / "data" / "gold").glob("*.jsonl")):
-        tasks.extend(load_jsonl(path, Task))
-    return tasks
+        for task in load_jsonl(path, Task):
+            tasks_by_id[task.task_id] = task
+    for task in build_visual_tool_tasks():
+        tasks_by_id[task.task_id] = task
+    return list(tasks_by_id.values())
 
 
 def test_episode_specs_validate_and_cover_both_lanes() -> None:
     replayable = build_replayable_episodes()
     live = build_live_web_episodes()
-    assert len(replayable) == 24
-    assert len(live) == 18
+    assert len(replayable) == 26
+    assert len(live) == 20
     assert {episode.role_family.value for episode in replayable} == {
         "executive_assistant",
         "job_application_ops",
@@ -294,6 +304,85 @@ def test_visual_kwa_episodes_exist_for_each_role_and_lane() -> None:
     assert any("visual_015_slide_policy_revision_pressure" in task_ref for episode in replayable_visual for stage in episode.stages for task_ref in stage.task_refs)
 
 
+def test_visual_kwa_v2_realism_episodes_exist_in_both_lanes() -> None:
+    replayable = {episode.episode_id: episode for episode in build_replayable_episodes()}
+    live = {episode.episode_id: episode for episode in build_live_web_episodes()}
+
+    assert "kwa_exec_visual_dashboard_revision_hold_v2" in replayable
+    assert "kwa_exec_visual_dashboard_referent_hold_v3" in replayable
+    assert "kwa_jobs_visual_constraint_override_hold_v2" in replayable
+    assert "kwa_jobs_visual_latest_issue_hold_v3" in replayable
+    assert "kwa_finance_visual_invoice_revision_hold_v2" in replayable
+    assert "kwa_exec_live_visual_dashboard_revision_hold_v2" in live
+    assert "kwa_exec_live_visual_dashboard_referent_hold_v3" in live
+    assert "kwa_jobs_live_visual_constraint_override_hold_v2" in live
+    assert "kwa_jobs_live_visual_latest_issue_hold_v3" in live
+    assert "kwa_finance_live_visual_invoice_revision_hold_v2" in live
+
+    assert replayable["kwa_exec_visual_dashboard_revision_hold_v2"].review_rounds
+    assert replayable["kwa_exec_visual_dashboard_referent_hold_v3"].review_rounds
+    assert replayable["kwa_jobs_visual_constraint_override_hold_v2"].review_rounds
+    assert replayable["kwa_jobs_visual_latest_issue_hold_v3"].review_rounds
+    assert replayable["kwa_finance_visual_invoice_revision_hold_v2"].review_rounds
+    assert any(step.transition_outcome == "validation_failed" for step in replayable["kwa_exec_visual_dashboard_revision_hold_v2"].stages[0].browser_plan)
+    assert any(step.transition_outcome == "validation_failed" for step in replayable["kwa_exec_visual_dashboard_referent_hold_v3"].stages[0].browser_plan)
+    assert any(step.submission_gate == "approval_required" for step in replayable["kwa_jobs_visual_constraint_override_hold_v2"].stages[1].browser_plan)
+    assert any(step.submission_gate == "approval_required" for step in replayable["kwa_jobs_visual_latest_issue_hold_v3"].stages[1].browser_plan)
+    assert any(step.submission_gate == "approval_required" for step in live["kwa_finance_live_visual_invoice_revision_hold_v2"].stages[1].browser_plan)
+    assert any(step.submission_gate == "approval_required" for step in replayable["kwa_exec_visual_dashboard_referent_hold_v3"].stages[1].browser_plan)
+    assert any(step.submission_gate == "approval_required" for step in live["kwa_exec_live_visual_dashboard_referent_hold_v3"].stages[1].browser_plan)
+    assert any(step.submission_gate == "approval_required" for step in live["kwa_jobs_live_visual_latest_issue_hold_v3"].stages[1].browser_plan)
+
+
+def test_visual_kwa_v3_referent_hold_episodes_require_recovery_then_approval_gate() -> None:
+    tasks = _load_tasks()
+    bundle = RuntimeBundle(
+        reasoner=Gemma4Runner("google/gemma-4-E4B-it", backend="oracle"),
+        router=FunctionGemmaRunner("google/functiongemma-270m-it", backend="oracle"),
+        retriever=EmbeddingGemmaRetriever("google/embeddinggemma-300m", backend="heuristic"),
+        executor=DeterministicExecutor(registry=build_default_registry()),
+    )
+    runner = EpisodeRunner(tasks=tasks, bundle=bundle)
+    replayable = {episode.episode_id: episode for episode in build_replayable_episodes()}
+    live = {episode.episode_id: episode for episode in build_live_web_episodes()}
+
+    exec_trace = runner.run(replayable["kwa_exec_visual_dashboard_referent_hold_v3"])
+    assert any(action.transition_outcome == "validation_failed" for action in exec_trace.browser_actions)
+    assert any(action.transition_outcome == "recovered" for action in exec_trace.browser_actions)
+    assert any(action.submission_gate == "approval_required" for action in exec_trace.browser_actions)
+    assert exec_trace.scorecard.browser_workflow_score > 0.95
+
+    dashboard_brief = next(version for version in exec_trace.artifact_versions if version.artifact_id == "dashboard_referent_hold_brief")
+    assert "latest filter" in dashboard_brief.content
+    assert "approval hold" in dashboard_brief.content
+
+    live_trace = runner.run(live["kwa_exec_live_visual_dashboard_referent_hold_v3"])
+    assert any(action.transition_outcome == "validation_failed" for action in live_trace.browser_actions)
+    assert any(action.transition_outcome == "recovered" for action in live_trace.browser_actions)
+    assert any(action.submission_gate == "approval_required" for action in live_trace.browser_actions)
+    assert live_trace.scorecard.browser_workflow_score > 0.95
+
+    live_brief = next(version for version in live_trace.artifact_versions if version.artifact_id == "live_dashboard_referent_hold_brief_v3")
+    assert "customer ops" in live_brief.content
+    assert "stale finance panel" not in live_brief.content.lower()
+
+    jobs_trace = runner.run(replayable["kwa_jobs_visual_latest_issue_hold_v3"])
+    assert any(action.transition_outcome == "validation_failed" for action in jobs_trace.browser_actions)
+    assert any(action.transition_outcome == "recovered" for action in jobs_trace.browser_actions)
+    assert any(action.submission_gate == "approval_required" for action in jobs_trace.browser_actions)
+    jobs_packet = next(version for version in jobs_trace.artifact_versions if version.artifact_id == "jobs_latest_issue_packet_v3")
+    assert "latest issue" in jobs_packet.content.lower()
+    assert "phone" in jobs_packet.content.lower()
+
+    live_jobs_trace = runner.run(live["kwa_jobs_live_visual_latest_issue_hold_v3"])
+    assert any(action.transition_outcome == "validation_failed" for action in live_jobs_trace.browser_actions)
+    assert any(action.transition_outcome == "recovered" for action in live_jobs_trace.browser_actions)
+    assert any(action.submission_gate == "approval_required" for action in live_jobs_trace.browser_actions)
+    live_jobs_packet = next(version for version in live_jobs_trace.artifact_versions if version.artifact_id == "live_jobs_latest_issue_packet_v3")
+    assert "phone" in live_jobs_packet.content.lower()
+    assert "work authorization first" not in live_jobs_packet.content.lower()
+
+
 def test_partner_deck_revision_responsiveness_is_material() -> None:
     tasks = _load_tasks()
     bundle = RuntimeBundle(
@@ -335,6 +424,120 @@ def test_finance_visual_invoice_note_revision_preserves_invoice_lock_and_heading
     assert headings.index("Brief") < headings.index("Stage Goal") < headings.index("Risks") < headings.index("Recommendation") < headings.index("Output")
 
 
+def test_revision_responsiveness_rewards_latest_constraint_improvement() -> None:
+    episode = Episode(
+        episode_id="kwa_revision_alignment_latest_constraint",
+        role_family=RoleFamily.FINANCE,
+        lane=BenchmarkLane.REPLAYABLE_CORE,
+        workspace_id="finance-revision-alignment",
+        brief="Revise the note to keep only the latest approval-safe action.",
+        artifacts=[
+            ArtifactSpec(
+                artifact_id="revision_note",
+                kind=ArtifactKind.MEMO,
+                path_or_target="workspace://finance-revision-alignment/revision_note.docx",
+                scoring_contract=ArtifactScoringContract(
+                    required_fragments=["invoice lock", "committee approval"],
+                    forbidden_fragments=["hold publication until numbers reconcile"],
+                ),
+            )
+        ],
+        review_rounds=[
+            MODULE._review(  # type: ignore[attr-defined]
+                "revision_alignment_review",
+                "revision_note",
+                "Remove the stale publication note and keep the approval-safe action.",
+                ["stale publication note removed", "committee approval explicit"],
+            )
+        ],
+    )
+    trace = EpisodeTrace(
+        run_id="revision-alignment-latest-constraint",
+        episode_id=episode.episode_id,
+        role_family=episode.role_family,
+        lane=episode.lane,
+        workspace_id=episode.workspace_id,
+        artifact_versions=[
+            ArtifactVersion(
+                artifact_id="revision_note",
+                revision=1,
+                content=(
+                    "## Recommendation\n"
+                    "- Hold publication until numbers reconcile.\n"
+                    "- Invoice total remains $51,840.\n"
+                ),
+                source_stage="stage_1",
+            ),
+            ArtifactVersion(
+                artifact_id="revision_note",
+                revision=2,
+                content=(
+                    "## Recommendation\n"
+                    "- Keep invoice lock enabled.\n"
+                    "- Route for committee approval.\n"
+                    "## Review Response\n"
+                    "- Stale publication note removed.\n"
+                    "## Revision Diff\n"
+                    "- Replaced the earlier publication note with the latest approval-safe action.\n"
+                ),
+                source_stage="stage_2",
+            ),
+        ],
+        review_history=episode.review_rounds,
+    )
+
+    scorecard = score_episode(episode, trace)
+
+    assert scorecard.revision_responsiveness >= 0.75
+
+
+def test_memory_retention_penalizes_stale_text_leak() -> None:
+    episode = Episode(
+        episode_id="kwa_memory_retention_stale_leak",
+        role_family=RoleFamily.JOB_APPLICATION_OPS,
+        lane=BenchmarkLane.REPLAYABLE_CORE,
+        workspace_id="jobs-memory-stale-leak",
+        brief="Keep the latest phone-first constraint and remove stale work-authorization-first framing.",
+        artifacts=[
+            ArtifactSpec(
+                artifact_id="constraint_note",
+                kind=ArtifactKind.MEMO,
+                path_or_target="workspace://jobs-memory-stale-leak/constraint_note.docx",
+                scoring_contract=ArtifactScoringContract(
+                    required_fragments=["phone"],
+                    forbidden_fragments=["work authorization first"],
+                ),
+            )
+        ],
+    )
+    trace = EpisodeTrace(
+        run_id="memory-retention-stale-leak",
+        episode_id=episode.episode_id,
+        role_family=episode.role_family,
+        lane=episode.lane,
+        workspace_id=episode.workspace_id,
+        artifact_versions=[
+            ArtifactVersion(
+                artifact_id="constraint_note",
+                revision=1,
+                content="Priority fix is the phone field, but the draft still says work authorization first.",
+                source_stage="stage_1",
+            )
+        ],
+        memory_updates=[
+            MemoryUpdate(
+                stage_id="stage_1",
+                key="Latest recruiter instruction",
+                value="Phone issue comes first; remove any work authorization first framing.",
+            )
+        ],
+    )
+
+    scorecard = score_episode(episode, trace)
+
+    assert scorecard.memory_retention_score == 0.0
+
+
 def test_live_web_episode_actions_are_dry_run_browser_steps() -> None:
     tasks = _load_tasks()
     bundle = RuntimeBundle(
@@ -348,7 +551,8 @@ def test_live_web_episode_actions_are_dry_run_browser_steps() -> None:
 
     assert trace.browser_actions
     assert all(action.status == "dry_run" for action in trace.browser_actions)
-    assert all(action.action in {"open_public_page", "capture_notes", "prepare_sandbox_submission"} for action in trace.browser_actions)
+    assert all(action.purpose for action in trace.browser_actions)
+    assert all(action.expected_signal for action in trace.browser_actions)
     assert any(action.sandbox_endpoint for action in trace.browser_actions)
     assert all(action.verification_checks for action in trace.browser_actions)
 
