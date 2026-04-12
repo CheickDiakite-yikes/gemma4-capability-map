@@ -286,6 +286,8 @@ def _initial_calls(context: dict[str, Any], tool_specs: list[ToolSpec]) -> list[
     tool_names = {tool.name for tool in tool_specs}
     image_context = f"{str(context.get('image_hint_id', ''))} {' '.join(str(item) for item in context.get('media', []))}".lower()
     record_id = _extract_record_id(" ".join(context["user_messages"]))
+    log_path = _extract_log_path(" ".join(context["user_messages"]))
+    diff_id = _extract_diff_id(" ".join(context["user_messages"]))
 
     if "update_event" in tool_names and _extract_event_id(" ".join(context["user_messages"])):
         return [_heuristic_call("update_event", _infer_arguments(context, "update_event"))]
@@ -304,6 +306,30 @@ def _initial_calls(context: dict[str, Any], tool_specs: list[ToolSpec]) -> list[
 
     if "api_update_record" in tool_names and record_id and _contains_any(user_text, ["update", "keep", "stays", "stay", "set"]):
         return [_heuristic_call("api_update_record", _infer_arguments(context, "api_update_record"))]
+
+    if (
+        "cli_search_logs" in tool_names
+        and (log_path or _contains_any(user_text, ["log", "logs"]))
+        and _contains_any(user_text, ["search", "latest", "failure", "report", "invoice lock"])
+    ):
+        return [_heuristic_call("cli_search_logs", _infer_arguments(context, "cli_search_logs"))]
+
+    if (
+        "cli_inspect_diff" in tool_names
+        and diff_id
+        and _contains_any(
+            user_text,
+            [
+                "inspect diff",
+                "review diff",
+                "review-only",
+                "review only",
+                "confirm the approval note",
+                "confirm the hold banner",
+            ],
+        )
+    ):
+        return [_heuristic_call("cli_inspect_diff", _infer_arguments(context, "cli_inspect_diff"))]
 
     if "cli_apply_patch" in tool_names and _extract_path(user_text) and _contains_any(user_text, ["patch", "fix", "edit only", "patch only"]):
         return [_heuristic_call("cli_apply_patch", _infer_arguments(context, "cli_apply_patch"))]
@@ -361,12 +387,24 @@ def _intent_priority_calls(context: dict[str, Any], tool_specs: list[ToolSpec]) 
     user_text = context["user_text"]
     latest_feedback = context["latest_feedback"] if isinstance(context.get("latest_feedback"), dict) else {}
     record_id = _extract_record_id(" ".join(context["user_messages"]))
+    log_path = _extract_log_path(" ".join(context["user_messages"]))
+    diff_id = _extract_diff_id(" ".join(context["user_messages"]))
 
     if intent == "refuse_or_escalate":
         return []
 
     if _needs_parallel_audit(user_text, tool_names):
         return None
+
+    if (
+        intent == "inspect_or_lookup"
+        and "cli_search_logs" in tool_names
+        and (log_path or _contains_any(user_text, ["log", "logs"]))
+    ):
+        return [_heuristic_call("cli_search_logs", _infer_arguments(context, "cli_search_logs"), raw_hint="intent_prior")]
+
+    if intent == "inspect_or_lookup" and "cli_inspect_diff" in tool_names and diff_id:
+        return [_heuristic_call("cli_inspect_diff", _infer_arguments(context, "cli_inspect_diff"), raw_hint="intent_prior")]
 
     if intent == "inspect_or_lookup" and "api_fetch_record" in tool_names and record_id:
         return [_heuristic_call("api_fetch_record", _infer_arguments(context, "api_fetch_record"), raw_hint="intent_prior")]
@@ -615,6 +653,20 @@ def _infer_arguments(context: dict[str, Any], tool_name: str) -> dict[str, Any]:
             path = "config/job_form.yaml"
         return {"path": path, "patch": _infer_cli_patch(user_text)}
 
+    if tool_name == "cli_search_logs":
+        log_path = _extract_log_path(" ".join(context["user_messages"])) or "logs/billing.log"
+        if _contains_any(user_text, ["invoice lock", "invoice-lock", "billing"]):
+            query = "invoice lock"
+        elif _contains_any(user_text, ["approval hold", "approval"]):
+            query = "approval hold"
+        else:
+            query = "failed"
+        return {"path": log_path, "query": query}
+
+    if tool_name == "cli_inspect_diff":
+        diff_id = _extract_diff_id(" ".join(context["user_messages"])) or "vendor_access_patch_latest"
+        return {"diff_id": diff_id}
+
     if tool_name == "api_fetch_record":
         return {
             "record_type": _infer_api_record_type(user_text),
@@ -844,6 +896,20 @@ def _should_override_valid_arguments(call: ToolCall, inferred_arguments: dict[st
             return True
         if inferred_patch and provided_patch != inferred_patch:
             return True
+    if call.name == "cli_search_logs":
+        provided_path = str(call.arguments.get("path", "")).strip()
+        provided_query = str(call.arguments.get("query", "")).strip()
+        inferred_path = str(inferred_arguments.get("path", "")).strip()
+        inferred_query = str(inferred_arguments.get("query", "")).strip()
+        if inferred_path and provided_path != inferred_path:
+            return True
+        if inferred_query and provided_query != inferred_query:
+            return True
+    if call.name == "cli_inspect_diff":
+        provided_diff_id = str(call.arguments.get("diff_id", "")).strip()
+        inferred_diff_id = str(inferred_arguments.get("diff_id", "")).strip()
+        if inferred_diff_id and provided_diff_id != inferred_diff_id:
+            return True
     if call.name == "api_fetch_record":
         provided_record_type = str(call.arguments.get("record_type", "")).strip()
         provided_record_id = str(call.arguments.get("record_id", "")).strip()
@@ -962,7 +1028,7 @@ _VISUAL_FILTER_PATTERNS: tuple[tuple[str, tuple[str, ...]], ...] = (
     ("support backlog", ("support backlog",)),
     ("backlog", ("backlog",)),
     ("enablement ops", ("enablement ops",)),
-    ("latest", ("latest issue first", "latest form issue first")),
+    ("latest", ("latest issue first", "latest issues first", "latest form issue first", "latest form issues first")),
     ("latest action", ("latest action", "approval safe action", "approval-safe action")),
     ("email", ("email", "email issue", "email address")),
     ("white", ("white", "blanc", "blanche", "blanches")),
@@ -989,9 +1055,7 @@ def _canonical_visual_filter(text: str) -> str:
 
 def _requested_visual_filters(user_text: str) -> list[str]:
     normalized = f" {_normalize_phrase_text(user_text)} "
-    requested: list[str] = []
-    if " latest issue first " in normalized and " phone issue " in normalized:
-        requested.append("latest")
+    matches: list[tuple[int, int, str]] = []
     shadowed_canonicals = {
         "backlog": _VISUAL_FILTER_PATTERN_MAP["support backlog"],
         "action": _VISUAL_FILTER_PATTERN_MAP["latest action"],
@@ -999,9 +1063,19 @@ def _requested_visual_filters(user_text: str) -> list[str]:
     for canonical, patterns in _VISUAL_FILTER_PATTERNS:
         if any(f" {_normalize_phrase_text(pattern)} " in normalized for pattern in shadowed_canonicals.get(canonical, ())):
             continue
-        if any(f" {_normalize_phrase_text(pattern)} " in normalized for pattern in patterns):
-            if canonical not in requested:
-                requested.append(canonical)
+        hit_positions = [
+            normalized.find(f" {_normalize_phrase_text(pattern)} ")
+            for pattern in patterns
+            if normalized.find(f" {_normalize_phrase_text(pattern)} ") != -1
+        ]
+        if not hit_positions:
+            continue
+        best_position = min(hit_positions)
+        matches.append((best_position, -max(len(pattern) for pattern in patterns), canonical))
+    requested: list[str] = []
+    for _, _, canonical in sorted(matches):
+        if canonical not in requested:
+            requested.append(canonical)
     return requested
 
 
@@ -1115,6 +1189,16 @@ def _extract_path(text: str) -> str:
     return match.group(1) if match else ""
 
 
+def _extract_log_path(text: str) -> str:
+    match = re.search(r"([A-Za-z0-9_./-]+\.log)", text)
+    return match.group(1) if match else ""
+
+
+def _extract_diff_id(text: str) -> str:
+    match = re.search(r"\b([A-Za-z0-9_.-]+(?:diff|patch)[A-Za-z0-9_.-]+)\b", text)
+    return match.group(1) if match else ""
+
+
 def _extract_record_id(text: str) -> str:
     match = re.search(r"\b([A-Z]{2,5}-\d{1,5})\b", text)
     return match.group(1) if match else ""
@@ -1123,6 +1207,19 @@ def _extract_record_id(text: str) -> str:
 def _infer_api_record_type(user_text: str) -> str:
     if _contains_any(user_text, ["billing record", "invoice", "invoice_lock", "invoice lock", "billing"]):
         return "billing_record"
+    if _contains_any(
+        user_text,
+        [
+            "form issue",
+            "latest blocker",
+            "phone field",
+            "phone fix",
+            "phone issue",
+            "recruiter note",
+            "work authorization",
+        ],
+    ):
+        return "form_issue"
     if _contains_any(user_text, ["briefing", "board packet", "approval safe action", "approval-safe action", "packet"]):
         return "briefing_record"
     return "record"
@@ -1135,6 +1232,8 @@ def _infer_api_field_value(user_text: str) -> tuple[str, str]:
 
 
 def _infer_cli_patch(user_text: str) -> str:
+    if _contains_any(user_text, ["email validation", "email issue", "email fix", "blocked email"]):
+        return "email_validation: blocked"
     if _contains_any(user_text, ["phone validation", "phone fix", "phone issue first", "phone issue"]):
         return "phone_validation: strict"
     if _contains_any(user_text, ["invoice lock", "invoice_lock"]) and _contains_any(user_text, ["hold", "on hold"]):

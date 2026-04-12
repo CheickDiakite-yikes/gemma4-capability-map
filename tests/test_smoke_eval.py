@@ -140,6 +140,56 @@ class _VisualLatestRescueRunner:
         )
 
 
+class _VisualLatestFallbackRunner:
+    model_id = "test/visual-latest-fallback"
+    backend = "test"
+
+    def __init__(self) -> None:
+        self.calls = 0
+
+    def generate(self, messages, media, tool_specs, thinking, max_new_tokens=None) -> ModelTurn:  # noqa: ANN001
+        self.calls += 1
+        if tool_specs:
+            if self.calls == 1:
+                call = ToolCall(
+                    name="extract_layout",
+                    arguments={"image_id": "img-form-live-latest", "target_query": "validation error"},
+                    source_format="json",
+                    raw='{"name":"extract_layout","arguments":{"image_id":"img-form-live-latest","target_query":"validation error"}}',
+                )
+                return ModelTurn(raw_model_output=call.raw, normalized_tool_call=[call], final_answer="")
+            if self.calls == 2:
+                call = ToolCall(
+                    name="refine_selection",
+                    arguments={"selection_id": "sel-001", "filter_query": "latest"},
+                    source_format="json",
+                    raw='{"name":"refine_selection","arguments":{"selection_id":"sel-001","filter_query":"latest"}}',
+                )
+                return ModelTurn(raw_model_output=call.raw, normalized_tool_call=[call], final_answer="")
+            if self.calls == 3:
+                call = ToolCall(
+                    name="refine_selection",
+                    arguments={"selection_id": "sel-002", "filter_query": "phone"},
+                    source_format="json",
+                    raw='{"name":"refine_selection","arguments":{"selection_id":"sel-002","filter_query":"phone"}}',
+                )
+                return ModelTurn(raw_model_output=call.raw, normalized_tool_call=[call], final_answer="")
+            if self.calls == 4:
+                call = ToolCall(
+                    name="read_region_text",
+                    arguments={"image_id": "img-form-live-latest", "region_id": "form-err-202"},
+                    source_format="json",
+                    raw='{"name":"read_region_text","arguments":{"image_id":"img-form-live-latest","region_id":"form-err-202"}}',
+                )
+                return ModelTurn(raw_model_output=call.raw, normalized_tool_call=[call], final_answer="")
+            raise AssertionError("Unexpected extra tool-planning call")
+        stale_answer = (
+            'The latest form issue is "Work authorization required before submission", '
+            'and after narrowing to the phone issue, the remaining message is "Phone number format invalid".'
+        )
+        return ModelTurn(raw_model_output=stale_answer, final_answer=stale_answer)
+
+
 def load_all_tasks() -> list[Task]:
     tasks: list[Task] = []
     for path in sorted((ROOT / "data" / "gold").glob("*.jsonl")):
@@ -360,5 +410,22 @@ def test_visual_second_pass_rescue_drops_stale_filter_fragment_without_mutating_
     assert trace.prompt_artifacts["second_pass_used"] is True
     assert "work authorization" not in trace.final_answer.lower()
     assert "phone number format invalid" in trace.final_answer.lower()
+    assert float(trace.metrics["success"]) == 1.0
+    assert float(trace.metrics["latest_filter_resolution"]) == 1.0
+
+
+def test_visual_latest_readback_fallback_recovers_when_second_pass_still_leaks_stale_fragment() -> None:
+    task = [task for task in load_jsonl(ROOT / "data" / "gold" / "visual_tools.jsonl", Task) if task.task_id == "visual_022_live_form_latest_issue_referent_carryover"][0]
+    bundle = RuntimeBundle(
+        reasoner=_VisualLatestFallbackRunner(),
+        executor=DeterministicExecutor(registry=build_default_registry()),
+    )
+    pipeline = MonolithPipeline()
+    trace = pipeline.run(task, Variant(variant_id=f"{task.task_id}_clean", base_task_id=task.task_id), bundle)
+
+    assert trace.prompt_artifacts["second_pass_used"] is True
+    assert trace.prompt_artifacts["visual_latest_fallback_used"] is True
+    assert trace.prompt_artifacts["visual_latest_fallback_answer"] == "Phone number format invalid"
+    assert trace.final_answer == "Phone number format invalid"
     assert float(trace.metrics["success"]) == 1.0
     assert float(trace.metrics["latest_filter_resolution"]) == 1.0

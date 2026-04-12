@@ -210,6 +210,11 @@ class EpisodeScorecard(StrictModel):
     escalation_correctness: float = 0.0
     collateral_damage_free: float = 0.0
     human_time_ratio: float = 0.0
+    controller_repair_count: float = 0.0
+    argument_repair_count: float = 0.0
+    controller_fallback_count: float = 0.0
+    intent_override_count: float = 0.0
+    raw_planning_clean_rate: float = 1.0
     role_readiness_score: float = 0.0
 
 

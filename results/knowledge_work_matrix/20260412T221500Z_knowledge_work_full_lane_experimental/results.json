@@ -1,0 +1,155 @@
+[
+  {
+    "run_id": "mlx_qwen3_8b_reasoner_only__live_web_stress",
+    "system_id": "mlx_qwen3_8b_reasoner_only",
+    "lane": "live_web_stress",
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260412T221500Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__live_web_stress",
+    "returncode": 0,
+    "stdout": "{\n  \"runs\": 23.0,\n  \"artifact_quality_avg\": 0.9633043478260869,\n  \"browser_workflow_avg\": 1.0,\n  \"strict_interface_avg\": 1.0,\n  \"recovered_execution_avg\": 0.9565217391304348,\n  \"real_world_readiness_avg\": 0.9725521739130435,\n  \"escalation_correctness_avg\": 1.0\n}\n",
+    "stderr": "",
+    "summary": {
+      "runs": 23.0,
+      "artifact_quality_avg": 0.9633043478260869,
+      "browser_workflow_avg": 1.0,
+      "strict_interface_avg": 1.0,
+      "recovered_execution_avg": 0.9565217391304348,
+      "real_world_readiness_avg": 0.9725521739130435,
+      "escalation_correctness_avg": 1.0,
+      "lane": "live_web_stress",
+      "created_at": "20260412T212100Z",
+      "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260412T221500Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__live_web_stress"
+    },
+    "manifest": {
+      "run_group_id": "20260412T212100Z_live_web_stress",
+      "created_at": "20260412T212100Z",
+      "lane": "live_web_stress",
+      "system_id": "mlx_qwen3_8b_reasoner_only",
+      "backend": "mlx",
+      "reasoner_backend": "mlx",
+      "router_backend": "heuristic",
+      "retriever_backend": "heuristic",
+      "reasoner": "Qwen/Qwen3-8B-MLX-4bit",
+      "router": "google/functiongemma-270m-it",
+      "retriever": "google/embeddinggemma-300m",
+      "reasoner_device": "auto",
+      "router_device": null,
+      "retriever_device": null,
+      "reasoner_max_new_tokens": 96,
+      "request_timeout_seconds": 300.0,
+      "thinking": false,
+      "limit": null,
+      "episode_count": 23,
+      "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
+      "runtime_bundle": {
+        "reasoner": {
+          "backend": "mlx",
+          "runtime_posture": "mlx",
+          "requested_model": "Qwen/Qwen3-8B-MLX-4bit",
+          "effective_model": "/Users/cheickdiakite/models/Qwen3-8B-MLX-4bit",
+          "model_source": "/Users/cheickdiakite/models/Qwen3-8B-MLX-4bit",
+          "model_format": "mlx",
+          "runtime_device": "mlx",
+          "load_mode": "text",
+          "configured_device": "auto",
+          "request_timeout_seconds": 300.0,
+          "service": {},
+          "partial_runtime": false,
+          "llama_cpp_error": null,
+          "llama_cpp_context_window": null
+        },
+        "router": {
+          "backend": "heuristic",
+          "requested_model": "google/functiongemma-270m-it",
+          "effective_model": "google/functiongemma-270m-it",
+          "runtime_device": null,
+          "configured_device": "auto"
+        },
+        "retriever": {
+          "backend": "heuristic",
+          "requested_model": "google/embeddinggemma-300m",
+          "effective_model": "google/embeddinggemma-300m",
+          "loaded": false,
+          "configured_device": "auto",
+          "runtime_device": null
+        }
+      },
+      "run_intent": "exploratory",
+      "warmup": {
+        "reasoner": {
+          "backend": "mlx",
+          "runtime_posture": "mlx",
+          "requested_model": "Qwen/Qwen3-8B-MLX-4bit",
+          "effective_model": "/Users/cheickdiakite/models/Qwen3-8B-MLX-4bit",
+          "model_source": "/Users/cheickdiakite/models/Qwen3-8B-MLX-4bit",
+          "model_format": "mlx",
+          "runtime_device": "mlx",
+          "load_mode": "text",
+          "configured_device": "auto",
+          "request_timeout_seconds": 300.0,
+          "service": {},
+          "partial_runtime": false,
+          "llama_cpp_error": null,
+          "llama_cpp_context_window": null
+        },
+        "router": {
+          "backend": "heuristic",
+          "requested_model": "google/functiongemma-270m-it",
+          "effective_model": "google/functiongemma-270m-it",
+          "runtime_device": null,
+          "configured_device": "auto"
+        },
+        "retriever": {
+          "backend": "heuristic",
+          "requested_model": "google/embeddinggemma-300m",
+          "effective_model": "google/embeddinggemma-300m",
+          "loaded": false,
+          "configured_device": "auto",
+          "runtime_device": null
+        }
+      }
+    },
+    "progress": {
+      "status": "completed",
+      "lane": "live_web_stress",
+      "created_at": "20260412T212100Z",
+      "completed_runs": 23,
+      "planned_runs": 23,
+      "last_completed_episode_id": "kwa_finance_live_invoice_lock_direction_hold_v4",
+      "completed_episode_ids": [
+        "kwa_exec_live_visual_dashboard_revision_hold_v2",
+        "kwa_exec_live_visual_dashboard_referent_hold_v3",
+        "kwa_exec_live_calendar_policy",
+        "kwa_exec_live_send_hold",
+        "kwa_jobs_live_requirements_extract",
+        "kwa_jobs_live_visual_constraint_override_hold_v2",
+        "kwa_jobs_live_visual_latest_issue_hold_v3",
+        "kwa_jobs_live_submission_hold",
+        "kwa_finance_live_visual_invoice_revision_hold_v2",
+        "kwa_finance_live_comps_revision",
+        "kwa_finance_live_committee_hold",
+        "kwa_exec_live_vendor_access_hold",
+        "kwa_jobs_live_screening_hold",
+        "kwa_finance_live_billing_patch_hold",
+        "kwa_exec_live_stale_brief_hold",
+        "kwa_jobs_live_constraint_hold",
+        "kwa_finance_live_stale_assumption_hold",
+        "kwa_exec_live_visual_dashboard_brief",
+        "kwa_jobs_live_visual_form_hold",
+        "kwa_finance_live_visual_invoice_hold",
+        "kwa_exec_live_latest_action_resume_hold_v4",
+        "kwa_jobs_live_phone_patch_resume_hold_v4",
+        "kwa_finance_live_invoice_lock_direction_hold_v4"
+      ],
+      "latest_summary": {
+        "runs": 23.0,
+        "artifact_quality_avg": 0.9633043478260869,
+        "browser_workflow_avg": 1.0,
+        "strict_interface_avg": 1.0,
+        "recovered_execution_avg": 0.9565217391304348,
+        "real_world_readiness_avg": 0.9725521739130435,
+        "escalation_correctness_avg": 1.0
+      }
+    }
+  }
+]

@@ -6,8 +6,9 @@
   "recovered_execution_avg": 0.8846153846153846,
   "real_world_readiness_avg": 0.9398846153846154,
   "escalation_correctness_avg": 0.9807692307692307,
-  "lane": "replayable_core",
-  "created_at": "20260411T143032Z",
-  "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
-  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260411T142324Z_knowledge_work_full_lane/hf_gemma4_e2b_specialists_cpu__replayable_core"
+  "controller_repair_avg": 1.6538461538461537,
+  "argument_repair_avg": 0.15384615384615385,
+  "controller_fallback_avg": 0.8461538461538461,
+  "intent_override_avg": 0.057692307692307696,
+  "raw_planning_clean_rate_avg": 0.5769230769230769
 }

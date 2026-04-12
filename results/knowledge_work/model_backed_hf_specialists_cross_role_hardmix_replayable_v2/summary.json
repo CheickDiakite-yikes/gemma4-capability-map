@@ -1,9 +1,14 @@
 {
   "runs": 12.0,
-  "artifact_quality_avg": 1.0,
-  "browser_workflow_avg": 0.9914000000000001,
+  "artifact_quality_avg": 0.9845666666666667,
+  "browser_workflow_avg": 0.983375,
   "strict_interface_avg": 1.0,
   "recovered_execution_avg": 1.0,
-  "real_world_readiness_avg": 0.9222166666666666,
-  "escalation_correctness_avg": 1.0
+  "real_world_readiness_avg": 0.9795666666666666,
+  "escalation_correctness_avg": 1.0,
+  "controller_repair_avg": 0.75,
+  "argument_repair_avg": 0.125,
+  "controller_fallback_avg": 0.3333333333333333,
+  "intent_override_avg": 0.08333333333333333,
+  "raw_planning_clean_rate_avg": 0.7083333333333334
 }

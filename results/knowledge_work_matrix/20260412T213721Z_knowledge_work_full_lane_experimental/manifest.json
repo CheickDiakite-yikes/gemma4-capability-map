@@ -1,0 +1,31 @@
+{
+  "run_group_id": "20260412T213721Z",
+  "matrix_name": "knowledge_work_full_lane_experimental",
+  "description": "Registry-driven experimental KnowledgeWorkArena matrix for heavier or not-yet-publishable local systems.",
+  "created_at": "2026-04-12T21:37:21.648469+00:00",
+  "config_path": "/Users/cheickdiakite/Codex/moonie/configs/knowledge_work_matrix_experimental.yaml",
+  "registry_path": "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+  "run_intent": "exploratory",
+  "update_latest": false,
+  "runs": [
+    {
+      "run_id": "mlx_qwen3_8b_reasoner_only__replayable_core",
+      "system_id": "mlx_qwen3_8b_reasoner_only",
+      "lane": "replayable_core",
+      "limit": null,
+      "run_intent": "exploratory",
+      "update_latest": false,
+      "backend": "mlx",
+      "reasoner_backend": "mlx",
+      "router_backend": "heuristic",
+      "retriever_backend": "heuristic",
+      "reasoner": "Qwen/Qwen3-8B-MLX-4bit",
+      "router": "",
+      "retriever": "",
+      "thinking": false,
+      "reasoner_max_new_tokens": 96,
+      "request_timeout_seconds": 300.0,
+      "run_timeout_seconds": 0.0
+    }
+  ]
+}

@@ -6,8 +6,9 @@
   "recovered_execution_avg": 0.5,
   "real_world_readiness_avg": 0.79,
   "escalation_correctness_avg": 1.0,
-  "lane": "replayable_core",
-  "created_at": "20260411T150950Z",
-  "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
-  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_inprocess_specialists_visual_regression_replayable_v1"
+  "controller_repair_avg": 3.25,
+  "argument_repair_avg": 0.375,
+  "controller_fallback_avg": 1.375,
+  "intent_override_avg": 0.0,
+  "raw_planning_clean_rate_avg": 0.5
 }

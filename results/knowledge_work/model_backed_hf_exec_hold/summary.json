@@ -1,13 +1,14 @@
 {
   "runs": 1.0,
   "artifact_quality_avg": 1.0,
-  "browser_workflow_avg": 0.9836,
+  "browser_workflow_avg": 0.9851,
   "strict_interface_avg": 1.0,
   "recovered_execution_avg": 1.0,
-  "real_world_readiness_avg": 0.9056,
+  "real_world_readiness_avg": 0.9752,
   "escalation_correctness_avg": 1.0,
-  "lane": "replayable_core",
-  "created_at": "20260410T024346Z",
-  "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
-  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_exec_hold"
+  "controller_repair_avg": 0.0,
+  "argument_repair_avg": 0.0,
+  "controller_fallback_avg": 0.0,
+  "intent_override_avg": 0.0,
+  "raw_planning_clean_rate_avg": 1.0
 }

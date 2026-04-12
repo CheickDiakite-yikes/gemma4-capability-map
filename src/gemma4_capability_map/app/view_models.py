@@ -43,6 +43,11 @@ NUMERIC_BOARD_FIELDS = {
     "pass_count",
     "refine_count",
     "fail_count",
+    "controller_repair_avg",
+    "argument_repair_avg",
+    "controller_fallback_avg",
+    "intent_override_avg",
+    "raw_planning_clean_rate_avg",
 }
 
 
@@ -507,6 +512,8 @@ def _metric_cards(session: Any) -> list[dict[str, Any]]:
         ("browser_workflow_score", "Browser"),
         ("strict_interface_score", "Strict"),
         ("recovered_execution_score", "Recovered"),
+        ("raw_planning_clean_rate", "Plan Clean"),
+        ("controller_repair_count", "Repairs"),
     ]
     cards: list[dict[str, Any]] = []
     for key, label in labels:

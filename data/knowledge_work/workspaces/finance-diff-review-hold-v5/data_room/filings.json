@@ -1,0 +1,14 @@
+{
+  "documents": [
+    {
+      "name": "earnings_release.pdf",
+      "status": "seeded",
+      "approval": "committee_pending"
+    },
+    {
+      "name": "management_commentary.md",
+      "status": "seeded",
+      "approval": "committee_pending"
+    }
+  ]
+}

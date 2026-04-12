@@ -1,0 +1,1 @@
+Keep the newest blocked-email fix explicit, remove the stale phone and work-authorization paths, and preserve the approval hold after resume.

@@ -41,7 +41,12 @@ def test_derive_trace_metrics_sums_prompt_and_latency_fields() -> None:
             "planning_latency_ms": [120, 80],
             "planning_prompt_tokens": [30, 20],
             "planning_completion_tokens": [5, 4],
-            "planning_repair_notes": [["canonicalized_tool:file_reader->read_repo_file"], []],
+            "planning_repair_notes": [[
+                "canonicalized_tool:file_reader->read_repo_file",
+                "controller_fallback_planner",
+                "intent_prior:inspect_or_lookup",
+                "repaired_arguments:read_repo_file",
+            ], []],
             "final_latency_ms": 200,
             "final_prompt_tokens": 10,
             "final_completion_tokens": 2,
@@ -52,4 +57,11 @@ def test_derive_trace_metrics_sums_prompt_and_latency_fields() -> None:
     assert metrics["latency_ms"] == 400
     assert metrics["prompt_tokens"] == 60
     assert metrics["completion_tokens"] == 11
-    assert metrics["controller_repair_count"] == 1
+    assert metrics["controller_repair_count"] == 4
+    assert metrics["argument_repair_count"] == 1
+    assert metrics["canonicalized_tool_count"] == 1
+    assert metrics["controller_fallback_count"] == 1
+    assert metrics["intent_override_count"] == 1
+    assert metrics["planning_turn_count"] == 2
+    assert metrics["planning_turns_with_repairs"] == 1
+    assert metrics["raw_planning_clean_rate"] == 0.5

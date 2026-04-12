@@ -2,6 +2,173 @@
 
 # 2026-04-12
 
+### Planner-gap metrics expose the difference between top-line parity and raw tool-use cleanliness
+
+- Added explicit harness-gap metrics from task trace -> episode scorecard -> leaderboard export -> board row:
+  - `controller_repair_count`
+  - `argument_repair_count`
+  - `controller_fallback_count`
+  - `intent_override_count`
+  - `raw_planning_clean_rate`
+- Threaded these through:
+  - [`src/gemma4_capability_map/metrics/trace_metrics.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/metrics/trace_metrics.py)
+  - [`src/gemma4_capability_map/knowledge_work/scoring.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/knowledge_work/scoring.py)
+  - [`src/gemma4_capability_map/knowledge_work/exporters.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/knowledge_work/exporters.py)
+  - [`src/gemma4_capability_map/knowledge_work/replay.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/knowledge_work/replay.py)
+  - [`src/gemma4_capability_map/reporting/knowledge_work_board.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/reporting/knowledge_work_board.py)
+- Fixed the rescore path in [`scripts/rescore_knowledge_work_runs.py`](/Users/cheickdiakite/Codex/moonie/scripts/rescore_knowledge_work_runs.py) so evaluation-only changes now recompute underlying stage task-trace metrics before rebuilding episode scorecards.
+- Rebuilt board/history exports:
+  - [`results/history/knowledge_work_board_latest.csv`](/Users/cheickdiakite/Codex/moonie/results/history/knowledge_work_board_latest.csv)
+  - [`results/history/knowledge_work_history.md`](/Users/cheickdiakite/Codex/moonie/results/history/knowledge_work_history.md)
+- Verification:
+  - focused metric/reporting/runtime slice: `64 passed`
+  - full suite after the backfill: `230 passed`
+- New finding:
+  - the widened `29 / 23` headline rows still match on top-line readiness
+  - they no longer look equivalent once controller help is measured
+  - replayable `hf_gemma4_e2b_specialists_cpu` currently shows:
+    - `controller_repair_avg = 1.8448`
+    - `argument_repair_avg = 0.2069`
+    - `controller_fallback_avg = 0.8966`
+    - `intent_override_avg = 0.0862`
+    - `raw_planning_clean_rate_avg = 0.5172`
+  - replayable `mlx_qwen3_8b_reasoner_only` currently shows:
+    - `controller_repair_avg = 0.0`
+    - `argument_repair_avg = 0.0`
+    - `controller_fallback_avg = 0.0`
+    - `intent_override_avg = 0.0`
+    - `raw_planning_clean_rate_avg = 1.0`
+- Interpretation:
+  - the strong Gemma harness is currently closing the top-line gap, but not yet the raw tool-use cleanliness gap
+  - this is a better and more publishable research result than a flat “Gemma equals Qwen” statement because it tells us exactly where to improve Gemma next
+
+### Harder `v5` replayable smoke currently saturates, so the next discriminating move is metric-aware not blind widening
+
+- Added a new harder wave on disk:
+  - generated corpora now read `91 / 396 / 32 / 26`
+  - new atomic tool/direction tasks:
+    - `tool_020_exec_api_read_only_latest_action`
+    - `tool_021_jobs_cli_patch_only_latest_email_fix`
+    - `tool_022_finance_cli_diff_review_only_invoice_lock`
+  - new atomic visual tasks:
+    - `visual_027_dashboard_review_backlog_enablement_refinement`
+    - `visual_028_live_dashboard_review_backlog_enablement_refinement`
+    - `visual_029_form_latest_blocked_email_refinement`
+    - `visual_030_live_form_latest_blocked_email_refinement`
+  - new KWA episodes:
+    - `kwa_exec_backlog_resume_hold_v5`
+    - `kwa_jobs_email_block_resume_hold_v5`
+    - `kwa_finance_diff_review_hold_v5`
+    - `kwa_exec_live_backlog_resume_hold_v5`
+    - `kwa_jobs_live_email_block_resume_hold_v5`
+    - `kwa_finance_live_diff_review_hold_v5`
+- Bounded replayable smoke results:
+  - oracle:
+    - [`results/knowledge_work/oracle_smoke_harder_wave_replayable_v1/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/oracle_smoke_harder_wave_replayable_v1/summary.json)
+  - Gemma specialists:
+    - [`results/knowledge_work/hf_gemma4_e2b_specialists_cpu_smoke_harder_wave_replayable_v1/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/hf_gemma4_e2b_specialists_cpu_smoke_harder_wave_replayable_v1/summary.json)
+  - Qwen MLX:
+    - [`results/knowledge_work/mlx_qwen3_8b_reasoner_only_smoke_harder_wave_replayable_v1/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/mlx_qwen3_8b_reasoner_only_smoke_harder_wave_replayable_v1/summary.json)
+- On this bounded 3-episode replayable slice, all three rows currently land the same summary and the same tool traces.
+- Interpretation:
+  - these new episodes are valid harder tasks
+  - but under the current strong modular controller they are still measuring harness policy more than model separation
+  - the next move should be either:
+    - a more model-judgment-sensitive harder slice
+    - or a Gemma-specific controller-cleanup pass followed by the widened `32 / 26` reruns
+
+### Visual latest-filter fallback closes the current widened Qwen gap
+
+- Added a narrow runtime fallback in [`src/gemma4_capability_map/runtime/core.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/runtime/core.py):
+  - when a visual latest-filter task has the correct tool path
+  - and the second-pass rescue still leaks a stale earlier fragment
+  - and the final `read_region_text` output is clean
+  - Moonie now uses that clean readback instead of preserving the stale answer phrasing
+- Added the regression in [`tests/test_smoke_eval.py`](/Users/cheickdiakite/Codex/moonie/tests/test_smoke_eval.py):
+  - `test_visual_latest_readback_fallback_recovers_when_second_pass_still_leaks_stale_fragment`
+- Verification:
+  - focused smoke/planner slice: `49 passed`
+  - full suite after the runtime fallback: `227 passed`
+- Bounded validation:
+  - live jobs replay:
+    - [`results/knowledge_work/mlx_qwen3_8b_reasoner_only_smoke_live_alignment_v4/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/mlx_qwen3_8b_reasoner_only_smoke_live_alignment_v4/summary.json)
+    - `recovered_execution_avg = 1.0`
+  - replayable jobs replay:
+    - [`results/knowledge_work/mlx_qwen3_8b_reasoner_only_smoke_replayable_alignment_v4/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/mlx_qwen3_8b_reasoner_only_smoke_replayable_alignment_v4/summary.json)
+    - `recovered_execution_avg = 1.0`
+- Full-lane refresh:
+  - replayable:
+    - [`results/knowledge_work_matrix/20260412T213721Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__replayable_core/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260412T213721Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__replayable_core/summary.json)
+    - `runs = 29`
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 1.0`
+    - `real_world_readiness_avg = 0.9774`
+  - live:
+    - [`results/knowledge_work_matrix/20260412T213438Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__live_web_stress/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260412T213438Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__live_web_stress/summary.json)
+    - `runs = 23`
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 1.0`
+    - `real_world_readiness_avg = 0.9798`
+- Interpretation:
+  - on the current widened `29 / 23` surface, `mlx_qwen3_8b_reasoner_only` now matches the widened oracle and Gemma specialist rows
+  - this is not a “Gemma beats Qwen” result on the current surface
+  - it is a stronger “harness/runtime/controller design materially changes local agent capability” result
+  - the next discriminating move is to make the benchmark harder again and to widen comparator coverage beyond a single Qwen row
+
+### Widened oracle and Qwen rows are now aligned on `29 / 23`, and the residual Qwen gap is concentrated
+
+- Reran the widened oracle rows:
+  - replayable:
+    - [`results/knowledge_work_matrix/20260412T202500Z_knowledge_work_publishable_core/oracle_gemma4_e2b__replayable_core/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260412T202500Z_knowledge_work_publishable_core/oracle_gemma4_e2b__replayable_core/summary.json)
+    - `runs = 29`
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 1.0`
+    - `real_world_readiness_avg = 0.9774`
+  - live:
+    - [`results/knowledge_work_matrix/20260412T221500Z_knowledge_work_publishable_core/oracle_gemma4_e2b__live_web_stress/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260412T221500Z_knowledge_work_publishable_core/oracle_gemma4_e2b__live_web_stress/summary.json)
+    - `runs = 23`
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 1.0`
+    - `real_world_readiness_avg = 0.9798`
+- Reran the widened MLX Qwen rows:
+  - replayable:
+    - [`results/knowledge_work_matrix/20260412T202500Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__replayable_core/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260412T202500Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__replayable_core/summary.json)
+    - `runs = 29`
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 0.9655172413793104`
+    - `real_world_readiness_avg = 0.9716551724137932`
+  - live:
+    - [`results/knowledge_work_matrix/20260412T221500Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__live_web_stress/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260412T221500Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__live_web_stress/summary.json)
+    - `runs = 23`
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 0.9565217391304348`
+    - `real_world_readiness_avg = 0.9725521739130435`
+- This makes the widened same-surface comparison explicit:
+  - oracle is clean on both lanes
+  - `hf_gemma4_e2b_specialists_cpu` is clean on both lanes
+  - `mlx_qwen3_8b_reasoner_only` is now aligned on the same widened surface, but still trails the Gemma specialist stack on recovered execution and readiness
+- The remaining widened-live Qwen misses are now concentrated, not broad:
+  - `kwa_jobs_live_visual_latest_issue_hold_v3`
+  - `kwa_jobs_live_phone_patch_resume_hold_v4`
+
+### Planner/controller repair closed the API and CLI latest-direction seam
+
+- Fixed the shared planner in [`src/gemma4_capability_map/tools/planner.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/tools/planner.py):
+  - `api_fetch_record` now repairs toward the correct latest-issue jobs record type
+  - `cli_search_logs` now infers the right log path and query for latest invoice-lock tasks
+  - override logic now preserves these repaired args instead of leaving empty/generic placeholders
+- Added targeted regressions in [`tests/test_tool_planner.py`](/Users/cheickdiakite/Codex/moonie/tests/test_tool_planner.py):
+  - `test_planner_repairs_form_issue_api_fetch_record_arguments`
+  - `test_planner_repairs_cli_search_logs_arguments`
+  - `test_planner_prefers_cli_search_logs_for_latest_invoice_lock_failure`
+- Verification:
+  - targeted planner slice: `34 passed`
+  - full suite after the reruns and patch: `226 passed`
+- Interpretation:
+  - the new controller fix improved both oracle/Gemma/Qwen consistency on the widened live lane
+  - the finance live resume/lock failure is now closed for Qwen
+  - the remaining Qwen gap is no longer an API/CLI arg seam; it is now narrower direction-following and latest-issue preservation inside the jobs episodes
+
 ### Harnessability replayable full-lane rerun is now strict/recovered clean on `29`
 
 - Fixed the new harnessability/controller failures in [`src/gemma4_capability_map/tools/planner.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/tools/planner.py):

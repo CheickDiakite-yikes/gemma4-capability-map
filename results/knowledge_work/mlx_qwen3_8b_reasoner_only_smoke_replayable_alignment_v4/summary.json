@@ -1,0 +1,14 @@
+{
+  "runs": 2.0,
+  "artifact_quality_avg": 0.95,
+  "browser_workflow_avg": 0.9773,
+  "strict_interface_avg": 1.0,
+  "recovered_execution_avg": 1.0,
+  "real_world_readiness_avg": 0.9699,
+  "escalation_correctness_avg": 1.0,
+  "controller_repair_avg": 1.0,
+  "argument_repair_avg": 1.0,
+  "controller_fallback_avg": 0.0,
+  "intent_override_avg": 0.0,
+  "raw_planning_clean_rate_avg": 0.6667
+}

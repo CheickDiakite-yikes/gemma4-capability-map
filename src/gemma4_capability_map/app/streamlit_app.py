@@ -1263,6 +1263,11 @@ def _episode_row(trace):
         "strict_interface_score": trace.scorecard.strict_interface_score,
         "recovered_execution_score": trace.scorecard.recovered_execution_score,
         "escalation_correctness": trace.scorecard.escalation_correctness,
+        "controller_repair_count": trace.scorecard.controller_repair_count,
+        "argument_repair_count": trace.scorecard.argument_repair_count,
+        "controller_fallback_count": trace.scorecard.controller_fallback_count,
+        "intent_override_count": trace.scorecard.intent_override_count,
+        "raw_planning_clean_rate": trace.scorecard.raw_planning_clean_rate,
         "role_readiness_score": trace.scorecard.role_readiness_score,
     }
 

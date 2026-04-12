@@ -56,6 +56,11 @@ def _write_snapshot(
                 "escalation_correctness",
                 "collateral_damage_free",
                 "human_time_ratio",
+                "controller_repair_count",
+                "argument_repair_count",
+                "controller_fallback_count",
+                "intent_override_count",
+                "raw_planning_clean_rate",
                 "role_readiness_score",
             ],
         )
@@ -130,6 +135,11 @@ def test_board_rows_join_registry_and_compute_pass_refine_fail(tmp_path: Path) -
         "recovered_execution_avg": 0.8,
         "real_world_readiness_avg": 0.85,
         "escalation_correctness_avg": 1.0,
+        "controller_repair_avg": 0.75,
+        "argument_repair_avg": 0.5,
+        "controller_fallback_avg": 0.25,
+        "intent_override_avg": 0.0,
+        "raw_planning_clean_rate_avg": 0.6,
     }
     leaderboard_rows = [
         {
@@ -206,6 +216,11 @@ def test_board_rows_join_registry_and_compute_pass_refine_fail(tmp_path: Path) -
     assert row["last_request_elapsed_ms"] == 812.0
     assert row["requests_completed"] == 11.0
     assert row["total_cost_per_mtok"] == 0.0
+    assert row["controller_repair_avg"] == 0.75
+    assert row["argument_repair_avg"] == 0.5
+    assert row["controller_fallback_avg"] == 0.25
+    assert row["intent_override_avg"] == 0.0
+    assert row["raw_planning_clean_rate_avg"] == 0.6
     assert row["board_status"] == "completed"
     assert row["coverage_ratio"] == 1.0
     assert row["comparison_tier"] == "appendix"

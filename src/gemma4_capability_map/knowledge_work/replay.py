@@ -21,6 +21,11 @@ def summarize_episode_traces(traces: list[EpisodeTrace]) -> dict[str, float]:
         "recovered_execution_avg": _average(trace.scorecard.recovered_execution_score for trace in traces),
         "real_world_readiness_avg": _average(trace.scorecard.role_readiness_score for trace in traces),
         "escalation_correctness_avg": _average(trace.scorecard.escalation_correctness for trace in traces),
+        "controller_repair_avg": _average(trace.scorecard.controller_repair_count for trace in traces),
+        "argument_repair_avg": _average(trace.scorecard.argument_repair_count for trace in traces),
+        "controller_fallback_avg": _average(trace.scorecard.controller_fallback_count for trace in traces),
+        "intent_override_avg": _average(trace.scorecard.intent_override_count for trace in traces),
+        "raw_planning_clean_rate_avg": _average(trace.scorecard.raw_planning_clean_rate for trace in traces),
     }
 
 

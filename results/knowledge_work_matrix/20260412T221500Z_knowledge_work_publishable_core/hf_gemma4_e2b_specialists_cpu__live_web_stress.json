@@ -1,0 +1,153 @@
+{
+  "run_id": "hf_gemma4_e2b_specialists_cpu__live_web_stress",
+  "system_id": "hf_gemma4_e2b_specialists_cpu",
+  "lane": "live_web_stress",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260412T221500Z_knowledge_work_publishable_core/hf_gemma4_e2b_specialists_cpu__live_web_stress",
+  "returncode": 0,
+  "stdout": "{\n  \"runs\": 23.0,\n  \"artifact_quality_avg\": 0.9633043478260869,\n  \"browser_workflow_avg\": 1.0,\n  \"strict_interface_avg\": 1.0,\n  \"recovered_execution_avg\": 1.0,\n  \"real_world_readiness_avg\": 0.9798,\n  \"escalation_correctness_avg\": 1.0\n}\n",
+  "stderr": "`torch_dtype` is deprecated! Use `dtype` instead!\n\nLoading weights:   0%|          | 0/2011 [00:00<?, ?it/s]\nLoading weights:  12%|█▏        | 251/2011 [00:00<00:00, 2262.24it/s]\nLoading weights:  25%|██▍       | 499/2011 [00:00<00:00, 2320.19it/s]\nLoading weights:  37%|███▋      | 754/2011 [00:01<00:04, 289.59it/s] \nLoading weights:  44%|████▍     | 887/2011 [00:11<00:22, 50.11it/s] \nLoading weights: 100%|██████████| 2011/2011 [00:11<00:00, 182.24it/s]\n\nLoading weights:   0%|          | 0/236 [00:00<?, ?it/s]\nLoading weights: 100%|██████████| 236/236 [00:00<00:00, 7367.41it/s]\n\nLoading weights:   0%|          | 0/314 [00:00<?, ?it/s]\nLoading weights: 100%|██████████| 314/314 [00:00<00:00, 7541.51it/s]\nThe following generation flags are not valid and may be ignored: ['top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.\n",
+  "summary": {
+    "runs": 23.0,
+    "artifact_quality_avg": 0.9633043478260869,
+    "browser_workflow_avg": 1.0,
+    "strict_interface_avg": 1.0,
+    "recovered_execution_avg": 1.0,
+    "real_world_readiness_avg": 0.9798,
+    "escalation_correctness_avg": 1.0,
+    "lane": "live_web_stress",
+    "created_at": "20260412T194736Z",
+    "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260412T221500Z_knowledge_work_publishable_core/hf_gemma4_e2b_specialists_cpu__live_web_stress"
+  },
+  "manifest": {
+    "run_group_id": "20260412T194736Z_live_web_stress",
+    "created_at": "20260412T194736Z",
+    "lane": "live_web_stress",
+    "system_id": "hf_gemma4_e2b_specialists_cpu",
+    "backend": "hf",
+    "reasoner_backend": "hf",
+    "router_backend": "hf",
+    "retriever_backend": "hf",
+    "reasoner": "google/gemma-4-E2B-it",
+    "router": "google/functiongemma-270m-it",
+    "retriever": "google/embeddinggemma-300m",
+    "reasoner_device": "auto",
+    "router_device": null,
+    "retriever_device": null,
+    "reasoner_max_new_tokens": 96,
+    "request_timeout_seconds": 600.0,
+    "thinking": false,
+    "limit": null,
+    "episode_count": 23,
+    "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
+    "runtime_bundle": {
+      "reasoner": {
+        "backend": "hf",
+        "runtime_posture": "hf",
+        "requested_model": "google/gemma-4-E2B-it",
+        "effective_model": "google/gemma-4-E2B-it",
+        "model_source": "google/gemma-4-E2B-it",
+        "model_format": "hf",
+        "runtime_device": "mps",
+        "load_mode": "vision",
+        "configured_device": "auto",
+        "request_timeout_seconds": 600.0,
+        "service": {},
+        "partial_runtime": false,
+        "llama_cpp_error": null,
+        "llama_cpp_context_window": null
+      },
+      "router": {
+        "backend": "hf",
+        "requested_model": "google/functiongemma-270m-it",
+        "effective_model": "google/functiongemma-270m-it",
+        "runtime_device": "cpu",
+        "configured_device": "cpu"
+      },
+      "retriever": {
+        "backend": "hf",
+        "requested_model": "google/embeddinggemma-300m",
+        "effective_model": "google/embeddinggemma-300m",
+        "loaded": true,
+        "configured_device": "cpu",
+        "runtime_device": "cpu"
+      }
+    },
+    "run_intent": "exploratory",
+    "warmup": {
+      "reasoner": {
+        "backend": "hf",
+        "runtime_posture": "hf",
+        "requested_model": "google/gemma-4-E2B-it",
+        "effective_model": "google/gemma-4-E2B-it",
+        "model_source": "google/gemma-4-E2B-it",
+        "model_format": "hf",
+        "runtime_device": "mps",
+        "load_mode": "vision",
+        "configured_device": "auto",
+        "request_timeout_seconds": 600.0,
+        "service": {},
+        "partial_runtime": false,
+        "llama_cpp_error": null,
+        "llama_cpp_context_window": null
+      },
+      "router": {
+        "backend": "hf",
+        "requested_model": "google/functiongemma-270m-it",
+        "effective_model": "google/functiongemma-270m-it",
+        "runtime_device": "cpu",
+        "configured_device": "cpu"
+      },
+      "retriever": {
+        "backend": "hf",
+        "requested_model": "google/embeddinggemma-300m",
+        "effective_model": "google/embeddinggemma-300m",
+        "loaded": true,
+        "configured_device": "cpu",
+        "runtime_device": "cpu"
+      }
+    }
+  },
+  "progress": {
+    "status": "completed",
+    "lane": "live_web_stress",
+    "created_at": "20260412T194736Z",
+    "completed_runs": 23,
+    "planned_runs": 23,
+    "last_completed_episode_id": "kwa_finance_live_invoice_lock_direction_hold_v4",
+    "completed_episode_ids": [
+      "kwa_exec_live_visual_dashboard_revision_hold_v2",
+      "kwa_exec_live_visual_dashboard_referent_hold_v3",
+      "kwa_exec_live_calendar_policy",
+      "kwa_exec_live_send_hold",
+      "kwa_jobs_live_requirements_extract",
+      "kwa_jobs_live_visual_constraint_override_hold_v2",
+      "kwa_jobs_live_visual_latest_issue_hold_v3",
+      "kwa_jobs_live_submission_hold",
+      "kwa_finance_live_visual_invoice_revision_hold_v2",
+      "kwa_finance_live_comps_revision",
+      "kwa_finance_live_committee_hold",
+      "kwa_exec_live_vendor_access_hold",
+      "kwa_jobs_live_screening_hold",
+      "kwa_finance_live_billing_patch_hold",
+      "kwa_exec_live_stale_brief_hold",
+      "kwa_jobs_live_constraint_hold",
+      "kwa_finance_live_stale_assumption_hold",
+      "kwa_exec_live_visual_dashboard_brief",
+      "kwa_jobs_live_visual_form_hold",
+      "kwa_finance_live_visual_invoice_hold",
+      "kwa_exec_live_latest_action_resume_hold_v4",
+      "kwa_jobs_live_phone_patch_resume_hold_v4",
+      "kwa_finance_live_invoice_lock_direction_hold_v4"
+    ],
+    "latest_summary": {
+      "runs": 23.0,
+      "artifact_quality_avg": 0.9633043478260869,
+      "browser_workflow_avg": 1.0,
+      "strict_interface_avg": 1.0,
+      "recovered_execution_avg": 1.0,
+      "real_world_readiness_avg": 0.9798,
+      "escalation_correctness_avg": 1.0
+    }
+  }
+}

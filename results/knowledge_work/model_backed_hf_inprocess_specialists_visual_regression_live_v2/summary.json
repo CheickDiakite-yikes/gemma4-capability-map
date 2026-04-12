@@ -6,8 +6,9 @@
   "recovered_execution_avg": 1.0,
   "real_world_readiness_avg": 0.97245,
   "escalation_correctness_avg": 1.0,
-  "lane": "live_web_stress",
-  "created_at": "20260411T152136Z",
-  "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
-  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_inprocess_specialists_visual_regression_live_v2"
+  "controller_repair_avg": 2.5,
+  "argument_repair_avg": 0.0,
+  "controller_fallback_avg": 1.5,
+  "intent_override_avg": 0.0,
+  "raw_planning_clean_rate_avg": 0.5
 }

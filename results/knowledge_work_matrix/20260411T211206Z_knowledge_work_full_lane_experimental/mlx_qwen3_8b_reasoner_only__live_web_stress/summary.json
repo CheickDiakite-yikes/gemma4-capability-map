@@ -6,8 +6,9 @@
   "recovered_execution_avg": 0.925,
   "real_world_readiness_avg": 0.961875,
   "escalation_correctness_avg": 1.0,
-  "lane": "live_web_stress",
-  "created_at": "20260411T211418Z",
-  "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
-  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260411T211206Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__live_web_stress"
+  "controller_repair_avg": 0.0,
+  "argument_repair_avg": 0.0,
+  "controller_fallback_avg": 0.0,
+  "intent_override_avg": 0.0,
+  "raw_planning_clean_rate_avg": 1.0
 }

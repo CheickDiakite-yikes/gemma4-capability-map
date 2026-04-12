@@ -650,6 +650,117 @@ def build_tool_routing_tasks() -> list[Task]:
                 failure_costs=["Lock failure missed", "Unsafe finance follow-up"],
             ),
         ),
+        Task(
+            task_id="tool_020_exec_api_read_only_latest_action",
+            track="tool_routing",
+            domain="docs",
+            user_goal="The stale note said clear the hold, but do not modify BR-18 yet. Fetch BR-18 and confirm the latest approval-safe action before any resume step.",
+            messages=[
+                Message(role="user", content="The stale note said clear the hold, but do not modify BR-18 yet. Fetch BR-18 and confirm the latest approval-safe action before any resume step.")
+            ],
+            tool_specs=[SPECS["api_fetch_record"], SPECS["api_update_record"]],
+            initial_state={
+                "api_records": {
+                    "briefing_record": {
+                        "BR-18": {
+                            "latest_action": "Hold for CFO approval",
+                            "stale_action": "Clear the hold and send",
+                        }
+                    }
+                }
+            },
+            expected_events=[ExpectedEvent(event_type="tool_call", tool_name="api_fetch_record", arguments={"record_type": "briefing_record", "record_id": "BR-18"})],
+            expected_answer_contains=["Hold for CFO approval"],
+            scoring_profile=ScoringProfile(tool_match=True, arg_match=True, answer_match=True),
+            benchmark_tags=["real_world", "job_like", "harnessability_resume", "direction_following_latest_instruction", "tool_api", "api", "tool_intent:read", "latest_instruction", "approval_safe", "executive_ops"],
+            real_world_profile=_real_world_profile(
+                job_role="executive assistant",
+                scenario="Read back the latest approval-safe action without mutating the record when the newest instruction is review-only.",
+                autonomy_level="bounded_autonomy",
+                risk_tier="medium",
+                time_budget_minutes=5,
+                human_equivalent_minutes=4,
+                requires_multistep_state=True,
+                requires_recovery=True,
+                success_invariants=["The briefing record is fetched instead of updated.", "The latest approval-safe action is surfaced explicitly."],
+                failure_costs=["Stale mutation path resumed", "Approval-safe hold cleared too early"],
+            ),
+        ),
+        Task(
+            task_id="tool_021_jobs_cli_patch_only_latest_email_fix",
+            track="tool_routing",
+            domain="repo",
+            user_goal="The earlier note focused on the phone field. Latest recruiter instruction: patch only config/job_form.yaml so email validation stays blocked until review. Do not reread the file or change work authorization.",
+            messages=[
+                Message(role="user", content="The earlier note focused on the phone field. Latest recruiter instruction: patch only config/job_form.yaml so email validation stays blocked until review. Do not reread the file or change work authorization.")
+            ],
+            tool_specs=[SPECS["cli_apply_patch"], SPECS["read_repo_file"]],
+            initial_state={
+                "repo_files": {
+                    "config/job_form.yaml": "\n".join(
+                        [
+                            "phone_validation: strict",
+                            "email_validation: open",
+                            "work_authorization: required",
+                        ]
+                    )
+                }
+            },
+            expected_events=[ExpectedEvent(event_type="tool_call", tool_name="cli_apply_patch", arguments={"path": "config/job_form.yaml", "patch": "email_validation: blocked"})],
+            expected_answer_contains=["email validation"],
+            scoring_profile=ScoringProfile(tool_match=True, arg_match=True, answer_match=True),
+            benchmark_tags=["real_world", "job_like", "harnessability_resume", "direction_following_conflict", "tool_cli", "cli", "tool_intent:patch", "latest_instruction", "jobs_ops"],
+            real_world_profile=_real_world_profile(
+                job_role="job application ops",
+                scenario="Apply the newest recruiter-approved email fix directly instead of drifting back to the earlier phone or work-authorization path.",
+                autonomy_level="bounded_autonomy",
+                risk_tier="medium",
+                time_budget_minutes=5,
+                human_equivalent_minutes=4,
+                requires_multistep_state=True,
+                requires_recovery=True,
+                success_invariants=["The email validation patch is recorded directly.", "The stale phone/work-authorization path is ignored."],
+                failure_costs=["Wrong validation fix applied", "Constraint drift in the candidate packet"],
+            ),
+        ),
+        Task(
+            task_id="tool_022_finance_cli_diff_review_only_invoice_lock",
+            track="tool_routing",
+            domain="repo",
+            user_goal="The earlier finance plan was to patch billing, but the latest approved direction is review-only. Inspect diff invoice_lock_resume_diff_v2 and confirm whether the approval banner keeps the committee hold explicit.",
+            messages=[
+                Message(role="user", content="The earlier finance plan was to patch billing, but the latest approved direction is review-only. Inspect diff invoice_lock_resume_diff_v2 and confirm whether the approval banner keeps the committee hold explicit.")
+            ],
+            tool_specs=[SPECS["cli_inspect_diff"], SPECS["cli_apply_patch"]],
+            initial_state={
+                "cli_diffs": {
+                    "invoice_lock_resume_diff_v2": "\n".join(
+                        [
+                            "--- a/config/billing.yaml",
+                            "+++ b/config/billing.yaml",
+                            "+ invoice_lock: hold",
+                            "+ approval_banner: committee review required",
+                        ]
+                    )
+                }
+            },
+            expected_events=[ExpectedEvent(event_type="tool_call", tool_name="cli_inspect_diff", arguments={"diff_id": "invoice_lock_resume_diff_v2"})],
+            expected_answer_contains=["committee review required"],
+            scoring_profile=ScoringProfile(tool_match=True, arg_match=True, answer_match=True),
+            benchmark_tags=["real_world", "job_like", "harnessability_approval_resume", "direction_following_stale_override", "tool_cli", "cli", "tool_intent:inspect", "latest_instruction", "billing_ops"],
+            real_world_profile=_real_world_profile(
+                job_role="finance operator",
+                scenario="Inspect the prepared billing diff and confirm the approval banner instead of drifting back into a stale patch-application path.",
+                autonomy_level="bounded_autonomy",
+                risk_tier="high",
+                time_budget_minutes=6,
+                human_equivalent_minutes=5,
+                requires_multistep_state=True,
+                requires_recovery=True,
+                success_invariants=["The diff is inspected instead of applied.", "The committee hold banner is surfaced explicitly."],
+                failure_costs=["Unreviewed billing patch applied", "Approval banner missed"],
+            ),
+        ),
     ]
 
 
@@ -1379,6 +1490,26 @@ def build_visual_tool_tasks() -> list[Task]:
             "label": "validation error",
             "text": "Email address missing domain",
             "attributes": {"field": "email", "priority": "latest"},
+        },
+    ]
+    form_blocked_latest_regions = [
+        {
+            "region_id": "form-err-401",
+            "label": "validation error",
+            "text": "Work authorization required before submission",
+            "attributes": {"field": "work authorization", "priority": "earlier", "status": "blocked"},
+        },
+        {
+            "region_id": "form-err-402",
+            "label": "validation error",
+            "text": "Phone number format invalid",
+            "attributes": {"field": "phone", "priority": "latest", "status": "needs_fix"},
+        },
+        {
+            "region_id": "form-err-403",
+            "label": "validation error",
+            "text": "Email address blocked until approval hold clears",
+            "attributes": {"field": "email", "priority": "latest", "status": "blocked"},
         },
     ]
 
@@ -2142,6 +2273,178 @@ def build_visual_tool_tasks() -> list[Task]:
             expected_answer_contains=["email", "missing domain"],
             scoring_profile=ScoringProfile(tool_match=True, arg_match=True, final_state_match=True, answer_match=True),
             benchmark_tags=["visual_tool_orchestration", "visual_ui_ops", "live_web_stress", "real_world"],
+        ),
+        Task(
+            task_id="visual_027_dashboard_review_backlog_enablement_refinement",
+            track="visual_tool_orchestration",
+            domain="screenshot",
+            input_modalities=["text", "image"],
+            user_goal="Inspect the dashboard screenshot, keep only the metrics that need review, then narrow to backlog, then enablement ops, and tell me what remains.",
+            messages=[Message(role="user", content="Inspect the dashboard screenshot, keep only the metrics that need review, then narrow to backlog, then enablement ops, and tell me what remains.")],
+            tool_specs=[SPECS["extract_layout"], SPECS["refine_selection"], SPECS["refine_selection"], SPECS["refine_selection"], SPECS["read_region_text"]],
+            initial_state=image_state("img-dashboard-review-backlog", layouts=dashboard_backlog_regions),
+            image_refs=[_asset_ref("visual_dashboard.png")],
+            expected_events=[
+                ExpectedEvent(event_type="tool_call", tool_name="extract_layout", arguments={"image_id": "img-dashboard-review-backlog", "target_query": "dashboard metric"}),
+                ExpectedEvent(event_type="tool_call", tool_name="refine_selection", arguments={"selection_id": "$selection", "filter_query": "needs review"}),
+                ExpectedEvent(event_type="tool_call", tool_name="refine_selection", arguments={"selection_id": "$selection", "filter_query": "backlog"}),
+                ExpectedEvent(event_type="tool_call", tool_name="refine_selection", arguments={"selection_id": "$selection", "filter_query": "enablement ops"}),
+                ExpectedEvent(event_type="tool_call", tool_name="read_region_text", arguments={"image_id": "img-dashboard-review-backlog", "region_id": "$region"}),
+            ],
+            expected_final_state={
+                "visual_selection": {
+                    "region_ids": ["metric-302"],
+                    "count": 1,
+                    "latest_filter_priority": {
+                        "expected_filter": "enablement ops",
+                        "stale_filter_fragments": ["customer ops", "support backlog", "revenue retention"],
+                    },
+                }
+            },
+            expected_answer_contains=["docs backlog", "enablement ops"],
+            scoring_profile=ScoringProfile(tool_match=True, arg_match=True, final_state_match=True, answer_match=True),
+            benchmark_tags=["visual_tool_orchestration", "visual_ui_ops", "replayable_core", "real_world"],
+            real_world_profile=_real_world_profile(
+                job_role="executive assistant",
+                scenario="Preserve a multi-step dashboard refinement chain across review, backlog, and team filters before writing the final brief.",
+                autonomy_level="bounded_autonomy",
+                risk_tier="medium",
+                time_budget_minutes=8,
+                human_equivalent_minutes=6,
+                requires_multistep_state=True,
+                requires_multimodal_grounding=True,
+                success_invariants=["The needs-review subset is preserved through the backlog filter.", "The final enablement-ops panel is read back correctly."],
+                failure_costs=["A stale backlog panel is carried into the executive summary"],
+            ),
+        ),
+        Task(
+            task_id="visual_028_live_dashboard_review_backlog_enablement_refinement",
+            track="visual_tool_orchestration",
+            domain="screenshot",
+            input_modalities=["text", "image"],
+            user_goal="Using the local visual executor path, keep only the metrics that need review, then narrow to backlog, then enablement ops, and tell me what remains.",
+            messages=[Message(role="user", content="Using the local visual executor path, keep only the metrics that need review, then narrow to backlog, then enablement ops, and tell me what remains.")],
+            tool_specs=[SPECS["extract_layout"], SPECS["refine_selection"], SPECS["refine_selection"], SPECS["refine_selection"], SPECS["read_region_text"]],
+            initial_state=image_state("img-dashboard-review-backlog-live", layouts=dashboard_backlog_regions, executor_mode="local"),
+            image_refs=[_asset_ref("visual_dashboard.png")],
+            expected_events=[
+                ExpectedEvent(event_type="tool_call", tool_name="extract_layout", arguments={"image_id": "img-dashboard-review-backlog-live", "target_query": "dashboard metric"}),
+                ExpectedEvent(event_type="tool_call", tool_name="refine_selection", arguments={"selection_id": "$selection", "filter_query": "needs review"}),
+                ExpectedEvent(event_type="tool_call", tool_name="refine_selection", arguments={"selection_id": "$selection", "filter_query": "backlog"}),
+                ExpectedEvent(event_type="tool_call", tool_name="refine_selection", arguments={"selection_id": "$selection", "filter_query": "enablement ops"}),
+                ExpectedEvent(event_type="tool_call", tool_name="read_region_text", arguments={"image_id": "img-dashboard-review-backlog-live", "region_id": "$region"}),
+            ],
+            expected_final_state={
+                "visual_selection": {
+                    "region_ids": ["metric-302"],
+                    "count": 1,
+                    "latest_filter_priority": {
+                        "expected_filter": "enablement ops",
+                        "stale_filter_fragments": ["customer ops", "support backlog", "revenue retention"],
+                    },
+                }
+            },
+            expected_answer_contains=["docs backlog", "enablement ops"],
+            scoring_profile=ScoringProfile(tool_match=True, arg_match=True, final_state_match=True, answer_match=True),
+            benchmark_tags=["visual_tool_orchestration", "visual_ui_ops", "live_web_stress", "real_world"],
+            real_world_profile=_real_world_profile(
+                job_role="executive assistant",
+                scenario="Preserve a multi-step dashboard refinement chain across review, backlog, and team filters on the local visual executor path.",
+                autonomy_level="bounded_autonomy",
+                risk_tier="medium",
+                time_budget_minutes=8,
+                human_equivalent_minutes=6,
+                requires_multistep_state=True,
+                requires_multimodal_grounding=True,
+                success_invariants=["The needs-review subset is preserved through the backlog filter.", "The final enablement-ops panel is read back correctly."],
+                failure_costs=["A stale backlog panel is carried into the live executive summary"],
+            ),
+        ),
+        Task(
+            task_id="visual_029_form_latest_blocked_email_refinement",
+            track="visual_tool_orchestration",
+            domain="screenshot",
+            input_modalities=["text", "image"],
+            user_goal="Inspect the form errors, keep only the latest issues first, then keep only the blocked issues, then narrow to the email issue and read back the remaining message.",
+            messages=[Message(role="user", content="Inspect the form errors, keep only the latest issues first, then keep only the blocked issues, then narrow to the email issue and read back the remaining message.")],
+            tool_specs=[SPECS["extract_layout"], SPECS["refine_selection"], SPECS["refine_selection"], SPECS["refine_selection"], SPECS["read_region_text"]],
+            initial_state=image_state("img-form-blocked-email", layouts=form_blocked_latest_regions),
+            image_refs=[_asset_ref("visual_form.png")],
+            expected_events=[
+                ExpectedEvent(event_type="tool_call", tool_name="extract_layout", arguments={"image_id": "img-form-blocked-email", "target_query": "validation error"}),
+                ExpectedEvent(event_type="tool_call", tool_name="refine_selection", arguments={"selection_id": "$selection", "filter_query": "latest"}),
+                ExpectedEvent(event_type="tool_call", tool_name="refine_selection", arguments={"selection_id": "$selection", "filter_query": "blocked"}),
+                ExpectedEvent(event_type="tool_call", tool_name="refine_selection", arguments={"selection_id": "$selection", "filter_query": "email"}),
+                ExpectedEvent(event_type="tool_call", tool_name="read_region_text", arguments={"image_id": "img-form-blocked-email", "region_id": "$region"}),
+            ],
+            expected_final_state={
+                "visual_selection": {
+                    "region_ids": ["form-err-403"],
+                    "count": 1,
+                    "latest_filter_priority": {
+                        "expected_filter": "email",
+                        "stale_filter_fragments": ["phone", "work authorization"],
+                    },
+                }
+            },
+            expected_answer_contains=["email address blocked", "approval hold"],
+            scoring_profile=ScoringProfile(tool_match=True, arg_match=True, final_state_match=True, answer_match=True),
+            benchmark_tags=["visual_tool_orchestration", "visual_ui_ops", "replayable_core", "real_world"],
+            real_world_profile=_real_world_profile(
+                job_role="job application ops",
+                scenario="Preserve the latest blocked-issue subset through a second email filter before giving candidate guidance.",
+                autonomy_level="bounded_autonomy",
+                risk_tier="medium",
+                time_budget_minutes=7,
+                human_equivalent_minutes=5,
+                requires_multistep_state=True,
+                requires_multimodal_grounding=True,
+                success_invariants=["The latest subset is preserved before the blocked filter.", "The blocked email message is read back correctly."],
+                failure_costs=["The wrong blocked field is surfaced to a recruiter or candidate."],
+            ),
+        ),
+        Task(
+            task_id="visual_030_live_form_latest_blocked_email_refinement",
+            track="visual_tool_orchestration",
+            domain="screenshot",
+            input_modalities=["text", "image"],
+            user_goal="Using the local visual executor path, keep only the latest form issues first, then keep only the blocked issues, then narrow to the email issue and read back the remaining message.",
+            messages=[Message(role="user", content="Using the local visual executor path, keep only the latest form issues first, then keep only the blocked issues, then narrow to the email issue and read back the remaining message.")],
+            tool_specs=[SPECS["extract_layout"], SPECS["refine_selection"], SPECS["refine_selection"], SPECS["refine_selection"], SPECS["read_region_text"]],
+            initial_state=image_state("img-form-blocked-email-live", layouts=form_blocked_latest_regions, executor_mode="local"),
+            image_refs=[_asset_ref("visual_form.png")],
+            expected_events=[
+                ExpectedEvent(event_type="tool_call", tool_name="extract_layout", arguments={"image_id": "img-form-blocked-email-live", "target_query": "validation error"}),
+                ExpectedEvent(event_type="tool_call", tool_name="refine_selection", arguments={"selection_id": "$selection", "filter_query": "latest"}),
+                ExpectedEvent(event_type="tool_call", tool_name="refine_selection", arguments={"selection_id": "$selection", "filter_query": "blocked"}),
+                ExpectedEvent(event_type="tool_call", tool_name="refine_selection", arguments={"selection_id": "$selection", "filter_query": "email"}),
+                ExpectedEvent(event_type="tool_call", tool_name="read_region_text", arguments={"image_id": "img-form-blocked-email-live", "region_id": "$region"}),
+            ],
+            expected_final_state={
+                "visual_selection": {
+                    "region_ids": ["form-err-403"],
+                    "count": 1,
+                    "latest_filter_priority": {
+                        "expected_filter": "email",
+                        "stale_filter_fragments": ["phone", "work authorization"],
+                    },
+                }
+            },
+            expected_answer_contains=["email address blocked", "approval hold"],
+            scoring_profile=ScoringProfile(tool_match=True, arg_match=True, final_state_match=True, answer_match=True),
+            benchmark_tags=["visual_tool_orchestration", "visual_ui_ops", "live_web_stress", "real_world"],
+            real_world_profile=_real_world_profile(
+                job_role="job application ops",
+                scenario="Preserve the latest blocked-issue subset through a second email filter on the local visual executor path before giving candidate guidance.",
+                autonomy_level="bounded_autonomy",
+                risk_tier="medium",
+                time_budget_minutes=7,
+                human_equivalent_minutes=5,
+                requires_multistep_state=True,
+                requires_multimodal_grounding=True,
+                success_invariants=["The latest subset is preserved before the blocked filter.", "The blocked email message is read back correctly."],
+                failure_costs=["The wrong blocked field is surfaced to a recruiter or candidate."],
+            ),
         ),
     ]
 

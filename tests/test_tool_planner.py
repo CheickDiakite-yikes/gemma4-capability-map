@@ -848,6 +848,34 @@ def test_planner_repairs_empty_api_fetch_record_arguments() -> None:
     assert "repaired_arguments:api_fetch_record" in notes
 
 
+def test_planner_repairs_form_issue_api_fetch_record_arguments() -> None:
+    messages = [
+        Message(
+            role="user",
+            content="The first note mentioned work authorization, but the latest recruiter note says focus on the phone field. Fetch issue FORM-88 and identify the latest blocker.",
+        )
+    ]
+
+    repaired, notes = plan_or_repair_tool_calls(
+        raw_output='{"name":"api_fetch_record","arguments":{"record_type":"record","record_id":"FORM-88"}}',
+        parsed_calls=[
+            ToolCall(
+                name="api_fetch_record",
+                arguments={"record_type": "record", "record_id": "FORM-88"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+        messages=messages,
+        media=[],
+        tool_specs=[SPECS["api_fetch_record"]],
+    )
+
+    assert repaired[0].name == "api_fetch_record"
+    assert repaired[0].arguments == {"record_type": "form_issue", "record_id": "FORM-88"}
+    assert "repaired_arguments:api_fetch_record" in notes
+
+
 def test_planner_repairs_empty_api_update_record_arguments() -> None:
     messages = [
         Message(
@@ -879,3 +907,142 @@ def test_planner_repairs_empty_api_update_record_arguments() -> None:
         "value": "hold",
     }
     assert "repaired_arguments:api_update_record" in notes
+
+
+def test_planner_repairs_cli_search_logs_arguments() -> None:
+    messages = [
+        Message(
+            role="user",
+            content="Ignore the earlier publish plan. Search logs/billing.log for the latest invoice-lock failure and report it.",
+        )
+    ]
+
+    repaired, notes = plan_or_repair_tool_calls(
+        raw_output='{"name":"cli_search_logs","arguments":{}}',
+        parsed_calls=[
+            ToolCall(
+                name="cli_search_logs",
+                arguments={},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+        messages=messages,
+        media=[],
+        tool_specs=[SPECS["cli_search_logs"], SPECS["api_fetch_record"]],
+    )
+
+    assert repaired[0].name == "cli_search_logs"
+    assert repaired[0].arguments == {"path": "logs/billing.log", "query": "invoice lock"}
+    assert "repaired_arguments:cli_search_logs" in notes
+
+
+def test_planner_prefers_cli_search_logs_for_latest_invoice_lock_failure() -> None:
+    messages = [
+        Message(
+            role="user",
+            content="Ignore the earlier publish plan. Search logs/billing.log for the latest invoice-lock failure and report it.",
+        )
+    ]
+
+    planned = plan_tool_calls(
+        messages=messages,
+        media=[],
+        tool_specs=[SPECS["cli_search_logs"], SPECS["api_fetch_record"]],
+    )
+
+    assert len(planned) == 1
+    assert planned[0].name == "cli_search_logs"
+    assert planned[0].arguments == {"path": "logs/billing.log", "query": "invoice lock"}
+
+
+def test_planner_prefers_cli_inspect_diff_for_review_only_diff_instruction() -> None:
+    messages = [
+        Message(
+            role="user",
+            content="The earlier finance plan was to patch billing, but the latest approved direction is review-only. Inspect diff invoice_lock_resume_diff_v2 and confirm whether the approval banner keeps the committee hold explicit.",
+        )
+    ]
+
+    planned = plan_tool_calls(
+        messages=messages,
+        media=[],
+        tool_specs=[SPECS["cli_inspect_diff"], SPECS["cli_apply_patch"]],
+    )
+
+    assert len(planned) == 1
+    assert planned[0].name == "cli_inspect_diff"
+    assert planned[0].arguments == {"diff_id": "invoice_lock_resume_diff_v2"}
+
+
+def test_planner_prefers_email_patch_when_latest_instruction_is_patch_only() -> None:
+    messages = [
+        Message(
+            role="user",
+            content="The earlier note focused on the phone field. Latest recruiter instruction: patch only config/job_form.yaml so email validation stays blocked until review. Do not reread the file or change work authorization.",
+        )
+    ]
+
+    planned = plan_tool_calls(
+        messages=messages,
+        media=[],
+        tool_specs=[SPECS["cli_apply_patch"], SPECS["read_repo_file"]],
+    )
+
+    assert len(planned) == 1
+    assert planned[0].name == "cli_apply_patch"
+    assert planned[0].arguments == {"path": "config/job_form.yaml", "patch": "email_validation: blocked"}
+
+
+def test_planner_preserves_visual_filter_order_for_latest_blocked_email_chain() -> None:
+    messages = [
+        Message(
+            role="user",
+            content="Inspect the form errors, keep only the latest issues first, then keep only the blocked issues, then narrow to the email issue and read back the remaining message.",
+        ),
+        Message(
+            role="tool",
+            content='{"tool_name":"extract_layout","status":"pass","arguments":{"image_id":"img-form-blocked-email","target_query":"validation error"},"output":{"image_id":"img-form-blocked-email","selection_id":"sel-errors","region_ids":["form-err-401","form-err-402","form-err-403"],"count":3}}',
+        ),
+    ]
+
+    latest_step = plan_tool_calls(
+        messages=messages,
+        media=[],
+        tool_specs=[SPECS["extract_layout"], SPECS["refine_selection"], SPECS["read_region_text"]],
+    )
+
+    assert latest_step[0].name == "refine_selection"
+    assert latest_step[0].arguments == {"selection_id": "sel-errors", "filter_query": "latest"}
+
+    blocked_messages = [
+        *messages,
+        Message(
+            role="tool",
+            content='{"tool_name":"refine_selection","status":"pass","arguments":{"selection_id":"sel-errors","filter_query":"latest"},"output":{"image_id":"img-form-blocked-email","selection_id":"sel-latest","region_ids":["form-err-402","form-err-403"],"count":2}}',
+        ),
+    ]
+    blocked_step = plan_tool_calls(
+        messages=blocked_messages,
+        media=[],
+        tool_specs=[SPECS["extract_layout"], SPECS["refine_selection"], SPECS["read_region_text"]],
+    )
+
+    assert blocked_step[0].name == "refine_selection"
+    assert blocked_step[0].arguments == {"selection_id": "sel-latest", "filter_query": "blocked"}
+
+    email_messages = [
+        *blocked_messages,
+        Message(
+            role="tool",
+            content='{"tool_name":"refine_selection","status":"pass","arguments":{"selection_id":"sel-latest","filter_query":"blocked"},"output":{"image_id":"img-form-blocked-email","selection_id":"sel-blocked","region_ids":["form-err-403"],"count":1}}',
+        ),
+    ]
+    email_step = plan_tool_calls(
+        messages=email_messages,
+        media=[],
+        tool_specs=[SPECS["extract_layout"], SPECS["refine_selection"], SPECS["read_region_text"]],
+    )
+
+    assert email_step[0].name == "refine_selection"
+    assert email_step[0].arguments == {"selection_id": "sel-blocked", "filter_query": "email"}

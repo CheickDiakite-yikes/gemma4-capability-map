@@ -2,12 +2,13 @@
   "runs": 1.0,
   "artifact_quality_avg": 0.7692,
   "browser_workflow_avg": 1.0,
-  "strict_interface_avg": 1.0,
-  "recovered_execution_avg": 1.0,
-  "real_world_readiness_avg": 0.9067,
+  "strict_interface_avg": 0.8125,
+  "recovered_execution_avg": 0.5,
+  "real_world_readiness_avg": 0.8268,
   "escalation_correctness_avg": 1.0,
-  "lane": "live_web_stress",
-  "created_at": "20260410T220223Z",
-  "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
-  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_service_specialists_smoke_finance_visual_live_v1"
+  "controller_repair_avg": 5.0,
+  "argument_repair_avg": 1.0,
+  "controller_fallback_avg": 1.5,
+  "intent_override_avg": 0.0,
+  "raw_planning_clean_rate_avg": 0.0
 }

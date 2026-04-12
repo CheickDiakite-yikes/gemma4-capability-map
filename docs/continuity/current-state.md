@@ -27,18 +27,22 @@ This repo now contains:
 
 ## Benchmark Shape
 
-- `84` gold atomic tasks
-- `341` explicit atomic variants
+- `91` gold atomic tasks
+- `396` explicit atomic variants
 - `16` real-world-tagged atomic tasks
-- `26` atomic `visual_tool_orchestration` tasks in the current gold corpus
-- `29` replayable-core `KnowledgeWorkArena` episodes in the current generated corpus
-- `23` live-web stress `KnowledgeWorkArena` episodes in the current generated corpus
+- `30` atomic `visual_tool_orchestration` tasks in the current gold corpus
+- `32` replayable-core `KnowledgeWorkArena` episodes in the current generated corpus
+- `26` live-web stress `KnowledgeWorkArena` episodes in the current generated corpus
 
 Important distinction:
 
-- the generated corpora are now `84 / 341 / 29 / 23`
-- the refreshed replayable publishable-default Gemma specialist row now runs on the full `29`-episode replayable lane
-- the live publishable rows and most comparator rows still reflect the earlier reproduced `20`-episode live surface until they are rerun on `23`
+- the generated corpora are now `91 / 396 / 32 / 26`
+- the board-backed widened comparison surface now exists for:
+  - `oracle_gemma4_e2b`
+  - `hf_gemma4_e2b_specialists_cpu`
+  - `mlx_qwen3_8b_reasoner_only`
+- those rows now run on the widened `29 / 23` full-lane surface
+- the direct Gemma reasoner-only control still sits on the earlier reproduced `26 / 20` surface
 - the older canonical oracle lane pointers under `results/knowledge_work/replayable_core` and `results/knowledge_work/live_web_stress` still reflect the last full oracle rerun on the earlier `24 / 18` surface
 - use `results/history/knowledge_work_board_latest.csv` as the current source of truth for board-level comparison claims
 
@@ -73,7 +77,7 @@ Live-web stress:
 Interpretation:
 
 - the repo now has a first-class atomic benchmark for visual-tool orchestration, not just generic multimodal QA
-- the gold corpus now contains `26` visual-tool tasks, while the current canonical lane pointers cover the `11` replayable and `7` live seeded tasks that have already been rerun end to end
+- the gold corpus now contains `30` visual-tool tasks, while the current canonical lane pointers cover the `11` replayable and `7` live seeded tasks that have already been rerun end to end
 - the canonical track measures whether the reasoner picks the right visual tools, refines selections correctly, preserves referents across turns, and lands the right final answer
 - stricter placeholder-aware scoring is now live: follow-up `selection_id` and `region_id` arguments must point at the latest valid visual referent, not just any non-empty placeholder replacement
 - replayable scoring is seeded and deterministic; live-web stress uses the same tool surface with a local executor path
@@ -134,9 +138,9 @@ Visual KWA episodes now also exist and have bounded oracle references:
 Interpretation:
 
 - the canonical KWA oracle pointers still reflect the last full oracle rerun on `24 / 18`
-- the generated KWA corpus is now `29 / 23`
-- the replayable publishable-default Gemma specialist row has now been rerun cleanly on the full `29`-episode lane
-- the live publishable rows and most comparator rows still need matching reruns on the widened surface
+- the generated KWA corpus is now `32 / 26`
+- the widened board-backed oracle, Gemma specialist, and Qwen rows now exist on the same `29 / 23` full-lane surface
+- the direct Gemma reasoner-only control still remains on the earlier `26 / 20` reproduced surface
 - these are harder because the right move is often “repair and stop safely,” not just “complete the workflow”
 - the canonical runner no longer silently truncates the lane; `run_knowledge_work_arena.py` now defaults to full-lane execution unless `--limit` is explicitly set
 
@@ -151,24 +155,25 @@ Headline rows:
 - oracle full-lane reference:
   - `oracle_gemma4_e2b`
   - comparison batch:
-    - `20260411T142324Z_knowledge_work_full_lane`
+    - `20260412T202500Z_knowledge_work_publishable_core`
+    - `20260412T221500Z_knowledge_work_publishable_core`
   - replayable:
-    - `runs = 26`
-    - `artifact_quality_avg = 0.9744807692307693`
-    - `strict_interface_avg = 0.9711538461538461`
-    - `recovered_execution_avg = 0.9615384615384616`
-    - `real_world_readiness_avg = 0.9668576923076924`
+    - `runs = 29`
+    - `artifact_quality_avg = 0.9689793103448276`
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 1.0`
+    - `real_world_readiness_avg = 0.9774`
   - live:
-    - `runs = 20`
-    - `artifact_quality_avg = 0.9696049999999999`
-    - `strict_interface_avg = 0.9625`
-    - `recovered_execution_avg = 0.95`
-    - `real_world_readiness_avg = 0.966045`
+    - `runs = 23`
+    - `artifact_quality_avg = 0.9633043478260869`
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 1.0`
+    - `real_world_readiness_avg = 0.9798`
 - headline local Gemma stack:
   - `hf_gemma4_e2b_specialists_cpu`
   - comparison batch:
     - `20260412T190500Z_knowledge_work_full_lane_harnessability_core`
-    - `model_backed_hf_inprocess_specialists_full_live_v4`
+    - `20260412T221500Z_knowledge_work_publishable_core`
   - replayable:
     - `runs = 29`
     - `artifact_quality_avg = 0.9689793103448276`
@@ -176,13 +181,46 @@ Headline rows:
     - `strict_interface_avg = 1.0`
     - `recovered_execution_avg = 1.0`
     - `real_world_readiness_avg = 0.9774`
-  - live:
-    - `runs = 20`
-    - `artifact_quality_avg = 0.9696049999999999`
-    - `browser_workflow_avg = 1.0`
-    - `strict_interface_avg = 0.9625`
-    - `recovered_execution_avg = 0.95`
-    - `real_world_readiness_avg = 0.966045`
+- live:
+  - `runs = 23`
+  - `artifact_quality_avg = 0.9633043478260869`
+  - `browser_workflow_avg = 1.0`
+  - `strict_interface_avg = 1.0`
+  - `recovered_execution_avg = 1.0`
+  - `real_world_readiness_avg = 0.9798`
+
+## Planner-Gap View
+
+The board now carries explicit harness-gap metrics in addition to the top-line readiness metrics:
+
+- `controller_repair_avg`
+- `argument_repair_avg`
+- `controller_fallback_avg`
+- `intent_override_avg`
+- `raw_planning_clean_rate_avg`
+
+Current interpretation on the widened `29 / 23` board rows:
+
+- Gemma specialists and Qwen MLX currently match on top-line replayable and live readiness
+- they do **not** match on raw planner cleanliness
+- replayable `hf_gemma4_e2b_specialists_cpu` currently shows:
+  - `controller_repair_avg = 1.8448`
+  - `argument_repair_avg = 0.2069`
+  - `controller_fallback_avg = 0.8966`
+  - `intent_override_avg = 0.0862`
+  - `raw_planning_clean_rate_avg = 0.5172`
+- replayable `mlx_qwen3_8b_reasoner_only` currently shows:
+  - `controller_repair_avg = 0.0`
+  - `argument_repair_avg = 0.0`
+  - `controller_fallback_avg = 0.0`
+  - `intent_override_avg = 0.0`
+  - `raw_planning_clean_rate_avg = 1.0`
+
+Interpretation:
+
+- same top-line readiness does not yet mean the models are equally clean on tool use and direction following
+- the current strong Gemma harness is closing the top-line gap, but Gemma still leans more on controller help on the saved widened rows
+- this is now a better research story than a flat “Gemma equals Qwen” claim because it isolates where the harness is compensating
 - headline local control:
   - `hf_gemma4_e2b_reasoner_only`
   - replayable:
@@ -196,27 +234,29 @@ Headline rows:
 - first reproduced non-Gemma local comparator:
   - `mlx_qwen3_8b_reasoner_only`
   - comparison batch:
-    - `20260412T022659Z_knowledge_work_full_lane_experimental`
+    - `20260412T213721Z_knowledge_work_full_lane_experimental`
+    - `20260412T213438Z_knowledge_work_full_lane_experimental`
   - replayable:
-    - `runs = 26`
-    - `artifact_quality_avg = 0.9744807692307693`
-    - `browser_workflow_avg = 0.9829461538461538`
+    - `runs = 29`
+    - `artifact_quality_avg = 0.9689793103448276`
+    - `browser_workflow_avg = 0.9821241379310345`
     - `strict_interface_avg = 1.0`
-    - `recovered_execution_avg = 0.9615384615384616`
-    - `real_world_readiness_avg = 0.9716653846153847`
+    - `recovered_execution_avg = 1.0`
+    - `real_world_readiness_avg = 0.9774`
   - live:
-    - `runs = 20`
-    - `artifact_quality_avg = 0.9696049999999999`
+    - `runs = 23`
+    - `artifact_quality_avg = 0.9633043478260869`
     - `browser_workflow_avg = 1.0`
     - `strict_interface_avg = 1.0`
-    - `recovered_execution_avg = 0.975`
-    - `real_world_readiness_avg = 0.976455`
+    - `recovered_execution_avg = 1.0`
+    - `real_world_readiness_avg = 0.9798`
 
 Interpretation:
 
 - the strongest current claim in the repo is now explicit:
-  - our controller/runtime/specialist-stack learnings materially improved Gemma 4 as a full-stack local agent on the refreshed `29`-episode replayable full-lane surface
-- the refreshed local Gemma specialist row is now strict/recovered clean on that replayable full-lane board surface
+  - our controller/runtime/specialist-stack learnings materially improved Gemma 4 as a full-stack local agent on the widened `29 / 23` full-lane surface
+- the refreshed local Gemma specialist row is now strict/recovered clean on that widened full-lane board surface
+- the widened oracle row is also strict/recovered clean on that same surface
 - the reasoner-only Gemma control remains materially weaker, so the gain is attributable to the harness/controller/runtime work rather than to an easy benchmark surface
 - this is a strong publishable Gemma-improvement claim
 - the repo now has a real same-surface non-Gemma row:
@@ -224,16 +264,15 @@ Interpretation:
 - that row is informative but bounded:
   - it beats the direct in-process Gemma reasoner-only control on the reproduced older full-lane surface
   - it materially improved after the shared rescue/planner fixes
-  - it still trails the Gemma specialist stack on recovered-execution and readiness
-- the oracle and Qwen rows have not yet been rerun on the widened `29 / 23` surface, so parity claims should stay scoped to the reproduced surface each row actually ran on
+  - on the current widened `29 / 23` surface it now also matches oracle and the Gemma specialist stack
 - the repo also now has two distinct Qwen runtime postures:
   - `hf_qwen3_8b_reasoner_only` as the direct-HF appendix/control path
   - `mlx_qwen3_8b_reasoner_only` as the Apple-Silicon-native local comparator path
 - the experimental Gemma 4 `31B` `GGUF` / `llama.cpp` runtime-posture support is implemented, but it has not been reproduced locally yet because there is no local model or runtime installed on this machine
 - the next real comparator step is no longer “make Qwen runnable”; it is:
-  - isolate the smaller residual MLX Qwen recovered-execution gap
-  - decide whether the direct-HF Qwen row is worth a full appendix run after the decode-policy fixes
-  - then add the next reproduced non-Gemma row only after the current Qwen comparison is well understood
+  - make the benchmark harder again where the current rows are now saturated
+  - add the next reproduced non-Gemma row so the current Qwen tie is not overinterpreted
+  - add the Gemma `31B` posture comparison
 
 ## Benchmark Board / Reporting Layer
 

@@ -220,6 +220,8 @@ def execute_task_trace(
         "second_pass_raw_output": "",
         "second_pass_final_answer": "",
         "second_pass_latency_ms": 0,
+        "visual_latest_fallback_used": False,
+        "visual_latest_fallback_answer": "",
     }
     rescue_guidance: str | None = None
     if _needs_judgment_answer_rescue(effective_task, resolved_final_answer):
@@ -248,6 +250,11 @@ def execute_task_trace(
         }
         if answer_matches_task(effective_task, rescue_answer):
             resolved_final_answer = rescue_answer
+    fallback_answer = _visual_latest_readback_fallback_answer(effective_task, resolved_final_answer, tool_steps)
+    if fallback_answer:
+        resolved_final_answer = fallback_answer
+        second_pass_artifacts["visual_latest_fallback_used"] = True
+        second_pass_artifacts["visual_latest_fallback_answer"] = fallback_answer
 
     trace = RunTrace(
         run_id=f"{datetime.now(UTC).strftime('%Y%m%dT%H%M%SZ')}_{architecture}_{effective_task.task_id}_{variant.variant_id}",
@@ -711,6 +718,11 @@ class LocalAgentRuntime:
                 "recovered_execution_score": trace.scorecard.recovered_execution_score,
                 "role_readiness_score": trace.scorecard.role_readiness_score,
                 "escalation_correctness": trace.scorecard.escalation_correctness,
+                "controller_repair_count": trace.scorecard.controller_repair_count,
+                "argument_repair_count": trace.scorecard.argument_repair_count,
+                "controller_fallback_count": trace.scorecard.controller_fallback_count,
+                "intent_override_count": trace.scorecard.intent_override_count,
+                "raw_planning_clean_rate": trace.scorecard.raw_planning_clean_rate,
             }
             updated_session.approvals = approvals
             updated_session.updated_at = _now()
@@ -1453,6 +1465,50 @@ def _judgment_second_pass_guidance(task: Task, language: str | None) -> str:
         "If the exact target is still ambiguous, choose `clarify` even if approval might also be needed later. "
         f"{basis_suffix}{expected_suffix}"
     )
+
+
+def _visual_latest_readback_fallback_answer(task: Task, answer_text: str, tool_steps: list[ToolResult]) -> str:
+    if task.track != Track.VISUAL_TOOL_ORCHESTRATION:
+        return ""
+    if not tool_steps or not _visual_latest_filter_matches(task, tool_steps):
+        return ""
+    normalized_answer = answer_text.lower()
+    stale_fragments = _visual_stale_filter_fragments(task)
+    if not any(fragment in normalized_answer for fragment in stale_fragments):
+        return ""
+    readback = _latest_visual_readback_text(tool_steps)
+    if not readback:
+        return ""
+    return readback if answer_matches_task(task, readback) else ""
+
+
+def _visual_latest_filter_matches(task: Task, tool_steps: list[ToolResult]) -> bool:
+    latest_priority = task.expected_final_state.get("visual_selection", {}).get("latest_filter_priority", {})
+    expected_filter = str(latest_priority.get("expected_filter", "")).strip().lower()
+    if not expected_filter:
+        return False
+    refine_steps = [step for step in tool_steps if step.selected_tool == "refine_selection"]
+    if not refine_steps:
+        return False
+    actual_latest_filter = str(refine_steps[-1].arguments.get("filter_query", "")).strip().lower()
+    if actual_latest_filter != expected_filter:
+        return False
+    if len(refine_steps) >= 2:
+        prior_filter = str(refine_steps[-2].arguments.get("filter_query", "")).strip().lower()
+        if prior_filter == actual_latest_filter:
+            return False
+    return True
+
+
+def _latest_visual_readback_text(tool_steps: list[ToolResult]) -> str:
+    for step in reversed(tool_steps):
+        if step.selected_tool != "read_region_text" or step.validator_result != "pass":
+            continue
+        output = step.output or {}
+        text = str(output.get("text", "")).strip()
+        if text:
+            return text
+    return ""
 
 
 def _now() -> str:

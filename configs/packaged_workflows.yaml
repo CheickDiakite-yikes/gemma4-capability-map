@@ -16,8 +16,8 @@ workflows:
       - harnessability_resume
       - direction_following_latest_instruction
     lane_episode_map:
-      replayable_core: kwa_exec_latest_action_resume_hold_v4
-      live_web_stress: kwa_exec_live_latest_action_resume_hold_v4
+      replayable_core: kwa_exec_backlog_resume_hold_v5
+      live_web_stress: kwa_exec_live_backlog_resume_hold_v5
 
   executive_visual_dashboard_review:
     title: Dashboard Visual Review
@@ -53,10 +53,10 @@ workflows:
       - approval
       - visual
       - harnessability_resume
-      - direction_following_latest_instruction
+      - direction_following_conflict
     lane_episode_map:
-      replayable_core: kwa_jobs_phone_patch_resume_hold_v4
-      live_web_stress: kwa_jobs_live_phone_patch_resume_hold_v4
+      replayable_core: kwa_jobs_email_block_resume_hold_v5
+      live_web_stress: kwa_jobs_live_email_block_resume_hold_v5
 
   finance_billing_patch_hold:
     title: Billing Patch Packet
@@ -72,9 +72,11 @@ workflows:
       - finance
       - spreadsheet
       - approval
+      - harnessability_approval_resume
+      - direction_following_stale_override
     lane_episode_map:
-      replayable_core: kwa_finance_billing_patch_hold
-      live_web_stress: kwa_finance_live_billing_patch_hold
+      replayable_core: kwa_finance_diff_review_hold_v5
+      live_web_stress: kwa_finance_live_diff_review_hold_v5
 
   finance_visual_invoice_review:
     title: Invoice Lock Review

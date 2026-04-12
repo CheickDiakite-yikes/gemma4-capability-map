@@ -1,13 +1,14 @@
 {
   "runs": 7.0,
   "artifact_quality_avg": 0.9742,
-  "browser_workflow_avg": 0.9966,
+  "browser_workflow_avg": 0.9825999999999999,
   "strict_interface_avg": 1.0,
   "recovered_execution_avg": 1.0,
-  "real_world_readiness_avg": 0.9794999999999999,
+  "real_world_readiness_avg": 0.9779428571428571,
   "escalation_correctness_avg": 1.0,
-  "lane": "replayable_core",
-  "created_at": "20260411T132639Z",
-  "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
-  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260411T132639Z_knowledge_work_full_lane/hf_service_gemma4_e4b_reasoner_only__replayable_core"
+  "controller_repair_avg": 0.0,
+  "argument_repair_avg": 0.0,
+  "controller_fallback_avg": 0.0,
+  "intent_override_avg": 0.0,
+  "raw_planning_clean_rate_avg": 1.0
 }

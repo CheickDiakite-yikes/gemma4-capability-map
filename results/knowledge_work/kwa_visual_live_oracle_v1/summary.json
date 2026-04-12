@@ -4,10 +4,11 @@
   "browser_workflow_avg": 1.0,
   "strict_interface_avg": 1.0,
   "recovered_execution_avg": 1.0,
-  "real_world_readiness_avg": 0.9165333333333333,
+  "real_world_readiness_avg": 0.9589666666666666,
   "escalation_correctness_avg": 1.0,
-  "lane": "live_web_stress",
-  "created_at": "20260410T191400Z",
-  "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
-  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work/kwa_visual_live_oracle_v1"
+  "controller_repair_avg": 0.5,
+  "argument_repair_avg": 0.5,
+  "controller_fallback_avg": 0.0,
+  "intent_override_avg": 0.0,
+  "raw_planning_clean_rate_avg": 0.75
 }

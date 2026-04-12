@@ -2,38 +2,44 @@
 
 ## Resume Here
 
-The repo is in a stronger and more honest state now: the replayable Gemma specialist headline row has been rerun on the widened `29`-episode harnessability lane, while the live/oracle/Qwen rows still need matching reruns before any new parity claim is made.
+The repo is in a stronger and more honest state now: oracle, the headline Gemma specialist stack, and the first reproduced Qwen row all now exist on the widened `29 / 23` full-lane surface, and all three currently match on that surface at the top-line metric level. The remaining work is not “close the Qwen gap”; it is to make the benchmark harder again, reduce Gemma’s controller reliance, and widen the comparator set.
 
 ## Latest Headline Result
 
 The current strongest research claim in the repo is now:
 
 - on the refreshed replayable full-lane `KnowledgeWorkArena` surface, the direct in-process Gemma 4 specialist stack is now strict/recovered clean across all `29` episodes
+- on the widened live full-lane surface, the direct in-process Gemma 4 specialist stack is now also strict/recovered clean across all `23` episodes
+- the widened oracle row is clean on both lanes
+- the reproduced MLX Qwen row now also matches oracle and the Gemma specialist row on that same widened `29 / 23` surface
 - the reasoner-only Gemma control remains materially weaker on the last reproduced comparator surface
 - that means the controller/runtime/specialist-stack work materially improved Gemma 4 as a full-stack local agent on our own benchmark
-- oracle and Qwen have not yet been rerun on the widened `29 / 23` surface, so the current parity claim must stay scoped to the older reproduced surface where those rows still live
+- the new planner-gap exports now show an important nuance:
+  - Gemma specialists currently rely on materially more controller repair and fallback than the reproduced Qwen MLX row on the saved widened rows
+  - that means same top-line readiness does not yet mean same raw tool-use cleanliness
 
 Current board-backed headline rows:
 
 - oracle:
   - `oracle_gemma4_e2b`
   - comparison batch:
-    - `20260411T142324Z_knowledge_work_full_lane`
+    - `20260412T202500Z_knowledge_work_publishable_core`
+    - `20260412T221500Z_knowledge_work_publishable_core`
   - replayable:
-    - `runs = 26`
-    - `strict_interface_avg = 0.9711538461538461`
-    - `recovered_execution_avg = 0.9615384615384616`
-    - `real_world_readiness_avg = 0.9668576923076924`
+    - `runs = 29`
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 1.0`
+    - `real_world_readiness_avg = 0.9774`
   - live:
-    - `runs = 20`
-    - `strict_interface_avg = 0.9625`
-    - `recovered_execution_avg = 0.95`
-    - `real_world_readiness_avg = 0.966045`
+    - `runs = 23`
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 1.0`
+    - `real_world_readiness_avg = 0.9798`
 - local headline Gemma row:
   - `hf_gemma4_e2b_specialists_cpu`
   - comparison batch:
     - `20260412T190500Z_knowledge_work_full_lane_harnessability_core`
-    - `model_backed_hf_inprocess_specialists_full_live_v4`
+    - `20260412T221500Z_knowledge_work_publishable_core`
   - replayable:
     - `runs = 29`
     - `artifact_quality_avg = 0.9689793103448276`
@@ -41,10 +47,10 @@ Current board-backed headline rows:
     - `recovered_execution_avg = 1.0`
     - `real_world_readiness_avg = 0.9774`
   - live:
-    - `runs = 20`
-    - `strict_interface_avg = 0.9625`
-    - `recovered_execution_avg = 0.95`
-    - `real_world_readiness_avg = 0.966045`
+    - `runs = 23`
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 1.0`
+    - `real_world_readiness_avg = 0.9798`
 - local control:
   - `hf_gemma4_e2b_reasoner_only`
   - replayable:
@@ -59,19 +65,20 @@ Current board-backed headline rows:
 Important claim boundary:
 
 - this is now a strong Gemma-improvement claim
-- the repo now also has a real same-surface reproduced Qwen row:
+- the repo now also has a real widened same-surface reproduced Qwen row:
   - `mlx_qwen3_8b_reasoner_only`
   - replayable:
     - `strict_interface_avg = 1.0`
-    - `recovered_execution_avg = 0.9615384615384616`
-    - `real_world_readiness_avg = 0.9716653846153847`
+    - `recovered_execution_avg = 1.0`
+    - `real_world_readiness_avg = 0.9774`
   - live:
     - `strict_interface_avg = 1.0`
-    - `recovered_execution_avg = 0.975`
-    - `real_world_readiness_avg = 0.976455`
-- that Qwen row beats the direct in-process Gemma reasoner-only control and materially improved after the rescue/planner fixes, but it still trails the Gemma specialist stack on recovered execution
+    - `recovered_execution_avg = 1.0`
+    - `real_world_readiness_avg = 0.9798`
+- that Qwen row beats the direct in-process Gemma reasoner-only control and materially improved after the rescue/planner fixes, and it now matches the oracle and Gemma specialist rows on this surface
 - do not overclaim beyond that:
-  - this is not yet a refreshed `29 / 23` Gemma-versus-Qwen parity claim
+  - this is now a refreshed `29 / 23` Gemma-versus-Qwen comparison where the current reproduced Qwen row matches the oracle and Gemma specialist rows
+  - it is not yet a broad Gemma-versus-Qwen family result
   - it is not yet a broad Gemma-versus-Qwen family claim
   - it is not a frontier closed-model comparison
 
@@ -100,7 +107,7 @@ What just landed:
 - visual KWA bounded slices for executive, jobs, and finance episodes
 - corrected visual planner/image-id plumbing and visual answer-surface rescue
 - older canonical KWA oracle lane pointers still reflect the last full oracle rerun on `24` replayable and `18` live episodes
-- current generated KWA corpus is now `29` replayable and `23` live episodes
+- current generated KWA corpus on disk is now `32` replayable and `26` live episodes after the harder `v5` additions
 - registry-backed KWA benchmark board and scatter exports
 - Streamlit `knowledge_work_board` mode
 - explicit `system_id` support in KWA run manifests
@@ -110,10 +117,17 @@ What just landed:
 - mixed-pressure specialist-backed replayable broad visual reference at `model_backed_hf_specialists_cross_role_hardmix_visual_replayable_v2`
 - mixed-pressure specialist-backed live broad visual reference at `model_backed_hf_specialists_cross_role_hardmix_visual_live_v2`
 - replay/rescore utility for saved KWA traces
+- rescore utility now also recomputes the underlying stage task-trace metrics before rebuilding episode scorecards
 - semantic memory-retention scoring for revision-heavy artifacts
 - stronger revision contract for `kwa_finance_partner_deck_revision`
 - judgment-aware answer scoring for `refuse` / `defer` / `clarify` / `escalate`
 - judgment-aware second-pass rescue acceptance
+- planner-gap board exports:
+  - `controller_repair_avg`
+  - `argument_repair_avg`
+  - `controller_fallback_avg`
+  - `intent_override_avg`
+  - `raw_planning_clean_rate_avg`
 - broader semantic aliases for policy-safety language like `high-risk` and `safety control`
 - clean replayable specialist-backed policy subset at `v6`
 - clean broader 6-episode specialist-backed replayable and live policy slices

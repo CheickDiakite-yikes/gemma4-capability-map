@@ -65,6 +65,11 @@ def score_episode(episode: Episode, trace: EpisodeTrace) -> EpisodeScorecard:
     revision_responsiveness = _revision_responsiveness(trace, episode.artifacts)
     memory_retention_score = _memory_retention_score(trace, latest_artifacts, episode.artifacts)
     human_time_ratio = _human_time_ratio(episode, trace)
+    controller_repair_count = _average(task_trace.metrics.get("controller_repair_count", 0.0) for task_trace in stage_task_traces)
+    argument_repair_count = _average(task_trace.metrics.get("argument_repair_count", 0.0) for task_trace in stage_task_traces)
+    controller_fallback_count = _average(task_trace.metrics.get("controller_fallback_count", 0.0) for task_trace in stage_task_traces)
+    intent_override_count = _average(task_trace.metrics.get("intent_override_count", 0.0) for task_trace in stage_task_traces)
+    raw_planning_clean_rate = _average(task_trace.metrics.get("raw_planning_clean_rate", 1.0) for task_trace in stage_task_traces)
     role_readiness_score = round(
         _bounded_weighted_average(
             [
@@ -90,6 +95,11 @@ def score_episode(episode: Episode, trace: EpisodeTrace) -> EpisodeScorecard:
         escalation_correctness=round(escalation_correctness, 4),
         collateral_damage_free=round(collateral_damage_free, 4),
         human_time_ratio=round(human_time_ratio, 4),
+        controller_repair_count=round(controller_repair_count, 4),
+        argument_repair_count=round(argument_repair_count, 4),
+        controller_fallback_count=round(controller_fallback_count, 4),
+        intent_override_count=round(intent_override_count, 4),
+        raw_planning_clean_rate=round(raw_planning_clean_rate, 4),
         role_readiness_score=role_readiness_score,
     )
 

@@ -30,9 +30,9 @@ build_visual_tool_tasks = GOLD_MODULE.build_visual_tool_tasks
 
 def test_visual_gold_tasks_load_and_cover_both_lanes() -> None:
     tasks = build_visual_tool_tasks()
-    assert len(tasks) == 26
-    assert sum("replayable_core" in task.benchmark_tags for task in tasks) == 15
-    assert sum("live_web_stress" in task.benchmark_tags for task in tasks) == 11
+    assert len(tasks) == 30
+    assert sum("replayable_core" in task.benchmark_tags for task in tasks) == 17
+    assert sum("live_web_stress" in task.benchmark_tags for task in tasks) == 13
     assert any("visual_ui_ops" in task.benchmark_tags for task in tasks)
     assert any("visual_document" in task.benchmark_tags for task in tasks)
     assert any("visual_aerial" in task.benchmark_tags for task in tasks)
@@ -44,6 +44,10 @@ def test_visual_gold_tasks_load_and_cover_both_lanes() -> None:
     assert any(task.task_id == "visual_024_form_latest_issue_email_refinement" for task in tasks)
     assert any(task.task_id == "visual_025_live_dashboard_backlog_team_refinement" for task in tasks)
     assert any(task.task_id == "visual_026_live_form_latest_issue_email_refinement" for task in tasks)
+    assert any(task.task_id == "visual_027_dashboard_review_backlog_enablement_refinement" for task in tasks)
+    assert any(task.task_id == "visual_028_live_dashboard_review_backlog_enablement_refinement" for task in tasks)
+    assert any(task.task_id == "visual_029_form_latest_blocked_email_refinement" for task in tasks)
+    assert any(task.task_id == "visual_030_live_form_latest_blocked_email_refinement" for task in tasks)
 
 
 def test_seeded_visual_registry_can_segment_and_refine() -> None:

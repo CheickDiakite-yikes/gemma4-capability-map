@@ -43,6 +43,11 @@ def _write_snapshot(
                 "escalation_correctness",
                 "collateral_damage_free",
                 "human_time_ratio",
+                "controller_repair_count",
+                "argument_repair_count",
+                "controller_fallback_count",
+                "intent_override_count",
+                "raw_planning_clean_rate",
                 "role_readiness_score",
             ],
         )

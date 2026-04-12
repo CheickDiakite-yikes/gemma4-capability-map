@@ -1,0 +1,1 @@
+Keep the review-only hold explicit, preserve the full backlog refinement through enablement ops, and show the revision delta after resume.
