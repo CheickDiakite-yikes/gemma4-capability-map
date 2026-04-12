@@ -1,0 +1,1 @@
+Keep the latest invoice-lock hold explicit, remove the stale publication direction, and show the revision delta.

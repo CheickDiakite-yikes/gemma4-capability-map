@@ -348,6 +348,9 @@ def _board_mode() -> None:
         "role_breakdown_json",
         "category_breakdown_json",
         "track_breakdown_json",
+        "harnessability_breakdown_json",
+        "direction_following_breakdown_json",
+        "tool_family_breakdown_json",
     ):
         if column not in frame.columns:
             frame[column] = ""
@@ -424,6 +427,8 @@ def _board_mode() -> None:
     health_frame = filtered.copy()
     public_summary = build_public_summary(filtered_rows)
     workflow_snapshot = build_console_snapshot(_runtime(), board_path)
+    community_signal_frame = pd.DataFrame(workflow_snapshot.get("community_signal_cards", []))
+    community_signal_summary = workflow_snapshot.get("community_signal_summary", {})
     external_benchmark_frame = (
         pd.read_csv(external_benchmark_path) if external_benchmark_path.exists() else pd.DataFrame()
     )
@@ -464,14 +469,31 @@ def _board_mode() -> None:
               <div class="board-summary-value">{fastest_local.get('display_name', 'n/a')}</div>
               <div class="board-summary-note">{(fastest_local.get('value', 0.0) or 0.0):.0f} ms · cheapest {(efficient_local.get('value', 0.0) or 0.0):.2f} $/Mtok</div>
             </div>
+            <div class="board-summary-card">
+              <div class="board-summary-label">Research signals</div>
+              <div class="board-summary-value">{community_signal_summary.get('row_count', 0)}</div>
+              <div class="board-summary-note">Harnessability {public_summary.get('harnessability_slice_count', 0)} · direction-following {public_summary.get('direction_following_slice_count', 0)} · tool families {public_summary.get('tool_family_slice_count', 0)}</div>
+            </div>
           </div>
         </div>
         """,
         unsafe_allow_html=True,
     )
 
-    overview_tab, leaderboard_tab, runtime_tab, workflow_tab, external_tab, breakdown_tab, delta_tab = st.tabs(
-        ["Overview", "Leaderboard", "Runtime Profiles", "Workflow Shelf", "External Context", "Breakdowns", "Deltas"]
+    overview_tab, leaderboard_tab, runtime_tab, workflow_tab, external_tab, community_tab, harnessability_tab, direction_tab, tool_tab, breakdown_tab, delta_tab = st.tabs(
+        [
+            "Overview",
+            "Leaderboard",
+            "Runtime Profiles",
+            "Workflow Shelf",
+            "External Context",
+            "Community Signals",
+            "Harnessability",
+            "Direction Following",
+            "Tool Families",
+            "Breakdowns",
+            "Deltas",
+        ]
     )
 
     with overview_tab:
@@ -875,6 +897,36 @@ def _board_mode() -> None:
     with external_tab:
         _render_external_benchmark_context(external_benchmark_frame, external_benchmark_summary)
 
+    with community_tab:
+        _render_community_signals_tab(community_signal_frame, community_signal_summary)
+
+    with harnessability_tab:
+        harnessability_frame = _flatten_breakdown_frame(ranked, "harnessability_breakdown_json", "harnessability_tag")
+        _render_tag_slice_tab(
+            harnessability_frame,
+            "harnessability_tag",
+            "Harnessability Slice",
+            "Entries captured from harnessability-prefixed benchmark tags.",
+        )
+
+    with direction_tab:
+        direction_frame = _flatten_breakdown_frame(ranked, "direction_following_breakdown_json", "direction_following_tag")
+        _render_tag_slice_tab(
+            direction_frame,
+            "direction_following_tag",
+            "Direction-Following Slice",
+            "Entries captured from direction-following benchmark tags.",
+        )
+
+    with tool_tab:
+        tool_frame = _flatten_breakdown_frame(ranked, "tool_family_breakdown_json", "tool_family_tag")
+        _render_tag_slice_tab(
+            tool_frame,
+            "tool_family_tag",
+            "Tool-Family Slice",
+            "Entries captured from tool-family benchmark tags such as function_call, cli, and api.",
+        )
+
     with breakdown_tab:
         role_breakdown = _flatten_breakdown_frame(ranked, "role_breakdown_json", "role_family")
         if not role_breakdown.empty:
@@ -1085,6 +1137,96 @@ def _render_external_benchmark_context(frame: pd.DataFrame, summary: dict[str, o
         )
     )
     st.altair_chart(external_chart, use_container_width=True)
+
+
+def _render_community_signals_tab(frame: pd.DataFrame, summary: dict[str, object]) -> None:
+    st.subheader("Community Signals")
+    st.caption(
+        "Community posts are tracked as hypotheses, not evidence. Each row should point to an experiment slice that can answer it."
+    )
+    if frame.empty:
+        st.info("No community signals are available in the current history directory.")
+        return
+
+    status_values = sorted(value for value in frame.get("status", pd.Series(dtype=str)).dropna().unique().tolist() if value)
+    slice_values = sorted(value for value in frame.get("benchmark_slice", pd.Series(dtype=str)).dropna().unique().tolist() if value)
+    selected_statuses = st.multiselect("Signal status", status_values, default=status_values, key="community_statuses")
+    selected_slices = st.multiselect("Benchmark slice", slice_values, default=slice_values, key="community_slices")
+    filtered = frame[
+        frame["status"].isin(selected_statuses or status_values or [""])
+        & frame["benchmark_slice"].isin(selected_slices or slice_values or [""])
+    ].copy()
+
+    if filtered.empty:
+        st.warning("No community signals match the current filters.")
+        return
+
+    status_summary = pd.DataFrame(summary.get("status_counts", {}), index=[0]).melt(var_name="status", value_name="count")
+    if not status_summary.empty:
+        st.dataframe(status_summary, use_container_width=True, hide_index=True)
+
+    st.dataframe(
+        filtered[
+            [
+                "claim",
+                "status",
+                "source",
+                "source_date",
+                "benchmark_slice",
+                "why_it_matters",
+                "moonie_hypothesis",
+                "source_url",
+                "notes",
+            ]
+        ],
+        use_container_width=True,
+        hide_index=True,
+        column_config={
+            "source_url": st.column_config.LinkColumn("Source"),
+        },
+    )
+
+    chart = (
+        alt.Chart(filtered)
+        .mark_bar(cornerRadiusEnd=8)
+        .encode(
+            x=alt.X("status:N", title="Status"),
+            y=alt.Y("count():Q", title="Signals"),
+            color=alt.Color("benchmark_slice:N", title="Benchmark slice"),
+            tooltip=["claim", "status", "source", "source_date", "benchmark_slice"],
+        )
+    )
+    st.altair_chart(chart, use_container_width=True)
+
+
+def _render_tag_slice_tab(frame: pd.DataFrame, label: str, title: str, caption: str) -> None:
+    st.subheader(title)
+    st.caption(caption)
+    if frame.empty:
+        st.info(f"No {title.lower()} data is available in the current history directory.")
+        return
+
+    st.dataframe(
+        frame[
+            [
+                "display_name",
+                "lane",
+                "run_intent",
+                label,
+                "episodes",
+                "pass_count",
+                "refine_count",
+                "fail_count",
+                "readiness_avg",
+                "strict_avg",
+                "artifact_avg",
+                "recovered_avg",
+            ]
+        ],
+        use_container_width=True,
+        hide_index=True,
+    )
+    _render_breakdown_status_chart(frame, label, title)
 
 
 def _trace_row(trace):

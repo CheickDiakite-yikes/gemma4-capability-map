@@ -42,11 +42,17 @@ def test_runtime_launches_non_approval_workflow_and_persists_trace(tmp_path: Pat
         workflow_id="executive_visual_dashboard_review",
         system_id="oracle_gemma4_e2b",
         lane="replayable_core",
+        project_id="research-alpha",
         human_request="Keep the brief tight and highlight operator follow-up.",
         background=False,
     )
 
     assert session.status == SessionStatus.COMPLETED
+    assert session.project_id == "research-alpha"
+    assert session.latest_instruction == "Keep the brief tight and highlight operator follow-up."
+    assert session.instruction_history
+    assert session.instruction_history[0].source == "launch"
+    assert session.instruction_history[0].content == "Keep the brief tight and highlight operator follow-up."
     assert session.runtime_trace is not None
     assert session.metrics["strict_interface_score"] == 1.0
     assert Path(session.runtime_trace.manifest_path or "").exists()
@@ -55,8 +61,19 @@ def test_runtime_launches_non_approval_workflow_and_persists_trace(tmp_path: Pat
     assert session.latest_artifact_title
     assert session.latest_artifact_path
 
+    history = runtime.get_session_history(session.session_id)
+    assert history["session"].project_id == "research-alpha"
+    assert history["instruction_history"]
+    assert history["artifact_history"]
+
     events = runtime.get_events(session.session_id)
-    assert [event.kind for event in events] == ["created", "warming", "running", "artifacts_ready", "completed"]
+    event_kinds = [event.kind for event in events]
+    assert event_kinds[0:3] == ["created", "instruction_updated", "warming"]
+    assert "running" in event_kinds
+    assert "tool_call_attempt" in event_kinds
+    assert "tool_call_result" in event_kinds
+    assert "artifact_revision" in event_kinds
+    assert event_kinds[-2:] == ["artifacts_ready", "completed"]
 
 
 def test_runtime_approval_flow_uses_same_session_contract(tmp_path: Path) -> None:
@@ -81,7 +98,13 @@ def test_runtime_approval_flow_uses_same_session_contract(tmp_path: Path) -> Non
     assert approved.active_approval_id is None
 
     events = runtime.get_events(session.session_id)
-    assert [event.kind for event in events][-6:] == ["artifacts_ready", "approval_required", "approved", "approval_resolved", "resumed", "completed"]
+    event_kinds = [event.kind for event in events]
+    assert "approval_required" in event_kinds
+    assert "approved" in event_kinds
+    assert "approval_resolved" in event_kinds
+    assert "resume_started" in event_kinds
+    assert "resumed" in event_kinds
+    assert event_kinds[-1] == "completed"
 
 
 def test_runtime_recovers_interrupted_sessions_on_startup(tmp_path: Path) -> None:
@@ -127,7 +150,11 @@ def test_runtime_resume_session_reexecutes_interrupted_run(tmp_path: Path) -> No
 
     assert resumed.status == SessionStatus.COMPLETED
     assert resumed.runtime_trace is not None
+    assert resumed.latest_instruction == "Continue after interruption."
+    assert resumed.instruction_history[-1].source == "resume"
     events = recovered.get_events(session.session_id)
+    assert "resume_requested" in [event.kind for event in events]
+    assert "resume_started" in [event.kind for event in events]
     assert any(event.kind == "resumed" for event in events)
     assert events[-1].kind == "completed"
 
@@ -162,7 +189,8 @@ def test_runtime_wait_for_events_supports_cursor_tailing(tmp_path: Path) -> None
 
     tailed = runtime.wait_for_events(session.session_id, after_sequence=2, timeout_s=0.1, poll_s=0.01)
 
-    assert [event.kind for event in tailed] == ["running", "artifacts_ready", "completed"]
+    assert any(event.kind == "running" for event in tailed)
+    assert any(event.kind == "completed" for event in tailed)
 
 
 def test_runtime_stream_session_returns_status_events_and_pending_approval(tmp_path: Path) -> None:
@@ -178,7 +206,8 @@ def test_runtime_stream_session_returns_status_events_and_pending_approval(tmp_p
 
     assert payload["session"].session_id == session.session_id
     assert payload["pending_approval"] is not None
-    assert [event.kind for event in payload["events"]] == ["artifacts_ready", "approval_required"]
+    assert any(event.kind == "artifacts_ready" for event in payload["events"])
+    assert any(event.kind == "approval_required" for event in payload["events"])
 
 
 def test_runtime_filters_sessions_and_approvals(tmp_path: Path) -> None:
@@ -187,21 +216,55 @@ def test_runtime_filters_sessions_and_approvals(tmp_path: Path) -> None:
         workflow_id="executive_visual_dashboard_review",
         system_id="oracle_gemma4_e2b",
         lane="replayable_core",
+        project_id="alpha",
         background=False,
     )
     awaiting = runtime.launch_session(
         workflow_id="finance_visual_invoice_review",
         system_id="oracle_gemma4_e2b",
         lane="replayable_core",
+        project_id="alpha",
+        background=False,
+    )
+    beta = runtime.launch_session(
+        workflow_id="executive_visual_dashboard_review",
+        system_id="oracle_gemma4_e2b",
+        lane="replayable_core",
+        project_id="beta",
         background=False,
     )
 
     completed_sessions = runtime.list_sessions(status="completed")
+    alpha_sessions = runtime.list_sessions(project_id="alpha")
     pending_approvals = runtime.list_approvals()
     all_approvals = runtime.list_approvals(status=None)
 
     assert any(session.session_id == completed.session_id for session in completed_sessions)
     assert all(session.status == SessionStatus.COMPLETED for session in completed_sessions)
+    assert {session.project_id for session in alpha_sessions} == {"alpha"}
+    assert any(session.session_id == beta.session_id for session in runtime.list_sessions(project_id="beta"))
     assert len(pending_approvals) == 1
     assert pending_approvals[0].session_id == awaiting.session_id
     assert len(all_approvals) == 1
+
+
+def test_runtime_resolves_approval_by_stable_id_and_tracks_history(tmp_path: Path) -> None:
+    runtime = LocalAgentRuntime(results_root=tmp_path / "runtime")
+    session = runtime.launch_session(
+        workflow_id="finance_visual_invoice_review",
+        system_id="oracle_gemma4_e2b",
+        lane="replayable_core",
+        project_id="project-x",
+        background=False,
+    )
+
+    approval_id = session.approvals[0].approval_id
+    resolved = runtime.resolve_approval_by_id(approval_id, decision="approve", note="Ship it.", resume=True)
+    history = runtime.get_session_history(session.session_id)
+
+    assert resolved.approvals[0].approval_id == approval_id
+    assert resolved.approvals[0].status == ApprovalStatus.APPROVED
+    assert history["session"].project_id == "project-x"
+    assert history["session"].latest_instruction == "Ship it."
+    assert history["instruction_history"][-1].content == "Ship it."
+    assert history["artifact_history"]

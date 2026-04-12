@@ -11,7 +11,7 @@ from gemma4_capability_map.pipelines.modular import ModularPipeline
 from gemma4_capability_map.pipelines.monolith import MonolithPipeline
 from gemma4_capability_map.pipelines.hybrid import HybridPipeline
 from gemma4_capability_map.schemas import ModelTurn
-from gemma4_capability_map.schemas import Task, Variant
+from gemma4_capability_map.schemas import Task, ToolCall, Variant
 from gemma4_capability_map.tools.executor import DeterministicExecutor
 from gemma4_capability_map.tools.registry import build_default_registry
 from gemma4_capability_map.traces.exporters import export_leaderboard_csv
@@ -85,6 +85,58 @@ class _JudgmentRescueRunner:
                 "Blocking reason: Unsafe request.\n"
                 "Missing approval, ambiguity, or policy basis: unsafe, invoice lock."
             ),
+        )
+
+
+class _VisualLatestRescueRunner:
+    model_id = "test/visual-latest-rescue"
+    backend = "test"
+
+    def __init__(self) -> None:
+        self.calls = 0
+
+    def generate(self, messages, media, tool_specs, thinking, max_new_tokens=None) -> ModelTurn:  # noqa: ANN001
+        self.calls += 1
+        if tool_specs:
+            if self.calls == 1:
+                call = ToolCall(
+                    name="extract_layout",
+                    arguments={"image_id": "img-form-phone", "target_query": "validation error"},
+                    source_format="json",
+                    raw='{"name":"extract_layout","arguments":{"image_id":"img-form-phone","target_query":"validation error"}}',
+                )
+                return ModelTurn(raw_model_output=call.raw, normalized_tool_call=[call], final_answer="")
+            if self.calls == 2:
+                call = ToolCall(
+                    name="refine_selection",
+                    arguments={"selection_id": "sel-001", "filter_query": "phone"},
+                    source_format="json",
+                    raw='{"name":"refine_selection","arguments":{"selection_id":"sel-001","filter_query":"phone"}}',
+                )
+                return ModelTurn(raw_model_output=call.raw, normalized_tool_call=[call], final_answer="")
+            if self.calls == 3:
+                call = ToolCall(
+                    name="read_region_text",
+                    arguments={"image_id": "img-form-phone", "region_id": "form-err-202"},
+                    source_format="json",
+                    raw='{"name":"read_region_text","arguments":{"image_id":"img-form-phone","region_id":"form-err-202"}}',
+                )
+                return ModelTurn(raw_model_output=call.raw, normalized_tool_call=[call], final_answer="")
+            raise AssertionError("Unexpected extra tool-planning call")
+        if self.calls == 4:
+            return ModelTurn(
+                raw_model_output=(
+                    'The latest blocking issue is "Phone number format invalid". '
+                    'The previous work authorization error is no longer the focus.'
+                ),
+                final_answer=(
+                    'The latest blocking issue is "Phone number format invalid". '
+                    'The previous work authorization error is no longer the focus.'
+                ),
+            )
+        return ModelTurn(
+            raw_model_output='The latest blocking issue is "Phone number format invalid".',
+            final_answer='The latest blocking issue is "Phone number format invalid".',
         )
 
 
@@ -294,3 +346,19 @@ def test_judgment_second_pass_rescue_rewrites_wrong_action_label_without_mutatin
     assert trace.tool_steps == []
     assert float(trace.metrics["success"]) == 1.0
     assert float(trace.metrics["escalation_correctness"]) == 1.0
+
+
+def test_visual_second_pass_rescue_drops_stale_filter_fragment_without_mutating_trace() -> None:
+    task = [task for task in load_jsonl(ROOT / "data" / "gold" / "visual_tools.jsonl", Task) if task.task_id == "visual_014_form_phone_refinement"][0]
+    bundle = RuntimeBundle(
+        reasoner=_VisualLatestRescueRunner(),
+        executor=DeterministicExecutor(registry=build_default_registry()),
+    )
+    pipeline = MonolithPipeline()
+    trace = pipeline.run(task, Variant(variant_id=f"{task.task_id}_clean", base_task_id=task.task_id), bundle)
+
+    assert trace.prompt_artifacts["second_pass_used"] is True
+    assert "work authorization" not in trace.final_answer.lower()
+    assert "phone number format invalid" in trace.final_answer.lower()
+    assert float(trace.metrics["success"]) == 1.0
+    assert float(trace.metrics["latest_filter_resolution"]) == 1.0

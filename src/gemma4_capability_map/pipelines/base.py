@@ -250,9 +250,13 @@ def _needs_answer_rescue(
         rescue_eligible = True
     if not rescue_eligible:
         return False
-    if not task.expected_answer_contains:
-        return False
     if not (tool_steps or retrieval_hits):
+        return False
+    normalized_answer = answer_text.lower()
+    for fragment in _visual_stale_filter_fragments(task):
+        if fragment in normalized_answer:
+            return True
+    if not task.expected_answer_contains:
         return False
     return not answer_contains_all(task.expected_answer_contains, answer_text)
 
@@ -266,16 +270,59 @@ def _needs_judgment_answer_rescue(task: Task, answer_text: str) -> bool:
     return not answer_matches_task(task, answer_text)
 
 
-def _second_pass_guidance(language: str | None) -> str:
+def _second_pass_guidance(task: Task, language: str | None) -> str:
+    visual_suffix = _visual_second_pass_suffix(task, language)
     if language == "fr":
         return (
             "Réécrivez la réponse finale en français opérationnel clair. "
             "N'ajoutez aucun nouvel outil, aucune nouvelle action, ni aucun nouveau fait. "
             "Conservez exactement les faits déjà établis et rendez explicites les chemins, approbations, politiques ou raisons de report quand ils existent."
+            + visual_suffix
         )
     return (
         "Rewrite the final answer clearly without adding new tools, actions, or facts. "
         "Preserve the established facts exactly and make the operational reason explicit."
+        + visual_suffix
+    )
+
+
+def _visual_stale_filter_fragments(task: Task) -> list[str]:
+    if task.track != Track.VISUAL_TOOL_ORCHESTRATION:
+        return []
+    latest_priority = task.expected_final_state.get("visual_selection", {}).get("latest_filter_priority", {})
+    return [
+        str(fragment).strip().lower()
+        for fragment in latest_priority.get("stale_filter_fragments", [])
+        if str(fragment).strip()
+    ]
+
+
+def _visual_second_pass_suffix(task: Task, language: str | None) -> str:
+    if task.track != Track.VISUAL_TOOL_ORCHESTRATION:
+        return ""
+    latest_priority = task.expected_final_state.get("visual_selection", {}).get("latest_filter_priority", {})
+    expected_filter = str(latest_priority.get("expected_filter", "")).strip()
+    stale_fragments = _visual_stale_filter_fragments(task)
+    if not expected_filter and not stale_fragments:
+        return ""
+    stale_suffix = ""
+    if stale_fragments:
+        stale_suffix = ", ".join(stale_fragments)
+        if language == "fr":
+            stale_suffix = f" N'évoquez pas les anciennes pistes remplacées comme : {stale_suffix}."
+        else:
+            stale_suffix = f" Do not mention superseded earlier candidates such as: {stale_suffix}."
+    if not expected_filter:
+        return stale_suffix
+    if language == "fr":
+        return (
+            f" Si un raffinement visuel ultérieur a sélectionné le résultat `{expected_filter}`, "
+            "conservez uniquement cette dernière sélection."
+            + stale_suffix
+        )
+    return (
+        f" If a later visual refinement selected the `{expected_filter}` result, keep only that latest selection."
+        + stale_suffix
     )
 
 

@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-04-11T21:16:12.522550+00:00",
-  "total_runs": 114,
-  "snapshot_count": 118,
+  "generated_at": "2026-04-12T19:06:52.115861+00:00",
+  "total_runs": 132,
+  "snapshot_count": 136,
   "latest_by_lane": [
     {
       "run_group_id": "20260410T193320Z_live_web_stress",
@@ -156,8 +156,8 @@
   ],
   "latest_exploratory_by_lane": [
     {
-      "run_group_id": "20260411T211418Z_live_web_stress",
-      "created_at": "20260411T211418Z",
+      "run_group_id": "20260412T022904Z_live_web_stress",
+      "created_at": "20260412T022904Z",
       "lane": "live_web_stress",
       "run_intent": "exploratory",
       "backend": "mlx",
@@ -166,11 +166,11 @@
       "runs": 20.0,
       "artifact_quality_avg": 0.9696049999999999,
       "browser_workflow_avg": 1.0,
-      "strict_interface_avg": 0.9625,
-      "recovered_execution_avg": 0.925,
-      "real_world_readiness_avg": 0.961875,
+      "strict_interface_avg": 1.0,
+      "recovered_execution_avg": 0.975,
+      "real_world_readiness_avg": 0.976455,
       "escalation_correctness_avg": 1.0,
-      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260411T211206Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__live_web_stress",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260412T022659Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__live_web_stress",
       "role_breakdown": {
         "executive_assistant": {
           "artifact_quality_avg": 0.9596,
@@ -187,45 +187,45 @@
         "finance": {
           "artifact_quality_avg": 0.9792,
           "browser_workflow_avg": 1.0,
-          "strict_interface_avg": 0.875,
-          "role_readiness_avg": 0.9452
+          "strict_interface_avg": 1.0,
+          "role_readiness_avg": 0.9938
         }
       }
     },
     {
-      "run_group_id": "20260411T211206Z_replayable_core",
-      "created_at": "20260411T211206Z",
+      "run_group_id": "20260412T184126Z_replayable_core",
+      "created_at": "20260412T184126Z",
       "lane": "replayable_core",
       "run_intent": "exploratory",
-      "backend": "mlx",
-      "reasoner": "Qwen/Qwen3-8B-MLX-4bit",
-      "episode_count": 26,
-      "runs": 26.0,
-      "artifact_quality_avg": 0.9744807692307693,
-      "browser_workflow_avg": 0.9829461538461538,
-      "strict_interface_avg": 0.9711538461538461,
-      "recovered_execution_avg": 0.9230769230769231,
-      "real_world_readiness_avg": 0.9604499999999999,
+      "backend": "hf",
+      "reasoner": "google/gemma-4-E2B-it",
+      "episode_count": 29,
+      "runs": 29.0,
+      "artifact_quality_avg": 0.9689793103448276,
+      "browser_workflow_avg": 0.9821241379310345,
+      "strict_interface_avg": 0.9655172413793104,
+      "recovered_execution_avg": 0.9482758620689655,
+      "real_world_readiness_avg": 0.9598379310344828,
       "escalation_correctness_avg": 1.0,
-      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260411T211206Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__replayable_core",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260412T191500Z_knowledge_work_publishable_core/hf_gemma4_e2b_specialists_cpu__replayable_core",
       "role_breakdown": {
         "executive_assistant": {
-          "artifact_quality_avg": 0.9624,
-          "browser_workflow_avg": 0.9821,
-          "strict_interface_avg": 1.0,
-          "role_readiness_avg": 0.97
+          "artifact_quality_avg": 0.955,
+          "browser_workflow_avg": 0.9813,
+          "strict_interface_avg": 0.9688,
+          "role_readiness_avg": 0.9517
         },
         "job_application_ops": {
-          "artifact_quality_avg": 0.9778,
-          "browser_workflow_avg": 0.9837,
-          "strict_interface_avg": 1.0,
-          "role_readiness_avg": 0.9565
+          "artifact_quality_avg": 0.98,
+          "browser_workflow_avg": 0.9829,
+          "strict_interface_avg": 0.9625,
+          "role_readiness_avg": 0.9609
         },
         "finance": {
-          "artifact_quality_avg": 0.9844,
-          "browser_workflow_avg": 0.9831,
-          "strict_interface_avg": 0.9062,
-          "role_readiness_avg": 0.9541
+          "artifact_quality_avg": 0.9722,
+          "browser_workflow_avg": 0.9822,
+          "strict_interface_avg": 0.9653,
+          "role_readiness_avg": 0.9677
         }
       }
     }
@@ -295,1660 +295,6 @@
     }
   ],
   "recent_runs": [
-    {
-      "recorded_at": "20260410T222522Z",
-      "manifest": {
-        "run_group_id": "20260410T222522Z_live_web_stress",
-        "created_at": "20260410T222522Z",
-        "lane": "live_web_stress",
-        "system_id": "hf_gemma4_e2b_specialists_cpu",
-        "backend": "hf",
-        "reasoner_backend": "hf",
-        "router_backend": "hf",
-        "retriever_backend": "hf",
-        "reasoner": "google/gemma-4-E2B-it",
-        "router": "google/functiongemma-270m-it",
-        "retriever": "google/embeddinggemma-300m",
-        "reasoner_device": "mps",
-        "router_device": "cpu",
-        "retriever_device": "cpu",
-        "thinking": false,
-        "limit": null,
-        "episode_count": 18,
-        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
-        "runtime_bundle": {
-          "reasoner": {
-            "backend": "hf",
-            "requested_model": "google/gemma-4-E2B-it",
-            "effective_model": "google/gemma-4-E2B-it",
-            "runtime_device": "mps",
-            "load_mode": "vision",
-            "configured_device": "mps",
-            "service": {}
-          },
-          "router": {
-            "backend": "hf",
-            "requested_model": "google/functiongemma-270m-it",
-            "effective_model": "google/functiongemma-270m-it",
-            "runtime_device": "cpu",
-            "configured_device": "cpu"
-          },
-          "retriever": {
-            "backend": "hf",
-            "requested_model": "google/embeddinggemma-300m",
-            "effective_model": "google/embeddinggemma-300m",
-            "loaded": true,
-            "configured_device": "cpu",
-            "runtime_device": "cpu"
-          }
-        },
-        "run_intent": "exploratory",
-        "warmup": {
-          "reasoner": {
-            "backend": "hf",
-            "requested_model": "google/gemma-4-E2B-it",
-            "effective_model": "google/gemma-4-E2B-it",
-            "runtime_device": "mps",
-            "load_mode": "vision",
-            "configured_device": "mps",
-            "service": {}
-          },
-          "router": {
-            "backend": "hf",
-            "requested_model": "google/functiongemma-270m-it",
-            "effective_model": "google/functiongemma-270m-it",
-            "runtime_device": "cpu",
-            "configured_device": "cpu"
-          },
-          "retriever": {
-            "backend": "hf",
-            "requested_model": "google/embeddinggemma-300m",
-            "effective_model": "google/embeddinggemma-300m",
-            "loaded": true,
-            "configured_device": "cpu",
-            "runtime_device": "cpu"
-          }
-        }
-      },
-      "summary": {
-        "runs": 18.0,
-        "artifact_quality_avg": 0.9779166666666667,
-        "browser_workflow_avg": 1.0,
-        "strict_interface_avg": 1.0,
-        "recovered_execution_avg": 1.0,
-        "real_world_readiness_avg": 0.9633722222222221,
-        "escalation_correctness_avg": 1.0,
-        "lane": "live_web_stress",
-        "created_at": "20260410T222522Z",
-        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
-        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_inprocess_specialists_full_live_v2"
-      }
-    },
-    {
-      "recorded_at": "20260410T222824Z",
-      "manifest": {
-        "run_group_id": "20260410T222824Z_replayable_core",
-        "created_at": "20260410T222824Z",
-        "lane": "replayable_core",
-        "system_id": "hf_gemma4_e2b_specialists_cpu",
-        "backend": "hf",
-        "reasoner_backend": "hf",
-        "router_backend": "hf",
-        "retriever_backend": "hf",
-        "reasoner": "google/gemma-4-E2B-it",
-        "router": "google/functiongemma-270m-it",
-        "retriever": "google/embeddinggemma-300m",
-        "reasoner_device": "mps",
-        "router_device": "cpu",
-        "retriever_device": "cpu",
-        "thinking": false,
-        "limit": 1,
-        "episode_count": 1,
-        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
-        "runtime_bundle": {
-          "reasoner": {
-            "backend": "hf",
-            "requested_model": "google/gemma-4-E2B-it",
-            "effective_model": "google/gemma-4-E2B-it",
-            "runtime_device": "mps",
-            "load_mode": "vision",
-            "configured_device": "mps",
-            "service": {}
-          },
-          "router": {
-            "backend": "hf",
-            "requested_model": "google/functiongemma-270m-it",
-            "effective_model": "google/functiongemma-270m-it",
-            "runtime_device": "cpu",
-            "configured_device": "cpu"
-          },
-          "retriever": {
-            "backend": "hf",
-            "requested_model": "google/embeddinggemma-300m",
-            "effective_model": "google/embeddinggemma-300m",
-            "loaded": true,
-            "configured_device": "cpu",
-            "runtime_device": "cpu"
-          }
-        },
-        "run_intent": "exploratory",
-        "warmup": {
-          "reasoner": {
-            "backend": "hf",
-            "requested_model": "google/gemma-4-E2B-it",
-            "effective_model": "google/gemma-4-E2B-it",
-            "runtime_device": "mps",
-            "load_mode": "vision",
-            "configured_device": "mps",
-            "service": {}
-          },
-          "router": {
-            "backend": "hf",
-            "requested_model": "google/functiongemma-270m-it",
-            "effective_model": "google/functiongemma-270m-it",
-            "runtime_device": "cpu",
-            "configured_device": "cpu"
-          },
-          "retriever": {
-            "backend": "hf",
-            "requested_model": "google/embeddinggemma-300m",
-            "effective_model": "google/embeddinggemma-300m",
-            "loaded": true,
-            "configured_device": "cpu",
-            "runtime_device": "cpu"
-          }
-        }
-      },
-      "summary": {
-        "runs": 1.0,
-        "artifact_quality_avg": 1.0,
-        "browser_workflow_avg": 0.9583,
-        "strict_interface_avg": 1.0,
-        "recovered_execution_avg": 1.0,
-        "real_world_readiness_avg": 0.9722,
-        "escalation_correctness_avg": 1.0,
-        "lane": "replayable_core",
-        "created_at": "20260410T222824Z",
-        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
-        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_finance_visual_replayable_v3"
-      }
-    },
-    {
-      "recorded_at": "20260410T222918Z",
-      "manifest": {
-        "run_group_id": "20260410T222918Z_live_web_stress",
-        "created_at": "20260410T222918Z",
-        "lane": "live_web_stress",
-        "system_id": "hf_gemma4_e2b_specialists_cpu",
-        "backend": "hf",
-        "reasoner_backend": "hf",
-        "router_backend": "hf",
-        "retriever_backend": "hf",
-        "reasoner": "google/gemma-4-E2B-it",
-        "router": "google/functiongemma-270m-it",
-        "retriever": "google/embeddinggemma-300m",
-        "reasoner_device": "mps",
-        "router_device": "cpu",
-        "retriever_device": "cpu",
-        "thinking": false,
-        "limit": 1,
-        "episode_count": 1,
-        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
-        "runtime_bundle": {
-          "reasoner": {
-            "backend": "hf",
-            "requested_model": "google/gemma-4-E2B-it",
-            "effective_model": "google/gemma-4-E2B-it",
-            "runtime_device": "mps",
-            "load_mode": "vision",
-            "configured_device": "mps",
-            "service": {}
-          },
-          "router": {
-            "backend": "hf",
-            "requested_model": "google/functiongemma-270m-it",
-            "effective_model": "google/functiongemma-270m-it",
-            "runtime_device": "cpu",
-            "configured_device": "cpu"
-          },
-          "retriever": {
-            "backend": "hf",
-            "requested_model": "google/embeddinggemma-300m",
-            "effective_model": "google/embeddinggemma-300m",
-            "loaded": true,
-            "configured_device": "cpu",
-            "runtime_device": "cpu"
-          }
-        },
-        "run_intent": "exploratory",
-        "warmup": {
-          "reasoner": {
-            "backend": "hf",
-            "requested_model": "google/gemma-4-E2B-it",
-            "effective_model": "google/gemma-4-E2B-it",
-            "runtime_device": "mps",
-            "load_mode": "vision",
-            "configured_device": "mps",
-            "service": {}
-          },
-          "router": {
-            "backend": "hf",
-            "requested_model": "google/functiongemma-270m-it",
-            "effective_model": "google/functiongemma-270m-it",
-            "runtime_device": "cpu",
-            "configured_device": "cpu"
-          },
-          "retriever": {
-            "backend": "hf",
-            "requested_model": "google/embeddinggemma-300m",
-            "effective_model": "google/embeddinggemma-300m",
-            "loaded": true,
-            "configured_device": "cpu",
-            "runtime_device": "cpu"
-          }
-        }
-      },
-      "summary": {
-        "runs": 1.0,
-        "artifact_quality_avg": 1.0,
-        "browser_workflow_avg": 1.0,
-        "strict_interface_avg": 1.0,
-        "recovered_execution_avg": 1.0,
-        "real_world_readiness_avg": 0.9769,
-        "escalation_correctness_avg": 1.0,
-        "lane": "live_web_stress",
-        "created_at": "20260410T222918Z",
-        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
-        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_finance_visual_live_v3"
-      }
-    },
-    {
-      "recorded_at": "20260410T223500Z",
-      "manifest": {
-        "run_group_id": "20260410T223500Z_replayable_core",
-        "created_at": "20260410T223500Z",
-        "lane": "replayable_core",
-        "system_id": "hf_gemma4_e2b_specialists_cpu",
-        "backend": "hf",
-        "reasoner_backend": "hf",
-        "router_backend": "hf",
-        "retriever_backend": "hf",
-        "reasoner": "google/gemma-4-E2B-it",
-        "router": "google/functiongemma-270m-it",
-        "retriever": "google/embeddinggemma-300m",
-        "reasoner_device": "mps",
-        "router_device": "cpu",
-        "retriever_device": "cpu",
-        "thinking": false,
-        "limit": null,
-        "episode_count": 24,
-        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
-        "runtime_bundle": {
-          "reasoner": {
-            "backend": "hf",
-            "requested_model": "google/gemma-4-E2B-it",
-            "effective_model": "google/gemma-4-E2B-it",
-            "runtime_device": "mps",
-            "load_mode": "vision",
-            "configured_device": "mps",
-            "service": {}
-          },
-          "router": {
-            "backend": "hf",
-            "requested_model": "google/functiongemma-270m-it",
-            "effective_model": "google/functiongemma-270m-it",
-            "runtime_device": "cpu",
-            "configured_device": "cpu"
-          },
-          "retriever": {
-            "backend": "hf",
-            "requested_model": "google/embeddinggemma-300m",
-            "effective_model": "google/embeddinggemma-300m",
-            "loaded": true,
-            "configured_device": "cpu",
-            "runtime_device": "cpu"
-          }
-        },
-        "run_intent": "exploratory",
-        "warmup": {
-          "reasoner": {
-            "backend": "hf",
-            "requested_model": "google/gemma-4-E2B-it",
-            "effective_model": "google/gemma-4-E2B-it",
-            "runtime_device": "mps",
-            "load_mode": "vision",
-            "configured_device": "mps",
-            "service": {}
-          },
-          "router": {
-            "backend": "hf",
-            "requested_model": "google/functiongemma-270m-it",
-            "effective_model": "google/functiongemma-270m-it",
-            "runtime_device": "cpu",
-            "configured_device": "cpu"
-          },
-          "retriever": {
-            "backend": "hf",
-            "requested_model": "google/embeddinggemma-300m",
-            "effective_model": "google/embeddinggemma-300m",
-            "loaded": true,
-            "configured_device": "cpu",
-            "runtime_device": "cpu"
-          }
-        }
-      },
-      "summary": {
-        "runs": 24.0,
-        "artifact_quality_avg": 0.9976833333333334,
-        "browser_workflow_avg": 0.991025,
-        "strict_interface_avg": 1.0,
-        "recovered_execution_avg": 1.0,
-        "real_world_readiness_avg": 0.9589916666666666,
-        "escalation_correctness_avg": 1.0,
-        "lane": "replayable_core",
-        "created_at": "20260410T223500Z",
-        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
-        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_inprocess_specialists_full_replayable_v3"
-      }
-    },
-    {
-      "recorded_at": "20260410T223914Z",
-      "manifest": {
-        "run_group_id": "20260410T223914Z_live_web_stress",
-        "created_at": "20260410T223914Z",
-        "lane": "live_web_stress",
-        "system_id": "hf_gemma4_e2b_specialists_cpu",
-        "backend": "hf",
-        "reasoner_backend": "hf",
-        "router_backend": "hf",
-        "retriever_backend": "hf",
-        "reasoner": "google/gemma-4-E2B-it",
-        "router": "google/functiongemma-270m-it",
-        "retriever": "google/embeddinggemma-300m",
-        "reasoner_device": "mps",
-        "router_device": "cpu",
-        "retriever_device": "cpu",
-        "thinking": false,
-        "limit": null,
-        "episode_count": 18,
-        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
-        "runtime_bundle": {
-          "reasoner": {
-            "backend": "hf",
-            "requested_model": "google/gemma-4-E2B-it",
-            "effective_model": "google/gemma-4-E2B-it",
-            "runtime_device": "mps",
-            "load_mode": "vision",
-            "configured_device": "mps",
-            "service": {}
-          },
-          "router": {
-            "backend": "hf",
-            "requested_model": "google/functiongemma-270m-it",
-            "effective_model": "google/functiongemma-270m-it",
-            "runtime_device": "cpu",
-            "configured_device": "cpu"
-          },
-          "retriever": {
-            "backend": "hf",
-            "requested_model": "google/embeddinggemma-300m",
-            "effective_model": "google/embeddinggemma-300m",
-            "loaded": true,
-            "configured_device": "cpu",
-            "runtime_device": "cpu"
-          }
-        },
-        "run_intent": "exploratory",
-        "warmup": {
-          "reasoner": {
-            "backend": "hf",
-            "requested_model": "google/gemma-4-E2B-it",
-            "effective_model": "google/gemma-4-E2B-it",
-            "runtime_device": "mps",
-            "load_mode": "vision",
-            "configured_device": "mps",
-            "service": {}
-          },
-          "router": {
-            "backend": "hf",
-            "requested_model": "google/functiongemma-270m-it",
-            "effective_model": "google/functiongemma-270m-it",
-            "runtime_device": "cpu",
-            "configured_device": "cpu"
-          },
-          "retriever": {
-            "backend": "hf",
-            "requested_model": "google/embeddinggemma-300m",
-            "effective_model": "google/embeddinggemma-300m",
-            "loaded": true,
-            "configured_device": "cpu",
-            "runtime_device": "cpu"
-          }
-        }
-      },
-      "summary": {
-        "runs": 18.0,
-        "artifact_quality_avg": 1.0,
-        "browser_workflow_avg": 1.0,
-        "strict_interface_avg": 1.0,
-        "recovered_execution_avg": 1.0,
-        "real_world_readiness_avg": 0.9704444444444444,
-        "escalation_correctness_avg": 1.0,
-        "lane": "live_web_stress",
-        "created_at": "20260410T223914Z",
-        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
-        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_inprocess_specialists_full_live_v3"
-      }
-    },
-    {
-      "recorded_at": "20260411T142324Z",
-      "manifest": {
-        "run_group_id": "20260411T142324Z_replayable_core",
-        "created_at": "20260411T142324Z",
-        "lane": "replayable_core",
-        "system_id": "oracle_gemma4_e2b",
-        "backend": "oracle",
-        "reasoner_backend": "oracle",
-        "router_backend": "",
-        "retriever_backend": "",
-        "reasoner": "google/gemma-4-E2B-it",
-        "router": "google/functiongemma-270m-it",
-        "retriever": "google/embeddinggemma-300m",
-        "reasoner_device": "auto",
-        "router_device": null,
-        "retriever_device": null,
-        "reasoner_max_new_tokens": 96,
-        "request_timeout_seconds": 600.0,
-        "thinking": false,
-        "limit": null,
-        "episode_count": 26,
-        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
-        "runtime_bundle": {
-          "reasoner": {
-            "backend": "oracle",
-            "requested_model": "google/gemma-4-E2B-it",
-            "effective_model": "google/gemma-4-E2B-it",
-            "runtime_device": null,
-            "load_mode": null,
-            "configured_device": "auto",
-            "request_timeout_seconds": 600.0,
-            "service": {}
-          },
-          "router": {
-            "backend": "oracle",
-            "requested_model": "google/functiongemma-270m-it",
-            "effective_model": "google/functiongemma-270m-it",
-            "runtime_device": null,
-            "configured_device": "auto"
-          },
-          "retriever": {
-            "backend": "heuristic",
-            "requested_model": "google/embeddinggemma-300m",
-            "effective_model": "google/embeddinggemma-300m",
-            "loaded": false,
-            "configured_device": "auto",
-            "runtime_device": null
-          }
-        },
-        "run_intent": "exploratory",
-        "warmup": {
-          "reasoner": {
-            "backend": "oracle",
-            "requested_model": "google/gemma-4-E2B-it",
-            "effective_model": "google/gemma-4-E2B-it",
-            "runtime_device": null,
-            "load_mode": null,
-            "configured_device": "auto",
-            "request_timeout_seconds": 600.0,
-            "service": {}
-          },
-          "router": {
-            "backend": "oracle",
-            "requested_model": "google/functiongemma-270m-it",
-            "effective_model": "google/functiongemma-270m-it",
-            "runtime_device": null,
-            "configured_device": "auto"
-          },
-          "retriever": {
-            "backend": "heuristic",
-            "requested_model": "google/embeddinggemma-300m",
-            "effective_model": "google/embeddinggemma-300m",
-            "loaded": false,
-            "configured_device": "auto",
-            "runtime_device": null
-          }
-        }
-      },
-      "summary": {
-        "runs": 26.0,
-        "artifact_quality_avg": 0.9744807692307693,
-        "browser_workflow_avg": 0.9829461538461538,
-        "strict_interface_avg": 0.9711538461538461,
-        "recovered_execution_avg": 0.9615384615384616,
-        "real_world_readiness_avg": 0.9668576923076924,
-        "escalation_correctness_avg": 1.0,
-        "lane": "replayable_core",
-        "created_at": "20260411T142324Z",
-        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
-        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260411T142324Z_knowledge_work_full_lane/oracle_gemma4_e2b__replayable_core"
-      }
-    },
-    {
-      "recorded_at": "20260411T142334Z",
-      "manifest": {
-        "run_group_id": "20260411T142334Z_live_web_stress",
-        "created_at": "20260411T142334Z",
-        "lane": "live_web_stress",
-        "system_id": "oracle_gemma4_e2b",
-        "backend": "oracle",
-        "reasoner_backend": "oracle",
-        "router_backend": "",
-        "retriever_backend": "",
-        "reasoner": "google/gemma-4-E2B-it",
-        "router": "google/functiongemma-270m-it",
-        "retriever": "google/embeddinggemma-300m",
-        "reasoner_device": "auto",
-        "router_device": null,
-        "retriever_device": null,
-        "reasoner_max_new_tokens": 96,
-        "request_timeout_seconds": 600.0,
-        "thinking": false,
-        "limit": null,
-        "episode_count": 20,
-        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
-        "runtime_bundle": {
-          "reasoner": {
-            "backend": "oracle",
-            "requested_model": "google/gemma-4-E2B-it",
-            "effective_model": "google/gemma-4-E2B-it",
-            "runtime_device": null,
-            "load_mode": null,
-            "configured_device": "auto",
-            "request_timeout_seconds": 600.0,
-            "service": {}
-          },
-          "router": {
-            "backend": "oracle",
-            "requested_model": "google/functiongemma-270m-it",
-            "effective_model": "google/functiongemma-270m-it",
-            "runtime_device": null,
-            "configured_device": "auto"
-          },
-          "retriever": {
-            "backend": "heuristic",
-            "requested_model": "google/embeddinggemma-300m",
-            "effective_model": "google/embeddinggemma-300m",
-            "loaded": false,
-            "configured_device": "auto",
-            "runtime_device": null
-          }
-        },
-        "run_intent": "exploratory",
-        "warmup": {
-          "reasoner": {
-            "backend": "oracle",
-            "requested_model": "google/gemma-4-E2B-it",
-            "effective_model": "google/gemma-4-E2B-it",
-            "runtime_device": null,
-            "load_mode": null,
-            "configured_device": "auto",
-            "request_timeout_seconds": 600.0,
-            "service": {}
-          },
-          "router": {
-            "backend": "oracle",
-            "requested_model": "google/functiongemma-270m-it",
-            "effective_model": "google/functiongemma-270m-it",
-            "runtime_device": null,
-            "configured_device": "auto"
-          },
-          "retriever": {
-            "backend": "heuristic",
-            "requested_model": "google/embeddinggemma-300m",
-            "effective_model": "google/embeddinggemma-300m",
-            "loaded": false,
-            "configured_device": "auto",
-            "runtime_device": null
-          }
-        }
-      },
-      "summary": {
-        "runs": 20.0,
-        "artifact_quality_avg": 0.9696049999999999,
-        "browser_workflow_avg": 1.0,
-        "strict_interface_avg": 0.9625,
-        "recovered_execution_avg": 0.95,
-        "real_world_readiness_avg": 0.966045,
-        "escalation_correctness_avg": 1.0,
-        "lane": "live_web_stress",
-        "created_at": "20260411T142334Z",
-        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
-        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260411T142324Z_knowledge_work_full_lane/oracle_gemma4_e2b__live_web_stress"
-      }
-    },
-    {
-      "recorded_at": "20260411T142342Z",
-      "manifest": {
-        "run_group_id": "20260411T142342Z_replayable_core",
-        "created_at": "20260411T142342Z",
-        "lane": "replayable_core",
-        "system_id": "hf_gemma4_e2b_reasoner_only",
-        "backend": "hf",
-        "reasoner_backend": "hf",
-        "router_backend": "heuristic",
-        "retriever_backend": "heuristic",
-        "reasoner": "google/gemma-4-E2B-it",
-        "router": "google/functiongemma-270m-it",
-        "retriever": "google/embeddinggemma-300m",
-        "reasoner_device": "auto",
-        "router_device": null,
-        "retriever_device": null,
-        "reasoner_max_new_tokens": 96,
-        "request_timeout_seconds": 600.0,
-        "thinking": false,
-        "limit": null,
-        "episode_count": 26,
-        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
-        "runtime_bundle": {
-          "reasoner": {
-            "backend": "hf",
-            "requested_model": "google/gemma-4-E2B-it",
-            "effective_model": "google/gemma-4-E2B-it",
-            "runtime_device": "mps",
-            "load_mode": "vision",
-            "configured_device": "auto",
-            "request_timeout_seconds": 600.0,
-            "service": {}
-          },
-          "router": {
-            "backend": "heuristic",
-            "requested_model": "google/functiongemma-270m-it",
-            "effective_model": "google/functiongemma-270m-it",
-            "runtime_device": null,
-            "configured_device": "auto"
-          },
-          "retriever": {
-            "backend": "heuristic",
-            "requested_model": "google/embeddinggemma-300m",
-            "effective_model": "google/embeddinggemma-300m",
-            "loaded": false,
-            "configured_device": "auto",
-            "runtime_device": null
-          }
-        },
-        "run_intent": "exploratory",
-        "warmup": {
-          "reasoner": {
-            "backend": "hf",
-            "requested_model": "google/gemma-4-E2B-it",
-            "effective_model": "google/gemma-4-E2B-it",
-            "runtime_device": "mps",
-            "load_mode": "vision",
-            "configured_device": "auto",
-            "request_timeout_seconds": 600.0,
-            "service": {}
-          },
-          "router": {
-            "backend": "heuristic",
-            "requested_model": "google/functiongemma-270m-it",
-            "effective_model": "google/functiongemma-270m-it",
-            "runtime_device": null,
-            "configured_device": "auto"
-          },
-          "retriever": {
-            "backend": "heuristic",
-            "requested_model": "google/embeddinggemma-300m",
-            "effective_model": "google/embeddinggemma-300m",
-            "loaded": false,
-            "configured_device": "auto",
-            "runtime_device": null
-          }
-        }
-      },
-      "summary": {
-        "runs": 26.0,
-        "artifact_quality_avg": 0.9744807692307693,
-        "browser_workflow_avg": 0.9829461538461538,
-        "strict_interface_avg": 0.9038461538461539,
-        "recovered_execution_avg": 0.8846153846153846,
-        "real_world_readiness_avg": 0.9392653846153846,
-        "escalation_correctness_avg": 1.0,
-        "lane": "replayable_core",
-        "created_at": "20260411T142342Z",
-        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
-        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260411T142324Z_knowledge_work_full_lane/hf_gemma4_e2b_reasoner_only__replayable_core"
-      }
-    },
-    {
-      "recorded_at": "20260411T142727Z",
-      "manifest": {
-        "run_group_id": "20260411T142727Z_live_web_stress",
-        "created_at": "20260411T142727Z",
-        "lane": "live_web_stress",
-        "system_id": "hf_gemma4_e2b_reasoner_only",
-        "backend": "hf",
-        "reasoner_backend": "hf",
-        "router_backend": "heuristic",
-        "retriever_backend": "heuristic",
-        "reasoner": "google/gemma-4-E2B-it",
-        "router": "google/functiongemma-270m-it",
-        "retriever": "google/embeddinggemma-300m",
-        "reasoner_device": "auto",
-        "router_device": null,
-        "retriever_device": null,
-        "reasoner_max_new_tokens": 96,
-        "request_timeout_seconds": 600.0,
-        "thinking": false,
-        "limit": null,
-        "episode_count": 20,
-        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
-        "runtime_bundle": {
-          "reasoner": {
-            "backend": "hf",
-            "requested_model": "google/gemma-4-E2B-it",
-            "effective_model": "google/gemma-4-E2B-it",
-            "runtime_device": "mps",
-            "load_mode": "vision",
-            "configured_device": "auto",
-            "request_timeout_seconds": 600.0,
-            "service": {}
-          },
-          "router": {
-            "backend": "heuristic",
-            "requested_model": "google/functiongemma-270m-it",
-            "effective_model": "google/functiongemma-270m-it",
-            "runtime_device": null,
-            "configured_device": "auto"
-          },
-          "retriever": {
-            "backend": "heuristic",
-            "requested_model": "google/embeddinggemma-300m",
-            "effective_model": "google/embeddinggemma-300m",
-            "loaded": false,
-            "configured_device": "auto",
-            "runtime_device": null
-          }
-        },
-        "run_intent": "exploratory",
-        "warmup": {
-          "reasoner": {
-            "backend": "hf",
-            "requested_model": "google/gemma-4-E2B-it",
-            "effective_model": "google/gemma-4-E2B-it",
-            "runtime_device": "mps",
-            "load_mode": "vision",
-            "configured_device": "auto",
-            "request_timeout_seconds": 600.0,
-            "service": {}
-          },
-          "router": {
-            "backend": "heuristic",
-            "requested_model": "google/functiongemma-270m-it",
-            "effective_model": "google/functiongemma-270m-it",
-            "runtime_device": null,
-            "configured_device": "auto"
-          },
-          "retriever": {
-            "backend": "heuristic",
-            "requested_model": "google/embeddinggemma-300m",
-            "effective_model": "google/embeddinggemma-300m",
-            "loaded": false,
-            "configured_device": "auto",
-            "runtime_device": null
-          }
-        }
-      },
-      "summary": {
-        "runs": 20.0,
-        "artifact_quality_avg": 0.9696049999999999,
-        "browser_workflow_avg": 1.0,
-        "strict_interface_avg": 0.875,
-        "recovered_execution_avg": 0.85,
-        "real_world_readiness_avg": 0.9347899999999999,
-        "escalation_correctness_avg": 1.0,
-        "lane": "live_web_stress",
-        "created_at": "20260411T142727Z",
-        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
-        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260411T142324Z_knowledge_work_full_lane/hf_gemma4_e2b_reasoner_only__live_web_stress"
-      }
-    },
-    {
-      "recorded_at": "20260411T143032Z",
-      "manifest": {
-        "run_group_id": "20260411T143032Z_replayable_core",
-        "created_at": "20260411T143032Z",
-        "lane": "replayable_core",
-        "system_id": "hf_gemma4_e2b_specialists_cpu",
-        "backend": "hf",
-        "reasoner_backend": "hf",
-        "router_backend": "hf",
-        "retriever_backend": "hf",
-        "reasoner": "google/gemma-4-E2B-it",
-        "router": "google/functiongemma-270m-it",
-        "retriever": "google/embeddinggemma-300m",
-        "reasoner_device": "auto",
-        "router_device": null,
-        "retriever_device": null,
-        "reasoner_max_new_tokens": 96,
-        "request_timeout_seconds": 600.0,
-        "thinking": false,
-        "limit": null,
-        "episode_count": 26,
-        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
-        "runtime_bundle": {
-          "reasoner": {
-            "backend": "hf",
-            "requested_model": "google/gemma-4-E2B-it",
-            "effective_model": "google/gemma-4-E2B-it",
-            "runtime_device": "mps",
-            "load_mode": "vision",
-            "configured_device": "auto",
-            "request_timeout_seconds": 600.0,
-            "service": {}
-          },
-          "router": {
-            "backend": "hf",
-            "requested_model": "google/functiongemma-270m-it",
-            "effective_model": "google/functiongemma-270m-it",
-            "runtime_device": "cpu",
-            "configured_device": "cpu"
-          },
-          "retriever": {
-            "backend": "hf",
-            "requested_model": "google/embeddinggemma-300m",
-            "effective_model": "google/embeddinggemma-300m",
-            "loaded": true,
-            "configured_device": "cpu",
-            "runtime_device": "cpu"
-          }
-        },
-        "run_intent": "exploratory",
-        "warmup": {
-          "reasoner": {
-            "backend": "hf",
-            "requested_model": "google/gemma-4-E2B-it",
-            "effective_model": "google/gemma-4-E2B-it",
-            "runtime_device": "mps",
-            "load_mode": "vision",
-            "configured_device": "auto",
-            "request_timeout_seconds": 600.0,
-            "service": {}
-          },
-          "router": {
-            "backend": "hf",
-            "requested_model": "google/functiongemma-270m-it",
-            "effective_model": "google/functiongemma-270m-it",
-            "runtime_device": "cpu",
-            "configured_device": "cpu"
-          },
-          "retriever": {
-            "backend": "hf",
-            "requested_model": "google/embeddinggemma-300m",
-            "effective_model": "google/embeddinggemma-300m",
-            "loaded": true,
-            "configured_device": "cpu",
-            "runtime_device": "cpu"
-          }
-        }
-      },
-      "summary": {
-        "runs": 26.0,
-        "artifact_quality_avg": 0.9744807692307693,
-        "browser_workflow_avg": 0.9829461538461538,
-        "strict_interface_avg": 0.9182692307692307,
-        "recovered_execution_avg": 0.8846153846153846,
-        "real_world_readiness_avg": 0.9398846153846154,
-        "escalation_correctness_avg": 0.9807692307692307,
-        "lane": "replayable_core",
-        "created_at": "20260411T143032Z",
-        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
-        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260411T142324Z_knowledge_work_full_lane/hf_gemma4_e2b_specialists_cpu__replayable_core"
-      }
-    },
-    {
-      "recorded_at": "20260411T143805Z",
-      "manifest": {
-        "run_group_id": "20260411T143805Z_live_web_stress",
-        "created_at": "20260411T143805Z",
-        "lane": "live_web_stress",
-        "system_id": "hf_gemma4_e2b_specialists_cpu",
-        "backend": "hf",
-        "reasoner_backend": "hf",
-        "router_backend": "hf",
-        "retriever_backend": "hf",
-        "reasoner": "google/gemma-4-E2B-it",
-        "router": "google/functiongemma-270m-it",
-        "retriever": "google/embeddinggemma-300m",
-        "reasoner_device": "auto",
-        "router_device": null,
-        "retriever_device": null,
-        "reasoner_max_new_tokens": 96,
-        "request_timeout_seconds": 600.0,
-        "thinking": false,
-        "limit": null,
-        "episode_count": 20,
-        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
-        "runtime_bundle": {
-          "reasoner": {
-            "backend": "hf",
-            "requested_model": "google/gemma-4-E2B-it",
-            "effective_model": "google/gemma-4-E2B-it",
-            "runtime_device": "mps",
-            "load_mode": "vision",
-            "configured_device": "auto",
-            "request_timeout_seconds": 600.0,
-            "service": {}
-          },
-          "router": {
-            "backend": "hf",
-            "requested_model": "google/functiongemma-270m-it",
-            "effective_model": "google/functiongemma-270m-it",
-            "runtime_device": "cpu",
-            "configured_device": "cpu"
-          },
-          "retriever": {
-            "backend": "hf",
-            "requested_model": "google/embeddinggemma-300m",
-            "effective_model": "google/embeddinggemma-300m",
-            "loaded": true,
-            "configured_device": "cpu",
-            "runtime_device": "cpu"
-          }
-        },
-        "run_intent": "exploratory",
-        "warmup": {
-          "reasoner": {
-            "backend": "hf",
-            "requested_model": "google/gemma-4-E2B-it",
-            "effective_model": "google/gemma-4-E2B-it",
-            "runtime_device": "mps",
-            "load_mode": "vision",
-            "configured_device": "auto",
-            "request_timeout_seconds": 600.0,
-            "service": {}
-          },
-          "router": {
-            "backend": "hf",
-            "requested_model": "google/functiongemma-270m-it",
-            "effective_model": "google/functiongemma-270m-it",
-            "runtime_device": "cpu",
-            "configured_device": "cpu"
-          },
-          "retriever": {
-            "backend": "hf",
-            "requested_model": "google/embeddinggemma-300m",
-            "effective_model": "google/embeddinggemma-300m",
-            "loaded": true,
-            "configured_device": "cpu",
-            "runtime_device": "cpu"
-          }
-        }
-      },
-      "summary": {
-        "runs": 20.0,
-        "artifact_quality_avg": 0.9696049999999999,
-        "browser_workflow_avg": 1.0,
-        "strict_interface_avg": 0.875,
-        "recovered_execution_avg": 0.85,
-        "real_world_readiness_avg": 0.9347899999999999,
-        "escalation_correctness_avg": 1.0,
-        "lane": "live_web_stress",
-        "created_at": "20260411T143805Z",
-        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
-        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260411T142324Z_knowledge_work_full_lane/hf_gemma4_e2b_specialists_cpu__live_web_stress"
-      }
-    },
-    {
-      "recorded_at": "20260411T150950Z",
-      "manifest": {
-        "run_group_id": "20260411T150950Z_replayable_core",
-        "created_at": "20260411T150950Z",
-        "lane": "replayable_core",
-        "system_id": "hf_gemma4_e2b_specialists_cpu",
-        "backend": "hf",
-        "reasoner_backend": "hf",
-        "router_backend": "hf",
-        "retriever_backend": "hf",
-        "reasoner": "google/gemma-4-E2B-it",
-        "router": "google/functiongemma-270m-it",
-        "retriever": "google/embeddinggemma-300m",
-        "reasoner_device": "auto",
-        "router_device": null,
-        "retriever_device": null,
-        "reasoner_max_new_tokens": 96,
-        "request_timeout_seconds": null,
-        "thinking": false,
-        "limit": null,
-        "episode_count": 4,
-        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
-        "runtime_bundle": {
-          "reasoner": {
-            "backend": "hf",
-            "requested_model": "google/gemma-4-E2B-it",
-            "effective_model": "google/gemma-4-E2B-it",
-            "runtime_device": "mps",
-            "load_mode": "vision",
-            "configured_device": "auto",
-            "request_timeout_seconds": 600.0,
-            "service": {}
-          },
-          "router": {
-            "backend": "hf",
-            "requested_model": "google/functiongemma-270m-it",
-            "effective_model": "google/functiongemma-270m-it",
-            "runtime_device": "cpu",
-            "configured_device": "cpu"
-          },
-          "retriever": {
-            "backend": "hf",
-            "requested_model": "google/embeddinggemma-300m",
-            "effective_model": "google/embeddinggemma-300m",
-            "loaded": true,
-            "configured_device": "cpu",
-            "runtime_device": "cpu"
-          }
-        },
-        "run_intent": "exploratory",
-        "warmup": {
-          "reasoner": {
-            "backend": "hf",
-            "requested_model": "google/gemma-4-E2B-it",
-            "effective_model": "google/gemma-4-E2B-it",
-            "runtime_device": "mps",
-            "load_mode": "vision",
-            "configured_device": "auto",
-            "request_timeout_seconds": 600.0,
-            "service": {}
-          },
-          "router": {
-            "backend": "hf",
-            "requested_model": "google/functiongemma-270m-it",
-            "effective_model": "google/functiongemma-270m-it",
-            "runtime_device": "cpu",
-            "configured_device": "cpu"
-          },
-          "retriever": {
-            "backend": "hf",
-            "requested_model": "google/embeddinggemma-300m",
-            "effective_model": "google/embeddinggemma-300m",
-            "loaded": true,
-            "configured_device": "cpu",
-            "runtime_device": "cpu"
-          }
-        }
-      },
-      "summary": {
-        "runs": 4.0,
-        "artifact_quality_avg": 0.910525,
-        "browser_workflow_avg": 0.9773,
-        "strict_interface_avg": 0.65625,
-        "recovered_execution_avg": 0.5,
-        "real_world_readiness_avg": 0.79,
-        "escalation_correctness_avg": 1.0,
-        "lane": "replayable_core",
-        "created_at": "20260411T150950Z",
-        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
-        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_inprocess_specialists_visual_regression_replayable_v1"
-      }
-    },
-    {
-      "recorded_at": "20260411T151601Z",
-      "manifest": {
-        "run_group_id": "20260411T151601Z_replayable_core",
-        "created_at": "20260411T151601Z",
-        "lane": "replayable_core",
-        "system_id": "hf_gemma4_e2b_specialists_cpu",
-        "backend": "hf",
-        "reasoner_backend": "hf",
-        "router_backend": "hf",
-        "retriever_backend": "hf",
-        "reasoner": "google/gemma-4-E2B-it",
-        "router": "google/functiongemma-270m-it",
-        "retriever": "google/embeddinggemma-300m",
-        "reasoner_device": "auto",
-        "router_device": null,
-        "retriever_device": null,
-        "reasoner_max_new_tokens": 96,
-        "request_timeout_seconds": null,
-        "thinking": false,
-        "limit": null,
-        "episode_count": 4,
-        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
-        "runtime_bundle": {
-          "reasoner": {
-            "backend": "hf",
-            "requested_model": "google/gemma-4-E2B-it",
-            "effective_model": "google/gemma-4-E2B-it",
-            "runtime_device": "mps",
-            "load_mode": "vision",
-            "configured_device": "auto",
-            "request_timeout_seconds": 600.0,
-            "service": {}
-          },
-          "router": {
-            "backend": "hf",
-            "requested_model": "google/functiongemma-270m-it",
-            "effective_model": "google/functiongemma-270m-it",
-            "runtime_device": "cpu",
-            "configured_device": "cpu"
-          },
-          "retriever": {
-            "backend": "hf",
-            "requested_model": "google/embeddinggemma-300m",
-            "effective_model": "google/embeddinggemma-300m",
-            "loaded": true,
-            "configured_device": "cpu",
-            "runtime_device": "cpu"
-          }
-        },
-        "run_intent": "exploratory",
-        "warmup": {
-          "reasoner": {
-            "backend": "hf",
-            "requested_model": "google/gemma-4-E2B-it",
-            "effective_model": "google/gemma-4-E2B-it",
-            "runtime_device": "mps",
-            "load_mode": "vision",
-            "configured_device": "auto",
-            "request_timeout_seconds": 600.0,
-            "service": {}
-          },
-          "router": {
-            "backend": "hf",
-            "requested_model": "google/functiongemma-270m-it",
-            "effective_model": "google/functiongemma-270m-it",
-            "runtime_device": "cpu",
-            "configured_device": "cpu"
-          },
-          "retriever": {
-            "backend": "hf",
-            "requested_model": "google/embeddinggemma-300m",
-            "effective_model": "google/embeddinggemma-300m",
-            "loaded": true,
-            "configured_device": "cpu",
-            "runtime_device": "cpu"
-          }
-        }
-      },
-      "summary": {
-        "runs": 4.0,
-        "artifact_quality_avg": 0.910525,
-        "browser_workflow_avg": 0.9773,
-        "strict_interface_avg": 1.0,
-        "recovered_execution_avg": 1.0,
-        "real_world_readiness_avg": 0.95375,
-        "escalation_correctness_avg": 1.0,
-        "lane": "replayable_core",
-        "created_at": "20260411T151601Z",
-        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
-        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_inprocess_specialists_visual_regression_replayable_v2"
-      }
-    },
-    {
-      "recorded_at": "20260411T151808Z",
-      "manifest": {
-        "run_group_id": "20260411T151808Z_live_web_stress",
-        "created_at": "20260411T151808Z",
-        "lane": "live_web_stress",
-        "system_id": "hf_gemma4_e2b_specialists_cpu",
-        "backend": "hf",
-        "reasoner_backend": "hf",
-        "router_backend": "hf",
-        "retriever_backend": "hf",
-        "reasoner": "google/gemma-4-E2B-it",
-        "router": "google/functiongemma-270m-it",
-        "retriever": "google/embeddinggemma-300m",
-        "reasoner_device": "auto",
-        "router_device": null,
-        "retriever_device": null,
-        "reasoner_max_new_tokens": 96,
-        "request_timeout_seconds": null,
-        "thinking": false,
-        "limit": null,
-        "episode_count": 4,
-        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
-        "runtime_bundle": {
-          "reasoner": {
-            "backend": "hf",
-            "requested_model": "google/gemma-4-E2B-it",
-            "effective_model": "google/gemma-4-E2B-it",
-            "runtime_device": "mps",
-            "load_mode": "vision",
-            "configured_device": "auto",
-            "request_timeout_seconds": 600.0,
-            "service": {}
-          },
-          "router": {
-            "backend": "hf",
-            "requested_model": "google/functiongemma-270m-it",
-            "effective_model": "google/functiongemma-270m-it",
-            "runtime_device": "cpu",
-            "configured_device": "cpu"
-          },
-          "retriever": {
-            "backend": "hf",
-            "requested_model": "google/embeddinggemma-300m",
-            "effective_model": "google/embeddinggemma-300m",
-            "loaded": true,
-            "configured_device": "cpu",
-            "runtime_device": "cpu"
-          }
-        },
-        "run_intent": "exploratory",
-        "warmup": {
-          "reasoner": {
-            "backend": "hf",
-            "requested_model": "google/gemma-4-E2B-it",
-            "effective_model": "google/gemma-4-E2B-it",
-            "runtime_device": "mps",
-            "load_mode": "vision",
-            "configured_device": "auto",
-            "request_timeout_seconds": 600.0,
-            "service": {}
-          },
-          "router": {
-            "backend": "hf",
-            "requested_model": "google/functiongemma-270m-it",
-            "effective_model": "google/functiongemma-270m-it",
-            "runtime_device": "cpu",
-            "configured_device": "cpu"
-          },
-          "retriever": {
-            "backend": "hf",
-            "requested_model": "google/embeddinggemma-300m",
-            "effective_model": "google/embeddinggemma-300m",
-            "loaded": true,
-            "configured_device": "cpu",
-            "runtime_device": "cpu"
-          }
-        }
-      },
-      "summary": {
-        "runs": 4.0,
-        "artifact_quality_avg": 0.910525,
-        "browser_workflow_avg": 1.0,
-        "strict_interface_avg": 0.75,
-        "recovered_execution_avg": 0.75,
-        "real_world_readiness_avg": 0.873,
-        "escalation_correctness_avg": 1.0,
-        "lane": "live_web_stress",
-        "created_at": "20260411T151808Z",
-        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
-        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_inprocess_specialists_visual_regression_live_v1"
-      }
-    },
-    {
-      "recorded_at": "20260411T152136Z",
-      "manifest": {
-        "run_group_id": "20260411T152136Z_live_web_stress",
-        "created_at": "20260411T152136Z",
-        "lane": "live_web_stress",
-        "system_id": "hf_gemma4_e2b_specialists_cpu",
-        "backend": "hf",
-        "reasoner_backend": "hf",
-        "router_backend": "hf",
-        "retriever_backend": "hf",
-        "reasoner": "google/gemma-4-E2B-it",
-        "router": "google/functiongemma-270m-it",
-        "retriever": "google/embeddinggemma-300m",
-        "reasoner_device": "auto",
-        "router_device": null,
-        "retriever_device": null,
-        "reasoner_max_new_tokens": 96,
-        "request_timeout_seconds": null,
-        "thinking": false,
-        "limit": null,
-        "episode_count": 2,
-        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
-        "runtime_bundle": {
-          "reasoner": {
-            "backend": "hf",
-            "requested_model": "google/gemma-4-E2B-it",
-            "effective_model": "google/gemma-4-E2B-it",
-            "runtime_device": "mps",
-            "load_mode": "vision",
-            "configured_device": "auto",
-            "request_timeout_seconds": 600.0,
-            "service": {}
-          },
-          "router": {
-            "backend": "hf",
-            "requested_model": "google/functiongemma-270m-it",
-            "effective_model": "google/functiongemma-270m-it",
-            "runtime_device": "cpu",
-            "configured_device": "cpu"
-          },
-          "retriever": {
-            "backend": "hf",
-            "requested_model": "google/embeddinggemma-300m",
-            "effective_model": "google/embeddinggemma-300m",
-            "loaded": true,
-            "configured_device": "cpu",
-            "runtime_device": "cpu"
-          }
-        },
-        "run_intent": "exploratory",
-        "warmup": {
-          "reasoner": {
-            "backend": "hf",
-            "requested_model": "google/gemma-4-E2B-it",
-            "effective_model": "google/gemma-4-E2B-it",
-            "runtime_device": "mps",
-            "load_mode": "vision",
-            "configured_device": "auto",
-            "request_timeout_seconds": 600.0,
-            "service": {}
-          },
-          "router": {
-            "backend": "hf",
-            "requested_model": "google/functiongemma-270m-it",
-            "effective_model": "google/functiongemma-270m-it",
-            "runtime_device": "cpu",
-            "configured_device": "cpu"
-          },
-          "retriever": {
-            "backend": "hf",
-            "requested_model": "google/embeddinggemma-300m",
-            "effective_model": "google/embeddinggemma-300m",
-            "loaded": true,
-            "configured_device": "cpu",
-            "runtime_device": "cpu"
-          }
-        }
-      },
-      "summary": {
-        "runs": 2.0,
-        "artifact_quality_avg": 0.95,
-        "browser_workflow_avg": 1.0,
-        "strict_interface_avg": 1.0,
-        "recovered_execution_avg": 1.0,
-        "real_world_readiness_avg": 0.97245,
-        "escalation_correctness_avg": 1.0,
-        "lane": "live_web_stress",
-        "created_at": "20260411T152136Z",
-        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
-        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_inprocess_specialists_visual_regression_live_v2"
-      }
-    },
-    {
-      "recorded_at": "20260411T152330Z",
-      "manifest": {
-        "run_group_id": "20260411T152330Z_replayable_core",
-        "created_at": "20260411T152330Z",
-        "lane": "replayable_core",
-        "system_id": "hf_gemma4_e2b_specialists_cpu",
-        "backend": "hf",
-        "reasoner_backend": "hf",
-        "router_backend": "hf",
-        "retriever_backend": "hf",
-        "reasoner": "google/gemma-4-E2B-it",
-        "router": "google/functiongemma-270m-it",
-        "retriever": "google/embeddinggemma-300m",
-        "reasoner_device": "auto",
-        "router_device": null,
-        "retriever_device": null,
-        "reasoner_max_new_tokens": 96,
-        "request_timeout_seconds": 600.0,
-        "thinking": false,
-        "limit": null,
-        "episode_count": 26,
-        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
-        "runtime_bundle": {
-          "reasoner": {
-            "backend": "hf",
-            "requested_model": "google/gemma-4-E2B-it",
-            "effective_model": "google/gemma-4-E2B-it",
-            "runtime_device": "mps",
-            "load_mode": "vision",
-            "configured_device": "auto",
-            "request_timeout_seconds": 600.0,
-            "service": {}
-          },
-          "router": {
-            "backend": "hf",
-            "requested_model": "google/functiongemma-270m-it",
-            "effective_model": "google/functiongemma-270m-it",
-            "runtime_device": "cpu",
-            "configured_device": "cpu"
-          },
-          "retriever": {
-            "backend": "hf",
-            "requested_model": "google/embeddinggemma-300m",
-            "effective_model": "google/embeddinggemma-300m",
-            "loaded": true,
-            "configured_device": "cpu",
-            "runtime_device": "cpu"
-          }
-        },
-        "run_intent": "exploratory",
-        "warmup": {
-          "reasoner": {
-            "backend": "hf",
-            "requested_model": "google/gemma-4-E2B-it",
-            "effective_model": "google/gemma-4-E2B-it",
-            "runtime_device": "mps",
-            "load_mode": "vision",
-            "configured_device": "auto",
-            "request_timeout_seconds": 600.0,
-            "service": {}
-          },
-          "router": {
-            "backend": "hf",
-            "requested_model": "google/functiongemma-270m-it",
-            "effective_model": "google/functiongemma-270m-it",
-            "runtime_device": "cpu",
-            "configured_device": "cpu"
-          },
-          "retriever": {
-            "backend": "hf",
-            "requested_model": "google/embeddinggemma-300m",
-            "effective_model": "google/embeddinggemma-300m",
-            "loaded": true,
-            "configured_device": "cpu",
-            "runtime_device": "cpu"
-          }
-        }
-      },
-      "summary": {
-        "runs": 26.0,
-        "artifact_quality_avg": 0.9744807692307693,
-        "browser_workflow_avg": 0.9829461538461538,
-        "strict_interface_avg": 0.9711538461538461,
-        "recovered_execution_avg": 0.9615384615384616,
-        "real_world_readiness_avg": 0.9668576923076924,
-        "escalation_correctness_avg": 1.0,
-        "lane": "replayable_core",
-        "created_at": "20260411T152330Z",
-        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
-        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260411T152330Z_knowledge_work_publishable_core/hf_gemma4_e2b_specialists_cpu__replayable_core"
-      }
-    },
-    {
-      "recorded_at": "20260411T153540Z",
-      "manifest": {
-        "run_group_id": "20260411T153540Z_live_web_stress",
-        "created_at": "20260411T153540Z",
-        "lane": "live_web_stress",
-        "system_id": "hf_gemma4_e2b_specialists_cpu",
-        "backend": "hf",
-        "reasoner_backend": "hf",
-        "router_backend": "hf",
-        "retriever_backend": "hf",
-        "reasoner": "google/gemma-4-E2B-it",
-        "router": "google/functiongemma-270m-it",
-        "retriever": "google/embeddinggemma-300m",
-        "reasoner_device": "auto",
-        "router_device": null,
-        "retriever_device": null,
-        "reasoner_max_new_tokens": 96,
-        "request_timeout_seconds": 600.0,
-        "thinking": false,
-        "limit": null,
-        "episode_count": 20,
-        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
-        "runtime_bundle": {
-          "reasoner": {
-            "backend": "hf",
-            "requested_model": "google/gemma-4-E2B-it",
-            "effective_model": "google/gemma-4-E2B-it",
-            "runtime_device": "mps",
-            "load_mode": "vision",
-            "configured_device": "auto",
-            "request_timeout_seconds": 600.0,
-            "service": {}
-          },
-          "router": {
-            "backend": "hf",
-            "requested_model": "google/functiongemma-270m-it",
-            "effective_model": "google/functiongemma-270m-it",
-            "runtime_device": "cpu",
-            "configured_device": "cpu"
-          },
-          "retriever": {
-            "backend": "hf",
-            "requested_model": "google/embeddinggemma-300m",
-            "effective_model": "google/embeddinggemma-300m",
-            "loaded": true,
-            "configured_device": "cpu",
-            "runtime_device": "cpu"
-          }
-        },
-        "run_intent": "exploratory",
-        "warmup": {
-          "reasoner": {
-            "backend": "hf",
-            "requested_model": "google/gemma-4-E2B-it",
-            "effective_model": "google/gemma-4-E2B-it",
-            "runtime_device": "mps",
-            "load_mode": "vision",
-            "configured_device": "auto",
-            "request_timeout_seconds": 600.0,
-            "service": {}
-          },
-          "router": {
-            "backend": "hf",
-            "requested_model": "google/functiongemma-270m-it",
-            "effective_model": "google/functiongemma-270m-it",
-            "runtime_device": "cpu",
-            "configured_device": "cpu"
-          },
-          "retriever": {
-            "backend": "hf",
-            "requested_model": "google/embeddinggemma-300m",
-            "effective_model": "google/embeddinggemma-300m",
-            "loaded": true,
-            "configured_device": "cpu",
-            "runtime_device": "cpu"
-          }
-        }
-      },
-      "summary": {
-        "runs": 20.0,
-        "artifact_quality_avg": 0.9696049999999999,
-        "browser_workflow_avg": 1.0,
-        "strict_interface_avg": 0.9625,
-        "recovered_execution_avg": 0.95,
-        "real_world_readiness_avg": 0.966045,
-        "escalation_correctness_avg": 1.0,
-        "lane": "live_web_stress",
-        "created_at": "20260411T153540Z",
-        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
-        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260411T152330Z_knowledge_work_publishable_core/hf_gemma4_e2b_specialists_cpu__live_web_stress"
-      }
-    },
-    {
-      "recorded_at": "20260411T211150Z",
-      "manifest": {
-        "run_group_id": "20260411T211150Z_replayable_core",
-        "created_at": "20260411T211150Z",
-        "lane": "replayable_core",
-        "system_id": "mlx_qwen3_8b_reasoner_only",
-        "backend": "mlx",
-        "reasoner_backend": "mlx",
-        "router_backend": "heuristic",
-        "retriever_backend": "heuristic",
-        "reasoner": "Qwen/Qwen3-8B-MLX-4bit",
-        "router": "",
-        "retriever": "",
-        "reasoner_device": "auto",
-        "router_device": null,
-        "retriever_device": null,
-        "reasoner_max_new_tokens": 96,
-        "request_timeout_seconds": null,
-        "thinking": false,
-        "limit": 1,
-        "episode_count": 1,
-        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
-        "runtime_bundle": {
-          "reasoner": {
-            "backend": "mlx",
-            "requested_model": "Qwen/Qwen3-8B-MLX-4bit",
-            "effective_model": "/Users/cheickdiakite/models/Qwen3-8B-MLX-4bit",
-            "runtime_device": "mlx",
-            "load_mode": "text",
-            "configured_device": "auto",
-            "request_timeout_seconds": 600.0,
-            "service": {}
-          },
-          "router": {
-            "backend": "heuristic",
-            "requested_model": "",
-            "effective_model": "",
-            "runtime_device": null,
-            "configured_device": "auto"
-          },
-          "retriever": {
-            "backend": "heuristic",
-            "requested_model": "",
-            "effective_model": "",
-            "loaded": false,
-            "configured_device": "auto",
-            "runtime_device": null
-          }
-        },
-        "run_intent": "exploratory",
-        "warmup": {
-          "reasoner": {
-            "backend": "mlx",
-            "requested_model": "Qwen/Qwen3-8B-MLX-4bit",
-            "effective_model": "/Users/cheickdiakite/models/Qwen3-8B-MLX-4bit",
-            "runtime_device": "mlx",
-            "load_mode": "text",
-            "configured_device": "auto",
-            "request_timeout_seconds": 600.0,
-            "service": {}
-          },
-          "router": {
-            "backend": "heuristic",
-            "requested_model": "",
-            "effective_model": "",
-            "runtime_device": null,
-            "configured_device": "auto"
-          },
-          "retriever": {
-            "backend": "heuristic",
-            "requested_model": "",
-            "effective_model": "",
-            "loaded": false,
-            "configured_device": "auto",
-            "runtime_device": null
-          }
-        }
-      },
-      "summary": {
-        "runs": 1.0,
-        "artifact_quality_avg": 0.9444,
-        "browser_workflow_avg": 0.9683,
-        "strict_interface_avg": 1.0,
-        "recovered_execution_avg": 1.0,
-        "real_world_readiness_avg": 0.9794,
-        "escalation_correctness_avg": 1.0,
-        "lane": "replayable_core",
-        "created_at": "20260411T211150Z",
-        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
-        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work/qwen3_8b_mlx_smoke_replayable_v1"
-      }
-    },
     {
       "recorded_at": "20260411T211206Z",
       "manifest": {
@@ -2133,6 +479,1716 @@
         "created_at": "20260411T211418Z",
         "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
         "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260411T211206Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__live_web_stress"
+      }
+    },
+    {
+      "recorded_at": "20260412T022506Z",
+      "manifest": {
+        "run_group_id": "20260412T022506Z_replayable_core",
+        "created_at": "20260412T022506Z",
+        "lane": "replayable_core",
+        "system_id": "mlx_qwen3_8b_reasoner_only",
+        "backend": "oracle",
+        "reasoner_backend": "oracle",
+        "router_backend": "",
+        "retriever_backend": "",
+        "reasoner": "google/gemma-4-E2B-it",
+        "router": "google/functiongemma-270m-it",
+        "retriever": "google/embeddinggemma-300m",
+        "reasoner_device": "auto",
+        "router_device": null,
+        "retriever_device": null,
+        "reasoner_max_new_tokens": 96,
+        "request_timeout_seconds": null,
+        "thinking": false,
+        "limit": null,
+        "episode_count": 1,
+        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
+        "runtime_bundle": {
+          "reasoner": {
+            "backend": "oracle",
+            "requested_model": "google/gemma-4-E2B-it",
+            "effective_model": "google/gemma-4-E2B-it",
+            "runtime_device": null,
+            "load_mode": null,
+            "configured_device": "auto",
+            "request_timeout_seconds": 600.0,
+            "service": {}
+          },
+          "router": {
+            "backend": "oracle",
+            "requested_model": "google/functiongemma-270m-it",
+            "effective_model": "google/functiongemma-270m-it",
+            "runtime_device": null,
+            "configured_device": "auto"
+          },
+          "retriever": {
+            "backend": "heuristic",
+            "requested_model": "google/embeddinggemma-300m",
+            "effective_model": "google/embeddinggemma-300m",
+            "loaded": false,
+            "configured_device": "auto",
+            "runtime_device": null
+          }
+        },
+        "run_intent": "exploratory",
+        "warmup": {
+          "reasoner": {
+            "backend": "oracle",
+            "requested_model": "google/gemma-4-E2B-it",
+            "effective_model": "google/gemma-4-E2B-it",
+            "runtime_device": null,
+            "load_mode": null,
+            "configured_device": "auto",
+            "request_timeout_seconds": 600.0,
+            "service": {}
+          },
+          "router": {
+            "backend": "oracle",
+            "requested_model": "google/functiongemma-270m-it",
+            "effective_model": "google/functiongemma-270m-it",
+            "runtime_device": null,
+            "configured_device": "auto"
+          },
+          "retriever": {
+            "backend": "heuristic",
+            "requested_model": "google/embeddinggemma-300m",
+            "effective_model": "google/embeddinggemma-300m",
+            "loaded": false,
+            "configured_device": "auto",
+            "runtime_device": null
+          }
+        }
+      },
+      "summary": {
+        "runs": 1.0,
+        "artifact_quality_avg": 1.0,
+        "browser_workflow_avg": 0.9773,
+        "strict_interface_avg": 1.0,
+        "recovered_execution_avg": 1.0,
+        "real_world_readiness_avg": 0.9801,
+        "escalation_correctness_avg": 1.0,
+        "lane": "replayable_core",
+        "created_at": "20260412T022506Z",
+        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work/mlx_qwen3_8b_reasoner_only_smoke_jobs_visual_form_hold_v2"
+      }
+    },
+    {
+      "recorded_at": "20260412T022516Z",
+      "manifest": {
+        "run_group_id": "20260412T022516Z_replayable_core",
+        "created_at": "20260412T022516Z",
+        "lane": "replayable_core",
+        "system_id": "mlx_qwen3_8b_reasoner_only",
+        "backend": "oracle",
+        "reasoner_backend": "oracle",
+        "router_backend": "",
+        "retriever_backend": "",
+        "reasoner": "google/gemma-4-E2B-it",
+        "router": "google/functiongemma-270m-it",
+        "retriever": "google/embeddinggemma-300m",
+        "reasoner_device": "auto",
+        "router_device": null,
+        "retriever_device": null,
+        "reasoner_max_new_tokens": 96,
+        "request_timeout_seconds": null,
+        "thinking": false,
+        "limit": null,
+        "episode_count": 1,
+        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
+        "runtime_bundle": {
+          "reasoner": {
+            "backend": "oracle",
+            "requested_model": "google/gemma-4-E2B-it",
+            "effective_model": "google/gemma-4-E2B-it",
+            "runtime_device": null,
+            "load_mode": null,
+            "configured_device": "auto",
+            "request_timeout_seconds": 600.0,
+            "service": {}
+          },
+          "router": {
+            "backend": "oracle",
+            "requested_model": "google/functiongemma-270m-it",
+            "effective_model": "google/functiongemma-270m-it",
+            "runtime_device": null,
+            "configured_device": "auto"
+          },
+          "retriever": {
+            "backend": "heuristic",
+            "requested_model": "google/embeddinggemma-300m",
+            "effective_model": "google/embeddinggemma-300m",
+            "loaded": false,
+            "configured_device": "auto",
+            "runtime_device": null
+          }
+        },
+        "run_intent": "exploratory",
+        "warmup": {
+          "reasoner": {
+            "backend": "oracle",
+            "requested_model": "google/gemma-4-E2B-it",
+            "effective_model": "google/gemma-4-E2B-it",
+            "runtime_device": null,
+            "load_mode": null,
+            "configured_device": "auto",
+            "request_timeout_seconds": 600.0,
+            "service": {}
+          },
+          "router": {
+            "backend": "oracle",
+            "requested_model": "google/functiongemma-270m-it",
+            "effective_model": "google/functiongemma-270m-it",
+            "runtime_device": null,
+            "configured_device": "auto"
+          },
+          "retriever": {
+            "backend": "heuristic",
+            "requested_model": "google/embeddinggemma-300m",
+            "effective_model": "google/embeddinggemma-300m",
+            "loaded": false,
+            "configured_device": "auto",
+            "runtime_device": null
+          }
+        }
+      },
+      "summary": {
+        "runs": 1.0,
+        "artifact_quality_avg": 0.9,
+        "browser_workflow_avg": 0.9773,
+        "strict_interface_avg": 1.0,
+        "recovered_execution_avg": 1.0,
+        "real_world_readiness_avg": 0.9597,
+        "escalation_correctness_avg": 1.0,
+        "lane": "replayable_core",
+        "created_at": "20260412T022516Z",
+        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work/mlx_qwen3_8b_reasoner_only_smoke_jobs_visual_constraint_override_v2"
+      }
+    },
+    {
+      "recorded_at": "20260412T022522Z",
+      "manifest": {
+        "run_group_id": "20260412T022522Z_live_web_stress",
+        "created_at": "20260412T022522Z",
+        "lane": "live_web_stress",
+        "system_id": "mlx_qwen3_8b_reasoner_only",
+        "backend": "oracle",
+        "reasoner_backend": "oracle",
+        "router_backend": "",
+        "retriever_backend": "",
+        "reasoner": "google/gemma-4-E2B-it",
+        "router": "google/functiongemma-270m-it",
+        "retriever": "google/embeddinggemma-300m",
+        "reasoner_device": "auto",
+        "router_device": null,
+        "retriever_device": null,
+        "reasoner_max_new_tokens": 96,
+        "request_timeout_seconds": null,
+        "thinking": false,
+        "limit": null,
+        "episode_count": 1,
+        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
+        "runtime_bundle": {
+          "reasoner": {
+            "backend": "oracle",
+            "requested_model": "google/gemma-4-E2B-it",
+            "effective_model": "google/gemma-4-E2B-it",
+            "runtime_device": null,
+            "load_mode": null,
+            "configured_device": "auto",
+            "request_timeout_seconds": 600.0,
+            "service": {}
+          },
+          "router": {
+            "backend": "oracle",
+            "requested_model": "google/functiongemma-270m-it",
+            "effective_model": "google/functiongemma-270m-it",
+            "runtime_device": null,
+            "configured_device": "auto"
+          },
+          "retriever": {
+            "backend": "heuristic",
+            "requested_model": "google/embeddinggemma-300m",
+            "effective_model": "google/embeddinggemma-300m",
+            "loaded": false,
+            "configured_device": "auto",
+            "runtime_device": null
+          }
+        },
+        "run_intent": "exploratory",
+        "warmup": {
+          "reasoner": {
+            "backend": "oracle",
+            "requested_model": "google/gemma-4-E2B-it",
+            "effective_model": "google/gemma-4-E2B-it",
+            "runtime_device": null,
+            "load_mode": null,
+            "configured_device": "auto",
+            "request_timeout_seconds": 600.0,
+            "service": {}
+          },
+          "router": {
+            "backend": "oracle",
+            "requested_model": "google/functiongemma-270m-it",
+            "effective_model": "google/functiongemma-270m-it",
+            "runtime_device": null,
+            "configured_device": "auto"
+          },
+          "retriever": {
+            "backend": "heuristic",
+            "requested_model": "google/embeddinggemma-300m",
+            "effective_model": "google/embeddinggemma-300m",
+            "loaded": false,
+            "configured_device": "auto",
+            "runtime_device": null
+          }
+        }
+      },
+      "summary": {
+        "runs": 1.0,
+        "artifact_quality_avg": 0.9,
+        "browser_workflow_avg": 1.0,
+        "strict_interface_avg": 1.0,
+        "recovered_execution_avg": 1.0,
+        "real_world_readiness_avg": 0.9623,
+        "escalation_correctness_avg": 1.0,
+        "lane": "live_web_stress",
+        "created_at": "20260412T022522Z",
+        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work/mlx_qwen3_8b_reasoner_only_smoke_jobs_live_visual_latest_issue_v2"
+      }
+    },
+    {
+      "recorded_at": "20260412T022529Z",
+      "manifest": {
+        "run_group_id": "20260412T022529Z_replayable_core",
+        "created_at": "20260412T022529Z",
+        "lane": "replayable_core",
+        "system_id": "mlx_qwen3_8b_reasoner_only",
+        "backend": "oracle",
+        "reasoner_backend": "oracle",
+        "router_backend": "",
+        "retriever_backend": "",
+        "reasoner": "google/gemma-4-E2B-it",
+        "router": "google/functiongemma-270m-it",
+        "retriever": "google/embeddinggemma-300m",
+        "reasoner_device": "auto",
+        "router_device": null,
+        "retriever_device": null,
+        "reasoner_max_new_tokens": 96,
+        "request_timeout_seconds": null,
+        "thinking": false,
+        "limit": null,
+        "episode_count": 1,
+        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
+        "runtime_bundle": {
+          "reasoner": {
+            "backend": "oracle",
+            "requested_model": "google/gemma-4-E2B-it",
+            "effective_model": "google/gemma-4-E2B-it",
+            "runtime_device": null,
+            "load_mode": null,
+            "configured_device": "auto",
+            "request_timeout_seconds": 600.0,
+            "service": {}
+          },
+          "router": {
+            "backend": "oracle",
+            "requested_model": "google/functiongemma-270m-it",
+            "effective_model": "google/functiongemma-270m-it",
+            "runtime_device": null,
+            "configured_device": "auto"
+          },
+          "retriever": {
+            "backend": "heuristic",
+            "requested_model": "google/embeddinggemma-300m",
+            "effective_model": "google/embeddinggemma-300m",
+            "loaded": false,
+            "configured_device": "auto",
+            "runtime_device": null
+          }
+        },
+        "run_intent": "exploratory",
+        "warmup": {
+          "reasoner": {
+            "backend": "oracle",
+            "requested_model": "google/gemma-4-E2B-it",
+            "effective_model": "google/gemma-4-E2B-it",
+            "runtime_device": null,
+            "load_mode": null,
+            "configured_device": "auto",
+            "request_timeout_seconds": 600.0,
+            "service": {}
+          },
+          "router": {
+            "backend": "oracle",
+            "requested_model": "google/functiongemma-270m-it",
+            "effective_model": "google/functiongemma-270m-it",
+            "runtime_device": null,
+            "configured_device": "auto"
+          },
+          "retriever": {
+            "backend": "heuristic",
+            "requested_model": "google/embeddinggemma-300m",
+            "effective_model": "google/embeddinggemma-300m",
+            "loaded": false,
+            "configured_device": "auto",
+            "runtime_device": null
+          }
+        }
+      },
+      "summary": {
+        "runs": 1.0,
+        "artifact_quality_avg": 1.0,
+        "browser_workflow_avg": 0.9615,
+        "strict_interface_avg": 1.0,
+        "recovered_execution_avg": 1.0,
+        "real_world_readiness_avg": 0.9899,
+        "escalation_correctness_avg": 1.0,
+        "lane": "replayable_core",
+        "created_at": "20260412T022529Z",
+        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work/mlx_qwen3_8b_reasoner_only_smoke_finance_visual_invoice_hold_v2"
+      }
+    },
+    {
+      "recorded_at": "20260412T022538Z",
+      "manifest": {
+        "run_group_id": "20260412T022538Z_replayable_core",
+        "created_at": "20260412T022538Z",
+        "lane": "replayable_core",
+        "system_id": "mlx_qwen3_8b_reasoner_only",
+        "backend": "oracle",
+        "reasoner_backend": "oracle",
+        "router_backend": "",
+        "retriever_backend": "",
+        "reasoner": "google/gemma-4-E2B-it",
+        "router": "google/functiongemma-270m-it",
+        "retriever": "google/embeddinggemma-300m",
+        "reasoner_device": "auto",
+        "router_device": null,
+        "retriever_device": null,
+        "reasoner_max_new_tokens": 96,
+        "request_timeout_seconds": null,
+        "thinking": false,
+        "limit": null,
+        "episode_count": 1,
+        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
+        "runtime_bundle": {
+          "reasoner": {
+            "backend": "oracle",
+            "requested_model": "google/gemma-4-E2B-it",
+            "effective_model": "google/gemma-4-E2B-it",
+            "runtime_device": null,
+            "load_mode": null,
+            "configured_device": "auto",
+            "request_timeout_seconds": 600.0,
+            "service": {}
+          },
+          "router": {
+            "backend": "oracle",
+            "requested_model": "google/functiongemma-270m-it",
+            "effective_model": "google/functiongemma-270m-it",
+            "runtime_device": null,
+            "configured_device": "auto"
+          },
+          "retriever": {
+            "backend": "heuristic",
+            "requested_model": "google/embeddinggemma-300m",
+            "effective_model": "google/embeddinggemma-300m",
+            "loaded": false,
+            "configured_device": "auto",
+            "runtime_device": null
+          }
+        },
+        "run_intent": "exploratory",
+        "warmup": {
+          "reasoner": {
+            "backend": "oracle",
+            "requested_model": "google/gemma-4-E2B-it",
+            "effective_model": "google/gemma-4-E2B-it",
+            "runtime_device": null,
+            "load_mode": null,
+            "configured_device": "auto",
+            "request_timeout_seconds": 600.0,
+            "service": {}
+          },
+          "router": {
+            "backend": "oracle",
+            "requested_model": "google/functiongemma-270m-it",
+            "effective_model": "google/functiongemma-270m-it",
+            "runtime_device": null,
+            "configured_device": "auto"
+          },
+          "retriever": {
+            "backend": "heuristic",
+            "requested_model": "google/embeddinggemma-300m",
+            "effective_model": "google/embeddinggemma-300m",
+            "loaded": false,
+            "configured_device": "auto",
+            "runtime_device": null
+          }
+        }
+      },
+      "summary": {
+        "runs": 1.0,
+        "artifact_quality_avg": 0.875,
+        "browser_workflow_avg": 0.9815,
+        "strict_interface_avg": 1.0,
+        "recovered_execution_avg": 1.0,
+        "real_world_readiness_avg": 0.9667,
+        "escalation_correctness_avg": 1.0,
+        "lane": "replayable_core",
+        "created_at": "20260412T022538Z",
+        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work/mlx_qwen3_8b_reasoner_only_smoke_finance_visual_invoice_revision_hold_v3"
+      }
+    },
+    {
+      "recorded_at": "20260412T022545Z",
+      "manifest": {
+        "run_group_id": "20260412T022545Z_live_web_stress",
+        "created_at": "20260412T022545Z",
+        "lane": "live_web_stress",
+        "system_id": "mlx_qwen3_8b_reasoner_only",
+        "backend": "oracle",
+        "reasoner_backend": "oracle",
+        "router_backend": "",
+        "retriever_backend": "",
+        "reasoner": "google/gemma-4-E2B-it",
+        "router": "google/functiongemma-270m-it",
+        "retriever": "google/embeddinggemma-300m",
+        "reasoner_device": "auto",
+        "router_device": null,
+        "retriever_device": null,
+        "reasoner_max_new_tokens": 96,
+        "request_timeout_seconds": null,
+        "thinking": false,
+        "limit": null,
+        "episode_count": 1,
+        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
+        "runtime_bundle": {
+          "reasoner": {
+            "backend": "oracle",
+            "requested_model": "google/gemma-4-E2B-it",
+            "effective_model": "google/gemma-4-E2B-it",
+            "runtime_device": null,
+            "load_mode": null,
+            "configured_device": "auto",
+            "request_timeout_seconds": 600.0,
+            "service": {}
+          },
+          "router": {
+            "backend": "oracle",
+            "requested_model": "google/functiongemma-270m-it",
+            "effective_model": "google/functiongemma-270m-it",
+            "runtime_device": null,
+            "configured_device": "auto"
+          },
+          "retriever": {
+            "backend": "heuristic",
+            "requested_model": "google/embeddinggemma-300m",
+            "effective_model": "google/embeddinggemma-300m",
+            "loaded": false,
+            "configured_device": "auto",
+            "runtime_device": null
+          }
+        },
+        "run_intent": "exploratory",
+        "warmup": {
+          "reasoner": {
+            "backend": "oracle",
+            "requested_model": "google/gemma-4-E2B-it",
+            "effective_model": "google/gemma-4-E2B-it",
+            "runtime_device": null,
+            "load_mode": null,
+            "configured_device": "auto",
+            "request_timeout_seconds": 600.0,
+            "service": {}
+          },
+          "router": {
+            "backend": "oracle",
+            "requested_model": "google/functiongemma-270m-it",
+            "effective_model": "google/functiongemma-270m-it",
+            "runtime_device": null,
+            "configured_device": "auto"
+          },
+          "retriever": {
+            "backend": "heuristic",
+            "requested_model": "google/embeddinggemma-300m",
+            "effective_model": "google/embeddinggemma-300m",
+            "loaded": false,
+            "configured_device": "auto",
+            "runtime_device": null
+          }
+        }
+      },
+      "summary": {
+        "runs": 1.0,
+        "artifact_quality_avg": 1.0,
+        "browser_workflow_avg": 1.0,
+        "strict_interface_avg": 1.0,
+        "recovered_execution_avg": 1.0,
+        "real_world_readiness_avg": 0.9942,
+        "escalation_correctness_avg": 1.0,
+        "lane": "live_web_stress",
+        "created_at": "20260412T022545Z",
+        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work/mlx_qwen3_8b_reasoner_only_smoke_finance_live_visual_invoice_hold_v2"
+      }
+    },
+    {
+      "recorded_at": "20260412T022551Z",
+      "manifest": {
+        "run_group_id": "20260412T022551Z_live_web_stress",
+        "created_at": "20260412T022551Z",
+        "lane": "live_web_stress",
+        "system_id": "mlx_qwen3_8b_reasoner_only",
+        "backend": "oracle",
+        "reasoner_backend": "oracle",
+        "router_backend": "",
+        "retriever_backend": "",
+        "reasoner": "google/gemma-4-E2B-it",
+        "router": "google/functiongemma-270m-it",
+        "retriever": "google/embeddinggemma-300m",
+        "reasoner_device": "auto",
+        "router_device": null,
+        "retriever_device": null,
+        "reasoner_max_new_tokens": 96,
+        "request_timeout_seconds": null,
+        "thinking": false,
+        "limit": null,
+        "episode_count": 1,
+        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
+        "runtime_bundle": {
+          "reasoner": {
+            "backend": "oracle",
+            "requested_model": "google/gemma-4-E2B-it",
+            "effective_model": "google/gemma-4-E2B-it",
+            "runtime_device": null,
+            "load_mode": null,
+            "configured_device": "auto",
+            "request_timeout_seconds": 600.0,
+            "service": {}
+          },
+          "router": {
+            "backend": "oracle",
+            "requested_model": "google/functiongemma-270m-it",
+            "effective_model": "google/functiongemma-270m-it",
+            "runtime_device": null,
+            "configured_device": "auto"
+          },
+          "retriever": {
+            "backend": "heuristic",
+            "requested_model": "google/embeddinggemma-300m",
+            "effective_model": "google/embeddinggemma-300m",
+            "loaded": false,
+            "configured_device": "auto",
+            "runtime_device": null
+          }
+        },
+        "run_intent": "exploratory",
+        "warmup": {
+          "reasoner": {
+            "backend": "oracle",
+            "requested_model": "google/gemma-4-E2B-it",
+            "effective_model": "google/gemma-4-E2B-it",
+            "runtime_device": null,
+            "load_mode": null,
+            "configured_device": "auto",
+            "request_timeout_seconds": 600.0,
+            "service": {}
+          },
+          "router": {
+            "backend": "oracle",
+            "requested_model": "google/functiongemma-270m-it",
+            "effective_model": "google/functiongemma-270m-it",
+            "runtime_device": null,
+            "configured_device": "auto"
+          },
+          "retriever": {
+            "backend": "heuristic",
+            "requested_model": "google/embeddinggemma-300m",
+            "effective_model": "google/embeddinggemma-300m",
+            "loaded": false,
+            "configured_device": "auto",
+            "runtime_device": null
+          }
+        }
+      },
+      "summary": {
+        "runs": 1.0,
+        "artifact_quality_avg": 0.875,
+        "browser_workflow_avg": 1.0,
+        "strict_interface_avg": 1.0,
+        "recovered_execution_avg": 1.0,
+        "real_world_readiness_avg": 0.9687,
+        "escalation_correctness_avg": 1.0,
+        "lane": "live_web_stress",
+        "created_at": "20260412T022551Z",
+        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work/mlx_qwen3_8b_reasoner_only_smoke_finance_live_visual_invoice_revision_hold_v3"
+      }
+    },
+    {
+      "recorded_at": "20260412T022601Z",
+      "manifest": {
+        "run_group_id": "20260412T022601Z_replayable_core",
+        "created_at": "20260412T022601Z",
+        "lane": "replayable_core",
+        "system_id": "hf_gemma4_e2b_specialists_cpu",
+        "backend": "oracle",
+        "reasoner_backend": "oracle",
+        "router_backend": "",
+        "retriever_backend": "",
+        "reasoner": "google/gemma-4-E2B-it",
+        "router": "google/functiongemma-270m-it",
+        "retriever": "google/embeddinggemma-300m",
+        "reasoner_device": "auto",
+        "router_device": null,
+        "retriever_device": null,
+        "reasoner_max_new_tokens": 96,
+        "request_timeout_seconds": null,
+        "thinking": false,
+        "limit": null,
+        "episode_count": 1,
+        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
+        "runtime_bundle": {
+          "reasoner": {
+            "backend": "oracle",
+            "requested_model": "google/gemma-4-E2B-it",
+            "effective_model": "google/gemma-4-E2B-it",
+            "runtime_device": null,
+            "load_mode": null,
+            "configured_device": "auto",
+            "request_timeout_seconds": 600.0,
+            "service": {}
+          },
+          "router": {
+            "backend": "oracle",
+            "requested_model": "google/functiongemma-270m-it",
+            "effective_model": "google/functiongemma-270m-it",
+            "runtime_device": null,
+            "configured_device": "auto"
+          },
+          "retriever": {
+            "backend": "heuristic",
+            "requested_model": "google/embeddinggemma-300m",
+            "effective_model": "google/embeddinggemma-300m",
+            "loaded": false,
+            "configured_device": "auto",
+            "runtime_device": null
+          }
+        },
+        "run_intent": "exploratory",
+        "warmup": {
+          "reasoner": {
+            "backend": "oracle",
+            "requested_model": "google/gemma-4-E2B-it",
+            "effective_model": "google/gemma-4-E2B-it",
+            "runtime_device": null,
+            "load_mode": null,
+            "configured_device": "auto",
+            "request_timeout_seconds": 600.0,
+            "service": {}
+          },
+          "router": {
+            "backend": "oracle",
+            "requested_model": "google/functiongemma-270m-it",
+            "effective_model": "google/functiongemma-270m-it",
+            "runtime_device": null,
+            "configured_device": "auto"
+          },
+          "retriever": {
+            "backend": "heuristic",
+            "requested_model": "google/embeddinggemma-300m",
+            "effective_model": "google/embeddinggemma-300m",
+            "loaded": false,
+            "configured_device": "auto",
+            "runtime_device": null
+          }
+        }
+      },
+      "summary": {
+        "runs": 1.0,
+        "artifact_quality_avg": 1.0,
+        "browser_workflow_avg": 0.9615,
+        "strict_interface_avg": 1.0,
+        "recovered_execution_avg": 1.0,
+        "real_world_readiness_avg": 0.9899,
+        "escalation_correctness_avg": 1.0,
+        "lane": "replayable_core",
+        "created_at": "20260412T022601Z",
+        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work/hf_gemma4_e2b_specialists_cpu_smoke_finance_visual_invoice_hold_v2"
+      }
+    },
+    {
+      "recorded_at": "20260412T022608Z",
+      "manifest": {
+        "run_group_id": "20260412T022608Z_replayable_core",
+        "created_at": "20260412T022608Z",
+        "lane": "replayable_core",
+        "system_id": "hf_gemma4_e2b_specialists_cpu",
+        "backend": "oracle",
+        "reasoner_backend": "oracle",
+        "router_backend": "",
+        "retriever_backend": "",
+        "reasoner": "google/gemma-4-E2B-it",
+        "router": "google/functiongemma-270m-it",
+        "retriever": "google/embeddinggemma-300m",
+        "reasoner_device": "auto",
+        "router_device": null,
+        "retriever_device": null,
+        "reasoner_max_new_tokens": 96,
+        "request_timeout_seconds": null,
+        "thinking": false,
+        "limit": null,
+        "episode_count": 1,
+        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
+        "runtime_bundle": {
+          "reasoner": {
+            "backend": "oracle",
+            "requested_model": "google/gemma-4-E2B-it",
+            "effective_model": "google/gemma-4-E2B-it",
+            "runtime_device": null,
+            "load_mode": null,
+            "configured_device": "auto",
+            "request_timeout_seconds": 600.0,
+            "service": {}
+          },
+          "router": {
+            "backend": "oracle",
+            "requested_model": "google/functiongemma-270m-it",
+            "effective_model": "google/functiongemma-270m-it",
+            "runtime_device": null,
+            "configured_device": "auto"
+          },
+          "retriever": {
+            "backend": "heuristic",
+            "requested_model": "google/embeddinggemma-300m",
+            "effective_model": "google/embeddinggemma-300m",
+            "loaded": false,
+            "configured_device": "auto",
+            "runtime_device": null
+          }
+        },
+        "run_intent": "exploratory",
+        "warmup": {
+          "reasoner": {
+            "backend": "oracle",
+            "requested_model": "google/gemma-4-E2B-it",
+            "effective_model": "google/gemma-4-E2B-it",
+            "runtime_device": null,
+            "load_mode": null,
+            "configured_device": "auto",
+            "request_timeout_seconds": 600.0,
+            "service": {}
+          },
+          "router": {
+            "backend": "oracle",
+            "requested_model": "google/functiongemma-270m-it",
+            "effective_model": "google/functiongemma-270m-it",
+            "runtime_device": null,
+            "configured_device": "auto"
+          },
+          "retriever": {
+            "backend": "heuristic",
+            "requested_model": "google/embeddinggemma-300m",
+            "effective_model": "google/embeddinggemma-300m",
+            "loaded": false,
+            "configured_device": "auto",
+            "runtime_device": null
+          }
+        }
+      },
+      "summary": {
+        "runs": 1.0,
+        "artifact_quality_avg": 0.875,
+        "browser_workflow_avg": 0.9815,
+        "strict_interface_avg": 1.0,
+        "recovered_execution_avg": 1.0,
+        "real_world_readiness_avg": 0.9667,
+        "escalation_correctness_avg": 1.0,
+        "lane": "replayable_core",
+        "created_at": "20260412T022608Z",
+        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work/hf_gemma4_e2b_specialists_cpu_smoke_finance_visual_invoice_revision_hold_v3"
+      }
+    },
+    {
+      "recorded_at": "20260412T022613Z",
+      "manifest": {
+        "run_group_id": "20260412T022613Z_live_web_stress",
+        "created_at": "20260412T022613Z",
+        "lane": "live_web_stress",
+        "system_id": "hf_gemma4_e2b_specialists_cpu",
+        "backend": "oracle",
+        "reasoner_backend": "oracle",
+        "router_backend": "",
+        "retriever_backend": "",
+        "reasoner": "google/gemma-4-E2B-it",
+        "router": "google/functiongemma-270m-it",
+        "retriever": "google/embeddinggemma-300m",
+        "reasoner_device": "auto",
+        "router_device": null,
+        "retriever_device": null,
+        "reasoner_max_new_tokens": 96,
+        "request_timeout_seconds": null,
+        "thinking": false,
+        "limit": null,
+        "episode_count": 1,
+        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
+        "runtime_bundle": {
+          "reasoner": {
+            "backend": "oracle",
+            "requested_model": "google/gemma-4-E2B-it",
+            "effective_model": "google/gemma-4-E2B-it",
+            "runtime_device": null,
+            "load_mode": null,
+            "configured_device": "auto",
+            "request_timeout_seconds": 600.0,
+            "service": {}
+          },
+          "router": {
+            "backend": "oracle",
+            "requested_model": "google/functiongemma-270m-it",
+            "effective_model": "google/functiongemma-270m-it",
+            "runtime_device": null,
+            "configured_device": "auto"
+          },
+          "retriever": {
+            "backend": "heuristic",
+            "requested_model": "google/embeddinggemma-300m",
+            "effective_model": "google/embeddinggemma-300m",
+            "loaded": false,
+            "configured_device": "auto",
+            "runtime_device": null
+          }
+        },
+        "run_intent": "exploratory",
+        "warmup": {
+          "reasoner": {
+            "backend": "oracle",
+            "requested_model": "google/gemma-4-E2B-it",
+            "effective_model": "google/gemma-4-E2B-it",
+            "runtime_device": null,
+            "load_mode": null,
+            "configured_device": "auto",
+            "request_timeout_seconds": 600.0,
+            "service": {}
+          },
+          "router": {
+            "backend": "oracle",
+            "requested_model": "google/functiongemma-270m-it",
+            "effective_model": "google/functiongemma-270m-it",
+            "runtime_device": null,
+            "configured_device": "auto"
+          },
+          "retriever": {
+            "backend": "heuristic",
+            "requested_model": "google/embeddinggemma-300m",
+            "effective_model": "google/embeddinggemma-300m",
+            "loaded": false,
+            "configured_device": "auto",
+            "runtime_device": null
+          }
+        }
+      },
+      "summary": {
+        "runs": 1.0,
+        "artifact_quality_avg": 1.0,
+        "browser_workflow_avg": 1.0,
+        "strict_interface_avg": 1.0,
+        "recovered_execution_avg": 1.0,
+        "real_world_readiness_avg": 0.9942,
+        "escalation_correctness_avg": 1.0,
+        "lane": "live_web_stress",
+        "created_at": "20260412T022613Z",
+        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work/hf_gemma4_e2b_specialists_cpu_smoke_finance_live_visual_invoice_hold_v2"
+      }
+    },
+    {
+      "recorded_at": "20260412T022620Z",
+      "manifest": {
+        "run_group_id": "20260412T022620Z_live_web_stress",
+        "created_at": "20260412T022620Z",
+        "lane": "live_web_stress",
+        "system_id": "hf_gemma4_e2b_specialists_cpu",
+        "backend": "oracle",
+        "reasoner_backend": "oracle",
+        "router_backend": "",
+        "retriever_backend": "",
+        "reasoner": "google/gemma-4-E2B-it",
+        "router": "google/functiongemma-270m-it",
+        "retriever": "google/embeddinggemma-300m",
+        "reasoner_device": "auto",
+        "router_device": null,
+        "retriever_device": null,
+        "reasoner_max_new_tokens": 96,
+        "request_timeout_seconds": null,
+        "thinking": false,
+        "limit": null,
+        "episode_count": 1,
+        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
+        "runtime_bundle": {
+          "reasoner": {
+            "backend": "oracle",
+            "requested_model": "google/gemma-4-E2B-it",
+            "effective_model": "google/gemma-4-E2B-it",
+            "runtime_device": null,
+            "load_mode": null,
+            "configured_device": "auto",
+            "request_timeout_seconds": 600.0,
+            "service": {}
+          },
+          "router": {
+            "backend": "oracle",
+            "requested_model": "google/functiongemma-270m-it",
+            "effective_model": "google/functiongemma-270m-it",
+            "runtime_device": null,
+            "configured_device": "auto"
+          },
+          "retriever": {
+            "backend": "heuristic",
+            "requested_model": "google/embeddinggemma-300m",
+            "effective_model": "google/embeddinggemma-300m",
+            "loaded": false,
+            "configured_device": "auto",
+            "runtime_device": null
+          }
+        },
+        "run_intent": "exploratory",
+        "warmup": {
+          "reasoner": {
+            "backend": "oracle",
+            "requested_model": "google/gemma-4-E2B-it",
+            "effective_model": "google/gemma-4-E2B-it",
+            "runtime_device": null,
+            "load_mode": null,
+            "configured_device": "auto",
+            "request_timeout_seconds": 600.0,
+            "service": {}
+          },
+          "router": {
+            "backend": "oracle",
+            "requested_model": "google/functiongemma-270m-it",
+            "effective_model": "google/functiongemma-270m-it",
+            "runtime_device": null,
+            "configured_device": "auto"
+          },
+          "retriever": {
+            "backend": "heuristic",
+            "requested_model": "google/embeddinggemma-300m",
+            "effective_model": "google/embeddinggemma-300m",
+            "loaded": false,
+            "configured_device": "auto",
+            "runtime_device": null
+          }
+        }
+      },
+      "summary": {
+        "runs": 1.0,
+        "artifact_quality_avg": 0.875,
+        "browser_workflow_avg": 1.0,
+        "strict_interface_avg": 1.0,
+        "recovered_execution_avg": 1.0,
+        "real_world_readiness_avg": 0.9687,
+        "escalation_correctness_avg": 1.0,
+        "lane": "live_web_stress",
+        "created_at": "20260412T022620Z",
+        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work/hf_gemma4_e2b_specialists_cpu_smoke_finance_live_visual_invoice_revision_hold_v3"
+      }
+    },
+    {
+      "recorded_at": "20260412T022659Z",
+      "manifest": {
+        "run_group_id": "20260412T022659Z_replayable_core",
+        "created_at": "20260412T022659Z",
+        "lane": "replayable_core",
+        "system_id": "mlx_qwen3_8b_reasoner_only",
+        "backend": "mlx",
+        "reasoner_backend": "mlx",
+        "router_backend": "heuristic",
+        "retriever_backend": "heuristic",
+        "reasoner": "Qwen/Qwen3-8B-MLX-4bit",
+        "router": "google/functiongemma-270m-it",
+        "retriever": "google/embeddinggemma-300m",
+        "reasoner_device": "auto",
+        "router_device": null,
+        "retriever_device": null,
+        "reasoner_max_new_tokens": 96,
+        "request_timeout_seconds": 300.0,
+        "thinking": false,
+        "limit": null,
+        "episode_count": 26,
+        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
+        "runtime_bundle": {
+          "reasoner": {
+            "backend": "mlx",
+            "requested_model": "Qwen/Qwen3-8B-MLX-4bit",
+            "effective_model": "/Users/cheickdiakite/models/Qwen3-8B-MLX-4bit",
+            "runtime_device": "mlx",
+            "load_mode": "text",
+            "configured_device": "auto",
+            "request_timeout_seconds": 300.0,
+            "service": {}
+          },
+          "router": {
+            "backend": "heuristic",
+            "requested_model": "google/functiongemma-270m-it",
+            "effective_model": "google/functiongemma-270m-it",
+            "runtime_device": null,
+            "configured_device": "auto"
+          },
+          "retriever": {
+            "backend": "heuristic",
+            "requested_model": "google/embeddinggemma-300m",
+            "effective_model": "google/embeddinggemma-300m",
+            "loaded": false,
+            "configured_device": "auto",
+            "runtime_device": null
+          }
+        },
+        "run_intent": "exploratory",
+        "warmup": {
+          "reasoner": {
+            "backend": "mlx",
+            "requested_model": "Qwen/Qwen3-8B-MLX-4bit",
+            "effective_model": "/Users/cheickdiakite/models/Qwen3-8B-MLX-4bit",
+            "runtime_device": "mlx",
+            "load_mode": "text",
+            "configured_device": "auto",
+            "request_timeout_seconds": 300.0,
+            "service": {}
+          },
+          "router": {
+            "backend": "heuristic",
+            "requested_model": "google/functiongemma-270m-it",
+            "effective_model": "google/functiongemma-270m-it",
+            "runtime_device": null,
+            "configured_device": "auto"
+          },
+          "retriever": {
+            "backend": "heuristic",
+            "requested_model": "google/embeddinggemma-300m",
+            "effective_model": "google/embeddinggemma-300m",
+            "loaded": false,
+            "configured_device": "auto",
+            "runtime_device": null
+          }
+        }
+      },
+      "summary": {
+        "runs": 26.0,
+        "artifact_quality_avg": 0.9744807692307693,
+        "browser_workflow_avg": 0.9829461538461538,
+        "strict_interface_avg": 1.0,
+        "recovered_execution_avg": 0.9615384615384616,
+        "real_world_readiness_avg": 0.9716653846153847,
+        "escalation_correctness_avg": 1.0,
+        "lane": "replayable_core",
+        "created_at": "20260412T022659Z",
+        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260412T022659Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__replayable_core"
+      }
+    },
+    {
+      "recorded_at": "20260412T022904Z",
+      "manifest": {
+        "run_group_id": "20260412T022904Z_live_web_stress",
+        "created_at": "20260412T022904Z",
+        "lane": "live_web_stress",
+        "system_id": "mlx_qwen3_8b_reasoner_only",
+        "backend": "mlx",
+        "reasoner_backend": "mlx",
+        "router_backend": "heuristic",
+        "retriever_backend": "heuristic",
+        "reasoner": "Qwen/Qwen3-8B-MLX-4bit",
+        "router": "google/functiongemma-270m-it",
+        "retriever": "google/embeddinggemma-300m",
+        "reasoner_device": "auto",
+        "router_device": null,
+        "retriever_device": null,
+        "reasoner_max_new_tokens": 96,
+        "request_timeout_seconds": 300.0,
+        "thinking": false,
+        "limit": null,
+        "episode_count": 20,
+        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
+        "runtime_bundle": {
+          "reasoner": {
+            "backend": "mlx",
+            "requested_model": "Qwen/Qwen3-8B-MLX-4bit",
+            "effective_model": "/Users/cheickdiakite/models/Qwen3-8B-MLX-4bit",
+            "runtime_device": "mlx",
+            "load_mode": "text",
+            "configured_device": "auto",
+            "request_timeout_seconds": 300.0,
+            "service": {}
+          },
+          "router": {
+            "backend": "heuristic",
+            "requested_model": "google/functiongemma-270m-it",
+            "effective_model": "google/functiongemma-270m-it",
+            "runtime_device": null,
+            "configured_device": "auto"
+          },
+          "retriever": {
+            "backend": "heuristic",
+            "requested_model": "google/embeddinggemma-300m",
+            "effective_model": "google/embeddinggemma-300m",
+            "loaded": false,
+            "configured_device": "auto",
+            "runtime_device": null
+          }
+        },
+        "run_intent": "exploratory",
+        "warmup": {
+          "reasoner": {
+            "backend": "mlx",
+            "requested_model": "Qwen/Qwen3-8B-MLX-4bit",
+            "effective_model": "/Users/cheickdiakite/models/Qwen3-8B-MLX-4bit",
+            "runtime_device": "mlx",
+            "load_mode": "text",
+            "configured_device": "auto",
+            "request_timeout_seconds": 300.0,
+            "service": {}
+          },
+          "router": {
+            "backend": "heuristic",
+            "requested_model": "google/functiongemma-270m-it",
+            "effective_model": "google/functiongemma-270m-it",
+            "runtime_device": null,
+            "configured_device": "auto"
+          },
+          "retriever": {
+            "backend": "heuristic",
+            "requested_model": "google/embeddinggemma-300m",
+            "effective_model": "google/embeddinggemma-300m",
+            "loaded": false,
+            "configured_device": "auto",
+            "runtime_device": null
+          }
+        }
+      },
+      "summary": {
+        "runs": 20.0,
+        "artifact_quality_avg": 0.9696049999999999,
+        "browser_workflow_avg": 1.0,
+        "strict_interface_avg": 1.0,
+        "recovered_execution_avg": 0.975,
+        "real_world_readiness_avg": 0.976455,
+        "escalation_correctness_avg": 1.0,
+        "lane": "live_web_stress",
+        "created_at": "20260412T022904Z",
+        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260412T022659Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__live_web_stress"
+      }
+    },
+    {
+      "recorded_at": "20260412T023123Z",
+      "manifest": {
+        "run_group_id": "20260412T023123Z_replayable_core",
+        "created_at": "20260412T023123Z",
+        "lane": "replayable_core",
+        "system_id": "hf_gemma4_e2b_specialists_cpu",
+        "backend": "oracle",
+        "reasoner_backend": "oracle",
+        "router_backend": "",
+        "retriever_backend": "",
+        "reasoner": "google/gemma-4-E2B-it",
+        "router": "google/functiongemma-270m-it",
+        "retriever": "google/embeddinggemma-300m",
+        "reasoner_device": "auto",
+        "router_device": null,
+        "retriever_device": null,
+        "reasoner_max_new_tokens": 96,
+        "request_timeout_seconds": null,
+        "thinking": false,
+        "limit": null,
+        "episode_count": 26,
+        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
+        "runtime_bundle": {
+          "reasoner": {
+            "backend": "oracle",
+            "requested_model": "google/gemma-4-E2B-it",
+            "effective_model": "google/gemma-4-E2B-it",
+            "runtime_device": null,
+            "load_mode": null,
+            "configured_device": "auto",
+            "request_timeout_seconds": 600.0,
+            "service": {}
+          },
+          "router": {
+            "backend": "oracle",
+            "requested_model": "google/functiongemma-270m-it",
+            "effective_model": "google/functiongemma-270m-it",
+            "runtime_device": null,
+            "configured_device": "auto"
+          },
+          "retriever": {
+            "backend": "heuristic",
+            "requested_model": "google/embeddinggemma-300m",
+            "effective_model": "google/embeddinggemma-300m",
+            "loaded": false,
+            "configured_device": "auto",
+            "runtime_device": null
+          }
+        },
+        "run_intent": "exploratory",
+        "warmup": {
+          "reasoner": {
+            "backend": "oracle",
+            "requested_model": "google/gemma-4-E2B-it",
+            "effective_model": "google/gemma-4-E2B-it",
+            "runtime_device": null,
+            "load_mode": null,
+            "configured_device": "auto",
+            "request_timeout_seconds": 600.0,
+            "service": {}
+          },
+          "router": {
+            "backend": "oracle",
+            "requested_model": "google/functiongemma-270m-it",
+            "effective_model": "google/functiongemma-270m-it",
+            "runtime_device": null,
+            "configured_device": "auto"
+          },
+          "retriever": {
+            "backend": "heuristic",
+            "requested_model": "google/embeddinggemma-300m",
+            "effective_model": "google/embeddinggemma-300m",
+            "loaded": false,
+            "configured_device": "auto",
+            "runtime_device": null
+          }
+        }
+      },
+      "summary": {
+        "runs": 26.0,
+        "artifact_quality_avg": 0.9744807692307693,
+        "browser_workflow_avg": 0.9829461538461538,
+        "strict_interface_avg": 1.0,
+        "recovered_execution_avg": 1.0,
+        "real_world_readiness_avg": 0.9780730769230769,
+        "escalation_correctness_avg": 1.0,
+        "lane": "replayable_core",
+        "created_at": "20260412T023123Z",
+        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_inprocess_specialists_full_replayable_v4"
+      }
+    },
+    {
+      "recorded_at": "20260412T023135Z",
+      "manifest": {
+        "run_group_id": "20260412T023135Z_live_web_stress",
+        "created_at": "20260412T023135Z",
+        "lane": "live_web_stress",
+        "system_id": "hf_gemma4_e2b_specialists_cpu",
+        "backend": "oracle",
+        "reasoner_backend": "oracle",
+        "router_backend": "",
+        "retriever_backend": "",
+        "reasoner": "google/gemma-4-E2B-it",
+        "router": "google/functiongemma-270m-it",
+        "retriever": "google/embeddinggemma-300m",
+        "reasoner_device": "auto",
+        "router_device": null,
+        "retriever_device": null,
+        "reasoner_max_new_tokens": 96,
+        "request_timeout_seconds": null,
+        "thinking": false,
+        "limit": null,
+        "episode_count": 20,
+        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
+        "runtime_bundle": {
+          "reasoner": {
+            "backend": "oracle",
+            "requested_model": "google/gemma-4-E2B-it",
+            "effective_model": "google/gemma-4-E2B-it",
+            "runtime_device": null,
+            "load_mode": null,
+            "configured_device": "auto",
+            "request_timeout_seconds": 600.0,
+            "service": {}
+          },
+          "router": {
+            "backend": "oracle",
+            "requested_model": "google/functiongemma-270m-it",
+            "effective_model": "google/functiongemma-270m-it",
+            "runtime_device": null,
+            "configured_device": "auto"
+          },
+          "retriever": {
+            "backend": "heuristic",
+            "requested_model": "google/embeddinggemma-300m",
+            "effective_model": "google/embeddinggemma-300m",
+            "loaded": false,
+            "configured_device": "auto",
+            "runtime_device": null
+          }
+        },
+        "run_intent": "exploratory",
+        "warmup": {
+          "reasoner": {
+            "backend": "oracle",
+            "requested_model": "google/gemma-4-E2B-it",
+            "effective_model": "google/gemma-4-E2B-it",
+            "runtime_device": null,
+            "load_mode": null,
+            "configured_device": "auto",
+            "request_timeout_seconds": 600.0,
+            "service": {}
+          },
+          "router": {
+            "backend": "oracle",
+            "requested_model": "google/functiongemma-270m-it",
+            "effective_model": "google/functiongemma-270m-it",
+            "runtime_device": null,
+            "configured_device": "auto"
+          },
+          "retriever": {
+            "backend": "heuristic",
+            "requested_model": "google/embeddinggemma-300m",
+            "effective_model": "google/embeddinggemma-300m",
+            "loaded": false,
+            "configured_device": "auto",
+            "runtime_device": null
+          }
+        }
+      },
+      "summary": {
+        "runs": 20.0,
+        "artifact_quality_avg": 0.9696049999999999,
+        "browser_workflow_avg": 1.0,
+        "strict_interface_avg": 1.0,
+        "recovered_execution_avg": 1.0,
+        "real_world_readiness_avg": 0.9806250000000001,
+        "escalation_correctness_avg": 1.0,
+        "lane": "live_web_stress",
+        "created_at": "20260412T023135Z",
+        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_inprocess_specialists_full_live_v4"
+      }
+    },
+    {
+      "recorded_at": "20260412T184126Z",
+      "manifest": {
+        "run_group_id": "20260412T184126Z_replayable_core",
+        "created_at": "20260412T184126Z",
+        "lane": "replayable_core",
+        "system_id": "hf_gemma4_e2b_specialists_cpu",
+        "backend": "hf",
+        "reasoner_backend": "hf",
+        "router_backend": "hf",
+        "retriever_backend": "hf",
+        "reasoner": "google/gemma-4-E2B-it",
+        "router": "google/functiongemma-270m-it",
+        "retriever": "google/embeddinggemma-300m",
+        "reasoner_device": "auto",
+        "router_device": null,
+        "retriever_device": null,
+        "reasoner_max_new_tokens": 96,
+        "request_timeout_seconds": 600.0,
+        "thinking": false,
+        "limit": null,
+        "episode_count": 29,
+        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
+        "runtime_bundle": {
+          "reasoner": {
+            "backend": "hf",
+            "runtime_posture": "hf",
+            "requested_model": "google/gemma-4-E2B-it",
+            "effective_model": "google/gemma-4-E2B-it",
+            "model_source": "google/gemma-4-E2B-it",
+            "model_format": "hf",
+            "runtime_device": "mps",
+            "load_mode": "vision",
+            "configured_device": "auto",
+            "request_timeout_seconds": 600.0,
+            "service": {},
+            "partial_runtime": false,
+            "llama_cpp_error": null,
+            "llama_cpp_context_window": null
+          },
+          "router": {
+            "backend": "hf",
+            "requested_model": "google/functiongemma-270m-it",
+            "effective_model": "google/functiongemma-270m-it",
+            "runtime_device": "cpu",
+            "configured_device": "cpu"
+          },
+          "retriever": {
+            "backend": "hf",
+            "requested_model": "google/embeddinggemma-300m",
+            "effective_model": "google/embeddinggemma-300m",
+            "loaded": true,
+            "configured_device": "cpu",
+            "runtime_device": "cpu"
+          }
+        },
+        "run_intent": "exploratory",
+        "warmup": {
+          "reasoner": {
+            "backend": "hf",
+            "runtime_posture": "hf",
+            "requested_model": "google/gemma-4-E2B-it",
+            "effective_model": "google/gemma-4-E2B-it",
+            "model_source": "google/gemma-4-E2B-it",
+            "model_format": "hf",
+            "runtime_device": "mps",
+            "load_mode": "vision",
+            "configured_device": "auto",
+            "request_timeout_seconds": 600.0,
+            "service": {},
+            "partial_runtime": false,
+            "llama_cpp_error": null,
+            "llama_cpp_context_window": null
+          },
+          "router": {
+            "backend": "hf",
+            "requested_model": "google/functiongemma-270m-it",
+            "effective_model": "google/functiongemma-270m-it",
+            "runtime_device": "cpu",
+            "configured_device": "cpu"
+          },
+          "retriever": {
+            "backend": "hf",
+            "requested_model": "google/embeddinggemma-300m",
+            "effective_model": "google/embeddinggemma-300m",
+            "loaded": true,
+            "configured_device": "cpu",
+            "runtime_device": "cpu"
+          }
+        }
+      },
+      "summary": {
+        "runs": 29.0,
+        "artifact_quality_avg": 0.9689793103448276,
+        "browser_workflow_avg": 0.9821241379310345,
+        "strict_interface_avg": 0.9655172413793104,
+        "recovered_execution_avg": 0.9482758620689655,
+        "real_world_readiness_avg": 0.9598379310344828,
+        "escalation_correctness_avg": 1.0,
+        "lane": "replayable_core",
+        "created_at": "20260412T184126Z",
+        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260412T191500Z_knowledge_work_publishable_core/hf_gemma4_e2b_specialists_cpu__replayable_core"
+      }
+    },
+    {
+      "recorded_at": "20260412T185731Z",
+      "manifest": {
+        "run_group_id": "20260412T185731Z_replayable_core",
+        "created_at": "20260412T185731Z",
+        "lane": "replayable_core",
+        "system_id": "hf_gemma4_e2b_specialists_cpu",
+        "backend": "hf",
+        "reasoner_backend": "hf",
+        "router_backend": "hf",
+        "retriever_backend": "hf",
+        "reasoner": "google/gemma-4-E2B-it",
+        "router": "google/functiongemma-270m-it",
+        "retriever": "google/embeddinggemma-300m",
+        "reasoner_device": "auto",
+        "router_device": null,
+        "retriever_device": null,
+        "reasoner_max_new_tokens": 96,
+        "request_timeout_seconds": 600.0,
+        "thinking": false,
+        "limit": null,
+        "episode_count": 3,
+        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
+        "runtime_bundle": {
+          "reasoner": {
+            "backend": "hf",
+            "runtime_posture": "hf",
+            "requested_model": "google/gemma-4-E2B-it",
+            "effective_model": "google/gemma-4-E2B-it",
+            "model_source": "google/gemma-4-E2B-it",
+            "model_format": "hf",
+            "runtime_device": "mps",
+            "load_mode": "vision",
+            "configured_device": "auto",
+            "request_timeout_seconds": 600.0,
+            "service": {},
+            "partial_runtime": false,
+            "llama_cpp_error": null,
+            "llama_cpp_context_window": null
+          },
+          "router": {
+            "backend": "hf",
+            "requested_model": "google/functiongemma-270m-it",
+            "effective_model": "google/functiongemma-270m-it",
+            "runtime_device": "cpu",
+            "configured_device": "cpu"
+          },
+          "retriever": {
+            "backend": "hf",
+            "requested_model": "google/embeddinggemma-300m",
+            "effective_model": "google/embeddinggemma-300m",
+            "loaded": true,
+            "configured_device": "cpu",
+            "runtime_device": "cpu"
+          }
+        },
+        "run_intent": "exploratory",
+        "warmup": {
+          "reasoner": {
+            "backend": "hf",
+            "runtime_posture": "hf",
+            "requested_model": "google/gemma-4-E2B-it",
+            "effective_model": "google/gemma-4-E2B-it",
+            "model_source": "google/gemma-4-E2B-it",
+            "model_format": "hf",
+            "runtime_device": "mps",
+            "load_mode": "vision",
+            "configured_device": "auto",
+            "request_timeout_seconds": 600.0,
+            "service": {},
+            "partial_runtime": false,
+            "llama_cpp_error": null,
+            "llama_cpp_context_window": null
+          },
+          "router": {
+            "backend": "hf",
+            "requested_model": "google/functiongemma-270m-it",
+            "effective_model": "google/functiongemma-270m-it",
+            "runtime_device": "cpu",
+            "configured_device": "cpu"
+          },
+          "retriever": {
+            "backend": "hf",
+            "requested_model": "google/embeddinggemma-300m",
+            "effective_model": "google/embeddinggemma-300m",
+            "loaded": true,
+            "configured_device": "cpu",
+            "runtime_device": "cpu"
+          }
+        }
+      },
+      "summary": {
+        "runs": 3.0,
+        "artifact_quality_avg": 0.9213,
+        "browser_workflow_avg": 0.975,
+        "strict_interface_avg": 1.0,
+        "recovered_execution_avg": 1.0,
+        "real_world_readiness_avg": 0.9715666666666666,
+        "escalation_correctness_avg": 1.0,
+        "lane": "replayable_core",
+        "created_at": "20260412T185731Z",
+        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work/hf_gemma4_e2b_specialists_cpu_smoke_harnessability_replayable_v1"
+      }
+    },
+    {
+      "recorded_at": "20260412T190026Z",
+      "manifest": {
+        "run_group_id": "20260412T190026Z_replayable_core",
+        "created_at": "20260412T190026Z",
+        "lane": "replayable_core",
+        "system_id": "hf_gemma4_e2b_specialists_cpu",
+        "backend": "hf",
+        "reasoner_backend": "hf",
+        "router_backend": "hf",
+        "retriever_backend": "hf",
+        "reasoner": "google/gemma-4-E2B-it",
+        "router": "google/functiongemma-270m-it",
+        "retriever": "google/embeddinggemma-300m",
+        "reasoner_device": "auto",
+        "router_device": null,
+        "retriever_device": null,
+        "reasoner_max_new_tokens": 96,
+        "request_timeout_seconds": 600.0,
+        "thinking": false,
+        "limit": null,
+        "episode_count": 29,
+        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
+        "runtime_bundle": {
+          "reasoner": {
+            "backend": "hf",
+            "runtime_posture": "hf",
+            "requested_model": "google/gemma-4-E2B-it",
+            "effective_model": "google/gemma-4-E2B-it",
+            "model_source": "google/gemma-4-E2B-it",
+            "model_format": "hf",
+            "runtime_device": "mps",
+            "load_mode": "vision",
+            "configured_device": "auto",
+            "request_timeout_seconds": 600.0,
+            "service": {},
+            "partial_runtime": false,
+            "llama_cpp_error": null,
+            "llama_cpp_context_window": null
+          },
+          "router": {
+            "backend": "hf",
+            "requested_model": "google/functiongemma-270m-it",
+            "effective_model": "google/functiongemma-270m-it",
+            "runtime_device": "cpu",
+            "configured_device": "cpu"
+          },
+          "retriever": {
+            "backend": "hf",
+            "requested_model": "google/embeddinggemma-300m",
+            "effective_model": "google/embeddinggemma-300m",
+            "loaded": true,
+            "configured_device": "cpu",
+            "runtime_device": "cpu"
+          }
+        },
+        "run_intent": "exploratory",
+        "warmup": {
+          "reasoner": {
+            "backend": "hf",
+            "runtime_posture": "hf",
+            "requested_model": "google/gemma-4-E2B-it",
+            "effective_model": "google/gemma-4-E2B-it",
+            "model_source": "google/gemma-4-E2B-it",
+            "model_format": "hf",
+            "runtime_device": "mps",
+            "load_mode": "vision",
+            "configured_device": "auto",
+            "request_timeout_seconds": 600.0,
+            "service": {},
+            "partial_runtime": false,
+            "llama_cpp_error": null,
+            "llama_cpp_context_window": null
+          },
+          "router": {
+            "backend": "hf",
+            "requested_model": "google/functiongemma-270m-it",
+            "effective_model": "google/functiongemma-270m-it",
+            "runtime_device": "cpu",
+            "configured_device": "cpu"
+          },
+          "retriever": {
+            "backend": "hf",
+            "requested_model": "google/embeddinggemma-300m",
+            "effective_model": "google/embeddinggemma-300m",
+            "loaded": true,
+            "configured_device": "cpu",
+            "runtime_device": "cpu"
+          }
+        }
+      },
+      "summary": {
+        "runs": 29.0,
+        "artifact_quality_avg": 0.9689793103448276,
+        "browser_workflow_avg": 0.9821241379310345,
+        "strict_interface_avg": 1.0,
+        "recovered_execution_avg": 1.0,
+        "real_world_readiness_avg": 0.9774,
+        "escalation_correctness_avg": 1.0,
+        "lane": "replayable_core",
+        "created_at": "20260412T190026Z",
+        "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260412T190500Z_knowledge_work_full_lane_harnessability_core/hf_gemma4_e2b_specialists_cpu__replayable_core"
       }
     }
   ]

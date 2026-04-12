@@ -27,13 +27,14 @@ Why:
 - the board now also has a clean separate published external context layer for frontier-model benchmark references
 - the new operator-console and mobile-companion views exist, but they still need richer shared view models and stronger product-level polish
 - the next gap is comparison quality and workflow/product visibility, not raw data extraction
+- the new harnessability wave should be validated through the same `function_call`, CLI, and API tool families before the product surface claims get broader
 
 ### 3. Broaden system coverage on the same full-lane surface
 
 Focus:
 
 - keep the current publishable-default Gemma specialist row as the local headline baseline
-- compare more systems against the same `26 / 20` KWA surface:
+- compare more systems against the same widened `29 / 23` KWA surface:
   - oracle
   - reasoner-only local
   - specialist-backed local
@@ -41,20 +42,26 @@ Focus:
 
 Why:
 
-- the current direct in-process Gemma specialist row now matches the oracle row on the publishable-default full-lane board surface
-- that gives the repo a strong “we made Gemma better” claim
+- the refreshed replayable `29`-episode Gemma specialist row is now strict/recovered clean on the widened surface
+- that gives the repo a stronger “we made Gemma better” claim on the new harnessability-aware replayable lane
 - the first real non-Gemma comparator now exists:
-  - `mlx_qwen3_8b_reasoner_only` on the full `26 / 20` lane
+  - `mlx_qwen3_8b_reasoner_only` on the reproduced older `26 / 20` lane
 - that row already tells a useful story:
   - it beats the direct in-process Gemma reasoner-only control
-  - it still trails the Gemma specialist stack on recovery discipline in the visual jobs/invoice family
-- the next missing evidence is not “can we run Qwen at all”; it is whether we can close or explain those recovered-execution gaps and then widen to the next non-Gemma comparator
+  - it improved materially after the shared rescue/planner fixes
+  - it still trails the Gemma specialist stack on recovery discipline
+- the next missing evidence is no longer “can we run Qwen at all”; it is whether oracle and Qwen stay competitive once they are rerun on the widened `29 / 23` surface
+- the widened generated corpora now read `84 / 341 / 29 / 23`, and the replayable Gemma specialist row is reproduced there; live and comparator rows still need matching reruns
 - external GPT/Gemini rows are now useful context, but they are not substitutes for a same-harness reproduced comparator
 - the plumbing and first reproduced run are now done:
   - `hf_qwen3_8b_reasoner_only` exists as the direct-HF appendix path
   - `mlx_qwen3_8b_reasoner_only` exists as the Apple-Silicon-native benchmark row
   - the HF reasoner now forces deterministic decode and explicitly disables Qwen thinking-mode defaults in benchmarked text runs
-- the next concrete widening target should be chosen only after the current Qwen row is understood well enough to publish defensibly
+  - the Gemma 4 `31B` `GGUF` / `llama.cpp` posture is still only an experimental support path until a local model/runtime is installed and reproduced
+- the next concrete widening target is now explicit:
+  - rerun oracle on `29 / 23`
+  - rerun `mlx_qwen3_8b_reasoner_only` on `29 / 23`
+  - then decide whether Gemma 4 `31B` `GGUF` / `llama.cpp` or the next non-Gemma family is the higher-value posture comparison
 
 ### 4. Deepen softer-realism scoring and harder episode design
 
@@ -98,9 +105,11 @@ Focus:
 - strong current claim:
   - we improved Gemma 4 materially as a local full-stack agent on our own benchmark
 - stronger current same-surface comparative claim:
-  - the Gemma specialist stack now beats the first reproduced local Qwen3 8B MLX row on the same `26 / 20` board surface
+  - the Gemma specialist stack now beats the first reproduced local Qwen3 8B MLX row on the reproduced `26 / 20` board surface
 - non-claim until new evidence exists:
   - we have not yet shown Gemma beating broader Qwen families or frontier closed models on the same local full-lane surface
+- non-claim until the other rows are rerun:
+  - replayable `29` is reproduced for the Gemma specialist headline row, but oracle/Qwen/live rows do not yet constitute a fully refreshed apples-to-apples `29 / 23` comparison board
 - keep CLI/API/operator/mobile surfaces honest about current capability:
   - packaged workflows are benchmark-backed bounded flows, not unbounded general autonomy
 - use the runtime event contract consistently:

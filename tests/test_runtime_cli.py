@@ -90,4 +90,7 @@ def test_runtime_cli_watch_returns_session_and_events(monkeypatch: pytest.Monkey
     output = json.loads(capsys.readouterr().out)
     assert output["session"]["session_id"] == session.session_id
     assert output["pending_approval"]["session_id"] == session.session_id
-    assert [event["kind"] for event in output["events"]] == ["artifacts_ready", "approval_required"]
+    event_kinds = [event["kind"] for event in output["events"]]
+    assert "artifacts_ready" in event_kinds
+    assert "approval_required" in event_kinds
+    assert event_kinds[-2:] == ["artifacts_ready", "approval_required"]

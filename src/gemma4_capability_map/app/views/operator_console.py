@@ -20,6 +20,7 @@ def render_operator_console(runtime: LocalAgentRuntime) -> None:
     selected_profile_id = st.session_state.get("operator_selected_profile") or default_profile_id(snapshot)
     summary = snapshot["board_summary"]
     comparison_health = snapshot["comparison_health"]
+    community_signal_summary = snapshot.get("community_signal_summary", {})
     best_local = summary.get("highest_readiness_local_profile", {})
     fastest_local = summary.get("fastest_local_profile", {})
 
@@ -59,6 +60,18 @@ def render_operator_console(runtime: LocalAgentRuntime) -> None:
               <span class="console-chip-label">Coverage</span>
               <span class="console-chip-value">{(comparison_health.get('avg_coverage', 0.0) or 0.0) * 100:.1f}%</span>
             </div>
+            <div class="console-chip">
+              <span class="console-chip-label">Harnessability</span>
+              <span class="console-chip-value">{summary.get('harnessability_slice_count', 0)}</span>
+            </div>
+            <div class="console-chip">
+              <span class="console-chip-label">Direction</span>
+              <span class="console-chip-value">{summary.get('direction_following_slice_count', 0)}</span>
+            </div>
+            <div class="console-chip">
+              <span class="console-chip-label">Signals</span>
+              <span class="console-chip-value">{community_signal_summary.get('row_count', 0)}</span>
+            </div>
           </div>
         </div>
         """,
@@ -97,6 +110,7 @@ def render_operator_console(runtime: LocalAgentRuntime) -> None:
         st.markdown('<div class="console-shell">', unsafe_allow_html=True)
         _render_launch_panel(runtime, snapshot, selected_profile_id)
         _render_workflow_catalog(snapshot)
+        _render_community_signals(snapshot)
         _render_session_nav(snapshot)
         st.markdown("</div>", unsafe_allow_html=True)
 
@@ -199,6 +213,37 @@ def _render_workflow_catalog(snapshot: dict[str, object]) -> None:
                 <div class="console-chip"><span class="console-chip-label">Active</span><span class="console-chip-value">{workflow['active_sessions']}</span></div>
                 <div class="console-chip"><span class="console-chip-label">Review</span><span class="console-chip-value">{workflow['pending_approvals']}</span></div>
                 <div class="console-chip"><span class="console-chip-label">Artifacts</span><span class="console-chip-value">{workflow['latest_artifact_count']}</span></div>
+              </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+
+def _render_community_signals(snapshot: dict[str, object]) -> None:
+    st.markdown('<div class="console-section-title">Community Signals</div>', unsafe_allow_html=True)
+    community_signal_cards = snapshot.get("community_signal_cards", [])
+    if not community_signal_cards:
+        st.markdown(
+            """
+            <div class="console-card">
+              <div class="console-muted">No community signals are loaded yet.</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+        return
+    for signal in community_signal_cards[:4]:
+        st.markdown(
+            f"""
+            <div class="console-card">
+              <div class="console-row">
+                <div>
+                  <h4>{signal['claim']}</h4>
+                  <div class="console-muted">{signal['why_it_matters']}</div>
+                  <div class="console-muted">{signal['benchmark_slice'] or 'unassigned'} · {signal['source']} · {signal['source_date']}</div>
+                </div>
+                {pill_html(signal['status'].replace('_', ' '), signal['status'])}
               </div>
             </div>
             """,

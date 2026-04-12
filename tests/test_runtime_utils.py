@@ -5,6 +5,7 @@ import subprocess
 
 from gemma4_capability_map.models.runtime_utils import (
     is_offline_mode_enabled,
+    probe_llama_cpp_runtime,
     probe_mlx_runtime,
     recommended_local_reasoner_backend,
     recommended_reasoner_backend_from_probe,
@@ -43,6 +44,13 @@ def test_resolve_model_source_uses_qwen_mlx_env_override(tmp_path, monkeypatch) 
     local_model.mkdir()
     monkeypatch.setenv("QWEN3_8B_MLX_PATH", str(local_model))
     assert resolve_model_source("Qwen/Qwen3-8B-MLX-4bit") == str(local_model.resolve())
+
+
+def test_resolve_model_source_uses_gemma31b_gguf_env_override(tmp_path, monkeypatch) -> None:
+    local_model = tmp_path / "gemma-4-31b-it.gguf"
+    local_model.write_text("fake-gguf", encoding="utf-8")
+    monkeypatch.setenv("GEMMA4_31B_GGUF_PATH", str(local_model))
+    assert resolve_model_source("google/gemma-4-31b-it") == str(local_model.resolve())
 
 
 def test_resolve_model_source_uses_local_root(tmp_path, monkeypatch) -> None:
@@ -84,6 +92,22 @@ def test_probe_mlx_runtime_parses_success_payload(monkeypatch) -> None:
     monkeypatch.setattr("gemma4_capability_map.models.runtime_utils.subprocess.Popen", FakePopen)
     probe = probe_mlx_runtime()
     assert probe["ok"] is True
+    assert probe["returncode"] == 0
+
+
+def test_probe_llama_cpp_runtime_parses_success_payload(monkeypatch) -> None:
+    class FakePopen:
+        def __init__(self, *args, **kwargs) -> None:  # noqa: ANN002, ANN003
+            self.returncode = 0
+            self.pid = 5678
+
+        def communicate(self, timeout=None):  # noqa: ANN001
+            return ('{"ok": true, "runtime": "llama_cpp"}\n', "")
+
+    monkeypatch.setattr("gemma4_capability_map.models.runtime_utils.subprocess.Popen", FakePopen)
+    probe = probe_llama_cpp_runtime()
+    assert probe["ok"] is True
+    assert probe["runtime"] == "llama_cpp"
     assert probe["returncode"] == 0
 
 

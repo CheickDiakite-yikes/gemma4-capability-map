@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from typing import Protocol
+from typing import Any, Protocol
 
 from gemma4_capability_map.schemas import Message, ModelTurn, RetrievalHit, ToolCall, ToolSpec
 
@@ -10,6 +10,10 @@ class Runner(ABC):
     def __init__(self, model_id: str, backend: str = "heuristic") -> None:
         self.model_id = model_id
         self.backend = backend
+
+    @abstractmethod
+    def runtime_info(self) -> dict[str, Any]:
+        raise NotImplementedError
 
     @abstractmethod
     def generate(

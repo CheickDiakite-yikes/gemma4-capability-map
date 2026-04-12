@@ -1,0 +1,31 @@
+community_signals:
+  - signal_id: gemma4_harnessed_31b_needs_little_finetuning
+    source: x
+    author: "@1a1n1d1y"
+    captured_date: "2026-04-11"
+    claim: "A properly harnessed 31B Gemma 4 needs very little fine-tuning and improves quickly under strong harnessing."
+    why_it_matters: "Reinforces Moonie's core hypothesis that local agent capability is heavily shaped by harness and runtime quality, not only by fine-tuning."
+    moonie_hypothesis: "Gemma 4 31B under a stronger local runtime posture and controller should materially outperform bare chat-style local shells on Moonie's harnessability and direction-following slices."
+    benchmark_slice: harnessability
+    planned_experiment: "Add Gemma 4 31B GGUF / llama.cpp as a real runtime-posture row on the Moonie full-lane surface."
+    status: planned
+  - signal_id: gemma4_chat_good_agent_shell_weak
+    source: x
+    author: "@svpino"
+    captured_date: "2026-04-12"
+    claim: "Gemma 4 is decent in a local chatbot shell but unusable in a generic agent shell with projects, memory, and skills."
+    why_it_matters: "Points to the chatbot-to-agent gap that Moonie needs to measure directly."
+    moonie_hypothesis: "The biggest local-Gemma gap is not raw chat quality; it is harnessability under projects, memory, approvals, and resumable work."
+    benchmark_slice: harnessability
+    planned_experiment: "Add project-memory, approval-resume, and artifact-revision episodes and product demos that share the same runtime semantics."
+    status: planned
+  - signal_id: gemma4_tool_use_direction_following_is_the_real_bottleneck
+    source: x
+    author: community
+    captured_date: "2026-04-12"
+    claim: "Strong local Gemma use depends on getting direction following and tool use right across real local runtimes."
+    why_it_matters: "Matches Moonie's observed failure concentration in stale referents, wrong tool choice, repair drift, and approval-safe behavior."
+    moonie_hypothesis: "Direction-following and tool-family selection errors are leading causes of local-agent failures before raw reasoning fails."
+    benchmark_slice: direction_following
+    planned_experiment: "Add first-class direction-following slices and tool-family metrics across function-call, CLI, and API tasks."
+    status: running

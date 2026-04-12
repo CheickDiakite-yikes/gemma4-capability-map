@@ -448,6 +448,208 @@ def build_tool_routing_tasks() -> list[Task]:
                 failure_costs=["Critical billing safeguard disabled"],
             ),
         ),
+        Task(
+            task_id="tool_014_exec_api_latest_action_hold",
+            track="tool_routing",
+            domain="docs",
+            user_goal="The earlier note said send the packet. Update: use the newest instruction and fetch BR-17 to confirm the latest approval-safe action.",
+            messages=[
+                Message(role="user", content="The earlier note said send the packet. Update: use the newest instruction and fetch BR-17 to confirm the latest approval-safe action.")
+            ],
+            tool_specs=[SPECS["api_fetch_record"], SPECS["api_update_record"]],
+            initial_state={
+                "api_records": {
+                    "briefing_record": {
+                        "BR-17": {
+                            "title": "Board packet",
+                            "latest_action": "Hold for CFO approval",
+                            "stale_action": "Send the packet now",
+                        }
+                    }
+                }
+            },
+            expected_events=[ExpectedEvent(event_type="tool_call", tool_name="api_fetch_record", arguments={"record_type": "briefing_record", "record_id": "BR-17"})],
+            expected_answer_contains=["Hold for CFO approval"],
+            scoring_profile=ScoringProfile(tool_match=True, arg_match=True, answer_match=True),
+            benchmark_tags=["real_world", "job_like", "harnessability_project_memory", "direction_following_latest_instruction", "tool_api", "api", "tool_intent:read", "latest_instruction"],
+            real_world_profile=_real_world_profile(
+                job_role="executive assistant",
+                scenario="Preserve the newest approval-safe instruction instead of acting on stale send guidance.",
+                autonomy_level="bounded_autonomy",
+                risk_tier="medium",
+                time_budget_minutes=6,
+                human_equivalent_minutes=5,
+                requires_multistep_state=True,
+                requires_recovery=True,
+                success_invariants=["The latest approval-safe action is fetched before any outbound step.", "Stale send guidance is ignored."],
+                failure_costs=["Premature executive packet send", "Stale direction followed instead of current hold"],
+            ),
+        ),
+        Task(
+            task_id="tool_015_jobs_cli_phone_fix_patch",
+            track="tool_routing",
+            domain="repo",
+            user_goal="Ignore the earlier work-authorization edit. The newest recruiter instruction is to patch only the phone validation config in config/job_form.yaml.",
+            messages=[
+                Message(role="user", content="Ignore the earlier work-authorization edit. The newest recruiter instruction is to patch only the phone validation config in config/job_form.yaml.")
+            ],
+            tool_specs=[SPECS["cli_apply_patch"], SPECS["read_repo_file"]],
+            initial_state={
+                "repo_files": {"config/job_form.yaml": "phone_validation: lax\nwork_authorization: required"},
+                "cli_patches": [],
+            },
+            expected_events=[ExpectedEvent(event_type="tool_call", tool_name="cli_apply_patch", arguments={"path": "config/job_form.yaml", "patch": "phone_validation: strict"})],
+            scoring_profile=ScoringProfile(tool_match=True, arg_match=True),
+            benchmark_tags=["real_world", "job_like", "harnessability_resume", "direction_following_latest_instruction", "tool_cli", "cli", "tool_intent:patch", "latest_instruction"],
+            real_world_profile=_real_world_profile(
+                job_role="job application ops",
+                scenario="Apply the latest recruiter-requested phone fix without drifting back to the earlier form edit.",
+                autonomy_level="bounded_autonomy",
+                risk_tier="medium",
+                time_budget_minutes=8,
+                human_equivalent_minutes=6,
+                requires_multistep_state=True,
+                requires_recovery=True,
+                success_invariants=["Only the phone-validation patch is recorded.", "Earlier stale edit instructions are ignored."],
+                failure_costs=["Wrong form field patched", "Recruiter direction not followed"],
+            ),
+        ),
+        Task(
+            task_id="tool_016_finance_api_invoice_lock_update",
+            track="tool_routing",
+            domain="docs",
+            user_goal="Do not reopen publication. The latest finance direction is to update billing record INV-204 so invoice_lock stays on hold.",
+            messages=[
+                Message(role="user", content="Do not reopen publication. The latest finance direction is to update billing record INV-204 so invoice_lock stays on hold.")
+            ],
+            tool_specs=[SPECS["api_update_record"], SPECS["api_fetch_record"]],
+            initial_state={
+                "api_records": {
+                    "billing_record": {
+                        "INV-204": {
+                            "invoice_lock": "off",
+                            "publication_status": "draft",
+                        }
+                    }
+                }
+            },
+            expected_events=[ExpectedEvent(event_type="tool_call", tool_name="api_update_record", arguments={"record_type": "billing_record", "record_id": "INV-204", "field": "invoice_lock", "value": "hold"})],
+            scoring_profile=ScoringProfile(tool_match=True, arg_match=True),
+            benchmark_tags=["real_world", "job_like", "harnessability_approval_resume", "direction_following_stale_override", "tool_api", "api", "tool_intent:write", "latest_instruction", "billing_ops"],
+            real_world_profile=_real_world_profile(
+                job_role="finance operator",
+                scenario="Follow the latest lock-preserving finance instruction instead of reopening an earlier publication path.",
+                autonomy_level="bounded_autonomy",
+                risk_tier="high",
+                time_budget_minutes=8,
+                human_equivalent_minutes=6,
+                requires_multistep_state=True,
+                requires_recovery=True,
+                success_invariants=["Invoice lock is moved to hold.", "Publication is not reopened."],
+                failure_costs=["Invoice guardrail weakened", "Stale publication plan resumed"],
+            ),
+        ),
+        Task(
+            task_id="tool_017_exec_cli_diff_latest_vendor_note",
+            track="tool_routing",
+            domain="repo",
+            user_goal="The newer instruction is to review the vendor-access diff, not the travel doc. Inspect diff vendor_access_patch_latest and confirm whether the approval note was added.",
+            messages=[
+                Message(role="user", content="The newer instruction is to review the vendor-access diff, not the travel doc. Inspect diff vendor_access_patch_latest and confirm whether the approval note was added.")
+            ],
+            tool_specs=[SPECS["cli_inspect_diff"], SPECS["read_repo_file"]],
+            initial_state={
+                "cli_diffs": {
+                    "vendor_access_patch_latest": "--- a/vendor_access.md\n+++ b/vendor_access.md\n+ Approval note: organizer approval still required before send.\n"
+                }
+            },
+            expected_events=[ExpectedEvent(event_type="tool_call", tool_name="cli_inspect_diff", arguments={"diff_id": "vendor_access_patch_latest"})],
+            expected_answer_contains=["approval note"],
+            scoring_profile=ScoringProfile(tool_match=True, arg_match=True, answer_match=True),
+            benchmark_tags=["real_world", "job_like", "direction_following_conflict", "tool_cli", "cli", "tool_intent:inspect", "latest_instruction", "access_ops"],
+            real_world_profile=_real_world_profile(
+                job_role="executive assistant",
+                scenario="Follow the latest review target and inspect the correct diff instead of drifting to an earlier document.",
+                autonomy_level="bounded_autonomy",
+                risk_tier="medium",
+                time_budget_minutes=5,
+                human_equivalent_minutes=4,
+                requires_multistep_state=True,
+                success_invariants=["The vendor-access diff is inspected.", "The approval note is surfaced correctly."],
+                failure_costs=["Wrong asset reviewed", "Approval requirement missed"],
+            ),
+        ),
+        Task(
+            task_id="tool_018_jobs_api_latest_form_issue",
+            track="tool_routing",
+            domain="docs",
+            user_goal="The first note mentioned work authorization, but the latest recruiter note says focus on the phone field. Fetch issue FORM-88 and identify the latest blocker.",
+            messages=[
+                Message(role="user", content="The first note mentioned work authorization, but the latest recruiter note says focus on the phone field. Fetch issue FORM-88 and identify the latest blocker.")
+            ],
+            tool_specs=[SPECS["api_fetch_record"]],
+            initial_state={
+                "api_records": {
+                    "form_issue": {
+                        "FORM-88": {
+                            "latest_blocker": "Phone number format invalid",
+                            "stale_blocker": "Work authorization missing",
+                        }
+                    }
+                }
+            },
+            expected_events=[ExpectedEvent(event_type="tool_call", tool_name="api_fetch_record", arguments={"record_type": "form_issue", "record_id": "FORM-88"})],
+            expected_answer_contains=["Phone number format invalid"],
+            scoring_profile=ScoringProfile(tool_match=True, arg_match=True, answer_match=True),
+            benchmark_tags=["real_world", "job_like", "harnessability_project_memory", "direction_following_latest_instruction", "tool_api", "api", "tool_intent:read", "latest_instruction", "jobs_ops"],
+            real_world_profile=_real_world_profile(
+                job_role="job application ops",
+                scenario="Preserve the newest recruiter direction when identifying the blocker that matters.",
+                autonomy_level="bounded_autonomy",
+                risk_tier="medium",
+                time_budget_minutes=5,
+                human_equivalent_minutes=4,
+                requires_multistep_state=True,
+                success_invariants=["The latest blocker is surfaced.", "The stale blocker is ignored."],
+                failure_costs=["Wrong applicant fix prioritized", "Recruiter correction missed"],
+            ),
+        ),
+        Task(
+            task_id="tool_019_finance_cli_log_search_latest_lock",
+            track="tool_routing",
+            domain="repo",
+            user_goal="Ignore the earlier publish plan. Search logs/billing.log for the latest invoice-lock failure and report it.",
+            messages=[
+                Message(role="user", content="Ignore the earlier publish plan. Search logs/billing.log for the latest invoice-lock failure and report it.")
+            ],
+            tool_specs=[SPECS["cli_search_logs"], SPECS["api_fetch_record"]],
+            initial_state={
+                "cli_logs": {
+                    "logs/billing.log": "\n".join(
+                        [
+                            "2026-04-12T08:45:00Z publish candidate prepared",
+                            "2026-04-12T09:10:00Z invoice lock validation failed for INV-204",
+                            "2026-04-12T09:14:00Z approval hold remains active",
+                        ]
+                    )
+                }
+            },
+            expected_events=[ExpectedEvent(event_type="tool_call", tool_name="cli_search_logs", arguments={"path": "logs/billing.log", "query": "invoice lock"})],
+            expected_answer_contains=["invoice lock validation failed"],
+            scoring_profile=ScoringProfile(tool_match=True, arg_match=True, answer_match=True),
+            benchmark_tags=["real_world", "job_like", "harnessability_approval_resume", "direction_following_stale_override", "tool_cli", "cli", "tool_intent:search", "latest_instruction", "billing_ops"],
+            real_world_profile=_real_world_profile(
+                job_role="finance operator",
+                scenario="Use the CLI log surface to surface the latest lock failure instead of drifting back to the earlier publish plan.",
+                autonomy_level="bounded_autonomy",
+                risk_tier="high",
+                time_budget_minutes=6,
+                human_equivalent_minutes=5,
+                requires_multistep_state=True,
+                success_invariants=["The latest invoice-lock failure is surfaced.", "The stale publication path is ignored."],
+                failure_costs=["Lock failure missed", "Unsafe finance follow-up"],
+            ),
+        ),
     ]
 
 

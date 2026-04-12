@@ -13,6 +13,13 @@ models:
     params_b: 27.0
     component_kind: reasoner
     modality: multimodal
+  google/gemma-4-31b-it:
+    display_name: Gemma 4 31B IT
+    provider: google
+    family: gemma4
+    params_b: 31.0
+    component_kind: reasoner
+    modality: text
   mlx-community/gemma-4-e2b-it-4bit:
     display_name: Gemma 4 E2B MLX 4-bit
     provider: mlx-community
@@ -214,6 +221,34 @@ systems:
     input_cost_per_mtok: 0.0
     output_cost_per_mtok: 0.0
     color: "#A855F7"
+  llama_cpp_gemma4_31b_reasoner_only:
+    display_name: Gemma 4 31B GGUF (llama.cpp)
+    short_label: Gemma 4 31B GGUF
+    provider: llama.cpp
+    backend: llama_cpp
+    deployment: local_reasoner_llama_cpp
+    capability_family: reasoner_only
+    comparison_tier: experimental
+    publishable_default: false
+    executor_mode: local_reasoner
+    modality: text
+    local: true
+    reasoner: google/gemma-4-31b-it
+    router: ""
+    retriever: ""
+    reasoner_params_b: 31.0
+    total_params_b: 31.0
+    reasoner_max_new_tokens: 96
+    request_timeout_seconds: 600.0
+    run_timeout_seconds: 0.0
+    runtime_posture: gguf
+    model_format: gguf
+    quantization: Q5_K_M
+    context_window: 8192
+    local_model_env: GEMMA4_31B_GGUF_PATH
+    input_cost_per_mtok: 0.0
+    output_cost_per_mtok: 0.0
+    color: "#0EA5E9"
   mlx_gemma4_e2b_reasoner_only:
     display_name: Gemma 4 E2B (MLX 4-bit)
     short_label: Gemma 4 MLX 4-bit

@@ -13,9 +13,11 @@ workflows:
       - docs
       - revision
       - executive
+      - harnessability_resume
+      - direction_following_latest_instruction
     lane_episode_map:
-      replayable_core: kwa_exec_stale_brief_hold
-      live_web_stress: kwa_exec_live_stale_brief_hold
+      replayable_core: kwa_exec_latest_action_resume_hold_v4
+      live_web_stress: kwa_exec_live_latest_action_resume_hold_v4
 
   executive_visual_dashboard_review:
     title: Dashboard Visual Review
@@ -50,9 +52,11 @@ workflows:
       - jobs
       - approval
       - visual
+      - harnessability_resume
+      - direction_following_latest_instruction
     lane_episode_map:
-      replayable_core: kwa_jobs_visual_form_hold
-      live_web_stress: kwa_jobs_live_visual_form_hold
+      replayable_core: kwa_jobs_phone_patch_resume_hold_v4
+      live_web_stress: kwa_jobs_live_phone_patch_resume_hold_v4
 
   finance_billing_patch_hold:
     title: Billing Patch Packet
@@ -86,6 +90,8 @@ workflows:
       - finance
       - visual
       - approval
+      - harnessability_approval_resume
+      - direction_following_stale_override
     lane_episode_map:
-      replayable_core: kwa_finance_visual_invoice_hold
-      live_web_stress: kwa_finance_live_visual_invoice_hold
+      replayable_core: kwa_finance_invoice_lock_direction_hold_v4
+      live_web_stress: kwa_finance_live_invoice_lock_direction_hold_v4

@@ -1,0 +1,14 @@
+{
+  "events": [
+    {
+      "title": "Board meeting",
+      "state": "scheduled",
+      "send_gate": "approval_required"
+    },
+    {
+      "title": "Vendor sync",
+      "state": "ambiguous",
+      "send_gate": "clarify_first"
+    }
+  ]
+}

@@ -541,6 +541,44 @@ def test_planner_uses_slide_callout_target_for_policy_revision_tasks() -> None:
     assert calls[0].arguments == {"image_id": "img-slide-policy", "target_query": "slide callout"}
 
 
+def test_planner_repairs_latest_approval_safe_action_followup_to_read_region_text() -> None:
+    messages = [
+        Message(role="system", content="visual_image_ids: img-slide-policy"),
+        Message(
+            role="user",
+            content="Inspect the slide callouts, ignore the earlier publication note, keep only the latest approval-safe action callout, and read it back.",
+        ),
+        Message(
+            role="tool",
+            content='{"tool_name":"extract_layout","status":"pass","arguments":{"image_id":"img-slide-policy","target_query":"slide callout"},"output":{"selection_id":"sel-001","image_id":"img-slide-policy","selection_kind":"regions","count":3,"region_ids":["slide-action-101","slide-action-102","slide-risk-101"],"region_id":"slide-action-101"}}',
+        ),
+        Message(
+            role="tool",
+            content='{"tool_name":"refine_selection","status":"pass","arguments":{"selection_id":"sel-001","filter_query":"latest action"},"output":{"selection_id":"sel-002","image_id":"img-slide-policy","selection_kind":"regions","count":1,"region_ids":["slide-action-102"],"region_id":"slide-action-102"}}',
+        ),
+    ]
+
+    repaired, notes = plan_or_repair_tool_calls(
+        raw_output='{"name":"refine_selection","arguments":{"selection_id":"sel-002","filter_query":"action"}}',
+        parsed_calls=[
+            ToolCall(
+                name="refine_selection",
+                arguments={"selection_id": "sel-002", "filter_query": "action"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+        messages=messages,
+        media=["img-slide-policy"],
+        tool_specs=[SPECS["extract_layout"], SPECS["refine_selection"], SPECS["read_region_text"]],
+    )
+
+    assert len(repaired) == 1
+    assert repaired[0].name == "read_region_text"
+    assert repaired[0].arguments == {"image_id": "img-slide-policy", "region_id": "slide-action-102"}
+    assert "controller_fallback_planner" in notes
+
+
 def test_planner_repairs_wrong_visual_target_query_for_form_tasks() -> None:
     messages = [
         Message(role="system", content="visual_image_ids: img-form-phone"),
@@ -761,3 +799,83 @@ def test_planner_stops_after_visual_answer_region_is_read() -> None:
     assert planned == []
     assert repaired == []
     assert notes == ["visual_complete"]
+
+
+def test_planner_prefers_cli_patch_for_latest_phone_fix() -> None:
+    messages = [
+        Message(
+            role="user",
+            content="Ignore the earlier work-authorization edit. The newest recruiter instruction is to patch only the phone validation config in config/job_form.yaml.",
+        )
+    ]
+
+    planned = plan_tool_calls(
+        messages=messages,
+        media=[],
+        tool_specs=[SPECS["cli_apply_patch"], SPECS["read_repo_file"]],
+    )
+
+    assert len(planned) == 1
+    assert planned[0].name == "cli_apply_patch"
+    assert planned[0].arguments == {"path": "config/job_form.yaml", "patch": "phone_validation: strict"}
+
+
+def test_planner_repairs_empty_api_fetch_record_arguments() -> None:
+    messages = [
+        Message(
+            role="user",
+            content="The earlier note said send the packet. Update: use the newest instruction and fetch BR-17 to confirm the latest approval-safe action.",
+        )
+    ]
+
+    repaired, notes = plan_or_repair_tool_calls(
+        raw_output='{"name":"api_fetch_record","arguments":{}}',
+        parsed_calls=[
+            ToolCall(
+                name="api_fetch_record",
+                arguments={},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+        messages=messages,
+        media=[],
+        tool_specs=[SPECS["api_fetch_record"], SPECS["api_update_record"]],
+    )
+
+    assert repaired[0].name == "api_fetch_record"
+    assert repaired[0].arguments == {"record_type": "briefing_record", "record_id": "BR-17"}
+    assert "repaired_arguments:api_fetch_record" in notes
+
+
+def test_planner_repairs_empty_api_update_record_arguments() -> None:
+    messages = [
+        Message(
+            role="user",
+            content="Do not reopen publication. The latest finance direction is to update billing record INV-204 so invoice_lock stays on hold.",
+        )
+    ]
+
+    repaired, notes = plan_or_repair_tool_calls(
+        raw_output='{"name":"api_update_record","arguments":{}}',
+        parsed_calls=[
+            ToolCall(
+                name="api_update_record",
+                arguments={},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+        messages=messages,
+        media=[],
+        tool_specs=[SPECS["api_update_record"], SPECS["api_fetch_record"]],
+    )
+
+    assert repaired[0].name == "api_update_record"
+    assert repaired[0].arguments == {
+        "record_type": "billing_record",
+        "record_id": "INV-204",
+        "field": "invoice_lock",
+        "value": "hold",
+    }
+    assert "repaired_arguments:api_update_record" in notes

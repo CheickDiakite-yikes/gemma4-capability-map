@@ -76,8 +76,8 @@ def _load_tasks() -> list[Task]:
 def test_episode_specs_validate_and_cover_both_lanes() -> None:
     replayable = build_replayable_episodes()
     live = build_live_web_episodes()
-    assert len(replayable) == 26
-    assert len(live) == 20
+    assert len(replayable) == 29
+    assert len(live) == 23
     assert {episode.role_family.value for episode in replayable} == {
         "executive_assistant",
         "job_application_ops",
@@ -318,6 +318,29 @@ def test_visual_kwa_v2_realism_episodes_exist_in_both_lanes() -> None:
     assert "kwa_jobs_live_visual_constraint_override_hold_v2" in live
     assert "kwa_jobs_live_visual_latest_issue_hold_v3" in live
     assert "kwa_finance_live_visual_invoice_revision_hold_v2" in live
+
+
+def test_harnessability_resume_episodes_exist_in_both_lanes() -> None:
+    replayable = {episode.episode_id: episode for episode in build_replayable_episodes()}
+    live = {episode.episode_id: episode for episode in build_live_web_episodes()}
+
+    assert "kwa_exec_latest_action_resume_hold_v4" in replayable
+    assert "kwa_jobs_phone_patch_resume_hold_v4" in replayable
+    assert "kwa_finance_invoice_lock_direction_hold_v4" in replayable
+    assert "kwa_exec_live_latest_action_resume_hold_v4" in live
+    assert "kwa_jobs_live_phone_patch_resume_hold_v4" in live
+    assert "kwa_finance_live_invoice_lock_direction_hold_v4" in live
+
+    expected_tags = {
+        "harnessability_resume",
+        "harnessability_project_memory",
+        "direction_following_latest_instruction",
+    }
+    assert expected_tags.issubset(set(replayable["kwa_exec_latest_action_resume_hold_v4"].benchmark_tags))
+    assert "tool_api" in replayable["kwa_exec_latest_action_resume_hold_v4"].benchmark_tags
+    assert "tool_cli" in replayable["kwa_jobs_phone_patch_resume_hold_v4"].benchmark_tags
+    assert "harnessability_approval_resume" in replayable["kwa_finance_invoice_lock_direction_hold_v4"].benchmark_tags
+    assert "direction_following_stale_override" in replayable["kwa_finance_invoice_lock_direction_hold_v4"].benchmark_tags
 
     assert replayable["kwa_exec_visual_dashboard_revision_hold_v2"].review_rounds
     assert replayable["kwa_exec_visual_dashboard_referent_hold_v3"].review_rounds

@@ -1,0 +1,1 @@
+Keep the latest approval-safe action explicit, preserve the customer-ops backlog focus, and show the revision delta after resume.

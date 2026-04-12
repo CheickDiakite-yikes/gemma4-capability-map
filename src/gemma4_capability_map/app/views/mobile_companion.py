@@ -20,6 +20,7 @@ def render_mobile_companion(runtime: LocalAgentRuntime) -> None:
     selected_session_id = st.session_state.get("mobile_selected_session") or default_session_id(snapshot)
     summary = snapshot["board_summary"]
     comparison_health = snapshot["comparison_health"]
+    community_signal_summary = snapshot.get("community_signal_summary", {})
     top_local = summary.get("highest_readiness_local_profile", {})
     comparison_batches = summary.get("comparison_batches", [])
 
@@ -34,6 +35,9 @@ def render_mobile_companion(runtime: LocalAgentRuntime) -> None:
             <span class="mobile-chip">Top local {(top_local.get('avg_readiness', 0.0) or 0.0) * 100:.1f}%</span>
             <span class="mobile-chip">Comparison batches {len(comparison_batches)}</span>
             <span class="mobile-chip">Coverage {(comparison_health.get('avg_coverage', 0.0) or 0.0) * 100:.1f}%</span>
+            <span class="mobile-chip">Harnessability {summary.get('harnessability_slice_count', 0)}</span>
+            <span class="mobile-chip">Direction {summary.get('direction_following_slice_count', 0)}</span>
+            <span class="mobile-chip">Signals {community_signal_summary.get('row_count', 0)}</span>
           </div>
         </div>
         """,
@@ -105,6 +109,36 @@ def render_mobile_companion(runtime: LocalAgentRuntime) -> None:
             )
             st.session_state["mobile_selected_session"] = session.session_id
             st.rerun()
+
+    st.markdown('<div class="console-section-title mobile-heading">Community Signals</div>', unsafe_allow_html=True)
+    community_signal_cards = snapshot.get("community_signal_cards", [])
+    if community_signal_cards:
+        for signal in community_signal_cards[:4]:
+            st.markdown(
+                f"""
+                <div class="console-card light mobile-card">
+                  <div class="console-row">
+                    <div>
+                      <h4>{signal['claim']}</h4>
+                      <div class="console-muted">{signal['why_it_matters']}</div>
+                      <div class="console-muted">{signal['benchmark_slice'] or 'unassigned'} · {signal['source']}</div>
+                    </div>
+                    {pill_html(signal['status'].replace('_', ' '), signal['status'])}
+                  </div>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+    else:
+        st.markdown(
+            """
+            <div class="console-card light mobile-card">
+              <h4>No community signals loaded</h4>
+              <div class="console-muted">Community signals will appear here once the registry is exported or configured.</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
     st.markdown('<div class="console-section-title mobile-heading">Needs Review</div>', unsafe_allow_html=True)
     approvals = snapshot["approvals"]

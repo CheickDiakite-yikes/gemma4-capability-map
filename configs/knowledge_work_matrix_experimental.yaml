@@ -11,6 +11,7 @@ matrix:
     - hf_gemma4_e4b_reasoner_only
     - hf_qwen3_8b_reasoner_only
     - mlx_qwen3_8b_reasoner_only
+    - llama_cpp_gemma4_31b_reasoner_only
   lanes:
     - replayable_core
     - live_web_stress

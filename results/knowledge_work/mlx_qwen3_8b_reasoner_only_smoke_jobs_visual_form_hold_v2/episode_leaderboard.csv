@@ -1,0 +1,2 @@
+run_id,episode_id,role_family,lane,workspace_id,benchmark_tags,artifact_quality_score,browser_workflow_score,strict_interface_score,recovered_execution_score,revision_responsiveness,memory_retention_score,escalation_correctness,collateral_damage_free,human_time_ratio,role_readiness_score
+20260412T022506448936Z_episode_kwa_jobs_visual_form_hold,kwa_jobs_visual_form_hold,job_application_ops,replayable_core,jobs-visual-form-hold,"knowledge_work_arena,replayable_core,job_application_ops,visual_ui_ops,visual_kwa",1.0,0.9773,1.0,1.0,0.8125,1.0,1.0,1.0,0.16,0.9801

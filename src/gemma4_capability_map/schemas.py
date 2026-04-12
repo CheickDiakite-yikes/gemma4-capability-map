@@ -47,6 +47,8 @@ class ToolSpec(StrictModel):
     name: str
     description: str
     json_schema: dict[str, Any] = Field(alias="schema", serialization_alias="schema")
+    tool_family: Literal["function_call", "cli", "api", "mcp_app", "skill"] = "function_call"
+    tool_intent: Literal["inspect", "read", "write", "patch", "search", "execute", "approve", "revise"] = "execute"
 
 
 class Document(StrictModel):
@@ -169,6 +171,8 @@ class RetrievalHit(StrictModel):
 class ToolResult(StrictModel):
     step: int
     selected_tool: str
+    tool_family: str = ""
+    tool_intent: str = ""
     arguments: dict[str, Any] = Field(default_factory=dict)
     validator_result: Literal["pass", "fail"] = "pass"
     output: dict[str, Any] = Field(default_factory=dict)
@@ -218,4 +222,4 @@ class RunTrace(StrictModel):
     image_refs: list[str] = Field(default_factory=list)
     benchmark_tags: list[str] = Field(default_factory=list)
     real_world_profile: RealWorldProfile | None = None
-    metrics: dict[str, float | int | bool] = Field(default_factory=dict)
+    metrics: dict[str, float | int | bool | str] = Field(default_factory=dict)

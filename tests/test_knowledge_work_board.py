@@ -7,6 +7,8 @@ from pathlib import Path
 from gemma4_capability_map.reporting.knowledge_work_board import (
     build_board_rows,
     build_comparison_batch_rows,
+    build_community_signal_rows,
+    build_community_signal_summary,
     build_external_benchmark_rows,
     build_external_benchmark_summary,
     build_intent_comparison_rows,
@@ -60,6 +62,33 @@ def _write_snapshot(
         writer.writeheader()
         for row in leaderboard_rows:
             writer.writerow(row)
+
+
+def _write_community_signals(path: Path, records: list[dict[str, object]]) -> None:
+    path.write_text(
+        "\n".join(
+            [
+                "community_signals:",
+                *[
+                    "\n".join(
+                        [
+                            "  - claim: " + str(record.get("claim", "")),
+                            "    source: " + str(record.get("source", "")),
+                            "    source_date: " + str(record.get("source_date", "")),
+                            "    source_url: " + str(record.get("source_url", "")),
+                            "    why_it_matters: " + str(record.get("why_it_matters", "")),
+                            "    moonie_hypothesis: " + str(record.get("moonie_hypothesis", "")),
+                            "    benchmark_slice: " + str(record.get("benchmark_slice", "")),
+                            "    status: " + str(record.get("status", "untriaged")),
+                        ]
+                    )
+                    for record in records
+                ],
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
 
 
 def test_board_rows_join_registry_and_compute_pass_refine_fail(tmp_path: Path) -> None:
@@ -186,6 +215,111 @@ def test_board_rows_join_registry_and_compute_pass_refine_fail(tmp_path: Path) -
     assert role_breakdown["finance"]["pass_count"] == 1.0
     assert role_breakdown["finance"]["refine_count"] == 1.0
     assert role_breakdown["finance"]["fail_count"] == 1.0
+
+
+def test_board_rows_export_harnessability_direction_and_tool_family_slices(tmp_path: Path) -> None:
+    manifest = {
+        "run_group_id": "20260410T151000Z_replayable_core",
+        "created_at": "20260410T151000Z",
+        "lane": "replayable_core",
+        "run_intent": "exploratory",
+        "backend": "hf_service",
+        "reasoner": "google/gemma-4-E2B-it",
+        "router": "google/functiongemma-270m-it",
+        "retriever": "google/embeddinggemma-300m",
+        "reasoner_backend": "hf_service",
+        "router_backend": "hf",
+        "retriever_backend": "hf",
+        "episode_count": 3,
+    }
+    summary = {
+        "runs": 3,
+        "artifact_quality_avg": 0.95,
+        "browser_workflow_avg": 0.9,
+        "strict_interface_avg": 0.9,
+        "recovered_execution_avg": 0.9,
+        "real_world_readiness_avg": 0.92,
+        "escalation_correctness_avg": 1.0,
+    }
+    leaderboard_rows = [
+        {
+            "run_id": "run-pass",
+            "episode_id": "ep-pass",
+            "role_family": "finance",
+            "lane": "replayable_core",
+            "workspace_id": "ws-pass",
+            "benchmark_tags": "knowledge_work_arena,replayable_core,finance,harnessability_resume,direction_following_latest_instruction,tool_cli",
+            "artifact_quality_score": 1.0,
+            "browser_workflow_score": 1.0,
+            "strict_interface_score": 1.0,
+            "recovered_execution_score": 1.0,
+            "revision_responsiveness": 0.0,
+            "memory_retention_score": 1.0,
+            "escalation_correctness": 1.0,
+            "collateral_damage_free": 1.0,
+            "human_time_ratio": 0.1,
+            "role_readiness_score": 0.95,
+        },
+        {
+            "run_id": "run-refine",
+            "episode_id": "ep-refine",
+            "role_family": "finance",
+            "lane": "replayable_core",
+            "workspace_id": "ws-refine",
+            "benchmark_tags": "knowledge_work_arena,replayable_core,finance,harnessability_project_memory,direction_following_conflict,tool_api",
+            "artifact_quality_score": 0.9,
+            "browser_workflow_score": 0.9,
+            "strict_interface_score": 0.4,
+            "recovered_execution_score": 1.0,
+            "revision_responsiveness": 1.0,
+            "memory_retention_score": 1.0,
+            "escalation_correctness": 1.0,
+            "collateral_damage_free": 1.0,
+            "human_time_ratio": 0.1,
+            "role_readiness_score": 0.9,
+        },
+        {
+            "run_id": "run-fail",
+            "episode_id": "ep-fail",
+            "role_family": "finance",
+            "lane": "replayable_core",
+            "workspace_id": "ws-fail",
+            "benchmark_tags": "knowledge_work_arena,replayable_core,finance,harnessability_approval_resume,direction_following_stale_override,tool_function_call",
+            "artifact_quality_score": 0.8,
+            "browser_workflow_score": 0.85,
+            "strict_interface_score": 0.2,
+            "recovered_execution_score": 0.0,
+            "revision_responsiveness": 0.0,
+            "memory_retention_score": 0.8,
+            "escalation_correctness": 0.8,
+            "collateral_damage_free": 0.0,
+            "human_time_ratio": 0.1,
+            "role_readiness_score": 0.5,
+        },
+    ]
+    _write_snapshot(tmp_path, "model_backed_hf_specialists_test", manifest, summary, leaderboard_rows)
+
+    rows = build_board_rows(tmp_path, REGISTRY_PATH)
+    row = rows[0]
+    harnessability = json.loads(row["harnessability_breakdown_json"])
+    direction_following = json.loads(row["direction_following_breakdown_json"])
+    tool_family = json.loads(row["tool_family_breakdown_json"])
+    assert set(harnessability) == {
+        "harnessability_resume",
+        "harnessability_project_memory",
+        "harnessability_approval_resume",
+    }
+    assert set(direction_following) == {
+        "direction_following_latest_instruction",
+        "direction_following_conflict",
+        "direction_following_stale_override",
+    }
+    assert set(tool_family) == {"tool_cli", "tool_api", "tool_function_call"}
+
+    public_summary = build_public_summary(rows)
+    assert public_summary["harnessability_slice_count"] == 3
+    assert public_summary["direction_following_slice_count"] == 3
+    assert public_summary["tool_family_slice_count"] == 3
 
 
 def test_board_rows_fallback_to_registry_when_manifest_system_id_is_unknown(tmp_path: Path) -> None:
@@ -436,6 +570,7 @@ def test_board_latest_rows_keep_newest_snapshot_per_system_lane_and_intent(tmp_p
             "real_world_readiness_avg": 0.9,
             "strict_interface_avg": 1.0,
             "browser_workflow_avg": 1.0,
+            "benchmark_tags": "knowledge_work_arena,replayable_core,harnessability_resume,direction_following_latest_instruction,tool_cli",
         },
         {
             "system_id": "hf_service_gemma4_specialists_cpu",
@@ -447,6 +582,7 @@ def test_board_latest_rows_keep_newest_snapshot_per_system_lane_and_intent(tmp_p
             "real_world_readiness_avg": 0.91,
             "strict_interface_avg": 1.0,
             "browser_workflow_avg": 1.0,
+            "benchmark_tags": "knowledge_work_arena,replayable_core,harnessability_project_memory,direction_following_conflict,tool_api",
         },
     ]
     latest = latest_board_rows(rows)
@@ -465,8 +601,13 @@ def test_board_latest_rows_keep_newest_snapshot_per_system_lane_and_intent(tmp_p
     assert (tmp_path / "knowledge_work_role_breakdown.csv").exists()
     assert (tmp_path / "knowledge_work_category_breakdown.csv").exists()
     assert (tmp_path / "knowledge_work_track_breakdown.csv").exists()
+    assert (tmp_path / "knowledge_work_harnessability_breakdown.csv").exists()
+    assert (tmp_path / "knowledge_work_direction_following_breakdown.csv").exists()
+    assert (tmp_path / "knowledge_work_tool_family_breakdown.csv").exists()
     assert (tmp_path / "knowledge_work_external_benchmarks.csv").exists()
+    assert (tmp_path / "knowledge_work_community_signals.csv").exists()
     assert (tmp_path / "knowledge_work_external_benchmark_summary.json").exists()
+    assert (tmp_path / "knowledge_work_community_signal_summary.json").exists()
     assert (tmp_path / "knowledge_work_public_summary.json").exists()
     with (tmp_path / "knowledge_work_board_latest.csv").open("r", encoding="utf-8") as handle:
         row = next(csv.DictReader(handle))
@@ -540,6 +681,85 @@ benchmarks:
     assert summary["model_count"] == 2
     assert summary["latest_published_date"] == "2026-03-05"
     assert summary["providers"] == ["google", "openai"]
+
+
+def test_community_signal_rows_and_summary_load_from_registry(tmp_path: Path) -> None:
+    registry_path = tmp_path / "community_signals.yaml"
+    _write_community_signals(
+        registry_path,
+        [
+            {
+                "claim": "Gemma 4 needs stronger harnessing",
+                "source": "X",
+                "source_date": "2026-04-12",
+                "source_url": "https://x.com/example/status/1",
+                "why_it_matters": "Chat quality is not enough.",
+                "moonie_hypothesis": "Project memory and approvals close the gap.",
+                "benchmark_slice": "harnessability",
+                "status": "planned",
+            },
+            {
+                "claim": "Tool use breaks before reasoning",
+                "source": "X",
+                "source_date": "2026-04-12",
+                "source_url": "https://x.com/example/status/2",
+                "why_it_matters": "Direction-following failures are operational.",
+                "moonie_hypothesis": "CLI/API/tool-family cuts will expose the failure mode.",
+                "benchmark_slice": "direction_following",
+                "status": "answered",
+            },
+        ],
+    )
+
+    rows = build_community_signal_rows(registry_path)
+    summary = build_community_signal_summary(rows)
+    assert len(rows) == 2
+    assert rows[0]["status"] == "planned"
+    assert summary["row_count"] == 2
+    assert summary["status_counts"]["planned"] == 1
+    assert summary["status_counts"]["answered"] == 1
+    assert summary["latest_source_date"] == "2026-04-12"
+    assert summary["benchmark_slices"] == ["direction_following", "harnessability"]
+
+
+def test_board_exports_include_community_signal_files(tmp_path: Path) -> None:
+    registry_path = tmp_path / "community_signals.yaml"
+    _write_community_signals(
+        registry_path,
+        [
+            {
+                "claim": "Harnessability should be first-class",
+                "source": "X",
+                "source_date": "2026-04-12",
+                "why_it_matters": "Chat quality is not enough.",
+                "moonie_hypothesis": "Resume and approvals matter.",
+                "benchmark_slice": "harnessability",
+                "status": "running",
+            }
+        ],
+    )
+    rows = [
+        {
+            "system_id": "hf_service_gemma4_specialists_cpu",
+            "display_name": "Gemma 4 + specialists local",
+            "lane": "replayable_core",
+            "run_intent": "exploratory",
+            "run_scope": "full_lane",
+            "created_at": "20260410T110000Z",
+            "real_world_readiness_avg": 0.91,
+            "strict_interface_avg": 1.0,
+            "browser_workflow_avg": 1.0,
+            "benchmark_tags": "knowledge_work_arena,replayable_core,harnessability_project_memory,direction_following_conflict,tool_api",
+        },
+    ]
+
+    payload = write_board_exports(rows, tmp_path, community_signals_path=registry_path)
+    assert payload["community_signal_row_count"] == 1
+    assert (tmp_path / "knowledge_work_community_signals.csv").exists()
+    assert (tmp_path / "knowledge_work_community_signal_summary.json").exists()
+    with (tmp_path / "knowledge_work_community_signals.csv").open("r", encoding="utf-8") as handle:
+        signal_row = next(csv.DictReader(handle))
+    assert signal_row["claim"] == "Harnessability should be first-class"
 
 
 def test_board_latest_rows_prefer_full_lane_over_newer_subset() -> None:

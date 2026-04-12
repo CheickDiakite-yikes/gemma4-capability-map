@@ -18,7 +18,18 @@ from gemma4_capability_map.knowledge_work.loader import load_episodes
 from gemma4_capability_map.knowledge_work.replay import summarize_episode_traces
 from gemma4_capability_map.metrics.answer_match import answer_contains_all, answer_matches_task
 from gemma4_capability_map.reporting.knowledge_work_board import DEFAULT_REGISTRY_PATH, load_model_registry
-from gemma4_capability_map.runtime.schemas import AgentSession, ApprovalRequest, ApprovalStatus, RuntimeEvent, RuntimeTrace, SessionStatus, SystemProfile, ToolInvocation
+from gemma4_capability_map.runtime.schemas import (
+    AgentSession,
+    ApprovalRequest,
+    ApprovalStatus,
+    ArtifactRevisionRecord,
+    InstructionRecord,
+    RuntimeEvent,
+    RuntimeTrace,
+    SessionStatus,
+    SystemProfile,
+    ToolInvocation,
+)
 from gemma4_capability_map.runtime.workflows import DEFAULT_WORKFLOWS_PATH, PackagedWorkflow, load_packaged_workflows
 from gemma4_capability_map.schemas import ExpectedEvent, JudgmentMode, Message, ModelBundleSpec, RunTrace, StateTransition, Task, ToolResult, Track, Variant
 from gemma4_capability_map.tools.executor import diff_state
@@ -214,7 +225,7 @@ def execute_task_trace(
     if _needs_judgment_answer_rescue(effective_task, resolved_final_answer):
         rescue_guidance = _judgment_second_pass_guidance(effective_task, language_stressor)
     elif _needs_answer_rescue(effective_task, language_stressor, resolved_final_answer, tool_steps, retrieval_hits):
-        rescue_guidance = _second_pass_guidance(language_stressor)
+        rescue_guidance = _second_pass_guidance(effective_task, language_stressor)
     if rescue_guidance:
         rescue_messages = [
             Message(role="system", content=rescue_guidance),
@@ -377,10 +388,12 @@ class LocalAgentRuntime:
             )
         return sorted(rows, key=lambda row: (row["role_family"], row["title"]))
 
-    def list_sessions(self, status: str | None = None) -> list[AgentSession]:
+    def list_sessions(self, status: str | None = None, project_id: str | None = None) -> list[AgentSession]:
         sessions = [self._read_session(path.parent.name) for path in sorted(self.sessions_root.glob("*/session.json"), reverse=True)]
         if status:
             sessions = [session for session in sessions if session.status.value == status]
+        if project_id:
+            sessions = [session for session in sessions if session.project_id == project_id]
         return sorted(sessions, key=lambda session: session.updated_at, reverse=True)
 
     def list_approvals(self, status: ApprovalStatus | None = ApprovalStatus.PENDING) -> list[ApprovalRequest]:
@@ -395,6 +408,16 @@ class LocalAgentRuntime:
 
     def get_session(self, session_id: str) -> AgentSession:
         return self._read_session(session_id)
+
+    def get_session_history(self, session_id: str) -> dict[str, Any]:
+        session = self.get_session(session_id)
+        return {
+            "session": session,
+            "instruction_history": list(session.instruction_history),
+            "artifact_history": list(session.artifact_history),
+            "events": self.get_events(session_id),
+            "runtime_trace": session.runtime_trace,
+        }
 
     def get_events(self, session_id: str, after_sequence: int = 0, limit: int | None = None) -> list[RuntimeEvent]:
         events = [event for event in self._read_events(session_id) if event.sequence > after_sequence]
@@ -444,6 +467,7 @@ class LocalAgentRuntime:
         lane: str | None = None,
         title: str | None = None,
         human_request: str = "",
+        project_id: str | None = None,
         background: bool = True,
         attempt: int = 1,
         parent_session_id: str | None = None,
@@ -454,11 +478,14 @@ class LocalAgentRuntime:
         selected_lane = lane or workflow.default_lane
         episode_id = workflow.episode_id_for_lane(selected_lane)
         profile = self._system_profile(system_id or workflow.recommended_system_id)
+        resolved_project_id = project_id or workflow.workflow_id
         created_at = _now()
         session_id = f"{datetime.now(UTC).strftime('%Y%m%dT%H%M%S%fZ')}_{workflow_id}"
+        initial_instruction = human_request.strip() or workflow.description or workflow.title
         session = AgentSession(
             session_id=session_id,
             title=title or workflow.title,
+            project_id=resolved_project_id,
             workflow_id=workflow.workflow_id,
             workflow_title=workflow.title,
             workflow_category=workflow.category,
@@ -475,6 +502,8 @@ class LocalAgentRuntime:
             retry_of_session_id=retry_of_session_id,
             resumed_from_session_id=resumed_from_session_id,
             human_request=human_request,
+            latest_instruction=initial_instruction,
+            instruction_history=[],
             latest_message="Session created.",
             progress_label="Queued",
             last_activity_at=created_at,
@@ -483,13 +512,14 @@ class LocalAgentRuntime:
         )
         self._write_session(session)
         self._append_event(session_id, "created", f"Created `{workflow.title}` on `{profile.short_label}`.", {"workflow_id": workflow_id, "lane": selected_lane})
+        self._append_instruction_event(session_id, initial_instruction, source="launch", note="Initial launch instruction.")
         if background:
             thread = threading.Thread(target=self._run_session, args=(session_id,), daemon=True)
             self._threads[session_id] = thread
             thread.start()
         else:
             self._run_session(session_id)
-        return self.get_session(session_id)
+        return self.get_session(session.session_id)
 
     def wait_for_session(self, session_id: str, timeout_s: float = 30.0, poll_s: float = 0.2) -> AgentSession:
         deadline = time.time() + timeout_s
@@ -498,7 +528,7 @@ class LocalAgentRuntime:
             if session.status not in {SessionStatus.PENDING, SessionStatus.WARMING, SessionStatus.RUNNING, SessionStatus.RESUMING, SessionStatus.RETRYING}:
                 return session
             time.sleep(poll_s)
-        return self.get_session(session_id)
+        return self.get_session(session.session_id)
 
     def resume_session(self, session_id: str, note: str = "", background: bool = True) -> AgentSession:
         session = self.get_session(session_id)
@@ -506,6 +536,10 @@ class LocalAgentRuntime:
             return self.resolve_approval(session_id, decision="approve", note=note, resume=True)
         if session.status != SessionStatus.INTERRUPTED:
             raise ValueError(f"Session `{session_id}` is not resumable from status `{session.status.value}`.")
+        self._append_event(session_id, "resume_requested", "Resume requested for interrupted session.", {"note": note})
+        if note.strip():
+            self._append_instruction_event(session_id, note.strip(), source="resume", note="Resume note.")
+            session = self.get_session(session_id)
         session.status = SessionStatus.RESUMING
         session.updated_at = _now()
         session.latest_message = "Resuming interrupted session."
@@ -513,6 +547,7 @@ class LocalAgentRuntime:
         session.resumed_from_session_id = session.resumed_from_session_id or session.session_id
         session.resumable = True
         self._write_session(session)
+        self._append_event(session_id, "resume_started", "Resume started for interrupted session.", {"note": note})
         self._append_event(session_id, "resumed", "Resuming interrupted session.", {"note": note})
         if background:
             thread = threading.Thread(target=self._run_session, args=(session_id,), daemon=True)
@@ -520,7 +555,7 @@ class LocalAgentRuntime:
             thread.start()
         else:
             self._run_session(session_id)
-        return self.get_session(session_id)
+        return self.get_session(session.session_id)
 
     def retry_session(self, session_id: str, note: str = "", background: bool = True) -> AgentSession:
         source = self.get_session(session_id)
@@ -535,6 +570,7 @@ class LocalAgentRuntime:
             lane=source.lane,
             title=source.title,
             human_request=human_request,
+            project_id=source.project_id,
             background=background,
             attempt=source.attempt + 1,
             parent_session_id=lineage_parent,
@@ -554,6 +590,21 @@ class LocalAgentRuntime:
         pending = next((approval for approval in session.approvals if approval.status == ApprovalStatus.PENDING), None)
         if pending is None:
             raise ValueError(f"Session `{session_id}` has no pending approvals.")
+        return self._resolve_approval_for_session(session, pending.approval_id, decision=decision, note=note, resume=resume)
+
+    def resolve_approval_by_id(self, approval_id: str, decision: str, note: str = "", resume: bool = True) -> AgentSession:
+        session = self._session_for_approval_id(approval_id)
+        if session is None:
+            raise ValueError(f"Unknown approval `{approval_id}`.")
+        approval = next((approval for approval in session.approvals if approval.approval_id == approval_id), None)
+        if approval is None:
+            raise ValueError(f"Unknown approval `{approval_id}`.")
+        return self._resolve_approval_for_session(session, approval_id, decision=decision, note=note, resume=resume)
+
+    def _resolve_approval_for_session(self, session: AgentSession, approval_id: str, decision: str, note: str = "", resume: bool = True) -> AgentSession:
+        pending = next((approval for approval in session.approvals if approval.approval_id == approval_id and approval.status == ApprovalStatus.PENDING), None)
+        if pending is None:
+            raise ValueError(f"Approval `{approval_id}` is not pending.")
         resolved_status = ApprovalStatus.APPROVED if decision == "approve" else ApprovalStatus.DENIED
         session.approvals = [
             approval.model_copy(
@@ -567,6 +618,20 @@ class LocalAgentRuntime:
             else approval
             for approval in session.approvals
         ]
+        if note.strip():
+            session.latest_instruction = note.strip()
+            session.instruction_history = [
+                *session.instruction_history,
+                InstructionRecord(
+                    instruction_id=f"{session.session_id}:instruction:{len(session.instruction_history) + 1}",
+                    session_id=session.session_id,
+                    project_id=session.project_id,
+                    source="approval_note",
+                    content=note.strip(),
+                    created_at=_now(),
+                    note="Approval resolution note.",
+                ),
+            ]
         session.status = SessionStatus.RESUMING if resolved_status == ApprovalStatus.APPROVED and resume else SessionStatus.COMPLETED if resolved_status == ApprovalStatus.APPROVED else SessionStatus.DENIED
         session.updated_at = _now()
         session.last_activity_at = session.updated_at
@@ -578,13 +643,13 @@ class LocalAgentRuntime:
             session.hold_reason = None
         self._write_session(session)
         self._append_event(
-            session_id,
+            session.session_id,
             "approved" if resolved_status == ApprovalStatus.APPROVED else "denied",
             session.latest_message,
             {"note": note},
         )
         self._append_event(
-            session_id,
+            session.session_id,
             "approval_resolved",
             "Approval decision recorded.",
             {
@@ -595,8 +660,10 @@ class LocalAgentRuntime:
             },
         )
         if resolved_status == ApprovalStatus.APPROVED and resume:
-            self._append_event(session_id, "resumed", "Approval released the hold and finalized the session.", {"note": note})
-            finalized = self.get_session(session_id)
+            self._append_event(session.session_id, "resume_requested", "Approval released the hold and requested resume.", {"approval_id": pending.approval_id, "note": note})
+            self._append_event(session.session_id, "resume_started", "Approval released the hold and started finalization.", {"approval_id": pending.approval_id, "note": note})
+            self._append_event(session.session_id, "resumed", "Approval released the hold and finalized the session.", {"note": note})
+            finalized = self.get_session(session.session_id)
             finalized.status = SessionStatus.COMPLETED
             finalized.updated_at = _now()
             finalized.last_activity_at = finalized.updated_at
@@ -605,8 +672,8 @@ class LocalAgentRuntime:
             finalized.resumable = False
             finalized.hold_reason = None
             self._write_session(finalized)
-            self._append_event(session_id, "completed", finalized.latest_message, {"resumed": True, "note": note})
-        return self.get_session(session_id)
+            self._append_event(session.session_id, "completed", finalized.latest_message, {"resumed": True, "note": note})
+        return self.get_session(session.session_id)
 
     def _run_session(self, session_id: str) -> None:
         session = self.get_session(session_id)
@@ -628,6 +695,7 @@ class LocalAgentRuntime:
             summary = summarize_episode_traces([trace])
             runtime_trace = self._write_runtime_outputs(session, trace, summary, bundle_snapshot, warmup)
             trace_session_metadata = _trace_session_metadata(trace)
+            self._append_trace_events(session_id, trace, trace_session_metadata)
             approvals = []
             approval = _approval_request_from_trace(session, trace, workflow)
             if approval is not None:
@@ -750,6 +818,7 @@ class LocalAgentRuntime:
             "episode_id": session.episode_id,
             "lane": session.lane,
             "system_id": session.system_id,
+            "project_id": session.project_id,
             "created_at": session.created_at,
             "runtime_bundle": runtime_bundle,
             "warmup": warmup,
@@ -861,6 +930,88 @@ class LocalAgentRuntime:
             self._write_session(session)
             return event
 
+    def _append_instruction_event(self, session_id: str, instruction: str, source: str, note: str = "") -> InstructionRecord:
+        with self._lock:
+            session = self._read_session(session_id)
+            record = InstructionRecord(
+                instruction_id=f"{session_id}:instruction:{len(session.instruction_history) + 1}",
+                session_id=session_id,
+                project_id=session.project_id,
+                source=source,
+                content=instruction,
+                created_at=_now(),
+                note=note,
+            )
+            session.latest_instruction = instruction
+            session.instruction_history = [*session.instruction_history, record]
+            session.updated_at = _now()
+            session.last_activity_at = session.updated_at
+            self._write_session(session)
+            self._append_event(
+                session_id,
+                "instruction_updated",
+                "Instruction history updated.",
+                {
+                    "instruction_id": record.instruction_id,
+                    "source": source,
+                    "instruction": instruction,
+                    "note": note,
+                    "project_id": session.project_id,
+                },
+            )
+            return record
+
+    def _append_trace_events(self, session_id: str, trace: Any, trace_session_metadata: dict[str, str]) -> None:
+        artifact_history: list[ArtifactRevisionRecord] = []
+        for index, call in enumerate(getattr(trace, "tool_calls", []), start=1):
+            payload = _jsonable(call)
+            self._append_event(
+                session_id,
+                "tool_call_attempt",
+                f"Tool call attempt {index}.",
+                payload,
+            )
+            self._append_event(
+                session_id,
+                "tool_call_result",
+                f"Tool call result {index}.",
+                payload,
+            )
+        for version in getattr(trace, "artifact_versions", []):
+            payload = _jsonable(version)
+            artifact_history.append(
+                ArtifactRevisionRecord(
+                    artifact_revision_id=f"{session_id}:artifact_revision:{len(artifact_history) + 1}",
+                    session_id=session_id,
+                    artifact_id=str(payload.get("artifact_id", "")),
+                    title=str(payload.get("artifact_id", "")),
+                    revision=int(payload.get("revision", 0) or 0),
+                    file_path=str(payload.get("file_path", "") or ""),
+                    review_feedback=trace_session_metadata["latest_review_feedback"],
+                    created_at=_now(),
+                )
+            )
+            payload.update(
+                {
+                    "latest_artifact_title": trace_session_metadata["latest_artifact_title"],
+                    "latest_artifact_path": trace_session_metadata["latest_artifact_path"],
+                    "latest_revision_artifact_id": trace_session_metadata["latest_revision_artifact_id"],
+                    "latest_review_feedback": trace_session_metadata["latest_review_feedback"],
+                }
+            )
+            self._append_event(
+                session_id,
+                "artifact_revision",
+                f"Artifact revision {payload.get('revision', 0)} recorded.",
+                payload,
+            )
+        if artifact_history:
+            session = self.get_session(session_id)
+            session.artifact_history = [*session.artifact_history, *artifact_history]
+            session.updated_at = _now()
+            session.last_activity_at = session.updated_at
+            self._write_session(session)
+
     def _read_events(self, session_id: str) -> list[RuntimeEvent]:
         path = self._events_path(session_id)
         if not path.exists():
@@ -898,6 +1049,12 @@ class LocalAgentRuntime:
             self._write_session(session)
             if not any(event.kind == "interrupted" for event in self._read_events(session_id)):
                 self._append_event(session_id, "interrupted", session.latest_message, {})
+
+    def _session_for_approval_id(self, approval_id: str) -> AgentSession | None:
+        for session in self.list_sessions():
+            if any(approval.approval_id == approval_id for approval in session.approvals):
+                return session
+        return None
 
     def _backup_path(self, path: Path) -> Path:
         return path.with_suffix(path.suffix + ".bak")
@@ -1060,6 +1217,20 @@ def _tool_invocations_from_trace(trace: Any) -> list[ToolInvocation]:
     ]
 
 
+def _jsonable(value: object) -> dict[str, Any]:
+    if hasattr(value, "model_dump"):
+        payload = value.model_dump(mode="json")  # type: ignore[call-arg]
+        if isinstance(payload, dict):
+            return payload
+    if isinstance(value, dict):
+        return dict(value)
+    return {
+        key: getattr(value, key)
+        for key in dir(value)
+        if not key.startswith("_") and not callable(getattr(value, key))
+    }
+
+
 def _absolute_asset_path(path: str | None) -> str | None:
     if not path:
         return None
@@ -1181,7 +1352,13 @@ def _needs_answer_rescue(task: Task, language: str | None, answer_text: str, too
         rescue_eligible = True
     if task.track == Track.VISUAL_TOOL_ORCHESTRATION:
         rescue_eligible = True
-    if not rescue_eligible or not task.expected_answer_contains or not (tool_steps or retrieval_hits):
+    if not rescue_eligible or not (tool_steps or retrieval_hits):
+        return False
+    normalized_answer = answer_text.lower()
+    for fragment in _visual_stale_filter_fragments(task):
+        if fragment in normalized_answer:
+            return True
+    if not task.expected_answer_contains:
         return False
     return not answer_contains_all(task.expected_answer_contains, answer_text)
 
@@ -1195,16 +1372,59 @@ def _needs_judgment_answer_rescue(task: Task, answer_text: str) -> bool:
     return not answer_matches_task(task, answer_text)
 
 
-def _second_pass_guidance(language: str | None) -> str:
+def _second_pass_guidance(task: Task, language: str | None) -> str:
+    visual_suffix = _visual_second_pass_suffix(task, language)
     if language == "fr":
         return (
             "Réécrivez la réponse finale en français opérationnel clair. "
             "N'ajoutez aucun nouvel outil, aucune nouvelle action, ni aucun nouveau fait. "
             "Conservez exactement les faits déjà établis et rendez explicites les chemins, approbations, politiques ou raisons de report quand ils existent."
+            + visual_suffix
         )
     return (
         "Rewrite the final answer clearly without adding new tools, actions, or facts. "
         "Preserve the established facts exactly and make the operational reason explicit."
+        + visual_suffix
+    )
+
+
+def _visual_stale_filter_fragments(task: Task) -> list[str]:
+    if task.track != Track.VISUAL_TOOL_ORCHESTRATION:
+        return []
+    latest_priority = task.expected_final_state.get("visual_selection", {}).get("latest_filter_priority", {})
+    return [
+        str(fragment).strip().lower()
+        for fragment in latest_priority.get("stale_filter_fragments", [])
+        if str(fragment).strip()
+    ]
+
+
+def _visual_second_pass_suffix(task: Task, language: str | None) -> str:
+    if task.track != Track.VISUAL_TOOL_ORCHESTRATION:
+        return ""
+    latest_priority = task.expected_final_state.get("visual_selection", {}).get("latest_filter_priority", {})
+    expected_filter = str(latest_priority.get("expected_filter", "")).strip()
+    stale_fragments = _visual_stale_filter_fragments(task)
+    if not expected_filter and not stale_fragments:
+        return ""
+    stale_suffix = ""
+    if stale_fragments:
+        stale_suffix = ", ".join(stale_fragments)
+        if language == "fr":
+            stale_suffix = f" N'évoquez pas les anciennes pistes remplacées comme : {stale_suffix}."
+        else:
+            stale_suffix = f" Do not mention superseded earlier candidates such as: {stale_suffix}."
+    if not expected_filter:
+        return stale_suffix
+    if language == "fr":
+        return (
+            f" Si un raffinement visuel ultérieur a sélectionné le résultat `{expected_filter}`, "
+            "conservez uniquement cette dernière sélection."
+            + stale_suffix
+        )
+    return (
+        f" If a later visual refinement selected the `{expected_filter}` result, keep only that latest selection."
+        + stale_suffix
     )
 
 

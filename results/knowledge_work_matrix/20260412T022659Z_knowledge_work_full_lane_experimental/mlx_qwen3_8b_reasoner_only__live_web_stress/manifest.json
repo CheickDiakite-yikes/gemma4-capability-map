@@ -1,0 +1,77 @@
+{
+  "run_group_id": "20260412T022904Z_live_web_stress",
+  "created_at": "20260412T022904Z",
+  "lane": "live_web_stress",
+  "system_id": "mlx_qwen3_8b_reasoner_only",
+  "backend": "mlx",
+  "reasoner_backend": "mlx",
+  "router_backend": "heuristic",
+  "retriever_backend": "heuristic",
+  "reasoner": "Qwen/Qwen3-8B-MLX-4bit",
+  "router": "google/functiongemma-270m-it",
+  "retriever": "google/embeddinggemma-300m",
+  "reasoner_device": "auto",
+  "router_device": null,
+  "retriever_device": null,
+  "reasoner_max_new_tokens": 96,
+  "request_timeout_seconds": 300.0,
+  "thinking": false,
+  "limit": null,
+  "episode_count": 20,
+  "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
+  "runtime_bundle": {
+    "reasoner": {
+      "backend": "mlx",
+      "requested_model": "Qwen/Qwen3-8B-MLX-4bit",
+      "effective_model": "/Users/cheickdiakite/models/Qwen3-8B-MLX-4bit",
+      "runtime_device": "mlx",
+      "load_mode": "text",
+      "configured_device": "auto",
+      "request_timeout_seconds": 300.0,
+      "service": {}
+    },
+    "router": {
+      "backend": "heuristic",
+      "requested_model": "google/functiongemma-270m-it",
+      "effective_model": "google/functiongemma-270m-it",
+      "runtime_device": null,
+      "configured_device": "auto"
+    },
+    "retriever": {
+      "backend": "heuristic",
+      "requested_model": "google/embeddinggemma-300m",
+      "effective_model": "google/embeddinggemma-300m",
+      "loaded": false,
+      "configured_device": "auto",
+      "runtime_device": null
+    }
+  },
+  "run_intent": "exploratory",
+  "warmup": {
+    "reasoner": {
+      "backend": "mlx",
+      "requested_model": "Qwen/Qwen3-8B-MLX-4bit",
+      "effective_model": "/Users/cheickdiakite/models/Qwen3-8B-MLX-4bit",
+      "runtime_device": "mlx",
+      "load_mode": "text",
+      "configured_device": "auto",
+      "request_timeout_seconds": 300.0,
+      "service": {}
+    },
+    "router": {
+      "backend": "heuristic",
+      "requested_model": "google/functiongemma-270m-it",
+      "effective_model": "google/functiongemma-270m-it",
+      "runtime_device": null,
+      "configured_device": "auto"
+    },
+    "retriever": {
+      "backend": "heuristic",
+      "requested_model": "google/embeddinggemma-300m",
+      "effective_model": "google/embeddinggemma-300m",
+      "loaded": false,
+      "configured_device": "auto",
+      "runtime_device": null
+    }
+  }
+}

@@ -1,8 +1,8 @@
 # KnowledgeWorkArena History
 
-- Generated at: `2026-04-11T21:16:12.522550+00:00`
-- Total logged runs: `114`
-- Snapshot count: `118`
+- Generated at: `2026-04-12T19:06:52.115861+00:00`
+- Total logged runs: `132`
+- Snapshot count: `136`
 
 ## Latest Canonical by Lane
 
@@ -11,8 +11,8 @@
 
 ## Latest Exploratory by Lane
 
-- `live_web_stress`: readiness `0.961875`, browser `1.0`, strict `0.9625`, recovered `0.925`, output `/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260411T211206Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__live_web_stress`
-- `replayable_core`: readiness `0.9604499999999999`, browser `0.9829461538461538`, strict `0.9711538461538461`, recovered `0.9230769230769231`, output `/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260411T211206Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__replayable_core`
+- `live_web_stress`: readiness `0.976455`, browser `1.0`, strict `1.0`, recovered `0.975`, output `/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260412T022659Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__live_web_stress`
+- `replayable_core`: readiness `0.9598379310344828`, browser `0.9821241379310345`, strict `0.9655172413793104`, recovered `0.9482758620689655`, output `/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260412T191500Z_knowledge_work_publishable_core/hf_gemma4_e2b_specialists_cpu__replayable_core`
 
 ## Best by Lane
 

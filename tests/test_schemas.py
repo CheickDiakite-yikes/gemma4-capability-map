@@ -14,14 +14,14 @@ def test_gold_tasks_validate() -> None:
     tasks: list[Task] = []
     for path in sorted((ROOT / "data" / "gold").glob("*.jsonl")):
         tasks.extend(load_jsonl(path, Task))
-    assert len(tasks) == 78
+    assert len(tasks) == 84
     counts = {
         track: sum(task.track.value == track for task in tasks)
         for track in {"thinking", "tool_routing", "retrieval", "full_stack", "visual_tool_orchestration"}
     }
     assert counts == {
         "thinking": 13,
-        "tool_routing": 13,
+        "tool_routing": 19,
         "retrieval": 13,
         "full_stack": 13,
         "visual_tool_orchestration": 26,
@@ -33,7 +33,7 @@ def test_gold_tasks_validate() -> None:
 
 def test_generated_variants_validate() -> None:
     variants = load_jsonl(ROOT / "data" / "variants" / "generated_variants.jsonl", Variant)
-    assert len(variants) == 324
+    assert len(variants) == 341
     assert any(variant.secondary_stressor is not None for variant in variants)
     assert any(variant.base_task_id.startswith("visual_") for variant in variants)
 
@@ -47,8 +47,8 @@ def test_tool_specs_serialize_with_schema_alias() -> None:
 def test_knowledge_work_episode_specs_validate() -> None:
     replayable = load_jsonl(ROOT / "data" / "knowledge_work" / "replayable_core" / "episodes.jsonl", Episode)
     live = load_jsonl(ROOT / "data" / "knowledge_work" / "live_web_stress" / "episodes.jsonl", Episode)
-    assert len(replayable) == 26
-    assert len(live) == 20
+    assert len(replayable) == 29
+    assert len(live) == 23
     assert all(stage.browser_plan for episode in replayable + live for stage in episode.stages)
     assert any(episode.browser_state_machines for episode in replayable + live)
     assert any("visual_kwa" in episode.benchmark_tags for episode in replayable + live)

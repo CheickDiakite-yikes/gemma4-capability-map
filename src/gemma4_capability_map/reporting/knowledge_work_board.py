@@ -16,6 +16,7 @@ DEFAULT_RESULTS_ROOTS = (DEFAULT_RESULTS_ROOT, DEFAULT_MATRIX_RESULTS_ROOT)
 DEFAULT_HISTORY_DIR = ROOT / "results" / "history"
 DEFAULT_REGISTRY_PATH = ROOT / "configs" / "model_registry.yaml"
 DEFAULT_EXTERNAL_BENCHMARKS_PATH = ROOT / "configs" / "external_benchmarks.yaml"
+DEFAULT_COMMUNITY_SIGNALS_PATH = ROOT / "configs" / "community_signals.yaml"
 SYSTEM_ID_ALIASES = {
     "hf_specialists_cross_role_hardmix_visual": "hf_service_gemma4_specialists_cpu",
     "model_backed_hf_reasoner_full": "hf_service_gemma4_reasoner_only",
@@ -122,6 +123,68 @@ def build_external_benchmark_summary(rows: list[dict[str, Any]]) -> dict[str, An
             }
             for benchmark in benchmarks
         ],
+    }
+
+
+def load_community_signal_registry(
+    path: str | Path = DEFAULT_COMMUNITY_SIGNALS_PATH,
+) -> list[dict[str, Any]]:
+    target = Path(path)
+    if not target.exists():
+        return []
+    payload = load_yaml(target) or {}
+    records = payload.get("community_signals", payload.get("signals", []))
+    if not isinstance(records, list):
+        return []
+    return [record for record in records if isinstance(record, dict)]
+
+
+def build_community_signal_rows(
+    path: str | Path = DEFAULT_COMMUNITY_SIGNALS_PATH,
+) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for record in load_community_signal_registry(path):
+        status = str(record.get("status", "untriaged") or "untriaged").strip().lower()
+        source = str(record.get("source", "") or record.get("source_org", "") or "").strip()
+        source_date = str(record.get("source_date", "") or record.get("published_date", "") or "").strip()
+        slice_name = str(record.get("benchmark_slice", "") or record.get("experiment", "") or "").strip()
+        rows.append(
+            {
+                "claim": str(record.get("claim", "") or "").strip(),
+                "source": source,
+                "source_date": source_date,
+                "source_url": str(record.get("source_url", "") or "").strip(),
+                "why_it_matters": str(record.get("why_it_matters", "") or "").strip(),
+                "moonie_hypothesis": str(record.get("moonie_hypothesis", "") or record.get("hypothesis", "") or "").strip(),
+                "benchmark_slice": slice_name,
+                "status": status if status in {"untriaged", "planned", "running", "answered"} else "untriaged",
+                "notes": str(record.get("notes", "") or "").strip(),
+            }
+        )
+    return sorted(
+        rows,
+        key=lambda row: (
+            _community_signal_status_priority(row.get("status")),
+            str(row.get("source_date", "")),
+            str(row.get("source", "")),
+            str(row.get("claim", "")),
+        ),
+    )
+
+
+def build_community_signal_summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
+    statuses = ["untriaged", "planned", "running", "answered"]
+    status_counts = {status: sum(1 for row in rows if str(row.get("status", "")) == status) for status in statuses}
+    slices = sorted({str(row.get("benchmark_slice", "")) for row in rows if str(row.get("benchmark_slice", ""))})
+    sources = sorted({str(row.get("source", "")) for row in rows if str(row.get("source", ""))})
+    return {
+        "row_count": len(rows),
+        "status_counts": status_counts,
+        "benchmark_slices": slices,
+        "sources": sources,
+        "latest_source_date": max((str(row.get("source_date", "")) for row in rows), default=""),
+        "planned_or_running": status_counts["planned"] + status_counts["running"],
+        "answered": status_counts["answered"],
     }
 
 
@@ -232,6 +295,7 @@ def write_board_exports(
     rows: list[dict[str, Any]],
     history_dir: str | Path = DEFAULT_HISTORY_DIR,
     external_benchmarks_path: str | Path = DEFAULT_EXTERNAL_BENCHMARKS_PATH,
+    community_signals_path: str | Path = DEFAULT_COMMUNITY_SIGNALS_PATH,
 ) -> dict[str, Any]:
     target = Path(history_dir)
     target.mkdir(parents=True, exist_ok=True)
@@ -244,6 +308,11 @@ def write_board_exports(
     public_summary = build_public_summary(rows)
     external_benchmarks = build_external_benchmark_rows(external_benchmarks_path)
     external_benchmark_summary = build_external_benchmark_summary(external_benchmarks)
+    community_signals = build_community_signal_rows(community_signals_path)
+    community_signal_summary = build_community_signal_summary(community_signals)
+    harnessability_breakdown_rows = _flatten_breakdown_rows(latest, "harnessability_breakdown_json", "harnessability_tag")
+    direction_following_breakdown_rows = _flatten_breakdown_rows(latest, "direction_following_breakdown_json", "direction_following_tag")
+    tool_family_breakdown_rows = _flatten_breakdown_rows(latest, "tool_family_breakdown_json", "tool_family_tag")
     scatter_rows = [
         {
             "system_id": row.get("system_id", ""),
@@ -288,6 +357,11 @@ def write_board_exports(
         "public_summary": public_summary,
         "external_benchmark_row_count": len(external_benchmarks),
         "external_benchmark_summary": external_benchmark_summary,
+        "community_signal_row_count": len(community_signals),
+        "community_signal_summary": community_signal_summary,
+        "harnessability_breakdown_row_count": len(harnessability_breakdown_rows),
+        "direction_following_breakdown_row_count": len(direction_following_breakdown_rows),
+        "tool_family_breakdown_row_count": len(tool_family_breakdown_rows),
         "rows": rows,
         "latest": latest,
     }
@@ -303,6 +377,9 @@ def write_board_exports(
     _write_csv(target / "knowledge_work_role_breakdown.csv", _flatten_breakdown_rows(latest, "role_breakdown_json", "role_family"))
     _write_csv(target / "knowledge_work_category_breakdown.csv", _flatten_breakdown_rows(latest, "category_breakdown_json", "category"))
     _write_csv(target / "knowledge_work_track_breakdown.csv", _flatten_breakdown_rows(latest, "track_breakdown_json", "track_tag"))
+    _write_csv(target / "knowledge_work_harnessability_breakdown.csv", harnessability_breakdown_rows)
+    _write_csv(target / "knowledge_work_direction_following_breakdown.csv", direction_following_breakdown_rows)
+    _write_csv(target / "knowledge_work_tool_family_breakdown.csv", tool_family_breakdown_rows)
     _write_csv(
         target / "knowledge_work_external_benchmarks.csv",
         external_benchmarks,
@@ -324,9 +401,14 @@ def write_board_exports(
             "source_url",
         ],
     )
+    _write_csv(target / "knowledge_work_community_signals.csv", community_signals)
     (target / "knowledge_work_public_summary.json").write_text(json.dumps(public_summary, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     (target / "knowledge_work_external_benchmark_summary.json").write_text(
         json.dumps(external_benchmark_summary, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+    )
+    (target / "knowledge_work_community_signal_summary.json").write_text(
+        json.dumps(community_signal_summary, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",
     )
     return payload
@@ -552,6 +634,9 @@ def build_public_summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
             "failed": sum(1 for row in latest if str(row.get("board_status", "")) == "failed"),
             "avg_coverage": _average_metric(latest, "coverage_ratio"),
         },
+        "harnessability_slice_count": _count_breakdown_tags(completed_latest, "harnessability_breakdown_json"),
+        "direction_following_slice_count": _count_breakdown_tags(completed_latest, "direction_following_breakdown_json"),
+        "tool_family_slice_count": _count_breakdown_tags(completed_latest, "tool_family_breakdown_json"),
         "leaders": leaders,
         "headline_systems": [
             {
@@ -732,6 +817,12 @@ def _snapshot_row(
     role_breakdown = _group_metric_breakdown(leaderboard_rows, "role_family")
     category_breakdown = _tag_metric_breakdown(leaderboard_rows)
     track_breakdown = _tag_metric_breakdown(leaderboard_rows, prefix_filters=["visual_", "knowledge_work_arena"])
+    harnessability_breakdown = _tag_metric_breakdown(leaderboard_rows, prefix_filters=["harnessability_"])
+    direction_following_breakdown = _tag_metric_breakdown(leaderboard_rows, prefix_filters=["direction_following_"])
+    tool_family_breakdown = _tag_metric_breakdown(
+        leaderboard_rows,
+        prefix_filters=["tool_", "function_call", "cli", "api", "mcp_", "skill_"],
+    )
     reasoner = str(manifest.get("reasoner", "") or "")
     router = str(manifest.get("router", "") or "")
     retriever = str(manifest.get("retriever", "") or "")
@@ -750,14 +841,21 @@ def _snapshot_row(
     runtime_metrics = _extract_runtime_metrics(manifest)
     result_family = "knowledge_work_matrix" if source_root.name == "knowledge_work_matrix" else "knowledge_work"
     comparison_batch = path.parent.name if result_family == "knowledge_work_matrix" and path.parent != source_root else ""
-    run_health = _run_health_payload(manifest, summary, progress or {}, matrix_record, leaderboard_rows)
+    run_health = _run_health_payload(
+        manifest,
+        summary,
+        progress or {},
+        matrix_record,
+        leaderboard_rows,
+        comparison_batch,
+    )
 
     return {
         "run_group_id": manifest.get("run_group_id", path.name),
         "created_at": manifest.get("created_at", ""),
         "lane": manifest.get("lane", ""),
         "run_intent": _infer_run_intent(path, manifest),
-        "run_scope": _infer_run_scope(manifest),
+        "run_scope": _infer_run_scope(manifest, comparison_batch),
         "result_family": result_family,
         "comparison_batch": comparison_batch,
         "snapshot_name": path.name,
@@ -806,6 +904,9 @@ def _snapshot_row(
         "role_breakdown_json": json.dumps(role_breakdown, ensure_ascii=False, sort_keys=True),
         "category_breakdown_json": json.dumps(category_breakdown, ensure_ascii=False, sort_keys=True),
         "track_breakdown_json": json.dumps(track_breakdown, ensure_ascii=False, sort_keys=True),
+        "harnessability_breakdown_json": json.dumps(harnessability_breakdown, ensure_ascii=False, sort_keys=True),
+        "direction_following_breakdown_json": json.dumps(direction_following_breakdown, ensure_ascii=False, sort_keys=True),
+        "tool_family_breakdown_json": json.dumps(tool_family_breakdown, ensure_ascii=False, sort_keys=True),
         **run_health,
         "output_dir": str(path.resolve()),
     }
@@ -1022,6 +1123,9 @@ def _write_csv(path: Path, rows: list[dict[str, Any]], preferred_fields: list[st
         "role_breakdown_json",
         "category_breakdown_json",
         "track_breakdown_json",
+        "harnessability_breakdown_json",
+        "direction_following_breakdown_json",
+        "tool_family_breakdown_json",
         "color",
         "reasoner_backend",
         "router_backend",
@@ -1098,6 +1202,7 @@ def _run_health_payload(
     progress: dict[str, Any],
     matrix_record: dict[str, Any] | None,
     leaderboard_rows: list[dict[str, str]],
+    comparison_batch: str = "",
 ) -> dict[str, Any]:
     entry = (matrix_record or {}).get("entry", {}) or {}
     planned_runs = int(progress.get("planned_runs", manifest.get("episode_count", 0)) or 0)
@@ -1134,7 +1239,11 @@ def _run_health_payload(
         "coverage_pct": round(coverage_ratio * 100, 2),
         "completion_pct": round(coverage_ratio * 100, 2),
         "matrix_complete": float(board_status == "completed" and coverage_ratio >= 0.999),
-        "full_lane_complete": float(_infer_run_scope(manifest) == "full_lane" and board_status == "completed" and coverage_ratio >= 0.999),
+        "full_lane_complete": float(
+            _infer_run_scope(manifest, comparison_batch) == "full_lane"
+            and board_status == "completed"
+            and coverage_ratio >= 0.999
+        ),
         "failure_excerpt": _first_failure_excerpt(validation_error, stderr),
     }
 
@@ -1155,6 +1264,17 @@ def _board_status_priority(value: object) -> int:
     if status == "partial":
         return 2
     if status == "timed_out":
+        return 1
+    return 0
+
+
+def _community_signal_status_priority(value: object) -> int:
+    status = str(value or "")
+    if status == "answered":
+        return 3
+    if status == "running":
+        return 2
+    if status == "planned":
         return 1
     return 0
 
@@ -1195,7 +1315,11 @@ def _infer_run_intent(path: Path, manifest: dict[str, Any]) -> str:
     return "exploratory"
 
 
-def _infer_run_scope(manifest: dict[str, Any]) -> str:
+def _infer_run_scope(manifest: dict[str, Any], comparison_batch: str = "") -> str:
+    batch_name = comparison_batch.strip().lower()
+    matrix_name = str(manifest.get("matrix_name", "") or "").strip().lower()
+    if "full_lane" in batch_name or matrix_name == "knowledge_work_full_lane":
+        return "full_lane"
     episodes_path_value = str(manifest.get("episodes_path", "") or "").strip()
     if not episodes_path_value:
         return "unknown"
@@ -1319,6 +1443,21 @@ def _tag_metric_breakdown(
         }
         for tag, items in grouped.items()
     }
+
+
+def _count_breakdown_tags(rows: list[dict[str, Any]], column: str) -> int:
+    tags: set[str] = set()
+    for row in rows:
+        raw = str(row.get(column, "") or "").strip()
+        if not raw:
+            continue
+        try:
+            payload = json.loads(raw)
+        except json.JSONDecodeError:
+            continue
+        if isinstance(payload, dict):
+            tags.update(str(tag) for tag in payload if str(tag))
+    return len(tags)
 
 
 def _extract_runtime_metrics(manifest: dict[str, Any]) -> dict[str, float | None]:

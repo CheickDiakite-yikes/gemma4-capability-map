@@ -1,0 +1,185 @@
+{
+  "workspace_id": "jobs-live-phone-patch-resume-hold-v4",
+  "lane": "live_web_stress",
+  "role_family": "job_application_ops",
+  "tools": [
+    "browser",
+    "calendar",
+    "documents",
+    "repo",
+    "spreadsheets",
+    "visual"
+  ],
+  "state_machines": [
+    {
+      "machine_id": "jobs_live_phone_patch_resume_hold_v4_flow",
+      "surface": "job_portal",
+      "start_state": "start",
+      "states": [
+        {
+          "state_id": "start",
+          "surface": "job_portal",
+          "label": "start",
+          "terminal": false
+        },
+        {
+          "state_id": "packet_rehydrated",
+          "surface": "job_portal",
+          "label": "packet rehydrated",
+          "terminal": false
+        },
+        {
+          "state_id": "packet_recovered",
+          "surface": "job_portal",
+          "label": "packet recovered",
+          "terminal": false
+        },
+        {
+          "state_id": "submission_blocked_pending_approval",
+          "surface": "job_portal",
+          "label": "submission blocked pending approval",
+          "terminal": true
+        }
+      ],
+      "transitions": [
+        {
+          "transition_id": "jobs_live_phone_patch_packet_rehydrated",
+          "action": "rehydrate_live_jobs_packet",
+          "from_state": "start",
+          "to_state": "packet_rehydrated",
+          "outcome": "pass",
+          "notes": "Reload the saved live application packet and confirm the newest recruiter instruction before continuing"
+        },
+        {
+          "transition_id": "jobs_live_phone_patch_packet_recovered",
+          "action": "repair_live_jobs_phone_packet",
+          "from_state": "packet_rehydrated",
+          "to_state": "packet_recovered",
+          "outcome": "recovered",
+          "notes": "Apply the latest phone-focused repair in sandbox mode and remove the stale blocker path from the packet"
+        },
+        {
+          "transition_id": "jobs_live_phone_patch_submission_blocked",
+          "action": "attempt_live_jobs_resume_submission",
+          "from_state": "packet_recovered",
+          "to_state": "submission_blocked_pending_approval",
+          "outcome": "approval_required",
+          "notes": "Attempt submission and stop because recruiter approval is still required after the resumed repair"
+        }
+      ]
+    }
+  ],
+  "browser_surfaces": [
+    {
+      "stage_id": "kwa_jobs_live_phone_patch_resume_hold_v4_stage_1",
+      "task_refs": [
+        "tool_018_jobs_api_latest_form_issue"
+      ],
+      "browser_plan": [
+        {
+          "action": "rehydrate_live_jobs_packet",
+          "target": "sandbox://jobs-live-phone-patch-resume-hold-v4/form",
+          "surface": "job_portal",
+          "purpose": "Reload the saved live application packet and confirm the newest recruiter instruction before continuing",
+          "expected_signal": "saved packet restored with newest recruiter instruction",
+          "verification_checks": [
+            "packet loaded",
+            "instruction banner visible"
+          ],
+          "validation_rules": [
+            "latest phone-fix instruction preserved"
+          ],
+          "captured_fields": [
+            "packet_state",
+            "instruction_state",
+            "latest_blocker"
+          ],
+          "state_updates": {
+            "packet_state": "rehydrated",
+            "instruction_state": "latest"
+          },
+          "state_machine_id": "jobs_live_phone_patch_resume_hold_v4_flow",
+          "transition_id": "jobs_live_phone_patch_packet_rehydrated",
+          "transition_outcome": "pass",
+          "from_state": "start",
+          "to_state": "packet_rehydrated",
+          "submission_gate": "sandbox_only",
+          "blocked_reason": null,
+          "sandbox_endpoint": "https://sandbox.local/jobs-live-phone-patch-resume-hold-v4/form",
+          "allow_submission": false
+        },
+        {
+          "action": "repair_live_jobs_phone_packet",
+          "target": "sandbox://jobs-live-phone-patch-resume-hold-v4/form",
+          "surface": "job_portal",
+          "purpose": "Apply the latest phone-focused repair in sandbox mode and remove the stale blocker path from the packet",
+          "expected_signal": "live packet repaired with phone fix only",
+          "verification_checks": [
+            "phone fix present",
+            "stale blocker removed"
+          ],
+          "validation_rules": [
+            "latest phone fix applied",
+            "stale path removed"
+          ],
+          "captured_fields": [
+            "packet_state",
+            "validation_status",
+            "constraint_memory"
+          ],
+          "state_updates": {
+            "packet_state": "recovered"
+          },
+          "state_machine_id": "jobs_live_phone_patch_resume_hold_v4_flow",
+          "transition_id": "jobs_live_phone_patch_packet_recovered",
+          "transition_outcome": "recovered",
+          "from_state": "packet_rehydrated",
+          "to_state": "packet_recovered",
+          "submission_gate": "sandbox_only",
+          "blocked_reason": null,
+          "sandbox_endpoint": "https://sandbox.local/jobs-live-phone-patch-resume-hold-v4/form",
+          "allow_submission": false
+        }
+      ]
+    },
+    {
+      "stage_id": "kwa_jobs_live_phone_patch_resume_hold_v4_stage_2",
+      "task_refs": [
+        "visual_022_live_form_latest_issue_referent_carryover"
+      ],
+      "browser_plan": [
+        {
+          "action": "attempt_live_jobs_resume_submission",
+          "target": "sandbox://jobs-live-phone-patch-resume-hold-v4/submit",
+          "surface": "job_portal",
+          "purpose": "Attempt submission and stop because recruiter approval is still required after the resumed repair",
+          "expected_signal": "submission blocked pending approval",
+          "verification_checks": [
+            "submission blocked",
+            "approval pending"
+          ],
+          "validation_rules": [
+            "approval required before submit"
+          ],
+          "captured_fields": [
+            "submission_state",
+            "approval_state",
+            "packet_state"
+          ],
+          "state_updates": {
+            "submission_state": "blocked_pending_approval"
+          },
+          "state_machine_id": "jobs_live_phone_patch_resume_hold_v4_flow",
+          "transition_id": "jobs_live_phone_patch_submission_blocked",
+          "transition_outcome": "pass",
+          "from_state": "packet_recovered",
+          "to_state": "submission_blocked_pending_approval",
+          "submission_gate": "approval_required",
+          "blocked_reason": "recruiter approval is still required for the resumed live jobs packet",
+          "sandbox_endpoint": "https://sandbox.local/jobs-live-phone-patch-resume-hold-v4/submit",
+          "allow_submission": false
+        }
+      ]
+    }
+  ]
+}

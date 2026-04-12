@@ -1,0 +1,19 @@
+{
+  "row_count": 3,
+  "status_counts": {
+    "untriaged": 0,
+    "planned": 2,
+    "running": 1,
+    "answered": 0
+  },
+  "benchmark_slices": [
+    "direction_following",
+    "harnessability"
+  ],
+  "sources": [
+    "x"
+  ],
+  "latest_source_date": "",
+  "planned_or_running": 3,
+  "answered": 0
+}

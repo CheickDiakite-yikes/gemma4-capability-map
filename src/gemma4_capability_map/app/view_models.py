@@ -8,6 +8,8 @@ from typing import Any
 
 from gemma4_capability_map.reporting.knowledge_work_board import (
     build_comparison_batch_rows,
+    build_community_signal_rows,
+    build_community_signal_summary,
     build_lane_summary_rows,
     build_public_summary,
     build_runtime_profile_rows,
@@ -17,6 +19,8 @@ from gemma4_capability_map.runtime.core import LocalAgentRuntime
 
 ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_BOARD_PATH = ROOT / "results" / "history" / "knowledge_work_board_latest.csv"
+DEFAULT_COMMUNITY_SIGNAL_EXPORT = ROOT / "results" / "history" / "knowledge_work_community_signals.csv"
+DEFAULT_COMMUNITY_SIGNAL_REGISTRY = ROOT / "configs" / "community_signals.yaml"
 
 NUMERIC_BOARD_FIELDS = {
     "real_world_readiness_avg",
@@ -52,15 +56,28 @@ def load_board_rows(path: str | Path = DEFAULT_BOARD_PATH) -> list[dict[str, Any
     return normalized
 
 
+def load_community_signal_rows(board_path: str | Path = DEFAULT_BOARD_PATH) -> list[dict[str, Any]]:
+    board_path = Path(board_path)
+    export_path = board_path.parent / DEFAULT_COMMUNITY_SIGNAL_EXPORT.name
+    if export_path.exists():
+        with export_path.open(encoding="utf-8") as handle:
+            rows = list(csv.DictReader(handle))
+        if rows:
+            return [_normalize_community_signal_row(row) for row in rows]
+    return build_community_signal_rows(DEFAULT_COMMUNITY_SIGNAL_REGISTRY)
+
+
 def build_console_snapshot(runtime: LocalAgentRuntime, board_path: str | Path = DEFAULT_BOARD_PATH) -> dict[str, Any]:
     sessions = runtime.list_sessions()
     approvals = runtime.list_approvals()
     profiles = runtime.list_system_profiles()
     board_rows = load_board_rows(board_path)
+    community_signal_rows = load_community_signal_rows(board_path)
     local_rows = [row for row in board_rows if row.get("local")]
     local_rows = sorted(local_rows, key=lambda row: (-(row.get("real_world_readiness_avg") or 0.0), row.get("display_name", "")))
     runtime_profiles = build_runtime_profile_rows(local_rows)
     board_summary = build_public_summary(local_rows)
+    community_signal_summary = build_community_signal_summary(community_signal_rows)
     comparison_batches = build_comparison_batch_rows(local_rows)
     lane_cards = _build_lane_cards(local_rows)
     comparison_health = _comparison_health_summary(local_rows)
@@ -76,9 +93,12 @@ def build_console_snapshot(runtime: LocalAgentRuntime, board_path: str | Path = 
         "workflows": runtime.list_workflows(lane="replayable_core"),
         "profiles": profiles,
         "board_rows": board_rows,
+        "community_signal_rows": community_signal_rows,
         "top_local_rows": local_rows[:8],
         "runtime_profiles": runtime_profiles,
         "comparison_batches": comparison_batches,
+        "community_signal_summary": community_signal_summary,
+        "community_signal_cards": _build_community_signal_cards(community_signal_rows),
         "comparison_health": comparison_health,
         "workflow_cards": workflow_cards,
         "workflow_cards_by_lane": workflow_cards_by_lane,
@@ -229,6 +249,12 @@ def _normalize_board_row(row: dict[str, Any]) -> dict[str, Any]:
     return normalized
 
 
+def _normalize_community_signal_row(row: dict[str, Any]) -> dict[str, Any]:
+    normalized = dict(row)
+    normalized["status"] = str(normalized.get("status", "untriaged") or "untriaged").strip().lower()
+    return normalized
+
+
 def _build_lane_cards(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     lane_summaries = build_lane_summary_rows(rows)
     cards: list[dict[str, Any]] = []
@@ -305,6 +331,25 @@ def _build_workflow_cards(
             }
         )
     return sorted(cards, key=lambda card: (-card["pending_approvals"], -card["active_sessions"], card["title"].lower()))
+
+
+def _build_community_signal_cards(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    cards: list[dict[str, Any]] = []
+    for row in rows:
+        cards.append(
+            {
+                "claim": row.get("claim", ""),
+                "source": row.get("source", ""),
+                "source_date": row.get("source_date", ""),
+                "status": row.get("status", "untriaged"),
+                "benchmark_slice": row.get("benchmark_slice", ""),
+                "why_it_matters": row.get("why_it_matters", ""),
+                "moonie_hypothesis": row.get("moonie_hypothesis", ""),
+                "notes": row.get("notes", ""),
+                "source_url": row.get("source_url", ""),
+            }
+        )
+    return sorted(cards, key=lambda card: (card["status"], card["source_date"], card["source"], card["claim"]))
 
 
 def _load_trace_payload(session: Any) -> tuple[dict[str, Any], str | None]:

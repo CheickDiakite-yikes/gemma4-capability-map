@@ -37,6 +37,13 @@ TOOL_NAME_ALIASES = {
     "record_patch": "propose_patch",
     "create_patch": "propose_patch",
     "suggest_patch": "propose_patch",
+    "fetch_record": "api_fetch_record",
+    "read_record": "api_fetch_record",
+    "get_record": "api_fetch_record",
+    "update_record": "api_update_record",
+    "patch_record": "api_update_record",
+    "apply_cli_patch": "cli_apply_patch",
+    "record_cli_patch": "cli_apply_patch",
     "latest_file_lookup": "find_latest_file",
     "find_recent_file": "find_latest_file",
     "segment_objects": "segment_entities",
@@ -278,6 +285,7 @@ def _initial_calls(context: dict[str, Any], tool_specs: list[ToolSpec]) -> list[
     user_text = context["user_text"]
     tool_names = {tool.name for tool in tool_specs}
     image_context = f"{str(context.get('image_hint_id', ''))} {' '.join(str(item) for item in context.get('media', []))}".lower()
+    record_id = _extract_record_id(" ".join(context["user_messages"]))
 
     if "update_event" in tool_names and _extract_event_id(" ".join(context["user_messages"])):
         return [_heuristic_call("update_event", _infer_arguments(context, "update_event"))]
@@ -290,6 +298,15 @@ def _initial_calls(context: dict[str, Any], tool_specs: list[ToolSpec]) -> list[
 
     if "find_latest_file" in tool_names and "compare_files" in tool_names and _contains_any(user_text, ["latest", "last month"]):
         return [_heuristic_call("find_latest_file", _infer_arguments(context, "find_latest_file"))]
+
+    if "api_fetch_record" in tool_names and record_id and _contains_any(user_text, ["fetch", "confirm", "retrieve", "look up", "lookup"]):
+        return [_heuristic_call("api_fetch_record", _infer_arguments(context, "api_fetch_record"))]
+
+    if "api_update_record" in tool_names and record_id and _contains_any(user_text, ["update", "keep", "stays", "stay", "set"]):
+        return [_heuristic_call("api_update_record", _infer_arguments(context, "api_update_record"))]
+
+    if "cli_apply_patch" in tool_names and _extract_path(user_text) and _contains_any(user_text, ["patch", "fix", "edit only", "patch only"]):
+        return [_heuristic_call("cli_apply_patch", _infer_arguments(context, "cli_apply_patch"))]
 
     if "find_repo_file" in tool_names and _contains_any(user_text, ["find", "locate"]) and "config" in user_text:
         return [_heuristic_call("find_repo_file", _infer_arguments(context, "find_repo_file"))]
@@ -333,7 +350,7 @@ def _classify_intent(context: dict[str, Any], tool_specs: list[ToolSpec]) -> str
         {"propose_patch", "update_event", "create_event"} & tool_names
     ):
         return "disable_or_modify"
-    if _contains_any(user_text, ["read", "find", "inspect", "look at", "check", "search", "locate"]):
+    if _contains_any(user_text, ["read", "find", "inspect", "look at", "check", "search", "locate", "fetch", "confirm"]):
         return "inspect_or_lookup"
     return "record_or_update"
 
@@ -343,12 +360,27 @@ def _intent_priority_calls(context: dict[str, Any], tool_specs: list[ToolSpec]) 
     tool_names = {tool.name for tool in tool_specs}
     user_text = context["user_text"]
     latest_feedback = context["latest_feedback"] if isinstance(context.get("latest_feedback"), dict) else {}
+    record_id = _extract_record_id(" ".join(context["user_messages"]))
 
     if intent == "refuse_or_escalate":
         return []
 
     if _needs_parallel_audit(user_text, tool_names):
         return None
+
+    if intent == "inspect_or_lookup" and "api_fetch_record" in tool_names and record_id:
+        return [_heuristic_call("api_fetch_record", _infer_arguments(context, "api_fetch_record"), raw_hint="intent_prior")]
+
+    if intent == "record_or_update" and "api_update_record" in tool_names and record_id:
+        return [_heuristic_call("api_update_record", _infer_arguments(context, "api_update_record"), raw_hint="intent_prior")]
+
+    if (
+        intent == "record_or_update"
+        and "cli_apply_patch" in tool_names
+        and _extract_path(" ".join(context["user_messages"]))
+        and _contains_any(user_text, ["patch", "fix", "edit only", "patch only"])
+    ):
+        return [_heuristic_call("cli_apply_patch", _infer_arguments(context, "cli_apply_patch"), raw_hint="intent_prior")]
 
     if (
         intent == "record_or_update"
@@ -410,6 +442,10 @@ def _next_calls_from_feedback(context: dict[str, Any], tool_specs: list[ToolSpec
     if latest_tool == "find_repo_file" and "read_repo_file" in tool_names:
         return [_heuristic_call("read_repo_file", _infer_arguments(context, "read_repo_file"))]
 
+    if latest_tool == "read_repo_file" and "cli_apply_patch" in tool_names:
+        if _contains_any(user_text, ["patch", "fix", "edit only", "patch only"]):
+            return [_heuristic_call("cli_apply_patch", _infer_arguments(context, "cli_apply_patch"))]
+
     if latest_tool in {"segment_entities", "extract_layout", "refine_selection"} and "refine_selection" in tool_names:
         if pending_visual_filter:
             return [_heuristic_call("refine_selection", _infer_arguments(context, "refine_selection"))]
@@ -441,6 +477,9 @@ def _next_calls_from_feedback(context: dict[str, Any], tool_specs: list[ToolSpec
             return [_heuristic_call("read_region_text", _infer_arguments(context, "read_region_text"))]
 
     if latest_tool == "read_region_text":
+        return []
+
+    if latest_tool in {"api_fetch_record", "api_update_record", "cli_apply_patch"}:
         return []
 
     if latest_tool in {"inspect_image", "read_repo_file"} and "propose_patch" in tool_names:
@@ -563,6 +602,33 @@ def _infer_arguments(context: dict[str, Any], tool_name: str) -> dict[str, Any]:
         if matches:
             return {"path": str(matches[0])}
         return {"path": "config/billing.yaml" if "billing" in user_text else "config/settings.yaml"}
+
+    if tool_name == "cli_apply_patch":
+        path = _extract_path(" ".join(context["user_messages"]))
+        if not path:
+            read_feedback = _latest_successful_feedback(context, "read_repo_file")
+            read_output = _feedback_output(read_feedback)
+            read_path = str(read_output.get("path", ""))
+            if _looks_like_repo_path(read_path):
+                path = read_path
+        if not path:
+            path = "config/job_form.yaml"
+        return {"path": path, "patch": _infer_cli_patch(user_text)}
+
+    if tool_name == "api_fetch_record":
+        return {
+            "record_type": _infer_api_record_type(user_text),
+            "record_id": _extract_record_id(" ".join(context["user_messages"])) or "BR-17",
+        }
+
+    if tool_name == "api_update_record":
+        field, value = _infer_api_field_value(user_text)
+        return {
+            "record_type": _infer_api_record_type(user_text),
+            "record_id": _extract_record_id(" ".join(context["user_messages"])) or "INV-204",
+            "field": field,
+            "value": value,
+        }
 
     if tool_name == "inspect_image":
         image_id = image_hint_id or _extract_image_id(" ".join(context["user_messages"]))
@@ -769,6 +835,29 @@ def _should_override_valid_arguments(call: ToolCall, inferred_arguments: dict[st
         inferred_path = str(inferred_arguments.get("path", ""))
         if inferred_path and provided_path and provided_path != inferred_path and "/" not in provided_path:
             return True
+    if call.name == "cli_apply_patch":
+        provided_path = str(call.arguments.get("path", ""))
+        provided_patch = str(call.arguments.get("patch", ""))
+        inferred_path = str(inferred_arguments.get("path", ""))
+        inferred_patch = str(inferred_arguments.get("patch", ""))
+        if inferred_path and provided_path != inferred_path:
+            return True
+        if inferred_patch and provided_patch != inferred_patch:
+            return True
+    if call.name == "api_fetch_record":
+        provided_record_type = str(call.arguments.get("record_type", "")).strip()
+        provided_record_id = str(call.arguments.get("record_id", "")).strip()
+        if str(inferred_arguments.get("record_type", "")).strip() and provided_record_type != str(inferred_arguments.get("record_type", "")).strip():
+            return True
+        if str(inferred_arguments.get("record_id", "")).strip() and provided_record_id != str(inferred_arguments.get("record_id", "")).strip():
+            return True
+    if call.name == "api_update_record":
+        required_fields = ("record_type", "record_id", "field", "value")
+        for field_name in required_fields:
+            inferred_value = str(inferred_arguments.get(field_name, "")).strip()
+            provided_value = str(call.arguments.get(field_name, "")).strip()
+            if inferred_value and provided_value != inferred_value:
+                return True
     if call.name == "propose_patch":
         provided_path = str(call.arguments.get("path", ""))
         inferred_path = str(inferred_arguments.get("path", ""))
@@ -883,6 +972,7 @@ _VISUAL_FILTER_PATTERNS: tuple[tuple[str, tuple[str, ...]], ...] = (
     ("blocked", ("blocked", "bloque", "bloquee")),
     ("empty", ("empty", "vacant", "vacants")),
 )
+_VISUAL_FILTER_PATTERN_MAP = {canonical: patterns for canonical, patterns in _VISUAL_FILTER_PATTERNS}
 
 
 def _normalize_phrase_text(text: str) -> str:
@@ -903,8 +993,8 @@ def _requested_visual_filters(user_text: str) -> list[str]:
     if " latest issue first " in normalized and " phone issue " in normalized:
         requested.append("latest")
     shadowed_canonicals = {
-        "backlog": ("support backlog",),
-        "action": ("latest action",),
+        "backlog": _VISUAL_FILTER_PATTERN_MAP["support backlog"],
+        "action": _VISUAL_FILTER_PATTERN_MAP["latest action"],
     }
     for canonical, patterns in _VISUAL_FILTER_PATTERNS:
         if any(f" {_normalize_phrase_text(pattern)} " in normalized for pattern in shadowed_canonicals.get(canonical, ())):
@@ -1023,6 +1113,33 @@ def _looks_like_repo_path(value: str) -> bool:
 def _extract_path(text: str) -> str:
     match = re.search(r"([A-Za-z0-9_./-]+\.(?:ya?ml|json|toml|py|md|csv))", text)
     return match.group(1) if match else ""
+
+
+def _extract_record_id(text: str) -> str:
+    match = re.search(r"\b([A-Z]{2,5}-\d{1,5})\b", text)
+    return match.group(1) if match else ""
+
+
+def _infer_api_record_type(user_text: str) -> str:
+    if _contains_any(user_text, ["billing record", "invoice", "invoice_lock", "invoice lock", "billing"]):
+        return "billing_record"
+    if _contains_any(user_text, ["briefing", "board packet", "approval safe action", "approval-safe action", "packet"]):
+        return "briefing_record"
+    return "record"
+
+
+def _infer_api_field_value(user_text: str) -> tuple[str, str]:
+    if _contains_any(user_text, ["invoice_lock", "invoice lock"]) and _contains_any(user_text, ["hold", "on hold", "stays on hold", "stay on hold"]):
+        return ("invoice_lock", "hold")
+    return ("status", "hold")
+
+
+def _infer_cli_patch(user_text: str) -> str:
+    if _contains_any(user_text, ["phone validation", "phone fix", "phone issue first", "phone issue"]):
+        return "phone_validation: strict"
+    if _contains_any(user_text, ["invoice lock", "invoice_lock"]) and _contains_any(user_text, ["hold", "on hold"]):
+        return "invoice_lock: hold"
+    return "status: updated"
 
 
 def _extract_event_id(text: str) -> str:

@@ -35,6 +35,8 @@ def build_default_registry(visual_executor: VisualExecutor | None = None) -> Too
         ToolSpec(
             name="find_latest_file",
             description="Find the latest file in a logical directory by kind.",
+            tool_family="function_call",
+            tool_intent="search",
             schema={
                 "type": "object",
                 "properties": {
@@ -50,6 +52,8 @@ def build_default_registry(visual_executor: VisualExecutor | None = None) -> Too
         ToolSpec(
             name="compare_files",
             description="Compare two budget files and compute deltas.",
+            tool_family="function_call",
+            tool_intent="inspect",
             schema={
                 "type": "object",
                 "properties": {
@@ -65,6 +69,8 @@ def build_default_registry(visual_executor: VisualExecutor | None = None) -> Too
         ToolSpec(
             name="search_events",
             description="Search calendar events by date range and attendee.",
+            tool_family="function_call",
+            tool_intent="search",
             schema={
                 "type": "object",
                 "properties": {
@@ -81,6 +87,8 @@ def build_default_registry(visual_executor: VisualExecutor | None = None) -> Too
         ToolSpec(
             name="update_event",
             description="Update an existing calendar event.",
+            tool_family="function_call",
+            tool_intent="write",
             schema={
                 "type": "object",
                 "properties": {
@@ -97,6 +105,8 @@ def build_default_registry(visual_executor: VisualExecutor | None = None) -> Too
         ToolSpec(
             name="create_event",
             description="Create a new calendar event.",
+            tool_family="function_call",
+            tool_intent="write",
             schema={
                 "type": "object",
                 "properties": {
@@ -114,6 +124,8 @@ def build_default_registry(visual_executor: VisualExecutor | None = None) -> Too
         ToolSpec(
             name="find_repo_file",
             description="Search the repo for a likely config file.",
+            tool_family="function_call",
+            tool_intent="search",
             schema={
                 "type": "object",
                 "properties": {"query": {"type": "string"}},
@@ -126,6 +138,8 @@ def build_default_registry(visual_executor: VisualExecutor | None = None) -> Too
         ToolSpec(
             name="read_repo_file",
             description="Read a repository file by path.",
+            tool_family="function_call",
+            tool_intent="read",
             schema={
                 "type": "object",
                 "properties": {"path": {"type": "string"}},
@@ -138,6 +152,8 @@ def build_default_registry(visual_executor: VisualExecutor | None = None) -> Too
         ToolSpec(
             name="propose_patch",
             description="Record a proposed patch for a repository file.",
+            tool_family="function_call",
+            tool_intent="patch",
             schema={
                 "type": "object",
                 "properties": {
@@ -153,6 +169,8 @@ def build_default_registry(visual_executor: VisualExecutor | None = None) -> Too
         ToolSpec(
             name="inspect_image",
             description="Inspect a screenshot or document image and extract the relevant action.",
+            tool_family="function_call",
+            tool_intent="inspect",
             schema={
                 "type": "object",
                 "properties": {"image_id": {"type": "string"}},
@@ -165,6 +183,8 @@ def build_default_registry(visual_executor: VisualExecutor | None = None) -> Too
         ToolSpec(
             name="segment_entities",
             description="Segment or select entities in an image by query.",
+            tool_family="function_call",
+            tool_intent="inspect",
             schema={
                 "type": "object",
                 "properties": {
@@ -180,6 +200,8 @@ def build_default_registry(visual_executor: VisualExecutor | None = None) -> Too
         ToolSpec(
             name="refine_selection",
             description="Refine a prior visual selection using a follow-up filter query.",
+            tool_family="function_call",
+            tool_intent="revise",
             schema={
                 "type": "object",
                 "properties": {
@@ -195,6 +217,8 @@ def build_default_registry(visual_executor: VisualExecutor | None = None) -> Too
         ToolSpec(
             name="extract_layout",
             description="Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+            tool_family="function_call",
+            tool_intent="inspect",
             schema={
                 "type": "object",
                 "properties": {
@@ -210,6 +234,8 @@ def build_default_registry(visual_executor: VisualExecutor | None = None) -> Too
         ToolSpec(
             name="read_region_text",
             description="Read the text inside a previously selected region.",
+            tool_family="function_call",
+            tool_intent="read",
             schema={
                 "type": "object",
                 "properties": {
@@ -220,6 +246,92 @@ def build_default_registry(visual_executor: VisualExecutor | None = None) -> Too
             },
         ),
         _read_region_text(visual_executor),
+    )
+    registry.register(
+        ToolSpec(
+            name="cli_search_logs",
+            description="Search a CLI-accessible log file for the latest matching line.",
+            tool_family="cli",
+            tool_intent="search",
+            schema={
+                "type": "object",
+                "properties": {
+                    "path": {"type": "string"},
+                    "query": {"type": "string"},
+                },
+                "required": ["path", "query"],
+            },
+        ),
+        _cli_search_logs,
+    )
+    registry.register(
+        ToolSpec(
+            name="cli_apply_patch",
+            description="Record a CLI patch action against a local config or source file.",
+            tool_family="cli",
+            tool_intent="patch",
+            schema={
+                "type": "object",
+                "properties": {
+                    "path": {"type": "string"},
+                    "patch": {"type": "string"},
+                },
+                "required": ["path", "patch"],
+            },
+        ),
+        _cli_apply_patch,
+    )
+    registry.register(
+        ToolSpec(
+            name="cli_inspect_diff",
+            description="Inspect a prepared CLI diff or patch excerpt by id.",
+            tool_family="cli",
+            tool_intent="inspect",
+            schema={
+                "type": "object",
+                "properties": {
+                    "diff_id": {"type": "string"},
+                },
+                "required": ["diff_id"],
+            },
+        ),
+        _cli_inspect_diff,
+    )
+    registry.register(
+        ToolSpec(
+            name="api_fetch_record",
+            description="Fetch a record from a simulated API by type and id.",
+            tool_family="api",
+            tool_intent="read",
+            schema={
+                "type": "object",
+                "properties": {
+                    "record_type": {"type": "string"},
+                    "record_id": {"type": "string"},
+                },
+                "required": ["record_type", "record_id"],
+            },
+        ),
+        _api_fetch_record,
+    )
+    registry.register(
+        ToolSpec(
+            name="api_update_record",
+            description="Update a single field on a simulated API record.",
+            tool_family="api",
+            tool_intent="write",
+            schema={
+                "type": "object",
+                "properties": {
+                    "record_type": {"type": "string"},
+                    "record_id": {"type": "string"},
+                    "field": {"type": "string"},
+                    "value": {"type": "string"},
+                },
+                "required": ["record_type", "record_id", "field", "value"],
+            },
+        ),
+        _api_update_record,
     )
     return registry
 
@@ -296,6 +408,54 @@ def _inspect_image(state: dict[str, Any], arguments: dict[str, Any]) -> tuple[di
     if image is None:
         raise KeyError(f"Image not found: {arguments['image_id']}")
     return state, image
+
+
+def _cli_search_logs(state: dict[str, Any], arguments: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any]]:
+    path = arguments["path"]
+    query = arguments["query"].lower()
+    raw = state.get("cli_logs", {}).get(path)
+    if raw is None:
+        raise KeyError(f"CLI log not found: {path}")
+    lines = [line for line in str(raw).splitlines() if query in line.lower()]
+    latest_match = lines[-1] if lines else ""
+    return state, {"path": path, "query": arguments["query"], "matches": lines, "latest_match": latest_match}
+
+
+def _cli_apply_patch(state: dict[str, Any], arguments: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any]]:
+    patch = {"path": arguments["path"], "patch": arguments["patch"], "source": "cli"}
+    state.setdefault("cli_patches", []).append(patch)
+    return state, {"patch": patch}
+
+
+def _cli_inspect_diff(state: dict[str, Any], arguments: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any]]:
+    diff_id = arguments["diff_id"]
+    diff = state.get("cli_diffs", {}).get(diff_id)
+    if diff is None:
+        raise KeyError(f"CLI diff not found: {diff_id}")
+    return state, {"diff_id": diff_id, "diff": diff}
+
+
+def _api_fetch_record(state: dict[str, Any], arguments: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any]]:
+    record_type = arguments["record_type"]
+    record_id = arguments["record_id"]
+    record = deepcopy(state.get("api_records", {}).get(record_type, {}).get(record_id))
+    if record is None:
+        raise KeyError(f"API record not found: {record_type}:{record_id}")
+    return state, {"record_type": record_type, "record_id": record_id, "record": record}
+
+
+def _api_update_record(state: dict[str, Any], arguments: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any]]:
+    record_type = arguments["record_type"]
+    record_id = arguments["record_id"]
+    field = arguments["field"]
+    value = arguments["value"]
+    records = state.setdefault("api_records", {}).setdefault(record_type, {})
+    record = deepcopy(records.get(record_id))
+    if record is None:
+        raise KeyError(f"API record not found: {record_type}:{record_id}")
+    record[field] = value
+    records[record_id] = record
+    return state, {"record_type": record_type, "record_id": record_id, "field": field, "value": value, "record": deepcopy(record)}
 
 
 def _segment_entities(visual_executor: VisualExecutor) -> ToolHandler:

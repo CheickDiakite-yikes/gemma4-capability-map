@@ -29,7 +29,8 @@ class LocalAgentAPIHandler(BaseHTTPRequestHandler):
             return
         if path == "/v1/sessions":
             status = query.get("status", [None])[0]
-            self._send_json({"sessions": [session.model_dump(mode="json") for session in self.runtime.list_sessions(status=status)]})
+            project = query.get("project", [None])[0]
+            self._send_json({"sessions": [session.model_dump(mode="json") for session in self.runtime.list_sessions(status=status, project_id=project)]})
             return
         if path == "/v1/approvals":
             include_all = str(query.get("all", ["false"])[0]).lower() == "true"
@@ -41,6 +42,18 @@ class LocalAgentAPIHandler(BaseHTTPRequestHandler):
             session_id = parts[3] if len(parts) > 3 else ""
             if len(parts) == 4:
                 self._send_json(self.runtime.get_session(session_id).model_dump(mode="json"))
+                return
+            if len(parts) == 5 and parts[4] == "history":
+                history = self.runtime.get_session_history(session_id)
+                self._send_json(
+                    {
+                        "session": history["session"].model_dump(mode="json"),
+                        "instruction_history": [record.model_dump(mode="json") for record in history["instruction_history"]],
+                        "artifact_history": [record.model_dump(mode="json") for record in history["artifact_history"]],
+                        "events": [event.model_dump(mode="json") for event in history["events"]],
+                        "runtime_trace": history["runtime_trace"].model_dump(mode="json") if history["runtime_trace"] else None,
+                    }
+                )
                 return
             if len(parts) == 5 and parts[4] == "events":
                 after = int(query.get("after", ["0"])[0])
@@ -84,6 +97,7 @@ class LocalAgentAPIHandler(BaseHTTPRequestHandler):
                     lane=body.get("lane"),
                     title=body.get("title"),
                     human_request=str(body.get("human_request", "")),
+                    project_id=body.get("project_id"),
                     background=bool(body.get("background", True)),
                 )
             except Exception as exc:
@@ -99,6 +113,22 @@ class LocalAgentAPIHandler(BaseHTTPRequestHandler):
             resume = bool(body.get("resume", True))
             try:
                 session = self.runtime.resolve_approval(session_id, decision=decision, note=note, resume=resume)
+            except Exception as exc:
+                self._send_json({"error": str(exc)}, status=400)
+                return
+            self._send_json(session.model_dump(mode="json"))
+            return
+        if path.startswith("/v1/approvals/") and path.endswith("/resolve"):
+            parts = path.split("/")
+            approval_id = parts[3] if len(parts) > 3 else ""
+            decision = str(body.get("decision", "approve"))
+            note = str(body.get("note", ""))
+            resume = bool(body.get("resume", True))
+            if not approval_id:
+                self._send_json({"error": "Not found"}, status=404)
+                return
+            try:
+                session = self.runtime.resolve_approval_by_id(approval_id, decision=decision, note=note, resume=resume)
             except Exception as exc:
                 self._send_json({"error": str(exc)}, status=400)
                 return

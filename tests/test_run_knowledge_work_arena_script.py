@@ -57,3 +57,18 @@ def test_infer_system_id_matches_registry_for_qwen_reasoner_only() -> None:
     )
 
     assert _infer_system_id(args) == "hf_qwen3_8b_reasoner_only"
+
+
+def test_infer_system_id_matches_registry_for_gemma31b_gguf_reasoner_only() -> None:
+    args = argparse.Namespace(
+        system_id=None,
+        backend="llama_cpp",
+        reasoner_backend="llama_cpp",
+        router_backend="heuristic",
+        retriever_backend="heuristic",
+        reasoner="google/gemma-4-31b-it",
+        router="",
+        retriever="",
+    )
+
+    assert _infer_system_id(args) == "llama_cpp_gemma4_31b_reasoner_only"

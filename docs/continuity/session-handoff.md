@@ -2,15 +2,16 @@
 
 ## Resume Here
 
-The repo is in a stronger state after turning the direct in-process Gemma specialist stack into a publishable-default full-lane result rather than a weaker appendix lane.
+The repo is in a stronger and more honest state now: the replayable Gemma specialist headline row has been rerun on the widened `29`-episode harnessability lane, while the live/oracle/Qwen rows still need matching reruns before any new parity claim is made.
 
 ## Latest Headline Result
 
 The current strongest research claim in the repo is now:
 
-- on the publishable-default full-lane `KnowledgeWorkArena` matrix, the direct in-process Gemma 4 specialist stack matches the oracle row on the same `26 / 20` surface
-- the reasoner-only Gemma control remains materially weaker on that same surface
+- on the refreshed replayable full-lane `KnowledgeWorkArena` surface, the direct in-process Gemma 4 specialist stack is now strict/recovered clean across all `29` episodes
+- the reasoner-only Gemma control remains materially weaker on the last reproduced comparator surface
 - that means the controller/runtime/specialist-stack work materially improved Gemma 4 as a full-stack local agent on our own benchmark
+- oracle and Qwen have not yet been rerun on the widened `29 / 23` surface, so the current parity claim must stay scoped to the older reproduced surface where those rows still live
 
 Current board-backed headline rows:
 
@@ -31,12 +32,14 @@ Current board-backed headline rows:
 - local headline Gemma row:
   - `hf_gemma4_e2b_specialists_cpu`
   - comparison batch:
-    - `20260411T152330Z_knowledge_work_publishable_core`
+    - `20260412T190500Z_knowledge_work_full_lane_harnessability_core`
+    - `model_backed_hf_inprocess_specialists_full_live_v4`
   - replayable:
-    - `runs = 26`
-    - `strict_interface_avg = 0.9711538461538461`
-    - `recovered_execution_avg = 0.9615384615384616`
-    - `real_world_readiness_avg = 0.9668576923076924`
+    - `runs = 29`
+    - `artifact_quality_avg = 0.9689793103448276`
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 1.0`
+    - `real_world_readiness_avg = 0.9774`
   - live:
     - `runs = 20`
     - `strict_interface_avg = 0.9625`
@@ -59,16 +62,17 @@ Important claim boundary:
 - the repo now also has a real same-surface reproduced Qwen row:
   - `mlx_qwen3_8b_reasoner_only`
   - replayable:
-    - `strict_interface_avg = 0.9711538461538461`
-    - `recovered_execution_avg = 0.9230769230769231`
-    - `real_world_readiness_avg = 0.9604499999999999`
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 0.9615384615384616`
+    - `real_world_readiness_avg = 0.9716653846153847`
   - live:
-    - `strict_interface_avg = 0.9625`
-    - `recovered_execution_avg = 0.925`
-    - `real_world_readiness_avg = 0.961875`
-- that Qwen row beats the direct in-process Gemma reasoner-only control but still trails the Gemma specialist stack on recovered execution in the visual jobs/invoice family
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 0.975`
+    - `real_world_readiness_avg = 0.976455`
+- that Qwen row beats the direct in-process Gemma reasoner-only control and materially improved after the rescue/planner fixes, but it still trails the Gemma specialist stack on recovered execution
 - do not overclaim beyond that:
-  - this is not yet a broad Gemma-versus-Qwen family claim
+  - this is not yet a refreshed `29 / 23` Gemma-versus-Qwen parity claim
+  - it is not yet a broad Gemma-versus-Qwen family claim
   - it is not a frontier closed-model comparison
 
 What just landed:
@@ -92,11 +96,11 @@ What just landed:
   - `refine_selection`
   - `extract_layout`
   - `read_region_text`
-- generated visual gold corpus now totals `22` tasks; current canonical lane pointers cover `11` replayable + `7` live seeded tasks
+- generated visual gold corpus now totals `26` tasks; current canonical lane pointers cover `11` replayable + `7` live seeded tasks
 - visual KWA bounded slices for executive, jobs, and finance episodes
 - corrected visual planner/image-id plumbing and visual answer-surface rescue
 - older canonical KWA oracle lane pointers still reflect the last full oracle rerun on `24` replayable and `18` live episodes
-- current generated KWA corpus is now `26` replayable and `20` live episodes
+- current generated KWA corpus is now `29` replayable and `23` live episodes
 - registry-backed KWA benchmark board and scatter exports
 - Streamlit `knowledge_work_board` mode
 - explicit `system_id` support in KWA run manifests
@@ -118,7 +122,7 @@ What just landed:
 - combined-feedback patch repair for image + repo audit stages
 - clean broader 9-episode replayable specialist-backed cross-role slice at `model_backed_hf_specialists_cross_role_broad_v2`
 - clean broader 9-episode live specialist-backed cross-role slice at `model_backed_hf_specialists_cross_role_live_broad_v1`
-- `KnowledgeWorkArena` first expanded to `21` replayable and `15` live episodes, then continued growing to the current `26 / 20` generated surface
+- `KnowledgeWorkArena` first expanded to `21` replayable and `15` live episodes, then continued growing to the current `29 / 23` generated corpus
 - new harder canonical episodes for stale context, constraint preservation, and stale assumptions
 - canonical KWA runner no longer silently truncates to `12` episodes by default
 - clean 3-episode replayable harder human-nuance specialist-backed slice at `model_backed_hf_specialists_hard_human_replayable_v1`
@@ -134,6 +138,8 @@ What just landed:
   - `Qwen/Qwen3-8B-MLX-4bit` is registered
   - `QWEN3_8B_MLX_PATH` is supported
   - `mlx_qwen3_8b_reasoner_only` is added to the experimental matrix
+- tool-family expansion across `function_call`, CLI, and API surfaces
+- experimental Gemma 4 `31B` `GGUF` / `llama.cpp` runtime-posture support is implemented, but there is no local model/runtime installed yet, so there is no reproduced row to report
 - first reproduced Qwen full-lane batch:
   - `20260411T211206Z_knowledge_work_full_lane_experimental`
   - replayable:
@@ -169,6 +175,7 @@ What just landed:
   - [`results/knowledge_work/model_backed_hf_inprocess_reasoner_full_replayable_v1/summary.json`](../../results/knowledge_work/model_backed_hf_inprocess_reasoner_full_replayable_v1/summary.json)
 - live direct-HF in-process reasoner-only full-lane exploratory slice:
   - [`results/knowledge_work/model_backed_hf_inprocess_reasoner_full_live_v1/summary.json`](../../results/knowledge_work/model_backed_hf_inprocess_reasoner_full_live_v1/summary.json)
+- current generated KWA corpus is now `29` replayable and `23` live episodes, while the publishable-default comparison surface remains the `26 / 20` board matrix
 - replayable specialist-backed policy subset:
   - [`results/knowledge_work/model_backed_hf_specialists_policy_replayable_v6/summary.json`](../../results/knowledge_work/model_backed_hf_specialists_policy_replayable_v6/summary.json)
 - live specialist-backed policy subset:
@@ -231,7 +238,7 @@ Exploratory stopped pilot:
 
 1. Harden the shared runtime so benchmark execution and product sessions keep one execution contract.
 2. Extend the operator console, mobile companion, and board into a more polished shared product/reporting surface.
-3. Debug the MLX Qwen visual recovery misses before widening to another non-Gemma comparator.
+3. Isolate the remaining MLX Qwen recovered-execution gap before widening to another non-Gemma comparator.
 4. Keep inspecting softer-realism signals instead of only binary failures.
 
 ## Important Operational Notes

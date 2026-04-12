@@ -59,6 +59,27 @@ class ToolInvocation(StrictModel):
     validator_result: Literal["pass", "fail", "unknown"] = "unknown"
 
 
+class InstructionRecord(StrictModel):
+    instruction_id: str
+    session_id: str
+    project_id: str = ""
+    source: str = "human"
+    content: str
+    created_at: str
+    note: str = ""
+
+
+class ArtifactRevisionRecord(StrictModel):
+    artifact_revision_id: str
+    session_id: str
+    artifact_id: str
+    title: str = ""
+    revision: int = 0
+    file_path: str = ""
+    review_feedback: str = ""
+    created_at: str
+
+
 class ApprovalRequest(StrictModel):
     approval_id: str
     session_id: str
@@ -79,9 +100,15 @@ class RuntimeEvent(StrictModel):
     sequence: int
     kind: Literal[
         "created",
+        "instruction_updated",
         "warming",
         "running",
+        "resume_requested",
+        "resume_started",
         "artifacts_ready",
+        "tool_call_attempt",
+        "tool_call_result",
+        "artifact_revision",
         "approval_required",
         "approval_resolved",
         "completed",
@@ -116,6 +143,7 @@ class RuntimeTrace(StrictModel):
 class AgentSession(StrictModel):
     session_id: str
     title: str
+    project_id: str = ""
     workflow_id: str
     workflow_title: str
     workflow_category: str
@@ -140,6 +168,9 @@ class AgentSession(StrictModel):
     active_approval_id: str | None = None
     last_event_sequence: int = 0
     preview_asset: str | None = None
+    latest_instruction: str = ""
+    instruction_history: list[InstructionRecord] = Field(default_factory=list)
+    artifact_history: list[ArtifactRevisionRecord] = Field(default_factory=list)
     latest_artifact_title: str = ""
     latest_artifact_path: str = ""
     latest_revision_artifact_id: str = ""
@@ -148,5 +179,5 @@ class AgentSession(StrictModel):
     tool_invocations: list[ToolInvocation] = Field(default_factory=list)
     approvals: list[ApprovalRequest] = Field(default_factory=list)
     runtime_trace: RuntimeTrace | None = None
-    metrics: dict[str, float | int | bool] = Field(default_factory=dict)
+    metrics: dict[str, float | int | bool | str] = Field(default_factory=dict)
     last_error: str | None = None

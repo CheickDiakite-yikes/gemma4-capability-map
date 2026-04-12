@@ -1,6 +1,91 @@
 # Research Log
 
+# 2026-04-12
+
+### Harnessability replayable full-lane rerun is now strict/recovered clean on `29`
+
+- Fixed the new harnessability/controller failures in [`src/gemma4_capability_map/tools/planner.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/tools/planner.py):
+  - added explicit CLI/API routing priority for `cli_apply_patch`, `api_fetch_record`, and `api_update_record`
+  - added deterministic argument inference and repair for record ids, record types, invoice-lock updates, and phone-validation patches
+  - added tool-name aliases so non-canonical record/patch names repair cleanly
+- Added targeted planner regressions in [`tests/test_tool_planner.py`](/Users/cheickdiakite/Codex/moonie/tests/test_tool_planner.py) and reran controller coverage plus the full suite:
+  - `35 passed` targeted
+  - `223 passed` full suite
+- Cleared the three new replayable harnessability failures in a bounded smoke rerun:
+  - [`results/knowledge_work/hf_gemma4_e2b_specialists_cpu_smoke_harnessability_replayable_v1/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/hf_gemma4_e2b_specialists_cpu_smoke_harnessability_replayable_v1/summary.json)
+  - all three now have `strict_interface_score = 1.0` and `recovered_execution_score = 1.0`
+- Reran the full replayable widened lane for the headline Gemma specialist stack:
+  - [`results/knowledge_work_matrix/20260412T190500Z_knowledge_work_full_lane_harnessability_core/hf_gemma4_e2b_specialists_cpu__replayable_core/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260412T190500Z_knowledge_work_full_lane_harnessability_core/hf_gemma4_e2b_specialists_cpu__replayable_core/summary.json)
+  - `runs = 29`
+  - `artifact_quality_avg = 0.9689793103448276`
+  - `strict_interface_avg = 1.0`
+  - `recovered_execution_avg = 1.0`
+  - `real_world_readiness_avg = 0.9774`
+- The new v4 replayable harnessability episodes are now controller-clean inside the full batch:
+  - `kwa_exec_latest_action_resume_hold_v4`
+  - `kwa_jobs_phone_patch_resume_hold_v4`
+  - `kwa_finance_invoice_lock_direction_hold_v4`
+- Rebuilt history exports:
+  - [`results/history/knowledge_work_board_latest.csv`](/Users/cheickdiakite/Codex/moonie/results/history/knowledge_work_board_latest.csv)
+  - [`results/history/knowledge_work_public_summary.json`](/Users/cheickdiakite/Codex/moonie/results/history/knowledge_work_public_summary.json)
+- Interpretation:
+  - Gemma specialist is now strict/recovered clean on the widened replayable `29`-episode surface
+  - the older oracle/Qwen/live rows still sit on earlier reproduced surfaces and need matching reruns before a new parity claim is made
+  - the right next step is to rerun oracle and `mlx_qwen3_8b_reasoner_only` on the widened `29 / 23` surface, then decide whether Gemma 4 `31B` `GGUF` / `llama.cpp` is the next posture row or whether live-lane parity should come first
+
+### Harnessability and direction-following framing expanded to nine questions
+
+- Reframed the repo around nine linked research questions instead of seven, with the new emphasis on harnessability and direction-following across `function_call`, CLI, and API surfaces.
+- Kept the external-benchmark story clean: community signals and published tables are now treated as hypotheses until Moonie reproduces them locally.
+- Refreshed the current generated-corpus accounting to `84 / 341 / 29 / 23`, while the publishable comparison board still stays on the `26 / 20` surface.
+- Documented experimental Gemma 4 `31B` `GGUF` / `llama.cpp` runtime-posture support as implemented, but not yet reproduced locally because no local model/runtime is installed on this machine.
+- No new benchmark row should be inferred from the widened slices or the experimental `31B` posture until those runs actually exist.
+
 ## 2026-04-11
+
+### Visual rescue and planner fixes raised both Gemma and Qwen on the same full-lane surface
+
+- Fixed the shared visual second-pass rescue gate in:
+  - [`src/gemma4_capability_map/runtime/core.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/runtime/core.py)
+  - [`src/gemma4_capability_map/pipelines/base.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/pipelines/base.py)
+- The rescue path now triggers for visual tasks that still mention superseded earlier candidates after a correct refine chain, even when the answer still contains the nominal expected terms.
+- Fixed the shared planner in [`src/gemma4_capability_map/tools/planner.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/tools/planner.py):
+  - `latest approval-safe action` now correctly shadows the generic `action` filter
+  - this removes the spurious extra `refine_selection(action)` after a successful `refine_selection(latest action)`
+- Added regressions in:
+  - [`tests/test_smoke_eval.py`](/Users/cheickdiakite/Codex/moonie/tests/test_smoke_eval.py)
+  - [`tests/test_tool_planner.py`](/Users/cheickdiakite/Codex/moonie/tests/test_tool_planner.py)
+- Bounded validation now clears the previously failing jobs and finance slices for the patched systems:
+  - Qwen jobs:
+    - [`results/knowledge_work/mlx_qwen3_8b_reasoner_only_smoke_jobs_visual_form_hold_v2/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/mlx_qwen3_8b_reasoner_only_smoke_jobs_visual_form_hold_v2/summary.json)
+    - [`results/knowledge_work/mlx_qwen3_8b_reasoner_only_smoke_jobs_visual_constraint_override_v2/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/mlx_qwen3_8b_reasoner_only_smoke_jobs_visual_constraint_override_v2/summary.json)
+    - [`results/knowledge_work/mlx_qwen3_8b_reasoner_only_smoke_jobs_live_visual_latest_issue_v2/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/mlx_qwen3_8b_reasoner_only_smoke_jobs_live_visual_latest_issue_v2/summary.json)
+  - shared finance slices:
+    - [`results/knowledge_work/mlx_qwen3_8b_reasoner_only_smoke_finance_visual_invoice_hold_v2/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/mlx_qwen3_8b_reasoner_only_smoke_finance_visual_invoice_hold_v2/summary.json)
+    - [`results/knowledge_work/mlx_qwen3_8b_reasoner_only_smoke_finance_live_visual_invoice_hold_v2/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/mlx_qwen3_8b_reasoner_only_smoke_finance_live_visual_invoice_hold_v2/summary.json)
+    - [`results/knowledge_work/hf_gemma4_e2b_specialists_cpu_smoke_finance_visual_invoice_hold_v2/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/hf_gemma4_e2b_specialists_cpu_smoke_finance_visual_invoice_hold_v2/summary.json)
+    - [`results/knowledge_work/hf_gemma4_e2b_specialists_cpu_smoke_finance_live_visual_invoice_hold_v2/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/hf_gemma4_e2b_specialists_cpu_smoke_finance_live_visual_invoice_hold_v2/summary.json)
+- Refreshed full-lane rows:
+  - Qwen:
+    - [`results/knowledge_work_matrix/20260412T022659Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__replayable_core/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260412T022659Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__replayable_core/summary.json)
+    - `recovered_execution_avg = 0.9615384615384616`
+    - `real_world_readiness_avg = 0.9716653846153847`
+    - [`results/knowledge_work_matrix/20260412T022659Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__live_web_stress/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260412T022659Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__live_web_stress/summary.json)
+    - `recovered_execution_avg = 0.975`
+    - `real_world_readiness_avg = 0.976455`
+  - Gemma specialist:
+    - [`results/knowledge_work/model_backed_hf_inprocess_specialists_full_replayable_v4/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_inprocess_specialists_full_replayable_v4/summary.json)
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 1.0`
+    - `real_world_readiness_avg = 0.9780730769230769`
+    - [`results/knowledge_work/model_backed_hf_inprocess_specialists_full_live_v4/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_inprocess_specialists_full_live_v4/summary.json)
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 1.0`
+    - `real_world_readiness_avg = 0.9806250000000001`
+- Interpretation:
+  - the harness fixes improved both models on the same surface
+  - Gemma specialist still remains ahead on the same board
+  - that strengthens the claim that the real work here is full-stack local-agent improvement, not just model selection luck
 
 ### First reproduced Qwen full-lane row plus deterministic text-decode fixes
 

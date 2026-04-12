@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 import time
 from ast import literal_eval
@@ -40,10 +41,15 @@ class Gemma4Runner(Runner):
         self._tokenizer = None
         self._model = None
         self._mlx_config = None
+        self._llama_cpp_model = None
         self._loaded_mode: str | None = None
         self._runtime_device: str | None = None
         self._effective_model_id = model_id
         self._service_info: dict[str, Any] = {}
+        self._llama_cpp_partial = False
+        self._llama_cpp_error: str | None = None
+        self._llama_cpp_context_window: int | None = None
+        self._llama_cpp_model_source: str | None = None
 
     def ensure_loaded(self, media: list[str] | None = None) -> dict[str, Any]:
         if self.backend == "hf":
@@ -52,18 +58,26 @@ class Gemma4Runner(Runner):
             self._ensure_hf_service_loaded()
         elif self.backend == "mlx":
             self._ensure_mlx_loaded(media or [])
+        elif self.backend == "llama_cpp":
+            self._ensure_llama_cpp_loaded(media or [])
         return self.runtime_info()
 
     def runtime_info(self) -> dict[str, Any]:
         return {
             "backend": self.backend,
+            "runtime_posture": self._runtime_posture(),
             "requested_model": self.requested_model_id,
             "effective_model": self._effective_model_id,
+            "model_source": self._llama_cpp_model_source or self._effective_model_id,
+            "model_format": _infer_model_format(self._effective_model_id, backend=self.backend),
             "runtime_device": self._runtime_device,
             "load_mode": self._loaded_mode,
             "configured_device": self.device,
             "request_timeout_seconds": self.request_timeout_seconds,
             "service": self._service_info,
+            "partial_runtime": self._llama_cpp_partial,
+            "llama_cpp_error": self._llama_cpp_error,
+            "llama_cpp_context_window": self._llama_cpp_context_window,
         }
 
     def generate(
@@ -86,6 +100,8 @@ class Gemma4Runner(Runner):
             turn = self._generate_hf_service(messages, media, tool_specs, thinking, active_max_new_tokens)
         elif self.backend == "mlx":
             turn = self._generate_mlx(messages, media, tool_specs, thinking, active_max_new_tokens)
+        elif self.backend == "llama_cpp":
+            turn = self._generate_llama_cpp(messages, media, tool_specs, thinking, active_max_new_tokens)
         else:
             raise ValueError(f"Unsupported backend: {self.backend}")
         latency_ms = int((time.perf_counter() - start) * 1000)
@@ -512,6 +528,102 @@ class Gemma4Runner(Runner):
         self._effective_model_id = effective_model
         self.model_id = self._effective_model_id
 
+    def _ensure_llama_cpp_loaded(self, media: list[str]) -> None:
+        del media
+        if self._loaded_mode == "gguf" and (self._llama_cpp_model is not None or self._llama_cpp_partial):
+            return
+
+        resolved_source = resolve_model_source(self.requested_model_id)
+        self._llama_cpp_model_source = resolved_source
+        self._effective_model_id = resolved_source
+        self.model_id = self._effective_model_id
+        self._loaded_mode = "gguf"
+        self._runtime_device = "cpu"
+        self._llama_cpp_partial = False
+        self._llama_cpp_error = None
+        self._llama_cpp_context_window = int(os.getenv("GEMMA4_LLAMA_CPP_N_CTX", "8192") or 8192)
+
+        try:
+            from llama_cpp import Llama  # type: ignore[import-not-found]
+        except Exception as exc:
+            self._llama_cpp_partial = True
+            self._llama_cpp_error = f"import_error:{type(exc).__name__}:{exc}"
+            self._llama_cpp_model = None
+            return
+
+        model_path = Path(resolved_source)
+        if not model_path.exists():
+            self._llama_cpp_partial = True
+            self._llama_cpp_error = f"missing_model:{resolved_source}"
+            self._llama_cpp_model = None
+            return
+
+        try:
+            self._llama_cpp_model = Llama(
+                model_path=str(model_path),
+                n_ctx=self._llama_cpp_context_window,
+                verbose=False,
+            )
+        except Exception as exc:
+            self._llama_cpp_partial = True
+            self._llama_cpp_error = f"{type(exc).__name__}:{exc}"
+            self._llama_cpp_model = None
+
+    def _generate_llama_cpp(
+        self,
+        messages: list[Message],
+        media: list[str],
+        tool_specs: list[ToolSpec],
+        thinking: bool,
+        max_new_tokens: int,
+    ) -> ModelTurn:
+        self._ensure_llama_cpp_loaded(media)
+        if self._llama_cpp_model is None:
+            turn = self._generate_heuristic(messages, media, tool_specs, thinking)
+            metadata = dict(turn.runtime_metadata)
+            metadata.update({"backend": "llama_cpp", "runtime_info": self.runtime_info(), "partial_runtime": True})
+            return turn.model_copy(update={"runtime_metadata": metadata})
+
+        prompt_messages = self._build_mlx_messages(messages, tool_specs, thinking=thinking)
+        try:
+            if hasattr(self._llama_cpp_model, "create_chat_completion"):
+                response = self._llama_cpp_model.create_chat_completion(
+                    messages=prompt_messages,
+                    max_tokens=max_new_tokens,
+                    temperature=0.0,
+                )
+            else:
+                prompt = self._build_mlx_prompt(messages, tool_specs, thinking=thinking)
+                response = self._llama_cpp_model.create_completion(  # type: ignore[union-attr]
+                    prompt=prompt,
+                    max_tokens=max_new_tokens,
+                    temperature=0.0,
+                )
+        except Exception as exc:
+            self._llama_cpp_partial = True
+            self._llama_cpp_error = f"{type(exc).__name__}:{exc}"
+            turn = self._generate_heuristic(messages, media, tool_specs, thinking)
+            metadata = dict(turn.runtime_metadata)
+            metadata.update({"backend": "llama_cpp", "runtime_info": self.runtime_info(), "partial_runtime": True})
+            return turn.model_copy(update={"runtime_metadata": metadata})
+
+        text = _llama_cpp_generated_text(response)
+        normalized = normalize_tool_output(text)
+        final_answer, thinking_text = _parse_model_response(None, text)
+        return ModelTurn(
+            raw_model_output=text,
+            normalized_tool_call=normalized,
+            final_answer="" if normalized else final_answer,
+            thinking_text=thinking_text,
+            prompt_tokens=0,
+            completion_tokens=0,
+            runtime_metadata={
+                "backend": "llama_cpp",
+                "runtime_info": self.runtime_info(),
+                "partial_runtime": self._llama_cpp_partial,
+            },
+        )
+
     def _build_hf_messages(
         self,
         messages: list[Message],
@@ -643,6 +755,11 @@ class Gemma4Runner(Runner):
             lines.append(f"{role}: {text}".rstrip())
         lines.append("ASSISTANT:")
         return "\n\n".join(lines).strip()
+
+    def _runtime_posture(self) -> str:
+        if self.backend == "llama_cpp":
+            return "gguf"
+        return self.backend
 
     def _system_instruction(self, tool_specs: list[ToolSpec], thinking: bool, native_thinking: bool) -> str:
         instructions: list[str] = []
@@ -892,6 +1009,39 @@ def _mlx_completion_tokens(generation: Any, fallback: int) -> int:
     if isinstance(completion_tokens, int):
         return completion_tokens
     return fallback
+
+
+def _llama_cpp_generated_text(response: Any) -> str:
+    if isinstance(response, dict):
+        choices = response.get("choices") or []
+        if choices:
+            first = choices[0] or {}
+            if isinstance(first, dict):
+                message = first.get("message") or {}
+                if isinstance(message, dict):
+                    text = message.get("content") or message.get("text") or ""
+                    if text:
+                        return str(text)
+                text = first.get("text") or ""
+                if text:
+                    return str(text)
+    text = getattr(response, "text", response)
+    if text is None:
+        return ""
+    return str(text)
+
+
+def _infer_model_format(model_id: str, backend: str | None = None) -> str:
+    if backend == "llama_cpp":
+        return "gguf"
+    lowered = model_id.lower()
+    if lowered.endswith(".gguf") or ".gguf" in lowered or "gguf" in lowered:
+        return "gguf"
+    if "mlx" in lowered:
+        return "mlx"
+    if "gemma-4-e" in lowered or "qwen" in lowered:
+        return "hf"
+    return "unknown"
 
 
 def _strip_control_tokens(text: str) -> str:

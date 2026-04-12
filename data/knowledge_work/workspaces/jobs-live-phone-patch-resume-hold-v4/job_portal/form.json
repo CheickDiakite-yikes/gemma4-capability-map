@@ -1,0 +1,15 @@
+{
+  "fields": [
+    "candidate_name",
+    "job_title",
+    "resume",
+    "cover_letter"
+  ],
+  "submission_mode": "dry_run",
+  "validation_rules": [
+    "resume required",
+    "cover letter required",
+    "candidate approval required before send"
+  ],
+  "approval_gate": "candidate_signoff_required"
+}

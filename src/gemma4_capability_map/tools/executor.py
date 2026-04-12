@@ -17,11 +17,14 @@ class DeterministicExecutor:
         return DeterministicExecutor(registry=self.registry, tool_specs=tool_specs)
 
     def step(self, state: dict[str, Any], tool_call: ToolCall, step: int = 1) -> ToolResult:
+        spec = next((candidate for candidate in self.tool_specs if candidate.name == tool_call.name), None)
         valid, error = validate_tool_call(tool_call, self.tool_specs)
         if not valid:
             return ToolResult(
                 step=step,
                 selected_tool=tool_call.name,
+                tool_family=spec.tool_family if spec is not None else "",
+                tool_intent=spec.tool_intent if spec is not None else "",
                 arguments=tool_call.arguments,
                 validator_result="fail",
                 output={},
@@ -40,6 +43,8 @@ class DeterministicExecutor:
             return ToolResult(
                 step=step,
                 selected_tool=tool_call.name,
+                tool_family=spec.tool_family if spec is not None else "",
+                tool_intent=spec.tool_intent if spec is not None else "",
                 arguments=tool_call.arguments,
                 validator_result="fail",
                 output={},
@@ -49,6 +54,8 @@ class DeterministicExecutor:
         return ToolResult(
             step=step,
             selected_tool=tool_call.name,
+            tool_family=spec.tool_family if spec is not None else "",
+            tool_intent=spec.tool_intent if spec is not None else "",
             arguments=tool_call.arguments,
             validator_result="pass",
             output=output,

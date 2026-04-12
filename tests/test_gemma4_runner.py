@@ -219,6 +219,24 @@ class _FakeModel:
         return [_FakeGeneratedBatch(self.text)]
 
 
+class _FakeLlamaCppModel:
+    def __init__(self, **kwargs) -> None:
+        self.kwargs = kwargs
+        self.calls: list[dict[str, object]] = []
+
+    def create_chat_completion(self, **kwargs):  # noqa: ANN003
+        self.calls.append(kwargs)
+        return {
+            "choices": [
+                {
+                    "message": {
+                        "content": '{"name":"read_repo_file","arguments":{"path":"README.md"}}',
+                    }
+                }
+            ]
+        }
+
+
 def _install_fake_hf_stack(monkeypatch, *, text_mode: bool, generated_text: str) -> tuple[_FakeTextTokenizer, _FakeModel]:
     tokenizer = _FakeTextTokenizer() if text_mode else _FakeVisionProcessor()
     model = _FakeModel(generated_text)
@@ -296,6 +314,67 @@ def test_hf_vision_backend_still_uses_processor_chat_template(monkeypatch, tmp_p
     assert model.generate_calls[0]["do_sample"] is False
     assert model.generate_calls[0]["pad_token_id"] == 42
     assert turn.final_answer == "Vision answer"
+
+
+def test_llama_cpp_backend_uses_safe_stub_when_native_loader_is_unavailable(monkeypatch) -> None:
+    monkeypatch.setitem(sys.modules, "llama_cpp", types.ModuleType("llama_cpp"))
+    monkeypatch.setattr("gemma4_capability_map.models.gemma4_runner.resolve_model_source", lambda model_id: f"/models/{model_id.lower().replace('/', '-')}.gguf")
+
+    runner = Gemma4Runner("google/gemma-4-31b-it", backend="llama_cpp", device="cpu")
+    turn = runner.generate(
+        messages=[Message(role="user", content="Summarize the latest note.")],
+        media=[],
+        tool_specs=[],
+        thinking=False,
+        max_new_tokens=32,
+    )
+
+    runtime_info = runner.runtime_info()
+    assert runtime_info["runtime_posture"] == "gguf"
+    assert runtime_info["load_mode"] == "gguf"
+    assert runtime_info["partial_runtime"] is True
+    assert runtime_info["model_format"] == "gguf"
+    assert turn.final_answer == "Answer: Summarize the latest note."
+    assert turn.runtime_metadata["backend"] == "llama_cpp"
+    assert turn.runtime_metadata["partial_runtime"] is True
+
+
+def test_llama_cpp_backend_can_parse_native_chat_completion(monkeypatch, tmp_path) -> None:
+    fake_module = types.ModuleType("llama_cpp")
+    fake_module.Llama = lambda **kwargs: _FakeLlamaCppModel(**kwargs)  # type: ignore[attr-defined]
+    monkeypatch.setitem(sys.modules, "llama_cpp", fake_module)
+    model_path = tmp_path / "gemma-4-31b-it.gguf"
+    model_path.write_text("fake-gguf", encoding="utf-8")
+    monkeypatch.setattr("gemma4_capability_map.models.gemma4_runner.resolve_model_source", lambda model_id: str(model_path))
+
+    runner = Gemma4Runner("google/gemma-4-31b-it", backend="llama_cpp", device="cpu")
+    turn = runner.generate(
+        messages=[Message(role="user", content="Use the file tool to inspect the README.")],
+        media=[],
+        tool_specs=[
+            ToolSpec(
+                name="read_repo_file",
+                description="Read a repository file.",
+                schema={"type": "object", "properties": {"path": {"type": "string"}}},
+            )
+        ],
+        thinking=False,
+        max_new_tokens=32,
+    )
+
+    runtime_info = runner.runtime_info()
+    assert runtime_info["runtime_posture"] == "gguf"
+    assert runtime_info["partial_runtime"] is False
+    assert turn.normalized_tool_call == [
+        ToolCall(
+            name="read_repo_file",
+            arguments={"path": "README.md"},
+            source_format="json",
+            raw='{"name":"read_repo_file","arguments":{"path":"README.md"}}',
+        )
+    ]
+    assert turn.runtime_metadata["backend"] == "llama_cpp"
+    assert turn.runtime_metadata["partial_runtime"] is False
 
 
 def test_oracle_single_tool_call_returns_normalized_call() -> None:

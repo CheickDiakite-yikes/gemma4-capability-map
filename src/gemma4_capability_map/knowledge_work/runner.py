@@ -61,6 +61,8 @@ class EpisodeRunner:
                         "stage_id": stage.stage_id,
                         "task_id": task_trace.task_id,
                         "tool_name": step.selected_tool,
+                        "tool_family": step.tool_family,
+                        "tool_intent": step.tool_intent,
                         "arguments": step.arguments,
                         "validator_result": step.validator_result,
                     }

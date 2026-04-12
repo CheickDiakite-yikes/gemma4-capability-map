@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-10T21:21:05.687593+00:00",
+  "generated_at": "2026-04-12T18:12:54.005087+00:00",
   "hardware": {
     "platform": "Darwin",
     "platform_version": "Darwin Kernel Version 25.4.0: Thu Mar 19 19:33:25 PDT 2026; root:xnu-12377.101.15~1/RELEASE_ARM64_T6041",
@@ -13,10 +13,14 @@
   },
   "offline_mode_enabled": false,
   "model_sources": {
+    "Qwen/Qwen3-8B": "/Users/cheickdiakite/models/Qwen3-8B",
+    "Qwen/Qwen3-8B-MLX-4bit": "/Users/cheickdiakite/models/Qwen3-8B-MLX-4bit",
+    "google/embeddinggemma-300m": "google/embeddinggemma-300m",
+    "google/functiongemma-270m-it": "google/functiongemma-270m-it",
+    "google/gemma-4-31b-it": "google/gemma-4-31b-it",
     "google/gemma-4-E2B-it": "google/gemma-4-E2B-it",
     "google/gemma-4-E4B-it": "google/gemma-4-E4B-it",
-    "google/functiongemma-270m-it": "google/functiongemma-270m-it",
-    "google/embeddinggemma-300m": "google/embeddinggemma-300m"
+    "mlx-community/gemma-4-e2b-it-4bit": "mlx-community/gemma-4-e2b-it-4bit"
   },
   "hf_service": {
     "status": "ready",
@@ -26,87 +30,45 @@
       "model_id": "google/gemma-4-E2B-it",
       "device": "mps",
       "max_new_tokens": 96,
-      "pid": 72780,
+      "pid": 77100,
       "status": "ready",
       "phase": "hf_load_cached",
-      "created_at": "2026-04-10T02:43:53.994220+00:00",
-      "requests_completed": 2,
+      "created_at": "2026-04-10T22:00:34.397107+00:00",
+      "requests_completed": 6,
       "requests_failed": 0,
       "recent_events": [
         {
-          "created_at": "2026-04-10T02:43:53.996954+00:00",
-          "event": "service_boot",
-          "detail": "HF reasoner service process started.",
-          "socket_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_mps/service.sock"
-        },
-        {
-          "created_at": "2026-04-10T02:43:53.997396+00:00",
-          "event": "runner_init",
-          "detail": "Constructing Gemma4Runner for HF service.",
-          "backend": "hf"
-        },
-        {
-          "created_at": "2026-04-10T02:43:54.003507+00:00",
-          "event": "hf_import_start",
-          "detail": "Importing HF runtime dependencies."
-        },
-        {
-          "created_at": "2026-04-10T02:45:46.928017+00:00",
-          "event": "hf_import_complete",
-          "detail": "Imported HF runtime dependencies."
-        },
-        {
-          "created_at": "2026-04-10T02:45:46.930518+00:00",
-          "event": "hf_source_resolution_start",
-          "detail": "Resolving model source and auth."
-        },
-        {
-          "created_at": "2026-04-10T02:45:46.932341+00:00",
-          "event": "hf_load_start",
-          "detail": "Starting HF model load.",
-          "model_mode": "vision",
-          "resolved_source": "google/gemma-4-E2B-it",
-          "local_files_only": false,
-          "auth_token_present": true
-        },
-        {
-          "created_at": "2026-04-10T02:45:46.933920+00:00",
-          "event": "hf_processor_load_start",
-          "detail": "Loading HF processor.",
-          "resolved_source": "google/gemma-4-E2B-it"
-        },
-        {
-          "created_at": "2026-04-10T02:46:23.673481+00:00",
+          "created_at": "2026-04-10T22:00:40.875760+00:00",
           "event": "hf_processor_load_complete",
           "detail": "HF processor loaded.",
           "resolved_source": "google/gemma-4-E2B-it"
         },
         {
-          "created_at": "2026-04-10T02:46:24.009849+00:00",
+          "created_at": "2026-04-10T22:00:40.894777+00:00",
           "event": "hf_model_load_start",
           "detail": "Loading HF model weights.",
           "runtime_device": "mps"
         },
         {
-          "created_at": "2026-04-10T02:48:04.940976+00:00",
+          "created_at": "2026-04-10T22:00:53.528293+00:00",
           "event": "hf_model_to_device_start",
           "detail": "Moving HF model to runtime device.",
           "runtime_device": "mps"
         },
         {
-          "created_at": "2026-04-10T02:49:39.136462+00:00",
+          "created_at": "2026-04-10T22:01:08.697624+00:00",
           "event": "hf_model_to_device_complete",
           "detail": "HF model moved to runtime device.",
           "runtime_device": "mps"
         },
         {
-          "created_at": "2026-04-10T02:49:39.139517+00:00",
+          "created_at": "2026-04-10T22:01:08.698804+00:00",
           "event": "hf_model_load_complete",
           "detail": "HF model weights loaded.",
           "runtime_device": "mps"
         },
         {
-          "created_at": "2026-04-10T02:49:39.144336+00:00",
+          "created_at": "2026-04-10T22:01:08.699288+00:00",
           "event": "hf_ready",
           "detail": "HF runner is ready.",
           "runtime_device": "mps",
@@ -114,48 +76,112 @@
           "effective_model": "google/gemma-4-E2B-it"
         },
         {
-          "created_at": "2026-04-10T02:49:39.152463+00:00",
+          "created_at": "2026-04-10T22:01:08.700613+00:00",
           "event": "service_ready",
           "detail": "HF reasoner service is ready to accept requests.",
-          "load_elapsed_ms": 345144
+          "load_elapsed_ms": 34302
         },
         {
-          "created_at": "2026-04-10T02:49:39.304563+00:00",
+          "created_at": "2026-04-10T22:01:21.259181+00:00",
           "event": "hf_import_start",
           "detail": "Importing HF runtime dependencies."
         },
         {
-          "created_at": "2026-04-10T02:49:39.354412+00:00",
+          "created_at": "2026-04-10T22:01:21.261740+00:00",
           "event": "hf_import_complete",
           "detail": "Imported HF runtime dependencies."
         },
         {
-          "created_at": "2026-04-10T02:49:39.356556+00:00",
+          "created_at": "2026-04-10T22:01:21.262111+00:00",
           "event": "hf_load_cached",
           "detail": "Reusing already loaded HF model.",
           "model_mode": "vision"
         },
         {
-          "created_at": "2026-04-10T02:50:57.353435+00:00",
+          "created_at": "2026-04-10T22:01:36.183266+00:00",
           "event": "hf_import_start",
           "detail": "Importing HF runtime dependencies."
         },
         {
-          "created_at": "2026-04-10T02:50:57.355482+00:00",
+          "created_at": "2026-04-10T22:01:36.183954+00:00",
           "event": "hf_import_complete",
           "detail": "Imported HF runtime dependencies."
         },
         {
-          "created_at": "2026-04-10T02:50:57.356129+00:00",
+          "created_at": "2026-04-10T22:01:36.184154+00:00",
+          "event": "hf_load_cached",
+          "detail": "Reusing already loaded HF model.",
+          "model_mode": "vision"
+        },
+        {
+          "created_at": "2026-04-10T22:02:35.780688+00:00",
+          "event": "hf_import_start",
+          "detail": "Importing HF runtime dependencies."
+        },
+        {
+          "created_at": "2026-04-10T22:02:35.781549+00:00",
+          "event": "hf_import_complete",
+          "detail": "Imported HF runtime dependencies."
+        },
+        {
+          "created_at": "2026-04-10T22:02:35.781849+00:00",
+          "event": "hf_load_cached",
+          "detail": "Reusing already loaded HF model.",
+          "model_mode": "vision"
+        },
+        {
+          "created_at": "2026-04-10T22:02:50.809053+00:00",
+          "event": "hf_import_start",
+          "detail": "Importing HF runtime dependencies."
+        },
+        {
+          "created_at": "2026-04-10T22:02:50.810239+00:00",
+          "event": "hf_import_complete",
+          "detail": "Imported HF runtime dependencies."
+        },
+        {
+          "created_at": "2026-04-10T22:02:50.810482+00:00",
+          "event": "hf_load_cached",
+          "detail": "Reusing already loaded HF model.",
+          "model_mode": "vision"
+        },
+        {
+          "created_at": "2026-04-10T22:03:25.407882+00:00",
+          "event": "hf_import_start",
+          "detail": "Importing HF runtime dependencies."
+        },
+        {
+          "created_at": "2026-04-10T22:03:25.408562+00:00",
+          "event": "hf_import_complete",
+          "detail": "Imported HF runtime dependencies."
+        },
+        {
+          "created_at": "2026-04-10T22:03:25.408800+00:00",
+          "event": "hf_load_cached",
+          "detail": "Reusing already loaded HF model.",
+          "model_mode": "vision"
+        },
+        {
+          "created_at": "2026-04-10T22:03:29.597187+00:00",
+          "event": "hf_import_start",
+          "detail": "Importing HF runtime dependencies."
+        },
+        {
+          "created_at": "2026-04-10T22:03:29.597518+00:00",
+          "event": "hf_import_complete",
+          "detail": "Imported HF runtime dependencies."
+        },
+        {
+          "created_at": "2026-04-10T22:03:29.597726+00:00",
           "event": "hf_load_cached",
           "detail": "Reusing already loaded HF model.",
           "model_mode": "vision"
         }
       ],
-      "last_event_at": "2026-04-10T02:50:57.356129+00:00",
-      "heartbeat_at": "2026-04-10T02:50:57.356129+00:00",
-      "load_elapsed_ms": 345144,
-      "ready_at": "2026-04-10T02:49:39.149039+00:00",
+      "last_event_at": "2026-04-10T22:03:29.597726+00:00",
+      "heartbeat_at": "2026-04-10T22:03:29.597726+00:00",
+      "load_elapsed_ms": 34302,
+      "ready_at": "2026-04-10T22:01:08.700532+00:00",
       "runtime_info": {
         "backend": "hf",
         "requested_model": "google/gemma-4-E2B-it",
@@ -165,9 +191,9 @@
         "configured_device": "mps",
         "service": {}
       },
-      "last_request_at": "2026-04-10T02:51:13.318110+00:00",
-      "last_request_id": "google__gemma_4_E2B_it_mps_1775789457353",
-      "last_request_elapsed_ms": 15964
+      "last_request_at": "2026-04-10T22:03:32.551696+00:00",
+      "last_request_id": "google__gemma_4_E2B_it_mps_1775858609597",
+      "last_request_elapsed_ms": 2954
     },
     "paths": {
       "service_id": "google__gemma_4_E2B_it_mps",
@@ -191,7 +217,7 @@
     "stderr": ""
   },
   "specialist_access_probe": {
-    "generated_at": "2026-04-09T16:29:40.603345+00:00",
+    "generated_at": "2026-04-10T21:21:06.472325+00:00",
     "auth_token_present": true,
     "auth_token_source": "HF_TOKEN",
     "models": [
@@ -225,11 +251,9 @@
     ]
   },
   "mlx_runtime_probe": {
-    "ok": false,
-    "elapsed_ms": 20,
-    "returncode": 1,
-    "stdout": "",
-    "stderr": "Traceback (most recent call last):\n  File \"<string>\", line 2, in <module>\n    import mlx.core as mx\nModuleNotFoundError: No module named 'mlx'"
+    "ok": true,
+    "elapsed_ms": 221,
+    "returncode": 0
   },
-  "recommended_local_reasoner_backend": "hf"
+  "recommended_local_reasoner_backend": "mlx"
 }
