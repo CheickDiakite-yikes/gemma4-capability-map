@@ -28,6 +28,7 @@ _LOCAL_MODEL_PATH_ENV_MAP = {
     "google/functiongemma-270m-it": "FUNCTIONGEMMA_PATH",
     "google/embeddinggemma-300m": "EMBEDDINGGEMMA_PATH",
     "qwen/qwen3-8b": "QWEN3_8B_PATH",
+    "qwen/qwen3-8b-mlx-4bit": "QWEN3_8B_MLX_PATH",
 }
 
 

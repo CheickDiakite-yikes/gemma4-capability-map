@@ -185,6 +185,22 @@ Headline rows:
     - `strict_interface_avg = 0.875`
     - `recovered_execution_avg = 0.85`
     - `real_world_readiness_avg = 0.9347899999999999`
+- first reproduced non-Gemma local comparator:
+  - `mlx_qwen3_8b_reasoner_only`
+  - comparison batch:
+    - `20260411T211206Z_knowledge_work_full_lane_experimental`
+  - replayable:
+    - `runs = 26`
+    - `artifact_quality_avg = 0.9744807692307693`
+    - `strict_interface_avg = 0.9711538461538461`
+    - `recovered_execution_avg = 0.9230769230769231`
+    - `real_world_readiness_avg = 0.9604499999999999`
+  - live:
+    - `runs = 20`
+    - `artifact_quality_avg = 0.9696049999999999`
+    - `strict_interface_avg = 0.9625`
+    - `recovered_execution_avg = 0.925`
+    - `real_world_readiness_avg = 0.961875`
 
 Interpretation:
 
@@ -193,15 +209,18 @@ Interpretation:
 - the headline local Gemma specialist stack now matches the oracle row on the same board surface
 - the reasoner-only Gemma control remains materially weaker, so the gain is attributable to the harness/controller/runtime work rather than to an easy benchmark surface
 - this is a strong publishable Gemma-improvement claim
-- it is not yet a valid Gemma-versus-Qwen claim because there is still no full-lane Qwen row in the repo
-- the repo now has Qwen-ready comparator support:
-  - `Qwen/Qwen3-8B` is registered as `hf_qwen3_8b_reasoner_only`
-  - the HF runner now has a tokenizer-based text path for non-Gemma text models
-  - the experimental matrix includes the Qwen row
-- the next real comparator step is operational now:
-  - install a local Qwen checkpoint
-  - point the runtime at it with `QWEN3_8B_PATH` or a generic local model root
-  - run the full `26 / 20` exploratory lane and let the board speak for itself
+- the repo now has a real same-surface non-Gemma row:
+  - `mlx_qwen3_8b_reasoner_only`
+- that row is informative but bounded:
+  - it beats the direct in-process Gemma reasoner-only control on the same full-lane surface
+  - it still trails the Gemma specialist stack on recovered-execution and readiness because of additional visual jobs/invoice recovery misses
+- the repo also now has two distinct Qwen runtime postures:
+  - `hf_qwen3_8b_reasoner_only` as the direct-HF appendix/control path
+  - `mlx_qwen3_8b_reasoner_only` as the Apple-Silicon-native local comparator path
+- the next real comparator step is no longer “make Qwen runnable”; it is:
+  - debug the MLX Qwen visual recovery misses
+  - decide whether the direct-HF Qwen row is worth a full appendix run after the decode-policy fixes
+  - then add the next reproduced non-Gemma row only after the current Qwen comparison is well understood
 
 ## Benchmark Board / Reporting Layer
 

@@ -464,11 +464,29 @@ The current oracle full-lane board row has those same top-line metrics on the sa
   - `recovered_execution_avg = 0.95`
   - `real_world_readiness_avg = 0.966045`
 
+The first real reproduced non-Gemma local comparator is now Qwen3 8B on the Apple-Silicon-native MLX path:
+
+- replayable:
+  - [`results/knowledge_work_matrix/20260411T211206Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__replayable_core/summary.json`](results/knowledge_work_matrix/20260411T211206Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__replayable_core/summary.json)
+  - `runs = 26`
+  - `artifact_quality_avg = 0.9744807692307693`
+  - `strict_interface_avg = 0.9711538461538461`
+  - `recovered_execution_avg = 0.9230769230769231`
+  - `real_world_readiness_avg = 0.96045`
+- live:
+  - [`results/knowledge_work_matrix/20260411T211206Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__live_web_stress/summary.json`](results/knowledge_work_matrix/20260411T211206Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__live_web_stress/summary.json)
+  - `runs = 20`
+  - `artifact_quality_avg = 0.9696049999999999`
+  - `strict_interface_avg = 0.9625`
+  - `recovered_execution_avg = 0.925`
+  - `real_world_readiness_avg = 0.961875`
+
 That is the current benchmark-quality result:
 
 - we made Gemma 4 materially better as a local full-stack agent on our own harder benchmark surface
 - the reasoner-only Gemma control remains materially weaker, so the gain is not trivial
 - the headline local Gemma specialist row now matches the oracle row on the current publishable-default full-lane board surface
+- the first same-surface reproduced Qwen row now exists, and it lands between the direct Gemma reasoner-only control and the Gemma specialist stack
 
 ### Honest Claim Boundary
 
@@ -477,12 +495,15 @@ The repo can now honestly claim:
 - we improved Gemma 4 materially with our own controller/runtime/specialist-stack learnings
 - we made it a better full-stack local agent on our own benchmark
 - we have a publishable local Gemma-improvement result on a harder `KnowledgeWorkArena` surface
+- on the same local `26 / 20` board surface, Gemma 4 plus specialists is stronger than the first reproduced local Qwen3 8B MLX reasoner-only row
+- the first reproduced Qwen row beats the direct in-process Gemma reasoner-only control on strict-interface, recovered-execution, and readiness metrics
 
 The repo cannot honestly claim yet:
 
-- that Gemma 4 beats Qwen 3.5 on the same local benchmark surface
+- that Gemma 4 beats Qwen 3.5 broadly, because the reproduced non-Gemma evidence currently covers `Qwen3 8B MLX` only
+- that Gemma 4 beats frontier closed models on unrelated public benchmarks just because we now show external benchmark context rows
 
-Qwen should be the first real non-Gemma comparator, but there is still no local Qwen profile, cached local Qwen runtime, or completed full-lane Qwen row in the repo. That comparison should not be claimed until it exists in the board/history layer.
+The next honest comparator step is to widen reproduced non-Gemma coverage beyond the current `Qwen3 8B MLX` row and to keep hardening the visual recovery episodes where that row still drops execution.
 
 ## What We Have Learned So Far
 

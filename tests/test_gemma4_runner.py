@@ -171,6 +171,8 @@ class _FakeTextTokenizer:
         self.chat_kwargs = None
         self.prompt = None
         self.prompt_kwargs = None
+        self.pad_token_id = 42
+        self.eos_token_id = 99
 
     @classmethod
     def from_pretrained(cls, *args, **kwargs):  # noqa: ANN001
@@ -262,8 +264,11 @@ def test_hf_text_backend_uses_tokenizer_chat_template(monkeypatch) -> None:
     assert all(isinstance(message["content"], str) for message in tokenizer.chat_messages)
     assert tokenizer.chat_messages[0]["role"] == "system"
     assert "Available tools:" in tokenizer.chat_messages[1]["content"]
+    assert tokenizer.chat_kwargs["enable_thinking"] is False
     assert tokenizer.prompt == "QWEN_PROMPT"
     assert model.generate_calls[0]["max_new_tokens"] == 32
+    assert model.generate_calls[0]["do_sample"] is False
+    assert model.generate_calls[0]["pad_token_id"] == 42
     assert turn.final_answer == "Qwen answer"
 
 
@@ -288,6 +293,8 @@ def test_hf_vision_backend_still_uses_processor_chat_template(monkeypatch, tmp_p
     assert tokenizer.chat_kwargs["tokenize"] is True
     assert tokenizer.chat_kwargs["enable_thinking"] is False
     assert model.generate_calls[0]["max_new_tokens"] == 24
+    assert model.generate_calls[0]["do_sample"] is False
+    assert model.generate_calls[0]["pad_token_id"] == 42
     assert turn.final_answer == "Vision answer"
 
 

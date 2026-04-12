@@ -56,11 +56,20 @@ Current board-backed headline rows:
 Important claim boundary:
 
 - this is now a strong Gemma-improvement claim
-- it is not yet a valid Gemma-versus-Qwen claim because there is still no full-lane Qwen run in the repo
-- the repo now has Qwen-ready comparator support:
-  - `Qwen/Qwen3-8B` is registered as an experimental local reasoner-only system
-  - the HF runner supports tokenizer-based text generation for non-Gemma models
-  - the experimental matrix includes the Qwen row
+- the repo now also has a real same-surface reproduced Qwen row:
+  - `mlx_qwen3_8b_reasoner_only`
+  - replayable:
+    - `strict_interface_avg = 0.9711538461538461`
+    - `recovered_execution_avg = 0.9230769230769231`
+    - `real_world_readiness_avg = 0.9604499999999999`
+  - live:
+    - `strict_interface_avg = 0.9625`
+    - `recovered_execution_avg = 0.925`
+    - `real_world_readiness_avg = 0.961875`
+- that Qwen row beats the direct in-process Gemma reasoner-only control but still trails the Gemma specialist stack on recovered execution in the visual jobs/invoice family
+- do not overclaim beyond that:
+  - this is not yet a broad Gemma-versus-Qwen family claim
+  - it is not a frontier closed-model comparison
 
 What just landed:
 
@@ -118,6 +127,19 @@ What just landed:
 - publishable-default direct in-process Gemma specialist full-lane rerun at:
   - `20260411T152330Z_knowledge_work_publishable_core`
 - regenerated board/history rows showing the headline Gemma specialist stack matching the oracle full-lane row on the publishable-default matrix
+- deterministic text decode fixes for non-Gemma HF reasoners:
+  - `do_sample=False` is now forced in the shared HF reasoner path
+  - Qwen text chat-template calls now pass `enable_thinking=thinking` instead of silently inheriting model defaults
+- explicit MLX Qwen comparator support:
+  - `Qwen/Qwen3-8B-MLX-4bit` is registered
+  - `QWEN3_8B_MLX_PATH` is supported
+  - `mlx_qwen3_8b_reasoner_only` is added to the experimental matrix
+- first reproduced Qwen full-lane batch:
+  - `20260411T211206Z_knowledge_work_full_lane_experimental`
+  - replayable:
+    - [`results/knowledge_work_matrix/20260411T211206Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__replayable_core/summary.json`](../../results/knowledge_work_matrix/20260411T211206Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__replayable_core/summary.json)
+  - live:
+    - [`results/knowledge_work_matrix/20260411T211206Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__live_web_stress/summary.json`](../../results/knowledge_work_matrix/20260411T211206Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__live_web_stress/summary.json)
 
 ## Current Canonical Pointers
 
@@ -209,7 +231,7 @@ Exploratory stopped pilot:
 
 1. Harden the shared runtime so benchmark execution and product sessions keep one execution contract.
 2. Extend the operator console, mobile companion, and board into a more polished shared product/reporting surface.
-3. Broaden system coverage on the same full-lane KWA surface instead of only widening volume further.
+3. Debug the MLX Qwen visual recovery misses before widening to another non-Gemma comparator.
 4. Keep inspecting softer-realism signals instead of only binary failures.
 
 ## Important Operational Notes

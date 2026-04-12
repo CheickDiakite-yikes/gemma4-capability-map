@@ -10,6 +10,7 @@ matrix:
     - hf_service_gemma4_e4b_reasoner_only
     - hf_gemma4_e4b_reasoner_only
     - hf_qwen3_8b_reasoner_only
+    - mlx_qwen3_8b_reasoner_only
   lanes:
     - replayable_core
     - live_web_stress

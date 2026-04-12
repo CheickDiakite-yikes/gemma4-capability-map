@@ -209,10 +209,10 @@ class Gemma4Runner(Runner):
                 raise RuntimeError("HF tokenizer was not loaded.")
             prompt_messages = self._build_hf_text_messages(messages, tool_specs, media, thinking=thinking)
             if hasattr(tokenizer, "apply_chat_template"):
-                prompt = tokenizer.apply_chat_template(
+                prompt = _apply_text_chat_template(
+                    tokenizer,
                     prompt_messages,
-                    tokenize=False,
-                    add_generation_prompt=True,
+                    thinking=thinking,
                 )
             else:
                 prompt = self._build_hf_prompt(prompt_messages)
@@ -220,7 +220,16 @@ class Gemma4Runner(Runner):
         target_device = self._runtime_device or getattr(self._model, "device", None)
         if target_device is not None and hasattr(inputs, "to"):
             inputs = inputs.to(target_device)
-        outputs = self._model.generate(**inputs, max_new_tokens=max_new_tokens)
+        generation_kwargs: dict[str, Any] = {
+            "max_new_tokens": max_new_tokens,
+            # Benchmarked local runs should use deterministic decode instead of
+            # inheriting model-level sampling defaults.
+            "do_sample": False,
+        }
+        pad_token_id = _hf_pad_token_id(tokenizer)
+        if pad_token_id is not None:
+            generation_kwargs["pad_token_id"] = pad_token_id
+        outputs = self._model.generate(**inputs, **generation_kwargs)
         generated = outputs[0][inputs["input_ids"].shape[-1]:]
         text = tokenizer.decode(generated, skip_special_tokens=False)
         normalized = normalize_tool_output(text)
@@ -440,10 +449,10 @@ class Gemma4Runner(Runner):
                 raise RuntimeError("Install the mlx extra to use the MLX backend.") from exc
 
             prompt_messages = self._build_mlx_messages(messages, tool_specs, thinking=thinking)
-            prompt = self._processor.apply_chat_template(
+            prompt = _apply_text_chat_template(
+                self._processor,
                 prompt_messages,
-                tokenize=False,
-                add_generation_prompt=True,
+                thinking=thinking,
             )
             generation = generate_lm(
                 self._model,
@@ -812,6 +821,31 @@ def _pick_hf_device(torch: Any, preferred: str = "auto") -> str:
     if torch.cuda.is_available():
         return "cuda"
     return "cpu"
+
+
+def _apply_text_chat_template(tokenizer: Any, messages: list[dict[str, str]], thinking: bool) -> str:
+    kwargs: dict[str, Any] = {
+        "tokenize": False,
+        "add_generation_prompt": True,
+    }
+    try:
+        return tokenizer.apply_chat_template(messages, enable_thinking=thinking, **kwargs)
+    except TypeError:
+        return tokenizer.apply_chat_template(messages, **kwargs)
+
+
+def _hf_pad_token_id(tokenizer: Any) -> int | None:
+    pad_token_id = getattr(tokenizer, "pad_token_id", None)
+    if isinstance(pad_token_id, int):
+        return pad_token_id
+    eos_token_id = getattr(tokenizer, "eos_token_id", None)
+    if isinstance(eos_token_id, int):
+        return eos_token_id
+    if isinstance(eos_token_id, (list, tuple)) and eos_token_id:
+        first = eos_token_id[0]
+        if isinstance(first, int):
+            return first
+    return None
 
 
 def _is_edge_multimodal_model(model_id: str) -> bool:

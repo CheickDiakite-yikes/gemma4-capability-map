@@ -37,20 +37,24 @@ Focus:
   - oracle
   - reasoner-only local
   - specialist-backed local
-  - the first real non-Gemma local stack that can run end to end on this machine
+  - the next real non-Gemma local stack after the first reproduced Qwen row
 
 Why:
 
 - the current direct in-process Gemma specialist row now matches the oracle row on the publishable-default full-lane board surface
 - that gives the repo a strong “we made Gemma better” claim
-- the next missing evidence is not more Gemma self-comparison; it is a real non-Gemma comparator on the same matrix
+- the first real non-Gemma comparator now exists:
+  - `mlx_qwen3_8b_reasoner_only` on the full `26 / 20` lane
+- that row already tells a useful story:
+  - it beats the direct in-process Gemma reasoner-only control
+  - it still trails the Gemma specialist stack on recovery discipline in the visual jobs/invoice family
+- the next missing evidence is not “can we run Qwen at all”; it is whether we can close or explain those recovered-execution gaps and then widen to the next non-Gemma comparator
 - external GPT/Gemini rows are now useful context, but they are not substitutes for a same-harness reproduced comparator
-- do not claim a Qwen comparison until there is a completed full-lane Qwen run in the board/history layer
-- the plumbing work is now done:
-  - `Qwen/Qwen3-8B` is registered
-  - the HF runner has a tokenizer-based text path for non-Gemma models
-  - the experimental matrix includes the Qwen row
-- Qwen should still be the first target once a real local checkpoint is available, because it is the clearest non-Gemma open-weight comparator for the publishable claim set
+- the plumbing and first reproduced run are now done:
+  - `hf_qwen3_8b_reasoner_only` exists as the direct-HF appendix path
+  - `mlx_qwen3_8b_reasoner_only` exists as the Apple-Silicon-native benchmark row
+  - the HF reasoner now forces deterministic decode and explicitly disables Qwen thinking-mode defaults in benchmarked text runs
+- the next concrete widening target should be chosen only after the current Qwen row is understood well enough to publish defensibly
 
 ### 4. Deepen softer-realism scoring and harder episode design
 
@@ -91,10 +95,12 @@ Focus:
 ## Ongoing Discipline
 
 - keep claims honest:
-  - strong current claim:
-    - we improved Gemma 4 materially as a local full-stack agent on our own benchmark
-  - non-claim until new evidence exists:
-    - we have not yet shown Gemma beating Qwen on the same local full-lane surface
+- strong current claim:
+  - we improved Gemma 4 materially as a local full-stack agent on our own benchmark
+- stronger current same-surface comparative claim:
+  - the Gemma specialist stack now beats the first reproduced local Qwen3 8B MLX row on the same `26 / 20` board surface
+- non-claim until new evidence exists:
+  - we have not yet shown Gemma beating broader Qwen families or frontier closed models on the same local full-lane surface
 - keep CLI/API/operator/mobile surfaces honest about current capability:
   - packaged workflows are benchmark-backed bounded flows, not unbounded general autonomy
 - use the runtime event contract consistently:

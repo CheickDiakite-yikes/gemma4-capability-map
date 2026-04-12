@@ -1,0 +1,77 @@
+{
+  "run_group_id": "20260411T211150Z_replayable_core",
+  "created_at": "20260411T211150Z",
+  "lane": "replayable_core",
+  "system_id": "mlx_qwen3_8b_reasoner_only",
+  "backend": "mlx",
+  "reasoner_backend": "mlx",
+  "router_backend": "heuristic",
+  "retriever_backend": "heuristic",
+  "reasoner": "Qwen/Qwen3-8B-MLX-4bit",
+  "router": "",
+  "retriever": "",
+  "reasoner_device": "auto",
+  "router_device": null,
+  "retriever_device": null,
+  "reasoner_max_new_tokens": 96,
+  "request_timeout_seconds": null,
+  "thinking": false,
+  "limit": 1,
+  "episode_count": 1,
+  "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
+  "runtime_bundle": {
+    "reasoner": {
+      "backend": "mlx",
+      "requested_model": "Qwen/Qwen3-8B-MLX-4bit",
+      "effective_model": "/Users/cheickdiakite/models/Qwen3-8B-MLX-4bit",
+      "runtime_device": "mlx",
+      "load_mode": "text",
+      "configured_device": "auto",
+      "request_timeout_seconds": 600.0,
+      "service": {}
+    },
+    "router": {
+      "backend": "heuristic",
+      "requested_model": "",
+      "effective_model": "",
+      "runtime_device": null,
+      "configured_device": "auto"
+    },
+    "retriever": {
+      "backend": "heuristic",
+      "requested_model": "",
+      "effective_model": "",
+      "loaded": false,
+      "configured_device": "auto",
+      "runtime_device": null
+    }
+  },
+  "run_intent": "exploratory",
+  "warmup": {
+    "reasoner": {
+      "backend": "mlx",
+      "requested_model": "Qwen/Qwen3-8B-MLX-4bit",
+      "effective_model": "/Users/cheickdiakite/models/Qwen3-8B-MLX-4bit",
+      "runtime_device": "mlx",
+      "load_mode": "text",
+      "configured_device": "auto",
+      "request_timeout_seconds": 600.0,
+      "service": {}
+    },
+    "router": {
+      "backend": "heuristic",
+      "requested_model": "",
+      "effective_model": "",
+      "runtime_device": null,
+      "configured_device": "auto"
+    },
+    "retriever": {
+      "backend": "heuristic",
+      "requested_model": "",
+      "effective_model": "",
+      "loaded": false,
+      "configured_device": "auto",
+      "runtime_device": null
+    }
+  }
+}

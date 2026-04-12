@@ -2,6 +2,59 @@
 
 ## 2026-04-11
 
+### First reproduced Qwen full-lane row plus deterministic text-decode fixes
+
+- Turned the Qwen comparator from “registry-ready” into a real same-surface board row.
+- Fixed two benchmark-discipline bugs in [`src/gemma4_capability_map/models/gemma4_runner.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/models/gemma4_runner.py):
+  - direct HF text generation now forces `do_sample=False` instead of inheriting model-level sampling defaults
+  - text chat-template calls now pass `enable_thinking=thinking`, which matters for Qwen3 because the model family can otherwise silently default to thinking-mode formatting in nominally non-thinking benchmark runs
+- Added an Apple-Silicon-native Qwen path:
+  - registered `Qwen/Qwen3-8B-MLX-4bit` in [`configs/model_registry.yaml`](/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml)
+  - added `QWEN3_8B_MLX_PATH` support in [`src/gemma4_capability_map/models/runtime_utils.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/models/runtime_utils.py)
+  - added `mlx_qwen3_8b_reasoner_only` to [`configs/knowledge_work_matrix_experimental.yaml`](/Users/cheickdiakite/Codex/moonie/configs/knowledge_work_matrix_experimental.yaml)
+- Installed local checkpoints on this machine:
+  - raw HF Qwen at `/Users/cheickdiakite/models/Qwen3-8B`
+  - MLX Qwen at `/Users/cheickdiakite/models/Qwen3-8B-MLX-4bit`
+- The direct-HF Qwen path is technically runnable after the decode fixes, but it remains too slow on this Apple M4 Pro to be the right primary comparison row.
+- The MLX Qwen path is the correct local comparator posture here:
+  - bounded replayable smoke:
+    - [`results/knowledge_work/qwen3_8b_mlx_smoke_replayable_v1/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/qwen3_8b_mlx_smoke_replayable_v1/summary.json)
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 1.0`
+    - `real_world_readiness_avg = 0.9794`
+- Ran the full experimental `26 / 20` matrix for `mlx_qwen3_8b_reasoner_only`:
+  - batch:
+    - [`results/knowledge_work_matrix/20260411T211206Z_knowledge_work_full_lane_experimental`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260411T211206Z_knowledge_work_full_lane_experimental)
+  - replayable:
+    - [`results/knowledge_work_matrix/20260411T211206Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__replayable_core/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260411T211206Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__replayable_core/summary.json)
+    - `artifact_quality_avg = 0.9744807692307693`
+    - `strict_interface_avg = 0.9711538461538461`
+    - `recovered_execution_avg = 0.9230769230769231`
+    - `real_world_readiness_avg = 0.96045`
+  - live:
+    - [`results/knowledge_work_matrix/20260411T211206Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__live_web_stress/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260411T211206Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__live_web_stress/summary.json)
+    - `artifact_quality_avg = 0.9696049999999999`
+    - `strict_interface_avg = 0.9625`
+    - `recovered_execution_avg = 0.925`
+    - `real_world_readiness_avg = 0.961875`
+- Comparison read:
+  - versus `hf_gemma4_e2b_reasoner_only`, MLX Qwen is stronger on strict-interface, recovered-execution, and readiness in both lanes
+  - versus `hf_gemma4_e2b_specialists_cpu`, MLX Qwen matches artifact/browser/strict on the current board surface but still loses on recovered-execution and readiness
+  - the extra misses are concentrated, not diffuse:
+    - replayable:
+      - `kwa_jobs_visual_constraint_override_hold_v2`
+      - `kwa_jobs_visual_form_hold`
+      - `kwa_finance_visual_invoice_revision_hold_v2`
+      - `kwa_finance_visual_invoice_hold`
+    - live:
+      - `kwa_jobs_live_visual_latest_issue_hold_v3`
+      - `kwa_finance_live_visual_invoice_revision_hold_v2`
+      - `kwa_finance_live_visual_invoice_hold`
+- Interpretation:
+  - we now have the first honest same-surface Gemma-versus-non-Gemma comparison in the repo
+  - it strengthens the claim that our Gemma specialist stack is not just better than bare Gemma reasoning, but still ahead of a real local Qwen baseline on the same harder surface
+  - the next research move is not “run Qwen at all”; it is to understand the concentrated visual recovery gap and then decide the next comparator
+
 ### Qwen-ready comparator support plus stricter visual count scoring
 
 - Added the first real non-Gemma comparator plumbing for local runs:

@@ -38,6 +38,13 @@ def test_resolve_model_source_uses_qwen_env_override(tmp_path, monkeypatch) -> N
     assert resolve_model_source("Qwen/Qwen3-8B") == str(local_model.resolve())
 
 
+def test_resolve_model_source_uses_qwen_mlx_env_override(tmp_path, monkeypatch) -> None:
+    local_model = tmp_path / "Qwen3-8B-MLX-4bit"
+    local_model.mkdir()
+    monkeypatch.setenv("QWEN3_8B_MLX_PATH", str(local_model))
+    assert resolve_model_source("Qwen/Qwen3-8B-MLX-4bit") == str(local_model.resolve())
+
+
 def test_resolve_model_source_uses_local_root(tmp_path, monkeypatch) -> None:
     local_model = tmp_path / "gemma-4-E4B-it"
     local_model.mkdir()
