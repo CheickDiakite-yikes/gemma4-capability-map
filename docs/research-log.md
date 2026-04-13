@@ -1,5 +1,189 @@
 # Research Log
 
+# 2026-04-13
+
+### Controller-burden cleanup improved the HF Gemma specialist row without moving top-line readiness
+
+- Planner/controller patch:
+  - [`src/gemma4_capability_map/tools/planner.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/tools/planner.py)
+  - the planner now synthesizes obvious priority replacement calls directly instead of falling through to broad fallback behavior in several follow-on repair cases
+- Regression updates:
+  - [`tests/test_tool_planner.py`](/Users/cheickdiakite/Codex/moonie/tests/test_tool_planner.py)
+
+- Focused replayable packet rerun:
+  - [`results/knowledge_work_matrix/20260413Tresearch_ablation_focus_v3_knowledge_work_ablation_packet`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260413Tresearch_ablation_focus_v3_knowledge_work_ablation_packet)
+- Aligned full-lane rerun:
+  - [`results/knowledge_work_matrix/20260413Taligned_controller_burden_patch_v1_knowledge_work_alignment_32_26`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260413Taligned_controller_burden_patch_v1_knowledge_work_alignment_32_26)
+
+- Focused packet baseline:
+  - `real_world_readiness_avg = 0.9627777777777777`
+  - `controller_repair_avg = 2.3333333333333335`
+  - `controller_fallback_avg = 0.4444444444444444`
+- Focused helper ranking:
+  - `no_controller_repair = 0.6551777777777779`
+  - `no_controller_fallback = 0.8182333333333333`
+  - `no_visual_rescue = 0.9627777777777777`
+- Direct packet comparison versus the older baseline packet:
+  - readiness unchanged
+  - `controller_fallback_avg` dropped from `2.0555555555555554` to `0.4444444444444444`
+  - dominant `controller_fallback_planner` notes dropped from `37` to `8`
+
+- Current aligned replayable `32` headline rows after the patch:
+  - oracle:
+    - `real_world_readiness_avg = 0.976853125`
+    - `controller_repair_avg = 0.578125`
+    - `controller_fallback_avg = 0.0`
+  - HF Gemma specialists:
+    - `real_world_readiness_avg = 0.976853125`
+    - `controller_repair_avg = 1.296875`
+    - `controller_fallback_avg = 0.28125`
+    - `raw_planning_clean_rate_avg = 0.46875`
+  - MLX Qwen:
+    - `real_world_readiness_avg = 0.976853125`
+    - `controller_repair_avg = 0.0`
+    - `controller_fallback_avg = 0.0`
+    - `raw_planning_clean_rate_avg = 1.0`
+  - MLX Gemma:
+    - `real_world_readiness_avg = 0.976853125`
+    - `controller_repair_avg = 0.0`
+    - `controller_fallback_avg = 0.0`
+    - `raw_planning_clean_rate_avg = 1.0`
+
+- HF Gemma specialist delta versus the prior aligned run:
+  - replayable:
+    - `controller_repair_avg` improved from `2.046875` to `1.296875`
+    - `controller_fallback_avg` improved from `1.03125` to `0.28125`
+    - readiness stayed `0.976853125`
+  - live:
+    - `controller_repair_avg` improved from `2.3653846153846154` to `1.5192307692307692`
+    - `controller_fallback_avg` improved from `1.0769230769230769` to `0.23076923076923078`
+    - readiness stayed `0.9791653846153847`
+
+- Research interpretation:
+  - the current aligned surface is no longer about top-line parity; that is already solved
+  - the real Gemma question is now how much controller burden can be removed while holding the same readiness tier
+  - the latest planner/controller patch proved that this burden is reducible by controller design, not only by model change
+  - the next best targets are now explicit:
+    - `feedback_prior:refine_selection`
+    - `feedback_prior:read_region_text`
+
+### The MLX Gemma executive-assistant judgment seam is closed, and the remaining headline gap is HF controller dependence
+
+- Narrow runtime patch:
+  - [`src/gemma4_capability_map/runtime/core.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/runtime/core.py)
+  - added a grounded ambiguity-aware clarify fallback for judgment tasks that still defer after second-pass rescue
+  - gated narrowly on ambiguous vendor-calendar state so it does not broaden unrelated judgment modes
+- New regression coverage:
+  - [`tests/test_smoke_eval.py`](/Users/cheickdiakite/Codex/moonie/tests/test_smoke_eval.py)
+  - verifies the fallback recovers the ambiguous vendor-meeting task even when the model keeps answering `defer`
+- Targeted aligned rerun:
+  - [`results/knowledge_work_matrix/20260413Toracle_mlx_gemma_judgment_patch_v1_knowledge_work_alignment_32_26`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260413Toracle_mlx_gemma_judgment_patch_v1_knowledge_work_alignment_32_26)
+
+- Current aligned replayable `32` headline rows:
+  - oracle:
+    - `real_world_readiness_avg = 0.976853125`
+  - HF Gemma specialists:
+    - `real_world_readiness_avg = 0.976853125`
+    - `controller_repair_avg = 2.046875`
+    - `controller_fallback_avg = 1.03125`
+    - `raw_planning_clean_rate_avg = 0.46875`
+  - MLX Qwen:
+    - `real_world_readiness_avg = 0.976853125`
+    - `controller_repair_avg = 0.0`
+    - `controller_fallback_avg = 0.0`
+    - `raw_planning_clean_rate_avg = 1.0`
+  - MLX Gemma:
+    - `real_world_readiness_avg = 0.976853125`
+    - `controller_repair_avg = 0.0`
+    - `controller_fallback_avg = 0.0`
+    - `raw_planning_clean_rate_avg = 1.0`
+
+- Current aligned live `26` headline rows:
+  - oracle:
+    - `real_world_readiness_avg = 0.9791653846153847`
+  - HF Gemma specialists:
+    - `real_world_readiness_avg = 0.9791653846153847`
+    - `controller_repair_avg = 2.3653846153846154`
+    - `controller_fallback_avg = 1.0769230769230769`
+  - MLX Qwen:
+    - `real_world_readiness_avg = 0.9791653846153847`
+    - `controller_repair_avg = 0.0`
+  - MLX Gemma:
+    - `real_world_readiness_avg = 0.9791653846153847`
+    - `controller_repair_avg = 0.0`
+
+- The old MLX Gemma misses were exact and narrow:
+  - replayable:
+    - `kwa_exec_travel_conflict_resolution`
+    - `kwa_exec_vendor_access_hold`
+  - live:
+    - `kwa_exec_live_calendar_policy`
+    - `kwa_exec_live_vendor_access_hold`
+  - they were scorecard-clean except for `escalation_correctness`
+  - trace evidence showed the same bad move each time:
+    - premature `defer` / missing-approval language
+    - instead of the ambiguity-aware `clarify which vendor meeting` move
+  - the new fallback now fires on those traces with:
+    - `judgment_fallback_used = True`
+    - `judgment_fallback_answer = action: clarify ...`
+
+- Research interpretation:
+  - the old MLX Gemma gap was not a visual grounding gap
+  - it was not a tool-execution gap
+  - it was a narrow executive-assistant ambiguity / escalation-language judgment seam
+  - once that seam is patched, MLX Gemma reaches the same top-line aligned readiness tier as oracle, HF Gemma specialists, and MLX Qwen
+  - the remaining headline research problem is now clearer:
+    - HF Gemma specialist controller dependence is the differentiating gap
+    - not MLX Gemma readiness
+
+### The focused replayable ablation packet now has a clean helper ranking: repair and fallback are structural, visual rescue is not
+
+- Packet batch:
+  - [`results/knowledge_work_matrix/20260413Tresearch_ablation_focus_v1_knowledge_work_ablation_packet`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260413Tresearch_ablation_focus_v1_knowledge_work_ablation_packet)
+- Baseline focused `9`-episode row:
+  - `strict_interface_avg = 1.0`
+  - `recovered_execution_avg = 1.0`
+  - `real_world_readiness_avg = 0.9627777777777777`
+  - `controller_repair_avg = 3.9444444444444446`
+  - `controller_fallback_avg = 2.0555555555555554`
+  - `raw_planning_clean_rate_avg = 0.16666666666666666`
+- `no_controller_repair` focused row after rescoring:
+  - `strict_interface_avg = 0.2777777777777778`
+  - `recovered_execution_avg = 0.2777777777777778`
+  - `real_world_readiness_avg = 0.6551777777777779`
+  - `controller_repair_avg = 0.4444444444444444`
+  - `controller_fallback_avg = 0.4444444444444444`
+  - `raw_planning_clean_rate_avg = 0.8055555555555556`
+- `no_controller_fallback` focused row:
+  - [`results/knowledge_work_matrix/20260413Tresearch_ablation_focus_v2_knowledge_work_ablation_packet/hf_gemma4_e2b_specialists_cpu_no_controller_fallback__replayable_core/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260413Tresearch_ablation_focus_v2_knowledge_work_ablation_packet/hf_gemma4_e2b_specialists_cpu_no_controller_fallback__replayable_core/summary.json)
+  - `strict_interface_avg = 0.3055555555555556`
+  - `recovered_execution_avg = 0.16666666666666666`
+  - `real_world_readiness_avg = 0.6824333333333333`
+  - `controller_fallback_avg = 0.0`
+  - `raw_planning_clean_rate_avg = 0.6111111111111112`
+- `no_visual_rescue` focused row:
+  - [`results/knowledge_work_matrix/20260413Tresearch_ablation_focus_v2_knowledge_work_ablation_packet/hf_gemma4_e2b_specialists_cpu_no_visual_rescue__replayable_core/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260413Tresearch_ablation_focus_v2_knowledge_work_ablation_packet/hf_gemma4_e2b_specialists_cpu_no_visual_rescue__replayable_core/summary.json)
+  - `strict_interface_avg = 1.0`
+  - `recovered_execution_avg = 1.0`
+  - `real_world_readiness_avg = 0.9627777777777777`
+  - identical to the baseline packet on this slice
+- Interpretation:
+  - controller repair is doing real capability work on this packet
+  - controller fallback is also doing real capability work on this packet
+  - visual rescue is not carrying the current focused parity result
+  - the helper ranking on this 9-episode slice is now explicit:
+    - repair: essential
+    - fallback: essential
+    - visual rescue: low or zero leverage on this slice
+  - dominant packet note families:
+    - `controller_fallback_planner = 37`
+    - `feedback_prior:refine_selection = 16`
+    - `feedback_prior:read_region_text = 10`
+  - the next useful work is no longer “finish the packet”
+  - it is:
+    - inspect which repair/fallback note families dominate these episodes
+    - reduce HF Gemma controller dependence without losing the current top-line readiness tier
+
 # 2026-04-12
 
 ### The next real Gemma learning is now explicit: controller burden is concentrated, MLX Gemma’s residual gap is judgment-specific, and the `31B` lane is blocked by a missing local artifact

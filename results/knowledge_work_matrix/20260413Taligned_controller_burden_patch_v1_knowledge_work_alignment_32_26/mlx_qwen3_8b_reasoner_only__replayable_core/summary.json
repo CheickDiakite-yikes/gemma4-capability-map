@@ -1,0 +1,18 @@
+{
+  "runs": 32.0,
+  "artifact_quality_avg": 0.964509375,
+  "browser_workflow_avg": 0.98145625,
+  "strict_interface_avg": 1.0,
+  "recovered_execution_avg": 1.0,
+  "real_world_readiness_avg": 0.976853125,
+  "escalation_correctness_avg": 1.0,
+  "controller_repair_avg": 0.0,
+  "argument_repair_avg": 0.0,
+  "controller_fallback_avg": 0.0,
+  "intent_override_avg": 0.0,
+  "raw_planning_clean_rate_avg": 1.0,
+  "lane": "replayable_core",
+  "created_at": "20260413T184903Z",
+  "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260413Taligned_controller_burden_patch_v1_knowledge_work_alignment_32_26/mlx_qwen3_8b_reasoner_only__replayable_core"
+}

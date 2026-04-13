@@ -72,7 +72,7 @@ def test_controller_fallback_enforces_full_parallel_audit_batch() -> None:
     assert repaired[0].arguments == {"image_id": "img-audit"}
     assert repaired[1].arguments == {"path": "config/settings.yaml"}
     assert "parallel_audit_prior" in notes
-    assert "controller_fallback_planner" in notes
+    assert "controller_fallback_planner" not in notes
 
 
 def test_parallel_audit_feedback_requires_repo_read_before_patch() -> None:
@@ -101,7 +101,7 @@ def test_parallel_audit_feedback_requires_repo_read_before_patch() -> None:
     assert repaired[0].name == "read_repo_file"
     assert repaired[0].arguments == {"path": "config/settings.yaml"}
     assert "parallel_audit_prior" in notes
-    assert "controller_fallback_planner" in notes
+    assert "controller_fallback_planner" not in notes
 
 
 def test_parallel_audit_repairs_patch_from_combined_feedback() -> None:
@@ -367,7 +367,7 @@ def test_planner_uses_feedback_priority_for_compare_after_latest_file() -> None:
     assert repaired[0].name == "compare_files"
     assert repaired[0].arguments == {"file_a": "budget_mar.csv", "file_b": "budget_apr.csv"}
     assert "feedback_prior:compare_files" in notes
-    assert "controller_fallback_planner" in notes
+    assert "controller_fallback_planner" not in notes
 
 
 def test_planner_repairs_visual_selection_placeholder_without_overwriting_filter_query() -> None:
@@ -620,7 +620,8 @@ def test_planner_repairs_latest_approval_safe_action_followup_to_read_region_tex
     assert len(repaired) == 1
     assert repaired[0].name == "read_region_text"
     assert repaired[0].arguments == {"image_id": "img-slide-policy", "region_id": "slide-action-102"}
-    assert "controller_fallback_planner" in notes
+    assert "feedback_prior:read_region_text" in notes
+    assert "controller_fallback_planner" not in notes
 
 
 def test_planner_repairs_wrong_visual_target_query_for_form_tasks() -> None:
@@ -689,7 +690,7 @@ def test_planner_forces_stepwise_visual_control_for_multi_call_batch() -> None:
     assert repaired[0].name == "extract_layout"
     assert repaired[0].arguments == {"image_id": "img-form-live-phone", "target_query": "validation error"}
     assert "visual_stepwise_prior" in notes
-    assert "controller_fallback_planner" in notes
+    assert "controller_fallback_planner" not in notes
 
 
 def test_planner_forces_read_region_after_final_visual_refinement() -> None:
@@ -750,7 +751,7 @@ def test_planner_forces_read_region_after_final_visual_refinement() -> None:
     assert repaired[0].name == "read_region_text"
     assert repaired[0].arguments == {"image_id": "img-dashboard-followup", "region_id": "metric-102"}
     assert "visual_stepwise_prior" in notes
-    assert "controller_fallback_planner" in notes
+    assert "controller_fallback_planner" not in notes
 
 
 def test_planner_requests_latest_filter_before_phone_followup() -> None:

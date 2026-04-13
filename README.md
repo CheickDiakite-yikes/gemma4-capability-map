@@ -1,21 +1,23 @@
 # gemma4-capability-map
 
 `gemma4-capability-map` is a local-first benchmark and agent harness for Gemma-native systems.
-It now also tracks harnessability and direction-following across `function_call`, CLI, and API tool families.
 
-It started as an architecture benchmark for reasoning, tool use, retrieval, and efficiency drift across Gemma 4, FunctionGemma, and EmbeddingGemma. It now also includes **KnowledgeWorkArena**, a role-based benchmark layer for job-shaped autonomy episodes such as executive assistant workflows, job-application operations, and finance work.
+The repo started as a white-box capability map for Gemma 4, FunctionGemma, and EmbeddingGemma across reasoning, tool use, retrieval, and efficiency drift. It has since grown into two tightly-linked products:
 
-The repo is designed to answer a practical question:
+- a benchmark stack for measuring local full-stack agent behavior
+- a local runtime and product harness for actually running those agent stacks on a laptop
 
-> When should an open agent be one model, and when should it be a stack?
+The benchmark and the harness now share one substrate. That is deliberate. If a stack only looks strong inside a benchmark harness but falls apart inside a usable runtime, the benchmark is overstating reality. If the product feels good but cannot be measured cleanly, the product story is weak.
 
-And a harder one:
+The repo is designed to answer two practical questions:
 
-> Can a local agent actually do bounded human knowledge work, or does it only look competent in demos?
+> When should an open local agent be one model, and when should it be a stack?
+
+> What does it actually take to make Gemma usable as a real local agent rather than merely decent in chat?
 
 ## Why This Exists
 
-Most open-model evaluations stop at one of these layers:
+Most open-model evaluation still stops at one of these layers:
 
 - benchmark accuracy
 - tool-call formatting
@@ -27,71 +29,97 @@ This repo tries to connect them.
 
 It measures:
 
-- reasoning under language, context, and efficiency drift
-- tool routing under schema changes and validator feedback
-- retrieval under evidence ranking and long-context pressure
+- reasoning under language, stale-context, and efficiency drift
+- tool routing under schema changes, validator feedback, and conflicting instructions
+- retrieval under evidence ranking, long-context pressure, and answer-surface checks
 - full-stack execution under deterministic task environments
-- role-shaped work under artifact, browser, revision, and escalation constraints
+- role-shaped knowledge work under artifacts, browser steps, approvals, revisions, and escalation constraints
+- harnessability across `function_call`, CLI, and API tool families
+- direction-following across tools, resumes, revisions, and contradictory instructions
 
-The core idea is that **final success is not enough**. The benchmark separates:
+The core idea is that **final success is not enough**. Moonie separates:
 
-- strict interface correctness
-- recovered execution
-- artifact quality
-- browser workflow quality
-- real-world readiness
+- `strict_interface`
+  - did the system follow the task and tool contract cleanly?
+- `recovered_execution`
+  - did it still complete the work correctly after recoverable drift?
+- `artifact_quality`
+  - is the actual memo, form, deck, sheet, or packet good?
+- `browser_workflow`
+  - did it handle browser state and gatekeeping correctly?
+- `real_world_readiness`
+  - would a person actually accept the result?
+
+The second core idea is that **runtime posture is part of capability research**. HF, HF-service, MLX, and `llama.cpp` are not deployment footnotes. They change measured local behavior.
 
 ## Current Status
 
-This repository currently includes:
+The current repo state is:
 
 - `91` gold atomic tasks
-- `396` explicit factorized variants
-- `16` real-world-tagged tasks
+- `396` explicit factorized atomic variants
+- `16` real-world-tagged atomic tasks
 - `30` atomic `visual_tool_orchestration` tasks in the current gold corpus
-- `32` `KnowledgeWorkArena` replayable-core episodes in the current generated corpus
-- `26` `KnowledgeWorkArena` live-web stress episodes in the current generated corpus
-- deterministic tool environments for files, calendar, repo, screenshot, and document tasks
-- seeded browser state transitions with validation rules, blocked submissions, and approval gates
-- seeded and local visual executor paths behind the same tool contract
-- native-ish artifact grading for formulas, slide sections, revision diffs, and application-packet consistency
-- adapter-ready runtimes for Gemma 4, FunctionGemma, EmbeddingGemma, HF service mode, and MLX
-- a shared local agent runtime with persistent sessions, approval states, trace exports, and packaged workflows
-- a first-class local CLI plus local HTTP API for launching and reviewing benchmark-backed workflows
-- experimental runtime-posture support for Gemma 4 `31B` `GGUF` / `llama.cpp`
-- transitional operator-console and mobile-companion Streamlit surfaces built on the same runtime contract
+- `32` replayable `KnowledgeWorkArena` episodes in the generated corpus
+- `26` live `KnowledgeWorkArena` episodes in the generated corpus
+- a shared local runtime with persistent sessions, approvals, artifacts, and event traces
+- a local CLI and local HTTP API over that runtime
+- experimental runtime-posture support for Gemma `31B` `GGUF` / `llama.cpp`
+- benchmark-backed desktop and mobile shell surfaces over the same runtime contract
 
-Current canonical snapshots:
+The current source-of-truth comparison surface is the aligned exploratory `32 / 26` matrix:
 
-- real-world autonomy matrix: [`results/alpha_matrix/20260409T210500Z_alpha_real_world`](results/alpha_matrix/20260409T210500Z_alpha_real_world)
-- KnowledgeWorkArena replayable core: [`results/knowledge_work/replayable_core/summary.json`](results/knowledge_work/replayable_core/summary.json)
-- KnowledgeWorkArena live-web stress: [`results/knowledge_work/live_web_stress/summary.json`](results/knowledge_work/live_web_stress/summary.json)
-- visual tool orchestration replayable core: [`results/visual_tool_orchestration/replayable_core/summary.json`](results/visual_tool_orchestration/replayable_core/summary.json)
-- visual tool orchestration live-web stress: [`results/visual_tool_orchestration/live_web_stress/summary.json`](results/visual_tool_orchestration/live_web_stress/summary.json)
-- local comparison board: [`results/history/knowledge_work_board_latest.csv`](results/history/knowledge_work_board_latest.csv)
-- published external benchmark context: [`results/history/knowledge_work_external_benchmarks.csv`](results/history/knowledge_work_external_benchmarks.csv)
-- benchmark history: [`results/history`](results/history)
+- [`results/history/knowledge_work_board_latest.csv`](results/history/knowledge_work_board_latest.csv)
+- aligned batch:
+  - [`results/knowledge_work_matrix/20260413Taligned_controller_burden_patch_v1_knowledge_work_alignment_32_26`](results/knowledge_work_matrix/20260413Taligned_controller_burden_patch_v1_knowledge_work_alignment_32_26)
 
 Important distinction:
 
 - the generated corpora are now `91 / 396 / 32 / 26`
-- the board-backed widened comparison surface now exists for:
+- the board-backed aligned full-lane comparison now exists for:
   - `oracle_gemma4_e2b`
   - `hf_gemma4_e2b_specialists_cpu`
   - `mlx_qwen3_8b_reasoner_only`
-- `mlx_gemma4_e2b_reasoner_only`
-- those rows now run on the aligned exploratory `32 / 26` full-lane surface
-- the direct Gemma reasoner-only control still sits on the earlier reproduced `26 / 20` surface
-- the older canonical oracle lane pointers under `results/knowledge_work/replayable_core` and `results/knowledge_work/live_web_stress` still reflect the last full oracle rerun on the earlier `24 / 18` surface
-- use [`results/history/knowledge_work_board_latest.csv`](results/history/knowledge_work_board_latest.csv) as the current source of truth for board-level comparison claims
-- latest-row selection now prefers broader completed rows over stale older rows that only win on legacy `run_scope` labels
+  - `mlx_gemma4_e2b_reasoner_only`
+- those four rows now run on the same aligned exploratory `32 / 26` surface
+- the direct in-process Gemma reasoner-only control remains useful, but still sits on the older reproduced `26 / 20` surface
+- the older canonical oracle lane pointers under `results/knowledge_work/replayable_core` and `results/knowledge_work/live_web_stress` are still valuable stable seeded references, but they are not the widest board-backed comparison surface anymore
+
+Current canonical pointers:
+
+- real-world autonomy matrix:
+  - [`results/alpha_matrix/20260409T210500Z_alpha_real_world`](results/alpha_matrix/20260409T210500Z_alpha_real_world)
+- canonical replayable KWA lane:
+  - [`results/knowledge_work/replayable_core/summary.json`](results/knowledge_work/replayable_core/summary.json)
+- canonical live KWA lane:
+  - [`results/knowledge_work/live_web_stress/summary.json`](results/knowledge_work/live_web_stress/summary.json)
+- canonical visual replayable lane:
+  - [`results/visual_tool_orchestration/replayable_core/summary.json`](results/visual_tool_orchestration/replayable_core/summary.json)
+- canonical visual live lane:
+  - [`results/visual_tool_orchestration/live_web_stress/summary.json`](results/visual_tool_orchestration/live_web_stress/summary.json)
+- board source of truth:
+  - [`results/history/knowledge_work_board_latest.csv`](results/history/knowledge_work_board_latest.csv)
+- external benchmark context:
+  - [`results/history/knowledge_work_external_benchmarks.csv`](results/history/knowledge_work_external_benchmarks.csv)
+- history exports:
+  - [`results/history`](results/history)
+
+Two current repo-wide claims are now defensible:
+
+1. We materially improved Gemma 4 as a full-stack local agent on Moonie without changing model weights.
+2. Top-line parity is not enough. Same readiness score can hide very different controller dependence.
 
 ## Local Agent Harness
 
-The repo is no longer just a benchmark harness. It now has an explicit product substrate:
+The repo is no longer only a benchmark runner. It now has an explicit local product substrate:
 
 - `LocalAgentRuntime`
-  - shared session model, tool orchestration, approval flow, trace persistence, and packaged workflow execution
+  - persistent sessions
+  - project/workflow identity
+  - tool orchestration
+  - approval hold/resume flow
+  - event timelines
+  - artifact and revision persistence
 - `moonie-agent`
   - CLI for profiles, workflows, sessions, runs, approvals, and event inspection
 - `moonie-agent-api`
@@ -99,47 +127,57 @@ The repo is no longer just a benchmark harness. It now has an explicit product s
 - Streamlit surfaces
   - `operator_console`
   - `mobile_companion`
-  - benchmark board / episode / trace explorer modes
+  - benchmark board, episode explorer, and trace explorer views
 
-The product and benchmark are meant to share one substrate:
+The benchmark and product layers are intentionally coupled:
 
 - benchmark-specific code owns tasks, replay, scoring, and corpora
 - product surfaces own session launch, review, approval, and artifact inspection
-- runtime changes should be validated against the same benchmark slices that exercise them
+- runtime changes are supposed to be validated against benchmark slices that exercise the same behavior
+
+This matters for the current research questions. The repo is explicitly trying to measure the gap between:
+
+- a model that is decent in chat
+- a model that is usable as a real local agent with projects, tools, approvals, resumes, and artifacts
 
 ### Published External Benchmark Context
 
-The board now carries a separate external benchmark context layer for published non-Moonie scores, for example:
+Moonie now carries a separate external benchmark context layer for published non-Moonie scores, for example:
 
-- GPT-5.4 official benchmark rows from OpenAI
-- Gemini 3.1 Pro official benchmark rows from Google DeepMind
+- GPT-5.4 official rows from OpenAI
+- Gemini 3.1 Pro official rows from Google DeepMind
 
 This layer is intentionally separate from Moonie-reproduced runs.
 
-- `results/history/knowledge_work_board_latest.csv`
-  - Moonie-reproduced runs on our own harness
-- `results/history/knowledge_work_external_benchmarks.csv`
+- [`results/history/knowledge_work_board_latest.csv`](results/history/knowledge_work_board_latest.csv)
+  - Moonie-reproduced runs on Moonie’s own harness
+- [`results/history/knowledge_work_external_benchmarks.csv`](results/history/knowledge_work_external_benchmarks.csv)
   - published external scores from official sources
 
-This distinction matters. It is valid to say:
+This distinction is part of the repo’s methodology:
 
-- we improved Gemma 4 materially on Moonie’s native benchmark
-- our current Gemma harness can be contextualized against published frontier results on public benchmarks
+- valid:
+  - “we improved Gemma 4 materially on Moonie”
+  - “our current Gemma rows can be contextualized against published frontier results elsewhere”
+- not valid:
+  - merging unrelated public scores into one fake same-harness leaderboard
 
-It is not valid to merge those into one same-harness leaderboard unless Moonie has actually reproduced the external benchmark locally.
+Community posts and discourse now feed a separate hypothesis layer:
 
-Community signals can shape the next experiment plan, but they stay hypotheses until Moonie reproduces them locally.
+- [`configs/community_signals.yaml`](configs/community_signals.yaml)
+
+They are useful inputs, not evidence.
 
 ### Packaged Workflow Families
 
-The first product-facing workflows are deliberately benchmark-backed and bounded:
+The first product-facing workflow families are deliberately bounded and benchmark-backed:
 
 - local file and document revision
 - visual review and follow-up refinement
 - browser and approval-gated work
 - artifact generation across `.docx`, `.pptx`, and `.xlsx`
 
-Current packaged workflow examples:
+Current examples:
 
 - `executive_stale_brief_packet`
 - `executive_visual_dashboard_review`
@@ -147,15 +185,15 @@ Current packaged workflow examples:
 - `finance_billing_patch_hold`
 - `finance_visual_invoice_review`
 
-These are not meant to pretend the system already has open-ended general autonomy. The current product layer is a controlled harness over benchmark-proven workflows with inspectable traces, explicit approvals, and reproducible outputs.
+These are not claims of open-ended autonomy. They are controlled, inspectable local workflows that sit on top of the same runtime and scoring assumptions as the benchmark.
 
 ## Surface Design Direction
 
-The repo now also has an explicit UI/UX direction for the product surfaces.
+The repo now also has a deliberate product design direction rather than generic benchmark UI.
 
 ### One Design Family, Two Expressions
 
-Desktop and mobile should feel like the same system, but not the same layout copied twice.
+Desktop and mobile are supposed to feel like the same system, but not the same layout copied twice.
 
 Desktop expression:
 
@@ -171,37 +209,39 @@ Mobile expression:
 - calmer
 - card-based
 - touch-first
-- companion-like and elegant
+- companion-like
 
 Shared identity:
 
 - restrained visual language
 - rounded geometry
-- strong hierarchy
-- clear status treatment
-- smooth but quiet motion
-- delight through polish and legibility, not decorative excess
+- clear hierarchy
+- quiet but polished motion
+- strong status treatment
+- delight through legibility, not decorative excess
 
 ### Desktop Priorities
 
-The desktop shell is the main operator console for this phase.
+The desktop shell is the main operator console in this phase.
 
-- left rail for sessions, projects, and filters
+- left rail for sessions, projects, filters, and recent work
 - center pane for conversation and task execution
-- right pane for traces, diffs, approvals, artifacts, and metrics
+- right pane for traces, approvals, diffs, artifacts, and metrics
 - keyboard-first interaction
-- stable streaming and easy resumption
-- excellent diff and trace readability
+- stable streaming
+- clear blocked and approval states
+- easy resumption after interruption
 
 ### Mobile Priorities
 
-The iOS surface is a companion, not a full orchestration workstation in this phase.
+The iOS surface is a companion in this phase, not a full orchestration workstation.
 
-- quick scan of active work
-- fast approve / deny / respond flows
-- result and artifact preview
+- fast scan of active work
+- approve / deny / respond flows
+- artifact preview
 - lightweight session continuation
-- no attempt to cram full desktop trace analysis onto a phone
+- clear review and blocked states
+- no attempt to cram dense trace analysis into a phone layout
 
 ## System Overview
 
@@ -218,19 +258,21 @@ flowchart TD
     G --> I["Operator Console / Mobile Companion"]
     F --> J["Trace Recorder"]
     J --> K["Metrics + Failure Taxonomy"]
-    K --> L["Leaderboards"]
-    K --> M["History Reports"]
-    K --> N["Streamlit Benchmark Views"]
+    K --> L["Board / History / Reports"]
 ```
 
 ### Architecture Families
 
 - `monolith`
-  - Gemma 4 plans, routes, retrieves, and answers
+  - Gemma handles planning, routing, retrieval, and answer synthesis
 - `hybrid`
-  - EmbeddingGemma retrieves; Gemma 4 plans, routes, and answers
+  - EmbeddingGemma retrieves while Gemma plans and answers
 - `modular`
-  - EmbeddingGemma retrieves; FunctionGemma proposes single-step or parallel tool calls; Gemma 4 handles multi-step planning and final synthesis
+  - EmbeddingGemma retrieves
+  - FunctionGemma proposes tool calls
+  - Gemma handles multi-step planning and synthesis
+- `runtime-posture`
+  - the same nominal stack is tested under different backends such as HF in-process, HF service, MLX, and eventually `llama.cpp`
 
 ### Benchmark Layers
 
@@ -253,26 +295,26 @@ flowchart LR
 
 ## Research Questions
 
-The repo is now organized around nine linked research questions:
+The repo is now organized around nine linked questions:
 
 1. **How robust is Gemma 4 reasoning under drift?**
-   We test language drift, stale context, long-history pressure, schema changes, and efficiency constraints to see where reasoning quality actually degrades.
-2. **Where do interface failures appear before raw reasoning failures?**
-   A central claim of the repo is that many agent failures are contract failures first: wrong tool, wrong argument, stale referent, malformed retry, or bad repair.
+   Language drift, stale context, long histories, schema changes, and efficiency constraints.
+2. **Where do interface failures show up before raw reasoning failures?**
+   Wrong tool, wrong argument, stale referent, malformed retry, bad repair.
 3. **When does a specialist stack beat a monolithic stack?**
-   We compare Gemma-only systems against stacks that add FunctionGemma, EmbeddingGemma, and visual executors, then measure where modularity helps and where it adds coordination risk.
+   Modularity helps when the problem is interface discipline, not just hard answers.
 4. **How much does local runtime posture change measured capability?**
-   The same nominal model can behave differently under `hf_service`, direct in-process HF, device placement, and other local runtime choices. The benchmark treats runtime posture as part of the experiment, not a deployment footnote.
-5. **Can a local agent orchestrate visual tools, not just answer multimodal questions?**
-   The `visual_tool_orchestration` track measures whether the agent can choose a visual tool, preserve referents across turns, refine selections, and land the correct final answer under replayable and live conditions.
-6. **What separates recovered task completion from production-safe work?**
-   The benchmark explicitly separates `strict_interface` from `recovered_execution` to answer whether the agent succeeds cleanly or only gets there after repairs that would matter in a real deployment.
+   HF, HF-service, MLX, and `llama.cpp` are experiments, not plumbing details.
+5. **Can a local agent orchestrate visual tools instead of just answering multimodal questions?**
+   The repo tests tool choice, referent carryover, refinement, and final answer quality.
+6. **What separates recovered completion from production-safe work?**
+   `strict_interface` and `recovered_execution` are not the same thing.
 7. **What separates a task-completing agent from a role-ready agent?**
-   `KnowledgeWorkArena` pushes beyond completion into artifact quality, browser behavior, revision responsiveness, escalation judgment, memory retention, and human-time ratio, so the question becomes: can the system do the work in a way a human role would actually accept?
-8. **How does the same stack behave when it is exposed through different tool families?**
-   The harnessability wave is about whether `function_call`, CLI, and API surfaces preserve direction-following, tool selection, and recovery discipline when the same capability stack is packaged differently.
-9. **Which outside signals are evidence, and which are only hypotheses?**
-   Community reports, vendor announcements, and published benchmark tables are useful input, but in this repo they stay hypotheses until reproduced locally.
+   Artifacts, browser behavior, revisions, escalation judgment, memory retention, and human-time ratio.
+8. **What makes a local model harnessable as an agent rather than merely usable as a chatbot?**
+   Projects, resumes, approvals, instruction continuity, and workflow stability.
+9. **What breaks first in direction-following and tool use, and which controller changes actually fix it?**
+   Tool-family choice, argument fidelity, follow-on steps, stop behavior, and latest-instruction preservation.
 
 ## Benchmark Surface
 
@@ -280,23 +322,25 @@ The repo is now organized around nine linked research questions:
 
 | Track | What it tests | Typical failures |
 | --- | --- | --- |
-| `thinking` | text + screenshot reasoning, thinking on/off | overflow, truncation, answer mismatch, multimodal miss |
-| `tool_routing` | tool choice, argument correctness, schema drift, retries | wrong tool, arg mismatch, malformed call |
-| `retrieval` | evidence ranking, retrieve-vs-stuffing, long context | retrieval miss, answer-language miss, citation miss |
-| `full_stack` | bounded multi-step execution in deterministic envs | interface miss, recovered completion, final-state mismatch |
+| `thinking` | text + screenshot reasoning, thinking on/off, context pressure | overflow, truncation, answer mismatch |
+| `tool_routing` | tool choice, arguments, schema drift, validator retries | wrong tool, malformed call, bad retry |
+| `retrieval` | evidence ranking, retrieve-vs-stuffing, long context | retrieval miss, answer-surface miss |
+| `full_stack` | bounded multi-step execution in deterministic environments | interface miss, recovered completion, final-state mismatch |
+| `visual_tool_orchestration` | iterative visual specialist use | stale referent, wrong refinement, wrong readback |
 
 ### Stress Axes
 
 | Stressor | Examples |
 | --- | --- |
-| `language` | French translation, code-switching, paraphrase |
+| `language` | translation, code-switching, paraphrase |
 | `schema` | renamed fields, enum traps, distractor tools |
 | `context` | stale instructions, long history, irrelevant prior outputs |
 | `efficiency` | smaller embeddings, context budgets, quantization-like pressure |
+| `workflow` | approval holds, resume flows, revision loops |
 
 ### Real-World Metrics
 
-The real-world layer adds task metadata and job-shaped scoring, including:
+The real-world layer adds job-shaped metadata and outcome checks such as:
 
 - `state_integrity_score`
 - `collateral_damage_free`
@@ -306,36 +350,96 @@ The real-world layer adds task metadata and job-shaped scoring, including:
 
 ### KnowledgeWorkArena Score Layers
 
-KnowledgeWorkArena adds a separate episode abstraction with its own scorecard:
+KnowledgeWorkArena scorecards break episode quality into:
 
 - `artifact_quality_score`
+  - how good the actual deliverable is
 - `browser_workflow_score`
+  - how well the agent handled the browser state machine
 - `strict_interface_score`
+  - whether it obeyed the task and tool contract cleanly
 - `recovered_execution_score`
+  - whether it still got to the correct end state after recoverable drift
 - `revision_responsiveness`
+  - whether it obeyed later feedback rather than clinging to stale work
 - `memory_retention_score`
+  - whether it preserved critical earlier context correctly
 - `escalation_correctness`
-- `collateral_damage_free`
-- `human_time_ratio`
+  - whether it clarified, deferred, escalated, or stopped correctly
 - `role_readiness_score`
+  - whether the overall work would actually be acceptable
 
-This is deliberate. The benchmark treats:
+Moonie also now exports planner-gap metrics:
 
-- “the agent got to the right end state”
-- “the agent used tools correctly”
-- “the work product is actually good”
+- `controller_repair_avg`
+  - average number of controller-level plan or argument repairs
+- `controller_fallback_avg`
+  - average number of times the harness had to replace the plan
+- `argument_repair_avg`
+  - average argument-only repair count
+- `intent_override_avg`
+  - average number of explicit priority/intention overrides
+- `raw_planning_clean_rate_avg`
+  - share of stages that did not need controller help
 
-as different claims.
+These metrics are central to the current Gemma story. Same readiness score does not mean same raw planning quality.
+
+### Harnessability And Direction-Following
+
+Moonie now carries explicit harnessability and direction-following cuts.
+
+Harnessability covers:
+
+- approval-hold and approval-resume correctness
+- session continuity
+- project memory carryover
+- artifact revision continuity
+- role-readiness under multi-turn work
+
+Direction-following covers:
+
+- latest-instruction preservation
+- stale-instruction override
+- contradictory instruction handling
+- instruction retention across resume
+- revision after feedback
+
+### Tool-Use Taxonomy
+
+Current first-class tool families:
+
+- `function_call`
+- `cli`
+- `api`
+
+Current intents tracked across tasks and traces:
+
+- `inspect`
+- `read`
+- `write`
+- `patch`
+- `search`
+- `execute`
+- `approve`
+- `revise`
+
+The current broader research claim is not just “Gemma can call tools.” It is whether Gemma can:
+
+- choose the right tool family
+- form the right arguments
+- keep the latest human instruction
+- repair cleanly when near-miss errors happen
+- stop safely instead of over-acting
 
 ## KnowledgeWorkArena
 
-`KnowledgeWorkArena` is the repo’s role-based realism layer.
+`KnowledgeWorkArena` is the repo’s role-shaped realism layer.
 
 It is built for replayable, inspectable knowledge-work episodes with:
 
 - stage goals
 - seeded workspaces
-- browser plans with validation and approval-gate state
+- browser plans with validation and approval gates
 - artifact generation
 - revision rounds
 - memory updates
@@ -350,15 +454,13 @@ It is built for replayable, inspectable knowledge-work episodes with:
 ### Lanes
 
 - `replayable_core`
-  - canonical lane
-  - mirrored browser/workspace state
-  - deterministic side effects
+  - mirrored workspaces and deterministic side effects
   - scoreable and reproducible
+  - where contract and repair analysis is strongest
 - `live_web_stress`
-  - secondary realism lane
   - current public-web browsing
   - sandbox or dry-run only
-  - reported separately from canonical claims
+  - reported separately from canonical seeded claims
 
 ### Episode Flow
 
@@ -373,13 +475,15 @@ sequenceDiagram
 
     Spec->>Runner: load episode
     Runner->>Stage: execute stage task refs
-    Runner->>Browser: record replayed/dry-run browser actions
+    Runner->>Browser: record replayed or dry-run browser actions
     Runner->>Artifact: generate or revise artifacts
     Runner->>Artifact: apply review feedback
-    Runner->>Score: compute artifact/browser/interface/recovery metrics
+    Runner->>Score: compute artifact, browser, interface, recovery, and readiness metrics
 ```
 
 ### Current Canonical KnowledgeWorkArena Results
+
+The stable canonical oracle pointers still reflect the last full seeded rerun on the older `24 / 18` surface:
 
 Replayable core:
 
@@ -403,18 +507,25 @@ Live-web stress:
 - `real_world_readiness_avg = 0.9630`
 - `escalation_correctness_avg = 1.0`
 
-The readiness difference is intentional. Replayable-core includes bounded operational drag like human-time ratio and escalation-aware work products, while live-web stress now also includes partial-progress hold episodes where the correct move is to stop at an approval gate rather than complete the workflow.
+Why keep these older canonical pointers around?
+
+- they are stable seeded references
+- they remain useful for reproducible oracle sanity checks
+- they separate “stable canonical seeded lane” from “widest current comparison surface”
+
+The widest comparison surface is now the aligned exploratory `32 / 26` board-backed matrix described below.
 
 ### Visual Tool Orchestration
 
-The repo now also includes an atomic multimodal-tool benchmark, `visual_tool_orchestration`, for local scene understanding with iterative specialist calls.
+The repo also has a first-class multimodal-tool benchmark, `visual_tool_orchestration`.
 
-It tests whether a controller can:
+It measures whether a controller can:
 
 - choose the right visual tool
-- keep the latest `selection_id` or `region_id` across follow-up turns
-- refine a selection instead of restarting extraction
-- answer with the right filtered count, region, or text
+- preserve the latest `selection_id` or `region_id`
+- refine rather than restart
+- read back the right region
+- land the correct final answer
 
 Current canonical visual results:
 
@@ -431,242 +542,187 @@ Current canonical visual results:
   - `strict_interface_rate = 1.0`
   - `recovered_execution_rate = 1.0`
 
-This track is also wired into bounded KWA episodes, so visual referent carryover and policy-sensitive revision now show up inside job-shaped work rather than only in atomic tasks.
+This track is also wired into bounded KWA episodes, which is why visual follow-on repairs show up in the current controller-burden story.
 
 ### Current Local Comparison Surface
 
-The current board-backed comparison story now has two layers:
+The current board-backed headline comparison is the aligned exploratory `32 / 26` surface:
 
-- an aligned exploratory `32 / 26` comparison surface for:
-  - oracle
-  - the headline Gemma specialist stack
-  - the first reproduced Qwen MLX row
-  - the first reproduced Gemma MLX row
-- a direct in-process Gemma reasoner-only control that is still useful, but remains on the older `26 / 20` reproduced surface
-- that means the strongest current apples-to-apples claim is now the aligned `32 / 26` comparison across oracle, Gemma specialist, MLX Qwen, and MLX Gemma
-- the canonical `24 / 18` oracle lane pointers still matter as the stable seeded reference, but they are no longer the widest board-backed comparison surface
+- batch:
+  - [`results/knowledge_work_matrix/20260413Taligned_controller_burden_patch_v1_knowledge_work_alignment_32_26`](results/knowledge_work_matrix/20260413Taligned_controller_burden_patch_v1_knowledge_work_alignment_32_26)
+- board source of truth:
+  - [`results/history/knowledge_work_board_latest.csv`](results/history/knowledge_work_board_latest.csv)
 
-The board source of truth is still [`results/history/knowledge_work_board_latest.csv`](results/history/knowledge_work_board_latest.csv).
+Current same-surface rows:
 
-The current local control is direct in-process Gemma 4 reasoner-only:
+| System | Replayable readiness | Live readiness | Replayable controller repair | Replayable controller fallback | Replayable clean rate |
+| --- | --- | --- | --- | --- | --- |
+| `oracle_gemma4_e2b` | `0.976853125` | `0.9791653846153847` | `0.578125` | `0.0` | `0.8395875` |
+| `hf_gemma4_e2b_specialists_cpu` | `0.976853125` | `0.9791653846153847` | `1.296875` | `0.28125` | `0.46875` |
+| `mlx_qwen3_8b_reasoner_only` | `0.976853125` | `0.9791653846153847` | `0.0` | `0.0` | `1.0` |
+| `mlx_gemma4_e2b_reasoner_only` | `0.976853125` | `0.9791653846153847` | `0.0` | `0.0` | `1.0` |
+
+Plain-English interpretation:
+
+- all four rows now land at the same top-line readiness tier on this aligned surface
+- the HF Gemma specialist stack still needs materially more controller help to get there
+- the MLX rows are currently planner-clean and controller-clean
+- the interesting remaining difference is no longer top-line readiness
+- it is how much harness help Gemma still needs under the HF specialist path
+
+The direct in-process Gemma control remains important, but it is still on the older reproduced `26 / 20` surface:
 
 - replayable:
   - [`results/knowledge_work/model_backed_hf_inprocess_reasoner_full_replayable_v1/summary.json`](results/knowledge_work/model_backed_hf_inprocess_reasoner_full_replayable_v1/summary.json)
-  - `runs = 26`
   - `strict_interface_avg = 0.9038461538461539`
   - `recovered_execution_avg = 0.8846153846153846`
   - `real_world_readiness_avg = 0.9392653846153846`
 - live:
   - [`results/knowledge_work/model_backed_hf_inprocess_reasoner_full_live_v1/summary.json`](results/knowledge_work/model_backed_hf_inprocess_reasoner_full_live_v1/summary.json)
-  - `runs = 20`
   - `strict_interface_avg = 0.875`
   - `recovered_execution_avg = 0.85`
   - `real_world_readiness_avg = 0.9347899999999999`
 
-The current headline local Gemma stack is direct in-process Gemma 4 plus real specialists:
-
-- replayable:
-  - [`results/knowledge_work_matrix/20260412T235251Z_knowledge_work_alignment_32_26/hf_gemma4_e2b_specialists_cpu__replayable_core/summary.json`](results/knowledge_work_matrix/20260412T235251Z_knowledge_work_alignment_32_26/hf_gemma4_e2b_specialists_cpu__replayable_core/summary.json)
-  - `runs = 32`
-  - `artifact_quality_avg = 0.964509375`
-  - `strict_interface_avg = 1.0`
-  - `recovered_execution_avg = 1.0`
-  - `real_world_readiness_avg = 0.976853125`
-  - `controller_repair_avg = 2.046875`
-  - `controller_fallback_avg = 1.03125`
-  - `raw_planning_clean_rate_avg = 0.46875`
-- live:
-  - [`results/knowledge_work_matrix/20260412T235251Z_knowledge_work_alignment_32_26/hf_gemma4_e2b_specialists_cpu__live_web_stress/summary.json`](results/knowledge_work_matrix/20260412T235251Z_knowledge_work_alignment_32_26/hf_gemma4_e2b_specialists_cpu__live_web_stress/summary.json)
-  - `runs = 26`
-  - `artifact_quality_avg = 0.9584576923076923`
-  - `strict_interface_avg = 1.0`
-  - `recovered_execution_avg = 1.0`
-  - `real_world_readiness_avg = 0.9791653846153847`
-  - `controller_repair_avg = 2.3653846153846154`
-  - `controller_fallback_avg = 1.0769230769230769`
-  - `raw_planning_clean_rate_avg = 0.4230769230769231`
-
-The widened oracle reference is now also in place:
-
-- replayable:
-  - [`results/knowledge_work_matrix/20260412T235251Z_knowledge_work_alignment_32_26/oracle_gemma4_e2b__replayable_core/summary.json`](results/knowledge_work_matrix/20260412T235251Z_knowledge_work_alignment_32_26/oracle_gemma4_e2b__replayable_core/summary.json)
-  - `runs = 32`
-  - `artifact_quality_avg = 0.964509375`
-  - `strict_interface_avg = 1.0`
-  - `recovered_execution_avg = 1.0`
-  - `real_world_readiness_avg = 0.976853125`
-  - `controller_repair_avg = 0.578125`
-  - `controller_fallback_avg = 0.0`
-  - `raw_planning_clean_rate_avg = 0.8395875`
-- live:
-  - [`results/knowledge_work_matrix/20260412T235251Z_knowledge_work_alignment_32_26/oracle_gemma4_e2b__live_web_stress/summary.json`](results/knowledge_work_matrix/20260412T235251Z_knowledge_work_alignment_32_26/oracle_gemma4_e2b__live_web_stress/summary.json)
-  - `runs = 26`
-  - `artifact_quality_avg = 0.9584576923076923`
-  - `strict_interface_avg = 1.0`
-  - `recovered_execution_avg = 1.0`
-  - `real_world_readiness_avg = 0.9791653846153847`
-  - `controller_repair_avg = 0.7115384615384616`
-  - `controller_fallback_avg = 0.0`
-  - `raw_planning_clean_rate_avg = 0.8025692307692308`
-
-The first real reproduced non-Gemma local comparator is now Qwen3 8B on the Apple-Silicon-native MLX path:
-
-- replayable:
-  - [`results/knowledge_work_matrix/20260412T235251Z_knowledge_work_alignment_32_26/mlx_qwen3_8b_reasoner_only__replayable_core/summary.json`](results/knowledge_work_matrix/20260412T235251Z_knowledge_work_alignment_32_26/mlx_qwen3_8b_reasoner_only__replayable_core/summary.json)
-  - `runs = 32`
-  - `artifact_quality_avg = 0.964509375`
-  - `strict_interface_avg = 1.0`
-  - `recovered_execution_avg = 1.0`
-  - `real_world_readiness_avg = 0.976853125`
-  - `controller_repair_avg = 0.0`
-  - `controller_fallback_avg = 0.0`
-  - `raw_planning_clean_rate_avg = 1.0`
-- live:
-  - [`results/knowledge_work_matrix/20260412T235251Z_knowledge_work_alignment_32_26/mlx_qwen3_8b_reasoner_only__live_web_stress/summary.json`](results/knowledge_work_matrix/20260412T235251Z_knowledge_work_alignment_32_26/mlx_qwen3_8b_reasoner_only__live_web_stress/summary.json)
-  - `runs = 26`
-  - `artifact_quality_avg = 0.9584576923076923`
-  - `strict_interface_avg = 1.0`
-  - `recovered_execution_avg = 1.0`
-  - `real_world_readiness_avg = 0.9791653846153847`
-  - `controller_repair_avg = 0.0`
-  - `controller_fallback_avg = 0.0`
-  - `raw_planning_clean_rate_avg = 1.0`
-
-The first real reproduced Gemma-on-MLX posture row is now also aligned on that same surface:
-
-- replayable:
-  - [`results/knowledge_work_matrix/20260412T235251Z_knowledge_work_alignment_32_26/mlx_gemma4_e2b_reasoner_only__replayable_core/summary.json`](results/knowledge_work_matrix/20260412T235251Z_knowledge_work_alignment_32_26/mlx_gemma4_e2b_reasoner_only__replayable_core/summary.json)
-  - `runs = 32`
-  - `artifact_quality_avg = 0.964509375`
-  - `strict_interface_avg = 1.0`
-  - `recovered_execution_avg = 1.0`
-  - `real_world_readiness_avg = 0.9725125`
-  - `controller_repair_avg = 0.0`
-  - `controller_fallback_avg = 0.0`
-  - `raw_planning_clean_rate_avg = 1.0`
-- live:
-  - [`results/knowledge_work_matrix/20260412T235251Z_knowledge_work_alignment_32_26/mlx_gemma4_e2b_reasoner_only__live_web_stress/summary.json`](results/knowledge_work_matrix/20260412T235251Z_knowledge_work_alignment_32_26/mlx_gemma4_e2b_reasoner_only__live_web_stress/summary.json)
-  - `runs = 26`
-  - `artifact_quality_avg = 0.9584576923076923`
-  - `strict_interface_avg = 1.0`
-  - `recovered_execution_avg = 1.0`
-  - `real_world_readiness_avg = 0.973823076923077`
-  - `controller_repair_avg = 0.0`
-  - `controller_fallback_avg = 0.0`
-  - `raw_planning_clean_rate_avg = 1.0`
-
-Interpretation:
-
-- MLX Gemma is now a real completed local posture on the same aligned exploratory `32 / 26` surface as oracle, HF Gemma specialists, and MLX Qwen
-- it is materially stronger than the direct in-process Gemma reasoner-only control
-- it is controller-clean on both completed lanes
-- the original replayable miss was concentrated rather than broad, and the grounded visual readback fallback now clears it
-- this is enough to say the harness improvements transfer to the Apple-Silicon-native Gemma path
-- MLX Gemma is the interesting counterpoint on the aligned surface:
-  - planner-clean
-  - controller-clean
-  - still slightly lower-readiness than oracle, HF Gemma specialists, and MLX Qwen
-
-The experimental Gemma 4 `31B` `GGUF` / `llama.cpp` runtime-posture path is implemented, but it has not been reproduced locally yet because no local model or runtime is installed on this machine.
-
-That is the current benchmark-quality result:
-
-- we made Gemma 4 materially better as a local full-stack agent on our own harder benchmark surface
-- the reasoner-only Gemma control remains materially weaker, so the gain is not trivial
-- the headline local Gemma specialist row is now strict/recovered clean on the aligned exploratory `32 / 26` surface
-- the aligned oracle row is also strict/recovered clean on that same surface
-- the reproduced Qwen MLX row now also matches oracle and the Gemma specialist stack on that same surface
-- the reproduced MLX Gemma row shows that Gemma also transfers cleanly to the Apple-Silicon-native runtime path on that same surface, but still lands slightly lower readiness
+That older control row is still what makes the Gemma-improvement claim meaningful. The gains are not just relabeling.
 
 ### Honest Claim Boundary
 
 The repo can now honestly claim:
 
-- we improved Gemma 4 materially with our own controller/runtime/specialist-stack learnings
-- we made it a better full-stack local agent on our own benchmark
-- we have a publishable local Gemma-improvement result on a harder widened `KnowledgeWorkArena` surface
-- on the same local aligned exploratory `32 / 26` board surface, oracle, Gemma 4 plus specialists, and the reproduced local Qwen3 8B MLX row now tie on top-line replayable and live readiness
-- the first reproduced Qwen row beats the direct in-process Gemma reasoner-only control on strict-interface, recovered-execution, and readiness metrics
-- the first reproduced MLX Gemma row shows the Gemma harness transfer is real on Apple Silicon:
-  - replayable `32`: `strict_interface = 1.0`, `recovered_execution = 1.0`, `readiness = 0.9725125`
-  - live `26`: `strict_interface = 1.0`, `recovered_execution = 1.0`, `readiness = 0.973823076923077`
-  - with `controller_repair_avg = 0.0` and `raw_planning_clean_rate_avg = 1.0` on both lanes
-- the deeper same-surface planner-gap result is now explicit:
-  - HF Gemma specialists reach that top-line parity with materially more controller repair and fallback than MLX Qwen
-  - MLX Gemma stays planner-clean and controller-clean, but still lands slightly below that readiness tier
+- we improved Gemma 4 materially with controller, runtime, and specialist-stack work
+- we made Gemma a better full-stack local agent on Moonie without changing model weights
+- on the aligned exploratory `32 / 26` surface, oracle, HF Gemma specialists, MLX Qwen, and MLX Gemma all reach the same top-line replayable and live readiness tier
+- same readiness score does **not** mean same raw planning quality
+- HF Gemma specialists still rely on materially more controller repair and fallback than the clean MLX rows
 
 The repo cannot honestly claim yet:
 
-- that Gemma 4 beats Qwen 3.5 broadly, because the reproduced non-Gemma evidence currently covers `Qwen3 8B MLX` only
-- that MLX Gemma now matches oracle, HF Gemma specialists, or MLX Qwen on readiness, because the aligned `32 / 26` rows show a small but real remaining readiness gap
-- that Gemma 4 beats frontier closed models on unrelated public benchmarks just because we now show external benchmark context rows
+- that Gemma broadly beats Qwen families beyond the reproduced `Qwen3 8B MLX` row
+- that Gemma beats frontier closed models on unrelated public benchmarks
+- that the Gemma `31B` `GGUF` posture is already reproduced locally
 
-The next honest comparator step is no longer “finish the MLX Gemma alignment.” It is to reduce the HF Gemma specialist controller-dependence gap, understand the residual MLX Gemma readiness gap, make the benchmark harder again, widen non-Gemma coverage beyond this single Qwen row, and add the experimental Gemma `31B` runtime-posture row.
+The Gemma `31B` `GGUF` / `llama.cpp` path is implemented, but still blocked by missing local model availability:
 
-The most concrete current research readout is now:
-
-- HF Gemma specialist controller burden is concentrated:
-  - replayable aligned `32`: `24 / 32` episodes need controller help
-  - total replayable controller repairs: `65.5`
-  - total replayable controller fallbacks: `33.0`
-  - a focused 9-episode packet already explains `35.5 / 65.5` repairs and `18.5 / 33.0` fallbacks
-- MLX Gemma’s residual readiness gap is not a visual grounding gap:
-  - the remaining misses are concentrated in `kwa_exec_travel_conflict_resolution` and `kwa_exec_vendor_access_hold`
-  - both are clean on strict-interface and recovered-execution
-  - both lose readiness on `escalation_correctness`
-  - plain English: MLX Gemma still drifts toward premature defer / missing-approval language where oracle and MLX Qwen keep the ambiguity-aware clarify move
-- the Gemma `31B` `GGUF` / `llama.cpp` path is implemented but still not runnable locally:
-  - `llama_cpp_gemma4_31b_reasoner_only` is already in the registry
-  - `GEMMA4_31B_GGUF_PATH` is unset
-  - there is no local Gemma `31B` `GGUF` artifact under `/Users/cheickdiakite/models`
-  - plain English: the blocker is the missing local model file, not missing benchmark support
-
-That is a stronger result than “Gemma tied Qwen”:
-
-- the harness can carry Gemma to the same top-line tier on the aligned surface
-- the planner-gap metrics show where Gemma still needs more help
-- the MLX posture shows where the remaining model-side judgment gap still lives
-- and the next experiments are now concrete rather than generic
+- `GEMMA4_31B_GGUF_PATH` is unset
+- there is no local Gemma `31B` `GGUF` artifact under `/Users/cheickdiakite/models`
 
 ## What We Have Learned So Far
 
-The repo already supports some nontrivial conclusions.
+Moonie now supports several nontrivial conclusions.
 
 ### 1. Interface failures show up before reasoning failures
 
-The benchmark repeatedly surfaced schema drift, validator retries, truncation, and answer-surface mismatches before it surfaced “the model cannot reason at all.”
+Across the benchmark, the first real failures are often:
 
-### 2. Retrieval and recovered execution can look strong while strict correctness remains weak
+- wrong tool family
+- wrong argument
+- stale referent
+- malformed retry
+- bad repair
 
-This mattered enough that the benchmark now always separates:
+The repo repeatedly surfaced those before “the model cannot reason at all.”
 
-- strict interface correctness
-- recovered execution
-- real-world readiness
+### 2. Recovered execution and strict correctness are not the same thing
 
-### 3. Thinking mode is not automatically a win
+This is one of the core methodological lessons of the project.
 
-On this machine and benchmark slice, thinking-on often cost meaningful latency and sometimes hurt image-heavy slices through overflow or truncation. The benchmark treats “more thought tokens” as a measurable tradeoff, not a default upgrade.
+- `strict_interface = 1.0`
+  - the system followed the contract cleanly
+- `recovered_execution = 1.0`
+  - the system still got to the right end state
 
-### 4. Specialist stacks help most on interface-heavy surfaces
+Those can diverge. Real deployments care about that divergence.
 
-Real EmbeddingGemma retrieval stayed strong under drift. Real FunctionGemma routing became materially stronger only after schema-aware repair and intent priors were added. The lesson is that modularity helps when the failure mode is interface ambiguity, not just when the answer is hard.
+### 3. Top-line parity can hide controller dependence
+
+This is the strongest current same-surface finding.
+
+On the aligned `32 / 26` surface, HF Gemma specialists, MLX Qwen, MLX Gemma, and oracle all land at the same readiness tier.
+
+But HF Gemma specialists do not get there the same way:
+
+- replayable `controller_repair_avg`: `1.296875`
+- replayable `controller_fallback_avg`: `0.28125`
+- replayable `raw_planning_clean_rate_avg`: `0.46875`
+
+The clean MLX rows stay at:
+
+- `controller_repair_avg = 0.0`
+- `controller_fallback_avg = 0.0`
+- `raw_planning_clean_rate_avg = 1.0`
+
+That is real research signal, not benchmark noise.
+
+### 4. Controller burden is reducible by controller design, not only by model change
+
+This turn’s focused replayable ablation packet is the clearest example:
+
+- packet:
+  - [`results/knowledge_work_matrix/20260413Tresearch_ablation_focus_v3_knowledge_work_ablation_packet`](results/knowledge_work_matrix/20260413Tresearch_ablation_focus_v3_knowledge_work_ablation_packet)
+- baseline readiness stayed flat at:
+  - `0.9627777777777777`
+- but planner/controller burden dropped materially
+
+Packet-level helper ranking:
+
+- baseline:
+  - `0.9627777777777777`
+- `no_controller_repair`:
+  - `0.6551777777777779`
+- `no_controller_fallback`:
+  - `0.8182333333333333`
+- `no_visual_rescue`:
+  - `0.9627777777777777`
+
+Plain English:
+
+- repair is doing essential work on this slice
+- fallback is also doing essential work
+- visual rescue is not what is carrying this packet
+
+The most useful controller result from the packet rerun is this:
+
+- `controller_fallback_planner` note family dropped from `37` to `8`
+- packet readiness stayed unchanged
+- baseline packet `controller_fallback_avg` dropped from `2.0555555555555554` to `0.4444444444444444`
+
+That is the kind of change that actually counts as learning.
 
 ### 5. Runtime posture changes benchmark truth
 
-HF, HF service mode, and MLX do not behave interchangeably on local Apple Silicon. Cold import cost, service warmup, and backend health are part of the measured system, not incidental plumbing.
+HF, HF-service, MLX, and `llama.cpp` do not behave interchangeably on local Apple Silicon.
 
-### 6. Domain-native grading matters
+Moonie now shows three distinct things at once:
 
-The benchmark got stronger when artifacts stopped being graded as generic blobs and started being graded as schedules, forms, decks, memos, and models.
+- HF Gemma specialists can reach strong readiness, but still lean on the controller
+- MLX Qwen can stay planner-clean and controller-clean on the same surface
+- MLX Gemma can now also stay planner-clean and controller-clean on that same surface
 
-That now includes:
+Runtime posture is not a deployment detail. It changes the measured system.
 
-- spreadsheet and model formula checks
-- deck section structure and revision-diff checks
-- application-packet field consistency checks
-- browser validation and approval-gate transitions
-- visual referent carryover and stale-selection recovery
+### 6. Some supposed model failures were really benchmark-contract failures
+
+The repo already found and fixed several false-negative seams where the grading or follow-on contract was wrong, not the underlying behavior.
+
+Examples include:
+
+- grounded visual readback rescue
+- ambiguity-aware clarify fallback on executive-assistant judgment tasks
+- stricter visual count scoring so lucky prose does not mask a wrong tool trace
+
+Benchmark engineering is part of capability research.
+
+### 7. Tool use and direction following are still the real local-agent bottlenecks
+
+The current pressure points are not generic “smartness.” They are:
+
+- latest-instruction preservation
+- clarify vs defer judgment
+- follow-on visual refinement
+- approval-safe stop behavior
+- CLI/API tool-family choice
+
+Moonie now measures those explicitly rather than hiding them inside vague pass/fail rows.
 
 ## Current Real-World Snapshot
 
@@ -674,16 +730,16 @@ The current canonical real-world autonomy snapshot is:
 
 - [`results/alpha_matrix/20260409T210500Z_alpha_real_world`](results/alpha_matrix/20260409T210500Z_alpha_real_world)
 
-Headline results from that run:
+Headline shape from that run:
 
-| Experiment | Success | Key read |
+| Experiment | Result | Plain-English read |
 | --- | --- | --- |
-| `hf_e2b_real_world_thinking_variants` | `0.0` | escalation judgment is still weak |
-| `hf_e2b_real_world_retrieval_variants` | `0.875` | retrieval strong; misses are mostly answer-surface issues |
-| `hf_e2b_real_world_routing_variants` | `0.5` | billing/refusal routing remains a hard case |
+| `hf_e2b_real_world_thinking_variants` | `0.0` success | escalation judgment is still weak |
+| `hf_e2b_real_world_retrieval_variants` | `0.875` success | retrieval is strong; misses are mostly answer-surface issues |
+| `hf_e2b_real_world_routing_variants` | `0.5` success | routing and refusal handling are still brittle |
 | `hf_e2b_real_world_full_stack_variants` | `0.75` strict / `1.0` recovered | bounded execution can recover, but strict correctness still matters |
 
-This is the shape of the repo’s research claim right now:
+That is still a good summary of the repo’s real-world posture:
 
 - bounded execution is ahead of true autonomy
 - retrieval is ahead of escalation judgment
@@ -696,15 +752,17 @@ The benchmark supports multiple runtime backends because backend behavior materi
 ### Backends
 
 - `oracle`
-  - deterministic scaffold/backend validation
+  - deterministic scaffold and validation
 - `heuristic`
   - lightweight local approximations for some specialist paths
 - `hf`
-  - direct Hugging Face runtime
+  - direct in-process Hugging Face runtime
 - `hf_service`
-  - reusable service-backed HF reasoner process for matrix runs
+  - reusable service-backed HF reasoner process for repeated matrix runs
 - `mlx`
-  - Apple Silicon-focused local path when healthy
+  - Apple Silicon local path when MLX runtime health is good
+- `llama_cpp`
+  - experimental Gemma `31B` `GGUF` posture path
 
 ### Recommended Local Workflow
 
@@ -714,16 +772,16 @@ The benchmark supports multiple runtime backends because backend behavior materi
 uv run python scripts/preflight_backends.py
 ```
 
-2. Use deterministic or oracle-backed runs to validate the benchmark itself:
+2. Validate the benchmark contract with deterministic or oracle-backed runs:
 
 ```bash
 uv run python scripts/run_eval.py --pipeline monolith --backend oracle --limit 12
 ```
 
-3. Use `hf` or `mlx` for local model probes:
+3. Probe local model backends directly:
 
 ```bash
-uv sync --extra dev --extra hf
+uv sync --extra dev --extra hf --extra mlx
 uv run python scripts/smoke_hf_backend.py --backend hf --model google/gemma-4-E2B-it --device mps --skip-image
 ```
 
@@ -734,30 +792,52 @@ uv run python scripts/hf_reasoner_service.py start --model google/gemma-4-E2B-it
 uv run python scripts/run_alpha_matrix.py --config configs/alpha_real_world_matrix.yaml
 ```
 
+5. Use explicit matrix configs for aligned or research runs:
+
+```bash
+uv run python scripts/run_knowledge_work_matrix.py --config configs/knowledge_work_matrix_alignment_32_26.yaml
+uv run python scripts/run_knowledge_work_ablation_packet.py --lane replayable_core --bundle-system-id hf_gemma4_e2b_specialists_cpu
+```
+
 ### Local Paths and Offline Mode
 
-Optional local credentials can live in `.env.local` or `.env`. The repo auto-loads those files on import and does not override values already exported in your shell.
+Optional credentials can live in `.env.local` or `.env`. The repo auto-loads those files on import and does not override values already exported in the shell.
 
 ```bash
 cp .env.example .env.local
 ```
 
-You can also point the runtime at local model directories:
+The runtime also supports explicit local model paths:
 
 ```bash
 GEMMA4_E2B_PATH=/absolute/path/to/gemma-4-E2B-it
 GEMMA4_E4B_PATH=/absolute/path/to/gemma-4-E4B-it
+GEMMA4_31B_GGUF_PATH=/absolute/path/to/gemma-4-31b-it.gguf
 FUNCTIONGEMMA_PATH=/absolute/path/to/functiongemma-270m-it
 EMBEDDINGGEMMA_PATH=/absolute/path/to/embeddinggemma-300m
+QWEN3_8B_PATH=/absolute/path/to/Qwen3-8B
+QWEN3_8B_MLX_PATH=/absolute/path/to/Qwen3-8B-MLX-4bit
 GEMMA4_OFFLINE=1
 ```
+
+Additional model-root discovery is also supported through:
+
+- `LOCAL_MODEL_ROOT`
+- `MODEL_ROOT`
+- `GEMMA_MODEL_ROOT`
+- `GEMMA4_MODEL_ROOT`
+
+Important current runtime fact:
+
+- Gemma `31B` `GGUF` support exists in the registry and runtime
+- there is still no reproduced local row because the actual local artifact is missing on this machine
 
 ## Quickstart
 
 Create the environment:
 
 ```bash
-uv sync --extra dev
+uv sync --extra dev --extra hf --extra mlx
 ```
 
 Generate the atomic benchmark data:
@@ -767,19 +847,25 @@ uv run python scripts/make_gold.py
 uv run python scripts/make_variants.py
 ```
 
+Generate the current KWA corpus:
+
+```bash
+uv run python scripts/make_knowledge_work_arena.py
+```
+
 Run a deterministic smoke:
 
 ```bash
 uv run python scripts/run_eval.py --pipeline monolith --backend oracle --limit 12
 ```
 
-Launch the Streamlit console and benchmark UI:
+Launch the Streamlit benchmark and product surfaces:
 
 ```bash
 uv run streamlit run src/gemma4_capability_map/app/streamlit_app.py
 ```
 
-Launch the local agent CLI:
+Launch the local CLI:
 
 ```bash
 uv run moonie-agent profiles
@@ -787,13 +873,13 @@ uv run moonie-agent workflows
 uv run moonie-agent run --workflow-id executive_visual_dashboard_review --system-id oracle_gemma4_e2b
 ```
 
-Launch the local agent API:
+Launch the local API:
 
 ```bash
 uv run moonie-agent-api --host 127.0.0.1 --port 8765
 ```
 
-The Streamlit app now includes product-style surfaces as well as benchmark explorers. Use the `Surface` selector to switch between:
+The Streamlit app now includes both benchmark and product surfaces. Use the `Surface` selector to switch between:
 
 - `operator_console`
 - `mobile_companion`
@@ -805,7 +891,7 @@ The Streamlit app now includes product-style surfaces as well as benchmark explo
 
 ### Local agent harness
 
-List local runtime profiles:
+List profiles:
 
 ```bash
 uv run moonie-agent profiles
@@ -817,7 +903,7 @@ List packaged workflows:
 uv run moonie-agent workflows
 ```
 
-Run a review-free workflow synchronously:
+Run a benchmark-backed workflow synchronously:
 
 ```bash
 uv run moonie-agent run \
@@ -831,12 +917,12 @@ Run an approval-sensitive workflow in the background:
 ```bash
 uv run moonie-agent run \
   --workflow-id finance_visual_invoice_review \
-  --system-id hf_service_gemma4_specialists_cpu \
+  --system-id hf_gemma4_e2b_specialists_cpu \
   --lane replayable_core \
   --background
 ```
 
-Inspect and resolve sessions:
+Inspect or resolve sessions:
 
 ```bash
 uv run moonie-agent sessions
@@ -847,7 +933,7 @@ uv run moonie-agent approve <session_id> --note "Looks good."
 
 ### Atomic benchmark
 
-Run a targeted drift matrix:
+Run a drift matrix:
 
 ```bash
 uv run python scripts/run_alpha_matrix.py --config configs/alpha_drift_matrix.yaml
@@ -865,7 +951,7 @@ Run the real-world autonomy matrix:
 uv run python scripts/run_alpha_matrix.py --config configs/alpha_real_world_matrix.yaml
 ```
 
-Refresh benchmark history:
+Refresh atomic benchmark history:
 
 ```bash
 uv run python scripts/build_history_report.py
@@ -873,127 +959,151 @@ uv run python scripts/build_history_report.py
 
 ### KnowledgeWorkArena
 
-Generate seeded episodes and fixtures:
+Generate seeded episodes:
 
 ```bash
 uv run python scripts/make_knowledge_work_arena.py
 ```
 
-Run replayable-core:
+Run canonical replayable oracle:
 
 ```bash
 uv run python scripts/run_knowledge_work_arena.py --lane replayable_core --backend oracle
 ```
 
-Run live-web stress:
+Run canonical live oracle:
 
 ```bash
 uv run python scripts/run_knowledge_work_arena.py --lane live_web_stress --backend oracle
 ```
 
-Refresh KnowledgeWorkArena history:
+Run the current aligned comparison surface:
+
+```bash
+uv run python scripts/run_knowledge_work_matrix.py --config configs/knowledge_work_matrix_alignment_32_26.yaml
+```
+
+Run the focused replayable ablation packet:
+
+```bash
+uv run python scripts/run_knowledge_work_ablation_packet.py \
+  --lane replayable_core \
+  --bundle-system-id hf_gemma4_e2b_specialists_cpu \
+  --system-id hf_gemma4_e2b_specialists_cpu \
+  --system-id hf_gemma4_e2b_specialists_cpu_no_controller_repair \
+  --system-id hf_gemma4_e2b_specialists_cpu_no_controller_fallback \
+  --system-id hf_gemma4_e2b_specialists_cpu_no_visual_rescue
+```
+
+Refresh KWA history:
 
 ```bash
 uv run python scripts/build_knowledge_work_history.py
 ```
 
-Run a model-backed replayable-core pilot without replacing the canonical lane pointer:
-
-```bash
-uv run python scripts/run_knowledge_work_arena.py \
-  --lane replayable_core \
-  --backend hf_service \
-  --router-backend heuristic \
-  --retriever-backend heuristic \
-  --reasoner google/gemma-4-E2B-it \
-  --reasoner-device mps \
-  --reasoner-max-new-tokens 96 \
-  --episode-id kwa_exec_board_send_hold \
-  --limit 1 \
-  --output-dir results/knowledge_work/model_backed_hf_exec_hold \
-  --no-update-latest
-```
-
 ## Repository Layout
 
 ```text
-configs/                     matrix and runtime configs
+configs/                              matrix and runtime configs
 configs/packaged_workflows.yaml
-data/gold/                  atomic benchmark tasks
-data/knowledge_work/        episode specs, workspace seeds, artifact goldens
-docs/                       methodology, research notes, design docs
-results/alpha_matrix/       benchmark run groups
-results/knowledge_work/     canonical KnowledgeWorkArena outputs
-results/history/            longitudinal reports and canonical pointers
-results/runtime/            local runtime sessions, events, traces, artifacts
-scripts/                    generators, runners, probes, report builders
-src/gemma4_capability_map/api/
-src/gemma4_capability_map/runtime/
-src/gemma4_capability_map/app/
-src/gemma4_capability_map/  benchmark runtime, metrics, pipelines, UI
-tests/                      regression and schema coverage
+configs/community_signals.yaml
+data/gold/                           atomic benchmark tasks
+data/knowledge_work/                 episode specs, workspace seeds, artifact goldens
+docs/                                methodology, design docs, continuity, research notes
+results/alpha_matrix/                atomic benchmark run groups
+results/knowledge_work/              canonical KnowledgeWorkArena outputs
+results/knowledge_work_matrix/       exploratory and aligned matrix batches
+results/history/                     longitudinal reports, board exports, canonical pointers
+results/runtime/                     local runtime sessions, traces, approvals, artifacts
+scripts/                             generators, runners, probes, report builders
+src/gemma4_capability_map/api/       local API
+src/gemma4_capability_map/runtime/   local runtime substrate
+src/gemma4_capability_map/app/       Streamlit surfaces
+src/gemma4_capability_map/           benchmark runtime, metrics, pipelines, UI
+tests/                               regression and schema coverage
 ```
 
 ## Reporting and History
 
-This repo is designed to preserve research context, not just scores.
+Useful methodology and state entrypoints:
 
-Useful reporting entrypoints:
+- methodology:
+  - [`docs/methodology.md`](docs/methodology.md)
+- KnowledgeWorkArena design:
+  - [`docs/knowledge-work-arena.md`](docs/knowledge-work-arena.md)
+- continuity root:
+  - [`docs/continuity/README.md`](docs/continuity/README.md)
+- current benchmark state:
+  - [`docs/continuity/current-state.md`](docs/continuity/current-state.md)
+- next-step queue:
+  - [`docs/continuity/next-steps.md`](docs/continuity/next-steps.md)
+- session handoff:
+  - [`docs/continuity/session-handoff.md`](docs/continuity/session-handoff.md)
+- research log:
+  - [`docs/research-log.md`](docs/research-log.md)
 
-- benchmark methodology: [`docs/methodology.md`](docs/methodology.md)
-- KnowledgeWorkArena design: [`docs/knowledge-work-arena.md`](docs/knowledge-work-arena.md)
-- continuity entrypoint: [`AGENT_CONTEXT.md`](AGENT_CONTEXT.md)
-- continuity system: [`docs/continuity/README.md`](docs/continuity/README.md)
-- current benchmark state: [`docs/continuity/current-state.md`](docs/continuity/current-state.md)
-- curated key learnings: [`docs/continuity/key-learnings.md`](docs/continuity/key-learnings.md)
-- next-step queue: [`docs/continuity/next-steps.md`](docs/continuity/next-steps.md)
-- session handoff: [`docs/continuity/session-handoff.md`](docs/continuity/session-handoff.md)
-- real-world autonomy notes: [`docs/real-world-benchmarking.md`](docs/real-world-benchmarking.md)
-- research log: [`docs/research-log.md`](docs/research-log.md)
-- benchmark history: [`results/history/history_report.md`](results/history/history_report.md)
-- KnowledgeWorkArena history: [`results/history/knowledge_work_history.md`](results/history/knowledge_work_history.md)
+Useful benchmark exports:
 
-Useful product/runtime entrypoints:
+- atomic benchmark history:
+  - [`results/history/history_report.md`](results/history/history_report.md)
+- KWA history:
+  - [`results/history/knowledge_work_history.md`](results/history/knowledge_work_history.md)
+- board source of truth:
+  - [`results/history/knowledge_work_board_latest.csv`](results/history/knowledge_work_board_latest.csv)
+- external benchmark context:
+  - [`results/history/knowledge_work_external_benchmarks.csv`](results/history/knowledge_work_external_benchmarks.csv)
 
-- packaged workflows: [`configs/packaged_workflows.yaml`](configs/packaged_workflows.yaml)
-- runtime core: [`src/gemma4_capability_map/runtime/core.py`](src/gemma4_capability_map/runtime/core.py)
-- CLI: [`src/gemma4_capability_map/runtime/cli.py`](src/gemma4_capability_map/runtime/cli.py)
-- local API: [`src/gemma4_capability_map/api/app.py`](src/gemma4_capability_map/api/app.py)
-- Streamlit app router: [`src/gemma4_capability_map/app/streamlit_app.py`](src/gemma4_capability_map/app/streamlit_app.py)
+Useful runtime and product entrypoints:
+
+- packaged workflows:
+  - [`configs/packaged_workflows.yaml`](configs/packaged_workflows.yaml)
+- runtime core:
+  - [`src/gemma4_capability_map/runtime/core.py`](src/gemma4_capability_map/runtime/core.py)
+- CLI:
+  - [`src/gemma4_capability_map/runtime/cli.py`](src/gemma4_capability_map/runtime/cli.py)
+- local API:
+  - [`src/gemma4_capability_map/api/app.py`](src/gemma4_capability_map/api/app.py)
+- Streamlit router:
+  - [`src/gemma4_capability_map/app/streamlit_app.py`](src/gemma4_capability_map/app/streamlit_app.py)
 
 ## Roadmap
 
 ### Near term
 
-- harden the shared local runtime and keep benchmark execution aligned with it
-- deepen revision responsiveness in artifact-heavy finance and jobs episodes
-- expand the operator console, mobile companion, and board into a stronger shared product surface
-- run more local/open-weight systems against the same full-lane `26 / 20` surface
-- add the first real non-Gemma local comparator, with Qwen as the first target once a real local checkpoint is available on this machine
+- reduce HF Gemma specialist controller dependence further without losing the current aligned readiness tier
+- target the dominant remaining note families:
+  - `feedback_prior:refine_selection`
+  - `feedback_prior:read_region_text`
+- keep hardening tool-family choice and direction-following seams
+- keep product surfaces benchmark-backed and aligned with runtime semantics
+- install the local Gemma `31B` `GGUF` artifact and run the first real `llama.cpp` posture row
 
 ### Medium term
 
-- turn the thin desktop and iOS shells into more complete product surfaces over the same local API
-- move more artifact graders from native-ish structural checks to deeper cell/layout/field validation
-- expand visual-tool orchestration with harder referent-carryover and ambiguous-filter tasks
-- strengthen replayable browser environments for application portals, spreadsheets, and slide workflows
-- grow the real-world corpus beyond the current `16` tagged tasks
+- add a specialist-backed MLX Gemma row if the current MLX posture remains attractive
+- widen non-Gemma local comparator coverage beyond the current `Qwen3 8B MLX` row
+- deepen artifact graders from strong structural checks into richer layout and field validation
+- keep pushing harder realism where current rows are now clean
+- grow the board into a more publishable public-facing reporting surface
 
 ### Long term
 
-- make KnowledgeWorkArena the primary role-readiness benchmark layer
-- publish side-by-side architecture comparisons on task, role, and runtime axes
-- add more live-web stress scenarios without sacrificing replayable-core rigor
+- make `KnowledgeWorkArena` the main role-readiness layer for local agent research
+- publish tighter architecture and runtime-posture comparisons on the same benchmark surface
+- extend the runtime and product harness into a more complete local work platform
 - test whether local open stacks can sustain revision-heavy, memory-bearing, approval-aware work over longer horizons
 
 ## Limitations
 
 - large-model local performance is hardware-sensitive
-- live-web stress is deliberately secondary to replayable-core
-- current artifact grading is much stronger than generic string matching, but still not a full native Office/browser runtime
-- some canonical snapshots are runtime-specific to this Apple Silicon development setup
-- the current desktop and mobile surfaces are thin alpha shells over the laptop runtime, not fully independent apps yet
-- packaged workflows are benchmark-backed bounded flows, not a claim of unbounded general-purpose local autonomy
+- live-web stress remains secondary to replayable-core for claims that require reproducibility
+- current artifact grading is much stronger than naive string matching, but it is still not a full native Office or browser runtime
+- some canonical snapshots are runtime-specific to this Apple Silicon setup
+- the desktop and mobile shells are still thin alpha product surfaces over the laptop runtime
+- packaged workflows are bounded benchmark-backed flows, not claims of unbounded autonomy
+- the current reproduced non-Gemma comparator coverage is still narrow
+- the current MLX Gemma row is reasoner-only, not yet a specialist-backed MLX stack
+- the Gemma `31B` `GGUF` posture path is implemented but still blocked by missing local artifact availability
 
 ## References
 

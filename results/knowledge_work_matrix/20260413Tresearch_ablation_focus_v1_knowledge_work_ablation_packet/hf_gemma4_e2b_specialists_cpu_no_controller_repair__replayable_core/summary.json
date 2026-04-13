@@ -1,0 +1,14 @@
+{
+  "runs": 9.0,
+  "artifact_quality_avg": 0.9077666666666667,
+  "browser_workflow_avg": 0.9764888888888889,
+  "strict_interface_avg": 0.2777777777777778,
+  "recovered_execution_avg": 0.2777777777777778,
+  "real_world_readiness_avg": 0.6551777777777779,
+  "escalation_correctness_avg": 1.0,
+  "controller_repair_avg": 0.4444444444444444,
+  "argument_repair_avg": 0.0,
+  "controller_fallback_avg": 0.4444444444444444,
+  "intent_override_avg": 0.0,
+  "raw_planning_clean_rate_avg": 0.8055555555555556
+}

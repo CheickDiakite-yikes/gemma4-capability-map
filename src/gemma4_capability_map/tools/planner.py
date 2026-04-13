@@ -109,19 +109,30 @@ def plan_or_repair_tool_calls(
     repaired_calls: list[ToolCall] = []
     repair_notes: list[str] = []
     candidate_calls = parsed_calls
+    replacement_calls: list[ToolCall] = []
     if parsed_calls and parallel_priority_calls and not _calls_match(parsed_calls, parallel_priority_calls):
         repair_notes.append("parallel_audit_prior")
         candidate_calls = []
+        replacement_calls = parallel_priority_calls
     if candidate_calls and _requires_stepwise_visual_control(candidate_calls):
         repair_notes.append("visual_stepwise_prior")
         candidate_calls = []
+        replacement_calls = _priority_replacement_calls(
+            context,
+            tool_specs,
+            parallel_priority_calls=parallel_priority_calls,
+            intent_priority_calls=intent_priority_calls,
+            feedback_priority_calls=feedback_priority_calls,
+        )
     if candidate_calls and intent_priority_calls and not _calls_match(candidate_calls, intent_priority_calls):
         repair_notes.append(f"intent_prior:{_classify_intent(context, tool_specs)}")
         candidate_calls = []
+        replacement_calls = intent_priority_calls
     if candidate_calls and feedback_priority_calls and not _calls_match(candidate_calls, feedback_priority_calls):
         prioritized_name = feedback_priority_calls[0].name if feedback_priority_calls else "unknown"
         repair_notes.append(f"feedback_prior:{prioritized_name}")
         candidate_calls = []
+        replacement_calls = feedback_priority_calls
 
     for call in candidate_calls:
         repaired_call, notes = _repair_tool_call(call, raw_output, context, tool_specs)
@@ -133,6 +144,16 @@ def plan_or_repair_tool_calls(
 
     if repaired_calls:
         return repaired_calls, repair_notes
+
+    if replacement_calls:
+        synthesized_calls: list[ToolCall] = []
+        for call in replacement_calls:
+            repaired_call, notes = _repair_tool_call(call, raw_output, context, tool_specs)
+            if repaired_call is None:
+                return replacement_calls, repair_notes + notes
+            synthesized_calls.append(repaired_call)
+            repair_notes.extend(notes)
+        return synthesized_calls, repair_notes
 
     if research_controls.disable_controller_fallback:
         repair_notes.append("controller_fallback_disabled")
@@ -466,6 +487,26 @@ def _calls_match(parsed_calls: list[ToolCall], expected_calls: list[ToolCall]) -
     if len(parsed_calls) != len(expected_calls):
         return False
     return all(parsed.name == expected.name for parsed, expected in zip(parsed_calls, expected_calls, strict=False))
+
+
+def _priority_replacement_calls(
+    context: dict[str, Any],
+    tool_specs: list[ToolSpec],
+    *,
+    parallel_priority_calls: list[ToolCall],
+    intent_priority_calls: list[ToolCall] | None,
+    feedback_priority_calls: list[ToolCall],
+) -> list[ToolCall]:
+    if parallel_priority_calls:
+        return parallel_priority_calls
+    if intent_priority_calls is not None:
+        return intent_priority_calls
+    if feedback_priority_calls:
+        return feedback_priority_calls
+    initial_calls = _initial_calls(context, tool_specs)
+    if initial_calls:
+        return initial_calls
+    return []
 
 
 def _next_calls_from_feedback(context: dict[str, Any], tool_specs: list[ToolSpec]) -> list[ToolCall]:

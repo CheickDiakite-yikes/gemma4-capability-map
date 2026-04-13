@@ -1,0 +1,28 @@
+{
+  "runs": 9.0,
+  "artifact_quality_avg": 0.9077666666666667,
+  "browser_workflow_avg": 0.9764888888888889,
+  "strict_interface_avg": 0.2777777777777778,
+  "recovered_execution_avg": 0.2777777777777778,
+  "real_world_readiness_avg": 0.6551777777777779,
+  "escalation_correctness_avg": 1.0,
+  "controller_repair_avg": 0.4444444444444444,
+  "argument_repair_avg": 0.0,
+  "controller_fallback_avg": 0.4444444444444444,
+  "intent_override_avg": 0.0,
+  "raw_planning_clean_rate_avg": 0.8055555555555556,
+  "lane": "replayable_core",
+  "created_at": "20260413T182401Z",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260413Tresearch_ablation_focus_v3_knowledge_work_ablation_packet/hf_gemma4_e2b_specialists_cpu_no_controller_repair__replayable_core",
+  "episode_ids": [
+    "kwa_exec_backlog_resume_hold_v5",
+    "kwa_jobs_email_block_resume_hold_v5",
+    "kwa_exec_latest_action_resume_hold_v4",
+    "kwa_jobs_phone_patch_resume_hold_v4",
+    "kwa_finance_invoice_lock_direction_hold_v4",
+    "kwa_exec_visual_dashboard_referent_hold_v3",
+    "kwa_jobs_visual_latest_issue_hold_v3",
+    "kwa_finance_visual_invoice_revision_hold_v2",
+    "kwa_jobs_visual_constraint_override_hold_v2"
+  ]
+}

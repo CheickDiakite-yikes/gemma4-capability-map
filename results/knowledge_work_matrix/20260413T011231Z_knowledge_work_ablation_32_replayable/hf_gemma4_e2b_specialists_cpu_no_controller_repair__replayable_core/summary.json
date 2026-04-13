@@ -1,0 +1,18 @@
+{
+  "runs": 32.0,
+  "artifact_quality_avg": 0.964509375,
+  "browser_workflow_avg": 0.98145625,
+  "strict_interface_avg": 0.602734375,
+  "recovered_execution_avg": 0.59375,
+  "real_world_readiness_avg": 0.80676875,
+  "escalation_correctness_avg": 1.0,
+  "controller_repair_avg": 1.484375,
+  "argument_repair_avg": 0.0,
+  "controller_fallback_avg": 0.28125,
+  "intent_override_avg": 0.0,
+  "raw_planning_clean_rate_avg": 0.46875,
+  "lane": "replayable_core",
+  "created_at": "20260413T011425Z",
+  "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260413T011231Z_knowledge_work_ablation_32_replayable/hf_gemma4_e2b_specialists_cpu_no_controller_repair__replayable_core"
+}

@@ -2,154 +2,126 @@
 
 ## Immediate
 
-### 1. Harden the shared local-agent runtime as the common substrate
+### 1. Reduce HF Gemma specialist controller dependence on the clean aligned surface
 
-Goal:
-
-- keep the benchmark and product surfaces on one execution model instead of drifting into separate orchestration paths
+This is the highest-value next move.
 
 Why:
 
-- the repo now has a real local runtime, CLI, local API, and Streamlit operator/mobile shells
-- those surfaces are only worth keeping if they remain benchmark-backed and trace-compatible
-- the next engineering risk is substrate divergence, not missing benchmark breadth
+- the aligned `32 / 26` board now ties oracle, HF Gemma specialists, MLX Qwen, and MLX Gemma on top-line readiness
+- the remaining meaningful difference is HF controller burden
+- top-line reruns without controller cleanup would mostly restate the same result
 
-### 2. Push the board/reporting layer toward richer public-style cuts
+Primary targets:
 
-Focus:
+- `feedback_prior:refine_selection`
+- `feedback_prior:read_region_text`
+- remaining fallback-planner follow-ons after the latest patch
 
-- extend the registry-backed board into a more publishable benchmark + product surface with role, category, track, latency, cost, and packaged-workflow cuts
-- extend the new published external benchmark context layer with more official or clearly third-party rows, while keeping provenance labels explicit
+Success condition:
 
-Why:
+- keep the current aligned readiness tier
+- lower `controller_repair_avg`
+- lower `controller_fallback_avg`
+- improve `raw_planning_clean_rate_avg`
 
-- the board now has role/category/track exports plus runtime-facing columns like `warmup_load_ms` and `last_request_elapsed_ms`
-- the board now also has a clean separate published external context layer for frontier-model benchmark references
-- the new operator-console and mobile-companion views exist, but they still need richer shared view models and stronger product-level polish
-- the next gap is comparison quality and workflow/product visibility, not raw data extraction
-- the new harnessability wave should be validated through the same `function_call`, CLI, and API tool families before the product surface claims get broader
+### 2. Use the focused replayable ablation packet as the main Gemma research harness
 
-### 3. Broaden system coverage on the same full-lane surface
+Packet:
 
-Focus:
+- [`results/knowledge_work_matrix/20260413Tresearch_ablation_focus_v3_knowledge_work_ablation_packet`](../../results/knowledge_work_matrix/20260413Tresearch_ablation_focus_v3_knowledge_work_ablation_packet)
 
-- keep the current publishable-default Gemma specialist row as the local headline baseline
-- keep the aligned exploratory `32 / 26` board surface honest
-- now work the residual differences inside that aligned surface:
-  - specialist-backed local Gemma controller dependence
-  - MLX Gemma readiness gap
-  - Gemma `31B` runtime-posture expansion
+Why this packet matters:
 
-Why:
+- it concentrates the remaining HF Gemma burden into a tractable slice
+- it already shows the clean helper ranking:
+  - baseline `0.9627777777777777`
+  - `no_controller_repair = 0.6551777777777779`
+  - `no_controller_fallback = 0.8182333333333333`
+  - `no_visual_rescue = 0.9627777777777777`
 
-- the aligned exploratory `32 / 26` matrix now exists for:
-  - `oracle_gemma4_e2b`
-  - `hf_gemma4_e2b_specialists_cpu`
-  - `mlx_qwen3_8b_reasoner_only`
-  - `mlx_gemma4_e2b_reasoner_only`
-- oracle, HF Gemma specialists, and MLX Qwen now tie on top-line replayable and live readiness on that aligned surface
-- HF Gemma specialists still rely on materially more controller repair and fallback than MLX Qwen
-- MLX Gemma is now aligned on the same surface and stays controller-clean, but still lands slightly lower readiness
-- the widened generated corpora now read `91 / 396 / 32 / 26`
-- external GPT/Gemini rows are now useful context, but they are not substitutes for a same-harness reproduced comparator
-- the plumbing and first reproduced run are now done:
-  - `hf_qwen3_8b_reasoner_only` exists as the direct-HF appendix path
-  - `mlx_qwen3_8b_reasoner_only` exists as the Apple-Silicon-native benchmark row
-  - `mlx_gemma4_e2b_reasoner_only` now exists as the Apple-Silicon-native Gemma posture row
-  - the HF reasoner now forces deterministic decode and explicitly disables Qwen thinking-mode defaults in benchmarked text runs
-  - the Gemma 4 `31B` `GGUF` / `llama.cpp` posture is still only an experimental support path until a local model/runtime is installed and reproduced
-- the next concrete target is now explicit:
-  - reduce HF Gemma specialist `controller_fallback_avg`
-  - reduce HF Gemma specialist `controller_repair_avg`
-  - improve HF Gemma specialist `raw_planning_clean_rate_avg`
-  - inspect the residual MLX Gemma readiness gap now that the replayable miss is closed and the row is aligned
-  - add harder direction-following and tool-use pressure where the current aligned `32 / 26` rows are now clean
-  - add the Gemma 4 `31B` `GGUF` / `llama.cpp` posture row
+Operational rule:
 
-Immediate research execution order:
+- do focused packet reruns first
+- only do full aligned reruns after a controller change actually shifts the packet meaningfully
 
-1. Run the focused replayable Gemma ablation packet, not a blind full-lane rerun.
-   The current 9-episode packet already explains `35.5 / 65.5` replayable controller repairs and `18.5 / 33.0` replayable controller fallbacks on the HF Gemma specialist row.
-2. Patch the residual MLX Gemma executive-assistant judgment miss.
-   The remaining aligned readiness gap is concentrated in `kwa_exec_travel_conflict_resolution` and `kwa_exec_vendor_access_hold`, and both are escalation-correctness misses rather than visual or tool-execution misses.
-3. Install the local Gemma `31B` `GGUF` artifact and wire `GEMMA4_31B_GGUF_PATH`.
-   The runtime path already exists; the current blocker is the missing local model.
-4. Only after those three steps, rerun the aligned comparison surface again.
-   Another full-lane rerun before the ablations and judgment patch would mostly restate the same finding.
+### 3. Install the local Gemma `31B` `GGUF` artifact and run the first real `llama.cpp` posture row
 
-### 4. Deepen softer-realism scoring and harder episode design
+Current blocker:
 
-Focus:
+- `GEMMA4_31B_GGUF_PATH` is unset
+- there is no local Gemma `31B` `GGUF` bundle under `/Users/cheickdiakite/models`
 
-- inspect clean runs that still have bounded role-readiness loss from artifact or revision quality
-- current examples:
-  - bounded visual KWA slices with `artifact_quality_avg < 1.0`
-  - future visual referent-carryover or stale-selection tasks
-  - any regression in revision-heavy finance or jobs artifacts
-  - broader visual memo/note artifacts that still rely on overly generic section synthesis
+Repo state:
+
+- the code path and registry support already exist
+- the missing piece is the actual local model artifact
+
+Why this matters:
+
+- runtime posture is now clearly part of capability research in this repo
+- a real `31B` local posture row could change the Gemma story materially
+
+### 4. Keep the product surface work benchmark-backed
+
+Immediate rule:
+
+- no parallel orchestration path
+- CLI, API, operator console, and mobile companion should keep using the same runtime semantics the benchmark exercises
 
 Why:
 
-- the benchmark is now strong enough that soft-readiness deltas are often more informative than fail/pass transitions
-- the harder `v5` replayable smoke episodes currently saturate oracle, Gemma specialists, and Qwen MLX with identical tool traces
-- that means the next discriminating move is not another blind full-lane rerun first
-- it is either:
-  - a more model-judgment-sensitive slice
-  - or a Gemma-specific controller-cleanup pass followed by another aligned `32 / 26` rerun
+- the repo’s main thesis now depends on the benchmark and harness sharing one substrate
 
-More precise target now:
+## Near Term
 
-- bias the next harder-realism additions toward executive-assistant ambiguity, clarify-vs-defer judgment, and approval-language precision
-- the residual MLX Gemma gap is already telling us that these seams are more discriminating than another generic visual difficulty increase
+### 5. Extend harder realism where the current aligned surface is already clean
 
-## Near-Term
+Bias additions toward:
 
-### 5. Deepen visual-tool realism after the next widening
+- latest-instruction preservation
+- ambiguous clarify-vs-defer judgment
+- approval-safe stop behavior
+- resume after changed direction
+- revision after feedback
+- visual referent follow-on pressure
+
+Do not widen with easy completion-only tasks.
+
+### 6. Expand tool-family and direction-following analysis, not just rows
 
 Focus:
 
-- add harder referent-carryover, stale-selection, and ambiguous-filter visual tasks
-- push more visual episodes into job-shaped KWA slices instead of keeping them bounded
-- keep extending native artifact grading instead of relaxing it
-- the newest atomic realism additions are now:
-  - dashboard backlog -> enablement-ops refinement
-  - latest-issue -> email refinement
-- count-heavy visual tasks are now also stricter at scoring time:
-  - a wrong tool-side count no longer gets rescued by a lucky final-answer number mention
-- focus especially on contradictions where a model must preserve the latest human visual constraint after an earlier valid selection
-- use the new direct-HF full-lane comparison result to prioritize:
-  - visual KWA revision loops
-  - visual referent carryover
-  - visual artifact quality under approval-sensitive holds
-  - broader visual note/memo quality after review feedback rather than the now-closed invoice/form referent-repair path
+- function-call vs CLI vs API tool-family behavior
+- wrong tool-family selection
+- wrong args
+- stale-instruction drift
+- bad follow-on sequencing
+- over-action when the right move is to stop or clarify
+
+### 7. Decide whether the next Gemma posture step is MLX specialists or `31B`
+
+Decision rule:
+
+- if the next real research question is controller dependence, stay on HF specialists and the packet
+- if the next real research question is runtime posture, prioritize the Gemma `31B` local artifact
+- only add specialist-backed MLX Gemma after the current reasoner-only posture has paid off analytically
 
 ## Ongoing Discipline
 
-- keep claims honest:
-- strong current claim:
-  - we improved Gemma 4 materially as a local full-stack agent on our own benchmark
-- stronger current same-surface comparative claim:
-  - on the aligned exploratory `32 / 26` board surface, oracle, HF Gemma specialists, and MLX Qwen now tie on top-line replayable and live readiness
-  - MLX Gemma is controller-clean on that same surface, but still lands slightly lower readiness
-- non-claim until new evidence exists:
-  - we have not yet shown Gemma beating broader Qwen families or frontier closed models on the same local full-lane surface
-- non-claim until the other rows are rerun:
-  - the direct Gemma reasoner-only control still sits on the older `26 / 20` surface and should not be merged into a fake same-surface parity claim
-- keep CLI/API/operator/mobile surfaces honest about current capability:
-  - packaged workflows are benchmark-backed bounded flows, not unbounded general autonomy
-- use the runtime event contract consistently:
-  - `created`
-  - `warming`
-  - `running`
-  - `approval_required`
-  - `completed`
-  - `approved`
-  - `denied`
-  - `failed`
-- keep canonical lane pointers clean
-- checkpoint long model-backed runs
-- rerun canonical oracle lanes after expanding the generated KWA corpus so continuity docs do not drift from the data roots
-- rescore saved KWA traces after scoring-logic changes:
-  - `uv run python scripts/rescore_knowledge_work_runs.py ...`
-- append new findings to the research log
-- refresh continuity files after every major benchmark pass
+- keep claims tied to same-surface reproduced runs
+- keep external benchmark context separate from Moonie rows
+- treat community signals as hypotheses, not evidence
+- rescore old runs after scoring or planner-gap metric changes
+- refresh history and continuity docs after every substantial benchmark pass
+
+## Current Best Research Statement
+
+Right now the repo supports this statement:
+
+- Moonie materially improved Gemma 4 as a local full-stack agent
+- oracle, HF Gemma specialists, MLX Qwen, and MLX Gemma now tie on top-line readiness on the aligned exploratory `32 / 26` surface
+- that tie hides a real planner/controller difference:
+  - HF Gemma specialists still need materially more controller help than the clean MLX rows
+
+That is the seam to attack next.

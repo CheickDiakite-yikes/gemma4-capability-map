@@ -2,374 +2,163 @@
 
 ## Resume Here
 
-The repo is in a stronger and more honest state now, and the aligned exploratory comparison surface is finally real:
+The repo is in a cleaner state now.
 
-- aligned headline rows:
-  - oracle
-  - the headline Gemma specialist stack
-  - the first reproduced Qwen MLX row
-  - `mlx_gemma4_e2b_reasoner_only`
-  - all on the aligned exploratory `32 / 26` surface
-- top-line result:
-  - oracle, HF Gemma specialists, and MLX Qwen tie on replayable and live readiness
-  - MLX Gemma is planner-clean and controller-clean, but still slightly lower on readiness
+The important result is no longer “can we align the rows?” That is done.
 
-The remaining work is no longer “can Gemma run well on MLX?” or “can we align the rows?” It is:
+Current aligned exploratory full-lane surface:
 
-- reduce HF Gemma specialist controller dependence on the current clean rows
-- inspect the residual MLX Gemma readiness gap
-- keep making the benchmark harder where the current aligned rows are already clean
+- [`results/knowledge_work_matrix/20260413Taligned_controller_burden_patch_v1_knowledge_work_alignment_32_26`](../../results/knowledge_work_matrix/20260413Taligned_controller_burden_patch_v1_knowledge_work_alignment_32_26)
 
-The most important new finding is that those two remaining gaps are now concrete:
+Current same-surface headline rows:
 
-- HF Gemma specialist controller burden is concentrated enough to attack with a focused ablation packet
-- MLX Gemma’s residual gap is not visual or tool-execution noise; it is executive-assistant escalation / ambiguity judgment
-- the Gemma `31B` `GGUF` lane is blocked by missing local artifact availability, not by missing runtime support in the repo
+- `oracle_gemma4_e2b`
+- `hf_gemma4_e2b_specialists_cpu`
+- `mlx_qwen3_8b_reasoner_only`
+- `mlx_gemma4_e2b_reasoner_only`
 
-## Latest Headline Result
+All four now tie on top-line replayable and live readiness.
 
-The current strongest research claim in the repo is now:
+The remaining interesting problem is:
 
-- on the aligned exploratory `32 / 26` full-lane `KnowledgeWorkArena` surface, the direct in-process Gemma 4 specialist stack is strict/recovered clean across all replayable and live episodes
-- the aligned oracle row is clean on both lanes
-- the reproduced MLX Qwen row now also matches oracle and the Gemma specialist row on that same aligned `32 / 26` surface
-- the reasoner-only Gemma control remains materially weaker on the last reproduced comparator surface
-- that means the controller/runtime/specialist-stack work materially improved Gemma 4 as a full-stack local agent on our own benchmark
-- the first reproduced aligned MLX Gemma row is now also real:
-  - replayable `32`: `strict_interface = 1.0`, `recovered_execution = 1.0`, `readiness = 0.9725125`
-  - live `26`: `strict_interface = 1.0`, `recovered_execution = 1.0`, `readiness = 0.973823076923077`
-  - both lanes are `controller_repair_avg = 0.0` and `raw_planning_clean_rate_avg = 1.0`
-- the new planner-gap exports now show an important nuance:
-  - Gemma specialists currently rely on materially more controller repair and fallback than the reproduced Qwen MLX row on the aligned widened rows
-  - that means same top-line readiness does not yet mean same raw tool-use cleanliness
-- the next useful experiment packet is already known:
-  - `kwa_exec_backlog_resume_hold_v5`
-  - `kwa_jobs_email_block_resume_hold_v5`
-  - `kwa_exec_latest_action_resume_hold_v4`
-  - `kwa_jobs_phone_patch_resume_hold_v4`
-  - `kwa_finance_invoice_lock_direction_hold_v4`
-  - `kwa_exec_visual_dashboard_referent_hold_v3`
-  - `kwa_jobs_visual_latest_issue_hold_v3`
-  - `kwa_finance_visual_invoice_revision_hold_v2`
-  - `kwa_jobs_visual_constraint_override_hold_v2`
-  - this packet already explains `35.5 / 65.5` replayable controller repairs and `18.5 / 33.0` replayable controller fallbacks on the aligned HF Gemma specialist row
-- the residual MLX Gemma miss is already localized:
-  - `kwa_exec_travel_conflict_resolution`
-  - `kwa_exec_vendor_access_hold`
-  - both are scorecard-clean except for `escalation_correctness`
-  - both show premature defer / missing-approval language where oracle and MLX Qwen retain the ambiguity-aware clarify move
+- HF Gemma specialist controller dependence
 
-Current board-backed headline rows:
+Not:
+
+- MLX Gemma alignment
+- MLX Gemma readiness
+- whether the aligned surface exists at all
+
+## Latest Headline Readout
+
+Replayable `32`:
 
 - oracle:
-  - `oracle_gemma4_e2b`
-  - comparison batch:
-    - `20260412T235251Z_knowledge_work_alignment_32_26`
-  - replayable:
-    - `runs = 32`
-    - `strict_interface_avg = 1.0`
-    - `recovered_execution_avg = 1.0`
-    - `real_world_readiness_avg = 0.976853125`
-  - live:
-    - `runs = 26`
-    - `strict_interface_avg = 1.0`
-    - `recovered_execution_avg = 1.0`
-    - `real_world_readiness_avg = 0.9791653846153847`
-- local headline Gemma row:
-  - `hf_gemma4_e2b_specialists_cpu`
-  - comparison batch:
-    - `20260412T235251Z_knowledge_work_alignment_32_26`
-  - replayable:
-    - `runs = 32`
-    - `artifact_quality_avg = 0.964509375`
-    - `strict_interface_avg = 1.0`
-    - `recovered_execution_avg = 1.0`
-    - `real_world_readiness_avg = 0.976853125`
-    - `controller_repair_avg = 2.046875`
-    - `controller_fallback_avg = 1.03125`
-  - live:
-    - `runs = 26`
-    - `strict_interface_avg = 1.0`
-    - `recovered_execution_avg = 1.0`
-    - `real_world_readiness_avg = 0.9791653846153847`
-    - `controller_repair_avg = 2.3653846153846154`
-    - `controller_fallback_avg = 1.0769230769230769`
-- local control:
-  - `hf_gemma4_e2b_reasoner_only`
-  - replayable:
-    - `strict_interface_avg = 0.9038461538461539`
-    - `recovered_execution_avg = 0.8846153846153846`
-    - `real_world_readiness_avg = 0.9392653846153846`
-  - live:
-    - `strict_interface_avg = 0.875`
-    - `recovered_execution_avg = 0.85`
-    - `real_world_readiness_avg = 0.9347899999999999`
+  - `real_world_readiness_avg = 0.976853125`
+  - `controller_repair_avg = 0.578125`
+  - `controller_fallback_avg = 0.0`
+  - `raw_planning_clean_rate_avg = 0.8395875`
+- HF Gemma specialists:
+  - `real_world_readiness_avg = 0.976853125`
+  - `controller_repair_avg = 1.296875`
+  - `controller_fallback_avg = 0.28125`
+  - `raw_planning_clean_rate_avg = 0.46875`
+- MLX Qwen:
+  - `real_world_readiness_avg = 0.976853125`
+  - `controller_repair_avg = 0.0`
+  - `controller_fallback_avg = 0.0`
+  - `raw_planning_clean_rate_avg = 1.0`
+- MLX Gemma:
+  - `real_world_readiness_avg = 0.976853125`
+  - `controller_repair_avg = 0.0`
+  - `controller_fallback_avg = 0.0`
+  - `raw_planning_clean_rate_avg = 1.0`
 
-Important claim boundary:
+Live `26`:
 
-- this is now a strong Gemma-improvement claim
-- the repo now also has a real widened same-surface reproduced Qwen row:
-  - `mlx_qwen3_8b_reasoner_only`
-  - replayable:
-    - `strict_interface_avg = 1.0`
-    - `recovered_execution_avg = 1.0`
-    - `real_world_readiness_avg = 0.976853125`
-  - live:
-    - `strict_interface_avg = 1.0`
-    - `recovered_execution_avg = 1.0`
-    - `real_world_readiness_avg = 0.9791653846153847`
-- that Qwen row beats the direct in-process Gemma reasoner-only control and materially improved after the rescue/planner fixes, and it now matches the oracle and Gemma specialist rows on this surface
-- do not overclaim beyond that:
-  - this is now a refreshed aligned `32 / 26` Gemma-versus-Qwen comparison where the current reproduced Qwen row matches the oracle and Gemma specialist rows
-  - it is not yet a broad Gemma-versus-Qwen family result
-  - the aligned MLX Gemma row is promising, but it still sits slightly below the top readiness tier
-  - it is not a frontier closed-model comparison
+- oracle:
+  - `real_world_readiness_avg = 0.9791653846153847`
+- HF Gemma specialists:
+  - `real_world_readiness_avg = 0.9791653846153847`
+  - `controller_repair_avg = 1.5192307692307692`
+  - `controller_fallback_avg = 0.23076923076923078`
+- MLX Qwen:
+  - `real_world_readiness_avg = 0.9791653846153847`
+  - `controller_repair_avg = 0.0`
+- MLX Gemma:
+  - `real_world_readiness_avg = 0.9791653846153847`
+  - `controller_repair_avg = 0.0`
 
-What just landed:
+Interpretation:
 
-- shared local-agent runtime substrate with:
-  - persistent sessions
-  - event timelines
-  - approval requests
-  - packaged workflows
-  - trace/artifact persistence
-- first-class local entrypoints:
-  - `moonie-agent`
-  - `moonie-agent-api`
-- Streamlit `operator_console` and `mobile_companion` surfaces over the same runtime contract
-- runtime/API regression coverage:
-  - `tests/test_runtime_core.py`
-  - `tests/test_runtime_api.py`
-- new atomic `visual_tool_orchestration` benchmark family with replayable and live lanes
-- seeded/local visual executor abstraction and four visual tools:
-  - `segment_entities`
-  - `refine_selection`
-  - `extract_layout`
-  - `read_region_text`
-- generated visual gold corpus now totals `26` tasks; current canonical lane pointers cover `11` replayable + `7` live seeded tasks
-- visual KWA bounded slices for executive, jobs, and finance episodes
-- corrected visual planner/image-id plumbing and visual answer-surface rescue
-- older canonical KWA oracle lane pointers still reflect the last full oracle rerun on `24` replayable and `18` live episodes
-- current generated KWA corpus on disk is now `32` replayable and `26` live episodes after the harder `v5` additions
-- registry-backed KWA benchmark board and scatter exports
-- Streamlit `knowledge_work_board` mode
-- explicit `system_id` support in KWA run manifests
-- role/category/track board exports
-- board rows now expose `warmup_load_ms`, `last_request_elapsed_ms`, `requests_completed`, and `total_cost_per_mtok` when manifests support them
-- board rows now also carry `run_scope`, and latest-board selection now prefers broader completed rows before stale older `run_scope` labels
-- mixed-pressure specialist-backed replayable broad visual reference at `model_backed_hf_specialists_cross_role_hardmix_visual_replayable_v2`
-- mixed-pressure specialist-backed live broad visual reference at `model_backed_hf_specialists_cross_role_hardmix_visual_live_v2`
-- replay/rescore utility for saved KWA traces
-- rescore utility now also recomputes the underlying stage task-trace metrics before rebuilding episode scorecards
-- semantic memory-retention scoring for revision-heavy artifacts
-- stronger revision contract for `kwa_finance_partner_deck_revision`
-- judgment-aware answer scoring for `refuse` / `defer` / `clarify` / `escalate`
-- judgment-aware second-pass rescue acceptance
-- planner-gap board exports:
-  - `controller_repair_avg`
-  - `argument_repair_avg`
-  - `controller_fallback_avg`
-  - `intent_override_avg`
-  - `raw_planning_clean_rate_avg`
-- broader semantic aliases for policy-safety language like `high-risk` and `safety control`
-- clean replayable specialist-backed policy subset at `v6`
-- clean broader 6-episode specialist-backed replayable and live policy slices
-- explicit `canonical` vs `exploratory` KWA history semantics
-- planner-enforced full parallel audit batches before patch proposals
-- combined-feedback patch repair for image + repo audit stages
-- clean broader 9-episode replayable specialist-backed cross-role slice at `model_backed_hf_specialists_cross_role_broad_v2`
-- clean broader 9-episode live specialist-backed cross-role slice at `model_backed_hf_specialists_cross_role_live_broad_v1`
-- `KnowledgeWorkArena` first expanded to `21` replayable and `15` live episodes, then continued growing to the current `32 / 26` generated corpus
-- new harder canonical episodes for stale context, constraint preservation, and stale assumptions
-- canonical KWA runner no longer silently truncates to `12` episodes by default
-- clean 3-episode replayable harder human-nuance specialist-backed slice at `model_backed_hf_specialists_hard_human_replayable_v1`
-- clean 3-episode live harder human-nuance specialist-backed slice at `model_backed_hf_specialists_hard_human_live_v1`
-- refreshed continuity and history artifacts
-- publishable-default direct in-process Gemma specialist full-lane rerun at:
-  - `20260411T152330Z_knowledge_work_publishable_core`
-- regenerated board/history rows showing the headline Gemma specialist stack matching the oracle full-lane row on the publishable-default matrix
-- deterministic text decode fixes for non-Gemma HF reasoners:
-  - `do_sample=False` is now forced in the shared HF reasoner path
-  - Qwen text chat-template calls now pass `enable_thinking=thinking` instead of silently inheriting model defaults
-- explicit MLX Qwen comparator support:
-  - `Qwen/Qwen3-8B-MLX-4bit` is registered
-  - `QWEN3_8B_MLX_PATH` is supported
-  - `mlx_qwen3_8b_reasoner_only` is added to the experimental matrix
-- first reproduced MLX Gemma comparator support:
-  - `mlx-community/gemma-4-e2b-it-4bit` now has completed warm/runtime and full-lane benchmark evidence
-  - replayable batch:
-    - `20260412T234506Z_knowledge_work_full_lane_experimental`
-  - live batch:
-    - `20260412T233015Z_knowledge_work_full_lane_experimental`
-- tool-family expansion across `function_call`, CLI, and API surfaces
-- research-control ablation support:
-  - `disable_controller_repair`
-  - `disable_controller_fallback`
-  - `disable_visual_rescue`
-- shared-bundle ablation packet runner:
-  - [`scripts/run_knowledge_work_ablation_packet.py`](../../scripts/run_knowledge_work_ablation_packet.py)
-- experimental Gemma 4 `31B` `GGUF` / `llama.cpp` runtime-posture support is implemented, but there is no local model/runtime installed yet, so there is no reproduced row to report
-- first reproduced Qwen full-lane batch:
-  - `20260411T211206Z_knowledge_work_full_lane_experimental`
-  - replayable:
-    - [`results/knowledge_work_matrix/20260411T211206Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__replayable_core/summary.json`](../../results/knowledge_work_matrix/20260411T211206Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__replayable_core/summary.json)
-  - live:
-    - [`results/knowledge_work_matrix/20260411T211206Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__live_web_stress/summary.json`](../../results/knowledge_work_matrix/20260411T211206Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__live_web_stress/summary.json)
+- same top-line readiness now exists across the four aligned rows
+- HF Gemma specialists still need materially more controller help than the clean MLX rows
+- the current research problem is now how much of that burden can be removed without dropping readiness
 
-## Current Canonical Pointers
+## What Just Changed
 
-- visual-tool orchestration replayable core:
-  - [`results/visual_tool_orchestration/replayable_core/summary.json`](../../results/visual_tool_orchestration/replayable_core/summary.json)
-- visual-tool orchestration live-web stress:
-  - [`results/visual_tool_orchestration/live_web_stress/summary.json`](../../results/visual_tool_orchestration/live_web_stress/summary.json)
-- replayable core:
-  - [`results/knowledge_work/replayable_core/summary.json`](../../results/knowledge_work/replayable_core/summary.json)
-- live-web stress:
-  - [`results/knowledge_work/live_web_stress/summary.json`](../../results/knowledge_work/live_web_stress/summary.json)
-- replayable visual KWA oracle slice:
-  - [`results/knowledge_work/kwa_visual_replayable_oracle_v1/summary.json`](../../results/knowledge_work/kwa_visual_replayable_oracle_v1/summary.json)
-- live visual KWA oracle slice:
-  - [`results/knowledge_work/kwa_visual_live_oracle_v1/summary.json`](../../results/knowledge_work/kwa_visual_live_oracle_v1/summary.json)
-- replayable specialist-backed visual KWA slice:
-  - [`results/knowledge_work/model_backed_hf_specialists_visual_replayable_v3/summary.json`](../../results/knowledge_work/model_backed_hf_specialists_visual_replayable_v3/summary.json)
-- replayable specialist-backed full-lane exploratory slice:
-  - [`results/knowledge_work/model_backed_hf_specialists_replayable_full_v1/summary.json`](../../results/knowledge_work/model_backed_hf_specialists_replayable_full_v1/summary.json)
-- live specialist-backed full-lane exploratory slice:
-  - [`results/knowledge_work/model_backed_hf_specialists_live_full_v1/summary.json`](../../results/knowledge_work/model_backed_hf_specialists_live_full_v1/summary.json)
-- replayable reasoner-only full-lane exploratory slice:
-  - [`results/knowledge_work/model_backed_hf_reasoner_full_replayable_v1/summary.json`](../../results/knowledge_work/model_backed_hf_reasoner_full_replayable_v1/summary.json)
-- live reasoner-only full-lane exploratory slice:
-  - [`results/knowledge_work/model_backed_hf_reasoner_full_live_v1/summary.json`](../../results/knowledge_work/model_backed_hf_reasoner_full_live_v1/summary.json)
-- replayable direct-HF in-process reasoner-only full-lane exploratory slice:
-  - [`results/knowledge_work/model_backed_hf_inprocess_reasoner_full_replayable_v1/summary.json`](../../results/knowledge_work/model_backed_hf_inprocess_reasoner_full_replayable_v1/summary.json)
-- live direct-HF in-process reasoner-only full-lane exploratory slice:
-  - [`results/knowledge_work/model_backed_hf_inprocess_reasoner_full_live_v1/summary.json`](../../results/knowledge_work/model_backed_hf_inprocess_reasoner_full_live_v1/summary.json)
-- current generated KWA corpus is now `29` replayable and `23` live episodes, while the publishable-default comparison surface remains the `26 / 20` board matrix
-- replayable specialist-backed policy subset:
-  - [`results/knowledge_work/model_backed_hf_specialists_policy_replayable_v6/summary.json`](../../results/knowledge_work/model_backed_hf_specialists_policy_replayable_v6/summary.json)
-- live specialist-backed policy subset:
-  - [`results/knowledge_work/model_backed_hf_specialists_policy_live/summary.json`](../../results/knowledge_work/model_backed_hf_specialists_policy_live/summary.json)
-- replayable specialist-backed policy broad subset:
-  - [`results/knowledge_work/model_backed_hf_specialists_policy_replayable_broad_v2/summary.json`](../../results/knowledge_work/model_backed_hf_specialists_policy_replayable_broad_v2/summary.json)
-- live specialist-backed policy broad subset:
-  - [`results/knowledge_work/model_backed_hf_specialists_policy_live_broad_v3/summary.json`](../../results/knowledge_work/model_backed_hf_specialists_policy_live_broad_v3/summary.json)
-- broader replayable specialist-backed cross-role subset:
-  - [`results/knowledge_work/model_backed_hf_specialists_cross_role_broad_v2/summary.json`](../../results/knowledge_work/model_backed_hf_specialists_cross_role_broad_v2/summary.json)
-- broader live specialist-backed cross-role subset:
-  - [`results/knowledge_work/model_backed_hf_specialists_cross_role_live_broad_v1/summary.json`](../../results/knowledge_work/model_backed_hf_specialists_cross_role_live_broad_v1/summary.json)
-- replayable harder human-nuance specialist-backed subset:
-  - [`results/knowledge_work/model_backed_hf_specialists_hard_human_replayable_v1/summary.json`](../../results/knowledge_work/model_backed_hf_specialists_hard_human_replayable_v1/summary.json)
-- live harder human-nuance specialist-backed subset:
-  - [`results/knowledge_work/model_backed_hf_specialists_hard_human_live_v1/summary.json`](../../results/knowledge_work/model_backed_hf_specialists_hard_human_live_v1/summary.json)
-- replayable mixed-pressure specialist-backed broad subset:
-  - [`results/knowledge_work/model_backed_hf_specialists_cross_role_hardmix_visual_replayable_v2/summary.json`](../../results/knowledge_work/model_backed_hf_specialists_cross_role_hardmix_visual_replayable_v2/summary.json)
-- live mixed-pressure specialist-backed broad subset:
-  - [`results/knowledge_work/model_backed_hf_specialists_cross_role_hardmix_visual_live_v2/summary.json`](../../results/knowledge_work/model_backed_hf_specialists_cross_role_hardmix_visual_live_v2/summary.json)
-- benchmark board latest:
+Two things landed in the last pass:
+
+1. Planner/controller cleanup
+
+- [`src/gemma4_capability_map/tools/planner.py`](../../src/gemma4_capability_map/tools/planner.py)
+- the planner now synthesizes priority replacement calls directly in obvious repair/follow-on cases instead of falling through to broad fallback behavior
+
+2. New research evidence
+
+- focused replayable ablation packet rerun:
+  - [`results/knowledge_work_matrix/20260413Tresearch_ablation_focus_v3_knowledge_work_ablation_packet`](../../results/knowledge_work_matrix/20260413Tresearch_ablation_focus_v3_knowledge_work_ablation_packet)
+- aligned rerun after the planner patch:
+  - [`results/knowledge_work_matrix/20260413Taligned_controller_burden_patch_v1_knowledge_work_alignment_32_26`](../../results/knowledge_work_matrix/20260413Taligned_controller_burden_patch_v1_knowledge_work_alignment_32_26)
+
+The key learning from the packet rerun:
+
+- baseline readiness stayed fixed at `0.9627777777777777`
+- packet baseline `controller_fallback_avg` dropped from `2.0555555555555554` to `0.4444444444444444`
+- `controller_fallback_planner` notes dropped from `37` to `8`
+
+The key learning from the full aligned rerun:
+
+- HF Gemma replayable `controller_repair_avg` dropped from `2.046875` to `1.296875`
+- HF Gemma replayable `controller_fallback_avg` dropped from `1.03125` to `0.28125`
+- HF Gemma live `controller_repair_avg` dropped from `2.3653846153846154` to `1.5192307692307692`
+- HF Gemma live `controller_fallback_avg` dropped from `1.0769230769230769` to `0.23076923076923078`
+- top-line readiness did not move
+
+That is the current strongest new finding.
+
+## What Not To Re-Learn
+
+Do not spend time re-proving these already-established points:
+
+- MLX Gemma can now align on the same top-line readiness tier as the other headline rows
+- the older MLX Gemma executive-assistant judgment miss is closed
+- Qwen MLX is a real reproduced same-surface row
+- the direct in-process Gemma reasoner-only control is materially weaker than the improved Gemma stacks
+
+Those are already settled enough for the next research pass.
+
+## Next Best Move
+
+1. Target the remaining HF Gemma specialist note families directly.
+   Focus on:
+   - `feedback_prior:refine_selection`
+   - `feedback_prior:read_region_text`
+
+2. Keep using the focused replayable packet as the main Gemma research harness.
+   Do not jump to blind full-lane reruns first.
+
+3. Install the local Gemma `31B` `GGUF` artifact and run the first real `llama.cpp` posture row once the model exists locally.
+
+## Current Claim Boundary
+
+Safe current claim:
+
+- Moonie improved Gemma 4 materially as a local full-stack agent
+- all four aligned rows now tie on top-line readiness
+- HF Gemma specialists still need materially more controller help than the clean MLX rows
+
+Unsafe current claim:
+
+- Gemma broadly beats Qwen families
+- Gemma beats frontier closed models on the same harness
+- Gemma `31B` posture is already reproduced locally
+
+## Verification State
+
+Current code-side regressions from the last pass:
+
+- targeted suite: `59 passed`
+
+Documentation now points at:
+
+- the aligned `20260413Taligned_controller_burden_patch_v1_knowledge_work_alignment_32_26` batch
+- the focused `20260413Tresearch_ablation_focus_v3_knowledge_work_ablation_packet` batch
+
+## Operational Notes
+
+- The board source of truth is still:
   - [`results/history/knowledge_work_board_latest.csv`](../../results/history/knowledge_work_board_latest.csv)
-- benchmark scatter export:
-  - [`results/history/knowledge_work_scatter.csv`](../../results/history/knowledge_work_scatter.csv)
-- benchmark role breakdown:
-  - [`results/history/knowledge_work_role_breakdown.csv`](../../results/history/knowledge_work_role_breakdown.csv)
-- benchmark category breakdown:
-  - [`results/history/knowledge_work_category_breakdown.csv`](../../results/history/knowledge_work_category_breakdown.csv)
-- benchmark track breakdown:
-  - [`results/history/knowledge_work_track_breakdown.csv`](../../results/history/knowledge_work_track_breakdown.csv)
-- knowledge-work history:
-  - [`results/history/knowledge_work_history.md`](../../results/history/knowledge_work_history.md)
-
-## Finished Model-Backed Evidence
-
-Primary finished baseline:
-
-- [`results/knowledge_work/model_backed_hf_exec_hold/summary.json`](../../results/knowledge_work/model_backed_hf_exec_hold/summary.json)
-
-Exploratory stopped pilot:
-
-- [`results/knowledge_work/model_backed_hf_reasoner_pilot/summary.json`](../../results/knowledge_work/model_backed_hf_reasoner_pilot/summary.json)
-
-## What To Do First In The Next Thread
-
-1. Read [`../../AGENT_CONTEXT.md`](../../AGENT_CONTEXT.md).
-2. Check `git status --short`.
-3. If new result dirs were added, run:
-   - `uv run python scripts/build_knowledge_work_history.py`
-4. If scoring logic changed, rescore affected run dirs before treating leaderboard deltas as real:
-   - `uv run python scripts/rescore_knowledge_work_runs.py <run_dir> ...`
-5. If making new benchmark claims, run:
-   - `PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 .venv/bin/pytest -q`
-6. Treat [`current-state.md`](./current-state.md) as the canonical source of truth when `knowledge_work_history.md` and exploratory runs disagree.
-7. If touching the product surfaces, validate both:
-   - `uv run moonie-agent workflows`
-   - `uv run pytest tests/test_runtime_core.py tests/test_runtime_api.py`
-
-## Highest-Value Next Work
-
-1. Harden the shared runtime so benchmark execution and product sessions keep one execution contract.
-2. Extend the operator console, mobile companion, and board into a more polished shared product/reporting surface.
-3. Isolate the remaining MLX Qwen recovered-execution gap before widening to another non-Gemma comparator.
-4. Keep inspecting softer-realism signals instead of only binary failures.
-
-## Important Operational Notes
-
-- Use `--no-update-latest` for all ad hoc pilots.
-- Do not let smoke runs overwrite `results/knowledge_work/replayable_core`.
-- The `hf_service` reasoner is useful but cold startup is expensive on this Mac.
-- The replayable specialist-backed policy bug is closed in `v6`; do not resume from older `v1`-`v5` policy conclusions.
-- The broader 6-episode policy exploratory slices are now also clean; the next thread should not spend time re-debugging `kwa_exec_vendor_access_hold` unless a fresh regression appears.
-- The broader replayable cross-role `v1` miss was a planner/controller bug in `agent_010_parallel_audit_patch`, not a general finance-deck weakness.
-- The corrected reference is `model_backed_hf_specialists_cross_role_broad_v2`; do not continue from `v1` conclusions.
-- The broader live specialist-backed cross-role reference is `model_backed_hf_specialists_cross_role_live_broad_v1`; it is clean and should be used as the current live counterpart to the replayable broad slice.
-- The canonical oracle KWA lanes now include the harder stale-context / constraint-preservation / stale-assumption episodes; any future “canonical KWA” claim should assume `21` replayable and `15` live episodes, not the older `18/12` surface.
-- The canonical oracle KWA lanes have now been rerun on the full generated corpus and should be treated as `24` replayable and `18` live episodes, not the older `21/15` surface.
-- The new harder model-backed references are `model_backed_hf_specialists_hard_human_replayable_v1` and `model_backed_hf_specialists_hard_human_live_v1`; both are clean and should be treated as the current proof that the specialist-backed stack handles these harder human-nuance patterns in bounded form.
-- The current mixed-pressure replayable reference is `model_backed_hf_specialists_cross_role_hardmix_visual_replayable_v2`; older non-visual or `visual_*_v1` runs are diagnosis artifacts and should not be used as the current model-backed reference.
-- The current mixed-pressure live reference is `model_backed_hf_specialists_cross_role_hardmix_visual_live_v2`; it is the current live counterpart to the replayable mixed-pressure visual slice.
-- The broader full-lane exploratory references are now `model_backed_hf_specialists_replayable_full_v1` and `model_backed_hf_specialists_live_full_v1`; use them when making claims about the current local specialist-backed stack on the full generated KWA corpus.
-- The new direct in-process HF full-lane exploratory references are `model_backed_hf_inprocess_reasoner_full_replayable_v1` and `model_backed_hf_inprocess_reasoner_full_live_v1`; they are weaker than `hf_service_gemma4_reasoner_only` and should be treated as a real comparative baseline, not as a replacement for the existing service-backed reasoner baseline.
-- The new direct in-process HF specialist-backed full-lane exploratory references are `model_backed_hf_inprocess_specialists_full_replayable_v3` and `model_backed_hf_inprocess_specialists_full_live_v3`; they materially improve on the direct-HF reasoner-only baseline, recover the visual invoice/form execution misses cleanly at the full-lane level, and now absorb the invoice memo-quality repair into the board-facing rows.
-- The worst episodes for `hf_gemma4_e2b_reasoner_only` are the visual KWA episodes:
-  - replayable:
-    - `kwa_exec_visual_dashboard_brief`
-    - `kwa_jobs_visual_form_hold`
-    - `kwa_finance_visual_invoice_hold`
-  - live:
-    - `kwa_exec_live_visual_dashboard_brief`
-    - `kwa_jobs_live_visual_form_hold`
-    - `kwa_finance_live_visual_invoice_hold`
-- The dashboard stale-selection regression is closed in the planner/controller path; do not resume from the earlier conclusion that `kwa_exec_visual_dashboard_brief` was the blocker for the in-process specialist lane.
-- The visual invoice/form referent-repair regression is now closed in bounded reruns for both service-backed and direct-HF specialist paths:
-  - replayable service-backed:
-    - `results/knowledge_work/model_backed_hf_service_specialists_smoke_finance_visual_replayable_v1`
-  - live service-backed:
-    - `results/knowledge_work/model_backed_hf_service_specialists_smoke_finance_visual_live_v1`
-    - `results/knowledge_work/model_backed_hf_service_specialists_smoke_jobs_visual_live_v1`
-  - replayable direct-HF specialists:
-    - `results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_finance_visual_replayable_v2`
-  - live direct-HF specialists:
-    - `results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_finance_visual_live_v2`
-    - `results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_jobs_visual_live_v2`
-- Those targeted reruns now show `strict_interface = 1.0` and `recovered_execution = 1.0` on all three previously failing episodes.
-- The softer invoice artifact/readiness gap is also closed in bounded reruns after the memo generator/review path was hardened:
-  - replayable:
-    - `results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_finance_visual_replayable_v3`
-    - `artifact_quality = 1.0`
-  - live:
-    - `results/knowledge_work/model_backed_hf_inprocess_specialists_smoke_finance_visual_live_v3`
-    - `artifact_quality = 1.0`
-- The older bounded `v2` / `v3` direct-HF specialist reruns are now diagnostic history, not the current headline claim surface.
-- The current headline claim surface is the publishable-default full-lane board:
-  - `results/history/knowledge_work_board_latest.csv`
-  - with the `hf_gemma4_e2b_specialists_cpu` row from `20260411T152330Z_knowledge_work_publishable_core`
-- Use the bounded invoice/form reruns only as proof of where the controller and memo fixes came from, not as the main comparison artifact.
-- The next meaningful comparison step is a real non-Gemma local stack, not more reruns of the now-clean Gemma specialist row.
-- The new atomic visual-tool benchmark is canonical at `results/visual_tool_orchestration/...`; use it when making claims about multimodal tool orchestration rather than inferring from KWA alone.
-- The board/reporting layer now depends on [`configs/model_registry.yaml`](../../configs/model_registry.yaml) plus the exports in [`results/history`](../../results/history); update both when adding new systems or public-style charts.
-- The repo is no longer benchmark-only:
-  - use the shared runtime entrypoints for product-surface work
-  - keep packaged workflows benchmark-backed and bounded
-  - do not let desktop/mobile shells invent a second orchestration model
-- `kwa_finance_partner_deck_revision` is clean on the current corrected mixed-pressure visual reference; if it regresses again, treat it as a soft-realism target, not a hard interface failure.
-- `mlx` should not be the next execution target on this machine until the runtime exists locally; the current probe still fails with `ModuleNotFoundError: mlx`.
-- `google/gemma-4-E4B-it` remains a probe-only local lane here and should not be promoted to a full-lane comparison until hardware/runtime conditions change.
-- The current branch is expected to remain `main` unless a feature branch is explicitly needed.
+- The Gemma `31B` lane is blocked by missing local artifact availability:
+  - `GEMMA4_31B_GGUF_PATH` unset
+  - no local bundle under `/Users/cheickdiakite/models`

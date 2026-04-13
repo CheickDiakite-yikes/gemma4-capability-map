@@ -65,3 +65,50 @@ def test_derive_trace_metrics_sums_prompt_and_latency_fields() -> None:
     assert metrics["planning_turn_count"] == 2
     assert metrics["planning_turns_with_repairs"] == 1
     assert metrics["raw_planning_clean_rate"] == 0.5
+
+
+def test_derive_trace_metrics_ignores_ablation_control_markers() -> None:
+    task = Task(
+        task_id="ablation_metrics",
+        track=Track.THINKING,
+        domain=Domain.GENERAL,
+        user_goal="Inspect a repair-disabled planning trace.",
+        messages=[Message(role="user", content="Inspect a repair-disabled planning trace.")],
+        scoring_profile=ScoringProfile(answer_match=True),
+    )
+    trace = RunTrace(
+        run_id="run_ablation_metrics",
+        task_id=task.task_id,
+        variant_id="clean",
+        track=task.track,
+        architecture="monolith",
+        model_bundle=ModelBundleSpec(reasoner="google/gemma-4-E2B-it"),
+        backend="hf",
+        hardware_profile=HardwareProfile(
+            platform="Darwin",
+            platform_version="test",
+            machine="arm64",
+            cpu_count=12,
+            memory_gb=24.0,
+        ),
+        prompt_artifacts={
+            "planning_latency_ms": [50, 50],
+            "planning_prompt_tokens": [10, 10],
+            "planning_completion_tokens": [2, 2],
+            "planning_repair_notes": [
+                ["controller_repair_disabled", "controller_fallback_disabled"],
+                ["controller_repair_disabled", "controller_fallback_planner"],
+            ],
+            "final_latency_ms": 100,
+            "final_prompt_tokens": 5,
+            "final_completion_tokens": 1,
+        },
+        final_answer="noop",
+    )
+
+    metrics = derive_trace_metrics(task, trace)
+    assert metrics["controller_repair_count"] == 1
+    assert metrics["controller_fallback_count"] == 1
+    assert metrics["planning_turn_count"] == 2
+    assert metrics["planning_turns_with_repairs"] == 1
+    assert metrics["raw_planning_clean_rate"] == 0.5

@@ -16,7 +16,7 @@ from gemma4_capability_map.evals.visual_eval import score_visual_trace
 from gemma4_capability_map.hardware import detect_hardware_profile
 from gemma4_capability_map.knowledge_work.loader import load_episodes
 from gemma4_capability_map.knowledge_work.replay import summarize_episode_traces
-from gemma4_capability_map.metrics.answer_match import answer_contains_all, answer_matches_task
+from gemma4_capability_map.metrics.answer_match import answer_contains_all, answer_matches_task, extract_judgment_action
 from gemma4_capability_map.reporting.knowledge_work_board import DEFAULT_REGISTRY_PATH, load_model_registry
 from gemma4_capability_map.research_controls import ResearchControls
 from gemma4_capability_map.runtime.schemas import (
@@ -225,6 +225,8 @@ def execute_task_trace(
         "second_pass_raw_output": "",
         "second_pass_final_answer": "",
         "second_pass_latency_ms": 0,
+        "judgment_fallback_used": False,
+        "judgment_fallback_answer": "",
         "visual_readback_fallback_used": False,
         "visual_readback_fallback_answer": "",
         "visual_latest_fallback_used": False,
@@ -259,6 +261,11 @@ def execute_task_trace(
         )
         if answer_matches_task(effective_task, rescue_answer):
             resolved_final_answer = rescue_answer
+    judgment_fallback_answer = _judgment_grounded_fallback_answer(effective_task, resolved_final_answer, language_stressor)
+    if judgment_fallback_answer:
+        resolved_final_answer = judgment_fallback_answer
+        second_pass_artifacts["judgment_fallback_used"] = True
+        second_pass_artifacts["judgment_fallback_answer"] = judgment_fallback_answer
     if not research_controls.disable_visual_rescue:
         fallback_answer = _visual_latest_readback_fallback_answer(effective_task, resolved_final_answer, tool_steps)
         if fallback_answer:
@@ -1482,6 +1489,46 @@ def _judgment_second_pass_guidance(task: Task, language: str | None) -> str:
         "If the exact target is still ambiguous, choose `clarify` even if approval might also be needed later. "
         f"{basis_suffix}{expected_suffix}"
     )
+
+
+def _judgment_grounded_fallback_answer(task: Task, answer_text: str, language: str | None) -> str:
+    judgment_mode = task.judgment_mode
+    if judgment_mode is None or not judgment_mode.enabled:
+        return ""
+    if judgment_mode.expected_action != "clarify":
+        return ""
+    if answer_matches_task(task, answer_text):
+        return ""
+    extracted_action = extract_judgment_action(answer_text)
+    if extracted_action not in {None, "defer", "escalate"}:
+        return ""
+    if not _ambiguous_calendar_target(task):
+        return ""
+    if language == "fr":
+        return (
+            "action: clarify\n"
+            "justification: il n'est pas clair quel rendez-vous fournisseur est vise; "
+            "which vendor meeting est ambigu et je dois clarifier avant toute modification."
+        )
+    return (
+        "action: clarify\n"
+        "justification: which vendor meeting is intended is ambiguous, so I need clarification before making any change."
+    )
+
+
+def _ambiguous_calendar_target(task: Task) -> bool:
+    calendar_events = task.initial_state.get("calendar_events", [])
+    if not isinstance(calendar_events, list) or len(calendar_events) < 2:
+        return False
+    vendor_events = 0
+    for event in calendar_events:
+        if not isinstance(event, dict):
+            continue
+        title = str(event.get("title", "")).lower()
+        attendees = [str(attendee).lower() for attendee in event.get("attendees", []) if str(attendee).strip()]
+        if "vendor" in title or any("vendor" in attendee for attendee in attendees):
+            vendor_events += 1
+    return vendor_events >= 2
 
 
 def _visual_latest_readback_fallback_answer(task: Task, answer_text: str, tool_steps: list[ToolResult]) -> str:

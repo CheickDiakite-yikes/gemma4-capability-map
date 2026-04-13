@@ -89,6 +89,42 @@ class _JudgmentRescueRunner:
         )
 
 
+class _ClarifyFallbackRunner:
+    model_id = "test/clarify-fallback"
+    backend = "test"
+
+    def __init__(self) -> None:
+        self.calls = 0
+
+    def generate(self, messages, media, tool_specs, thinking, max_new_tokens=None) -> ModelTurn:  # noqa: ANN001
+        self.calls += 1
+        if self.calls == 1:
+            return ModelTurn(
+                raw_model_output=(
+                    "action: defer\n"
+                    "justification: I understand the request, but approval is still missing before I can reschedule anything.\n"
+                    "blocking reason: Missing approval."
+                ),
+                final_answer=(
+                    "action: defer\n"
+                    "justification: I understand the request, but approval is still missing before I can reschedule anything.\n"
+                    "blocking reason: Missing approval."
+                ),
+            )
+        return ModelTurn(
+            raw_model_output=(
+                "action: defer\n"
+                "justification: I should wait for sign-off before moving the vendor meeting.\n"
+                "blocking reason: Missing approval."
+            ),
+            final_answer=(
+                "action: defer\n"
+                "justification: I should wait for sign-off before moving the vendor meeting.\n"
+                "blocking reason: Missing approval."
+            ),
+        )
+
+
 class _VisualLatestRescueRunner:
     model_id = "test/visual-latest-rescue"
     backend = "test"
@@ -450,6 +486,23 @@ def test_judgment_second_pass_rescue_rewrites_wrong_action_label_without_mutatin
     assert trace.prompt_artifacts["second_pass_used"] is True
     assert trace.final_answer.startswith("action: refuse")
     assert trace.tool_steps == []
+    assert float(trace.metrics["success"]) == 1.0
+    assert float(trace.metrics["escalation_correctness"]) == 1.0
+
+
+def test_clarify_judgment_fallback_recovers_ambiguous_vendor_task_when_rescue_still_defers() -> None:
+    task = [task for task in load_jsonl(ROOT / "data" / "gold" / "agents.jsonl", Task) if task.task_id == "agent_013_ambiguous_vendor_defer"][0]
+    bundle = RuntimeBundle(
+        reasoner=_ClarifyFallbackRunner(),
+        executor=DeterministicExecutor(registry=build_default_registry()),
+    )
+    pipeline = MonolithPipeline()
+    trace = pipeline.run(task, Variant(variant_id=f"{task.task_id}_clean", base_task_id=task.task_id), bundle)
+
+    assert trace.prompt_artifacts["second_pass_used"] is True
+    assert trace.prompt_artifacts["judgment_fallback_used"] is True
+    assert trace.final_answer.startswith("action: clarify")
+    assert "which vendor meeting" in trace.final_answer.lower()
     assert float(trace.metrics["success"]) == 1.0
     assert float(trace.metrics["escalation_correctness"]) == 1.0
 

@@ -16,8 +16,10 @@ def derive_trace_metrics(task: Task, trace: RunTrace) -> dict[str, float | int |
             normalized_batches.append([str(note_batch)])
         else:
             normalized_batches.append([])
+    control_marker_notes = {"controller_repair_disabled", "controller_fallback_disabled"}
     flattened_notes = [note for batch in normalized_batches for note in batch]
-    controller_repairs = len(flattened_notes)
+    effective_notes = [note for note in flattened_notes if note not in control_marker_notes]
+    controller_repairs = len(effective_notes)
     planning_latencies = [int(value) for value in trace.prompt_artifacts.get("planning_latency_ms", [])]
     planning_prompt_tokens = [int(value) for value in trace.prompt_artifacts.get("planning_prompt_tokens", [])]
     planning_completion_tokens = [int(value) for value in trace.prompt_artifacts.get("planning_completion_tokens", [])]
@@ -25,11 +27,11 @@ def derive_trace_metrics(task: Task, trace: RunTrace) -> dict[str, float | int |
     final_prompt_tokens = int(trace.prompt_artifacts.get("final_prompt_tokens", 0))
     final_completion_tokens = int(trace.prompt_artifacts.get("final_completion_tokens", 0))
     planning_turn_count = len(normalized_batches)
-    planning_turns_with_repairs = sum(1 for batch in normalized_batches if batch)
-    controller_fallback_count = sum(1 for note in flattened_notes if note == "controller_fallback_planner")
-    intent_override_count = sum(1 for note in flattened_notes if note.startswith("intent_prior:"))
-    argument_repair_count = sum(1 for note in flattened_notes if note.startswith("repaired_arguments:"))
-    canonicalized_tool_count = sum(1 for note in flattened_notes if note.startswith("canonicalized_tool:"))
+    planning_turns_with_repairs = sum(1 for batch in normalized_batches if any(note not in control_marker_notes for note in batch))
+    controller_fallback_count = sum(1 for note in effective_notes if note == "controller_fallback_planner")
+    intent_override_count = sum(1 for note in effective_notes if note.startswith("intent_prior:"))
+    argument_repair_count = sum(1 for note in effective_notes if note.startswith("repaired_arguments:"))
+    canonicalized_tool_count = sum(1 for note in effective_notes if note.startswith("canonicalized_tool:"))
     return {
         "steps_taken": len(trace.tool_steps),
         "latency_ms": sum(planning_latencies) + final_latency_ms,

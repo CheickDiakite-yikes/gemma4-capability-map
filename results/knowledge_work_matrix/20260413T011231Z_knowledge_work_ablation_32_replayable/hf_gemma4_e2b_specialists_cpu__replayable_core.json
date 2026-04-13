@@ -1,0 +1,150 @@
+{
+  "run_id": "hf_gemma4_e2b_specialists_cpu__replayable_core",
+  "system_id": "hf_gemma4_e2b_specialists_cpu",
+  "lane": "replayable_core",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260413T011231Z_knowledge_work_ablation_32_replayable/hf_gemma4_e2b_specialists_cpu__replayable_core",
+  "returncode": -15,
+  "stdout": "",
+  "stderr": "`torch_dtype` is deprecated! Use `dtype` instead!\n\nLoading weights:   0%|          | 0/2011 [00:00<?, ?it/s]\nLoading weights:  12%|█▏        | 251/2011 [00:00<00:00, 2333.20it/s]\nLoading weights:  25%|██▍       | 499/2011 [00:00<00:00, 2347.97it/s]\nLoading weights:  37%|███▋      | 754/2011 [00:01<00:03, 373.00it/s] \nLoading weights:  44%|████▍     | 891/2011 [00:09<00:18, 60.81it/s] \nLoading weights: 100%|██████████| 2011/2011 [00:09<00:00, 219.84it/s]\n\nLoading weights:   0%|          | 0/236 [00:00<?, ?it/s]\nLoading weights: 100%|██████████| 236/236 [00:00<00:00, 7058.10it/s]\n\nLoading weights:   0%|          | 0/314 [00:00<?, ?it/s]\nLoading weights: 100%|██████████| 314/314 [00:00<00:00, 6690.36it/s]\nThe following generation flags are not valid and may be ignored: ['top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.\n/opt/miniconda3/lib/python3.13/multiprocessing/resource_tracker.py:301: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/loky-84345-hwp897j0'}\n  warnings.warn(\n",
+  "summary": {
+    "runs": 8.0,
+    "artifact_quality_avg": 0.9576875,
+    "browser_workflow_avg": 0.9819375,
+    "strict_interface_avg": 1.0,
+    "recovered_execution_avg": 1.0,
+    "real_world_readiness_avg": 0.9701375,
+    "escalation_correctness_avg": 1.0,
+    "controller_repair_avg": 1.5,
+    "argument_repair_avg": 0.0625,
+    "controller_fallback_avg": 0.875,
+    "intent_override_avg": 0.0625,
+    "raw_planning_clean_rate_avg": 0.625,
+    "lane": "replayable_core",
+    "created_at": "20260413T011231Z",
+    "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260413T011231Z_knowledge_work_ablation_32_replayable/hf_gemma4_e2b_specialists_cpu__replayable_core"
+  },
+  "manifest": {
+    "run_group_id": "20260413T011231Z_replayable_core",
+    "created_at": "20260413T011231Z",
+    "lane": "replayable_core",
+    "system_id": "hf_gemma4_e2b_specialists_cpu",
+    "backend": "hf",
+    "reasoner_backend": "hf",
+    "router_backend": "hf",
+    "retriever_backend": "hf",
+    "reasoner": "google/gemma-4-E2B-it",
+    "router": "google/functiongemma-270m-it",
+    "retriever": "google/embeddinggemma-300m",
+    "reasoner_device": "auto",
+    "router_device": null,
+    "retriever_device": null,
+    "reasoner_max_new_tokens": 96,
+    "request_timeout_seconds": 600.0,
+    "thinking": false,
+    "limit": null,
+    "episode_count": 32,
+    "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
+    "runtime_bundle": {
+      "reasoner": {
+        "backend": "hf",
+        "runtime_posture": "hf",
+        "requested_model": "google/gemma-4-E2B-it",
+        "effective_model": "google/gemma-4-E2B-it",
+        "model_source": "google/gemma-4-E2B-it",
+        "model_format": "hf",
+        "runtime_device": "mps",
+        "load_mode": "vision",
+        "configured_device": "auto",
+        "request_timeout_seconds": 600.0,
+        "service": {},
+        "partial_runtime": false,
+        "llama_cpp_error": null,
+        "llama_cpp_context_window": null
+      },
+      "router": {
+        "backend": "hf",
+        "requested_model": "google/functiongemma-270m-it",
+        "effective_model": "google/functiongemma-270m-it",
+        "runtime_device": "cpu",
+        "configured_device": "cpu"
+      },
+      "retriever": {
+        "backend": "hf",
+        "requested_model": "google/embeddinggemma-300m",
+        "effective_model": "google/embeddinggemma-300m",
+        "loaded": true,
+        "configured_device": "cpu",
+        "runtime_device": "cpu"
+      }
+    },
+    "run_intent": "exploratory",
+    "research_controls": {},
+    "warmup": {
+      "reasoner": {
+        "backend": "hf",
+        "runtime_posture": "hf",
+        "requested_model": "google/gemma-4-E2B-it",
+        "effective_model": "google/gemma-4-E2B-it",
+        "model_source": "google/gemma-4-E2B-it",
+        "model_format": "hf",
+        "runtime_device": "mps",
+        "load_mode": "vision",
+        "configured_device": "auto",
+        "request_timeout_seconds": 600.0,
+        "service": {},
+        "partial_runtime": false,
+        "llama_cpp_error": null,
+        "llama_cpp_context_window": null
+      },
+      "router": {
+        "backend": "hf",
+        "requested_model": "google/functiongemma-270m-it",
+        "effective_model": "google/functiongemma-270m-it",
+        "runtime_device": "cpu",
+        "configured_device": "cpu"
+      },
+      "retriever": {
+        "backend": "hf",
+        "requested_model": "google/embeddinggemma-300m",
+        "effective_model": "google/embeddinggemma-300m",
+        "loaded": true,
+        "configured_device": "cpu",
+        "runtime_device": "cpu"
+      }
+    }
+  },
+  "progress": {
+    "status": "running",
+    "lane": "replayable_core",
+    "created_at": "20260413T011231Z",
+    "completed_runs": 8,
+    "planned_runs": 32,
+    "last_completed_episode_id": "kwa_jobs_revise_after_feedback",
+    "completed_episode_ids": [
+      "kwa_exec_board_prep_pack",
+      "kwa_exec_travel_conflict_resolution",
+      "kwa_exec_inbox_triage",
+      "kwa_exec_visual_dashboard_revision_hold_v2",
+      "kwa_exec_visual_dashboard_referent_hold_v3",
+      "kwa_jobs_tailored_packet",
+      "kwa_jobs_browser_form_fill",
+      "kwa_jobs_revise_after_feedback"
+    ],
+    "latest_summary": {
+      "runs": 8.0,
+      "artifact_quality_avg": 0.9576875,
+      "browser_workflow_avg": 0.9819375,
+      "strict_interface_avg": 1.0,
+      "recovered_execution_avg": 1.0,
+      "real_world_readiness_avg": 0.9701375,
+      "escalation_correctness_avg": 1.0,
+      "controller_repair_avg": 1.5,
+      "argument_repair_avg": 0.0625,
+      "controller_fallback_avg": 0.875,
+      "intent_override_avg": 0.0625,
+      "raw_planning_clean_rate_avg": 0.625
+    }
+  },
+  "validation_error": "incomplete_progress:running"
+}
