@@ -1,0 +1,16 @@
+matrix:
+  name: knowledge_work_ablation_32_replayable
+  description: Replayable-only Gemma ablation ladder on the aligned 32-episode widened surface.
+  run_intent: exploratory
+  update_latest: false
+  systems:
+    - oracle_gemma4_e2b
+    - hf_gemma4_e2b_reasoner_only
+    - hf_gemma4_e2b_specialists_cpu
+    - hf_gemma4_e2b_specialists_cpu_no_controller_repair
+    - hf_gemma4_e2b_specialists_cpu_no_controller_fallback
+    - hf_gemma4_e2b_specialists_cpu_no_visual_rescue
+    - mlx_gemma4_e2b_reasoner_only
+    - mlx_qwen3_8b_reasoner_only
+  lanes:
+    - replayable_core

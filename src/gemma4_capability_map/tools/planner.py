@@ -5,6 +5,7 @@ import re
 from pathlib import Path
 from typing import Any
 
+from gemma4_capability_map.research_controls import ResearchControls
 from gemma4_capability_map.schemas import Message, ToolCall, ToolSpec
 from gemma4_capability_map.tools.validators import validate_tool_call
 
@@ -80,13 +81,25 @@ def plan_or_repair_tool_calls(
     messages: list[Message],
     media: list[str],
     tool_specs: list[ToolSpec],
+    research_controls: ResearchControls | None = None,
 ) -> tuple[list[ToolCall], list[str]]:
     if not tool_specs:
         return parsed_calls, []
 
+    research_controls = research_controls or ResearchControls()
     context = _planning_context(messages, media)
     if _visual_loop_complete(context):
         return [], ["visual_complete"]
+    if research_controls.disable_controller_repair:
+        notes = ["controller_repair_disabled"]
+        if parsed_calls:
+            return parsed_calls, notes
+        if research_controls.disable_controller_fallback:
+            return [], notes + ["controller_fallback_disabled"]
+        fallback_calls = plan_tool_calls(messages, media, tool_specs)
+        if fallback_calls:
+            notes.append("controller_fallback_planner")
+        return fallback_calls, notes
     parallel_priority_calls = _parallel_audit_pending_calls(context, tool_specs)
     intent_priority_calls = _intent_priority_calls(context, tool_specs)
     feedback_priority_calls = _next_calls_from_feedback(context, tool_specs)
@@ -120,6 +133,10 @@ def plan_or_repair_tool_calls(
 
     if repaired_calls:
         return repaired_calls, repair_notes
+
+    if research_controls.disable_controller_fallback:
+        repair_notes.append("controller_fallback_disabled")
+        return [], repair_notes
 
     fallback_calls = plan_tool_calls(messages, media, tool_specs)
     if fallback_calls:

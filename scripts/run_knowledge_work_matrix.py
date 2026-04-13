@@ -99,6 +99,12 @@ def main() -> None:
             command.extend(["--reasoner-max-new-tokens", str(spec["reasoner_max_new_tokens"])])
         if spec.get("request_timeout_seconds"):
             command.extend(["--request-timeout-seconds", str(spec["request_timeout_seconds"])])
+        if spec.get("disable_controller_repair"):
+            command.append("--disable-controller-repair")
+        if spec.get("disable_controller_fallback"):
+            command.append("--disable-controller-fallback")
+        if spec.get("disable_visual_rescue"):
+            command.append("--disable-visual-rescue")
 
         timeout_seconds = spec.get("run_timeout_seconds") or None
         try:
@@ -204,6 +210,9 @@ def _system_run_args(system_id: str, registry: dict[str, dict[str, Any]]) -> dic
         "reasoner_max_new_tokens": int(meta.get("reasoner_max_new_tokens", 96) or 96),
         "request_timeout_seconds": float(meta.get("request_timeout_seconds", 600.0) or 600.0),
         "run_timeout_seconds": float(meta.get("run_timeout_seconds", 0.0) or 0.0),
+        "disable_controller_repair": bool((meta.get("research_controls") or {}).get("disable_controller_repair", False)),
+        "disable_controller_fallback": bool((meta.get("research_controls") or {}).get("disable_controller_fallback", False)),
+        "disable_visual_rescue": bool((meta.get("research_controls") or {}).get("disable_visual_rescue", False)),
     }
 
 

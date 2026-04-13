@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from copy import deepcopy
 
+from gemma4_capability_map.research_controls import ResearchControls
 from gemma4_capability_map.schemas import Message, ToolCall
 from gemma4_capability_map.tools.planner import plan_or_repair_tool_calls, plan_tool_calls
 from gemma4_capability_map.tools.registry import build_default_registry
@@ -152,6 +153,49 @@ def test_planner_overrides_non_canonical_but_schema_valid_calendar_arguments() -
     )
     assert repaired[0].arguments == {"start_date": "2026-04-10", "end_date": "2026-04-10", "attendee": "Sarah"}
     assert "repaired_arguments:search_events" in notes
+
+
+def test_controller_repair_ablation_returns_raw_valid_call_without_argument_fixups() -> None:
+    messages = [Message(role="user", content="Find my Friday meeting with Sarah.")]
+    raw_call = plan_tool_calls(
+        messages=messages,
+        media=[],
+        tool_specs=[SPECS["search_events"]],
+    )[0].model_copy(
+        update={
+            "arguments": {"start_date": "Friday", "end_date": "Friday", "attendee": "Sarah"},
+            "source_format": "json",
+            "raw": "{}",
+        }
+    )
+
+    repaired, notes = plan_or_repair_tool_calls(
+        raw_output='{"name":"search_events","arguments":{"start_date":"Friday","end_date":"Friday","attendee":"Sarah"}}',
+        parsed_calls=[raw_call],
+        messages=messages,
+        media=[],
+        tool_specs=[SPECS["search_events"]],
+        research_controls=ResearchControls(disable_controller_repair=True),
+    )
+
+    assert repaired[0].arguments == {"start_date": "Friday", "end_date": "Friday", "attendee": "Sarah"}
+    assert notes == ["controller_repair_disabled"]
+
+
+def test_controller_fallback_ablation_returns_no_calls_when_model_emits_none() -> None:
+    messages = [Message(role="user", content="Create a budget review meeting next Tuesday afternoon.")]
+
+    repaired, notes = plan_or_repair_tool_calls(
+        raw_output="<pad>" * 32,
+        parsed_calls=[],
+        messages=messages,
+        media=[],
+        tool_specs=[SPECS["create_event"], SPECS["search_events"]],
+        research_controls=ResearchControls(disable_controller_fallback=True),
+    )
+
+    assert repaired == []
+    assert "controller_fallback_disabled" in notes
 
 
 def test_planner_projects_repaired_arguments_into_renamed_schema_fields() -> None:

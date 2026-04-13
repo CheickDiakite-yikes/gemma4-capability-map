@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-12T18:12:54.005087+00:00",
+  "generated_at": "2026-04-13T01:10:11.968780+00:00",
   "hardware": {
     "platform": "Darwin",
     "platform_version": "Darwin Kernel Version 25.4.0: Thu Mar 19 19:33:25 PDT 2026; root:xnu-12377.101.15~1/RELEASE_ARM64_T6041",
@@ -252,7 +252,7 @@
   },
   "mlx_runtime_probe": {
     "ok": true,
-    "elapsed_ms": 221,
+    "elapsed_ms": 121,
     "returncode": 0
   },
   "recommended_local_reasoner_backend": "mlx"

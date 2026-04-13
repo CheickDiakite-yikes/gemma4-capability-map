@@ -12,6 +12,7 @@ from gemma4_capability_map.pipelines.base import RuntimeBundle
 from gemma4_capability_map.pipelines.hybrid import HybridPipeline
 from gemma4_capability_map.pipelines.modular import ModularPipeline
 from gemma4_capability_map.pipelines.monolith import MonolithPipeline
+from gemma4_capability_map.research_controls import ResearchControls
 from gemma4_capability_map.schemas import Task, Track, Variant
 
 
@@ -24,6 +25,7 @@ class EpisodeRunner:
         planning_max_new_tokens: int | None = None,
         final_max_new_tokens: int | None = None,
         artifact_output_root: str | Path | None = None,
+        research_controls: ResearchControls | None = None,
     ) -> None:
         self.task_index = {task.task_id: task for task in tasks}
         self.bundle = bundle
@@ -31,6 +33,7 @@ class EpisodeRunner:
         self.planning_max_new_tokens = planning_max_new_tokens
         self.final_max_new_tokens = final_max_new_tokens
         self.artifact_output_root = Path(artifact_output_root) if artifact_output_root else None
+        self.research_controls = research_controls or ResearchControls()
 
     def run(self, episode: Episode) -> EpisodeTrace:
         trace = EpisodeTrace(
@@ -126,29 +129,34 @@ class EpisodeRunner:
                 thinking_enabled=self.thinking_enabled,
                 planning_max_new_tokens=self.planning_max_new_tokens,
                 final_max_new_tokens=self.final_max_new_tokens,
+                research_controls=self.research_controls,
             )
         if preferred_architecture == "modular":
             return ModularPipeline(
                 thinking_enabled=self.thinking_enabled,
                 planning_max_new_tokens=self.planning_max_new_tokens,
                 final_max_new_tokens=self.final_max_new_tokens,
+                research_controls=self.research_controls,
             )
         if track == Track.RETRIEVAL and self.bundle.retriever:
             return HybridPipeline(
                 thinking_enabled=self.thinking_enabled,
                 planning_max_new_tokens=self.planning_max_new_tokens,
                 final_max_new_tokens=self.final_max_new_tokens,
+                research_controls=self.research_controls,
             )
         if track in {Track.TOOL_ROUTING, Track.FULL_STACK, Track.VISUAL_TOOL_ORCHESTRATION} and self.bundle.router:
             return ModularPipeline(
                 thinking_enabled=self.thinking_enabled,
                 planning_max_new_tokens=self.planning_max_new_tokens,
                 final_max_new_tokens=self.final_max_new_tokens,
+                research_controls=self.research_controls,
             )
         return MonolithPipeline(
             thinking_enabled=self.thinking_enabled,
             planning_max_new_tokens=self.planning_max_new_tokens,
             final_max_new_tokens=self.final_max_new_tokens,
+            research_controls=self.research_controls,
         )
 
 

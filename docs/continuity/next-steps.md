@@ -66,6 +66,17 @@ Why:
   - add harder direction-following and tool-use pressure where the current aligned `32 / 26` rows are now clean
   - add the Gemma 4 `31B` `GGUF` / `llama.cpp` posture row
 
+Immediate research execution order:
+
+1. Run the focused replayable Gemma ablation packet, not a blind full-lane rerun.
+   The current 9-episode packet already explains `35.5 / 65.5` replayable controller repairs and `18.5 / 33.0` replayable controller fallbacks on the HF Gemma specialist row.
+2. Patch the residual MLX Gemma executive-assistant judgment miss.
+   The remaining aligned readiness gap is concentrated in `kwa_exec_travel_conflict_resolution` and `kwa_exec_vendor_access_hold`, and both are escalation-correctness misses rather than visual or tool-execution misses.
+3. Install the local Gemma `31B` `GGUF` artifact and wire `GEMMA4_31B_GGUF_PATH`.
+   The runtime path already exists; the current blocker is the missing local model.
+4. Only after those three steps, rerun the aligned comparison surface again.
+   Another full-lane rerun before the ablations and judgment patch would mostly restate the same finding.
+
 ### 4. Deepen softer-realism scoring and harder episode design
 
 Focus:
@@ -85,6 +96,11 @@ Why:
 - it is either:
   - a more model-judgment-sensitive slice
   - or a Gemma-specific controller-cleanup pass followed by another aligned `32 / 26` rerun
+
+More precise target now:
+
+- bias the next harder-realism additions toward executive-assistant ambiguity, clarify-vs-defer judgment, and approval-language precision
+- the residual MLX Gemma gap is already telling us that these seams are more discriminating than another generic visual difficulty increase
 
 ## Near-Term
 

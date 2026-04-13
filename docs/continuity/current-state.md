@@ -278,6 +278,64 @@ Interpretation:
 - MLX Gemma adds a second useful story:
   - the harness improvements do transfer to the Apple-Silicon-native Gemma path
   - but the aligned MLX Gemma row still lands slightly lower readiness despite staying planner-clean and controller-clean
+
+## Current Research Readout
+
+The current most important learnings are now more specific than “Gemma can tie on top-line readiness.”
+
+- HF Gemma specialist controller help is concentrated, not diffuse:
+  - replayable aligned `32`:
+    - episodes with any controller help: `24 / 32`
+    - total controller repairs: `65.5`
+    - total controller fallbacks: `33.0`
+    - total intent overrides: `3.5`
+  - a focused 9-episode packet already explains most of that burden:
+    - `kwa_exec_backlog_resume_hold_v5`
+    - `kwa_jobs_email_block_resume_hold_v5`
+    - `kwa_exec_latest_action_resume_hold_v4`
+    - `kwa_jobs_phone_patch_resume_hold_v4`
+    - `kwa_finance_invoice_lock_direction_hold_v4`
+    - `kwa_exec_visual_dashboard_referent_hold_v3`
+    - `kwa_jobs_visual_latest_issue_hold_v3`
+    - `kwa_finance_visual_invoice_revision_hold_v2`
+    - `kwa_jobs_visual_constraint_override_hold_v2`
+  - that packet contributes:
+    - `35.5 / 65.5` controller repairs
+    - `18.5 / 33.0` controller fallbacks
+    - `1.5 / 3.5` intent overrides
+  - interpretation:
+    - the next useful experiment is a focused ablation packet, not another blind full-lane rerun
+
+- The residual aligned MLX Gemma gap is now clearly judgment-specific:
+  - replayable `mlx_gemma4_e2b_reasoner_only` stays:
+    - `controller_repair_avg = 0.0`
+    - `controller_fallback_avg = 0.0`
+    - `raw_planning_clean_rate_avg = 1.0`
+  - but it still loses readiness on two executive-assistant episodes:
+    - `kwa_exec_travel_conflict_resolution`
+      - oracle / MLX Qwen: `0.9769`
+      - MLX Gemma: `0.8843`
+      - `escalation_correctness = 0.0`
+    - `kwa_exec_vendor_access_hold`
+      - oracle / MLX Qwen: `0.975`
+      - MLX Gemma: `0.9287`
+      - `escalation_correctness = 0.5`
+  - interpretation:
+    - the remaining MLX Gemma gap is not a visual or tool-execution gap
+    - it is an ambiguity / escalation-language / executive judgment gap
+
+- Gemma `31B` `GGUF` / `llama.cpp` is now blocked by local artifact availability, not by missing support in the repo:
+  - `llama_cpp_gemma4_31b_reasoner_only` is already in the registry
+  - backend preflight still resolves `google/gemma-4-31b-it` to the remote source, not a local `GGUF`
+  - `GEMMA4_31B_GGUF_PATH` is unset
+  - no local Gemma `31B` `GGUF` artifact exists under `/Users/cheickdiakite/models`
+  - interpretation:
+    - the next blocker is operational, not architectural
+
+- Operational note:
+  - in-process HF Gemma specialist warmup is itself a benchmark bottleneck
+  - repeated ablation reruns were dominated by bundle warmup
+  - that is why the repo now has shared-bundle ablation support rather than only matrix-level reruns
 - headline local control:
   - `hf_gemma4_e2b_reasoner_only`
   - replayable:

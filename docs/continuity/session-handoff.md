@@ -20,6 +20,12 @@ The remaining work is no longer “can Gemma run well on MLX?” or “can we al
 - inspect the residual MLX Gemma readiness gap
 - keep making the benchmark harder where the current aligned rows are already clean
 
+The most important new finding is that those two remaining gaps are now concrete:
+
+- HF Gemma specialist controller burden is concentrated enough to attack with a focused ablation packet
+- MLX Gemma’s residual gap is not visual or tool-execution noise; it is executive-assistant escalation / ambiguity judgment
+- the Gemma `31B` `GGUF` lane is blocked by missing local artifact availability, not by missing runtime support in the repo
+
 ## Latest Headline Result
 
 The current strongest research claim in the repo is now:
@@ -36,6 +42,22 @@ The current strongest research claim in the repo is now:
 - the new planner-gap exports now show an important nuance:
   - Gemma specialists currently rely on materially more controller repair and fallback than the reproduced Qwen MLX row on the aligned widened rows
   - that means same top-line readiness does not yet mean same raw tool-use cleanliness
+- the next useful experiment packet is already known:
+  - `kwa_exec_backlog_resume_hold_v5`
+  - `kwa_jobs_email_block_resume_hold_v5`
+  - `kwa_exec_latest_action_resume_hold_v4`
+  - `kwa_jobs_phone_patch_resume_hold_v4`
+  - `kwa_finance_invoice_lock_direction_hold_v4`
+  - `kwa_exec_visual_dashboard_referent_hold_v3`
+  - `kwa_jobs_visual_latest_issue_hold_v3`
+  - `kwa_finance_visual_invoice_revision_hold_v2`
+  - `kwa_jobs_visual_constraint_override_hold_v2`
+  - this packet already explains `35.5 / 65.5` replayable controller repairs and `18.5 / 33.0` replayable controller fallbacks on the aligned HF Gemma specialist row
+- the residual MLX Gemma miss is already localized:
+  - `kwa_exec_travel_conflict_resolution`
+  - `kwa_exec_vendor_access_hold`
+  - both are scorecard-clean except for `escalation_correctness`
+  - both show premature defer / missing-approval language where oracle and MLX Qwen retain the ambiguity-aware clarify move
 
 Current board-backed headline rows:
 
@@ -180,6 +202,12 @@ What just landed:
   - live batch:
     - `20260412T233015Z_knowledge_work_full_lane_experimental`
 - tool-family expansion across `function_call`, CLI, and API surfaces
+- research-control ablation support:
+  - `disable_controller_repair`
+  - `disable_controller_fallback`
+  - `disable_visual_rescue`
+- shared-bundle ablation packet runner:
+  - [`scripts/run_knowledge_work_ablation_packet.py`](../../scripts/run_knowledge_work_ablation_packet.py)
 - experimental Gemma 4 `31B` `GGUF` / `llama.cpp` runtime-posture support is implemented, but there is no local model/runtime installed yet, so there is no reproduced row to report
 - first reproduced Qwen full-lane batch:
   - `20260411T211206Z_knowledge_work_full_lane_experimental`

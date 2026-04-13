@@ -7,9 +7,10 @@ from gemma4_capability_map.models.embeddinggemma_runner import EmbeddingGemmaRet
 from gemma4_capability_map.models.functiongemma_runner import FunctionGemmaRunner
 from gemma4_capability_map.models.gemma4_runner import Gemma4Runner
 from gemma4_capability_map.pipelines.base import RuntimeBundle
+from gemma4_capability_map.pipelines.hybrid import HybridPipeline
 from gemma4_capability_map.pipelines.modular import ModularPipeline
 from gemma4_capability_map.pipelines.monolith import MonolithPipeline
-from gemma4_capability_map.pipelines.hybrid import HybridPipeline
+from gemma4_capability_map.research_controls import ResearchControls
 from gemma4_capability_map.schemas import ModelTurn
 from gemma4_capability_map.schemas import Task, ToolCall, Variant
 from gemma4_capability_map.tools.executor import DeterministicExecutor
@@ -499,3 +500,17 @@ def test_visual_readback_fallback_uses_grounded_region_text_when_final_answer_dr
     assert trace.prompt_artifacts["visual_readback_fallback_answer"] == "Docs backlog above target for enablement ops"
     assert trace.final_answer == "Docs backlog above target for enablement ops"
     assert float(trace.metrics["success"]) == 1.0
+
+
+def test_visual_rescue_ablation_leaves_drifted_answer_in_place() -> None:
+    task = [task for task in load_jsonl(ROOT / "data" / "gold" / "visual_tools.jsonl", Task) if task.task_id == "visual_027_dashboard_review_backlog_enablement_refinement"][0]
+    bundle = RuntimeBundle(
+        reasoner=_VisualReadbackFallbackRunner(),
+        executor=DeterministicExecutor(registry=build_default_registry()),
+    )
+    pipeline = MonolithPipeline(research_controls=ResearchControls(disable_visual_rescue=True))
+    trace = pipeline.run(task, Variant(variant_id=f"{task.task_id}_clean", base_task_id=task.task_id), bundle)
+
+    assert trace.prompt_artifacts["visual_readback_fallback_used"] is False
+    assert trace.final_answer != "Docs backlog above target for enablement ops"
+    assert float(trace.metrics["success"]) == 0.0

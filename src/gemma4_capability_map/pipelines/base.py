@@ -12,6 +12,7 @@ from gemma4_capability_map.evals.visual_eval import score_visual_trace
 from gemma4_capability_map.hardware import detect_hardware_profile
 from gemma4_capability_map.metrics.answer_match import answer_contains_all, answer_matches_task
 from gemma4_capability_map.models.base import Executor, Retriever, Runner
+from gemma4_capability_map.research_controls import ResearchControls
 from gemma4_capability_map.runtime.core import execute_task_trace
 from gemma4_capability_map.schemas import ExpectedEvent, JudgmentMode, Message, ModelBundleSpec, RunTrace, StateTransition, Task, ToolResult, Track, Variant
 from gemma4_capability_map.tools.executor import diff_state
@@ -34,10 +35,12 @@ class BasePipeline:
         thinking_enabled: bool = False,
         planning_max_new_tokens: int | None = None,
         final_max_new_tokens: int | None = None,
+        research_controls: ResearchControls | None = None,
     ) -> None:
         self.thinking_enabled = thinking_enabled
         self.planning_max_new_tokens = planning_max_new_tokens
         self.final_max_new_tokens = final_max_new_tokens
+        self.research_controls = research_controls or ResearchControls()
 
     def run(self, task: Task, variant: Variant, bundle: RuntimeBundle) -> RunTrace:
         return execute_task_trace(
@@ -48,6 +51,7 @@ class BasePipeline:
             thinking_enabled=self.thinking_enabled,
             planning_max_new_tokens=self.planning_max_new_tokens,
             final_max_new_tokens=self.final_max_new_tokens,
+            research_controls=self.research_controls,
             retrieve=self._retrieve,
             score_trace=self._score_trace,
             with_oracle_hint=self._with_oracle_hint,

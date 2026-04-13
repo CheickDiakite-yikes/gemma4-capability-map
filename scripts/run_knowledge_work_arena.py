@@ -11,6 +11,7 @@ from gemma4_capability_map.knowledge_work.exporters import export_episode_leader
 from gemma4_capability_map.knowledge_work.loader import load_episodes
 from gemma4_capability_map.knowledge_work.replay import summarize_episode_traces
 from gemma4_capability_map.knowledge_work.runner import EpisodeRunner
+from gemma4_capability_map.research_controls import ResearchControls
 from gemma4_capability_map.reporting.knowledge_work_board import DEFAULT_REGISTRY_PATH, load_model_registry
 
 
@@ -40,6 +41,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--thinking", action="store_true")
     parser.add_argument("--run-intent", choices=["canonical", "exploratory"], default=None)
     parser.add_argument("--system-id", default=None)
+    parser.add_argument("--disable-controller-repair", action="store_true")
+    parser.add_argument("--disable-controller-fallback", action="store_true")
+    parser.add_argument("--disable-visual-rescue", action="store_true")
     return parser.parse_args()
 
 
@@ -58,6 +62,11 @@ def main() -> None:
     latest_dir.mkdir(parents=True, exist_ok=True)
     target_dirs = (output_dir,) if args.no_update_latest else (output_dir, latest_dir)
     run_intent = args.run_intent or ("exploratory" if args.no_update_latest else "canonical")
+    research_controls = ResearchControls(
+        disable_controller_repair=args.disable_controller_repair,
+        disable_controller_fallback=args.disable_controller_fallback,
+        disable_visual_rescue=args.disable_visual_rescue,
+    )
 
     episodes = load_episodes(episodes_path)
     if args.episode_id:
@@ -82,7 +91,12 @@ def main() -> None:
         reasoner_max_new_tokens=args.reasoner_max_new_tokens,
         request_timeout_seconds=args.request_timeout_seconds,
     )
-    runner = EpisodeRunner(tasks=tasks, bundle=bundle, thinking_enabled=args.thinking)
+    runner = EpisodeRunner(
+        tasks=tasks,
+        bundle=bundle,
+        thinking_enabled=args.thinking,
+        research_controls=research_controls,
+    )
     manifest = {
         "run_group_id": f"{created_at}_{args.lane}",
         "created_at": created_at,
@@ -106,6 +120,7 @@ def main() -> None:
         "episodes_path": str(episodes_path.resolve()),
         "runtime_bundle": runtime_bundle_snapshot(bundle),
         "run_intent": run_intent,
+        "research_controls": research_controls.manifest_payload(),
     }
     _write_manifest(target_dirs, manifest)
     _write_progress(
@@ -234,8 +249,13 @@ def _infer_system_id(args: argparse.Namespace) -> str | None:
     reasoner_backend = str(args.reasoner_backend or args.backend or "").lower()
     router_backend = str(args.router_backend or "").lower()
     retriever_backend = str(args.retriever_backend or "").lower()
+    controls = ResearchControls(
+        disable_controller_repair=bool(getattr(args, "disable_controller_repair", False)),
+        disable_controller_fallback=bool(getattr(args, "disable_controller_fallback", False)),
+        disable_visual_rescue=bool(getattr(args, "disable_visual_rescue", False)),
+    ).manifest_payload()
 
-    if backend == "oracle":
+    if backend == "oracle" and not controls:
         return "oracle_gemma4_e2b"
 
     if (
@@ -291,6 +311,11 @@ def _match_registry_system(args: argparse.Namespace, registry_path: str | Path =
     reasoner_backend = str(args.reasoner_backend or args.backend or "").lower()
     router_backend = str(args.router_backend or "").strip().lower()
     retriever_backend = str(args.retriever_backend or "").strip().lower()
+    controls = ResearchControls(
+        disable_controller_repair=bool(getattr(args, "disable_controller_repair", False)),
+        disable_controller_fallback=bool(getattr(args, "disable_controller_fallback", False)),
+        disable_visual_rescue=bool(getattr(args, "disable_visual_rescue", False)),
+    ).manifest_payload()
 
     for system_id, meta in systems.items():
         if str(meta.get("backend", "") or "") != backend:
@@ -310,6 +335,9 @@ def _match_registry_system(args: argparse.Namespace, registry_path: str | Path =
             if router_backend not in {"hf", "hf_service"} or retriever_backend not in {"hf", "hf_service"}:
                 continue
         elif executor_mode == "seeded" and backend != "oracle":
+            continue
+
+        if ResearchControls.from_mapping(meta.get("research_controls")).manifest_payload() != controls:
             continue
 
         if reasoner_backend and str(meta.get("backend", "") or "") not in {backend, reasoner_backend}:

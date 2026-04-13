@@ -18,6 +18,7 @@ from gemma4_capability_map.knowledge_work.loader import load_episodes
 from gemma4_capability_map.knowledge_work.replay import summarize_episode_traces
 from gemma4_capability_map.metrics.answer_match import answer_contains_all, answer_matches_task
 from gemma4_capability_map.reporting.knowledge_work_board import DEFAULT_REGISTRY_PATH, load_model_registry
+from gemma4_capability_map.research_controls import ResearchControls
 from gemma4_capability_map.runtime.schemas import (
     AgentSession,
     ApprovalRequest,
@@ -50,10 +51,12 @@ def execute_task_trace(
     thinking_enabled: bool,
     planning_max_new_tokens: int | None,
     final_max_new_tokens: int | None,
+    research_controls: ResearchControls | None,
     retrieve: Callable[[Task, Variant, Any], list[Any]],
     score_trace: Callable[[Task, RunTrace], dict[str, float | int | bool]],
     with_oracle_hint: Callable[[list[Message], ExpectedEvent | list[ExpectedEvent] | None, list[str] | None, str], list[Message]],
 ) -> RunTrace:
+    research_controls = research_controls or ResearchControls()
     effective_task = materialize_task(task, variant)
     language_stressor = variant.stressors.get("language") if variant.stressors else None
     state = deepcopy(effective_task.initial_state)
@@ -112,6 +115,7 @@ def execute_task_trace(
                 messages=messages,
                 media=effective_task.image_refs,
                 tool_specs=effective_task.tool_specs,
+                research_controls=research_controls,
             )
             planning_repair_notes.append(repair_notes)
             if not planning_calls:
@@ -159,6 +163,7 @@ def execute_task_trace(
                         messages=messages,
                         media=effective_task.image_refs,
                         tool_specs=effective_task.tool_specs,
+                        research_controls=research_controls,
                     )
                     planning_repair_notes.append(retry_notes)
                     if retry_calls:
@@ -244,25 +249,28 @@ def execute_task_trace(
             max_new_tokens=final_max_new_tokens,
         )
         rescue_answer = rescue_turn.final_answer or rescue_turn.raw_model_output
-        second_pass_artifacts = {
-            "second_pass_used": True,
-            "second_pass_raw_output": rescue_turn.raw_model_output,
-            "second_pass_final_answer": rescue_answer,
-            "second_pass_latency_ms": rescue_turn.latency_ms,
-        }
+        second_pass_artifacts.update(
+            {
+                "second_pass_used": True,
+                "second_pass_raw_output": rescue_turn.raw_model_output,
+                "second_pass_final_answer": rescue_answer,
+                "second_pass_latency_ms": rescue_turn.latency_ms,
+            }
+        )
         if answer_matches_task(effective_task, rescue_answer):
             resolved_final_answer = rescue_answer
-    fallback_answer = _visual_latest_readback_fallback_answer(effective_task, resolved_final_answer, tool_steps)
-    if fallback_answer:
-        resolved_final_answer = fallback_answer
-        second_pass_artifacts["visual_readback_fallback_used"] = True
-        second_pass_artifacts["visual_readback_fallback_answer"] = fallback_answer
-        second_pass_artifacts["visual_latest_fallback_used"] = True
-        second_pass_artifacts["visual_latest_fallback_answer"] = fallback_answer
-    elif generic_fallback_answer := _visual_grounded_readback_fallback_answer(effective_task, resolved_final_answer, tool_steps):
-        resolved_final_answer = generic_fallback_answer
-        second_pass_artifacts["visual_readback_fallback_used"] = True
-        second_pass_artifacts["visual_readback_fallback_answer"] = generic_fallback_answer
+    if not research_controls.disable_visual_rescue:
+        fallback_answer = _visual_latest_readback_fallback_answer(effective_task, resolved_final_answer, tool_steps)
+        if fallback_answer:
+            resolved_final_answer = fallback_answer
+            second_pass_artifacts["visual_readback_fallback_used"] = True
+            second_pass_artifacts["visual_readback_fallback_answer"] = fallback_answer
+            second_pass_artifacts["visual_latest_fallback_used"] = True
+            second_pass_artifacts["visual_latest_fallback_answer"] = fallback_answer
+        elif generic_fallback_answer := _visual_grounded_readback_fallback_answer(effective_task, resolved_final_answer, tool_steps):
+            resolved_final_answer = generic_fallback_answer
+            second_pass_artifacts["visual_readback_fallback_used"] = True
+            second_pass_artifacts["visual_readback_fallback_answer"] = generic_fallback_answer
 
     trace = RunTrace(
         run_id=f"{datetime.now(UTC).strftime('%Y%m%dT%H%M%SZ')}_{architecture}_{effective_task.task_id}_{variant.variant_id}",
@@ -302,6 +310,7 @@ def execute_task_trace(
             "reasoner_runtime_info": _runtime_info(bundle.reasoner),
             "router_runtime_info": _runtime_info(bundle.router),
             "retriever_runtime_info": _runtime_info(bundle.retriever),
+            "research_controls": research_controls.manifest_payload(),
         },
         retrieval_hits=retrieval_hits,
         tool_steps=tool_steps,

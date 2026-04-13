@@ -1,6 +1,6 @@
 # Backend Preflight
 
-- Generated at: `2026-04-12T18:12:54.005087+00:00`
+- Generated at: `2026-04-13T01:10:11.968780+00:00`
 - Recommended local reasoner backend: `mlx`
 - HF token present: `True`
 - HF token source: `HF_TOKEN`
@@ -9,7 +9,7 @@
 ## MLX runtime probe
 
 - ok: `True`
-- elapsed_ms: `221`
+- elapsed_ms: `121`
 - returncode: `0`
 
 ## HF import probe

@@ -2,6 +2,101 @@
 
 # 2026-04-12
 
+### The next real Gemma learning is now explicit: controller burden is concentrated, MLX Gemma’s residual gap is judgment-specific, and the `31B` lane is blocked by a missing local artifact
+
+- Added research-ablation controls through the runtime stack:
+  - [`src/gemma4_capability_map/research_controls.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/research_controls.py)
+  - [`src/gemma4_capability_map/tools/planner.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/tools/planner.py)
+  - [`src/gemma4_capability_map/pipelines/base.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/pipelines/base.py)
+  - [`src/gemma4_capability_map/runtime/core.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/runtime/core.py)
+  - [`src/gemma4_capability_map/knowledge_work/runner.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/knowledge_work/runner.py)
+  - [`scripts/run_knowledge_work_arena.py`](/Users/cheickdiakite/Codex/moonie/scripts/run_knowledge_work_arena.py)
+  - [`scripts/run_knowledge_work_matrix.py`](/Users/cheickdiakite/Codex/moonie/scripts/run_knowledge_work_matrix.py)
+- Added registry-backed ablation rows:
+  - `hf_gemma4_e2b_specialists_cpu_no_controller_repair`
+  - `hf_gemma4_e2b_specialists_cpu_no_controller_fallback`
+  - `hf_gemma4_e2b_specialists_cpu_no_visual_rescue`
+- Added a replayable ablation matrix config:
+  - [`configs/knowledge_work_matrix_ablation_32_replayable.yaml`](/Users/cheickdiakite/Codex/moonie/configs/knowledge_work_matrix_ablation_32_replayable.yaml)
+- Added a shared-bundle ablation packet runner:
+  - [`scripts/run_knowledge_work_ablation_packet.py`](/Users/cheickdiakite/Codex/moonie/scripts/run_knowledge_work_ablation_packet.py)
+- Interpretation:
+  - this is the right next research seam, because the current question is no longer “can Gemma tie on top-line readiness?”
+  - it is “where is the harness still compensating for Gemma, and which of those compensations are actually necessary?”
+
+- Concentrated replayable controller-burden finding from the aligned `32`-episode Gemma specialist row:
+  - episodes with any controller help: `24 / 32`
+  - total controller repairs: `65.5`
+  - total controller fallbacks: `33.0`
+  - total intent overrides: `3.5`
+  - a focused 9-episode packet already explains most of that burden:
+    - `kwa_exec_backlog_resume_hold_v5`
+    - `kwa_jobs_email_block_resume_hold_v5`
+    - `kwa_exec_latest_action_resume_hold_v4`
+    - `kwa_jobs_phone_patch_resume_hold_v4`
+    - `kwa_finance_invoice_lock_direction_hold_v4`
+    - `kwa_exec_visual_dashboard_referent_hold_v3`
+    - `kwa_jobs_visual_latest_issue_hold_v3`
+    - `kwa_finance_visual_invoice_revision_hold_v2`
+    - `kwa_jobs_visual_constraint_override_hold_v2`
+  - that packet accounts for:
+    - `35.5 / 65.5` total controller repairs
+    - `18.5 / 33.0` total controller fallbacks
+    - `1.5 / 3.5` total intent overrides
+  - interpretation:
+    - the current Gemma controller burden is concentrated enough that a focused ablation packet is the right next experiment
+    - the burden lives mainly in:
+      - visual KWA
+      - resume / project-memory episodes
+      - latest-instruction direction-following
+      - API / CLI tool-selection surfaces
+
+- The residual aligned MLX Gemma gap is now much clearer:
+  - replayable `mlx_gemma4_e2b_reasoner_only` remains strict/recovered clean and controller-clean at:
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 1.0`
+    - `controller_repair_avg = 0.0`
+    - `raw_planning_clean_rate_avg = 1.0`
+    - `real_world_readiness_avg = 0.9725125`
+  - the meaningful replayable readiness loss is concentrated in:
+    - `kwa_exec_travel_conflict_resolution`
+      - oracle / MLX Qwen readiness: `0.9769`
+      - MLX Gemma readiness: `0.8843`
+      - sole scorecard difference: `escalation_correctness = 0.0`
+    - `kwa_exec_vendor_access_hold`
+      - oracle / MLX Qwen readiness: `0.975`
+      - MLX Gemma readiness: `0.9287`
+      - sole scorecard difference: `escalation_correctness = 0.5`
+  - trace evidence shows the same miss:
+    - oracle / MLX Qwen retain the ambiguity-aware “clarify which vendor meeting” move
+    - MLX Gemma drifts to premature defer / missing-approval language on the ambiguous vendor-meeting task
+  - interpretation:
+    - the residual MLX Gemma gap is not a visual-tool gap
+    - it is an executive-assistant judgment / escalation-language gap
+
+- The experimental Gemma `31B` `GGUF` / `llama.cpp` lane is now blocked by local runtime posture, not code support:
+  - preflight:
+    - [`results/tables/backend_preflight.md`](/Users/cheickdiakite/Codex/moonie/results/tables/backend_preflight.md)
+  - current state:
+    - `llama_cpp_gemma4_31b_reasoner_only` is registered
+    - `google/gemma-4-31b-it` still resolves to the remote HF identifier rather than a local `GGUF` path
+    - `GEMMA4_31B_GGUF_PATH` is unset on this machine
+    - no local Gemma `31B` `GGUF` artifact is present under `/Users/cheickdiakite/models`
+  - interpretation:
+    - the lane is ready in the registry and runtime
+    - the next blocker is just the actual local artifact plus path wiring
+
+- Operational research finding:
+  - the in-process HF Gemma specialist warm path is itself a benchmark bottleneck
+  - repeated ablation reruns spend too much time on bundle warmup
+  - that is why the new shared-bundle ablation packet runner exists
+  - this is not just ops trivia:
+    - `ops reality is benchmark reality`
+
+- Verification:
+  - focused ablation/runtime regressions: `69 passed`
+  - `git diff --check`: clean
+
 ### Oracle, HF Gemma specialists, MLX Qwen, and MLX Gemma are now aligned on the same exploratory `32 / 26` surface
 
 - Ran the aligned widening batch:

@@ -175,6 +175,87 @@ systems:
     input_cost_per_mtok: 0.0
     output_cost_per_mtok: 0.0
     color: "#0D9488"
+  hf_gemma4_e2b_specialists_cpu_no_controller_repair:
+    display_name: Gemma 4 E2B + specialists (no controller repair)
+    short_label: Gemma + specialists no repair
+    provider: huggingface
+    backend: hf
+    deployment: local_specialists_inprocess
+    capability_family: specialist_stack_ablation
+    comparison_tier: research
+    publishable_default: false
+    executor_mode: local_specialists
+    modality: multimodal
+    local: true
+    reasoner: google/gemma-4-E2B-it
+    router: google/functiongemma-270m-it
+    retriever: google/embeddinggemma-300m
+    reasoner_params_b: 27.0
+    router_params_b: 0.27
+    retriever_params_b: 0.3
+    total_params_b: 27.57
+    reasoner_max_new_tokens: 96
+    request_timeout_seconds: 600.0
+    run_timeout_seconds: 0.0
+    research_controls:
+      disable_controller_repair: true
+    input_cost_per_mtok: 0.0
+    output_cost_per_mtok: 0.0
+    color: "#14B8A6"
+  hf_gemma4_e2b_specialists_cpu_no_controller_fallback:
+    display_name: Gemma 4 E2B + specialists (no controller fallback)
+    short_label: Gemma + specialists no fallback
+    provider: huggingface
+    backend: hf
+    deployment: local_specialists_inprocess
+    capability_family: specialist_stack_ablation
+    comparison_tier: research
+    publishable_default: false
+    executor_mode: local_specialists
+    modality: multimodal
+    local: true
+    reasoner: google/gemma-4-E2B-it
+    router: google/functiongemma-270m-it
+    retriever: google/embeddinggemma-300m
+    reasoner_params_b: 27.0
+    router_params_b: 0.27
+    retriever_params_b: 0.3
+    total_params_b: 27.57
+    reasoner_max_new_tokens: 96
+    request_timeout_seconds: 600.0
+    run_timeout_seconds: 0.0
+    research_controls:
+      disable_controller_fallback: true
+    input_cost_per_mtok: 0.0
+    output_cost_per_mtok: 0.0
+    color: "#2DD4BF"
+  hf_gemma4_e2b_specialists_cpu_no_visual_rescue:
+    display_name: Gemma 4 E2B + specialists (no visual rescue)
+    short_label: Gemma + specialists no visual rescue
+    provider: huggingface
+    backend: hf
+    deployment: local_specialists_inprocess
+    capability_family: specialist_stack_ablation
+    comparison_tier: research
+    publishable_default: false
+    executor_mode: local_specialists
+    modality: multimodal
+    local: true
+    reasoner: google/gemma-4-E2B-it
+    router: google/functiongemma-270m-it
+    retriever: google/embeddinggemma-300m
+    reasoner_params_b: 27.0
+    router_params_b: 0.27
+    retriever_params_b: 0.3
+    total_params_b: 27.57
+    reasoner_max_new_tokens: 96
+    request_timeout_seconds: 600.0
+    run_timeout_seconds: 0.0
+    research_controls:
+      disable_visual_rescue: true
+    input_cost_per_mtok: 0.0
+    output_cost_per_mtok: 0.0
+    color: "#5EEAD4"
   hf_qwen3_8b_reasoner_only:
     display_name: Qwen3 8B (HF in-process)
     short_label: Qwen3 8B in-proc

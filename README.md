@@ -603,6 +603,31 @@ The repo cannot honestly claim yet:
 
 The next honest comparator step is no longer “finish the MLX Gemma alignment.” It is to reduce the HF Gemma specialist controller-dependence gap, understand the residual MLX Gemma readiness gap, make the benchmark harder again, widen non-Gemma coverage beyond this single Qwen row, and add the experimental Gemma `31B` runtime-posture row.
 
+The most concrete current research readout is now:
+
+- HF Gemma specialist controller burden is concentrated:
+  - replayable aligned `32`: `24 / 32` episodes need controller help
+  - total replayable controller repairs: `65.5`
+  - total replayable controller fallbacks: `33.0`
+  - a focused 9-episode packet already explains `35.5 / 65.5` repairs and `18.5 / 33.0` fallbacks
+- MLX Gemma’s residual readiness gap is not a visual grounding gap:
+  - the remaining misses are concentrated in `kwa_exec_travel_conflict_resolution` and `kwa_exec_vendor_access_hold`
+  - both are clean on strict-interface and recovered-execution
+  - both lose readiness on `escalation_correctness`
+  - plain English: MLX Gemma still drifts toward premature defer / missing-approval language where oracle and MLX Qwen keep the ambiguity-aware clarify move
+- the Gemma `31B` `GGUF` / `llama.cpp` path is implemented but still not runnable locally:
+  - `llama_cpp_gemma4_31b_reasoner_only` is already in the registry
+  - `GEMMA4_31B_GGUF_PATH` is unset
+  - there is no local Gemma `31B` `GGUF` artifact under `/Users/cheickdiakite/models`
+  - plain English: the blocker is the missing local model file, not missing benchmark support
+
+That is a stronger result than “Gemma tied Qwen”:
+
+- the harness can carry Gemma to the same top-line tier on the aligned surface
+- the planner-gap metrics show where Gemma still needs more help
+- the MLX posture shows where the remaining model-side judgment gap still lives
+- and the next experiments are now concrete rather than generic
+
 ## What We Have Learned So Far
 
 The repo already supports some nontrivial conclusions.

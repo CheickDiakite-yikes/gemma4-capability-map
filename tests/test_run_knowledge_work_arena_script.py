@@ -72,3 +72,21 @@ def test_infer_system_id_matches_registry_for_gemma31b_gguf_reasoner_only() -> N
     )
 
     assert _infer_system_id(args) == "llama_cpp_gemma4_31b_reasoner_only"
+
+
+def test_infer_system_id_matches_registry_for_controller_fallback_ablation() -> None:
+    args = argparse.Namespace(
+        system_id=None,
+        backend="hf",
+        reasoner_backend="hf",
+        router_backend="hf",
+        retriever_backend="hf",
+        reasoner="google/gemma-4-E2B-it",
+        router="google/functiongemma-270m-it",
+        retriever="google/embeddinggemma-300m",
+        disable_controller_repair=False,
+        disable_controller_fallback=True,
+        disable_visual_rescue=False,
+    )
+
+    assert _infer_system_id(args) == "hf_gemma4_e2b_specialists_cpu_no_controller_fallback"

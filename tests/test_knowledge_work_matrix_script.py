@@ -38,6 +38,7 @@ def test_system_run_args_use_registry_executor_mode_defaults() -> None:
     service_specialists = _system_run_args("hf_service_gemma4_specialists_cpu", registry)
     inprocess_reasoner = _system_run_args("hf_gemma4_e2b_reasoner_only", registry)
     gguf_reasoner = _system_run_args("llama_cpp_gemma4_31b_reasoner_only", registry)
+    no_fallback = _system_run_args("hf_gemma4_e2b_specialists_cpu_no_controller_fallback", registry)
 
     assert service_specialists["router_backend"] == "hf_service"
     assert service_specialists["retriever_backend"] == "hf_service"
@@ -54,6 +55,9 @@ def test_system_run_args_use_registry_executor_mode_defaults() -> None:
     assert gguf_reasoner["router_backend"] == "heuristic"
     assert gguf_reasoner["retriever_backend"] == "heuristic"
     assert gguf_reasoner["reasoner_max_new_tokens"] == 96
+    assert no_fallback["disable_controller_fallback"] is True
+    assert no_fallback["disable_controller_repair"] is False
+    assert no_fallback["disable_visual_rescue"] is False
 
 
 def test_build_run_specs_filters_systems_and_lanes() -> None:
