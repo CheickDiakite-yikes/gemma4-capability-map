@@ -34,39 +34,37 @@ Why:
 Focus:
 
 - keep the current publishable-default Gemma specialist row as the local headline baseline
-- compare more systems against the same widened `29 / 23` KWA surface:
-  - oracle
-  - reasoner-only local
-  - specialist-backed local
-  - the next real non-Gemma local stack after the first reproduced Qwen row
+- keep the aligned exploratory `32 / 26` board surface honest
+- now work the residual differences inside that aligned surface:
+  - specialist-backed local Gemma controller dependence
+  - MLX Gemma readiness gap
+  - Gemma `31B` runtime-posture expansion
 
 Why:
 
-- the refreshed replayable `29`-episode Gemma specialist row is now strict/recovered clean on the widened surface
-- that gives the repo a stronger “we made Gemma better” claim on the new harnessability-aware replayable lane
-- the first real non-Gemma comparator now exists:
-  - `mlx_qwen3_8b_reasoner_only` on the widened `29 / 23` lane
-- that row already tells a useful story:
-  - it beats the direct in-process Gemma reasoner-only control
-  - it improved materially after the shared rescue/planner fixes
-  - on the current widened `29 / 23` surface it now matches oracle and the Gemma specialist stack
-- the next missing evidence is no longer “can we run Qwen at all”; it is whether the current widened surface is already saturated for the best harnessed rows and where Gemma still needs more controller help than Qwen
-- the widened generated corpora now read `91 / 396 / 32 / 26`, and oracle, Gemma specialist, and Qwen now all have widened board rows on the current reproduced `29 / 23` surface
+- the aligned exploratory `32 / 26` matrix now exists for:
+  - `oracle_gemma4_e2b`
+  - `hf_gemma4_e2b_specialists_cpu`
+  - `mlx_qwen3_8b_reasoner_only`
+  - `mlx_gemma4_e2b_reasoner_only`
+- oracle, HF Gemma specialists, and MLX Qwen now tie on top-line replayable and live readiness on that aligned surface
+- HF Gemma specialists still rely on materially more controller repair and fallback than MLX Qwen
+- MLX Gemma is now aligned on the same surface and stays controller-clean, but still lands slightly lower readiness
+- the widened generated corpora now read `91 / 396 / 32 / 26`
 - external GPT/Gemini rows are now useful context, but they are not substitutes for a same-harness reproduced comparator
 - the plumbing and first reproduced run are now done:
   - `hf_qwen3_8b_reasoner_only` exists as the direct-HF appendix path
   - `mlx_qwen3_8b_reasoner_only` exists as the Apple-Silicon-native benchmark row
+  - `mlx_gemma4_e2b_reasoner_only` now exists as the Apple-Silicon-native Gemma posture row
   - the HF reasoner now forces deterministic decode and explicitly disables Qwen thinking-mode defaults in benchmarked text runs
   - the Gemma 4 `31B` `GGUF` / `llama.cpp` posture is still only an experimental support path until a local model/runtime is installed and reproduced
-- the next concrete widening target is now explicit:
-  - add harder direction-following and tool-use pressure where the current widened rows are now clean
+- the next concrete target is now explicit:
+  - reduce HF Gemma specialist `controller_fallback_avg`
+  - reduce HF Gemma specialist `controller_repair_avg`
+  - improve HF Gemma specialist `raw_planning_clean_rate_avg`
+  - inspect the residual MLX Gemma readiness gap now that the replayable miss is closed and the row is aligned
+  - add harder direction-following and tool-use pressure where the current aligned `32 / 26` rows are now clean
   - add the Gemma 4 `31B` `GGUF` / `llama.cpp` posture row
-  - widen beyond this single reproduced Qwen row to the next non-Gemma family or stronger Qwen posture
-  - use the new planner-gap exports to guide the next Gemma-improvement pass:
-    - reduce `controller_fallback_avg`
-    - reduce `argument_repair_avg`
-    - improve `raw_planning_clean_rate_avg`
-    - focus first on the visual refine/readback tasks where Gemma specialists currently need controller repair even when the final episode score is clean
 
 ### 4. Deepen softer-realism scoring and harder episode design
 
@@ -86,7 +84,7 @@ Why:
 - that means the next discriminating move is not another blind full-lane rerun first
 - it is either:
   - a more model-judgment-sensitive slice
-  - or a Gemma-specific controller-cleanup pass followed by the widened `32 / 26` reruns
+  - or a Gemma-specific controller-cleanup pass followed by another aligned `32 / 26` rerun
 
 ## Near-Term
 
@@ -115,11 +113,12 @@ Focus:
 - strong current claim:
   - we improved Gemma 4 materially as a local full-stack agent on our own benchmark
 - stronger current same-surface comparative claim:
-  - the Gemma specialist stack and the first reproduced local Qwen3 8B MLX row now both match the oracle row on the widened `29 / 23` board surface
+  - on the aligned exploratory `32 / 26` board surface, oracle, HF Gemma specialists, and MLX Qwen now tie on top-line replayable and live readiness
+  - MLX Gemma is controller-clean on that same surface, but still lands slightly lower readiness
 - non-claim until new evidence exists:
   - we have not yet shown Gemma beating broader Qwen families or frontier closed models on the same local full-lane surface
 - non-claim until the other rows are rerun:
-  - the widened board now exists for oracle, Gemma specialist, and Qwen, but the direct Gemma reasoner-only control still sits on the older `26 / 20` surface and should not be merged into a fake same-surface parity claim
+  - the direct Gemma reasoner-only control still sits on the older `26 / 20` surface and should not be merged into a fake same-surface parity claim
 - keep CLI/API/operator/mobile surfaces honest about current capability:
   - packaged workflows are benchmark-backed bounded flows, not unbounded general autonomy
 - use the runtime event contract consistently:

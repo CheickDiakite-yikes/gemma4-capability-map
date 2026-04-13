@@ -41,10 +41,12 @@ Important distinction:
   - `oracle_gemma4_e2b`
   - `hf_gemma4_e2b_specialists_cpu`
   - `mlx_qwen3_8b_reasoner_only`
-- those rows now run on the widened `29 / 23` full-lane surface
+  - `mlx_gemma4_e2b_reasoner_only`
+- those rows now run on the aligned exploratory `32 / 26` full-lane surface
 - the direct Gemma reasoner-only control still sits on the earlier reproduced `26 / 20` surface
 - the older canonical oracle lane pointers under `results/knowledge_work/replayable_core` and `results/knowledge_work/live_web_stress` still reflect the last full oracle rerun on the earlier `24 / 18` surface
 - use `results/history/knowledge_work_board_latest.csv` as the current source of truth for board-level comparison claims
+- latest-board selection now prefers broader completed rows over stale older rows that only win on legacy `run_scope` labels
 
 ## Canonical Atomic Benchmark Pointers
 
@@ -139,14 +141,14 @@ Interpretation:
 
 - the canonical KWA oracle pointers still reflect the last full oracle rerun on `24 / 18`
 - the generated KWA corpus is now `32 / 26`
-- the widened board-backed oracle, Gemma specialist, and Qwen rows now exist on the same `29 / 23` full-lane surface
+- the aligned board-backed oracle, Gemma specialist, MLX Qwen, and MLX Gemma rows now exist on the same exploratory `32 / 26` full-lane surface
 - the direct Gemma reasoner-only control still remains on the earlier `26 / 20` reproduced surface
 - these are harder because the right move is often “repair and stop safely,” not just “complete the workflow”
 - the canonical runner no longer silently truncates the lane; `run_knowledge_work_arena.py` now defaults to full-lane execution unless `--limit` is explicitly set
 
 ## Current Publishable Full-Lane Comparison Surface
 
-The current board-backed comparison surface is transitional:
+The current board-backed comparison surface is now the aligned exploratory `32 / 26` matrix:
 
 - [`results/history/knowledge_work_board_latest.csv`](../../results/history/knowledge_work_board_latest.csv)
 
@@ -155,39 +157,86 @@ Headline rows:
 - oracle full-lane reference:
   - `oracle_gemma4_e2b`
   - comparison batch:
-    - `20260412T202500Z_knowledge_work_publishable_core`
-    - `20260412T221500Z_knowledge_work_publishable_core`
+    - `20260412T235251Z_knowledge_work_alignment_32_26`
   - replayable:
-    - `runs = 29`
-    - `artifact_quality_avg = 0.9689793103448276`
+    - `runs = 32`
+    - `artifact_quality_avg = 0.964509375`
     - `strict_interface_avg = 1.0`
     - `recovered_execution_avg = 1.0`
-    - `real_world_readiness_avg = 0.9774`
+    - `real_world_readiness_avg = 0.976853125`
+    - `controller_repair_avg = 0.578125`
+    - `controller_fallback_avg = 0.0`
+    - `raw_planning_clean_rate_avg = 0.8395875`
   - live:
-    - `runs = 23`
-    - `artifact_quality_avg = 0.9633043478260869`
+    - `runs = 26`
+    - `artifact_quality_avg = 0.9584576923076923`
     - `strict_interface_avg = 1.0`
     - `recovered_execution_avg = 1.0`
-    - `real_world_readiness_avg = 0.9798`
+    - `real_world_readiness_avg = 0.9791653846153847`
+    - `controller_repair_avg = 0.7115384615384616`
+    - `controller_fallback_avg = 0.0`
+    - `raw_planning_clean_rate_avg = 0.8025692307692308`
 - headline local Gemma stack:
   - `hf_gemma4_e2b_specialists_cpu`
   - comparison batch:
-    - `20260412T190500Z_knowledge_work_full_lane_harnessability_core`
-    - `20260412T221500Z_knowledge_work_publishable_core`
+    - `20260412T235251Z_knowledge_work_alignment_32_26`
   - replayable:
-    - `runs = 29`
-    - `artifact_quality_avg = 0.9689793103448276`
-    - `browser_workflow_avg = 0.9821241379310345`
+    - `runs = 32`
+    - `artifact_quality_avg = 0.964509375`
+    - `browser_workflow_avg = 0.98145625`
     - `strict_interface_avg = 1.0`
     - `recovered_execution_avg = 1.0`
-    - `real_world_readiness_avg = 0.9774`
-- live:
-  - `runs = 23`
-  - `artifact_quality_avg = 0.9633043478260869`
-  - `browser_workflow_avg = 1.0`
+    - `real_world_readiness_avg = 0.976853125`
+    - `controller_repair_avg = 2.046875`
+    - `controller_fallback_avg = 1.03125`
+    - `raw_planning_clean_rate_avg = 0.46875`
+  - live:
+    - `runs = 26`
+    - `artifact_quality_avg = 0.9584576923076923`
+    - `browser_workflow_avg = 1.0`
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 1.0`
+    - `real_world_readiness_avg = 0.9791653846153847`
+    - `controller_repair_avg = 2.3653846153846154`
+    - `controller_fallback_avg = 1.0769230769230769`
+    - `raw_planning_clean_rate_avg = 0.4230769230769231`
+
+First reproduced Gemma MLX posture row:
+
+- `mlx_gemma4_e2b_reasoner_only`
+- replayable:
+  - comparison batch:
+    - `20260412T235251Z_knowledge_work_alignment_32_26`
+  - `runs = 32`
+  - `artifact_quality_avg = 0.964509375`
   - `strict_interface_avg = 1.0`
   - `recovered_execution_avg = 1.0`
-  - `real_world_readiness_avg = 0.9798`
+  - `real_world_readiness_avg = 0.9725125`
+  - `controller_repair_avg = 0.0`
+  - `controller_fallback_avg = 0.0`
+  - `raw_planning_clean_rate_avg = 1.0`
+- live:
+  - comparison batch:
+    - `20260412T235251Z_knowledge_work_alignment_32_26`
+  - `runs = 26`
+  - `artifact_quality_avg = 0.9584576923076923`
+  - `strict_interface_avg = 1.0`
+  - `recovered_execution_avg = 1.0`
+  - `real_world_readiness_avg = 0.973823076923077`
+  - `controller_repair_avg = 0.0`
+  - `controller_fallback_avg = 0.0`
+  - `raw_planning_clean_rate_avg = 1.0`
+
+Interpretation:
+
+- MLX Gemma is now a real completed benchmark posture on the same aligned exploratory `32 / 26` surface as oracle, HF Gemma specialists, and MLX Qwen
+- it is materially stronger than the direct in-process Gemma reasoner-only control
+- it is controller-clean on both completed lanes
+- the original replayable miss was concentrated rather than broad, and the grounded visual readback fallback now clears that miss
+- it is now an apples-to-apples same-surface posture comparison
+- the remaining difference is not planner noise:
+  - MLX Gemma stays controller-clean
+  - but still lands slightly below oracle, HF Gemma specialists, and MLX Qwen on readiness
 
 ## Planner-Gap View
 
@@ -199,28 +248,36 @@ The board now carries explicit harness-gap metrics in addition to the top-line r
 - `intent_override_avg`
 - `raw_planning_clean_rate_avg`
 
-Current interpretation on the widened `29 / 23` board rows:
+Current interpretation on the aligned exploratory `32 / 26` board rows:
 
-- Gemma specialists and Qwen MLX currently match on top-line replayable and live readiness
+- oracle, HF Gemma specialists, and MLX Qwen currently match on top-line replayable and live readiness
 - they do **not** match on raw planner cleanliness
 - replayable `hf_gemma4_e2b_specialists_cpu` currently shows:
-  - `controller_repair_avg = 1.8448`
-  - `argument_repair_avg = 0.2069`
-  - `controller_fallback_avg = 0.8966`
-  - `intent_override_avg = 0.0862`
-  - `raw_planning_clean_rate_avg = 0.5172`
+  - `controller_repair_avg = 2.046875`
+  - `controller_fallback_avg = 1.03125`
+  - `raw_planning_clean_rate_avg = 0.46875`
+- replayable `oracle_gemma4_e2b` currently shows:
+  - `controller_repair_avg = 0.578125`
+  - `controller_fallback_avg = 0.0`
+  - `raw_planning_clean_rate_avg = 0.8395875`
 - replayable `mlx_qwen3_8b_reasoner_only` currently shows:
   - `controller_repair_avg = 0.0`
-  - `argument_repair_avg = 0.0`
   - `controller_fallback_avg = 0.0`
-  - `intent_override_avg = 0.0`
   - `raw_planning_clean_rate_avg = 1.0`
+- replayable `mlx_gemma4_e2b_reasoner_only` currently shows:
+  - `controller_repair_avg = 0.0`
+  - `controller_fallback_avg = 0.0`
+  - `raw_planning_clean_rate_avg = 1.0`
+  - `real_world_readiness_avg = 0.9725125`
 
 Interpretation:
 
 - same top-line readiness does not yet mean the models are equally clean on tool use and direction following
-- the current strong Gemma harness is closing the top-line gap, but Gemma still leans more on controller help on the saved widened rows
+- the current strong HF Gemma harness is closing the top-line gap, but Gemma still leans more on controller help on the aligned widened rows
 - this is now a better research story than a flat “Gemma equals Qwen” claim because it isolates where the harness is compensating
+- MLX Gemma adds a second useful story:
+  - the harness improvements do transfer to the Apple-Silicon-native Gemma path
+  - but the aligned MLX Gemma row still lands slightly lower readiness despite staying planner-clean and controller-clean
 - headline local control:
   - `hf_gemma4_e2b_reasoner_only`
   - replayable:
@@ -254,9 +311,9 @@ Interpretation:
 Interpretation:
 
 - the strongest current claim in the repo is now explicit:
-  - our controller/runtime/specialist-stack learnings materially improved Gemma 4 as a full-stack local agent on the widened `29 / 23` full-lane surface
+  - our controller/runtime/specialist-stack learnings materially improved Gemma 4 as a full-stack local agent on the aligned exploratory `32 / 26` full-lane surface
 - the refreshed local Gemma specialist row is now strict/recovered clean on that widened full-lane board surface
-- the widened oracle row is also strict/recovered clean on that same surface
+- the aligned oracle row is also strict/recovered clean on that same surface
 - the reasoner-only Gemma control remains materially weaker, so the gain is attributable to the harness/controller/runtime work rather than to an easy benchmark surface
 - this is a strong publishable Gemma-improvement claim
 - the repo now has a real same-surface non-Gemma row:
@@ -264,14 +321,17 @@ Interpretation:
 - that row is informative but bounded:
   - it beats the direct in-process Gemma reasoner-only control on the reproduced older full-lane surface
   - it materially improved after the shared rescue/planner fixes
-  - on the current widened `29 / 23` surface it now also matches oracle and the Gemma specialist stack
+  - on the current aligned `32 / 26` surface it now also matches oracle and the Gemma specialist stack
 - the repo also now has two distinct Qwen runtime postures:
   - `hf_qwen3_8b_reasoner_only` as the direct-HF appendix/control path
   - `mlx_qwen3_8b_reasoner_only` as the Apple-Silicon-native local comparator path
+- the repo now also has a first reproduced Apple-Silicon-native Gemma posture:
+  - `mlx_gemma4_e2b_reasoner_only`
+  - it is aligned now, and it is strong enough to make the residual readiness gap worth targeted debugging
 - the experimental Gemma 4 `31B` `GGUF` / `llama.cpp` runtime-posture support is implemented, but it has not been reproduced locally yet because there is no local model or runtime installed on this machine
 - the next real comparator step is no longer “make Qwen runnable”; it is:
-  - make the benchmark harder again where the current rows are now saturated
-  - add the next reproduced non-Gemma row so the current Qwen tie is not overinterpreted
+  - reduce HF Gemma specialist controller dependence on the current clean rows
+  - inspect the residual MLX Gemma readiness gap now that alignment is complete
   - add the Gemma `31B` posture comparison
 
 ## Benchmark Board / Reporting Layer

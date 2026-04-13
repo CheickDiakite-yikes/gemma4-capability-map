@@ -1,8 +1,8 @@
 # KnowledgeWorkArena History
 
-- Generated at: `2026-04-12T22:13:46.147887+00:00`
-- Total logged runs: `147`
-- Snapshot count: `151`
+- Generated at: `2026-04-13T00:13:56.318573+00:00`
+- Total logged runs: `159`
+- Snapshot count: `163`
 
 ## Latest Canonical by Lane
 
@@ -11,8 +11,8 @@
 
 ## Latest Exploratory by Lane
 
-- `live_web_stress`: readiness `0.9798`, browser `1.0`, strict `1.0`, recovered `1.0`, output `/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260412T221500Z_knowledge_work_publishable_core/oracle_gemma4_e2b__live_web_stress`
-- `replayable_core`: readiness `0.9774`, browser `0.9821241379310345`, strict `1.0`, recovered `1.0`, output `/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260412T213721Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__replayable_core`
+- `live_web_stress`: readiness `0.9791653846153847`, browser `1.0`, strict `1.0`, recovered `1.0`, output `/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260412T235251Z_knowledge_work_alignment_32_26/oracle_gemma4_e2b__live_web_stress`
+- `replayable_core`: readiness `0.976853125`, browser `0.98145625`, strict `1.0`, recovered `1.0`, output `/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260412T235251Z_knowledge_work_alignment_32_26/oracle_gemma4_e2b__replayable_core`
 
 ## Best by Lane
 

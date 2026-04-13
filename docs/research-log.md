@@ -2,6 +2,128 @@
 
 # 2026-04-12
 
+### Oracle, HF Gemma specialists, MLX Qwen, and MLX Gemma are now aligned on the same exploratory `32 / 26` surface
+
+- Ran the aligned widening batch:
+  - [`results/knowledge_work_matrix/20260412T235251Z_knowledge_work_alignment_32_26`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260412T235251Z_knowledge_work_alignment_32_26)
+- Aligned rows now exist for:
+  - `oracle_gemma4_e2b`
+  - `hf_gemma4_e2b_specialists_cpu`
+  - `mlx_qwen3_8b_reasoner_only`
+  - `mlx_gemma4_e2b_reasoner_only`
+- Replayable `32`:
+  - oracle:
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 1.0`
+    - `real_world_readiness_avg = 0.976853125`
+    - `controller_repair_avg = 0.578125`
+    - `raw_planning_clean_rate_avg = 0.8395875`
+  - HF Gemma specialists:
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 1.0`
+    - `real_world_readiness_avg = 0.976853125`
+    - `controller_repair_avg = 2.046875`
+    - `controller_fallback_avg = 1.03125`
+    - `raw_planning_clean_rate_avg = 0.46875`
+  - MLX Qwen:
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 1.0`
+    - `real_world_readiness_avg = 0.976853125`
+    - `controller_repair_avg = 0.0`
+    - `controller_fallback_avg = 0.0`
+    - `raw_planning_clean_rate_avg = 1.0`
+  - MLX Gemma:
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 1.0`
+    - `real_world_readiness_avg = 0.9725125`
+    - `controller_repair_avg = 0.0`
+    - `controller_fallback_avg = 0.0`
+    - `raw_planning_clean_rate_avg = 1.0`
+- Live `26`:
+  - oracle:
+    - `real_world_readiness_avg = 0.9791653846153847`
+    - `controller_repair_avg = 0.7115384615384616`
+  - HF Gemma specialists:
+    - `real_world_readiness_avg = 0.9791653846153847`
+    - `controller_repair_avg = 2.3653846153846154`
+    - `controller_fallback_avg = 1.0769230769230769`
+  - MLX Qwen:
+    - `real_world_readiness_avg = 0.9791653846153847`
+    - `controller_repair_avg = 0.0`
+  - MLX Gemma:
+    - `real_world_readiness_avg = 0.973823076923077`
+    - `controller_repair_avg = 0.0`
+- Interpretation:
+  - oracle, HF Gemma specialists, and MLX Qwen now tie on top-line replayable and live readiness on the aligned widened surface
+  - HF Gemma specialists still rely on materially more controller repair and fallback than MLX Qwen
+  - MLX Gemma is now aligned on the same surface and stays planner-clean, but still lands slightly lower readiness
+  - the next useful work is no longer alignment; it is reducing HF Gemma controller dependence and understanding the residual MLX Gemma readiness gap
+
+### MLX Gemma E2B is now a real completed posture, and the board now prefers broader completed rows over stale scope labels
+
+- Fixed board latest-row selection in [`src/gemma4_capability_map/reporting/knowledge_work_board.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/reporting/knowledge_work_board.py):
+  - completed status still wins first
+  - then coverage
+  - then observed `episode_count`
+  - then `run_scope`
+  - then timestamp
+- Added regression coverage in [`tests/test_knowledge_work_board.py`](/Users/cheickdiakite/Codex/moonie/tests/test_knowledge_work_board.py) so a broader newer completed subset row now beats an older smaller `full_lane` row.
+- Rebuilt history/board exports:
+  - [`results/history/knowledge_work_board_latest.csv`](/Users/cheickdiakite/Codex/moonie/results/history/knowledge_work_board_latest.csv)
+  - [`results/history/knowledge_work_board_runs.csv`](/Users/cheickdiakite/Codex/moonie/results/history/knowledge_work_board_runs.csv)
+- This corrects the stale live-row selection seam:
+  - the latest `hf_gemma4_e2b_specialists_cpu` live row is now the widened `23`-episode `20260412T221500Z_knowledge_work_publishable_core` run rather than the older `20`-episode row
+
+- Confirmed Apple-Silicon-native Gemma runtime availability:
+  - MLX probe:
+    - [`results/raw/mlx_gemma_e2b_probe.json`](/Users/cheickdiakite/Codex/moonie/results/raw/mlx_gemma_e2b_probe.json)
+  - warm harness:
+    - [`results/raw/warm_harness_mlx_gemma4_e2b_current.json`](/Users/cheickdiakite/Codex/moonie/results/raw/warm_harness_mlx_gemma4_e2b_current.json)
+- First full reproduced MLX Gemma batches:
+  - replayable:
+    - initial row:
+      - [`results/knowledge_work_matrix/20260412T232827Z_knowledge_work_full_lane_experimental/mlx_gemma4_e2b_reasoner_only__replayable_core/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260412T232827Z_knowledge_work_full_lane_experimental/mlx_gemma4_e2b_reasoner_only__replayable_core/summary.json)
+    - refreshed row after the grounded visual readback fallback:
+      - [`results/knowledge_work_matrix/20260412T234506Z_knowledge_work_full_lane_experimental/mlx_gemma4_e2b_reasoner_only__replayable_core/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260412T234506Z_knowledge_work_full_lane_experimental/mlx_gemma4_e2b_reasoner_only__replayable_core/summary.json)
+    - `runs = 32`
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 1.0`
+    - `real_world_readiness_avg = 0.9725125`
+    - `controller_repair_avg = 0.0`
+    - `controller_fallback_avg = 0.0`
+    - `raw_planning_clean_rate_avg = 1.0`
+  - live:
+    - [`results/knowledge_work_matrix/20260412T233015Z_knowledge_work_full_lane_experimental/mlx_gemma4_e2b_reasoner_only__live_web_stress/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260412T233015Z_knowledge_work_full_lane_experimental/mlx_gemma4_e2b_reasoner_only__live_web_stress/summary.json)
+    - `runs = 26`
+    - `strict_interface_avg = 1.0`
+    - `recovered_execution_avg = 1.0`
+    - `real_world_readiness_avg = 0.973823076923077`
+    - `controller_repair_avg = 0.0`
+    - `controller_fallback_avg = 0.0`
+    - `raw_planning_clean_rate_avg = 1.0`
+- Concentrated replayable miss:
+  - `kwa_exec_backlog_resume_hold_v5`
+  - `strict_interface_score = 1.0`
+  - `recovered_execution_score = 0.5`
+  - `role_readiness_score = 0.8855`
+  - no controller repairs or fallbacks
+- Root cause and fix:
+  - the tool path was already correct
+  - the final prose drifted away from the grounded `read_region_text` output
+  - added a generic visual readback fallback in [`src/gemma4_capability_map/runtime/core.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/runtime/core.py)
+  - added regression coverage in [`tests/test_smoke_eval.py`](/Users/cheickdiakite/Codex/moonie/tests/test_smoke_eval.py)
+  - targeted replayable episode rerun:
+    - [`results/knowledge_work/mlx_gemma4_e2b_backlog_resume_smoke_v1/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/mlx_gemma4_e2b_backlog_resume_smoke_v1/summary.json)
+    - `recovered_execution_avg = 1.0`
+- Interpretation:
+  - MLX Gemma is now a real benchmark posture, not just an attempted lane
+  - the harness/controller improvements transfer to the Apple-Silicon-native Gemma path
+  - this directly enabled the aligned `32 / 26` reruns for oracle, Gemma specialists, and Qwen
+
+- Verification:
+  - board/reporting slice: `17 passed`
+  - fallback/reporting regressions: `33 passed`
+
 ### Planner-gap metrics expose the difference between top-line parity and raw tool-use cleanliness
 
 - Added explicit harness-gap metrics from task trace -> episode scorecard -> leaderboard export -> board row:

@@ -220,6 +220,8 @@ def execute_task_trace(
         "second_pass_raw_output": "",
         "second_pass_final_answer": "",
         "second_pass_latency_ms": 0,
+        "visual_readback_fallback_used": False,
+        "visual_readback_fallback_answer": "",
         "visual_latest_fallback_used": False,
         "visual_latest_fallback_answer": "",
     }
@@ -253,8 +255,14 @@ def execute_task_trace(
     fallback_answer = _visual_latest_readback_fallback_answer(effective_task, resolved_final_answer, tool_steps)
     if fallback_answer:
         resolved_final_answer = fallback_answer
+        second_pass_artifacts["visual_readback_fallback_used"] = True
+        second_pass_artifacts["visual_readback_fallback_answer"] = fallback_answer
         second_pass_artifacts["visual_latest_fallback_used"] = True
         second_pass_artifacts["visual_latest_fallback_answer"] = fallback_answer
+    elif generic_fallback_answer := _visual_grounded_readback_fallback_answer(effective_task, resolved_final_answer, tool_steps):
+        resolved_final_answer = generic_fallback_answer
+        second_pass_artifacts["visual_readback_fallback_used"] = True
+        second_pass_artifacts["visual_readback_fallback_answer"] = generic_fallback_answer
 
     trace = RunTrace(
         run_id=f"{datetime.now(UTC).strftime('%Y%m%dT%H%M%SZ')}_{architecture}_{effective_task.task_id}_{variant.variant_id}",
@@ -1482,6 +1490,19 @@ def _visual_latest_readback_fallback_answer(task: Task, answer_text: str, tool_s
     return readback if answer_matches_task(task, readback) else ""
 
 
+def _visual_grounded_readback_fallback_answer(task: Task, answer_text: str, tool_steps: list[ToolResult]) -> str:
+    if task.track != Track.VISUAL_TOOL_ORCHESTRATION:
+        return ""
+    if answer_matches_task(task, answer_text):
+        return ""
+    if not _visual_readback_chain_complete(tool_steps):
+        return ""
+    readback = _latest_visual_readback_text(tool_steps)
+    if not readback:
+        return ""
+    return readback if answer_matches_task(task, readback) else ""
+
+
 def _visual_latest_filter_matches(task: Task, tool_steps: list[ToolResult]) -> bool:
     latest_priority = task.expected_final_state.get("visual_selection", {}).get("latest_filter_priority", {})
     expected_filter = str(latest_priority.get("expected_filter", "")).strip().lower()
@@ -1509,6 +1530,19 @@ def _latest_visual_readback_text(tool_steps: list[ToolResult]) -> str:
         if text:
             return text
     return ""
+
+
+def _visual_readback_chain_complete(tool_steps: list[ToolResult]) -> bool:
+    has_readback = False
+    has_selection_chain = False
+    for step in tool_steps:
+        if step.validator_result != "pass":
+            continue
+        if step.selected_tool == "read_region_text":
+            has_readback = True
+        elif step.selected_tool in {"segment_entities", "extract_layout", "refine_selection"}:
+            has_selection_chain = True
+    return has_readback and has_selection_chain
 
 
 def _now() -> str:

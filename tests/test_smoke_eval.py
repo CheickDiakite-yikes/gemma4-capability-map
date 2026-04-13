@@ -190,6 +190,61 @@ class _VisualLatestFallbackRunner:
         return ModelTurn(raw_model_output=stale_answer, final_answer=stale_answer)
 
 
+class _VisualReadbackFallbackRunner:
+    model_id = "test/visual-readback-fallback"
+    backend = "test"
+
+    def __init__(self) -> None:
+        self.calls = 0
+
+    def generate(self, messages, media, tool_specs, thinking, max_new_tokens=None) -> ModelTurn:  # noqa: ANN001
+        self.calls += 1
+        if tool_specs:
+            if self.calls == 1:
+                call = ToolCall(
+                    name="extract_layout",
+                    arguments={"image_id": "img-dashboard-review-backlog", "target_query": "dashboard metric"},
+                    source_format="json",
+                    raw='{"name":"extract_layout","arguments":{"image_id":"img-dashboard-review-backlog","target_query":"dashboard metric"}}',
+                )
+                return ModelTurn(raw_model_output=call.raw, normalized_tool_call=[call], final_answer="")
+            if self.calls == 2:
+                call = ToolCall(
+                    name="refine_selection",
+                    arguments={"selection_id": "sel-001", "filter_query": "needs review"},
+                    source_format="json",
+                    raw='{"name":"refine_selection","arguments":{"selection_id":"sel-001","filter_query":"needs review"}}',
+                )
+                return ModelTurn(raw_model_output=call.raw, normalized_tool_call=[call], final_answer="")
+            if self.calls == 3:
+                call = ToolCall(
+                    name="refine_selection",
+                    arguments={"selection_id": "sel-002", "filter_query": "backlog"},
+                    source_format="json",
+                    raw='{"name":"refine_selection","arguments":{"selection_id":"sel-002","filter_query":"backlog"}}',
+                )
+                return ModelTurn(raw_model_output=call.raw, normalized_tool_call=[call], final_answer="")
+            if self.calls == 4:
+                call = ToolCall(
+                    name="refine_selection",
+                    arguments={"selection_id": "sel-003", "filter_query": "enablement ops"},
+                    source_format="json",
+                    raw='{"name":"refine_selection","arguments":{"selection_id":"sel-003","filter_query":"enablement ops"}}',
+                )
+                return ModelTurn(raw_model_output=call.raw, normalized_tool_call=[call], final_answer="")
+            if self.calls == 5:
+                call = ToolCall(
+                    name="read_region_text",
+                    arguments={"image_id": "img-dashboard-review-backlog", "region_id": "metric-302"},
+                    source_format="json",
+                    raw='{"name":"read_region_text","arguments":{"image_id":"img-dashboard-review-backlog","region_id":"metric-302"}}',
+                )
+                return ModelTurn(raw_model_output=call.raw, normalized_tool_call=[call], final_answer="")
+            raise AssertionError("Unexpected extra tool-planning call")
+        wrong_answer = "Pipeline coverage on target"
+        return ModelTurn(raw_model_output=wrong_answer, final_answer=wrong_answer)
+
+
 def load_all_tasks() -> list[Task]:
     tasks: list[Task] = []
     for path in sorted((ROOT / "data" / "gold").glob("*.jsonl")):
@@ -429,3 +484,18 @@ def test_visual_latest_readback_fallback_recovers_when_second_pass_still_leaks_s
     assert trace.final_answer == "Phone number format invalid"
     assert float(trace.metrics["success"]) == 1.0
     assert float(trace.metrics["latest_filter_resolution"]) == 1.0
+
+
+def test_visual_readback_fallback_uses_grounded_region_text_when_final_answer_drifts() -> None:
+    task = [task for task in load_jsonl(ROOT / "data" / "gold" / "visual_tools.jsonl", Task) if task.task_id == "visual_027_dashboard_review_backlog_enablement_refinement"][0]
+    bundle = RuntimeBundle(
+        reasoner=_VisualReadbackFallbackRunner(),
+        executor=DeterministicExecutor(registry=build_default_registry()),
+    )
+    pipeline = MonolithPipeline()
+    trace = pipeline.run(task, Variant(variant_id=f"{task.task_id}_clean", base_task_id=task.task_id), bundle)
+
+    assert trace.prompt_artifacts["visual_readback_fallback_used"] is True
+    assert trace.prompt_artifacts["visual_readback_fallback_answer"] == "Docs backlog above target for enablement ops"
+    assert trace.final_answer == "Docs backlog above target for enablement ops"
+    assert float(trace.metrics["success"]) == 1.0

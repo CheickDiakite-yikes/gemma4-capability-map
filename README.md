@@ -45,12 +45,12 @@ The core idea is that **final success is not enough**. The benchmark separates:
 
 This repository currently includes:
 
-- `84` gold atomic tasks
-- `341` explicit factorized variants
+- `91` gold atomic tasks
+- `396` explicit factorized variants
 - `16` real-world-tagged tasks
-- `26` atomic `visual_tool_orchestration` tasks in the current gold corpus
-- `29` `KnowledgeWorkArena` replayable-core episodes in the current generated corpus
-- `23` `KnowledgeWorkArena` live-web stress episodes in the current generated corpus
+- `30` atomic `visual_tool_orchestration` tasks in the current gold corpus
+- `32` `KnowledgeWorkArena` replayable-core episodes in the current generated corpus
+- `26` `KnowledgeWorkArena` live-web stress episodes in the current generated corpus
 - deterministic tool environments for files, calendar, repo, screenshot, and document tasks
 - seeded browser state transitions with validation rules, blocked submissions, and approval gates
 - seeded and local visual executor paths behind the same tool contract
@@ -74,15 +74,17 @@ Current canonical snapshots:
 
 Important distinction:
 
-- the generated corpora are now `84 / 341 / 29 / 23`
+- the generated corpora are now `91 / 396 / 32 / 26`
 - the board-backed widened comparison surface now exists for:
   - `oracle_gemma4_e2b`
   - `hf_gemma4_e2b_specialists_cpu`
   - `mlx_qwen3_8b_reasoner_only`
-- those rows now run on the widened `29 / 23` full-lane surface
+- `mlx_gemma4_e2b_reasoner_only`
+- those rows now run on the aligned exploratory `32 / 26` full-lane surface
 - the direct Gemma reasoner-only control still sits on the earlier reproduced `26 / 20` surface
 - the older canonical oracle lane pointers under `results/knowledge_work/replayable_core` and `results/knowledge_work/live_web_stress` still reflect the last full oracle rerun on the earlier `24 / 18` surface
 - use [`results/history/knowledge_work_board_latest.csv`](results/history/knowledge_work_board_latest.csv) as the current source of truth for board-level comparison claims
+- latest-row selection now prefers broader completed rows over stale older rows that only win on legacy `run_scope` labels
 
 ## Local Agent Harness
 
@@ -433,11 +435,16 @@ This track is also wired into bounded KWA episodes, so visual referent carryover
 
 ### Current Local Comparison Surface
 
-The current board-backed comparison surface is now widened and mostly aligned:
+The current board-backed comparison story now has two layers:
 
-- oracle, the headline Gemma specialist stack, and the first reproduced Qwen row all now exist on the same widened `29 / 23` full-lane surface
-- the direct Gemma reasoner-only control is still useful, but it remains on the older `26 / 20` reproduced surface
-- that means the strongest current claim is now a real widened local comparison across oracle, Gemma specialist, and Qwen on the same surface
+- an aligned exploratory `32 / 26` comparison surface for:
+  - oracle
+  - the headline Gemma specialist stack
+  - the first reproduced Qwen MLX row
+  - the first reproduced Gemma MLX row
+- a direct in-process Gemma reasoner-only control that is still useful, but remains on the older `26 / 20` reproduced surface
+- that means the strongest current apples-to-apples claim is now the aligned `32 / 26` comparison across oracle, Gemma specialist, MLX Qwen, and MLX Gemma
+- the canonical `24 / 18` oracle lane pointers still matter as the stable seeded reference, but they are no longer the widest board-backed comparison surface
 
 The board source of truth is still [`results/history/knowledge_work_board_latest.csv`](results/history/knowledge_work_board_latest.csv).
 
@@ -459,53 +466,106 @@ The current local control is direct in-process Gemma 4 reasoner-only:
 The current headline local Gemma stack is direct in-process Gemma 4 plus real specialists:
 
 - replayable:
-  - [`results/knowledge_work_matrix/20260412T190500Z_knowledge_work_full_lane_harnessability_core/hf_gemma4_e2b_specialists_cpu__replayable_core/summary.json`](results/knowledge_work_matrix/20260412T190500Z_knowledge_work_full_lane_harnessability_core/hf_gemma4_e2b_specialists_cpu__replayable_core/summary.json)
-  - `runs = 29`
-  - `artifact_quality_avg = 0.9689793103448276`
+  - [`results/knowledge_work_matrix/20260412T235251Z_knowledge_work_alignment_32_26/hf_gemma4_e2b_specialists_cpu__replayable_core/summary.json`](results/knowledge_work_matrix/20260412T235251Z_knowledge_work_alignment_32_26/hf_gemma4_e2b_specialists_cpu__replayable_core/summary.json)
+  - `runs = 32`
+  - `artifact_quality_avg = 0.964509375`
   - `strict_interface_avg = 1.0`
   - `recovered_execution_avg = 1.0`
-  - `real_world_readiness_avg = 0.9774`
+  - `real_world_readiness_avg = 0.976853125`
+  - `controller_repair_avg = 2.046875`
+  - `controller_fallback_avg = 1.03125`
+  - `raw_planning_clean_rate_avg = 0.46875`
 - live:
-  - [`results/knowledge_work_matrix/20260412T221500Z_knowledge_work_publishable_core/hf_gemma4_e2b_specialists_cpu__live_web_stress/summary.json`](results/knowledge_work_matrix/20260412T221500Z_knowledge_work_publishable_core/hf_gemma4_e2b_specialists_cpu__live_web_stress/summary.json)
-  - `runs = 23`
-  - `artifact_quality_avg = 0.9633043478260869`
+  - [`results/knowledge_work_matrix/20260412T235251Z_knowledge_work_alignment_32_26/hf_gemma4_e2b_specialists_cpu__live_web_stress/summary.json`](results/knowledge_work_matrix/20260412T235251Z_knowledge_work_alignment_32_26/hf_gemma4_e2b_specialists_cpu__live_web_stress/summary.json)
+  - `runs = 26`
+  - `artifact_quality_avg = 0.9584576923076923`
   - `strict_interface_avg = 1.0`
   - `recovered_execution_avg = 1.0`
-  - `real_world_readiness_avg = 0.9798`
+  - `real_world_readiness_avg = 0.9791653846153847`
+  - `controller_repair_avg = 2.3653846153846154`
+  - `controller_fallback_avg = 1.0769230769230769`
+  - `raw_planning_clean_rate_avg = 0.4230769230769231`
 
 The widened oracle reference is now also in place:
 
 - replayable:
-  - [`results/knowledge_work_matrix/20260412T202500Z_knowledge_work_publishable_core/oracle_gemma4_e2b__replayable_core/summary.json`](results/knowledge_work_matrix/20260412T202500Z_knowledge_work_publishable_core/oracle_gemma4_e2b__replayable_core/summary.json)
-  - `runs = 29`
-  - `artifact_quality_avg = 0.9689793103448276`
+  - [`results/knowledge_work_matrix/20260412T235251Z_knowledge_work_alignment_32_26/oracle_gemma4_e2b__replayable_core/summary.json`](results/knowledge_work_matrix/20260412T235251Z_knowledge_work_alignment_32_26/oracle_gemma4_e2b__replayable_core/summary.json)
+  - `runs = 32`
+  - `artifact_quality_avg = 0.964509375`
   - `strict_interface_avg = 1.0`
   - `recovered_execution_avg = 1.0`
-  - `real_world_readiness_avg = 0.9774`
+  - `real_world_readiness_avg = 0.976853125`
+  - `controller_repair_avg = 0.578125`
+  - `controller_fallback_avg = 0.0`
+  - `raw_planning_clean_rate_avg = 0.8395875`
 - live:
-  - [`results/knowledge_work_matrix/20260412T221500Z_knowledge_work_publishable_core/oracle_gemma4_e2b__live_web_stress/summary.json`](results/knowledge_work_matrix/20260412T221500Z_knowledge_work_publishable_core/oracle_gemma4_e2b__live_web_stress/summary.json)
-  - `runs = 23`
-  - `artifact_quality_avg = 0.9633043478260869`
+  - [`results/knowledge_work_matrix/20260412T235251Z_knowledge_work_alignment_32_26/oracle_gemma4_e2b__live_web_stress/summary.json`](results/knowledge_work_matrix/20260412T235251Z_knowledge_work_alignment_32_26/oracle_gemma4_e2b__live_web_stress/summary.json)
+  - `runs = 26`
+  - `artifact_quality_avg = 0.9584576923076923`
   - `strict_interface_avg = 1.0`
   - `recovered_execution_avg = 1.0`
-  - `real_world_readiness_avg = 0.9798`
+  - `real_world_readiness_avg = 0.9791653846153847`
+  - `controller_repair_avg = 0.7115384615384616`
+  - `controller_fallback_avg = 0.0`
+  - `raw_planning_clean_rate_avg = 0.8025692307692308`
 
 The first real reproduced non-Gemma local comparator is now Qwen3 8B on the Apple-Silicon-native MLX path:
 
 - replayable:
-  - [`results/knowledge_work_matrix/20260412T213721Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__replayable_core/summary.json`](results/knowledge_work_matrix/20260412T213721Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__replayable_core/summary.json)
-  - `runs = 29`
-  - `artifact_quality_avg = 0.9689793103448276`
+  - [`results/knowledge_work_matrix/20260412T235251Z_knowledge_work_alignment_32_26/mlx_qwen3_8b_reasoner_only__replayable_core/summary.json`](results/knowledge_work_matrix/20260412T235251Z_knowledge_work_alignment_32_26/mlx_qwen3_8b_reasoner_only__replayable_core/summary.json)
+  - `runs = 32`
+  - `artifact_quality_avg = 0.964509375`
   - `strict_interface_avg = 1.0`
   - `recovered_execution_avg = 1.0`
-  - `real_world_readiness_avg = 0.9774`
+  - `real_world_readiness_avg = 0.976853125`
+  - `controller_repair_avg = 0.0`
+  - `controller_fallback_avg = 0.0`
+  - `raw_planning_clean_rate_avg = 1.0`
 - live:
-  - [`results/knowledge_work_matrix/20260412T213438Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__live_web_stress/summary.json`](results/knowledge_work_matrix/20260412T213438Z_knowledge_work_full_lane_experimental/mlx_qwen3_8b_reasoner_only__live_web_stress/summary.json)
-  - `runs = 23`
-  - `artifact_quality_avg = 0.9633043478260869`
+  - [`results/knowledge_work_matrix/20260412T235251Z_knowledge_work_alignment_32_26/mlx_qwen3_8b_reasoner_only__live_web_stress/summary.json`](results/knowledge_work_matrix/20260412T235251Z_knowledge_work_alignment_32_26/mlx_qwen3_8b_reasoner_only__live_web_stress/summary.json)
+  - `runs = 26`
+  - `artifact_quality_avg = 0.9584576923076923`
   - `strict_interface_avg = 1.0`
   - `recovered_execution_avg = 1.0`
-  - `real_world_readiness_avg = 0.9798`
+  - `real_world_readiness_avg = 0.9791653846153847`
+  - `controller_repair_avg = 0.0`
+  - `controller_fallback_avg = 0.0`
+  - `raw_planning_clean_rate_avg = 1.0`
+
+The first real reproduced Gemma-on-MLX posture row is now also aligned on that same surface:
+
+- replayable:
+  - [`results/knowledge_work_matrix/20260412T235251Z_knowledge_work_alignment_32_26/mlx_gemma4_e2b_reasoner_only__replayable_core/summary.json`](results/knowledge_work_matrix/20260412T235251Z_knowledge_work_alignment_32_26/mlx_gemma4_e2b_reasoner_only__replayable_core/summary.json)
+  - `runs = 32`
+  - `artifact_quality_avg = 0.964509375`
+  - `strict_interface_avg = 1.0`
+  - `recovered_execution_avg = 1.0`
+  - `real_world_readiness_avg = 0.9725125`
+  - `controller_repair_avg = 0.0`
+  - `controller_fallback_avg = 0.0`
+  - `raw_planning_clean_rate_avg = 1.0`
+- live:
+  - [`results/knowledge_work_matrix/20260412T235251Z_knowledge_work_alignment_32_26/mlx_gemma4_e2b_reasoner_only__live_web_stress/summary.json`](results/knowledge_work_matrix/20260412T235251Z_knowledge_work_alignment_32_26/mlx_gemma4_e2b_reasoner_only__live_web_stress/summary.json)
+  - `runs = 26`
+  - `artifact_quality_avg = 0.9584576923076923`
+  - `strict_interface_avg = 1.0`
+  - `recovered_execution_avg = 1.0`
+  - `real_world_readiness_avg = 0.973823076923077`
+  - `controller_repair_avg = 0.0`
+  - `controller_fallback_avg = 0.0`
+  - `raw_planning_clean_rate_avg = 1.0`
+
+Interpretation:
+
+- MLX Gemma is now a real completed local posture on the same aligned exploratory `32 / 26` surface as oracle, HF Gemma specialists, and MLX Qwen
+- it is materially stronger than the direct in-process Gemma reasoner-only control
+- it is controller-clean on both completed lanes
+- the original replayable miss was concentrated rather than broad, and the grounded visual readback fallback now clears it
+- this is enough to say the harness improvements transfer to the Apple-Silicon-native Gemma path
+- MLX Gemma is the interesting counterpoint on the aligned surface:
+  - planner-clean
+  - controller-clean
+  - still slightly lower-readiness than oracle, HF Gemma specialists, and MLX Qwen
 
 The experimental Gemma 4 `31B` `GGUF` / `llama.cpp` runtime-posture path is implemented, but it has not been reproduced locally yet because no local model or runtime is installed on this machine.
 
@@ -513,10 +573,10 @@ That is the current benchmark-quality result:
 
 - we made Gemma 4 materially better as a local full-stack agent on our own harder benchmark surface
 - the reasoner-only Gemma control remains materially weaker, so the gain is not trivial
-- the headline local Gemma specialist row is now strict/recovered clean on the widened `29 / 23` full-lane surface
-- the widened oracle row is also strict/recovered clean on that same surface
-- the first same-surface reproduced Qwen row now exists on that same widened surface
-- the reproduced Qwen MLX row now also matches oracle and the Gemma specialist stack on that same widened surface after the visual latest-filter/runtime fallback fixes
+- the headline local Gemma specialist row is now strict/recovered clean on the aligned exploratory `32 / 26` surface
+- the aligned oracle row is also strict/recovered clean on that same surface
+- the reproduced Qwen MLX row now also matches oracle and the Gemma specialist stack on that same surface
+- the reproduced MLX Gemma row shows that Gemma also transfers cleanly to the Apple-Silicon-native runtime path on that same surface, but still lands slightly lower readiness
 
 ### Honest Claim Boundary
 
@@ -525,15 +585,23 @@ The repo can now honestly claim:
 - we improved Gemma 4 materially with our own controller/runtime/specialist-stack learnings
 - we made it a better full-stack local agent on our own benchmark
 - we have a publishable local Gemma-improvement result on a harder widened `KnowledgeWorkArena` surface
-- on the same local widened `29 / 23` board surface, Gemma 4 plus specialists and the reproduced local Qwen3 8B MLX row now both match the current oracle row
+- on the same local aligned exploratory `32 / 26` board surface, oracle, Gemma 4 plus specialists, and the reproduced local Qwen3 8B MLX row now tie on top-line replayable and live readiness
 - the first reproduced Qwen row beats the direct in-process Gemma reasoner-only control on strict-interface, recovered-execution, and readiness metrics
+- the first reproduced MLX Gemma row shows the Gemma harness transfer is real on Apple Silicon:
+  - replayable `32`: `strict_interface = 1.0`, `recovered_execution = 1.0`, `readiness = 0.9725125`
+  - live `26`: `strict_interface = 1.0`, `recovered_execution = 1.0`, `readiness = 0.973823076923077`
+  - with `controller_repair_avg = 0.0` and `raw_planning_clean_rate_avg = 1.0` on both lanes
+- the deeper same-surface planner-gap result is now explicit:
+  - HF Gemma specialists reach that top-line parity with materially more controller repair and fallback than MLX Qwen
+  - MLX Gemma stays planner-clean and controller-clean, but still lands slightly below that readiness tier
 
 The repo cannot honestly claim yet:
 
 - that Gemma 4 beats Qwen 3.5 broadly, because the reproduced non-Gemma evidence currently covers `Qwen3 8B MLX` only
+- that MLX Gemma now matches oracle, HF Gemma specialists, or MLX Qwen on readiness, because the aligned `32 / 26` rows show a small but real remaining readiness gap
 - that Gemma 4 beats frontier closed models on unrelated public benchmarks just because we now show external benchmark context rows
 
-The next honest comparator step is no longer “close the Qwen gap” on this surface. It is to make the benchmark harder again, widen non-Gemma coverage beyond this single Qwen row, and add the experimental Gemma `31B` runtime-posture row.
+The next honest comparator step is no longer “finish the MLX Gemma alignment.” It is to reduce the HF Gemma specialist controller-dependence gap, understand the residual MLX Gemma readiness gap, make the benchmark harder again, widen non-Gemma coverage beyond this single Qwen row, and add the experimental Gemma `31B` runtime-posture row.
 
 ## What We Have Learned So Far
 

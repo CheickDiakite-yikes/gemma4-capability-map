@@ -424,23 +424,7 @@ def latest_board_rows(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     for row in rows:
         key = (str(row.get("system_id", "")), str(row.get("lane", "")), str(row.get("run_intent", "")))
         current = latest.get(key)
-        if current is None or (
-            _board_status_priority(row.get("board_status")) > _board_status_priority(current.get("board_status"))
-            or (
-                _board_status_priority(row.get("board_status")) == _board_status_priority(current.get("board_status"))
-                and _run_scope_priority(row.get("run_scope")) > _run_scope_priority(current.get("run_scope"))
-            )
-            or (
-                _board_status_priority(row.get("board_status")) == _board_status_priority(current.get("board_status"))
-                and _run_scope_priority(row.get("run_scope")) == _run_scope_priority(current.get("run_scope"))
-                and float(row.get("coverage_ratio", 0.0) or 0.0) > float(current.get("coverage_ratio", 0.0) or 0.0)
-            )
-            or (
-                _board_status_priority(row.get("board_status")) == _board_status_priority(current.get("board_status"))
-                and _run_scope_priority(row.get("run_scope")) == _run_scope_priority(current.get("run_scope"))
-                and str(row.get("created_at", "")) >= str(current.get("created_at", ""))
-            )
-        ):
+        if current is None or _latest_row_priority(row) >= _latest_row_priority(current):
             latest[key] = row
     return sorted(
         latest.values(),
@@ -1376,6 +1360,16 @@ def _run_scope_priority(value: object) -> int:
     if scope == "subset":
         return 1
     return 0
+
+
+def _latest_row_priority(row: dict[str, Any]) -> tuple[int, float, int, int, str]:
+    return (
+        _board_status_priority(row.get("board_status")),
+        float(row.get("coverage_ratio", 0.0) or 0.0),
+        int(row.get("episode_count", row.get("completed_runs_observed", 0)) or 0),
+        _run_scope_priority(row.get("run_scope")),
+        str(row.get("created_at", "")),
+    )
 
 
 def _fallback_display_name(manifest: dict[str, Any]) -> str:

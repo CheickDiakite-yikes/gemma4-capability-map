@@ -1,0 +1,13 @@
+matrix:
+  name: knowledge_work_alignment_32_26
+  description: Aligned widened KnowledgeWorkArena matrix for the current 32 replayable / 26 live generated corpora.
+  run_intent: exploratory
+  update_latest: false
+  systems:
+    - oracle_gemma4_e2b
+    - hf_gemma4_e2b_specialists_cpu
+    - mlx_gemma4_e2b_reasoner_only
+    - mlx_qwen3_8b_reasoner_only
+  lanes:
+    - replayable_core
+    - live_web_stress

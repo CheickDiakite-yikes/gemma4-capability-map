@@ -1,0 +1,89 @@
+{
+  "run_group_id": "20260412T235308Z_replayable_core",
+  "created_at": "20260412T235308Z",
+  "lane": "replayable_core",
+  "system_id": "hf_gemma4_e2b_specialists_cpu",
+  "backend": "hf",
+  "reasoner_backend": "hf",
+  "router_backend": "hf",
+  "retriever_backend": "hf",
+  "reasoner": "google/gemma-4-E2B-it",
+  "router": "google/functiongemma-270m-it",
+  "retriever": "google/embeddinggemma-300m",
+  "reasoner_device": "auto",
+  "router_device": null,
+  "retriever_device": null,
+  "reasoner_max_new_tokens": 96,
+  "request_timeout_seconds": 600.0,
+  "thinking": false,
+  "limit": null,
+  "episode_count": 32,
+  "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/replayable_core/episodes.jsonl",
+  "runtime_bundle": {
+    "reasoner": {
+      "backend": "hf",
+      "runtime_posture": "hf",
+      "requested_model": "google/gemma-4-E2B-it",
+      "effective_model": "google/gemma-4-E2B-it",
+      "model_source": "google/gemma-4-E2B-it",
+      "model_format": "hf",
+      "runtime_device": "mps",
+      "load_mode": "vision",
+      "configured_device": "auto",
+      "request_timeout_seconds": 600.0,
+      "service": {},
+      "partial_runtime": false,
+      "llama_cpp_error": null,
+      "llama_cpp_context_window": null
+    },
+    "router": {
+      "backend": "hf",
+      "requested_model": "google/functiongemma-270m-it",
+      "effective_model": "google/functiongemma-270m-it",
+      "runtime_device": "cpu",
+      "configured_device": "cpu"
+    },
+    "retriever": {
+      "backend": "hf",
+      "requested_model": "google/embeddinggemma-300m",
+      "effective_model": "google/embeddinggemma-300m",
+      "loaded": true,
+      "configured_device": "cpu",
+      "runtime_device": "cpu"
+    }
+  },
+  "run_intent": "exploratory",
+  "warmup": {
+    "reasoner": {
+      "backend": "hf",
+      "runtime_posture": "hf",
+      "requested_model": "google/gemma-4-E2B-it",
+      "effective_model": "google/gemma-4-E2B-it",
+      "model_source": "google/gemma-4-E2B-it",
+      "model_format": "hf",
+      "runtime_device": "mps",
+      "load_mode": "vision",
+      "configured_device": "auto",
+      "request_timeout_seconds": 600.0,
+      "service": {},
+      "partial_runtime": false,
+      "llama_cpp_error": null,
+      "llama_cpp_context_window": null
+    },
+    "router": {
+      "backend": "hf",
+      "requested_model": "google/functiongemma-270m-it",
+      "effective_model": "google/functiongemma-270m-it",
+      "runtime_device": "cpu",
+      "configured_device": "cpu"
+    },
+    "retriever": {
+      "backend": "hf",
+      "requested_model": "google/embeddinggemma-300m",
+      "effective_model": "google/embeddinggemma-300m",
+      "loaded": true,
+      "configured_device": "cpu",
+      "runtime_device": "cpu"
+    }
+  }
+}

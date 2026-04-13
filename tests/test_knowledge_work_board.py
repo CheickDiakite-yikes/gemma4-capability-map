@@ -785,6 +785,7 @@ def test_board_latest_rows_prefer_full_lane_over_newer_subset() -> None:
             "lane": "replayable_core",
             "run_intent": "exploratory",
             "run_scope": "full_lane",
+            "episode_count": 29,
             "created_at": "20260410T100000Z",
             "real_world_readiness_avg": 0.95,
             "strict_interface_avg": 1.0,
@@ -796,6 +797,7 @@ def test_board_latest_rows_prefer_full_lane_over_newer_subset() -> None:
             "lane": "replayable_core",
             "run_intent": "exploratory",
             "run_scope": "subset",
+            "episode_count": 23,
             "created_at": "20260410T120000Z",
             "real_world_readiness_avg": 0.92,
             "strict_interface_avg": 1.0,
@@ -807,6 +809,43 @@ def test_board_latest_rows_prefer_full_lane_over_newer_subset() -> None:
     assert len(latest) == 1
     assert latest[0]["run_scope"] == "full_lane"
     assert latest[0]["created_at"] == "20260410T100000Z"
+
+
+def test_board_latest_rows_prefer_wider_newer_subset_over_smaller_full_lane() -> None:
+    rows = [
+        {
+            "system_id": "hf_service_gemma4_specialists_cpu",
+            "display_name": "Gemma 4 + specialists local",
+            "lane": "live_web_stress",
+            "run_intent": "exploratory",
+            "run_scope": "full_lane",
+            "episode_count": 20,
+            "coverage_ratio": 1.0,
+            "created_at": "20260411T143805Z",
+            "real_world_readiness_avg": 0.9348,
+            "strict_interface_avg": 1.0,
+            "browser_workflow_avg": 1.0,
+        },
+        {
+            "system_id": "hf_service_gemma4_specialists_cpu",
+            "display_name": "Gemma 4 + specialists local",
+            "lane": "live_web_stress",
+            "run_intent": "exploratory",
+            "run_scope": "subset",
+            "episode_count": 23,
+            "coverage_ratio": 1.0,
+            "created_at": "20260412T194736Z",
+            "real_world_readiness_avg": 0.9798,
+            "strict_interface_avg": 1.0,
+            "browser_workflow_avg": 1.0,
+        },
+    ]
+
+    latest = latest_board_rows(rows)
+    assert len(latest) == 1
+    assert latest[0]["run_scope"] == "subset"
+    assert latest[0]["episode_count"] == 23
+    assert latest[0]["created_at"] == "20260412T194736Z"
 
 
 def test_board_latest_rows_prefer_completed_over_newer_partial_attempt() -> None:
