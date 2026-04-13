@@ -1,10 +1,11 @@
 from __future__ import annotations
 
 from copy import deepcopy
+import json
 
 from gemma4_capability_map.research_controls import ResearchControls
 from gemma4_capability_map.schemas import Message, ToolCall
-from gemma4_capability_map.tools.planner import plan_or_repair_tool_calls, plan_tool_calls
+from gemma4_capability_map.tools.planner import deterministic_follow_on_calls, plan_or_repair_tool_calls, plan_tool_calls
 from gemma4_capability_map.tools.registry import build_default_registry
 
 
@@ -262,6 +263,60 @@ def test_controller_fallback_projects_renamed_fields_for_create_event() -> None:
         "attendees": ["team@example.com"],
     }
     assert "controller_fallback_planner" in notes
+
+
+def test_deterministic_follow_on_calls_refines_after_successful_layout_pass() -> None:
+    messages = [
+        Message(role="user", content="Inspect the form and narrow to the phone validation issue."),
+        Message(
+            role="tool",
+            content=json.dumps(
+                {
+                    "tool_name": "extract_layout",
+                    "status": "pass",
+                    "arguments": {"image_id": "img-form-phone", "target_query": "validation error"},
+                    "output": {"image_id": "img-form-phone", "selection_id": "sel-001"},
+                }
+            ),
+        ),
+    ]
+
+    calls = deterministic_follow_on_calls(
+        messages=messages,
+        media=["img-form-phone"],
+        tool_specs=[SPECS["extract_layout"], SPECS["refine_selection"], SPECS["read_region_text"]],
+    )
+
+    assert len(calls) == 1
+    assert calls[0].name == "refine_selection"
+    assert calls[0].arguments == {"selection_id": "sel-001", "filter_query": "phone"}
+
+
+def test_deterministic_follow_on_calls_reads_region_after_last_visual_filter() -> None:
+    messages = [
+        Message(role="user", content="Inspect the form and read the phone validation message."),
+        Message(
+            role="tool",
+            content=json.dumps(
+                {
+                    "tool_name": "refine_selection",
+                    "status": "pass",
+                    "arguments": {"selection_id": "sel-001", "filter_query": "phone"},
+                    "output": {"image_id": "img-form-phone", "region_id": "form-err-202"},
+                }
+            ),
+        ),
+    ]
+
+    calls = deterministic_follow_on_calls(
+        messages=messages,
+        media=["img-form-phone"],
+        tool_specs=[SPECS["extract_layout"], SPECS["refine_selection"], SPECS["read_region_text"]],
+    )
+
+    assert len(calls) == 1
+    assert calls[0].name == "read_region_text"
+    assert calls[0].arguments == {"image_id": "img-form-phone", "region_id": "form-err-202"}
 
 
 def test_planner_repairs_visual_media_path_using_system_image_hint() -> None:

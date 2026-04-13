@@ -2,6 +2,53 @@
 
 # 2026-04-13
 
+### Deterministic visual follow-ons removed a real controller-burden artifact without changing outcomes
+
+- Runtime/controller patch:
+  - [`src/gemma4_capability_map/runtime/core.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/runtime/core.py)
+  - [`src/gemma4_capability_map/tools/planner.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/tools/planner.py)
+  - the runtime now auto-executes deterministic `refine_selection` / `read_region_text` follow-ons after successful visual tool feedback instead of asking the model to plan those same steps again
+- Regression updates:
+  - [`tests/test_tool_planner.py`](/Users/cheickdiakite/Codex/moonie/tests/test_tool_planner.py)
+  - [`tests/test_smoke_eval.py`](/Users/cheickdiakite/Codex/moonie/tests/test_smoke_eval.py)
+  - [`tests/test_trace_metrics.py`](/Users/cheickdiakite/Codex/moonie/tests/test_trace_metrics.py)
+
+- Focused replayable packet rerun:
+  - [`results/knowledge_work_matrix/20260413Tresearch_ablation_focus_v4_knowledge_work_ablation_packet_knowledge_work_ablation_packet`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260413Tresearch_ablation_focus_v4_knowledge_work_ablation_packet_knowledge_work_ablation_packet)
+- Aligned HF Gemma rerun:
+  - [`results/knowledge_work_matrix/20260413Taligned_controller_burden_patch_v2_knowledge_work_alignment_32_26`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_matrix/20260413Taligned_controller_burden_patch_v2_knowledge_work_alignment_32_26)
+
+- Focused packet baseline after the patch:
+  - `real_world_readiness_avg = 0.9627777777777777`
+  - `controller_repair_avg = 0.8888888888888888`
+  - `controller_fallback_avg = 0.4444444444444444`
+- Focused helper ranking still shows real controller leverage:
+  - `no_controller_repair = 0.6551777777777779`
+  - `no_controller_fallback = 0.8182333333333333`
+  - `no_visual_rescue = 0.9627777777777777`
+
+- Direct packet comparison versus the prior focused baseline:
+  - readiness unchanged
+  - `controller_repair_avg` dropped from `2.3333333333333335` to `0.8888888888888888`
+  - `feedback_prior:refine_selection` dropped from `16` to `0`
+  - `feedback_prior:read_region_text` dropped from `10` to `0`
+  - `controller_fallback_planner` remained at `8`
+
+- HF Gemma specialist delta on the aligned `32 / 26` surface:
+  - replayable:
+    - `controller_repair_avg` improved from `1.296875` to `0.71875`
+    - `controller_fallback_avg` stayed `0.28125`
+    - readiness stayed `0.976853125`
+  - live:
+    - `controller_repair_avg` improved from `1.5192307692307692` to `0.8076923076923077`
+    - `controller_fallback_avg` stayed `0.23076923076923078`
+    - readiness stayed `0.9791653846153847`
+
+- Research interpretation:
+  - the old visual follow-on repair families were real controller-burden artifacts
+  - removing them did not change outcomes, which means they were not the causal value in the controller
+  - repair and fallback are still clearly causal, but the remaining burden is now more honestly concentrated in fallback-planner and non-visual repair families
+
 ### Controller-burden cleanup improved the HF Gemma specialist row without moving top-line readiness
 
 - Planner/controller patch:

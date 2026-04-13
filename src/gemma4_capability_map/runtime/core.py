@@ -34,7 +34,7 @@ from gemma4_capability_map.runtime.schemas import (
 from gemma4_capability_map.runtime.workflows import DEFAULT_WORKFLOWS_PATH, PackagedWorkflow, load_packaged_workflows
 from gemma4_capability_map.schemas import ExpectedEvent, JudgmentMode, Message, ModelBundleSpec, RunTrace, StateTransition, Task, ToolResult, Track, Variant
 from gemma4_capability_map.tools.executor import diff_state
-from gemma4_capability_map.tools.planner import plan_or_repair_tool_calls
+from gemma4_capability_map.tools.planner import deterministic_follow_on_calls, plan_or_repair_tool_calls
 
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -94,7 +94,55 @@ def execute_task_trace(
     )
 
     if effective_task.tool_specs and not judgment_without_tools:
-        while len(tool_steps) < max(1, len(expected_tool_events)):
+        max_tool_steps = max(1, len(expected_tool_events))
+
+        def execute_tool_call(call: ToolCall) -> ToolResult:
+            nonlocal state
+            before = deepcopy(state)
+            result = executor.step(state=state, tool_call=call, step=len(tool_steps) + 1)
+            tool_steps.append(result)
+            state = deepcopy(result.state_after)
+            state_transitions.append(
+                StateTransition(
+                    step=result.step,
+                    tool_name=result.selected_tool,
+                    before=before,
+                    after=state,
+                    diff=diff_state(before, state),
+                )
+            )
+            tool_feedback = {
+                "tool_name": result.selected_tool,
+                "status": result.validator_result,
+                "arguments": result.arguments,
+                "output": result.output,
+                "error": result.error,
+            }
+            messages.append(Message(role="tool", content=json.dumps(tool_feedback, ensure_ascii=False)))
+            return result
+
+        def execute_deterministic_follow_ons() -> None:
+            if research_controls.disable_controller_repair:
+                return
+
+            auto_chain_budget = min(4, max_tool_steps - len(tool_steps))
+            while auto_chain_budget > 0 and len(tool_steps) < max_tool_steps:
+                follow_on_calls = deterministic_follow_on_calls(
+                    messages=messages,
+                    media=effective_task.image_refs,
+                    tool_specs=effective_task.tool_specs,
+                )
+                if not follow_on_calls:
+                    break
+                for follow_on_call in follow_on_calls:
+                    if auto_chain_budget <= 0 or len(tool_steps) >= max_tool_steps:
+                        return
+                    follow_on_result = execute_tool_call(follow_on_call)
+                    auto_chain_budget -= 1
+                    if follow_on_result.validator_result != "pass":
+                        return
+
+        while len(tool_steps) < max_tool_steps:
             next_expected = _next_expected_batch(expected_tool_events, len(tool_steps)) if expected_tool_events else None
             planning_messages = with_oracle_hint(messages, next_expected=next_expected, final_answer=None, backend=selector.backend)
             planning_turn = selector.generate(
@@ -121,27 +169,11 @@ def execute_task_trace(
             if not planning_calls:
                 break
             for call in planning_calls:
-                before = deepcopy(state)
-                result = executor.step(state=state, tool_call=call, step=len(tool_steps) + 1)
-                tool_steps.append(result)
-                state = deepcopy(result.state_after)
-                state_transitions.append(
-                    StateTransition(
-                        step=result.step,
-                        tool_name=result.selected_tool,
-                        before=before,
-                        after=state,
-                        diff=diff_state(before, state),
-                    )
-                )
-                tool_feedback = {
-                    "tool_name": result.selected_tool,
-                    "status": result.validator_result,
-                    "arguments": result.arguments,
-                    "output": result.output,
-                    "error": result.error,
-                }
-                messages.append(Message(role="tool", content=json.dumps(tool_feedback, ensure_ascii=False)))
+                result = execute_tool_call(call)
+                if result.validator_result == "pass":
+                    execute_deterministic_follow_ons()
+                    if len(tool_steps) >= max_tool_steps:
+                        break
 
                 if result.validator_result == "fail" and effective_task.initial_state.get("validator_feedback_enabled") and next_expected:
                     retry_messages = with_oracle_hint(messages, next_expected=next_expected, final_answer=None, backend=selector.backend)
@@ -168,28 +200,10 @@ def execute_task_trace(
                     planning_repair_notes.append(retry_notes)
                     if retry_calls:
                         retry_call = retry_calls[0]
-                        before_retry = deepcopy(state)
-                        retry_result = executor.step(state=state, tool_call=retry_call, step=len(tool_steps) + 1)
-                        tool_steps.append(retry_result)
-                        state = deepcopy(retry_result.state_after)
-                        state_transitions.append(
-                            StateTransition(
-                                step=retry_result.step,
-                                tool_name=retry_result.selected_tool,
-                                before=before_retry,
-                                after=state,
-                                diff=diff_state(before_retry, state),
-                            )
-                        )
-                        feedback = {
-                            "tool_name": retry_result.selected_tool,
-                            "status": retry_result.validator_result,
-                            "arguments": retry_result.arguments,
-                            "output": retry_result.output,
-                            "error": retry_result.error,
-                        }
-                        messages.append(Message(role="tool", content=json.dumps(feedback, ensure_ascii=False)))
-            if len(tool_steps) >= len(expected_tool_events):
+                        retry_result = execute_tool_call(retry_call)
+                        if retry_result.validator_result == "pass":
+                            execute_deterministic_follow_ons()
+            if len(tool_steps) >= max_tool_steps:
                 break
 
     final_messages = with_oracle_hint(

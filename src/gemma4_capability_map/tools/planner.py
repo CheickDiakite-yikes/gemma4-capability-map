@@ -201,6 +201,25 @@ def plan_tool_calls(messages: list[Message], media: list[str], tool_specs: list[
     return [_heuristic_call(fallback_tool.name, _infer_arguments(context, fallback_tool.name), raw_hint="fallback")]
 
 
+def deterministic_follow_on_calls(messages: list[Message], media: list[str], tool_specs: list[ToolSpec]) -> list[ToolCall]:
+    if not tool_specs:
+        return []
+    context = _planning_context(messages, media)
+    latest_feedback = context.get("latest_feedback")
+    if not isinstance(latest_feedback, dict) or str(latest_feedback.get("status", "")) != "pass":
+        return []
+    latest_tool = str(latest_feedback.get("tool_name", ""))
+    if latest_tool not in {"extract_layout", "refine_selection"}:
+        return []
+
+    follow_on_calls = _next_calls_from_feedback(context, tool_specs)
+    if not follow_on_calls:
+        return []
+    if any(call.name not in {"refine_selection", "read_region_text"} for call in follow_on_calls):
+        return []
+    return follow_on_calls
+
+
 def _requires_stepwise_visual_control(parsed_calls: list[ToolCall]) -> bool:
     visual_tool_names = {"segment_entities", "extract_layout", "refine_selection", "read_region_text"}
     return sum(1 for call in parsed_calls if call.name in visual_tool_names) > 1

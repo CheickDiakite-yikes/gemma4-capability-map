@@ -143,37 +143,21 @@ class _VisualLatestRescueRunner:
                     raw='{"name":"extract_layout","arguments":{"image_id":"img-form-phone","target_query":"validation error"}}',
                 )
                 return ModelTurn(raw_model_output=call.raw, normalized_tool_call=[call], final_answer="")
-            if self.calls == 2:
-                call = ToolCall(
-                    name="refine_selection",
-                    arguments={"selection_id": "sel-001", "filter_query": "phone"},
-                    source_format="json",
-                    raw='{"name":"refine_selection","arguments":{"selection_id":"sel-001","filter_query":"phone"}}',
-                )
-                return ModelTurn(raw_model_output=call.raw, normalized_tool_call=[call], final_answer="")
-            if self.calls == 3:
-                call = ToolCall(
-                    name="read_region_text",
-                    arguments={"image_id": "img-form-phone", "region_id": "form-err-202"},
-                    source_format="json",
-                    raw='{"name":"read_region_text","arguments":{"image_id":"img-form-phone","region_id":"form-err-202"}}',
-                )
-                return ModelTurn(raw_model_output=call.raw, normalized_tool_call=[call], final_answer="")
             raise AssertionError("Unexpected extra tool-planning call")
-        if self.calls == 4:
+        if any(message.role == "assistant" and "Draft answer to rewrite:" in message.content for message in messages):
             return ModelTurn(
-                raw_model_output=(
-                    'The latest blocking issue is "Phone number format invalid". '
-                    'The previous work authorization error is no longer the focus.'
-                ),
-                final_answer=(
-                    'The latest blocking issue is "Phone number format invalid". '
-                    'The previous work authorization error is no longer the focus.'
-                ),
+                raw_model_output='The latest blocking issue is "Phone number format invalid".',
+                final_answer='The latest blocking issue is "Phone number format invalid".',
             )
         return ModelTurn(
-            raw_model_output='The latest blocking issue is "Phone number format invalid".',
-            final_answer='The latest blocking issue is "Phone number format invalid".',
+            raw_model_output=(
+                'The latest blocking issue is "Phone number format invalid". '
+                'The previous work authorization error is no longer the focus.'
+            ),
+            final_answer=(
+                'The latest blocking issue is "Phone number format invalid". '
+                'The previous work authorization error is no longer the focus.'
+            ),
         )
 
 
@@ -193,30 +177,6 @@ class _VisualLatestFallbackRunner:
                     arguments={"image_id": "img-form-live-latest", "target_query": "validation error"},
                     source_format="json",
                     raw='{"name":"extract_layout","arguments":{"image_id":"img-form-live-latest","target_query":"validation error"}}',
-                )
-                return ModelTurn(raw_model_output=call.raw, normalized_tool_call=[call], final_answer="")
-            if self.calls == 2:
-                call = ToolCall(
-                    name="refine_selection",
-                    arguments={"selection_id": "sel-001", "filter_query": "latest"},
-                    source_format="json",
-                    raw='{"name":"refine_selection","arguments":{"selection_id":"sel-001","filter_query":"latest"}}',
-                )
-                return ModelTurn(raw_model_output=call.raw, normalized_tool_call=[call], final_answer="")
-            if self.calls == 3:
-                call = ToolCall(
-                    name="refine_selection",
-                    arguments={"selection_id": "sel-002", "filter_query": "phone"},
-                    source_format="json",
-                    raw='{"name":"refine_selection","arguments":{"selection_id":"sel-002","filter_query":"phone"}}',
-                )
-                return ModelTurn(raw_model_output=call.raw, normalized_tool_call=[call], final_answer="")
-            if self.calls == 4:
-                call = ToolCall(
-                    name="read_region_text",
-                    arguments={"image_id": "img-form-live-latest", "region_id": "form-err-202"},
-                    source_format="json",
-                    raw='{"name":"read_region_text","arguments":{"image_id":"img-form-live-latest","region_id":"form-err-202"}}',
                 )
                 return ModelTurn(raw_model_output=call.raw, normalized_tool_call=[call], final_answer="")
             raise AssertionError("Unexpected extra tool-planning call")
@@ -243,38 +203,6 @@ class _VisualReadbackFallbackRunner:
                     arguments={"image_id": "img-dashboard-review-backlog", "target_query": "dashboard metric"},
                     source_format="json",
                     raw='{"name":"extract_layout","arguments":{"image_id":"img-dashboard-review-backlog","target_query":"dashboard metric"}}',
-                )
-                return ModelTurn(raw_model_output=call.raw, normalized_tool_call=[call], final_answer="")
-            if self.calls == 2:
-                call = ToolCall(
-                    name="refine_selection",
-                    arguments={"selection_id": "sel-001", "filter_query": "needs review"},
-                    source_format="json",
-                    raw='{"name":"refine_selection","arguments":{"selection_id":"sel-001","filter_query":"needs review"}}',
-                )
-                return ModelTurn(raw_model_output=call.raw, normalized_tool_call=[call], final_answer="")
-            if self.calls == 3:
-                call = ToolCall(
-                    name="refine_selection",
-                    arguments={"selection_id": "sel-002", "filter_query": "backlog"},
-                    source_format="json",
-                    raw='{"name":"refine_selection","arguments":{"selection_id":"sel-002","filter_query":"backlog"}}',
-                )
-                return ModelTurn(raw_model_output=call.raw, normalized_tool_call=[call], final_answer="")
-            if self.calls == 4:
-                call = ToolCall(
-                    name="refine_selection",
-                    arguments={"selection_id": "sel-003", "filter_query": "enablement ops"},
-                    source_format="json",
-                    raw='{"name":"refine_selection","arguments":{"selection_id":"sel-003","filter_query":"enablement ops"}}',
-                )
-                return ModelTurn(raw_model_output=call.raw, normalized_tool_call=[call], final_answer="")
-            if self.calls == 5:
-                call = ToolCall(
-                    name="read_region_text",
-                    arguments={"image_id": "img-dashboard-review-backlog", "region_id": "metric-302"},
-                    source_format="json",
-                    raw='{"name":"read_region_text","arguments":{"image_id":"img-dashboard-review-backlog","region_id":"metric-302"}}',
                 )
                 return ModelTurn(raw_model_output=call.raw, normalized_tool_call=[call], final_answer="")
             raise AssertionError("Unexpected extra tool-planning call")
@@ -519,6 +447,7 @@ def test_visual_second_pass_rescue_drops_stale_filter_fragment_without_mutating_
     assert trace.prompt_artifacts["second_pass_used"] is True
     assert "work authorization" not in trace.final_answer.lower()
     assert "phone number format invalid" in trace.final_answer.lower()
+    assert trace.metrics["planning_turn_count"] == 1
     assert float(trace.metrics["success"]) == 1.0
     assert float(trace.metrics["latest_filter_resolution"]) == 1.0
 
@@ -536,6 +465,7 @@ def test_visual_latest_readback_fallback_recovers_when_second_pass_still_leaks_s
     assert trace.prompt_artifacts["visual_latest_fallback_used"] is True
     assert trace.prompt_artifacts["visual_latest_fallback_answer"] == "Phone number format invalid"
     assert trace.final_answer == "Phone number format invalid"
+    assert trace.metrics["planning_turn_count"] == 1
     assert float(trace.metrics["success"]) == 1.0
     assert float(trace.metrics["latest_filter_resolution"]) == 1.0
 
@@ -552,6 +482,7 @@ def test_visual_readback_fallback_uses_grounded_region_text_when_final_answer_dr
     assert trace.prompt_artifacts["visual_readback_fallback_used"] is True
     assert trace.prompt_artifacts["visual_readback_fallback_answer"] == "Docs backlog above target for enablement ops"
     assert trace.final_answer == "Docs backlog above target for enablement ops"
+    assert trace.metrics["planning_turn_count"] == 1
     assert float(trace.metrics["success"]) == 1.0
 
 

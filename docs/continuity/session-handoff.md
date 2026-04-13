@@ -2,163 +2,149 @@
 
 ## Resume Here
 
-The repo is in a cleaner state now.
+The current research seam is no longer “make the rows tie.”
 
-The important result is no longer “can we align the rows?” That is done.
+That part is done on the aligned exploratory `32 / 26` surface.
 
-Current aligned exploratory full-lane surface:
+The current seam is:
 
-- [`results/knowledge_work_matrix/20260413Taligned_controller_burden_patch_v1_knowledge_work_alignment_32_26`](../../results/knowledge_work_matrix/20260413Taligned_controller_burden_patch_v1_knowledge_work_alignment_32_26)
+- reduce HF Gemma specialist controller burden further
+- without losing the current aligned readiness tier
 
-Current same-surface headline rows:
+## Current Source Runs
 
-- `oracle_gemma4_e2b`
-- `hf_gemma4_e2b_specialists_cpu`
-- `mlx_qwen3_8b_reasoner_only`
-- `mlx_gemma4_e2b_reasoner_only`
+Aligned comparison surface:
 
-All four now tie on top-line replayable and live readiness.
+- HF Gemma controller-burden rerun:
+  - [`results/knowledge_work_matrix/20260413Taligned_controller_burden_patch_v2_knowledge_work_alignment_32_26`](../../results/knowledge_work_matrix/20260413Taligned_controller_burden_patch_v2_knowledge_work_alignment_32_26)
+- oracle + MLX Gemma aligned reference:
+  - [`results/knowledge_work_matrix/20260413Toracle_mlx_gemma_judgment_patch_v1_knowledge_work_alignment_32_26`](../../results/knowledge_work_matrix/20260413Toracle_mlx_gemma_judgment_patch_v1_knowledge_work_alignment_32_26)
+- MLX Qwen aligned reference:
+  - [`results/knowledge_work_matrix/20260412T235251Z_knowledge_work_alignment_32_26`](../../results/knowledge_work_matrix/20260412T235251Z_knowledge_work_alignment_32_26)
 
-The remaining interesting problem is:
+Focused replayable Gemma packet:
 
-- HF Gemma specialist controller dependence
-
-Not:
-
-- MLX Gemma alignment
-- MLX Gemma readiness
-- whether the aligned surface exists at all
+- [`results/knowledge_work_matrix/20260413Tresearch_ablation_focus_v4_knowledge_work_ablation_packet_knowledge_work_ablation_packet`](../../results/knowledge_work_matrix/20260413Tresearch_ablation_focus_v4_knowledge_work_ablation_packet_knowledge_work_ablation_packet)
 
 ## Latest Headline Readout
 
 Replayable `32`:
 
 - oracle:
-  - `real_world_readiness_avg = 0.976853125`
+  - `readiness = 0.976853125`
   - `controller_repair_avg = 0.578125`
   - `controller_fallback_avg = 0.0`
-  - `raw_planning_clean_rate_avg = 0.8395875`
 - HF Gemma specialists:
-  - `real_world_readiness_avg = 0.976853125`
-  - `controller_repair_avg = 1.296875`
+  - `readiness = 0.976853125`
+  - `controller_repair_avg = 0.71875`
   - `controller_fallback_avg = 0.28125`
   - `raw_planning_clean_rate_avg = 0.46875`
 - MLX Qwen:
-  - `real_world_readiness_avg = 0.976853125`
+  - `readiness = 0.976853125`
   - `controller_repair_avg = 0.0`
   - `controller_fallback_avg = 0.0`
-  - `raw_planning_clean_rate_avg = 1.0`
 - MLX Gemma:
-  - `real_world_readiness_avg = 0.976853125`
+  - `readiness = 0.976853125`
   - `controller_repair_avg = 0.0`
   - `controller_fallback_avg = 0.0`
-  - `raw_planning_clean_rate_avg = 1.0`
 
 Live `26`:
 
 - oracle:
-  - `real_world_readiness_avg = 0.9791653846153847`
+  - `readiness = 0.9791653846153847`
+  - `controller_repair_avg = 0.7115384615384616`
 - HF Gemma specialists:
-  - `real_world_readiness_avg = 0.9791653846153847`
-  - `controller_repair_avg = 1.5192307692307692`
+  - `readiness = 0.9791653846153847`
+  - `controller_repair_avg = 0.8076923076923077`
   - `controller_fallback_avg = 0.23076923076923078`
 - MLX Qwen:
-  - `real_world_readiness_avg = 0.9791653846153847`
+  - `readiness = 0.9791653846153847`
   - `controller_repair_avg = 0.0`
 - MLX Gemma:
-  - `real_world_readiness_avg = 0.9791653846153847`
+  - `readiness = 0.9791653846153847`
   - `controller_repair_avg = 0.0`
-
-Interpretation:
-
-- same top-line readiness now exists across the four aligned rows
-- HF Gemma specialists still need materially more controller help than the clean MLX rows
-- the current research problem is now how much of that burden can be removed without dropping readiness
 
 ## What Just Changed
 
-Two things landed in the last pass:
+The latest pass added deterministic runtime execution for obvious visual follow-ons.
 
-1. Planner/controller cleanup
+Code path:
 
+- [`src/gemma4_capability_map/runtime/core.py`](../../src/gemma4_capability_map/runtime/core.py)
 - [`src/gemma4_capability_map/tools/planner.py`](../../src/gemma4_capability_map/tools/planner.py)
-- the planner now synthesizes priority replacement calls directly in obvious repair/follow-on cases instead of falling through to broad fallback behavior
+- [`tests/test_tool_planner.py`](../../tests/test_tool_planner.py)
+- [`tests/test_smoke_eval.py`](../../tests/test_smoke_eval.py)
+- [`tests/test_trace_metrics.py`](../../tests/test_trace_metrics.py)
 
-2. New research evidence
+What that means:
 
-- focused replayable ablation packet rerun:
-  - [`results/knowledge_work_matrix/20260413Tresearch_ablation_focus_v3_knowledge_work_ablation_packet`](../../results/knowledge_work_matrix/20260413Tresearch_ablation_focus_v3_knowledge_work_ablation_packet)
-- aligned rerun after the planner patch:
-  - [`results/knowledge_work_matrix/20260413Taligned_controller_burden_patch_v1_knowledge_work_alignment_32_26`](../../results/knowledge_work_matrix/20260413Taligned_controller_burden_patch_v1_knowledge_work_alignment_32_26)
+- after a successful `extract_layout` or `refine_selection`, the runtime now auto-executes deterministic `refine_selection` / `read_region_text` follow-ons
+- the runtime no longer asks the model again for those same obvious visual steps
 
-The key learning from the packet rerun:
+## Measured Effect
 
-- baseline readiness stayed fixed at `0.9627777777777777`
-- packet baseline `controller_fallback_avg` dropped from `2.0555555555555554` to `0.4444444444444444`
-- `controller_fallback_planner` notes dropped from `37` to `8`
+Focused packet delta versus the prior packet:
 
-The key learning from the full aligned rerun:
+- readiness unchanged at `0.9627777777777777`
+- `controller_repair_avg` improved from `2.3333333333333335` to `0.8888888888888888`
+- `feedback_prior:refine_selection` dropped from `16` to `0`
+- `feedback_prior:read_region_text` dropped from `10` to `0`
+- `controller_fallback_planner` stayed at `8`
 
-- HF Gemma replayable `controller_repair_avg` dropped from `2.046875` to `1.296875`
-- HF Gemma replayable `controller_fallback_avg` dropped from `1.03125` to `0.28125`
-- HF Gemma live `controller_repair_avg` dropped from `2.3653846153846154` to `1.5192307692307692`
-- HF Gemma live `controller_fallback_avg` dropped from `1.0769230769230769` to `0.23076923076923078`
-- top-line readiness did not move
+Aligned full-lane delta for HF Gemma specialists:
 
-That is the current strongest new finding.
+- replayable:
+  - `controller_repair_avg` improved from `1.296875` to `0.71875`
+  - `controller_fallback_avg` stayed `0.28125`
+  - readiness stayed `0.976853125`
+- live:
+  - `controller_repair_avg` improved from `1.5192307692307692` to `0.8076923076923077`
+  - `controller_fallback_avg` stayed `0.23076923076923078`
+  - readiness stayed `0.9791653846153847`
+
+Interpretation:
+
+- the old visual follow-on repairs were inflating controller burden
+- removing them did not reduce the actual causal value of repair/fallback
+- the remaining burden is now more honestly concentrated in fallback planner and non-visual repair families
 
 ## What Not To Re-Learn
 
-Do not spend time re-proving these already-established points:
+Do not spend time re-proving:
 
-- MLX Gemma can now align on the same top-line readiness tier as the other headline rows
-- the older MLX Gemma executive-assistant judgment miss is closed
-- Qwen MLX is a real reproduced same-surface row
-- the direct in-process Gemma reasoner-only control is materially weaker than the improved Gemma stacks
-
-Those are already settled enough for the next research pass.
+- aligned top-line readiness parity exists
+- MLX Gemma’s earlier executive-assistant judgment miss is closed
+- MLX Qwen is a real same-surface comparator
+- the direct in-process Gemma reasoner-only control is still materially weaker on the older reproduced surface
 
 ## Next Best Move
 
-1. Target the remaining HF Gemma specialist note families directly.
-   Focus on:
-   - `feedback_prior:refine_selection`
-   - `feedback_prior:read_region_text`
+1. Attack the remaining HF Gemma specialist note families directly.
+Primary targets:
+   - `controller_fallback_planner`
+   - `repaired_arguments:extract_layout`
+   - `intent_prior:record_or_update`
+   - `intent_prior:inspect_or_lookup`
 
-2. Keep using the focused replayable packet as the main Gemma research harness.
-   Do not jump to blind full-lane reruns first.
+2. Keep using the focused replayable packet first.
+Only rerun the aligned `32 / 26` surface after the packet shifts again.
 
-3. Install the local Gemma `31B` `GGUF` artifact and run the first real `llama.cpp` posture row once the model exists locally.
-
-## Current Claim Boundary
-
-Safe current claim:
-
-- Moonie improved Gemma 4 materially as a local full-stack agent
-- all four aligned rows now tie on top-line readiness
-- HF Gemma specialists still need materially more controller help than the clean MLX rows
-
-Unsafe current claim:
-
-- Gemma broadly beats Qwen families
-- Gemma beats frontier closed models on the same harness
-- Gemma `31B` posture is already reproduced locally
+3. If the next question becomes runtime posture instead of controller dependence, switch to installing the Gemma `31B` local `GGUF` artifact and run the first real `llama.cpp` row.
 
 ## Verification State
 
-Current code-side regressions from the last pass:
+Current code-side verification from the latest patch:
 
-- targeted suite: `59 passed`
+- targeted suite: `61 passed`
 
-Documentation now points at:
+Benchmark outputs rebuilt:
 
-- the aligned `20260413Taligned_controller_burden_patch_v1_knowledge_work_alignment_32_26` batch
-- the focused `20260413Tresearch_ablation_focus_v3_knowledge_work_ablation_packet` batch
+- [`results/history/knowledge_work_board_latest.csv`](../../results/history/knowledge_work_board_latest.csv)
+- [`results/history/knowledge_work_history.md`](../../results/history/knowledge_work_history.md)
 
 ## Operational Notes
 
-- The board source of truth is still:
-  - [`results/history/knowledge_work_board_latest.csv`](../../results/history/knowledge_work_board_latest.csv)
-- The Gemma `31B` lane is blocked by missing local artifact availability:
+- `output/` and `tmp/` remain untracked scratch dirs
+- the Gemma `31B` lane is still blocked by local artifact availability:
   - `GEMMA4_31B_GGUF_PATH` unset
   - no local bundle under `/Users/cheickdiakite/models`

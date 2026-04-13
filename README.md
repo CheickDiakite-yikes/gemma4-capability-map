@@ -71,7 +71,7 @@ The current source-of-truth comparison surface is the aligned exploratory `32 / 
 
 - [`results/history/knowledge_work_board_latest.csv`](results/history/knowledge_work_board_latest.csv)
 - aligned batch:
-  - [`results/knowledge_work_matrix/20260413Taligned_controller_burden_patch_v1_knowledge_work_alignment_32_26`](results/knowledge_work_matrix/20260413Taligned_controller_burden_patch_v1_knowledge_work_alignment_32_26)
+  - [`results/knowledge_work_matrix/20260413Taligned_controller_burden_patch_v2_knowledge_work_alignment_32_26`](results/knowledge_work_matrix/20260413Taligned_controller_burden_patch_v2_knowledge_work_alignment_32_26)
 
 Important distinction:
 
@@ -549,7 +549,7 @@ This track is also wired into bounded KWA episodes, which is why visual follow-o
 The current board-backed headline comparison is the aligned exploratory `32 / 26` surface:
 
 - batch:
-  - [`results/knowledge_work_matrix/20260413Taligned_controller_burden_patch_v1_knowledge_work_alignment_32_26`](results/knowledge_work_matrix/20260413Taligned_controller_burden_patch_v1_knowledge_work_alignment_32_26)
+  - [`results/knowledge_work_matrix/20260413Taligned_controller_burden_patch_v2_knowledge_work_alignment_32_26`](results/knowledge_work_matrix/20260413Taligned_controller_burden_patch_v2_knowledge_work_alignment_32_26)
 - board source of truth:
   - [`results/history/knowledge_work_board_latest.csv`](results/history/knowledge_work_board_latest.csv)
 
@@ -558,7 +558,7 @@ Current same-surface rows:
 | System | Replayable readiness | Live readiness | Replayable controller repair | Replayable controller fallback | Replayable clean rate |
 | --- | --- | --- | --- | --- | --- |
 | `oracle_gemma4_e2b` | `0.976853125` | `0.9791653846153847` | `0.578125` | `0.0` | `0.8395875` |
-| `hf_gemma4_e2b_specialists_cpu` | `0.976853125` | `0.9791653846153847` | `1.296875` | `0.28125` | `0.46875` |
+| `hf_gemma4_e2b_specialists_cpu` | `0.976853125` | `0.9791653846153847` | `0.71875` | `0.28125` | `0.46875` |
 | `mlx_qwen3_8b_reasoner_only` | `0.976853125` | `0.9791653846153847` | `0.0` | `0.0` | `1.0` |
 | `mlx_gemma4_e2b_reasoner_only` | `0.976853125` | `0.9791653846153847` | `0.0` | `0.0` | `1.0` |
 
@@ -568,7 +568,7 @@ Plain-English interpretation:
 - the HF Gemma specialist stack still needs materially more controller help to get there
 - the MLX rows are currently planner-clean and controller-clean
 - the interesting remaining difference is no longer top-line readiness
-- it is how much harness help Gemma still needs under the HF specialist path
+- it is how much harness help Gemma still needs under the HF specialist path after the old visual follow-on repair families were removed
 
 The direct in-process Gemma control remains important, but it is still on the older reproduced `26 / 20` surface:
 
@@ -641,9 +641,11 @@ On the aligned `32 / 26` surface, HF Gemma specialists, MLX Qwen, MLX Gemma, and
 
 But HF Gemma specialists do not get there the same way:
 
-- replayable `controller_repair_avg`: `1.296875`
+- replayable `controller_repair_avg`: `0.71875`
 - replayable `controller_fallback_avg`: `0.28125`
 - replayable `raw_planning_clean_rate_avg`: `0.46875`
+- live `controller_repair_avg`: `0.8076923076923077`
+- live `controller_fallback_avg`: `0.23076923076923078`
 
 The clean MLX rows stay at:
 
@@ -655,10 +657,10 @@ That is real research signal, not benchmark noise.
 
 ### 4. Controller burden is reducible by controller design, not only by model change
 
-This turn’s focused replayable ablation packet is the clearest example:
+The latest focused replayable ablation packet is the clearest example:
 
 - packet:
-  - [`results/knowledge_work_matrix/20260413Tresearch_ablation_focus_v3_knowledge_work_ablation_packet`](results/knowledge_work_matrix/20260413Tresearch_ablation_focus_v3_knowledge_work_ablation_packet)
+  - [`results/knowledge_work_matrix/20260413Tresearch_ablation_focus_v4_knowledge_work_ablation_packet_knowledge_work_ablation_packet`](results/knowledge_work_matrix/20260413Tresearch_ablation_focus_v4_knowledge_work_ablation_packet_knowledge_work_ablation_packet)
 - baseline readiness stayed flat at:
   - `0.9627777777777777`
 - but planner/controller burden dropped materially
@@ -676,15 +678,17 @@ Packet-level helper ranking:
 
 Plain English:
 
-- repair is doing essential work on this slice
-- fallback is also doing essential work
+- repair is still doing essential work on this slice
+- fallback is still doing essential work
 - visual rescue is not what is carrying this packet
 
-The most useful controller result from the packet rerun is this:
+The most useful controller result from the latest packet rerun is this:
 
-- `controller_fallback_planner` note family dropped from `37` to `8`
+- `feedback_prior:refine_selection` dropped from `16` to `0`
+- `feedback_prior:read_region_text` dropped from `10` to `0`
 - packet readiness stayed unchanged
-- baseline packet `controller_fallback_avg` dropped from `2.0555555555555554` to `0.4444444444444444`
+- baseline packet `controller_repair_avg` dropped from `2.3333333333333335` to `0.8888888888888888`
+- `controller_fallback_planner` remained at `8`
 
 That is the kind of change that actually counts as learning.
 
@@ -1072,8 +1076,10 @@ Useful runtime and product entrypoints:
 
 - reduce HF Gemma specialist controller dependence further without losing the current aligned readiness tier
 - target the dominant remaining note families:
-  - `feedback_prior:refine_selection`
-  - `feedback_prior:read_region_text`
+  - `controller_fallback_planner`
+  - `repaired_arguments:extract_layout`
+  - `intent_prior:record_or_update`
+  - `intent_prior:inspect_or_lookup`
 - keep hardening tool-family choice and direction-following seams
 - keep product surfaces benchmark-backed and aligned with runtime semantics
 - install the local Gemma `31B` `GGUF` artifact and run the first real `llama.cpp` posture row
