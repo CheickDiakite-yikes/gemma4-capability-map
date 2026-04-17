@@ -4,7 +4,13 @@ import csv
 import json
 from pathlib import Path
 
-from gemma4_capability_map.app.view_models import build_console_snapshot, build_session_snapshot, default_session_id
+from gemma4_capability_map.app.view_models import (
+    build_console_snapshot,
+    build_session_snapshot,
+    build_workspace_snapshot,
+    default_gemma_mlx_profile_id,
+    default_session_id,
+)
 from gemma4_capability_map.reporting.knowledge_work_board import build_board_rows, write_board_exports
 from gemma4_capability_map.runtime.core import LocalAgentRuntime
 
@@ -168,3 +174,32 @@ def test_default_session_id_prefers_pending_approval_over_completed(tmp_path: Pa
 
     assert default_session_id(snapshot) == awaiting.session_id
     assert completed.session_id != awaiting.session_id
+
+
+def test_workspace_snapshot_defaults_to_mlx_profile_and_groups_projects(tmp_path: Path) -> None:
+    runtime = LocalAgentRuntime(results_root=tmp_path / "runtime")
+    alpha = runtime.launch_session(
+        workflow_id="executive_visual_dashboard_review",
+        system_id="oracle_gemma4_e2b",
+        lane="replayable_core",
+        project_id="alpha-launchpad",
+        background=False,
+    )
+    beta = runtime.launch_session(
+        workflow_id="finance_visual_invoice_review",
+        system_id="oracle_gemma4_e2b",
+        lane="replayable_core",
+        project_id="beta-review",
+        background=False,
+    )
+
+    snapshot = build_workspace_snapshot(runtime)
+
+    assert default_gemma_mlx_profile_id(snapshot) == "mlx_gemma4_e2b_reasoner_only"
+    assert snapshot["workspace_default_profile_id"] == "mlx_gemma4_e2b_reasoner_only"
+    project_cards = {card["project_id"]: card for card in snapshot["project_cards"]}
+    assert set(project_cards) == {"alpha-launchpad", "beta-review"}
+    assert project_cards["alpha-launchpad"]["latest_session_id"] == alpha.session_id
+    assert project_cards["beta-review"]["latest_session_id"] == beta.session_id
+    assert project_cards["beta-review"]["approval_count"] == 1
+    assert project_cards["beta-review"]["sessions"][0].session_id == beta.session_id

@@ -31,6 +31,21 @@ def inject_theme(mode: str = "desktop") -> None:
           padding-top: 1rem;
         }
         """
+    elif mode == "workspace":
+        css += """
+        .stApp {
+          background:
+            radial-gradient(circle at top left, rgba(255, 255, 255, 0.92), rgba(246, 242, 236, 0.98) 46%),
+            linear-gradient(180deg, #f7f3ed 0%, #f3efe7 100%);
+          color: #1f221c;
+          font-family: "Avenir Next", "Instrument Sans", "Segoe UI", sans-serif;
+        }
+        .stApp [data-testid="block-container"] {
+          max-width: 1780px;
+          padding-top: 1rem;
+          padding-bottom: 1.5rem;
+        }
+        """
     st.markdown(f"<style>{css}</style>", unsafe_allow_html=True)
 
 

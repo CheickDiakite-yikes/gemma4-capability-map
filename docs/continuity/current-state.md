@@ -11,6 +11,26 @@ Current generated corpus on disk:
 
 The current headline comparison surface is the aligned exploratory `32 / 26` lane.
 
+On the product side, the repo now also has a dedicated React desktop harness for real local use:
+
+- `frontend`
+  - defaults to `mlx_gemma4_e2b_reasoner_only`
+  - groups sessions by project
+  - keeps conversation in the center
+  - exposes summary / review / browser context on the right
+  - long-polls the real session stream endpoint instead of pretending the UI is live
+  - surfaces backend connection state directly from the API health check
+  - settles completed session state in the rail from the stream payload instead of relying only on a potentially stale session list snapshot
+  - is now the main “showable” product surface for local Gemma work
+  - runs against `moonie-agent-api`, not inside Streamlit
+
+The product loop is now verified end to end:
+
+- launched a fresh `mlx_gemma4_e2b_reasoner_only` `Dashboard Visual Review` session from the React shell
+- observed `created -> instruction_updated -> warming -> running -> artifacts_ready -> completed` through the live workspace
+- confirmed the browser pane renders runtime-backed preview assets and browser-state events
+- confirmed the sidebar/session pills settle back to `completed` after the stream/list race fix
+
 Relevant batches:
 
 - aligned HF Gemma controller-burden rerun:
@@ -132,12 +152,16 @@ Removing them via deterministic runtime sequencing changed controller metrics ma
 4. The remaining Gemma gap is no longer “can Gemma tie the lane?”
 The remaining gap is: how much controller help still remains after the obvious visual follow-ons are made deterministic?
 
+5. The repo is no longer only benchmark-legible.
+There is now a real Gemma MLX React workspace shell that sits on the same runtime semantics as the benchmark and is usable for live local sessions.
+
 ## Current Blockers
 
 - Gemma `31B` `GGUF` / `llama.cpp` still has no local artifact:
   - `GEMMA4_31B_GGUF_PATH` unset
   - no local bundle under `/Users/cheickdiakite/models`
 - board exports are updated, but README and continuity docs should always be treated as the narrative layer; `knowledge_work_board_latest.csv` alone is not a same-batch comparison argument
+- the new React workspace is a real harness shell, but it is still not a native desktop app and does not yet embed a full browser engine; browser execution still lives in the runtime trace layer
 
 ## Repo Truth
 

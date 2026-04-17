@@ -10,6 +10,14 @@ The current seam is:
 
 - reduce HF Gemma specialist controller burden further
 - without losing the current aligned readiness tier
+- keep turning the React Gemma MLX workspace into a genuinely usable local harness surface instead of a benchmark-adjacent demo
+
+The latest product-side gain is no longer theoretical:
+
+- the React workspace now runs against the real API in a live loop
+- the shell uses backend health plus long-poll session streaming
+- a fresh `mlx_gemma4_e2b_reasoner_only` session was launched from the UI and observed through completion
+- the stream payload now wins over stale session-list snapshots so the rail settles correctly after completion
 
 ## Current Source Runs
 
@@ -119,17 +127,25 @@ Do not spend time re-proving:
 
 ## Next Best Move
 
-1. Attack the remaining HF Gemma specialist note families directly.
+1. Keep strengthening the React Gemma MLX workspace.
+Primary product targets:
+   - decide whether the current long-poll loop should stay or graduate into SSE/websocket transport
+   - richer browser-side context
+   - stronger artifact previews
+   - tighter project/thread navigation
+   - decide the next desktop host for a real embedded browser surface
+
+2. Attack the remaining HF Gemma specialist note families directly.
 Primary targets:
    - `controller_fallback_planner`
    - `repaired_arguments:extract_layout`
    - `intent_prior:record_or_update`
    - `intent_prior:inspect_or_lookup`
 
-2. Keep using the focused replayable packet first.
+3. Keep using the focused replayable packet first.
 Only rerun the aligned `32 / 26` surface after the packet shifts again.
 
-3. If the next question becomes runtime posture instead of controller dependence, switch to installing the Gemma `31B` local `GGUF` artifact and run the first real `llama.cpp` row.
+4. If the next question becomes runtime posture instead of controller dependence, switch to installing the Gemma `31B` local `GGUF` artifact and run the first real `llama.cpp` row.
 
 ## Verification State
 

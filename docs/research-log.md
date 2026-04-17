@@ -1,6 +1,103 @@
 # Research Log
 
+# 2026-04-14
+
+### The React Gemma MLX workspace now runs a real end-to-end local session loop
+
+- Product/frontend implementation:
+  - [`frontend/src/App.tsx`](/Users/cheickdiakite/Codex/moonie/frontend/src/App.tsx)
+  - [`frontend/src/api.ts`](/Users/cheickdiakite/Codex/moonie/frontend/src/api.ts)
+  - [`frontend/src/styles.css`](/Users/cheickdiakite/Codex/moonie/frontend/src/styles.css)
+- Verification:
+  - `npm run build`
+  - `uv run pytest tests/test_runtime_api.py tests/test_runtime_core.py`
+  - live browser verification against:
+    - `uv run moonie-agent-api --host 127.0.0.1 --port 8765`
+    - `npm run dev -- --host 127.0.0.1 --port 5174`
+
+- What changed:
+  - the desktop shell now behaves like a real local agent workspace instead of a styled snapshot viewer
+  - the frontend API client now has backend health checks and abortable requests
+  - the workspace now long-polls the real session stream endpoint while a session is active
+  - the status strip exposes backend state, runtime posture, and session-loop state directly in the shell
+  - the stream payload now overrides stale list responses locally so completed sessions settle correctly in the rail
+  - the desktop shell was tightened visually toward the reference:
+    - quieter project selection
+    - slimmer composer
+    - fewer heavy nested boxes in the browser pane
+    - mobile-only controls hidden on desktop
+
+- Live product verification:
+  - launched a fresh `mlx_gemma4_e2b_reasoner_only` `Dashboard Visual Review` session from the React UI
+  - observed `created -> instruction_updated -> warming -> running -> artifacts_ready -> completed` in the center timeline
+  - verified browser preview and browser-state events in the right pane
+  - confirmed the project rail updated from `running` to `completed` after the stream/list race fix
+
+- Product interpretation:
+  - Moonie now has a real showable local harness loop for Gemma on MLX, not just a design shell
+  - the next frontend question is no longer “can the UI talk to the backend?”; it is how far to push the desktop host and artifact/browser fidelity
+
 # 2026-04-13
+
+### The main Gemma MLX product harness is now a real React frontend over the local API
+
+- Product/frontend implementation:
+  - [`frontend/src/App.tsx`](/Users/cheickdiakite/Codex/moonie/frontend/src/App.tsx)
+  - [`frontend/src/api.ts`](/Users/cheickdiakite/Codex/moonie/frontend/src/api.ts)
+  - [`frontend/src/types.ts`](/Users/cheickdiakite/Codex/moonie/frontend/src/types.ts)
+  - [`frontend/src/styles.css`](/Users/cheickdiakite/Codex/moonie/frontend/src/styles.css)
+  - [`frontend/package.json`](/Users/cheickdiakite/Codex/moonie/frontend/package.json)
+  - [`frontend/vite.config.ts`](/Users/cheickdiakite/Codex/moonie/frontend/vite.config.ts)
+- API support:
+  - [`src/gemma4_capability_map/api/app.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/api/app.py)
+- Regression coverage:
+  - [`tests/test_runtime_api.py`](/Users/cheickdiakite/Codex/moonie/tests/test_runtime_api.py)
+
+- What changed:
+  - the main product harness direction is no longer Streamlit
+  - the repo now has a proper React desktop shell backed by `moonie-agent-api`
+  - the shell implements the intended three-pane structure directly:
+    - left project/thread rail
+    - center conversation/composer workspace
+    - right `Summary` / `Review` / `Browser` context
+  - the browser pane now uses real runtime/API data, local file preview, and browser-state events rather than a benchmark-only placeholder
+  - the API now supports browser-frontend needs directly via CORS preflight and safe local file serving
+
+- Verification:
+  - frontend build: `npm run build`
+  - API/runtime regressions: `15 passed`
+  - live browser smoke:
+    - `uv run moonie-agent-api --host 127.0.0.1 --port 8765`
+    - `npm run dev -- --host 127.0.0.1 --port 5173`
+    - verified in-browser at `http://127.0.0.1:5173`
+
+- Research/product interpretation:
+  - Moonie now has a stronger answer to “what can people actually use?” than “open Streamlit”
+  - the screenshot reference turned out to be architectural guidance, not a styling exercise
+  - a proper local Gemma harness needs a real frontend shell over the runtime API; the right next question is the eventual desktop host for embedded browser behavior
+
+### A dedicated Gemma MLX workspace now exists as a real product harness surface
+
+- Product/runtime wiring:
+  - [`src/gemma4_capability_map/app/views/gemma_mlx_workspace.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/app/views/gemma_mlx_workspace.py)
+  - [`src/gemma4_capability_map/app/streamlit_app.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/app/streamlit_app.py)
+  - [`src/gemma4_capability_map/app/view_models.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/app/view_models.py)
+  - [`src/gemma4_capability_map/app/assets/console.css`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/app/assets/console.css)
+  - [`src/gemma4_capability_map/app/theme.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/app/theme.py)
+- Regression coverage:
+  - [`tests/test_view_models.py`](/Users/cheickdiakite/Codex/moonie/tests/test_view_models.py)
+
+- What changed:
+  - the Streamlit router now exposes `gemma_mlx_workspace` as the primary desktop harness surface
+  - the workspace defaults to `mlx_gemma4_e2b_reasoner_only`
+  - sessions are grouped by `project_id` in a left rail
+  - the center pane is now a conversation/composer surface instead of a benchmark dashboard
+  - the right pane keeps `Summary`, `Review`, and `Browser` context attached to the selected runtime session
+
+- Research/product interpretation:
+  - Moonie now has a stronger answer to “what can people actually use?” than “open the board”
+  - the benchmark/runtime substrate is now materially closer to a real local agent shell
+  - the next product questions shift from “can we render the data?” to “how live and browser-native can this workspace become while staying benchmark-backed?”
 
 ### Deterministic visual follow-ons removed a real controller-burden artifact without changing outcomes
 

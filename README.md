@@ -64,8 +64,9 @@ The current repo state is:
 - `26` live `KnowledgeWorkArena` episodes in the generated corpus
 - a shared local runtime with persistent sessions, approvals, artifacts, and event traces
 - a local CLI and local HTTP API over that runtime
+- a proper React desktop harness aimed at Gemma 4 on MLX over the same local API
 - experimental runtime-posture support for Gemma `31B` `GGUF` / `llama.cpp`
-- benchmark-backed desktop and mobile shell surfaces over the same runtime contract
+- benchmark-backed Streamlit research and mobile shell surfaces over the same runtime contract
 
 The current source-of-truth comparison surface is the aligned exploratory `32 / 26` matrix:
 
@@ -124,9 +125,22 @@ The repo is no longer only a benchmark runner. It now has an explicit local prod
   - CLI for profiles, workflows, sessions, runs, approvals, and event inspection
 - `moonie-agent-api`
   - local HTTP API for thin desktop and mobile clients
-- Streamlit surfaces
+- React desktop harness
+  - [`frontend`](frontend)
+    - a proper three-pane desktop shell
+    - left rail for projects and threads
+    - center conversation and composer workspace
+    - right `Summary` / `Review` / `Browser` context
+    - defaults to `mlx_gemma4_e2b_reasoner_only`
+    - built against the local runtime API rather than embedding benchmark logic into the UI
+    - uses the real session stream endpoint plus backend health checks rather than static benchmark snapshots
+    - now wins stream payload state over stale list snapshots so completed/approval transitions settle correctly in the rail
+    - intentionally modeled after the attached desktop agent-coworker reference, which implies a real app shell rather than a benchmark dashboard
+- Streamlit research surfaces
   - `operator_console`
+    - benchmark and runtime operations view
   - `mobile_companion`
+    - lighter review/approval companion
   - benchmark board, episode explorer, and trace explorer views
 
 The benchmark and product layers are intentionally coupled:
@@ -139,6 +153,13 @@ This matters for the current research questions. The repo is explicitly trying t
 
 - a model that is decent in chat
 - a model that is usable as a real local agent with projects, tools, approvals, resumes, and artifacts
+
+The product implication is now explicit:
+
+- the repo no longer only exposes a benchmark dashboard
+- it now has a usable Gemma-first workspace shell for actually launching and inspecting local sessions
+- the first product posture is Gemma 4 on MLX, because that is the most practical Apple-Silicon-native local deployment in the current repo
+- the main harness direction is now a proper React frontend over the local API, with Streamlit kept for benchmark/research tooling
 
 ### Published External Benchmark Context
 
@@ -197,11 +218,19 @@ Desktop and mobile are supposed to feel like the same system, but not the same l
 
 Desktop expression:
 
-- dark
-- terminal-native
-- low-chrome
-- split-pane
-- operational and precise
+- `operator_console`
+  - dark
+  - terminal-native
+  - low-chrome
+  - split-pane
+  - operational and precise
+- `frontend`
+  - lighter desktop shell
+  - project rail on the left
+  - conversation/workspace in the center
+  - review/browser context on the right
+  - closer to a local agent IDE than a benchmark dashboard
+  - designed as the product-facing shell that can later move into Electron or another native desktop host for true embedded browser behavior
 
 Mobile expression:
 
@@ -222,7 +251,24 @@ Shared identity:
 
 ### Desktop Priorities
 
-The desktop shell is the main operator console in this phase.
+Desktop is now split into two deliberate surfaces:
+
+- `frontend`
+  - the main user-facing local harness surface
+- `operator_console`
+  - the research and operations surface
+
+The workspace priorities are:
+
+- project-first navigation
+- session continuity across retries and resumes
+- a centered conversation/composer flow
+- right-pane context for summary, review, and browser state
+- a default Gemma MLX posture instead of a model-agnostic launch sheet
+- product UX that behaves like a real desktop shell instead of a benchmark selector
+- browser-pane state that can later be upgraded from a web preview to a real desktop webview host
+
+The operator-console priorities remain:
 
 - left rail for sessions, projects, filters, and recent work
 - center pane for conversation and task execution
@@ -863,7 +909,28 @@ Run a deterministic smoke:
 uv run python scripts/run_eval.py --pipeline monolith --backend oracle --limit 12
 ```
 
-Launch the Streamlit benchmark and product surfaces:
+Launch the local API:
+
+```bash
+uv run moonie-agent-api --host 127.0.0.1 --port 8765
+```
+
+Launch the React desktop harness:
+
+```bash
+cd frontend
+npm install
+npm run dev -- --host 127.0.0.1 --port 5173
+```
+
+Build the React desktop harness:
+
+```bash
+cd frontend
+npm run build
+```
+
+Launch the Streamlit benchmark and research surfaces:
 
 ```bash
 uv run streamlit run src/gemma4_capability_map/app/streamlit_app.py
@@ -877,13 +944,7 @@ uv run moonie-agent workflows
 uv run moonie-agent run --workflow-id executive_visual_dashboard_review --system-id oracle_gemma4_e2b
 ```
 
-Launch the local API:
-
-```bash
-uv run moonie-agent-api --host 127.0.0.1 --port 8765
-```
-
-The Streamlit app now includes both benchmark and product surfaces. Use the `Surface` selector to switch between:
+The Streamlit app now includes the benchmark and research surfaces. Use the `Surface` selector to switch between:
 
 - `operator_console`
 - `mobile_companion`
@@ -891,9 +952,36 @@ The Streamlit app now includes both benchmark and product surfaces. Use the `Sur
 - `knowledge_work_episodes`
 - `task_traces`
 
+If the goal is “use Moonie as a local Gemma harness,” start the local API plus the React desktop app.
+If the goal is “inspect the benchmark and the controller/runtime layers,” start in `operator_console`.
+
 ## Common Workflows
 
 ### Local agent harness
+
+Primary desktop harness surface:
+
+```bash
+uv run moonie-agent-api --host 127.0.0.1 --port 8765
+cd frontend
+npm install
+npm run dev -- --host 127.0.0.1 --port 5173
+```
+
+Then open [`http://127.0.0.1:5173`](http://127.0.0.1:5173).
+
+Recommended first run inside the workspace:
+
+- runtime: `mlx_gemma4_e2b_reasoner_only`
+- lane: `live_web_stress` if you want the browser-shaped product feel
+- lane: `replayable_core` if you want deterministic benchmark-backed behavior
+- keep in mind that the current `Browser` pane is a synchronized browser-state shell over the runtime API; it previews local assets and browser state now, and is designed to become a real embedded desktop webview later
+
+This flow is now real, not just scaffolded:
+
+- the React shell can launch a fresh `mlx_gemma4_e2b_reasoner_only` session through `moonie-agent-api`
+- the center pane updates through the session stream while the run warms, executes, and completes
+- the left rail and status strip now settle correctly when the stream reaches `completed`, instead of staying stuck on a stale `running` list snapshot
 
 List profiles:
 
@@ -1022,8 +1110,9 @@ results/runtime/                     local runtime sessions, traces, approvals, 
 scripts/                             generators, runners, probes, report builders
 src/gemma4_capability_map/api/       local API
 src/gemma4_capability_map/runtime/   local runtime substrate
-src/gemma4_capability_map/app/       Streamlit surfaces
+src/gemma4_capability_map/app/       Streamlit research and reporting surfaces
 src/gemma4_capability_map/           benchmark runtime, metrics, pipelines, UI
+frontend/                            React desktop harness for Gemma MLX
 tests/                               regression and schema coverage
 ```
 
@@ -1067,8 +1156,15 @@ Useful runtime and product entrypoints:
   - [`src/gemma4_capability_map/runtime/cli.py`](src/gemma4_capability_map/runtime/cli.py)
 - local API:
   - [`src/gemma4_capability_map/api/app.py`](src/gemma4_capability_map/api/app.py)
+- React app:
+  - [`frontend/src/App.tsx`](frontend/src/App.tsx)
+  - [`frontend/src/api.ts`](frontend/src/api.ts)
+  - [`frontend/src/types.ts`](frontend/src/types.ts)
+  - [`frontend/src/styles.css`](frontend/src/styles.css)
 - Streamlit router:
   - [`src/gemma4_capability_map/app/streamlit_app.py`](src/gemma4_capability_map/app/streamlit_app.py)
+- workspace view models:
+  - [`src/gemma4_capability_map/app/view_models.py`](src/gemma4_capability_map/app/view_models.py)
 
 ## Roadmap
 

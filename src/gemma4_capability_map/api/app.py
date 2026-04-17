@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import argparse
 import json
+import mimetypes
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from pathlib import Path
 from typing import Any
 from urllib.parse import parse_qs, urlparse
 
@@ -12,6 +14,12 @@ from gemma4_capability_map.runtime.schemas import ApprovalStatus
 
 class LocalAgentAPIHandler(BaseHTTPRequestHandler):
     runtime = LocalAgentRuntime()
+
+    def do_OPTIONS(self) -> None:  # noqa: N802
+        self.send_response(204)
+        self._send_cors_headers()
+        self.send_header("Content-Length", "0")
+        self.end_headers()
 
     def do_GET(self) -> None:  # noqa: N802
         parsed = urlparse(self.path)
@@ -36,6 +44,18 @@ class LocalAgentAPIHandler(BaseHTTPRequestHandler):
             include_all = str(query.get("all", ["false"])[0]).lower() == "true"
             approvals = self.runtime.list_approvals(status=None if include_all else ApprovalStatus.PENDING)
             self._send_json({"approvals": [approval.model_dump(mode="json") for approval in approvals]})
+            return
+        if path == "/v1/files":
+            raw_path = query.get("path", [""])[0]
+            try:
+                target = _safe_file_path(raw_path, self.runtime)
+            except ValueError as exc:
+                self._send_json({"error": str(exc)}, status=400)
+                return
+            if not target.exists() or not target.is_file():
+                self._send_json({"error": f"File not found: {target}"}, status=404)
+                return
+            self._send_file(target)
             return
         if path.startswith("/v1/sessions/"):
             parts = path.split("/")
@@ -174,9 +194,25 @@ class LocalAgentAPIHandler(BaseHTTPRequestHandler):
         body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
         self.send_response(status)
         self.send_header("Content-Type", "application/json; charset=utf-8")
+        self._send_cors_headers()
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
         self.wfile.write(body)
+
+    def _send_file(self, path: Path) -> None:
+        body = path.read_bytes()
+        content_type, _ = mimetypes.guess_type(path.name)
+        self.send_response(200)
+        self.send_header("Content-Type", content_type or "application/octet-stream")
+        self._send_cors_headers()
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
+    def _send_cors_headers(self) -> None:
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type")
 
 
 def serve(host: str = "127.0.0.1", port: int = 8765, runtime: LocalAgentRuntime | None = None) -> ThreadingHTTPServer:
@@ -203,3 +239,16 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+
+def _safe_file_path(raw_path: str, runtime: LocalAgentRuntime) -> Path:
+    if not raw_path:
+        raise ValueError("Missing file path.")
+    target = Path(raw_path).expanduser().resolve()
+    allowed_roots = [
+        Path.cwd().resolve(),
+        runtime.results_root.resolve(),
+    ]
+    if any(target == root or root in target.parents for root in allowed_roots):
+        return target
+    raise ValueError(f"File path is outside allowed roots: {target}")

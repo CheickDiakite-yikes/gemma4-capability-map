@@ -9,7 +9,11 @@ import streamlit as st
 
 from gemma4_capability_map.app.theme import inject_theme, pill_html
 from gemma4_capability_map.app.view_models import build_console_snapshot
-from gemma4_capability_map.app.views import render_mobile_companion, render_operator_console
+from gemma4_capability_map.app.views import (
+    render_gemma_mlx_workspace,
+    render_mobile_companion,
+    render_operator_console,
+)
 from gemma4_capability_map.knowledge_work.replay import load_episode_traces
 from gemma4_capability_map.metrics.failure_taxonomy import failure_tags
 from gemma4_capability_map.reporting.knowledge_work_board import (
@@ -29,6 +33,7 @@ def main() -> None:
     mode = st.sidebar.selectbox(
         "Surface",
         [
+            "gemma_mlx_workspace",
             "operator_console",
             "mobile_companion",
             "knowledge_work_board",
@@ -37,8 +42,19 @@ def main() -> None:
         ],
         index=0,
     )
-    theme_mode = "mobile" if mode == "mobile_companion" else "board" if mode == "knowledge_work_board" else "desktop"
+    theme_mode = (
+        "workspace"
+        if mode == "gemma_mlx_workspace"
+        else "mobile"
+        if mode == "mobile_companion"
+        else "board"
+        if mode == "knowledge_work_board"
+        else "desktop"
+    )
     inject_theme(theme_mode)
+    if mode == "gemma_mlx_workspace":
+        render_gemma_mlx_workspace(_runtime())
+        return
     if mode == "operator_console":
         render_operator_console(_runtime())
         return

@@ -25,6 +25,12 @@ def _json_request(base_url: str, path: str, method: str = "GET", payload: dict |
         raise AssertionError(exc.read().decode("utf-8")) from exc
 
 
+def _raw_request(base_url: str, path: str, method: str = "GET") -> tuple[int, dict[str, str], bytes]:
+    request = Request(f"{base_url}{path}", method=method)
+    with urlopen(request, timeout=30) as response:  # noqa: S310
+        return response.status, dict(response.headers.items()), response.read()
+
+
 def test_local_agent_api_serves_runtime_sessions(tmp_path: Path) -> None:
     runtime = LocalAgentRuntime(results_root=tmp_path / "runtime")
     server = serve(host="127.0.0.1", port=0, runtime=runtime)
@@ -207,6 +213,34 @@ def test_local_agent_api_filters_sessions_and_lists_approvals(tmp_path: Path) ->
         assert approvals["approvals"][0]["session_id"] == approval_session["session_id"]
         assert len(all_approvals["approvals"]) == 1
         assert approval_stream["pending_approval"]["session_id"] == approval_session["session_id"]
+    finally:
+        server.shutdown()
+        server.server_close()
+        thread.join(timeout=5)
+
+
+def test_local_agent_api_supports_frontend_preflight_and_file_preview(tmp_path: Path) -> None:
+    runtime_root = tmp_path / "runtime"
+    runtime = LocalAgentRuntime(results_root=runtime_root)
+    preview_file = runtime_root / "preview.txt"
+    preview_file.parent.mkdir(parents=True, exist_ok=True)
+    preview_file.write_text("frontend preview", encoding="utf-8")
+
+    server = serve(host="127.0.0.1", port=0, runtime=runtime)
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    base_url = f"http://127.0.0.1:{server.server_address[1]}"
+    try:
+        status, headers, _ = _raw_request(base_url, "/v1/files", method="OPTIONS")
+        assert status == 204
+        assert headers["Access-Control-Allow-Origin"] == "*"
+        assert "GET" in headers["Access-Control-Allow-Methods"]
+
+        request = Request(f"{base_url}/v1/files?{urlencode({'path': str(preview_file)})}", method="GET")
+        with urlopen(request, timeout=30) as response:  # noqa: S310
+            body = response.read().decode("utf-8")
+            assert response.headers["Access-Control-Allow-Origin"] == "*"
+            assert body == "frontend preview"
     finally:
         server.shutdown()
         server.server_close()

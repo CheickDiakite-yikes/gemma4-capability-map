@@ -8,6 +8,9 @@
 .ruff_cache/
 *.py[cod]
 **/__pycache__/
+node_modules/
+frontend/node_modules/
+frontend/dist/
 
 # Local app/editor state
 .streamlit/

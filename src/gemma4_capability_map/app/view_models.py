@@ -119,6 +119,17 @@ def build_console_snapshot(runtime: LocalAgentRuntime, board_path: str | Path = 
     }
 
 
+def build_workspace_snapshot(runtime: LocalAgentRuntime, board_path: str | Path = DEFAULT_BOARD_PATH) -> dict[str, Any]:
+    snapshot = build_console_snapshot(runtime, board_path=board_path)
+    board_rows = snapshot["board_rows"]
+    snapshot["workspace_default_profile_id"] = default_gemma_mlx_profile_id(snapshot) or default_profile_id(snapshot)
+    snapshot["project_cards"] = _build_project_cards(snapshot["sessions"], snapshot["approvals"])
+    snapshot["mlx_profile_row"] = _latest_profile_row(board_rows, "mlx_gemma4_e2b_reasoner_only")
+    snapshot["mlx_qwen_profile_row"] = _latest_profile_row(board_rows, "mlx_qwen3_8b_reasoner_only")
+    snapshot["hf_specialist_profile_row"] = _latest_profile_row(board_rows, "hf_gemma4_e2b_specialists_cpu")
+    return snapshot
+
+
 def build_session_snapshot(runtime: LocalAgentRuntime, session_id: str) -> dict[str, Any] | None:
     try:
         session = runtime.get_session(session_id)
@@ -201,6 +212,12 @@ def default_profile_id(snapshot: dict[str, Any]) -> str | None:
     return profiles[0].system_id if profiles else None
 
 
+def default_gemma_mlx_profile_id(snapshot: dict[str, Any]) -> str | None:
+    profiles = snapshot.get("profiles", [])
+    mlx_profile = next((profile for profile in profiles if profile.system_id == "mlx_gemma4_e2b_reasoner_only"), None)
+    return mlx_profile.system_id if mlx_profile is not None else None
+
+
 def default_session_id(snapshot: dict[str, Any]) -> str | None:
     sessions = snapshot.get("sessions", [])
     if not sessions:
@@ -243,6 +260,74 @@ def _session_priority(session: Any) -> tuple[int, int]:
 def _average_metric(rows: list[dict[str, Any]], key: str) -> float:
     values = [float(row.get(key, 0.0) or 0.0) for row in rows]
     return sum(values) / len(values) if values else 0.0
+
+
+def _latest_profile_row(rows: list[dict[str, Any]], system_id: str) -> dict[str, Any]:
+    matches = [row for row in rows if row.get("system_id") == system_id]
+    if not matches:
+        return {}
+    preferred = sorted(
+        matches,
+        key=lambda row: (
+            -(row.get("episode_count") or 0.0),
+            -(row.get("real_world_readiness_avg") or 0.0),
+            str(row.get("run_intent", "")),
+        ),
+    )
+    return preferred[0]
+
+
+def _build_project_cards(sessions: list[Any], approvals: list[Any]) -> list[dict[str, Any]]:
+    approval_session_ids = {approval.session_id for approval in approvals}
+    grouped: dict[str, list[Any]] = {}
+    for session in sessions:
+        project_id = session.project_id or "general"
+        grouped.setdefault(project_id, []).append(session)
+
+    cards: list[dict[str, Any]] = []
+    for project_id, project_sessions in grouped.items():
+        ordered_sessions = sorted(
+            project_sessions,
+            key=lambda session: (
+                _session_priority(session),
+                session.last_activity_at or session.updated_at or session.created_at,
+            ),
+            reverse=True,
+        )
+        latest = ordered_sessions[0]
+        cards.append(
+            {
+                "project_id": project_id,
+                "title": _humanize_project_id(project_id),
+                "session_count": len(project_sessions),
+                "running_count": sum(
+                    session.status.value in {"pending", "warming", "running", "resuming", "retrying"}
+                    for session in project_sessions
+                ),
+                "approval_count": sum(session.session_id in approval_session_ids for session in project_sessions),
+                "latest_activity_at": latest.last_activity_at or latest.updated_at or latest.created_at,
+                "latest_message": latest.latest_message,
+                "latest_session_id": latest.session_id,
+                "sessions": ordered_sessions,
+            }
+        )
+    return sorted(
+        cards,
+        key=lambda card: (
+            -card["approval_count"],
+            -card["running_count"],
+            card["latest_activity_at"],
+            card["title"].lower(),
+        ),
+        reverse=True,
+    )
+
+
+def _humanize_project_id(project_id: str) -> str:
+    label = project_id.replace("_", " ").replace("-", " ").strip()
+    if not label:
+        return "General"
+    return " ".join(part.capitalize() for part in label.split())
 
 
 def _normalize_board_row(row: dict[str, Any]) -> dict[str, Any]:

@@ -2,7 +2,29 @@
 
 ## Immediate
 
-### 1. Reduce the remaining HF Gemma specialist controller burden on the aligned `32 / 26` surface
+### 1. Turn the new React Gemma MLX workspace into a stronger live local harness
+
+Current state:
+
+- the React workspace exists and is wired to the shared runtime through `moonie-agent-api`
+- it defaults to `mlx_gemma4_e2b_reasoner_only`
+- it now exposes project grouping, thread launch, retry/resume, approval handling, and summary/review/browser context
+- it now long-polls the real session stream endpoint and shows backend health in the shell
+- a fresh MLX session has already been launched and observed end to end from the React UI
+
+Next product moves:
+
+- move from the current long-poll loop to a more explicit streaming transport only if it buys real UX, not just technical novelty
+- tighten project/thread navigation and thread previews
+- deepen the right-pane browser context beyond trace-backed cards
+- improve artifact preview fidelity for `.docx`, `.pptx`, and `.xlsx`
+- decide whether the next host step is Electron, Tauri, or a browser-only dev posture with the same React shell
+
+Success condition:
+
+- a person can use Moonie as a real local Gemma harness first, not just as a benchmark viewer
+
+### 2. Reduce the remaining HF Gemma specialist controller burden on the aligned `32 / 26` surface
 
 This is still the highest-value move.
 
@@ -26,7 +48,7 @@ Success condition:
 - lower controller repair and fallback further
 - improve raw planning cleanliness if possible
 
-### 2. Keep using the focused replayable packet before any broader rerun
+### 3. Keep using the focused replayable packet before any broader rerun
 
 Current packet:
 
@@ -42,7 +64,7 @@ Why:
 - the packet still shows the causal helper ranking clearly
 - it is the cheapest clean instrument for Gemma controller research
 
-### 3. Install the local Gemma `31B` `GGUF` artifact and run the first real `llama.cpp` posture row
+### 4. Install the local Gemma `31B` `GGUF` artifact and run the first real `llama.cpp` posture row
 
 Current blocker:
 
@@ -56,7 +78,7 @@ Why it matters:
 
 ## Near Term
 
-### 4. Expand the failure taxonomy, not just the leaderboard
+### 5. Expand the failure taxonomy, not just the leaderboard
 
 Keep pushing on:
 
@@ -67,13 +89,13 @@ Keep pushing on:
 - clarify vs defer vs refuse judgment quality
 - artifact revision quality after feedback
 
-### 5. Keep the product surfaces benchmark-backed
+### 6. Keep the product surfaces benchmark-backed
 
 The runtime, CLI, API, operator console, and mobile companion should keep sharing the same execution semantics as the benchmark.
 
 No parallel orchestration path should be introduced.
 
-### 6. Decide the next Gemma posture bet explicitly
+### 7. Decide the next Gemma posture bet explicitly
 
 Decision rule:
 
