@@ -122,6 +122,27 @@
   - the CLI-first harness can now execute a real local MLX Gemma run, persist sandboxed artifacts, and make the run inspectable from terminal commands
   - this is a smoke, not a new benchmark row; benchmark claims still need packet or aligned matrix reruns
 
+### Gemini CLI baseline adapter scaffold exists
+
+- Runtime/CLI implementation:
+  - [`src/gemma4_capability_map/runtime/gemini_cli.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/runtime/gemini_cli.py)
+  - [`src/gemma4_capability_map/runtime/cli.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/runtime/cli.py)
+- Regression coverage:
+  - [`tests/test_runtime_gemini_cli.py`](/Users/cheickdiakite/Codex/moonie/tests/test_runtime_gemini_cli.py)
+  - [`tests/test_runtime_cli.py`](/Users/cheickdiakite/Codex/moonie/tests/test_runtime_cli.py)
+
+- What changed:
+  - `moonie-agent gemini-baseline --workflow-id <id>` prepares a dry-run Gemini CLI baseline packet
+  - the adapter detects `GEMINI_CLI_BIN` or `gemini` on `PATH`
+  - `--execute` is explicit; default behavior writes the prompt and command packet without calling the external baseline
+  - the prompt frames Gemini CLI as an external baseline, not Moonie's controller, and preserves no-public-side-effects constraints
+
+- Verification:
+  - `uv run pytest tests/test_runtime_gemini_cli.py tests/test_runtime_cli.py`
+  - `11 passed`
+  - `uv run moonie-agent gemini-baseline --workflow-id executive_visual_dashboard_review --lane replayable_core --output-dir tmp/gemini-baseline-smoke`
+  - completed as a dry-run packet with `/usr/local/bin/gemini` detected
+
 # 2026-04-14
 
 ### The React Gemma MLX workspace now runs a real end-to-end local session loop

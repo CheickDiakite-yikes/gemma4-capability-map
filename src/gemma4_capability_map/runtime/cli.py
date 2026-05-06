@@ -2,8 +2,11 @@ from __future__ import annotations
 
 import argparse
 import json
+from datetime import UTC, datetime
+from pathlib import Path
 
 from gemma4_capability_map.runtime.core import LocalAgentRuntime
+from gemma4_capability_map.runtime.gemini_cli import run_gemini_cli_baseline
 from gemma4_capability_map.runtime.operator import apply_operator_action, attach_to_session, print_session_inspection, session_inspection_payload
 from gemma4_capability_map.runtime.sandbox import DEFAULT_SANDBOX_POLICY_ID
 from gemma4_capability_map.runtime.schemas import ApprovalStatus
@@ -61,6 +64,14 @@ def parse_args() -> argparse.Namespace:
     inspect_parser.add_argument("session_id")
     inspect_parser.add_argument("--target", choices=["all", "sandbox", "artifacts", "policy", "summary"], default="all")
     inspect_parser.add_argument("--json", action="store_true")
+
+    gemini_parser = subparsers.add_parser("gemini-baseline", help="Prepare or run a Gemini CLI external baseline for a packaged workflow.")
+    gemini_parser.add_argument("--workflow-id", required=True)
+    gemini_parser.add_argument("--lane", default=None)
+    gemini_parser.add_argument("--binary", default=None)
+    gemini_parser.add_argument("--execute", action="store_true")
+    gemini_parser.add_argument("--timeout-s", type=float, default=120.0)
+    gemini_parser.add_argument("--output-dir", default=None)
 
     show_parser = subparsers.add_parser("show", help="Show a session.")
     show_parser.add_argument("session_id")
@@ -181,6 +192,21 @@ def main() -> None:
             print(json.dumps(session_inspection_payload(runtime, args.session_id, target=args.target), indent=2, ensure_ascii=False))
         else:
             print_session_inspection(runtime, args.session_id, target=args.target)
+        return
+    if args.command == "gemini-baseline":
+        workflow = next((row for row in runtime.list_workflows(lane=args.lane) if row["workflow_id"] == args.workflow_id), None)
+        if workflow is None:
+            raise SystemExit(f"Unknown packaged workflow `{args.workflow_id}` for lane `{args.lane or 'default'}`.")
+        timestamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%S%fZ")
+        output_dir = Path(args.output_dir) if args.output_dir else runtime.results_root / "gemini_cli" / f"{timestamp}_{args.workflow_id}"
+        result = run_gemini_cli_baseline(
+            workflow=workflow,
+            output_dir=output_dir,
+            binary=args.binary,
+            dry_run=not args.execute,
+            timeout_s=args.timeout_s,
+        )
+        print(json.dumps(result.as_payload(), indent=2, ensure_ascii=False))
         return
     if args.command == "show":
         print(json.dumps(runtime.get_session(args.session_id).model_dump(mode="json"), indent=2, ensure_ascii=False))

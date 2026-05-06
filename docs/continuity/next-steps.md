@@ -18,10 +18,11 @@ Current state:
   - `moonie-agent attach --action approve|deny|resume|retry|quit` can operate on a session from the terminal
   - `moonie-agent inspect` can inspect sandbox roots, artifacts, policy blocks, and summary paths
   - a real `mlx_gemma4_e2b_reasoner_only` CLI smoke completed on `executive_visual_dashboard_review`
+  - `moonie-agent gemini-baseline` can prepare a dry-run Gemini CLI baseline packet for packaged workflows
 
 Next implementation moves:
 
-- add Gemini CLI as a wrapped external baseline/reference
+- define and scaffold the harder `H1` slice that breaks current top-line saturation
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1

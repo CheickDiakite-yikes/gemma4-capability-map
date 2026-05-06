@@ -206,3 +206,29 @@ def test_runtime_cli_inspect_outputs_sandbox_and_artifacts(monkeypatch: pytest.M
     assert output["artifacts"]
     assert all(item["exists"] for item in output["artifacts"])
     assert output["summary"]["summary_path"]
+
+
+def test_runtime_cli_gemini_baseline_writes_dry_run_packet(monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str], tmp_path: Path) -> None:
+    runtime = LocalAgentRuntime(results_root=tmp_path / "runtime")
+    monkeypatch.setattr(runtime_cli, "LocalAgentRuntime", lambda: runtime)
+    monkeypatch.setattr(
+        runtime_cli,
+        "parse_args",
+        lambda: runtime_cli.argparse.Namespace(
+            command="gemini-baseline",
+            workflow_id="executive_visual_dashboard_review",
+            lane="replayable_core",
+            binary="definitely-missing-gemini-cli",
+            execute=False,
+            timeout_s=5.0,
+            output_dir=str(tmp_path / "gemini-baseline"),
+        ),
+    )
+
+    runtime_cli.main()
+
+    output = json.loads(capsys.readouterr().out)
+    assert output["workflow_id"] == "executive_visual_dashboard_review"
+    assert output["dry_run"] is True
+    assert output["availability"]["available"] is False
+    assert Path(output["output_path"]).exists()
