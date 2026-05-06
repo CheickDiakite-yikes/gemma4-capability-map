@@ -167,15 +167,22 @@ Completed empirical move:
   - final turn-level exact-call directive restored all three packet rows to readiness `0.9715666666666666`, strict/recovered `1.0 / 1.0`, raw clean `1.0`
   - trace mining found `0` failure candidates
   - this is now the strongest model-side harnessing improvement on H1 visual semantics
+- full H1 turn-directive ablation output: [`results/knowledge_work_h1_slice/20260506T_h1_hf_service_turn_directive_ablation_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_turn_directive_ablation_v1_knowledge_work_ablation_packet)
+  - all seven H1 ablation rows now match baseline
+  - every row has readiness `0.9749800000000001`, strict/recovered `1.0 / 1.0`, raw clean `1.0`, repair/fallback `0.0 / 0.0`
+  - trace mining found `0` failure candidates
+  - remaining notes are only ablation markers (`controller_repair_disabled`, `intent_priority_disabled`)
 
 Next empirical move:
 
-- rerun full H1 ablation after the visual turn directive to see whether the compact-packet gain generalizes to the full five-episode H1 slice
-- use the trace miner labels for the active residual family:
-  - `visual_readback_missing`
-  - `visual_stepwise_control`
-  - `visual_repeated_refinement`
-- if full H1 confirms the packet, move next to broader aligned `32 / 26` controller-burden reduction or live CLI runs with the same prompt contract
+- H1 is saturated again after the visual turn directive; define H1b before another broad same-slice rerun
+- H1b should stress:
+  - longer visual chains where the next filter is not directly lexical in the user request
+  - mixed visual + API/CLI dependencies after the readback
+  - refusal/defer/clarify decisions after partial progress
+  - approval-safe stop after a correct visual readback
+  - latest-instruction override when the stale visual chain looks easier than the current instruction
+- also run a live CLI packaged-workflow smoke with the same FunctionGemma turn directive to validate live operator behavior, not just replayable traces
 - rerun the compact packet after each candidate patch before returning to full H1:
 
 ```bash

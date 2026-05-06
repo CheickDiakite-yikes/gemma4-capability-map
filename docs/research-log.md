@@ -2302,6 +2302,14 @@
   - trace mining found `0` failure candidates; the only note family was the expected `controller_repair_disabled` ablation marker
   - this separates two prompt-shaping facts: generic system prose did not fix stale visual replay, but a final recency-weighted exact-call directive did
   - next required check is the full H1 replayable ablation after this directive
+- The full H1 replayable ablation confirmed the turn-directive gain across all current H1 rows:
+  - [`20260506T_h1_hf_service_turn_directive_ablation_v1`](../results/knowledge_work_h1_slice/20260506T_h1_hf_service_turn_directive_ablation_v1_knowledge_work_ablation_packet) completed `7` systems across `35` H1 episode rows
+  - every row matched baseline: `real_world_readiness_avg = 0.9749800000000001`, `strict_interface_avg = 1.0`, `recovered_execution_avg = 1.0`, `controller_repair_avg = 0.0`, `argument_repair_avg = 0.0`, `controller_fallback_avg = 0.0`, `raw_planning_clean_rate_avg = 1.0`
+  - `no_controller_repair` moved from the prior full-H1 `0.8874599999999999` readiness to baseline, eliminating the last top-line causal helper on this slice
+  - `no_deterministic_visual_follow_on` also became controller-clean, so the final router directive now subsumes the earlier deterministic visual follow-on benefit on H1
+  - trace mining found `0` failure candidates; only ablation-marker notes remained
+  - research interpretation: the H1 causal controller signal was real, but it pointed to a prompt-contract recency problem in FunctionGemma routing rather than an unavoidable need for controller repair
+  - next benchmark need: define H1b with harder visual/API/approval interactions because current H1 is saturated again
 
 ### Verification
 

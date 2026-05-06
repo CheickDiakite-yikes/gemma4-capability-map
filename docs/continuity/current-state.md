@@ -183,6 +183,8 @@ Current H1 replayable output:
   - [`results/knowledge_work_h1_slice/20260506T_h1_hf_service_visual_filter_repair_ablation_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_visual_filter_repair_ablation_v1_knowledge_work_ablation_packet)
 - Compact visual semantics packet:
   - [`results/knowledge_work_h1_slice/20260506T_h1_visual_semantics_no_repair_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_visual_semantics_no_repair_v1_knowledge_work_ablation_packet)
+- HF service-backed full H1 ablation after final visual turn directive:
+  - [`results/knowledge_work_h1_slice/20260506T_h1_hf_service_turn_directive_ablation_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_turn_directive_ablation_v1_knowledge_work_ablation_packet)
 - Visual sequencing canary:
   - [`results/knowledge_work_h1_slice/20260506T_h1_visual_sequence_hint_canary_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_visual_sequence_hint_canary_v1_knowledge_work_ablation_packet)
 - Visual filter repair canary:
@@ -387,6 +389,24 @@ FunctionGemma final visual turn directive candidate:
   - jobs blocked email: `extract_layout -> latest -> blocked -> email -> read_region_text`
 - interpretation: the residual H1 visual controller dependence was materially reducible through model-side prompt recency. System-level prose did not work; a final turn-level exact-call directive did.
 
+Full H1 ablation after final visual turn directive:
+
+- output: [`results/knowledge_work_h1_slice/20260506T_h1_hf_service_turn_directive_ablation_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_turn_directive_ablation_v1_knowledge_work_ablation_packet)
+- all seven rows match baseline:
+  - `hf_service_gemma4_specialists_cpu`
+  - `hf_service_gemma4_specialists_cpu_no_controller_repair`
+  - `hf_service_gemma4_specialists_cpu_no_controller_fallback`
+  - `hf_service_gemma4_specialists_cpu_no_visual_rescue`
+  - `hf_service_gemma4_specialists_cpu_no_intent_priority`
+  - `hf_service_gemma4_specialists_cpu_no_argument_repair`
+  - `hf_service_gemma4_specialists_cpu_no_deterministic_visual_follow_on`
+- every row has readiness `0.9749800000000001`, strict/recovered `1.0 / 1.0`, repair/fallback `0.0 / 0.0`, and raw clean `1.0`
+- trace miner found `30` notes and `0` failure candidates
+- remaining notes are only ablation markers:
+  - `controller_repair_disabled = 21`
+  - `intent_priority_disabled = 9`
+- interpretation: on current H1, the prior causal controller-repair signal is eliminated by moving the exact visual next-call contract into the final FunctionGemma routing turn. H1 is now saturated again and needs a harder follow-up slice to keep measuring controller dependence.
+
 ## Strongest Current Findings
 
 1. Top-line parity is now established on the aligned `32 / 26` surface.
@@ -406,8 +426,8 @@ The remaining gap is: how much controller help still remains after the obvious v
 5. The repo is no longer only benchmark-legible.
 There is now a real runtime/session substrate, and the active live-testing surface is shifting to a sandboxed CLI operator harness over that same substrate.
 
-6. H1 is now the best local instrument for controller-dependence work.
-It keeps packaged workflow attribution while exposing the causal impact of repair on HF Gemma. After the visual-filter repair rerun, fallback is not top-line causal on the current H1 slice.
+6. H1 exposed the visual sequencing bottleneck, but the current H1 slice is saturated again after the final FunctionGemma turn directive.
+It keeps packaged workflow attribution and showed that repair dependence was reducible through model-side routing-contract recency. A harder H1 follow-up is now needed.
 
 ## Current Blockers
 
