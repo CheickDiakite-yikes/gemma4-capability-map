@@ -13,6 +13,7 @@ from gemma4_capability_map.tools.validators import normalize_tool_output
 
 
 _HF_ROUTER_CACHE: dict[tuple[str, str], tuple[object, object]] = {}
+_VISUAL_TOOL_NAMES = {"segment_entities", "extract_layout", "refine_selection", "read_region_text"}
 
 
 class FunctionGemmaRunner(Runner):
@@ -237,17 +238,69 @@ def _format_hint(messages: list[Message], media: list[str], tool_specs: list[Too
     if not tool_specs:
         return "Preferred format: function call blocks using exact allowed tool names and schema fields."
     planned_calls = plan_tool_calls(messages, media, tool_specs)
+    visual_hint = _format_visual_sequence_hint(messages, planned_calls, tool_specs)
     if planned_calls:
         example = planned_calls[0]
-        return (
+        hint = (
             "Example format for this request: "
             f"{_format_hint_call(example.name, example.arguments)} "
             "Use this shape only when it matches the user's intent; otherwise use the correct listed tool and concrete argument values from the request, image refs, or tool results."
         )
+        if visual_hint:
+            hint += f"\n{visual_hint}"
+        return hint
     return (
         "Preferred format: start with <start_function_call>, then call:, then an exact allowed tool name, "
         "then schema fields with concrete argument values from the request, image refs, or tool results, then <end_function_call>."
     )
+
+
+def _format_visual_sequence_hint(messages: list[Message], planned_calls: list[ToolCall], tool_specs: list[ToolSpec]) -> str:
+    tool_names = {tool.name for tool in tool_specs}
+    if not tool_names.intersection(_VISUAL_TOOL_NAMES):
+        return ""
+    next_visual = next((call for call in planned_calls if call.name in _VISUAL_TOOL_NAMES), None)
+    if next_visual is None:
+        return ""
+
+    completed_filters = _successful_refine_filters(messages)
+    lines = [
+        "Visual sequencing rules: make one visual tool call per turn, continue from the latest passing tool result, and do not restart the visual chain after progress.",
+    ]
+    if completed_filters:
+        lines.append(
+            "Completed successful refine_selection filters: "
+            + ", ".join(completed_filters)
+            + ". Do not repeat completed filters."
+        )
+    if next_visual.name == "refine_selection":
+        lines.append("Next visual action: use the latest selection_id and apply the next unfinished filter.")
+    elif next_visual.name == "read_region_text":
+        lines.append("Next visual action: requested filtering is complete; read the latest region instead of refining again.")
+    lines.append(f"Next visual call for this request: {_format_hint_call(next_visual.name, next_visual.arguments)}")
+    return "\n".join(lines)
+
+
+def _successful_refine_filters(messages: list[Message]) -> list[str]:
+    filters: list[str] = []
+    for message in messages:
+        if message.role != "tool":
+            continue
+        try:
+            payload = json.loads(message.content)
+        except json.JSONDecodeError:
+            continue
+        if not isinstance(payload, dict):
+            continue
+        if payload.get("tool_name") != "refine_selection" or payload.get("status") != "pass":
+            continue
+        arguments = payload.get("arguments", {})
+        if not isinstance(arguments, dict):
+            continue
+        filter_query = str(arguments.get("filter_query", "")).strip()
+        if filter_query:
+            filters.append(filter_query)
+    return filters
 
 
 def _format_hint_call(tool_name: str, arguments: dict[str, Any]) -> str:
