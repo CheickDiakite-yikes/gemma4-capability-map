@@ -372,6 +372,21 @@ FunctionGemma visual prompt-contract candidate:
 - trace miner found `17` controller-note events and `3` failure candidates
 - interpretation: system-level wording alone is not enough for the disabled-repair row; the next candidate should move the exact next-call directive closer to the generation point or change the routing contract shape
 
+FunctionGemma final visual turn directive candidate:
+
+- output: [`results/knowledge_work_h1_slice/20260506T_h1_visual_semantics_turn_directive_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_visual_semantics_turn_directive_v1_knowledge_work_ablation_packet)
+- change under test: append a final router directive after tool-result messages with the exact next visual call for this turn
+- baseline specialists: readiness `0.9715666666666666`, strict/recovered `1.0 / 1.0`, repair/fallback `0.0 / 0.0`, raw clean `1.0`
+- `no_controller_repair`: restored to readiness `0.9715666666666666`, strict/recovered `1.0 / 1.0`, repair/fallback `0.0 / 0.0`, raw clean `1.0`
+- `no_deterministic_visual_follow_on`: restored to readiness `0.9715666666666666`, strict/recovered `1.0 / 1.0`, repair/fallback `0.0 / 0.0`, raw clean `1.0`
+- trace miner found `15` controller-note events and `0` failure candidates
+- the only remaining note family is `controller_repair_disabled`, which is the expected ablation marker rather than a repair event
+- raw disabled-repair visual chains are now clean:
+  - finance invoice: `extract_layout -> read_region_text`
+  - executive backlog: `extract_layout -> needs review -> backlog -> enablement ops -> read_region_text`
+  - jobs blocked email: `extract_layout -> latest -> blocked -> email -> read_region_text`
+- interpretation: the residual H1 visual controller dependence was materially reducible through model-side prompt recency. System-level prose did not work; a final turn-level exact-call directive did.
+
 ## Strongest Current Findings
 
 1. Top-line parity is now established on the aligned `32 / 26` surface.

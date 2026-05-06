@@ -163,17 +163,19 @@ Completed empirical move:
   - stronger system-level wording did not improve `no_controller_repair`
   - `no_controller_repair` stayed at readiness `0.8257`, strict/recovered `0.625 / 0.5`
   - this is a useful negative result: the exact-next-call hint likely needs to be closer to the final generation turn or encoded differently
+- visual turn-directive candidate output: [`results/knowledge_work_h1_slice/20260506T_h1_visual_semantics_turn_directive_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_visual_semantics_turn_directive_v1_knowledge_work_ablation_packet)
+  - final turn-level exact-call directive restored all three packet rows to readiness `0.9715666666666666`, strict/recovered `1.0 / 1.0`, raw clean `1.0`
+  - trace mining found `0` failure candidates
+  - this is now the strongest model-side harnessing improvement on H1 visual semantics
 
 Next empirical move:
 
-- target the remaining causal helper:
-  - `no_controller_repair = 0.8874599999999999`
+- rerun full H1 ablation after the visual turn directive to see whether the compact-packet gain generalizes to the full five-episode H1 slice
 - use the trace miner labels for the active residual family:
   - `visual_readback_missing`
   - `visual_stepwise_control`
   - `visual_repeated_refinement`
-- define the next patch around model-side visual sequencing or a narrower semantic contract, not generic placeholder repair
-- next candidate: add an explicit final router directive containing the exact next visual call after the tool-result messages, then rerun the compact packet
+- if full H1 confirms the packet, move next to broader aligned `32 / 26` controller-burden reduction or live CLI runs with the same prompt contract
 - rerun the compact packet after each candidate patch before returning to full H1:
 
 ```bash

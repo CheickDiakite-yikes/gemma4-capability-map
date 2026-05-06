@@ -2295,6 +2295,13 @@
   - trace mining again found `3` failure candidates, all in `no_controller_repair`
   - the candidate did reduce one comparison-row argument-repair note, but did not teach the raw disabled-repair row to stop replaying stale visual calls
   - next hypothesis: the exact next-call directive needs to be injected as a final turn-level router instruction after tool-result messages, not only as system-prompt wording
+- The final turn-level FunctionGemma visual directive validated that hypothesis on the compact packet:
+  - [`20260506T_h1_visual_semantics_turn_directive_v1`](../results/knowledge_work_h1_slice/20260506T_h1_visual_semantics_turn_directive_v1_knowledge_work_ablation_packet) restored all three packet rows to `real_world_readiness_avg = 0.9715666666666666`, `strict_interface_avg = 1.0`, `recovered_execution_avg = 1.0`, and `raw_planning_clean_rate_avg = 1.0`
+  - `no_controller_repair` no longer needed semantic repair on this packet; the raw FunctionGemma calls followed the full visual chains unaided
+  - `no_deterministic_visual_follow_on` also became controller-clean on this packet: `controller_repair_avg = 0.0`, `argument_repair_avg = 0.0`, `controller_fallback_avg = 0.0`
+  - trace mining found `0` failure candidates; the only note family was the expected `controller_repair_disabled` ablation marker
+  - this separates two prompt-shaping facts: generic system prose did not fix stale visual replay, but a final recency-weighted exact-call directive did
+  - next required check is the full H1 replayable ablation after this directive
 
 ### Verification
 
