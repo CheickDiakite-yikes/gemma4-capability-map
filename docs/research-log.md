@@ -275,6 +275,39 @@
   - this also reintroduces a real controller-fallback signal on live local MLX, so the next H1c design should include live-web visual/form pressure rather than only replayable visual readback
   - next runtime UX slice: make policy blocks easier to read directly in `moonie-agent attach` and `moonie-agent inspect --target policy`
 
+### Repeated live-web CLI packet confirms stable MLX controller signal
+
+- Packet command:
+  - `uv run python scripts/run_runtime_live_smoke_packet.py --workflow-id executive_visual_dashboard_review --workflow-id finance_visual_invoice_review --workflow-id jobs_visual_form_hold --system-id mlx_gemma4_e2b_reasoner_only --lane live_web_stress --run-group-id 20260506T_runtime_live_repeat_mlx_h1c_overlap_v2 --repeat 3`
+- Packet output:
+  - [`results/runtime_live_smoke_packets/20260506T_runtime_live_repeat_mlx_h1c_overlap_v2_runtime_live_smoke_packet`](/Users/cheickdiakite/Codex/moonie/results/runtime_live_smoke_packets/20260506T_runtime_live_repeat_mlx_h1c_overlap_v2_runtime_live_smoke_packet)
+  - `workflow_count = 3`
+  - `repeat_count = 3`
+  - `session_count = 9`
+  - `failed_sessions = 0`
+  - `status_counts.completed = 3`
+  - `status_counts.awaiting_approval = 6`
+  - `role_readiness_avg = 0.9818333333333334`
+  - `strict_interface_avg = 1.0`
+  - `recovered_execution_avg = 1.0`
+  - `controller_repair_avg = 0.6666666666666666`
+  - `argument_repair_avg = 0.5`
+  - `controller_fallback_avg = 0.16666666666666666`
+  - `raw_planning_clean_rate_avg = 0.3333333333333333`
+  - `controller_finding_count = 12`
+  - `policy_block_count = 21`
+  - `approval_count = 6`
+- Stable repair families across all three repeats:
+  - executive dashboard: `repaired_arguments:extract_layout`
+  - finance invoice: `repaired_arguments:cli_search_logs`
+  - jobs form: `repaired_arguments:cli_apply_patch`
+  - jobs live visual form: `controller_fallback_planner`
+
+- Research interpretation:
+  - H1c benchmark execution is clean, but CLI live execution reproducibly needs controller help on overlapping packaged workflows
+  - the discrepancy is now a concrete runtime-vs-benchmark question rather than a single-run anomaly
+  - next slice should add a compact runtime-packet analyzer, then compare the repeated CLI findings against clean H1c traces before encoding H1d
+
 ### CLI policy rendering now surfaces live-web block details
 
 - Runtime/CLI implementation:

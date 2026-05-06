@@ -234,8 +234,21 @@ The first replayable live-smoke packet wrapper now exists:
 - [`results/runtime_live_smoke_packets/20260506T_runtime_live_smoke_mlx_v2_runtime_live_smoke_packet`](../../results/runtime_live_smoke_packets/20260506T_runtime_live_smoke_mlx_v2_runtime_live_smoke_packet)
 - [`results/runtime_live_smoke_packets/20260506T_runtime_live_smoke_mlx_trio_v2_runtime_live_smoke_packet`](../../results/runtime_live_smoke_packets/20260506T_runtime_live_smoke_mlx_trio_v2_runtime_live_smoke_packet)
 - [`results/runtime_live_smoke_packets/20260506T_runtime_live_web_policy_mlx_v2_runtime_live_smoke_packet`](../../results/runtime_live_smoke_packets/20260506T_runtime_live_web_policy_mlx_v2_runtime_live_smoke_packet)
+- [`results/runtime_live_smoke_packets/20260506T_runtime_live_repeat_mlx_h1c_overlap_v2_runtime_live_smoke_packet`](../../results/runtime_live_smoke_packets/20260506T_runtime_live_repeat_mlx_h1c_overlap_v2_runtime_live_smoke_packet)
 
-Next step: tighten policy-block rendering and then move back to H1c design.
+The repeated live-web packet adds a stable CLI signal:
+
+- `3` workflows x `3` repeats on `mlx_gemma4_e2b_reasoner_only`
+- `failed_sessions = 0`
+- `status_counts.completed = 3`
+- `status_counts.awaiting_approval = 6`
+- `controller_repair_avg = 0.6666666666666666`
+- `argument_repair_avg = 0.5`
+- `controller_fallback_avg = 0.16666666666666666`
+- `raw_planning_clean_rate_avg = 0.3333333333333333`
+- repeated repair families: dashboard `extract_layout`, finance `cli_search_logs`, jobs `cli_apply_patch`, and jobs live visual fallback
+
+Next step: add a compact runtime-packet analyzer and compare the repeated CLI traces against the clean H1c benchmark traces.
 
 ### Phase 4: Gemini CLI adapter
 

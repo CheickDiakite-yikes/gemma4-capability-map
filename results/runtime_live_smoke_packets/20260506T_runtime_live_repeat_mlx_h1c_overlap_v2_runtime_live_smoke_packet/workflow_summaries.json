@@ -1,0 +1,71 @@
+[
+  {
+    "workflow_id": "executive_visual_dashboard_review",
+    "episode_id": "kwa_exec_live_visual_dashboard_brief",
+    "session_count": 3,
+    "status_counts": {
+      "completed": 3
+    },
+    "role_readiness_avg": 0.9941999999999999,
+    "strict_interface_avg": 1.0,
+    "recovered_execution_avg": 1.0,
+    "controller_repair_avg": 0.5,
+    "argument_repair_avg": 0.5,
+    "controller_fallback_avg": 0.0,
+    "raw_planning_clean_rate_avg": 0.5,
+    "controller_finding_count": 3,
+    "policy_block_count": 3,
+    "approval_count": 0,
+    "session_ids": [
+      "20260506T223938324436Z_executive_visual_dashboard_review",
+      "20260506T224011072263Z_executive_visual_dashboard_review",
+      "20260506T224039228411Z_executive_visual_dashboard_review"
+    ]
+  },
+  {
+    "workflow_id": "finance_visual_invoice_review",
+    "episode_id": "kwa_finance_live_invoice_lock_direction_hold_v4",
+    "session_count": 3,
+    "status_counts": {
+      "awaiting_approval": 3
+    },
+    "role_readiness_avg": 0.9687,
+    "strict_interface_avg": 1.0,
+    "recovered_execution_avg": 1.0,
+    "controller_repair_avg": 0.5,
+    "argument_repair_avg": 0.5,
+    "controller_fallback_avg": 0.0,
+    "raw_planning_clean_rate_avg": 0.5,
+    "controller_finding_count": 3,
+    "policy_block_count": 9,
+    "approval_count": 3,
+    "session_ids": [
+      "20260506T223951183758Z_finance_visual_invoice_review",
+      "20260506T224019554616Z_finance_visual_invoice_review",
+      "20260506T224048953238Z_finance_visual_invoice_review"
+    ]
+  },
+  {
+    "workflow_id": "jobs_visual_form_hold",
+    "episode_id": "kwa_jobs_live_email_block_resume_hold_v5",
+    "session_count": 3,
+    "status_counts": {
+      "awaiting_approval": 3
+    },
+    "role_readiness_avg": 0.9826,
+    "strict_interface_avg": 1.0,
+    "recovered_execution_avg": 1.0,
+    "controller_repair_avg": 1.0,
+    "argument_repair_avg": 0.5,
+    "controller_fallback_avg": 0.5,
+    "raw_planning_clean_rate_avg": 0.0,
+    "controller_finding_count": 6,
+    "policy_block_count": 9,
+    "approval_count": 3,
+    "session_ids": [
+      "20260506T224000427871Z_jobs_visual_form_hold",
+      "20260506T224028793330Z_jobs_visual_form_hold",
+      "20260506T224059614876Z_jobs_visual_form_hold"
+    ]
+  }
+]

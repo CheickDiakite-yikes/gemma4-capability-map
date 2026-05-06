@@ -92,4 +92,20 @@ The H1c MLX primary live path is also complete:
 - raw planning clean stayed `1.0`
 - direct trace inspection found no non-empty planning repair notes
 
-Interpretation: both the HF service helper packet and the MLX H1c primary runner are saturated on this slice. The useful remaining discrepancy is not H1c top-line failure; it is the gap between clean H1c benchmark execution and earlier CLI live-smoke packets that showed MLX argument repair and fallback on overlapping packaged workflows. The next slice should add repeat support to the runtime live-smoke packet and measure whether that CLI signal is stable.
+The repeated CLI live-smoke packet is complete:
+
+- output: [`results/runtime_live_smoke_packets/20260506T_runtime_live_repeat_mlx_h1c_overlap_v2_runtime_live_smoke_packet`](../../results/runtime_live_smoke_packets/20260506T_runtime_live_repeat_mlx_h1c_overlap_v2_runtime_live_smoke_packet)
+- system: `mlx_gemma4_e2b_reasoner_only`
+- lane: `live_web_stress`
+- workflows: `executive_visual_dashboard_review`, `finance_visual_invoice_review`, and `jobs_visual_form_hold`
+- repeat count: `3`
+- status counts: `completed = 3`, `awaiting_approval = 6`, `failed = 0`
+- readiness averaged `0.9818333333333334`
+- strict/recovered stayed `1.0 / 1.0`
+- controller repair averaged `0.6666666666666666`
+- argument repair averaged `0.5`
+- controller fallback averaged `0.16666666666666666`
+- raw planning clean averaged `0.3333333333333333`
+- all three repeats reproduced the same workflow-level repair pattern
+
+Interpretation: both the HF service helper packet and the MLX H1c primary benchmark runner are saturated, but the CLI live runtime path has stable repeated controller-dependence signal. The next slice should compare runtime packet traces against H1c benchmark traces and then encode the stable CLI families into the next harder benchmark stressor instead of rerunning broad H1c.

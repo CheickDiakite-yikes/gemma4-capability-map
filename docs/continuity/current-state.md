@@ -132,6 +132,32 @@ Latest live-web policy packet:
 - `controller_finding_count = 2`
 - [`policy_blocks.json`](../../results/runtime_live_smoke_packets/20260506T_runtime_live_web_policy_mlx_v2_runtime_live_smoke_packet/policy_blocks.json) records two `sandbox_only` blocks and one `approval_required` block with sandbox endpoints
 
+Latest repeated live-web CLI packet:
+
+- output: [`results/runtime_live_smoke_packets/20260506T_runtime_live_repeat_mlx_h1c_overlap_v2_runtime_live_smoke_packet`](../../results/runtime_live_smoke_packets/20260506T_runtime_live_repeat_mlx_h1c_overlap_v2_runtime_live_smoke_packet)
+- command shape: `3` live-web workflows x `3` repeats on `mlx_gemma4_e2b_reasoner_only`
+- workflows:
+  - `executive_visual_dashboard_review`
+  - `finance_visual_invoice_review`
+  - `jobs_visual_form_hold`
+- status counts: `completed = 3`, `awaiting_approval = 6`, `failed = 0`
+- packet averages:
+  - `role_readiness_avg = 0.9818333333333334`
+  - `strict_interface_avg = 1.0`
+  - `recovered_execution_avg = 1.0`
+  - `controller_repair_avg = 0.6666666666666666`
+  - `argument_repair_avg = 0.5`
+  - `controller_fallback_avg = 0.16666666666666666`
+  - `raw_planning_clean_rate_avg = 0.3333333333333333`
+  - `controller_finding_count = 12`
+  - `policy_block_count = 21`
+  - `approval_count = 6`
+- stable per-workflow pattern across all three repeats:
+  - executive dashboard: `repaired_arguments:extract_layout`
+  - finance invoice: `repaired_arguments:cli_search_logs`
+  - jobs form: `repaired_arguments:cli_apply_patch` plus `controller_fallback_planner`
+- interpretation: the CLI live path has stable controller-dependence signal even though the H1c benchmark runner is clean. The next research move should isolate runtime/session execution differences and then ablate the repeated CLI families directly.
+
 Relevant batches:
 
 - aligned HF Gemma controller-burden rerun:

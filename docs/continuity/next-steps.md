@@ -21,9 +21,11 @@ Current state:
   - a second real `mlx_gemma4_e2b_reasoner_only` CLI smoke completed on `20260506T220039380037Z_executive_visual_dashboard_review`
   - `moonie-agent inspect --target scorecard` now exposes scorecard metrics and per-task controller repair findings
   - `scripts/run_runtime_live_smoke_packet.py` now writes compact tracked packet summaries for packaged-workflow runtime smokes
+  - runtime live-smoke packets support `--repeat` and write workflow-level summaries plus repeat-indexed findings/policy sidecars
   - first tracked packet: [`results/runtime_live_smoke_packets/20260506T_runtime_live_smoke_mlx_v2_runtime_live_smoke_packet`](../../results/runtime_live_smoke_packets/20260506T_runtime_live_smoke_mlx_v2_runtime_live_smoke_packet)
   - approval/smoke trio packet: [`results/runtime_live_smoke_packets/20260506T_runtime_live_smoke_mlx_trio_v2_runtime_live_smoke_packet`](../../results/runtime_live_smoke_packets/20260506T_runtime_live_smoke_mlx_trio_v2_runtime_live_smoke_packet)
   - live-web policy packet: [`results/runtime_live_smoke_packets/20260506T_runtime_live_web_policy_mlx_v2_runtime_live_smoke_packet`](../../results/runtime_live_smoke_packets/20260506T_runtime_live_web_policy_mlx_v2_runtime_live_smoke_packet)
+  - repeated live-web H1c-overlap packet: [`results/runtime_live_smoke_packets/20260506T_runtime_live_repeat_mlx_h1c_overlap_v2_runtime_live_smoke_packet`](../../results/runtime_live_smoke_packets/20260506T_runtime_live_repeat_mlx_h1c_overlap_v2_runtime_live_smoke_packet)
   - H1c live-policy scaffold exists:
     - [`configs/knowledge_work_h1c_slice.yaml`](../../configs/knowledge_work_h1c_slice.yaml)
     - [`docs/continuity/h1c-slice.md`](./h1c-slice.md)
@@ -31,9 +33,10 @@ Current state:
 
 Next implementation moves:
 
-- run the H1c MLX primary live path and compare it to the CLI live-smoke packets
-- use the H1c MLX primary result to decide whether the local MLX repair/fallback signal is a runtime/CLI phenomenon, a benchmark runner phenomenon, or a workflow-specific artifact
-- avoid another HF service H1c packet until the MLX primary comparison is recorded
+- add a compact runtime-packet analyzer so repeated CLI repair/fallback families are summarized without ad hoc `jq`
+- compare runtime live-smoke traces against H1c benchmark traces for the three repeated families: dashboard `extract_layout`, finance `cli_search_logs`, and jobs `cli_apply_patch` / live visual fallback
+- run a focused runtime ablation packet, if supported by current system ids, on controller repair/fallback/argument repair for the repeated CLI families
+- define H1d only after the runtime-vs-benchmark difference is isolated enough to encode as a benchmark stressor
 - keep using live CLI scorecard and policy inspection as the active operator proof path
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
