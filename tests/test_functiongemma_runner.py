@@ -78,8 +78,9 @@ def test_functiongemma_prompt_marks_next_visual_refinement_after_progress() -> N
     system_prompt = prompt_messages[0]["content"]
 
     assert "Visual sequencing rules" in system_prompt
+    assert "For this turn, return exactly the next visual call below" in system_prompt
     assert "Completed successful refine_selection filters: needs review. Do not repeat completed filters." in system_prompt
-    assert "Next visual action: use the latest selection_id and apply the next unfinished filter." in system_prompt
+    assert "Next visual action: use the latest selection_id and apply the next unfinished filter exactly as shown." in system_prompt
     assert (
         "Next visual call for this request: "
         "<start_function_call>call:refine_selection{selection_id:<escape>sel-002<escape>,filter_query:<escape>customer ops<escape>}"
@@ -115,7 +116,7 @@ def test_functiongemma_prompt_marks_visual_readback_after_final_refinement() -> 
     system_prompt = prompt_messages[0]["content"]
 
     assert "Completed successful refine_selection filters: needs review, customer ops. Do not repeat completed filters." in system_prompt
-    assert "Next visual action: requested filtering is complete; read the latest region instead of refining again." in system_prompt
+    assert "Next visual action: requested filtering is complete; read the latest region exactly as shown instead of extracting or refining again." in system_prompt
     assert (
         "Next visual call for this request: "
         "<start_function_call>call:read_region_text{image_id:<escape>img-dashboard-followup<escape>,region_id:<escape>metric-102<escape>}"

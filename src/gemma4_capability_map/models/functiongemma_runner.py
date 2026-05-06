@@ -266,6 +266,7 @@ def _format_visual_sequence_hint(messages: list[Message], planned_calls: list[To
     completed_filters = _successful_refine_filters(messages)
     lines = [
         "Visual sequencing rules: make one visual tool call per turn, continue from the latest passing tool result, and do not restart the visual chain after progress.",
+        "For this turn, return exactly the next visual call below; do not emit prior visual calls from the conversation or multiple visual calls.",
     ]
     if completed_filters:
         lines.append(
@@ -274,9 +275,9 @@ def _format_visual_sequence_hint(messages: list[Message], planned_calls: list[To
             + ". Do not repeat completed filters."
         )
     if next_visual.name == "refine_selection":
-        lines.append("Next visual action: use the latest selection_id and apply the next unfinished filter.")
+        lines.append("Next visual action: use the latest selection_id and apply the next unfinished filter exactly as shown.")
     elif next_visual.name == "read_region_text":
-        lines.append("Next visual action: requested filtering is complete; read the latest region instead of refining again.")
+        lines.append("Next visual action: requested filtering is complete; read the latest region exactly as shown instead of extracting or refining again.")
     lines.append(f"Next visual call for this request: {_format_hint_call(next_visual.name, next_visual.arguments)}")
     return "\n".join(lines)
 
