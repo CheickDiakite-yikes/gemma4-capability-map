@@ -9,6 +9,7 @@ from typing import Any
 
 from gemma4_capability_map.models.gemma4_runner import Gemma4Runner
 from gemma4_capability_map.reporting.knowledge_work_board import DEFAULT_REGISTRY_PATH, load_model_registry
+from gemma4_capability_map.research_controls import ResearchControls
 from gemma4_capability_map.schemas import Message, ModelTurn, ToolCall, ToolSpec
 from gemma4_capability_map.tools.executor import DeterministicExecutor
 from gemma4_capability_map.tools.planner import plan_tool_calls
@@ -167,6 +168,7 @@ def run_tool_directive_probe(
         backend=str(meta.get("backend") or "heuristic"),
         max_new_tokens=int(meta.get("reasoner_max_new_tokens", 64) or 64),
         request_timeout_seconds=float(meta.get("request_timeout_seconds", 300.0) or 300.0),
+        tool_turn_directive_enabled=not ResearchControls.from_mapping(meta.get("research_controls")).disable_tool_turn_directive,
     )
     tool_specs_by_name = build_default_registry().specs
     selected_cases = cases or build_tool_directive_probe_cases()

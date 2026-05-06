@@ -74,6 +74,9 @@ def main() -> None:
         retriever_device=None,
         reasoner_max_new_tokens=int(bundle_system.get("reasoner_max_new_tokens", 96) or 96),
         request_timeout_seconds=float(bundle_system.get("request_timeout_seconds", 600.0) or 600.0),
+        tool_turn_directive_enabled=not ResearchControls.from_mapping(
+            bundle_system.get("research_controls")
+        ).disable_tool_turn_directive,
     )
     warmup = warm_runtime_bundle(bundle, tasks)
     bundle_snapshot = runtime_bundle_snapshot(bundle)

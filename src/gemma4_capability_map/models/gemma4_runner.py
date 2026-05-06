@@ -29,6 +29,7 @@ class Gemma4Runner(Runner):
         max_new_tokens: int = 256,
         device: str = "auto",
         request_timeout_seconds: float = 600.0,
+        tool_turn_directive_enabled: bool = True,
         load_event_hook: Callable[[dict[str, Any]], None] | None = None,
     ) -> None:
         super().__init__(model_id=model_id, backend=backend)
@@ -36,6 +37,7 @@ class Gemma4Runner(Runner):
         self.max_new_tokens = max_new_tokens
         self.device = device
         self.request_timeout_seconds = request_timeout_seconds
+        self.tool_turn_directive_enabled = tool_turn_directive_enabled
         self._load_event_hook = load_event_hook
         self._processor = None
         self._tokenizer = None
@@ -74,6 +76,7 @@ class Gemma4Runner(Runner):
             "load_mode": self._loaded_mode,
             "configured_device": self.device,
             "request_timeout_seconds": self.request_timeout_seconds,
+            "tool_turn_directive_enabled": self.tool_turn_directive_enabled,
             "service": self._service_info,
             "partial_runtime": self._llama_cpp_partial,
             "llama_cpp_error": self._llama_cpp_error,
@@ -665,7 +668,7 @@ class Gemma4Runner(Runner):
             if text:
                 content.append({"type": "text", "text": text})
             prepared.append({"role": role, "content": content or [{"type": "text", "text": ""}]})
-        directive = tool_turn_directive(messages, media, tool_specs)
+        directive = tool_turn_directive(messages, media, tool_specs) if self.tool_turn_directive_enabled else ""
         if directive:
             prepared.append({"role": "user", "content": [{"type": "text", "text": directive}]})
         return prepared
@@ -704,7 +707,7 @@ class Gemma4Runner(Runner):
             if message.role == "tool":
                 text = f"Tool result:\n{text}"
             prepared.append({"role": role, "content": text or ""})
-        directive = tool_turn_directive(messages, media, tool_specs)
+        directive = tool_turn_directive(messages, media, tool_specs) if self.tool_turn_directive_enabled else ""
         if directive:
             prepared.append({"role": "user", "content": directive})
         return prepared
@@ -740,7 +743,7 @@ class Gemma4Runner(Runner):
             if message.image_refs:
                 text = (text + "\n" if text else "") + "Image refs: " + ", ".join(message.image_refs)
             prepared.append({"role": role, "content": text or ""})
-        directive = tool_turn_directive(messages, media, tool_specs)
+        directive = tool_turn_directive(messages, media, tool_specs) if self.tool_turn_directive_enabled else ""
         if directive:
             prepared.append({"role": "user", "content": directive})
         return prepared
@@ -764,7 +767,7 @@ class Gemma4Runner(Runner):
             if message.image_refs:
                 text = (text + "\n" if text else "") + "Image refs: " + ", ".join(message.image_refs)
             lines.append(f"{role}: {text}".rstrip())
-        directive = tool_turn_directive(messages, media, tool_specs)
+        directive = tool_turn_directive(messages, media, tool_specs) if self.tool_turn_directive_enabled else ""
         if directive:
             lines.append(f"USER: {directive}")
         lines.append("ASSISTANT:")

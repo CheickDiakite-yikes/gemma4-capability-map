@@ -211,6 +211,7 @@ def _system_run_args(system_id: str, meta: dict[str, Any]) -> dict[str, Any]:
         "disable_intent_priority": controls.disable_intent_priority,
         "disable_argument_repair": controls.disable_argument_repair,
         "disable_deterministic_visual_follow_on": controls.disable_deterministic_visual_follow_on,
+        "disable_tool_turn_directive": controls.disable_tool_turn_directive,
     }
 
 

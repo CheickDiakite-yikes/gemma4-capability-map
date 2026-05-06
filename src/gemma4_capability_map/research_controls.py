@@ -12,6 +12,7 @@ class ResearchControls:
     disable_intent_priority: bool = False
     disable_argument_repair: bool = False
     disable_deterministic_visual_follow_on: bool = False
+    disable_tool_turn_directive: bool = False
 
     @classmethod
     def from_mapping(cls, payload: Mapping[str, Any] | None) -> "ResearchControls":
@@ -23,6 +24,7 @@ class ResearchControls:
             disable_intent_priority=bool(payload.get("disable_intent_priority", False)),
             disable_argument_repair=bool(payload.get("disable_argument_repair", False)),
             disable_deterministic_visual_follow_on=bool(payload.get("disable_deterministic_visual_follow_on", False)),
+            disable_tool_turn_directive=bool(payload.get("disable_tool_turn_directive", False)),
         )
 
     def enabled(self) -> bool:

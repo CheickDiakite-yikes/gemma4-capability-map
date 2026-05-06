@@ -100,6 +100,26 @@ def test_mlx_messages_append_exact_tool_turn_directive() -> None:
     )
 
 
+def test_mlx_messages_can_disable_tool_turn_directive() -> None:
+    specs = build_default_registry().specs
+    runner = Gemma4Runner("google/gemma-4-E2B-it", backend="mlx", tool_turn_directive_enabled=False)
+
+    prompt_messages = runner._build_mlx_messages(
+        messages=[
+            Message(
+                role="user",
+                content="Ignore the earlier publish plan. Search logs/billing.log for the latest invoice-lock failure and report it.",
+            )
+        ],
+        media=[],
+        tool_specs=[specs["cli_search_logs"], specs["api_fetch_record"]],
+        thinking=False,
+    )
+
+    assert "Tool directive for this turn:" not in prompt_messages[-1]["content"]
+    assert runner.runtime_info()["tool_turn_directive_enabled"] is False
+
+
 def test_hf_service_backend_uses_service_response(monkeypatch) -> None:
     monkeypatch.setattr(
         "gemma4_capability_map.models.gemma4_runner.ensure_hf_reasoner_service",

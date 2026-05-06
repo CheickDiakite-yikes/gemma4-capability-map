@@ -150,6 +150,8 @@ def _arena_command(spec: dict[str, Any], output_dir: Path) -> list[str]:
         command.append("--disable-argument-repair")
     if spec.get("disable_deterministic_visual_follow_on"):
         command.append("--disable-deterministic-visual-follow-on")
+    if spec.get("disable_tool_turn_directive"):
+        command.append("--disable-tool-turn-directive")
     for episode_id in spec["episode_ids"]:
         command.extend(["--episode-id", episode_id])
     return command

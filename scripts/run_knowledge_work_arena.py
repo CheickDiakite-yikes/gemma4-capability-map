@@ -48,6 +48,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--disable-intent-priority", action="store_true")
     parser.add_argument("--disable-argument-repair", action="store_true")
     parser.add_argument("--disable-deterministic-visual-follow-on", action="store_true")
+    parser.add_argument("--disable-tool-turn-directive", action="store_true")
     return parser.parse_args()
 
 
@@ -73,6 +74,7 @@ def main() -> None:
         disable_intent_priority=args.disable_intent_priority,
         disable_argument_repair=args.disable_argument_repair,
         disable_deterministic_visual_follow_on=args.disable_deterministic_visual_follow_on,
+        disable_tool_turn_directive=args.disable_tool_turn_directive,
     )
 
     episodes = load_episodes(episodes_path)
@@ -97,6 +99,7 @@ def main() -> None:
         retriever_device=args.retriever_device,
         reasoner_max_new_tokens=args.reasoner_max_new_tokens,
         request_timeout_seconds=args.request_timeout_seconds,
+        tool_turn_directive_enabled=not args.disable_tool_turn_directive,
     )
     runner = EpisodeRunner(
         tasks=tasks,
