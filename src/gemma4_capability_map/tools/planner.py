@@ -955,6 +955,10 @@ def _should_override_valid_arguments(call: ToolCall, inferred_arguments: dict[st
             return True
         provided_selection_id = str(call.arguments.get("selection_id", "")).strip()
         inferred_selection_id = str(inferred_arguments.get("selection_id", "")).strip()
+        pending_filter = _next_visual_filter(context)
+        provided_filter = str(call.arguments.get("filter_query", "")).strip()
+        if pending_filter and provided_filter and _canonical_visual_filter(provided_filter) != pending_filter:
+            return True
         if inferred_selection_id and provided_selection_id != inferred_selection_id:
             return True
         if inferred_arguments.get("selection_id") and (
@@ -1065,7 +1069,13 @@ def _passes_semantic_preconditions(call: ToolCall, context: dict[str, Any]) -> b
         provided_selection_id = str(call.arguments.get("selection_id", "")).strip()
         if not provided_selection_id:
             return False
-        return not expected_selection_id or provided_selection_id == expected_selection_id
+        if expected_selection_id and provided_selection_id != expected_selection_id:
+            return False
+        pending_filter = _next_visual_filter(context)
+        provided_filter = str(call.arguments.get("filter_query", "")).strip()
+        if pending_filter and _canonical_visual_filter(provided_filter) != pending_filter:
+            return False
+        return True
 
     if call.name == "read_region_text":
         latest_visual_feedback = _latest_visual_selection_feedback(context)

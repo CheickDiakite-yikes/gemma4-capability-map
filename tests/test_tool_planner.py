@@ -533,6 +533,43 @@ def test_planner_fallback_preserves_pending_visual_filter_after_prior_refinement
     assert "controller_fallback_planner" in notes
 
 
+def test_planner_repairs_repeated_visual_filter_to_pending_filter() -> None:
+    messages = [
+        Message(role="system", content="visual_image_ids: img-dashboard-review-backlog"),
+        Message(
+            role="user",
+            content="Inspect the dashboard, keep needs review first, then narrow to the backlog owned by enablement ops and tell me what it says.",
+        ),
+        Message(
+            role="tool",
+            content='{"tool_name":"extract_layout","status":"pass","arguments":{"image_id":"img-dashboard-review-backlog","target_query":"dashboard metric"},"output":{"selection_id":"sel-001","region_ids":["metric-101","metric-102","metric-103"]}}',
+        ),
+        Message(
+            role="tool",
+            content='{"tool_name":"refine_selection","status":"pass","arguments":{"selection_id":"sel-001","filter_query":"needs review"},"output":{"image_id":"img-dashboard-review-backlog","selection_id":"sel-002","region_ids":["metric-101","metric-102"]}}',
+        ),
+    ]
+
+    repaired, notes = plan_or_repair_tool_calls(
+        raw_output='{"name":"refine_selection","arguments":{"selection_id":"sel-002","filter_query":"needs review"}}',
+        parsed_calls=[
+            ToolCall(
+                name="refine_selection",
+                arguments={"selection_id": "sel-002", "filter_query": "needs review"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+        messages=messages,
+        media=["img-dashboard-review-backlog"],
+        tool_specs=[SPECS["extract_layout"], SPECS["refine_selection"], SPECS["read_region_text"]],
+    )
+
+    assert repaired[0].name == "refine_selection"
+    assert repaired[0].arguments == {"selection_id": "sel-002", "filter_query": "backlog"}
+    assert "repaired_arguments:refine_selection" in notes
+
+
 def test_planner_reads_visual_region_after_final_refinement() -> None:
     messages = [
         Message(role="system", content="visual_image_ids: img-dashboard-stale"),
