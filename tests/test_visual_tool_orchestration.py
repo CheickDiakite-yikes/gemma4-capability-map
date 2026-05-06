@@ -109,6 +109,42 @@ def test_local_visual_registry_can_extract_layout_and_read_region_text() -> None
     assert "51,840" in read_back["text"]
 
 
+def test_visual_registry_matches_phone_issue_alias_to_validation_error() -> None:
+    registry = build_default_registry()
+    state = {
+        "visual_executor_mode": "local",
+        "images": {
+            "img-form-live-latest": {
+                "entities": [],
+                "layouts": [],
+                "local_layouts": [
+                    {
+                        "region_id": "form-err-201",
+                        "label": "validation error",
+                        "text": "Work authorization required before submission",
+                        "attributes": {"field": "work authorization", "priority": "earlier"},
+                    },
+                    {
+                        "region_id": "form-err-202",
+                        "label": "validation error",
+                        "text": "Phone number format invalid",
+                        "attributes": {"field": "phone", "priority": "latest"},
+                    },
+                ],
+            }
+        },
+    }
+
+    _, extracted = registry.execute(
+        state,
+        "extract_layout",
+        {"image_id": "img-form-live-latest", "target_query": "phone issue"},
+    )
+
+    assert extracted["region_ids"] == ["form-err-202"]
+    assert extracted["region_id"] == "form-err-202"
+
+
 def test_visual_oracle_run_emits_visual_metrics() -> None:
     tasks = [task for task in build_visual_tool_tasks() if task.task_id == "visual_006_parking_white_vehicles"]
     variants = load_variants(tasks, include_generated=False)

@@ -11,6 +11,8 @@ _TOKEN_ALIASES = {
     "cars": "car",
     "metrics": "metric",
     "forms": "form",
+    "issues": "error",
+    "issue": "error",
     "errors": "error",
     "totals": "total",
     "slides": "slide",
