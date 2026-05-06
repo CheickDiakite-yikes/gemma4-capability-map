@@ -320,6 +320,31 @@
   - H1c is the next clean empirical target because it is tied to the fresh CLI live evidence rather than another same-shape H1/H1b rerun
   - the first execution should be the compact live-policy helper packet before any full five-episode live ablation
 
+### H1c compact live-policy helper packet is HF-clean
+
+- Packet command:
+  - `uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1c_slice.yaml --packet-id live_policy_controller_helpers --run-group-id 20260506T_h1c_live_policy_packet_v1`
+- Packet output:
+  - [`results/knowledge_work_h1_slice/20260506T_h1c_live_policy_packet_v1_knowledge_work_ablation_packet`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1c_live_policy_packet_v1_knowledge_work_ablation_packet)
+  - systems: baseline HF service specialists, `no_controller_repair`, `no_controller_fallback`, and `no_argument_repair`
+  - episodes: `kwa_jobs_live_email_block_resume_hold_v5`, `kwa_finance_live_invoice_lock_direction_hold_v4`, `kwa_jobs_live_phone_patch_resume_hold_v4`
+  - all four rows matched at `real_world_readiness_avg = 0.9779666666666667`
+  - `strict_interface_avg = 1.0`
+  - `recovered_execution_avg = 1.0`
+  - `controller_repair_avg = 0.0`
+  - `argument_repair_avg = 0.0`
+  - `controller_fallback_avg = 0.0`
+  - `raw_planning_clean_rate_avg = 1.0`
+- Trace mining:
+  - `uv run python scripts/analyze_knowledge_work_h1_traces.py results/knowledge_work_h1_slice/20260506T_h1c_live_policy_packet_v1_knowledge_work_ablation_packet`
+  - `failure_candidate_count = 0`
+  - note counts are only `controller_repair_disabled = 14` markers in the disabled-repair row
+
+- Research interpretation:
+  - the H1c live-policy helper packet does not restore HF service specialist helper dependence
+  - this is a useful negative result because the local MLX CLI packets still show repair/fallback signal on adjacent workflows
+  - next check: run the H1c MLX primary live path to separate local MLX runtime behavior from HF specialist packet behavior
+
 ### Gemini CLI baseline adapter scaffold exists
 
 - Runtime/CLI implementation:

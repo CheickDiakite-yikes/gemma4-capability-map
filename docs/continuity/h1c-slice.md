@@ -67,8 +67,16 @@ uv run python scripts/run_knowledge_work_h1_ablation_packet.py \
   --run-group-id <timestamp>_h1c_live_policy_ablation
 ```
 
-## Current Status
+## Current Result
 
-H1c is scaffolded but not yet executed beyond dry-run validation.
+The compact `live_policy_controller_helpers` packet is complete:
 
-The first empirical target should be the compact `live_policy_controller_helpers` packet. It is intentionally smaller than the full five-episode live slice because the HF service-backed live lane is the expensive, high-signal path.
+- output: [`results/knowledge_work_h1_slice/20260506T_h1c_live_policy_packet_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1c_live_policy_packet_v1_knowledge_work_ablation_packet)
+- systems: baseline HF service specialists, `no_controller_repair`, `no_controller_fallback`, and `no_argument_repair`
+- all four rows matched at readiness `0.9779666666666667`
+- strict/recovered stayed `1.0 / 1.0`
+- controller repair, argument repair, and controller fallback stayed `0.0`
+- raw planning clean stayed `1.0`
+- trace mining found `0` failure candidates
+
+Interpretation: the compact HF service-backed H1c packet is still saturated. The next useful run is the H1c MLX primary live path, because the CLI live packets show local MLX repair/fallback signal while this HF specialist packet does not.

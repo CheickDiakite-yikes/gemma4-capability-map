@@ -1,0 +1,106 @@
+[
+  {
+    "system_id": "hf_service_gemma4_specialists_cpu",
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1c_live_policy_packet_v1_knowledge_work_ablation_packet/hf_service_gemma4_specialists_cpu__live_web_stress",
+    "summary": {
+      "runs": 3.0,
+      "artifact_quality_avg": 0.9583333333333334,
+      "browser_workflow_avg": 1.0,
+      "strict_interface_avg": 1.0,
+      "recovered_execution_avg": 1.0,
+      "real_world_readiness_avg": 0.9779666666666667,
+      "escalation_correctness_avg": 1.0,
+      "controller_repair_avg": 0.0,
+      "argument_repair_avg": 0.0,
+      "controller_fallback_avg": 0.0,
+      "intent_override_avg": 0.0,
+      "raw_planning_clean_rate_avg": 1.0,
+      "lane": "live_web_stress",
+      "created_at": "20260506T222152Z",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1c_live_policy_packet_v1_knowledge_work_ablation_packet/hf_service_gemma4_specialists_cpu__live_web_stress",
+      "episode_ids": [
+        "kwa_jobs_live_email_block_resume_hold_v5",
+        "kwa_finance_live_invoice_lock_direction_hold_v4",
+        "kwa_jobs_live_phone_patch_resume_hold_v4"
+      ]
+    }
+  },
+  {
+    "system_id": "hf_service_gemma4_specialists_cpu_no_controller_repair",
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1c_live_policy_packet_v1_knowledge_work_ablation_packet/hf_service_gemma4_specialists_cpu_no_controller_repair__live_web_stress",
+    "summary": {
+      "runs": 3.0,
+      "artifact_quality_avg": 0.9583333333333334,
+      "browser_workflow_avg": 1.0,
+      "strict_interface_avg": 1.0,
+      "recovered_execution_avg": 1.0,
+      "real_world_readiness_avg": 0.9779666666666667,
+      "escalation_correctness_avg": 1.0,
+      "controller_repair_avg": 0.0,
+      "argument_repair_avg": 0.0,
+      "controller_fallback_avg": 0.0,
+      "intent_override_avg": 0.0,
+      "raw_planning_clean_rate_avg": 1.0,
+      "lane": "live_web_stress",
+      "created_at": "20260506T222345Z",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1c_live_policy_packet_v1_knowledge_work_ablation_packet/hf_service_gemma4_specialists_cpu_no_controller_repair__live_web_stress",
+      "episode_ids": [
+        "kwa_jobs_live_email_block_resume_hold_v5",
+        "kwa_finance_live_invoice_lock_direction_hold_v4",
+        "kwa_jobs_live_phone_patch_resume_hold_v4"
+      ]
+    }
+  },
+  {
+    "system_id": "hf_service_gemma4_specialists_cpu_no_controller_fallback",
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1c_live_policy_packet_v1_knowledge_work_ablation_packet/hf_service_gemma4_specialists_cpu_no_controller_fallback__live_web_stress",
+    "summary": {
+      "runs": 3.0,
+      "artifact_quality_avg": 0.9583333333333334,
+      "browser_workflow_avg": 1.0,
+      "strict_interface_avg": 1.0,
+      "recovered_execution_avg": 1.0,
+      "real_world_readiness_avg": 0.9779666666666667,
+      "escalation_correctness_avg": 1.0,
+      "controller_repair_avg": 0.0,
+      "argument_repair_avg": 0.0,
+      "controller_fallback_avg": 0.0,
+      "intent_override_avg": 0.0,
+      "raw_planning_clean_rate_avg": 1.0,
+      "lane": "live_web_stress",
+      "created_at": "20260506T222512Z",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1c_live_policy_packet_v1_knowledge_work_ablation_packet/hf_service_gemma4_specialists_cpu_no_controller_fallback__live_web_stress",
+      "episode_ids": [
+        "kwa_jobs_live_email_block_resume_hold_v5",
+        "kwa_finance_live_invoice_lock_direction_hold_v4",
+        "kwa_jobs_live_phone_patch_resume_hold_v4"
+      ]
+    }
+  },
+  {
+    "system_id": "hf_service_gemma4_specialists_cpu_no_argument_repair",
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1c_live_policy_packet_v1_knowledge_work_ablation_packet/hf_service_gemma4_specialists_cpu_no_argument_repair__live_web_stress",
+    "summary": {
+      "runs": 3.0,
+      "artifact_quality_avg": 0.9583333333333334,
+      "browser_workflow_avg": 1.0,
+      "strict_interface_avg": 1.0,
+      "recovered_execution_avg": 1.0,
+      "real_world_readiness_avg": 0.9779666666666667,
+      "escalation_correctness_avg": 1.0,
+      "controller_repair_avg": 0.0,
+      "argument_repair_avg": 0.0,
+      "controller_fallback_avg": 0.0,
+      "intent_override_avg": 0.0,
+      "raw_planning_clean_rate_avg": 1.0,
+      "lane": "live_web_stress",
+      "created_at": "20260506T222549Z",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1c_live_policy_packet_v1_knowledge_work_ablation_packet/hf_service_gemma4_specialists_cpu_no_argument_repair__live_web_stress",
+      "episode_ids": [
+        "kwa_jobs_live_email_block_resume_hold_v5",
+        "kwa_finance_live_invoice_lock_direction_hold_v4",
+        "kwa_jobs_live_phone_patch_resume_hold_v4"
+      ]
+    }
+  }
+]

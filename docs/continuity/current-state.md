@@ -265,6 +265,8 @@ Current H1 replayable output:
   - [`results/knowledge_work_h1_slice/20260506T_h1b_visual_policy_packet_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1b_visual_policy_packet_v1_knowledge_work_ablation_packet)
 - H1b full HF service-backed ablation:
   - [`results/knowledge_work_h1_slice/20260506T_h1b_hf_service_ablation_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1b_hf_service_ablation_v1_knowledge_work_ablation_packet)
+- H1c compact live-policy helper packet:
+  - [`results/knowledge_work_h1_slice/20260506T_h1c_live_policy_packet_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1c_live_policy_packet_v1_knowledge_work_ablation_packet)
 - Visual sequencing canary:
   - [`results/knowledge_work_h1_slice/20260506T_h1_visual_sequence_hint_canary_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_visual_sequence_hint_canary_v1_knowledge_work_ablation_packet)
 - Visual filter repair canary:
@@ -545,6 +547,23 @@ H1c scaffold:
   - `20 passed`
   - `uv run python scripts/run_knowledge_work_h1_slice.py --config configs/knowledge_work_h1c_slice.yaml --dry-run --run-set primary --lane live_web_stress --output-root tmp/h1c-dry-run-smoke --run-group-id 20260506T_h1c_live_primary_dry_run_v1`
   - `uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1c_slice.yaml --packet-id live_policy_controller_helpers --run-group-id 20260506T_h1c_live_policy_packet_dry_run_v1 --dry-run`
+
+H1c compact live-policy helper packet:
+
+- output: [`results/knowledge_work_h1_slice/20260506T_h1c_live_policy_packet_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1c_live_policy_packet_v1_knowledge_work_ablation_packet)
+- systems: baseline HF service specialists plus `no_controller_repair`, `no_controller_fallback`, and `no_argument_repair`
+- episodes: `kwa_jobs_live_email_block_resume_hold_v5`, `kwa_finance_live_invoice_lock_direction_hold_v4`, `kwa_jobs_live_phone_patch_resume_hold_v4`
+- all four rows match:
+  - `real_world_readiness_avg = 0.9779666666666667`
+  - `strict_interface_avg = 1.0`
+  - `recovered_execution_avg = 1.0`
+  - `controller_repair_avg = 0.0`
+  - `argument_repair_avg = 0.0`
+  - `controller_fallback_avg = 0.0`
+  - `raw_planning_clean_rate_avg = 1.0`
+- trace mining found `14` notes and `0` failure candidates
+- remaining notes are only `controller_repair_disabled` markers in the disabled-repair row
+- interpretation: H1c live-policy pressure does not re-break HF service specialists on this compact packet. The next comparison should run the H1c MLX primary path because the CLI live packets still show MLX repair/fallback signal.
 
 ## Strongest Current Findings
 

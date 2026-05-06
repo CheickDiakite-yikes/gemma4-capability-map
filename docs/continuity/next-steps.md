@@ -31,8 +31,9 @@ Current state:
 
 Next implementation moves:
 
-- run the compact H1c `live_policy_controller_helpers` packet with the HF service-backed specialist bundle
-- use H1c trace outputs to decide whether controller fallback, repair, or argument repair is still causal under live-web policy pressure
+- run the H1c MLX primary live path and compare it to the CLI live-smoke packets
+- use the H1c MLX primary result to decide whether the local MLX repair/fallback signal is a runtime/CLI phenomenon, a benchmark runner phenomenon, or a workflow-specific artifact
+- avoid another HF service H1c packet until the MLX primary comparison is recorded
 - keep using live CLI scorecard and policy inspection as the active operator proof path
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
