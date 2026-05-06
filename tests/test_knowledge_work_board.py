@@ -337,6 +337,60 @@ def test_board_rows_export_harnessability_direction_and_tool_family_slices(tmp_p
     assert public_summary["tool_family_slice_count"] == 3
 
 
+def test_board_rows_match_ablation_registry_by_research_controls(tmp_path: Path) -> None:
+    manifest = {
+        "run_group_id": "20260410T150250Z_replayable_core",
+        "created_at": "20260410T150250Z",
+        "lane": "replayable_core",
+        "run_intent": "exploratory",
+        "backend": "hf_service",
+        "reasoner": "google/gemma-4-E2B-it",
+        "router": "google/functiongemma-270m-it",
+        "retriever": "google/embeddinggemma-300m",
+        "reasoner_backend": "hf_service",
+        "router_backend": "hf",
+        "retriever_backend": "hf",
+        "research_controls": {"disable_controller_fallback": True},
+        "episode_count": 1,
+    }
+    summary = {
+        "runs": 1,
+        "artifact_quality_avg": 1.0,
+        "browser_workflow_avg": 1.0,
+        "strict_interface_avg": 1.0,
+        "recovered_execution_avg": 1.0,
+        "real_world_readiness_avg": 0.95,
+        "escalation_correctness_avg": 1.0,
+    }
+    leaderboard_rows = [
+        {
+            "run_id": "run-pass",
+            "episode_id": "ep-pass",
+            "role_family": "finance",
+            "lane": "replayable_core",
+            "workspace_id": "ws-pass",
+            "benchmark_tags": "knowledge_work_arena,replayable_core,finance",
+            "artifact_quality_score": 1.0,
+            "browser_workflow_score": 1.0,
+            "strict_interface_score": 1.0,
+            "recovered_execution_score": 1.0,
+            "revision_responsiveness": 1.0,
+            "memory_retention_score": 1.0,
+            "escalation_correctness": 1.0,
+            "collateral_damage_free": 1.0,
+            "human_time_ratio": 0.1,
+            "role_readiness_score": 0.95,
+        }
+    ]
+    _write_snapshot(tmp_path, "model_backed_hf_specialists_no_fallback_test", manifest, summary, leaderboard_rows)
+
+    rows = build_board_rows(tmp_path, REGISTRY_PATH)
+
+    assert len(rows) == 1
+    assert rows[0]["system_id"] == "hf_service_gemma4_specialists_cpu_no_controller_fallback"
+    assert rows[0]["capability_family"] == "specialist_stack_ablation"
+
+
 def test_board_rows_fallback_to_registry_when_manifest_system_id_is_unknown(tmp_path: Path) -> None:
     manifest = {
         "run_group_id": "20260410T150500Z_replayable_core",

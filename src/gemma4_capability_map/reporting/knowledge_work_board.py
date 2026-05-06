@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from gemma4_capability_map.io import load_yaml
+from gemma4_capability_map.research_controls import ResearchControls
 
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -935,6 +936,10 @@ def _resolve_system(
     if matched is not None:
         return matched
 
+    backend = str(manifest.get("backend", "") or "")
+    reasoner = str(manifest.get("reasoner", "") or "")
+    router = str(manifest.get("router", "") or "")
+    retriever = str(manifest.get("retriever", "") or "")
     derived = _slugify(
         "__".join(
             part
@@ -962,9 +967,13 @@ def _match_registry_system(
     retriever = str(manifest.get("retriever", "") or "")
     router_backend = str(manifest.get("router_backend", "") or "").strip().lower()
     retriever_backend = str(manifest.get("retriever_backend", "") or "").strip().lower()
+    manifest_controls = ResearchControls.from_mapping(manifest.get("research_controls")).manifest_payload()
 
     candidates: list[tuple[int, str, dict[str, Any]]] = []
     for system_id, meta in systems.items():
+        meta_controls = ResearchControls.from_mapping(meta.get("research_controls")).manifest_payload()
+        if meta_controls != manifest_controls:
+            continue
         if str(meta.get("backend", "") or "") != backend:
             continue
         if str(meta.get("reasoner", "") or "") and str(meta.get("reasoner", "") or "") != reasoner:
