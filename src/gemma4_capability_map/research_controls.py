@@ -9,6 +9,9 @@ class ResearchControls:
     disable_controller_repair: bool = False
     disable_controller_fallback: bool = False
     disable_visual_rescue: bool = False
+    disable_intent_priority: bool = False
+    disable_argument_repair: bool = False
+    disable_deterministic_visual_follow_on: bool = False
 
     @classmethod
     def from_mapping(cls, payload: Mapping[str, Any] | None) -> "ResearchControls":
@@ -17,6 +20,9 @@ class ResearchControls:
             disable_controller_repair=bool(payload.get("disable_controller_repair", False)),
             disable_controller_fallback=bool(payload.get("disable_controller_fallback", False)),
             disable_visual_rescue=bool(payload.get("disable_visual_rescue", False)),
+            disable_intent_priority=bool(payload.get("disable_intent_priority", False)),
+            disable_argument_repair=bool(payload.get("disable_argument_repair", False)),
+            disable_deterministic_visual_follow_on=bool(payload.get("disable_deterministic_visual_follow_on", False)),
         )
 
     def enabled(self) -> bool:

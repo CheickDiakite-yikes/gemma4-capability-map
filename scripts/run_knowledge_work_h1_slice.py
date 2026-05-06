@@ -142,6 +142,12 @@ def _arena_command(spec: dict[str, Any], output_dir: Path) -> list[str]:
         command.append("--disable-controller-fallback")
     if spec.get("disable_visual_rescue"):
         command.append("--disable-visual-rescue")
+    if spec.get("disable_intent_priority"):
+        command.append("--disable-intent-priority")
+    if spec.get("disable_argument_repair"):
+        command.append("--disable-argument-repair")
+    if spec.get("disable_deterministic_visual_follow_on"):
+        command.append("--disable-deterministic-visual-follow-on")
     for episode_id in spec["episode_ids"]:
         command.extend(["--episode-id", episode_id])
     return command

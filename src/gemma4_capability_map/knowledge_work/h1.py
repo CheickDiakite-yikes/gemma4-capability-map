@@ -183,6 +183,9 @@ def _system_run_args(system_id: str, meta: dict[str, Any]) -> dict[str, Any]:
         "disable_controller_repair": controls.disable_controller_repair,
         "disable_controller_fallback": controls.disable_controller_fallback,
         "disable_visual_rescue": controls.disable_visual_rescue,
+        "disable_intent_priority": controls.disable_intent_priority,
+        "disable_argument_repair": controls.disable_argument_repair,
+        "disable_deterministic_visual_follow_on": controls.disable_deterministic_visual_follow_on,
     }
 
 

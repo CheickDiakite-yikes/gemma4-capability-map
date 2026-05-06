@@ -87,6 +87,30 @@ def test_infer_system_id_matches_registry_for_controller_fallback_ablation() -> 
         disable_controller_repair=False,
         disable_controller_fallback=True,
         disable_visual_rescue=False,
+        disable_intent_priority=False,
+        disable_argument_repair=False,
+        disable_deterministic_visual_follow_on=False,
     )
 
     assert _infer_system_id(args) == "hf_gemma4_e2b_specialists_cpu_no_controller_fallback"
+
+
+def test_infer_system_id_matches_registry_for_second_wave_ablation() -> None:
+    args = argparse.Namespace(
+        system_id=None,
+        backend="hf",
+        reasoner_backend="hf",
+        router_backend="hf",
+        retriever_backend="hf",
+        reasoner="google/gemma-4-E2B-it",
+        router="google/functiongemma-270m-it",
+        retriever="google/embeddinggemma-300m",
+        disable_controller_repair=False,
+        disable_controller_fallback=False,
+        disable_visual_rescue=False,
+        disable_intent_priority=True,
+        disable_argument_repair=False,
+        disable_deterministic_visual_follow_on=False,
+    )
+
+    assert _infer_system_id(args) == "hf_gemma4_e2b_specialists_cpu_no_intent_priority"

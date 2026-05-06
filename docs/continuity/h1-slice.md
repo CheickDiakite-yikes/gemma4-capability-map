@@ -93,3 +93,13 @@ Useful run sets:
 - `all`: primary, comparison baselines, and ablation rows
 
 The H1 runner validates workflow/episode mappings first, writes a run manifest, and delegates real execution to `scripts/run_knowledge_work_arena.py` with explicit `--episode-id` filters and `--no-update-latest`.
+
+Current H1 ablation rows:
+
+- baseline HF Gemma specialists
+- no controller repair
+- no controller fallback
+- no visual rescue
+- no intent priority
+- no argument repair
+- no deterministic visual follow-on

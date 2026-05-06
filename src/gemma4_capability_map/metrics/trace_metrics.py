@@ -16,7 +16,13 @@ def derive_trace_metrics(task: Task, trace: RunTrace) -> dict[str, float | int |
             normalized_batches.append([str(note_batch)])
         else:
             normalized_batches.append([])
-    control_marker_notes = {"controller_repair_disabled", "controller_fallback_disabled"}
+    control_marker_notes = {
+        "controller_repair_disabled",
+        "controller_fallback_disabled",
+        "intent_priority_disabled",
+        "argument_repair_disabled",
+        "deterministic_visual_follow_on_disabled",
+    }
     flattened_notes = [note for batch in normalized_batches for note in batch]
     effective_notes = [note for note in flattened_notes if note not in control_marker_notes]
     controller_repairs = len(effective_notes)

@@ -101,13 +101,15 @@ def plan_or_repair_tool_calls(
             notes.append("controller_fallback_planner")
         return fallback_calls, notes
     parallel_priority_calls = _parallel_audit_pending_calls(context, tool_specs)
-    intent_priority_calls = _intent_priority_calls(context, tool_specs)
+    intent_priority_calls = None if research_controls.disable_intent_priority else _intent_priority_calls(context, tool_specs)
     feedback_priority_calls = _next_calls_from_feedback(context, tool_specs)
     if intent_priority_calls == []:
         return [], ["intent_prior:refuse_or_escalate"]
 
     repaired_calls: list[ToolCall] = []
     repair_notes: list[str] = []
+    if research_controls.disable_intent_priority:
+        repair_notes.append("intent_priority_disabled")
     candidate_calls = parsed_calls
     replacement_calls: list[ToolCall] = []
     if parsed_calls and parallel_priority_calls and not _calls_match(parsed_calls, parallel_priority_calls):
@@ -135,7 +137,13 @@ def plan_or_repair_tool_calls(
         replacement_calls = feedback_priority_calls
 
     for call in candidate_calls:
-        repaired_call, notes = _repair_tool_call(call, raw_output, context, tool_specs)
+        repaired_call, notes = _repair_or_passthrough_tool_call(
+            call,
+            raw_output,
+            context,
+            tool_specs,
+            research_controls=research_controls,
+        )
         if repaired_call is None:
             repaired_calls = []
             break
@@ -148,7 +156,13 @@ def plan_or_repair_tool_calls(
     if replacement_calls:
         synthesized_calls: list[ToolCall] = []
         for call in replacement_calls:
-            repaired_call, notes = _repair_tool_call(call, raw_output, context, tool_specs)
+            repaired_call, notes = _repair_or_passthrough_tool_call(
+                call,
+                raw_output,
+                context,
+                tool_specs,
+                research_controls=research_controls,
+            )
             if repaired_call is None:
                 return replacement_calls, repair_notes + notes
             synthesized_calls.append(repaired_call)
@@ -164,7 +178,13 @@ def plan_or_repair_tool_calls(
         repair_notes.append("controller_fallback_planner")
         fallback_repaired_calls: list[ToolCall] = []
         for call in fallback_calls:
-            repaired_call, notes = _repair_tool_call(call, raw_output, context, tool_specs)
+            repaired_call, notes = _repair_or_passthrough_tool_call(
+                call,
+                raw_output,
+                context,
+                tool_specs,
+                research_controls=research_controls,
+            )
             if repaired_call is None:
                 return fallback_calls, repair_notes + notes
             fallback_repaired_calls.append(repaired_call)
@@ -223,6 +243,23 @@ def deterministic_follow_on_calls(messages: list[Message], media: list[str], too
 def _requires_stepwise_visual_control(parsed_calls: list[ToolCall]) -> bool:
     visual_tool_names = {"segment_entities", "extract_layout", "refine_selection", "read_region_text"}
     return sum(1 for call in parsed_calls if call.name in visual_tool_names) > 1
+
+
+def _repair_or_passthrough_tool_call(
+    call: ToolCall,
+    raw_output: str,
+    context: dict[str, Any],
+    tool_specs: list[ToolSpec],
+    *,
+    research_controls: ResearchControls,
+) -> tuple[ToolCall | None, list[str]]:
+    if not research_controls.disable_argument_repair:
+        return _repair_tool_call(call, raw_output, context, tool_specs)
+
+    valid, _ = validate_tool_call(call, tool_specs)
+    if valid and _passes_semantic_preconditions(call, context):
+        return call, []
+    return None, ["argument_repair_disabled"]
 
 
 def _repair_tool_call(

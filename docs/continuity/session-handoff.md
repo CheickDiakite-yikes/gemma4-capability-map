@@ -37,6 +37,7 @@ The latest live-harness gain is now CLI-first:
   - [`configs/knowledge_work_h1_slice.yaml`](../../configs/knowledge_work_h1_slice.yaml)
   - [`docs/continuity/h1-slice.md`](./h1-slice.md)
 - `scripts/run_knowledge_work_h1_slice.py` validates H1 and delegates filtered runs to the existing KWA arena runner
+- second-wave ablation controls now exist for intent priority, argument repair, and deterministic visual follow-on
 
 The prior React product-side gain remains useful context:
 
@@ -141,6 +142,10 @@ Verification:
 - H1 runner/config scaffold: `17 passed`
 - `uv run python scripts/run_knowledge_work_h1_slice.py --dry-run --run-set primary --lane replayable_core --output-root tmp/h1-dry-run-smoke --run-group-id 20260506T_h1_dry_run_smoke`
 - completed and wrote a dry-run manifest for one primary replayable H1 run
+- `uv run pytest tests/test_tool_planner.py tests/test_trace_metrics.py tests/test_knowledge_work_matrix_script.py tests/test_run_knowledge_work_arena_script.py tests/test_knowledge_work_h1.py`
+- second-wave ablation control scaffold: `64 passed`
+- `uv run python scripts/run_knowledge_work_h1_slice.py --dry-run --run-set ablation --lane replayable_core --output-root tmp/h1-ablation-dry-run-smoke --run-group-id 20260506T_h1_ablation_dry_run_smoke`
+- completed and wrote `7` replayable H1 ablation run specs
 - `uv run moonie-agent live --workflow-id executive_visual_dashboard_review --system-id oracle_gemma4_e2b --lane replayable_core --refresh-s 0.1 --timeout-s 0.5`
 - completed through the Rich operator view with sandbox context visible
 - `uv run pytest`
@@ -216,6 +221,10 @@ Primary targets:
    - `repaired_arguments:extract_layout`
    - `intent_prior:record_or_update`
    - `intent_prior:inspect_or_lookup`
+Now scaffolded toggles:
+   - `disable_intent_priority`
+   - `disable_argument_repair`
+   - `disable_deterministic_visual_follow_on`
 
 4. Keep using the focused replayable packet first.
 Only rerun the aligned `32 / 26` surface after the packet shifts again.

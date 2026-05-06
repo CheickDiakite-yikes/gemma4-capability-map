@@ -96,8 +96,8 @@ def test_derive_trace_metrics_ignores_ablation_control_markers() -> None:
             "planning_prompt_tokens": [10, 10],
             "planning_completion_tokens": [2, 2],
             "planning_repair_notes": [
-                ["controller_repair_disabled", "controller_fallback_disabled"],
-                ["controller_repair_disabled", "controller_fallback_planner"],
+                ["controller_repair_disabled", "controller_fallback_disabled", "intent_priority_disabled"],
+                ["controller_repair_disabled", "argument_repair_disabled", "deterministic_visual_follow_on_disabled", "controller_fallback_planner"],
             ],
             "final_latency_ms": 100,
             "final_prompt_tokens": 5,

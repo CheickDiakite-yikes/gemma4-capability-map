@@ -178,6 +178,30 @@
   - `uv run python scripts/run_knowledge_work_h1_slice.py --dry-run --run-set primary --lane replayable_core --output-root tmp/h1-dry-run-smoke --run-group-id 20260506T_h1_dry_run_smoke`
   - completed and wrote one primary replayable H1 dry-run manifest
 
+### Second-wave controller ablation controls are scaffolded
+
+- Implementation:
+  - [`src/gemma4_capability_map/research_controls.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/research_controls.py)
+  - [`src/gemma4_capability_map/tools/planner.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/tools/planner.py)
+  - [`src/gemma4_capability_map/runtime/core.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/runtime/core.py)
+  - [`configs/model_registry.yaml`](/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml)
+  - [`configs/knowledge_work_h1_slice.yaml`](/Users/cheickdiakite/Codex/moonie/configs/knowledge_work_h1_slice.yaml)
+  - [`configs/knowledge_work_matrix_ablation_32_replayable.yaml`](/Users/cheickdiakite/Codex/moonie/configs/knowledge_work_matrix_ablation_32_replayable.yaml)
+
+- What changed:
+  - added `disable_intent_priority`
+  - added `disable_argument_repair`
+  - added `disable_deterministic_visual_follow_on`
+  - exposed matching HF Gemma specialist registry rows
+  - propagated flags through the arena, matrix, and H1 runner command builders
+  - kept ablation-disabled marker notes out of controller repair counts
+
+- Verification:
+  - `uv run pytest tests/test_tool_planner.py tests/test_trace_metrics.py tests/test_knowledge_work_matrix_script.py tests/test_run_knowledge_work_arena_script.py tests/test_knowledge_work_h1.py`
+  - `64 passed`
+  - `uv run python scripts/run_knowledge_work_h1_slice.py --dry-run --run-set ablation --lane replayable_core --output-root tmp/h1-ablation-dry-run-smoke --run-group-id 20260506T_h1_ablation_dry_run_smoke`
+  - completed and wrote `7` H1 replayable ablation run specs
+
 # 2026-04-14
 
 ### The React Gemma MLX workspace now runs a real end-to-end local session loop

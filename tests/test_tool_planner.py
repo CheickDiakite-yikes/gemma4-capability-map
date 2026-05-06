@@ -199,6 +199,50 @@ def test_controller_fallback_ablation_returns_no_calls_when_model_emits_none() -
     assert "controller_fallback_disabled" in notes
 
 
+def test_intent_priority_ablation_leaves_model_tool_choice_in_place() -> None:
+    messages = [Message(role="user", content="Read config/settings.yaml before making any change.")]
+    parsed_patch = ToolCall(
+        name="propose_patch",
+        arguments={"path": "config/settings.yaml", "patch": "safe_mode: true"},
+        source_format="json",
+        raw="{}",
+    )
+
+    repaired, notes = plan_or_repair_tool_calls(
+        raw_output='{"name":"propose_patch","arguments":{"path":"config/settings.yaml","patch":"safe_mode: true"}}',
+        parsed_calls=[parsed_patch],
+        messages=messages,
+        media=[],
+        tool_specs=[SPECS["read_repo_file"], SPECS["propose_patch"]],
+        research_controls=ResearchControls(disable_intent_priority=True),
+    )
+
+    assert repaired[0].name == "propose_patch"
+    assert notes == ["intent_priority_disabled"]
+
+
+def test_argument_repair_ablation_returns_schema_valid_raw_arguments() -> None:
+    messages = [Message(role="user", content="Find my Friday meeting with Sarah.")]
+    raw_call = ToolCall(
+        name="search_events",
+        arguments={"start_date": "Friday", "end_date": "Friday", "attendee": "Sarah"},
+        source_format="json",
+        raw="{}",
+    )
+
+    repaired, notes = plan_or_repair_tool_calls(
+        raw_output='{"name":"search_events","arguments":{"start_date":"Friday","end_date":"Friday","attendee":"Sarah"}}',
+        parsed_calls=[raw_call],
+        messages=messages,
+        media=[],
+        tool_specs=[SPECS["search_events"]],
+        research_controls=ResearchControls(disable_argument_repair=True),
+    )
+
+    assert repaired[0].arguments == {"start_date": "Friday", "end_date": "Friday", "attendee": "Sarah"}
+    assert notes == []
+
+
 def test_planner_projects_repaired_arguments_into_renamed_schema_fields() -> None:
     messages = [Message(role="user", content="Create a budget review hold for next Tuesday afternoon.")]
     renamed_create_event = SPECS["create_event"].model_copy(deep=True)

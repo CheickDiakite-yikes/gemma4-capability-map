@@ -23,7 +23,7 @@ Current state:
 Next implementation moves:
 
 - use the H1 runner to start primary MLX Gemma and ablation dry-runs before any broader matrix rerun
-- expand second-wave controller ablation toggles beyond the first repair/fallback/visual-rescue set
+- use the second-wave controller ablation toggles now exposed in the registry
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1
@@ -102,6 +102,12 @@ Smoke command:
 uv run python scripts/run_knowledge_work_h1_slice.py --dry-run --run-set primary --lane replayable_core
 ```
 
+Ablation dry-run command:
+
+```bash
+uv run python scripts/run_knowledge_work_h1_slice.py --dry-run --run-set ablation --lane replayable_core
+```
+
 ### 5. Install the local Gemma `31B` `GGUF` artifact and run the first real `llama.cpp` posture row
 
 Current blocker:
@@ -141,6 +147,12 @@ Keep pushing on:
 - approval-safe stop behavior
 - clarify vs defer vs refuse judgment quality
 - artifact revision quality after feedback
+
+Current second-wave ablation toggles:
+
+- `disable_intent_priority`
+- `disable_argument_repair`
+- `disable_deterministic_visual_follow_on`
 
 ### 8. Keep the live harness benchmark-backed
 

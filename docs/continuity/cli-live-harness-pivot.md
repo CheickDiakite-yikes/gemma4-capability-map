@@ -279,6 +279,14 @@ Next likely targets:
 - specialist routing
 - clarify/defer approval judgment fallback
 
+Status: second-wave ablation controls are scaffolded for the middle three targets above.
+
+- `disable_intent_priority`
+- `disable_argument_repair`
+- `disable_deterministic_visual_follow_on`
+
+They are exposed through `ResearchControls`, model-registry rows, `run_knowledge_work_arena.py`, `run_knowledge_work_matrix.py`, and the H1 runner. Specialist routing and clarify/defer judgment fallback remain future targets.
+
 ## Acceptance Criteria
 
 - we can launch `mlx_gemma4_e2b_reasoner_only` from CLI into a temp sandbox

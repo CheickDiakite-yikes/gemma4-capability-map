@@ -105,6 +105,12 @@ def main() -> None:
             command.append("--disable-controller-fallback")
         if spec.get("disable_visual_rescue"):
             command.append("--disable-visual-rescue")
+        if spec.get("disable_intent_priority"):
+            command.append("--disable-intent-priority")
+        if spec.get("disable_argument_repair"):
+            command.append("--disable-argument-repair")
+        if spec.get("disable_deterministic_visual_follow_on"):
+            command.append("--disable-deterministic-visual-follow-on")
 
         timeout_seconds = spec.get("run_timeout_seconds") or None
         try:
@@ -213,6 +219,9 @@ def _system_run_args(system_id: str, registry: dict[str, dict[str, Any]]) -> dic
         "disable_controller_repair": bool((meta.get("research_controls") or {}).get("disable_controller_repair", False)),
         "disable_controller_fallback": bool((meta.get("research_controls") or {}).get("disable_controller_fallback", False)),
         "disable_visual_rescue": bool((meta.get("research_controls") or {}).get("disable_visual_rescue", False)),
+        "disable_intent_priority": bool((meta.get("research_controls") or {}).get("disable_intent_priority", False)),
+        "disable_argument_repair": bool((meta.get("research_controls") or {}).get("disable_argument_repair", False)),
+        "disable_deterministic_visual_follow_on": bool((meta.get("research_controls") or {}).get("disable_deterministic_visual_follow_on", False)),
     }
 
 

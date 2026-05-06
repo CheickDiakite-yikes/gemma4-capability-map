@@ -44,6 +44,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--disable-controller-repair", action="store_true")
     parser.add_argument("--disable-controller-fallback", action="store_true")
     parser.add_argument("--disable-visual-rescue", action="store_true")
+    parser.add_argument("--disable-intent-priority", action="store_true")
+    parser.add_argument("--disable-argument-repair", action="store_true")
+    parser.add_argument("--disable-deterministic-visual-follow-on", action="store_true")
     return parser.parse_args()
 
 
@@ -66,6 +69,9 @@ def main() -> None:
         disable_controller_repair=args.disable_controller_repair,
         disable_controller_fallback=args.disable_controller_fallback,
         disable_visual_rescue=args.disable_visual_rescue,
+        disable_intent_priority=args.disable_intent_priority,
+        disable_argument_repair=args.disable_argument_repair,
+        disable_deterministic_visual_follow_on=args.disable_deterministic_visual_follow_on,
     )
 
     episodes = load_episodes(episodes_path)
@@ -253,6 +259,9 @@ def _infer_system_id(args: argparse.Namespace) -> str | None:
         disable_controller_repair=bool(getattr(args, "disable_controller_repair", False)),
         disable_controller_fallback=bool(getattr(args, "disable_controller_fallback", False)),
         disable_visual_rescue=bool(getattr(args, "disable_visual_rescue", False)),
+        disable_intent_priority=bool(getattr(args, "disable_intent_priority", False)),
+        disable_argument_repair=bool(getattr(args, "disable_argument_repair", False)),
+        disable_deterministic_visual_follow_on=bool(getattr(args, "disable_deterministic_visual_follow_on", False)),
     ).manifest_payload()
 
     if backend == "oracle" and not controls:
@@ -315,6 +324,9 @@ def _match_registry_system(args: argparse.Namespace, registry_path: str | Path =
         disable_controller_repair=bool(getattr(args, "disable_controller_repair", False)),
         disable_controller_fallback=bool(getattr(args, "disable_controller_fallback", False)),
         disable_visual_rescue=bool(getattr(args, "disable_visual_rescue", False)),
+        disable_intent_priority=bool(getattr(args, "disable_intent_priority", False)),
+        disable_argument_repair=bool(getattr(args, "disable_argument_repair", False)),
+        disable_deterministic_visual_follow_on=bool(getattr(args, "disable_deterministic_visual_follow_on", False)),
     ).manifest_payload()
 
     for system_id, meta in systems.items():

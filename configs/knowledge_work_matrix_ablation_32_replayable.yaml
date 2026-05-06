@@ -10,6 +10,9 @@ matrix:
     - hf_gemma4_e2b_specialists_cpu_no_controller_repair
     - hf_gemma4_e2b_specialists_cpu_no_controller_fallback
     - hf_gemma4_e2b_specialists_cpu_no_visual_rescue
+    - hf_gemma4_e2b_specialists_cpu_no_intent_priority
+    - hf_gemma4_e2b_specialists_cpu_no_argument_repair
+    - hf_gemma4_e2b_specialists_cpu_no_deterministic_visual_follow_on
     - mlx_gemma4_e2b_reasoner_only
     - mlx_qwen3_8b_reasoner_only
   lanes:

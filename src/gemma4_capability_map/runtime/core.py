@@ -131,6 +131,8 @@ def execute_task_trace(
         def execute_deterministic_follow_ons() -> None:
             if research_controls.disable_controller_repair:
                 return
+            if research_controls.disable_deterministic_visual_follow_on:
+                return
 
             auto_chain_budget = min(4, max_tool_steps - len(tool_steps))
             while auto_chain_budget > 0 and len(tool_steps) < max_tool_steps:
