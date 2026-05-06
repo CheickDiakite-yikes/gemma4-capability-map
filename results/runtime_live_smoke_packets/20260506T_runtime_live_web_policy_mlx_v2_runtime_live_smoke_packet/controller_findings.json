@@ -1,0 +1,46 @@
+[
+  {
+    "session_id": "20260506T221455478537Z_jobs_visual_form_hold",
+    "workflow_id": "jobs_visual_form_hold",
+    "episode_id": "kwa_jobs_live_email_block_resume_hold_v5",
+    "system_id": "mlx_gemma4_e2b_reasoner_only",
+    "lane": "live_web_stress",
+    "stage_id": "kwa_jobs_live_email_block_resume_hold_v5_stage_1",
+    "task_id": "tool_021_jobs_cli_patch_only_latest_email_fix",
+    "repair_notes": [
+      "repaired_arguments:cli_apply_patch"
+    ],
+    "raw_outputs": [
+      "{\"name\": \"cli_apply_patch\", \"arguments\": {\"path\": \"config/job_form.yaml\", \"patch\": \"email validation stays blocked until review\"}}"
+    ],
+    "metrics": {
+      "controller_repair_count": 1,
+      "argument_repair_count": 1,
+      "controller_fallback_count": 0,
+      "intent_override_count": 0,
+      "raw_planning_clean_rate": 0.0
+    }
+  },
+  {
+    "session_id": "20260506T221455478537Z_jobs_visual_form_hold",
+    "workflow_id": "jobs_visual_form_hold",
+    "episode_id": "kwa_jobs_live_email_block_resume_hold_v5",
+    "system_id": "mlx_gemma4_e2b_reasoner_only",
+    "lane": "live_web_stress",
+    "stage_id": "kwa_jobs_live_email_block_resume_hold_v5_stage_2",
+    "task_id": "visual_030_live_form_latest_blocked_email_refinement",
+    "repair_notes": [
+      "controller_fallback_planner"
+    ],
+    "raw_outputs": [
+      "\"extract_layout\": {\"image_id\": \"img-form-blocked-email-live\", \"target_query\": \"latest form issues, then blocked issues, then email issue\"},\n\"refine_selection\": {\"selection_id\": \"previous_selection\", \"filter_query\": \"keep only"
+    ],
+    "metrics": {
+      "controller_repair_count": 1,
+      "argument_repair_count": 0,
+      "controller_fallback_count": 1,
+      "intent_override_count": 0,
+      "raw_planning_clean_rate": 0.0
+    }
+  }
+]

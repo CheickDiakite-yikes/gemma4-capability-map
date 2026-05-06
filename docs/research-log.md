@@ -243,6 +243,38 @@
   - local MLX Gemma continues to complete the workflows, but this packet makes clear that controller argument repair remains materially present on live CLI execution
   - replayable approval holds do not trigger sandbox policy blocks; the next packet should use `live_web_stress` or a dedicated side-effect-gated workflow to test the sandbox policy stream
 
+### Live-web policy packet exercises sandbox policy blocks
+
+- Packet command:
+  - `uv run python scripts/run_runtime_live_smoke_packet.py --workflow-id jobs_visual_form_hold --system-id mlx_gemma4_e2b_reasoner_only --lane live_web_stress --run-group-id 20260506T_runtime_live_web_policy_mlx_v2`
+- Packet output:
+  - [`results/runtime_live_smoke_packets/20260506T_runtime_live_web_policy_mlx_v2_runtime_live_smoke_packet`](/Users/cheickdiakite/Codex/moonie/results/runtime_live_smoke_packets/20260506T_runtime_live_web_policy_mlx_v2_runtime_live_smoke_packet)
+  - `workflow_count = 1`
+  - `status_counts.awaiting_approval = 1`
+  - `failed_sessions = 0`
+  - `role_readiness_avg = 0.9826`
+  - `strict_interface_avg = 1.0`
+  - `recovered_execution_avg = 1.0`
+  - `controller_repair_avg = 1.0`
+  - `argument_repair_avg = 0.5`
+  - `controller_fallback_avg = 0.5`
+  - `raw_planning_clean_rate_avg = 0.0`
+  - `approval_count = 1`
+  - `policy_block_count = 3`
+  - `controller_finding_count = 2`
+- Policy blocks:
+  - two `sandbox_only` blocks for live jobs form rehydration and repair actions
+  - one `approval_required` block for the live jobs resume submission attempt
+  - all three blocks carry `sandbox://` targets plus `https://sandbox.local/...` endpoints
+- Controller findings:
+  - `cli_apply_patch` argument repair in stage 1
+  - `controller_fallback_planner` on the live visual form refinement in stage 2
+
+- Research interpretation:
+  - the live CLI harness now has committed evidence for three operator-critical states: completed, awaiting approval, and sandbox policy blocked
+  - this also reintroduces a real controller-fallback signal on live local MLX, so the next H1c design should include live-web visual/form pressure rather than only replayable visual readback
+  - next runtime UX slice: make policy blocks easier to read directly in `moonie-agent attach` and `moonie-agent inspect --target policy`
+
 ### Gemini CLI baseline adapter scaffold exists
 
 - Runtime/CLI implementation:

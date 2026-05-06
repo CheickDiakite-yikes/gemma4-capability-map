@@ -1,0 +1,27 @@
+[
+  {
+    "session_id": "20260506T221455478537Z_jobs_visual_form_hold",
+    "workflow_id": "jobs_visual_form_hold",
+    "episode_id": "kwa_jobs_live_email_block_resume_hold_v5",
+    "system_id": "mlx_gemma4_e2b_reasoner_only",
+    "lane": "live_web_stress",
+    "status": "awaiting_approval",
+    "sandbox_mode": "ephemeral_copy",
+    "sandbox_policy_id": "packaged_workflow_ephemeral_v1",
+    "sandbox_root": "/Users/cheickdiakite/Codex/moonie/results/runtime/sessions/20260506T221455478537Z_jobs_visual_form_hold/sandbox",
+    "sandbox_manifest_exists": true,
+    "artifact_count": 3,
+    "policy_block_count": 3,
+    "approval_count": 1,
+    "controller_finding_count": 2,
+    "summary_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/sessions/20260506T221455478537Z_jobs_visual_form_hold/sandbox/output/summary.json",
+    "episode_trace_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/sessions/20260506T221455478537Z_jobs_visual_form_hold/sandbox/output/episode_trace.json",
+    "role_readiness_score": 0.9826,
+    "strict_interface_score": 1.0,
+    "recovered_execution_score": 1.0,
+    "controller_repair_count": 1.0,
+    "argument_repair_count": 0.5,
+    "controller_fallback_count": 0.5,
+    "raw_planning_clean_rate": 0.0
+  }
+]

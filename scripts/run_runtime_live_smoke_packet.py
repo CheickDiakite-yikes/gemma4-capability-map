@@ -113,6 +113,7 @@ def run_packet(
 
     rows: list[dict[str, Any]] = []
     controller_findings: list[dict[str, Any]] = []
+    policy_blocks: list[dict[str, Any]] = []
     for workflow_id in workflow_ids:
         session = runtime.launch_session(
             workflow_id=workflow_id,
@@ -122,19 +123,21 @@ def run_packet(
             sandbox_mode=sandbox_mode,
             sandbox_policy_id=sandbox_policy_id,
         )
-        row, findings = _session_record(runtime, session.session_id)
+        row, findings, blocks = _session_record(runtime, session.session_id)
         rows.append(row)
         controller_findings.extend(findings)
+        policy_blocks.extend(blocks)
 
     summary = _summary(run_group_id, packet_dir, rows)
     _write_json(packet_dir / "sessions.json", rows)
     _write_json(packet_dir / "controller_findings.json", controller_findings)
+    _write_json(packet_dir / "policy_blocks.json", policy_blocks)
     _write_json(packet_dir / "summary.json", summary)
     _write_csv(packet_dir / "leaderboard.csv", rows)
     return summary
 
 
-def _session_record(runtime: LocalAgentRuntime, session_id: str) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+def _session_record(runtime: LocalAgentRuntime, session_id: str) -> tuple[dict[str, Any], list[dict[str, Any]], list[dict[str, Any]]]:
     session = runtime.get_session(session_id)
     runtime_trace = session.runtime_trace
     scorecard = session_inspection_payload(runtime, session_id, target="scorecard").get("scorecard", {})
@@ -175,7 +178,18 @@ def _session_record(runtime: LocalAgentRuntime, session_id: str) -> tuple[dict[s
         "controller_fallback_count": metrics.get("controller_fallback_count"),
         "raw_planning_clean_rate": metrics.get("raw_planning_clean_rate"),
     }
-    return row, findings
+    blocks = [
+        {
+            "session_id": session.session_id,
+            "workflow_id": session.workflow_id,
+            "episode_id": session.episode_id,
+            "system_id": session.system_id,
+            "lane": session.lane,
+            **block,
+        }
+        for block in session.sandbox_policy_blocks
+    ]
+    return row, findings, blocks
 
 
 def _summary(run_group_id: str, packet_dir: Path, rows: list[dict[str, Any]]) -> dict[str, Any]:

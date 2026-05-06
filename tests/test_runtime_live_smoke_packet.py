@@ -52,6 +52,7 @@ def test_runtime_live_smoke_packet_runs_oracle_workflow(tmp_path: Path) -> None:
     output_dir = Path(result["output_dir"])
     sessions = json.loads((output_dir / "sessions.json").read_text(encoding="utf-8"))
     findings = json.loads((output_dir / "controller_findings.json").read_text(encoding="utf-8"))
+    blocks = json.loads((output_dir / "policy_blocks.json").read_text(encoding="utf-8"))
     leaderboard = (output_dir / "leaderboard.csv").read_text(encoding="utf-8")
     assert result["workflow_count"] == 1
     assert result["failed_sessions"] == 0
@@ -60,4 +61,5 @@ def test_runtime_live_smoke_packet_runs_oracle_workflow(tmp_path: Path) -> None:
     assert sessions[0]["sandbox_manifest_exists"] is True
     assert sessions[0]["artifact_count"] == 3
     assert isinstance(findings, list)
+    assert isinstance(blocks, list)
     assert "workflow_id,episode_id" in leaderboard

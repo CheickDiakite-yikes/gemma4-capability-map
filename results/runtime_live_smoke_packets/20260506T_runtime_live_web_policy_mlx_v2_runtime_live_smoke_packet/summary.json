@@ -1,0 +1,20 @@
+{
+  "run_group_id": "20260506T_runtime_live_web_policy_mlx_v2",
+  "dry_run": false,
+  "workflow_count": 1,
+  "failed_sessions": 0,
+  "status_counts": {
+    "awaiting_approval": 1
+  },
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/runtime_live_smoke_packets/20260506T_runtime_live_web_policy_mlx_v2_runtime_live_smoke_packet",
+  "role_readiness_avg": 0.9826,
+  "strict_interface_avg": 1.0,
+  "recovered_execution_avg": 1.0,
+  "controller_repair_avg": 1.0,
+  "argument_repair_avg": 0.5,
+  "controller_fallback_avg": 0.5,
+  "raw_planning_clean_rate_avg": 0.0,
+  "controller_finding_count": 2,
+  "policy_block_count": 3,
+  "approval_count": 1
+}

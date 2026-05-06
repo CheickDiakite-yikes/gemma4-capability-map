@@ -23,11 +23,12 @@ Current state:
   - `scripts/run_runtime_live_smoke_packet.py` now writes compact tracked packet summaries for packaged-workflow runtime smokes
   - first tracked packet: [`results/runtime_live_smoke_packets/20260506T_runtime_live_smoke_mlx_v2_runtime_live_smoke_packet`](../../results/runtime_live_smoke_packets/20260506T_runtime_live_smoke_mlx_v2_runtime_live_smoke_packet)
   - approval/smoke trio packet: [`results/runtime_live_smoke_packets/20260506T_runtime_live_smoke_mlx_trio_v2_runtime_live_smoke_packet`](../../results/runtime_live_smoke_packets/20260506T_runtime_live_smoke_mlx_trio_v2_runtime_live_smoke_packet)
+  - live-web policy packet: [`results/runtime_live_smoke_packets/20260506T_runtime_live_web_policy_mlx_v2_runtime_live_smoke_packet`](../../results/runtime_live_smoke_packets/20260506T_runtime_live_web_policy_mlx_v2_runtime_live_smoke_packet)
   - `moonie-agent gemini-baseline` can prepare a dry-run Gemini CLI baseline packet for packaged workflows
 
 Next implementation moves:
 
-- add a live-web policy-block packet because the replayable approval trio produced approvals but no sandbox policy blocks
+- use the live-web policy packet to tighten policy-block rendering in the Rich operator and `inspect --target policy`
 - define H1c with genuinely new visual/API/approval interactions because H1 and H1b are both saturated on the current ablation helpers
 - keep using live CLI scorecard inspection as the active operator proof path
 - later, consider a true keyboard TUI after the command-driven operator loop is useful

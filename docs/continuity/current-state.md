@@ -113,6 +113,24 @@ Latest runtime approval/smoke trio:
 - `controller_finding_count = 4`
 - [`controller_findings.json`](../../results/runtime_live_smoke_packets/20260506T_runtime_live_smoke_mlx_trio_v2_runtime_live_smoke_packet/controller_findings.json) records exact repair notes and raw calls for the visual, API, and CLI argument repairs
 
+Latest live-web policy packet:
+
+- output: [`results/runtime_live_smoke_packets/20260506T_runtime_live_web_policy_mlx_v2_runtime_live_smoke_packet`](../../results/runtime_live_smoke_packets/20260506T_runtime_live_web_policy_mlx_v2_runtime_live_smoke_packet)
+- workflow: `jobs_visual_form_hold`
+- lane: `live_web_stress`
+- status counts: `awaiting_approval = 1`
+- `role_readiness_avg = 0.9826`
+- `strict_interface_avg = 1.0`
+- `recovered_execution_avg = 1.0`
+- `controller_repair_avg = 1.0`
+- `argument_repair_avg = 0.5`
+- `controller_fallback_avg = 0.5`
+- `raw_planning_clean_rate_avg = 0.0`
+- `approval_count = 1`
+- `policy_block_count = 3`
+- `controller_finding_count = 2`
+- [`policy_blocks.json`](../../results/runtime_live_smoke_packets/20260506T_runtime_live_web_policy_mlx_v2_runtime_live_smoke_packet/policy_blocks.json) records two `sandbox_only` blocks and one `approval_required` block with sandbox endpoints
+
 Relevant batches:
 
 - aligned HF Gemma controller-burden rerun:
