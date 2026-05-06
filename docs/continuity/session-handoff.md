@@ -56,6 +56,12 @@ The latest live-harness gain is now CLI-first:
   - `no_argument_repair = 0.9749800000000001`
   - `no_deterministic_visual_follow_on = 0.9749800000000001`
   - interpretation: H1 confirms repair/fallback are causal on HF Gemma, while the second-wave helper toggles did not move readiness on this slice
+- H1 trace-note mining is now reusable:
+  - [`scripts/analyze_knowledge_work_h1_traces.py`](../../scripts/analyze_knowledge_work_h1_traces.py)
+  - [`trace_note_counts.csv`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet/trace_note_counts.csv)
+  - [`trace_episode_failures.csv`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet/trace_episode_failures.csv)
+  - current read: `102` controller-note events, `10` strict/recovered failure candidates, baseline `controller_fallback_planner` appears `6` times across all `5` H1 episodes
+  - next target: raw refusal/no-call and generic `tool_name` planning failures, not visual rescue
 
 The prior React product-side gain remains useful context:
 
@@ -174,6 +180,10 @@ Verification:
 - service-backed specialist mapping after the v1 failure: `21 passed`
 - `uv run python scripts/run_knowledge_work_h1_ablation_packet.py --lane replayable_core --run-group-id 20260506T_h1_hf_service_ablation_v2`
 - completed with `7` service-backed H1 ablation rows and `5` replayable episodes each
+- `uv run pytest tests/test_knowledge_work_trace_analysis.py`
+- H1 trace analyzer: `2 passed`
+- `uv run python scripts/analyze_knowledge_work_h1_traces.py results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet`
+- completed and wrote trace-note summary, note counts, and failure candidates
 - `uv run moonie-agent live --workflow-id executive_visual_dashboard_review --system-id oracle_gemma4_e2b --lane replayable_core --refresh-s 0.1 --timeout-s 0.5`
 - completed through the Rich operator view with sandbox context visible
 - `uv run pytest`
@@ -241,7 +251,7 @@ Primary targets:
    - `moonie-agent attach`
    - Rich terminal operator harness
 
-2. Mine the completed H1 service-backed HF Gemma ablation traces before another broad same-surface rerun.
+2. Use the completed H1 trace outputs to build a raw-refusal / generic-`tool_name` regression packet before another broad same-surface rerun.
 
 3. Attack the remaining HF Gemma specialist note families directly.
 Primary targets:

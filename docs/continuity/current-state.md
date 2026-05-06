@@ -209,6 +209,20 @@ Interpretation:
 - H1 does break HF Gemma when controller repair or controller fallback are disabled
 - the remaining research seam is now trace-level repair/fallback mechanism design, not top-line readiness
 
+Trace-note analysis:
+
+- [`trace_note_summary.json`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet/trace_note_summary.json)
+- [`trace_note_counts.csv`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet/trace_note_counts.csv)
+- [`trace_episode_failures.csv`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet/trace_episode_failures.csv)
+
+Current trace read:
+
+- `102` controller-note events across `35` H1 episode rows
+- `10` strict/recovered failure candidates
+- baseline uses `controller_fallback_planner` `6` times across all `5` H1 episodes
+- `no_controller_fallback` fails all `5` H1 episodes, mostly raw refusal/no-call cases
+- `no_controller_repair` fails all `5` H1 episodes, mostly generic `tool_name` hallucinations and malformed arguments
+
 ## Strongest Current Findings
 
 1. Top-line parity is now established on the aligned `32 / 26` surface.

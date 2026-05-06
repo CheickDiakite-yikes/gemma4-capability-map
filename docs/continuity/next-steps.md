@@ -22,8 +22,8 @@ Current state:
 
 Next implementation moves:
 
-- mine the completed H1 service-backed HF ablation traces for exact repair/fallback failure families
-- turn that trace read into the next targeted controller patch or H1b slice
+- use the completed H1 trace-note outputs to build a targeted raw-refusal / generic-`tool_name` controller regression packet
+- turn that packet into the next targeted controller patch or H1b slice
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1
@@ -143,7 +143,8 @@ Use the H1 ablation packet wrapper instead of the generic H1 runner for this wav
 
 Next empirical move:
 
-- mine the H1 traces for `controller_fallback_planner`, malformed/raw planning, and repair-note families by episode
+- use [`trace_episode_failures.csv`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet/trace_episode_failures.csv) and [`trace_note_counts.csv`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet/trace_note_counts.csv)
+- target the raw-refusal and generic-`tool_name` planning failures now isolated by the H1 trace miner
 - define H1b only if that trace read shows the current five-episode slice is too narrow
 - avoid another broad aligned rerun until the targeted repair/fallback mechanism changes
 

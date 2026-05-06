@@ -1105,6 +1105,12 @@ Run the H1 service-backed HF ablation packet:
 uv run python scripts/run_knowledge_work_h1_ablation_packet.py --lane replayable_core --run-group-id 20260506T_h1_hf_service_ablation_v2
 ```
 
+Mine H1 controller trace notes:
+
+```bash
+uv run python scripts/analyze_knowledge_work_h1_traces.py results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet
+```
+
 Refresh KWA history:
 
 ```bash

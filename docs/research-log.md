@@ -302,6 +302,35 @@
   - visual rescue, intent priority, argument repair, and deterministic visual follow-on do not move readiness on this H1 slice
   - the best next slice is trace mining for the repair/fallback rows, then a targeted H1b packet around `controller_fallback_planner` and malformed/raw planning spillover
 
+### H1 trace-note miner added
+
+- Implementation:
+  - [`src/gemma4_capability_map/knowledge_work/trace_analysis.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/knowledge_work/trace_analysis.py)
+  - [`scripts/analyze_knowledge_work_h1_traces.py`](/Users/cheickdiakite/Codex/moonie/scripts/analyze_knowledge_work_h1_traces.py)
+  - [`tests/test_knowledge_work_trace_analysis.py`](/Users/cheickdiakite/Codex/moonie/tests/test_knowledge_work_trace_analysis.py)
+- Command:
+  - `uv run python scripts/analyze_knowledge_work_h1_traces.py results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet`
+- Output:
+  - [`trace_note_summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet/trace_note_summary.json)
+  - [`trace_note_counts.csv`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet/trace_note_counts.csv)
+  - [`trace_episode_failures.csv`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet/trace_episode_failures.csv)
+
+- Verification:
+  - `uv run pytest tests/test_knowledge_work_trace_analysis.py`
+  - `2 passed`
+
+- Trace read:
+  - mined `102` controller-note events across `35` H1 episode rows
+  - found `10` strict/recovered failure candidates
+  - baseline still uses `controller_fallback_planner` `6` times across all `5` H1 episodes
+  - `no_controller_fallback` fails all `5` H1 episodes, mostly raw refusal/no-call cases
+  - `no_controller_repair` fails all `5` H1 episodes, mostly repeated generic `tool_name` hallucinations and unprojected arguments
+  - disabling deterministic visual follow-on reintroduces `feedback_prior:refine_selection` and `feedback_prior:read_region_text`, but readiness still does not move
+
+- Interpretation:
+  - the next useful controller slice is now a trace-mined regression packet for raw refusal and generic `tool_name` planning failures
+  - visual rescue remains deprioritized for this H1 family
+
 # 2026-04-14
 
 ### The React Gemma MLX workspace now runs a real end-to-end local session loop
