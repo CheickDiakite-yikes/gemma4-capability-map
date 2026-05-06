@@ -94,6 +94,10 @@ def tool_turn_directive(messages: list[Message], media: list[str], tool_specs: l
         lines.append(
             "For visual workflows, make one visual tool call per turn and continue from the latest passing tool result."
         )
+    if any(call.name == "extract_layout" for call in planned_calls):
+        lines.append(
+            "For extract_layout, target_query is a literal selector label for the visual executor; copy it exactly even if the user mentioned a more specific issue."
+        )
     return "\n".join(lines)
 
 

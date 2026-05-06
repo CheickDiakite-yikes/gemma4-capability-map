@@ -1189,6 +1189,23 @@ def test_tool_turn_directive_marks_visual_calls_as_stepwise() -> None:
     assert "make one visual tool call per turn" in directive
 
 
+def test_tool_turn_directive_marks_extract_layout_target_query_as_literal_selector() -> None:
+    directive = tool_turn_directive(
+        messages=[
+            Message(role="system", content="visual_image_ids: img-form-live-latest"),
+            Message(
+                role="user",
+                content="Using the local visual executor path, respect the latest recruiter note, isolate the phone issue first, and read back that message.",
+            ),
+        ],
+        media=["img-form-live-latest"],
+        tool_specs=[SPECS["extract_layout"], SPECS["refine_selection"], SPECS["read_region_text"]],
+    )
+
+    assert '{"name":"extract_layout","arguments":{"image_id":"img-form-live-latest","target_query":"validation error"}}' in directive
+    assert "target_query is a literal selector label" in directive
+
+
 def test_planner_prefers_cli_inspect_diff_for_review_only_diff_instruction() -> None:
     messages = [
         Message(
