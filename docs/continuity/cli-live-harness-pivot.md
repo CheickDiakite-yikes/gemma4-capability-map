@@ -228,7 +228,12 @@ Status: command-driven operator scaffold implemented.
 - `moonie-agent inspect <session_id> --target sandbox|artifacts|policy|summary|scorecard`
 - the live side panel shows completion metrics, including readiness and repair/raw-clean
 
-Next step: add a replayable live-smoke packet wrapper so CLI operator runs can be summarized across workflows rather than inspected one session at a time.
+The first replayable live-smoke packet wrapper now exists:
+
+- [`scripts/run_runtime_live_smoke_packet.py`](../../scripts/run_runtime_live_smoke_packet.py)
+- [`results/runtime_live_smoke_packets/20260506T_runtime_live_smoke_mlx_v2_runtime_live_smoke_packet`](../../results/runtime_live_smoke_packets/20260506T_runtime_live_smoke_mlx_v2_runtime_live_smoke_packet)
+
+Next step: expand the packet from the single dashboard smoke into a tiny approval/sandbox trio.
 
 ### Phase 4: Gemini CLI adapter
 

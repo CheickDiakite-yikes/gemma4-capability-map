@@ -79,6 +79,21 @@ Latest real CLI smoke:
 - `raw_planning_clean_rate = 0.5`
 - `moonie-agent inspect <session_id> --target scorecard --json` attributes the repair to `visual_013_dashboard_stale_selection_recovery`, where MLX Gemma emitted a semantically reasonable but non-canonical `extract_layout` query and the controller repaired it to the benchmark-canonical visual argument
 
+Latest runtime live-smoke packet:
+
+- script: [`scripts/run_runtime_live_smoke_packet.py`](../../scripts/run_runtime_live_smoke_packet.py)
+- output: [`results/runtime_live_smoke_packets/20260506T_runtime_live_smoke_mlx_v2_runtime_live_smoke_packet`](../../results/runtime_live_smoke_packets/20260506T_runtime_live_smoke_mlx_v2_runtime_live_smoke_packet)
+- workflow: `executive_visual_dashboard_review`
+- system: `mlx_gemma4_e2b_reasoner_only`
+- status: `completed`
+- `role_readiness_avg = 0.9942`
+- `strict_interface_avg = 1.0`
+- `recovered_execution_avg = 1.0`
+- `controller_repair_avg = 0.5`
+- `argument_repair_avg = 0.5`
+- `raw_planning_clean_rate_avg = 0.5`
+- `controller_finding_count = 1`
+
 Relevant batches:
 
 - aligned HF Gemma controller-burden rerun:

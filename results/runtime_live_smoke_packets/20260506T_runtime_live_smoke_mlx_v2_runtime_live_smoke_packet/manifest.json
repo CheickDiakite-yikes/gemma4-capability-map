@@ -1,0 +1,46 @@
+{
+  "run_group_id": "20260506T_runtime_live_smoke_mlx_v2",
+  "created_at": "2026-05-06T22:09:20.545242+00:00",
+  "system_id": "mlx_gemma4_e2b_reasoner_only",
+  "lane": "replayable_core",
+  "sandbox_mode": "ephemeral_copy",
+  "sandbox_policy_id": "packaged_workflow_ephemeral_v1",
+  "dry_run": false,
+  "workflows": [
+    {
+      "workflow_id": "executive_visual_dashboard_review",
+      "title": "Dashboard Visual Review",
+      "subtitle": "Inspect a dashboard screenshot and ship a concise action brief",
+      "description": "Use the shared visual-tool path to inspect a dashboard, preserve visual referents, and produce an actionable executive brief.",
+      "role_family": "executive_assistant",
+      "category": "visual_review",
+      "preview_asset": "/Users/cheickdiakite/Codex/moonie/data/assets/visual_dashboard.png",
+      "recommended_system_id": "hf_service_gemma4_specialists_cpu",
+      "default_lane": "replayable_core",
+      "lane": "replayable_core",
+      "episode_id": "kwa_exec_visual_dashboard_brief",
+      "supports_approval": false,
+      "tags": [
+        "visual",
+        "dashboard",
+        "executive"
+      ]
+    }
+  ],
+  "commands": [
+    [
+      "moonie-agent",
+      "live",
+      "--workflow-id",
+      "executive_visual_dashboard_review",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only",
+      "--lane",
+      "replayable_core",
+      "--sandbox-mode",
+      "ephemeral_copy",
+      "--sandbox-policy-id",
+      "packaged_workflow_ephemeral_v1"
+    ]
+  ]
+}

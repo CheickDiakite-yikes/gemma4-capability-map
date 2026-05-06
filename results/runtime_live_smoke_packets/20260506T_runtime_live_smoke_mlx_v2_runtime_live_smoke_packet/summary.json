@@ -1,0 +1,20 @@
+{
+  "run_group_id": "20260506T_runtime_live_smoke_mlx_v2",
+  "dry_run": false,
+  "workflow_count": 1,
+  "failed_sessions": 0,
+  "status_counts": {
+    "completed": 1
+  },
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/runtime_live_smoke_packets/20260506T_runtime_live_smoke_mlx_v2_runtime_live_smoke_packet",
+  "role_readiness_avg": 0.9942,
+  "strict_interface_avg": 1.0,
+  "recovered_execution_avg": 1.0,
+  "controller_repair_avg": 0.5,
+  "argument_repair_avg": 0.5,
+  "controller_fallback_avg": 0.0,
+  "raw_planning_clean_rate_avg": 0.5,
+  "controller_finding_count": 1,
+  "policy_block_count": 0,
+  "approval_count": 0
+}

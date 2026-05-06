@@ -174,6 +174,44 @@
   - the live operator path is now better than a success/failure dashboard; it exposes the actual harness intervention
   - this repair is not a catastrophic model failure, but it is exactly the kind of local Gemma harnessing signal worth measuring: semantically reasonable arguments still need canonicalization on the benchmark contract
 
+### Runtime live-smoke packets are now replayable and commit-friendly
+
+- Implementation:
+  - [`scripts/run_runtime_live_smoke_packet.py`](/Users/cheickdiakite/Codex/moonie/scripts/run_runtime_live_smoke_packet.py)
+- Regression coverage:
+  - [`tests/test_runtime_live_smoke_packet.py`](/Users/cheickdiakite/Codex/moonie/tests/test_runtime_live_smoke_packet.py)
+
+- What changed:
+  - added a small packet runner over packaged workflows that uses the same `LocalAgentRuntime` path as `moonie-agent live`
+  - writes `manifest.json`, `summary.json`, `sessions.json`, and `leaderboard.csv`
+  - stores compact packet outputs under tracked `results/runtime_live_smoke_packets`
+  - keeps raw per-session runtime state under ignored `results/runtime/sessions`
+
+- Verification:
+  - `uv run pytest tests/test_runtime_live_smoke_packet.py tests/test_runtime_cli.py tests/test_runtime_core.py -q`
+  - `25 passed`
+  - dry-run command:
+    - `uv run python scripts/run_runtime_live_smoke_packet.py --workflow-id executive_visual_dashboard_review --system-id mlx_gemma4_e2b_reasoner_only --lane replayable_core --run-group-id 20260506T_runtime_live_smoke_dry_run_v2 --dry-run`
+  - real MLX packet command:
+    - `uv run python scripts/run_runtime_live_smoke_packet.py --workflow-id executive_visual_dashboard_review --system-id mlx_gemma4_e2b_reasoner_only --lane replayable_core --run-group-id 20260506T_runtime_live_smoke_mlx_v2`
+- Packet output:
+  - [`results/runtime_live_smoke_packets/20260506T_runtime_live_smoke_mlx_v2_runtime_live_smoke_packet`](/Users/cheickdiakite/Codex/moonie/results/runtime_live_smoke_packets/20260506T_runtime_live_smoke_mlx_v2_runtime_live_smoke_packet)
+  - `workflow_count = 1`
+  - `failed_sessions = 0`
+  - `status_counts.completed = 1`
+  - `role_readiness_avg = 0.9942`
+  - `strict_interface_avg = 1.0`
+  - `recovered_execution_avg = 1.0`
+  - `controller_repair_avg = 0.5`
+  - `argument_repair_avg = 0.5`
+  - `controller_fallback_avg = 0.0`
+  - `raw_planning_clean_rate_avg = 0.5`
+  - `controller_finding_count = 1`
+
+- Research interpretation:
+  - live CLI validation now has a durable packet shape that can be committed and compared over time
+  - the next packet should include an approval-hold workflow and a live-web sandbox-policy workflow so the operator harness is tested beyond the dashboard happy path
+
 ### Gemini CLI baseline adapter scaffold exists
 
 - Runtime/CLI implementation:

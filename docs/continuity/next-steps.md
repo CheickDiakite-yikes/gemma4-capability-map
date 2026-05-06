@@ -20,13 +20,15 @@ Current state:
   - a real `mlx_gemma4_e2b_reasoner_only` CLI smoke completed on `executive_visual_dashboard_review`
   - a second real `mlx_gemma4_e2b_reasoner_only` CLI smoke completed on `20260506T220039380037Z_executive_visual_dashboard_review`
   - `moonie-agent inspect --target scorecard` now exposes scorecard metrics and per-task controller repair findings
+  - `scripts/run_runtime_live_smoke_packet.py` now writes compact tracked packet summaries for packaged-workflow runtime smokes
+  - first tracked packet: [`results/runtime_live_smoke_packets/20260506T_runtime_live_smoke_mlx_v2_runtime_live_smoke_packet`](../../results/runtime_live_smoke_packets/20260506T_runtime_live_smoke_mlx_v2_runtime_live_smoke_packet)
   - `moonie-agent gemini-baseline` can prepare a dry-run Gemini CLI baseline packet for packaged workflows
 
 Next implementation moves:
 
-- use live CLI scorecard inspection as the active operator proof path
-- add small, replayable live-smoke packets so one-off CLI runs are summarized instead of being only session artifacts
+- expand the runtime live-smoke packet to a small approval/sandbox trio, not just the dashboard happy path
 - define H1c with genuinely new visual/API/approval interactions because H1 and H1b are both saturated on the current ablation helpers
+- keep using live CLI scorecard inspection as the active operator proof path
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1
