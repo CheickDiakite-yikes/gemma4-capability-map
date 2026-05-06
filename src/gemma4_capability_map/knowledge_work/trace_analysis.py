@@ -54,6 +54,7 @@ def analyze_ablation_packet(packet_dir: str | Path) -> dict[str, Any]:
             scorecard = episode.get("scorecard", {}) or {}
             failed_tools = _failed_tool_labels(episode)
             notes = sorted(task_notes)
+            raw_planning_sample = _compact_sample(raw_planning_samples)
             episode_rows.append(
                 {
                     "system_id": system_id,
@@ -72,7 +73,8 @@ def analyze_ablation_packet(packet_dir: str | Path) -> dict[str, Any]:
                     "repair_notes": ";".join(notes),
                     "repair_note_counts": ";".join(f"{note}={task_notes[note]}" for note in notes),
                     "failed_tools": ";".join(failed_tools),
-                    "raw_planning_sample": _compact_sample(raw_planning_samples),
+                    "failure_modes": ";".join(_failure_modes(notes, failed_tools, raw_planning_sample)),
+                    "raw_planning_sample": raw_planning_sample,
                     "failure_candidate": _is_failure_candidate(scorecard),
                 }
             )
@@ -184,6 +186,35 @@ def _failed_tool_labels(episode: dict[str, Any]) -> list[str]:
         task_id = str(call.get("task_id", ""))
         labels.append(f"{task_id}:{tool_name}" if task_id else tool_name)
     return sorted(label for label in labels if label)
+
+
+def _failure_modes(notes: list[str], failed_tools: list[str], raw_planning_sample: str) -> list[str]:
+    modes: list[str] = []
+
+    def add(mode: str) -> None:
+        if mode not in modes:
+            modes.append(mode)
+
+    raw_lower = raw_planning_sample.lower()
+    if "i cannot assist" in raw_lower or "i cannot do" in raw_lower or "current capabilities" in raw_lower:
+        add("raw_refusal")
+    if "call:tool_name" in raw_planning_sample or any(label.endswith(":tool_name") or label == "tool_name" for label in failed_tools):
+        add("generic_tool_name")
+    if "controller_fallback_disabled" in notes:
+        add("fallback_disabled")
+    if "controller_repair_disabled" in notes:
+        add("repair_disabled")
+    if "controller_fallback_planner" in notes:
+        add("fallback_planner")
+    if any(note.startswith("repaired_arguments:") or note == "argument_repair_disabled" for note in notes):
+        add("argument_repair")
+    if any(note.startswith("intent_prior:") or note == "intent_priority_disabled" for note in notes):
+        add("intent_prior")
+    if any(note.startswith("feedback_prior:") or note == "deterministic_visual_follow_on_disabled" for note in notes):
+        add("visual_follow_on")
+    if any(note.startswith("canonicalized_tool:") for note in notes):
+        add("tool_canonicalization")
+    return modes
 
 
 def _is_failure_candidate(scorecard: dict[str, Any]) -> bool:

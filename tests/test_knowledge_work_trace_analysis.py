@@ -79,6 +79,7 @@ def test_analyze_ablation_packet_counts_notes_and_failures(tmp_path: Path) -> No
     assert notes[("system_a", "controller_fallback_planner")] == 1
     failure = analysis["failure_rows"][0]
     assert failure["failed_tools"] == "task_a:tool_name"
+    assert failure["failure_modes"] == "raw_refusal;generic_tool_name;repair_disabled;fallback_planner"
     assert failure["repair_note_counts"] == "controller_fallback_planner=1;controller_repair_disabled=2"
 
 

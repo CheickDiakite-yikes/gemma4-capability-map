@@ -324,6 +324,7 @@
       "repair_notes": "controller_fallback_planner",
       "repair_note_counts": "controller_fallback_planner=1",
       "failed_tools": "",
+      "failure_modes": "raw_refusal;fallback_planner",
       "raw_planning_sample": "I cannot assist with inspecting dashboard screenshots or performing further analysis. My current capabilities are limited to calling the specified tool-related functions.<end_of_turn>",
       "failure_candidate": false
     },
@@ -344,6 +345,7 @@
       "repair_notes": "controller_fallback_planner;repaired_arguments:extract_layout",
       "repair_note_counts": "controller_fallback_planner=1;repaired_arguments:extract_layout=1",
       "failed_tools": "",
+      "failure_modes": "raw_refusal;fallback_planner;argument_repair",
       "raw_planning_sample": "{\"name\": \"extract_layout\", \"tool_family\": \"function_call\", \"tool_intent\": \"inspect\"} | I cannot assist with this request. My current capabilities are limited to calling the specified tools for routing and API management. I cannot generat...",
       "failure_candidate": false
     },
@@ -364,6 +366,7 @@
       "repair_notes": "controller_fallback_planner;intent_prior:inspect_or_lookup",
       "repair_note_counts": "controller_fallback_planner=1;intent_prior:inspect_or_lookup=1",
       "failed_tools": "",
+      "failure_modes": "raw_refusal;generic_tool_name;fallback_planner;intent_prior",
       "raw_planning_sample": "<start_function_call>call:tool_name{arg:<escape>value<escape>}<end_function_call> | I cannot assist with inspecting dashboard screenshots or filtering them for review. My current capabilities are limited to calling the specified tools fo...",
       "failure_candidate": false
     },
@@ -384,6 +387,7 @@
       "repair_notes": "controller_fallback_planner",
       "repair_note_counts": "controller_fallback_planner=2",
       "failed_tools": "",
+      "failure_modes": "raw_refusal;fallback_planner",
       "raw_planning_sample": "I cannot assist with this request. My current capabilities are limited to calling specific tool management functions like `tool_name` and `read_repo_file`. I cannot provide legal or technical advice regarding phone field patch policy or ...",
       "failure_candidate": false
     },
@@ -404,6 +408,7 @@
       "repair_notes": "controller_fallback_planner;intent_prior:inspect_or_lookup",
       "repair_note_counts": "controller_fallback_planner=1;intent_prior:inspect_or_lookup=1",
       "failed_tools": "",
+      "failure_modes": "raw_refusal;generic_tool_name;fallback_planner;intent_prior",
       "raw_planning_sample": "<start_function_call>call:tool_name{arg:<escape>value<escape>}<end_function_call> | I cannot assist with this request. My current capabilities are limited to calling the specified tools for routing and API management. I cannot generate o...",
       "failure_candidate": false
     },
@@ -424,6 +429,7 @@
       "repair_notes": "controller_fallback_planner",
       "repair_note_counts": "controller_fallback_planner=1",
       "failed_tools": "",
+      "failure_modes": "raw_refusal;fallback_planner",
       "raw_planning_sample": "I cannot assist with inspecting dashboard screenshots or performing further analysis. My current capabilities are limited to calling the specified tool-related functions.<end_of_turn>",
       "failure_candidate": false
     },
@@ -444,6 +450,7 @@
       "repair_notes": "controller_fallback_planner",
       "repair_note_counts": "controller_fallback_planner=2",
       "failed_tools": "",
+      "failure_modes": "raw_refusal;fallback_planner",
       "raw_planning_sample": "{\"name\": \"extract_layout\", \"tool_family\": \"function_call\", \"tool_intent\": \"inspect\"} | I cannot assist with this request. My current capabilities are limited to calling the specified tools for routing and API management. I cannot generat...",
       "failure_candidate": false
     },
@@ -464,6 +471,7 @@
       "repair_notes": "controller_fallback_planner;intent_prior:inspect_or_lookup",
       "repair_note_counts": "controller_fallback_planner=1;intent_prior:inspect_or_lookup=1",
       "failed_tools": "",
+      "failure_modes": "raw_refusal;generic_tool_name;fallback_planner;intent_prior",
       "raw_planning_sample": "<start_function_call>call:tool_name{arg:<escape>value<escape>}<end_function_call> | I cannot assist with inspecting dashboard screenshots or filtering them for review. My current capabilities are limited to calling the specified tools fo...",
       "failure_candidate": false
     },
@@ -484,6 +492,7 @@
       "repair_notes": "controller_fallback_planner",
       "repair_note_counts": "controller_fallback_planner=2",
       "failed_tools": "",
+      "failure_modes": "raw_refusal;fallback_planner",
       "raw_planning_sample": "I cannot assist with this request. My current capabilities are limited to calling specific tool management functions like `tool_name` and `read_repo_file`. I cannot provide legal or technical advice regarding phone field patch policy or ...",
       "failure_candidate": false
     },
@@ -504,6 +513,7 @@
       "repair_notes": "controller_fallback_planner;intent_prior:inspect_or_lookup",
       "repair_note_counts": "controller_fallback_planner=1;intent_prior:inspect_or_lookup=1",
       "failed_tools": "",
+      "failure_modes": "raw_refusal;generic_tool_name;fallback_planner;intent_prior",
       "raw_planning_sample": "<start_function_call>call:tool_name{arg:<escape>value<escape>}<end_function_call> | I cannot assist with this request. My current capabilities are limited to calling the specified tools for routing and API management. I cannot generate o...",
       "failure_candidate": false
     },
@@ -524,6 +534,7 @@
       "repair_notes": "controller_fallback_disabled",
       "repair_note_counts": "controller_fallback_disabled=1",
       "failed_tools": "",
+      "failure_modes": "raw_refusal;fallback_disabled",
       "raw_planning_sample": "I cannot assist with inspecting dashboard screenshots or performing further analysis. My current capabilities are limited to calling the specified tool-related functions.<end_of_turn>",
       "failure_candidate": true
     },
@@ -544,6 +555,7 @@
       "repair_notes": "controller_fallback_disabled;repaired_arguments:extract_layout",
       "repair_note_counts": "controller_fallback_disabled=1;repaired_arguments:extract_layout=1",
       "failed_tools": "",
+      "failure_modes": "raw_refusal;fallback_disabled;argument_repair",
       "raw_planning_sample": "{\"name\": \"extract_layout\", \"tool_family\": \"function_call\", \"tool_intent\": \"inspect\"} | I cannot assist with this request. My current capabilities are limited to calling the specified tools for routing and API management. I cannot generat...",
       "failure_candidate": true
     },
@@ -564,6 +576,7 @@
       "repair_notes": "controller_fallback_disabled;intent_prior:inspect_or_lookup",
       "repair_note_counts": "controller_fallback_disabled=1;intent_prior:inspect_or_lookup=1",
       "failed_tools": "",
+      "failure_modes": "raw_refusal;generic_tool_name;fallback_disabled;intent_prior",
       "raw_planning_sample": "<start_function_call>call:tool_name{arg:<escape>value<escape>}<end_function_call> | I cannot assist with inspecting dashboard screenshots or filtering them for review. My current capabilities are limited to calling the specified tools fo...",
       "failure_candidate": true
     },
@@ -584,6 +597,7 @@
       "repair_notes": "controller_fallback_disabled",
       "repair_note_counts": "controller_fallback_disabled=2",
       "failed_tools": "",
+      "failure_modes": "raw_refusal;fallback_disabled",
       "raw_planning_sample": "I cannot assist with this request. My current capabilities are limited to calling specific tool management functions like `tool_name` and `read_repo_file`. I cannot provide legal or technical advice regarding phone field patch policy or ...",
       "failure_candidate": true
     },
@@ -604,6 +618,7 @@
       "repair_notes": "controller_fallback_disabled;intent_prior:inspect_or_lookup",
       "repair_note_counts": "controller_fallback_disabled=1;intent_prior:inspect_or_lookup=1",
       "failed_tools": "",
+      "failure_modes": "raw_refusal;generic_tool_name;fallback_disabled;intent_prior",
       "raw_planning_sample": "<start_function_call>call:tool_name{arg:<escape>value<escape>}<end_function_call> | I cannot assist with this request. My current capabilities are limited to calling the specified tools for routing and API management. I cannot generate o...",
       "failure_candidate": true
     },
@@ -624,6 +639,7 @@
       "repair_notes": "controller_fallback_planner;controller_repair_disabled",
       "repair_note_counts": "controller_fallback_planner=1;controller_repair_disabled=4",
       "failed_tools": "visual_013_dashboard_stale_selection_recovery:tool_name;visual_013_dashboard_stale_selection_recovery:tool_name;visual_013_dashboard_stale_selection_recovery:tool_name",
+      "failure_modes": "raw_refusal;generic_tool_name;repair_disabled;fallback_planner",
       "raw_planning_sample": "I cannot assist with inspecting dashboard screenshots or performing further analysis. My current capabilities are limited to calling the specified tool-related functions.<end_of_turn> | <start_function_call>call:tool_name{arg:<escape>val...",
       "failure_candidate": true
     },
@@ -644,6 +660,7 @@
       "repair_notes": "controller_fallback_planner;controller_repair_disabled",
       "repair_note_counts": "controller_fallback_planner=1;controller_repair_disabled=3",
       "failed_tools": "visual_003_invoice_totals_table:extract_layout;visual_003_invoice_totals_table:tool_name",
+      "failure_modes": "raw_refusal;generic_tool_name;repair_disabled;fallback_planner",
       "raw_planning_sample": "{\"name\": \"extract_layout\", \"tool_family\": \"function_call\", \"tool_intent\": \"inspect\"} | <start_function_call>call:tool_name{arg:<escape>value<escape>}<end_function_call> | I cannot assist with this request. My current capabilities are lim...",
       "failure_candidate": true
     },
@@ -664,6 +681,7 @@
       "repair_notes": "controller_fallback_planner;controller_repair_disabled",
       "repair_note_counts": "controller_fallback_planner=1;controller_repair_disabled=5",
       "failed_tools": "tool_020_exec_api_read_only_latest_action:tool_name;visual_027_dashboard_review_backlog_enablement_refinement:tool_name;visual_027_dashboard_review_backlog_enablement_refinement:tool_name;visual_027_dashboard_review_backlog_enablement_refinement:tool_name;visual_027_dashboard_review_backlog_enablement_refinement:tool_name",
+      "failure_modes": "raw_refusal;generic_tool_name;repair_disabled;fallback_planner",
       "raw_planning_sample": "<start_function_call>call:tool_name{arg:<escape>value<escape>}<end_function_call> | I cannot assist with inspecting dashboard screenshots or filtering them for review. My current capabilities are limited to calling the specified tools fo...",
       "failure_candidate": true
     },
@@ -684,6 +702,7 @@
       "repair_notes": "controller_fallback_planner;controller_repair_disabled",
       "repair_note_counts": "controller_fallback_planner=2;controller_repair_disabled=5",
       "failed_tools": "visual_029_form_latest_blocked_email_refinement:tool_name;visual_029_form_latest_blocked_email_refinement:tool_name;visual_029_form_latest_blocked_email_refinement:tool_name;visual_029_form_latest_blocked_email_refinement:tool_name",
+      "failure_modes": "raw_refusal;generic_tool_name;repair_disabled;fallback_planner",
       "raw_planning_sample": "I cannot assist with this request. My current capabilities are limited to calling specific tool management functions like `tool_name` and `read_repo_file`. I cannot provide legal or technical advice regarding phone field patch policy or ...",
       "failure_candidate": true
     },
@@ -704,6 +723,7 @@
       "repair_notes": "controller_fallback_planner;controller_repair_disabled",
       "repair_note_counts": "controller_fallback_planner=1;controller_repair_disabled=2",
       "failed_tools": "tool_022_finance_cli_diff_review_only_invoice_lock:tool_name",
+      "failure_modes": "raw_refusal;generic_tool_name;repair_disabled;fallback_planner",
       "raw_planning_sample": "<start_function_call>call:tool_name{arg:<escape>value<escape>}<end_function_call> | I cannot assist with this request. My current capabilities are limited to calling the specified tools for routing and API management. I cannot generate o...",
       "failure_candidate": true
     },
@@ -724,6 +744,7 @@
       "repair_notes": "controller_fallback_planner;feedback_prior:read_region_text;feedback_prior:refine_selection",
       "repair_note_counts": "controller_fallback_planner=1;feedback_prior:read_region_text=1;feedback_prior:refine_selection=2",
       "failed_tools": "",
+      "failure_modes": "raw_refusal;generic_tool_name;fallback_planner;visual_follow_on",
       "raw_planning_sample": "I cannot assist with inspecting dashboard screenshots or performing further analysis. My current capabilities are limited to calling the specified tool-related functions.<end_of_turn> | <start_function_call>call:tool_name{arg:<escape>val...",
       "failure_candidate": false
     },
@@ -744,6 +765,7 @@
       "repair_notes": "controller_fallback_planner;feedback_prior:read_region_text;repaired_arguments:extract_layout",
       "repair_note_counts": "controller_fallback_planner=1;feedback_prior:read_region_text=1;repaired_arguments:extract_layout=1",
       "failed_tools": "",
+      "failure_modes": "raw_refusal;generic_tool_name;fallback_planner;argument_repair;visual_follow_on",
       "raw_planning_sample": "{\"name\": \"extract_layout\", \"tool_family\": \"function_call\", \"tool_intent\": \"inspect\"} | <start_function_call>call:tool_name{arg:<escape>value<escape>}<end_function_call> | I cannot assist with this request. My current capabilities are lim...",
       "failure_candidate": false
     },
@@ -764,6 +786,7 @@
       "repair_notes": "controller_fallback_planner;feedback_prior:read_region_text;feedback_prior:refine_selection;intent_prior:inspect_or_lookup",
       "repair_note_counts": "controller_fallback_planner=1;feedback_prior:read_region_text=1;feedback_prior:refine_selection=3;intent_prior:inspect_or_lookup=1",
       "failed_tools": "",
+      "failure_modes": "raw_refusal;generic_tool_name;fallback_planner;intent_prior;visual_follow_on",
       "raw_planning_sample": "<start_function_call>call:tool_name{arg:<escape>value<escape>}<end_function_call> | I cannot assist with inspecting dashboard screenshots or filtering them for review. My current capabilities are limited to calling the specified tools fo...",
       "failure_candidate": false
     },
@@ -784,6 +807,7 @@
       "repair_notes": "controller_fallback_planner;feedback_prior:read_region_text;feedback_prior:refine_selection",
       "repair_note_counts": "controller_fallback_planner=2;feedback_prior:read_region_text=1;feedback_prior:refine_selection=3",
       "failed_tools": "",
+      "failure_modes": "raw_refusal;fallback_planner;visual_follow_on",
       "raw_planning_sample": "I cannot assist with this request. My current capabilities are limited to calling specific tool management functions like `tool_name` and `read_repo_file`. I cannot provide legal or technical advice regarding phone field patch policy or ...",
       "failure_candidate": false
     },
@@ -804,6 +828,7 @@
       "repair_notes": "controller_fallback_planner;intent_prior:inspect_or_lookup",
       "repair_note_counts": "controller_fallback_planner=1;intent_prior:inspect_or_lookup=1",
       "failed_tools": "",
+      "failure_modes": "raw_refusal;generic_tool_name;fallback_planner;intent_prior",
       "raw_planning_sample": "<start_function_call>call:tool_name{arg:<escape>value<escape>}<end_function_call> | I cannot assist with this request. My current capabilities are limited to calling the specified tools for routing and API management. I cannot generate o...",
       "failure_candidate": false
     },
@@ -824,6 +849,7 @@
       "repair_notes": "controller_fallback_planner;intent_priority_disabled",
       "repair_note_counts": "controller_fallback_planner=1;intent_priority_disabled=1",
       "failed_tools": "",
+      "failure_modes": "raw_refusal;fallback_planner;intent_prior",
       "raw_planning_sample": "I cannot assist with inspecting dashboard screenshots or performing further analysis. My current capabilities are limited to calling the specified tool-related functions.<end_of_turn>",
       "failure_candidate": false
     },
@@ -844,6 +870,7 @@
       "repair_notes": "controller_fallback_planner;intent_priority_disabled;repaired_arguments:extract_layout",
       "repair_note_counts": "controller_fallback_planner=1;intent_priority_disabled=2;repaired_arguments:extract_layout=1",
       "failed_tools": "",
+      "failure_modes": "raw_refusal;fallback_planner;argument_repair;intent_prior",
       "raw_planning_sample": "{\"name\": \"extract_layout\", \"tool_family\": \"function_call\", \"tool_intent\": \"inspect\"} | I cannot assist with this request. My current capabilities are limited to calling the specified tools for routing and API management. I cannot generat...",
       "failure_candidate": false
     },
@@ -864,6 +891,7 @@
       "repair_notes": "canonicalized_tool:tool_name->api_fetch_record;controller_fallback_planner;intent_priority_disabled;repaired_arguments:api_fetch_record",
       "repair_note_counts": "canonicalized_tool:tool_name->api_fetch_record=1;controller_fallback_planner=1;intent_priority_disabled=2;repaired_arguments:api_fetch_record=1",
       "failed_tools": "",
+      "failure_modes": "raw_refusal;generic_tool_name;fallback_planner;argument_repair;intent_prior;tool_canonicalization",
       "raw_planning_sample": "<start_function_call>call:tool_name{arg:<escape>value<escape>}<end_function_call> | I cannot assist with inspecting dashboard screenshots or filtering them for review. My current capabilities are limited to calling the specified tools fo...",
       "failure_candidate": false
     },
@@ -884,6 +912,7 @@
       "repair_notes": "controller_fallback_planner;intent_priority_disabled",
       "repair_note_counts": "controller_fallback_planner=2;intent_priority_disabled=2",
       "failed_tools": "",
+      "failure_modes": "raw_refusal;fallback_planner;intent_prior",
       "raw_planning_sample": "I cannot assist with this request. My current capabilities are limited to calling specific tool management functions like `tool_name` and `read_repo_file`. I cannot provide legal or technical advice regarding phone field patch policy or ...",
       "failure_candidate": false
     },
@@ -904,6 +933,7 @@
       "repair_notes": "canonicalized_tool:tool_name->cli_inspect_diff;controller_fallback_planner;intent_priority_disabled;repaired_arguments:cli_inspect_diff",
       "repair_note_counts": "canonicalized_tool:tool_name->cli_inspect_diff=1;controller_fallback_planner=1;intent_priority_disabled=2;repaired_arguments:cli_inspect_diff=1",
       "failed_tools": "",
+      "failure_modes": "raw_refusal;generic_tool_name;fallback_planner;argument_repair;intent_prior;tool_canonicalization",
       "raw_planning_sample": "<start_function_call>call:tool_name{arg:<escape>value<escape>}<end_function_call> | I cannot assist with this request. My current capabilities are limited to calling the specified tools for routing and API management. I cannot generate o...",
       "failure_candidate": false
     },
@@ -924,6 +954,7 @@
       "repair_notes": "controller_fallback_planner",
       "repair_note_counts": "controller_fallback_planner=1",
       "failed_tools": "",
+      "failure_modes": "raw_refusal;fallback_planner",
       "raw_planning_sample": "I cannot assist with inspecting dashboard screenshots or performing further analysis. My current capabilities are limited to calling the specified tool-related functions.<end_of_turn>",
       "failure_candidate": false
     },
@@ -944,6 +975,7 @@
       "repair_notes": "controller_fallback_planner;repaired_arguments:extract_layout",
       "repair_note_counts": "controller_fallback_planner=1;repaired_arguments:extract_layout=1",
       "failed_tools": "",
+      "failure_modes": "raw_refusal;fallback_planner;argument_repair",
       "raw_planning_sample": "{\"name\": \"extract_layout\", \"tool_family\": \"function_call\", \"tool_intent\": \"inspect\"} | I cannot assist with this request. My current capabilities are limited to calling the specified tools for routing and API management. I cannot generat...",
       "failure_candidate": false
     },
@@ -964,6 +996,7 @@
       "repair_notes": "controller_fallback_planner;intent_prior:inspect_or_lookup",
       "repair_note_counts": "controller_fallback_planner=1;intent_prior:inspect_or_lookup=1",
       "failed_tools": "",
+      "failure_modes": "raw_refusal;generic_tool_name;fallback_planner;intent_prior",
       "raw_planning_sample": "<start_function_call>call:tool_name{arg:<escape>value<escape>}<end_function_call> | I cannot assist with inspecting dashboard screenshots or filtering them for review. My current capabilities are limited to calling the specified tools fo...",
       "failure_candidate": false
     },
@@ -984,6 +1017,7 @@
       "repair_notes": "controller_fallback_planner",
       "repair_note_counts": "controller_fallback_planner=2",
       "failed_tools": "",
+      "failure_modes": "raw_refusal;fallback_planner",
       "raw_planning_sample": "I cannot assist with this request. My current capabilities are limited to calling specific tool management functions like `tool_name` and `read_repo_file`. I cannot provide legal or technical advice regarding phone field patch policy or ...",
       "failure_candidate": false
     },
@@ -1004,6 +1038,7 @@
       "repair_notes": "controller_fallback_planner;intent_prior:inspect_or_lookup",
       "repair_note_counts": "controller_fallback_planner=1;intent_prior:inspect_or_lookup=1",
       "failed_tools": "",
+      "failure_modes": "raw_refusal;generic_tool_name;fallback_planner;intent_prior",
       "raw_planning_sample": "<start_function_call>call:tool_name{arg:<escape>value<escape>}<end_function_call> | I cannot assist with this request. My current capabilities are limited to calling the specified tools for routing and API management. I cannot generate o...",
       "failure_candidate": false
     }
@@ -1026,6 +1061,7 @@
       "repair_notes": "controller_fallback_disabled",
       "repair_note_counts": "controller_fallback_disabled=1",
       "failed_tools": "",
+      "failure_modes": "raw_refusal;fallback_disabled",
       "raw_planning_sample": "I cannot assist with inspecting dashboard screenshots or performing further analysis. My current capabilities are limited to calling the specified tool-related functions.<end_of_turn>",
       "failure_candidate": true
     },
@@ -1046,6 +1082,7 @@
       "repair_notes": "controller_fallback_disabled;repaired_arguments:extract_layout",
       "repair_note_counts": "controller_fallback_disabled=1;repaired_arguments:extract_layout=1",
       "failed_tools": "",
+      "failure_modes": "raw_refusal;fallback_disabled;argument_repair",
       "raw_planning_sample": "{\"name\": \"extract_layout\", \"tool_family\": \"function_call\", \"tool_intent\": \"inspect\"} | I cannot assist with this request. My current capabilities are limited to calling the specified tools for routing and API management. I cannot generat...",
       "failure_candidate": true
     },
@@ -1066,6 +1103,7 @@
       "repair_notes": "controller_fallback_disabled;intent_prior:inspect_or_lookup",
       "repair_note_counts": "controller_fallback_disabled=1;intent_prior:inspect_or_lookup=1",
       "failed_tools": "",
+      "failure_modes": "raw_refusal;generic_tool_name;fallback_disabled;intent_prior",
       "raw_planning_sample": "<start_function_call>call:tool_name{arg:<escape>value<escape>}<end_function_call> | I cannot assist with inspecting dashboard screenshots or filtering them for review. My current capabilities are limited to calling the specified tools fo...",
       "failure_candidate": true
     },
@@ -1086,6 +1124,7 @@
       "repair_notes": "controller_fallback_disabled",
       "repair_note_counts": "controller_fallback_disabled=2",
       "failed_tools": "",
+      "failure_modes": "raw_refusal;fallback_disabled",
       "raw_planning_sample": "I cannot assist with this request. My current capabilities are limited to calling specific tool management functions like `tool_name` and `read_repo_file`. I cannot provide legal or technical advice regarding phone field patch policy or ...",
       "failure_candidate": true
     },
@@ -1106,6 +1145,7 @@
       "repair_notes": "controller_fallback_disabled;intent_prior:inspect_or_lookup",
       "repair_note_counts": "controller_fallback_disabled=1;intent_prior:inspect_or_lookup=1",
       "failed_tools": "",
+      "failure_modes": "raw_refusal;generic_tool_name;fallback_disabled;intent_prior",
       "raw_planning_sample": "<start_function_call>call:tool_name{arg:<escape>value<escape>}<end_function_call> | I cannot assist with this request. My current capabilities are limited to calling the specified tools for routing and API management. I cannot generate o...",
       "failure_candidate": true
     },
@@ -1126,6 +1166,7 @@
       "repair_notes": "controller_fallback_planner;controller_repair_disabled",
       "repair_note_counts": "controller_fallback_planner=1;controller_repair_disabled=4",
       "failed_tools": "visual_013_dashboard_stale_selection_recovery:tool_name;visual_013_dashboard_stale_selection_recovery:tool_name;visual_013_dashboard_stale_selection_recovery:tool_name",
+      "failure_modes": "raw_refusal;generic_tool_name;repair_disabled;fallback_planner",
       "raw_planning_sample": "I cannot assist with inspecting dashboard screenshots or performing further analysis. My current capabilities are limited to calling the specified tool-related functions.<end_of_turn> | <start_function_call>call:tool_name{arg:<escape>val...",
       "failure_candidate": true
     },
@@ -1146,6 +1187,7 @@
       "repair_notes": "controller_fallback_planner;controller_repair_disabled",
       "repair_note_counts": "controller_fallback_planner=1;controller_repair_disabled=3",
       "failed_tools": "visual_003_invoice_totals_table:extract_layout;visual_003_invoice_totals_table:tool_name",
+      "failure_modes": "raw_refusal;generic_tool_name;repair_disabled;fallback_planner",
       "raw_planning_sample": "{\"name\": \"extract_layout\", \"tool_family\": \"function_call\", \"tool_intent\": \"inspect\"} | <start_function_call>call:tool_name{arg:<escape>value<escape>}<end_function_call> | I cannot assist with this request. My current capabilities are lim...",
       "failure_candidate": true
     },
@@ -1166,6 +1208,7 @@
       "repair_notes": "controller_fallback_planner;controller_repair_disabled",
       "repair_note_counts": "controller_fallback_planner=1;controller_repair_disabled=5",
       "failed_tools": "tool_020_exec_api_read_only_latest_action:tool_name;visual_027_dashboard_review_backlog_enablement_refinement:tool_name;visual_027_dashboard_review_backlog_enablement_refinement:tool_name;visual_027_dashboard_review_backlog_enablement_refinement:tool_name;visual_027_dashboard_review_backlog_enablement_refinement:tool_name",
+      "failure_modes": "raw_refusal;generic_tool_name;repair_disabled;fallback_planner",
       "raw_planning_sample": "<start_function_call>call:tool_name{arg:<escape>value<escape>}<end_function_call> | I cannot assist with inspecting dashboard screenshots or filtering them for review. My current capabilities are limited to calling the specified tools fo...",
       "failure_candidate": true
     },
@@ -1186,6 +1229,7 @@
       "repair_notes": "controller_fallback_planner;controller_repair_disabled",
       "repair_note_counts": "controller_fallback_planner=2;controller_repair_disabled=5",
       "failed_tools": "visual_029_form_latest_blocked_email_refinement:tool_name;visual_029_form_latest_blocked_email_refinement:tool_name;visual_029_form_latest_blocked_email_refinement:tool_name;visual_029_form_latest_blocked_email_refinement:tool_name",
+      "failure_modes": "raw_refusal;generic_tool_name;repair_disabled;fallback_planner",
       "raw_planning_sample": "I cannot assist with this request. My current capabilities are limited to calling specific tool management functions like `tool_name` and `read_repo_file`. I cannot provide legal or technical advice regarding phone field patch policy or ...",
       "failure_candidate": true
     },
@@ -1206,6 +1250,7 @@
       "repair_notes": "controller_fallback_planner;controller_repair_disabled",
       "repair_note_counts": "controller_fallback_planner=1;controller_repair_disabled=2",
       "failed_tools": "tool_022_finance_cli_diff_review_only_invoice_lock:tool_name",
+      "failure_modes": "raw_refusal;generic_tool_name;repair_disabled;fallback_planner",
       "raw_planning_sample": "<start_function_call>call:tool_name{arg:<escape>value<escape>}<end_function_call> | I cannot assist with this request. My current capabilities are limited to calling the specified tools for routing and API management. I cannot generate o...",
       "failure_candidate": true
     }

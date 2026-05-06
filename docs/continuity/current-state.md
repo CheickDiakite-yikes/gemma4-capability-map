@@ -219,6 +219,7 @@ Current trace read:
 
 - `102` controller-note events across `35` H1 episode rows
 - `10` strict/recovered failure candidates
+- failure rows now include coarse `failure_modes` labels for `raw_refusal`, `generic_tool_name`, disabled fallback/repair, argument repair, intent prior, visual follow-on, and tool canonicalization
 - baseline uses `controller_fallback_planner` `6` times across all `5` H1 episodes
 - `no_controller_fallback` fails all `5` H1 episodes, mostly raw refusal/no-call cases
 - `no_controller_repair` fails all `5` H1 episodes, mostly generic `tool_name` hallucinations and malformed arguments
