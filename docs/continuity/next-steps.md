@@ -28,9 +28,9 @@ Current state:
 
 Next implementation moves:
 
-- use the live-web policy packet to tighten policy-block rendering in the Rich operator and `inspect --target policy`
 - define H1c with genuinely new visual/API/approval interactions because H1 and H1b are both saturated on the current ablation helpers
-- keep using live CLI scorecard inspection as the active operator proof path
+- include live-web visual/form pressure in H1c because the policy packet reintroduced controller fallback on local MLX
+- keep using live CLI scorecard and policy inspection as the active operator proof path
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1

@@ -174,6 +174,8 @@ def _side_panel(session: AgentSession) -> Panel:
     table.add_row("source", session.sandbox_source or "unset")
     table.add_row("artifact", session.latest_artifact_title or "none")
     table.add_row("approval", session.active_approval_id or "none")
+    if session.sandbox_policy_blocks:
+        table.add_row("policy blocks", str(len(session.sandbox_policy_blocks)))
     table.add_row("message", session.latest_message or "")
     if session.metrics:
         table.add_row("readiness", _format_metric(session.metrics.get("role_readiness_score")))
@@ -239,13 +241,24 @@ def _artifacts_panel(artifacts: list[dict[str, Any]]) -> Panel:
 
 def _policy_panel(blocks: list[dict[str, Any]]) -> Panel:
     table = Table(expand=True)
-    table.add_column("severity", width=10)
+    table.add_column("sev", width=7)
+    table.add_column("gate", width=14)
     table.add_column("action", width=20)
-    table.add_column("reason", overflow="fold")
+    table.add_column("detail", overflow="fold")
     for block in blocks:
-        table.add_row(str(block.get("severity", "")), str(block.get("action", "")), str(block.get("reason", "")))
+        details = [
+            str(block.get("target", "")),
+            str(block.get("sandbox_endpoint", "")),
+            str(block.get("reason", "")),
+        ]
+        table.add_row(
+            str(block.get("severity", "")),
+            str(block.get("submission_gate", "")),
+            str(block.get("action", "")),
+            "\n".join(detail for detail in details if detail),
+        )
     if not blocks:
-        table.add_row("none", "", "No sandbox policy blocks recorded.")
+        table.add_row("none", "", "", "No sandbox policy blocks recorded.")
     return Panel(table, title="Policy Blocks", border_style="yellow")
 
 

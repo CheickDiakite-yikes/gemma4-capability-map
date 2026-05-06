@@ -36,6 +36,7 @@ Current CLI surface:
   - watches an existing run from the terminal
 - `moonie-agent inspect <session_id>`
   - inspects sandbox roots, artifacts, policy blocks, summary paths, scorecards, and per-task controller repair findings
+  - `--target policy` renders live-web sandbox targets, sandbox endpoints, gates, and reasons
 
 The React desktop harness exists and remains useful prior work, but it is no longer the main next workstream:
 

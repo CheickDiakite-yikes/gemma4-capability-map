@@ -275,6 +275,24 @@
   - this also reintroduces a real controller-fallback signal on live local MLX, so the next H1c design should include live-web visual/form pressure rather than only replayable visual readback
   - next runtime UX slice: make policy blocks easier to read directly in `moonie-agent attach` and `moonie-agent inspect --target policy`
 
+### CLI policy rendering now surfaces live-web block details
+
+- Runtime/CLI implementation:
+  - [`src/gemma4_capability_map/runtime/operator.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/runtime/operator.py)
+- Regression coverage:
+  - [`tests/test_runtime_cli.py`](/Users/cheickdiakite/Codex/moonie/tests/test_runtime_cli.py)
+
+- What changed:
+  - the Rich side panel now shows `policy blocks` when a session has sandbox policy holds
+  - `moonie-agent inspect --target policy` renders severity, gate, action, sandbox target, sandbox endpoint, and reason in a readable table
+  - JSON policy inspection remains machine-readable for packet scripts
+
+- Verification:
+  - `uv run pytest tests/test_runtime_cli.py tests/test_runtime_core.py tests/test_runtime_live_smoke_packet.py -q`
+  - `26 passed`
+  - `uv run moonie-agent inspect 20260506T221455478537Z_jobs_visual_form_hold --target policy`
+  - rendered the two `sandbox_only` holds and one `approval_required` hold from the live-web packet
+
 ### Gemini CLI baseline adapter scaffold exists
 
 - Runtime/CLI implementation:

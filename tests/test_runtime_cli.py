@@ -237,6 +237,38 @@ def test_runtime_cli_inspect_scorecard_target(monkeypatch: pytest.MonkeyPatch, c
     assert output["scorecard"]["metrics"]["strict_interface_score"] == 1.0
 
 
+def test_runtime_cli_inspect_policy_target_lists_live_web_blocks(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+    tmp_path: Path,
+) -> None:
+    runtime = LocalAgentRuntime(results_root=tmp_path / "runtime")
+    session = runtime.launch_session(
+        workflow_id="jobs_visual_form_hold",
+        system_id="oracle_gemma4_e2b",
+        lane="live_web_stress",
+        background=False,
+    )
+    monkeypatch.setattr(runtime_cli, "LocalAgentRuntime", lambda: runtime)
+    monkeypatch.setattr(
+        runtime_cli,
+        "parse_args",
+        lambda: runtime_cli.argparse.Namespace(
+            command="inspect",
+            session_id=session.session_id,
+            target="policy",
+            json=True,
+        ),
+    )
+
+    runtime_cli.main()
+
+    output = json.loads(capsys.readouterr().out)
+    assert output["policy_blocks"]
+    assert any(block["submission_gate"] == "approval_required" for block in output["policy_blocks"])
+    assert all(block["sandbox_endpoint"] for block in output["policy_blocks"])
+
+
 def test_runtime_cli_gemini_baseline_writes_dry_run_packet(monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str], tmp_path: Path) -> None:
     runtime = LocalAgentRuntime(results_root=tmp_path / "runtime")
     monkeypatch.setattr(runtime_cli, "LocalAgentRuntime", lambda: runtime)
