@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import time
 from pathlib import Path
 from typing import Any
@@ -114,6 +115,11 @@ def session_inspection_payload(runtime: LocalAgentRuntime, session_id: str, *, t
             "episode_trace_path": runtime_trace.episode_trace_path if runtime_trace else "",
             "manifest_path": runtime_trace.manifest_path if runtime_trace else "",
         }
+    if target in {"all", "scorecard"}:
+        payload["scorecard"] = {
+            "metrics": dict(runtime_trace.scorecard if runtime_trace else session.metrics),
+            "controller_findings": _controller_findings(runtime_trace.episode_trace_path if runtime_trace else None),
+        }
     return payload
 
 
@@ -169,6 +175,12 @@ def _side_panel(session: AgentSession) -> Panel:
     table.add_row("artifact", session.latest_artifact_title or "none")
     table.add_row("approval", session.active_approval_id or "none")
     table.add_row("message", session.latest_message or "")
+    if session.metrics:
+        table.add_row("readiness", _format_metric(session.metrics.get("role_readiness_score")))
+        table.add_row(
+            "repair/raw",
+            f"{_format_metric(session.metrics.get('controller_repair_count'))} / {_format_metric(session.metrics.get('raw_planning_clean_rate'))}",
+        )
     if session.status == SessionStatus.AWAITING_APPROVAL:
         table.add_row("approve", f"moonie-agent attach {session.session_id} --action approve")
         table.add_row("deny", f"moonie-agent attach {session.session_id} --action deny")
@@ -191,6 +203,8 @@ def _inspection_renderable(payload: dict[str, Any], *, target: str) -> Group:
         panels.append(_artifacts_panel(payload["artifacts"]))
     if "summary" in payload:
         panels.append(_key_value_panel("Summary", payload["summary"], border_style="blue"))
+    if "scorecard" in payload:
+        panels.append(_scorecard_panel(payload["scorecard"]))
     return Group(*panels)
 
 
@@ -233,3 +247,101 @@ def _policy_panel(blocks: list[dict[str, Any]]) -> Panel:
     if not blocks:
         table.add_row("none", "", "No sandbox policy blocks recorded.")
     return Panel(table, title="Policy Blocks", border_style="yellow")
+
+
+def _scorecard_panel(payload: dict[str, Any]) -> Panel:
+    table = Table(expand=True)
+    table.add_column("metric", width=28)
+    table.add_column("value", width=12)
+    table.add_column("detail", overflow="fold")
+    metrics = payload.get("metrics", {})
+    for metric in (
+        "role_readiness_score",
+        "strict_interface_score",
+        "recovered_execution_score",
+        "controller_repair_count",
+        "argument_repair_count",
+        "controller_fallback_count",
+        "raw_planning_clean_rate",
+    ):
+        if metric in metrics:
+            table.add_row(metric, _format_metric(metrics.get(metric)), "")
+    findings = payload.get("controller_findings", [])
+    if findings:
+        table.add_section()
+    for finding in findings:
+        notes = ", ".join(str(note) for note in finding.get("repair_notes", [])) or "none"
+        raw_outputs = finding.get("raw_outputs", [])
+        detail = str(raw_outputs[0]) if raw_outputs else ""
+        table.add_row(str(finding.get("task_id", "")), notes, detail)
+    if not metrics and not findings:
+        table.add_row("none", "", "No scorecard recorded yet.")
+    return Panel(table, title="Scorecard And Controller Signal", border_style="cyan")
+
+
+def _format_metric(value: Any) -> str:
+    if value is None:
+        return "n/a"
+    if isinstance(value, float):
+        return f"{value:.4f}".rstrip("0").rstrip(".")
+    return str(value)
+
+
+def _controller_findings(trace_path: str | None) -> list[dict[str, Any]]:
+    if not trace_path:
+        return []
+    path = Path(trace_path)
+    if not path.exists():
+        return []
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return []
+    findings: list[dict[str, Any]] = []
+    for stage in data.get("stage_traces", []):
+        for task in stage.get("task_traces", []):
+            prompt_artifacts = task.get("prompt_artifacts", {})
+            repair_notes = [
+                str(note)
+                for group in prompt_artifacts.get("planning_repair_notes", [])
+                for note in (group if isinstance(group, list) else [group])
+            ]
+            metrics = task.get("metrics", {})
+            controller_signal = any(
+                _positive_metric(metrics.get(metric, 0.0))
+                for metric in (
+                    "controller_repair_count",
+                    "argument_repair_count",
+                    "controller_fallback_count",
+                    "intent_override_count",
+                )
+            )
+            if not repair_notes and not controller_signal:
+                continue
+            findings.append(
+                {
+                    "stage_id": task.get("stage_id") or stage.get("stage_id", ""),
+                    "task_id": task.get("task_id", ""),
+                    "repair_notes": repair_notes,
+                    "raw_outputs": prompt_artifacts.get("planning_raw_outputs", []),
+                    "metrics": {
+                        key: metrics.get(key)
+                        for key in (
+                            "controller_repair_count",
+                            "argument_repair_count",
+                            "controller_fallback_count",
+                            "intent_override_count",
+                            "raw_planning_clean_rate",
+                        )
+                        if key in metrics
+                    },
+                }
+            )
+    return findings
+
+
+def _positive_metric(value: Any) -> bool:
+    try:
+        return float(value or 0.0) > 0.0
+    except (TypeError, ValueError):
+        return False

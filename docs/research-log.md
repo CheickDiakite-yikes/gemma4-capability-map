@@ -97,6 +97,30 @@
   - `uv run moonie-agent inspect <latest_session> --target sandbox --json`
   - completed and showed the sandbox root plus manifest path
 
+### CLI inspection now exposes scorecards and controller findings
+
+- Runtime/CLI implementation:
+  - [`src/gemma4_capability_map/runtime/operator.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/runtime/operator.py)
+  - [`src/gemma4_capability_map/runtime/cli.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/runtime/cli.py)
+- Regression coverage:
+  - [`tests/test_runtime_cli.py`](/Users/cheickdiakite/Codex/moonie/tests/test_runtime_cli.py)
+
+- What changed:
+  - `moonie-agent inspect <session_id> --target scorecard`
+  - default `--target all` now includes scorecard metrics and per-task controller findings
+  - the Rich live side panel shows readiness plus repair/raw-clean at completion
+  - controller findings include repair notes, raw planning outputs, and per-task repair/fallback metrics
+
+- Verification:
+  - `uv run pytest tests/test_runtime_cli.py tests/test_runtime_core.py -q`
+  - `23 passed`
+  - `uv run moonie-agent inspect 20260506T220039380037Z_executive_visual_dashboard_review --target scorecard --json`
+  - surfaced `repaired_arguments:extract_layout` on `visual_013_dashboard_stale_selection_recovery`
+
+- Research interpretation:
+  - live CLI runs are now directly useful for Gemma harnessing research: an operator can see not only that the run completed, but which controller intervention made it clean
+  - the latest MLX smoke shows a concrete remaining live-path signal: the model chose the right tool, but used a semantically natural visual query that needed benchmark-canonical argument repair
+
 ### MLX Gemma live CLI smoke completed through the sandbox harness
 
 - Smoke command:
@@ -121,6 +145,34 @@
 - Interpretation:
   - the CLI-first harness can now execute a real local MLX Gemma run, persist sandboxed artifacts, and make the run inspectable from terminal commands
   - this is a smoke, not a new benchmark row; benchmark claims still need packet or aligned matrix reruns
+
+### Second MLX Gemma live CLI smoke confirms the harness and exposes the repair cause
+
+- Smoke command:
+  - `uv run moonie-agent live --workflow-id executive_visual_dashboard_review --system-id mlx_gemma4_e2b_reasoner_only --lane replayable_core --once --refresh-s 0.5 --timeout-s 1.0`
+- Session:
+  - `20260506T220039380037Z_executive_visual_dashboard_review`
+- Result:
+  - status: `completed`
+  - system: `mlx_gemma4_e2b_reasoner_only`
+  - sandbox mode: `ephemeral_copy`
+  - sandbox policy: `packaged_workflow_ephemeral_v1`
+  - artifacts: `3` `.docx` revisions, all under `sandbox/output`
+  - `role_readiness_score = 0.9942`
+  - `strict_interface_score = 1.0`
+  - `recovered_execution_score = 1.0`
+  - `controller_repair_count = 0.5`
+  - `argument_repair_count = 0.5`
+  - `controller_fallback_count = 0.0`
+  - `raw_planning_clean_rate = 0.5`
+- Controller finding:
+  - task: `visual_013_dashboard_stale_selection_recovery`
+  - repair note: `repaired_arguments:extract_layout`
+  - raw call: `{"name": "extract_layout", "arguments": {"image_id": "img-dashboard-stale", "target_query": "metric panels that need review"}}`
+
+- Interpretation:
+  - the live operator path is now better than a success/failure dashboard; it exposes the actual harness intervention
+  - this repair is not a catastrophic model failure, but it is exactly the kind of local Gemma harnessing signal worth measuring: semantically reasonable arguments still need canonicalization on the benchmark contract
 
 ### Gemini CLI baseline adapter scaffold exists
 

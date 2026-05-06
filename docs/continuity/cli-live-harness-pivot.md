@@ -222,9 +222,13 @@ Execution model:
 - continuous execution by default
 - pause only on approval gates, hard failures, or policy blocks
 
-Status: watch-only scaffold implemented.
+Status: command-driven operator scaffold implemented.
 
-Next step: add operator actions for approve, deny, resume, retry, artifact inspection, and controlled quit.
+- `moonie-agent attach <session_id> --action approve|deny|resume|retry|quit`
+- `moonie-agent inspect <session_id> --target sandbox|artifacts|policy|summary|scorecard`
+- the live side panel shows completion metrics, including readiness and repair/raw-clean
+
+Next step: add a replayable live-smoke packet wrapper so CLI operator runs can be summarized across workflows rather than inspected one session at a time.
 
 ### Phase 4: Gemini CLI adapter
 

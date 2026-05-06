@@ -60,9 +60,9 @@ def parse_args() -> argparse.Namespace:
     attach_parser.add_argument("--no-resume", action="store_true")
     attach_parser.add_argument("--foreground", action="store_true")
 
-    inspect_parser = subparsers.add_parser("inspect", help="Inspect sandbox, artifacts, policy blocks, and trace paths for a session.")
+    inspect_parser = subparsers.add_parser("inspect", help="Inspect sandbox, artifacts, policy blocks, scorecards, and trace paths for a session.")
     inspect_parser.add_argument("session_id")
-    inspect_parser.add_argument("--target", choices=["all", "sandbox", "artifacts", "policy", "summary"], default="all")
+    inspect_parser.add_argument("--target", choices=["all", "sandbox", "artifacts", "policy", "summary", "scorecard"], default="all")
     inspect_parser.add_argument("--json", action="store_true")
 
     gemini_parser = subparsers.add_parser("gemini-baseline", help="Prepare or run a Gemini CLI external baseline for a packaged workflow.")

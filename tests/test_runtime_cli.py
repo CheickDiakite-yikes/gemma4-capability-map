@@ -206,6 +206,35 @@ def test_runtime_cli_inspect_outputs_sandbox_and_artifacts(monkeypatch: pytest.M
     assert output["artifacts"]
     assert all(item["exists"] for item in output["artifacts"])
     assert output["summary"]["summary_path"]
+    assert output["scorecard"]["metrics"]["role_readiness_score"] >= 0.0
+    assert isinstance(output["scorecard"]["controller_findings"], list)
+
+
+def test_runtime_cli_inspect_scorecard_target(monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str], tmp_path: Path) -> None:
+    runtime = LocalAgentRuntime(results_root=tmp_path / "runtime")
+    session = runtime.launch_session(
+        workflow_id="executive_visual_dashboard_review",
+        system_id="oracle_gemma4_e2b",
+        lane="replayable_core",
+        background=False,
+    )
+    monkeypatch.setattr(runtime_cli, "LocalAgentRuntime", lambda: runtime)
+    monkeypatch.setattr(
+        runtime_cli,
+        "parse_args",
+        lambda: runtime_cli.argparse.Namespace(
+            command="inspect",
+            session_id=session.session_id,
+            target="scorecard",
+            json=True,
+        ),
+    )
+
+    runtime_cli.main()
+
+    output = json.loads(capsys.readouterr().out)
+    assert set(output) == {"session_id", "status", "workflow_id", "system_id", "lane", "scorecard"}
+    assert output["scorecard"]["metrics"]["strict_interface_score"] == 1.0
 
 
 def test_runtime_cli_gemini_baseline_writes_dry_run_packet(monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str], tmp_path: Path) -> None:

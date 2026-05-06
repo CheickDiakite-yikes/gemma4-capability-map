@@ -34,6 +34,8 @@ Current CLI surface:
   - launches a background run and attaches a Rich terminal operator view
 - `moonie-agent attach <session_id>`
   - watches an existing run from the terminal
+- `moonie-agent inspect <session_id>`
+  - inspects sandbox roots, artifacts, policy blocks, summary paths, scorecards, and per-task controller repair findings
 
 The React desktop harness exists and remains useful prior work, but it is no longer the main next workstream:
 
@@ -59,8 +61,23 @@ The current CLI pivot scaffold is verified with focused runtime/API/CLI tests:
 
 - `uv run pytest tests/test_runtime_core.py tests/test_runtime_cli.py tests/test_runtime_api.py`
 - `22 passed`
+- `uv run pytest tests/test_runtime_cli.py tests/test_runtime_core.py -q`
+- `23 passed`
 - `uv run pytest`
 - `244 passed`
+
+Latest real CLI smoke:
+
+- command: `uv run moonie-agent live --workflow-id executive_visual_dashboard_review --system-id mlx_gemma4_e2b_reasoner_only --lane replayable_core --once --refresh-s 0.5 --timeout-s 1.0`
+- session: `20260506T220039380037Z_executive_visual_dashboard_review`
+- result: completed with all artifacts under the per-session sandbox
+- `role_readiness_score = 0.9942`
+- `strict_interface_score = 1.0`
+- `recovered_execution_score = 1.0`
+- `controller_repair_count = 0.5`
+- `argument_repair_count = 0.5`
+- `raw_planning_clean_rate = 0.5`
+- `moonie-agent inspect <session_id> --target scorecard --json` attributes the repair to `visual_013_dashboard_stale_selection_recovery`, where MLX Gemma emitted a semantically reasonable but non-canonical `extract_layout` query and the controller repaired it to the benchmark-canonical visual argument
 
 Relevant batches:
 
