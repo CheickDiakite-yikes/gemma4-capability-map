@@ -2658,6 +2658,26 @@
   - the MLX primary row reached `real_world_readiness_avg = 0.97936`, `artifact_quality_avg = 0.95`, `strict_interface_avg = 1.0`, `recovered_execution_avg = 1.0`, `controller_repair_avg = 0.0`, `argument_repair_avg = 0.0`, `controller_fallback_avg = 0.0`, and `raw_planning_clean_rate_avg = 1.0`
   - direct trace inspection found no non-empty MLX `planning_repair_notes`
   - interpretation: H1c did not re-break top-line or controller-clean execution in the benchmark runner. The live CLI smoke packets remain important because they showed local MLX repair/fallback on overlapping workflows; the next research question is repeatability of that CLI/runtime-path signal, not another broad H1c rerun.
+- H1d/H1e and the MLX directive probe clarified the current local Gemma harnessing boundary:
+  - the final tool-turn directive was ported into the MLX/HF/GGUF Gemma runner prompt path
+  - H1d directive-v2 eliminated the compact controller-stress failures: all four rows reached readiness `0.97936`, strict/recovered `1.0 / 1.0`, raw clean `1.0`, and repair/fallback/argument repair `0.0`
+  - H1e then expanded to all ten packaged live workflow families and still found `0` failure candidates; all four MLX rows matched at readiness `0.96891`
+  - the directive probe stayed at exact JSON `7 / 8` because MLX paraphrases one visual selector from `"validation error"` to `"phone issue"`
+  - executor-level visual aliasing makes that paraphrase executable: the latest probe records exact `7 / 8`, executable visual target `1 / 1`
+  - interpretation: exact-copy cleanliness and executable live readiness now need to be tracked separately for visual selector text
+- H1f reopened controller-dependence by removing the tool-turn directive:
+  - [`20260506T_h1f_mlx_no_directive_v1`](../results/knowledge_work_h1_slice/20260506T_h1f_mlx_no_directive_v1_knowledge_work_h1f_mlx_tool_contract_ablation_v1) ran five compact live workflow families across contracted MLX, no-directive MLX, and three no-directive/no-helper variants
+  - contracted MLX was clean: readiness `0.97936`, strict/recovered `1.0 / 1.0`, raw clean `1.0`, repair/fallback/argument repair `0.0 / 0.0 / 0.0`
+  - no-directive MLX preserved top-line readiness only by using controller help: repair/fallback/argument repair `0.70 / 0.20 / 0.50`, raw clean `0.30`
+  - no-directive + no controller repair dropped to readiness `0.73818`, strict/recovered `0.475 / 0.300`
+  - no-directive + no controller fallback dropped to readiness `0.92104`
+  - no-directive + no argument repair dropped to readiness `0.82036`
+  - interpretation: the directive is a causal harness intervention, but controller repair/fallback/argument repair remain causal once that prompt contract is absent
+- H1g is the current negative result for remaining helper families under the directive:
+  - [`20260506T_h1g_mlx_remaining_helpers_v1`](../results/knowledge_work_h1_slice/20260506T_h1g_mlx_remaining_helpers_v1_knowledge_work_h1g_mlx_remaining_helper_ablation_v1) ran baseline, `no_visual_rescue`, `no_intent_priority`, and `no_deterministic_visual_follow_on`
+  - all four rows matched at readiness `0.97936`, strict/recovered `1.0 / 1.0`, raw clean `1.0`
+  - trace mining found `0` failure candidates
+  - interpretation: under the current directive, visual rescue, intent priority, and deterministic visual follow-on are not carrying the compact live MLX slice; the next useful packet is a full-H1e no-directive expansion, not more tuning of those helpers
 
 ### Verification
 

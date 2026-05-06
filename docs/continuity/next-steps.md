@@ -42,9 +42,13 @@ Current state:
 
 Next implementation moves:
 
-- use the H1d packet as the replay target for candidate fixes to local MLX tool-call contracts
-- consider adding `no_deterministic_visual_follow_on` for local MLX if the H1d candidate list still depends on visual follow-on policy
-- run Gemini CLI baseline only after H1d is defined, so the external baseline compares against the harder local-Gemma stressor rather than the now-understood H1c harness bug
+- treat H1f as the current causal restart point for MLX harnessing:
+  - contracted MLX is controller-clean
+  - no-directive MLX only stays top-line clean through controller help
+  - disabling controller repair under no-directive drops readiness to `0.73818`
+- expand the no-directive ablation from compact H1f to the full H1e `10` workflow family set before changing the controller again
+- keep H1g as a negative result: visual rescue, intent priority, and deterministic visual follow-on do not carry the compact live slice under the directive
+- run Gemini CLI baseline only after the no-directive/full-H1e expansion, so the external baseline compares against the harder local-Gemma stressor rather than a saturated contracted row
 - keep using live CLI scorecard and policy inspection as the active operator proof path
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
@@ -55,31 +59,51 @@ Success condition:
 
 - a person can safely launch and watch a real local Gemma MLX run from CLI, approve or resume when needed, and inspect the run live without leaving the terminal
 
-### 2. Reduce the remaining HF Gemma specialist controller burden on the aligned `32 / 26` surface
+### 2. Expand H1f before broad reruns
 
-This is still the highest-value move.
+This is now the highest-value benchmark move.
 
-What changed:
+Current evidence:
 
-- the deterministic visual follow-on patch already removed the old `feedback_prior:refine_selection` and `feedback_prior:read_region_text` families
-- HF Gemma replayable `controller_repair_avg` is now `0.71875`
-- HF Gemma live `controller_repair_avg` is now `0.8076923076923077`
+- H1f compact live packet:
+  - [`results/knowledge_work_h1_slice/20260506T_h1f_mlx_no_directive_v1_knowledge_work_h1f_mlx_tool_contract_ablation_v1`](../../results/knowledge_work_h1_slice/20260506T_h1f_mlx_no_directive_v1_knowledge_work_h1f_mlx_tool_contract_ablation_v1)
+- contracted MLX row:
+  - readiness `0.97936`
+  - strict/recovered `1.0 / 1.0`
+  - repair/fallback/argument repair `0.0 / 0.0 / 0.0`
+  - raw clean `1.0`
+- no-directive MLX with helpers:
+  - readiness `0.97936`
+  - repair/fallback/argument repair `0.70 / 0.20 / 0.50`
+  - raw clean `0.30`
+- no-directive helper removals:
+  - `no_controller_repair = 0.73818`
+  - `no_controller_fallback = 0.92104`
+  - `no_argument_repair = 0.82036`
 
 What remains:
 
-- `controller_fallback_planner`
-- `repaired_arguments:extract_layout`
-- `intent_prior:record_or_update`
-- `intent_prior:inspect_or_lookup`
+- define `H1f-full` or `H1h` using the H1e ten-workflow live family set
+- include:
+  - `mlx_gemma4_e2b_reasoner_only`
+  - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive`
+  - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_repair`
+  - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_fallback`
+  - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_argument_repair`
+- run, analyze, and summarize with:
+
+```bash
+uv run python scripts/analyze_knowledge_work_h1_traces.py <packet_dir>
+uv run python scripts/summarize_h1_tool_contract.py <packet_dir>
+```
 
 Success condition:
 
-- keep replayable `real_world_readiness_avg = 0.976853125`
-- keep live `real_world_readiness_avg = 0.9791653846153847`
-- lower controller repair and fallback further
-- improve raw planning cleanliness if possible
+- preserve the H1f causal ordering across all ten workflow families
+- identify which additional workflows introduce new no-directive failure modes
+- avoid broad aligned `32 / 26` reruns until this harder packet is understood
 
-### 3. Keep using the focused replayable packet before any broader rerun
+### 3. Keep using focused packets before any broader rerun
 
 Current packet:
 

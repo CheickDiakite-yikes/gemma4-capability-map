@@ -67,6 +67,30 @@ The current CLI pivot scaffold is verified with focused runtime/API/CLI tests:
 - `uv run pytest`
 - `244 passed`
 
+Latest MLX tool-contract research:
+
+- H1d/H1e saturated after the final tool-turn directive:
+  - H1d directive-v2 packet: [`results/knowledge_work_h1_slice/20260506T_h1d_mlx_tool_directive_v2_knowledge_work_h1d_mlx_monolith_controller_stress_v1`](../../results/knowledge_work_h1_slice/20260506T_h1d_mlx_tool_directive_v2_knowledge_work_h1d_mlx_monolith_controller_stress_v1)
+  - H1e full live packet: [`results/knowledge_work_h1_slice/20260506T_h1e_mlx_full_live_v1_knowledge_work_h1e_mlx_full_live_packaged_workflows_v1`](../../results/knowledge_work_h1_slice/20260506T_h1e_mlx_full_live_v1_knowledge_work_h1e_mlx_full_live_packaged_workflows_v1)
+  - H1e result: all `4` MLX rows matched at `real_world_readiness_avg = 0.96891`, strict/recovered `1.0 / 1.0`, raw clean `1.0`, and repair/fallback/argument repair `0.0`
+- Tool directive probe:
+  - latest packet: [`results/tool_directive_probe/20260506T_mlx_tool_directive_probe_v4`](../../results/tool_directive_probe/20260506T_mlx_tool_directive_probe_v4)
+  - exact JSON copy: `7 / 8`
+  - executable visual paraphrase: `1 / 1`
+  - remaining exact-copy miss is `target_query = "phone issue"` instead of benchmark-canonical `"validation error"`, but the local visual executor now resolves it to `form-err-202`
+- H1f tool-contract ablation:
+  - packet: [`results/knowledge_work_h1_slice/20260506T_h1f_mlx_no_directive_v1_knowledge_work_h1f_mlx_tool_contract_ablation_v1`](../../results/knowledge_work_h1_slice/20260506T_h1f_mlx_no_directive_v1_knowledge_work_h1f_mlx_tool_contract_ablation_v1)
+  - summary: [`tool_contract_summary.md`](../../results/knowledge_work_h1_slice/20260506T_h1f_mlx_no_directive_v1_knowledge_work_h1f_mlx_tool_contract_ablation_v1/tool_contract_summary.md)
+  - contracted MLX: readiness `0.97936`, strict/recovered `1.0 / 1.0`, raw clean `1.0`, repair/fallback/argument repair `0.0`
+  - no directive with helpers: readiness still `0.97936`, but controller repair/fallback/argument repair `0.70 / 0.20 / 0.50`, raw clean `0.30`
+  - no directive + no controller repair: readiness `0.73818`, strict/recovered `0.475 / 0.300`
+  - no directive + no controller fallback: readiness `0.92104`
+  - no directive + no argument repair: readiness `0.82036`
+- H1g remaining-helper ablation:
+  - packet: [`results/knowledge_work_h1_slice/20260506T_h1g_mlx_remaining_helpers_v1_knowledge_work_h1g_mlx_remaining_helper_ablation_v1`](../../results/knowledge_work_h1_slice/20260506T_h1g_mlx_remaining_helpers_v1_knowledge_work_h1g_mlx_remaining_helper_ablation_v1)
+  - baseline, `no_visual_rescue`, `no_intent_priority`, and `no_deterministic_visual_follow_on` all matched at readiness `0.97936`, strict/recovered `1.0 / 1.0`, raw clean `1.0`
+  - trace mining found `0` failure candidates
+
 Latest real CLI smoke:
 
 - command: `uv run moonie-agent live --workflow-id executive_visual_dashboard_review --system-id mlx_gemma4_e2b_reasoner_only --lane replayable_core --once --refresh-s 0.5 --timeout-s 1.0`
