@@ -97,6 +97,31 @@
   - `uv run moonie-agent inspect <latest_session> --target sandbox --json`
   - completed and showed the sandbox root plus manifest path
 
+### MLX Gemma live CLI smoke completed through the sandbox harness
+
+- Smoke command:
+  - `uv run moonie-agent live --workflow-id executive_visual_dashboard_review --system-id mlx_gemma4_e2b_reasoner_only --lane replayable_core --once --refresh-s 0.5 --timeout-s 1.0`
+- Session:
+  - `20260506T173247139289Z_executive_visual_dashboard_review`
+- Inspection:
+  - `uv run moonie-agent inspect 20260506T173247139289Z_executive_visual_dashboard_review --target all --json`
+
+- Result:
+  - status: `completed`
+  - system: `mlx_gemma4_e2b_reasoner_only`
+  - lane: `replayable_core`
+  - sandbox manifest exists
+  - artifacts: `3` `.docx` revisions, all under the sandbox output root
+  - `strict_interface_score = 1.0`
+  - `role_readiness_score = 0.9942`
+  - `controller_repair_count = 0.5`
+  - `controller_fallback_count = 0.0`
+  - `raw_planning_clean_rate = 0.5`
+
+- Interpretation:
+  - the CLI-first harness can now execute a real local MLX Gemma run, persist sandboxed artifacts, and make the run inspectable from terminal commands
+  - this is a smoke, not a new benchmark row; benchmark claims still need packet or aligned matrix reruns
+
 # 2026-04-14
 
 ### The React Gemma MLX workspace now runs a real end-to-end local session loop

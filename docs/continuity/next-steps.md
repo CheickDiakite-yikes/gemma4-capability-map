@@ -17,10 +17,11 @@ Current state:
   - live-web dry-run holds are recorded as `sandbox_policy_block` events and session/trace metadata
   - `moonie-agent attach --action approve|deny|resume|retry|quit` can operate on a session from the terminal
   - `moonie-agent inspect` can inspect sandbox roots, artifacts, policy blocks, and summary paths
+  - a real `mlx_gemma4_e2b_reasoner_only` CLI smoke completed on `executive_visual_dashboard_review`
 
 Next implementation moves:
 
-- run the first real MLX live smoke through the CLI harness
+- add Gemini CLI as a wrapped external baseline/reference
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1

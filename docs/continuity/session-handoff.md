@@ -31,6 +31,7 @@ The latest live-harness gain is now CLI-first:
 - `moonie-agent attach <session_id>` watches an existing run from the terminal
 - `moonie-agent attach <session_id> --action approve|deny|resume|retry|quit` applies operator actions from the same terminal path
 - `moonie-agent inspect <session_id>` inspects sandbox, artifact, policy-block, and summary metadata
+- a real `mlx_gemma4_e2b_reasoner_only` CLI smoke completed on `executive_visual_dashboard_review`
 
 The prior React product-side gain remains useful context:
 
@@ -124,6 +125,9 @@ Verification:
 - latest operator inspect/action run: `21 passed`
 - `uv run moonie-agent inspect <latest_session> --target sandbox --json`
 - completed and showed the sandbox root plus manifest path
+- `uv run moonie-agent live --workflow-id executive_visual_dashboard_review --system-id mlx_gemma4_e2b_reasoner_only --lane replayable_core --once --refresh-s 0.5 --timeout-s 1.0`
+- completed session: `20260506T173247139289Z_executive_visual_dashboard_review`
+- smoke metrics: `strict_interface_score = 1.0`, `role_readiness_score = 0.9942`, `controller_repair_count = 0.5`, `controller_fallback_count = 0.0`, `raw_planning_clean_rate = 0.5`
 - `uv run moonie-agent live --workflow-id executive_visual_dashboard_review --system-id oracle_gemma4_e2b --lane replayable_core --refresh-s 0.1 --timeout-s 0.5`
 - completed through the Rich operator view with sandbox context visible
 - `uv run pytest`
