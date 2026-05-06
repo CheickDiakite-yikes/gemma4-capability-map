@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 import json
-from dataclasses import dataclass
+from copy import deepcopy
+from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -9,6 +10,7 @@ from typing import Any
 from gemma4_capability_map.models.gemma4_runner import Gemma4Runner
 from gemma4_capability_map.reporting.knowledge_work_board import DEFAULT_REGISTRY_PATH, load_model_registry
 from gemma4_capability_map.schemas import Message, ModelTurn, ToolCall, ToolSpec
+from gemma4_capability_map.tools.executor import DeterministicExecutor
 from gemma4_capability_map.tools.planner import plan_tool_calls
 from gemma4_capability_map.tools.registry import build_default_registry
 
@@ -24,6 +26,8 @@ class ToolDirectiveProbeCase:
     messages: list[Message]
     media: list[str]
     tool_names: list[str]
+    initial_state: dict[str, Any] = field(default_factory=dict)
+    expected_execution: dict[str, Any] = field(default_factory=dict)
 
 
 def build_tool_directive_probe_cases() -> list[ToolDirectiveProbeCase]:
@@ -88,6 +92,8 @@ def build_tool_directive_probe_cases() -> list[ToolDirectiveProbeCase]:
             ],
             media=["img-form-live-latest"],
             tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_form_live_latest_state(),
+            expected_execution={"region_ids": ["form-err-202"]},
         ),
         ToolDirectiveProbeCase(
             case_id="visual_latest_filter_literal",
@@ -208,8 +214,12 @@ def _score_probe_case(
     expected_calls: list[ToolCall],
     turn: ModelTurn,
 ) -> dict[str, Any]:
-    del tool_specs
     exact_match = _calls_exact_match(turn.normalized_tool_call, expected_calls)
+    executable_match, actual_execution = _score_executable_case(
+        case=case,
+        tool_specs=tool_specs,
+        actual_calls=turn.normalized_tool_call,
+    )
     expected_payload = [{"name": call.name, "arguments": call.arguments} for call in expected_calls]
     actual_payload = [{"name": call.name, "arguments": call.arguments} for call in turn.normalized_tool_call]
     return {
@@ -218,6 +228,9 @@ def _score_probe_case(
         "expected_call_count": len(expected_calls),
         "actual_call_count": len(turn.normalized_tool_call),
         "exact_match": exact_match,
+        "executable_match": executable_match,
+        "expected_execution": case.expected_execution,
+        "actual_execution": actual_execution,
         "expected_calls": expected_payload,
         "actual_calls": actual_payload,
         "raw_model_output": turn.raw_model_output,
@@ -230,20 +243,31 @@ def _score_probe_case(
 def _summarize_probe(rows: list[dict[str, Any]]) -> dict[str, Any]:
     total = len(rows)
     exact = sum(1 for row in rows if row["exact_match"])
+    executable_rows = [row for row in rows if row.get("executable_match") is not None]
+    executable = sum(1 for row in executable_rows if row["executable_match"])
     by_family: dict[str, dict[str, Any]] = {}
     for row in rows:
         family = str(row["family"])
-        bucket = by_family.setdefault(family, {"cases": 0, "exact": 0})
+        bucket = by_family.setdefault(family, {"cases": 0, "exact": 0, "executable_cases": 0, "executable": 0})
         bucket["cases"] += 1
         if row["exact_match"]:
             bucket["exact"] += 1
+        if row.get("executable_match") is not None:
+            bucket["executable_cases"] += 1
+            if row["executable_match"]:
+                bucket["executable"] += 1
     for bucket in by_family.values():
         cases = int(bucket["cases"])
         bucket["exact_rate"] = bucket["exact"] / cases if cases else 0.0
+        executable_cases = int(bucket["executable_cases"])
+        bucket["executable_rate"] = bucket["executable"] / executable_cases if executable_cases else None
     return {
         "case_count": total,
         "exact_match_count": exact,
         "exact_match_rate": exact / total if total else 0.0,
+        "executable_evaluable_count": len(executable_rows),
+        "executable_match_count": executable,
+        "executable_match_rate": executable / len(executable_rows) if executable_rows else None,
         "family_summary": by_family,
     }
 
@@ -255,6 +279,99 @@ def _calls_exact_match(actual_calls: list[ToolCall], expected_calls: list[ToolCa
         actual.name == expected.name and actual.arguments == expected.arguments
         for actual, expected in zip(actual_calls, expected_calls, strict=False)
     )
+
+
+def _score_executable_case(
+    *,
+    case: ToolDirectiveProbeCase,
+    tool_specs: list[ToolSpec],
+    actual_calls: list[ToolCall],
+) -> tuple[bool | None, list[dict[str, Any]]]:
+    if not case.initial_state:
+        return None, []
+    if not actual_calls:
+        return False, []
+    execution = _execute_calls(case.initial_state, tool_specs, actual_calls)
+    if any(result.get("validator_result") != "pass" for result in execution):
+        return False, execution
+    if not case.expected_execution:
+        return True, execution
+    return _execution_satisfies_contract(execution, case.expected_execution), execution
+
+
+def _execute_calls(initial_state: dict[str, Any], tool_specs: list[ToolSpec], calls: list[ToolCall]) -> list[dict[str, Any]]:
+    executor = DeterministicExecutor(tool_specs=tool_specs)
+    state = deepcopy(initial_state)
+    rows = []
+    for step, call in enumerate(calls, start=1):
+        result = executor.step(state, call, step=step)
+        state = result.state_after
+        rows.append(
+            {
+                "step": result.step,
+                "selected_tool": result.selected_tool,
+                "arguments": result.arguments,
+                "validator_result": result.validator_result,
+                "output": result.output,
+                "error": result.error,
+            }
+        )
+    return rows
+
+
+def _execution_satisfies_contract(execution: list[dict[str, Any]], expected_execution: dict[str, Any]) -> bool:
+    if "region_ids" in expected_execution:
+        expected_region_ids = [str(region_id) for region_id in expected_execution["region_ids"]]
+        actual_region_ids = _last_output_list(execution, "region_ids")
+        return actual_region_ids == expected_region_ids
+    if "region_id" in expected_execution:
+        expected_region_id = str(expected_execution["region_id"])
+        actual_region_ids = _last_output_list(execution, "region_ids")
+        actual_region_id = _last_output_value(execution, "region_id")
+        return actual_region_id == expected_region_id or actual_region_ids == [expected_region_id]
+    return True
+
+
+def _last_output_list(execution: list[dict[str, Any]], key: str) -> list[str]:
+    for result in reversed(execution):
+        value = result.get("output", {}).get(key)
+        if isinstance(value, list):
+            return [str(item) for item in value]
+    return []
+
+
+def _last_output_value(execution: list[dict[str, Any]], key: str) -> str:
+    for result in reversed(execution):
+        value = result.get("output", {}).get(key)
+        if value is not None:
+            return str(value)
+    return ""
+
+
+def _form_live_latest_state() -> dict[str, Any]:
+    return {
+        "visual_executor_mode": "local",
+        "images": {
+            "img-form-live-latest": {
+                "entities": [],
+                "layouts": [],
+                "local_layouts": [
+                    {
+                        "region_id": "form-err-201",
+                        "label": "validation error",
+                        "text": "Work authorization required before submission",
+                        "attributes": {"field": "work authorization", "priority": "earlier"},
+                    },
+                    {
+                        "region_id": "form-err-202",
+                        "label": "validation error",
+                        "text": "Phone number format invalid",
+                        "attributes": {"field": "phone", "priority": "latest"},
+                    },
+                ],
+            }
+        },
+    }
 
 
 def _write_probe_csv(path: Path, rows: list[dict[str, Any]]) -> None:
@@ -269,8 +386,11 @@ def _write_probe_csv(path: Path, rows: list[dict[str, Any]]) -> None:
         "expected_call_count",
         "actual_call_count",
         "exact_match",
+        "executable_match",
         "expected_calls",
         "actual_calls",
+        "expected_execution",
+        "actual_execution",
         "latency_ms",
         "prompt_tokens",
         "completion_tokens",
@@ -284,5 +404,7 @@ def _write_probe_csv(path: Path, rows: list[dict[str, Any]]) -> None:
                     **{field: row.get(field, "") for field in fieldnames},
                     "expected_calls": json.dumps(row["expected_calls"], ensure_ascii=False),
                     "actual_calls": json.dumps(row["actual_calls"], ensure_ascii=False),
+                    "expected_execution": json.dumps(row["expected_execution"], ensure_ascii=False),
+                    "actual_execution": json.dumps(row["actual_execution"], ensure_ascii=False),
                 }
             )
