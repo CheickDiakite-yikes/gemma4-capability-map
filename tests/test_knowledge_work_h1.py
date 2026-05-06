@@ -20,6 +20,7 @@ PACKET_SCRIPT = importlib.util.module_from_spec(PACKET_SPEC)
 PACKET_SPEC.loader.exec_module(PACKET_SCRIPT)
 H1B_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1b_slice.yaml"
 H1C_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1c_slice.yaml"
+H1D_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1d_slice.yaml"
 
 
 def test_h1_slice_config_maps_to_existing_packaged_workflows_and_episodes() -> None:
@@ -121,6 +122,26 @@ def test_h1c_slice_config_maps_to_live_policy_packet() -> None:
         "kwa_finance_live_invoice_lock_direction_hold_v4",
         "kwa_jobs_live_phone_patch_resume_hold_v4",
     ]
+
+
+def test_h1d_slice_config_maps_to_mlx_monolith_packet() -> None:
+    config = load_h1_slice(H1D_CONFIG_PATH)
+
+    errors = validate_h1_slice(config)
+
+    assert errors == []
+    assert config.name == "knowledge_work_h1d_mlx_monolith_controller_stress"
+    packet = h1_packet_selection(config, "mlx_monolith_controller_helpers")
+    assert packet.lane == "live_web_stress"
+    assert packet.system_ids == [
+        "mlx_gemma4_e2b_reasoner_only",
+        "mlx_gemma4_e2b_reasoner_only_no_controller_repair",
+        "mlx_gemma4_e2b_reasoner_only_no_controller_fallback",
+        "mlx_gemma4_e2b_reasoner_only_no_argument_repair",
+    ]
+    assert packet.episode_ids == config.lanes["live_web_stress"].episode_ids
+    assert "visual_stepwise_control" in packet.failure_modes
+    assert "api_canonicalization" in packet.failure_modes
 
 
 def test_h1_primary_run_specs_default_to_mlx_gemma_reasoner_only() -> None:

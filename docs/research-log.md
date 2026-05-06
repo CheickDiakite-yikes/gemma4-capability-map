@@ -368,6 +368,7 @@
   - disabled rows can show higher `raw_planning_clean_rate` while performing worse, so raw-clean must be interpreted with repair controls in mind
 - H1d candidate brief:
   - [`docs/continuity/h1d-candidates.md`](/Users/cheickdiakite/Codex/moonie/docs/continuity/h1d-candidates.md)
+  - [`configs/knowledge_work_h1d_slice.yaml`](/Users/cheickdiakite/Codex/moonie/configs/knowledge_work_h1d_slice.yaml)
   - proposed stress families: visual stepwise control, API/CLI canonicalization, fallback boundary, and approval-safe stop under repair pressure
 
 ### CLI policy rendering now surfaces live-web block details

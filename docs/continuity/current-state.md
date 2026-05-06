@@ -664,6 +664,7 @@ H1c MLX monolith helper ablation:
 H1d candidate direction:
 
 - doc: [`docs/continuity/h1d-candidates.md`](./h1d-candidates.md)
+- config: [`configs/knowledge_work_h1d_slice.yaml`](../../configs/knowledge_work_h1d_slice.yaml)
 - proposed stress families:
   - visual stepwise control
   - API/CLI canonicalization

@@ -33,6 +33,7 @@ Current state:
   - local MLX monolith helper-ablation profiles exist for `no_controller_repair`, `no_controller_fallback`, and `no_argument_repair`
   - H1c MLX monolith helper ablation: [`results/knowledge_work_h1_slice/20260506T_h1c_mlx_monolith_helpers_v1_knowledge_work_h1c_live_policy_controller_dependence_v1`](../../results/knowledge_work_h1_slice/20260506T_h1c_mlx_monolith_helpers_v1_knowledge_work_h1c_live_policy_controller_dependence_v1)
   - H1d candidate brief: [`docs/continuity/h1d-candidates.md`](./h1d-candidates.md)
+  - H1d config scaffold: [`configs/knowledge_work_h1d_slice.yaml`](../../configs/knowledge_work_h1d_slice.yaml)
   - H1c live-policy scaffold exists:
     - [`configs/knowledge_work_h1c_slice.yaml`](../../configs/knowledge_work_h1c_slice.yaml)
     - [`docs/continuity/h1c-slice.md`](./h1c-slice.md)
@@ -40,7 +41,7 @@ Current state:
 
 Next implementation moves:
 
-- add a replayable/live H1d config only after the candidate list is grounded in the new failure rows
+- dry-run the H1d config and then replay the `mlx_monolith_controller_helpers` packet as the named successor to the H1c helper ablation
 - consider adding `no_deterministic_visual_follow_on` for local MLX if the H1d candidate list still depends on visual follow-on policy
 - run Gemini CLI baseline only after H1d is defined, so the external baseline compares against the harder local-Gemma stressor rather than the now-understood H1c harness bug
 - keep using live CLI scorecard and policy inspection as the active operator proof path

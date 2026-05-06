@@ -120,6 +120,14 @@ Success criteria:
 - failure modes are attributable to one of visual stepwise control, API/CLI canonicalization, fallback boundary, or approval-safe stop
 - replayable/live mirrors remain tied to packaged workflow families
 
-## Next Build Step
+## Runnable Config
 
-Create `configs/knowledge_work_h1d_slice.yaml` only after the candidate episode ids and any required task variants are selected from existing data or added as a focused new data patch.
+Initial config:
+
+- [`configs/knowledge_work_h1d_slice.yaml`](../../configs/knowledge_work_h1d_slice.yaml)
+
+Packet:
+
+- `mlx_monolith_controller_helpers`
+
+Use this config first as a stable replay target for the local MLX monolith helper-ablation loop. Add new task variants only if this config stops breaking the controller-helper rows.
