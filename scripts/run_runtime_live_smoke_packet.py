@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
-from collections import Counter
+from collections import Counter, defaultdict
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -26,6 +26,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output-root", default=str(DEFAULT_OUTPUT_ROOT))
     parser.add_argument("--results-root", default=None)
     parser.add_argument("--run-group-id", default=None)
+    parser.add_argument("--repeat", type=int, default=1, help="Run each packaged workflow this many times.")
     parser.add_argument("--sandbox-mode", choices=["ephemeral_copy", "disabled"], default="ephemeral_copy")
     parser.add_argument("--sandbox-policy-id", default=DEFAULT_SANDBOX_POLICY_ID)
     parser.add_argument("--dry-run", action="store_true")
@@ -41,6 +42,7 @@ def main() -> None:
         output_root=Path(args.output_root),
         results_root=Path(args.results_root) if args.results_root else None,
         run_group_id=args.run_group_id,
+        repeat=args.repeat,
         sandbox_mode=args.sandbox_mode,
         sandbox_policy_id=args.sandbox_policy_id,
         dry_run=args.dry_run,
@@ -58,11 +60,14 @@ def run_packet(
     output_root: Path = DEFAULT_OUTPUT_ROOT,
     results_root: Path | None = None,
     run_group_id: str | None = None,
+    repeat: int = 1,
     sandbox_mode: str = "ephemeral_copy",
     sandbox_policy_id: str = DEFAULT_SANDBOX_POLICY_ID,
     dry_run: bool = False,
     runtime: LocalAgentRuntime | None = None,
 ) -> dict[str, Any]:
+    if repeat < 1:
+        raise SystemExit("repeat must be at least 1")
     if runtime is None:
         runtime = LocalAgentRuntime(results_root=results_root) if results_root else LocalAgentRuntime()
     run_group_id = run_group_id or datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
@@ -78,6 +83,7 @@ def run_packet(
         "created_at": datetime.now(UTC).isoformat(),
         "system_id": system_id,
         "lane": lane,
+        "repeat_count": repeat,
         "sandbox_mode": sandbox_mode,
         "sandbox_policy_id": sandbox_policy_id,
         "dry_run": dry_run,
@@ -97,6 +103,29 @@ def run_packet(
                 "--sandbox-policy-id",
                 sandbox_policy_id,
             ]
+            for _ in range(repeat)
+            for workflow_id in workflow_ids
+        ],
+        "launch_plan": [
+            {
+                "workflow_id": workflow_id,
+                "repeat_index": repeat_index,
+                "command": [
+                    "moonie-agent",
+                    "live",
+                    "--workflow-id",
+                    workflow_id,
+                    "--system-id",
+                    system_id,
+                    "--lane",
+                    lane,
+                    "--sandbox-mode",
+                    sandbox_mode,
+                    "--sandbox-policy-id",
+                    sandbox_policy_id,
+                ],
+            }
+            for repeat_index in range(1, repeat + 1)
             for workflow_id in workflow_ids
         ],
     }
@@ -106,6 +135,8 @@ def run_packet(
             "run_group_id": run_group_id,
             "dry_run": True,
             "workflow_count": len(workflow_ids),
+            "repeat_count": repeat,
+            "session_count": len(workflow_ids) * repeat,
             "output_dir": str(packet_dir.resolve()),
         }
         _write_json(packet_dir / "summary.json", summary)
@@ -114,30 +145,52 @@ def run_packet(
     rows: list[dict[str, Any]] = []
     controller_findings: list[dict[str, Any]] = []
     policy_blocks: list[dict[str, Any]] = []
-    for workflow_id in workflow_ids:
-        session = runtime.launch_session(
-            workflow_id=workflow_id,
-            system_id=system_id,
-            lane=lane,
-            background=False,
-            sandbox_mode=sandbox_mode,
-            sandbox_policy_id=sandbox_policy_id,
-        )
-        row, findings, blocks = _session_record(runtime, session.session_id)
-        rows.append(row)
-        controller_findings.extend(findings)
-        policy_blocks.extend(blocks)
+    for repeat_index in range(1, repeat + 1):
+        for workflow_index, workflow_id in enumerate(workflow_ids, start=1):
+            session = runtime.launch_session(
+                workflow_id=workflow_id,
+                system_id=system_id,
+                lane=lane,
+                background=False,
+                sandbox_mode=sandbox_mode,
+                sandbox_policy_id=sandbox_policy_id,
+            )
+            row, findings, blocks = _session_record(
+                runtime,
+                session.session_id,
+                repeat_index=repeat_index,
+                workflow_index=workflow_index,
+            )
+            rows.append(row)
+            controller_findings.extend(findings)
+            policy_blocks.extend(blocks)
 
-    summary = _summary(run_group_id, packet_dir, rows)
+    workflow_summaries = _workflow_summaries(rows)
+    summary = _summary(
+        run_group_id,
+        packet_dir,
+        rows,
+        workflow_ids=workflow_ids,
+        repeat=repeat,
+        workflow_summaries=workflow_summaries,
+    )
     _write_json(packet_dir / "sessions.json", rows)
     _write_json(packet_dir / "controller_findings.json", controller_findings)
     _write_json(packet_dir / "policy_blocks.json", policy_blocks)
+    _write_json(packet_dir / "workflow_summaries.json", workflow_summaries)
     _write_json(packet_dir / "summary.json", summary)
     _write_csv(packet_dir / "leaderboard.csv", rows)
+    _write_csv(packet_dir / "workflow_summary.csv", workflow_summaries)
     return summary
 
 
-def _session_record(runtime: LocalAgentRuntime, session_id: str) -> tuple[dict[str, Any], list[dict[str, Any]], list[dict[str, Any]]]:
+def _session_record(
+    runtime: LocalAgentRuntime,
+    session_id: str,
+    *,
+    repeat_index: int = 1,
+    workflow_index: int = 1,
+) -> tuple[dict[str, Any], list[dict[str, Any]], list[dict[str, Any]]]:
     session = runtime.get_session(session_id)
     runtime_trace = session.runtime_trace
     scorecard = session_inspection_payload(runtime, session_id, target="scorecard").get("scorecard", {})
@@ -154,6 +207,8 @@ def _session_record(runtime: LocalAgentRuntime, session_id: str) -> tuple[dict[s
         for finding in scorecard.get("controller_findings", [])
     ]
     row = {
+        "repeat_index": repeat_index,
+        "workflow_index": workflow_index,
         "session_id": session.session_id,
         "workflow_id": session.workflow_id,
         "episode_id": session.episode_id,
@@ -163,7 +218,9 @@ def _session_record(runtime: LocalAgentRuntime, session_id: str) -> tuple[dict[s
         "sandbox_mode": session.sandbox_mode,
         "sandbox_policy_id": session.sandbox_policy_id,
         "sandbox_root": session.sandbox_root,
-        "sandbox_manifest_exists": bool(session.sandbox_manifest_path and Path(session.sandbox_manifest_path).exists()),
+        "sandbox_manifest_exists": bool(
+            session.sandbox_manifest_path and Path(session.sandbox_manifest_path).exists()
+        ),
         "artifact_count": len(session.artifact_paths),
         "policy_block_count": len(session.sandbox_policy_blocks),
         "approval_count": len(session.approvals),
@@ -192,12 +249,22 @@ def _session_record(runtime: LocalAgentRuntime, session_id: str) -> tuple[dict[s
     return row, findings, blocks
 
 
-def _summary(run_group_id: str, packet_dir: Path, rows: list[dict[str, Any]]) -> dict[str, Any]:
+def _summary(
+    run_group_id: str,
+    packet_dir: Path,
+    rows: list[dict[str, Any]],
+    *,
+    workflow_ids: list[str],
+    repeat: int,
+    workflow_summaries: list[dict[str, Any]],
+) -> dict[str, Any]:
     failed_sessions = sum(1 for row in rows if row["status"] == "failed")
     return {
         "run_group_id": run_group_id,
         "dry_run": False,
-        "workflow_count": len(rows),
+        "workflow_count": len(workflow_ids),
+        "repeat_count": repeat,
+        "session_count": len(rows),
         "failed_sessions": failed_sessions,
         "status_counts": dict(Counter(str(row["status"]) for row in rows)),
         "output_dir": str(packet_dir.resolve()),
@@ -211,7 +278,36 @@ def _summary(run_group_id: str, packet_dir: Path, rows: list[dict[str, Any]]) ->
         "controller_finding_count": sum(int(row.get("controller_finding_count") or 0) for row in rows),
         "policy_block_count": sum(int(row.get("policy_block_count") or 0) for row in rows),
         "approval_count": sum(int(row.get("approval_count") or 0) for row in rows),
+        "workflow_summaries": workflow_summaries,
     }
+
+
+def _workflow_summaries(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for row in rows:
+        grouped[str(row["workflow_id"])].append(row)
+    summaries: list[dict[str, Any]] = []
+    for workflow_id, workflow_rows in grouped.items():
+        summaries.append(
+            {
+                "workflow_id": workflow_id,
+                "episode_id": workflow_rows[0].get("episode_id"),
+                "session_count": len(workflow_rows),
+                "status_counts": dict(Counter(str(row["status"]) for row in workflow_rows)),
+                "role_readiness_avg": _average(row.get("role_readiness_score") for row in workflow_rows),
+                "strict_interface_avg": _average(row.get("strict_interface_score") for row in workflow_rows),
+                "recovered_execution_avg": _average(row.get("recovered_execution_score") for row in workflow_rows),
+                "controller_repair_avg": _average(row.get("controller_repair_count") for row in workflow_rows),
+                "argument_repair_avg": _average(row.get("argument_repair_count") for row in workflow_rows),
+                "controller_fallback_avg": _average(row.get("controller_fallback_count") for row in workflow_rows),
+                "raw_planning_clean_rate_avg": _average(row.get("raw_planning_clean_rate") for row in workflow_rows),
+                "controller_finding_count": sum(int(row.get("controller_finding_count") or 0) for row in workflow_rows),
+                "policy_block_count": sum(int(row.get("policy_block_count") or 0) for row in workflow_rows),
+                "approval_count": sum(int(row.get("approval_count") or 0) for row in workflow_rows),
+                "session_ids": [str(row["session_id"]) for row in workflow_rows],
+            }
+        )
+    return summaries
 
 
 def _average(values: Any) -> float:
