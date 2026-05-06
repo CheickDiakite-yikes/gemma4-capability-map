@@ -1,0 +1,121 @@
+h1_slice:
+  name: knowledge_work_h1f_mlx_tool_contract_ablation
+  version: v1
+  description: >
+    Saturation-breaker after H1e showed full live packaged workflows were clean
+    under the tool-turn directive. H1f holds the compact controller-stress
+    workflow set fixed and removes the directive to measure how much local MLX
+    still depends on controller repair, controller fallback, and argument repair
+    when Gemma has to produce the tool call from the normal catalog prompt.
+  run_intent: exploratory
+  update_latest: false
+  live_entrypoint: packaged_workflows_only
+  primary_system_id: mlx_gemma4_e2b_reasoner_only
+  baseline_system_ids:
+    - oracle_gemma4_e2b
+    - hf_service_gemma4_specialists_cpu
+  ablation_bundle_system_id: mlx_gemma4_e2b_reasoner_only
+  ablation_system_ids:
+    - mlx_gemma4_e2b_reasoner_only
+    - mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive
+    - mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_repair
+    - mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_fallback
+    - mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_argument_repair
+  lanes:
+    replayable_core:
+      episode_ids:
+        - kwa_exec_visual_dashboard_brief
+        - kwa_finance_invoice_lock_direction_hold_v4
+        - kwa_jobs_email_block_resume_hold_v5
+        - kwa_jobs_phone_patch_resume_hold_v4
+        - kwa_finance_diff_review_hold_v5
+    live_web_stress:
+      episode_ids:
+        - kwa_exec_live_visual_dashboard_brief
+        - kwa_finance_live_invoice_lock_direction_hold_v4
+        - kwa_jobs_live_email_block_resume_hold_v5
+        - kwa_jobs_live_phone_patch_resume_hold_v4
+        - kwa_finance_live_diff_review_hold_v5
+  workflow_families:
+    - workflow_id: executive_visual_dashboard_review
+      role_family: executive_assistant
+      purpose: isolate visual stepwise control on dashboard metric selection and readback
+      replayable_episode_id: kwa_exec_visual_dashboard_brief
+      live_episode_id: kwa_exec_live_visual_dashboard_brief
+      h1_stressors:
+        - visual_stepwise_control
+        - argument_copying
+    - workflow_id: finance_visual_invoice_review
+      role_family: finance
+      purpose: isolate CLI log canonicalization while preserving invoice-lock approval posture
+      replayable_episode_id: kwa_finance_invoice_lock_direction_hold_v4
+      live_episode_id: kwa_finance_live_invoice_lock_direction_hold_v4
+      h1_stressors:
+        - cli_canonicalization
+        - approval_safe_stop
+    - workflow_id: jobs_visual_form_hold
+      role_family: job_application_ops
+      purpose: isolate CLI patch canonicalization, live visual fallback, and approval-safe stop behavior
+      replayable_episode_id: kwa_jobs_email_block_resume_hold_v5
+      live_episode_id: kwa_jobs_live_email_block_resume_hold_v5
+      h1_stressors:
+        - cli_canonicalization
+        - controller_fallback
+        - visual_stepwise_control
+        - approval_safe_stop
+    - workflow_id: jobs_phone_patch_resume
+      role_family: job_application_ops
+      purpose: isolate API fetch canonicalization and jobs visual carryover under latest-issue pressure
+      replayable_episode_id: kwa_jobs_phone_patch_resume_hold_v4
+      live_episode_id: kwa_jobs_live_phone_patch_resume_hold_v4
+      h1_stressors:
+        - api_canonicalization
+        - controller_fallback
+        - visual_stepwise_control
+    - workflow_id: finance_billing_patch_hold
+      role_family: finance
+      purpose: isolate API update canonicalization while preserving review-only finance direction
+      replayable_episode_id: kwa_finance_diff_review_hold_v5
+      live_episode_id: kwa_finance_live_diff_review_hold_v5
+      h1_stressors:
+        - api_canonicalization
+        - approval_safe_stop
+  packets:
+    mlx_tool_contract_breaker:
+      lane: live_web_stress
+      purpose: >
+        Compact live packet for separating prompt-contract gains from
+        controller-helper gains on local MLX Gemma.
+      system_ids:
+        - mlx_gemma4_e2b_reasoner_only
+        - mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive
+        - mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_repair
+        - mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_fallback
+        - mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_argument_repair
+      episode_ids:
+        - kwa_exec_live_visual_dashboard_brief
+        - kwa_finance_live_invoice_lock_direction_hold_v4
+        - kwa_jobs_live_email_block_resume_hold_v5
+        - kwa_jobs_live_phone_patch_resume_hold_v4
+        - kwa_finance_live_diff_review_hold_v5
+      failure_modes:
+        - prompt_contract_removed
+        - visual_stepwise_control
+        - api_canonicalization
+        - cli_canonicalization
+        - controller_fallback
+        - approval_safe_stop
+  saturation_breaker_metrics:
+    - real_world_readiness_avg
+    - strict_interface_avg
+    - recovered_execution_avg
+    - controller_repair_avg
+    - controller_fallback_avg
+    - argument_repair_avg
+    - raw_planning_clean_rate_avg
+  attribution_tags:
+    - packaged_workflow
+    - workflow_family
+    - local_mlx_monolith
+    - tool_turn_directive
+    - prompt_contract_ablation

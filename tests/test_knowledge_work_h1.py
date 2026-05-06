@@ -22,6 +22,7 @@ H1B_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_w
 H1C_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1c_slice.yaml"
 H1D_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1d_slice.yaml"
 H1E_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1e_slice.yaml"
+H1F_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1f_slice.yaml"
 
 
 def test_h1_slice_config_maps_to_existing_packaged_workflows_and_episodes() -> None:
@@ -177,6 +178,26 @@ def test_h1e_slice_config_maps_to_full_live_packaged_workflow_packet() -> None:
     assert "saturation_breaker" in config.attribution_tags
 
 
+def test_h1f_slice_config_maps_to_tool_contract_ablation_packet() -> None:
+    config = load_h1_slice(H1F_CONFIG_PATH)
+
+    errors = validate_h1_slice(config)
+
+    assert errors == []
+    assert config.name == "knowledge_work_h1f_mlx_tool_contract_ablation"
+    packet = h1_packet_selection(config, "mlx_tool_contract_breaker")
+    assert packet.lane == "live_web_stress"
+    assert packet.system_ids == [
+        "mlx_gemma4_e2b_reasoner_only",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_repair",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_fallback",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_argument_repair",
+    ]
+    assert packet.episode_ids == config.lanes["live_web_stress"].episode_ids
+    assert "prompt_contract_ablation" in config.attribution_tags
+
+
 def test_h1_primary_run_specs_default_to_mlx_gemma_reasoner_only() -> None:
     config = load_h1_slice()
     registry = load_model_registry()
@@ -235,6 +256,21 @@ def test_h1_mlx_reasoner_only_ablation_specs_are_monolith() -> None:
     assert by_system["mlx_gemma4_e2b_reasoner_only_no_controller_repair"]["disable_controller_repair"] is True
     assert by_system["mlx_gemma4_e2b_reasoner_only_no_controller_fallback"]["disable_controller_fallback"] is True
     assert by_system["mlx_gemma4_e2b_reasoner_only_no_argument_repair"]["disable_argument_repair"] is True
+
+
+def test_h1f_ablation_specs_preserve_tool_directive_flags() -> None:
+    config = load_h1_slice(H1F_CONFIG_PATH)
+    registry = load_model_registry()
+
+    specs = build_h1_run_specs(config, registry, lanes=["live_web_stress"], run_set="ablation")
+    by_system = {spec["system_id"]: spec for spec in specs}
+
+    assert by_system["mlx_gemma4_e2b_reasoner_only"]["disable_tool_turn_directive"] is False
+    assert by_system["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive"]["disable_tool_turn_directive"] is True
+    assert by_system["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_repair"]["disable_tool_turn_directive"] is True
+    assert by_system["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_repair"]["disable_controller_repair"] is True
+    assert by_system["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_fallback"]["disable_controller_fallback"] is True
+    assert by_system["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_argument_repair"]["disable_argument_repair"] is True
 
 
 def test_h1_arena_command_is_episode_filtered_and_exploratory(tmp_path: Path) -> None:

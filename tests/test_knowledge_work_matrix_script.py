@@ -69,10 +69,12 @@ def test_system_run_args_include_second_wave_ablation_controls() -> None:
     no_intent = _system_run_args("hf_gemma4_e2b_specialists_cpu_no_intent_priority", registry)
     no_arguments = _system_run_args("hf_gemma4_e2b_specialists_cpu_no_argument_repair", registry)
     no_follow_on = _system_run_args("hf_gemma4_e2b_specialists_cpu_no_deterministic_visual_follow_on", registry)
+    no_mlx_directive = _system_run_args("mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive", registry)
 
     assert no_intent["disable_intent_priority"] is True
     assert no_arguments["disable_argument_repair"] is True
     assert no_follow_on["disable_deterministic_visual_follow_on"] is True
+    assert no_mlx_directive["disable_tool_turn_directive"] is True
 
 
 def test_system_run_args_include_service_backed_ablation_controls() -> None:
