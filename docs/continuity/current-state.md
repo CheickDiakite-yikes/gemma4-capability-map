@@ -214,12 +214,14 @@ Trace-note analysis:
 - [`trace_note_summary.json`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet/trace_note_summary.json)
 - [`trace_note_counts.csv`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet/trace_note_counts.csv)
 - [`trace_episode_failures.csv`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet/trace_episode_failures.csv)
+- [`trace_failure_mode_counts.csv`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet/trace_failure_mode_counts.csv)
 
 Current trace read:
 
 - `102` controller-note events across `35` H1 episode rows
 - `10` strict/recovered failure candidates
 - failure rows now include coarse `failure_modes` labels for `raw_refusal`, `generic_tool_name`, disabled fallback/repair, argument repair, intent prior, visual follow-on, and tool canonicalization
+- aggregate failure modes: `raw_refusal = 10`, `generic_tool_name = 7`, `fallback_disabled = 5`, `fallback_planner = 5`, `repair_disabled = 5`
 - baseline uses `controller_fallback_planner` `6` times across all `5` H1 episodes
 - `no_controller_fallback` fails all `5` H1 episodes, mostly raw refusal/no-call cases
 - `no_controller_repair` fails all `5` H1 episodes, mostly generic `tool_name` hallucinations and malformed arguments

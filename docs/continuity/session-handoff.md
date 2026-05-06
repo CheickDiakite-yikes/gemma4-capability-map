@@ -60,7 +60,9 @@ The latest live-harness gain is now CLI-first:
   - [`scripts/analyze_knowledge_work_h1_traces.py`](../../scripts/analyze_knowledge_work_h1_traces.py)
   - [`trace_note_counts.csv`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet/trace_note_counts.csv)
   - [`trace_episode_failures.csv`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet/trace_episode_failures.csv)
+  - [`trace_failure_mode_counts.csv`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet/trace_failure_mode_counts.csv)
   - current read: `102` controller-note events, `10` strict/recovered failure candidates, baseline `controller_fallback_planner` appears `6` times across all `5` H1 episodes
+  - aggregate failure modes: `raw_refusal = 10`, `generic_tool_name = 7`, `fallback_disabled = 5`, `fallback_planner = 5`, `repair_disabled = 5`
   - next target: raw refusal/no-call and generic `tool_name` planning failures, not visual rescue
 
 The prior React product-side gain remains useful context:

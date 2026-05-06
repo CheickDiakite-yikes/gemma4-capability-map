@@ -1254,5 +1254,63 @@
       "raw_planning_sample": "<start_function_call>call:tool_name{arg:<escape>value<escape>}<end_function_call> | I cannot assist with this request. My current capabilities are limited to calling the specified tools for routing and API management. I cannot generate o...",
       "failure_candidate": true
     }
+  ],
+  "failure_mode_counts": [
+    {
+      "failure_mode": "raw_refusal",
+      "count": 10,
+      "system_count": 2,
+      "episode_count": 5,
+      "systems": "hf_service_gemma4_specialists_cpu_no_controller_fallback;hf_service_gemma4_specialists_cpu_no_controller_repair",
+      "episodes": "kwa_exec_backlog_resume_hold_v5;kwa_exec_visual_dashboard_brief;kwa_finance_diff_review_hold_v5;kwa_finance_invoice_lock_direction_hold_v4;kwa_jobs_email_block_resume_hold_v5"
+    },
+    {
+      "failure_mode": "generic_tool_name",
+      "count": 7,
+      "system_count": 2,
+      "episode_count": 5,
+      "systems": "hf_service_gemma4_specialists_cpu_no_controller_fallback;hf_service_gemma4_specialists_cpu_no_controller_repair",
+      "episodes": "kwa_exec_backlog_resume_hold_v5;kwa_exec_visual_dashboard_brief;kwa_finance_diff_review_hold_v5;kwa_finance_invoice_lock_direction_hold_v4;kwa_jobs_email_block_resume_hold_v5"
+    },
+    {
+      "failure_mode": "fallback_disabled",
+      "count": 5,
+      "system_count": 1,
+      "episode_count": 5,
+      "systems": "hf_service_gemma4_specialists_cpu_no_controller_fallback",
+      "episodes": "kwa_exec_backlog_resume_hold_v5;kwa_exec_visual_dashboard_brief;kwa_finance_diff_review_hold_v5;kwa_finance_invoice_lock_direction_hold_v4;kwa_jobs_email_block_resume_hold_v5"
+    },
+    {
+      "failure_mode": "fallback_planner",
+      "count": 5,
+      "system_count": 1,
+      "episode_count": 5,
+      "systems": "hf_service_gemma4_specialists_cpu_no_controller_repair",
+      "episodes": "kwa_exec_backlog_resume_hold_v5;kwa_exec_visual_dashboard_brief;kwa_finance_diff_review_hold_v5;kwa_finance_invoice_lock_direction_hold_v4;kwa_jobs_email_block_resume_hold_v5"
+    },
+    {
+      "failure_mode": "repair_disabled",
+      "count": 5,
+      "system_count": 1,
+      "episode_count": 5,
+      "systems": "hf_service_gemma4_specialists_cpu_no_controller_repair",
+      "episodes": "kwa_exec_backlog_resume_hold_v5;kwa_exec_visual_dashboard_brief;kwa_finance_diff_review_hold_v5;kwa_finance_invoice_lock_direction_hold_v4;kwa_jobs_email_block_resume_hold_v5"
+    },
+    {
+      "failure_mode": "intent_prior",
+      "count": 2,
+      "system_count": 1,
+      "episode_count": 2,
+      "systems": "hf_service_gemma4_specialists_cpu_no_controller_fallback",
+      "episodes": "kwa_exec_backlog_resume_hold_v5;kwa_finance_diff_review_hold_v5"
+    },
+    {
+      "failure_mode": "argument_repair",
+      "count": 1,
+      "system_count": 1,
+      "episode_count": 1,
+      "systems": "hf_service_gemma4_specialists_cpu_no_controller_fallback",
+      "episodes": "kwa_finance_invoice_lock_direction_hold_v4"
+    }
   ]
 }

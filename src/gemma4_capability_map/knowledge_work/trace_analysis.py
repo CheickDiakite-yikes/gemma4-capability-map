@@ -91,6 +91,7 @@ def analyze_ablation_packet(packet_dir: str | Path) -> dict[str, Any]:
         for (system_id, note), count in sorted(note_counter.items())
     ]
     failure_rows = [row for row in episode_rows if row["failure_candidate"]]
+    failure_mode_rows = _failure_mode_counts(failure_rows)
 
     return {
         "packet_dir": str(root.resolve()),
@@ -102,6 +103,7 @@ def analyze_ablation_packet(packet_dir: str | Path) -> dict[str, Any]:
         "note_counts": note_rows,
         "episode_rows": episode_rows,
         "failure_rows": failure_rows,
+        "failure_mode_counts": failure_mode_rows,
     }
 
 
@@ -113,14 +115,17 @@ def write_trace_analysis(packet_dir: str | Path, output_dir: str | Path | None =
     summary_path = target / "trace_note_summary.json"
     note_path = target / "trace_note_counts.csv"
     failures_path = target / "trace_episode_failures.csv"
+    failure_modes_path = target / "trace_failure_mode_counts.csv"
 
     summary_path.write_text(json.dumps(analysis, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     _write_csv(note_path, analysis["note_counts"])
     _write_csv(failures_path, analysis["failure_rows"])
+    _write_csv(failure_modes_path, analysis["failure_mode_counts"])
     return {
         "summary": str(summary_path.resolve()),
         "note_counts": str(note_path.resolve()),
         "failures": str(failures_path.resolve()),
+        "failure_modes": str(failure_modes_path.resolve()),
     }
 
 
@@ -215,6 +220,32 @@ def _failure_modes(notes: list[str], failed_tools: list[str], raw_planning_sampl
     if any(note.startswith("canonicalized_tool:") for note in notes):
         add("tool_canonicalization")
     return modes
+
+
+def _failure_mode_counts(failure_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    counter: Counter[str] = Counter()
+    systems: dict[str, set[str]] = defaultdict(set)
+    episodes: dict[str, set[str]] = defaultdict(set)
+    for row in failure_rows:
+        system_id = str(row.get("system_id", ""))
+        episode_id = str(row.get("episode_id", ""))
+        for mode in str(row.get("failure_modes", "")).split(";"):
+            if not mode:
+                continue
+            counter[mode] += 1
+            systems[mode].add(system_id)
+            episodes[mode].add(episode_id)
+    return [
+        {
+            "failure_mode": mode,
+            "count": count,
+            "system_count": len(systems[mode]),
+            "episode_count": len(episodes[mode]),
+            "systems": ";".join(sorted(systems[mode])),
+            "episodes": ";".join(sorted(episodes[mode])),
+        }
+        for mode, count in sorted(counter.items(), key=lambda item: (-item[1], item[0]))
+    ]
 
 
 def _is_failure_candidate(scorecard: dict[str, Any]) -> bool:

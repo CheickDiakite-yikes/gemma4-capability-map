@@ -314,6 +314,7 @@
   - [`trace_note_summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet/trace_note_summary.json)
   - [`trace_note_counts.csv`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet/trace_note_counts.csv)
   - [`trace_episode_failures.csv`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet/trace_episode_failures.csv)
+  - [`trace_failure_mode_counts.csv`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet/trace_failure_mode_counts.csv)
 
 - Verification:
   - `uv run pytest tests/test_knowledge_work_trace_analysis.py`
@@ -323,6 +324,7 @@
   - mined `102` controller-note events across `35` H1 episode rows
   - found `10` strict/recovered failure candidates
   - failure candidates now carry coarse `failure_modes` labels such as `raw_refusal`, `generic_tool_name`, `fallback_disabled`, `repair_disabled`, `argument_repair`, and `intent_prior`
+  - aggregate mode counts: `raw_refusal = 10`, `generic_tool_name = 7`, `fallback_disabled = 5`, `fallback_planner = 5`, `repair_disabled = 5`
   - baseline still uses `controller_fallback_planner` `6` times across all `5` H1 episodes
   - `no_controller_fallback` fails all `5` H1 episodes, mostly raw refusal/no-call cases
   - `no_controller_repair` fails all `5` H1 episodes, mostly repeated generic `tool_name` hallucinations and unprojected arguments

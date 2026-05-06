@@ -81,6 +81,13 @@ def test_analyze_ablation_packet_counts_notes_and_failures(tmp_path: Path) -> No
     assert failure["failed_tools"] == "task_a:tool_name"
     assert failure["failure_modes"] == "raw_refusal;generic_tool_name;repair_disabled;fallback_planner"
     assert failure["repair_note_counts"] == "controller_fallback_planner=1;controller_repair_disabled=2"
+    mode_counts = {row["failure_mode"]: row["count"] for row in analysis["failure_mode_counts"]}
+    assert mode_counts == {
+        "raw_refusal": 1,
+        "generic_tool_name": 1,
+        "repair_disabled": 1,
+        "fallback_planner": 1,
+    }
 
 
 def test_write_trace_analysis_outputs_csv_and_json(tmp_path: Path) -> None:
@@ -108,3 +115,4 @@ def test_write_trace_analysis_outputs_csv_and_json(tmp_path: Path) -> None:
     assert rows[0]["system_id"] == "system_b"
     assert rows[0]["note"] == "intent_prior:inspect_or_lookup"
     assert Path(paths["failures"]).read_text(encoding="utf-8") == ""
+    assert Path(paths["failure_modes"]).read_text(encoding="utf-8") == ""
