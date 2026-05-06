@@ -30,6 +30,7 @@ The latest live-harness gain is now CLI-first:
 - `moonie-agent live` launches a packaged workflow and attaches a Rich terminal operator view
 - `moonie-agent attach <session_id>` watches an existing run from the terminal
 - `moonie-agent attach <session_id> --action approve|deny|resume|retry|quit` applies operator actions from the same terminal path
+- `moonie-agent inspect <session_id>` inspects sandbox, artifact, policy-block, and summary metadata
 
 The prior React product-side gain remains useful context:
 
@@ -113,13 +114,16 @@ What that means:
 - runtime artifacts, summaries, and traces are attributable to the sandbox root
 - live-web sandbox-only or approval-gated actions now produce explicit policy block metadata
 - attach actions can approve, deny, resume, retry, or quit from the Rich operator path
+- inspect commands can show sandbox roots, artifacts, policy blocks, and trace/summary paths as Rich output or JSON
 
 Verification:
 
 - `uv run pytest tests/test_runtime_core.py tests/test_runtime_cli.py tests/test_runtime_api.py`
 - latest targeted run: `24 passed`
 - `uv run pytest tests/test_runtime_cli.py tests/test_runtime_core.py`
-- latest operator-action run: `20 passed`
+- latest operator inspect/action run: `21 passed`
+- `uv run moonie-agent inspect <latest_session> --target sandbox --json`
+- completed and showed the sandbox root plus manifest path
 - `uv run moonie-agent live --workflow-id executive_visual_dashboard_review --system-id oracle_gemma4_e2b --lane replayable_core --refresh-s 0.1 --timeout-s 0.5`
 - completed through the Rich operator view with sandbox context visible
 - `uv run pytest`

@@ -16,10 +16,11 @@ Current state:
   - `moonie-agent live` and `moonie-agent attach` exist as Rich terminal entrypoints
   - live-web dry-run holds are recorded as `sandbox_policy_block` events and session/trace metadata
   - `moonie-agent attach --action approve|deny|resume|retry|quit` can operate on a session from the terminal
+  - `moonie-agent inspect` can inspect sandbox roots, artifacts, policy blocks, and summary paths
 
 Next implementation moves:
 
-- add artifact and sandbox inspection commands to the live operator path
+- run the first real MLX live smoke through the CLI harness
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1

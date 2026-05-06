@@ -76,6 +76,27 @@
   - `uv run pytest tests/test_runtime_cli.py tests/test_runtime_core.py`
   - `20 passed`
 
+### CLI inspection now exposes sandbox and artifact evidence
+
+- Runtime/CLI implementation:
+  - [`src/gemma4_capability_map/runtime/operator.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/runtime/operator.py)
+  - [`src/gemma4_capability_map/runtime/cli.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/runtime/cli.py)
+- Regression coverage:
+  - [`tests/test_runtime_cli.py`](/Users/cheickdiakite/Codex/moonie/tests/test_runtime_cli.py)
+
+- What changed:
+  - `moonie-agent inspect <session_id> --target sandbox`
+  - `moonie-agent inspect <session_id> --target artifacts`
+  - `moonie-agent inspect <session_id> --target policy`
+  - `moonie-agent inspect <session_id> --target summary`
+  - `--json` makes the inspection machine-readable for harness scripts
+
+- Verification:
+  - `uv run pytest tests/test_runtime_cli.py tests/test_runtime_core.py`
+  - `21 passed`
+  - `uv run moonie-agent inspect <latest_session> --target sandbox --json`
+  - completed and showed the sandbox root plus manifest path
+
 # 2026-04-14
 
 ### The React Gemma MLX workspace now runs a real end-to-end local session loop

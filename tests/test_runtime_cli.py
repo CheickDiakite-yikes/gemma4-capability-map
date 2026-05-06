@@ -175,3 +175,34 @@ def test_runtime_cli_attach_can_apply_approval_action(monkeypatch: pytest.Monkey
     assert approved.status.value == "completed"
     assert approved.approvals[0].status.value == "approved"
     assert approved.approvals[0].note == "Approved from operator."
+
+
+def test_runtime_cli_inspect_outputs_sandbox_and_artifacts(monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str], tmp_path: Path) -> None:
+    runtime = LocalAgentRuntime(results_root=tmp_path / "runtime")
+    session = runtime.launch_session(
+        workflow_id="executive_visual_dashboard_review",
+        system_id="oracle_gemma4_e2b",
+        lane="replayable_core",
+        background=False,
+    )
+    monkeypatch.setattr(runtime_cli, "LocalAgentRuntime", lambda: runtime)
+    monkeypatch.setattr(
+        runtime_cli,
+        "parse_args",
+        lambda: runtime_cli.argparse.Namespace(
+            command="inspect",
+            session_id=session.session_id,
+            target="all",
+            json=True,
+        ),
+    )
+
+    runtime_cli.main()
+
+    output = json.loads(capsys.readouterr().out)
+    assert output["session_id"] == session.session_id
+    assert output["sandbox"]["root"] == session.sandbox_root
+    assert output["sandbox"]["manifest_exists"] is True
+    assert output["artifacts"]
+    assert all(item["exists"] for item in output["artifacts"])
+    assert output["summary"]["summary_path"]

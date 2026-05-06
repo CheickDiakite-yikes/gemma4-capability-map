@@ -4,7 +4,7 @@ import argparse
 import json
 
 from gemma4_capability_map.runtime.core import LocalAgentRuntime
-from gemma4_capability_map.runtime.operator import apply_operator_action, attach_to_session
+from gemma4_capability_map.runtime.operator import apply_operator_action, attach_to_session, print_session_inspection, session_inspection_payload
 from gemma4_capability_map.runtime.sandbox import DEFAULT_SANDBOX_POLICY_ID
 from gemma4_capability_map.runtime.schemas import ApprovalStatus
 
@@ -56,6 +56,11 @@ def parse_args() -> argparse.Namespace:
     attach_parser.add_argument("--note", default="")
     attach_parser.add_argument("--no-resume", action="store_true")
     attach_parser.add_argument("--foreground", action="store_true")
+
+    inspect_parser = subparsers.add_parser("inspect", help="Inspect sandbox, artifacts, policy blocks, and trace paths for a session.")
+    inspect_parser.add_argument("session_id")
+    inspect_parser.add_argument("--target", choices=["all", "sandbox", "artifacts", "policy", "summary"], default="all")
+    inspect_parser.add_argument("--json", action="store_true")
 
     show_parser = subparsers.add_parser("show", help="Show a session.")
     show_parser.add_argument("session_id")
@@ -170,6 +175,12 @@ def main() -> None:
             timeout_s=args.timeout_s,
             once=args.once,
         )
+        return
+    if args.command == "inspect":
+        if args.json:
+            print(json.dumps(session_inspection_payload(runtime, args.session_id, target=args.target), indent=2, ensure_ascii=False))
+        else:
+            print_session_inspection(runtime, args.session_id, target=args.target)
         return
     if args.command == "show":
         print(json.dumps(runtime.get_session(args.session_id).model_dump(mode="json"), indent=2, ensure_ascii=False))
