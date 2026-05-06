@@ -2550,6 +2550,14 @@
   - trace mining found `30` note events and `0` failure candidates
   - remaining note counts are only disabled-helper markers: `controller_repair_disabled = 22` and `intent_priority_disabled = 8`
   - interpretation: H1b lowers absolute readiness relative to H1 because its artifacts are harder, but it does not restore controller dependence after the final FunctionGemma turn directive. The next useful research move is live CLI validation plus a new H1c slice with genuinely new visual/API/approval interactions.
+- H1c live-policy pressure is now benchmark-clean for both HF service specialists and local MLX Gemma:
+  - [`20260506T_h1c_live_policy_packet_v1`](../results/knowledge_work_h1_slice/20260506T_h1c_live_policy_packet_v1_knowledge_work_ablation_packet) ran the compact live-policy helper packet across baseline HF service specialists, `no_controller_repair`, `no_controller_fallback`, and `no_argument_repair`
+  - all four HF service rows matched at `real_world_readiness_avg = 0.9779666666666667`, `strict_interface_avg = 1.0`, `recovered_execution_avg = 1.0`, `controller_repair_avg = 0.0`, `argument_repair_avg = 0.0`, `controller_fallback_avg = 0.0`, and `raw_planning_clean_rate_avg = 1.0`
+  - trace mining found `14` note events and `0` failure candidates; the notes were only disabled-helper markers
+  - [`20260506T_h1c_mlx_live_primary_v1`](../results/knowledge_work_h1_slice/20260506T_h1c_mlx_live_primary_v1_knowledge_work_h1c_live_policy_controller_dependence_v1) then ran all five H1c live episodes on `mlx_gemma4_e2b_reasoner_only`
+  - the MLX primary row reached `real_world_readiness_avg = 0.97936`, `artifact_quality_avg = 0.95`, `strict_interface_avg = 1.0`, `recovered_execution_avg = 1.0`, `controller_repair_avg = 0.0`, `argument_repair_avg = 0.0`, `controller_fallback_avg = 0.0`, and `raw_planning_clean_rate_avg = 1.0`
+  - direct trace inspection found no non-empty MLX `planning_repair_notes`
+  - interpretation: H1c did not re-break top-line or controller-clean execution in the benchmark runner. The live CLI smoke packets remain important because they showed local MLX repair/fallback on overlapping workflows; the next research question is repeatability of that CLI/runtime-path signal, not another broad H1c rerun.
 
 ### Verification
 

@@ -79,4 +79,17 @@ The compact `live_policy_controller_helpers` packet is complete:
 - raw planning clean stayed `1.0`
 - trace mining found `0` failure candidates
 
-Interpretation: the compact HF service-backed H1c packet is still saturated. The next useful run is the H1c MLX primary live path, because the CLI live packets show local MLX repair/fallback signal while this HF specialist packet does not.
+The H1c MLX primary live path is also complete:
+
+- output: [`results/knowledge_work_h1_slice/20260506T_h1c_mlx_live_primary_v1_knowledge_work_h1c_live_policy_controller_dependence_v1`](../../results/knowledge_work_h1_slice/20260506T_h1c_mlx_live_primary_v1_knowledge_work_h1c_live_policy_controller_dependence_v1)
+- system: `mlx_gemma4_e2b_reasoner_only`
+- lane: `live_web_stress`
+- episodes: all `5` H1c live episodes
+- readiness averaged `0.97936`
+- artifact quality averaged `0.95`
+- strict/recovered stayed `1.0 / 1.0`
+- controller repair, argument repair, and controller fallback stayed `0.0`
+- raw planning clean stayed `1.0`
+- direct trace inspection found no non-empty planning repair notes
+
+Interpretation: both the HF service helper packet and the MLX H1c primary runner are saturated on this slice. The useful remaining discrepancy is not H1c top-line failure; it is the gap between clean H1c benchmark execution and earlier CLI live-smoke packets that showed MLX argument repair and fallback on overlapping packaged workflows. The next slice should add repeat support to the runtime live-smoke packet and measure whether that CLI signal is stable.

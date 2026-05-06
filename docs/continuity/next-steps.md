@@ -225,10 +225,11 @@ uv run python scripts/run_knowledge_work_h1_ablation_packet.py \
 
 Current next move:
 
-- run a real packaged-workflow CLI live smoke on `mlx_gemma4_e2b_reasoner_only`
-- inspect sandbox roots, event timelines, artifacts, and trace attribution from the terminal
-- then define H1c with new episodes that mix visual readback, API/CLI dependencies, approval/defer/refuse choices, and partial-progress recovery
-- keep H1c replayable/live mirrors so live CLI behavior remains benchmark-backed
+- quantify the discrepancy between the clean H1c MLX benchmark runner and the earlier CLI live-smoke repair/fallback packets
+- add repeat support to `scripts/run_runtime_live_smoke_packet.py` so the same packaged workflow can be run several times with attributable session ids
+- run repeated CLI live smoke over the H1c-overlapping workflows on `mlx_gemma4_e2b_reasoner_only`
+- summarize repair/fallback frequency, policy-block frequency, approval stops, and raw-clean rate by workflow family
+- only define H1d after that repeatability check shows which live CLI failure family is stable enough to stress
 
 ### 5. Install the local Gemma `31B` `GGUF` artifact and run the first real `llama.cpp` posture row
 

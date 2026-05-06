@@ -565,6 +565,24 @@ H1c compact live-policy helper packet:
 - remaining notes are only `controller_repair_disabled` markers in the disabled-repair row
 - interpretation: H1c live-policy pressure does not re-break HF service specialists on this compact packet. The next comparison should run the H1c MLX primary path because the CLI live packets still show MLX repair/fallback signal.
 
+H1c MLX primary live path:
+
+- output: [`results/knowledge_work_h1_slice/20260506T_h1c_mlx_live_primary_v1_knowledge_work_h1c_live_policy_controller_dependence_v1`](../../results/knowledge_work_h1_slice/20260506T_h1c_mlx_live_primary_v1_knowledge_work_h1c_live_policy_controller_dependence_v1)
+- system: `mlx_gemma4_e2b_reasoner_only`
+- lane: `live_web_stress`
+- episodes: all `5` H1c live episodes
+- result:
+  - `real_world_readiness_avg = 0.97936`
+  - `artifact_quality_avg = 0.95`
+  - `strict_interface_avg = 1.0`
+  - `recovered_execution_avg = 1.0`
+  - `controller_repair_avg = 0.0`
+  - `argument_repair_avg = 0.0`
+  - `controller_fallback_avg = 0.0`
+  - `raw_planning_clean_rate_avg = 1.0`
+- per-episode trace inspection found no non-empty `planning_repair_notes`
+- interpretation: the benchmark H1c runner is clean for local MLX Gemma on this live-policy slice. The remaining discrepancy is with earlier CLI live-smoke packets that did surface repair/fallback on overlapping workflows, so the next best measurement is repeated CLI live-smoke execution over the same packaged workflows.
+
 ## Strongest Current Findings
 
 1. Top-line parity is now established on the aligned `32 / 26` surface.
