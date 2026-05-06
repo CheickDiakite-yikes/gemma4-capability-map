@@ -197,9 +197,10 @@ Only rerun the aligned `32 / 26` surface after the packet shifts again.
 
 ## Verification State
 
-Current code-side verification from the latest patch:
+Current code-side verification from the latest CLI live harness patch:
 
-- targeted suite: `61 passed`
+- targeted runtime/API/CLI suite: `22 passed`
+- full suite: `244 passed`
 
 Benchmark outputs rebuilt:
 
