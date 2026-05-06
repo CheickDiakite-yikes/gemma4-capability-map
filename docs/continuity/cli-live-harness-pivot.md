@@ -249,7 +249,13 @@ The repeated live-web packet adds a stable CLI signal:
 - repeated repair families: dashboard `extract_layout`, finance `cli_search_logs`, jobs `cli_apply_patch`, and jobs live visual fallback
 - analyzer outputs now summarize the same packet as `4` stable repair families and `7` stable policy-block families
 
-Next step: compare the repeated CLI traces against the clean H1c benchmark traces.
+The H1c comparison found a benchmark/runtime posture mismatch:
+
+- the earlier clean H1c MLX primary row used a modular benchmark bundle with a heuristic router
+- the CLI live profile uses monolith/reasoner-only execution
+- after adding `--pipeline-name monolith` for `local_reasoner` H1 rows, the corrected H1c MLX primary run shows the same controller-dependence family as CLI live
+
+Next step: add local MLX helper-ablation profiles and run a compact H1c monolith ablation.
 
 ### Phase 4: Gemini CLI adapter
 

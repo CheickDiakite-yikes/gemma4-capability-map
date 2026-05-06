@@ -315,6 +315,37 @@
   - the discrepancy is now a concrete runtime-vs-benchmark question rather than a single-run anomaly
   - next slice should compare the repeated CLI findings against clean H1c traces before encoding H1d
 
+### H1c MLX monolith rerun aligns benchmark with CLI live signal
+
+- Harness correction:
+  - H1 primary run specs now pass `--pipeline-name monolith` for `local_reasoner` systems
+  - `run_knowledge_work_arena.py` now accepts `--pipeline-name`
+  - this makes `mlx_gemma4_e2b_reasoner_only` match the `moonie-agent live` posture instead of silently using a modular heuristic router
+- Corrected packet command:
+  - `uv run python scripts/run_knowledge_work_h1_slice.py --config configs/knowledge_work_h1c_slice.yaml --run-set primary --lane live_web_stress --system-id mlx_gemma4_e2b_reasoner_only --run-group-id 20260506T_h1c_mlx_live_primary_monolith_v1`
+- Corrected packet output:
+  - [`results/knowledge_work_h1_slice/20260506T_h1c_mlx_live_primary_monolith_v1_knowledge_work_h1c_live_policy_controller_dependence_v1`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1c_mlx_live_primary_monolith_v1_knowledge_work_h1c_live_policy_controller_dependence_v1)
+  - `real_world_readiness_avg = 0.97936`
+  - `artifact_quality_avg = 0.95`
+  - `strict_interface_avg = 1.0`
+  - `recovered_execution_avg = 1.0`
+  - `controller_repair_avg = 0.7`
+  - `argument_repair_avg = 0.5`
+  - `controller_fallback_avg = 0.2`
+  - `raw_planning_clean_rate_avg = 0.3`
+- Controller-dependent task families:
+  - `visual_016_live_dashboard_stale_selection_recovery`
+  - `tool_018_jobs_api_latest_form_issue`
+  - `visual_022_live_form_latest_issue_referent_carryover`
+  - `tool_019_finance_cli_log_search_latest_lock`
+  - `tool_021_jobs_cli_patch_only_latest_email_fix`
+  - `visual_030_live_form_latest_blocked_email_refinement`
+  - `tool_016_finance_api_invoice_lock_update`
+- Research interpretation:
+  - the earlier clean H1c MLX row was a harness artifact, not evidence that local MLX Gemma was controller-clean on live-policy workflows
+  - the corrected monolith benchmark now agrees with repeated CLI live smoke: local MLX Gemma finishes the workflows, but controller repair/fallback remains material
+  - next slice should add local MLX monolith helper-ablation profiles and run a compact H1c ablation over the repeated families
+
 ### CLI policy rendering now surfaces live-web block details
 
 - Runtime/CLI implementation:

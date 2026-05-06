@@ -28,6 +28,8 @@ Current state:
   - repeated live-web H1c-overlap packet: [`results/runtime_live_smoke_packets/20260506T_runtime_live_repeat_mlx_h1c_overlap_v2_runtime_live_smoke_packet`](../../results/runtime_live_smoke_packets/20260506T_runtime_live_repeat_mlx_h1c_overlap_v2_runtime_live_smoke_packet)
   - [`scripts/analyze_runtime_live_smoke_packet.py`](../../scripts/analyze_runtime_live_smoke_packet.py) now writes repair-family, policy-family, and workflow-stability summaries for runtime packets
   - latest analyzer result: `stable_repair_family_count = 4`, `stable_policy_block_family_count = 7`
+  - H1 primary runs now pass `--pipeline-name monolith` for `local_reasoner` systems so `mlx_gemma4_e2b_reasoner_only` matches `moonie-agent live`
+  - corrected H1c MLX monolith primary packet: [`results/knowledge_work_h1_slice/20260506T_h1c_mlx_live_primary_monolith_v1_knowledge_work_h1c_live_policy_controller_dependence_v1`](../../results/knowledge_work_h1_slice/20260506T_h1c_mlx_live_primary_monolith_v1_knowledge_work_h1c_live_policy_controller_dependence_v1)
   - H1c live-policy scaffold exists:
     - [`configs/knowledge_work_h1c_slice.yaml`](../../configs/knowledge_work_h1c_slice.yaml)
     - [`docs/continuity/h1c-slice.md`](./h1c-slice.md)
@@ -35,9 +37,10 @@ Current state:
 
 Next implementation moves:
 
-- compare runtime live-smoke traces against H1c benchmark traces for the three repeated families: dashboard `extract_layout`, finance `cli_search_logs`, and jobs `cli_apply_patch` / live visual fallback
-- run a focused runtime ablation packet, if supported by current system ids, on controller repair/fallback/argument repair for the repeated CLI families
-- define H1d only after the runtime-vs-benchmark difference is isolated enough to encode as a benchmark stressor
+- add local MLX monolith ablation profiles for `disable_controller_repair`, `disable_controller_fallback`, and `disable_argument_repair`
+- run a compact H1c monolith ablation over the repeated controller-dependent families
+- use that ablation to separate causal controller repair from harmless canonicalization on local MLX
+- define H1d only after the local MLX helper-dependence result is recorded
 - keep using live CLI scorecard and policy inspection as the active operator proof path
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions

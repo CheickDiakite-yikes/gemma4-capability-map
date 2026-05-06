@@ -109,4 +109,17 @@ The repeated CLI live-smoke packet is complete:
 - all three repeats reproduced the same workflow-level repair pattern
 - analyzer outputs in the packet report `stable_repair_family_count = 4` and `stable_policy_block_family_count = 7`
 
-Interpretation: both the HF service helper packet and the MLX H1c primary benchmark runner are saturated, but the CLI live runtime path has stable repeated controller-dependence signal. The next slice should compare runtime packet traces against H1c benchmark traces and then encode the stable CLI families into the next harder benchmark stressor instead of rerunning broad H1c.
+The corrected H1c MLX primary monolith run is complete:
+
+- output: [`results/knowledge_work_h1_slice/20260506T_h1c_mlx_live_primary_monolith_v1_knowledge_work_h1c_live_policy_controller_dependence_v1`](../../results/knowledge_work_h1_slice/20260506T_h1c_mlx_live_primary_monolith_v1_knowledge_work_h1c_live_policy_controller_dependence_v1)
+- system: `mlx_gemma4_e2b_reasoner_only`
+- lane: `live_web_stress`
+- reason for rerun: the earlier H1c MLX primary row used a modular benchmark bundle with a heuristic router, while the CLI live profile is monolith/reasoner-only
+- readiness stayed `0.97936`
+- strict/recovered stayed `1.0 / 1.0`
+- controller repair averaged `0.7`
+- argument repair averaged `0.5`
+- controller fallback averaged `0.2`
+- raw planning clean averaged `0.3`
+
+Interpretation: the repeated CLI live signal was not a one-off anomaly. Once H1c uses the same monolith posture as `moonie-agent live`, benchmark and CLI agree that local MLX Gemma completes the workflows but still needs controller repair/fallback on live visual/API/CLI families. The next slice should add local MLX controller-helper ablation profiles or an equivalent H1c monolith ablation packet.

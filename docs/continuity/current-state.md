@@ -615,6 +615,31 @@ H1c MLX primary live path:
 - per-episode trace inspection found no non-empty `planning_repair_notes`
 - interpretation: the benchmark H1c runner is clean for local MLX Gemma on this live-policy slice. The remaining discrepancy is with earlier CLI live-smoke packets that did surface repair/fallback on overlapping workflows, so the next best measurement is repeated CLI live-smoke execution over the same packaged workflows.
 
+H1c MLX primary live path, corrected monolith posture:
+
+- output: [`results/knowledge_work_h1_slice/20260506T_h1c_mlx_live_primary_monolith_v1_knowledge_work_h1c_live_policy_controller_dependence_v1`](../../results/knowledge_work_h1_slice/20260506T_h1c_mlx_live_primary_monolith_v1_knowledge_work_h1c_live_policy_controller_dependence_v1)
+- system: `mlx_gemma4_e2b_reasoner_only`
+- lane: `live_web_stress`
+- change: H1 primary rows now pass `--pipeline-name monolith` for `local_reasoner` systems, matching `moonie-agent live`
+- result:
+  - `real_world_readiness_avg = 0.97936`
+  - `artifact_quality_avg = 0.95`
+  - `strict_interface_avg = 1.0`
+  - `recovered_execution_avg = 1.0`
+  - `controller_repair_avg = 0.7`
+  - `argument_repair_avg = 0.5`
+  - `controller_fallback_avg = 0.2`
+  - `raw_planning_clean_rate_avg = 0.3`
+- controller-dependent families:
+  - `visual_016_live_dashboard_stale_selection_recovery`
+  - `tool_018_jobs_api_latest_form_issue`
+  - `visual_022_live_form_latest_issue_referent_carryover`
+  - `tool_019_finance_cli_log_search_latest_lock`
+  - `tool_021_jobs_cli_patch_only_latest_email_fix`
+  - `visual_030_live_form_latest_blocked_email_refinement`
+  - `tool_016_finance_api_invoice_lock_update`
+- interpretation: the prior clean H1c MLX primary row was a harness mismatch caused by a modular heuristic router in the benchmark path. The corrected monolith row aligns with the repeated CLI live-smoke packet: local MLX Gemma still completes the workflows, but it reproducibly needs controller repair/fallback on live policy/tool families.
+
 ## Strongest Current Findings
 
 1. Top-line parity is now established on the aligned `32 / 26` surface.
