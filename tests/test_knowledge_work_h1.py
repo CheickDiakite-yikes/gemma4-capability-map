@@ -23,6 +23,7 @@ H1C_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_w
 H1D_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1d_slice.yaml"
 H1E_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1e_slice.yaml"
 H1F_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1f_slice.yaml"
+H1G_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1g_slice.yaml"
 
 
 def test_h1_slice_config_maps_to_existing_packaged_workflows_and_episodes() -> None:
@@ -196,6 +197,25 @@ def test_h1f_slice_config_maps_to_tool_contract_ablation_packet() -> None:
     ]
     assert packet.episode_ids == config.lanes["live_web_stress"].episode_ids
     assert "prompt_contract_ablation" in config.attribution_tags
+
+
+def test_h1g_slice_config_maps_to_remaining_helper_packet() -> None:
+    config = load_h1_slice(H1G_CONFIG_PATH)
+
+    errors = validate_h1_slice(config)
+
+    assert errors == []
+    assert config.name == "knowledge_work_h1g_mlx_remaining_helper_ablation"
+    packet = h1_packet_selection(config, "mlx_remaining_helpers")
+    assert packet.lane == "live_web_stress"
+    assert packet.system_ids == [
+        "mlx_gemma4_e2b_reasoner_only",
+        "mlx_gemma4_e2b_reasoner_only_no_visual_rescue",
+        "mlx_gemma4_e2b_reasoner_only_no_intent_priority",
+        "mlx_gemma4_e2b_reasoner_only_no_deterministic_visual_follow_on",
+    ]
+    assert packet.episode_ids == config.lanes["live_web_stress"].episode_ids
+    assert "second_wave_helper_ablation" in config.attribution_tags
 
 
 def test_h1_primary_run_specs_default_to_mlx_gemma_reasoner_only() -> None:
