@@ -175,6 +175,8 @@ Current H1 replayable output:
   - [`results/knowledge_work_h1_slice/20260506T_h1_mlx_gemma_primary_v1_knowledge_work_h1_controller_dependence_v1`](../../results/knowledge_work_h1_slice/20260506T_h1_mlx_gemma_primary_v1_knowledge_work_h1_controller_dependence_v1)
 - HF service-backed ablation:
   - [`results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet)
+- HF service-backed ablation after FunctionGemma prompt patch:
+  - [`results/knowledge_work_h1_slice/20260506T_h1_hf_service_prompt_patch_ablation_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_prompt_patch_ablation_v1_knowledge_work_ablation_packet)
 
 MLX Gemma primary:
 
@@ -190,14 +192,15 @@ HF service-backed Gemma baseline:
 - `real_world_readiness_avg = 0.9749800000000001`
 - `strict_interface_avg = 1.0`
 - `recovered_execution_avg = 1.0`
-- `controller_repair_avg = 0.9`
-- `controller_fallback_avg = 0.6`
-- `raw_planning_clean_rate_avg = 0.1`
+- `controller_repair_avg = 0.8`
+- `controller_fallback_avg = 0.3`
+- `raw_planning_clean_rate_avg = 0.2`
+- `argument_repair_avg = 0.5`
 
-H1 ablation result:
+H1 ablation result after the prompt patch:
 
-- `no_controller_repair = 0.7194`
-- `no_controller_fallback = 0.7596999999999999`
+- `no_controller_repair = 0.7319`
+- `no_controller_fallback = 0.8606`
 - `no_visual_rescue = 0.9749800000000001`
 - `no_intent_priority = 0.9749800000000001`
 - `no_argument_repair = 0.9749800000000001`
@@ -206,25 +209,27 @@ H1 ablation result:
 Interpretation:
 
 - H1 does not break MLX Gemma's controller-clean posture
-- H1 does break HF Gemma when controller repair or controller fallback are disabled
-- the remaining research seam is now trace-level repair/fallback mechanism design, not top-line readiness
+- H1 still breaks HF Gemma when controller repair is disabled
+- disabling controller fallback is still causal, but less severe after the FunctionGemma prompt stopped seeding literal placeholder names
+- visual rescue, intent priority, argument repair, and deterministic visual follow-on still do not move readiness on this H1 slice
+- the remaining research seam is now refusal-to-tool-contract and argument/placeholder repair design, not top-line readiness
 
 Trace-note analysis:
 
-- [`trace_note_summary.json`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet/trace_note_summary.json)
-- [`trace_note_counts.csv`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet/trace_note_counts.csv)
-- [`trace_episode_failures.csv`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet/trace_episode_failures.csv)
-- [`trace_failure_mode_counts.csv`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet/trace_failure_mode_counts.csv)
+- [`trace_note_summary.json`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_prompt_patch_ablation_v1_knowledge_work_ablation_packet/trace_note_summary.json)
+- [`trace_note_counts.csv`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_prompt_patch_ablation_v1_knowledge_work_ablation_packet/trace_note_counts.csv)
+- [`trace_episode_failures.csv`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_prompt_patch_ablation_v1_knowledge_work_ablation_packet/trace_episode_failures.csv)
+- [`trace_failure_mode_counts.csv`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_prompt_patch_ablation_v1_knowledge_work_ablation_packet/trace_failure_mode_counts.csv)
 
 Current trace read:
 
-- `102` controller-note events across `35` H1 episode rows
-- `10` strict/recovered failure candidates
-- failure rows now include coarse `failure_modes` labels for `raw_refusal`, `generic_tool_name`, disabled fallback/repair, argument repair, intent prior, visual follow-on, and tool canonicalization
-- aggregate failure modes: `raw_refusal = 10`, `generic_tool_name = 7`, `fallback_disabled = 5`, `fallback_planner = 5`, `repair_disabled = 5`
-- baseline uses `controller_fallback_planner` `6` times across all `5` H1 episodes
-- `no_controller_fallback` fails all `5` H1 episodes, mostly raw refusal/no-call cases
-- `no_controller_repair` fails all `5` H1 episodes, mostly generic `tool_name` hallucinations and malformed arguments
+- `93` controller-note events across `35` H1 episode rows
+- `7` strict/recovered failure candidates
+- aggregate failure modes: `raw_refusal = 5`, `repair_disabled = 4`, `fallback_disabled = 3`, `argument_repair = 2`, `fallback_planner = 2`
+- the previous aggregate `generic_tool_name = 7` failure mode is gone after the prompt patch
+- baseline uses `controller_fallback_planner` `3` times across `3` H1 episodes
+- `no_controller_fallback` failure candidates dropped from `5` to `3`, still mostly raw refusal/no-call cases
+- `no_controller_repair` failure candidates dropped from `5` to `4`, now dominated by unrepaired real-tool placeholder arguments and refusals rather than generic `tool_name`
 
 FunctionGemma prompt canary:
 

@@ -362,6 +362,37 @@
   - this appears to remove part of the generic `tool_name` failure pressure while preserving readiness
   - it shifts some remaining burden into argument repair, so the next run should be the full H1 ablation packet with this prompt patch before a broader aligned rerun
 
+### Full H1 packet after the FunctionGemma prompt patch
+
+- Command:
+  - `uv run python scripts/run_knowledge_work_h1_ablation_packet.py --lane replayable_core --run-group-id 20260506T_h1_hf_service_prompt_patch_ablation_v1`
+- Output:
+  - [`results/knowledge_work_h1_slice/20260506T_h1_hf_service_prompt_patch_ablation_v1_knowledge_work_ablation_packet`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1_hf_service_prompt_patch_ablation_v1_knowledge_work_ablation_packet)
+  - [`results.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1_hf_service_prompt_patch_ablation_v1_knowledge_work_ablation_packet/results.json)
+  - [`trace_failure_mode_counts.csv`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1_hf_service_prompt_patch_ablation_v1_knowledge_work_ablation_packet/trace_failure_mode_counts.csv)
+
+- Result:
+  - baseline stayed saturated: readiness `0.9749800000000001`, strict `1.0`, recovered `1.0`
+  - baseline controller burden improved versus pre-patch H1: repair `0.9 -> 0.8`, fallback `0.6 -> 0.3`, clean rate `0.1 -> 0.2`
+  - `no_controller_repair`: readiness `0.7194 -> 0.7319`, strict `0.4 -> 0.475`, recovered stayed `0.4`
+  - `no_controller_fallback`: readiness `0.7596999999999999 -> 0.8606`, strict `0.475 -> 0.725`, recovered `0.4 -> 0.7`
+  - `no_visual_rescue`, `no_intent_priority`, `no_argument_repair`, and `no_deterministic_visual_follow_on` all stayed at readiness `0.9749800000000001`
+
+- Trace read:
+  - command: `uv run python scripts/analyze_knowledge_work_h1_traces.py results/knowledge_work_h1_slice/20260506T_h1_hf_service_prompt_patch_ablation_v1_knowledge_work_ablation_packet`
+  - controller-note events dropped from `102` to `93`
+  - strict/recovered failure candidates dropped from `10` to `7`
+  - aggregate `generic_tool_name` failures dropped from `7` to `0`
+  - aggregate raw refusals dropped from `10` to `5`
+  - post-patch aggregate mode counts are now `raw_refusal = 5`, `repair_disabled = 4`, `fallback_disabled = 3`, `argument_repair = 2`, `fallback_planner = 2`
+  - baseline `controller_fallback_planner` appears `3` times across `3` H1 episodes instead of `6` times across all `5`
+
+- Interpretation:
+  - the literal placeholder format hint was a real harness-induced failure source
+  - controller fallback dependence is lower after removing that prompt seed, but not gone
+  - controller repair remains the stronger causal helper on H1
+  - the next controller patch should target refusal-to-tool-contract behavior and unrepaired real-tool placeholder arguments, not visual rescue or broad UI work
+
 # 2026-04-14
 
 ### The React Gemma MLX workspace now runs a real end-to-end local session loop

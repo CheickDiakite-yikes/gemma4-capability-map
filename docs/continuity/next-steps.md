@@ -22,8 +22,8 @@ Current state:
 
 Next implementation moves:
 
-- use the completed H1 trace-note outputs to build a targeted raw-refusal / generic-`tool_name` controller regression packet
-- turn that packet into the next targeted controller patch or H1b slice
+- use the post-prompt H1 trace-note outputs to build a targeted raw-refusal / real-tool-placeholder controller regression packet
+- turn that packet into the next targeted controller patch or H1b slice if the current five episodes are too narrow
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1
@@ -125,28 +125,30 @@ Current empirical status:
 Completed HF service-backed ablation run:
 
 ```bash
-uv run python scripts/run_knowledge_work_h1_ablation_packet.py --lane replayable_core --run-group-id 20260506T_h1_hf_service_ablation_v2
+uv run python scripts/run_knowledge_work_h1_ablation_packet.py --lane replayable_core --run-group-id 20260506T_h1_hf_service_prompt_patch_ablation_v1
 ```
 
 Current empirical status:
 
-- output: [`results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet)
+- output: [`results/knowledge_work_h1_slice/20260506T_h1_hf_service_prompt_patch_ablation_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_prompt_patch_ablation_v1_knowledge_work_ablation_packet)
 - baseline `hf_service_gemma4_specialists_cpu`: `real_world_readiness_avg = 0.9749800000000001`
-- `no_controller_repair`: `real_world_readiness_avg = 0.7194`
-- `no_controller_fallback`: `real_world_readiness_avg = 0.7596999999999999`
+- baseline controller burden is lower after the FunctionGemma prompt patch: `controller_repair_avg = 0.8`, `controller_fallback_avg = 0.3`, `raw_planning_clean_rate_avg = 0.2`
+- `no_controller_repair`: `real_world_readiness_avg = 0.7319`
+- `no_controller_fallback`: `real_world_readiness_avg = 0.8606`
 - `no_visual_rescue`: unchanged at `0.9749800000000001`
 - `no_intent_priority`: unchanged at `0.9749800000000001`
 - `no_argument_repair`: unchanged at `0.9749800000000001`
 - `no_deterministic_visual_follow_on`: unchanged at `0.9749800000000001`
+- trace failure candidates dropped from `10` to `7`; the old aggregate `generic_tool_name = 7` mode is now gone
 
 Use the H1 ablation packet wrapper instead of the generic H1 runner for this wave; it shares one HF service-backed reasoner plus in-process HF specialist adapters across the ablation rows.
 
 Next empirical move:
 
-- use [`trace_episode_failures.csv`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet/trace_episode_failures.csv) and [`trace_note_counts.csv`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet/trace_note_counts.csv)
-- target the raw-refusal and generic-`tool_name` planning failures now isolated by the H1 trace miner
-- rerun the full H1 service-backed ablation packet after the FunctionGemma prompt patch
-- define H1b only if the rerun shows the current five-episode slice is too narrow
+- use [`trace_episode_failures.csv`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_prompt_patch_ablation_v1_knowledge_work_ablation_packet/trace_episode_failures.csv) and [`trace_note_counts.csv`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_prompt_patch_ablation_v1_knowledge_work_ablation_packet/trace_note_counts.csv)
+- target the remaining raw-refusal/no-call and unrepaired real-tool placeholder argument failures
+- design the next patch around refusal-to-tool-contract prompting and argument placeholder repair before another broad aligned rerun
+- define H1b only if these `7` failure candidates are too narrow to separate candidate fixes
 - avoid another broad aligned rerun until the targeted repair/fallback mechanism changes
 
 ### 5. Install the local Gemma `31B` `GGUF` artifact and run the first real `llama.cpp` posture row
