@@ -226,6 +226,17 @@ Current trace read:
 - `no_controller_fallback` fails all `5` H1 episodes, mostly raw refusal/no-call cases
 - `no_controller_repair` fails all `5` H1 episodes, mostly generic `tool_name` hallucinations and malformed arguments
 
+FunctionGemma prompt canary:
+
+- output: [`results/knowledge_work_h1_slice/20260506T_h1_functiongemma_prompt_canary_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_functiongemma_prompt_canary_v1_knowledge_work_ablation_packet)
+- readiness stayed `0.9749800000000001`
+- strict/recovered stayed `1.0 / 1.0`
+- `controller_fallback_avg` moved from `0.6` to `0.3`
+- `controller_repair_avg` moved from `0.9` to `0.8`
+- `raw_planning_clean_rate_avg` moved from `0.1` to `0.2`
+- `argument_repair_avg` rose from `0.1` to `0.5`
+- trace miner found `0` failure candidates and `controller_fallback_planner = 3`
+
 ## Strongest Current Findings
 
 1. Top-line parity is now established on the aligned `32 / 26` surface.

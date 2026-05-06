@@ -145,7 +145,8 @@ Next empirical move:
 
 - use [`trace_episode_failures.csv`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet/trace_episode_failures.csv) and [`trace_note_counts.csv`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet/trace_note_counts.csv)
 - target the raw-refusal and generic-`tool_name` planning failures now isolated by the H1 trace miner
-- define H1b only if that trace read shows the current five-episode slice is too narrow
+- rerun the full H1 service-backed ablation packet after the FunctionGemma prompt patch
+- define H1b only if the rerun shows the current five-episode slice is too narrow
 - avoid another broad aligned rerun until the targeted repair/fallback mechanism changes
 
 ### 5. Install the local Gemma `31B` `GGUF` artifact and run the first real `llama.cpp` posture row

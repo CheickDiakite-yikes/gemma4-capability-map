@@ -189,9 +189,9 @@ class FunctionGemmaRunner(Runner):
             "You are a function routing model.",
             "Choose only from the allowed tools.",
             "Return only function calls.",
-            "Preferred format: <start_function_call>call:tool_name{arg:<escape>value<escape>}<end_function_call>.",
+            _format_hint(tool_specs),
             'If multiple independent tools are needed, emit multiple function call blocks or a JSON array of {"name": "...", "arguments": {...}} objects.',
-            "Never invent a tool or field name.",
+            "Never invent a tool or field name, and never emit placeholder names such as tool_name or arg.",
         ]
         catalog = tool_catalog_text(tool_specs)
         if catalog:
@@ -231,6 +231,19 @@ class FunctionGemmaRunner(Runner):
             else:
                 serialized_parts.append(f"{key}:{json.dumps(value, ensure_ascii=False)}")
         return f"<start_function_call>call:{tool_name}{{{','.join(serialized_parts)}}}<end_function_call>"
+
+
+def _format_hint(tool_specs: list[ToolSpec]) -> str:
+    if not tool_specs:
+        return "Preferred format: function call blocks using exact allowed tool names and schema fields."
+    tool = tool_specs[0]
+    properties = list((tool.json_schema or {}).get("properties", {}).keys())
+    first_field = str(properties[0]) if properties else "field"
+    return (
+        "Example format for this catalog: "
+        f"<start_function_call>call:{tool.name}{{{first_field}:<escape>value<escape>}}<end_function_call>. "
+        "Use the correct listed tool and schema fields for the actual request."
+    )
 
 
 def _extract_structured_candidate(text: str) -> str:
