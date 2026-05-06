@@ -1,0 +1,90 @@
+[
+  {
+    "session_id": "20260506T221220943251Z_executive_visual_dashboard_review",
+    "workflow_id": "executive_visual_dashboard_review",
+    "episode_id": "kwa_exec_visual_dashboard_brief",
+    "system_id": "mlx_gemma4_e2b_reasoner_only",
+    "lane": "replayable_core",
+    "stage_id": "kwa_exec_visual_dashboard_brief_stage_1",
+    "task_id": "visual_013_dashboard_stale_selection_recovery",
+    "repair_notes": [
+      "repaired_arguments:extract_layout"
+    ],
+    "raw_outputs": [
+      "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-dashboard-stale\", \"target_query\": \"metric panels that need review\"}}"
+    ],
+    "metrics": {
+      "controller_repair_count": 1,
+      "argument_repair_count": 1,
+      "controller_fallback_count": 0,
+      "intent_override_count": 0,
+      "raw_planning_clean_rate": 0.0
+    }
+  },
+  {
+    "session_id": "20260506T221231749463Z_finance_visual_invoice_review",
+    "workflow_id": "finance_visual_invoice_review",
+    "episode_id": "kwa_finance_invoice_lock_direction_hold_v4",
+    "system_id": "mlx_gemma4_e2b_reasoner_only",
+    "lane": "replayable_core",
+    "stage_id": "kwa_finance_invoice_lock_direction_hold_v4_stage_2",
+    "task_id": "tool_016_finance_api_invoice_lock_update",
+    "repair_notes": [
+      "repaired_arguments:api_update_record"
+    ],
+    "raw_outputs": [
+      "{\"name\": \"api_update_record\", \"arguments\": {\"record_type\": \"invoice\", \"record_id\": \"INV-204\", \"field\": \"invoice_lock\", \"value\": \"on hold\"}}"
+    ],
+    "metrics": {
+      "controller_repair_count": 1,
+      "argument_repair_count": 1,
+      "controller_fallback_count": 0,
+      "intent_override_count": 0,
+      "raw_planning_clean_rate": 0.0
+    }
+  },
+  {
+    "session_id": "20260506T221239465014Z_jobs_visual_form_hold",
+    "workflow_id": "jobs_visual_form_hold",
+    "episode_id": "kwa_jobs_email_block_resume_hold_v5",
+    "system_id": "mlx_gemma4_e2b_reasoner_only",
+    "lane": "replayable_core",
+    "stage_id": "kwa_jobs_email_block_resume_hold_v5_stage_1",
+    "task_id": "tool_021_jobs_cli_patch_only_latest_email_fix",
+    "repair_notes": [
+      "repaired_arguments:cli_apply_patch"
+    ],
+    "raw_outputs": [
+      "{\"name\": \"cli_apply_patch\", \"arguments\": {\"path\": \"config/job_form.yaml\", \"patch\": \"email validation stays blocked until review\"}}"
+    ],
+    "metrics": {
+      "controller_repair_count": 1,
+      "argument_repair_count": 1,
+      "controller_fallback_count": 0,
+      "intent_override_count": 0,
+      "raw_planning_clean_rate": 0.0
+    }
+  },
+  {
+    "session_id": "20260506T221239465014Z_jobs_visual_form_hold",
+    "workflow_id": "jobs_visual_form_hold",
+    "episode_id": "kwa_jobs_email_block_resume_hold_v5",
+    "system_id": "mlx_gemma4_e2b_reasoner_only",
+    "lane": "replayable_core",
+    "stage_id": "kwa_jobs_email_block_resume_hold_v5_stage_2",
+    "task_id": "visual_029_form_latest_blocked_email_refinement",
+    "repair_notes": [
+      "repaired_arguments:extract_layout"
+    ],
+    "raw_outputs": [
+      "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-form-blocked-email\", \"target_query\": \"form errors\"}}"
+    ],
+    "metrics": {
+      "controller_repair_count": 1,
+      "argument_repair_count": 1,
+      "controller_fallback_count": 0,
+      "intent_override_count": 0,
+      "raw_planning_clean_rate": 0.0
+    }
+  }
+]

@@ -94,6 +94,25 @@ Latest runtime live-smoke packet:
 - `raw_planning_clean_rate_avg = 0.5`
 - `controller_finding_count = 1`
 
+Latest runtime approval/smoke trio:
+
+- output: [`results/runtime_live_smoke_packets/20260506T_runtime_live_smoke_mlx_trio_v2_runtime_live_smoke_packet`](../../results/runtime_live_smoke_packets/20260506T_runtime_live_smoke_mlx_trio_v2_runtime_live_smoke_packet)
+- workflows:
+  - `executive_visual_dashboard_review`
+  - `finance_visual_invoice_review`
+  - `jobs_visual_form_hold`
+- status counts: `completed = 1`, `awaiting_approval = 2`
+- `role_readiness_avg = 0.9800333333333334`
+- `strict_interface_avg = 1.0`
+- `recovered_execution_avg = 1.0`
+- `controller_repair_avg = 0.6666666666666666`
+- `argument_repair_avg = 0.6666666666666666`
+- `raw_planning_clean_rate_avg = 0.3333333333333333`
+- `approval_count = 2`
+- `policy_block_count = 0`
+- `controller_finding_count = 4`
+- [`controller_findings.json`](../../results/runtime_live_smoke_packets/20260506T_runtime_live_smoke_mlx_trio_v2_runtime_live_smoke_packet/controller_findings.json) records exact repair notes and raw calls for the visual, API, and CLI argument repairs
+
 Relevant batches:
 
 - aligned HF Gemma controller-burden rerun:

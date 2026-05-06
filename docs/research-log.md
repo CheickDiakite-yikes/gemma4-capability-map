@@ -212,6 +212,37 @@
   - live CLI validation now has a durable packet shape that can be committed and compared over time
   - the next packet should include an approval-hold workflow and a live-web sandbox-policy workflow so the operator harness is tested beyond the dashboard happy path
 
+### Runtime approval/smoke trio covers approval holds and controller findings
+
+- Packet command:
+  - `uv run python scripts/run_runtime_live_smoke_packet.py --workflow-id executive_visual_dashboard_review --workflow-id finance_visual_invoice_review --workflow-id jobs_visual_form_hold --system-id mlx_gemma4_e2b_reasoner_only --lane replayable_core --run-group-id 20260506T_runtime_live_smoke_mlx_trio_v2`
+- Packet output:
+  - [`results/runtime_live_smoke_packets/20260506T_runtime_live_smoke_mlx_trio_v2_runtime_live_smoke_packet`](/Users/cheickdiakite/Codex/moonie/results/runtime_live_smoke_packets/20260506T_runtime_live_smoke_mlx_trio_v2_runtime_live_smoke_packet)
+  - `workflow_count = 3`
+  - `status_counts.completed = 1`
+  - `status_counts.awaiting_approval = 2`
+  - `failed_sessions = 0`
+  - `role_readiness_avg = 0.9800333333333334`
+  - `strict_interface_avg = 1.0`
+  - `recovered_execution_avg = 1.0`
+  - `controller_repair_avg = 0.6666666666666666`
+  - `argument_repair_avg = 0.6666666666666666`
+  - `controller_fallback_avg = 0.0`
+  - `raw_planning_clean_rate_avg = 0.3333333333333333`
+  - `approval_count = 2`
+  - `policy_block_count = 0`
+  - `controller_finding_count = 4`
+- Controller finding families:
+  - dashboard visual `extract_layout` argument repair
+  - finance `api_update_record` argument repair
+  - jobs `cli_apply_patch` argument repair
+  - jobs visual `extract_layout` argument repair
+
+- Research interpretation:
+  - the replayable live-harness packet now exercises successful completion plus terminal approval holds
+  - local MLX Gemma continues to complete the workflows, but this packet makes clear that controller argument repair remains materially present on live CLI execution
+  - replayable approval holds do not trigger sandbox policy blocks; the next packet should use `live_web_stress` or a dedicated side-effect-gated workflow to test the sandbox policy stream
+
 ### Gemini CLI baseline adapter scaffold exists
 
 - Runtime/CLI implementation:

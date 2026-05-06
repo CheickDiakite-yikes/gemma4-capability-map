@@ -232,8 +232,9 @@ The first replayable live-smoke packet wrapper now exists:
 
 - [`scripts/run_runtime_live_smoke_packet.py`](../../scripts/run_runtime_live_smoke_packet.py)
 - [`results/runtime_live_smoke_packets/20260506T_runtime_live_smoke_mlx_v2_runtime_live_smoke_packet`](../../results/runtime_live_smoke_packets/20260506T_runtime_live_smoke_mlx_v2_runtime_live_smoke_packet)
+- [`results/runtime_live_smoke_packets/20260506T_runtime_live_smoke_mlx_trio_v2_runtime_live_smoke_packet`](../../results/runtime_live_smoke_packets/20260506T_runtime_live_smoke_mlx_trio_v2_runtime_live_smoke_packet)
 
-Next step: expand the packet from the single dashboard smoke into a tiny approval/sandbox trio.
+Next step: add a live-web policy-block packet, because the replayable trio covers approvals but does not trigger sandbox policy blocks.
 
 ### Phase 4: Gemini CLI adapter
 
