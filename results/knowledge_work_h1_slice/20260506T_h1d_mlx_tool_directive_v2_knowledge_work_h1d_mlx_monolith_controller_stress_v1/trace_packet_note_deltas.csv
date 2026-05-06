@@ -1,0 +1,4 @@
+system_id,note,baseline_count,candidate_count,delta_count
+mlx_gemma4_e2b_reasoner_only,repaired_arguments:extract_layout,1.0,0.0,-1.0
+mlx_gemma4_e2b_reasoner_only_no_controller_fallback,repaired_arguments:extract_layout,1.0,0.0,-1.0
+mlx_gemma4_e2b_reasoner_only_no_controller_repair,controller_repair_disabled,20.0,20.0,0.0
