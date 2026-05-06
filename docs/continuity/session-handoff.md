@@ -36,6 +36,7 @@ The latest live-harness gain is now CLI-first:
 - `H1 v1` is defined as the next packaged-workflow-first harder slice:
   - [`configs/knowledge_work_h1_slice.yaml`](../../configs/knowledge_work_h1_slice.yaml)
   - [`docs/continuity/h1-slice.md`](./h1-slice.md)
+- `scripts/run_knowledge_work_h1_slice.py` validates H1 and delegates filtered runs to the existing KWA arena runner
 
 The prior React product-side gain remains useful context:
 
@@ -136,6 +137,10 @@ Verification:
 - Gemini adapter scaffold: `11 passed`
 - `uv run moonie-agent gemini-baseline --workflow-id executive_visual_dashboard_review --lane replayable_core --output-dir tmp/gemini-baseline-smoke`
 - completed as a dry-run packet with `/usr/local/bin/gemini` detected
+- `uv run pytest tests/test_knowledge_work_h1.py tests/test_knowledge_work_matrix_script.py tests/test_run_knowledge_work_arena_script.py`
+- H1 runner/config scaffold: `17 passed`
+- `uv run python scripts/run_knowledge_work_h1_slice.py --dry-run --run-set primary --lane replayable_core --output-root tmp/h1-dry-run-smoke --run-group-id 20260506T_h1_dry_run_smoke`
+- completed and wrote a dry-run manifest for one primary replayable H1 run
 - `uv run moonie-agent live --workflow-id executive_visual_dashboard_review --system-id oracle_gemma4_e2b --lane replayable_core --refresh-s 0.1 --timeout-s 0.5`
 - completed through the Rich operator view with sandbox context visible
 - `uv run pytest`
@@ -203,7 +208,7 @@ Primary targets:
    - `moonie-agent attach`
    - Rich terminal operator harness
 
-2. Add the H1 runner/validator and use H1 before another broad same-surface rerun.
+2. Use H1 before another broad same-surface rerun.
 
 3. Attack the remaining HF Gemma specialist note families directly.
 Primary targets:

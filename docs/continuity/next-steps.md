@@ -22,7 +22,8 @@ Current state:
 
 Next implementation moves:
 
-- add the H1 runner/validator over [`configs/knowledge_work_h1_slice.yaml`](../../configs/knowledge_work_h1_slice.yaml)
+- use the H1 runner to start primary MLX Gemma and ablation dry-runs before any broader matrix rerun
+- expand second-wave controller ablation toggles beyond the first repair/fallback/visual-rescue set
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1
@@ -78,6 +79,7 @@ Current H1 definition:
 
 - [`configs/knowledge_work_h1_slice.yaml`](../../configs/knowledge_work_h1_slice.yaml)
 - [`docs/continuity/h1-slice.md`](./h1-slice.md)
+- [`scripts/run_knowledge_work_h1_slice.py`](../../scripts/run_knowledge_work_h1_slice.py)
 
 What it concentrates:
 
@@ -93,6 +95,12 @@ Success condition:
 
 - H1 produces a clearer separation than the current saturated aligned `32 / 26` top-line readiness read
 - controller repair, fallback, raw planning cleanliness, and approval-safe stop behavior become the primary comparison fields
+
+Smoke command:
+
+```bash
+uv run python scripts/run_knowledge_work_h1_slice.py --dry-run --run-set primary --lane replayable_core
+```
 
 ### 5. Install the local Gemma `31B` `GGUF` artifact and run the first real `llama.cpp` posture row
 

@@ -159,6 +159,25 @@
   - H1 is designed to break the current top-line readiness saturation by concentrating resume, latest-instruction, stale-override, CLI/API/function-call, artifact-revision, and approval pressure
   - the next implementation slice should add a config-backed H1 runner/validator so packet execution does not depend on manually copying episode ids
 
+### H1 slice has a config-backed runner scaffold
+
+- Implementation:
+  - [`src/gemma4_capability_map/knowledge_work/h1.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/knowledge_work/h1.py)
+  - [`scripts/run_knowledge_work_h1_slice.py`](/Users/cheickdiakite/Codex/moonie/scripts/run_knowledge_work_h1_slice.py)
+  - [`tests/test_knowledge_work_h1.py`](/Users/cheickdiakite/Codex/moonie/tests/test_knowledge_work_h1.py)
+
+- What changed:
+  - added typed H1 config loading and validation against packaged workflows and KWA episode ids
+  - added run-spec construction for `primary`, `comparison`, `ablation`, and `all`
+  - added a dry-run/execute script that writes an H1 manifest and delegates real execution to `scripts/run_knowledge_work_arena.py`
+  - kept H1 execution exploratory and `--no-update-latest` by default
+
+- Verification:
+  - `uv run pytest tests/test_knowledge_work_h1.py tests/test_knowledge_work_matrix_script.py tests/test_run_knowledge_work_arena_script.py`
+  - `17 passed`
+  - `uv run python scripts/run_knowledge_work_h1_slice.py --dry-run --run-set primary --lane replayable_core --output-root tmp/h1-dry-run-smoke --run-group-id 20260506T_h1_dry_run_smoke`
+  - completed and wrote one primary replayable H1 dry-run manifest
+
 # 2026-04-14
 
 ### The React Gemma MLX workspace now runs a real end-to-end local session loop

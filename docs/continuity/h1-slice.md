@@ -76,3 +76,20 @@ The second H1 question is:
 - H1 should not update latest board exports by default.
 - Live H1 work should go through packaged workflows, not ad hoc prompts.
 - Use H1 before another broad `32 / 26` rerun.
+
+## Runner
+
+Config-backed H1 execution now starts here:
+
+```bash
+uv run python scripts/run_knowledge_work_h1_slice.py --dry-run --run-set primary --lane replayable_core
+```
+
+Useful run sets:
+
+- `primary`: `mlx_gemma4_e2b_reasoner_only`
+- `comparison`: primary plus oracle, HF Gemma specialists, and MLX Qwen
+- `ablation`: HF Gemma specialists plus configured ablation rows
+- `all`: primary, comparison baselines, and ablation rows
+
+The H1 runner validates workflow/episode mappings first, writes a run manifest, and delegates real execution to `scripts/run_knowledge_work_arena.py` with explicit `--episode-id` filters and `--no-update-latest`.

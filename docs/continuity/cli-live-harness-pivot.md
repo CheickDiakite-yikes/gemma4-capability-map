@@ -255,7 +255,16 @@ Status: `H1 v1` is now defined as a packaged-workflow-first slice.
 - live episodes: `5`
 - workflow families: executive dashboard review, executive stale brief packet, jobs visual form hold, finance billing patch hold, finance visual invoice review
 
-Next step: add a small runner/validator so H1 can be executed from config without hand-copying episode ids.
+Runner status:
+
+- [`scripts/run_knowledge_work_h1_slice.py`](../../scripts/run_knowledge_work_h1_slice.py) validates the H1 config, emits a manifest, and delegates real runs to `scripts/run_knowledge_work_arena.py` with explicit episode filters
+- focused tests cover H1 config validity, run-spec construction, ablation flag preservation, and arena command generation
+
+Example smoke:
+
+```bash
+uv run python scripts/run_knowledge_work_h1_slice.py --dry-run --run-set primary --lane replayable_core
+```
 
 ### Phase 6: Second ablation wave
 
