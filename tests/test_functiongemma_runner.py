@@ -51,6 +51,7 @@ def test_functiongemma_prompt_uses_catalog_specific_format_hint() -> None:
     assert "{arg:" not in system_prompt
     assert "<escape>value<escape>" not in system_prompt
     assert "never emit placeholder names or values" in system_prompt.lower()
+    assert "Router directive for this turn" not in prompt_messages[-1]["content"]
 
 
 def test_functiongemma_prompt_marks_next_visual_refinement_after_progress() -> None:
@@ -76,6 +77,7 @@ def test_functiongemma_prompt_marks_next_visual_refinement_after_progress() -> N
         tool_specs=VISUAL_SPECS,
     )
     system_prompt = prompt_messages[0]["content"]
+    turn_directive = prompt_messages[-1]["content"]
 
     assert "Visual sequencing rules" in system_prompt
     assert "For this turn, return exactly the next visual call below" in system_prompt
@@ -85,6 +87,11 @@ def test_functiongemma_prompt_marks_next_visual_refinement_after_progress() -> N
         "Next visual call for this request: "
         "<start_function_call>call:refine_selection{selection_id:<escape>sel-002<escape>,filter_query:<escape>customer ops<escape>}"
     ) in system_prompt
+    assert turn_directive.startswith("Router directive for this turn:")
+    assert "Return only this exact function call and no other output." in turn_directive
+    assert (
+        "<start_function_call>call:refine_selection{selection_id:<escape>sel-002<escape>,filter_query:<escape>customer ops<escape>}"
+    ) in turn_directive
 
 
 def test_functiongemma_prompt_marks_visual_readback_after_final_refinement() -> None:
@@ -114,6 +121,7 @@ def test_functiongemma_prompt_marks_visual_readback_after_final_refinement() -> 
         tool_specs=VISUAL_SPECS,
     )
     system_prompt = prompt_messages[0]["content"]
+    turn_directive = prompt_messages[-1]["content"]
 
     assert "Completed successful refine_selection filters: needs review, customer ops. Do not repeat completed filters." in system_prompt
     assert "Next visual action: requested filtering is complete; read the latest region exactly as shown instead of extracting or refining again." in system_prompt
@@ -121,3 +129,7 @@ def test_functiongemma_prompt_marks_visual_readback_after_final_refinement() -> 
         "Next visual call for this request: "
         "<start_function_call>call:read_region_text{image_id:<escape>img-dashboard-followup<escape>,region_id:<escape>metric-102<escape>}"
     ) in system_prompt
+    assert "Return only this exact function call and no other output." in turn_directive
+    assert (
+        "<start_function_call>call:read_region_text{image_id:<escape>img-dashboard-followup<escape>,region_id:<escape>metric-102<escape>}"
+    ) in turn_directive

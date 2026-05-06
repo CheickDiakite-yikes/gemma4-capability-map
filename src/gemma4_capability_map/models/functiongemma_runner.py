@@ -209,6 +209,9 @@ class FunctionGemmaRunner(Runner):
             if image_refs:
                 text = (text + "\n" if text else "") + "Image refs: " + ", ".join(image_refs)
             prompt_messages.append({"role": role, "content": text or ""})
+        turn_directive = _format_visual_turn_directive(messages, media, tool_specs)
+        if turn_directive:
+            prompt_messages.append({"role": "user", "content": turn_directive})
         return prompt_messages
 
     def _render_prompt(self, prompt_messages: list[dict[str, str]]) -> str:
@@ -280,6 +283,24 @@ def _format_visual_sequence_hint(messages: list[Message], planned_calls: list[To
         lines.append("Next visual action: requested filtering is complete; read the latest region exactly as shown instead of extracting or refining again.")
     lines.append(f"Next visual call for this request: {_format_hint_call(next_visual.name, next_visual.arguments)}")
     return "\n".join(lines)
+
+
+def _format_visual_turn_directive(messages: list[Message], media: list[str], tool_specs: list[ToolSpec]) -> str:
+    tool_names = {tool.name for tool in tool_specs}
+    if not tool_names.intersection(_VISUAL_TOOL_NAMES):
+        return ""
+    planned_calls = plan_tool_calls(messages, media, tool_specs)
+    next_visual = next((call for call in planned_calls if call.name in _VISUAL_TOOL_NAMES), None)
+    if next_visual is None:
+        return ""
+    return "\n".join(
+        [
+            "Router directive for this turn:",
+            "Return only this exact function call and no other output.",
+            _format_hint_call(next_visual.name, next_visual.arguments),
+            "Do not copy earlier tool calls from the conversation.",
+        ]
+    )
 
 
 def _successful_refine_filters(messages: list[Message]) -> list[str]:
