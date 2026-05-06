@@ -89,7 +89,7 @@ The latest live-harness gain is now CLI-first:
   - `no_controller_repair = 0.88748`
   - `no_deterministic_visual_follow_on = 0.88748`
   - trace miner found `42` controller-note events and `6` failure candidates
-  - aggregate failure modes are now `fallback_planner = 4`, `argument_repair = 3`, `repair_disabled = 3`
+  - aggregate failure modes after the richer visual taxonomy are now `visual_readback_missing = 6`, `visual_stepwise_control = 6`, `fallback_planner = 4`, `argument_repair = 3`, `raw_refusal = 3`, `repair_disabled = 3`, `visual_follow_on = 3`, `visual_repeated_refinement = 3`
   - interpretation: fallback causality was prompt-artifact-heavy; repair and deterministic visual follow-on now expose the remaining stepwise visual-control seam
 
 The prior React product-side gain remains useful context:

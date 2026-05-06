@@ -265,7 +265,7 @@ Full H1 ablation after the concrete hint:
 - `no_argument_repair`: unchanged at readiness `0.9749800000000001`
 - `no_deterministic_visual_follow_on`: readiness `0.88748`, strict/recovered `0.775 / 0.7`, repair `0.8`, fallback `0.4`
 - trace miner found `42` controller-note events and `6` failure candidates
-- aggregate failure modes: `fallback_planner = 4`, `argument_repair = 3`, `repair_disabled = 3`
+- aggregate failure modes after the richer visual taxonomy: `visual_readback_missing = 6`, `visual_stepwise_control = 6`, `fallback_planner = 4`, `argument_repair = 3`, `raw_refusal = 3`, `repair_disabled = 3`, `visual_follow_on = 3`, `visual_repeated_refinement = 3`
 - interpretation: fallback causality on H1 was prompt-artifact-heavy; repair causality now concentrates in stepwise visual control and future-state visual follow-ons
 
 ## Strongest Current Findings

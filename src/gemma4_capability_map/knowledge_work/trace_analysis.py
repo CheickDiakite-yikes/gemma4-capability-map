@@ -43,7 +43,7 @@ def analyze_ablation_packet(packet_dir: str | Path) -> dict[str, Any]:
                 task_id = str(task.get("task_id", ""))
                 raw_outputs = [str(raw) for raw in _task_list_value(task, "planning_raw_outputs") if raw]
                 planning_turns += len(raw_outputs)
-                raw_planning_samples.extend(raw_outputs[:2])
+                raw_planning_samples.extend(raw_outputs)
                 for note in _flatten_notes(_task_list_value(task, "planning_repair_notes")):
                     task_notes[note] += 1
                     key = (system_id, note)
@@ -54,6 +54,7 @@ def analyze_ablation_packet(packet_dir: str | Path) -> dict[str, Any]:
             scorecard = episode.get("scorecard", {}) or {}
             failed_tools = _failed_tool_labels(episode)
             notes = sorted(task_notes)
+            raw_planning_text = _joined_samples(raw_planning_samples)
             raw_planning_sample = _compact_sample(raw_planning_samples)
             episode_rows.append(
                 {
@@ -73,7 +74,15 @@ def analyze_ablation_packet(packet_dir: str | Path) -> dict[str, Any]:
                     "repair_notes": ";".join(notes),
                     "repair_note_counts": ";".join(f"{note}={task_notes[note]}" for note in notes),
                     "failed_tools": ";".join(failed_tools),
-                    "failure_modes": ";".join(_failure_modes(notes, failed_tools, raw_planning_sample)),
+                    "failure_modes": ";".join(
+                        _failure_modes(
+                            notes,
+                            failed_tools,
+                            raw_planning_text,
+                            system_id=system_id,
+                            tool_calls=episode.get("tool_calls", []) or [],
+                        )
+                    ),
                     "raw_planning_sample": raw_planning_sample,
                     "failure_candidate": _is_failure_candidate(scorecard),
                 }
@@ -193,17 +202,30 @@ def _failed_tool_labels(episode: dict[str, Any]) -> list[str]:
     return sorted(label for label in labels if label)
 
 
-def _failure_modes(notes: list[str], failed_tools: list[str], raw_planning_sample: str) -> list[str]:
+def _failure_modes(
+    notes: list[str],
+    failed_tools: list[str],
+    raw_planning_text: str,
+    *,
+    system_id: str,
+    tool_calls: list[Any],
+) -> list[str]:
     modes: list[str] = []
 
     def add(mode: str) -> None:
         if mode not in modes:
             modes.append(mode)
 
-    raw_lower = raw_planning_sample.lower()
-    if "i cannot assist" in raw_lower or "i cannot do" in raw_lower or "current capabilities" in raw_lower:
+    raw_lower = raw_planning_text.lower()
+    if (
+        "i cannot assist" in raw_lower
+        or "i cannot do" in raw_lower
+        or "i cannot proceed" in raw_lower
+        or "current capabilities" in raw_lower
+        or "tools are not applicable" in raw_lower
+    ):
         add("raw_refusal")
-    if "call:tool_name" in raw_planning_sample or any(label.endswith(":tool_name") or label == "tool_name" for label in failed_tools):
+    if "call:tool_name" in raw_planning_text or any(label.endswith(":tool_name") or label == "tool_name" for label in failed_tools):
         add("generic_tool_name")
     if "controller_fallback_disabled" in notes:
         add("fallback_disabled")
@@ -215,11 +237,54 @@ def _failure_modes(notes: list[str], failed_tools: list[str], raw_planning_sampl
         add("argument_repair")
     if any(note.startswith("intent_prior:") or note == "intent_priority_disabled" for note in notes):
         add("intent_prior")
-    if any(note.startswith("feedback_prior:") or note == "deterministic_visual_follow_on_disabled" for note in notes):
+    if (
+        any(note.startswith("feedback_prior:") or note == "deterministic_visual_follow_on_disabled" for note in notes)
+        or "no_deterministic_visual_follow_on" in system_id
+    ):
         add("visual_follow_on")
+    if _has_visual_stepwise_sequence(tool_calls):
+        add("visual_stepwise_control")
+    if _has_repeated_visual_refinement(tool_calls):
+        add("visual_repeated_refinement")
+    if _has_visual_refinement_without_readback(tool_calls):
+        add("visual_readback_missing")
     if any(note.startswith("canonicalized_tool:") for note in notes):
         add("tool_canonicalization")
     return modes
+
+
+def _visual_tool_calls(tool_calls: list[Any]) -> list[dict[str, Any]]:
+    visual_names = {"extract_layout", "segment_entities", "refine_selection", "read_region_text"}
+    calls: list[dict[str, Any]] = []
+    for call in tool_calls:
+        if not isinstance(call, dict):
+            continue
+        if str(call.get("tool_name", "")) in visual_names:
+            calls.append(call)
+    return calls
+
+
+def _has_visual_stepwise_sequence(tool_calls: list[Any]) -> bool:
+    names = [str(call.get("tool_name", "")) for call in _visual_tool_calls(tool_calls)]
+    return any(name in names for name in {"extract_layout", "segment_entities"}) and "refine_selection" in names
+
+
+def _has_repeated_visual_refinement(tool_calls: list[Any]) -> bool:
+    seen: set[tuple[str, str]] = set()
+    for call in _visual_tool_calls(tool_calls):
+        if str(call.get("tool_name", "")) != "refine_selection":
+            continue
+        arguments = call.get("arguments", {}) if isinstance(call.get("arguments"), dict) else {}
+        key = (str(arguments.get("selection_id", "")), str(arguments.get("filter_query", "")))
+        if key in seen:
+            return True
+        seen.add(key)
+    return False
+
+
+def _has_visual_refinement_without_readback(tool_calls: list[Any]) -> bool:
+    names = [str(call.get("tool_name", "")) for call in _visual_tool_calls(tool_calls)]
+    return "refine_selection" in names and "read_region_text" not in names
 
 
 def _failure_mode_counts(failure_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -253,10 +318,14 @@ def _is_failure_candidate(scorecard: dict[str, Any]) -> bool:
 
 
 def _compact_sample(samples: list[str], limit: int = 240) -> str:
-    text = " | ".join(sample.replace("\n", " ").strip() for sample in samples if sample.strip())
+    text = _joined_samples(samples)
     if len(text) <= limit:
         return text
     return text[: limit - 3] + "..."
+
+
+def _joined_samples(samples: list[str]) -> str:
+    return " | ".join(sample.replace("\n", " ").strip() for sample in samples if sample.strip())
 
 
 def _write_csv(path: Path, rows: list[dict[str, Any]]) -> None:

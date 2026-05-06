@@ -153,7 +153,7 @@ Next empirical move:
 - target the remaining causal helpers:
   - `no_controller_repair = 0.88748`
   - `no_deterministic_visual_follow_on = 0.88748`
-- define the next patch around stepwise visual control and future-state visual calls, not raw refusal or generic placeholder repair
+- the trace miner now labels the active family as `visual_readback_missing`, `visual_stepwise_control`, and `visual_repeated_refinement`; define the next patch around those visual follow-on semantics, not generic placeholder repair
 - define H1b only if these `6` failure candidates are too narrow to separate candidate fixes
 - avoid another broad aligned rerun until the targeted repair/fallback mechanism changes
 

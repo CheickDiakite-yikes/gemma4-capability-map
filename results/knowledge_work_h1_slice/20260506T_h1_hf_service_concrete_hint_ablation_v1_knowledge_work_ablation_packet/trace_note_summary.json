@@ -164,7 +164,7 @@
       "repair_notes": "",
       "repair_note_counts": "",
       "failed_tools": "",
-      "failure_modes": "",
+      "failure_modes": "visual_stepwise_control",
       "raw_planning_sample": "<start_function_call>call:extract_layout{image_id:<escape>img-dashboard-stale<escape>,target_query:<escape>dashboard metric<escape>}<end_function_call>",
       "failure_candidate": false
     },
@@ -206,7 +206,7 @@
       "repair_notes": "",
       "repair_note_counts": "",
       "failed_tools": "",
-      "failure_modes": "",
+      "failure_modes": "visual_stepwise_control",
       "raw_planning_sample": "<start_function_call>call:api_fetch_record{record_type:<escape>briefing_record<escape>,record_id:<escape>BR-18<escape>}<end_function_call> | <start_function_call>call:extract_layout{image_id:<escape>img-dashboard-review-backlog<escape>,t...",
       "failure_candidate": false
     },
@@ -227,7 +227,7 @@
       "repair_notes": "",
       "repair_note_counts": "",
       "failed_tools": "",
-      "failure_modes": "",
+      "failure_modes": "visual_stepwise_control",
       "raw_planning_sample": "<start_function_call>call:cli_apply_patch{path:<escape>config/job_form.yaml<escape>,patch:<escape>email_validation: blocked<escape>}<end_function_call> | <start_function_call>call:extract_layout{image_id:<escape>img-form-blocked-email<es...",
       "failure_candidate": false
     },
@@ -269,7 +269,7 @@
       "repair_notes": "",
       "repair_note_counts": "",
       "failed_tools": "",
-      "failure_modes": "",
+      "failure_modes": "visual_stepwise_control",
       "raw_planning_sample": "<start_function_call>call:extract_layout{image_id:<escape>img-dashboard-stale<escape>,target_query:<escape>dashboard metric<escape>}<end_function_call>",
       "failure_candidate": false
     },
@@ -311,7 +311,7 @@
       "repair_notes": "",
       "repair_note_counts": "",
       "failed_tools": "",
-      "failure_modes": "",
+      "failure_modes": "visual_stepwise_control",
       "raw_planning_sample": "<start_function_call>call:api_fetch_record{record_type:<escape>briefing_record<escape>,record_id:<escape>BR-18<escape>}<end_function_call> | <start_function_call>call:extract_layout{image_id:<escape>img-dashboard-review-backlog<escape>,t...",
       "failure_candidate": false
     },
@@ -332,7 +332,7 @@
       "repair_notes": "",
       "repair_note_counts": "",
       "failed_tools": "",
-      "failure_modes": "",
+      "failure_modes": "visual_stepwise_control",
       "raw_planning_sample": "<start_function_call>call:cli_apply_patch{path:<escape>config/job_form.yaml<escape>,patch:<escape>email_validation: blocked<escape>}<end_function_call> | <start_function_call>call:extract_layout{image_id:<escape>img-form-blocked-email<es...",
       "failure_candidate": false
     },
@@ -374,7 +374,7 @@
       "repair_notes": "",
       "repair_note_counts": "",
       "failed_tools": "",
-      "failure_modes": "",
+      "failure_modes": "visual_stepwise_control",
       "raw_planning_sample": "<start_function_call>call:extract_layout{image_id:<escape>img-dashboard-stale<escape>,target_query:<escape>dashboard metric<escape>}<end_function_call>",
       "failure_candidate": false
     },
@@ -416,7 +416,7 @@
       "repair_notes": "",
       "repair_note_counts": "",
       "failed_tools": "",
-      "failure_modes": "",
+      "failure_modes": "visual_stepwise_control",
       "raw_planning_sample": "<start_function_call>call:api_fetch_record{record_type:<escape>briefing_record<escape>,record_id:<escape>BR-18<escape>}<end_function_call> | <start_function_call>call:extract_layout{image_id:<escape>img-dashboard-review-backlog<escape>,t...",
       "failure_candidate": false
     },
@@ -437,7 +437,7 @@
       "repair_notes": "",
       "repair_note_counts": "",
       "failed_tools": "",
-      "failure_modes": "",
+      "failure_modes": "visual_stepwise_control",
       "raw_planning_sample": "<start_function_call>call:cli_apply_patch{path:<escape>config/job_form.yaml<escape>,patch:<escape>email_validation: blocked<escape>}<end_function_call> | <start_function_call>call:extract_layout{image_id:<escape>img-form-blocked-email<es...",
       "failure_candidate": false
     },
@@ -479,7 +479,7 @@
       "repair_notes": "controller_repair_disabled",
       "repair_note_counts": "controller_repair_disabled=4",
       "failed_tools": "",
-      "failure_modes": "repair_disabled",
+      "failure_modes": "repair_disabled;visual_stepwise_control;visual_repeated_refinement;visual_readback_missing",
       "raw_planning_sample": "<start_function_call>call:extract_layout{image_id:<escape>img-dashboard-stale<escape>,target_query:<escape>dashboard metric<escape>}<end_function_call> | <start_function_call>call:refine_selection{selection_id:<escape>sel-001<escape>,fil...",
       "failure_candidate": true
     },
@@ -521,7 +521,7 @@
       "repair_notes": "controller_fallback_planner;controller_repair_disabled",
       "repair_note_counts": "controller_fallback_planner=2;controller_repair_disabled=6",
       "failed_tools": "",
-      "failure_modes": "repair_disabled;fallback_planner",
+      "failure_modes": "repair_disabled;fallback_planner;visual_stepwise_control;visual_repeated_refinement;visual_readback_missing",
       "raw_planning_sample": "<start_function_call>call:api_fetch_record{record_type:<escape>briefing_record<escape>,record_id:<escape>BR-18<escape>}<end_function_call> | <start_function_call>call:extract_layout{image_id:<escape>img-dashboard-review-backlog<escape>,t...",
       "failure_candidate": true
     },
@@ -542,7 +542,7 @@
       "repair_notes": "controller_fallback_planner;controller_repair_disabled",
       "repair_note_counts": "controller_fallback_planner=1;controller_repair_disabled=6",
       "failed_tools": "",
-      "failure_modes": "repair_disabled;fallback_planner",
+      "failure_modes": "raw_refusal;repair_disabled;fallback_planner;visual_stepwise_control;visual_repeated_refinement;visual_readback_missing",
       "raw_planning_sample": "<start_function_call>call:cli_apply_patch{path:<escape>config/job_form.yaml<escape>,patch:<escape>email_validation: blocked<escape>}<end_function_call> | <start_function_call>call:extract_layout{image_id:<escape>img-form-blocked-email<es...",
       "failure_candidate": true
     },
@@ -584,7 +584,7 @@
       "repair_notes": "repaired_arguments:refine_selection",
       "repair_note_counts": "repaired_arguments:refine_selection=1",
       "failed_tools": "",
-      "failure_modes": "argument_repair",
+      "failure_modes": "argument_repair;visual_follow_on;visual_stepwise_control;visual_readback_missing",
       "raw_planning_sample": "<start_function_call>call:extract_layout{image_id:<escape>img-dashboard-stale<escape>,target_query:<escape>dashboard metric<escape>}<end_function_call> | <start_function_call>call:refine_selection{selection_id:<escape>sel-001<escape>,fil...",
       "failure_candidate": true
     },
@@ -605,7 +605,7 @@
       "repair_notes": "controller_fallback_planner",
       "repair_note_counts": "controller_fallback_planner=1",
       "failed_tools": "",
-      "failure_modes": "fallback_planner",
+      "failure_modes": "fallback_planner;visual_follow_on",
       "raw_planning_sample": "<start_function_call>call:extract_layout{image_id:<escape>img-invoice<escape>,target_query:<escape>invoice totals table<escape>}<end_function_call> | <start_function_call>call:extract_layout: image_id:<escape>img-invoice<escape>,target_q...",
       "failure_candidate": false
     },
@@ -626,7 +626,7 @@
       "repair_notes": "controller_fallback_planner;repaired_arguments:refine_selection",
       "repair_note_counts": "controller_fallback_planner=2;repaired_arguments:refine_selection=1",
       "failed_tools": "",
-      "failure_modes": "fallback_planner;argument_repair",
+      "failure_modes": "raw_refusal;fallback_planner;argument_repair;visual_follow_on;visual_stepwise_control;visual_readback_missing",
       "raw_planning_sample": "<start_function_call>call:api_fetch_record{record_type:<escape>briefing_record<escape>,record_id:<escape>BR-18<escape>}<end_function_call> | <start_function_call>call:extract_layout{image_id:<escape>img-dashboard-review-backlog<escape>,t...",
       "failure_candidate": true
     },
@@ -647,7 +647,7 @@
       "repair_notes": "controller_fallback_planner;repaired_arguments:refine_selection",
       "repair_note_counts": "controller_fallback_planner=1;repaired_arguments:refine_selection=2",
       "failed_tools": "",
-      "failure_modes": "fallback_planner;argument_repair",
+      "failure_modes": "raw_refusal;fallback_planner;argument_repair;visual_follow_on;visual_stepwise_control;visual_readback_missing",
       "raw_planning_sample": "<start_function_call>call:cli_apply_patch{path:<escape>config/job_form.yaml<escape>,patch:<escape>email_validation: blocked<escape>}<end_function_call> | <start_function_call>call:extract_layout{image_id:<escape>img-form-blocked-email<es...",
       "failure_candidate": true
     },
@@ -668,7 +668,7 @@
       "repair_notes": "",
       "repair_note_counts": "",
       "failed_tools": "",
-      "failure_modes": "",
+      "failure_modes": "visual_follow_on",
       "raw_planning_sample": "<start_function_call>call:cli_inspect_diff{diff_id:<escape>invoice_lock_resume_diff_v2<escape>}<end_function_call> | <start_function_call>call:api_update_record{record_type:<escape>billing_record<escape>,record_id:<escape>INV-204<escape>...",
       "failure_candidate": false
     },
@@ -689,7 +689,7 @@
       "repair_notes": "intent_priority_disabled",
       "repair_note_counts": "intent_priority_disabled=1",
       "failed_tools": "",
-      "failure_modes": "intent_prior",
+      "failure_modes": "intent_prior;visual_stepwise_control",
       "raw_planning_sample": "<start_function_call>call:extract_layout{image_id:<escape>img-dashboard-stale<escape>,target_query:<escape>dashboard metric<escape>}<end_function_call>",
       "failure_candidate": false
     },
@@ -731,7 +731,7 @@
       "repair_notes": "intent_priority_disabled",
       "repair_note_counts": "intent_priority_disabled=2",
       "failed_tools": "",
-      "failure_modes": "intent_prior",
+      "failure_modes": "intent_prior;visual_stepwise_control",
       "raw_planning_sample": "<start_function_call>call:api_fetch_record{record_type:<escape>briefing_record<escape>,record_id:<escape>BR-18<escape>}<end_function_call> | <start_function_call>call:extract_layout{image_id:<escape>img-dashboard-review-backlog<escape>,t...",
       "failure_candidate": false
     },
@@ -752,7 +752,7 @@
       "repair_notes": "intent_priority_disabled",
       "repair_note_counts": "intent_priority_disabled=2",
       "failed_tools": "",
-      "failure_modes": "intent_prior",
+      "failure_modes": "intent_prior;visual_stepwise_control",
       "raw_planning_sample": "<start_function_call>call:cli_apply_patch{path:<escape>config/job_form.yaml<escape>,patch:<escape>email_validation: blocked<escape>}<end_function_call> | <start_function_call>call:extract_layout{image_id:<escape>img-form-blocked-email<es...",
       "failure_candidate": false
     },
@@ -794,7 +794,7 @@
       "repair_notes": "",
       "repair_note_counts": "",
       "failed_tools": "",
-      "failure_modes": "",
+      "failure_modes": "visual_stepwise_control",
       "raw_planning_sample": "<start_function_call>call:extract_layout{image_id:<escape>img-dashboard-stale<escape>,target_query:<escape>dashboard metric<escape>}<end_function_call>",
       "failure_candidate": false
     },
@@ -836,7 +836,7 @@
       "repair_notes": "",
       "repair_note_counts": "",
       "failed_tools": "",
-      "failure_modes": "",
+      "failure_modes": "visual_stepwise_control",
       "raw_planning_sample": "<start_function_call>call:api_fetch_record{record_type:<escape>briefing_record<escape>,record_id:<escape>BR-18<escape>}<end_function_call> | <start_function_call>call:extract_layout{image_id:<escape>img-dashboard-review-backlog<escape>,t...",
       "failure_candidate": false
     },
@@ -857,7 +857,7 @@
       "repair_notes": "",
       "repair_note_counts": "",
       "failed_tools": "",
-      "failure_modes": "",
+      "failure_modes": "visual_stepwise_control",
       "raw_planning_sample": "<start_function_call>call:cli_apply_patch{path:<escape>config/job_form.yaml<escape>,patch:<escape>email_validation: blocked<escape>}<end_function_call> | <start_function_call>call:extract_layout{image_id:<escape>img-form-blocked-email<es...",
       "failure_candidate": false
     },
@@ -901,7 +901,7 @@
       "repair_notes": "controller_repair_disabled",
       "repair_note_counts": "controller_repair_disabled=4",
       "failed_tools": "",
-      "failure_modes": "repair_disabled",
+      "failure_modes": "repair_disabled;visual_stepwise_control;visual_repeated_refinement;visual_readback_missing",
       "raw_planning_sample": "<start_function_call>call:extract_layout{image_id:<escape>img-dashboard-stale<escape>,target_query:<escape>dashboard metric<escape>}<end_function_call> | <start_function_call>call:refine_selection{selection_id:<escape>sel-001<escape>,fil...",
       "failure_candidate": true
     },
@@ -922,7 +922,7 @@
       "repair_notes": "controller_fallback_planner;controller_repair_disabled",
       "repair_note_counts": "controller_fallback_planner=2;controller_repair_disabled=6",
       "failed_tools": "",
-      "failure_modes": "repair_disabled;fallback_planner",
+      "failure_modes": "repair_disabled;fallback_planner;visual_stepwise_control;visual_repeated_refinement;visual_readback_missing",
       "raw_planning_sample": "<start_function_call>call:api_fetch_record{record_type:<escape>briefing_record<escape>,record_id:<escape>BR-18<escape>}<end_function_call> | <start_function_call>call:extract_layout{image_id:<escape>img-dashboard-review-backlog<escape>,t...",
       "failure_candidate": true
     },
@@ -943,7 +943,7 @@
       "repair_notes": "controller_fallback_planner;controller_repair_disabled",
       "repair_note_counts": "controller_fallback_planner=1;controller_repair_disabled=6",
       "failed_tools": "",
-      "failure_modes": "repair_disabled;fallback_planner",
+      "failure_modes": "raw_refusal;repair_disabled;fallback_planner;visual_stepwise_control;visual_repeated_refinement;visual_readback_missing",
       "raw_planning_sample": "<start_function_call>call:cli_apply_patch{path:<escape>config/job_form.yaml<escape>,patch:<escape>email_validation: blocked<escape>}<end_function_call> | <start_function_call>call:extract_layout{image_id:<escape>img-form-blocked-email<es...",
       "failure_candidate": true
     },
@@ -964,7 +964,7 @@
       "repair_notes": "repaired_arguments:refine_selection",
       "repair_note_counts": "repaired_arguments:refine_selection=1",
       "failed_tools": "",
-      "failure_modes": "argument_repair",
+      "failure_modes": "argument_repair;visual_follow_on;visual_stepwise_control;visual_readback_missing",
       "raw_planning_sample": "<start_function_call>call:extract_layout{image_id:<escape>img-dashboard-stale<escape>,target_query:<escape>dashboard metric<escape>}<end_function_call> | <start_function_call>call:refine_selection{selection_id:<escape>sel-001<escape>,fil...",
       "failure_candidate": true
     },
@@ -985,7 +985,7 @@
       "repair_notes": "controller_fallback_planner;repaired_arguments:refine_selection",
       "repair_note_counts": "controller_fallback_planner=2;repaired_arguments:refine_selection=1",
       "failed_tools": "",
-      "failure_modes": "fallback_planner;argument_repair",
+      "failure_modes": "raw_refusal;fallback_planner;argument_repair;visual_follow_on;visual_stepwise_control;visual_readback_missing",
       "raw_planning_sample": "<start_function_call>call:api_fetch_record{record_type:<escape>briefing_record<escape>,record_id:<escape>BR-18<escape>}<end_function_call> | <start_function_call>call:extract_layout{image_id:<escape>img-dashboard-review-backlog<escape>,t...",
       "failure_candidate": true
     },
@@ -1006,12 +1006,28 @@
       "repair_notes": "controller_fallback_planner;repaired_arguments:refine_selection",
       "repair_note_counts": "controller_fallback_planner=1;repaired_arguments:refine_selection=2",
       "failed_tools": "",
-      "failure_modes": "fallback_planner;argument_repair",
+      "failure_modes": "raw_refusal;fallback_planner;argument_repair;visual_follow_on;visual_stepwise_control;visual_readback_missing",
       "raw_planning_sample": "<start_function_call>call:cli_apply_patch{path:<escape>config/job_form.yaml<escape>,patch:<escape>email_validation: blocked<escape>}<end_function_call> | <start_function_call>call:extract_layout{image_id:<escape>img-form-blocked-email<es...",
       "failure_candidate": true
     }
   ],
   "failure_mode_counts": [
+    {
+      "failure_mode": "visual_readback_missing",
+      "count": 6,
+      "system_count": 2,
+      "episode_count": 3,
+      "systems": "hf_service_gemma4_specialists_cpu_no_controller_repair;hf_service_gemma4_specialists_cpu_no_deterministic_visual_follow_on",
+      "episodes": "kwa_exec_backlog_resume_hold_v5;kwa_exec_visual_dashboard_brief;kwa_jobs_email_block_resume_hold_v5"
+    },
+    {
+      "failure_mode": "visual_stepwise_control",
+      "count": 6,
+      "system_count": 2,
+      "episode_count": 3,
+      "systems": "hf_service_gemma4_specialists_cpu_no_controller_repair;hf_service_gemma4_specialists_cpu_no_deterministic_visual_follow_on",
+      "episodes": "kwa_exec_backlog_resume_hold_v5;kwa_exec_visual_dashboard_brief;kwa_jobs_email_block_resume_hold_v5"
+    },
     {
       "failure_mode": "fallback_planner",
       "count": 4,
@@ -1029,7 +1045,31 @@
       "episodes": "kwa_exec_backlog_resume_hold_v5;kwa_exec_visual_dashboard_brief;kwa_jobs_email_block_resume_hold_v5"
     },
     {
+      "failure_mode": "raw_refusal",
+      "count": 3,
+      "system_count": 2,
+      "episode_count": 2,
+      "systems": "hf_service_gemma4_specialists_cpu_no_controller_repair;hf_service_gemma4_specialists_cpu_no_deterministic_visual_follow_on",
+      "episodes": "kwa_exec_backlog_resume_hold_v5;kwa_jobs_email_block_resume_hold_v5"
+    },
+    {
       "failure_mode": "repair_disabled",
+      "count": 3,
+      "system_count": 1,
+      "episode_count": 3,
+      "systems": "hf_service_gemma4_specialists_cpu_no_controller_repair",
+      "episodes": "kwa_exec_backlog_resume_hold_v5;kwa_exec_visual_dashboard_brief;kwa_jobs_email_block_resume_hold_v5"
+    },
+    {
+      "failure_mode": "visual_follow_on",
+      "count": 3,
+      "system_count": 1,
+      "episode_count": 3,
+      "systems": "hf_service_gemma4_specialists_cpu_no_deterministic_visual_follow_on",
+      "episodes": "kwa_exec_backlog_resume_hold_v5;kwa_exec_visual_dashboard_brief;kwa_jobs_email_block_resume_hold_v5"
+    },
+    {
+      "failure_mode": "visual_repeated_refinement",
       "count": 3,
       "system_count": 1,
       "episode_count": 3,

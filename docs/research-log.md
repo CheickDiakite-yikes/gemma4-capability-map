@@ -443,8 +443,8 @@
   - command: `uv run python scripts/analyze_knowledge_work_h1_traces.py results/knowledge_work_h1_slice/20260506T_h1_hf_service_concrete_hint_ablation_v1_knowledge_work_ablation_packet`
   - controller-note events dropped to `42`
   - strict/recovered failure candidates dropped to `6`
-  - aggregate mode counts: `fallback_planner = 4`, `argument_repair = 3`, `repair_disabled = 3`
-  - raw refusal and generic placeholder modes are absent from the aggregate failure taxonomy
+  - the richer visual taxonomy now labels `visual_readback_missing = 6`, `visual_stepwise_control = 6`, `fallback_planner = 4`, `argument_repair = 3`, `raw_refusal = 3`, `repair_disabled = 3`, `visual_follow_on = 3`, and `visual_repeated_refinement = 3`
+  - generic placeholder modes are absent from the aggregate failure taxonomy
 
 - Interpretation:
   - fallback dependence on H1 was mostly a prompt-shape artifact

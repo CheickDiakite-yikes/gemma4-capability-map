@@ -116,3 +116,84 @@ def test_write_trace_analysis_outputs_csv_and_json(tmp_path: Path) -> None:
     assert rows[0]["note"] == "intent_prior:inspect_or_lookup"
     assert Path(paths["failures"]).read_text(encoding="utf-8") == ""
     assert Path(paths["failure_modes"]).read_text(encoding="utf-8") == ""
+
+
+def test_analyze_ablation_packet_labels_visual_stepwise_failures(tmp_path: Path) -> None:
+    run_dir = tmp_path / "system_no_deterministic_visual_follow_on__replayable_core"
+    run_dir.mkdir()
+    (run_dir / "manifest.json").write_text(
+        json.dumps({"system_id": "system_no_deterministic_visual_follow_on", "lane": "replayable_core"}) + "\n",
+        encoding="utf-8",
+    )
+    (run_dir / "summary.json").write_text(json.dumps({"runs": 1}) + "\n", encoding="utf-8")
+    trace = {
+        "episode_id": "visual_episode",
+        "role_family": "executive_assistant",
+        "stage_traces": [
+            {
+                "stage_id": "stage_visual",
+                "task_traces": [
+                    {
+                        "task_id": "visual_task",
+                        "prompt_artifacts": {
+                            "planning_raw_outputs": [
+                                "<start_function_call>call:extract_layout{image_id:<escape>img-dashboard<escape>,target_query:<escape>dashboard metric<escape>}<end_function_call>",
+                                "<start_function_call>call:refine_selection{selection_id:<escape>sel-001<escape>,filter_query:<escape>needs review<escape>}<end_function_call>",
+                                "I cannot proceed because the tools are not applicable.",
+                            ],
+                            "planning_repair_notes": [
+                                [],
+                                ["repaired_arguments:refine_selection"],
+                                ["controller_fallback_planner"],
+                            ],
+                        },
+                    }
+                ],
+            }
+        ],
+        "tool_calls": [
+            {
+                "task_id": "visual_task",
+                "tool_name": "extract_layout",
+                "arguments": {"image_id": "img-dashboard", "target_query": "dashboard metric"},
+                "validator_result": "pass",
+            },
+            {
+                "task_id": "visual_task",
+                "tool_name": "refine_selection",
+                "arguments": {"selection_id": "sel-001", "filter_query": "needs review"},
+                "validator_result": "pass",
+            },
+            {
+                "task_id": "visual_task",
+                "tool_name": "refine_selection",
+                "arguments": {"selection_id": "sel-001", "filter_query": "needs review"},
+                "validator_result": "pass",
+            },
+        ],
+        "scorecard": {
+            "role_readiness_score": 0.84,
+            "strict_interface_score": 0.625,
+            "recovered_execution_score": 0.5,
+            "controller_repair_count": 1.5,
+            "argument_repair_count": 0.5,
+            "controller_fallback_count": 0.5,
+            "intent_override_count": 0.0,
+            "raw_planning_clean_rate": 0.7,
+        },
+    }
+    (run_dir / "episode_traces.jsonl").write_text(json.dumps(trace) + "\n", encoding="utf-8")
+
+    analysis = analyze_ablation_packet(tmp_path)
+
+    failure = analysis["failure_rows"][0]
+    modes = set(failure["failure_modes"].split(";"))
+    assert {
+        "raw_refusal",
+        "fallback_planner",
+        "argument_repair",
+        "visual_follow_on",
+        "visual_stepwise_control",
+        "visual_repeated_refinement",
+        "visual_readback_missing",
+    }.issubset(modes)
