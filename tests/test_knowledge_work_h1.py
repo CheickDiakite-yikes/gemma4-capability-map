@@ -21,6 +21,7 @@ PACKET_SPEC.loader.exec_module(PACKET_SCRIPT)
 H1B_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1b_slice.yaml"
 H1C_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1c_slice.yaml"
 H1D_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1d_slice.yaml"
+H1E_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1e_slice.yaml"
 
 
 def test_h1_slice_config_maps_to_existing_packaged_workflows_and_episodes() -> None:
@@ -142,6 +143,38 @@ def test_h1d_slice_config_maps_to_mlx_monolith_packet() -> None:
     assert packet.episode_ids == config.lanes["live_web_stress"].episode_ids
     assert "visual_stepwise_control" in packet.failure_modes
     assert "api_canonicalization" in packet.failure_modes
+
+
+def test_h1e_slice_config_maps_to_full_live_packaged_workflow_packet() -> None:
+    config = load_h1_slice(H1E_CONFIG_PATH)
+
+    errors = validate_h1_slice(config)
+
+    assert errors == []
+    assert config.name == "knowledge_work_h1e_mlx_full_live_packaged_workflows"
+    assert len(config.workflow_families) == 10
+    assert config.lanes["live_web_stress"].episode_ids == [
+        "kwa_exec_live_backlog_resume_hold_v5",
+        "kwa_exec_live_visual_dashboard_brief",
+        "kwa_jobs_live_email_block_resume_hold_v5",
+        "kwa_finance_live_diff_review_hold_v5",
+        "kwa_finance_live_invoice_lock_direction_hold_v4",
+        "kwa_exec_live_visual_dashboard_referent_hold_v3",
+        "kwa_exec_live_latest_action_resume_hold_v4",
+        "kwa_jobs_live_visual_constraint_override_hold_v2",
+        "kwa_jobs_live_phone_patch_resume_hold_v4",
+        "kwa_finance_live_visual_invoice_revision_hold_v2",
+    ]
+    packet = h1_packet_selection(config, "mlx_monolith_full_live_workflows")
+    assert packet.lane == "live_web_stress"
+    assert packet.system_ids == [
+        "mlx_gemma4_e2b_reasoner_only",
+        "mlx_gemma4_e2b_reasoner_only_no_controller_repair",
+        "mlx_gemma4_e2b_reasoner_only_no_controller_fallback",
+        "mlx_gemma4_e2b_reasoner_only_no_argument_repair",
+    ]
+    assert packet.episode_ids == config.lanes["live_web_stress"].episode_ids
+    assert "saturation_breaker" in config.attribution_tags
 
 
 def test_h1_primary_run_specs_default_to_mlx_gemma_reasoner_only() -> None:
