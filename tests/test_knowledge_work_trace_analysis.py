@@ -7,7 +7,9 @@ from pathlib import Path
 from gemma4_capability_map.knowledge_work.trace_analysis import (
     analyze_ablation_packet,
     compare_ablation_packets,
+    summarize_tool_contract_packet,
     write_packet_comparison,
+    write_tool_contract_summary,
     write_trace_analysis,
 )
 
@@ -181,6 +183,47 @@ def test_write_packet_comparison_outputs_json_and_csv(tmp_path: Path) -> None:
     assert rows[0]["delta_real_world_readiness_avg"] == "0.25"
 
 
+def test_tool_contract_summary_reports_directive_and_helper_deltas(tmp_path: Path) -> None:
+    _write_packet_run(tmp_path, system_id="mlx_gemma4_e2b_reasoner_only", readiness=0.98, strict=1.0, recovered=1.0)
+    _write_packet_run(
+        tmp_path,
+        system_id="mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+        readiness=0.98,
+        strict=1.0,
+        recovered=1.0,
+        repair=0.7,
+        fallback=0.2,
+        raw_clean=0.3,
+        controls={"disable_tool_turn_directive": True},
+        tool_turn_directive_enabled=False,
+    )
+    _write_packet_run(
+        tmp_path,
+        system_id="mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_repair",
+        readiness=0.74,
+        strict=0.5,
+        recovered=0.3,
+        repair=0.5,
+        fallback=0.5,
+        raw_clean=0.89,
+        controls={"disable_tool_turn_directive": True, "disable_controller_repair": True},
+        tool_turn_directive_enabled=False,
+    )
+
+    summary = summarize_tool_contract_packet(tmp_path)
+    paths = write_tool_contract_summary(tmp_path)
+
+    assert summary["findings"]["no_directive_controller_repair"] == 0.7
+    repair_row = next(
+        row
+        for row in summary["delta_rows"]
+        if row["system_id"] == "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_repair"
+    )
+    assert repair_row["disabled_controls"] == "disable_controller_repair;disable_tool_turn_directive"
+    assert repair_row["delta_vs_no_directive_real_world_readiness_avg"] == -0.24
+    assert Path(paths["markdown"]).read_text(encoding="utf-8").startswith("# Tool Contract Summary")
+
+
 def test_analyze_ablation_packet_labels_visual_stepwise_failures(tmp_path: Path) -> None:
     run_dir = tmp_path / "system_no_deterministic_visual_follow_on__replayable_core"
     run_dir.mkdir()
@@ -274,11 +317,21 @@ def _write_packet_run(
     raw_clean: float = 1.0,
     notes: list[str] | None = None,
     failed: bool = False,
+    controls: dict[str, bool] | None = None,
+    tool_turn_directive_enabled: bool = True,
 ) -> None:
     run_dir = packet_dir / f"{system_id}__live_web_stress"
     run_dir.mkdir(parents=True)
     (run_dir / "manifest.json").write_text(
-        json.dumps({"system_id": system_id, "lane": "live_web_stress"}) + "\n",
+        json.dumps(
+            {
+                "system_id": system_id,
+                "lane": "live_web_stress",
+                "research_controls": controls or {},
+                "runtime_bundle": {"reasoner": {"tool_turn_directive_enabled": tool_turn_directive_enabled}},
+            }
+        )
+        + "\n",
         encoding="utf-8",
     )
     (run_dir / "summary.json").write_text(

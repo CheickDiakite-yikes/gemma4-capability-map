@@ -20,6 +20,9 @@ SYSTEM_DELTA_FIELDS = [
     "raw_planning_clean_rate_avg",
 ]
 
+DEFAULT_TOOL_CONTRACT_SYSTEM_ID = "mlx_gemma4_e2b_reasoner_only"
+DEFAULT_NO_DIRECTIVE_SYSTEM_ID = "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive"
+
 
 def analyze_ablation_packet(packet_dir: str | Path) -> dict[str, Any]:
     root = Path(packet_dir)
@@ -215,6 +218,88 @@ def write_packet_comparison(
     }
 
 
+def summarize_tool_contract_packet(
+    packet_dir: str | Path,
+    *,
+    contracted_system_id: str = DEFAULT_TOOL_CONTRACT_SYSTEM_ID,
+    no_directive_system_id: str = DEFAULT_NO_DIRECTIVE_SYSTEM_ID,
+) -> dict[str, Any]:
+    root = Path(packet_dir)
+    rows = _load_packet_system_rows(root)
+    by_system = {str(row["system_id"]): row for row in rows}
+    contracted = by_system.get(contracted_system_id)
+    no_directive = by_system.get(no_directive_system_id)
+    if contracted is None:
+        raise ValueError(f"Contracted system `{contracted_system_id}` not found in {root}.")
+    if no_directive is None:
+        raise ValueError(f"No-directive system `{no_directive_system_id}` not found in {root}.")
+
+    delta_rows = []
+    for row in rows:
+        delta_row = {
+            "system_id": row["system_id"],
+            "lane": row["lane"],
+            "disabled_controls": row["disabled_controls"],
+            "tool_turn_directive_enabled": row["tool_turn_directive_enabled"],
+        }
+        for field in SYSTEM_DELTA_FIELDS:
+            value = _float(row.get(field))
+            delta_row[field] = value
+            delta_row[f"delta_vs_contracted_{field}"] = _delta(value, _float(contracted.get(field)))
+            delta_row[f"delta_vs_no_directive_{field}"] = _delta(value, _float(no_directive.get(field)))
+        delta_rows.append(delta_row)
+
+    findings = {
+        "contracted_system_id": contracted_system_id,
+        "no_directive_system_id": no_directive_system_id,
+        "contracted_readiness": _float(contracted.get("real_world_readiness_avg")),
+        "no_directive_readiness": _float(no_directive.get("real_world_readiness_avg")),
+        "no_directive_controller_repair": _float(no_directive.get("controller_repair_avg")),
+        "no_directive_controller_fallback": _float(no_directive.get("controller_fallback_avg")),
+        "no_directive_argument_repair": _float(no_directive.get("argument_repair_avg")),
+        "no_directive_raw_planning_clean_rate": _float(no_directive.get("raw_planning_clean_rate_avg")),
+    }
+    findings["readiness_delta_no_directive_vs_contracted"] = _delta(
+        findings["no_directive_readiness"],
+        findings["contracted_readiness"],
+    )
+    return {
+        "packet_dir": str(root.resolve()),
+        "system_count": len(rows),
+        "findings": findings,
+        "system_rows": rows,
+        "delta_rows": delta_rows,
+    }
+
+
+def write_tool_contract_summary(
+    packet_dir: str | Path,
+    output_dir: str | Path | None = None,
+    *,
+    contracted_system_id: str = DEFAULT_TOOL_CONTRACT_SYSTEM_ID,
+    no_directive_system_id: str = DEFAULT_NO_DIRECTIVE_SYSTEM_ID,
+) -> dict[str, str]:
+    summary = summarize_tool_contract_packet(
+        packet_dir,
+        contracted_system_id=contracted_system_id,
+        no_directive_system_id=no_directive_system_id,
+    )
+    target = Path(output_dir) if output_dir else Path(packet_dir)
+    target.mkdir(parents=True, exist_ok=True)
+
+    summary_path = target / "tool_contract_summary.json"
+    csv_path = target / "tool_contract_system_deltas.csv"
+    markdown_path = target / "tool_contract_summary.md"
+    summary_path.write_text(json.dumps(summary, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    _write_csv(csv_path, summary["delta_rows"])
+    markdown_path.write_text(_tool_contract_markdown(summary), encoding="utf-8")
+    return {
+        "summary": str(summary_path.resolve()),
+        "system_deltas": str(csv_path.resolve()),
+        "markdown": str(markdown_path.resolve()),
+    }
+
+
 def write_trace_analysis(packet_dir: str | Path, output_dir: str | Path | None = None) -> dict[str, str]:
     analysis = analyze_ablation_packet(packet_dir)
     target = Path(output_dir) if output_dir else Path(packet_dir)
@@ -235,6 +320,55 @@ def write_trace_analysis(packet_dir: str | Path, output_dir: str | Path | None =
         "failures": str(failures_path.resolve()),
         "failure_modes": str(failure_modes_path.resolve()),
     }
+
+
+def _load_packet_system_rows(root: Path) -> list[dict[str, Any]]:
+    rows = []
+    for run_dir in sorted(root.iterdir()):
+        summary_path = run_dir / "summary.json"
+        manifest_path = run_dir / "manifest.json"
+        if not summary_path.exists() or not manifest_path.exists():
+            continue
+        summary = json.loads(summary_path.read_text(encoding="utf-8"))
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        system_id = str(manifest.get("system_id") or run_dir.name.rsplit("__", 1)[0])
+        controls = manifest.get("research_controls", {}) or {}
+        runtime_reasoner = (manifest.get("runtime_bundle", {}) or {}).get("reasoner", {}) or {}
+        row = _system_summary(system_id, str(manifest.get("lane") or summary.get("lane") or ""), summary, run_dir)
+        row["disabled_controls"] = ";".join(sorted(key for key, value in controls.items() if value))
+        row["tool_turn_directive_enabled"] = bool(runtime_reasoner.get("tool_turn_directive_enabled", True))
+        rows.append(row)
+    return rows
+
+
+def _tool_contract_markdown(summary: dict[str, Any]) -> str:
+    findings = summary["findings"]
+    lines = [
+        "# Tool Contract Summary",
+        "",
+        f"- Contracted readiness: {findings['contracted_readiness']:.5f}",
+        f"- No-directive readiness: {findings['no_directive_readiness']:.5f}",
+        f"- No-directive controller repair/fallback/argument repair: {findings['no_directive_controller_repair']:.2f} / {findings['no_directive_controller_fallback']:.2f} / {findings['no_directive_argument_repair']:.2f}",
+        f"- No-directive raw planning clean rate: {findings['no_directive_raw_planning_clean_rate']:.2f}",
+        "",
+        "| system_id | controls | readiness | strict | recovered | repair | fallback | arg repair | raw clean |",
+        "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
+    ]
+    for row in summary["delta_rows"]:
+        lines.append(
+            "| {system_id} | {controls} | {readiness:.5f} | {strict:.3f} | {recovered:.3f} | {repair:.2f} | {fallback:.2f} | {arg_repair:.2f} | {raw_clean:.2f} |".format(
+                system_id=row["system_id"],
+                controls=row["disabled_controls"] or "none",
+                readiness=_float(row.get("real_world_readiness_avg")),
+                strict=_float(row.get("strict_interface_avg")),
+                recovered=_float(row.get("recovered_execution_avg")),
+                repair=_float(row.get("controller_repair_avg")),
+                fallback=_float(row.get("controller_fallback_avg")),
+                arg_repair=_float(row.get("argument_repair_avg")),
+                raw_clean=_float(row.get("raw_planning_clean_rate_avg")),
+            )
+        )
+    return "\n".join(lines) + "\n"
 
 
 def _counter_delta_rows(
