@@ -179,6 +179,8 @@ Current H1 replayable output:
   - [`results/knowledge_work_h1_slice/20260506T_h1_hf_service_prompt_patch_ablation_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_prompt_patch_ablation_v1_knowledge_work_ablation_packet)
 - HF service-backed ablation after concrete FunctionGemma hints:
   - [`results/knowledge_work_h1_slice/20260506T_h1_hf_service_concrete_hint_ablation_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_concrete_hint_ablation_v1_knowledge_work_ablation_packet)
+- HF service-backed ablation after visual filter repair:
+  - [`results/knowledge_work_h1_slice/20260506T_h1_hf_service_visual_filter_repair_ablation_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_visual_filter_repair_ablation_v1_knowledge_work_ablation_packet)
 - Visual sequencing canary:
   - [`results/knowledge_work_h1_slice/20260506T_h1_visual_sequence_hint_canary_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_visual_sequence_hint_canary_v1_knowledge_work_ablation_packet)
 - Visual filter repair canary:
@@ -211,6 +213,15 @@ H1 ablation result after concrete FunctionGemma hints:
 - `no_intent_priority = 0.9749800000000001`
 - `no_argument_repair = 0.9749800000000001`
 - `no_deterministic_visual_follow_on = 0.88748`
+
+H1 ablation result after visual filter repair:
+
+- `no_controller_repair = 0.8874599999999999`
+- `no_controller_fallback = 0.9749800000000001`
+- `no_visual_rescue = 0.9749800000000001`
+- `no_intent_priority = 0.9749800000000001`
+- `no_argument_repair = 0.9749800000000001`
+- `no_deterministic_visual_follow_on = 0.9749800000000001`
 
 Visual sequencing canary on the three visual H1 replayable episodes:
 
@@ -248,8 +259,10 @@ Interpretation:
 - H1 still breaks HF Gemma when controller repair is disabled, even when raw syntax is mostly clean
 - the concrete FunctionGemma hint removed the prior placeholder/fallback artifact from the baseline
 - accepting valid-but-stale visual `refine_selection` filters was a real controller bug; repairing repeated filters to the pending visual filter restored the no-deterministic-follow-on mini-row to full recovery
-- visual rescue, intent priority, and argument repair still do not move top-line readiness on the full H1 slice before the filter-repair rerun
-- the remaining research seam is now visual sequence semantics and readback completion under disabled repair, not generic placeholder syntax
+- the full filter-repair rerun restored `no_deterministic_visual_follow_on` to baseline top-line readiness, but that row remains repair-heavy
+- visual rescue, intent priority, argument repair, controller fallback, and deterministic visual follow-on no longer move top-line readiness on the current full H1 slice
+- the only remaining top-line causal helper on H1 is controller repair
+- the remaining research seam is now valid-but-semantically-wrong visual chains under disabled repair, especially repeated refinements that fail to complete readback
 
 Trace-note analysis:
 
@@ -259,6 +272,11 @@ Trace-note analysis:
 - visual filter repair canary:
   - [`trace_note_summary.json`](../../results/knowledge_work_h1_slice/20260506T_h1_visual_filter_repair_canary_v1_knowledge_work_ablation_packet/trace_note_summary.json)
   - [`trace_note_counts.csv`](../../results/knowledge_work_h1_slice/20260506T_h1_visual_filter_repair_canary_v1_knowledge_work_ablation_packet/trace_note_counts.csv)
+- visual filter repair full rerun:
+  - [`trace_note_summary.json`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_visual_filter_repair_ablation_v1_knowledge_work_ablation_packet/trace_note_summary.json)
+  - [`trace_note_counts.csv`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_visual_filter_repair_ablation_v1_knowledge_work_ablation_packet/trace_note_counts.csv)
+  - [`trace_episode_failures.csv`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_visual_filter_repair_ablation_v1_knowledge_work_ablation_packet/trace_episode_failures.csv)
+  - [`trace_failure_mode_counts.csv`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_visual_filter_repair_ablation_v1_knowledge_work_ablation_packet/trace_failure_mode_counts.csv)
 
 Current trace read:
 
@@ -271,6 +289,12 @@ Current trace read:
   - `5` controller-note events across `3` episode rows
   - `0` strict/recovered failure candidates
   - residual notes are `repaired_arguments:refine_selection`, `visual_stepwise_prior`, and one `controller_fallback_planner` on the visual dashboard episode
+- visual filter repair full rerun:
+  - `35` controller-note events across `35` H1 episode rows
+  - `3` strict/recovered failure candidates
+  - all failure candidates are in `hf_service_gemma4_specialists_cpu_no_controller_repair`
+  - aggregate failure modes: `repair_disabled = 3`, `visual_readback_missing = 2`, `visual_repeated_refinement = 2`, `visual_stepwise_control = 2`
+  - `no_deterministic_visual_follow_on` has `0` failure candidates after the pending-filter semantic repair
 
 FunctionGemma prompt canary:
 
@@ -309,6 +333,20 @@ Full H1 ablation after the concrete hint:
 - aggregate failure modes after the richer visual taxonomy: `visual_readback_missing = 6`, `visual_stepwise_control = 6`, `fallback_planner = 4`, `argument_repair = 3`, `raw_refusal = 3`, `repair_disabled = 3`, `visual_follow_on = 3`, `visual_repeated_refinement = 3`
 - interpretation: fallback causality on H1 was prompt-artifact-heavy; repair causality now concentrates in stepwise visual control and future-state visual follow-ons
 
+Full H1 ablation after visual filter repair:
+
+- output: [`results/knowledge_work_h1_slice/20260506T_h1_hf_service_visual_filter_repair_ablation_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_visual_filter_repair_ablation_v1_knowledge_work_ablation_packet)
+- baseline `hf_service_gemma4_specialists_cpu`: readiness `0.9749800000000001`, strict/recovered `1.0 / 1.0`, repair `0.0`, fallback `0.0`, raw clean `1.0`
+- `no_controller_repair`: readiness `0.8874599999999999`, strict/recovered `0.775 / 0.7`, repair `0.1`, fallback `0.1`, raw clean `0.975`
+- `no_controller_fallback`: unchanged at readiness `0.9749800000000001`
+- `no_visual_rescue`: unchanged at readiness `0.9749800000000001`
+- `no_intent_priority`: unchanged at readiness `0.9749800000000001`
+- `no_argument_repair`: unchanged at readiness `0.9749800000000001`
+- `no_deterministic_visual_follow_on`: restored to readiness `0.9749800000000001`, strict/recovered `1.0 / 1.0`, with repair `0.6`, argument repair `0.3`, fallback `0.1`, and raw clean `0.845`
+- trace miner found `35` controller-note events and `3` failure candidates
+- all remaining failure candidates are in `no_controller_repair`; the disabled-repair row is accepting valid calls that are semantically stale for the visual readback sequence
+- interpretation: deterministic visual follow-on is not top-line causal after the pending-filter repair, but it still reduces controller burden; controller repair is the remaining top-line causal helper on H1
+
 ## Strongest Current Findings
 
 1. Top-line parity is now established on the aligned `32 / 26` surface.
@@ -329,7 +367,7 @@ The remaining gap is: how much controller help still remains after the obvious v
 There is now a real runtime/session substrate, and the active live-testing surface is shifting to a sandboxed CLI operator harness over that same substrate.
 
 6. H1 is now the best local instrument for controller-dependence work.
-It keeps packaged workflow attribution while exposing the causal impact of repair and fallback on HF Gemma.
+It keeps packaged workflow attribution while exposing the causal impact of repair on HF Gemma. After the visual-filter repair rerun, fallback is not top-line causal on the current H1 slice.
 
 ## Current Blockers
 

@@ -2274,6 +2274,14 @@
   - [`20260506T_h1_visual_filter_repair_canary_v1`](../results/knowledge_work_h1_slice/20260506T_h1_visual_filter_repair_canary_v1_knowledge_work_ablation_packet) restored the `no_deterministic_visual_follow_on` mini-row to `strict_interface_avg = 1.0`, `recovered_execution_avg = 1.0`, and `failure_candidate_count = 0`
   - the causal bug was accepting valid `refine_selection` calls whose `filter_query` repeated an already-completed visual filter; the controller now treats the pending visual filter as a semantic argument precondition
   - this does not solve `no_controller_repair`: that row still measures real model-side dependence because disabled repair accepts the valid-but-wrong refinements as-is
+- The full H1 visual-filter-repair ablation converted the canary result into the current authoritative H1 controller snapshot:
+  - [`20260506T_h1_hf_service_visual_filter_repair_ablation_v1`](../results/knowledge_work_h1_slice/20260506T_h1_hf_service_visual_filter_repair_ablation_v1_knowledge_work_ablation_packet) completed `7` systems across `35` replayable H1 episode rows
+  - baseline specialists stayed clean: `real_world_readiness_avg = 0.9749800000000001`, `strict_interface_avg = 1.0`, `recovered_execution_avg = 1.0`, `controller_repair_avg = 0.0`, `controller_fallback_avg = 0.0`, `raw_planning_clean_rate_avg = 1.0`
+  - `no_deterministic_visual_follow_on` returned to baseline top-line readiness after the pending-filter repair, but remained controller-heavy: `controller_repair_avg = 0.6`, `argument_repair_avg = 0.3`, `controller_fallback_avg = 0.1`, `raw_planning_clean_rate_avg = 0.845`
+  - all rows except `no_controller_repair` now match baseline on readiness, strict interface, and recovered execution
+  - `no_controller_repair` remains the only top-line causal helper: `real_world_readiness_avg = 0.8874599999999999`, `strict_interface_avg = 0.775`, `recovered_execution_avg = 0.7`, while raw syntax is mostly clean at `0.975`
+  - trace mining found only `3` failure candidates, all in `no_controller_repair`, with residual modes `repair_disabled`, `visual_readback_missing`, `visual_repeated_refinement`, and `visual_stepwise_control`
+  - the next useful target is therefore model-side or contract-side visual sequence semantics, not visual rescue, generic fallback, or placeholder repair
 
 ### Verification
 

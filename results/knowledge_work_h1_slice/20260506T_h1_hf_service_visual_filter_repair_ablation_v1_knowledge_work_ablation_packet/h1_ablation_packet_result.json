@@ -1,0 +1,523 @@
+{
+  "returncode": 0,
+  "stdout": "{\n  \"run_group_id\": \"20260506T_h1_hf_service_visual_filter_repair_ablation_v1\",\n  \"systems\": 7,\n  \"episodes\": 5,\n  \"output_dir\": \"/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1_hf_service_visual_filter_repair_ablation_v1_knowledge_work_ablation_packet\"\n}\n",
+  "stderr": "\nLoading weights:   0%|          | 0/236 [00:00<?, ?it/s]\nLoading weights: 100%|██████████| 236/236 [00:00<00:00, 6504.55it/s]\n\nLoading weights:   0%|          | 0/314 [00:00<?, ?it/s]\nLoading weights: 100%|██████████| 314/314 [00:00<00:00, 6264.71it/s]\nThe following generation flags are not valid and may be ignored: ['top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.\n",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1_hf_service_visual_filter_repair_ablation_v1_knowledge_work_ablation_packet",
+  "results": [
+    {
+      "system_id": "hf_service_gemma4_specialists_cpu",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1_hf_service_visual_filter_repair_ablation_v1_knowledge_work_ablation_packet/hf_service_gemma4_specialists_cpu__replayable_core",
+      "summary": {
+        "runs": 5.0,
+        "artifact_quality_avg": 0.9277799999999999,
+        "browser_workflow_avg": 0.9800000000000001,
+        "strict_interface_avg": 1.0,
+        "recovered_execution_avg": 1.0,
+        "real_world_readiness_avg": 0.9749800000000001,
+        "escalation_correctness_avg": 1.0,
+        "controller_repair_avg": 0.0,
+        "argument_repair_avg": 0.0,
+        "controller_fallback_avg": 0.0,
+        "intent_override_avg": 0.0,
+        "raw_planning_clean_rate_avg": 1.0,
+        "lane": "replayable_core",
+        "created_at": "20260506T201524Z",
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1_hf_service_visual_filter_repair_ablation_v1_knowledge_work_ablation_packet/hf_service_gemma4_specialists_cpu__replayable_core",
+        "episode_ids": [
+          "kwa_exec_visual_dashboard_brief",
+          "kwa_exec_backlog_resume_hold_v5",
+          "kwa_jobs_email_block_resume_hold_v5",
+          "kwa_finance_diff_review_hold_v5",
+          "kwa_finance_invoice_lock_direction_hold_v4"
+        ]
+      }
+    },
+    {
+      "system_id": "hf_service_gemma4_specialists_cpu_no_controller_repair",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1_hf_service_visual_filter_repair_ablation_v1_knowledge_work_ablation_packet/hf_service_gemma4_specialists_cpu_no_controller_repair__replayable_core",
+      "summary": {
+        "runs": 5.0,
+        "artifact_quality_avg": 0.9277799999999999,
+        "browser_workflow_avg": 0.9800000000000001,
+        "strict_interface_avg": 0.775,
+        "recovered_execution_avg": 0.7,
+        "real_world_readiness_avg": 0.8874599999999999,
+        "escalation_correctness_avg": 1.0,
+        "controller_repair_avg": 0.1,
+        "argument_repair_avg": 0.0,
+        "controller_fallback_avg": 0.1,
+        "intent_override_avg": 0.0,
+        "raw_planning_clean_rate_avg": 0.975,
+        "lane": "replayable_core",
+        "created_at": "20260506T201829Z",
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1_hf_service_visual_filter_repair_ablation_v1_knowledge_work_ablation_packet/hf_service_gemma4_specialists_cpu_no_controller_repair__replayable_core",
+        "episode_ids": [
+          "kwa_exec_visual_dashboard_brief",
+          "kwa_exec_backlog_resume_hold_v5",
+          "kwa_jobs_email_block_resume_hold_v5",
+          "kwa_finance_diff_review_hold_v5",
+          "kwa_finance_invoice_lock_direction_hold_v4"
+        ]
+      }
+    },
+    {
+      "system_id": "hf_service_gemma4_specialists_cpu_no_controller_fallback",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1_hf_service_visual_filter_repair_ablation_v1_knowledge_work_ablation_packet/hf_service_gemma4_specialists_cpu_no_controller_fallback__replayable_core",
+      "summary": {
+        "runs": 5.0,
+        "artifact_quality_avg": 0.9277799999999999,
+        "browser_workflow_avg": 0.9800000000000001,
+        "strict_interface_avg": 1.0,
+        "recovered_execution_avg": 1.0,
+        "real_world_readiness_avg": 0.9749800000000001,
+        "escalation_correctness_avg": 1.0,
+        "controller_repair_avg": 0.0,
+        "argument_repair_avg": 0.0,
+        "controller_fallback_avg": 0.0,
+        "intent_override_avg": 0.0,
+        "raw_planning_clean_rate_avg": 1.0,
+        "lane": "replayable_core",
+        "created_at": "20260506T202448Z",
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1_hf_service_visual_filter_repair_ablation_v1_knowledge_work_ablation_packet/hf_service_gemma4_specialists_cpu_no_controller_fallback__replayable_core",
+        "episode_ids": [
+          "kwa_exec_visual_dashboard_brief",
+          "kwa_exec_backlog_resume_hold_v5",
+          "kwa_jobs_email_block_resume_hold_v5",
+          "kwa_finance_diff_review_hold_v5",
+          "kwa_finance_invoice_lock_direction_hold_v4"
+        ]
+      }
+    },
+    {
+      "system_id": "hf_service_gemma4_specialists_cpu_no_visual_rescue",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1_hf_service_visual_filter_repair_ablation_v1_knowledge_work_ablation_packet/hf_service_gemma4_specialists_cpu_no_visual_rescue__replayable_core",
+      "summary": {
+        "runs": 5.0,
+        "artifact_quality_avg": 0.9277799999999999,
+        "browser_workflow_avg": 0.9800000000000001,
+        "strict_interface_avg": 1.0,
+        "recovered_execution_avg": 1.0,
+        "real_world_readiness_avg": 0.9749800000000001,
+        "escalation_correctness_avg": 1.0,
+        "controller_repair_avg": 0.0,
+        "argument_repair_avg": 0.0,
+        "controller_fallback_avg": 0.0,
+        "intent_override_avg": 0.0,
+        "raw_planning_clean_rate_avg": 1.0,
+        "lane": "replayable_core",
+        "created_at": "20260506T202615Z",
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1_hf_service_visual_filter_repair_ablation_v1_knowledge_work_ablation_packet/hf_service_gemma4_specialists_cpu_no_visual_rescue__replayable_core",
+        "episode_ids": [
+          "kwa_exec_visual_dashboard_brief",
+          "kwa_exec_backlog_resume_hold_v5",
+          "kwa_jobs_email_block_resume_hold_v5",
+          "kwa_finance_diff_review_hold_v5",
+          "kwa_finance_invoice_lock_direction_hold_v4"
+        ]
+      }
+    },
+    {
+      "system_id": "hf_service_gemma4_specialists_cpu_no_intent_priority",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1_hf_service_visual_filter_repair_ablation_v1_knowledge_work_ablation_packet/hf_service_gemma4_specialists_cpu_no_intent_priority__replayable_core",
+      "summary": {
+        "runs": 5.0,
+        "artifact_quality_avg": 0.9277799999999999,
+        "browser_workflow_avg": 0.9800000000000001,
+        "strict_interface_avg": 1.0,
+        "recovered_execution_avg": 1.0,
+        "real_world_readiness_avg": 0.9749800000000001,
+        "escalation_correctness_avg": 1.0,
+        "controller_repair_avg": 0.0,
+        "argument_repair_avg": 0.0,
+        "controller_fallback_avg": 0.0,
+        "intent_override_avg": 0.0,
+        "raw_planning_clean_rate_avg": 1.0,
+        "lane": "replayable_core",
+        "created_at": "20260506T202805Z",
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1_hf_service_visual_filter_repair_ablation_v1_knowledge_work_ablation_packet/hf_service_gemma4_specialists_cpu_no_intent_priority__replayable_core",
+        "episode_ids": [
+          "kwa_exec_visual_dashboard_brief",
+          "kwa_exec_backlog_resume_hold_v5",
+          "kwa_jobs_email_block_resume_hold_v5",
+          "kwa_finance_diff_review_hold_v5",
+          "kwa_finance_invoice_lock_direction_hold_v4"
+        ]
+      }
+    },
+    {
+      "system_id": "hf_service_gemma4_specialists_cpu_no_argument_repair",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1_hf_service_visual_filter_repair_ablation_v1_knowledge_work_ablation_packet/hf_service_gemma4_specialists_cpu_no_argument_repair__replayable_core",
+      "summary": {
+        "runs": 5.0,
+        "artifact_quality_avg": 0.9277799999999999,
+        "browser_workflow_avg": 0.9800000000000001,
+        "strict_interface_avg": 1.0,
+        "recovered_execution_avg": 1.0,
+        "real_world_readiness_avg": 0.9749800000000001,
+        "escalation_correctness_avg": 1.0,
+        "controller_repair_avg": 0.0,
+        "argument_repair_avg": 0.0,
+        "controller_fallback_avg": 0.0,
+        "intent_override_avg": 0.0,
+        "raw_planning_clean_rate_avg": 1.0,
+        "lane": "replayable_core",
+        "created_at": "20260506T202931Z",
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1_hf_service_visual_filter_repair_ablation_v1_knowledge_work_ablation_packet/hf_service_gemma4_specialists_cpu_no_argument_repair__replayable_core",
+        "episode_ids": [
+          "kwa_exec_visual_dashboard_brief",
+          "kwa_exec_backlog_resume_hold_v5",
+          "kwa_jobs_email_block_resume_hold_v5",
+          "kwa_finance_diff_review_hold_v5",
+          "kwa_finance_invoice_lock_direction_hold_v4"
+        ]
+      }
+    },
+    {
+      "system_id": "hf_service_gemma4_specialists_cpu_no_deterministic_visual_follow_on",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1_hf_service_visual_filter_repair_ablation_v1_knowledge_work_ablation_packet/hf_service_gemma4_specialists_cpu_no_deterministic_visual_follow_on__replayable_core",
+      "summary": {
+        "runs": 5.0,
+        "artifact_quality_avg": 0.9277799999999999,
+        "browser_workflow_avg": 0.9800000000000001,
+        "strict_interface_avg": 1.0,
+        "recovered_execution_avg": 1.0,
+        "real_world_readiness_avg": 0.9749800000000001,
+        "escalation_correctness_avg": 1.0,
+        "controller_repair_avg": 0.6,
+        "argument_repair_avg": 0.3,
+        "controller_fallback_avg": 0.1,
+        "intent_override_avg": 0.0,
+        "raw_planning_clean_rate_avg": 0.845,
+        "lane": "replayable_core",
+        "created_at": "20260506T203100Z",
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1_hf_service_visual_filter_repair_ablation_v1_knowledge_work_ablation_packet/hf_service_gemma4_specialists_cpu_no_deterministic_visual_follow_on__replayable_core",
+        "episode_ids": [
+          "kwa_exec_visual_dashboard_brief",
+          "kwa_exec_backlog_resume_hold_v5",
+          "kwa_jobs_email_block_resume_hold_v5",
+          "kwa_finance_diff_review_hold_v5",
+          "kwa_finance_invoice_lock_direction_hold_v4"
+        ]
+      }
+    }
+  ],
+  "manifest": {
+    "run_group_id": "20260506T_h1_hf_service_visual_filter_repair_ablation_v1",
+    "created_at": "2026-05-06T20:15:24.861446+00:00",
+    "lane": "replayable_core",
+    "bundle_system_id": "hf_service_gemma4_specialists_cpu",
+    "system_ids": [
+      "hf_service_gemma4_specialists_cpu",
+      "hf_service_gemma4_specialists_cpu_no_controller_repair",
+      "hf_service_gemma4_specialists_cpu_no_controller_fallback",
+      "hf_service_gemma4_specialists_cpu_no_visual_rescue",
+      "hf_service_gemma4_specialists_cpu_no_intent_priority",
+      "hf_service_gemma4_specialists_cpu_no_argument_repair",
+      "hf_service_gemma4_specialists_cpu_no_deterministic_visual_follow_on"
+    ],
+    "episode_ids": [
+      "kwa_exec_visual_dashboard_brief",
+      "kwa_exec_backlog_resume_hold_v5",
+      "kwa_jobs_email_block_resume_hold_v5",
+      "kwa_finance_diff_review_hold_v5",
+      "kwa_finance_invoice_lock_direction_hold_v4"
+    ],
+    "run_intent": "exploratory",
+    "warmup": {
+      "reasoner": {
+        "backend": "hf_service",
+        "runtime_posture": "hf_service",
+        "requested_model": "google/gemma-4-E2B-it",
+        "effective_model": "google/gemma-4-E2B-it",
+        "model_source": "google/gemma-4-E2B-it",
+        "model_format": "hf",
+        "runtime_device": "mps",
+        "load_mode": "vision",
+        "configured_device": "auto",
+        "request_timeout_seconds": 600.0,
+        "service": {
+          "service_id": "google__gemma_4_E2B_it_auto",
+          "socket_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_auto/service.sock",
+          "state_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_auto/state.json",
+          "event_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_auto/events.jsonl",
+          "request_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_auto/requests.jsonl",
+          "stdout_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_auto/service.log",
+          "status": "ready",
+          "load_elapsed_ms": 871479,
+          "requests_completed": 270
+        },
+        "partial_runtime": false,
+        "llama_cpp_error": null,
+        "llama_cpp_context_window": null
+      },
+      "router": {
+        "backend": "hf",
+        "requested_model": "google/functiongemma-270m-it",
+        "effective_model": "google/functiongemma-270m-it",
+        "runtime_device": "cpu",
+        "configured_device": "cpu"
+      },
+      "retriever": {
+        "backend": "hf",
+        "requested_model": "google/embeddinggemma-300m",
+        "effective_model": "google/embeddinggemma-300m",
+        "loaded": true,
+        "configured_device": "cpu",
+        "runtime_device": "cpu"
+      }
+    },
+    "runtime_bundle": {
+      "reasoner": {
+        "backend": "hf_service",
+        "runtime_posture": "hf_service",
+        "requested_model": "google/gemma-4-E2B-it",
+        "effective_model": "google/gemma-4-E2B-it",
+        "model_source": "google/gemma-4-E2B-it",
+        "model_format": "hf",
+        "runtime_device": "mps",
+        "load_mode": "vision",
+        "configured_device": "auto",
+        "request_timeout_seconds": 600.0,
+        "service": {
+          "service_id": "google__gemma_4_E2B_it_auto",
+          "socket_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_auto/service.sock",
+          "state_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_auto/state.json",
+          "event_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_auto/events.jsonl",
+          "request_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_auto/requests.jsonl",
+          "stdout_log_path": "/Users/cheickdiakite/Codex/moonie/results/runtime/hf_reasoner/google__gemma_4_E2B_it_auto/service.log",
+          "status": "ready",
+          "load_elapsed_ms": 871479,
+          "requests_completed": 270
+        },
+        "partial_runtime": false,
+        "llama_cpp_error": null,
+        "llama_cpp_context_window": null,
+        "service_state": {
+          "service_id": "google__gemma_4_E2B_it_auto",
+          "model_id": "google/gemma-4-E2B-it",
+          "device": "auto",
+          "max_new_tokens": 96,
+          "pid": 98287,
+          "status": "ready",
+          "phase": "request_completed",
+          "created_at": "2026-05-06T18:21:11.946662+00:00",
+          "requests_completed": 270,
+          "requests_failed": 0,
+          "recent_events": [
+            {
+              "created_at": "2026-05-06T20:10:19.782929+00:00",
+              "event": "request_started",
+              "detail": "HF reasoner service started a generation request.",
+              "request_id": "google__gemma_4_E2B_it_auto_1778098219782",
+              "message_count": 3,
+              "media_count": 0,
+              "tool_spec_count": 0,
+              "thinking": false,
+              "max_new_tokens": 96
+            },
+            {
+              "created_at": "2026-05-06T20:10:19.783117+00:00",
+              "event": "hf_import_start",
+              "detail": "Importing HF runtime dependencies."
+            },
+            {
+              "created_at": "2026-05-06T20:10:19.783302+00:00",
+              "event": "hf_import_complete",
+              "detail": "Imported HF runtime dependencies."
+            },
+            {
+              "created_at": "2026-05-06T20:10:19.783432+00:00",
+              "event": "hf_load_cached",
+              "detail": "Reusing already loaded HF model.",
+              "model_mode": "vision"
+            },
+            {
+              "created_at": "2026-05-06T20:10:20.713245+00:00",
+              "event": "request_completed",
+              "detail": "HF reasoner service completed a generation request.",
+              "request_id": "google__gemma_4_E2B_it_auto_1778098219782",
+              "elapsed_ms": 930
+            },
+            {
+              "created_at": "2026-05-06T20:10:23.300738+00:00",
+              "event": "request_started",
+              "detail": "HF reasoner service started a generation request.",
+              "request_id": "google__gemma_4_E2B_it_auto_1778098223300",
+              "message_count": 3,
+              "media_count": 0,
+              "tool_spec_count": 0,
+              "thinking": false,
+              "max_new_tokens": 96
+            },
+            {
+              "created_at": "2026-05-06T20:10:23.300916+00:00",
+              "event": "hf_import_start",
+              "detail": "Importing HF runtime dependencies."
+            },
+            {
+              "created_at": "2026-05-06T20:10:23.301048+00:00",
+              "event": "hf_import_complete",
+              "detail": "Imported HF runtime dependencies."
+            },
+            {
+              "created_at": "2026-05-06T20:10:23.301406+00:00",
+              "event": "hf_load_cached",
+              "detail": "Reusing already loaded HF model.",
+              "model_mode": "vision"
+            },
+            {
+              "created_at": "2026-05-06T20:10:25.577435+00:00",
+              "event": "request_completed",
+              "detail": "HF reasoner service completed a generation request.",
+              "request_id": "google__gemma_4_E2B_it_auto_1778098223300",
+              "elapsed_ms": 2276
+            },
+            {
+              "created_at": "2026-05-06T20:11:02.318733+00:00",
+              "event": "request_started",
+              "detail": "HF reasoner service started a generation request.",
+              "request_id": "google__gemma_4_E2B_it_auto_1778098262318",
+              "message_count": 8,
+              "media_count": 1,
+              "tool_spec_count": 0,
+              "thinking": false,
+              "max_new_tokens": 96
+            },
+            {
+              "created_at": "2026-05-06T20:11:02.319665+00:00",
+              "event": "hf_import_start",
+              "detail": "Importing HF runtime dependencies."
+            },
+            {
+              "created_at": "2026-05-06T20:11:02.319855+00:00",
+              "event": "hf_import_complete",
+              "detail": "Imported HF runtime dependencies."
+            },
+            {
+              "created_at": "2026-05-06T20:11:02.319989+00:00",
+              "event": "hf_load_cached",
+              "detail": "Reusing already loaded HF model.",
+              "model_mode": "vision"
+            },
+            {
+              "created_at": "2026-05-06T20:11:08.766100+00:00",
+              "event": "request_completed",
+              "detail": "HF reasoner service completed a generation request.",
+              "request_id": "google__gemma_4_E2B_it_auto_1778098262318",
+              "elapsed_ms": 6446
+            },
+            {
+              "created_at": "2026-05-06T20:11:11.272641+00:00",
+              "event": "request_started",
+              "detail": "HF reasoner service started a generation request.",
+              "request_id": "google__gemma_4_E2B_it_auto_1778098271272",
+              "message_count": 3,
+              "media_count": 0,
+              "tool_spec_count": 0,
+              "thinking": false,
+              "max_new_tokens": 96
+            },
+            {
+              "created_at": "2026-05-06T20:11:11.273068+00:00",
+              "event": "hf_import_start",
+              "detail": "Importing HF runtime dependencies."
+            },
+            {
+              "created_at": "2026-05-06T20:11:11.273258+00:00",
+              "event": "hf_import_complete",
+              "detail": "Imported HF runtime dependencies."
+            },
+            {
+              "created_at": "2026-05-06T20:11:11.273384+00:00",
+              "event": "hf_load_cached",
+              "detail": "Reusing already loaded HF model.",
+              "model_mode": "vision"
+            },
+            {
+              "created_at": "2026-05-06T20:11:13.033046+00:00",
+              "event": "request_completed",
+              "detail": "HF reasoner service completed a generation request.",
+              "request_id": "google__gemma_4_E2B_it_auto_1778098271272",
+              "elapsed_ms": 1760
+            },
+            {
+              "created_at": "2026-05-06T20:11:52.732798+00:00",
+              "event": "request_started",
+              "detail": "HF reasoner service started a generation request.",
+              "request_id": "google__gemma_4_E2B_it_auto_1778098312731",
+              "message_count": 8,
+              "media_count": 1,
+              "tool_spec_count": 0,
+              "thinking": false,
+              "max_new_tokens": 96
+            },
+            {
+              "created_at": "2026-05-06T20:11:52.734417+00:00",
+              "event": "hf_import_start",
+              "detail": "Importing HF runtime dependencies."
+            },
+            {
+              "created_at": "2026-05-06T20:11:52.734987+00:00",
+              "event": "hf_import_complete",
+              "detail": "Imported HF runtime dependencies."
+            },
+            {
+              "created_at": "2026-05-06T20:11:52.735118+00:00",
+              "event": "hf_load_cached",
+              "detail": "Reusing already loaded HF model.",
+              "model_mode": "vision"
+            },
+            {
+              "created_at": "2026-05-06T20:12:02.942408+00:00",
+              "event": "request_completed",
+              "detail": "HF reasoner service completed a generation request.",
+              "request_id": "google__gemma_4_E2B_it_auto_1778098312731",
+              "elapsed_ms": 10210
+            }
+          ],
+          "last_event_at": "2026-05-06T20:12:02.942408+00:00",
+          "heartbeat_at": "2026-05-06T20:12:02.942408+00:00",
+          "load_elapsed_ms": 871479,
+          "ready_at": "2026-05-06T18:35:43.373310+00:00",
+          "runtime_info": {
+            "backend": "hf",
+            "runtime_posture": "hf",
+            "requested_model": "google/gemma-4-E2B-it",
+            "effective_model": "google/gemma-4-E2B-it",
+            "model_source": "google/gemma-4-E2B-it",
+            "model_format": "hf",
+            "runtime_device": "mps",
+            "load_mode": "vision",
+            "configured_device": "auto",
+            "request_timeout_seconds": 600.0,
+            "service": {},
+            "partial_runtime": false,
+            "llama_cpp_error": null,
+            "llama_cpp_context_window": null
+          },
+          "last_request_type": "generate",
+          "last_request_started_at": "2026-05-06T20:11:52.731540+00:00",
+          "active_request": null,
+          "last_request_at": "2026-05-06T20:12:02.941902+00:00",
+          "last_request_id": "google__gemma_4_E2B_it_auto_1778098312731",
+          "last_request_elapsed_ms": 10210
+        }
+      },
+      "router": {
+        "backend": "hf",
+        "requested_model": "google/functiongemma-270m-it",
+        "effective_model": "google/functiongemma-270m-it",
+        "runtime_device": "cpu",
+        "configured_device": "cpu"
+      },
+      "retriever": {
+        "backend": "hf",
+        "requested_model": "google/embeddinggemma-300m",
+        "effective_model": "google/embeddinggemma-300m",
+        "loaded": true,
+        "configured_device": "cpu",
+        "runtime_device": "cpu"
+      }
+    }
+  }
+}
