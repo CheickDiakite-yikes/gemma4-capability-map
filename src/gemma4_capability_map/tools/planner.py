@@ -86,6 +86,7 @@ def tool_turn_directive(messages: list[Message], media: list[str], tool_specs: l
     lines = [
         "Tool directive for this turn:",
         "Return only the exact JSON tool call below and no other text.",
+        "Copy the JSON exactly, including every string value; do not paraphrase target_query, filter_query, path, query, record_type, field, or value.",
         json.dumps(payload, ensure_ascii=False, separators=(",", ":")),
         "Do not copy earlier tool calls from the conversation.",
     ]

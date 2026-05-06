@@ -1157,6 +1157,7 @@ def test_tool_turn_directive_serializes_exact_next_cli_call() -> None:
     )
 
     assert "Return only the exact JSON tool call below and no other text." in directive
+    assert "Copy the JSON exactly, including every string value" in directive
     assert '{"name":"cli_search_logs","arguments":{"path":"logs/billing.log","query":"invoice lock"}}' in directive
     assert "Do not copy earlier tool calls" in directive
 
