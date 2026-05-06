@@ -247,6 +247,16 @@ Design a new slice that stresses:
 - artifact revision after resume
 - long-horizon constraint carryover
 
+Status: `H1 v1` is now defined as a packaged-workflow-first slice.
+
+- config: [`configs/knowledge_work_h1_slice.yaml`](../../configs/knowledge_work_h1_slice.yaml)
+- note: [`docs/continuity/h1-slice.md`](./h1-slice.md)
+- replayable episodes: `5`
+- live episodes: `5`
+- workflow families: executive dashboard review, executive stale brief packet, jobs visual form hold, finance billing patch hold, finance visual invoice review
+
+Next step: add a small runner/validator so H1 can be executed from config without hand-copying episode ids.
+
 ### Phase 6: Second ablation wave
 
 Expand beyond the current three toggles.

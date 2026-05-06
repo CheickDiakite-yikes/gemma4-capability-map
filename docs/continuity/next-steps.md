@@ -22,7 +22,7 @@ Current state:
 
 Next implementation moves:
 
-- define and scaffold the harder `H1` slice that breaks current top-line saturation
+- add the H1 runner/validator over [`configs/knowledge_work_h1_slice.yaml`](../../configs/knowledge_work_h1_slice.yaml)
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1
@@ -72,7 +72,29 @@ Why:
 - the packet still shows the causal helper ranking clearly
 - it is the cheapest clean instrument for Gemma controller research
 
-### 4. Install the local Gemma `31B` `GGUF` artifact and run the first real `llama.cpp` posture row
+### 4. Run H1 before another broad same-surface rerun
+
+Current H1 definition:
+
+- [`configs/knowledge_work_h1_slice.yaml`](../../configs/knowledge_work_h1_slice.yaml)
+- [`docs/continuity/h1-slice.md`](./h1-slice.md)
+
+What it concentrates:
+
+- packaged workflow families only
+- replayable/live mirrors
+- resume and project-memory pressure
+- latest-instruction and stale-override pressure
+- CLI/API/function-call choice
+- approval-safe stop behavior
+- artifact revision after review
+
+Success condition:
+
+- H1 produces a clearer separation than the current saturated aligned `32 / 26` top-line readiness read
+- controller repair, fallback, raw planning cleanliness, and approval-safe stop behavior become the primary comparison fields
+
+### 5. Install the local Gemma `31B` `GGUF` artifact and run the first real `llama.cpp` posture row
 
 Current blocker:
 
@@ -86,7 +108,12 @@ Why it matters:
 
 ## Near Term
 
-### 5. Add Gemini CLI as a design reference and external baseline
+### 6. Add Gemini CLI as a design reference and external baseline
+
+Current state:
+
+- `moonie-agent gemini-baseline` exists as a dry-run-first packaged-workflow adapter
+- `/usr/local/bin/gemini` is detected on this machine
 
 Use Gemini CLI for:
 
@@ -96,7 +123,7 @@ Use Gemini CLI for:
 
 Do not use Gemini CLI as a replacement for Moonie or as proof that local MLX Gemma harnessing is solved.
 
-### 6. Expand the failure taxonomy, not just the leaderboard
+### 7. Expand the failure taxonomy, not just the leaderboard
 
 Keep pushing on:
 
@@ -107,13 +134,13 @@ Keep pushing on:
 - clarify vs defer vs refuse judgment quality
 - artifact revision quality after feedback
 
-### 7. Keep the live harness benchmark-backed
+### 8. Keep the live harness benchmark-backed
 
 The runtime, CLI, API, operator console, and mobile companion should keep sharing the same execution semantics as the benchmark.
 
 No parallel orchestration path should be introduced.
 
-### 8. Decide the next Gemma posture bet explicitly
+### 9. Decide the next Gemma posture bet explicitly
 
 Decision rule:
 

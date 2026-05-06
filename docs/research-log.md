@@ -143,6 +143,22 @@
   - `uv run moonie-agent gemini-baseline --workflow-id executive_visual_dashboard_review --lane replayable_core --output-dir tmp/gemini-baseline-smoke`
   - completed as a dry-run packet with `/usr/local/bin/gemini` detected
 
+### H1 harder slice is defined around packaged workflow families
+
+- Config and note:
+  - [`configs/knowledge_work_h1_slice.yaml`](/Users/cheickdiakite/Codex/moonie/configs/knowledge_work_h1_slice.yaml)
+  - [`docs/continuity/h1-slice.md`](/Users/cheickdiakite/Codex/moonie/docs/continuity/h1-slice.md)
+
+- What changed:
+  - defined `H1 v1` as the next harder slice before another broad aligned `32 / 26` rerun
+  - kept the slice packaged-workflow-first so live CLI runs remain attributable to workflow families
+  - selected `5` replayable and `5` live mirror episodes across executive dashboard review, executive stale brief packet, jobs visual form hold, finance billing patch hold, and finance visual invoice review
+  - made controller repair, fallback, raw planning cleanliness, approval-safe stop behavior, and sandbox policy blocks the primary read fields
+
+- Research interpretation:
+  - H1 is designed to break the current top-line readiness saturation by concentrating resume, latest-instruction, stale-override, CLI/API/function-call, artifact-revision, and approval pressure
+  - the next implementation slice should add a config-backed H1 runner/validator so packet execution does not depend on manually copying episode ids
+
 # 2026-04-14
 
 ### The React Gemma MLX workspace now runs a real end-to-end local session loop

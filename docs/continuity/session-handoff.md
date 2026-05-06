@@ -33,6 +33,9 @@ The latest live-harness gain is now CLI-first:
 - `moonie-agent inspect <session_id>` inspects sandbox, artifact, policy-block, and summary metadata
 - a real `mlx_gemma4_e2b_reasoner_only` CLI smoke completed on `executive_visual_dashboard_review`
 - `moonie-agent gemini-baseline` prepares dry-run Gemini CLI baseline packets for packaged workflows
+- `H1 v1` is defined as the next packaged-workflow-first harder slice:
+  - [`configs/knowledge_work_h1_slice.yaml`](../../configs/knowledge_work_h1_slice.yaml)
+  - [`docs/continuity/h1-slice.md`](./h1-slice.md)
 
 The prior React product-side gain remains useful context:
 
@@ -200,19 +203,21 @@ Primary targets:
    - `moonie-agent attach`
    - Rich terminal operator harness
 
-2. Attack the remaining HF Gemma specialist note families directly.
+2. Add the H1 runner/validator and use H1 before another broad same-surface rerun.
+
+3. Attack the remaining HF Gemma specialist note families directly.
 Primary targets:
    - `controller_fallback_planner`
    - `repaired_arguments:extract_layout`
    - `intent_prior:record_or_update`
    - `intent_prior:inspect_or_lookup`
 
-3. Keep using the focused replayable packet first.
+4. Keep using the focused replayable packet first.
 Only rerun the aligned `32 / 26` surface after the packet shifts again.
 
-4. Use Gemini CLI as a wrapped reference/baseline after the CLI live harness exists.
+5. Use Gemini CLI as a wrapped reference/baseline after the CLI live harness exists.
 
-5. If the next question becomes runtime posture instead of controller dependence, switch to installing the Gemma `31B` local `GGUF` artifact and run the first real `llama.cpp` row.
+6. If the next question becomes runtime posture instead of controller dependence, switch to installing the Gemma `31B` local `GGUF` artifact and run the first real `llama.cpp` row.
 
 ## Verification State
 
