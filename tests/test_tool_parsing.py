@@ -12,3 +12,17 @@ def test_tool_parsers_normalize_to_same_shape() -> None:
     assert {call.name for call in normalized} == {"search_events"}
     assert all(call.arguments == normalized[0].arguments for call in normalized)
 
+
+def test_json_parser_accepts_newline_separated_tool_objects() -> None:
+    payload = "\n".join(
+        [
+            '{"name":"inspect_image","arguments":{"image_id":"img-parallel"}}',
+            '{"name":"read_repo_file","arguments":{"path":"config/settings.yaml"}}',
+        ]
+    )
+
+    calls = normalize_tool_output(payload)
+
+    assert [call.name for call in calls] == ["inspect_image", "read_repo_file"]
+    assert calls[0].arguments == {"image_id": "img-parallel"}
+    assert calls[1].arguments == {"path": "config/settings.yaml"}

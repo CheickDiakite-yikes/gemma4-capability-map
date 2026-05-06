@@ -46,25 +46,48 @@ def validate_tool_call(tool_call: ToolCall, tool_specs: list[ToolSpec]) -> tuple
 
 
 def _parse_json(text: str) -> list[ToolCall]:
-    try:
-        payload = json.loads(text)
-    except json.JSONDecodeError:
+    payloads = _parse_json_payloads(text)
+    if not payloads:
         return []
-    candidates = payload if isinstance(payload, list) else payload.get("tool_calls", [payload])
     calls: list[ToolCall] = []
-    for candidate in candidates:
-        if not isinstance(candidate, dict):
-            continue
-        name = candidate.get("name") or candidate.get("tool") or candidate.get("function")
-        arguments = candidate.get("arguments") or candidate.get("args") or {}
-        if isinstance(arguments, str):
-            try:
-                arguments = json.loads(arguments)
-            except json.JSONDecodeError:
-                arguments = {}
-        if name:
-            calls.append(ToolCall(name=name, arguments=arguments, source_format="json", raw=text))
+    for payload in payloads:
+        candidates = payload if isinstance(payload, list) else payload.get("tool_calls", [payload]) if isinstance(payload, dict) else []
+        for candidate in candidates:
+            if not isinstance(candidate, dict):
+                continue
+            name = candidate.get("name") or candidate.get("tool") or candidate.get("function")
+            arguments = candidate.get("arguments") or candidate.get("args") or {}
+            if isinstance(arguments, str):
+                try:
+                    arguments = json.loads(arguments)
+                except json.JSONDecodeError:
+                    arguments = {}
+            if name:
+                calls.append(ToolCall(name=name, arguments=arguments, source_format="json", raw=text))
     return calls
+
+
+def _parse_json_payloads(text: str) -> list[Any]:
+    try:
+        return [json.loads(text)]
+    except json.JSONDecodeError:
+        pass
+
+    decoder = json.JSONDecoder()
+    payloads: list[Any] = []
+    index = 0
+    while index < len(text):
+        while index < len(text) and text[index].isspace():
+            index += 1
+        if index >= len(text):
+            break
+        try:
+            payload, end = decoder.raw_decode(text, index)
+        except json.JSONDecodeError:
+            return []
+        payloads.append(payload)
+        index = end
+    return payloads
 
 
 def _parse_python_call(text: str) -> list[ToolCall]:
