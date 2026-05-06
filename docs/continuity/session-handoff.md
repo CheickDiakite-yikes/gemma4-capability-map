@@ -38,6 +38,12 @@ The latest live-harness gain is now CLI-first:
   - [`docs/continuity/h1-slice.md`](./h1-slice.md)
 - `scripts/run_knowledge_work_h1_slice.py` validates H1 and delegates filtered runs to the existing KWA arena runner
 - second-wave ablation controls now exist for intent priority, argument repair, and deterministic visual follow-on
+- H1 primary replayable MLX Gemma completed cleanly:
+  - [`results/knowledge_work_h1_slice/20260506T_h1_mlx_gemma_primary_v1_knowledge_work_h1_controller_dependence_v1`](../../results/knowledge_work_h1_slice/20260506T_h1_mlx_gemma_primary_v1_knowledge_work_h1_controller_dependence_v1)
+  - `real_world_readiness_avg = 0.9749800000000001`
+  - `controller_repair_avg = 0.0`
+  - `controller_fallback_avg = 0.0`
+  - `raw_planning_clean_rate_avg = 1.0`
 
 The prior React product-side gain remains useful context:
 
@@ -150,6 +156,8 @@ Verification:
 - full repo suite after H1 + second-wave controls: `260 passed`
 - `uv run python scripts/run_knowledge_work_h1_slice.py --dry-run --run-set all --lane replayable_core --output-root tmp/h1-all-dry-run-smoke --run-group-id 20260506T_h1_all_dry_run_smoke`
 - completed and wrote `10` replayable H1 run specs
+- `uv run python scripts/run_knowledge_work_h1_slice.py --run-set primary --lane replayable_core --system-id mlx_gemma4_e2b_reasoner_only --run-group-id 20260506T_h1_mlx_gemma_primary_v1`
+- completed with `5 / 5` H1 replayable episodes and `failed_runs = 0`
 - `uv run moonie-agent live --workflow-id executive_visual_dashboard_review --system-id oracle_gemma4_e2b --lane replayable_core --refresh-s 0.1 --timeout-s 0.5`
 - completed through the Rich operator view with sandbox context visible
 - `uv run pytest`
@@ -217,7 +225,7 @@ Primary targets:
    - `moonie-agent attach`
    - Rich terminal operator harness
 
-2. Use H1 before another broad same-surface rerun.
+2. Run the H1 replayable HF Gemma ablation set before another broad same-surface rerun.
 
 3. Attack the remaining HF Gemma specialist note families directly.
 Primary targets:

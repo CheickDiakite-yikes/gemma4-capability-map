@@ -214,6 +214,36 @@
   - run H1 primary on `mlx_gemma4_e2b_reasoner_only`
   - then run the H1 replayable ablation set before any broad aligned `32 / 26` rerun
 
+### H1 primary replayable MLX Gemma run completed
+
+- Command:
+  - `uv run python scripts/run_knowledge_work_h1_slice.py --run-set primary --lane replayable_core --system-id mlx_gemma4_e2b_reasoner_only --run-group-id 20260506T_h1_mlx_gemma_primary_v1`
+- Output:
+  - [`results/knowledge_work_h1_slice/20260506T_h1_mlx_gemma_primary_v1_knowledge_work_h1_controller_dependence_v1`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1_mlx_gemma_primary_v1_knowledge_work_h1_controller_dependence_v1)
+  - [`summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1_mlx_gemma_primary_v1_knowledge_work_h1_controller_dependence_v1/mlx_gemma4_e2b_reasoner_only__replayable_core/summary.json)
+  - [`episode_leaderboard.csv`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1_mlx_gemma_primary_v1_knowledge_work_h1_controller_dependence_v1/mlx_gemma4_e2b_reasoner_only__replayable_core/episode_leaderboard.csv)
+
+- Result:
+  - runs: `5`
+  - `real_world_readiness_avg = 0.9749800000000001`
+  - `artifact_quality_avg = 0.9277799999999999`
+  - `browser_workflow_avg = 0.9800000000000001`
+  - `strict_interface_avg = 1.0`
+  - `recovered_execution_avg = 1.0`
+  - `escalation_correctness_avg = 1.0`
+  - `controller_repair_avg = 0.0`
+  - `argument_repair_avg = 0.0`
+  - `controller_fallback_avg = 0.0`
+  - `raw_planning_clean_rate_avg = 1.0`
+
+- Per-episode read:
+  - strongest rows: `kwa_exec_visual_dashboard_brief` and `kwa_jobs_email_block_resume_hold_v5`
+  - lower artifact-quality rows: `kwa_finance_invoice_lock_direction_hold_v4`, `kwa_exec_backlog_resume_hold_v5`, and `kwa_finance_diff_review_hold_v5`
+
+- Interpretation:
+  - H1 replayable is slightly harder for artifact quality than the broad aligned read, but it does not yet break MLX Gemma's controller-clean posture
+  - the next useful experiment is the H1 replayable HF Gemma ablation set, not another broad aligned rerun
+
 # 2026-04-14
 
 ### The React Gemma MLX workspace now runs a real end-to-end local session loop

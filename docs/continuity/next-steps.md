@@ -108,10 +108,24 @@ Ablation dry-run command:
 uv run python scripts/run_knowledge_work_h1_slice.py --dry-run --run-set ablation --lane replayable_core
 ```
 
-Next empirical run:
+Completed primary run:
 
 ```bash
 uv run python scripts/run_knowledge_work_h1_slice.py --run-set primary --lane replayable_core --system-id mlx_gemma4_e2b_reasoner_only --run-group-id 20260506T_h1_mlx_gemma_primary_v1
+```
+
+Current empirical status:
+
+- the H1 primary replayable MLX Gemma run completed with `5 / 5` episodes
+- `real_world_readiness_avg = 0.9749800000000001`
+- `controller_repair_avg = 0.0`
+- `controller_fallback_avg = 0.0`
+- `raw_planning_clean_rate_avg = 1.0`
+
+Next empirical run:
+
+```bash
+uv run python scripts/run_knowledge_work_h1_slice.py --run-set ablation --lane replayable_core --run-group-id 20260506T_h1_hf_ablation_v1
 ```
 
 ### 5. Install the local Gemma `31B` `GGUF` artifact and run the first real `llama.cpp` posture row
