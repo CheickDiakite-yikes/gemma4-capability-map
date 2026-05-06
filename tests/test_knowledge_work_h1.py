@@ -157,6 +157,32 @@ def test_h1_ablation_specs_preserve_controller_flags() -> None:
     assert by_system["hf_service_gemma4_specialists_cpu_no_deterministic_visual_follow_on"]["disable_deterministic_visual_follow_on"] is True
 
 
+def test_h1_mlx_reasoner_only_ablation_specs_are_monolith() -> None:
+    config = load_h1_slice(H1C_CONFIG_PATH)
+    registry = load_model_registry()
+
+    specs = build_h1_run_specs(
+        config,
+        registry,
+        lanes=["live_web_stress"],
+        system_ids=[
+            "mlx_gemma4_e2b_reasoner_only_no_controller_repair",
+            "mlx_gemma4_e2b_reasoner_only_no_controller_fallback",
+            "mlx_gemma4_e2b_reasoner_only_no_argument_repair",
+        ],
+    )
+    by_system = {spec["system_id"]: spec for spec in specs}
+
+    for spec in by_system.values():
+        assert spec["pipeline_name"] == "monolith"
+        assert spec["backend"] == "mlx"
+        assert spec["router"] == ""
+        assert spec["retriever"] == ""
+    assert by_system["mlx_gemma4_e2b_reasoner_only_no_controller_repair"]["disable_controller_repair"] is True
+    assert by_system["mlx_gemma4_e2b_reasoner_only_no_controller_fallback"]["disable_controller_fallback"] is True
+    assert by_system["mlx_gemma4_e2b_reasoner_only_no_argument_repair"]["disable_argument_repair"] is True
+
+
 def test_h1_arena_command_is_episode_filtered_and_exploratory(tmp_path: Path) -> None:
     config = load_h1_slice()
     registry = load_model_registry()
