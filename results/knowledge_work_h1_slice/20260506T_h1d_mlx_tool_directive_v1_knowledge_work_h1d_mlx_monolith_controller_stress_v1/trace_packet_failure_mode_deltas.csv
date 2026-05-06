@@ -1,0 +1,8 @@
+failure_mode,baseline_count,candidate_count,delta_count
+argument_repair,2.0,0.0,-2.0
+fallback_disabled,2.0,0.0,-2.0
+fallback_planner,4.0,0.0,-4.0
+repair_disabled,5.0,1.0,-4.0
+visual_readback_missing,1.0,0.0,-1.0
+visual_repeated_refinement,2.0,0.0,-2.0
+visual_stepwise_control,6.0,2.0,-4.0
