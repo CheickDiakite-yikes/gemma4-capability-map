@@ -26,6 +26,8 @@ Current state:
   - approval/smoke trio packet: [`results/runtime_live_smoke_packets/20260506T_runtime_live_smoke_mlx_trio_v2_runtime_live_smoke_packet`](../../results/runtime_live_smoke_packets/20260506T_runtime_live_smoke_mlx_trio_v2_runtime_live_smoke_packet)
   - live-web policy packet: [`results/runtime_live_smoke_packets/20260506T_runtime_live_web_policy_mlx_v2_runtime_live_smoke_packet`](../../results/runtime_live_smoke_packets/20260506T_runtime_live_web_policy_mlx_v2_runtime_live_smoke_packet)
   - repeated live-web H1c-overlap packet: [`results/runtime_live_smoke_packets/20260506T_runtime_live_repeat_mlx_h1c_overlap_v2_runtime_live_smoke_packet`](../../results/runtime_live_smoke_packets/20260506T_runtime_live_repeat_mlx_h1c_overlap_v2_runtime_live_smoke_packet)
+  - [`scripts/analyze_runtime_live_smoke_packet.py`](../../scripts/analyze_runtime_live_smoke_packet.py) now writes repair-family, policy-family, and workflow-stability summaries for runtime packets
+  - latest analyzer result: `stable_repair_family_count = 4`, `stable_policy_block_family_count = 7`
   - H1c live-policy scaffold exists:
     - [`configs/knowledge_work_h1c_slice.yaml`](../../configs/knowledge_work_h1c_slice.yaml)
     - [`docs/continuity/h1c-slice.md`](./h1c-slice.md)
@@ -33,7 +35,6 @@ Current state:
 
 Next implementation moves:
 
-- add a compact runtime-packet analyzer so repeated CLI repair/fallback families are summarized without ad hoc `jq`
 - compare runtime live-smoke traces against H1c benchmark traces for the three repeated families: dashboard `extract_layout`, finance `cli_search_logs`, and jobs `cli_apply_patch` / live visual fallback
 - run a focused runtime ablation packet, if supported by current system ids, on controller repair/fallback/argument repair for the repeated CLI families
 - define H1d only after the runtime-vs-benchmark difference is isolated enough to encode as a benchmark stressor

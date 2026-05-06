@@ -247,8 +247,9 @@ The repeated live-web packet adds a stable CLI signal:
 - `controller_fallback_avg = 0.16666666666666666`
 - `raw_planning_clean_rate_avg = 0.3333333333333333`
 - repeated repair families: dashboard `extract_layout`, finance `cli_search_logs`, jobs `cli_apply_patch`, and jobs live visual fallback
+- analyzer outputs now summarize the same packet as `4` stable repair families and `7` stable policy-block families
 
-Next step: add a compact runtime-packet analyzer and compare the repeated CLI traces against the clean H1c benchmark traces.
+Next step: compare the repeated CLI traces against the clean H1c benchmark traces.
 
 ### Phase 4: Gemini CLI adapter
 

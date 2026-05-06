@@ -1,0 +1,8 @@
+workflow_id,submission_gate,action,count,repeat_indexes,targets,sandbox_endpoints,blocked_reasons
+executive_visual_dashboard_review,sandbox_only,draft_live_brief,3,"[1, 2, 3]","[""sandbox://exec-live-visual-dashboard-brief/brief""]","[""https://sandbox.local/exec-live-visual-dashboard-brief/brief""]",[]
+finance_visual_invoice_review,approval_required,attempt_live_finance_release_after_resume,3,"[1, 2, 3]","[""sandbox://finance-live-invoice-lock-direction-hold-v4/release""]","[""https://sandbox.local/finance-live-invoice-lock-direction-hold-v4/release""]",[]
+finance_visual_invoice_review,sandbox_only,rehydrate_live_finance_packet,3,"[1, 2, 3]","[""sandbox://finance-live-invoice-lock-direction-hold-v4/note""]","[""https://sandbox.local/finance-live-invoice-lock-direction-hold-v4/note""]",[]
+finance_visual_invoice_review,sandbox_only,resume_live_finance_note_revision,3,"[1, 2, 3]","[""sandbox://finance-live-invoice-lock-direction-hold-v4/note""]","[""https://sandbox.local/finance-live-invoice-lock-direction-hold-v4/note""]",[]
+jobs_visual_form_hold,approval_required,attempt_live_jobs_email_resume_submission,3,"[1, 2, 3]","[""sandbox://jobs-live-email-block-resume-hold-v5/submit""]","[""https://sandbox.local/jobs-live-email-block-resume-hold-v5/submit""]",[]
+jobs_visual_form_hold,sandbox_only,rehydrate_live_jobs_email_packet,3,"[1, 2, 3]","[""sandbox://jobs-live-email-block-resume-hold-v5/form""]","[""https://sandbox.local/jobs-live-email-block-resume-hold-v5/form""]",[]
+jobs_visual_form_hold,sandbox_only,repair_live_jobs_email_packet,3,"[1, 2, 3]","[""sandbox://jobs-live-email-block-resume-hold-v5/form""]","[""https://sandbox.local/jobs-live-email-block-resume-hold-v5/form""]",[]

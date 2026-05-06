@@ -107,5 +107,6 @@ The repeated CLI live-smoke packet is complete:
 - controller fallback averaged `0.16666666666666666`
 - raw planning clean averaged `0.3333333333333333`
 - all three repeats reproduced the same workflow-level repair pattern
+- analyzer outputs in the packet report `stable_repair_family_count = 4` and `stable_policy_block_family_count = 7`
 
 Interpretation: both the HF service helper packet and the MLX H1c primary benchmark runner are saturated, but the CLI live runtime path has stable repeated controller-dependence signal. The next slice should compare runtime packet traces against H1c benchmark traces and then encode the stable CLI families into the next harder benchmark stressor instead of rerunning broad H1c.

@@ -156,6 +156,12 @@ Latest repeated live-web CLI packet:
   - executive dashboard: `repaired_arguments:extract_layout`
   - finance invoice: `repaired_arguments:cli_search_logs`
   - jobs form: `repaired_arguments:cli_apply_patch` plus `controller_fallback_planner`
+- analyzer outputs:
+  - [`runtime_packet_analysis.json`](../../results/runtime_live_smoke_packets/20260506T_runtime_live_repeat_mlx_h1c_overlap_v2_runtime_live_smoke_packet/runtime_packet_analysis.json)
+  - [`runtime_repair_family_counts.csv`](../../results/runtime_live_smoke_packets/20260506T_runtime_live_repeat_mlx_h1c_overlap_v2_runtime_live_smoke_packet/runtime_repair_family_counts.csv)
+  - [`runtime_policy_block_counts.csv`](../../results/runtime_live_smoke_packets/20260506T_runtime_live_repeat_mlx_h1c_overlap_v2_runtime_live_smoke_packet/runtime_policy_block_counts.csv)
+  - [`runtime_workflow_stability.csv`](../../results/runtime_live_smoke_packets/20260506T_runtime_live_repeat_mlx_h1c_overlap_v2_runtime_live_smoke_packet/runtime_workflow_stability.csv)
+- analyzer summary: `stable_repair_family_count = 4`, `stable_policy_block_family_count = 7`
 - interpretation: the CLI live path has stable controller-dependence signal even though the H1c benchmark runner is clean. The next research move should isolate runtime/session execution differences and then ablate the repeated CLI families directly.
 
 Relevant batches:
