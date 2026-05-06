@@ -665,6 +665,13 @@ H1d candidate direction:
 
 - doc: [`docs/continuity/h1d-candidates.md`](./h1d-candidates.md)
 - config: [`configs/knowledge_work_h1d_slice.yaml`](../../configs/knowledge_work_h1d_slice.yaml)
+- first named packet: [`results/knowledge_work_h1_slice/20260506T_h1d_mlx_controller_stress_v1_knowledge_work_h1d_mlx_monolith_controller_stress_v1`](../../results/knowledge_work_h1_slice/20260506T_h1d_mlx_controller_stress_v1_knowledge_work_h1d_mlx_monolith_controller_stress_v1)
+- H1d reproduced the H1c monolith helper-ablation result exactly:
+  - baseline readiness `0.97936`
+  - `no_controller_repair` readiness `0.7381800000000001`
+  - `no_controller_fallback` readiness `0.92104`
+  - `no_argument_repair` readiness `0.82036`
+  - trace mining found `41` notes and `12` failure candidates
 - proposed stress families:
   - visual stepwise control
   - API/CLI canonicalization

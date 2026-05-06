@@ -370,6 +370,10 @@
   - [`docs/continuity/h1d-candidates.md`](/Users/cheickdiakite/Codex/moonie/docs/continuity/h1d-candidates.md)
   - [`configs/knowledge_work_h1d_slice.yaml`](/Users/cheickdiakite/Codex/moonie/configs/knowledge_work_h1d_slice.yaml)
   - proposed stress families: visual stepwise control, API/CLI canonicalization, fallback boundary, and approval-safe stop under repair pressure
+- First named H1d packet:
+  - [`results/knowledge_work_h1_slice/20260506T_h1d_mlx_controller_stress_v1_knowledge_work_h1d_mlx_monolith_controller_stress_v1`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1d_mlx_controller_stress_v1_knowledge_work_h1d_mlx_monolith_controller_stress_v1)
+  - reproduced the H1c monolith helper-ablation row values exactly
+  - trace mining found `41` notes and `12` failure candidates
 
 ### CLI policy rendering now surfaces live-web block details
 

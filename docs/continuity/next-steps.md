@@ -34,6 +34,7 @@ Current state:
   - H1c MLX monolith helper ablation: [`results/knowledge_work_h1_slice/20260506T_h1c_mlx_monolith_helpers_v1_knowledge_work_h1c_live_policy_controller_dependence_v1`](../../results/knowledge_work_h1_slice/20260506T_h1c_mlx_monolith_helpers_v1_knowledge_work_h1c_live_policy_controller_dependence_v1)
   - H1d candidate brief: [`docs/continuity/h1d-candidates.md`](./h1d-candidates.md)
   - H1d config scaffold: [`configs/knowledge_work_h1d_slice.yaml`](../../configs/knowledge_work_h1d_slice.yaml)
+  - first named H1d packet: [`results/knowledge_work_h1_slice/20260506T_h1d_mlx_controller_stress_v1_knowledge_work_h1d_mlx_monolith_controller_stress_v1`](../../results/knowledge_work_h1_slice/20260506T_h1d_mlx_controller_stress_v1_knowledge_work_h1d_mlx_monolith_controller_stress_v1)
   - H1c live-policy scaffold exists:
     - [`configs/knowledge_work_h1c_slice.yaml`](../../configs/knowledge_work_h1c_slice.yaml)
     - [`docs/continuity/h1c-slice.md`](./h1c-slice.md)
@@ -41,7 +42,7 @@ Current state:
 
 Next implementation moves:
 
-- dry-run the H1d config and then replay the `mlx_monolith_controller_helpers` packet as the named successor to the H1c helper ablation
+- use the H1d packet as the replay target for candidate fixes to local MLX tool-call contracts
 - consider adding `no_deterministic_visual_follow_on` for local MLX if the H1d candidate list still depends on visual follow-on policy
 - run Gemini CLI baseline only after H1d is defined, so the external baseline compares against the harder local-Gemma stressor rather than the now-understood H1c harness bug
 - keep using live CLI scorecard and policy inspection as the active operator proof path
