@@ -273,6 +273,35 @@
   - this is an execution-posture finding, not a model-quality result
   - H1 ablation should run through the service-backed HF primitive on this machine before spending more time on in-process HF warmup behavior
 
+### H1 service-backed HF ablation packet completed
+
+- Command:
+  - `uv run python scripts/run_knowledge_work_h1_ablation_packet.py --lane replayable_core --run-group-id 20260506T_h1_hf_service_ablation_v2`
+- Output:
+  - [`results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet)
+  - [`results.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet/results.json)
+  - [`manifest.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet/manifest.json)
+
+- Runtime posture:
+  - shared reasoner: `hf_service` on `google/gemma-4-E2B-it`, `mps`, service id `google__gemma_4_E2B_it_auto`
+  - specialists: in-process `hf` FunctionGemma router on CPU and in-process `hf` EmbeddingGemma retriever on CPU
+  - the earlier v1 failure showed why this split matters: the reasoner can be service-backed, but the specialist adapters currently need `hf`, not `hf_service`
+
+- Result:
+  - baseline `hf_service_gemma4_specialists_cpu`: readiness `0.9749800000000001`, strict `1.0`, recovered `1.0`, controller repair `0.9`, fallback `0.6`, clean rate `0.1`
+  - `no_controller_repair`: readiness `0.7194`, strict `0.4`, recovered `0.4`
+  - `no_controller_fallback`: readiness `0.7596999999999999`, strict `0.475`, recovered `0.4`
+  - `no_visual_rescue`: readiness `0.9749800000000001`, strict `1.0`, recovered `1.0`
+  - `no_intent_priority`: readiness `0.9749800000000001`, strict `1.0`, recovered `1.0`
+  - `no_argument_repair`: readiness `0.9749800000000001`, strict `1.0`, recovered `1.0`
+  - `no_deterministic_visual_follow_on`: readiness `0.9749800000000001`, strict `1.0`, recovered `1.0`, controller repair rose to `2.1`
+
+- Interpretation:
+  - H1 successfully breaks the saturated top-line read for HF Gemma controller ablations
+  - controller repair and controller fallback are causal on the H1 packaged-workflow slice
+  - visual rescue, intent priority, argument repair, and deterministic visual follow-on do not move readiness on this H1 slice
+  - the best next slice is trace mining for the repair/fallback rows, then a targeted H1b packet around `controller_fallback_planner` and malformed/raw planning spillover
+
 # 2026-04-14
 
 ### The React Gemma MLX workspace now runs a real end-to-end local session loop

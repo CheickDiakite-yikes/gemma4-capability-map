@@ -1093,6 +1093,18 @@ uv run python scripts/run_knowledge_work_ablation_packet.py \
   --system-id hf_gemma4_e2b_specialists_cpu_no_visual_rescue
 ```
 
+Run the current H1 packaged-workflow controller slice:
+
+```bash
+uv run python scripts/run_knowledge_work_h1_slice.py --run-set primary --lane replayable_core --system-id mlx_gemma4_e2b_reasoner_only
+```
+
+Run the H1 service-backed HF ablation packet:
+
+```bash
+uv run python scripts/run_knowledge_work_h1_ablation_packet.py --lane replayable_core --run-group-id 20260506T_h1_hf_service_ablation_v2
+```
+
 Refresh KWA history:
 
 ```bash
@@ -1110,6 +1122,7 @@ data/knowledge_work/                 episode specs, workspace seeds, artifact go
 docs/                                methodology, design docs, continuity, research notes
 results/alpha_matrix/                atomic benchmark run groups
 results/knowledge_work/              canonical KnowledgeWorkArena outputs
+results/knowledge_work_h1_slice/     H1 packaged-workflow controller-dependence outputs
 results/knowledge_work_matrix/       exploratory and aligned matrix batches
 results/history/                     longitudinal reports, board exports, canonical pointers
 results/runtime/                     local runtime sessions, traces, approvals, artifacts
@@ -1176,6 +1189,7 @@ Useful runtime and product entrypoints:
 
 ### Near term
 
+- mine the H1 service-backed HF ablation traces for repair/fallback failure families
 - reduce HF Gemma specialist controller dependence further without losing the current aligned readiness tier
 - target the dominant remaining note families:
   - `controller_fallback_planner`

@@ -97,12 +97,16 @@ The H1 runner validates workflow/episode mappings first, writes a run manifest, 
 For HF Gemma ablation waves, prefer the shared-bundle packet wrapper:
 
 ```bash
-uv run python scripts/run_knowledge_work_h1_ablation_packet.py --lane replayable_core --run-group-id 20260506T_h1_hf_ablation_v1
+uv run python scripts/run_knowledge_work_h1_ablation_packet.py --lane replayable_core --run-group-id 20260506T_h1_hf_service_ablation_v2
 ```
 
 That wrapper loads the same H1 config, then delegates to `scripts/run_knowledge_work_ablation_packet.py` so all configured ablation rows share one warmed HF bundle.
 
-The H1 ablation config uses service-backed HF rows. An attempted in-process H1 ablation launch did not reach the child packet manifest after roughly ten minutes on this Mac, so service-backed execution is the current practical H1 ablation posture.
+The H1 ablation config uses service-backed HF rows. An attempted in-process H1 ablation launch did not reach the child packet manifest after roughly ten minutes on this Mac, so service-backed execution is the current practical H1 ablation posture. The service-backed split is:
+
+- `hf_service` Gemma reasoner
+- in-process `hf` FunctionGemma router
+- in-process `hf` EmbeddingGemma retriever
 
 Current H1 ablation rows:
 
@@ -113,3 +117,30 @@ Current H1 ablation rows:
 - no intent priority
 - no argument repair
 - no deterministic visual follow-on
+
+## Completed Replayable Results
+
+MLX Gemma primary:
+
+- output: [`results/knowledge_work_h1_slice/20260506T_h1_mlx_gemma_primary_v1_knowledge_work_h1_controller_dependence_v1`](../../results/knowledge_work_h1_slice/20260506T_h1_mlx_gemma_primary_v1_knowledge_work_h1_controller_dependence_v1)
+- `real_world_readiness_avg = 0.9749800000000001`
+- `controller_repair_avg = 0.0`
+- `controller_fallback_avg = 0.0`
+- `raw_planning_clean_rate_avg = 1.0`
+
+HF service-backed ablation:
+
+- output: [`results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet)
+- baseline readiness: `0.9749800000000001`
+- `no_controller_repair = 0.7194`
+- `no_controller_fallback = 0.7596999999999999`
+- `no_visual_rescue = 0.9749800000000001`
+- `no_intent_priority = 0.9749800000000001`
+- `no_argument_repair = 0.9749800000000001`
+- `no_deterministic_visual_follow_on = 0.9749800000000001`
+
+Interpretation:
+
+- H1 does not currently break local MLX Gemma's controller-clean posture.
+- H1 does expose causal repair/fallback dependence for HF Gemma specialists.
+- The next useful H1 move is trace mining and targeted H1b design, not blind widening.

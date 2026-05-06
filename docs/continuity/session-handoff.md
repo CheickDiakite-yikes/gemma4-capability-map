@@ -46,6 +46,16 @@ The latest live-harness gain is now CLI-first:
   - `controller_repair_avg = 0.0`
   - `controller_fallback_avg = 0.0`
   - `raw_planning_clean_rate_avg = 1.0`
+- H1 service-backed HF Gemma ablation completed cleanly:
+  - [`results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet)
+  - baseline `hf_service_gemma4_specialists_cpu`: `real_world_readiness_avg = 0.9749800000000001`
+  - `no_controller_repair = 0.7194`
+  - `no_controller_fallback = 0.7596999999999999`
+  - `no_visual_rescue = 0.9749800000000001`
+  - `no_intent_priority = 0.9749800000000001`
+  - `no_argument_repair = 0.9749800000000001`
+  - `no_deterministic_visual_follow_on = 0.9749800000000001`
+  - interpretation: H1 confirms repair/fallback are causal on HF Gemma, while the second-wave helper toggles did not move readiness on this slice
 
 The prior React product-side gain remains useful context:
 
@@ -160,6 +170,10 @@ Verification:
 - completed and wrote `10` replayable H1 run specs
 - `uv run python scripts/run_knowledge_work_h1_slice.py --run-set primary --lane replayable_core --system-id mlx_gemma4_e2b_reasoner_only --run-group-id 20260506T_h1_mlx_gemma_primary_v1`
 - completed with `5 / 5` H1 replayable episodes and `failed_runs = 0`
+- `uv run pytest tests/test_knowledge_work_h1.py tests/test_knowledge_work_matrix_script.py tests/test_run_knowledge_work_arena_script.py`
+- service-backed specialist mapping after the v1 failure: `21 passed`
+- `uv run python scripts/run_knowledge_work_h1_ablation_packet.py --lane replayable_core --run-group-id 20260506T_h1_hf_service_ablation_v2`
+- completed with `7` service-backed H1 ablation rows and `5` replayable episodes each
 - `uv run moonie-agent live --workflow-id executive_visual_dashboard_review --system-id oracle_gemma4_e2b --lane replayable_core --refresh-s 0.1 --timeout-s 0.5`
 - completed through the Rich operator view with sandbox context visible
 - `uv run pytest`
@@ -227,7 +241,7 @@ Primary targets:
    - `moonie-agent attach`
    - Rich terminal operator harness
 
-2. Run the H1 replayable HF Gemma ablation packet before another broad same-surface rerun.
+2. Mine the completed H1 service-backed HF Gemma ablation traces before another broad same-surface rerun.
 
 3. Attack the remaining HF Gemma specialist note families directly.
 Primary targets:

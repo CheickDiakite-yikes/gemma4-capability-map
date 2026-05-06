@@ -22,8 +22,8 @@ Current state:
 
 Next implementation moves:
 
-- use the H1 runner to start primary MLX Gemma and ablation dry-runs before any broader matrix rerun
-- use the second-wave controller ablation toggles now exposed in the registry
+- mine the completed H1 service-backed HF ablation traces for exact repair/fallback failure families
+- turn that trace read into the next targeted controller patch or H1b slice
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1
@@ -73,7 +73,7 @@ Why:
 - the packet still shows the causal helper ranking clearly
 - it is the cheapest clean instrument for Gemma controller research
 
-### 4. Run H1 before another broad same-surface rerun
+### 4. Use H1 before another broad same-surface rerun
 
 Current H1 definition:
 
@@ -122,13 +122,30 @@ Current empirical status:
 - `controller_fallback_avg = 0.0`
 - `raw_planning_clean_rate_avg = 1.0`
 
-Next empirical run:
+Completed HF service-backed ablation run:
 
 ```bash
-uv run python scripts/run_knowledge_work_h1_ablation_packet.py --lane replayable_core --run-group-id 20260506T_h1_hf_ablation_v1
+uv run python scripts/run_knowledge_work_h1_ablation_packet.py --lane replayable_core --run-group-id 20260506T_h1_hf_service_ablation_v2
 ```
 
-Use the H1 ablation packet wrapper instead of the generic H1 runner for this wave; it shares one HF bundle across the ablation rows.
+Current empirical status:
+
+- output: [`results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet)
+- baseline `hf_service_gemma4_specialists_cpu`: `real_world_readiness_avg = 0.9749800000000001`
+- `no_controller_repair`: `real_world_readiness_avg = 0.7194`
+- `no_controller_fallback`: `real_world_readiness_avg = 0.7596999999999999`
+- `no_visual_rescue`: unchanged at `0.9749800000000001`
+- `no_intent_priority`: unchanged at `0.9749800000000001`
+- `no_argument_repair`: unchanged at `0.9749800000000001`
+- `no_deterministic_visual_follow_on`: unchanged at `0.9749800000000001`
+
+Use the H1 ablation packet wrapper instead of the generic H1 runner for this wave; it shares one HF service-backed reasoner plus in-process HF specialist adapters across the ablation rows.
+
+Next empirical move:
+
+- mine the H1 traces for `controller_fallback_planner`, malformed/raw planning, and repair-note families by episode
+- define H1b only if that trace read shows the current five-episode slice is too narrow
+- avoid another broad aligned rerun until the targeted repair/fallback mechanism changes
 
 ### 5. Install the local Gemma `31B` `GGUF` artifact and run the first real `llama.cpp` posture row
 

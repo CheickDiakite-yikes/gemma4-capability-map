@@ -167,6 +167,48 @@ Interpretation:
 - repair and fallback are still causal on this slice
 - visual rescue still contributes effectively nothing on this packet
 
+## H1 Controller-Dependence Slice
+
+Current H1 replayable output:
+
+- MLX primary:
+  - [`results/knowledge_work_h1_slice/20260506T_h1_mlx_gemma_primary_v1_knowledge_work_h1_controller_dependence_v1`](../../results/knowledge_work_h1_slice/20260506T_h1_mlx_gemma_primary_v1_knowledge_work_h1_controller_dependence_v1)
+- HF service-backed ablation:
+  - [`results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet)
+
+MLX Gemma primary:
+
+- `real_world_readiness_avg = 0.9749800000000001`
+- `strict_interface_avg = 1.0`
+- `recovered_execution_avg = 1.0`
+- `controller_repair_avg = 0.0`
+- `controller_fallback_avg = 0.0`
+- `raw_planning_clean_rate_avg = 1.0`
+
+HF service-backed Gemma baseline:
+
+- `real_world_readiness_avg = 0.9749800000000001`
+- `strict_interface_avg = 1.0`
+- `recovered_execution_avg = 1.0`
+- `controller_repair_avg = 0.9`
+- `controller_fallback_avg = 0.6`
+- `raw_planning_clean_rate_avg = 0.1`
+
+H1 ablation result:
+
+- `no_controller_repair = 0.7194`
+- `no_controller_fallback = 0.7596999999999999`
+- `no_visual_rescue = 0.9749800000000001`
+- `no_intent_priority = 0.9749800000000001`
+- `no_argument_repair = 0.9749800000000001`
+- `no_deterministic_visual_follow_on = 0.9749800000000001`
+
+Interpretation:
+
+- H1 does not break MLX Gemma's controller-clean posture
+- H1 does break HF Gemma when controller repair or controller fallback are disabled
+- the remaining research seam is now trace-level repair/fallback mechanism design, not top-line readiness
+
 ## Strongest Current Findings
 
 1. Top-line parity is now established on the aligned `32 / 26` surface.
@@ -185,6 +227,9 @@ The remaining gap is: how much controller help still remains after the obvious v
 
 5. The repo is no longer only benchmark-legible.
 There is now a real runtime/session substrate, and the active live-testing surface is shifting to a sandboxed CLI operator harness over that same substrate.
+
+6. H1 is now the best local instrument for controller-dependence work.
+It keeps packaged workflow attribution while exposing the causal impact of repair and fallback on HF Gemma.
 
 ## Current Blockers
 
