@@ -2321,6 +2321,12 @@
   - trace mining found `0` failure candidates
   - interpretation: these H1b episodes are harsher on artifact/readiness level than H1, but they still do not restore visual controller dependence after the final FunctionGemma turn directive
   - next check is a full H1b ablation across all five episodes and seven rows
+- The full H1b ablation confirmed that the follow-up slice is also saturated with respect to the current controller-helper ablations:
+  - [`20260506T_h1b_hf_service_ablation_v1`](../results/knowledge_work_h1_slice/20260506T_h1b_hf_service_ablation_v1_knowledge_work_ablation_packet) ran `7` systems across the `5` H1b replayable episodes
+  - all seven rows matched at `real_world_readiness_avg = 0.9581199999999999`, `strict_interface_avg = 1.0`, `recovered_execution_avg = 1.0`, `controller_repair_avg = 0.0`, `argument_repair_avg = 0.0`, `controller_fallback_avg = 0.0`, and `raw_planning_clean_rate_avg = 1.0`
+  - trace mining found `30` note events and `0` failure candidates
+  - remaining note counts are only disabled-helper markers: `controller_repair_disabled = 22` and `intent_priority_disabled = 8`
+  - interpretation: H1b lowers absolute readiness relative to H1 because its artifacts are harder, but it does not restore controller dependence after the final FunctionGemma turn directive. The next useful research move is live CLI validation plus a new H1c slice with genuinely new visual/API/approval interactions.
 
 ### Verification
 

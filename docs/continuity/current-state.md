@@ -190,6 +190,8 @@ Current H1 replayable output:
   - [`docs/continuity/h1b-slice.md`](./h1b-slice.md)
 - H1b compact visual policy packet:
   - [`results/knowledge_work_h1_slice/20260506T_h1b_visual_policy_packet_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1b_visual_policy_packet_v1_knowledge_work_ablation_packet)
+- H1b full HF service-backed ablation:
+  - [`results/knowledge_work_h1_slice/20260506T_h1b_hf_service_ablation_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1b_hf_service_ablation_v1_knowledge_work_ablation_packet)
 - Visual sequencing canary:
   - [`results/knowledge_work_h1_slice/20260506T_h1_visual_sequence_hint_canary_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_visual_sequence_hint_canary_v1_knowledge_work_ablation_packet)
 - Visual filter repair canary:
@@ -438,6 +440,24 @@ H1b compact visual policy packet:
 - remaining notes are only the expected `controller_repair_disabled` ablation markers
 - interpretation: the first H1b compact packet did not re-break controller dependence. H1b's selected episodes are harsher on artifact/readiness level, but the visual turn directive still removes the visual controller burden on this subset.
 
+H1b full HF service-backed ablation:
+
+- output: [`results/knowledge_work_h1_slice/20260506T_h1b_hf_service_ablation_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1b_hf_service_ablation_v1_knowledge_work_ablation_packet)
+- all seven rows match:
+  - `hf_service_gemma4_specialists_cpu`
+  - `hf_service_gemma4_specialists_cpu_no_controller_repair`
+  - `hf_service_gemma4_specialists_cpu_no_controller_fallback`
+  - `hf_service_gemma4_specialists_cpu_no_visual_rescue`
+  - `hf_service_gemma4_specialists_cpu_no_intent_priority`
+  - `hf_service_gemma4_specialists_cpu_no_argument_repair`
+  - `hf_service_gemma4_specialists_cpu_no_deterministic_visual_follow_on`
+- every row has readiness `0.9581199999999999`, strict/recovered `1.0 / 1.0`, repair/fallback `0.0 / 0.0`, argument repair `0.0`, and raw clean `1.0`
+- trace mining found `30` notes and `0` failure candidates
+- remaining notes are only ablation markers:
+  - `controller_repair_disabled = 22`
+  - `intent_priority_disabled = 8`
+- interpretation: H1b is harsher than H1 on artifact/readiness level, but it is also saturated with respect to the current controller-helper ablations after the FunctionGemma final-turn directive. The next signal should come from live CLI execution and a genuinely new H1c stress slice, not another same-shape replay-only H1b packet.
+
 ## Strongest Current Findings
 
 1. Top-line parity is now established on the aligned `32 / 26` surface.
@@ -457,8 +477,8 @@ The remaining gap is: how much controller help still remains after the obvious v
 5. The repo is no longer only benchmark-legible.
 There is now a real runtime/session substrate, and the active live-testing surface is shifting to a sandboxed CLI operator harness over that same substrate.
 
-6. H1 exposed the visual sequencing bottleneck, but the current H1 slice is saturated again after the final FunctionGemma turn directive.
-It keeps packaged workflow attribution and showed that repair dependence was reducible through model-side routing-contract recency. A harder H1 follow-up is now needed.
+6. H1 exposed the visual sequencing bottleneck, but H1 and H1b are both saturated after the final FunctionGemma turn directive.
+They keep packaged workflow attribution and show that repair dependence was reducible through model-side routing-contract recency. The next useful signal is live CLI behavior plus a genuinely harder H1c slice.
 
 ## Current Blockers
 

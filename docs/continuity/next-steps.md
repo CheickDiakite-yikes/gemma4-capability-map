@@ -198,7 +198,10 @@ uv run python scripts/run_knowledge_work_h1_ablation_packet.py \
 - completed H1b compact packet: [`results/knowledge_work_h1_slice/20260506T_h1b_visual_policy_packet_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1b_visual_policy_packet_v1_knowledge_work_ablation_packet)
   - all three rows matched at readiness `0.9472999999999999`, strict/recovered `1.0 / 1.0`, raw clean `1.0`, repair/fallback `0.0 / 0.0`
   - trace mining found `0` failure candidates
-  - next verification is a full H1b ablation, not another compact packet
+- completed H1b full ablation: [`results/knowledge_work_h1_slice/20260506T_h1b_hf_service_ablation_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1b_hf_service_ablation_v1_knowledge_work_ablation_packet)
+  - all seven rows matched at readiness `0.9581199999999999`, strict/recovered `1.0 / 1.0`, repair/fallback `0.0 / 0.0`, raw clean `1.0`
+  - trace mining found `0` failure candidates; notes are only disabled-helper markers
+  - H1b is harder on artifact/readiness than H1, but it still does not restore controller dependence after the final FunctionGemma turn directive
 
 - rerun the compact packet after each candidate patch before returning to full H1:
 
@@ -208,8 +211,14 @@ uv run python scripts/run_knowledge_work_h1_ablation_packet.py \
   --run-group-id <timestamp>_h1_visual_semantics_candidate
 ```
 
-- define H1b only if the remaining failure candidates are too narrow to separate candidate fixes
-- avoid another broad aligned rerun until the targeted repair/fallback mechanism changes
+- avoid another broad aligned rerun until a new mechanism or harder slice changes the controller/failure picture
+
+Current next move:
+
+- run a real packaged-workflow CLI live smoke on `mlx_gemma4_e2b_reasoner_only`
+- inspect sandbox roots, event timelines, artifacts, and trace attribution from the terminal
+- then define H1c with new episodes that mix visual readback, API/CLI dependencies, approval/defer/refuse choices, and partial-progress recovery
+- keep H1c replayable/live mirrors so live CLI behavior remains benchmark-backed
 
 ### 5. Install the local Gemma `31B` `GGUF` artifact and run the first real `llama.cpp` posture row
 

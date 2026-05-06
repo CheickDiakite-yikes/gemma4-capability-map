@@ -64,3 +64,16 @@ uv run python scripts/run_knowledge_work_h1_ablation_packet.py \
   --lane replayable_core \
   --run-group-id <timestamp>_h1b_hf_service_ablation
 ```
+
+## Current Result
+
+The first full H1b HF service-backed ablation is complete:
+
+- output: [`results/knowledge_work_h1_slice/20260506T_h1b_hf_service_ablation_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1b_hf_service_ablation_v1_knowledge_work_ablation_packet)
+- all seven rows matched at readiness `0.9581199999999999`
+- strict/recovered stayed `1.0 / 1.0`
+- controller repair, argument repair, controller fallback, and deterministic visual follow-on were all non-causal on this slice
+- raw planning clean stayed `1.0`
+- trace mining found `0` failure candidates
+
+Interpretation: H1b is harder than H1 on artifact/readiness, but it is also saturated with respect to the current controller-helper ablations after the FunctionGemma final-turn directive. The next replayable benchmark needs new H1c episodes rather than more same-shape H1b reruns.
