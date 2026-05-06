@@ -26,6 +26,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output-dir", default=None)
     parser.add_argument("--no-update-latest", action="store_true")
     parser.add_argument("--limit", type=int, default=None)
+    parser.add_argument("--pipeline-name", choices=["monolith", "hybrid", "modular"], default="modular")
     parser.add_argument("--backend", default="oracle")
     parser.add_argument("--reasoner-backend", default=None)
     parser.add_argument("--router-backend", default=None)
@@ -83,7 +84,7 @@ def main() -> None:
     tasks = load_tasks(track=None)
     bundle = build_runtime_bundle(
         tasks=tasks,
-        pipeline_name="modular",
+        pipeline_name=args.pipeline_name,
         backend=args.backend,
         reasoner_backend=args.reasoner_backend,
         router_backend=args.router_backend,
@@ -108,6 +109,7 @@ def main() -> None:
         "created_at": created_at,
         "lane": args.lane,
         "system_id": _infer_system_id(args),
+        "pipeline_name": args.pipeline_name,
         "backend": args.backend,
         "reasoner_backend": args.reasoner_backend or args.backend,
         "router_backend": args.router_backend or "",

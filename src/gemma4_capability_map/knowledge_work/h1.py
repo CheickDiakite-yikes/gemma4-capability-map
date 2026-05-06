@@ -177,12 +177,15 @@ def _system_run_args(system_id: str, meta: dict[str, Any]) -> dict[str, Any]:
     executor_mode = str(meta.get("executor_mode", "") or "")
     router = str(meta.get("router", "") or "")
     retriever = str(meta.get("retriever", "") or "")
+    pipeline_name = "modular"
     router_backend = ""
     retriever_backend = ""
     if executor_mode == "local_specialists":
+        pipeline_name = "modular"
         router_backend = "hf"
         retriever_backend = "hf"
     elif executor_mode == "local_reasoner":
+        pipeline_name = "monolith"
         router_backend = "heuristic"
         retriever_backend = "heuristic"
         router = ""
@@ -190,6 +193,7 @@ def _system_run_args(system_id: str, meta: dict[str, Any]) -> dict[str, Any]:
     controls = ResearchControls.from_mapping(meta.get("research_controls"))
     return {
         "backend": backend,
+        "pipeline_name": pipeline_name,
         "reasoner_backend": backend,
         "router_backend": router_backend,
         "retriever_backend": retriever_backend,

@@ -115,6 +115,8 @@ def _arena_command(spec: dict[str, Any], output_dir: Path) -> list[str]:
         spec["run_intent"],
         "--system-id",
         spec["system_id"],
+        "--pipeline-name",
+        spec["pipeline_name"],
         "--backend",
         spec["backend"],
         "--reasoner-backend",

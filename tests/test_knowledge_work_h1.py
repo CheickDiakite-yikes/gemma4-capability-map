@@ -133,6 +133,7 @@ def test_h1_primary_run_specs_default_to_mlx_gemma_reasoner_only() -> None:
     spec = specs[0]
     assert spec["system_id"] == "mlx_gemma4_e2b_reasoner_only"
     assert spec["lane"] == "replayable_core"
+    assert spec["pipeline_name"] == "monolith"
     assert spec["backend"] == "mlx"
     assert spec["router_backend"] == "heuristic"
     assert spec["retriever_backend"] == "heuristic"
@@ -169,6 +170,7 @@ def test_h1_arena_command_is_episode_filtered_and_exploratory(tmp_path: Path) ->
     command = SCRIPT._arena_command(spec, tmp_path / spec["run_id"])
 
     assert "--no-update-latest" in command
+    assert command[command.index("--pipeline-name") + 1] == spec["pipeline_name"]
     assert command[command.index("--run-intent") + 1] == "exploratory"
     assert "--disable-controller-fallback" in command
     assert command.count("--episode-id") == len(config.lanes["live_web_stress"].episode_ids)
