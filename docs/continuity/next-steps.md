@@ -2,27 +2,29 @@
 
 ## Immediate
 
-### 1. Turn the new React Gemma MLX workspace into a stronger live local harness
+### 1. Pivot the main live-testing surface to a CLI-first sandboxed operator harness
 
 Current state:
 
-- the React workspace exists and is wired to the shared runtime through `moonie-agent-api`
-- it defaults to `mlx_gemma4_e2b_reasoner_only`
-- it now exposes project grouping, thread launch, retry/resume, approval handling, and summary/review/browser context
-- it now long-polls the real session stream endpoint and shows backend health in the shell
-- a fresh MLX session has already been launched and observed end to end from the React UI
+- the runtime/session/approval/artifact substrate already exists
+- the repo can already run live local sessions
+- the React harness exists, but it is no longer the main next workstream
+- the higher-value need is a research-grade terminal operator surface with real sandboxing
+- first CLI sandbox scaffold exists:
+  - sessions/traces carry sandbox metadata
+  - runtime outputs and native artifacts write under per-session sandbox roots
+  - `moonie-agent live` and `moonie-agent attach` exist as Rich terminal entrypoints
 
-Next product moves:
+Next implementation moves:
 
-- move from the current long-poll loop to a more explicit streaming transport only if it buys real UX, not just technical novelty
-- tighten project/thread navigation and thread previews
-- deepen the right-pane browser context beyond trace-backed cards
-- improve artifact preview fidelity for `.docx`, `.pptx`, and `.xlsx`
-- decide whether the next host step is Electron, Tauri, or a browser-only dev posture with the same React shell
+- harden sandbox policies around live-web dry-run behavior
+- expand the Rich operator harness from watch-only into keyboard/command-driven approve, deny, resume, retry, inspect, and quit
+- keep packaged workflows as the only live entrypoint in v1
+- preserve benchmark-backed traces, artifacts, and scorecards for every live run
 
 Success condition:
 
-- a person can use Moonie as a real local Gemma harness first, not just as a benchmark viewer
+- a person can safely launch and watch a real local Gemma MLX run from CLI, approve or resume when needed, and inspect the run live without leaving the terminal
 
 ### 2. Reduce the remaining HF Gemma specialist controller burden on the aligned `32 / 26` surface
 
@@ -78,7 +80,17 @@ Why it matters:
 
 ## Near Term
 
-### 5. Expand the failure taxonomy, not just the leaderboard
+### 5. Add Gemini CLI as a design reference and external baseline
+
+Use Gemini CLI for:
+
+- CLI ergonomics reference
+- trust and sandbox design reference
+- wrapped external baseline on selected Moonie workflows
+
+Do not use Gemini CLI as a replacement for Moonie or as proof that local MLX Gemma harnessing is solved.
+
+### 6. Expand the failure taxonomy, not just the leaderboard
 
 Keep pushing on:
 
@@ -89,13 +101,13 @@ Keep pushing on:
 - clarify vs defer vs refuse judgment quality
 - artifact revision quality after feedback
 
-### 6. Keep the product surfaces benchmark-backed
+### 7. Keep the live harness benchmark-backed
 
 The runtime, CLI, API, operator console, and mobile companion should keep sharing the same execution semantics as the benchmark.
 
 No parallel orchestration path should be introduced.
 
-### 7. Decide the next Gemma posture bet explicitly
+### 8. Decide the next Gemma posture bet explicitly
 
 Decision rule:
 

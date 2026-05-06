@@ -31,6 +31,12 @@ from gemma4_capability_map.runtime.schemas import (
     SystemProfile,
     ToolInvocation,
 )
+from gemma4_capability_map.runtime.sandbox import (
+    DEFAULT_SANDBOX_POLICY_ID,
+    PreparedSandbox,
+    assert_path_inside,
+    prepare_packaged_workflow_sandbox,
+)
 from gemma4_capability_map.runtime.workflows import DEFAULT_WORKFLOWS_PATH, PackagedWorkflow, load_packaged_workflows
 from gemma4_capability_map.schemas import ExpectedEvent, JudgmentMode, Message, ModelBundleSpec, RunTrace, StateTransition, Task, ToolResult, Track, Variant
 from gemma4_capability_map.tools.executor import diff_state
@@ -514,6 +520,8 @@ class LocalAgentRuntime:
         human_request: str = "",
         project_id: str | None = None,
         background: bool = True,
+        sandbox_mode: str = "ephemeral_copy",
+        sandbox_policy_id: str = DEFAULT_SANDBOX_POLICY_ID,
         attempt: int = 1,
         parent_session_id: str | None = None,
         retry_of_session_id: str | None = None,
@@ -538,6 +546,9 @@ class LocalAgentRuntime:
             episode_id=episode_id,
             system_id=profile.system_id,
             lane=selected_lane,
+            sandbox_mode=sandbox_mode,  # type: ignore[arg-type]
+            sandbox_source=f"{self._episode_source_path(selected_lane).resolve()}#{episode_id}",
+            sandbox_policy_id=sandbox_policy_id,
             status=SessionStatus.PENDING,
             created_at=created_at,
             updated_at=created_at,
@@ -556,7 +567,17 @@ class LocalAgentRuntime:
             preview_asset=_absolute_asset_path(workflow.preview_asset),
         )
         self._write_session(session)
-        self._append_event(session_id, "created", f"Created `{workflow.title}` on `{profile.short_label}`.", {"workflow_id": workflow_id, "lane": selected_lane})
+        self._append_event(
+            session_id,
+            "created",
+            f"Created `{workflow.title}` on `{profile.short_label}`.",
+            {
+                "workflow_id": workflow_id,
+                "lane": selected_lane,
+                "sandbox_mode": sandbox_mode,
+                "sandbox_policy_id": sandbox_policy_id,
+            },
+        )
         self._append_instruction_event(session_id, initial_instruction, source="launch", note="Initial launch instruction.")
         if background:
             thread = threading.Thread(target=self._run_session, args=(session_id,), daemon=True)
@@ -617,6 +638,8 @@ class LocalAgentRuntime:
             human_request=human_request,
             project_id=source.project_id,
             background=background,
+            sandbox_mode=source.sandbox_mode,
+            sandbox_policy_id=source.sandbox_policy_id or DEFAULT_SANDBOX_POLICY_ID,
             attempt=source.attempt + 1,
             parent_session_id=lineage_parent,
             retry_of_session_id=source.session_id,
@@ -725,20 +748,34 @@ class LocalAgentRuntime:
         workflow = self._workflow(session.workflow_id)
         profile = self._system_profile(session.system_id)
         try:
+            episode = self._load_episode(session.episode_id, session.lane)
+            sandbox = self._prepare_session_sandbox(session_id, workflow, episode)
             self._update_session_status(session_id, SessionStatus.WARMING, "Preparing runtime bundle.", "Warming")
             bundle, bundle_snapshot, warmup = self._bundle_for_profile(profile)
-            self._append_event(session_id, "warming", "Runtime warmed and ready.", {"warmup": warmup, "runtime_bundle": bundle_snapshot})
+            self._append_event(
+                session_id,
+                "warming",
+                "Runtime warmed and ready.",
+                {
+                    "warmup": warmup,
+                    "runtime_bundle": bundle_snapshot,
+                    "sandbox": sandbox.session_update(),
+                },
+            )
             self._update_session_status(session_id, SessionStatus.RUNNING, "Executing workflow.", "Running")
-            self._append_event(session_id, "running", "Workflow execution started.", {"episode_id": session.episode_id})
+            self._append_event(
+                session_id,
+                "running",
+                "Workflow execution started.",
+                {"episode_id": session.episode_id, "sandbox_root": str(sandbox.root)},
+            )
 
-            episode = self._load_episode(session.episode_id, session.lane)
-            session_dir = self._session_dir(session_id)
             from gemma4_capability_map.knowledge_work.runner import EpisodeRunner
 
-            runner = EpisodeRunner(tasks=self.tasks, bundle=bundle, artifact_output_root=session_dir / "artifacts")
+            runner = EpisodeRunner(tasks=self.tasks, bundle=bundle, artifact_output_root=sandbox.artifact_dir)
             trace = runner.run(episode)
             summary = summarize_episode_traces([trace])
-            runtime_trace = self._write_runtime_outputs(session, trace, summary, bundle_snapshot, warmup)
+            runtime_trace = self._write_runtime_outputs(session, trace, summary, bundle_snapshot, warmup, sandbox)
             trace_session_metadata = _trace_session_metadata(trace)
             self._append_trace_events(session_id, trace, trace_session_metadata)
             approvals = []
@@ -854,11 +891,12 @@ class LocalAgentRuntime:
         summary: dict[str, Any],
         runtime_bundle: dict[str, Any],
         warmup: dict[str, Any],
+        sandbox: PreparedSandbox,
     ) -> RuntimeTrace:
-        session_dir = self._session_dir(session.session_id)
-        trace_path = session_dir / "episode_trace.json"
-        summary_path = session_dir / "summary.json"
-        manifest_path = session_dir / "manifest.json"
+        output_dir = assert_path_inside(sandbox.output_dir, sandbox.root)
+        trace_path = assert_path_inside(output_dir / "episode_trace.json", sandbox.root)
+        summary_path = assert_path_inside(output_dir / "summary.json", sandbox.root)
+        manifest_path = assert_path_inside(output_dir / "manifest.json", sandbox.root)
         trace_path.write_text(json.dumps(trace.model_dump(mode="json"), indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
         summary_path.write_text(json.dumps(summary, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
         manifest = {
@@ -870,16 +908,30 @@ class LocalAgentRuntime:
             "system_id": session.system_id,
             "project_id": session.project_id,
             "created_at": session.created_at,
+            "sandbox_mode": sandbox.mode,
+            "sandbox_root": str(sandbox.root),
+            "sandbox_source": sandbox.source,
+            "sandbox_policy_id": sandbox.policy_id,
+            "sandbox_manifest_path": str(sandbox.manifest_path),
             "runtime_bundle": runtime_bundle,
             "warmup": warmup,
         }
         manifest_path.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-        artifact_paths = [str(Path(version.file_path).resolve()) for version in trace.artifact_versions if version.file_path]
+        artifact_paths = [
+            str(assert_path_inside(Path(version.file_path), sandbox.root))
+            for version in trace.artifact_versions
+            if version.file_path
+        ]
         return RuntimeTrace(
             session_id=session.session_id,
             workflow_id=session.workflow_id,
             episode_id=session.episode_id,
-            output_dir=str(session_dir.resolve()),
+            output_dir=str(output_dir.resolve()),
+            sandbox_mode=sandbox.mode,
+            sandbox_root=str(sandbox.root),
+            sandbox_source=sandbox.source,
+            sandbox_policy_id=sandbox.policy_id,
+            sandbox_manifest_path=str(sandbox.manifest_path),
             manifest_path=str(manifest_path.resolve()),
             summary_path=str(summary_path.resolve()),
             episode_trace_path=str(trace_path.resolve()),
@@ -892,12 +944,15 @@ class LocalAgentRuntime:
         )
 
     def _load_episode(self, episode_id: str, lane: str) -> Any:
-        path = self.episode_root / lane / "episodes.jsonl"
+        path = self._episode_source_path(lane)
         episodes = load_episodes(path)
         try:
             return next(episode for episode in episodes if episode.episode_id == episode_id)
         except StopIteration as exc:
             raise ValueError(f"Episode `{episode_id}` not found in lane `{lane}`.") from exc
+
+    def _episode_source_path(self, lane: str) -> Path:
+        return self.episode_root / lane / "episodes.jsonl"
 
     def _workflow(self, workflow_id: str) -> PackagedWorkflow:
         workflow = self.workflows.get(workflow_id)
@@ -931,6 +986,41 @@ class LocalAgentRuntime:
         session.latest_message = latest_message
         session.progress_label = progress_label
         self._write_session(session)
+
+    def _prepare_session_sandbox(self, session_id: str, workflow: PackagedWorkflow, episode: Any) -> PreparedSandbox:
+        session = self.get_session(session_id)
+        sandbox = prepare_packaged_workflow_sandbox(
+            session_id=session_id,
+            session_dir=self._session_dir(session_id),
+            workflow_id=workflow.workflow_id,
+            workflow_payload=workflow.model_dump(mode="json"),
+            episode_id=session.episode_id,
+            episode_payload=episode.model_dump(mode="json"),
+            episode_source_path=self._episode_source_path(session.lane),
+            mode=session.sandbox_mode,
+            policy_id=session.sandbox_policy_id or DEFAULT_SANDBOX_POLICY_ID,
+        )
+        session = self.get_session(session_id)
+        session.sandbox_root = str(sandbox.root)
+        session.sandbox_source = sandbox.source
+        session.sandbox_policy_id = sandbox.policy_id
+        session.sandbox_manifest_path = str(sandbox.manifest_path)
+        session.updated_at = _now()
+        session.last_activity_at = session.updated_at
+        self._write_session(session)
+        self._append_event(
+            session_id,
+            "sandbox_prepared",
+            "Per-session sandbox prepared.",
+            {
+                "sandbox_mode": sandbox.mode,
+                "sandbox_root": str(sandbox.root),
+                "sandbox_policy_id": sandbox.policy_id,
+                "sandbox_manifest_path": str(sandbox.manifest_path),
+                "sandbox_source": sandbox.source,
+            },
+        )
+        return sandbox
 
     def _session_dir(self, session_id: str) -> Path:
         path = self.sessions_root / session_id

@@ -554,6 +554,7 @@ dependencies = [
     { name = "python-docx" },
     { name = "python-pptx" },
     { name = "pyyaml" },
+    { name = "rich" },
     { name = "streamlit" },
 ]
 
@@ -584,6 +585,7 @@ requires-dist = [
     { name = "python-docx", specifier = ">=1.1.2" },
     { name = "python-pptx", specifier = ">=1.0.2" },
     { name = "pyyaml", specifier = ">=6.0.2" },
+    { name = "rich", specifier = ">=14.0.0" },
     { name = "sentence-transformers", marker = "extra == 'hf'", specifier = ">=4.0.0" },
     { name = "streamlit", specifier = ">=1.44.0" },
     { name = "torch", marker = "extra == 'hf'", specifier = ">=2.7.0" },

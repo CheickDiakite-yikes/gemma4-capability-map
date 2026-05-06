@@ -1,0 +1,357 @@
+# CLI Live Harness Pivot
+
+## Purpose
+
+This file is the current restart point for Moonie.
+
+If a new chat needs to resume work quickly, start here instead of reconstructing intent from older React-oriented continuity notes.
+
+The repo direction has changed:
+
+- frontend polish is no longer the priority
+- the primary goal is research and harnessing
+- the main new product surface should be a CLI-first live operator harness for local Gemma on MLX
+
+## Why We Are Pivoting
+
+The current repo already proved the first important thing:
+
+- on the aligned exploratory `32 / 26` surface, `oracle_gemma4_e2b`, `hf_gemma4_e2b_specialists_cpu`, `mlx_qwen3_8b_reasoner_only`, and `mlx_gemma4_e2b_reasoner_only` all reach the same top-line readiness tier
+
+That means the next research question is no longer:
+
+- can Gemma finish the current lane?
+
+It is now:
+
+- what exact harness interventions are doing the work?
+- what survives under harder realism?
+- how do we test and observe local Gemma live without drifting into product/UI churn?
+
+The React shell is real and useful as prior work, but it is no longer the highest-value next move.
+
+## Current Repo Truth
+
+### Benchmark surface
+
+Current generated corpus on disk:
+
+- atomic tasks: `91`
+- variants: `396`
+- replayable KWA episodes: `32`
+- live KWA episodes: `26`
+
+Current source-of-truth comparison surface:
+
+- aligned exploratory `32 / 26`
+- board export:
+  - [`results/history/knowledge_work_board_latest.csv`](../../results/history/knowledge_work_board_latest.csv)
+
+### Headline comparison read
+
+Replayable `32`:
+
+- `oracle_gemma4_e2b`
+  - `real_world_readiness_avg = 0.976853125`
+  - `controller_repair_avg = 0.578125`
+  - `controller_fallback_avg = 0.0`
+- `hf_gemma4_e2b_specialists_cpu`
+  - `real_world_readiness_avg = 0.976853125`
+  - `controller_repair_avg = 0.71875`
+  - `controller_fallback_avg = 0.28125`
+  - `raw_planning_clean_rate_avg = 0.46875`
+- `mlx_qwen3_8b_reasoner_only`
+  - `real_world_readiness_avg = 0.976853125`
+  - `controller_repair_avg = 0.0`
+  - `controller_fallback_avg = 0.0`
+  - `raw_planning_clean_rate_avg = 1.0`
+- `mlx_gemma4_e2b_reasoner_only`
+  - `real_world_readiness_avg = 0.976853125`
+  - `controller_repair_avg = 0.0`
+  - `controller_fallback_avg = 0.0`
+  - `raw_planning_clean_rate_avg = 1.0`
+
+Live `26`:
+
+- `oracle_gemma4_e2b`
+  - `real_world_readiness_avg = 0.9791653846153847`
+  - `controller_repair_avg = 0.7115384615384616`
+- `hf_gemma4_e2b_specialists_cpu`
+  - `real_world_readiness_avg = 0.9791653846153847`
+  - `controller_repair_avg = 0.8076923076923077`
+  - `controller_fallback_avg = 0.23076923076923078`
+- `mlx_qwen3_8b_reasoner_only`
+  - `real_world_readiness_avg = 0.9791653846153847`
+  - `controller_repair_avg = 0.0`
+- `mlx_gemma4_e2b_reasoner_only`
+  - `real_world_readiness_avg = 0.9791653846153847`
+  - `controller_repair_avg = 0.0`
+
+### Focused Gemma packet
+
+Current focused replayable research harness:
+
+- [`results/knowledge_work_matrix/20260413Tresearch_ablation_focus_v4_knowledge_work_ablation_packet_knowledge_work_ablation_packet`](../../results/knowledge_work_matrix/20260413Tresearch_ablation_focus_v4_knowledge_work_ablation_packet_knowledge_work_ablation_packet)
+
+Packet baseline:
+
+- `real_world_readiness_avg = 0.9627777777777777`
+- `controller_repair_avg = 0.8888888888888888`
+- `controller_fallback_avg = 0.4444444444444444`
+
+Ablation rows:
+
+- `no_controller_repair = 0.6551777777777779`
+- `no_controller_fallback = 0.8182333333333333`
+- `no_visual_rescue = 0.9627777777777777`
+
+Interpretation:
+
+- controller repair is causal
+- controller fallback is causal
+- visual rescue is not doing useful work on this focused slice
+
+### Strongest current research finding
+
+Moonie can carry Gemma to the same final readiness tier on the current aligned surface, but the autonomy story is still different.
+
+That means the real remaining signal is:
+
+- controller dependence
+- raw planning cleanliness
+- harder realism that breaks current parity
+
+## Direction Reset
+
+### Primary goal
+
+Build a CLI-first live harness for local Gemma on MLX that lets us:
+
+- sandbox runs safely
+- watch live execution
+- approve or deny when needed
+- resume interrupted sessions
+- inspect tool use, controller help, and artifact revisions
+- keep live testing tied to benchmark-backed workflows
+
+### Explicit non-goals right now
+
+- no more React refinement unless required for runtime/API support
+- no Streamlit product work
+- no broad comparator expansion
+- no additional same-surface reruns without a harder slice or clearer ablation target
+
+## Next Research Priorities
+
+1. Build a CLI-first live operator harness over the existing runtime.
+2. Add proper sandboxing for live runs.
+3. Use packaged workflows as the only live entrypoint in v1.
+4. Add a Gemini CLI adapter as an external baseline and design reference.
+5. Define a harder `H1` slice that breaks current top-line saturation.
+6. Run a second ablation wave on the remaining controller helpers.
+7. Only after that, revisit Gemma `31B` `GGUF` runtime posture.
+
+## Implementation Order
+
+### Phase 0: Re-ground and tighten narrative
+
+- treat this file as the active restart point
+- keep older React-oriented docs as historical context, not current priority
+- ensure continuity docs stop implying that UI is the next main workstream
+
+Status: underway.
+
+### Phase 1: Runtime sandbox model
+
+Add a real sandbox execution layer to the runtime.
+
+Target behavior:
+
+- every live run gets explicit sandbox metadata
+- default mode is per-session ephemeral copy
+- all file writes stay inside sandbox root
+- path escape attempts are blocked and recorded
+- live-web workflows stay dry-run / non-destructive
+
+Important session/runtime additions:
+
+- `sandbox_mode`
+- `sandbox_root`
+- `sandbox_source`
+- `sandbox_policy_id`
+- `sandbox_manifest_path`
+
+Status: first scaffold implemented.
+
+- new sessions default to `ephemeral_copy`
+- packaged workflow and episode inputs are copied into `sandbox/input`
+- native artifacts, trace JSON, summary JSON, and runtime manifest write under `sandbox/output`
+- session and runtime trace records carry the sandbox fields above
+
+### Phase 2: CLI live entrypoint
+
+Add:
+
+- `moonie-agent live`
+- `moonie-agent attach <session_id>`
+
+V1 live entrypoint rules:
+
+- packaged workflows only
+- default profile is `mlx_gemma4_e2b_reasoner_only`
+- runs launch in background under the shared runtime
+- operator immediately attaches in terminal
+
+Status: first scaffold implemented.
+
+- `moonie-agent live --workflow-id <id>` launches and attaches
+- `moonie-agent attach <session_id>` watches an existing session
+- both use the same persistent runtime/session/event substrate
+
+### Phase 3: Rich operator harness
+
+Build a proper terminal operator surface with:
+
+- top status bar
+- event timeline
+- summary / approvals / artifacts / sandbox side panel
+- operator controls for approve, deny, resume, retry, expand, inspect, quit
+
+Execution model:
+
+- continuous execution by default
+- pause only on approval gates, hard failures, or policy blocks
+
+Status: watch-only scaffold implemented.
+
+Next step: add operator actions for approve, deny, resume, retry, artifact inspection, and controlled quit.
+
+### Phase 4: Gemini CLI adapter
+
+Use Gemini CLI as:
+
+- a reference for CLI ergonomics
+- a reference for sandbox and trust concepts
+- an external baseline on selected Moonie workflows
+
+Do not treat Gemini CLI as a replacement for Moonie.
+
+### Phase 5: Harder `H1` slice
+
+Design a new slice that stresses:
+
+- latest-instruction override under conflict
+- clarify vs defer vs refuse judgment
+- approval-safe stop behavior
+- multi-tool-family decisions across CLI, API, and browser
+- artifact revision after resume
+- long-horizon constraint carryover
+
+### Phase 6: Second ablation wave
+
+Expand beyond the current three toggles.
+
+Next likely targets:
+
+- fallback planner path
+- argument repair, especially `extract_layout`
+- intent-priority overrides
+- deterministic visual follow-on logic as its own isolated toggle
+- specialist routing
+- clarify/defer approval judgment fallback
+
+## Acceptance Criteria
+
+- we can launch `mlx_gemma4_e2b_reasoner_only` from CLI into a temp sandbox
+- we can watch the run live in terminal
+- we can approve, deny, and resume safely
+- all writes stay inside the sandbox root
+- live runs still emit traces, artifacts, and scorecards
+- Gemini CLI can be run as a wrapped external baseline on selected tasks
+- the harder `H1` slice produces non-saturated differences
+
+## Files To Inspect First In A New Chat
+
+- [`README.md`](../../README.md)
+- [`docs/continuity/current-state.md`](./current-state.md)
+- [`docs/continuity/next-steps.md`](./next-steps.md)
+- [`docs/research-log.md`](../research-log.md)
+- [`results/history/knowledge_work_board_latest.csv`](../../results/history/knowledge_work_board_latest.csv)
+- [`src/gemma4_capability_map/runtime`](../../src/gemma4_capability_map/runtime)
+- [`src/gemma4_capability_map/api`](../../src/gemma4_capability_map/api)
+- [`src/gemma4_capability_map/research_controls.py`](../../src/gemma4_capability_map/research_controls.py)
+- [`configs/knowledge_work_matrix_ablation_32_replayable.yaml`](../../configs/knowledge_work_matrix_ablation_32_replayable.yaml)
+
+## Copy-Paste Prompt For A New Chat
+
+```text
+We are continuing work in `/Users/cheickdiakite/Codex/moonie`.
+
+Please pick up from the latest repo state and continue systematically.
+
+Important direction reset:
+- Deprioritize all frontend/UI/UX work for now.
+- Do not spend time refining React or Streamlit surfaces.
+- Focus on research, benchmarking, harnessing, and live CLI testing.
+- We still need the ability to watch the agent execute live, but CLI is the right surface right now.
+
+Current understanding you should start from:
+- The aligned exploratory `32 / 26` surface is partially saturated on top-line readiness.
+- The real remaining signal is controller dependence, not just readiness.
+- HF Gemma specialists still need materially more controller help than the clean MLX rows.
+- The focused replayable ablation packet already showed:
+  - controller repair is causal
+  - controller fallback is causal
+  - visual rescue is not doing useful work on that slice
+- We want to understand the best ways of harnessing Gemma, especially local Gemma on MLX.
+- Gemini CLI is relevant as a design reference and possible external baseline, but not a replacement for Moonie.
+
+Your job:
+1. Re-ground yourself in the current repo and docs.
+2. Turn the repo direction into a CLI-first live harness plan.
+3. Start implementing the next best move systematically.
+
+Primary next phase:
+- Build a CLI-first live operator harness for `mlx_gemma4_e2b_reasoner_only`
+- Add proper sandboxing for live runs
+- Use packaged workflows as the only live entrypoint in v1
+- Add a Gemini CLI adapter as an external baseline/reference
+- Then define a harder `H1` slice that breaks current top-line saturation
+- Then run a second ablation wave on remaining controller helpers
+
+Constraints:
+- No new frontend work unless absolutely required for backend/runtime support.
+- Prefer using the existing runtime/session/event/approval substrate.
+- Keep live runs benchmark-backed and attributable to workflow families.
+- Use Rich for terminal rendering, not a new frontend framework.
+- Keep changes incremental and verified slice by slice.
+
+Please begin by:
+1. Reading the current source-of-truth docs and configs
+2. Summarizing the repo’s current actual state
+3. Writing a short execution plan for this CLI-first pivot
+4. Implementing the first slice: runtime sandbox model + CLI live entrypoint scaffolding
+
+Files to inspect first:
+- `/Users/cheickdiakite/Codex/moonie/README.md`
+- `/Users/cheickdiakite/Codex/moonie/docs/continuity/current-state.md`
+- `/Users/cheickdiakite/Codex/moonie/docs/continuity/next-steps.md`
+- `/Users/cheickdiakite/Codex/moonie/docs/research-log.md`
+- `/Users/cheickdiakite/Codex/moonie/results/history/knowledge_work_board_latest.csv`
+- `/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/runtime/`
+- `/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/api/`
+- `/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/app/`
+- `/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/research_controls.py`
+- `/Users/cheickdiakite/Codex/moonie/configs/knowledge_work_matrix_ablation_32_replayable.yaml`
+
+Important note:
+The docs currently still emphasize the React harness in places. Treat that as stale relative to this new direction and update the narrative as part of the pivot.
+
+Work autonomously, verify as you go, and keep the focus on original research goals: understanding what actually improves Gemma harnessing, tool use, direction following, approvals, recovery, and live local execution.
+```
+
+## Working Rule For The Next Chat
+
+Do not start by expanding product scope.
+
+Start by making live CLI observation, sandbox safety, and causal harness attribution easier.

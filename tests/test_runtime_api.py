@@ -71,7 +71,7 @@ def test_local_agent_api_serves_runtime_sessions(tmp_path: Path) -> None:
 
         events = _json_request(base_url, f"/v1/sessions/{session_id}/events")
         event_kinds = [event["kind"] for event in events["events"]]
-        assert event_kinds[0:3] == ["created", "instruction_updated", "warming"]
+        assert event_kinds[0:4] == ["created", "instruction_updated", "sandbox_prepared", "warming"]
         assert "tool_call_attempt" in event_kinds
         assert "tool_call_result" in event_kinds
         assert "artifact_revision" in event_kinds

@@ -101,6 +101,7 @@ class RuntimeEvent(StrictModel):
     kind: Literal[
         "created",
         "instruction_updated",
+        "sandbox_prepared",
         "warming",
         "running",
         "resume_requested",
@@ -129,6 +130,11 @@ class RuntimeTrace(StrictModel):
     workflow_id: str
     episode_id: str
     output_dir: str
+    sandbox_mode: Literal["ephemeral_copy", "disabled"] = "ephemeral_copy"
+    sandbox_root: str = ""
+    sandbox_source: str = ""
+    sandbox_policy_id: str = ""
+    sandbox_manifest_path: str = ""
     manifest_path: str | None = None
     summary_path: str | None = None
     episode_trace_path: str | None = None
@@ -151,6 +157,11 @@ class AgentSession(StrictModel):
     episode_id: str
     system_id: str
     lane: str
+    sandbox_mode: Literal["ephemeral_copy", "disabled"] = "ephemeral_copy"
+    sandbox_root: str = ""
+    sandbox_source: str = ""
+    sandbox_policy_id: str = ""
+    sandbox_manifest_path: str = ""
     status: SessionStatus = SessionStatus.PENDING
     created_at: str
     updated_at: str

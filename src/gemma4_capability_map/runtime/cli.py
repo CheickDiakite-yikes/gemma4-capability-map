@@ -4,6 +4,8 @@ import argparse
 import json
 
 from gemma4_capability_map.runtime.core import LocalAgentRuntime
+from gemma4_capability_map.runtime.operator import attach_to_session
+from gemma4_capability_map.runtime.sandbox import DEFAULT_SANDBOX_POLICY_ID
 from gemma4_capability_map.runtime.schemas import ApprovalStatus
 
 
@@ -29,6 +31,27 @@ def parse_args() -> argparse.Namespace:
     run_parser.add_argument("--human-request", default="")
     run_parser.add_argument("--background", action="store_true")
     run_parser.add_argument("--timeout-s", type=float, default=30.0)
+    run_parser.add_argument("--sandbox-mode", choices=["ephemeral_copy", "disabled"], default="ephemeral_copy")
+    run_parser.add_argument("--sandbox-policy-id", default=DEFAULT_SANDBOX_POLICY_ID)
+
+    live_parser = subparsers.add_parser("live", help="Launch a packaged workflow and attach a Rich live operator view.")
+    live_parser.add_argument("--workflow-id", required=True)
+    live_parser.add_argument("--system-id", default="mlx_gemma4_e2b_reasoner_only")
+    live_parser.add_argument("--lane", default="live_web_stress")
+    live_parser.add_argument("--title", default=None)
+    live_parser.add_argument("--human-request", default="")
+    live_parser.add_argument("--project-id", default=None)
+    live_parser.add_argument("--refresh-s", type=float, default=0.5)
+    live_parser.add_argument("--timeout-s", type=float, default=15.0)
+    live_parser.add_argument("--once", action="store_true")
+    live_parser.add_argument("--sandbox-mode", choices=["ephemeral_copy", "disabled"], default="ephemeral_copy")
+    live_parser.add_argument("--sandbox-policy-id", default=DEFAULT_SANDBOX_POLICY_ID)
+
+    attach_parser = subparsers.add_parser("attach", help="Attach a Rich live operator view to an existing session.")
+    attach_parser.add_argument("session_id")
+    attach_parser.add_argument("--refresh-s", type=float, default=0.5)
+    attach_parser.add_argument("--timeout-s", type=float, default=15.0)
+    attach_parser.add_argument("--once", action="store_true")
 
     show_parser = subparsers.add_parser("show", help="Show a session.")
     show_parser.add_argument("session_id")
@@ -92,12 +115,43 @@ def main() -> None:
             title=args.title,
             human_request=args.human_request,
             background=args.background,
+            sandbox_mode=args.sandbox_mode,
+            sandbox_policy_id=args.sandbox_policy_id,
         )
         if args.background:
             print(json.dumps(session.model_dump(mode="json"), indent=2, ensure_ascii=False))
             return
         settled = runtime.wait_for_session(session.session_id, timeout_s=args.timeout_s)
         print(json.dumps(settled.model_dump(mode="json"), indent=2, ensure_ascii=False))
+        return
+    if args.command == "live":
+        session = runtime.launch_session(
+            workflow_id=args.workflow_id,
+            system_id=args.system_id,
+            lane=args.lane,
+            title=args.title,
+            human_request=args.human_request,
+            project_id=args.project_id,
+            background=not args.once,
+            sandbox_mode=args.sandbox_mode,
+            sandbox_policy_id=args.sandbox_policy_id,
+        )
+        attach_to_session(
+            runtime,
+            session.session_id,
+            refresh_s=args.refresh_s,
+            timeout_s=args.timeout_s,
+            once=args.once,
+        )
+        return
+    if args.command == "attach":
+        attach_to_session(
+            runtime,
+            args.session_id,
+            refresh_s=args.refresh_s,
+            timeout_s=args.timeout_s,
+            once=args.once,
+        )
         return
     if args.command == "show":
         print(json.dumps(runtime.get_session(args.session_id).model_dump(mode="json"), indent=2, ensure_ascii=False))

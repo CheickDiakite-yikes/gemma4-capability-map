@@ -5,6 +5,7 @@ from pathlib import Path
 import json
 
 from gemma4_capability_map.runtime.core import LocalAgentRuntime
+from gemma4_capability_map.runtime.sandbox import SandboxViolation, assert_path_inside
 from gemma4_capability_map.runtime.schemas import ApprovalStatus, SessionStatus
 
 
@@ -54,6 +55,13 @@ def test_runtime_launches_non_approval_workflow_and_persists_trace(tmp_path: Pat
     assert session.instruction_history[0].source == "launch"
     assert session.instruction_history[0].content == "Keep the brief tight and highlight operator follow-up."
     assert session.runtime_trace is not None
+    assert session.sandbox_mode == "ephemeral_copy"
+    assert Path(session.sandbox_root).exists()
+    assert Path(session.sandbox_manifest_path).exists()
+    assert session.runtime_trace.sandbox_root == session.sandbox_root
+    assert Path(session.runtime_trace.output_dir).is_relative_to(Path(session.sandbox_root))
+    assert Path(session.runtime_trace.manifest_path or "").is_relative_to(Path(session.sandbox_root))
+    assert all(Path(path).is_relative_to(Path(session.sandbox_root)) for path in session.runtime_trace.artifact_paths)
     assert session.metrics["strict_interface_score"] == 1.0
     assert Path(session.runtime_trace.manifest_path or "").exists()
     assert Path(session.runtime_trace.summary_path or "").exists()
@@ -68,7 +76,7 @@ def test_runtime_launches_non_approval_workflow_and_persists_trace(tmp_path: Pat
 
     events = runtime.get_events(session.session_id)
     event_kinds = [event.kind for event in events]
-    assert event_kinds[0:3] == ["created", "instruction_updated", "warming"]
+    assert event_kinds[0:4] == ["created", "instruction_updated", "sandbox_prepared", "warming"]
     assert "running" in event_kinds
     assert "tool_call_attempt" in event_kinds
     assert "tool_call_result" in event_kinds
@@ -246,6 +254,20 @@ def test_runtime_filters_sessions_and_approvals(tmp_path: Path) -> None:
     assert len(pending_approvals) == 1
     assert pending_approvals[0].session_id == awaiting.session_id
     assert len(all_approvals) == 1
+
+
+def test_runtime_sandbox_blocks_path_escapes(tmp_path: Path) -> None:
+    sandbox_root = tmp_path / "sandbox"
+    allowed = sandbox_root / "output" / "artifact.txt"
+    escaped = tmp_path / "outside.txt"
+
+    assert assert_path_inside(allowed, sandbox_root) == allowed.resolve()
+    try:
+        assert_path_inside(escaped, sandbox_root)
+    except SandboxViolation as exc:
+        assert "escapes sandbox root" in str(exc)
+    else:  # pragma: no cover - explicit safety assertion
+        raise AssertionError("Expected sandbox path escape to be blocked.")
 
 
 def test_runtime_resolves_approval_by_stable_id_and_tracks_history(tmp_path: Path) -> None:

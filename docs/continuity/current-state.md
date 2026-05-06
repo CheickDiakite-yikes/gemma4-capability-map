@@ -11,7 +11,31 @@ Current generated corpus on disk:
 
 The current headline comparison surface is the aligned exploratory `32 / 26` lane.
 
-On the product side, the repo now also has a dedicated React desktop harness for real local use:
+On the live-harness side, the active direction is now CLI-first rather than frontend-first.
+
+Current runtime substrate:
+
+- persistent sessions
+- packaged workflow identity
+- approvals and resume/deny flow
+- event timelines
+- artifact and revision persistence
+- runtime traces and scorecards
+- per-session sandbox metadata and sandboxed runtime output roots
+
+Current CLI surface:
+
+- `moonie-agent run`
+- `moonie-agent watch`
+- `moonie-agent approve` / `deny` / `resume` / `retry`
+- `moonie-agent live`
+  - packaged workflows only
+  - defaults to `mlx_gemma4_e2b_reasoner_only`
+  - launches a background run and attaches a Rich terminal operator view
+- `moonie-agent attach <session_id>`
+  - watches an existing run from the terminal
+
+The React desktop harness exists and remains useful prior work, but it is no longer the main next workstream:
 
 - `frontend`
   - defaults to `mlx_gemma4_e2b_reasoner_only`
@@ -21,15 +45,22 @@ On the product side, the repo now also has a dedicated React desktop harness for
   - long-polls the real session stream endpoint instead of pretending the UI is live
   - surfaces backend connection state directly from the API health check
   - settles completed session state in the rail from the stream payload instead of relying only on a potentially stale session list snapshot
-  - is now the main “showable” product surface for local Gemma work
+  - is no longer the active refinement target
   - runs against `moonie-agent-api`, not inside Streamlit
 
-The product loop is now verified end to end:
+The prior React product loop was verified end to end:
 
 - launched a fresh `mlx_gemma4_e2b_reasoner_only` `Dashboard Visual Review` session from the React shell
 - observed `created -> instruction_updated -> warming -> running -> artifacts_ready -> completed` through the live workspace
 - confirmed the browser pane renders runtime-backed preview assets and browser-state events
 - confirmed the sidebar/session pills settle back to `completed` after the stream/list race fix
+
+The current CLI pivot scaffold is verified with focused runtime/API/CLI tests:
+
+- `uv run pytest tests/test_runtime_core.py tests/test_runtime_cli.py tests/test_runtime_api.py`
+- `22 passed`
+- `uv run pytest`
+- `244 passed`
 
 Relevant batches:
 
@@ -153,7 +184,7 @@ Removing them via deterministic runtime sequencing changed controller metrics ma
 The remaining gap is: how much controller help still remains after the obvious visual follow-ons are made deterministic?
 
 5. The repo is no longer only benchmark-legible.
-There is now a real Gemma MLX React workspace shell that sits on the same runtime semantics as the benchmark and is usable for live local sessions.
+There is now a real runtime/session substrate, and the active live-testing surface is shifting to a sandboxed CLI operator harness over that same substrate.
 
 ## Current Blockers
 
@@ -161,7 +192,7 @@ There is now a real Gemma MLX React workspace shell that sits on the same runtim
   - `GEMMA4_31B_GGUF_PATH` unset
   - no local bundle under `/Users/cheickdiakite/models`
 - board exports are updated, but README and continuity docs should always be treated as the narrative layer; `knowledge_work_board_latest.csv` alone is not a same-batch comparison argument
-- the new React workspace is a real harness shell, but it is still not a native desktop app and does not yet embed a full browser engine; browser execution still lives in the runtime trace layer
+- the React workspace is useful prior work, but the current workstream should not spend cycles on frontend polish; browser execution still lives in the runtime trace layer
 
 ## Repo Truth
 
@@ -171,6 +202,7 @@ The repo now supports these statements:
 - same-surface readiness parity is real on the aligned exploratory `32 / 26` surface
 - HF Gemma specialists still need materially more controller help than the clean MLX rows
 - the controller burden is reducible with harness/runtime changes alone
+- live operator work should now be benchmark-backed, packaged-workflow-only, and sandboxed by default
 
 The repo still does not support these statements:
 

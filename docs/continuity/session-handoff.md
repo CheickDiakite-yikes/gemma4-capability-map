@@ -2,6 +2,14 @@
 
 ## Resume Here
 
+The current restart point is now:
+
+- [`docs/continuity/cli-live-harness-pivot.md`](./cli-live-harness-pivot.md)
+
+Use that file first in a new chat.
+
+It supersedes the old assumption that the next main workstream is React workspace refinement.
+
 The current research seam is no longer “make the rows tie.”
 
 That part is done on the aligned exploratory `32 / 26` surface.
@@ -10,9 +18,18 @@ The current seam is:
 
 - reduce HF Gemma specialist controller burden further
 - without losing the current aligned readiness tier
-- keep turning the React Gemma MLX workspace into a genuinely usable local harness surface instead of a benchmark-adjacent demo
+- shift the main live-testing surface to a CLI-first sandboxed operator harness
+- use Gemini CLI as a design reference and external baseline, not a replacement
 
-The latest product-side gain is no longer theoretical:
+The latest live-harness gain is now CLI-first:
+
+- sessions and runtime traces carry sandbox metadata
+- packaged workflow runs get a per-session sandbox with copied workflow/episode inputs
+- native artifacts and runtime summaries write under the sandbox output root
+- `moonie-agent live` launches a packaged workflow and attaches a Rich terminal operator view
+- `moonie-agent attach <session_id>` watches an existing run from the terminal
+
+The prior React product-side gain remains useful context:
 
 - the React workspace now runs against the real API in a live loop
 - the shell uses backend health plus long-poll session streaming
@@ -74,6 +91,36 @@ Live `26`:
 
 ## What Just Changed
 
+The latest pass added the first CLI-first live harness slice.
+
+Code path:
+
+- [`src/gemma4_capability_map/runtime/sandbox.py`](../../src/gemma4_capability_map/runtime/sandbox.py)
+- [`src/gemma4_capability_map/runtime/operator.py`](../../src/gemma4_capability_map/runtime/operator.py)
+- [`src/gemma4_capability_map/runtime/cli.py`](../../src/gemma4_capability_map/runtime/cli.py)
+- [`src/gemma4_capability_map/runtime/core.py`](../../src/gemma4_capability_map/runtime/core.py)
+- [`tests/test_runtime_core.py`](../../tests/test_runtime_core.py)
+- [`tests/test_runtime_cli.py`](../../tests/test_runtime_cli.py)
+- [`tests/test_runtime_api.py`](../../tests/test_runtime_api.py)
+
+What that means:
+
+- `moonie-agent live` is now the active live-entry scaffold for packaged workflows
+- `moonie-agent attach` provides a Rich terminal operator view
+- new live runs are sandboxed by default with policy id `packaged_workflow_ephemeral_v1`
+- runtime artifacts, summaries, and traces are attributable to the sandbox root
+
+Verification:
+
+- `uv run pytest tests/test_runtime_core.py tests/test_runtime_cli.py tests/test_runtime_api.py`
+- `22 passed`
+- `uv run moonie-agent live --workflow-id executive_visual_dashboard_review --system-id oracle_gemma4_e2b --lane replayable_core --refresh-s 0.1 --timeout-s 0.5`
+- completed through the Rich operator view with sandbox context visible
+- `uv run pytest`
+- `244 passed`
+
+## Prior Change
+
 The latest pass added deterministic runtime execution for obvious visual follow-ons.
 
 Code path:
@@ -127,13 +174,12 @@ Do not spend time re-proving:
 
 ## Next Best Move
 
-1. Keep strengthening the React Gemma MLX workspace.
-Primary product targets:
-   - decide whether the current long-poll loop should stay or graduate into SSE/websocket transport
-   - richer browser-side context
-   - stronger artifact previews
-   - tighter project/thread navigation
-   - decide the next desktop host for a real embedded browser surface
+1. Follow the CLI live harness pivot file first.
+Primary targets:
+   - runtime sandbox model
+   - `moonie-agent live`
+   - `moonie-agent attach`
+   - Rich terminal operator harness
 
 2. Attack the remaining HF Gemma specialist note families directly.
 Primary targets:
@@ -145,7 +191,9 @@ Primary targets:
 3. Keep using the focused replayable packet first.
 Only rerun the aligned `32 / 26` surface after the packet shifts again.
 
-4. If the next question becomes runtime posture instead of controller dependence, switch to installing the Gemma `31B` local `GGUF` artifact and run the first real `llama.cpp` row.
+4. Use Gemini CLI as a wrapped reference/baseline after the CLI live harness exists.
+
+5. If the next question becomes runtime posture instead of controller dependence, switch to installing the Gemma `31B` local `GGUF` artifact and run the first real `llama.cpp` row.
 
 ## Verification State
 

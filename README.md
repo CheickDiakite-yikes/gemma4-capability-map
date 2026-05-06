@@ -64,7 +64,8 @@ The current repo state is:
 - `26` live `KnowledgeWorkArena` episodes in the generated corpus
 - a shared local runtime with persistent sessions, approvals, artifacts, and event traces
 - a local CLI and local HTTP API over that runtime
-- a proper React desktop harness aimed at Gemma 4 on MLX over the same local API
+- CLI-first live harness scaffolding with Rich rendering, `live` / `attach`, and per-session sandboxes
+- a React desktop harness over the same local API, now treated as useful prior work rather than the main next workstream
 - experimental runtime-posture support for Gemma `31B` `GGUF` / `llama.cpp`
 - benchmark-backed Streamlit research and mobile shell surfaces over the same runtime contract
 
@@ -121,8 +122,11 @@ The repo is no longer only a benchmark runner. It now has an explicit local prod
   - approval hold/resume flow
   - event timelines
   - artifact and revision persistence
+  - per-session sandbox metadata and sandboxed runtime output roots
 - `moonie-agent`
-  - CLI for profiles, workflows, sessions, runs, approvals, and event inspection
+  - CLI for profiles, workflows, sessions, runs, approvals, event inspection, and live terminal attachment
+  - `moonie-agent live` launches packaged workflows only and defaults to `mlx_gemma4_e2b_reasoner_only`
+  - `moonie-agent attach <session_id>` watches an existing run through a Rich terminal operator view
 - `moonie-agent-api`
   - local HTTP API for thin desktop and mobile clients
 - React desktop harness
@@ -157,9 +161,9 @@ This matters for the current research questions. The repo is explicitly trying t
 The product implication is now explicit:
 
 - the repo no longer only exposes a benchmark dashboard
-- it now has a usable Gemma-first workspace shell for actually launching and inspecting local sessions
+- it now has a usable Gemma-first runtime shell for launching and inspecting local sessions
 - the first product posture is Gemma 4 on MLX, because that is the most practical Apple-Silicon-native local deployment in the current repo
-- the main harness direction is now a proper React frontend over the local API, with Streamlit kept for benchmark/research tooling
+- the main harness direction is now CLI-first live operation over the shared runtime, with React and Streamlit parked unless they are needed for runtime support
 
 ### Published External Benchmark Context
 
@@ -251,22 +255,24 @@ Shared identity:
 
 ### Desktop Priorities
 
-Desktop is now split into two deliberate surfaces:
+Desktop is now split into deliberate surfaces, but the current execution priority is terminal-first:
 
-- `frontend`
-  - the main user-facing local harness surface
+- `moonie-agent live` / `moonie-agent attach`
+  - the main active live-testing surface for local Gemma harness research
+  - sandboxed, packaged-workflow-only, and benchmark-backed
 - `operator_console`
   - the research and operations surface
+- `frontend`
+  - a useful API-backed shell from the prior phase, not the active refinement target
 
-The workspace priorities are:
+The live operator priorities are:
 
-- project-first navigation
-- session continuity across retries and resumes
-- a centered conversation/composer flow
-- right-pane context for summary, review, and browser state
-- a default Gemma MLX posture instead of a model-agnostic launch sheet
-- product UX that behaves like a real desktop shell instead of a benchmark selector
-- browser-pane state that can later be upgraded from a web preview to a real desktop webview host
+- packaged workflow launch only in v1
+- default Gemma MLX posture
+- live event timeline and status
+- sandbox root, policy, artifacts, and approval state visible in terminal
+- approval and resume commands that reuse the existing runtime/session substrate
+- traces, artifacts, and scorecards preserved for every live run
 
 The operator-console priorities remain:
 

@@ -1,5 +1,43 @@
 # Research Log
 
+# 2026-05-06
+
+### CLI-first live harness pivot now has a sandboxed runtime scaffold
+
+- Runtime implementation:
+  - [`src/gemma4_capability_map/runtime/sandbox.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/runtime/sandbox.py)
+  - [`src/gemma4_capability_map/runtime/operator.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/runtime/operator.py)
+  - [`src/gemma4_capability_map/runtime/core.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/runtime/core.py)
+  - [`src/gemma4_capability_map/runtime/cli.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/runtime/cli.py)
+  - [`src/gemma4_capability_map/runtime/schemas.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/runtime/schemas.py)
+- API/test support:
+  - [`src/gemma4_capability_map/api/app.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/api/app.py)
+  - [`tests/test_runtime_core.py`](/Users/cheickdiakite/Codex/moonie/tests/test_runtime_core.py)
+  - [`tests/test_runtime_cli.py`](/Users/cheickdiakite/Codex/moonie/tests/test_runtime_cli.py)
+  - [`tests/test_runtime_api.py`](/Users/cheickdiakite/Codex/moonie/tests/test_runtime_api.py)
+
+- What changed:
+  - frontend refinement is no longer the active workstream
+  - live runs now default to `ephemeral_copy` sandbox metadata with policy id `packaged_workflow_ephemeral_v1`
+  - packaged workflow and episode inputs are copied into each session sandbox
+  - runtime summaries, traces, manifests, and native artifacts now write under the sandbox output root
+  - `moonie-agent live` launches a packaged workflow and immediately attaches a Rich terminal operator view
+  - `moonie-agent attach <session_id>` watches an existing session from the terminal
+  - the live CLI defaults to `mlx_gemma4_e2b_reasoner_only`, while tests use oracle rows to keep verification local and fast
+
+- Verification:
+  - `uv lock`
+  - `uv run pytest tests/test_runtime_core.py tests/test_runtime_cli.py tests/test_runtime_api.py`
+  - `22 passed`
+  - `uv run moonie-agent live --workflow-id executive_visual_dashboard_review --system-id oracle_gemma4_e2b --lane replayable_core --refresh-s 0.1 --timeout-s 0.5`
+  - completed through the Rich operator view with sandbox context visible
+  - `uv run pytest`
+  - `244 passed`
+
+- Research interpretation:
+  - the repo now has a safer first live-operator path for studying local Gemma execution without adding more UI surface area
+  - the next useful slice is not visual polish; it is operator actions, stricter live-web dry-run policy, Gemini CLI as a wrapped baseline, and a harder `H1` slice that breaks the current saturated top-line readiness
+
 # 2026-04-14
 
 ### The React Gemma MLX workspace now runs a real end-to-end local session loop

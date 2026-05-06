@@ -119,6 +119,8 @@ class LocalAgentAPIHandler(BaseHTTPRequestHandler):
                     human_request=str(body.get("human_request", "")),
                     project_id=body.get("project_id"),
                     background=bool(body.get("background", True)),
+                    sandbox_mode=str(body.get("sandbox_mode", "ephemeral_copy")),
+                    sandbox_policy_id=str(body.get("sandbox_policy_id", "packaged_workflow_ephemeral_v1")),
                 )
             except Exception as exc:
                 self._send_json({"error": str(exc)}, status=400)
