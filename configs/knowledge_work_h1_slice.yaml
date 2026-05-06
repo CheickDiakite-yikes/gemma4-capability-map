@@ -90,6 +90,24 @@ h1_slice:
         - harnessability_approval_resume
         - direction_following_stale_override
         - approval_safe_stop
+  packets:
+    visual_semantics_no_controller_repair:
+      lane: replayable_core
+      purpose: >
+        Compact replayable packet for the remaining H1 controller-repair failure
+        family: valid but semantically stale visual chains under disabled repair.
+      system_ids:
+        - hf_service_gemma4_specialists_cpu
+        - hf_service_gemma4_specialists_cpu_no_controller_repair
+        - hf_service_gemma4_specialists_cpu_no_deterministic_visual_follow_on
+      episode_ids:
+        - kwa_exec_backlog_resume_hold_v5
+        - kwa_jobs_email_block_resume_hold_v5
+        - kwa_finance_invoice_lock_direction_hold_v4
+      failure_modes:
+        - visual_readback_missing
+        - visual_stepwise_control
+        - visual_repeated_refinement
   saturation_breaker_metrics:
     - real_world_readiness_avg
     - controller_repair_avg

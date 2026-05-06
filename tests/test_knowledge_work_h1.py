@@ -3,7 +3,7 @@ from __future__ import annotations
 import importlib.util
 from pathlib import Path
 
-from gemma4_capability_map.knowledge_work.h1 import build_h1_run_specs, load_h1_slice, validate_h1_slice
+from gemma4_capability_map.knowledge_work.h1 import build_h1_run_specs, h1_packet_selection, load_h1_slice, validate_h1_slice
 from gemma4_capability_map.reporting.knowledge_work_board import load_model_registry
 
 
@@ -42,6 +42,18 @@ def test_h1_slice_config_maps_to_existing_packaged_workflows_and_episodes() -> N
         "kwa_jobs_live_email_block_resume_hold_v5",
         "kwa_finance_live_diff_review_hold_v5",
         "kwa_finance_live_invoice_lock_direction_hold_v4",
+    ]
+    packet = h1_packet_selection(config, "visual_semantics_no_controller_repair")
+    assert packet.lane == "replayable_core"
+    assert packet.system_ids == [
+        "hf_service_gemma4_specialists_cpu",
+        "hf_service_gemma4_specialists_cpu_no_controller_repair",
+        "hf_service_gemma4_specialists_cpu_no_deterministic_visual_follow_on",
+    ]
+    assert packet.episode_ids == [
+        "kwa_exec_backlog_resume_hold_v5",
+        "kwa_jobs_email_block_resume_hold_v5",
+        "kwa_finance_invoice_lock_direction_hold_v4",
     ]
 
 
@@ -114,3 +126,23 @@ def test_h1_ablation_packet_command_uses_shared_bundle_and_episode_filters(tmp_p
     assert command.count("--system-id") == len(config.ablation_system_ids)
     assert command.count("--episode-id") == len(config.lanes["replayable_core"].episode_ids)
     assert command[command.index("--run-intent") + 1] == "exploratory"
+
+
+def test_h1_ablation_packet_command_can_use_named_visual_semantics_packet(tmp_path: Path) -> None:
+    config = load_h1_slice()
+    packet = h1_packet_selection(config, "visual_semantics_no_controller_repair")
+
+    command = PACKET_SCRIPT.h1_ablation_packet_command(
+        run_group_id="h1_visual_semantics_packet_test",
+        lane=packet.lane,
+        bundle_system_id=config.ablation_bundle_system_id,
+        system_ids=packet.system_ids,
+        episode_ids=packet.episode_ids,
+        output_root=tmp_path,
+    )
+
+    assert command[command.index("--bundle-system-id") + 1] == "hf_service_gemma4_specialists_cpu"
+    assert command.count("--system-id") == 3
+    assert command.count("--episode-id") == 3
+    assert "kwa_exec_visual_dashboard_brief" not in command
+    assert "hf_service_gemma4_specialists_cpu_no_controller_repair" in command

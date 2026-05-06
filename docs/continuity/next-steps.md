@@ -24,7 +24,7 @@ Next implementation moves:
 
 - use the completed visual-filter repair full H1 ablation rerun as the new causal snapshot
 - isolate the remaining `no_controller_repair` failures, which are now mostly valid-but-semantically-wrong visual refinements rather than malformed calls
-- add a compact no-controller-repair visual semantics packet before changing more harness code
+- use the compact `visual_semantics_no_controller_repair` packet before changing more harness code
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1
@@ -158,6 +158,14 @@ Next empirical move:
 
 - target the remaining causal helper:
   - `no_controller_repair = 0.8874599999999999`
+- run the named compact packet:
+
+```bash
+uv run python scripts/run_knowledge_work_h1_ablation_packet.py \
+  --packet-id visual_semantics_no_controller_repair \
+  --run-group-id 20260506T_h1_visual_semantics_no_repair_v1
+```
+
 - use the trace miner labels for the active residual family:
   - `visual_readback_missing`
   - `visual_stepwise_control`

@@ -32,6 +32,14 @@ class H1WorkflowFamily(StrictModel):
     h1_stressors: list[str] = Field(default_factory=list)
 
 
+class H1PacketConfig(StrictModel):
+    lane: Literal["replayable_core", "live_web_stress"]
+    purpose: str
+    system_ids: list[str]
+    episode_ids: list[str]
+    failure_modes: list[str] = Field(default_factory=list)
+
+
 class H1SliceConfig(StrictModel):
     name: str
     version: str
@@ -45,6 +53,7 @@ class H1SliceConfig(StrictModel):
     ablation_system_ids: list[str] = Field(default_factory=list)
     lanes: dict[Literal["replayable_core", "live_web_stress"], H1LaneConfig]
     workflow_families: list[H1WorkflowFamily]
+    packets: dict[str, H1PacketConfig] = Field(default_factory=dict)
     saturation_breaker_metrics: list[str] = Field(default_factory=list)
     attribution_tags: list[str] = Field(default_factory=list)
 
@@ -101,7 +110,19 @@ def validate_h1_slice(
     errors.extend(f"live_web_stress: episode not mapped to workflow `{episode_id}`" for episode_id in sorted(extra_live))
     errors.extend(f"workflow episode missing from replayable_core `{episode_id}`" for episode_id in sorted(missing_replayable))
     errors.extend(f"workflow episode missing from live_web_stress `{episode_id}`" for episode_id in sorted(missing_live))
+    for packet_id, packet in config.packets.items():
+        lane_ids = lane_episode_ids.get(packet.lane, set())
+        missing_packet_episodes = [episode_id for episode_id in packet.episode_ids if episode_id not in lane_ids]
+        errors.extend(f"{packet_id}: packet episode not in {packet.lane} `{episode_id}`" for episode_id in missing_packet_episodes)
     return errors
+
+
+def h1_packet_selection(config: H1SliceConfig, packet_id: str) -> H1PacketConfig:
+    packet = config.packets.get(packet_id)
+    if packet is None:
+        available = ", ".join(sorted(config.packets)) or "none"
+        raise ValueError(f"Unknown H1 packet `{packet_id}`. Available packets: {available}.")
+    return packet
 
 
 def h1_system_ids(config: H1SliceConfig, run_set: H1RunSet = "primary", explicit_system_ids: list[str] | None = None) -> list[str]:

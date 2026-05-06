@@ -8,7 +8,12 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
-from gemma4_capability_map.knowledge_work.h1 import DEFAULT_H1_SLICE_PATH, load_h1_slice, validate_h1_slice
+from gemma4_capability_map.knowledge_work.h1 import (
+    DEFAULT_H1_SLICE_PATH,
+    h1_packet_selection,
+    load_h1_slice,
+    validate_h1_slice,
+)
 from gemma4_capability_map.reporting.knowledge_work_board import DEFAULT_REGISTRY_PATH, load_model_registry
 
 
@@ -24,6 +29,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--run-group-id", default=None)
     parser.add_argument("--lane", choices=["replayable_core", "live_web_stress"], default="replayable_core")
     parser.add_argument("--system-id", action="append", dest="system_ids", default=[])
+    parser.add_argument("--packet-id", default=None, help="Run a named H1 packet from the config instead of the full lane.")
     parser.add_argument("--dry-run", action="store_true")
     return parser.parse_args()
 
@@ -36,19 +42,22 @@ def main() -> None:
         raise SystemExit("Invalid H1 slice config:\n" + "\n".join(f"- {error}" for error in validation_errors))
 
     registry = load_model_registry(args.registry)
-    selected_system_ids = args.system_ids or list(config.ablation_system_ids)
+    packet = h1_packet_selection(config, args.packet_id) if args.packet_id else None
+    selected_lane = packet.lane if packet is not None else args.lane
+    selected_system_ids = args.system_ids or (list(packet.system_ids) if packet is not None else list(config.ablation_system_ids))
     missing_system_ids = [system_id for system_id in selected_system_ids if system_id not in registry.get("systems", {})]
     if missing_system_ids:
         raise SystemExit(f"Unknown system ids: {', '.join(missing_system_ids)}")
 
     run_group_id = args.run_group_id or datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ_h1_ablation")
-    lane_config = config.lanes[args.lane]
+    lane_config = config.lanes[selected_lane]
+    selected_episode_ids = list(packet.episode_ids) if packet is not None else list(lane_config.episode_ids)
     command = h1_ablation_packet_command(
         run_group_id=run_group_id,
-        lane=args.lane,
+        lane=selected_lane,
         bundle_system_id=config.ablation_bundle_system_id,
         system_ids=selected_system_ids,
-        episode_ids=lane_config.episode_ids,
+        episode_ids=selected_episode_ids,
         output_root=Path(args.output_root),
     )
     output_dir = Path(args.output_root) / f"{run_group_id}_knowledge_work_ablation_packet"
@@ -56,10 +65,12 @@ def main() -> None:
         "run_group_id": run_group_id,
         "created_at": datetime.now(UTC).isoformat(),
         "h1_slice": config.model_dump(mode="json"),
-        "lane": args.lane,
+        "packet_id": args.packet_id,
+        "packet": packet.model_dump(mode="json") if packet is not None else None,
+        "lane": selected_lane,
         "bundle_system_id": config.ablation_bundle_system_id,
         "system_ids": selected_system_ids,
-        "episode_ids": lane_config.episode_ids,
+        "episode_ids": selected_episode_ids,
         "command": command,
         "output_dir": str(output_dir.resolve()),
         "dry_run": bool(args.dry_run),
