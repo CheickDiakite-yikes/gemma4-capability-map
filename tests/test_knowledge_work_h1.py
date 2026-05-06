@@ -13,6 +13,12 @@ assert SPEC and SPEC.loader
 SCRIPT = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(SCRIPT)
 
+PACKET_MODULE_PATH = Path(__file__).resolve().parents[1] / "scripts" / "run_knowledge_work_h1_ablation_packet.py"
+PACKET_SPEC = importlib.util.spec_from_file_location("run_knowledge_work_h1_ablation_packet_script", PACKET_MODULE_PATH)
+assert PACKET_SPEC and PACKET_SPEC.loader
+PACKET_SCRIPT = importlib.util.module_from_spec(PACKET_SPEC)
+PACKET_SPEC.loader.exec_module(PACKET_SCRIPT)
+
 
 def test_h1_slice_config_maps_to_existing_packaged_workflows_and_episodes() -> None:
     config = load_h1_slice()
@@ -89,3 +95,22 @@ def test_h1_arena_command_is_episode_filtered_and_exploratory(tmp_path: Path) ->
     assert "--disable-controller-fallback" in command
     assert command.count("--episode-id") == len(config.lanes["live_web_stress"].episode_ids)
     assert "kwa_jobs_live_email_block_resume_hold_v5" in command
+
+
+def test_h1_ablation_packet_command_uses_shared_bundle_and_episode_filters(tmp_path: Path) -> None:
+    config = load_h1_slice()
+
+    command = PACKET_SCRIPT.h1_ablation_packet_command(
+        run_group_id="h1_packet_test",
+        lane="replayable_core",
+        bundle_system_id=config.ablation_bundle_system_id,
+        system_ids=config.ablation_system_ids,
+        episode_ids=config.lanes["replayable_core"].episode_ids,
+        output_root=tmp_path,
+    )
+
+    assert "run_knowledge_work_ablation_packet.py" in command[1]
+    assert command[command.index("--bundle-system-id") + 1] == "hf_gemma4_e2b_specialists_cpu"
+    assert command.count("--system-id") == len(config.ablation_system_ids)
+    assert command.count("--episode-id") == len(config.lanes["replayable_core"].episode_ids)
+    assert command[command.index("--run-intent") + 1] == "exploratory"

@@ -244,6 +244,20 @@
   - H1 replayable is slightly harder for artifact quality than the broad aligned read, but it does not yet break MLX Gemma's controller-clean posture
   - the next useful experiment is the H1 replayable HF Gemma ablation set, not another broad aligned rerun
 
+### H1 HF ablation packet wrapper added
+
+- Implementation:
+  - [`scripts/run_knowledge_work_h1_ablation_packet.py`](/Users/cheickdiakite/Codex/moonie/scripts/run_knowledge_work_h1_ablation_packet.py)
+  - [`tests/test_knowledge_work_h1.py`](/Users/cheickdiakite/Codex/moonie/tests/test_knowledge_work_h1.py)
+
+- What changed:
+  - added a config-backed wrapper for running the H1 ablation wave through the existing shared-bundle ablation packet runner
+  - avoids warming the HF Gemma specialist bundle once per ablation row
+  - preserves H1 episode filters and configured ablation row attribution
+
+- Next command:
+  - `uv run python scripts/run_knowledge_work_h1_ablation_packet.py --lane replayable_core --run-group-id 20260506T_h1_hf_ablation_v1`
+
 # 2026-04-14
 
 ### The React Gemma MLX workspace now runs a real end-to-end local session loop

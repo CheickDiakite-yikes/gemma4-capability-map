@@ -94,6 +94,14 @@ Useful run sets:
 
 The H1 runner validates workflow/episode mappings first, writes a run manifest, and delegates real execution to `scripts/run_knowledge_work_arena.py` with explicit `--episode-id` filters and `--no-update-latest`.
 
+For HF Gemma ablation waves, prefer the shared-bundle packet wrapper:
+
+```bash
+uv run python scripts/run_knowledge_work_h1_ablation_packet.py --lane replayable_core --run-group-id 20260506T_h1_hf_ablation_v1
+```
+
+That wrapper loads the same H1 config, then delegates to `scripts/run_knowledge_work_ablation_packet.py` so all configured ablation rows share one warmed HF bundle.
+
 Current H1 ablation rows:
 
 - baseline HF Gemma specialists

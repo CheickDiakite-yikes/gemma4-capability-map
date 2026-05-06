@@ -125,8 +125,10 @@ Current empirical status:
 Next empirical run:
 
 ```bash
-uv run python scripts/run_knowledge_work_h1_slice.py --run-set ablation --lane replayable_core --run-group-id 20260506T_h1_hf_ablation_v1
+uv run python scripts/run_knowledge_work_h1_ablation_packet.py --lane replayable_core --run-group-id 20260506T_h1_hf_ablation_v1
 ```
+
+Use the H1 ablation packet wrapper instead of the generic H1 runner for this wave; it shares one HF bundle across the ablation rows.
 
 ### 5. Install the local Gemma `31B` `GGUF` artifact and run the first real `llama.cpp` posture row
 

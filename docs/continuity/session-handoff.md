@@ -38,6 +38,7 @@ The latest live-harness gain is now CLI-first:
   - [`docs/continuity/h1-slice.md`](./h1-slice.md)
 - `scripts/run_knowledge_work_h1_slice.py` validates H1 and delegates filtered runs to the existing KWA arena runner
 - second-wave ablation controls now exist for intent priority, argument repair, and deterministic visual follow-on
+- H1 HF ablation should use [`scripts/run_knowledge_work_h1_ablation_packet.py`](../../scripts/run_knowledge_work_h1_ablation_packet.py) so the ablation rows share one warmed HF bundle
 - H1 primary replayable MLX Gemma completed cleanly:
   - [`results/knowledge_work_h1_slice/20260506T_h1_mlx_gemma_primary_v1_knowledge_work_h1_controller_dependence_v1`](../../results/knowledge_work_h1_slice/20260506T_h1_mlx_gemma_primary_v1_knowledge_work_h1_controller_dependence_v1)
   - `real_world_readiness_avg = 0.9749800000000001`
@@ -225,7 +226,7 @@ Primary targets:
    - `moonie-agent attach`
    - Rich terminal operator harness
 
-2. Run the H1 replayable HF Gemma ablation set before another broad same-surface rerun.
+2. Run the H1 replayable HF Gemma ablation packet before another broad same-surface rerun.
 
 3. Attack the remaining HF Gemma specialist note families directly.
 Primary targets:
