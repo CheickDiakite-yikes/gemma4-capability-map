@@ -197,8 +197,8 @@ def _system_run_args(system_id: str, registry: dict[str, dict[str, Any]]) -> dic
     router_backend = ""
     retriever_backend = ""
     if executor_mode == "local_specialists":
-        router_backend = "hf_service" if backend == "hf_service" else "hf"
-        retriever_backend = "hf_service" if backend == "hf_service" else "hf"
+        router_backend = "hf"
+        retriever_backend = "hf"
     elif executor_mode == "local_reasoner":
         router_backend = "heuristic"
         retriever_backend = "heuristic"

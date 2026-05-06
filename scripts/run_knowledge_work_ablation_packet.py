@@ -189,13 +189,13 @@ def main() -> None:
 
 def _router_backend(system_meta: dict[str, Any]) -> str:
     if str(system_meta.get("executor_mode", "")) == "local_specialists":
-        return "hf_service" if str(system_meta.get("backend", "")) == "hf_service" else "hf"
+        return "hf"
     return "heuristic"
 
 
 def _retriever_backend(system_meta: dict[str, Any]) -> str:
     if str(system_meta.get("executor_mode", "")) == "local_specialists":
-        return "hf_service" if str(system_meta.get("backend", "")) == "hf_service" else "hf"
+        return "hf"
     return "heuristic"
 
 

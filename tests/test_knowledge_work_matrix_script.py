@@ -40,8 +40,8 @@ def test_system_run_args_use_registry_executor_mode_defaults() -> None:
     gguf_reasoner = _system_run_args("llama_cpp_gemma4_31b_reasoner_only", registry)
     no_fallback = _system_run_args("hf_gemma4_e2b_specialists_cpu_no_controller_fallback", registry)
 
-    assert service_specialists["router_backend"] == "hf_service"
-    assert service_specialists["retriever_backend"] == "hf_service"
+    assert service_specialists["router_backend"] == "hf"
+    assert service_specialists["retriever_backend"] == "hf"
     assert inprocess_reasoner["router_backend"] == "heuristic"
     assert inprocess_reasoner["retriever_backend"] == "heuristic"
     assert inprocess_reasoner["router"] == ""
@@ -83,8 +83,8 @@ def test_system_run_args_include_service_backed_ablation_controls() -> None:
     no_follow_on = _system_run_args("hf_service_gemma4_specialists_cpu_no_deterministic_visual_follow_on", registry)
 
     assert no_intent["backend"] == "hf_service"
-    assert no_intent["router_backend"] == "hf_service"
-    assert no_intent["retriever_backend"] == "hf_service"
+    assert no_intent["router_backend"] == "hf"
+    assert no_intent["retriever_backend"] == "hf"
     assert no_intent["disable_intent_priority"] is True
     assert no_arguments["disable_argument_repair"] is True
     assert no_follow_on["disable_deterministic_visual_follow_on"] is True
