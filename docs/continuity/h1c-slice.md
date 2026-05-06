@@ -123,3 +123,15 @@ The corrected H1c MLX primary monolith run is complete:
 - raw planning clean averaged `0.3`
 
 Interpretation: the repeated CLI live signal was not a one-off anomaly. Once H1c uses the same monolith posture as `moonie-agent live`, benchmark and CLI agree that local MLX Gemma completes the workflows but still needs controller repair/fallback on live visual/API/CLI families. The next slice should add local MLX controller-helper ablation profiles or an equivalent H1c monolith ablation packet.
+
+The H1c MLX monolith helper ablation is complete:
+
+- output: [`results/knowledge_work_h1_slice/20260506T_h1c_mlx_monolith_helpers_v1_knowledge_work_h1c_live_policy_controller_dependence_v1`](../../results/knowledge_work_h1_slice/20260506T_h1c_mlx_monolith_helpers_v1_knowledge_work_h1c_live_policy_controller_dependence_v1)
+- systems: baseline, `no_controller_repair`, `no_controller_fallback`, and `no_argument_repair`
+- baseline stayed at readiness `0.97936`, strict/recovered `1.0 / 1.0`
+- `no_controller_repair` fell to readiness `0.7381800000000001`, strict/recovered `0.475 / 0.3`
+- `no_controller_fallback` fell to readiness `0.92104`, strict/recovered `0.85 / 0.8`
+- `no_argument_repair` fell to readiness `0.82036`, strict/recovered `0.7125 / 0.5`
+- trace mining found `12` failure candidates
+
+Interpretation: H1c is now a real saturation breaker for local MLX monolith. Controller repair is the largest causal helper, argument repair is also causal across visual/CLI/API canonicalization, and fallback is specifically causal for the jobs visual/form chains.

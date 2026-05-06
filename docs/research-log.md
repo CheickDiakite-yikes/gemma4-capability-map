@@ -346,6 +346,27 @@
   - the corrected monolith benchmark now agrees with repeated CLI live smoke: local MLX Gemma finishes the workflows, but controller repair/fallback remains material
   - next slice should add local MLX monolith helper-ablation profiles and run a compact H1c ablation over the repeated families
 
+### H1c MLX monolith helper ablation shows causal controller dependence
+
+- Packet command:
+  - `uv run python scripts/run_knowledge_work_h1_slice.py --config configs/knowledge_work_h1c_slice.yaml --run-set primary --lane live_web_stress --system-id mlx_gemma4_e2b_reasoner_only --system-id mlx_gemma4_e2b_reasoner_only_no_controller_repair --system-id mlx_gemma4_e2b_reasoner_only_no_controller_fallback --system-id mlx_gemma4_e2b_reasoner_only_no_argument_repair --run-group-id 20260506T_h1c_mlx_monolith_helpers_v1`
+- Packet output:
+  - [`results/knowledge_work_h1_slice/20260506T_h1c_mlx_monolith_helpers_v1_knowledge_work_h1c_live_policy_controller_dependence_v1`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1c_mlx_monolith_helpers_v1_knowledge_work_h1c_live_policy_controller_dependence_v1)
+- Row summary:
+  - baseline: readiness `0.97936`, strict/recovered `1.0 / 1.0`, repair/fallback `0.7 / 0.2`, raw clean `0.3`
+  - `no_controller_repair`: readiness `0.7381800000000001`, strict/recovered `0.475 / 0.3`, raw clean `0.89`
+  - `no_controller_fallback`: readiness `0.92104`, strict/recovered `0.85 / 0.8`, raw clean `0.5`
+  - `no_argument_repair`: readiness `0.82036`, strict/recovered `0.7125 / 0.5`, raw clean `0.8`
+- Trace mining:
+  - `note_count = 41`
+  - `failure_candidate_count = 12`
+  - dominant failure modes: `visual_stepwise_control = 6`, `repair_disabled = 5`, `fallback_planner = 4`, `argument_repair = 2`, `fallback_disabled = 2`
+- Research interpretation:
+  - controller repair is strongly causal for local MLX monolith on H1c
+  - argument repair is also causal, especially where raw calls are semantically close but contract-wrong
+  - fallback is narrower but real, concentrated in the jobs visual/form chains
+  - disabled rows can show higher `raw_planning_clean_rate` while performing worse, so raw-clean must be interpreted with repair controls in mind
+
 ### CLI policy rendering now surfaces live-web block details
 
 - Runtime/CLI implementation:

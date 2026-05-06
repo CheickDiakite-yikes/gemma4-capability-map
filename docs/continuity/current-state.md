@@ -640,6 +640,27 @@ H1c MLX primary live path, corrected monolith posture:
   - `tool_016_finance_api_invoice_lock_update`
 - interpretation: the prior clean H1c MLX primary row was a harness mismatch caused by a modular heuristic router in the benchmark path. The corrected monolith row aligns with the repeated CLI live-smoke packet: local MLX Gemma still completes the workflows, but it reproducibly needs controller repair/fallback on live policy/tool families.
 
+H1c MLX monolith helper ablation:
+
+- output: [`results/knowledge_work_h1_slice/20260506T_h1c_mlx_monolith_helpers_v1_knowledge_work_h1c_live_policy_controller_dependence_v1`](../../results/knowledge_work_h1_slice/20260506T_h1c_mlx_monolith_helpers_v1_knowledge_work_h1c_live_policy_controller_dependence_v1)
+- systems:
+  - `mlx_gemma4_e2b_reasoner_only`
+  - `mlx_gemma4_e2b_reasoner_only_no_controller_repair`
+  - `mlx_gemma4_e2b_reasoner_only_no_controller_fallback`
+  - `mlx_gemma4_e2b_reasoner_only_no_argument_repair`
+- baseline row: readiness `0.97936`, strict/recovered `1.0 / 1.0`, repair/fallback `0.7 / 0.2`, raw clean `0.3`
+- `no_controller_repair`: readiness `0.7381800000000001`, strict/recovered `0.475 / 0.3`, raw clean `0.89`
+- `no_controller_fallback`: readiness `0.92104`, strict/recovered `0.85 / 0.8`, raw clean `0.5`
+- `no_argument_repair`: readiness `0.82036`, strict/recovered `0.7125 / 0.5`, raw clean `0.8`
+- trace mining: `41` notes, `12` failure candidates
+- dominant failure modes:
+  - `visual_stepwise_control = 6`
+  - `repair_disabled = 5`
+  - `fallback_planner = 4`
+  - `argument_repair = 2`
+  - `fallback_disabled = 2`
+- interpretation: controller repair, argument repair, and fallback are all causal for local MLX monolith on H1c. Higher raw-clean rates in disabled rows are not better behavior; they mean the controller stopped repairing semantically wrong raw calls.
+
 ## Strongest Current Findings
 
 1. Top-line parity is now established on the aligned `32 / 26` surface.

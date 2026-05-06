@@ -30,6 +30,8 @@ Current state:
   - latest analyzer result: `stable_repair_family_count = 4`, `stable_policy_block_family_count = 7`
   - H1 primary runs now pass `--pipeline-name monolith` for `local_reasoner` systems so `mlx_gemma4_e2b_reasoner_only` matches `moonie-agent live`
   - corrected H1c MLX monolith primary packet: [`results/knowledge_work_h1_slice/20260506T_h1c_mlx_live_primary_monolith_v1_knowledge_work_h1c_live_policy_controller_dependence_v1`](../../results/knowledge_work_h1_slice/20260506T_h1c_mlx_live_primary_monolith_v1_knowledge_work_h1c_live_policy_controller_dependence_v1)
+  - local MLX monolith helper-ablation profiles exist for `no_controller_repair`, `no_controller_fallback`, and `no_argument_repair`
+  - H1c MLX monolith helper ablation: [`results/knowledge_work_h1_slice/20260506T_h1c_mlx_monolith_helpers_v1_knowledge_work_h1c_live_policy_controller_dependence_v1`](../../results/knowledge_work_h1_slice/20260506T_h1c_mlx_monolith_helpers_v1_knowledge_work_h1c_live_policy_controller_dependence_v1)
   - H1c live-policy scaffold exists:
     - [`configs/knowledge_work_h1c_slice.yaml`](../../configs/knowledge_work_h1c_slice.yaml)
     - [`docs/continuity/h1c-slice.md`](./h1c-slice.md)
@@ -37,10 +39,10 @@ Current state:
 
 Next implementation moves:
 
-- add local MLX monolith ablation profiles for `disable_controller_repair`, `disable_controller_fallback`, and `disable_argument_repair`
-- run a compact H1c monolith ablation over the repeated controller-dependent families
-- use that ablation to separate causal controller repair from harmless canonicalization on local MLX
-- define H1d only after the local MLX helper-dependence result is recorded
+- mine the H1c monolith helper failures into a compact H1d candidate list focused on visual stepwise control, API/CLI canonicalization, and jobs visual fallback
+- add a replayable/live H1d config only after the candidate list is grounded in the new failure rows
+- consider adding `no_deterministic_visual_follow_on` for local MLX if the H1d candidate list still depends on visual follow-on policy
+- run Gemini CLI baseline only after H1d is defined, so the external baseline compares against the harder local-Gemma stressor rather than the now-understood H1c harness bug
 - keep using live CLI scorecard and policy inspection as the active operator proof path
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
