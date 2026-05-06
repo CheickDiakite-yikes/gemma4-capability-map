@@ -2289,6 +2289,12 @@
   - `no_deterministic_visual_follow_on` still recovered fully but needed help: `controller_repair_avg = 0.8333333333333334`, `argument_repair_avg = 0.5`, `raw_planning_clean_rate_avg = 0.7833333333333333`
   - trace mining found `3` failure candidates, all in `no_controller_repair`, with `visual_readback_missing`, `visual_repeated_refinement`, and `visual_stepwise_control` concentrated on the executive backlog and jobs form visual chains
   - this packet should be the default next loop for candidate visual sequencing fixes before another full H1 replayable rerun
+- A stronger FunctionGemma visual system prompt was a negative top-line result on that compact packet:
+  - [`20260506T_h1_visual_semantics_prompt_contract_v1`](../results/knowledge_work_h1_slice/20260506T_h1_visual_semantics_prompt_contract_v1_knowledge_work_ablation_packet) kept baseline specialists clean and preserved full recovery for `no_deterministic_visual_follow_on`
+  - `no_controller_repair` stayed unchanged at `real_world_readiness_avg = 0.8257`, `strict_interface_avg = 0.625`, `recovered_execution_avg = 0.5`, and `raw_planning_clean_rate_avg = 1.0`
+  - trace mining again found `3` failure candidates, all in `no_controller_repair`
+  - the candidate did reduce one comparison-row argument-repair note, but did not teach the raw disabled-repair row to stop replaying stale visual calls
+  - next hypothesis: the exact next-call directive needs to be injected as a final turn-level router instruction after tool-result messages, not only as system-prompt wording
 
 ### Verification
 

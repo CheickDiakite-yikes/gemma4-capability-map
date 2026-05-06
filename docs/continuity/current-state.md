@@ -362,6 +362,16 @@ Compact H1 visual semantics packet:
 - failure modes: `repair_disabled = 3`, `visual_readback_missing = 2`, `visual_repeated_refinement = 2`, `visual_stepwise_control = 2`
 - interpretation: this packet is now the fast replayable target for candidate visual sequence fixes; it reproduces the controller-repair dependence without the full 35-row H1 cost
 
+FunctionGemma visual prompt-contract candidate:
+
+- output: [`results/knowledge_work_h1_slice/20260506T_h1_visual_semantics_prompt_contract_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_visual_semantics_prompt_contract_v1_knowledge_work_ablation_packet)
+- change under test: stronger system prompt wording that says to return exactly the next visual call and not replay prior visual calls
+- baseline specialists: unchanged at readiness `0.9715666666666666`, strict/recovered `1.0 / 1.0`, raw clean `1.0`
+- `no_controller_repair`: unchanged at readiness `0.8257`, strict/recovered `0.625 / 0.5`, raw clean `1.0`
+- `no_deterministic_visual_follow_on`: unchanged top-line at readiness `0.9715666666666666`, strict/recovered `1.0 / 1.0`; argument repair dropped from `0.5` to `0.3333333333333333`
+- trace miner found `17` controller-note events and `3` failure candidates
+- interpretation: system-level wording alone is not enough for the disabled-repair row; the next candidate should move the exact next-call directive closer to the generation point or change the routing contract shape
+
 ## Strongest Current Findings
 
 1. Top-line parity is now established on the aligned `32 / 26` surface.

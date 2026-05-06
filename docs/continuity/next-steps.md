@@ -159,6 +159,10 @@ Completed empirical move:
   - `no_controller_repair = 0.8257`
   - `no_deterministic_visual_follow_on = 0.9715666666666666`
   - all `3` failure candidates are in `no_controller_repair`
+- visual prompt-contract candidate output: [`results/knowledge_work_h1_slice/20260506T_h1_visual_semantics_prompt_contract_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_visual_semantics_prompt_contract_v1_knowledge_work_ablation_packet)
+  - stronger system-level wording did not improve `no_controller_repair`
+  - `no_controller_repair` stayed at readiness `0.8257`, strict/recovered `0.625 / 0.5`
+  - this is a useful negative result: the exact-next-call hint likely needs to be closer to the final generation turn or encoded differently
 
 Next empirical move:
 
@@ -169,6 +173,7 @@ Next empirical move:
   - `visual_stepwise_control`
   - `visual_repeated_refinement`
 - define the next patch around model-side visual sequencing or a narrower semantic contract, not generic placeholder repair
+- next candidate: add an explicit final router directive containing the exact next visual call after the tool-result messages, then rerun the compact packet
 - rerun the compact packet after each candidate patch before returning to full H1:
 
 ```bash

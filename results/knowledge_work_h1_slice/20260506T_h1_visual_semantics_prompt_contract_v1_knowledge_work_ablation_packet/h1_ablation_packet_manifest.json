@@ -1,0 +1,215 @@
+{
+  "run_group_id": "20260506T_h1_visual_semantics_prompt_contract_v1",
+  "created_at": "2026-05-06T20:53:35.690032+00:00",
+  "h1_slice": {
+    "name": "knowledge_work_h1_controller_dependence",
+    "version": "v1",
+    "description": "Harder packaged-workflow slice for breaking the current top-line readiness saturation and measuring controller dependence under resume, approval, latest-instruction, and tool-family pressure.\n",
+    "run_intent": "exploratory",
+    "update_latest": false,
+    "live_entrypoint": "packaged_workflows_only",
+    "primary_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_system_ids": [
+      "oracle_gemma4_e2b",
+      "hf_gemma4_e2b_specialists_cpu",
+      "mlx_qwen3_8b_reasoner_only"
+    ],
+    "ablation_bundle_system_id": "hf_service_gemma4_specialists_cpu",
+    "ablation_system_ids": [
+      "hf_service_gemma4_specialists_cpu",
+      "hf_service_gemma4_specialists_cpu_no_controller_repair",
+      "hf_service_gemma4_specialists_cpu_no_controller_fallback",
+      "hf_service_gemma4_specialists_cpu_no_visual_rescue",
+      "hf_service_gemma4_specialists_cpu_no_intent_priority",
+      "hf_service_gemma4_specialists_cpu_no_argument_repair",
+      "hf_service_gemma4_specialists_cpu_no_deterministic_visual_follow_on"
+    ],
+    "lanes": {
+      "replayable_core": {
+        "episode_ids": [
+          "kwa_exec_visual_dashboard_brief",
+          "kwa_exec_backlog_resume_hold_v5",
+          "kwa_jobs_email_block_resume_hold_v5",
+          "kwa_finance_diff_review_hold_v5",
+          "kwa_finance_invoice_lock_direction_hold_v4"
+        ]
+      },
+      "live_web_stress": {
+        "episode_ids": [
+          "kwa_exec_live_visual_dashboard_brief",
+          "kwa_exec_live_backlog_resume_hold_v5",
+          "kwa_jobs_live_email_block_resume_hold_v5",
+          "kwa_finance_live_diff_review_hold_v5",
+          "kwa_finance_live_invoice_lock_direction_hold_v4"
+        ]
+      }
+    },
+    "workflow_families": [
+      {
+        "workflow_id": "executive_visual_dashboard_review",
+        "role_family": "executive_assistant",
+        "purpose": "visual sanity/control row for the CLI live harness",
+        "replayable_episode_id": "kwa_exec_visual_dashboard_brief",
+        "live_episode_id": "kwa_exec_live_visual_dashboard_brief",
+        "h1_stressors": [
+          "visual_referent_grounding",
+          "artifact_revision"
+        ]
+      },
+      {
+        "workflow_id": "executive_stale_brief_packet",
+        "role_family": "executive_assistant",
+        "purpose": "resume a stale executive packet while preserving the newest action chain",
+        "replayable_episode_id": "kwa_exec_backlog_resume_hold_v5",
+        "live_episode_id": "kwa_exec_live_backlog_resume_hold_v5",
+        "h1_stressors": [
+          "harnessability_resume",
+          "harnessability_project_memory",
+          "direction_following_latest_instruction",
+          "tool_api",
+          "tool_function_call",
+          "approval_safe_stop"
+        ]
+      },
+      {
+        "workflow_id": "jobs_visual_form_hold",
+        "role_family": "job_application_ops",
+        "purpose": "repair the newest blocked-email path and avoid stale phone/work-authorization drift",
+        "replayable_episode_id": "kwa_jobs_email_block_resume_hold_v5",
+        "live_episode_id": "kwa_jobs_live_email_block_resume_hold_v5",
+        "h1_stressors": [
+          "harnessability_resume",
+          "direction_following_conflict",
+          "tool_cli",
+          "tool_function_call",
+          "approval_safe_stop"
+        ]
+      },
+      {
+        "workflow_id": "finance_billing_patch_hold",
+        "role_family": "finance",
+        "purpose": "preserve review-only invoice-lock direction without drifting into patch application",
+        "replayable_episode_id": "kwa_finance_diff_review_hold_v5",
+        "live_episode_id": "kwa_finance_live_diff_review_hold_v5",
+        "h1_stressors": [
+          "harnessability_approval_resume",
+          "direction_following_stale_override",
+          "tool_cli",
+          "tool_api",
+          "approval_safe_stop"
+        ]
+      },
+      {
+        "workflow_id": "finance_visual_invoice_review",
+        "role_family": "finance",
+        "purpose": "inspect invoice evidence, carry latest lock direction, and stop at sign-off",
+        "replayable_episode_id": "kwa_finance_invoice_lock_direction_hold_v4",
+        "live_episode_id": "kwa_finance_live_invoice_lock_direction_hold_v4",
+        "h1_stressors": [
+          "visual_document",
+          "harnessability_approval_resume",
+          "direction_following_stale_override",
+          "approval_safe_stop"
+        ]
+      }
+    ],
+    "packets": {
+      "visual_semantics_no_controller_repair": {
+        "lane": "replayable_core",
+        "purpose": "Compact replayable packet for the remaining H1 controller-repair failure family: valid but semantically stale visual chains under disabled repair.\n",
+        "system_ids": [
+          "hf_service_gemma4_specialists_cpu",
+          "hf_service_gemma4_specialists_cpu_no_controller_repair",
+          "hf_service_gemma4_specialists_cpu_no_deterministic_visual_follow_on"
+        ],
+        "episode_ids": [
+          "kwa_exec_backlog_resume_hold_v5",
+          "kwa_jobs_email_block_resume_hold_v5",
+          "kwa_finance_invoice_lock_direction_hold_v4"
+        ],
+        "failure_modes": [
+          "visual_readback_missing",
+          "visual_stepwise_control",
+          "visual_repeated_refinement"
+        ]
+      }
+    },
+    "saturation_breaker_metrics": [
+      "real_world_readiness_avg",
+      "controller_repair_avg",
+      "controller_fallback_avg",
+      "raw_planning_clean_rate_avg",
+      "strict_interface_score_avg",
+      "role_readiness_score_avg",
+      "approval_safe_stop_rate",
+      "sandbox_policy_block_count"
+    ],
+    "attribution_tags": [
+      "packaged_workflow",
+      "workflow_family",
+      "lane",
+      "role_family",
+      "h1_stressor"
+    ]
+  },
+  "packet_id": "visual_semantics_no_controller_repair",
+  "packet": {
+    "lane": "replayable_core",
+    "purpose": "Compact replayable packet for the remaining H1 controller-repair failure family: valid but semantically stale visual chains under disabled repair.\n",
+    "system_ids": [
+      "hf_service_gemma4_specialists_cpu",
+      "hf_service_gemma4_specialists_cpu_no_controller_repair",
+      "hf_service_gemma4_specialists_cpu_no_deterministic_visual_follow_on"
+    ],
+    "episode_ids": [
+      "kwa_exec_backlog_resume_hold_v5",
+      "kwa_jobs_email_block_resume_hold_v5",
+      "kwa_finance_invoice_lock_direction_hold_v4"
+    ],
+    "failure_modes": [
+      "visual_readback_missing",
+      "visual_stepwise_control",
+      "visual_repeated_refinement"
+    ]
+  },
+  "lane": "replayable_core",
+  "bundle_system_id": "hf_service_gemma4_specialists_cpu",
+  "system_ids": [
+    "hf_service_gemma4_specialists_cpu",
+    "hf_service_gemma4_specialists_cpu_no_controller_repair",
+    "hf_service_gemma4_specialists_cpu_no_deterministic_visual_follow_on"
+  ],
+  "episode_ids": [
+    "kwa_exec_backlog_resume_hold_v5",
+    "kwa_jobs_email_block_resume_hold_v5",
+    "kwa_finance_invoice_lock_direction_hold_v4"
+  ],
+  "command": [
+    "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+    "/Users/cheickdiakite/Codex/moonie/scripts/run_knowledge_work_ablation_packet.py",
+    "--lane",
+    "replayable_core",
+    "--bundle-system-id",
+    "hf_service_gemma4_specialists_cpu",
+    "--output-root",
+    "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice",
+    "--run-group-id",
+    "20260506T_h1_visual_semantics_prompt_contract_v1",
+    "--run-intent",
+    "exploratory",
+    "--system-id",
+    "hf_service_gemma4_specialists_cpu",
+    "--system-id",
+    "hf_service_gemma4_specialists_cpu_no_controller_repair",
+    "--system-id",
+    "hf_service_gemma4_specialists_cpu_no_deterministic_visual_follow_on",
+    "--episode-id",
+    "kwa_exec_backlog_resume_hold_v5",
+    "--episode-id",
+    "kwa_jobs_email_block_resume_hold_v5",
+    "--episode-id",
+    "kwa_finance_invoice_lock_direction_hold_v4"
+  ],
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1_visual_semantics_prompt_contract_v1_knowledge_work_ablation_packet",
+  "dry_run": false
+}
