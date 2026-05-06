@@ -147,7 +147,9 @@ Next empirical move:
 
 - use [`trace_episode_failures.csv`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_prompt_patch_ablation_v1_knowledge_work_ablation_packet/trace_episode_failures.csv) and [`trace_note_counts.csv`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_prompt_patch_ablation_v1_knowledge_work_ablation_packet/trace_note_counts.csv)
 - target the remaining raw-refusal/no-call and unrepaired real-tool placeholder argument failures
-- design the next patch around refusal-to-tool-contract prompting and argument placeholder repair before another broad aligned rerun
+- run the full H1 service-backed ablation after the concrete request-specific FunctionGemma hint; the baseline canary reached `controller_repair_avg = 0.0`, `controller_fallback_avg = 0.0`, and `raw_planning_clean_rate_avg = 1.0`
+- treat this as a prompt-prior result until the ablation rows show whether repair/fallback causality survives
+- then design the next patch around refusal-to-tool-contract prompting or argument placeholder repair only if the full packet still exposes those failures
 - define H1b only if these `7` failure candidates are too narrow to separate candidate fixes
 - avoid another broad aligned rerun until the targeted repair/fallback mechanism changes
 

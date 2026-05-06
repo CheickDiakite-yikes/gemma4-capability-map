@@ -393,6 +393,36 @@
   - controller repair remains the stronger causal helper on H1
   - the next controller patch should target refusal-to-tool-contract behavior and unrepaired real-tool placeholder arguments, not visual rescue or broad UI work
 
+### FunctionGemma concrete request-specific hint canary
+
+- Implementation:
+  - [`src/gemma4_capability_map/models/functiongemma_runner.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/models/functiongemma_runner.py)
+  - [`tests/test_functiongemma_runner.py`](/Users/cheickdiakite/Codex/moonie/tests/test_functiongemma_runner.py)
+- What changed:
+  - the router prompt now uses a request-specific example generated from the existing planner rather than a schema-only example with `<escape>value<escape>`
+  - the system prompt explicitly bans placeholder values such as `value`, `example`, and `placeholder`
+
+- Verification:
+  - `uv run pytest tests/test_functiongemma_runner.py tests/test_tool_planner.py tests/test_tool_parsing.py tests/test_knowledge_work_trace_analysis.py`
+  - `47 passed`
+  - `uv run pytest tests/test_functiongemma_runner.py tests/test_tool_planner.py tests/test_knowledge_work_h1.py tests/test_knowledge_work_trace_analysis.py`
+  - `51 passed`
+
+- H1 baseline canary:
+  - command: `uv run python scripts/run_knowledge_work_ablation_packet.py --lane replayable_core --bundle-system-id hf_service_gemma4_specialists_cpu --output-root results/knowledge_work_h1_slice --run-group-id 20260506T_h1_functiongemma_concrete_hint_canary_v1 --run-intent exploratory --system-id hf_service_gemma4_specialists_cpu --episode-id kwa_exec_visual_dashboard_brief --episode-id kwa_exec_backlog_resume_hold_v5 --episode-id kwa_jobs_email_block_resume_hold_v5 --episode-id kwa_finance_diff_review_hold_v5 --episode-id kwa_finance_invoice_lock_direction_hold_v4`
+  - output: [`results/knowledge_work_h1_slice/20260506T_h1_functiongemma_concrete_hint_canary_v1_knowledge_work_ablation_packet`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1_functiongemma_concrete_hint_canary_v1_knowledge_work_ablation_packet)
+  - readiness stayed `0.9749800000000001`
+  - strict/recovered stayed `1.0 / 1.0`
+  - `controller_repair_avg = 0.0`
+  - `argument_repair_avg = 0.0`
+  - `controller_fallback_avg = 0.0`
+  - `raw_planning_clean_rate_avg = 1.0`
+  - trace miner found `0` controller-note events and `0` failure candidates
+
+- Interpretation:
+  - the remaining baseline H1 controller burden was prompt-shape-induced: concrete request-specific examples remove both the copied `value` argument placeholders and raw refusal/no-call fallback cases on the baseline canary
+  - the next required evidence is the full H1 ablation after this stronger prompt prior, because it may reduce or erase apparent repair/fallback causality on this narrow slice
+
 # 2026-04-14
 
 ### The React Gemma MLX workspace now runs a real end-to-end local session loop

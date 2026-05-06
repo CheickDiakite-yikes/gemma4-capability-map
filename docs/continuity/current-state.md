@@ -242,6 +242,18 @@ FunctionGemma prompt canary:
 - `argument_repair_avg` rose from `0.1` to `0.5`
 - trace miner found `0` failure candidates and `controller_fallback_planner = 3`
 
+FunctionGemma concrete-hint canary:
+
+- output: [`results/knowledge_work_h1_slice/20260506T_h1_functiongemma_concrete_hint_canary_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_functiongemma_concrete_hint_canary_v1_knowledge_work_ablation_packet)
+- readiness stayed `0.9749800000000001`
+- strict/recovered stayed `1.0 / 1.0`
+- `controller_repair_avg = 0.0`
+- `argument_repair_avg = 0.0`
+- `controller_fallback_avg = 0.0`
+- `raw_planning_clean_rate_avg = 1.0`
+- trace miner found `0` controller-note events and `0` failure candidates
+- interpretation: the remaining baseline H1 controller burden was largely seeded by placeholder-shaped prompt examples; the next required check is the full H1 ablation after this stronger prompt prior
+
 ## Strongest Current Findings
 
 1. Top-line parity is now established on the aligned `32 / 26` surface.

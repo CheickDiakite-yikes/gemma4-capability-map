@@ -73,6 +73,15 @@ The latest live-harness gain is now CLI-first:
   - `controller_repair_avg` moved from `0.9` to `0.8`
   - `raw_planning_clean_rate_avg` moved from `0.1` to `0.2`
   - `argument_repair_avg` rose from `0.1` to `0.5`
+- FunctionGemma concrete request-specific hint canary:
+  - [`results/knowledge_work_h1_slice/20260506T_h1_functiongemma_concrete_hint_canary_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_functiongemma_concrete_hint_canary_v1_knowledge_work_ablation_packet)
+  - readiness stayed `0.9749800000000001`
+  - `controller_repair_avg = 0.0`
+  - `argument_repair_avg = 0.0`
+  - `controller_fallback_avg = 0.0`
+  - `raw_planning_clean_rate_avg = 1.0`
+  - trace miner found `0` controller-note events and `0` failure candidates
+  - next empirical run should be the full H1 service-backed ablation packet after this stronger prompt prior
 
 The prior React product-side gain remains useful context:
 
@@ -203,6 +212,10 @@ Verification:
 - completed with `7` service-backed H1 ablation rows and `5` replayable episodes each after the FunctionGemma prompt patch
 - `uv run python scripts/analyze_knowledge_work_h1_traces.py results/knowledge_work_h1_slice/20260506T_h1_hf_service_prompt_patch_ablation_v1_knowledge_work_ablation_packet`
 - completed and wrote post-prompt trace-note summary, failure candidates, and failure-mode counts
+- `uv run pytest tests/test_functiongemma_runner.py tests/test_tool_planner.py tests/test_knowledge_work_h1.py tests/test_knowledge_work_trace_analysis.py`
+- concrete FunctionGemma hint patch: `51 passed`
+- `uv run python scripts/run_knowledge_work_ablation_packet.py --lane replayable_core --bundle-system-id hf_service_gemma4_specialists_cpu --output-root results/knowledge_work_h1_slice --run-group-id 20260506T_h1_functiongemma_concrete_hint_canary_v1 --run-intent exploratory --system-id hf_service_gemma4_specialists_cpu --episode-id kwa_exec_visual_dashboard_brief --episode-id kwa_exec_backlog_resume_hold_v5 --episode-id kwa_jobs_email_block_resume_hold_v5 --episode-id kwa_finance_diff_review_hold_v5 --episode-id kwa_finance_invoice_lock_direction_hold_v4`
+- completed with `5 / 5` H1 replayable baseline episodes, `controller_repair_avg = 0.0`, `controller_fallback_avg = 0.0`, and `raw_planning_clean_rate_avg = 1.0`
 - `uv run moonie-agent live --workflow-id executive_visual_dashboard_review --system-id oracle_gemma4_e2b --lane replayable_core --refresh-s 0.1 --timeout-s 0.5`
 - completed through the Rich operator view with sandbox context visible
 - `uv run pytest`
@@ -270,12 +283,12 @@ Primary targets:
    - `moonie-agent attach`
    - Rich terminal operator harness
 
-2. Build the next targeted controller patch from the post-prompt H1 trace failures before another broad same-surface rerun.
+2. Rerun the full H1 service-backed ablation packet after the concrete FunctionGemma prompt prior before another broad same-surface rerun.
 
 3. Attack the remaining HF Gemma specialist note families directly.
 Primary targets:
-   - raw refusal/no-call after a valid tool option exists
-   - unrepaired real-tool placeholder values
+   - confirm whether raw refusal/no-call survives the concrete prompt prior
+   - confirm whether unrepaired real-tool placeholder values survive the concrete prompt prior
    - `controller_fallback_planner`
    - `repaired_arguments:extract_layout`
 Now scaffolded toggles:

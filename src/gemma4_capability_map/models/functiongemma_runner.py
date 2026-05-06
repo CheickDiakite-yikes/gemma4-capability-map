@@ -189,9 +189,9 @@ class FunctionGemmaRunner(Runner):
             "You are a function routing model.",
             "Choose only from the allowed tools.",
             "Return only function calls.",
-            _format_hint(tool_specs),
+            _format_hint(messages, media, tool_specs),
             'If multiple independent tools are needed, emit multiple function call blocks or a JSON array of {"name": "...", "arguments": {...}} objects.',
-            "Never invent a tool or field name, and never emit placeholder names such as tool_name or arg.",
+            "Never invent a tool or field name, and never emit placeholder names or values such as tool_name, arg, value, example, or placeholder.",
         ]
         catalog = tool_catalog_text(tool_specs)
         if catalog:
@@ -233,17 +233,31 @@ class FunctionGemmaRunner(Runner):
         return f"<start_function_call>call:{tool_name}{{{','.join(serialized_parts)}}}<end_function_call>"
 
 
-def _format_hint(tool_specs: list[ToolSpec]) -> str:
+def _format_hint(messages: list[Message], media: list[str], tool_specs: list[ToolSpec]) -> str:
     if not tool_specs:
         return "Preferred format: function call blocks using exact allowed tool names and schema fields."
-    tool = tool_specs[0]
-    properties = list((tool.json_schema or {}).get("properties", {}).keys())
-    first_field = str(properties[0]) if properties else "field"
+    planned_calls = plan_tool_calls(messages, media, tool_specs)
+    if planned_calls:
+        example = planned_calls[0]
+        return (
+            "Example format for this request: "
+            f"{_format_hint_call(example.name, example.arguments)} "
+            "Use this shape only when it matches the user's intent; otherwise use the correct listed tool and concrete argument values from the request, image refs, or tool results."
+        )
     return (
-        "Example format for this catalog: "
-        f"<start_function_call>call:{tool.name}{{{first_field}:<escape>value<escape>}}<end_function_call>. "
-        "Use the correct listed tool and schema fields for the actual request."
+        "Preferred format: start with <start_function_call>, then call:, then an exact allowed tool name, "
+        "then schema fields with concrete argument values from the request, image refs, or tool results, then <end_function_call>."
     )
+
+
+def _format_hint_call(tool_name: str, arguments: dict[str, Any]) -> str:
+    serialized_parts: list[str] = []
+    for key, value in arguments.items():
+        if isinstance(value, str):
+            serialized_parts.append(f"{key}:<escape>{value}<escape>")
+        else:
+            serialized_parts.append(f"{key}:{json.dumps(value, ensure_ascii=False)}")
+    return f"<start_function_call>call:{tool_name}{{{','.join(serialized_parts)}}}<end_function_call>."
 
 
 def _extract_structured_candidate(text: str) -> str:

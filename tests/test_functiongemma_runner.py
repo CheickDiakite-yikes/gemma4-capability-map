@@ -21,7 +21,8 @@ def test_functiongemma_prompt_uses_catalog_specific_format_hint() -> None:
     )
     system_prompt = prompt_messages[0]["content"]
 
-    assert "call:api_fetch_record{record_type:" in system_prompt
+    assert "call:api_fetch_record{record_type:<escape>billing_record<escape>,record_id:<escape>INV-204<escape>}" in system_prompt
     assert "call:tool_name" not in system_prompt
     assert "{arg:" not in system_prompt
-    assert "never emit placeholder names" in system_prompt.lower()
+    assert "<escape>value<escape>" not in system_prompt
+    assert "never emit placeholder names or values" in system_prompt.lower()
