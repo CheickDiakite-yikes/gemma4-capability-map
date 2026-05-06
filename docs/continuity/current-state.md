@@ -188,6 +188,8 @@ Current H1 replayable output:
 - H1b follow-up slice scaffold:
   - [`configs/knowledge_work_h1b_slice.yaml`](../../configs/knowledge_work_h1b_slice.yaml)
   - [`docs/continuity/h1b-slice.md`](./h1b-slice.md)
+- H1b compact visual policy packet:
+  - [`results/knowledge_work_h1_slice/20260506T_h1b_visual_policy_packet_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1b_visual_policy_packet_v1_knowledge_work_ablation_packet)
 - Visual sequencing canary:
   - [`results/knowledge_work_h1_slice/20260506T_h1_visual_sequence_hint_canary_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_visual_sequence_hint_canary_v1_knowledge_work_ablation_packet)
 - Visual filter repair canary:
@@ -421,6 +423,20 @@ H1b follow-up:
   - jobs phone patch resume
   - finance visual invoice revision
 - purpose: re-break the now-saturated H1 surface with longer visual referent carryover, latest-instruction pressure, CLI/action dependencies after visual evidence, artifact revision, and approval-safe stop pressure
+
+H1b compact visual policy packet:
+
+- output: [`results/knowledge_work_h1_slice/20260506T_h1b_visual_policy_packet_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1b_visual_policy_packet_v1_knowledge_work_ablation_packet)
+- systems: `hf_service_gemma4_specialists_cpu`, `hf_service_gemma4_specialists_cpu_no_controller_repair`, `hf_service_gemma4_specialists_cpu_no_deterministic_visual_follow_on`
+- episodes: `kwa_exec_visual_dashboard_referent_hold_v3`, `kwa_jobs_visual_constraint_override_hold_v2`, `kwa_finance_visual_invoice_revision_hold_v2`
+- all three rows match:
+  - readiness `0.9472999999999999`
+  - strict/recovered `1.0 / 1.0`
+  - repair/fallback `0.0 / 0.0`
+  - raw clean `1.0`
+- trace miner found `12` notes and `0` failure candidates
+- remaining notes are only the expected `controller_repair_disabled` ablation markers
+- interpretation: the first H1b compact packet did not re-break controller dependence. H1b's selected episodes are harsher on artifact/readiness level, but the visual turn directive still removes the visual controller burden on this subset.
 
 ## Strongest Current Findings
 

@@ -2315,6 +2315,12 @@
   - [`docs/continuity/h1b-slice.md`](continuity/h1b-slice.md) records the purpose, episode set, stressors, and commands
   - the new slice concentrates older but harder visual/revision/resume cases: dashboard referent carryover, latest-action resume, jobs constraint override, jobs phone patch resume, and finance invoice revision
   - H1b should be run first as a compact `visual_policy_no_controller_repair` packet before a full H1b ablation
+- The first compact H1b visual-policy packet stayed controller-clean:
+  - [`20260506T_h1b_visual_policy_packet_v1`](../results/knowledge_work_h1_slice/20260506T_h1b_visual_policy_packet_v1_knowledge_work_ablation_packet) ran baseline, `no_controller_repair`, and `no_deterministic_visual_follow_on` over `3` H1b episodes
+  - all three rows matched at `real_world_readiness_avg = 0.9472999999999999`, `strict_interface_avg = 1.0`, `recovered_execution_avg = 1.0`, `controller_repair_avg = 0.0`, `controller_fallback_avg = 0.0`, and `raw_planning_clean_rate_avg = 1.0`
+  - trace mining found `0` failure candidates
+  - interpretation: these H1b episodes are harsher on artifact/readiness level than H1, but they still do not restore visual controller dependence after the final FunctionGemma turn directive
+  - next check is a full H1b ablation across all five episodes and seven rows
 
 ### Verification
 

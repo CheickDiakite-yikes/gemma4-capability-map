@@ -195,6 +195,11 @@ uv run python scripts/run_knowledge_work_h1_ablation_packet.py \
   --run-group-id <timestamp>_h1b_visual_policy_packet
 ```
 
+- completed H1b compact packet: [`results/knowledge_work_h1_slice/20260506T_h1b_visual_policy_packet_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1b_visual_policy_packet_v1_knowledge_work_ablation_packet)
+  - all three rows matched at readiness `0.9472999999999999`, strict/recovered `1.0 / 1.0`, raw clean `1.0`, repair/fallback `0.0 / 0.0`
+  - trace mining found `0` failure candidates
+  - next verification is a full H1b ablation, not another compact packet
+
 - rerun the compact packet after each candidate patch before returning to full H1:
 
 ```bash
