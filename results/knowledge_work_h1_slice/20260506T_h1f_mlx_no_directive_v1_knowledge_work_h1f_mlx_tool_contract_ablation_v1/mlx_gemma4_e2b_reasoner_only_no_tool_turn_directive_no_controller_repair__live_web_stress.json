@@ -1,0 +1,138 @@
+{
+  "run_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_repair__live_web_stress",
+  "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_repair",
+  "lane": "live_web_stress",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1f_mlx_no_directive_v1_knowledge_work_h1f_mlx_tool_contract_ablation_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_repair__live_web_stress",
+  "returncode": 0,
+  "stdout": "{\n  \"runs\": 5.0,\n  \"artifact_quality_avg\": 0.95,\n  \"browser_workflow_avg\": 1.0,\n  \"strict_interface_avg\": 0.475,\n  \"recovered_execution_avg\": 0.3,\n  \"real_world_readiness_avg\": 0.7381800000000001,\n  \"escalation_correctness_avg\": 1.0,\n  \"controller_repair_avg\": 0.5,\n  \"argument_repair_avg\": 0.0,\n  \"controller_fallback_avg\": 0.5,\n  \"intent_override_avg\": 0.0,\n  \"raw_planning_clean_rate_avg\": 0.89\n}\n",
+  "stderr": "\nFetching 8 files:   0%|          | 0/8 [00:00<?, ?it/s]\nFetching 8 files: 100%|██████████| 8/8 [00:00<00:00, 50994.58it/s]\n\nFetching 8 files:   0%|          | 0/8 [00:00<?, ?it/s]\nFetching 8 files: 100%|██████████| 8/8 [00:00<00:00, 131586.01it/s]\n",
+  "summary": {
+    "runs": 5.0,
+    "artifact_quality_avg": 0.95,
+    "browser_workflow_avg": 1.0,
+    "strict_interface_avg": 0.475,
+    "recovered_execution_avg": 0.3,
+    "real_world_readiness_avg": 0.7381800000000001,
+    "escalation_correctness_avg": 1.0,
+    "controller_repair_avg": 0.5,
+    "argument_repair_avg": 0.0,
+    "controller_fallback_avg": 0.5,
+    "intent_override_avg": 0.0,
+    "raw_planning_clean_rate_avg": 0.89,
+    "lane": "live_web_stress",
+    "created_at": "20260506T234712Z",
+    "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1f_mlx_no_directive_v1_knowledge_work_h1f_mlx_tool_contract_ablation_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_repair__live_web_stress"
+  },
+  "manifest": {
+    "run_group_id": "20260506T234712Z_live_web_stress",
+    "created_at": "20260506T234712Z",
+    "lane": "live_web_stress",
+    "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_repair",
+    "pipeline_name": "monolith",
+    "backend": "mlx",
+    "reasoner_backend": "mlx",
+    "router_backend": "heuristic",
+    "retriever_backend": "heuristic",
+    "reasoner": "google/gemma-4-E2B-it",
+    "router": "google/functiongemma-270m-it",
+    "retriever": "google/embeddinggemma-300m",
+    "reasoner_device": "auto",
+    "router_device": null,
+    "retriever_device": null,
+    "reasoner_max_new_tokens": 64,
+    "request_timeout_seconds": 300.0,
+    "thinking": false,
+    "limit": null,
+    "episode_count": 5,
+    "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
+    "runtime_bundle": {
+      "reasoner": {
+        "backend": "mlx",
+        "runtime_posture": "mlx",
+        "requested_model": "google/gemma-4-E2B-it",
+        "effective_model": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_source": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_format": "mlx",
+        "runtime_device": "mlx",
+        "load_mode": "vision",
+        "configured_device": "auto",
+        "request_timeout_seconds": 300.0,
+        "tool_turn_directive_enabled": false,
+        "service": {},
+        "partial_runtime": false,
+        "llama_cpp_error": null,
+        "llama_cpp_context_window": null
+      },
+      "retriever": {
+        "backend": "heuristic",
+        "requested_model": "google/embeddinggemma-300m",
+        "effective_model": "google/embeddinggemma-300m",
+        "loaded": false,
+        "configured_device": "auto",
+        "runtime_device": null
+      }
+    },
+    "run_intent": "exploratory",
+    "research_controls": {
+      "disable_controller_repair": true,
+      "disable_tool_turn_directive": true
+    },
+    "warmup": {
+      "reasoner": {
+        "backend": "mlx",
+        "runtime_posture": "mlx",
+        "requested_model": "google/gemma-4-E2B-it",
+        "effective_model": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_source": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_format": "mlx",
+        "runtime_device": "mlx",
+        "load_mode": "vision",
+        "configured_device": "auto",
+        "request_timeout_seconds": 300.0,
+        "tool_turn_directive_enabled": false,
+        "service": {},
+        "partial_runtime": false,
+        "llama_cpp_error": null,
+        "llama_cpp_context_window": null
+      },
+      "retriever": {
+        "backend": "heuristic",
+        "requested_model": "google/embeddinggemma-300m",
+        "effective_model": "google/embeddinggemma-300m",
+        "loaded": false,
+        "configured_device": "auto",
+        "runtime_device": null
+      }
+    }
+  },
+  "progress": {
+    "status": "completed",
+    "lane": "live_web_stress",
+    "created_at": "20260506T234712Z",
+    "completed_runs": 5,
+    "planned_runs": 5,
+    "last_completed_episode_id": "kwa_finance_live_diff_review_hold_v5",
+    "completed_episode_ids": [
+      "kwa_exec_live_visual_dashboard_brief",
+      "kwa_jobs_live_phone_patch_resume_hold_v4",
+      "kwa_finance_live_invoice_lock_direction_hold_v4",
+      "kwa_jobs_live_email_block_resume_hold_v5",
+      "kwa_finance_live_diff_review_hold_v5"
+    ],
+    "latest_summary": {
+      "runs": 5.0,
+      "artifact_quality_avg": 0.95,
+      "browser_workflow_avg": 1.0,
+      "strict_interface_avg": 0.475,
+      "recovered_execution_avg": 0.3,
+      "real_world_readiness_avg": 0.7381800000000001,
+      "escalation_correctness_avg": 1.0,
+      "controller_repair_avg": 0.5,
+      "argument_repair_avg": 0.0,
+      "controller_fallback_avg": 0.5,
+      "intent_override_avg": 0.0,
+      "raw_planning_clean_rate_avg": 0.89
+    }
+  }
+}
