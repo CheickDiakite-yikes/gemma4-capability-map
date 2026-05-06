@@ -102,6 +102,8 @@ uv run python scripts/run_knowledge_work_h1_ablation_packet.py --lane replayable
 
 That wrapper loads the same H1 config, then delegates to `scripts/run_knowledge_work_ablation_packet.py` so all configured ablation rows share one warmed HF bundle.
 
+The H1 ablation config uses service-backed HF rows. An attempted in-process H1 ablation launch did not reach the child packet manifest after roughly ten minutes on this Mac, so service-backed execution is the current practical H1 ablation posture.
+
 Current H1 ablation rows:
 
 - baseline HF Gemma specialists

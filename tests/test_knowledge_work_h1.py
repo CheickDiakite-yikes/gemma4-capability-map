@@ -69,13 +69,13 @@ def test_h1_ablation_specs_preserve_controller_flags() -> None:
     specs = build_h1_run_specs(config, registry, lanes=["replayable_core"], run_set="ablation")
     by_system = {spec["system_id"]: spec for spec in specs}
 
-    assert by_system["hf_gemma4_e2b_specialists_cpu"]["research_controls"] == {}
-    assert by_system["hf_gemma4_e2b_specialists_cpu_no_controller_repair"]["disable_controller_repair"] is True
-    assert by_system["hf_gemma4_e2b_specialists_cpu_no_controller_fallback"]["disable_controller_fallback"] is True
-    assert by_system["hf_gemma4_e2b_specialists_cpu_no_visual_rescue"]["disable_visual_rescue"] is True
-    assert by_system["hf_gemma4_e2b_specialists_cpu_no_intent_priority"]["disable_intent_priority"] is True
-    assert by_system["hf_gemma4_e2b_specialists_cpu_no_argument_repair"]["disable_argument_repair"] is True
-    assert by_system["hf_gemma4_e2b_specialists_cpu_no_deterministic_visual_follow_on"]["disable_deterministic_visual_follow_on"] is True
+    assert by_system["hf_service_gemma4_specialists_cpu"]["research_controls"] == {}
+    assert by_system["hf_service_gemma4_specialists_cpu_no_controller_repair"]["disable_controller_repair"] is True
+    assert by_system["hf_service_gemma4_specialists_cpu_no_controller_fallback"]["disable_controller_fallback"] is True
+    assert by_system["hf_service_gemma4_specialists_cpu_no_visual_rescue"]["disable_visual_rescue"] is True
+    assert by_system["hf_service_gemma4_specialists_cpu_no_intent_priority"]["disable_intent_priority"] is True
+    assert by_system["hf_service_gemma4_specialists_cpu_no_argument_repair"]["disable_argument_repair"] is True
+    assert by_system["hf_service_gemma4_specialists_cpu_no_deterministic_visual_follow_on"]["disable_deterministic_visual_follow_on"] is True
 
 
 def test_h1_arena_command_is_episode_filtered_and_exploratory(tmp_path: Path) -> None:
@@ -110,7 +110,7 @@ def test_h1_ablation_packet_command_uses_shared_bundle_and_episode_filters(tmp_p
     )
 
     assert "run_knowledge_work_ablation_packet.py" in command[1]
-    assert command[command.index("--bundle-system-id") + 1] == "hf_gemma4_e2b_specialists_cpu"
+    assert command[command.index("--bundle-system-id") + 1] == "hf_service_gemma4_specialists_cpu"
     assert command.count("--system-id") == len(config.ablation_system_ids)
     assert command.count("--episode-id") == len(config.lanes["replayable_core"].episode_ids)
     assert command[command.index("--run-intent") + 1] == "exploratory"

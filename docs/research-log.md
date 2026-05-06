@@ -258,6 +258,21 @@
 - Next command:
   - `uv run python scripts/run_knowledge_work_h1_ablation_packet.py --lane replayable_core --run-group-id 20260506T_h1_hf_ablation_v1`
 
+### H1 ablation posture switched to service-backed HF rows
+
+- What happened:
+  - attempted the H1 replayable ablation packet with the in-process HF specialist bundle
+  - the process stayed pre-child-manifest after roughly ten minutes and was stopped
+  - no episode results were produced from that attempt
+
+- What changed:
+  - added service-backed HF specialist ablation rows to [`configs/model_registry.yaml`](/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml)
+  - updated [`configs/knowledge_work_h1_slice.yaml`](/Users/cheickdiakite/Codex/moonie/configs/knowledge_work_h1_slice.yaml) so H1 ablation uses `hf_service_gemma4_specialists_cpu` as the shared bundle and service-backed ablation row ids
+
+- Interpretation:
+  - this is an execution-posture finding, not a model-quality result
+  - H1 ablation should run through the service-backed HF primitive on this machine before spending more time on in-process HF warmup behavior
+
 # 2026-04-14
 
 ### The React Gemma MLX workspace now runs a real end-to-end local session loop
