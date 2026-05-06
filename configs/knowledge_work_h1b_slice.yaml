@@ -1,0 +1,122 @@
+h1_slice:
+  name: knowledge_work_h1b_visual_policy_controller_dependence
+  version: v1
+  description: >
+    Follow-up packaged-workflow slice for re-breaking H1 after the FunctionGemma
+    visual turn directive saturated the first controller-dependence slice.
+  run_intent: exploratory
+  update_latest: false
+  live_entrypoint: packaged_workflows_only
+  primary_system_id: mlx_gemma4_e2b_reasoner_only
+  baseline_system_ids:
+    - oracle_gemma4_e2b
+    - hf_gemma4_e2b_specialists_cpu
+    - mlx_qwen3_8b_reasoner_only
+  ablation_bundle_system_id: hf_service_gemma4_specialists_cpu
+  ablation_system_ids:
+    - hf_service_gemma4_specialists_cpu
+    - hf_service_gemma4_specialists_cpu_no_controller_repair
+    - hf_service_gemma4_specialists_cpu_no_controller_fallback
+    - hf_service_gemma4_specialists_cpu_no_visual_rescue
+    - hf_service_gemma4_specialists_cpu_no_intent_priority
+    - hf_service_gemma4_specialists_cpu_no_argument_repair
+    - hf_service_gemma4_specialists_cpu_no_deterministic_visual_follow_on
+  lanes:
+    replayable_core:
+      episode_ids:
+        - kwa_exec_visual_dashboard_referent_hold_v3
+        - kwa_exec_latest_action_resume_hold_v4
+        - kwa_jobs_visual_constraint_override_hold_v2
+        - kwa_jobs_phone_patch_resume_hold_v4
+        - kwa_finance_visual_invoice_revision_hold_v2
+    live_web_stress:
+      episode_ids:
+        - kwa_exec_live_visual_dashboard_referent_hold_v3
+        - kwa_exec_live_latest_action_resume_hold_v4
+        - kwa_jobs_live_visual_constraint_override_hold_v2
+        - kwa_jobs_live_phone_patch_resume_hold_v4
+        - kwa_finance_live_visual_invoice_revision_hold_v2
+  workflow_families:
+    - workflow_id: executive_visual_referent_review
+      role_family: executive_assistant
+      purpose: preserve a dashboard referent through latest-filter revision pressure
+      replayable_episode_id: kwa_exec_visual_dashboard_referent_hold_v3
+      live_episode_id: kwa_exec_live_visual_dashboard_referent_hold_v3
+      h1_stressors:
+        - visual_referent_grounding
+        - direction_following_latest_instruction
+        - artifact_revision
+    - workflow_id: executive_latest_action_resume
+      role_family: executive_assistant
+      purpose: resume a stale executive packet and honor the newest action chain
+      replayable_episode_id: kwa_exec_latest_action_resume_hold_v4
+      live_episode_id: kwa_exec_live_latest_action_resume_hold_v4
+      h1_stressors:
+        - harnessability_resume
+        - harnessability_project_memory
+        - direction_following_latest_instruction
+        - visual_referent_grounding
+        - approval_safe_stop
+    - workflow_id: jobs_visual_constraint_override
+      role_family: job_application_ops
+      purpose: preserve the latest constraint while rejecting stale visual form state
+      replayable_episode_id: kwa_jobs_visual_constraint_override_hold_v2
+      live_episode_id: kwa_jobs_live_visual_constraint_override_hold_v2
+      h1_stressors:
+        - direction_following_conflict
+        - visual_referent_grounding
+        - approval_safe_stop
+    - workflow_id: jobs_phone_patch_resume
+      role_family: job_application_ops
+      purpose: patch only the latest phone issue after visual form inspection
+      replayable_episode_id: kwa_jobs_phone_patch_resume_hold_v4
+      live_episode_id: kwa_jobs_live_phone_patch_resume_hold_v4
+      h1_stressors:
+        - harnessability_resume
+        - direction_following_latest_instruction
+        - tool_cli
+        - visual_referent_grounding
+        - approval_safe_stop
+    - workflow_id: finance_visual_invoice_revision
+      role_family: finance
+      purpose: revise the finance note from invoice visual evidence without losing approval posture
+      replayable_episode_id: kwa_finance_visual_invoice_revision_hold_v2
+      live_episode_id: kwa_finance_live_visual_invoice_revision_hold_v2
+      h1_stressors:
+        - visual_document
+        - artifact_revision
+        - harnessability_approval_resume
+        - approval_safe_stop
+  packets:
+    visual_policy_no_controller_repair:
+      lane: replayable_core
+      purpose: >
+        Compact H1b replayable packet for checking whether the visual turn
+        directive survives mixed referent, latest-instruction, and approval pressure.
+      system_ids:
+        - hf_service_gemma4_specialists_cpu
+        - hf_service_gemma4_specialists_cpu_no_controller_repair
+        - hf_service_gemma4_specialists_cpu_no_deterministic_visual_follow_on
+      episode_ids:
+        - kwa_exec_visual_dashboard_referent_hold_v3
+        - kwa_jobs_visual_constraint_override_hold_v2
+        - kwa_finance_visual_invoice_revision_hold_v2
+      failure_modes:
+        - visual_referent_grounding
+        - direction_following_latest_instruction
+        - approval_safe_stop
+  saturation_breaker_metrics:
+    - real_world_readiness_avg
+    - controller_repair_avg
+    - controller_fallback_avg
+    - raw_planning_clean_rate_avg
+    - strict_interface_score_avg
+    - role_readiness_score_avg
+    - approval_safe_stop_rate
+    - sandbox_policy_block_count
+  attribution_tags:
+    - packaged_workflow
+    - workflow_family
+    - lane
+    - role_family
+    - h1b_stressor

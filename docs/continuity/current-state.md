@@ -185,6 +185,9 @@ Current H1 replayable output:
   - [`results/knowledge_work_h1_slice/20260506T_h1_visual_semantics_no_repair_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_visual_semantics_no_repair_v1_knowledge_work_ablation_packet)
 - HF service-backed full H1 ablation after final visual turn directive:
   - [`results/knowledge_work_h1_slice/20260506T_h1_hf_service_turn_directive_ablation_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_turn_directive_ablation_v1_knowledge_work_ablation_packet)
+- H1b follow-up slice scaffold:
+  - [`configs/knowledge_work_h1b_slice.yaml`](../../configs/knowledge_work_h1b_slice.yaml)
+  - [`docs/continuity/h1b-slice.md`](./h1b-slice.md)
 - Visual sequencing canary:
   - [`results/knowledge_work_h1_slice/20260506T_h1_visual_sequence_hint_canary_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_visual_sequence_hint_canary_v1_knowledge_work_ablation_packet)
 - Visual filter repair canary:
@@ -406,6 +409,18 @@ Full H1 ablation after final visual turn directive:
   - `controller_repair_disabled = 21`
   - `intent_priority_disabled = 9`
 - interpretation: on current H1, the prior causal controller-repair signal is eliminated by moving the exact visual next-call contract into the final FunctionGemma routing turn. H1 is now saturated again and needs a harder follow-up slice to keep measuring controller dependence.
+
+H1b follow-up:
+
+- config: [`configs/knowledge_work_h1b_slice.yaml`](../../configs/knowledge_work_h1b_slice.yaml)
+- doc: [`docs/continuity/h1b-slice.md`](./h1b-slice.md)
+- H1b reuses existing replayable/live packaged-workflow episode pairs that were not in H1:
+  - executive visual referent review
+  - executive latest-action resume
+  - jobs visual constraint override
+  - jobs phone patch resume
+  - finance visual invoice revision
+- purpose: re-break the now-saturated H1 surface with longer visual referent carryover, latest-instruction pressure, CLI/action dependencies after visual evidence, artifact revision, and approval-safe stop pressure
 
 ## Strongest Current Findings
 

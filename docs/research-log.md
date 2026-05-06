@@ -2310,6 +2310,11 @@
   - trace mining found `0` failure candidates; only ablation-marker notes remained
   - research interpretation: the H1 causal controller signal was real, but it pointed to a prompt-contract recency problem in FunctionGemma routing rather than an unavoidable need for controller repair
   - next benchmark need: define H1b with harder visual/API/approval interactions because current H1 is saturated again
+- H1b is now scaffolded as the next saturation breaker:
+  - [`configs/knowledge_work_h1b_slice.yaml`](../configs/knowledge_work_h1b_slice.yaml) reuses existing packaged workflow episode pairs that were outside H1
+  - [`docs/continuity/h1b-slice.md`](continuity/h1b-slice.md) records the purpose, episode set, stressors, and commands
+  - the new slice concentrates older but harder visual/revision/resume cases: dashboard referent carryover, latest-action resume, jobs constraint override, jobs phone patch resume, and finance invoice revision
+  - H1b should be run first as a compact `visual_policy_no_controller_repair` packet before a full H1b ablation
 
 ### Verification
 

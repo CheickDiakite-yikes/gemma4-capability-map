@@ -97,3 +97,99 @@ workflows:
     lane_episode_map:
       replayable_core: kwa_finance_invoice_lock_direction_hold_v4
       live_web_stress: kwa_finance_live_invoice_lock_direction_hold_v4
+
+  executive_visual_referent_review:
+    title: Dashboard Referent Review
+    subtitle: Preserve dashboard referents across a latest-filter revision
+    description: Inspect dashboard evidence, carry the current visual referent through revision pressure, and avoid stale filter drift.
+    role_family: executive_assistant
+    category: visual_review
+    preview_asset: data/assets/visual_dashboard.png
+    recommended_system_id: hf_service_gemma4_specialists_cpu
+    default_lane: replayable_core
+    supports_approval: false
+    tags:
+      - visual
+      - dashboard
+      - latest_filter
+      - revision
+    lane_episode_map:
+      replayable_core: kwa_exec_visual_dashboard_referent_hold_v3
+      live_web_stress: kwa_exec_live_visual_dashboard_referent_hold_v3
+
+  executive_latest_action_resume:
+    title: Latest Action Resume
+    subtitle: Resume an executive packet while honoring the newest action chain
+    description: Resume a visual executive workflow with project memory pressure and preserve the latest action over stale context.
+    role_family: executive_assistant
+    category: document_revision
+    preview_asset: data/assets/visual_dashboard.png
+    recommended_system_id: hf_service_gemma4_specialists_cpu
+    default_lane: replayable_core
+    supports_approval: true
+    tags:
+      - visual
+      - resume
+      - project_memory
+      - direction_following_latest_instruction
+    lane_episode_map:
+      replayable_core: kwa_exec_latest_action_resume_hold_v4
+      live_web_stress: kwa_exec_live_latest_action_resume_hold_v4
+
+  jobs_visual_constraint_override:
+    title: Job Constraint Override Review
+    subtitle: Preserve the latest constraint while inspecting a visual form
+    description: Inspect a job-application form under a constraint override and avoid carrying stale visual or submission state forward.
+    role_family: job_application_ops
+    category: browser_approval_hold
+    preview_asset: data/assets/visual_form.png
+    recommended_system_id: hf_service_gemma4_specialists_cpu
+    default_lane: replayable_core
+    supports_approval: true
+    tags:
+      - visual
+      - jobs
+      - latest_constraint
+      - approval
+    lane_episode_map:
+      replayable_core: kwa_jobs_visual_constraint_override_hold_v2
+      live_web_stress: kwa_jobs_live_visual_constraint_override_hold_v2
+
+  jobs_phone_patch_resume:
+    title: Phone Patch Resume
+    subtitle: Resume a form-fix chain and patch only the latest issue
+    description: Inspect the current form issue, apply only the latest phone-related patch, and stop safely at the approval boundary.
+    role_family: job_application_ops
+    category: browser_approval_hold
+    preview_asset: data/assets/visual_form.png
+    recommended_system_id: hf_service_gemma4_specialists_cpu
+    default_lane: replayable_core
+    supports_approval: true
+    tags:
+      - visual
+      - jobs
+      - resume
+      - tool_cli
+      - approval
+    lane_episode_map:
+      replayable_core: kwa_jobs_phone_patch_resume_hold_v4
+      live_web_stress: kwa_jobs_live_phone_patch_resume_hold_v4
+
+  finance_visual_invoice_revision:
+    title: Invoice Revision Review
+    subtitle: Revise a finance note from invoice visual evidence
+    description: Inspect invoice evidence, incorporate revision pressure, and stop with a finance note that preserves the current approval posture.
+    role_family: finance
+    category: visual_review
+    preview_asset: data/assets/visual_invoice.png
+    recommended_system_id: hf_service_gemma4_specialists_cpu
+    default_lane: replayable_core
+    supports_approval: true
+    tags:
+      - finance
+      - visual
+      - revision
+      - approval
+    lane_episode_map:
+      replayable_core: kwa_finance_visual_invoice_revision_hold_v2
+      live_web_stress: kwa_finance_live_visual_invoice_revision_hold_v2

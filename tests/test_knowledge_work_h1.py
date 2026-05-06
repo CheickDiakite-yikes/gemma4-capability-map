@@ -18,6 +18,7 @@ PACKET_SPEC = importlib.util.spec_from_file_location("run_knowledge_work_h1_abla
 assert PACKET_SPEC and PACKET_SPEC.loader
 PACKET_SCRIPT = importlib.util.module_from_spec(PACKET_SPEC)
 PACKET_SPEC.loader.exec_module(PACKET_SCRIPT)
+H1B_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1b_slice.yaml"
 
 
 def test_h1_slice_config_maps_to_existing_packaged_workflows_and_episodes() -> None:
@@ -54,6 +55,41 @@ def test_h1_slice_config_maps_to_existing_packaged_workflows_and_episodes() -> N
         "kwa_exec_backlog_resume_hold_v5",
         "kwa_jobs_email_block_resume_hold_v5",
         "kwa_finance_invoice_lock_direction_hold_v4",
+    ]
+
+
+def test_h1b_slice_config_maps_to_existing_packaged_workflows_and_episodes() -> None:
+    config = load_h1_slice(H1B_CONFIG_PATH)
+
+    errors = validate_h1_slice(config)
+
+    assert errors == []
+    assert config.name == "knowledge_work_h1b_visual_policy_controller_dependence"
+    assert config.live_entrypoint == "packaged_workflows_only"
+    assert config.lanes["replayable_core"].episode_ids == [
+        "kwa_exec_visual_dashboard_referent_hold_v3",
+        "kwa_exec_latest_action_resume_hold_v4",
+        "kwa_jobs_visual_constraint_override_hold_v2",
+        "kwa_jobs_phone_patch_resume_hold_v4",
+        "kwa_finance_visual_invoice_revision_hold_v2",
+    ]
+    assert config.lanes["live_web_stress"].episode_ids == [
+        "kwa_exec_live_visual_dashboard_referent_hold_v3",
+        "kwa_exec_live_latest_action_resume_hold_v4",
+        "kwa_jobs_live_visual_constraint_override_hold_v2",
+        "kwa_jobs_live_phone_patch_resume_hold_v4",
+        "kwa_finance_live_visual_invoice_revision_hold_v2",
+    ]
+    packet = h1_packet_selection(config, "visual_policy_no_controller_repair")
+    assert packet.system_ids == [
+        "hf_service_gemma4_specialists_cpu",
+        "hf_service_gemma4_specialists_cpu_no_controller_repair",
+        "hf_service_gemma4_specialists_cpu_no_deterministic_visual_follow_on",
+    ]
+    assert packet.episode_ids == [
+        "kwa_exec_visual_dashboard_referent_hold_v3",
+        "kwa_jobs_visual_constraint_override_hold_v2",
+        "kwa_finance_visual_invoice_revision_hold_v2",
     ]
 
 

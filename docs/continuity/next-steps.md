@@ -176,6 +176,9 @@ Completed empirical move:
 Next empirical move:
 
 - H1 is saturated again after the visual turn directive; define H1b before another broad same-slice rerun
+- H1b scaffold now exists:
+  - [`configs/knowledge_work_h1b_slice.yaml`](../../configs/knowledge_work_h1b_slice.yaml)
+  - [`docs/continuity/h1b-slice.md`](./h1b-slice.md)
 - H1b should stress:
   - longer visual chains where the next filter is not directly lexical in the user request
   - mixed visual + API/CLI dependencies after the readback
@@ -183,6 +186,15 @@ Next empirical move:
   - approval-safe stop after a correct visual readback
   - latest-instruction override when the stale visual chain looks easier than the current instruction
 - also run a live CLI packaged-workflow smoke with the same FunctionGemma turn directive to validate live operator behavior, not just replayable traces
+- next verification command:
+
+```bash
+uv run python scripts/run_knowledge_work_h1_ablation_packet.py \
+  --config configs/knowledge_work_h1b_slice.yaml \
+  --packet-id visual_policy_no_controller_repair \
+  --run-group-id <timestamp>_h1b_visual_policy_packet
+```
+
 - rerun the compact packet after each candidate patch before returning to full H1:
 
 ```bash
