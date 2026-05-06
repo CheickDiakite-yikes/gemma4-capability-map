@@ -366,6 +366,9 @@
   - argument repair is also causal, especially where raw calls are semantically close but contract-wrong
   - fallback is narrower but real, concentrated in the jobs visual/form chains
   - disabled rows can show higher `raw_planning_clean_rate` while performing worse, so raw-clean must be interpreted with repair controls in mind
+- H1d candidate brief:
+  - [`docs/continuity/h1d-candidates.md`](/Users/cheickdiakite/Codex/moonie/docs/continuity/h1d-candidates.md)
+  - proposed stress families: visual stepwise control, API/CLI canonicalization, fallback boundary, and approval-safe stop under repair pressure
 
 ### CLI policy rendering now surfaces live-web block details
 

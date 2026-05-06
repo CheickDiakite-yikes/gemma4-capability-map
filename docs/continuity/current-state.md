@@ -661,6 +661,15 @@ H1c MLX monolith helper ablation:
   - `fallback_disabled = 2`
 - interpretation: controller repair, argument repair, and fallback are all causal for local MLX monolith on H1c. Higher raw-clean rates in disabled rows are not better behavior; they mean the controller stopped repairing semantically wrong raw calls.
 
+H1d candidate direction:
+
+- doc: [`docs/continuity/h1d-candidates.md`](./h1d-candidates.md)
+- proposed stress families:
+  - visual stepwise control
+  - API/CLI canonicalization
+  - fallback boundary
+  - approval-safe stop under repair pressure
+
 ## Strongest Current Findings
 
 1. Top-line parity is now established on the aligned `32 / 26` surface.
