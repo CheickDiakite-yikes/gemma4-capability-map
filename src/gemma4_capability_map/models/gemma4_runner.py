@@ -17,7 +17,7 @@ from gemma4_capability_map.models.runtime_utils import (
     should_use_local_files_only,
 )
 from gemma4_capability_map.schemas import Message, ModelTurn, ToolCall, ToolSpec
-from gemma4_capability_map.tools.planner import plan_tool_calls, tool_catalog_text
+from gemma4_capability_map.tools.planner import plan_tool_calls, tool_catalog_text, tool_turn_directive
 from gemma4_capability_map.tools.validators import normalize_tool_output
 
 
@@ -432,7 +432,7 @@ class Gemma4Runner(Runner):
             except ImportError as exc:
                 raise RuntimeError("Install the mlx extra to use the MLX backend.") from exc
 
-            prompt_messages = self._build_mlx_messages(messages, tool_specs, thinking=thinking)
+            prompt_messages = self._build_mlx_messages(messages, media, tool_specs, thinking=thinking)
             formatted_prompt = apply_chat_template(
                 self._processor,
                 self._mlx_config or getattr(self._model, "config", None),
@@ -464,7 +464,7 @@ class Gemma4Runner(Runner):
             except ImportError as exc:
                 raise RuntimeError("Install the mlx extra to use the MLX backend.") from exc
 
-            prompt_messages = self._build_mlx_messages(messages, tool_specs, thinking=thinking)
+            prompt_messages = self._build_mlx_messages(messages, media, tool_specs, thinking=thinking)
             prompt = _apply_text_chat_template(
                 self._processor,
                 prompt_messages,
@@ -584,7 +584,7 @@ class Gemma4Runner(Runner):
             metadata.update({"backend": "llama_cpp", "runtime_info": self.runtime_info(), "partial_runtime": True})
             return turn.model_copy(update={"runtime_metadata": metadata})
 
-        prompt_messages = self._build_mlx_messages(messages, tool_specs, thinking=thinking)
+        prompt_messages = self._build_mlx_messages(messages, media, tool_specs, thinking=thinking)
         try:
             if hasattr(self._llama_cpp_model, "create_chat_completion"):
                 response = self._llama_cpp_model.create_chat_completion(
@@ -593,7 +593,7 @@ class Gemma4Runner(Runner):
                     temperature=0.0,
                 )
             else:
-                prompt = self._build_mlx_prompt(messages, tool_specs, thinking=thinking)
+                prompt = self._build_mlx_prompt(messages, media, tool_specs, thinking=thinking)
                 response = self._llama_cpp_model.create_completion(  # type: ignore[union-attr]
                     prompt=prompt,
                     max_tokens=max_new_tokens,
@@ -665,6 +665,9 @@ class Gemma4Runner(Runner):
             if text:
                 content.append({"type": "text", "text": text})
             prepared.append({"role": role, "content": content or [{"type": "text", "text": ""}]})
+        directive = tool_turn_directive(messages, media, tool_specs)
+        if directive:
+            prepared.append({"role": "user", "content": [{"type": "text", "text": directive}]})
         return prepared
 
     def _build_hf_text_messages(
@@ -701,6 +704,9 @@ class Gemma4Runner(Runner):
             if message.role == "tool":
                 text = f"Tool result:\n{text}"
             prepared.append({"role": role, "content": text or ""})
+        directive = tool_turn_directive(messages, media, tool_specs)
+        if directive:
+            prepared.append({"role": "user", "content": directive})
         return prepared
 
     def _build_hf_prompt(self, messages: list[dict[str, str]]) -> str:
@@ -715,6 +721,7 @@ class Gemma4Runner(Runner):
     def _build_mlx_messages(
         self,
         messages: list[Message],
+        media: list[str],
         tool_specs: list[ToolSpec],
         thinking: bool,
     ) -> list[dict[str, str]]:
@@ -733,11 +740,15 @@ class Gemma4Runner(Runner):
             if message.image_refs:
                 text = (text + "\n" if text else "") + "Image refs: " + ", ".join(message.image_refs)
             prepared.append({"role": role, "content": text or ""})
+        directive = tool_turn_directive(messages, media, tool_specs)
+        if directive:
+            prepared.append({"role": "user", "content": directive})
         return prepared
 
     def _build_mlx_prompt(
         self,
         messages: list[Message],
+        media: list[str],
         tool_specs: list[ToolSpec],
         thinking: bool,
     ) -> str:
@@ -753,6 +764,9 @@ class Gemma4Runner(Runner):
             if message.image_refs:
                 text = (text + "\n" if text else "") + "Image refs: " + ", ".join(message.image_refs)
             lines.append(f"{role}: {text}".rstrip())
+        directive = tool_turn_directive(messages, media, tool_specs)
+        if directive:
+            lines.append(f"USER: {directive}")
         lines.append("ASSISTANT:")
         return "\n\n".join(lines).strip()
 

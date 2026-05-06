@@ -5,7 +5,12 @@ import json
 
 from gemma4_capability_map.research_controls import ResearchControls
 from gemma4_capability_map.schemas import Message, ToolCall
-from gemma4_capability_map.tools.planner import deterministic_follow_on_calls, plan_or_repair_tool_calls, plan_tool_calls
+from gemma4_capability_map.tools.planner import (
+    deterministic_follow_on_calls,
+    plan_or_repair_tool_calls,
+    plan_tool_calls,
+    tool_turn_directive,
+)
 from gemma4_capability_map.tools.registry import build_default_registry
 
 
@@ -1135,6 +1140,52 @@ def test_planner_prefers_cli_search_logs_for_latest_invoice_lock_failure() -> No
     assert len(planned) == 1
     assert planned[0].name == "cli_search_logs"
     assert planned[0].arguments == {"path": "logs/billing.log", "query": "invoice lock"}
+
+
+def test_tool_turn_directive_serializes_exact_next_cli_call() -> None:
+    messages = [
+        Message(
+            role="user",
+            content="Ignore the earlier publish plan. Search logs/billing.log for the latest invoice-lock failure and report it.",
+        )
+    ]
+
+    directive = tool_turn_directive(
+        messages=messages,
+        media=[],
+        tool_specs=[SPECS["cli_search_logs"], SPECS["api_fetch_record"]],
+    )
+
+    assert "Return only the exact JSON tool call below and no other text." in directive
+    assert '{"name":"cli_search_logs","arguments":{"path":"logs/billing.log","query":"invoice lock"}}' in directive
+    assert "Do not copy earlier tool calls" in directive
+
+
+def test_tool_turn_directive_marks_visual_calls_as_stepwise() -> None:
+    messages = [
+        Message(role="system", content="visual_image_ids: img-dashboard-review-backlog"),
+        Message(
+            role="user",
+            content="Inspect the dashboard, keep needs review first, then narrow to the backlog owned by enablement ops and tell me what it says.",
+        ),
+        Message(
+            role="tool",
+            content='{"tool_name":"extract_layout","status":"pass","arguments":{"image_id":"img-dashboard-review-backlog","target_query":"dashboard metric"},"output":{"selection_id":"sel-001","region_ids":["metric-101","metric-102","metric-103"]}}',
+        ),
+        Message(
+            role="tool",
+            content='{"tool_name":"refine_selection","status":"pass","arguments":{"selection_id":"sel-001","filter_query":"needs review"},"output":{"image_id":"img-dashboard-review-backlog","selection_id":"sel-002","region_ids":["metric-101","metric-102"]}}',
+        ),
+    ]
+
+    directive = tool_turn_directive(
+        messages=messages,
+        media=["img-dashboard-review-backlog"],
+        tool_specs=[SPECS["extract_layout"], SPECS["refine_selection"], SPECS["read_region_text"]],
+    )
+
+    assert '{"name":"refine_selection","arguments":{"selection_id":"sel-002","filter_query":"backlog"}}' in directive
+    assert "make one visual tool call per turn" in directive
 
 
 def test_planner_prefers_cli_inspect_diff_for_review_only_diff_instruction() -> None:

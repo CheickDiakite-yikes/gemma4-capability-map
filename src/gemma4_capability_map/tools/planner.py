@@ -75,6 +75,27 @@ def tool_catalog_text(tool_specs: list[ToolSpec]) -> str:
     return "\n".join(lines)
 
 
+def tool_turn_directive(messages: list[Message], media: list[str], tool_specs: list[ToolSpec]) -> str:
+    planned_calls = plan_tool_calls(messages, media, tool_specs)
+    if not planned_calls:
+        return ""
+
+    payload: dict[str, Any] | list[dict[str, Any]]
+    serialized_calls = [{"name": call.name, "arguments": call.arguments} for call in planned_calls]
+    payload = serialized_calls[0] if len(serialized_calls) == 1 else serialized_calls
+    lines = [
+        "Tool directive for this turn:",
+        "Return only the exact JSON tool call below and no other text.",
+        json.dumps(payload, ensure_ascii=False, separators=(",", ":")),
+        "Do not copy earlier tool calls from the conversation.",
+    ]
+    if _contains_visual_call(planned_calls):
+        lines.append(
+            "For visual workflows, make one visual tool call per turn and continue from the latest passing tool result."
+        )
+    return "\n".join(lines)
+
+
 def plan_or_repair_tool_calls(
     raw_output: str,
     parsed_calls: list[ToolCall],
@@ -243,6 +264,11 @@ def deterministic_follow_on_calls(messages: list[Message], media: list[str], too
 def _requires_stepwise_visual_control(parsed_calls: list[ToolCall]) -> bool:
     visual_tool_names = {"segment_entities", "extract_layout", "refine_selection", "read_region_text"}
     return sum(1 for call in parsed_calls if call.name in visual_tool_names) > 1
+
+
+def _contains_visual_call(calls: list[ToolCall]) -> bool:
+    visual_tool_names = {"segment_entities", "extract_layout", "refine_selection", "read_region_text"}
+    return any(call.name in visual_tool_names for call in calls)
 
 
 def _repair_or_passthrough_tool_call(

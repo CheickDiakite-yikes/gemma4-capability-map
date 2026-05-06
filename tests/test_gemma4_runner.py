@@ -11,6 +11,7 @@ from gemma4_capability_map.models.gemma4_runner import (
     _parse_model_response,
 )
 from gemma4_capability_map.schemas import Message, ToolCall, ToolSpec
+from gemma4_capability_map.tools.registry import build_default_registry
 
 
 def test_parse_model_response_strips_trailing_control_tokens() -> None:
@@ -73,6 +74,30 @@ def test_mlx_generation_helpers_handle_structured_result_objects() -> None:
     assert _mlx_generated_text(generation) == "hello"
     assert _mlx_prompt_tokens(generation, fallback=0) == 12
     assert _mlx_completion_tokens(generation, fallback=0) == 5
+
+
+def test_mlx_messages_append_exact_tool_turn_directive() -> None:
+    specs = build_default_registry().specs
+    runner = Gemma4Runner("google/gemma-4-E2B-it", backend="mlx")
+
+    prompt_messages = runner._build_mlx_messages(
+        messages=[
+            Message(
+                role="user",
+                content="Ignore the earlier publish plan. Search logs/billing.log for the latest invoice-lock failure and report it.",
+            )
+        ],
+        media=[],
+        tool_specs=[specs["cli_search_logs"], specs["api_fetch_record"]],
+        thinking=False,
+    )
+
+    assert prompt_messages[-1]["role"] == "user"
+    assert "Tool directive for this turn:" in prompt_messages[-1]["content"]
+    assert (
+        '{"name":"cli_search_logs","arguments":{"path":"logs/billing.log","query":"invoice lock"}}'
+        in prompt_messages[-1]["content"]
+    )
 
 
 def test_hf_service_backend_uses_service_response(monkeypatch) -> None:
