@@ -2282,6 +2282,13 @@
   - `no_controller_repair` remains the only top-line causal helper: `real_world_readiness_avg = 0.8874599999999999`, `strict_interface_avg = 0.775`, `recovered_execution_avg = 0.7`, while raw syntax is mostly clean at `0.975`
   - trace mining found only `3` failure candidates, all in `no_controller_repair`, with residual modes `repair_disabled`, `visual_readback_missing`, `visual_repeated_refinement`, and `visual_stepwise_control`
   - the next useful target is therefore model-side or contract-side visual sequence semantics, not visual rescue, generic fallback, or placeholder repair
+- The compact H1 visual-semantics packet makes that residual controller-dependence cheap to replay:
+  - [`20260506T_h1_visual_semantics_no_repair_v1`](../results/knowledge_work_h1_slice/20260506T_h1_visual_semantics_no_repair_v1_knowledge_work_ablation_packet) ran `3` systems over the `3` residual visual episodes
+  - baseline specialists stayed clean on the packet: `real_world_readiness_avg = 0.9715666666666666`, `strict_interface_avg = 1.0`, `recovered_execution_avg = 1.0`, `raw_planning_clean_rate_avg = 1.0`
+  - `no_controller_repair` reproduced the gap more sharply: `real_world_readiness_avg = 0.8257`, `strict_interface_avg = 0.625`, `recovered_execution_avg = 0.5`, while `raw_planning_clean_rate_avg = 1.0`
+  - `no_deterministic_visual_follow_on` still recovered fully but needed help: `controller_repair_avg = 0.8333333333333334`, `argument_repair_avg = 0.5`, `raw_planning_clean_rate_avg = 0.7833333333333333`
+  - trace mining found `3` failure candidates, all in `no_controller_repair`, with `visual_readback_missing`, `visual_repeated_refinement`, and `visual_stepwise_control` concentrated on the executive backlog and jobs form visual chains
+  - this packet should be the default next loop for candidate visual sequencing fixes before another full H1 replayable rerun
 
 ### Verification
 

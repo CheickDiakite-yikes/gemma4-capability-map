@@ -153,24 +153,30 @@ Completed empirical move:
   - [`results/knowledge_work_h1_slice/20260506T_h1_visual_filter_repair_canary_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_visual_filter_repair_canary_v1_knowledge_work_ablation_packet)
 - treat fallback-disabled as solved on this H1 slice: `no_controller_fallback` now matches baseline
 - full H1 ablation after visual filter repair verifies that `no_deterministic_visual_follow_on` moves from `0.88748` back to baseline
+- compact visual semantics packet output: [`results/knowledge_work_h1_slice/20260506T_h1_visual_semantics_no_repair_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_visual_semantics_no_repair_v1_knowledge_work_ablation_packet)
+- compact packet reproduces the residual gap:
+  - baseline readiness `0.9715666666666666`
+  - `no_controller_repair = 0.8257`
+  - `no_deterministic_visual_follow_on = 0.9715666666666666`
+  - all `3` failure candidates are in `no_controller_repair`
 
 Next empirical move:
 
 - target the remaining causal helper:
   - `no_controller_repair = 0.8874599999999999`
-- run the named compact packet:
-
-```bash
-uv run python scripts/run_knowledge_work_h1_ablation_packet.py \
-  --packet-id visual_semantics_no_controller_repair \
-  --run-group-id 20260506T_h1_visual_semantics_no_repair_v1
-```
-
 - use the trace miner labels for the active residual family:
   - `visual_readback_missing`
   - `visual_stepwise_control`
   - `visual_repeated_refinement`
 - define the next patch around model-side visual sequencing or a narrower semantic contract, not generic placeholder repair
+- rerun the compact packet after each candidate patch before returning to full H1:
+
+```bash
+uv run python scripts/run_knowledge_work_h1_ablation_packet.py \
+  --packet-id visual_semantics_no_controller_repair \
+  --run-group-id <timestamp>_h1_visual_semantics_candidate
+```
+
 - define H1b only if the remaining failure candidates are too narrow to separate candidate fixes
 - avoid another broad aligned rerun until the targeted repair/fallback mechanism changes
 

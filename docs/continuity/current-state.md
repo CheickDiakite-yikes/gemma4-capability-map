@@ -181,6 +181,8 @@ Current H1 replayable output:
   - [`results/knowledge_work_h1_slice/20260506T_h1_hf_service_concrete_hint_ablation_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_concrete_hint_ablation_v1_knowledge_work_ablation_packet)
 - HF service-backed ablation after visual filter repair:
   - [`results/knowledge_work_h1_slice/20260506T_h1_hf_service_visual_filter_repair_ablation_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_visual_filter_repair_ablation_v1_knowledge_work_ablation_packet)
+- Compact visual semantics packet:
+  - [`results/knowledge_work_h1_slice/20260506T_h1_visual_semantics_no_repair_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_visual_semantics_no_repair_v1_knowledge_work_ablation_packet)
 - Visual sequencing canary:
   - [`results/knowledge_work_h1_slice/20260506T_h1_visual_sequence_hint_canary_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_visual_sequence_hint_canary_v1_knowledge_work_ablation_packet)
 - Visual filter repair canary:
@@ -346,6 +348,19 @@ Full H1 ablation after visual filter repair:
 - trace miner found `35` controller-note events and `3` failure candidates
 - all remaining failure candidates are in `no_controller_repair`; the disabled-repair row is accepting valid calls that are semantically stale for the visual readback sequence
 - interpretation: deterministic visual follow-on is not top-line causal after the pending-filter repair, but it still reduces controller burden; controller repair is the remaining top-line causal helper on H1
+
+Compact H1 visual semantics packet:
+
+- output: [`results/knowledge_work_h1_slice/20260506T_h1_visual_semantics_no_repair_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_visual_semantics_no_repair_v1_knowledge_work_ablation_packet)
+- systems: `hf_service_gemma4_specialists_cpu`, `hf_service_gemma4_specialists_cpu_no_controller_repair`, `hf_service_gemma4_specialists_cpu_no_deterministic_visual_follow_on`
+- episodes: `kwa_exec_backlog_resume_hold_v5`, `kwa_jobs_email_block_resume_hold_v5`, `kwa_finance_invoice_lock_direction_hold_v4`
+- baseline specialists: readiness `0.9715666666666666`, strict/recovered `1.0 / 1.0`, repair/fallback `0.0 / 0.0`, raw clean `1.0`
+- `no_controller_repair`: readiness `0.8257`, strict/recovered `0.625 / 0.5`, repair/fallback `0.0 / 0.0`, raw clean `1.0`
+- `no_deterministic_visual_follow_on`: readiness `0.9715666666666666`, strict/recovered `1.0 / 1.0`, repair `0.8333333333333334`, argument repair `0.5`, fallback `0.0`, raw clean `0.7833333333333333`
+- trace miner found `18` controller-note events and `3` failure candidates
+- all failure candidates are in `no_controller_repair`
+- failure modes: `repair_disabled = 3`, `visual_readback_missing = 2`, `visual_repeated_refinement = 2`, `visual_stepwise_control = 2`
+- interpretation: this packet is now the fast replayable target for candidate visual sequence fixes; it reproduces the controller-repair dependence without the full 35-row H1 cost
 
 ## Strongest Current Findings
 
