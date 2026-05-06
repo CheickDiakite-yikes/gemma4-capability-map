@@ -147,10 +147,14 @@ Next empirical move:
 
 - use [`trace_episode_failures.csv`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_prompt_patch_ablation_v1_knowledge_work_ablation_packet/trace_episode_failures.csv) and [`trace_note_counts.csv`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_prompt_patch_ablation_v1_knowledge_work_ablation_packet/trace_note_counts.csv)
 - target the remaining raw-refusal/no-call and unrepaired real-tool placeholder argument failures
-- run the full H1 service-backed ablation after the concrete request-specific FunctionGemma hint; the baseline canary reached `controller_repair_avg = 0.0`, `controller_fallback_avg = 0.0`, and `raw_planning_clean_rate_avg = 1.0`
-- treat this as a prompt-prior result until the ablation rows show whether repair/fallback causality survives
-- then design the next patch around refusal-to-tool-contract prompting or argument placeholder repair only if the full packet still exposes those failures
-- define H1b only if these `7` failure candidates are too narrow to separate candidate fixes
+- use the completed concrete-hint H1 ablation packet:
+  - [`results/knowledge_work_h1_slice/20260506T_h1_hf_service_concrete_hint_ablation_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_concrete_hint_ablation_v1_knowledge_work_ablation_packet)
+- treat fallback-disabled as solved on this H1 slice: `no_controller_fallback` now matches baseline at readiness `0.9749800000000001`
+- target the remaining causal helpers:
+  - `no_controller_repair = 0.88748`
+  - `no_deterministic_visual_follow_on = 0.88748`
+- define the next patch around stepwise visual control and future-state visual calls, not raw refusal or generic placeholder repair
+- define H1b only if these `6` failure candidates are too narrow to separate candidate fixes
 - avoid another broad aligned rerun until the targeted repair/fallback mechanism changes
 
 ### 5. Install the local Gemma `31B` `GGUF` artifact and run the first real `llama.cpp` posture row

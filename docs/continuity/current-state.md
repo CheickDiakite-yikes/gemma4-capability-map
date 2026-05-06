@@ -254,6 +254,20 @@ FunctionGemma concrete-hint canary:
 - trace miner found `0` controller-note events and `0` failure candidates
 - interpretation: the remaining baseline H1 controller burden was largely seeded by placeholder-shaped prompt examples; the next required check is the full H1 ablation after this stronger prompt prior
 
+Full H1 ablation after the concrete hint:
+
+- output: [`results/knowledge_work_h1_slice/20260506T_h1_hf_service_concrete_hint_ablation_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_concrete_hint_ablation_v1_knowledge_work_ablation_packet)
+- baseline `hf_service_gemma4_specialists_cpu`: readiness `0.9749800000000001`, strict/recovered `1.0 / 1.0`, repair `0.0`, fallback `0.0`, raw clean `1.0`
+- `no_controller_repair`: readiness `0.88748`, strict/recovered `0.775 / 0.7`, raw clean `0.89`
+- `no_controller_fallback`: unchanged at readiness `0.9749800000000001`
+- `no_visual_rescue`: unchanged at readiness `0.9749800000000001`
+- `no_intent_priority`: unchanged at readiness `0.9749800000000001`
+- `no_argument_repair`: unchanged at readiness `0.9749800000000001`
+- `no_deterministic_visual_follow_on`: readiness `0.88748`, strict/recovered `0.775 / 0.7`, repair `0.8`, fallback `0.4`
+- trace miner found `42` controller-note events and `6` failure candidates
+- aggregate failure modes: `fallback_planner = 4`, `argument_repair = 3`, `repair_disabled = 3`
+- interpretation: fallback causality on H1 was prompt-artifact-heavy; repair causality now concentrates in stepwise visual control and future-state visual follow-ons
+
 ## Strongest Current Findings
 
 1. Top-line parity is now established on the aligned `32 / 26` surface.

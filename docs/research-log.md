@@ -423,6 +423,35 @@
   - the remaining baseline H1 controller burden was prompt-shape-induced: concrete request-specific examples remove both the copied `value` argument placeholders and raw refusal/no-call fallback cases on the baseline canary
   - the next required evidence is the full H1 ablation after this stronger prompt prior, because it may reduce or erase apparent repair/fallback causality on this narrow slice
 
+### Full H1 ablation after the concrete FunctionGemma hint
+
+- Command:
+  - `uv run python scripts/run_knowledge_work_h1_ablation_packet.py --lane replayable_core --run-group-id 20260506T_h1_hf_service_concrete_hint_ablation_v1`
+- Output:
+  - [`results/knowledge_work_h1_slice/20260506T_h1_hf_service_concrete_hint_ablation_v1_knowledge_work_ablation_packet`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1_hf_service_concrete_hint_ablation_v1_knowledge_work_ablation_packet)
+  - [`results.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1_hf_service_concrete_hint_ablation_v1_knowledge_work_ablation_packet/results.json)
+  - [`trace_failure_mode_counts.csv`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1_hf_service_concrete_hint_ablation_v1_knowledge_work_ablation_packet/trace_failure_mode_counts.csv)
+
+- Result:
+  - baseline stayed saturated and controller-clean: readiness `0.9749800000000001`, strict/recovered `1.0 / 1.0`, repair `0.0`, fallback `0.0`, raw clean `1.0`
+  - `no_controller_fallback` now matches baseline: readiness `0.9749800000000001`, strict/recovered `1.0 / 1.0`, raw clean `1.0`
+  - `no_controller_repair` improved substantially but still lags: readiness `0.88748`, strict/recovered `0.775 / 0.7`, raw clean `0.89`
+  - `no_deterministic_visual_follow_on` now also lags: readiness `0.88748`, strict/recovered `0.775 / 0.7`, repair `0.8`, fallback `0.4`
+  - `no_visual_rescue`, `no_intent_priority`, and `no_argument_repair` all stayed at readiness `0.9749800000000001`
+
+- Trace read:
+  - command: `uv run python scripts/analyze_knowledge_work_h1_traces.py results/knowledge_work_h1_slice/20260506T_h1_hf_service_concrete_hint_ablation_v1_knowledge_work_ablation_packet`
+  - controller-note events dropped to `42`
+  - strict/recovered failure candidates dropped to `6`
+  - aggregate mode counts: `fallback_planner = 4`, `argument_repair = 3`, `repair_disabled = 3`
+  - raw refusal and generic placeholder modes are absent from the aggregate failure taxonomy
+
+- Interpretation:
+  - fallback dependence on H1 was mostly a prompt-shape artifact
+  - repair dependence remains, but its current family is stepwise visual control and future-state visual calls rather than generic placeholders
+  - deterministic visual follow-on has become causally visible again once the router prompt is clean
+  - the next controller slice should expand failure taxonomy around visual multi-call batches, future selection ids, and missing deterministic follow-ons
+
 # 2026-04-14
 
 ### The React Gemma MLX workspace now runs a real end-to-end local session loop
