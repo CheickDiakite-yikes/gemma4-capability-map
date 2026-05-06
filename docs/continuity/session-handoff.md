@@ -146,10 +146,14 @@ Verification:
 - second-wave ablation control scaffold: `64 passed`
 - `uv run python scripts/run_knowledge_work_h1_slice.py --dry-run --run-set ablation --lane replayable_core --output-root tmp/h1-ablation-dry-run-smoke --run-group-id 20260506T_h1_ablation_dry_run_smoke`
 - completed and wrote `7` replayable H1 ablation run specs
+- `uv run pytest`
+- full repo suite after H1 + second-wave controls: `260 passed`
+- `uv run python scripts/run_knowledge_work_h1_slice.py --dry-run --run-set all --lane replayable_core --output-root tmp/h1-all-dry-run-smoke --run-group-id 20260506T_h1_all_dry_run_smoke`
+- completed and wrote `10` replayable H1 run specs
 - `uv run moonie-agent live --workflow-id executive_visual_dashboard_review --system-id oracle_gemma4_e2b --lane replayable_core --refresh-s 0.1 --timeout-s 0.5`
 - completed through the Rich operator view with sandbox context visible
 - `uv run pytest`
-- `244 passed`
+- earlier full live-harness suite: `244 passed`
 
 ## Prior Change
 
@@ -237,8 +241,9 @@ Only rerun the aligned `32 / 26` surface after the packet shifts again.
 
 Current code-side verification from the latest CLI live harness patch:
 
-- targeted runtime/API/CLI suite: `22 passed`
-- full suite: `244 passed`
+- targeted runtime/API/CLI suite from the original live-harness slice: `22 passed`
+- full suite after the CLI/H1/ablation-control pivot: `260 passed`
+- H1 all-run-set dry-run: `10` replayable run specs
 
 Benchmark outputs rebuilt:
 

@@ -108,6 +108,12 @@ Ablation dry-run command:
 uv run python scripts/run_knowledge_work_h1_slice.py --dry-run --run-set ablation --lane replayable_core
 ```
 
+Next empirical run:
+
+```bash
+uv run python scripts/run_knowledge_work_h1_slice.py --run-set primary --lane replayable_core --system-id mlx_gemma4_e2b_reasoner_only --run-group-id 20260506T_h1_mlx_gemma_primary_v1
+```
+
 ### 5. Install the local Gemma `31B` `GGUF` artifact and run the first real `llama.cpp` posture row
 
 Current blocker:

@@ -202,6 +202,18 @@
   - `uv run python scripts/run_knowledge_work_h1_slice.py --dry-run --run-set ablation --lane replayable_core --output-root tmp/h1-ablation-dry-run-smoke --run-group-id 20260506T_h1_ablation_dry_run_smoke`
   - completed and wrote `7` H1 replayable ablation run specs
 
+### Final verification for the CLI/H1 pivot pass is clean
+
+- Verification:
+  - `uv run pytest`
+  - `260 passed`
+  - `uv run python scripts/run_knowledge_work_h1_slice.py --dry-run --run-set all --lane replayable_core --output-root tmp/h1-all-dry-run-smoke --run-group-id 20260506T_h1_all_dry_run_smoke`
+  - completed and wrote `10` replayable H1 run specs
+
+- Next empirical move:
+  - run H1 primary on `mlx_gemma4_e2b_reasoner_only`
+  - then run the H1 replayable ablation set before any broad aligned `32 / 26` rerun
+
 # 2026-04-14
 
 ### The React Gemma MLX workspace now runs a real end-to-end local session loop
