@@ -197,6 +197,8 @@ def _session_record(
     metrics = dict(scorecard.get("metrics", session.metrics))
     findings = [
         {
+            "repeat_index": repeat_index,
+            "workflow_index": workflow_index,
             "session_id": session.session_id,
             "workflow_id": session.workflow_id,
             "episode_id": session.episode_id,
@@ -237,6 +239,8 @@ def _session_record(
     }
     blocks = [
         {
+            "repeat_index": repeat_index,
+            "workflow_index": workflow_index,
             "session_id": session.session_id,
             "workflow_id": session.workflow_id,
             "episode_id": session.episode_id,

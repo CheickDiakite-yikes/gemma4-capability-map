@@ -86,6 +86,8 @@ def test_runtime_live_smoke_packet_runs_oracle_workflow(tmp_path: Path) -> None:
     assert sessions[0]["artifact_count"] == 3
     assert isinstance(findings, list)
     assert isinstance(blocks, list)
+    assert all("repeat_index" in finding for finding in findings)
+    assert all("repeat_index" in block for block in blocks)
     assert "workflow_id,episode_id" in leaderboard
 
 
