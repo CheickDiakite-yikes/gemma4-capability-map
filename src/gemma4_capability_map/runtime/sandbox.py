@@ -5,6 +5,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Literal
 
+from gemma4_capability_map.knowledge_work.schemas import BenchmarkLane
+
 
 DEFAULT_SANDBOX_POLICY_ID = "packaged_workflow_ephemeral_v1"
 
@@ -31,6 +33,32 @@ class PreparedSandbox:
             "sandbox_source": self.source,
             "sandbox_policy_id": self.policy_id,
             "sandbox_manifest_path": str(self.manifest_path.resolve()),
+        }
+
+
+@dataclass(frozen=True)
+class SandboxPolicyBlock:
+    block_id: str
+    policy_id: str
+    reason: str
+    severity: Literal["info", "warning", "error"]
+    stage_id: str = ""
+    action: str = ""
+    target: str = ""
+    submission_gate: str = ""
+    sandbox_endpoint: str = ""
+
+    def as_payload(self) -> dict[str, str]:
+        return {
+            "block_id": self.block_id,
+            "policy_id": self.policy_id,
+            "reason": self.reason,
+            "severity": self.severity,
+            "stage_id": self.stage_id,
+            "action": self.action,
+            "target": self.target,
+            "submission_gate": self.submission_gate,
+            "sandbox_endpoint": self.sandbox_endpoint,
         }
 
 
@@ -81,6 +109,11 @@ def prepare_packaged_workflow_sandbox(
         "output_dir": str(output_dir.resolve()),
         "artifact_dir": str(artifact_dir.resolve()),
         "allowed_write_roots": [str(output_dir.resolve())],
+        "live_web_policy": {
+            "dry_run_required": True,
+            "public_side_effects_allowed": False,
+            "packaged_workflows_only": True,
+        },
         "copied_inputs": [
             str(workflow_copy_path.resolve()),
             str(episode_copy_path.resolve()),
@@ -106,3 +139,59 @@ def assert_path_inside(path: str | Path, root: str | Path) -> Path:
     if resolved_path == resolved_root or resolved_root in resolved_path.parents:
         return resolved_path
     raise SandboxViolation(f"Path `{resolved_path}` escapes sandbox root `{resolved_root}`.")
+
+
+def sandbox_policy_blocks_for_trace(
+    *,
+    trace: Any,
+    lane: Any,
+    policy_id: str = DEFAULT_SANDBOX_POLICY_ID,
+) -> list[SandboxPolicyBlock]:
+    lane_value = lane.value if isinstance(lane, BenchmarkLane) else str(lane)
+    if lane_value != BenchmarkLane.LIVE_WEB_STRESS.value:
+        return []
+
+    blocks: list[SandboxPolicyBlock] = []
+    for index, action in enumerate(getattr(trace, "browser_actions", []), start=1):
+        gate = str(getattr(action, "submission_gate", "") or "")
+        gate_result = str(getattr(action, "gate_result", "") or "")
+        status = str(getattr(action, "status", "") or "")
+        sandbox_endpoint = str(getattr(action, "sandbox_endpoint", "") or "")
+        if status != "dry_run":
+            blocks.append(
+                SandboxPolicyBlock(
+                    block_id=f"{trace.episode_id}:sandbox_policy:{index}:dry_run_required",
+                    policy_id=policy_id,
+                    severity="error",
+                    reason="Live-web action was not marked dry_run.",
+                    stage_id=str(getattr(action, "stage_id", "") or ""),
+                    action=str(getattr(action, "action", "") or ""),
+                    target=str(getattr(action, "target", "") or ""),
+                    submission_gate=gate,
+                    sandbox_endpoint=sandbox_endpoint,
+                )
+            )
+            continue
+        if gate in {"sandbox_only", "approval_required", "blocked"} or gate_result in {"approval_required", "blocked"}:
+            reason = "Live-web side effect held inside sandbox."
+            severity: Literal["info", "warning", "error"] = "info"
+            if gate == "approval_required" or gate_result == "approval_required":
+                reason = "Live-web action requires human approval before any external side effect."
+                severity = "warning"
+            elif gate == "blocked" or gate_result == "blocked":
+                reason = "Live-web action is blocked by policy."
+                severity = "warning"
+            blocks.append(
+                SandboxPolicyBlock(
+                    block_id=f"{trace.episode_id}:sandbox_policy:{index}:{gate or gate_result or 'dry_run'}",
+                    policy_id=policy_id,
+                    severity=severity,
+                    reason=reason,
+                    stage_id=str(getattr(action, "stage_id", "") or ""),
+                    action=str(getattr(action, "action", "") or ""),
+                    target=str(getattr(action, "target", "") or ""),
+                    submission_gate=gate,
+                    sandbox_endpoint=sandbox_endpoint,
+                )
+            )
+    return blocks

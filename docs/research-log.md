@@ -38,6 +38,24 @@
   - the repo now has a safer first live-operator path for studying local Gemma execution without adding more UI surface area
   - the next useful slice is not visual polish; it is operator actions, stricter live-web dry-run policy, Gemini CLI as a wrapped baseline, and a harder `H1` slice that breaks the current saturated top-line readiness
 
+### Live-web sandbox policy blocks are now runtime-visible
+
+- Runtime implementation:
+  - [`src/gemma4_capability_map/runtime/sandbox.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/runtime/sandbox.py)
+  - [`src/gemma4_capability_map/runtime/core.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/runtime/core.py)
+  - [`src/gemma4_capability_map/runtime/schemas.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/runtime/schemas.py)
+- Regression coverage:
+  - [`tests/test_runtime_core.py`](/Users/cheickdiakite/Codex/moonie/tests/test_runtime_core.py)
+
+- What changed:
+  - live-web `sandbox_only`, `approval_required`, and `blocked` actions now produce `sandbox_policy_block` events
+  - sessions and runtime traces persist `sandbox_policy_blocks`
+  - the runtime manifest includes the policy block payloads alongside the sandbox root and policy id
+
+- Verification:
+  - `uv run pytest tests/test_runtime_core.py tests/test_runtime_cli.py tests/test_runtime_api.py`
+  - `24 passed`
+
 # 2026-04-14
 
 ### The React Gemma MLX workspace now runs a real end-to-end local session loop

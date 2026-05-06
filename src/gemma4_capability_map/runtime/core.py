@@ -36,6 +36,7 @@ from gemma4_capability_map.runtime.sandbox import (
     PreparedSandbox,
     assert_path_inside,
     prepare_packaged_workflow_sandbox,
+    sandbox_policy_blocks_for_trace,
 )
 from gemma4_capability_map.runtime.workflows import DEFAULT_WORKFLOWS_PATH, PackagedWorkflow, load_packaged_workflows
 from gemma4_capability_map.schemas import ExpectedEvent, JudgmentMode, Message, ModelBundleSpec, RunTrace, StateTransition, Task, ToolResult, Track, Variant
@@ -774,16 +775,21 @@ class LocalAgentRuntime:
 
             runner = EpisodeRunner(tasks=self.tasks, bundle=bundle, artifact_output_root=sandbox.artifact_dir)
             trace = runner.run(episode)
+            policy_blocks = [block.as_payload() for block in sandbox_policy_blocks_for_trace(trace=trace, lane=episode.lane, policy_id=sandbox.policy_id)]
+            if policy_blocks:
+                trace.interventions = [*trace.interventions, *[block["block_id"] for block in policy_blocks]]
             summary = summarize_episode_traces([trace])
-            runtime_trace = self._write_runtime_outputs(session, trace, summary, bundle_snapshot, warmup, sandbox)
+            runtime_trace = self._write_runtime_outputs(session, trace, summary, bundle_snapshot, warmup, sandbox, policy_blocks)
             trace_session_metadata = _trace_session_metadata(trace)
             self._append_trace_events(session_id, trace, trace_session_metadata)
+            self._append_policy_block_events(session_id, policy_blocks)
             approvals = []
             approval = _approval_request_from_trace(session, trace, workflow)
             if approval is not None:
                 approvals.append(approval)
             updated_session = self.get_session(session_id)
             updated_session.runtime_trace = runtime_trace
+            updated_session.sandbox_policy_blocks = policy_blocks
             updated_session.artifact_paths = list(runtime_trace.artifact_paths)
             updated_session.tool_invocations = _tool_invocations_from_trace(trace)
             updated_session.metrics = {
@@ -892,6 +898,7 @@ class LocalAgentRuntime:
         runtime_bundle: dict[str, Any],
         warmup: dict[str, Any],
         sandbox: PreparedSandbox,
+        policy_blocks: list[dict[str, Any]],
     ) -> RuntimeTrace:
         output_dir = assert_path_inside(sandbox.output_dir, sandbox.root)
         trace_path = assert_path_inside(output_dir / "episode_trace.json", sandbox.root)
@@ -913,6 +920,7 @@ class LocalAgentRuntime:
             "sandbox_source": sandbox.source,
             "sandbox_policy_id": sandbox.policy_id,
             "sandbox_manifest_path": str(sandbox.manifest_path),
+            "sandbox_policy_blocks": policy_blocks,
             "runtime_bundle": runtime_bundle,
             "warmup": warmup,
         }
@@ -932,6 +940,7 @@ class LocalAgentRuntime:
             sandbox_source=sandbox.source,
             sandbox_policy_id=sandbox.policy_id,
             sandbox_manifest_path=str(sandbox.manifest_path),
+            sandbox_policy_blocks=policy_blocks,
             manifest_path=str(manifest_path.resolve()),
             summary_path=str(summary_path.resolve()),
             episode_trace_path=str(trace_path.resolve()),
@@ -1151,6 +1160,15 @@ class LocalAgentRuntime:
             session.updated_at = _now()
             session.last_activity_at = session.updated_at
             self._write_session(session)
+
+    def _append_policy_block_events(self, session_id: str, policy_blocks: list[dict[str, Any]]) -> None:
+        for block in policy_blocks:
+            self._append_event(
+                session_id,
+                "sandbox_policy_block",
+                str(block.get("reason", "Sandbox policy block recorded.")),
+                block,
+            )
 
     def _read_events(self, session_id: str) -> list[RuntimeEvent]:
         path = self._events_path(session_id)

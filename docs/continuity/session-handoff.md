@@ -26,6 +26,7 @@ The latest live-harness gain is now CLI-first:
 - sessions and runtime traces carry sandbox metadata
 - packaged workflow runs get a per-session sandbox with copied workflow/episode inputs
 - native artifacts and runtime summaries write under the sandbox output root
+- live-web dry-run holds are emitted as `sandbox_policy_block` events and stored on sessions/traces
 - `moonie-agent live` launches a packaged workflow and attaches a Rich terminal operator view
 - `moonie-agent attach <session_id>` watches an existing run from the terminal
 
@@ -109,11 +110,12 @@ What that means:
 - `moonie-agent attach` provides a Rich terminal operator view
 - new live runs are sandboxed by default with policy id `packaged_workflow_ephemeral_v1`
 - runtime artifacts, summaries, and traces are attributable to the sandbox root
+- live-web sandbox-only or approval-gated actions now produce explicit policy block metadata
 
 Verification:
 
 - `uv run pytest tests/test_runtime_core.py tests/test_runtime_cli.py tests/test_runtime_api.py`
-- `22 passed`
+- latest targeted run: `24 passed`
 - `uv run moonie-agent live --workflow-id executive_visual_dashboard_review --system-id oracle_gemma4_e2b --lane replayable_core --refresh-s 0.1 --timeout-s 0.5`
 - completed through the Rich operator view with sandbox context visible
 - `uv run pytest`

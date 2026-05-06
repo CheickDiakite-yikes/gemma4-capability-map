@@ -4,8 +4,9 @@ from pathlib import Path
 
 import json
 
+from gemma4_capability_map.knowledge_work.schemas import BenchmarkLane, BrowserAction, EpisodeTrace, RoleFamily
 from gemma4_capability_map.runtime.core import LocalAgentRuntime
-from gemma4_capability_map.runtime.sandbox import SandboxViolation, assert_path_inside
+from gemma4_capability_map.runtime.sandbox import SandboxViolation, assert_path_inside, sandbox_policy_blocks_for_trace
 from gemma4_capability_map.runtime.schemas import ApprovalStatus, SessionStatus
 
 
@@ -268,6 +269,51 @@ def test_runtime_sandbox_blocks_path_escapes(tmp_path: Path) -> None:
         assert "escapes sandbox root" in str(exc)
     else:  # pragma: no cover - explicit safety assertion
         raise AssertionError("Expected sandbox path escape to be blocked.")
+
+
+def test_sandbox_policy_records_live_web_side_effect_blocks() -> None:
+    trace = EpisodeTrace(
+        run_id="policy-live-web",
+        episode_id="kwa_policy_live",
+        role_family=RoleFamily.EXECUTIVE_ASSISTANT,
+        lane=BenchmarkLane.LIVE_WEB_STRESS,
+        workspace_id="policy-live",
+        browser_actions=[
+            BrowserAction(
+                stage_id="stage_1",
+                action="submit_form",
+                target="https://example.test/apply",
+                purpose="Submit only to the sandbox mirror.",
+                expected_signal="Sandbox endpoint receives the dry-run payload.",
+                submission_gate="sandbox_only",
+                sandbox_endpoint="https://sandbox.local/policy-live/submit",
+                status="dry_run",
+            )
+        ],
+    )
+
+    blocks = sandbox_policy_blocks_for_trace(trace=trace, lane=trace.lane)
+
+    assert len(blocks) == 1
+    assert blocks[0].severity == "info"
+    assert blocks[0].reason == "Live-web side effect held inside sandbox."
+    assert blocks[0].sandbox_endpoint == "https://sandbox.local/policy-live/submit"
+
+
+def test_runtime_records_live_sandbox_policy_blocks(tmp_path: Path) -> None:
+    runtime = LocalAgentRuntime(results_root=tmp_path / "runtime")
+
+    session = runtime.launch_session(
+        workflow_id="finance_visual_invoice_review",
+        system_id="oracle_gemma4_e2b",
+        lane="live_web_stress",
+        background=False,
+    )
+
+    assert session.sandbox_policy_blocks
+    assert session.runtime_trace is not None
+    assert session.runtime_trace.sandbox_policy_blocks == session.sandbox_policy_blocks
+    assert any(event.kind == "sandbox_policy_block" for event in runtime.get_events(session.session_id))
 
 
 def test_runtime_resolves_approval_by_stable_id_and_tracks_history(tmp_path: Path) -> None:

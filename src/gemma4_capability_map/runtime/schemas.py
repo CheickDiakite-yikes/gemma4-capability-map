@@ -104,6 +104,7 @@ class RuntimeEvent(StrictModel):
         "sandbox_prepared",
         "warming",
         "running",
+        "sandbox_policy_block",
         "resume_requested",
         "resume_started",
         "artifacts_ready",
@@ -135,6 +136,7 @@ class RuntimeTrace(StrictModel):
     sandbox_source: str = ""
     sandbox_policy_id: str = ""
     sandbox_manifest_path: str = ""
+    sandbox_policy_blocks: list[dict[str, Any]] = Field(default_factory=list)
     manifest_path: str | None = None
     summary_path: str | None = None
     episode_trace_path: str | None = None
@@ -162,6 +164,7 @@ class AgentSession(StrictModel):
     sandbox_source: str = ""
     sandbox_policy_id: str = ""
     sandbox_manifest_path: str = ""
+    sandbox_policy_blocks: list[dict[str, Any]] = Field(default_factory=list)
     status: SessionStatus = SessionStatus.PENDING
     created_at: str
     updated_at: str

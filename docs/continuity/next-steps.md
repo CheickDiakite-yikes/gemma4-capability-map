@@ -14,11 +14,12 @@ Current state:
   - sessions/traces carry sandbox metadata
   - runtime outputs and native artifacts write under per-session sandbox roots
   - `moonie-agent live` and `moonie-agent attach` exist as Rich terminal entrypoints
+  - live-web dry-run holds are recorded as `sandbox_policy_block` events and session/trace metadata
 
 Next implementation moves:
 
-- harden sandbox policies around live-web dry-run behavior
 - expand the Rich operator harness from watch-only into keyboard/command-driven approve, deny, resume, retry, inspect, and quit
+- keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1
 - preserve benchmark-backed traces, artifacts, and scorecards for every live run
 
