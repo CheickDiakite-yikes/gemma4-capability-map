@@ -4,7 +4,12 @@ import csv
 import json
 from pathlib import Path
 
-from gemma4_capability_map.knowledge_work.trace_analysis import analyze_ablation_packet, write_trace_analysis
+from gemma4_capability_map.knowledge_work.trace_analysis import (
+    analyze_ablation_packet,
+    compare_ablation_packets,
+    write_packet_comparison,
+    write_trace_analysis,
+)
 
 
 def test_analyze_ablation_packet_counts_notes_and_failures(tmp_path: Path) -> None:
@@ -118,6 +123,64 @@ def test_write_trace_analysis_outputs_csv_and_json(tmp_path: Path) -> None:
     assert Path(paths["failure_modes"]).read_text(encoding="utf-8") == ""
 
 
+def test_compare_ablation_packets_reports_system_and_failure_deltas(tmp_path: Path) -> None:
+    baseline = tmp_path / "baseline"
+    candidate = tmp_path / "candidate"
+    _write_packet_run(
+        baseline,
+        system_id="system_a",
+        readiness=0.72,
+        strict=0.4,
+        recovered=0.4,
+        repair=0.5,
+        fallback=1.0,
+        raw_clean=0.0,
+        notes=["controller_fallback_planner"],
+        failed=True,
+    )
+    _write_packet_run(
+        candidate,
+        system_id="system_a",
+        readiness=0.92,
+        strict=1.0,
+        recovered=1.0,
+        repair=0.1,
+        fallback=0.0,
+        raw_clean=0.9,
+        notes=["repaired_arguments:extract_layout"],
+        failed=False,
+    )
+
+    comparison = compare_ablation_packets(baseline, candidate)
+
+    assert comparison["deltas"]["shared_system_count"] == 1
+    assert comparison["deltas"]["failure_candidate_count_delta"] == -1
+    row = comparison["system_deltas"][0]
+    assert row["system_id"] == "system_a"
+    assert row["delta_real_world_readiness_avg"] == 0.2
+    assert row["delta_controller_fallback_avg"] == -1.0
+    note_deltas = {(item["system_id"], item["note"]): item["delta_count"] for item in comparison["note_deltas"]}
+    assert note_deltas[("system_a", "controller_fallback_planner")] == -1.0
+    assert note_deltas[("system_a", "repaired_arguments:extract_layout")] == 1.0
+    mode_deltas = {item["failure_mode"]: item["delta_count"] for item in comparison["failure_mode_deltas"]}
+    assert mode_deltas["fallback_planner"] == -1.0
+
+
+def test_write_packet_comparison_outputs_json_and_csv(tmp_path: Path) -> None:
+    baseline = tmp_path / "baseline"
+    candidate = tmp_path / "candidate"
+    _write_packet_run(baseline, system_id="system_b", readiness=0.5, strict=0.5, recovered=0.5)
+    _write_packet_run(candidate, system_id="system_b", readiness=0.75, strict=1.0, recovered=1.0)
+
+    paths = write_packet_comparison(baseline, candidate)
+
+    assert Path(paths["summary"]).exists()
+    with Path(paths["system_deltas"]).open("r", encoding="utf-8") as handle:
+        rows = list(csv.DictReader(handle))
+    assert rows[0]["system_id"] == "system_b"
+    assert rows[0]["delta_real_world_readiness_avg"] == "0.25"
+
+
 def test_analyze_ablation_packet_labels_visual_stepwise_failures(tmp_path: Path) -> None:
     run_dir = tmp_path / "system_no_deterministic_visual_follow_on__replayable_core"
     run_dir.mkdir()
@@ -197,3 +260,74 @@ def test_analyze_ablation_packet_labels_visual_stepwise_failures(tmp_path: Path)
         "visual_repeated_refinement",
         "visual_readback_missing",
     }.issubset(modes)
+
+
+def _write_packet_run(
+    packet_dir: Path,
+    *,
+    system_id: str,
+    readiness: float,
+    strict: float,
+    recovered: float,
+    repair: float = 0.0,
+    fallback: float = 0.0,
+    raw_clean: float = 1.0,
+    notes: list[str] | None = None,
+    failed: bool = False,
+) -> None:
+    run_dir = packet_dir / f"{system_id}__live_web_stress"
+    run_dir.mkdir(parents=True)
+    (run_dir / "manifest.json").write_text(
+        json.dumps({"system_id": system_id, "lane": "live_web_stress"}) + "\n",
+        encoding="utf-8",
+    )
+    (run_dir / "summary.json").write_text(
+        json.dumps(
+            {
+                "runs": 1,
+                "real_world_readiness_avg": readiness,
+                "strict_interface_avg": strict,
+                "recovered_execution_avg": recovered,
+                "controller_repair_avg": repair,
+                "controller_fallback_avg": fallback,
+                "raw_planning_clean_rate_avg": raw_clean,
+            }
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    trace = {
+        "episode_id": "episode_1",
+        "stage_traces": [
+            {
+                "stage_id": "stage_1",
+                "task_traces": [
+                    {
+                        "task_id": "task_a",
+                        "prompt_artifacts": {
+                            "planning_raw_outputs": ["I cannot proceed because the tools are not applicable."],
+                            "planning_repair_notes": [notes or []],
+                        },
+                    }
+                ],
+            }
+        ],
+        "tool_calls": [
+            {
+                "task_id": "task_a",
+                "tool_name": "tool_name",
+                "validator_result": "fail" if failed else "pass",
+            }
+        ],
+        "scorecard": {
+            "role_readiness_score": readiness,
+            "strict_interface_score": strict,
+            "recovered_execution_score": recovered,
+            "controller_repair_count": repair,
+            "argument_repair_count": 0.0,
+            "controller_fallback_count": fallback,
+            "intent_override_count": 0.0,
+            "raw_planning_clean_rate": raw_clean,
+        },
+    }
+    (run_dir / "episode_traces.jsonl").write_text(json.dumps(trace) + "\n", encoding="utf-8")

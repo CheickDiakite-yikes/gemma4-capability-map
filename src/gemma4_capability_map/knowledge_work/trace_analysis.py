@@ -9,6 +9,18 @@ from typing import Any
 from gemma4_capability_map.io import load_jsonl
 
 
+SYSTEM_DELTA_FIELDS = [
+    "real_world_readiness_avg",
+    "strict_interface_avg",
+    "recovered_execution_avg",
+    "controller_repair_avg",
+    "argument_repair_avg",
+    "controller_fallback_avg",
+    "intent_override_avg",
+    "raw_planning_clean_rate_avg",
+]
+
+
 def analyze_ablation_packet(packet_dir: str | Path) -> dict[str, Any]:
     root = Path(packet_dir)
     if not root.exists():
@@ -116,6 +128,93 @@ def analyze_ablation_packet(packet_dir: str | Path) -> dict[str, Any]:
     }
 
 
+def compare_ablation_packets(baseline_packet_dir: str | Path, candidate_packet_dir: str | Path) -> dict[str, Any]:
+    baseline = analyze_ablation_packet(baseline_packet_dir)
+    candidate = analyze_ablation_packet(candidate_packet_dir)
+    baseline_systems = {str(row["system_id"]): row for row in baseline["system_summaries"]}
+    candidate_systems = {str(row["system_id"]): row for row in candidate["system_summaries"]}
+    shared_system_ids = sorted(set(baseline_systems) & set(candidate_systems))
+
+    system_delta_rows = []
+    for system_id in shared_system_ids:
+        baseline_row = baseline_systems[system_id]
+        candidate_row = candidate_systems[system_id]
+        row: dict[str, Any] = {
+            "system_id": system_id,
+            "baseline_lane": baseline_row.get("lane", ""),
+            "candidate_lane": candidate_row.get("lane", ""),
+        }
+        for field in SYSTEM_DELTA_FIELDS:
+            baseline_value = _float(baseline_row.get(field))
+            candidate_value = _float(candidate_row.get(field))
+            row[f"baseline_{field}"] = baseline_value
+            row[f"candidate_{field}"] = candidate_value
+            row[f"delta_{field}"] = _delta(candidate_value, baseline_value)
+        system_delta_rows.append(row)
+
+    note_delta_rows = _counter_delta_rows(
+        baseline["note_counts"],
+        candidate["note_counts"],
+        key_fields=["system_id", "note"],
+        count_field="count",
+    )
+    failure_mode_delta_rows = _counter_delta_rows(
+        baseline["failure_mode_counts"],
+        candidate["failure_mode_counts"],
+        key_fields=["failure_mode"],
+        count_field="count",
+    )
+    return {
+        "baseline_packet_dir": str(Path(baseline_packet_dir).resolve()),
+        "candidate_packet_dir": str(Path(candidate_packet_dir).resolve()),
+        "baseline": {
+            "system_count": baseline["system_count"],
+            "episode_count": baseline["episode_count"],
+            "note_count": baseline["note_count"],
+            "failure_candidate_count": baseline["failure_candidate_count"],
+        },
+        "candidate": {
+            "system_count": candidate["system_count"],
+            "episode_count": candidate["episode_count"],
+            "note_count": candidate["note_count"],
+            "failure_candidate_count": candidate["failure_candidate_count"],
+        },
+        "deltas": {
+            "shared_system_count": len(shared_system_ids),
+            "note_count_delta": candidate["note_count"] - baseline["note_count"],
+            "failure_candidate_count_delta": candidate["failure_candidate_count"] - baseline["failure_candidate_count"],
+        },
+        "system_deltas": system_delta_rows,
+        "note_deltas": note_delta_rows,
+        "failure_mode_deltas": failure_mode_delta_rows,
+    }
+
+
+def write_packet_comparison(
+    baseline_packet_dir: str | Path,
+    candidate_packet_dir: str | Path,
+    output_dir: str | Path | None = None,
+) -> dict[str, str]:
+    comparison = compare_ablation_packets(baseline_packet_dir, candidate_packet_dir)
+    target = Path(output_dir) if output_dir else Path(candidate_packet_dir)
+    target.mkdir(parents=True, exist_ok=True)
+
+    summary_path = target / "trace_packet_comparison.json"
+    system_deltas_path = target / "trace_packet_system_deltas.csv"
+    note_deltas_path = target / "trace_packet_note_deltas.csv"
+    failure_mode_deltas_path = target / "trace_packet_failure_mode_deltas.csv"
+    summary_path.write_text(json.dumps(comparison, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    _write_csv(system_deltas_path, comparison["system_deltas"])
+    _write_csv(note_deltas_path, comparison["note_deltas"])
+    _write_csv(failure_mode_deltas_path, comparison["failure_mode_deltas"])
+    return {
+        "summary": str(summary_path.resolve()),
+        "system_deltas": str(system_deltas_path.resolve()),
+        "note_deltas": str(note_deltas_path.resolve()),
+        "failure_mode_deltas": str(failure_mode_deltas_path.resolve()),
+    }
+
+
 def write_trace_analysis(packet_dir: str | Path, output_dir: str | Path | None = None) -> dict[str, str]:
     analysis = analyze_ablation_packet(packet_dir)
     target = Path(output_dir) if output_dir else Path(packet_dir)
@@ -136,6 +235,33 @@ def write_trace_analysis(packet_dir: str | Path, output_dir: str | Path | None =
         "failures": str(failures_path.resolve()),
         "failure_modes": str(failure_modes_path.resolve()),
     }
+
+
+def _counter_delta_rows(
+    baseline_rows: list[dict[str, Any]],
+    candidate_rows: list[dict[str, Any]],
+    *,
+    key_fields: list[str],
+    count_field: str,
+) -> list[dict[str, Any]]:
+    baseline_counts = {
+        tuple(str(row.get(field, "")) for field in key_fields): _float(row.get(count_field))
+        for row in baseline_rows
+    }
+    candidate_counts = {
+        tuple(str(row.get(field, "")) for field in key_fields): _float(row.get(count_field))
+        for row in candidate_rows
+    }
+    rows = []
+    for key in sorted(set(baseline_counts) | set(candidate_counts)):
+        baseline_count = baseline_counts.get(key, 0.0)
+        candidate_count = candidate_counts.get(key, 0.0)
+        row = {field: value for field, value in zip(key_fields, key, strict=False)}
+        row["baseline_count"] = baseline_count
+        row["candidate_count"] = candidate_count
+        row["delta_count"] = _delta(candidate_count, baseline_count)
+        rows.append(row)
+    return rows
 
 
 def _system_summary(system_id: str, lane: str, summary: dict[str, Any], run_dir: Path) -> dict[str, Any]:
@@ -344,3 +470,7 @@ def _float(value: Any, default: float = 0.0) -> float:
         return float(value)
     except (TypeError, ValueError):
         return default
+
+
+def _delta(candidate_value: float, baseline_value: float) -> float:
+    return round(candidate_value - baseline_value, 10)
