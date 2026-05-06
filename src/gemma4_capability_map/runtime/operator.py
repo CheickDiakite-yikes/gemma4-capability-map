@@ -52,6 +52,28 @@ def attach_to_session(
     return session
 
 
+def apply_operator_action(
+    runtime: LocalAgentRuntime,
+    session_id: str,
+    *,
+    action: str,
+    note: str = "",
+    resume: bool = True,
+    background: bool = True,
+) -> AgentSession:
+    if action == "approve":
+        return runtime.resolve_approval(session_id, decision="approve", note=note, resume=resume)
+    if action == "deny":
+        return runtime.resolve_approval(session_id, decision="deny", note=note, resume=False)
+    if action == "resume":
+        return runtime.resume_session(session_id, note=note, background=background)
+    if action == "retry":
+        return runtime.retry_session(session_id, note=note, background=background)
+    if action == "quit":
+        return runtime.get_session(session_id)
+    raise ValueError(f"Unsupported operator action `{action}`.")
+
+
 def _render(session: AgentSession, events: list[RuntimeEvent]) -> Group:
     return Group(
         _status_panel(session),
@@ -99,5 +121,11 @@ def _side_panel(session: AgentSession) -> Panel:
     table.add_row("approval", session.active_approval_id or "none")
     table.add_row("message", session.latest_message or "")
     if session.status == SessionStatus.AWAITING_APPROVAL:
-        table.add_row("next", f"moonie-agent approve {session.session_id}")
+        table.add_row("approve", f"moonie-agent attach {session.session_id} --action approve")
+        table.add_row("deny", f"moonie-agent attach {session.session_id} --action deny")
+    elif session.status == SessionStatus.INTERRUPTED:
+        table.add_row("resume", f"moonie-agent attach {session.session_id} --action resume")
+        table.add_row("retry", f"moonie-agent attach {session.session_id} --action retry")
+    else:
+        table.add_row("watch", f"moonie-agent attach {session.session_id}")
     return Panel(table, title="Run Context", border_style="green")

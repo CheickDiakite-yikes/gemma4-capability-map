@@ -56,6 +56,26 @@
   - `uv run pytest tests/test_runtime_core.py tests/test_runtime_cli.py tests/test_runtime_api.py`
   - `24 passed`
 
+### Rich operator path can now apply session actions
+
+- Runtime/CLI implementation:
+  - [`src/gemma4_capability_map/runtime/operator.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/runtime/operator.py)
+  - [`src/gemma4_capability_map/runtime/cli.py`](/Users/cheickdiakite/Codex/moonie/src/gemma4_capability_map/runtime/cli.py)
+- Regression coverage:
+  - [`tests/test_runtime_cli.py`](/Users/cheickdiakite/Codex/moonie/tests/test_runtime_cli.py)
+
+- What changed:
+  - `moonie-agent attach <session_id> --action approve`
+  - `moonie-agent attach <session_id> --action deny`
+  - `moonie-agent attach <session_id> --action resume`
+  - `moonie-agent attach <session_id> --action retry`
+  - `moonie-agent attach <session_id> --action quit`
+  - the Rich side panel now prints the exact approval/resume commands for blocked sessions
+
+- Verification:
+  - `uv run pytest tests/test_runtime_cli.py tests/test_runtime_core.py`
+  - `20 passed`
+
 # 2026-04-14
 
 ### The React Gemma MLX workspace now runs a real end-to-end local session loop

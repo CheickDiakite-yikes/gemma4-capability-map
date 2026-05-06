@@ -134,3 +134,44 @@ def test_runtime_cli_live_launches_packaged_workflow_and_attaches(monkeypatch: p
     assert session.system_id == "oracle_gemma4_e2b"
     assert session.sandbox_root
     assert session.sandbox_policy_id == DEFAULT_SANDBOX_POLICY_ID
+
+
+def test_runtime_cli_attach_can_apply_approval_action(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+    runtime = LocalAgentRuntime(results_root=tmp_path / "runtime")
+    session = runtime.launch_session(
+        workflow_id="finance_visual_invoice_review",
+        system_id="oracle_gemma4_e2b",
+        lane="replayable_core",
+        background=False,
+    )
+    attached: dict[str, str] = {}
+
+    def fake_attach(runtime_arg: LocalAgentRuntime, session_id: str, **_: object):
+        attached["session_id"] = session_id
+        return runtime_arg.get_session(session_id)
+
+    monkeypatch.setattr(runtime_cli, "LocalAgentRuntime", lambda: runtime)
+    monkeypatch.setattr(runtime_cli, "attach_to_session", fake_attach)
+    monkeypatch.setattr(
+        runtime_cli,
+        "parse_args",
+        lambda: runtime_cli.argparse.Namespace(
+            command="attach",
+            session_id=session.session_id,
+            refresh_s=0.1,
+            timeout_s=0.1,
+            once=True,
+            action="approve",
+            note="Approved from operator.",
+            no_resume=False,
+            foreground=True,
+        ),
+    )
+
+    runtime_cli.main()
+
+    approved = runtime.get_session(session.session_id)
+    assert attached["session_id"] == session.session_id
+    assert approved.status.value == "completed"
+    assert approved.approvals[0].status.value == "approved"
+    assert approved.approvals[0].note == "Approved from operator."

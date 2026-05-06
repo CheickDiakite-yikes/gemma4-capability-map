@@ -4,7 +4,7 @@ import argparse
 import json
 
 from gemma4_capability_map.runtime.core import LocalAgentRuntime
-from gemma4_capability_map.runtime.operator import attach_to_session
+from gemma4_capability_map.runtime.operator import apply_operator_action, attach_to_session
 from gemma4_capability_map.runtime.sandbox import DEFAULT_SANDBOX_POLICY_ID
 from gemma4_capability_map.runtime.schemas import ApprovalStatus
 
@@ -52,6 +52,10 @@ def parse_args() -> argparse.Namespace:
     attach_parser.add_argument("--refresh-s", type=float, default=0.5)
     attach_parser.add_argument("--timeout-s", type=float, default=15.0)
     attach_parser.add_argument("--once", action="store_true")
+    attach_parser.add_argument("--action", choices=["approve", "deny", "resume", "retry", "quit"], default=None)
+    attach_parser.add_argument("--note", default="")
+    attach_parser.add_argument("--no-resume", action="store_true")
+    attach_parser.add_argument("--foreground", action="store_true")
 
     show_parser = subparsers.add_parser("show", help="Show a session.")
     show_parser.add_argument("session_id")
@@ -145,9 +149,23 @@ def main() -> None:
         )
         return
     if args.command == "attach":
+        target_session_id = args.session_id
+        if args.action:
+            acted = apply_operator_action(
+                runtime,
+                args.session_id,
+                action=args.action,
+                note=args.note,
+                resume=not args.no_resume,
+                background=not args.foreground,
+            )
+            target_session_id = acted.session_id
+            if args.action == "quit":
+                print(json.dumps(acted.model_dump(mode="json"), indent=2, ensure_ascii=False))
+                return
         attach_to_session(
             runtime,
-            args.session_id,
+            target_session_id,
             refresh_s=args.refresh_s,
             timeout_s=args.timeout_s,
             once=args.once,
