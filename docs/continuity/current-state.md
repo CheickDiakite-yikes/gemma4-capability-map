@@ -258,6 +258,9 @@ Current H1 replayable output:
 - H1b follow-up slice scaffold:
   - [`configs/knowledge_work_h1b_slice.yaml`](../../configs/knowledge_work_h1b_slice.yaml)
   - [`docs/continuity/h1b-slice.md`](./h1b-slice.md)
+- H1c live-policy controller slice scaffold:
+  - [`configs/knowledge_work_h1c_slice.yaml`](../../configs/knowledge_work_h1c_slice.yaml)
+  - [`docs/continuity/h1c-slice.md`](./h1c-slice.md)
 - H1b compact visual policy packet:
   - [`results/knowledge_work_h1_slice/20260506T_h1b_visual_policy_packet_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1b_visual_policy_packet_v1_knowledge_work_ablation_packet)
 - H1b full HF service-backed ablation:
@@ -527,6 +530,21 @@ H1b full HF service-backed ablation:
   - `controller_repair_disabled = 22`
   - `intent_priority_disabled = 8`
 - interpretation: H1b is harsher than H1 on artifact/readiness level, but it is also saturated with respect to the current controller-helper ablations after the FunctionGemma final-turn directive. The next signal should come from live CLI execution and a genuinely new H1c stress slice, not another same-shape replay-only H1b packet.
+
+H1c scaffold:
+
+- config: [`configs/knowledge_work_h1c_slice.yaml`](../../configs/knowledge_work_h1c_slice.yaml)
+- doc: [`docs/continuity/h1c-slice.md`](./h1c-slice.md)
+- purpose: shift the saturation-breaker from replayable visual semantics to live-web policy gates, approval-safe stops, and visual/API/CLI argument repair
+- live packet: `live_policy_controller_helpers`
+  - lane: `live_web_stress`
+  - systems: baseline HF service specialists plus `no_controller_repair`, `no_controller_fallback`, and `no_argument_repair`
+  - episodes: `kwa_jobs_live_email_block_resume_hold_v5`, `kwa_finance_live_invoice_lock_direction_hold_v4`, `kwa_jobs_live_phone_patch_resume_hold_v4`
+- dry-run validation:
+  - `uv run pytest tests/test_knowledge_work_h1.py tests/test_runtime_cli.py tests/test_runtime_live_smoke_packet.py -q`
+  - `20 passed`
+  - `uv run python scripts/run_knowledge_work_h1_slice.py --config configs/knowledge_work_h1c_slice.yaml --dry-run --run-set primary --lane live_web_stress --output-root tmp/h1c-dry-run-smoke --run-group-id 20260506T_h1c_live_primary_dry_run_v1`
+  - `uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1c_slice.yaml --packet-id live_policy_controller_helpers --run-group-id 20260506T_h1c_live_policy_packet_dry_run_v1 --dry-run`
 
 ## Strongest Current Findings
 

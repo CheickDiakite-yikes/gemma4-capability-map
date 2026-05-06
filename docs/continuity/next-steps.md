@@ -24,12 +24,15 @@ Current state:
   - first tracked packet: [`results/runtime_live_smoke_packets/20260506T_runtime_live_smoke_mlx_v2_runtime_live_smoke_packet`](../../results/runtime_live_smoke_packets/20260506T_runtime_live_smoke_mlx_v2_runtime_live_smoke_packet)
   - approval/smoke trio packet: [`results/runtime_live_smoke_packets/20260506T_runtime_live_smoke_mlx_trio_v2_runtime_live_smoke_packet`](../../results/runtime_live_smoke_packets/20260506T_runtime_live_smoke_mlx_trio_v2_runtime_live_smoke_packet)
   - live-web policy packet: [`results/runtime_live_smoke_packets/20260506T_runtime_live_web_policy_mlx_v2_runtime_live_smoke_packet`](../../results/runtime_live_smoke_packets/20260506T_runtime_live_web_policy_mlx_v2_runtime_live_smoke_packet)
+  - H1c live-policy scaffold exists:
+    - [`configs/knowledge_work_h1c_slice.yaml`](../../configs/knowledge_work_h1c_slice.yaml)
+    - [`docs/continuity/h1c-slice.md`](./h1c-slice.md)
   - `moonie-agent gemini-baseline` can prepare a dry-run Gemini CLI baseline packet for packaged workflows
 
 Next implementation moves:
 
-- define H1c with genuinely new visual/API/approval interactions because H1 and H1b are both saturated on the current ablation helpers
-- include live-web visual/form pressure in H1c because the policy packet reintroduced controller fallback on local MLX
+- run the compact H1c `live_policy_controller_helpers` packet with the HF service-backed specialist bundle
+- use H1c trace outputs to decide whether controller fallback, repair, or argument repair is still causal under live-web policy pressure
 - keep using live CLI scorecard and policy inspection as the active operator proof path
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions

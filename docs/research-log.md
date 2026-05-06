@@ -293,6 +293,33 @@
   - `uv run moonie-agent inspect 20260506T221455478537Z_jobs_visual_form_hold --target policy`
   - rendered the two `sandbox_only` holds and one `approval_required` hold from the live-web packet
 
+### H1c live-policy controller slice is scaffolded
+
+- Config and note:
+  - [`configs/knowledge_work_h1c_slice.yaml`](/Users/cheickdiakite/Codex/moonie/configs/knowledge_work_h1c_slice.yaml)
+  - [`docs/continuity/h1c-slice.md`](/Users/cheickdiakite/Codex/moonie/docs/continuity/h1c-slice.md)
+- What changed:
+  - defined H1c around live-web sandbox policy gates, approval-safe stops, and the visual/API/CLI repairs surfaced by live CLI packets
+  - kept packaged workflows as the only live entrypoint
+  - selected five replayable/live workflow mirrors:
+    - `executive_visual_dashboard_review`
+    - `finance_visual_invoice_review`
+    - `jobs_visual_form_hold`
+    - `jobs_phone_patch_resume`
+    - `finance_billing_patch_hold`
+  - added compact packet `live_policy_controller_helpers` over `live_web_stress`
+  - packet systems: baseline HF service specialists, `no_controller_repair`, `no_controller_fallback`, and `no_argument_repair`
+
+- Verification:
+  - `uv run pytest tests/test_knowledge_work_h1.py tests/test_runtime_cli.py tests/test_runtime_live_smoke_packet.py -q`
+  - `20 passed`
+  - `uv run python scripts/run_knowledge_work_h1_slice.py --config configs/knowledge_work_h1c_slice.yaml --dry-run --run-set primary --lane live_web_stress --output-root tmp/h1c-dry-run-smoke --run-group-id 20260506T_h1c_live_primary_dry_run_v1`
+  - `uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1c_slice.yaml --packet-id live_policy_controller_helpers --run-group-id 20260506T_h1c_live_policy_packet_dry_run_v1 --dry-run`
+
+- Research interpretation:
+  - H1c is the next clean empirical target because it is tied to the fresh CLI live evidence rather than another same-shape H1/H1b rerun
+  - the first execution should be the compact live-policy helper packet before any full five-episode live ablation
+
 ### Gemini CLI baseline adapter scaffold exists
 
 - Runtime/CLI implementation:
