@@ -177,6 +177,12 @@ Current H1 replayable output:
   - [`results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_ablation_v2_knowledge_work_ablation_packet)
 - HF service-backed ablation after FunctionGemma prompt patch:
   - [`results/knowledge_work_h1_slice/20260506T_h1_hf_service_prompt_patch_ablation_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_prompt_patch_ablation_v1_knowledge_work_ablation_packet)
+- HF service-backed ablation after concrete FunctionGemma hints:
+  - [`results/knowledge_work_h1_slice/20260506T_h1_hf_service_concrete_hint_ablation_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_concrete_hint_ablation_v1_knowledge_work_ablation_packet)
+- Visual sequencing canary:
+  - [`results/knowledge_work_h1_slice/20260506T_h1_visual_sequence_hint_canary_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_visual_sequence_hint_canary_v1_knowledge_work_ablation_packet)
+- Visual filter repair canary:
+  - [`results/knowledge_work_h1_slice/20260506T_h1_visual_filter_repair_canary_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_visual_filter_repair_canary_v1_knowledge_work_ablation_packet)
 
 MLX Gemma primary:
 
@@ -187,49 +193,84 @@ MLX Gemma primary:
 - `controller_fallback_avg = 0.0`
 - `raw_planning_clean_rate_avg = 1.0`
 
-HF service-backed Gemma baseline:
+HF service-backed Gemma baseline after concrete FunctionGemma hints:
 
 - `real_world_readiness_avg = 0.9749800000000001`
 - `strict_interface_avg = 1.0`
 - `recovered_execution_avg = 1.0`
-- `controller_repair_avg = 0.8`
-- `controller_fallback_avg = 0.3`
-- `raw_planning_clean_rate_avg = 0.2`
-- `argument_repair_avg = 0.5`
+- `controller_repair_avg = 0.0`
+- `controller_fallback_avg = 0.0`
+- `raw_planning_clean_rate_avg = 1.0`
+- `argument_repair_avg = 0.0`
 
-H1 ablation result after the prompt patch:
+H1 ablation result after concrete FunctionGemma hints:
 
-- `no_controller_repair = 0.7319`
-- `no_controller_fallback = 0.8606`
+- `no_controller_repair = 0.88748`
+- `no_controller_fallback = 0.9749800000000001`
 - `no_visual_rescue = 0.9749800000000001`
 - `no_intent_priority = 0.9749800000000001`
 - `no_argument_repair = 0.9749800000000001`
-- `no_deterministic_visual_follow_on = 0.9749800000000001`
+- `no_deterministic_visual_follow_on = 0.88748`
+
+Visual sequencing canary on the three visual H1 replayable episodes:
+
+- base specialists:
+  - `real_world_readiness_avg = 0.9809666666666667`
+  - `strict_interface_avg = 1.0`
+  - `recovered_execution_avg = 1.0`
+  - `controller_repair_avg = 0.0`
+  - `controller_fallback_avg = 0.0`
+  - `raw_planning_clean_rate_avg = 1.0`
+- `no_controller_repair`:
+  - `real_world_readiness_avg = 0.8837333333333333`
+  - `strict_interface_avg = 0.75`
+  - `recovered_execution_avg = 0.6666666666666666`
+  - `raw_planning_clean_rate_avg = 0.9583333333333334`
+- `no_deterministic_visual_follow_on` before the filter-repair patch:
+  - `real_world_readiness_avg = 0.8837333333333333`
+  - `strict_interface_avg = 0.75`
+  - `recovered_execution_avg = 0.6666666666666666`
+  - `controller_repair_avg = 1.0`
+  - `raw_planning_clean_rate_avg = 0.7916666666666666`
+- `no_deterministic_visual_follow_on` after the filter-repair patch:
+  - `real_world_readiness_avg = 0.9809666666666667`
+  - `strict_interface_avg = 1.0`
+  - `recovered_execution_avg = 1.0`
+  - `controller_repair_avg = 0.8333333333333334`
+  - `argument_repair_avg = 0.5`
+  - `controller_fallback_avg = 0.16666666666666666`
+  - `raw_planning_clean_rate_avg = 0.8250000000000001`
+  - `failure_candidate_count = 0`
 
 Interpretation:
 
 - H1 does not break MLX Gemma's controller-clean posture
-- H1 still breaks HF Gemma when controller repair is disabled
-- disabling controller fallback is still causal, but less severe after the FunctionGemma prompt stopped seeding literal placeholder names
-- visual rescue, intent priority, argument repair, and deterministic visual follow-on still do not move readiness on this H1 slice
-- the remaining research seam is now refusal-to-tool-contract and argument/placeholder repair design, not top-line readiness
+- H1 still breaks HF Gemma when controller repair is disabled, even when raw syntax is mostly clean
+- the concrete FunctionGemma hint removed the prior placeholder/fallback artifact from the baseline
+- accepting valid-but-stale visual `refine_selection` filters was a real controller bug; repairing repeated filters to the pending visual filter restored the no-deterministic-follow-on mini-row to full recovery
+- visual rescue, intent priority, and argument repair still do not move top-line readiness on the full H1 slice before the filter-repair rerun
+- the remaining research seam is now visual sequence semantics and readback completion under disabled repair, not generic placeholder syntax
 
 Trace-note analysis:
 
-- [`trace_note_summary.json`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_prompt_patch_ablation_v1_knowledge_work_ablation_packet/trace_note_summary.json)
-- [`trace_note_counts.csv`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_prompt_patch_ablation_v1_knowledge_work_ablation_packet/trace_note_counts.csv)
-- [`trace_episode_failures.csv`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_prompt_patch_ablation_v1_knowledge_work_ablation_packet/trace_episode_failures.csv)
-- [`trace_failure_mode_counts.csv`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_prompt_patch_ablation_v1_knowledge_work_ablation_packet/trace_failure_mode_counts.csv)
+- concrete-hint full ablation:
+  - [`trace_note_summary.json`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_concrete_hint_ablation_v1_knowledge_work_ablation_packet/trace_note_summary.json)
+  - [`trace_note_counts.csv`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_concrete_hint_ablation_v1_knowledge_work_ablation_packet/trace_note_counts.csv)
+- visual filter repair canary:
+  - [`trace_note_summary.json`](../../results/knowledge_work_h1_slice/20260506T_h1_visual_filter_repair_canary_v1_knowledge_work_ablation_packet/trace_note_summary.json)
+  - [`trace_note_counts.csv`](../../results/knowledge_work_h1_slice/20260506T_h1_visual_filter_repair_canary_v1_knowledge_work_ablation_packet/trace_note_counts.csv)
 
 Current trace read:
 
-- `93` controller-note events across `35` H1 episode rows
-- `7` strict/recovered failure candidates
-- aggregate failure modes: `raw_refusal = 5`, `repair_disabled = 4`, `fallback_disabled = 3`, `argument_repair = 2`, `fallback_planner = 2`
-- the previous aggregate `generic_tool_name = 7` failure mode is gone after the prompt patch
-- baseline uses `controller_fallback_planner` `3` times across `3` H1 episodes
-- `no_controller_fallback` failure candidates dropped from `5` to `3`, still mostly raw refusal/no-call cases
-- `no_controller_repair` failure candidates dropped from `5` to `4`, now dominated by unrepaired real-tool placeholder arguments and refusals rather than generic `tool_name`
+- concrete-hint full ablation:
+  - `42` controller-note events across `35` H1 episode rows
+  - `6` strict/recovered failure candidates
+  - aggregate failure modes: `visual_readback_missing = 6`, `visual_stepwise_control = 6`, `fallback_planner = 4`, `argument_repair = 3`, `raw_refusal = 3`, `repair_disabled = 3`, `visual_follow_on = 3`, `visual_repeated_refinement = 3`
+  - the old `generic_tool_name` mode is gone
+- visual filter repair canary:
+  - `5` controller-note events across `3` episode rows
+  - `0` strict/recovered failure candidates
+  - residual notes are `repaired_arguments:refine_selection`, `visual_stepwise_prior`, and one `controller_fallback_planner` on the visual dashboard episode
 
 FunctionGemma prompt canary:
 

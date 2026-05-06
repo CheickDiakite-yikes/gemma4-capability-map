@@ -2267,6 +2267,13 @@
   - the same fully specialist-backed stack can stay perfect on the live policy subset while missing replayable refusal/clarify expectations
   - this is evidence that the current problem is not broad runtime instability
   - it is likely a prompt/action-contract issue around `refuse` vs `defer` vs `clarify` after partial progress has already occurred
+- H1 visual-sequence canaries clarified the current Gemma harnessing bottleneck:
+  - concrete FunctionGemma prompt hints made the H1 HF service baseline controller-clean on the full five-episode slice: `controller_repair_avg = 0.0`, `controller_fallback_avg = 0.0`, `raw_planning_clean_rate_avg = 1.0`
+  - the remaining failures moved to disabled-helper rows, especially visual refinement chains that repeat valid but stale filters and fail to reach `read_region_text`
+  - [`20260506T_h1_visual_sequence_hint_canary_v1`](../results/knowledge_work_h1_slice/20260506T_h1_visual_sequence_hint_canary_v1_knowledge_work_ablation_packet) showed base specialists stay clean on the three visual H1 episodes while both `no_controller_repair` and `no_deterministic_visual_follow_on` drop to `real_world_readiness_avg = 0.8837333333333333`
+  - [`20260506T_h1_visual_filter_repair_canary_v1`](../results/knowledge_work_h1_slice/20260506T_h1_visual_filter_repair_canary_v1_knowledge_work_ablation_packet) restored the `no_deterministic_visual_follow_on` mini-row to `strict_interface_avg = 1.0`, `recovered_execution_avg = 1.0`, and `failure_candidate_count = 0`
+  - the causal bug was accepting valid `refine_selection` calls whose `filter_query` repeated an already-completed visual filter; the controller now treats the pending visual filter as a semantic argument precondition
+  - this does not solve `no_controller_repair`: that row still measures real model-side dependence because disabled repair accepts the valid-but-wrong refinements as-is
 
 ### Verification
 

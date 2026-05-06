@@ -22,8 +22,8 @@ Current state:
 
 Next implementation moves:
 
-- use the post-prompt H1 trace-note outputs to build a targeted raw-refusal / real-tool-placeholder controller regression packet
-- turn that packet into the next targeted controller patch or H1b slice if the current five episodes are too narrow
+- use the visual-filter repair canary to drive the next full H1 ablation rerun
+- after that rerun, isolate the remaining `no_controller_repair` failures, which are now mostly valid-but-semantically-wrong visual refinements rather than malformed calls
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1
@@ -130,31 +130,30 @@ uv run python scripts/run_knowledge_work_h1_ablation_packet.py --lane replayable
 
 Current empirical status:
 
-- output: [`results/knowledge_work_h1_slice/20260506T_h1_hf_service_prompt_patch_ablation_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_prompt_patch_ablation_v1_knowledge_work_ablation_packet)
+- concrete-hint full ablation output: [`results/knowledge_work_h1_slice/20260506T_h1_hf_service_concrete_hint_ablation_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_concrete_hint_ablation_v1_knowledge_work_ablation_packet)
 - baseline `hf_service_gemma4_specialists_cpu`: `real_world_readiness_avg = 0.9749800000000001`
-- baseline controller burden is lower after the FunctionGemma prompt patch: `controller_repair_avg = 0.8`, `controller_fallback_avg = 0.3`, `raw_planning_clean_rate_avg = 0.2`
-- `no_controller_repair`: `real_world_readiness_avg = 0.7319`
-- `no_controller_fallback`: `real_world_readiness_avg = 0.8606`
+- baseline controller burden is now clean after concrete FunctionGemma hints: `controller_repair_avg = 0.0`, `controller_fallback_avg = 0.0`, `raw_planning_clean_rate_avg = 1.0`
+- `no_controller_repair`: `real_world_readiness_avg = 0.88748`
+- `no_controller_fallback`: `real_world_readiness_avg = 0.9749800000000001`
 - `no_visual_rescue`: unchanged at `0.9749800000000001`
 - `no_intent_priority`: unchanged at `0.9749800000000001`
 - `no_argument_repair`: unchanged at `0.9749800000000001`
-- `no_deterministic_visual_follow_on`: unchanged at `0.9749800000000001`
-- trace failure candidates dropped from `10` to `7`; the old aggregate `generic_tool_name = 7` mode is now gone
+- `no_deterministic_visual_follow_on`: `real_world_readiness_avg = 0.88748`
+- trace failure candidates dropped from `10` to `6`; the old aggregate `generic_tool_name` mode is gone
 
 Use the H1 ablation packet wrapper instead of the generic H1 runner for this wave; it shares one HF service-backed reasoner plus in-process HF specialist adapters across the ablation rows.
 
 Next empirical move:
 
-- use [`trace_episode_failures.csv`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_prompt_patch_ablation_v1_knowledge_work_ablation_packet/trace_episode_failures.csv) and [`trace_note_counts.csv`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_prompt_patch_ablation_v1_knowledge_work_ablation_packet/trace_note_counts.csv)
-- target the remaining raw-refusal/no-call and unrepaired real-tool placeholder argument failures
-- use the completed concrete-hint H1 ablation packet:
-  - [`results/knowledge_work_h1_slice/20260506T_h1_hf_service_concrete_hint_ablation_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_hf_service_concrete_hint_ablation_v1_knowledge_work_ablation_packet)
-- treat fallback-disabled as solved on this H1 slice: `no_controller_fallback` now matches baseline at readiness `0.9749800000000001`
-- target the remaining causal helpers:
+- use the completed visual canaries:
+  - [`results/knowledge_work_h1_slice/20260506T_h1_visual_sequence_hint_canary_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_visual_sequence_hint_canary_v1_knowledge_work_ablation_packet)
+  - [`results/knowledge_work_h1_slice/20260506T_h1_visual_filter_repair_canary_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260506T_h1_visual_filter_repair_canary_v1_knowledge_work_ablation_packet)
+- treat fallback-disabled as solved on this H1 slice: `no_controller_fallback` now matches baseline
+- rerun the full H1 ablation after visual filter repair to verify that `no_deterministic_visual_follow_on` moves from `0.88748` back to baseline
+- then target the remaining causal helper:
   - `no_controller_repair = 0.88748`
-  - `no_deterministic_visual_follow_on = 0.88748`
-- the trace miner now labels the active family as `visual_readback_missing`, `visual_stepwise_control`, and `visual_repeated_refinement`; define the next patch around those visual follow-on semantics, not generic placeholder repair
-- define H1b only if these `6` failure candidates are too narrow to separate candidate fixes
+- the trace miner labels the active residual family as `visual_readback_missing`, `visual_stepwise_control`, and `visual_repeated_refinement`; define the next patch around disabled-repair visual semantics, not generic placeholder repair
+- define H1b only if the remaining failure candidates are too narrow to separate candidate fixes
 - avoid another broad aligned rerun until the targeted repair/fallback mechanism changes
 
 ### 5. Install the local Gemma `31B` `GGUF` artifact and run the first real `llama.cpp` posture row

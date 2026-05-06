@@ -1,0 +1,116 @@
+{
+  "packet_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1_visual_filter_repair_canary_v1_knowledge_work_ablation_packet",
+  "system_count": 1,
+  "episode_count": 3,
+  "note_count": 5,
+  "failure_candidate_count": 0,
+  "system_summaries": [
+    {
+      "system_id": "hf_service_gemma4_specialists_cpu_no_deterministic_visual_follow_on",
+      "lane": "replayable_core",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1_visual_filter_repair_canary_v1_knowledge_work_ablation_packet/hf_service_gemma4_specialists_cpu_no_deterministic_visual_follow_on__replayable_core",
+      "runs": 3.0,
+      "real_world_readiness_avg": 0.9809666666666667,
+      "strict_interface_avg": 1.0,
+      "recovered_execution_avg": 1.0,
+      "controller_repair_avg": 0.8333333333333334,
+      "argument_repair_avg": 0.5,
+      "controller_fallback_avg": 0.16666666666666666,
+      "intent_override_avg": 0.0,
+      "raw_planning_clean_rate_avg": 0.8250000000000001
+    }
+  ],
+  "note_counts": [
+    {
+      "system_id": "hf_service_gemma4_specialists_cpu_no_deterministic_visual_follow_on",
+      "note": "controller_fallback_planner",
+      "count": 1,
+      "episode_count": 1,
+      "task_count": 1,
+      "episodes": "kwa_exec_visual_dashboard_brief"
+    },
+    {
+      "system_id": "hf_service_gemma4_specialists_cpu_no_deterministic_visual_follow_on",
+      "note": "repaired_arguments:refine_selection",
+      "count": 3,
+      "episode_count": 2,
+      "task_count": 2,
+      "episodes": "kwa_exec_backlog_resume_hold_v5;kwa_jobs_email_block_resume_hold_v5"
+    },
+    {
+      "system_id": "hf_service_gemma4_specialists_cpu_no_deterministic_visual_follow_on",
+      "note": "visual_stepwise_prior",
+      "count": 1,
+      "episode_count": 1,
+      "task_count": 1,
+      "episodes": "kwa_exec_backlog_resume_hold_v5"
+    }
+  ],
+  "episode_rows": [
+    {
+      "system_id": "hf_service_gemma4_specialists_cpu_no_deterministic_visual_follow_on",
+      "lane": "replayable_core",
+      "episode_id": "kwa_exec_visual_dashboard_brief",
+      "role_family": "executive_assistant",
+      "real_world_readiness_score": 0.9942,
+      "strict_interface_score": 1.0,
+      "recovered_execution_score": 1.0,
+      "controller_repair_count": 0.5,
+      "argument_repair_count": 0.0,
+      "controller_fallback_count": 0.5,
+      "intent_override_count": 0.0,
+      "raw_planning_clean_rate": 0.875,
+      "planning_turns": 4,
+      "repair_notes": "controller_fallback_planner",
+      "repair_note_counts": "controller_fallback_planner=1",
+      "failed_tools": "",
+      "failure_modes": "fallback_planner;visual_follow_on;visual_stepwise_control",
+      "raw_planning_sample": "<start_function_call>call:extract_layout{image_id:<escape>img-dashboard-stale<escape>,target_query:<escape>dashboard metric<escape>}<end_function_call> | <start_function_call>call:refine_selection{selection_id:<escape>sel-001<escape>,fil...",
+      "failure_candidate": false
+    },
+    {
+      "system_id": "hf_service_gemma4_specialists_cpu_no_deterministic_visual_follow_on",
+      "lane": "replayable_core",
+      "episode_id": "kwa_exec_backlog_resume_hold_v5",
+      "role_family": "executive_assistant",
+      "real_world_readiness_score": 0.9688,
+      "strict_interface_score": 1.0,
+      "recovered_execution_score": 1.0,
+      "controller_repair_count": 1.0,
+      "argument_repair_count": 0.5,
+      "controller_fallback_count": 0.0,
+      "intent_override_count": 0.0,
+      "raw_planning_clean_rate": 0.8,
+      "planning_turns": 6,
+      "repair_notes": "repaired_arguments:refine_selection;visual_stepwise_prior",
+      "repair_note_counts": "repaired_arguments:refine_selection=1;visual_stepwise_prior=1",
+      "failed_tools": "",
+      "failure_modes": "argument_repair;visual_follow_on;visual_stepwise_control",
+      "raw_planning_sample": "<start_function_call>call:api_fetch_record{record_type:<escape>briefing_record<escape>,record_id:<escape>BR-18<escape>}<end_function_call> | <start_function_call>call:extract_layout{image_id:<escape>img-dashboard-review-backlog<escape>,t...",
+      "failure_candidate": false
+    },
+    {
+      "system_id": "hf_service_gemma4_specialists_cpu_no_deterministic_visual_follow_on",
+      "lane": "replayable_core",
+      "episode_id": "kwa_jobs_email_block_resume_hold_v5",
+      "role_family": "job_application_ops",
+      "real_world_readiness_score": 0.9799,
+      "strict_interface_score": 1.0,
+      "recovered_execution_score": 1.0,
+      "controller_repair_count": 1.0,
+      "argument_repair_count": 1.0,
+      "controller_fallback_count": 0.0,
+      "intent_override_count": 0.0,
+      "raw_planning_clean_rate": 0.8,
+      "planning_turns": 6,
+      "repair_notes": "repaired_arguments:refine_selection",
+      "repair_note_counts": "repaired_arguments:refine_selection=2",
+      "failed_tools": "",
+      "failure_modes": "argument_repair;visual_follow_on;visual_stepwise_control",
+      "raw_planning_sample": "<start_function_call>call:cli_apply_patch{path:<escape>config/job_form.yaml<escape>,patch:<escape>email_validation: blocked<escape>}<end_function_call> | <start_function_call>call:extract_layout{image_id:<escape>img-form-blocked-email<es...",
+      "failure_candidate": false
+    }
+  ],
+  "failure_rows": [],
+  "failure_mode_counts": []
+}
