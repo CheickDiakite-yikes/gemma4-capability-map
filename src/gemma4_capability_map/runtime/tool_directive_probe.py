@@ -210,6 +210,116 @@ def run_tool_directive_probe(
     }
 
 
+def compare_tool_directive_probe_packets(
+    baseline_dir: str | Path,
+    candidate_dir: str | Path,
+) -> dict[str, Any]:
+    baseline_root = Path(baseline_dir)
+    candidate_root = Path(candidate_dir)
+    baseline_manifest = json.loads((baseline_root / "manifest.json").read_text(encoding="utf-8"))
+    candidate_manifest = json.loads((candidate_root / "manifest.json").read_text(encoding="utf-8"))
+    baseline_rows = {str(row["case_id"]): row for row in json.loads((baseline_root / "probe_results.json").read_text(encoding="utf-8"))}
+    candidate_rows = {str(row["case_id"]): row for row in json.loads((candidate_root / "probe_results.json").read_text(encoding="utf-8"))}
+    shared_case_ids = sorted(set(baseline_rows) & set(candidate_rows))
+
+    case_deltas = []
+    family_buckets: dict[str, dict[str, Any]] = {}
+    for case_id in shared_case_ids:
+        baseline = baseline_rows[case_id]
+        candidate = candidate_rows[case_id]
+        family = str(candidate.get("family") or baseline.get("family") or "")
+        row = {
+            "case_id": case_id,
+            "family": family,
+            "baseline_exact_match": bool(baseline.get("exact_match")),
+            "candidate_exact_match": bool(candidate.get("exact_match")),
+            "delta_exact_match": _bool_delta(candidate.get("exact_match"), baseline.get("exact_match")),
+            "baseline_executable_match": _optional_bool(baseline.get("executable_match")),
+            "candidate_executable_match": _optional_bool(candidate.get("executable_match")),
+            "delta_executable_match": _optional_bool_delta(candidate.get("executable_match"), baseline.get("executable_match")),
+            "baseline_actual_call_count": int(baseline.get("actual_call_count") or 0),
+            "candidate_actual_call_count": int(candidate.get("actual_call_count") or 0),
+            "delta_actual_call_count": int(candidate.get("actual_call_count") or 0) - int(baseline.get("actual_call_count") or 0),
+        }
+        case_deltas.append(row)
+        bucket = family_buckets.setdefault(
+            family,
+            {
+                "family": family,
+                "case_count": 0,
+                "baseline_exact_count": 0,
+                "candidate_exact_count": 0,
+                "baseline_executable_count": 0,
+                "candidate_executable_count": 0,
+                "shared_executable_case_count": 0,
+            },
+        )
+        bucket["case_count"] += 1
+        bucket["baseline_exact_count"] += int(bool(baseline.get("exact_match")))
+        bucket["candidate_exact_count"] += int(bool(candidate.get("exact_match")))
+        if baseline.get("executable_match") is not None and candidate.get("executable_match") is not None:
+            bucket["shared_executable_case_count"] += 1
+            bucket["baseline_executable_count"] += int(bool(baseline.get("executable_match")))
+            bucket["candidate_executable_count"] += int(bool(candidate.get("executable_match")))
+
+    family_deltas = []
+    for bucket in sorted(family_buckets.values(), key=lambda item: str(item["family"])):
+        case_count = int(bucket["case_count"])
+        executable_count = int(bucket["shared_executable_case_count"])
+        family_deltas.append(
+            {
+                **bucket,
+                "baseline_exact_rate": bucket["baseline_exact_count"] / case_count if case_count else 0.0,
+                "candidate_exact_rate": bucket["candidate_exact_count"] / case_count if case_count else 0.0,
+                "delta_exact_rate": (bucket["candidate_exact_count"] - bucket["baseline_exact_count"]) / case_count if case_count else 0.0,
+                "baseline_executable_rate": bucket["baseline_executable_count"] / executable_count if executable_count else None,
+                "candidate_executable_rate": bucket["candidate_executable_count"] / executable_count if executable_count else None,
+                "delta_executable_rate": (
+                    (bucket["candidate_executable_count"] - bucket["baseline_executable_count"]) / executable_count if executable_count else None
+                ),
+            }
+        )
+
+    baseline_summary = baseline_manifest.get("summary", {})
+    candidate_summary = candidate_manifest.get("summary", {})
+    return {
+        "baseline_dir": str(baseline_root.resolve()),
+        "candidate_dir": str(candidate_root.resolve()),
+        "baseline_system_id": str(baseline_manifest.get("system_id", "")),
+        "candidate_system_id": str(candidate_manifest.get("system_id", "")),
+        "shared_case_count": len(shared_case_ids),
+        "baseline_exact_match_rate": float(baseline_summary.get("exact_match_rate") or 0.0),
+        "candidate_exact_match_rate": float(candidate_summary.get("exact_match_rate") or 0.0),
+        "delta_exact_match_rate": float(candidate_summary.get("exact_match_rate") or 0.0)
+        - float(baseline_summary.get("exact_match_rate") or 0.0),
+        "baseline_executable_match_rate": baseline_summary.get("executable_match_rate"),
+        "candidate_executable_match_rate": candidate_summary.get("executable_match_rate"),
+        "case_deltas": case_deltas,
+        "family_deltas": family_deltas,
+    }
+
+
+def write_tool_directive_probe_comparison(
+    baseline_dir: str | Path,
+    candidate_dir: str | Path,
+    output_dir: str | Path | None = None,
+) -> dict[str, str]:
+    comparison = compare_tool_directive_probe_packets(baseline_dir, candidate_dir)
+    target = Path(output_dir) if output_dir else Path(candidate_dir)
+    target.mkdir(parents=True, exist_ok=True)
+    summary_path = target / "probe_comparison.json"
+    case_deltas_path = target / "probe_case_deltas.csv"
+    family_deltas_path = target / "probe_family_deltas.csv"
+    summary_path.write_text(json.dumps(comparison, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    _write_dict_csv(case_deltas_path, comparison["case_deltas"])
+    _write_dict_csv(family_deltas_path, comparison["family_deltas"])
+    return {
+        "summary": str(summary_path.resolve()),
+        "case_deltas": str(case_deltas_path.resolve()),
+        "family_deltas": str(family_deltas_path.resolve()),
+    }
+
+
 def _score_probe_case(
     case: ToolDirectiveProbeCase,
     tool_specs: list[ToolSpec],
@@ -334,6 +444,20 @@ def _execution_satisfies_contract(execution: list[dict[str, Any]], expected_exec
     return True
 
 
+def _bool_delta(candidate: Any, baseline: Any) -> int:
+    return int(bool(candidate)) - int(bool(baseline))
+
+
+def _optional_bool(value: Any) -> bool | None:
+    return None if value is None else bool(value)
+
+
+def _optional_bool_delta(candidate: Any, baseline: Any) -> int | None:
+    if candidate is None or baseline is None:
+        return None
+    return _bool_delta(candidate, baseline)
+
+
 def _last_output_list(execution: list[dict[str, Any]], key: str) -> list[str]:
     for result in reversed(execution):
         value = result.get("output", {}).get(key)
@@ -410,3 +534,23 @@ def _write_probe_csv(path: Path, rows: list[dict[str, Any]]) -> None:
                     "actual_execution": json.dumps(row["actual_execution"], ensure_ascii=False),
                 }
             )
+
+
+def _write_dict_csv(path: Path, rows: list[dict[str, Any]]) -> None:
+    import csv
+
+    if not rows:
+        path.write_text("", encoding="utf-8")
+        return
+    fieldnames = list(rows[0].keys())
+    with path.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        writer.writeheader()
+        for row in rows:
+            writer.writerow({field: _csv_cell(row.get(field, "")) for field in fieldnames})
+
+
+def _csv_cell(value: Any) -> Any:
+    if isinstance(value, (dict, list)):
+        return json.dumps(value, ensure_ascii=False)
+    return value

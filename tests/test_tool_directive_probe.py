@@ -6,7 +6,9 @@ from pathlib import Path
 from gemma4_capability_map.runtime.tool_directive_probe import (
     _score_probe_case,
     build_tool_directive_probe_cases,
+    compare_tool_directive_probe_packets,
     run_tool_directive_probe,
+    write_tool_directive_probe_comparison,
 )
 from gemma4_capability_map.schemas import ModelTurn, ToolCall
 from gemma4_capability_map.tools.planner import plan_tool_calls
@@ -61,6 +63,47 @@ systems:
     rows = json.loads((output_dir / "probe_results.json").read_text(encoding="utf-8"))
     assert rows[0]["exact_match"] is True
     assert (output_dir / "probe_results.csv").exists()
+
+
+def test_tool_directive_probe_comparison_reports_case_and_family_deltas(tmp_path: Path) -> None:
+    registry_path = tmp_path / "registry.yaml"
+    registry_path.write_text(
+        """
+systems:
+  heuristic_probe:
+    backend: heuristic
+    reasoner: google/gemma-4-E2B-it
+    reasoner_max_new_tokens: 64
+    request_timeout_seconds: 30.0
+""".strip()
+        + "\n",
+        encoding="utf-8",
+    )
+    cases = build_tool_directive_probe_cases()[:2]
+    baseline_dir = tmp_path / "baseline"
+    candidate_dir = tmp_path / "candidate"
+    run_tool_directive_probe(system_id="heuristic_probe", output_dir=baseline_dir, registry_path=registry_path, cases=cases)
+    run_tool_directive_probe(system_id="heuristic_probe", output_dir=candidate_dir, registry_path=registry_path, cases=cases)
+
+    candidate_rows = json.loads((candidate_dir / "probe_results.json").read_text(encoding="utf-8"))
+    candidate_rows[0]["exact_match"] = False
+    (candidate_dir / "probe_results.json").write_text(json.dumps(candidate_rows, indent=2) + "\n", encoding="utf-8")
+    candidate_manifest = json.loads((candidate_dir / "manifest.json").read_text(encoding="utf-8"))
+    candidate_manifest["summary"]["exact_match_count"] = 1
+    candidate_manifest["summary"]["exact_match_rate"] = 0.5
+    (candidate_dir / "manifest.json").write_text(json.dumps(candidate_manifest, indent=2) + "\n", encoding="utf-8")
+
+    comparison = compare_tool_directive_probe_packets(baseline_dir, candidate_dir)
+    outputs = write_tool_directive_probe_comparison(baseline_dir, candidate_dir)
+
+    assert comparison["shared_case_count"] == 2
+    assert comparison["delta_exact_match_rate"] == -0.5
+    first = next(row for row in comparison["case_deltas"] if row["case_id"] == cases[0].case_id)
+    assert first["delta_exact_match"] == -1
+    family = next(row for row in comparison["family_deltas"] if row["family"] == cases[0].family)
+    assert family["delta_exact_rate"] == -1.0
+    assert Path(outputs["summary"]).exists()
+    assert Path(outputs["case_deltas"]).exists()
 
 
 def test_tool_directive_probe_scores_visual_paraphrase_execution() -> None:
