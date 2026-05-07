@@ -116,6 +116,10 @@ def build_report(
     prompt_contract_failure_rows = _csv_rows(Path(prompt_contract_packet) / "candidate_failure_mode_counts.csv")
     prompt_contract_wave2_gate_rows = _csv_rows(Path(prompt_contract_wave2_packet) / "candidate_gate_summary.csv")
     prompt_contract_wave2_failure_rows = _csv_rows(Path(prompt_contract_wave2_packet) / "candidate_failure_mode_counts.csv")
+    prompt_contract_promotion_rows = _prompt_contract_promotion_rows(
+        wave1_rows=prompt_contract_gate_rows,
+        wave2_rows=prompt_contract_wave2_gate_rows,
+    )
     h1i_prompt_contract_rows = _csv_rows(Path(h1i_prompt_contract_packet) / "tool_contract_system_deltas.csv")
     h1i_prompt_contract_repeat_rows = _csv_rows(
         Path(h1i_prompt_contract_repeat_packet) / "tool_contract_system_deltas.csv"
@@ -134,6 +138,7 @@ def build_report(
     _write_csv(tables_dir / "prompt_contract_probe_failure_modes.csv", prompt_contract_failure_rows)
     _write_csv(tables_dir / "prompt_contract_wave2_probe_gates.csv", prompt_contract_wave2_gate_rows)
     _write_csv(tables_dir / "prompt_contract_wave2_probe_failure_modes.csv", prompt_contract_wave2_failure_rows)
+    _write_csv(tables_dir / "prompt_contract_promotion_decisions.csv", prompt_contract_promotion_rows)
     _write_csv(tables_dir / "h1i_prompt_contract_candidate_metrics.csv", h1i_prompt_contract_rows)
     _write_csv(tables_dir / "h1i_prompt_contract_repeat3_metrics.csv", h1i_prompt_contract_repeat_rows)
     _write_csv(tables_dir / "h1j_probe_derived_candidate_metrics.csv", h1j_prompt_contract_rows)
@@ -272,7 +277,7 @@ def build_report(
         "h1j_prompt_contract_packet": str(Path(h1j_prompt_contract_packet).resolve()),
         "h1j_helper_packet": str(Path(h1j_helper_packet).resolve()),
         "registry_path": str(Path(registry_path).resolve()),
-        "table_count": 15,
+        "table_count": 16,
         "figure_count": 10,
     }
     report_payload = {
@@ -285,6 +290,7 @@ def build_report(
         "prompt_contract_probe_failure_modes": prompt_contract_failure_rows,
         "prompt_contract_wave2_probe_gates": prompt_contract_wave2_gate_rows,
         "prompt_contract_wave2_probe_failure_modes": prompt_contract_wave2_failure_rows,
+        "prompt_contract_promotion_decisions": prompt_contract_promotion_rows,
         "h1i_prompt_contract_candidate_metrics": h1i_prompt_contract_rows,
         "h1i_prompt_contract_repeat3_metrics": h1i_prompt_contract_repeat_rows,
         "h1j_probe_derived_candidate_metrics": h1j_prompt_contract_rows,
@@ -458,6 +464,63 @@ def _candidate_tag_rows(candidate_rows: list[dict[str, Any]]) -> list[dict[str, 
     ]
 
 
+def _prompt_contract_promotion_rows(
+    *,
+    wave1_rows: list[dict[str, Any]],
+    wave2_rows: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for wave, gate_rows in [("v1", wave1_rows), ("v2", wave2_rows)]:
+        for row in gate_rows:
+            decision = _promotion_decision(row)
+            rows.append(
+                {
+                    "wave": wave,
+                    "tool_prompt_contract_id": row["tool_prompt_contract_id"],
+                    "exact_match_rate": row["exact_match_rate"],
+                    "executable_match_rate": row["executable_match_rate"],
+                    "delta_exact_vs_no_directive": row["delta_exact_vs_no_directive"],
+                    "probe_gate": row["probe_gate"],
+                    "recommendation": row["recommendation"],
+                    "promotion_decision": decision["promotion_decision"],
+                    "promotion_reason": decision["promotion_reason"],
+                    "next_use": decision["next_use"],
+                }
+            )
+    return rows
+
+
+def _promotion_decision(row: dict[str, Any]) -> dict[str, str]:
+    exact = float(row.get("exact_match_rate") or 0.0)
+    executable = float(row.get("executable_match_rate") or 0.0)
+    delta_exact = float(row.get("delta_exact_vs_no_directive") or 0.0)
+    recommendation = str(row.get("recommendation", ""))
+
+    if exact >= 0.5 and delta_exact > 0.0:
+        return {
+            "promotion_decision": "promote_to_h1_candidate",
+            "promotion_reason": "raw exact-call rate cleared the exploratory H1 promotion threshold",
+            "next_use": "run H1i, then H1h only if controller burden moves",
+        }
+    if recommendation == "no_probe_gain" or (exact == 0.0 and executable == 0.0):
+        return {
+            "promotion_decision": "reject_for_h1_promotion",
+            "promotion_reason": "no exact or executable probe gain over the no-directive baseline",
+            "next_use": "replace with a sharper contract or a faithful live parallel workflow",
+        }
+    if executable > 0.0 and exact == 0.0:
+        return {
+            "promotion_decision": "hold_for_exact_probe_replay",
+            "promotion_reason": "executable recovery exists, but exact JSON/tool-call fidelity did not improve",
+            "next_use": "use in visual replay only, not as a general H1 candidate",
+        }
+    return {
+        "promotion_decision": "hold_for_exact_probe_replay",
+        "promotion_reason": "probe gain is too weak for H1 promotion without a stricter replay discriminator",
+        "next_use": "test through exact-probe live replay before any H1 spend",
+    }
+
+
 def _label_system_rows(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     labelled: list[dict[str, Any]] = []
     for row in rows:
@@ -490,6 +553,7 @@ def _markdown_report(payload: dict[str, Any]) -> str:
     h1i_prompt_contract_repeat_rows = payload["h1i_prompt_contract_repeat3_metrics"]
     h1j_prompt_contract_rows = payload["h1j_probe_derived_candidate_metrics"]
     h1j_helper_rows = payload["h1j_probe_derived_helper_metrics"]
+    promotion_rows = payload["prompt_contract_promotion_decisions"]
     gemini = payload["gemini"]
     lines = [
         "# MLX Tool-Contract Harnessing Report",
@@ -559,6 +623,12 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         _markdown_table(wave2_gate_rows),
         "",
         "The second wave confirms the same shape rather than changing the direction. `schema_literal_tool_required_v2` gives a weak one-case exact gain, `visual_next_call_state_v2` restores executable visual behavior without exact JSON fidelity, and `parallel_array_required_v2` does not improve the parallel/no-call family. None of the wave-two candidates is strong enough to replace the final tool-turn directive.",
+        "",
+        "## Prompt-Contract Promotion Decisions",
+        "",
+        _markdown_table(promotion_rows),
+        "",
+        "The promotion gate is intentionally conservative: weak one-case exact gains and visual executable-only gains are held for exact-probe replay, while candidates with no probe gain are rejected for H1 promotion.",
         "",
         "## H1i Prompt-Contract Candidate Packet",
         "",

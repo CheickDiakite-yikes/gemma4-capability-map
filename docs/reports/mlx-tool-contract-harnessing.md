@@ -183,6 +183,7 @@ The second executed candidate packet is now recorded at:
 - [`candidate_gate_summary.md`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave2_execute_v1/candidate_gate_summary.md)
 - generated report table: [`prompt_contract_wave2_probe_gates.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_wave2_probe_gates.csv)
 - generated failure table: [`prompt_contract_wave2_probe_failure_modes.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_wave2_probe_failure_modes.csv)
+- generated promotion table: [`prompt_contract_promotion_decisions.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_promotion_decisions.csv)
 
 | Contract | Exact | Executable | Delta exact vs no-directive | Dominant failure | Recommendation |
 | --- | ---: | ---: | ---: | --- | --- |
@@ -191,6 +192,20 @@ The second executed candidate packet is now recorded at:
 | `parallel_array_required_v2` | `0.0` | `0.0` | `0.0` | `no_tool_call` | no probe gain |
 
 Wave two does not change the research direction. Combining schema anchoring, literal copying, and tool-required language still recovers only one exact case. The visual-state contract again repairs executable visual behavior without exact JSON fidelity. The parallel-array contract does not fix the no-call family. None of these candidates should be promoted as a replacement for the final tool-turn directive.
+
+## Prompt-Contract Promotion Decisions
+
+The generated report now writes a machine-readable promotion table:
+
+- [`results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_promotion_decisions.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_promotion_decisions.csv)
+
+The current decisions are intentionally conservative:
+
+- weak one-case exact gains are held for exact-probe live replay
+- visual executable-only gains are held for visual replay, not general H1 promotion
+- no-gain parallel/no-call candidates are rejected for H1 promotion
+
+That table is the guardrail for the next loop: a prompt-contract candidate should not graduate because it sounds plausible; it should graduate only after it moves exact probe behavior or reduces controller burden on a harder live discriminator.
 
 ## H1i Candidate Packet Result
 

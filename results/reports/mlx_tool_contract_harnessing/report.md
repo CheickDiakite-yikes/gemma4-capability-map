@@ -1,6 +1,6 @@
 # MLX Tool-Contract Harnessing Report
 
-Generated: `2026-05-07T02:02:21.772653+00:00`
+Generated: `2026-05-07T02:05:36.733077+00:00`
 
 ## Executive Read
 
@@ -90,6 +90,19 @@ The first executed probe gate shows only partial gains. `schema_anchor_v1` recov
 | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_parallel_array_required | parallel_array_required_v2 | 0.0 | 0.0 | -0.875 | 0.0 | no_probe_improvement_vs_no_directive | 0 | 0 | no_tool_call | argument_mismatch:2;no_tool_call:5;wrong_tool:1 | no_probe_gain |
 
 The second wave confirms the same shape rather than changing the direction. `schema_literal_tool_required_v2` gives a weak one-case exact gain, `visual_next_call_state_v2` restores executable visual behavior without exact JSON fidelity, and `parallel_array_required_v2` does not improve the parallel/no-call family. None of the wave-two candidates is strong enough to replace the final tool-turn directive.
+
+## Prompt-Contract Promotion Decisions
+
+| wave | tool_prompt_contract_id | exact_match_rate | executable_match_rate | delta_exact_vs_no_directive | probe_gate | recommendation | promotion_decision | promotion_reason | next_use |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| v1 | schema_anchor_v1 | 0.125 | 0.0 | 0.125 | probe_improved_vs_no_directive | weak_exact_gain | hold_for_exact_probe_replay | probe gain is too weak for H1 promotion without a stricter replay discriminator | test through exact-probe live replay before any H1 spend |
+| v1 | literal_argument_guard_v1 | 0.0 | 1.0 | 0.0 | probe_improved_vs_no_directive | visual_executable_gain_only | hold_for_exact_probe_replay | executable recovery exists, but exact JSON/tool-call fidelity did not improve | use in visual replay only, not as a general H1 candidate |
+| v1 | tool_required_parallel_v1 | 0.0 | 1.0 | 0.0 | probe_improved_vs_no_directive | visual_executable_gain_only | hold_for_exact_probe_replay | executable recovery exists, but exact JSON/tool-call fidelity did not improve | use in visual replay only, not as a general H1 candidate |
+| v2 | schema_literal_tool_required_v2 | 0.125 | 0.0 | 0.125 | probe_improved_vs_no_directive | weak_exact_gain | hold_for_exact_probe_replay | probe gain is too weak for H1 promotion without a stricter replay discriminator | test through exact-probe live replay before any H1 spend |
+| v2 | visual_next_call_state_v2 | 0.0 | 1.0 | 0.0 | probe_improved_vs_no_directive | visual_executable_gain_only | hold_for_exact_probe_replay | executable recovery exists, but exact JSON/tool-call fidelity did not improve | use in visual replay only, not as a general H1 candidate |
+| v2 | parallel_array_required_v2 | 0.0 | 0.0 | 0.0 | no_probe_improvement_vs_no_directive | no_probe_gain | reject_for_h1_promotion | no exact or executable probe gain over the no-directive baseline | replace with a sharper contract or a faithful live parallel workflow |
+
+The promotion gate is intentionally conservative: weak one-case exact gains and visual executable-only gains are held for exact-probe replay, while candidates with no probe gain are rejected for H1 promotion.
 
 ## H1i Prompt-Contract Candidate Packet
 

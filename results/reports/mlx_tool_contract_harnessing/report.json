@@ -1,6 +1,6 @@
 {
   "manifest": {
-    "generated_at": "2026-05-07T02:02:21.772653+00:00",
+    "generated_at": "2026-05-07T02:05:36.733077+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/mlx_tool_contract_harnessing",
     "source_packets": {
       "H1f compact": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1f_mlx_no_directive_v1_knowledge_work_h1f_mlx_tool_contract_ablation_v1",
@@ -16,7 +16,7 @@
     "h1j_prompt_contract_packet": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_candidates_v1_knowledge_work_ablation_packet",
     "h1j_helper_packet": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_helpers_v1_knowledge_work_ablation_packet",
     "registry_path": "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
-    "table_count": 15,
+    "table_count": 16,
     "figure_count": 10
   },
   "packet_summary": [
@@ -416,6 +416,80 @@
       "tool_prompt_contract_id": "parallel_array_required_v2",
       "failure_mode": "wrong_tool",
       "count": "1"
+    }
+  ],
+  "prompt_contract_promotion_decisions": [
+    {
+      "wave": "v1",
+      "tool_prompt_contract_id": "schema_anchor_v1",
+      "exact_match_rate": "0.125",
+      "executable_match_rate": "0.0",
+      "delta_exact_vs_no_directive": "0.125",
+      "probe_gate": "probe_improved_vs_no_directive",
+      "recommendation": "weak_exact_gain",
+      "promotion_decision": "hold_for_exact_probe_replay",
+      "promotion_reason": "probe gain is too weak for H1 promotion without a stricter replay discriminator",
+      "next_use": "test through exact-probe live replay before any H1 spend"
+    },
+    {
+      "wave": "v1",
+      "tool_prompt_contract_id": "literal_argument_guard_v1",
+      "exact_match_rate": "0.0",
+      "executable_match_rate": "1.0",
+      "delta_exact_vs_no_directive": "0.0",
+      "probe_gate": "probe_improved_vs_no_directive",
+      "recommendation": "visual_executable_gain_only",
+      "promotion_decision": "hold_for_exact_probe_replay",
+      "promotion_reason": "executable recovery exists, but exact JSON/tool-call fidelity did not improve",
+      "next_use": "use in visual replay only, not as a general H1 candidate"
+    },
+    {
+      "wave": "v1",
+      "tool_prompt_contract_id": "tool_required_parallel_v1",
+      "exact_match_rate": "0.0",
+      "executable_match_rate": "1.0",
+      "delta_exact_vs_no_directive": "0.0",
+      "probe_gate": "probe_improved_vs_no_directive",
+      "recommendation": "visual_executable_gain_only",
+      "promotion_decision": "hold_for_exact_probe_replay",
+      "promotion_reason": "executable recovery exists, but exact JSON/tool-call fidelity did not improve",
+      "next_use": "use in visual replay only, not as a general H1 candidate"
+    },
+    {
+      "wave": "v2",
+      "tool_prompt_contract_id": "schema_literal_tool_required_v2",
+      "exact_match_rate": "0.125",
+      "executable_match_rate": "0.0",
+      "delta_exact_vs_no_directive": "0.125",
+      "probe_gate": "probe_improved_vs_no_directive",
+      "recommendation": "weak_exact_gain",
+      "promotion_decision": "hold_for_exact_probe_replay",
+      "promotion_reason": "probe gain is too weak for H1 promotion without a stricter replay discriminator",
+      "next_use": "test through exact-probe live replay before any H1 spend"
+    },
+    {
+      "wave": "v2",
+      "tool_prompt_contract_id": "visual_next_call_state_v2",
+      "exact_match_rate": "0.0",
+      "executable_match_rate": "1.0",
+      "delta_exact_vs_no_directive": "0.0",
+      "probe_gate": "probe_improved_vs_no_directive",
+      "recommendation": "visual_executable_gain_only",
+      "promotion_decision": "hold_for_exact_probe_replay",
+      "promotion_reason": "executable recovery exists, but exact JSON/tool-call fidelity did not improve",
+      "next_use": "use in visual replay only, not as a general H1 candidate"
+    },
+    {
+      "wave": "v2",
+      "tool_prompt_contract_id": "parallel_array_required_v2",
+      "exact_match_rate": "0.0",
+      "executable_match_rate": "0.0",
+      "delta_exact_vs_no_directive": "0.0",
+      "probe_gate": "no_probe_improvement_vs_no_directive",
+      "recommendation": "no_probe_gain",
+      "promotion_decision": "reject_for_h1_promotion",
+      "promotion_reason": "no exact or executable probe gain over the no-directive baseline",
+      "next_use": "replace with a sharper contract or a faithful live parallel workflow"
     }
   ],
   "h1i_prompt_contract_candidate_metrics": [

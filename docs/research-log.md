@@ -2793,6 +2793,11 @@
   - `visual_next_call_state_v2`: exact `0.0`, executable `1.0`, dominant failure `no_tool_call`, recommendation `visual_executable_gain_only`
   - `parallel_array_required_v2`: exact `0.0`, executable `0.0`, dominant failure `no_tool_call`, recommendation `no_probe_gain`
   - interpretation: wave 2 confirms the split between exact protocol fidelity and executable visual recovery. Combining schema/literal/tool-required wording still only moves one exact case, visual-state wording recovers executable behavior without canonical JSON, and parallel-array wording does not fix no-call collapse. The next discriminator should be exact-probe live replay or a faithful parallel packaged workflow, not another H1i/H1j repeat.
+- Prompt-contract promotion decisions are now generated as a report table:
+  - table: [`prompt_contract_promotion_decisions.csv`](../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_promotion_decisions.csv)
+  - weak one-case exact gains and visual executable-only gains are held for exact-probe replay
+  - `parallel_array_required_v2` is rejected for H1 promotion because it produced no exact or executable probe gain
+  - interpretation: the next packet should be selected by promotion evidence, not by prompt-contract plausibility
 
 ### Verification
 
