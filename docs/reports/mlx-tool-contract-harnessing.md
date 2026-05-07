@@ -51,6 +51,8 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 
 ![H1j probe-derived helper burden](../../results/reports/mlx_tool_contract_harnessing/figures/h1j_probe_derived_helper_burden.svg)
 
+![Exact probe replay gap](../../results/reports/mlx_tool_contract_harnessing/figures/exact_probe_replay_gap.svg)
+
 ## Evidence Sources
 
 | Artifact | Purpose |
@@ -240,6 +242,11 @@ The executed replay packet reproduced the raw failure set exactly: exact match s
 The contracted replay packet restores `7 / 8` exact on the same cases, with the only non-exact case remaining executable through visual selector aliasing. This is now the cleanest current A/B artifact for the model-side tool-turn directive.
 
 The generated replay comparison records a `-0.875` exact-rate delta for no-directive versus contracted MLX on the same replay case set.
+
+Generated replay tables:
+
+- [`exact_probe_replay_case_deltas.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/exact_probe_replay_case_deltas.csv)
+- [`exact_probe_replay_family_deltas.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/exact_probe_replay_family_deltas.csv)
 
 ## H1i Candidate Packet Result
 

@@ -64,6 +64,12 @@ DEFAULT_H1J_HELPER_PACKET = (
     / "knowledge_work_h1_slice"
     / "20260507T_h1j_probe_derived_helpers_v1_knowledge_work_ablation_packet"
 )
+DEFAULT_EXACT_REPLAY_COMPARISON = (
+    ROOT
+    / "results"
+    / "tool_probe_replay_comparisons"
+    / "20260507T_contracted_vs_no_directive_exact_replay_v1"
+)
 
 SYSTEM_LABELS = {
     "mlx_gemma4_e2b_reasoner_only": "contracted",
@@ -88,6 +94,7 @@ def build_report(
     h1i_prompt_contract_repeat_packet: str | Path = DEFAULT_H1I_PROMPT_CONTRACT_REPEAT_PACKET,
     h1j_prompt_contract_packet: str | Path = DEFAULT_H1J_PROMPT_CONTRACT_PACKET,
     h1j_helper_packet: str | Path = DEFAULT_H1J_HELPER_PACKET,
+    exact_replay_comparison: str | Path = DEFAULT_EXACT_REPLAY_COMPARISON,
     registry_path: str | Path = DEFAULT_REGISTRY_PATH,
 ) -> dict[str, Any]:
     target = Path(output_dir)
@@ -126,6 +133,11 @@ def build_report(
     )
     h1j_prompt_contract_rows = _csv_rows(Path(h1j_prompt_contract_packet) / "tool_contract_system_deltas.csv")
     h1j_helper_rows = _csv_rows(Path(h1j_helper_packet) / "tool_contract_system_deltas.csv")
+    exact_replay_comparison_payload = json.loads(
+        (Path(exact_replay_comparison) / "replay_comparison.json").read_text(encoding="utf-8")
+    )
+    exact_replay_case_rows = _csv_rows(Path(exact_replay_comparison) / "replay_case_deltas.csv")
+    exact_replay_family_rows = _csv_rows(Path(exact_replay_comparison) / "replay_family_deltas.csv")
 
     _write_csv(tables_dir / "packet_summary.csv", packet_rows)
     _write_csv(tables_dir / "h1i_system_metrics.csv", h1i_system_rows)
@@ -143,6 +155,8 @@ def build_report(
     _write_csv(tables_dir / "h1i_prompt_contract_repeat3_metrics.csv", h1i_prompt_contract_repeat_rows)
     _write_csv(tables_dir / "h1j_probe_derived_candidate_metrics.csv", h1j_prompt_contract_rows)
     _write_csv(tables_dir / "h1j_probe_derived_helper_metrics.csv", h1j_helper_rows)
+    _write_csv(tables_dir / "exact_probe_replay_case_deltas.csv", exact_replay_case_rows)
+    _write_csv(tables_dir / "exact_probe_replay_family_deltas.csv", exact_replay_family_rows)
 
     _write_grouped_metric_svg(
         figures_dir / "h1i_readiness_strict_recovered.svg",
@@ -261,6 +275,15 @@ def build_report(
             ("raw_planning_clean_rate_avg", "raw clean", "#16A34A"),
         ],
     )
+    _write_grouped_metric_svg(
+        figures_dir / "exact_probe_replay_gap.svg",
+        title="Exact probe replay gap",
+        rows=_exact_replay_gap_rows(exact_replay_comparison_payload["summary"]),
+        label_field="label",
+        metrics=[
+            ("exact_match_rate", "exact", "#2563EB"),
+        ],
+    )
 
     manifest = {
         "generated_at": datetime.now(UTC).isoformat(),
@@ -276,9 +299,10 @@ def build_report(
         "h1i_prompt_contract_repeat_packet": str(Path(h1i_prompt_contract_repeat_packet).resolve()),
         "h1j_prompt_contract_packet": str(Path(h1j_prompt_contract_packet).resolve()),
         "h1j_helper_packet": str(Path(h1j_helper_packet).resolve()),
+        "exact_replay_comparison": str(Path(exact_replay_comparison).resolve()),
         "registry_path": str(Path(registry_path).resolve()),
-        "table_count": 16,
-        "figure_count": 10,
+        "table_count": 18,
+        "figure_count": 11,
     }
     report_payload = {
         "manifest": manifest,
@@ -295,6 +319,9 @@ def build_report(
         "h1i_prompt_contract_repeat3_metrics": h1i_prompt_contract_repeat_rows,
         "h1j_probe_derived_candidate_metrics": h1j_prompt_contract_rows,
         "h1j_probe_derived_helper_metrics": h1j_helper_rows,
+        "exact_probe_replay_comparison": exact_replay_comparison_payload,
+        "exact_probe_replay_case_deltas": exact_replay_case_rows,
+        "exact_probe_replay_family_deltas": exact_replay_family_rows,
         "gemini": gemini_manifest,
     }
     (target / "manifest.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
@@ -317,6 +344,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--h1i-prompt-contract-repeat-packet", default=str(DEFAULT_H1I_PROMPT_CONTRACT_REPEAT_PACKET))
     parser.add_argument("--h1j-prompt-contract-packet", default=str(DEFAULT_H1J_PROMPT_CONTRACT_PACKET))
     parser.add_argument("--h1j-helper-packet", default=str(DEFAULT_H1J_HELPER_PACKET))
+    parser.add_argument("--exact-replay-comparison", default=str(DEFAULT_EXACT_REPLAY_COMPARISON))
     parser.add_argument("--registry", default=str(DEFAULT_REGISTRY_PATH))
     return parser.parse_args()
 
@@ -336,6 +364,7 @@ def main() -> None:
         h1i_prompt_contract_repeat_packet=args.h1i_prompt_contract_repeat_packet,
         h1j_prompt_contract_packet=args.h1j_prompt_contract_packet,
         h1j_helper_packet=args.h1j_helper_packet,
+        exact_replay_comparison=args.exact_replay_comparison,
         registry_path=args.registry,
     )
     print(
@@ -464,6 +493,13 @@ def _candidate_tag_rows(candidate_rows: list[dict[str, Any]]) -> list[dict[str, 
     ]
 
 
+def _exact_replay_gap_rows(summary: dict[str, Any]) -> list[dict[str, Any]]:
+    return [
+        {"label": "contracted", "exact_match_rate": float(summary.get("baseline_exact_match_rate") or 0.0)},
+        {"label": "no directive", "exact_match_rate": float(summary.get("candidate_exact_match_rate") or 0.0)},
+    ]
+
+
 def _prompt_contract_promotion_rows(
     *,
     wave1_rows: list[dict[str, Any]],
@@ -554,6 +590,8 @@ def _markdown_report(payload: dict[str, Any]) -> str:
     h1j_prompt_contract_rows = payload["h1j_probe_derived_candidate_metrics"]
     h1j_helper_rows = payload["h1j_probe_derived_helper_metrics"]
     promotion_rows = payload["prompt_contract_promotion_decisions"]
+    exact_replay_summary = payload["exact_probe_replay_comparison"]["summary"]
+    exact_replay_case_rows = payload["exact_probe_replay_case_deltas"]
     gemini = payload["gemini"]
     lines = [
         "# MLX Tool-Contract Harnessing Report",
@@ -594,6 +632,8 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "",
         "![H1j probe-derived helper burden](figures/h1j_probe_derived_helper_burden.svg)",
         "",
+        "![Exact probe replay gap](figures/exact_probe_replay_gap.svg)",
+        "",
         "## Packet Summary",
         "",
         _markdown_table(packet_rows),
@@ -629,6 +669,14 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         _markdown_table(promotion_rows),
         "",
         "The promotion gate is intentionally conservative: weak one-case exact gains and visual executable-only gains are held for exact-probe replay, while candidates with no probe gain are rejected for H1 promotion.",
+        "",
+        "## Exact-Probe Replay Comparison",
+        "",
+        f"- Baseline exact rate: `{exact_replay_summary['baseline_exact_match_rate']}`",
+        f"- Candidate exact rate: `{exact_replay_summary['candidate_exact_match_rate']}`",
+        f"- Delta exact rate: `{exact_replay_summary['delta_exact_match_rate']}`",
+        "",
+        _markdown_table(exact_replay_case_rows),
         "",
         "## H1i Prompt-Contract Candidate Packet",
         "",
@@ -686,6 +734,7 @@ def _markdown_report(payload: dict[str, Any]) -> str:
             f"- H1i prompt-contract repeat packet: `{payload['manifest']['h1i_prompt_contract_repeat_packet']}`",
             f"- H1j probe-derived prompt-contract packet: `{payload['manifest']['h1j_prompt_contract_packet']}`",
             f"- H1j probe-derived helper packet: `{payload['manifest']['h1j_helper_packet']}`",
+            f"- Exact replay comparison: `{payload['manifest']['exact_replay_comparison']}`",
             f"- Gemini dry-run baseline: `{payload['manifest']['gemini_packet']}`",
             "",
         ]

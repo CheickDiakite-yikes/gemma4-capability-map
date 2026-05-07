@@ -34,8 +34,8 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
 
     assert payload["gemini"]["dry_run"] is True
     assert payload["gemini"]["workflow_count"] == 10
-    assert payload["manifest"]["table_count"] == 16
-    assert payload["manifest"]["figure_count"] == 10
+    assert payload["manifest"]["table_count"] == 18
+    assert payload["manifest"]["figure_count"] == 11
 
     candidates = {row["tool_prompt_contract_id"]: row for row in payload["prompt_contract_candidates"]}
     assert set(candidates) == {
@@ -58,6 +58,12 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert promotion["schema_anchor_v1"]["promotion_decision"] == "hold_for_exact_probe_replay"
     assert promotion["visual_next_call_state_v2"]["promotion_reason"].startswith("executable recovery exists")
     assert promotion["parallel_array_required_v2"]["promotion_decision"] == "reject_for_h1_promotion"
+    replay_summary = payload["exact_probe_replay_comparison"]["summary"]
+    assert replay_summary["baseline_exact_match_rate"] == 0.875
+    assert replay_summary["candidate_exact_match_rate"] == 0.0
+    assert replay_summary["delta_exact_match_rate"] == -0.875
+    replay_cases = {row["case_id"]: row for row in payload["exact_probe_replay_case_deltas"]}
+    assert replay_cases["parallel_audit_array_literal"]["delta_actual_call_count"] == "-2"
     h1i_candidates = {row["system_id"]: row for row in payload["h1i_prompt_contract_candidate_metrics"]}
     assert h1i_candidates["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive"]["tool_turn_directive_enabled"] == "False"
     assert h1i_candidates["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor"]["raw_planning_clean_rate_avg"] == "1.0"
@@ -86,6 +92,8 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert (tmp_path / "tables" / "h1i_prompt_contract_repeat3_metrics.csv").exists()
     assert (tmp_path / "tables" / "h1j_probe_derived_candidate_metrics.csv").exists()
     assert (tmp_path / "tables" / "h1j_probe_derived_helper_metrics.csv").exists()
+    assert (tmp_path / "tables" / "exact_probe_replay_case_deltas.csv").exists()
+    assert (tmp_path / "tables" / "exact_probe_replay_family_deltas.csv").exists()
     assert (tmp_path / "figures" / "h1i_readiness_strict_recovered.svg").exists()
     assert (tmp_path / "figures" / "h1h_h1i_controller_burden.svg").exists()
     assert (tmp_path / "figures" / "prompt_contract_candidate_targets.svg").exists()
@@ -94,3 +102,4 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert (tmp_path / "figures" / "h1i_prompt_contract_repeat3_burden.svg").exists()
     assert (tmp_path / "figures" / "h1j_probe_derived_burden.svg").exists()
     assert (tmp_path / "figures" / "h1j_probe_derived_helper_burden.svg").exists()
+    assert (tmp_path / "figures" / "exact_probe_replay_gap.svg").exists()

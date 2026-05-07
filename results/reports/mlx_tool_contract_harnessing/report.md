@@ -1,6 +1,6 @@
 # MLX Tool-Contract Harnessing Report
 
-Generated: `2026-05-07T02:05:36.733077+00:00`
+Generated: `2026-05-07T02:33:10.923877+00:00`
 
 ## Executive Read
 
@@ -31,6 +31,8 @@ The main finding is blunt: the tool-turn directive is a real model-side harness 
 ![H1j probe-derived candidate burden](figures/h1j_probe_derived_burden.svg)
 
 ![H1j probe-derived helper burden](figures/h1j_probe_derived_helper_burden.svg)
+
+![Exact probe replay gap](figures/exact_probe_replay_gap.svg)
 
 ## Packet Summary
 
@@ -103,6 +105,23 @@ The second wave confirms the same shape rather than changing the direction. `sch
 | v2 | parallel_array_required_v2 | 0.0 | 0.0 | 0.0 | no_probe_improvement_vs_no_directive | no_probe_gain | reject_for_h1_promotion | no exact or executable probe gain over the no-directive baseline | replace with a sharper contract or a faithful live parallel workflow |
 
 The promotion gate is intentionally conservative: weak one-case exact gains and visual executable-only gains are held for exact-probe replay, while candidates with no probe gain are rejected for H1 promotion.
+
+## Exact-Probe Replay Comparison
+
+- Baseline exact rate: `0.875`
+- Candidate exact rate: `0.0`
+- Delta exact rate: `-0.875`
+
+| case_id | family | baseline_failure_mode | candidate_failure_mode | baseline_exact_match | candidate_exact_match | delta_exact_match | baseline_executable_match | candidate_executable_match | baseline_actual_call_count | candidate_actual_call_count | delta_actual_call_count |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| api_form_issue_fetch | api_canonicalization | exact | argument_mismatch | True | False | -1 |  |  | 1 | 1 | 0 |
+| api_invoice_lock_hold_update | api_canonicalization | exact | argument_mismatch | True | False | -1 |  |  | 1 | 1 | 0 |
+| cli_invoice_lock_hyphen_query | cli_canonicalization | exact | argument_mismatch | True | False | -1 |  |  | 1 | 1 | 0 |
+| cli_phone_patch_latest_only | cli_patch_copying | exact | argument_mismatch | True | False | -1 |  |  | 1 | 1 | 0 |
+| parallel_audit_array_literal | parallel_tool_calling | exact | no_tool_call | True | False | -1 |  |  | 2 | 0 | -2 |
+| visual_form_target_literal | visual_argument_copying | executable_paraphrase | no_tool_call | False | False | 0 | True | False | 1 | 0 | -1 |
+| visual_latest_filter_literal | visual_referent_carryover | exact | no_tool_call | True | False | -1 |  |  | 1 | 0 | -1 |
+| visual_readback_region_literal | visual_referent_carryover | exact | no_tool_call | True | False | -1 |  |  | 1 | 0 | -1 |
 
 ## H1i Prompt-Contract Candidate Packet
 
@@ -182,4 +201,5 @@ This packet is deliberately a dry-run prompt and command manifest. It is an exte
 - H1i prompt-contract repeat packet: `/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_repeat3_v1_knowledge_work_ablation_packet`
 - H1j probe-derived prompt-contract packet: `/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_candidates_v1_knowledge_work_ablation_packet`
 - H1j probe-derived helper packet: `/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_helpers_v1_knowledge_work_ablation_packet`
+- Exact replay comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_comparisons/20260507T_contracted_vs_no_directive_exact_replay_v1`
 - Gemini dry-run baseline: `/Users/cheickdiakite/Codex/moonie/results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1`
