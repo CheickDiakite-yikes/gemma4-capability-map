@@ -166,6 +166,25 @@ Latest MLX tool-contract research:
   - H1j candidate result: `30` traces, all five rows matched readiness `0.96577`, strict/recovered `1.0 / 1.0`, repair/fallback/argument repair `0.0 / 0.0 / 0.0`, raw clean `1.0`, with `0` trace notes and `0` failure candidates
   - helper packet: [`results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_helpers_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_helpers_v1_knowledge_work_ablation_packet)
   - H1j helper result: `30` traces, all five helper rows matched readiness `0.96577`, strict/recovered `1.0 / 1.0`, repair/fallback/argument repair `0.0 / 0.0 / 0.0`, raw clean `1.0`; trace mining found `21` disabled-repair markers but `0` failure candidates
+- H1k parallel-audit live scaffold:
+  - config: [`configs/knowledge_work_h1k_slice.yaml`](../../configs/knowledge_work_h1k_slice.yaml)
+  - brief: [`docs/continuity/h1k-slice.md`](./h1k-slice.md)
+  - workflow: `ops_parallel_audit_review`
+  - replay pressure: `parallel_audit_array_literal`
+  - replayable/live episodes: `kwa_ops_parallel_audit_review_v1` / `kwa_ops_live_parallel_audit_review_v1`
+  - candidate packet id: `mlx_parallel_audit_tool_contract_candidates`
+  - helper-ablation packet id: `mlx_parallel_audit_helper_ablation`
+  - CLI validation:
+
+    ```bash
+    uv run moonie-agent workflows --lane live_web_stress --workflow-id ops_parallel_audit_review --validate
+    ```
+
+  - candidate dry run:
+
+    ```bash
+    uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1k_slice.yaml --packet-id mlx_parallel_audit_tool_contract_candidates --run-group-id 20260507T_h1k_parallel_audit_candidates_dry_run_v1 --dry-run
+    ```
 - Prompt-contract wave 2:
   - contracts: `schema_literal_tool_required_v2`, `visual_next_call_state_v2`, `parallel_array_required_v2`
   - runner flag: `scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v2`

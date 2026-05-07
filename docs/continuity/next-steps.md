@@ -141,6 +141,25 @@ What remains:
   - packet: [`results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_helpers_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_helpers_v1_knowledge_work_ablation_packet)
   - result: contracted, no-directive, no-repair, no-fallback, and no-argument-repair all matched readiness `0.96577`, strict/recovered `1.0 / 1.0`, repair/fallback/argument repair `0.0 / 0.0 / 0.0`, raw clean `1.0`
   - trace analysis found `21` `controller_repair_disabled` markers but `0` failure candidates
+- H1k now promotes the deferred parallel no-call replay case into a packaged live workflow:
+  - config: [`configs/knowledge_work_h1k_slice.yaml`](../../configs/knowledge_work_h1k_slice.yaml)
+  - brief: [`docs/continuity/h1k-slice.md`](./h1k-slice.md)
+  - workflow: `ops_parallel_audit_review`
+  - replay pressure: `parallel_audit_array_literal`
+  - candidate packet id: `mlx_parallel_audit_tool_contract_candidates`
+  - helper-ablation packet id: `mlx_parallel_audit_helper_ablation`
+  - CLI preflight:
+
+    ```bash
+    uv run moonie-agent workflows --lane live_web_stress --workflow-id ops_parallel_audit_review --validate
+    ```
+
+  - candidate dry run:
+
+    ```bash
+    uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1k_slice.yaml --packet-id mlx_parallel_audit_tool_contract_candidates --run-group-id <timestamp>_h1k_parallel_audit_candidates_v1 --dry-run
+    ```
+
 - second prompt-contract wave now exists:
   - contracts: `schema_literal_tool_required_v2`, `visual_next_call_state_v2`, `parallel_array_required_v2`
   - registry systems:
