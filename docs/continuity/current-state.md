@@ -188,7 +188,9 @@ Latest MLX tool-contract research:
 
   - candidate packet: [`results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_candidates_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_candidates_v1_knowledge_work_ablation_packet)
   - H1k candidate result: `5` traces, all rows matched readiness `0.91780`, strict/recovered `1.0 / 1.0`, repair/fallback/argument repair `0.0 / 0.0 / 0.0`, raw clean `1.0`, with `0` trace notes and `0` failure candidates
-  - interpretation: H1k is a useful negative result. It adds the deferred parallel-audit packaged workflow, but the staged live workflow is still easier than the raw one-turn `parallel_audit_array_literal` exact probe.
+  - helper packet: [`results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_helpers_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_helpers_v1_knowledge_work_ablation_packet)
+  - H1k helper result: `5` traces, all helper-ablation rows matched readiness `0.91780`, strict/recovered `1.0 / 1.0`, repair/fallback/argument repair `0.0 / 0.0 / 0.0`, raw clean `1.0`; trace mining found `3` expected `controller_repair_disabled` markers and `0` failure candidates
+  - interpretation: H1k is a useful negative result. It adds the deferred parallel-audit packaged workflow, but the staged live workflow is still easier than the raw one-turn `parallel_audit_array_literal` exact probe. Removing controller repair, controller fallback, or argument repair does not move this packaged slice, so the next discriminator needs to preserve exact-call replay shape.
 - Prompt-contract wave 2:
   - contracts: `schema_literal_tool_required_v2`, `visual_next_call_state_v2`, `parallel_array_required_v2`
   - runner flag: `scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v2`

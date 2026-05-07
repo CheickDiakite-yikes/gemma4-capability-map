@@ -162,6 +162,8 @@ What remains:
 
   - executed candidate packet: [`results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_candidates_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_candidates_v1_knowledge_work_ablation_packet)
   - result: all five rows matched readiness `0.91780`, strict/recovered `1.0 / 1.0`, repair/fallback/argument repair `0.0 / 0.0 / 0.0`, raw clean `1.0`, with `0` trace notes and `0` failure candidates
+  - executed helper packet: [`results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_helpers_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_helpers_v1_knowledge_work_ablation_packet)
+  - helper result: contracted, no-directive, no-repair, no-fallback, and no-argument-repair rows all matched readiness `0.91780`; trace analysis found `3` expected disabled-repair markers and `0` failure candidates
   - interpretation: the packaged parallel workflow is still too staged to reproduce the raw no-directive one-turn parallel no-call failure. The next discriminator should preserve the exact-call replay shape.
 
 - second prompt-contract wave now exists:

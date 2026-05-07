@@ -69,6 +69,21 @@ uv run python scripts/run_knowledge_work_h1_ablation_packet.py \
 
 ## Helper Packet
 
+Executed packet:
+
+- [`results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_helpers_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_helpers_v1_knowledge_work_ablation_packet)
+
+Result:
+
+- `5` helper rows, `1` live workflow each
+- contracted, no-directive, no-repair, no-fallback, and no-argument-repair rows all matched readiness `0.91780`
+- strict/recovered `1.0 / 1.0`
+- repair/fallback/argument repair `0.0 / 0.0 / 0.0`
+- raw clean `1.0`
+- trace mining found `3` expected `controller_repair_disabled` markers and `0` failure candidates
+
+Interpretation: the helper packet confirms the candidate-packet result. The staged packaged workflow is not using controller repair, fallback, or argument repair on this slice, so removing those helpers produces no degradation. The useful finding is negative: packaged H1k is a safe live scaffold for parallel audit, but not a faithful discriminator for the one-turn no-directive parallel no-call failure.
+
 Dry run:
 
 ```bash
@@ -77,6 +92,15 @@ uv run python scripts/run_knowledge_work_h1_ablation_packet.py \
   --packet-id mlx_parallel_audit_helper_ablation \
   --run-group-id <timestamp>_h1k_parallel_audit_helpers_v1 \
   --dry-run
+```
+
+Execution:
+
+```bash
+uv run python scripts/run_knowledge_work_h1_ablation_packet.py \
+  --config configs/knowledge_work_h1k_slice.yaml \
+  --packet-id mlx_parallel_audit_helper_ablation \
+  --run-group-id <timestamp>_h1k_parallel_audit_helpers_v1
 ```
 
 ## Acceptance Criteria
@@ -90,4 +114,4 @@ H1k is useful if it separates rows on at least one controller-dependence metric:
 - strict interface
 - recovered execution
 
-If H1k saturates, the next surface should be exact-probe replay execution under the live operator, not another broad H1h rerun.
+H1k saturated on all of those metrics. The next surface should be exact-probe replay execution under the live operator, not another broad H1h rerun.
