@@ -2677,7 +2677,16 @@
   - [`20260506T_h1g_mlx_remaining_helpers_v1`](../results/knowledge_work_h1_slice/20260506T_h1g_mlx_remaining_helpers_v1_knowledge_work_h1g_mlx_remaining_helper_ablation_v1) ran baseline, `no_visual_rescue`, `no_intent_priority`, and `no_deterministic_visual_follow_on`
   - all four rows matched at readiness `0.97936`, strict/recovered `1.0 / 1.0`, raw clean `1.0`
   - trace mining found `0` failure candidates
-  - interpretation: under the current directive, visual rescue, intent priority, and deterministic visual follow-on are not carrying the compact live MLX slice; the next useful packet is a full-H1e no-directive expansion, not more tuning of those helpers
+  - interpretation: under the current directive, visual rescue, intent priority, and deterministic visual follow-on are not carrying the compact live MLX slice; the useful expansion was therefore the full-H1e no-directive packet, not more tuning of those helpers
+- H1h confirms the no-directive causal ordering across the full ten-workflow live MLX set:
+  - [`20260507T_h1h_mlx_full_no_directive_v1`](../results/knowledge_work_h1_slice/20260507T_h1h_mlx_full_no_directive_v1_knowledge_work_h1h_mlx_full_tool_contract_ablation_v1) ran contracted MLX, no-directive MLX, and the three no-directive/no-helper variants over all ten H1e live workflow families
+  - contracted MLX and no-directive MLX both reached readiness `0.96891`, but the no-directive row needed controller repair/fallback/argument repair `0.70 / 0.25 / 0.45` and raw clean stayed `0.30`
+  - no-directive + no controller repair dropped to readiness `0.73801`, strict/recovered `0.481 / 0.300`
+  - no-directive + no controller fallback dropped to `0.89598`
+  - no-directive + no argument repair dropped to `0.83016`
+  - the H1h/H1f comparison shows no new causal ordering; the larger workflow set mostly adds more instances of the same failure families: fallback planner, visual stepwise control, repair disabled, fallback disabled, argument repair, visual repeated refinement, and visual readback missing
+  - workflow-family attribution now makes the next target concrete: executive latest-action resume, jobs phone patch resume, jobs visual form hold, and executive stale brief packet are the worst no-repair rows
+  - next empirical move: run an attributable Gemini CLI baseline packet over the same H1h workflow family set, then derive a smaller no-directive stress packet from the worst H1h workflows
 
 ### Verification
 

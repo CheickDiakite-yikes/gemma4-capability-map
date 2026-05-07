@@ -121,12 +121,15 @@ That means the real remaining signal is:
 - raw planning cleanliness
 - harder realism that breaks current parity
 
-The freshest MLX evidence is now H1f/H1g:
+The freshest MLX evidence is now H1h/H1g:
 
-- H1f shows the tool-turn directive is causal:
-  - contracted MLX is controller-clean at readiness `0.97936`
-  - no-directive MLX keeps readiness `0.97936` only with repair/fallback/argument repair `0.70 / 0.20 / 0.50`
-  - no-directive + no controller repair drops to `0.73818`
+- H1h shows the tool-turn directive is causal on the full ten-workflow live family set:
+  - contracted MLX is controller-clean at readiness `0.96891`
+  - no-directive MLX keeps readiness `0.96891` only with repair/fallback/argument repair `0.70 / 0.25 / 0.45`
+  - no-directive + no controller repair drops to `0.73801`
+  - no-directive + no controller fallback drops to `0.89598`
+  - no-directive + no argument repair drops to `0.83016`
+  - workflow-family attribution shows the worst no-repair cases are executive latest-action resume, jobs phone patch resume, jobs visual form hold, and executive stale brief packet
 - H1g shows the remaining helpers are not causal under the directive on the compact live slice:
   - `no_visual_rescue`, `no_intent_priority`, and `no_deterministic_visual_follow_on` all match baseline with `0` failure candidates
 - the latest directive probe separates exact-copy from executable readiness:
@@ -159,9 +162,10 @@ Build a CLI-first live harness for local Gemma on MLX that lets us:
 2. Add proper sandboxing for live runs.
 3. Use packaged workflows as the only live entrypoint in v1.
 4. Add a Gemini CLI adapter as an external baseline and design reference.
-5. Expand the H1f no-directive packet to the full H1e ten-workflow live set.
-6. Use H1g as the second-wave helper baseline: visual rescue, intent priority, and deterministic visual follow-on are negative on the compact live slice.
-7. Only after that, revisit Gemma `31B` `GGUF` runtime posture.
+5. Run Gemini CLI as an attributable H1h workflow-family baseline.
+6. Use H1h workflow attribution to derive the next smaller no-directive stress packet.
+7. Use H1g as the second-wave helper baseline: visual rescue, intent priority, and deterministic visual follow-on are negative on the compact live slice.
+8. Only after that, revisit Gemma `31B` `GGUF` runtime posture.
 
 ## Implementation Order
 

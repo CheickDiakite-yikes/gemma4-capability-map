@@ -90,6 +90,16 @@ Latest MLX tool-contract research:
   - packet: [`results/knowledge_work_h1_slice/20260506T_h1g_mlx_remaining_helpers_v1_knowledge_work_h1g_mlx_remaining_helper_ablation_v1`](../../results/knowledge_work_h1_slice/20260506T_h1g_mlx_remaining_helpers_v1_knowledge_work_h1g_mlx_remaining_helper_ablation_v1)
   - baseline, `no_visual_rescue`, `no_intent_priority`, and `no_deterministic_visual_follow_on` all matched at readiness `0.97936`, strict/recovered `1.0 / 1.0`, raw clean `1.0`
   - trace mining found `0` failure candidates
+- H1h full no-directive tool-contract ablation:
+  - config: [`configs/knowledge_work_h1h_slice.yaml`](../../configs/knowledge_work_h1h_slice.yaml)
+  - packet: [`results/knowledge_work_h1_slice/20260507T_h1h_mlx_full_no_directive_v1_knowledge_work_h1h_mlx_full_tool_contract_ablation_v1`](../../results/knowledge_work_h1_slice/20260507T_h1h_mlx_full_no_directive_v1_knowledge_work_h1h_mlx_full_tool_contract_ablation_v1)
+  - contracted MLX: readiness `0.96891`, strict/recovered `1.0 / 1.0`, raw clean `1.0`, repair/fallback/argument repair `0.0`
+  - no directive with helpers: readiness still `0.96891`, but controller repair/fallback/argument repair `0.70 / 0.25 / 0.45`, raw clean `0.30`
+  - no directive + no controller repair: readiness `0.73801`, strict/recovered `0.481 / 0.300`
+  - no directive + no controller fallback: readiness `0.89598`
+  - no directive + no argument repair: readiness `0.83016`
+  - comparison to H1f: the causal ordering survives the full `10` workflow family set; extra workflows mainly add more instances of the same failure modes
+  - workflow-family attribution: [`workflow_family_failures.csv`](../../results/knowledge_work_h1_slice/20260507T_h1h_mlx_full_no_directive_v1_knowledge_work_h1h_mlx_full_tool_contract_ablation_v1/workflow_family_failures.csv) shows the worst no-repair failures on executive latest-action resume, jobs phone patch resume, jobs visual form hold, and executive stale brief packet
 
 Latest real CLI smoke:
 

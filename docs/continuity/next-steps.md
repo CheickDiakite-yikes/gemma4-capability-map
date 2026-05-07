@@ -42,13 +42,13 @@ Current state:
 
 Next implementation moves:
 
-- treat H1f as the current causal restart point for MLX harnessing:
-  - contracted MLX is controller-clean
+- treat H1h as the current causal restart point for MLX harnessing:
+  - contracted MLX is controller-clean on all `10` live workflow families
   - no-directive MLX only stays top-line clean through controller help
-  - disabling controller repair under no-directive drops readiness to `0.73818`
-- expand the no-directive ablation from compact H1f to the full H1e `10` workflow family set before changing the controller again
+  - disabling controller repair under no-directive drops readiness to `0.73801`
+- use H1h workflow-family attribution before changing the controller again
 - keep H1g as a negative result: visual rescue, intent priority, and deterministic visual follow-on do not carry the compact live slice under the directive
-- run Gemini CLI baseline only after the no-directive/full-H1e expansion, so the external baseline compares against the harder local-Gemma stressor rather than a saturated contracted row
+- run a Gemini CLI baseline packet against the same H1h workflow family set, so the external baseline compares against the harder local-Gemma stressor rather than a saturated contracted row
 - keep using live CLI scorecard and policy inspection as the active operator proof path
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
@@ -59,49 +59,54 @@ Success condition:
 
 - a person can safely launch and watch a real local Gemma MLX run from CLI, approve or resume when needed, and inspect the run live without leaving the terminal
 
-### 2. Expand H1f before broad reruns
+### 2. Use H1h as the current MLX no-directive restart point
 
-This is now the highest-value benchmark move.
+The H1f expansion is complete. H1h is now the highest-value benchmark packet for local Gemma tool-contract work.
 
 Current evidence:
 
 - H1f compact live packet:
   - [`results/knowledge_work_h1_slice/20260506T_h1f_mlx_no_directive_v1_knowledge_work_h1f_mlx_tool_contract_ablation_v1`](../../results/knowledge_work_h1_slice/20260506T_h1f_mlx_no_directive_v1_knowledge_work_h1f_mlx_tool_contract_ablation_v1)
-- contracted MLX row:
-  - readiness `0.97936`
+- H1h full live packet:
+  - [`results/knowledge_work_h1_slice/20260507T_h1h_mlx_full_no_directive_v1_knowledge_work_h1h_mlx_full_tool_contract_ablation_v1`](../../results/knowledge_work_h1_slice/20260507T_h1h_mlx_full_no_directive_v1_knowledge_work_h1h_mlx_full_tool_contract_ablation_v1)
+- H1h contracted MLX row:
+  - readiness `0.96891`
   - strict/recovered `1.0 / 1.0`
   - repair/fallback/argument repair `0.0 / 0.0 / 0.0`
   - raw clean `1.0`
-- no-directive MLX with helpers:
-  - readiness `0.97936`
-  - repair/fallback/argument repair `0.70 / 0.20 / 0.50`
+- H1h no-directive MLX with helpers:
+  - readiness `0.96891`
+  - repair/fallback/argument repair `0.70 / 0.25 / 0.45`
   - raw clean `0.30`
-- no-directive helper removals:
-  - `no_controller_repair = 0.73818`
-  - `no_controller_fallback = 0.92104`
-  - `no_argument_repair = 0.82036`
+- H1h no-directive helper removals:
+  - `no_controller_repair = 0.73801`
+  - `no_controller_fallback = 0.89598`
+  - `no_argument_repair = 0.83016`
+- H1h workflow-family attribution:
+  - [`workflow_family_summary.json`](../../results/knowledge_work_h1_slice/20260507T_h1h_mlx_full_no_directive_v1_knowledge_work_h1h_mlx_full_tool_contract_ablation_v1/workflow_family_summary.json)
+  - [`workflow_family_failures.csv`](../../results/knowledge_work_h1_slice/20260507T_h1h_mlx_full_no_directive_v1_knowledge_work_h1h_mlx_full_tool_contract_ablation_v1/workflow_family_failures.csv)
 
 What remains:
 
-- define `H1f-full` or `H1h` using the H1e ten-workflow live family set
-- include:
-  - `mlx_gemma4_e2b_reasoner_only`
-  - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive`
-  - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_repair`
-  - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_fallback`
-  - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_argument_repair`
-- run, analyze, and summarize with:
+- use the H1h attribution table to target the next packet at the worst no-repair workflow families:
+  - `executive_latest_action_resume`
+  - `jobs_phone_patch_resume`
+  - `jobs_visual_form_hold`
+  - `executive_stale_brief_packet`
+- run the Gemini CLI baseline packet over the same H1h workflows before treating its ergonomics or outputs as evidence
+- keep the H1h comparison commands close:
 
 ```bash
 uv run python scripts/analyze_knowledge_work_h1_traces.py <packet_dir>
 uv run python scripts/summarize_h1_tool_contract.py <packet_dir>
+uv run python scripts/summarize_h1_workflow_families.py <packet_dir> --config configs/knowledge_work_h1h_slice.yaml
 ```
 
 Success condition:
 
-- preserve the H1f causal ordering across all ten workflow families
-- identify which additional workflows introduce new no-directive failure modes
-- avoid broad aligned `32 / 26` reruns until this harder packet is understood
+- every controller or prompt-contract change is evaluated against H1h or a smaller slice derived from its worst workflow families
+- Gemini CLI baseline artifacts are attributable to the same workflow family IDs
+- broad aligned `32 / 26` reruns stay paused until this harder packet produces a specific mechanism-level change
 
 ### 3. Keep using focused packets before any broader rerun
 
