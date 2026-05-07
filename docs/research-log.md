@@ -2697,6 +2697,14 @@
   - the visual executable target fell from `1 / 1` to `0 / 1`
   - [`probe_case_deltas.csv`](../results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1/probe_case_deltas.csv) shows CLI/API cases still often choose the right tool but drift on canonical arguments, while visual referent and parallel cases collapse to no tool call
   - interpretation: the directive is not cosmetic; it is the main model-side contract that keeps local MLX Gemma inside Moonie's tool interface. When it is absent, H1h readiness parity comes from controller repair/fallback rather than raw model compliance
+- H1i turns the H1h worst-family attribution into a faster MLX prompt-contract loop:
+  - [`configs/knowledge_work_h1i_slice.yaml`](../configs/knowledge_work_h1i_slice.yaml) keeps executive latest-action resume, jobs phone patch resume, jobs visual form hold, and executive stale brief packet
+  - [`20260507T_h1i_mlx_worst_no_directive_v1`](../results/knowledge_work_h1_slice/20260507T_h1i_mlx_worst_no_directive_v1_knowledge_work_h1i_mlx_worst_family_tool_contract_v1) ran the same five MLX tool-contract rows over those four live workflow families
+  - contracted MLX stayed clean at readiness `0.97710`, strict/recovered `1.0 / 1.0`, raw clean `1.0`
+  - no-directive with helpers stayed top-line clean at readiness `0.97710`, but controller repair/fallback/argument repair rose to `1.00 / 0.50 / 0.50` and raw clean fell to `0.00`
+  - no-directive + no controller repair fell to readiness `0.64697`, strict/recovered `0.297 / 0.000`
+  - no-directive + no controller fallback fell to readiness `0.83125`; no-directive + no argument repair fell to `0.81220`
+  - interpretation: H1i is now the best fast packet for candidate prompt contracts. It is smaller than H1h, but it amplifies the same causal ordering and should be used before spending another full H1h run
 
 ### Verification
 

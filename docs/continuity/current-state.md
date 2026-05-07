@@ -113,6 +113,15 @@ Latest MLX tool-contract research:
   - comparison against contracted MLX probe: [`probe_comparison.json`](../../results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1/probe_comparison.json)
   - contracted probe exact rate `0.875`; no-directive exact rate `0.0`; delta `-0.875`
   - interpretation: H1h top-line parity under no-directive is entirely controller-mediated; raw no-directive MLX loses exact copying across CLI, API, visual, and parallel-tool families
+- H1i compact worst-family MLX packet:
+  - config: [`configs/knowledge_work_h1i_slice.yaml`](../../configs/knowledge_work_h1i_slice.yaml)
+  - packet: [`results/knowledge_work_h1_slice/20260507T_h1i_mlx_worst_no_directive_v1_knowledge_work_h1i_mlx_worst_family_tool_contract_v1`](../../results/knowledge_work_h1_slice/20260507T_h1i_mlx_worst_no_directive_v1_knowledge_work_h1i_mlx_worst_family_tool_contract_v1)
+  - contracted MLX: readiness `0.97710`, strict/recovered `1.0 / 1.0`, raw clean `1.0`
+  - no directive with helpers: readiness `0.97710`, strict/recovered `1.0 / 1.0`, repair/fallback/argument repair `1.00 / 0.50 / 0.50`, raw clean `0.00`
+  - no directive + no controller repair: readiness `0.64697`, strict/recovered `0.297 / 0.000`
+  - no directive + no controller fallback: readiness `0.83125`
+  - no directive + no argument repair: readiness `0.81220`
+  - interpretation: H1i is the current fast loop for MLX prompt-contract/controller experiments; it preserves H1h's causal ordering while making the no-repair and no-fallback gaps larger
 
 Latest real CLI smoke:
 

@@ -92,16 +92,18 @@ Current evidence:
   - no-directive exact match `0 / 8`
   - no-directive executable visual match `0 / 1`
   - delta against contracted MLX probe: exact-rate `-0.875`, executable-rate `-1.0`
+- H1i compact worst-family packet:
+  - [`configs/knowledge_work_h1i_slice.yaml`](../../configs/knowledge_work_h1i_slice.yaml)
+  - [`results/knowledge_work_h1_slice/20260507T_h1i_mlx_worst_no_directive_v1_knowledge_work_h1i_mlx_worst_family_tool_contract_v1`](../../results/knowledge_work_h1_slice/20260507T_h1i_mlx_worst_no_directive_v1_knowledge_work_h1i_mlx_worst_family_tool_contract_v1)
+  - no-directive with helpers stays top-line clean but uses repair/fallback/argument repair `1.00 / 0.50 / 0.50` and raw clean `0.00`
+  - no-directive + no controller repair drops to readiness `0.64697`
+  - no-directive + no controller fallback drops to readiness `0.83125`
 
 What remains:
 
-- use the H1h attribution table to target the next packet at the worst no-repair workflow families:
-  - `executive_latest_action_resume`
-  - `jobs_phone_patch_resume`
-  - `jobs_visual_form_hold`
-  - `executive_stale_brief_packet`
+- treat H1i as the fast loop for prompt-contract and controller-helper changes before returning to H1h
 - when a real Gemini CLI binary is available, rerun the same packet with `--execute`; keep the dry-run packet as the no-side-effects prompt manifest
-- define the next compact MLX packet around the worst no-repair H1h workflows and raw no-directive probe misses
+- use the no-directive probe misses to design candidate prompt-contract variants, then test them on H1i first
 - keep the H1h comparison commands close:
 
 ```bash
@@ -109,6 +111,7 @@ uv run python scripts/analyze_knowledge_work_h1_traces.py <packet_dir>
 uv run python scripts/summarize_h1_tool_contract.py <packet_dir>
 uv run python scripts/summarize_h1_workflow_families.py <packet_dir> --config configs/knowledge_work_h1h_slice.yaml
 uv run python scripts/compare_tool_directive_probes.py results/tool_directive_probe/20260506T_mlx_tool_directive_probe_v4 results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1
+uv run python scripts/run_knowledge_work_h1_slice.py --config configs/knowledge_work_h1i_slice.yaml --run-set ablation --lane live_web_stress --run-group-id <timestamp>_h1i_candidate
 ```
 
 Success condition:

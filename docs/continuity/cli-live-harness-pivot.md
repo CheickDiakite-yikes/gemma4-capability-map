@@ -137,6 +137,11 @@ The freshest MLX evidence is now H1h/H1g:
   - no-directive exact copy `0 / 8`
   - no-directive executable visual target `0 / 1`
   - contracted-vs-no-directive probe comparison exact-rate delta `-0.875`
+- H1i is now the compact fast loop derived from the worst H1h no-repair workflow families:
+  - [`configs/knowledge_work_h1i_slice.yaml`](../../configs/knowledge_work_h1i_slice.yaml)
+  - [`results/knowledge_work_h1_slice/20260507T_h1i_mlx_worst_no_directive_v1_knowledge_work_h1i_mlx_worst_family_tool_contract_v1`](../../results/knowledge_work_h1_slice/20260507T_h1i_mlx_worst_no_directive_v1_knowledge_work_h1i_mlx_worst_family_tool_contract_v1)
+  - no-directive + no controller repair drops to readiness `0.64697`, strict/recovered `0.297 / 0.000`
+  - no-directive with helpers still matches top-line readiness only with raw clean `0.00`
 - H1g shows the remaining helpers are not causal under the directive on the compact live slice:
   - `no_visual_rescue`, `no_intent_priority`, and `no_deterministic_visual_follow_on` all match baseline with `0` failure candidates
 - the latest directive probe separates exact-copy from executable readiness:
