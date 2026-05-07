@@ -1,0 +1,38 @@
+[
+  {
+    "case_id": "visual_form_target_literal",
+    "family": "visual_argument_copying",
+    "source_failure_mode": "no_tool_call",
+    "baseline_exact_match": "False",
+    "expected_call_count": "1",
+    "source_actual_call_count": "0",
+    "status": "non_exact",
+    "replay_failure_mode": "executable_paraphrase",
+    "replay_exact_match": false,
+    "replay_executable_match": true
+  },
+  {
+    "case_id": "visual_latest_filter_literal",
+    "family": "visual_referent_carryover",
+    "source_failure_mode": "no_tool_call",
+    "baseline_exact_match": "True",
+    "expected_call_count": "1",
+    "source_actual_call_count": "0",
+    "status": "non_exact",
+    "replay_failure_mode": "wrong_tool",
+    "replay_exact_match": false,
+    "replay_executable_match": null
+  },
+  {
+    "case_id": "visual_readback_region_literal",
+    "family": "visual_referent_carryover",
+    "source_failure_mode": "no_tool_call",
+    "baseline_exact_match": "True",
+    "expected_call_count": "1",
+    "source_actual_call_count": "0",
+    "status": "exact",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": null
+  }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "case_id": "cli_phone_patch_latest_only",
+    "family": "cli_patch_copying",
+    "expected_call_count": 1,
+    "actual_call_count": 0,
+    "exact_match": false,
+    "executable_match": null,
+    "expected_execution": {},
+    "actual_execution": [],
+    "expected_calls": [
+      {
+        "name": "cli_apply_patch",
+        "arguments": {
+          "path": "config/job_form.yaml",
+          "patch": "phone_validation: strict"
+        }
+      }
+    ],
+    "actual_calls": [],
+    "raw_model_output": "",
+    "prompt_tokens": 736,
+    "completion_tokens": 1,
+    "latency_ms": 4270
+  }
+]
