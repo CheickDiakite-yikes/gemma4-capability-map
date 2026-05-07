@@ -2798,6 +2798,14 @@
   - weak one-case exact gains and visual executable-only gains are held for exact-probe replay
   - `parallel_array_required_v2` is rejected for H1 promotion because it produced no exact or executable probe gain
   - interpretation: the next packet should be selected by promotion evidence, not by prompt-contract plausibility
+- Exact-probe replay now exists as the bridge out of packaged-workflow saturation:
+  - script: [`scripts/build_tool_probe_replay_packet.py`](../scripts/build_tool_probe_replay_packet.py)
+  - packet: [`20260507T_no_directive_exact_probe_replay_v1`](../results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1)
+  - source probe: [`20260507T_mlx_no_directive_probe_v1`](../results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1)
+  - shape: `8` failed no-directive exact-call cases, with `argument_mismatch = 4` and `no_tool_call = 4`
+  - contents: per-case JSON with messages, media, allowed tool specs, expected calls, source actual calls, raw source output, and contracted baseline context
+  - command manifest: one runnable `run_tool_directive_probe.py --case-id <case>` command per replay case
+  - interpretation: this packet is not live workflow execution. It is the evidence-preserving bridge needed before creating a faithful parallel live workflow or an operator-visible exact-probe replay executor.
 
 ### Verification
 

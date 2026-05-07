@@ -54,12 +54,17 @@ Current strongest MLX result:
   - `schema_literal_tool_required_v2`: exact `0.125`, executable `0.0`, weak exact gain
   - `visual_next_call_state_v2`: exact `0.0`, executable `1.0`, visual executable gain only
   - `parallel_array_required_v2`: exact `0.0`, executable `0.0`, no probe gain
+- exact-probe replay is now scaffolded and recorded:
+  - brief: [`docs/continuity/exact-probe-replay.md`](./exact-probe-replay.md)
+  - packet: [`results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1`](../../results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1)
+  - `8` failed no-directive probe cases, split into `4` argument mismatches and `4` no-tool-call cases
+  - each case has messages, media, tool specs, expected calls, source actual calls, baseline context, and a runnable `run_tool_directive_probe.py --case-id <case>` command
 
 Current next loop:
 
 1. Treat H1i candidate v1 and repeat3 as saturated/non-discriminating after the probe gate.
 2. Treat prompt-contract wave two as partial-gain evidence, not a fix.
-3. Add a live packaged workflow for the deferred parallel no-call family, or build a live-operator replay mode for exact probe cases.
+3. Use the exact-probe replay packet to decide whether the next implementation is a faithful packaged parallel workflow or replay execution for raw probe cases.
 4. Return to H1h only after H1i changes for the right mechanism-level reason.
 5. Regenerate the report artifacts after any H1i/H1h/probe/Gemini packet change.
 

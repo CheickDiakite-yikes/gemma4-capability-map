@@ -134,14 +134,15 @@ The active next experiment is now a CLI/research-harness packet, not a UI task:
 - the H1j helper-ablation packet is [`results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_helpers_v1_knowledge_work_ablation_packet`](results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_helpers_v1_knowledge_work_ablation_packet)
 - the executed prompt-contract wave-two probe packet is [`results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave2_execute_v1`](results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave2_execute_v1)
 - prompt-contract promotion decisions are generated at [`results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_promotion_decisions.csv`](results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_promotion_decisions.csv)
+- the exact-probe replay packet is [`results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1`](results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1)
 
 The current read is partial-gain and second-stage saturation: `schema_anchor_v1` and `schema_literal_tool_required_v2` each recovered one exact probe case, while the visual-state contracts recovered executable visual behavior without improving exact JSON copy. H1i candidate, H1i repeat3, H1j candidates, and H1j helper ablation all saturated. `parallel_array_required_v2` did not move the parallel/no-call probe family.
 
-The next research move should target a stricter exact-probe live replay path, not another same-shape H1 packet:
+The next research move is the stricter exact-probe replay path, not another same-shape H1 packet:
 
 ```bash
-uv run python scripts/build_mlx_tool_contract_report.py
-uv run pytest tests/test_mlx_tool_contract_report.py -q
+uv run python scripts/build_tool_probe_replay_packet.py \
+  --run-group-id <timestamp>_no_directive_exact_probe_replay
 ```
 
 ## Local Agent Harness

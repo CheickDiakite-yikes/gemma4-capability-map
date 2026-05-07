@@ -174,6 +174,13 @@ Latest MLX tool-contract research:
     - `visual_next_call_state_v2`: exact `0.0`, executable `1.0`, recommendation `visual_executable_gain_only`
     - `parallel_array_required_v2`: exact `0.0`, executable `0.0`, recommendation `no_probe_gain`
   - interpretation: wave 2 confirms the prior shape rather than solving it. The next move is stricter exact-probe live replay or a faithful live packaged workflow for the deferred parallel no-call family, not promotion back to H1
+- Exact-probe replay packet:
+  - brief: [`docs/continuity/exact-probe-replay.md`](./exact-probe-replay.md)
+  - script: [`scripts/build_tool_probe_replay_packet.py`](../../scripts/build_tool_probe_replay_packet.py)
+  - packet: [`results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1`](../../results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1)
+  - source: no-directive probe [`results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1`](../../results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1)
+  - shape: `8` failed exact-call probe cases, `4` argument mismatches and `4` no-tool-call cases
+  - interpretation: this is not a packaged live workflow yet; it is the replay artifact that should drive the next live discriminator
 
 Current generated research report:
 

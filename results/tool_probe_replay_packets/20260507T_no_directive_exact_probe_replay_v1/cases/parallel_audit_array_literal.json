@@ -1,0 +1,114 @@
+{
+  "case_id": "parallel_audit_array_literal",
+  "family": "parallel_tool_calling",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Check both the screenshot and config/settings.yaml before you answer.",
+      "image_refs": []
+    }
+  ],
+  "media": [
+    "img-parallel"
+  ],
+  "tool_names": [
+    "inspect_image",
+    "read_repo_file",
+    "propose_patch"
+  ],
+  "tool_specs": [
+    {
+      "name": "inspect_image",
+      "description": "Inspect a screenshot or document image and extract the relevant action.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "image_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "image_id"
+        ]
+      },
+      "tool_family": "function_call",
+      "tool_intent": "inspect"
+    },
+    {
+      "name": "read_repo_file",
+      "description": "Read a repository file by path.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "path"
+        ]
+      },
+      "tool_family": "function_call",
+      "tool_intent": "read"
+    },
+    {
+      "name": "propose_patch",
+      "description": "Record a proposed patch for a repository file.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "patch": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "path",
+          "patch"
+        ]
+      },
+      "tool_family": "function_call",
+      "tool_intent": "patch"
+    }
+  ],
+  "initial_state": {},
+  "expected_execution": {},
+  "expected_calls": [
+    {
+      "name": "inspect_image",
+      "arguments": {
+        "image_id": "img-parallel"
+      }
+    },
+    {
+      "name": "read_repo_file",
+      "arguments": {
+        "path": "config/settings.yaml"
+      }
+    }
+  ],
+  "source_actual_calls": [],
+  "source_raw_model_output": "I need the screenshot and the content of `config/settings.yaml` to proceed. Please provide them.",
+  "source_exact_match": false,
+  "source_executable_match": null,
+  "source_failure_mode": "no_tool_call",
+  "baseline_exact_match": true,
+  "baseline_actual_calls": [
+    {
+      "name": "inspect_image",
+      "arguments": {
+        "image_id": "img-parallel"
+      }
+    },
+    {
+      "name": "read_repo_file",
+      "arguments": {
+        "path": "config/settings.yaml"
+      }
+    }
+  ],
+  "live_entrypoint_status": "probe_replay_packet_only_v1",
+  "live_entrypoint_note": "This is a raw exact-call replay artifact, not a packaged workflow session."
+}

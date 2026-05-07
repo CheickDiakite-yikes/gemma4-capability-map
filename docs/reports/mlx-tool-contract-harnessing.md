@@ -65,6 +65,7 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 | [`H1i prompt-contract repeat3 packet`](../../results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_repeat3_v1_knowledge_work_ablation_packet) | Repeated second-stage candidate packet: three attempts per H1i workflow family per row. |
 | [`H1j probe-derived candidate packet`](../../results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_candidates_v1_knowledge_work_ablation_packet) | Six packaged live workflows selected from exact no-directive probe failure families. |
 | [`H1j probe-derived helper packet`](../../results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_helpers_v1_knowledge_work_ablation_packet) | Controller-helper ablation on the same H1j probe-derived packaged workflow set. |
+| [`exact-probe replay packet`](../../results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1) | Dry-run replay artifacts for the eight failed no-directive exact-call probe cases. |
 | [`Gemini CLI dry-run baseline`](../../results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1) | External-reference prompt and command manifest over the H1h workflow families. |
 
 ## Packet Summary
@@ -206,6 +207,22 @@ The current decisions are intentionally conservative:
 - no-gain parallel/no-call candidates are rejected for H1 promotion
 
 That table is the guardrail for the next loop: a prompt-contract candidate should not graduate because it sounds plausible; it should graduate only after it moves exact probe behavior or reduces controller burden on a harder live discriminator.
+
+## Exact-Probe Replay Packet
+
+The first replay packet is now recorded at:
+
+- [`results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1`](../../results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1)
+- brief: [`docs/continuity/exact-probe-replay.md`](../continuity/exact-probe-replay.md)
+
+It contains all `8` failed no-directive exact-call cases:
+
+| Failure mode | Count |
+| --- | ---: |
+| `argument_mismatch` | `4` |
+| `no_tool_call` | `4` |
+
+This packet is deliberately a dry-run replay artifact, not a packaged live workflow. It preserves each case's messages, media, allowed tool specs, expected calls, no-directive actual calls, and contracted baseline context. The next implementation should either turn the deferred parallel case into a faithful packaged workflow or make these exact probe cases operator-visible in a replay executor.
 
 ## H1i Candidate Packet Result
 
