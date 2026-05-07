@@ -15,6 +15,7 @@ DEFAULT_PACKET_ROOTS = {
     "prompt-contract-probe": ROOT / "results" / "tool_prompt_contract_probe_packets",
     "tool-probe-replay": ROOT / "results" / "tool_probe_replay_packets",
     "tool-probe-replay-live": ROOT / "results" / "tool_probe_replay_live",
+    "tool-probe-replay-live-comparison": ROOT / "results" / "tool_probe_replay_live_comparisons",
 }
 
 
@@ -29,6 +30,8 @@ def research_packet_payload(
         return _tool_probe_replay_payload(packet_kind=packet_kind, target=target)
     if packet_kind == "tool-probe-replay-live":
         return _tool_probe_replay_live_payload(packet_kind=packet_kind, target=target)
+    if packet_kind == "tool-probe-replay-live-comparison":
+        return _tool_probe_replay_live_comparison_payload(packet_kind=packet_kind, target=target)
     manifest = _read_json(target / "manifest.json")
     commands = _read_json(target / "commands.json")
     results = _read_json(target / "results.json")
@@ -100,6 +103,28 @@ def _tool_probe_replay_live_payload(*, packet_kind: str, target: Path) -> dict[s
     }
 
 
+def _tool_probe_replay_live_comparison_payload(*, packet_kind: str, target: Path) -> dict[str, Any]:
+    comparison = _read_json(target / "live_replay_comparison.json")
+    summary = comparison.get("summary", {}) if isinstance(comparison, dict) else {}
+    case_delta_rows = _read_csv(target / "live_replay_case_deltas.csv")
+    return {
+        "packet_kind": packet_kind,
+        "packet_id": target.name,
+        "packet_dir": str(target.resolve()),
+        "exists": target.exists(),
+        "manifest": {"created_at": ""},
+        "summary": summary,
+        "shared_case_count": _count_or_default(summary, "shared_case_count", len(case_delta_rows)),
+        "baseline_system_id": summary.get("baseline_system_id", "") if isinstance(summary, dict) else "",
+        "candidate_system_id": summary.get("candidate_system_id", "") if isinstance(summary, dict) else "",
+        "baseline_exact_rate": float(summary.get("baseline_exact_rate") or 0.0) if isinstance(summary, dict) else 0.0,
+        "candidate_exact_rate": float(summary.get("candidate_exact_rate") or 0.0) if isinstance(summary, dict) else 0.0,
+        "delta_exact_rate": float(summary.get("delta_exact_rate") or 0.0) if isinstance(summary, dict) else 0.0,
+        "case_delta_rows": case_delta_rows,
+        "files": [_file_payload(child) for child in sorted(target.iterdir()) if child.is_file()] if target.exists() else [],
+    }
+
+
 def print_research_packet(payload: dict[str, Any], *, console: Console | None = None) -> None:
     target_console = console or Console()
     target_console.print(_research_packet_renderable(payload))
@@ -165,6 +190,11 @@ def _research_packet_renderable(payload: dict[str, Any]) -> Group:
         header.add_row("Cases", str(payload.get("case_count", 0)))
         header.add_row("Executed", str(payload.get("executed_count", 0)))
         header.add_row("Exact rate", str(payload.get("exact_rate", 0.0)))
+    elif payload.get("packet_kind") == "tool-probe-replay-live-comparison":
+        header.add_row("Baseline", str(payload.get("baseline_system_id", "")))
+        header.add_row("Candidate", str(payload.get("candidate_system_id", "")))
+        header.add_row("Shared cases", str(payload.get("shared_case_count", 0)))
+        header.add_row("Delta exact", str(payload.get("delta_exact_rate", 0.0)))
     else:
         header.add_row("Execute", str(manifest.get("execute", "")))
         header.add_row("Candidates", str(payload.get("candidate_count", 0)))
@@ -240,6 +270,23 @@ def _research_packet_renderable(payload: dict[str, Any]) -> Group:
             str(row.get("replay_exact_match", "")),
         )
 
+    live_comparison = Table(title="Live Replay Comparison")
+    live_comparison.add_column("Case")
+    live_comparison.add_column("Family")
+    live_comparison.add_column("Baseline exact")
+    live_comparison.add_column("Candidate exact")
+    live_comparison.add_column("Delta calls")
+    live_comparison.add_column("Candidate failure")
+    for row in payload.get("case_delta_rows") or []:
+        live_comparison.add_row(
+            str(row.get("case_id", "")),
+            str(row.get("family", "")),
+            str(row.get("baseline_replay_exact_match", "")),
+            str(row.get("candidate_replay_exact_match", "")),
+            str(row.get("delta_actual_call_count", "")),
+            str(row.get("candidate_replay_failure_mode", "")),
+        )
+
     files = Table(title="Files")
     files.add_column("File")
     files.add_column("Bytes", justify="right")
@@ -254,6 +301,8 @@ def _research_packet_renderable(payload: dict[str, Any]) -> Group:
             body.append(replay_results)
     elif payload.get("packet_kind") == "tool-probe-replay-live":
         body.append(live_cases)
+    elif payload.get("packet_kind") == "tool-probe-replay-live-comparison":
+        body.append(live_comparison)
     else:
         body.append(candidates)
     body.append(files)

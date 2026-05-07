@@ -187,6 +187,14 @@ uv run moonie-agent packet \
   --packet-id 20260507T_parallel_array_replay_live_dry_run_v1
 ```
 
+Live comparison inspection:
+
+```bash
+uv run moonie-agent packet \
+  --kind tool-probe-replay-live-comparison \
+  --packet-id 20260507T_canonical_argument_contracted_vs_no_directive_live_v1
+```
+
 Executed packet:
 
 ```bash

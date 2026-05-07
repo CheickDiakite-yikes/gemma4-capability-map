@@ -80,7 +80,12 @@ def parse_args() -> argparse.Namespace:
     packet_parser = subparsers.add_parser("packet", help="Inspect generated research packet artifacts from the terminal.")
     packet_parser.add_argument(
         "--kind",
-        choices=["prompt-contract-probe", "tool-probe-replay", "tool-probe-replay-live"],
+        choices=[
+            "prompt-contract-probe",
+            "tool-probe-replay",
+            "tool-probe-replay-live",
+            "tool-probe-replay-live-comparison",
+        ],
         default="prompt-contract-probe",
     )
     packet_parser.add_argument("--packet-id", default="latest")

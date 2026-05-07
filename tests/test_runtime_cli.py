@@ -596,6 +596,63 @@ def test_runtime_cli_packet_renders_tool_probe_replay_live_overview(
     assert "no_tool_call" in output
 
 
+def test_runtime_cli_packet_json_inspects_tool_probe_replay_live_comparison(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+    tmp_path: Path,
+) -> None:
+    runtime = LocalAgentRuntime(results_root=tmp_path / "runtime")
+    packet_dir = _write_fake_tool_probe_replay_live_comparison(tmp_path / "live-comparison")
+    monkeypatch.setattr(runtime_cli, "LocalAgentRuntime", lambda: runtime)
+    monkeypatch.setattr(
+        runtime_cli,
+        "parse_args",
+        lambda: runtime_cli.argparse.Namespace(
+            command="packet",
+            kind="tool-probe-replay-live-comparison",
+            packet_id="latest",
+            packet_dir=str(packet_dir),
+            json=True,
+        ),
+    )
+
+    runtime_cli.main()
+
+    output = json.loads(capsys.readouterr().out)
+    assert output["packet_kind"] == "tool-probe-replay-live-comparison"
+    assert output["shared_case_count"] == 1
+    assert output["delta_exact_rate"] == -1.0
+    assert output["case_delta_rows"][0]["candidate_replay_failure_mode"] == "no_tool_call"
+
+
+def test_runtime_cli_packet_renders_tool_probe_replay_live_comparison(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+    tmp_path: Path,
+) -> None:
+    runtime = LocalAgentRuntime(results_root=tmp_path / "runtime")
+    packet_dir = _write_fake_tool_probe_replay_live_comparison(tmp_path / "live-comparison")
+    monkeypatch.setattr(runtime_cli, "LocalAgentRuntime", lambda: runtime)
+    monkeypatch.setattr(
+        runtime_cli,
+        "parse_args",
+        lambda: runtime_cli.argparse.Namespace(
+            command="packet",
+            kind="tool-probe-replay-live-comparison",
+            packet_id="latest",
+            packet_dir=str(packet_dir),
+            json=False,
+        ),
+    )
+
+    runtime_cli.main()
+
+    output = capsys.readouterr().out
+    assert "Moonie Research Packet" in output
+    assert "Live Replay Comparison" in output
+    assert "Delta exact" in output
+
+
 def _write_fake_research_report(report_dir: Path) -> Path:
     (report_dir / "tables").mkdir(parents=True)
     (report_dir / "figures").mkdir()
@@ -785,4 +842,37 @@ def _write_fake_tool_probe_replay_live_packet(packet_dir: Path) -> Path:
         + "\n",
         encoding="utf-8",
     )
+    return packet_dir
+
+
+def _write_fake_tool_probe_replay_live_comparison(packet_dir: Path) -> Path:
+    packet_dir.mkdir(parents=True)
+    (packet_dir / "live_replay_comparison.json").write_text(
+        json.dumps(
+            {
+                "summary": {
+                    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+                    "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+                    "shared_case_count": 1,
+                    "baseline_exact_rate": 1.0,
+                    "candidate_exact_rate": 0.0,
+                    "delta_exact_rate": -1.0,
+                },
+                "case_deltas": [],
+            }
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    (packet_dir / "live_replay_case_deltas.csv").write_text(
+        "\n".join(
+            [
+                "case_id,family,baseline_replay_exact_match,candidate_replay_exact_match,delta_actual_call_count,candidate_replay_failure_mode",
+                "parallel_audit_array_literal,parallel_tool_calling,True,False,-2,no_tool_call",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    (packet_dir / "live_replay_summary.md").write_text("# Fake comparison\n", encoding="utf-8")
     return packet_dir
