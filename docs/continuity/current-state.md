@@ -46,6 +46,10 @@ Current CLI surface:
   - current default kind is `prompt-contract-probe`, including candidate rows, command counts, dry-run/executed counts, and packet files
   - `--kind tool-probe-replay` inspects exact probe replay packets, including case rows, failure modes, command counts, and packet files
   - supports `--packet-id latest`, explicit `--packet-dir`, and `--json`
+- `moonie-agent replay-live`
+  - previews or executes exact tool-probe replay cases through a Rich CLI operator view
+  - defaults to the no-directive MLX replay system and supports `--case-id`, `--packet-dir`, `--execute`, and `--json`
+  - writes live replay packets under `results/tool_probe_replay_live/`
 
 The React desktop harness exists and remains useful prior work, but it is no longer the main next workstream:
 
@@ -214,7 +218,8 @@ Latest MLX tool-contract research:
   - execution result: `0 / 8` exact, with the same `4` argument mismatches and `4` no-tool-call failures reproduced
   - contracted replay result: `7 / 8` exact, with the remaining visual paraphrase executable
   - comparison result: no-directive exact-rate delta `-0.875` versus contracted on the same cases
-  - interpretation: this is not a packaged live workflow yet; it is the stable raw-contract replay artifact that should drive the next live discriminator
+  - live operator dry run: [`results/tool_probe_replay_live/20260507T_parallel_array_replay_live_dry_run_v1`](../../results/tool_probe_replay_live/20260507T_parallel_array_replay_live_dry_run_v1)
+  - interpretation: this is not a packaged live workflow yet; it is the stable raw-contract replay artifact that should drive the next live discriminator. The new `moonie-agent replay-live` command is the first CLI bridge for watching these exact cases without converting them into easier staged workflows.
 - Focused canonical-argument replay:
   - no-directive packet: [`results/tool_probe_replay_packets/20260507T_canonical_argument_exact_replay_no_directive_v1`](../../results/tool_probe_replay_packets/20260507T_canonical_argument_exact_replay_no_directive_v1)
   - contracted packet: [`results/tool_probe_replay_packets/20260507T_canonical_argument_exact_replay_contracted_v1`](../../results/tool_probe_replay_packets/20260507T_canonical_argument_exact_replay_contracted_v1)

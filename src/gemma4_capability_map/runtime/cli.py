@@ -12,7 +12,9 @@ from gemma4_capability_map.runtime.research_packets import print_research_packet
 from gemma4_capability_map.runtime.research_reports import print_research_report, research_report_payload
 from gemma4_capability_map.runtime.sandbox import DEFAULT_SANDBOX_POLICY_ID
 from gemma4_capability_map.runtime.schemas import ApprovalStatus
+from gemma4_capability_map.runtime.tool_probe_replay_live import run_tool_probe_replay_live
 from gemma4_capability_map.runtime.workflows import DEFAULT_WORKFLOWS_PATH, validate_packaged_workflows
+from gemma4_capability_map.reporting.knowledge_work_board import DEFAULT_REGISTRY_PATH
 
 
 def parse_args() -> argparse.Namespace:
@@ -80,6 +82,17 @@ def parse_args() -> argparse.Namespace:
     packet_parser.add_argument("--packet-id", default="latest")
     packet_parser.add_argument("--packet-dir", default=None)
     packet_parser.add_argument("--json", action="store_true")
+
+    replay_live_parser = subparsers.add_parser("replay-live", help="Preview or execute exact tool-probe replay cases with a Rich operator view.")
+    replay_live_parser.add_argument("--packet-id", default="latest")
+    replay_live_parser.add_argument("--packet-dir", default=None)
+    replay_live_parser.add_argument("--output-dir", default=None)
+    replay_live_parser.add_argument("--system-id", default="mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive")
+    replay_live_parser.add_argument("--registry", default=str(DEFAULT_REGISTRY_PATH))
+    replay_live_parser.add_argument("--case-id", action="append", dest="case_ids", default=[])
+    replay_live_parser.add_argument("--execute", action="store_true")
+    replay_live_parser.add_argument("--refresh-s", type=float, default=0.5)
+    replay_live_parser.add_argument("--json", action="store_true")
 
     gemini_parser = subparsers.add_parser("gemini-baseline", help="Prepare or run a Gemini CLI external baseline for a packaged workflow.")
     gemini_parser.add_argument("--workflow-id", required=True)
@@ -240,6 +253,21 @@ def main() -> None:
             print(json.dumps(payload, indent=2, ensure_ascii=False))
         else:
             print_research_packet(payload)
+        return
+    if args.command == "replay-live":
+        payload = run_tool_probe_replay_live(
+            packet_id=args.packet_id,
+            packet_dir=args.packet_dir,
+            output_dir=args.output_dir,
+            system_id=args.system_id,
+            registry_path=args.registry,
+            case_ids=args.case_ids,
+            execute=args.execute,
+            render=not args.json,
+            refresh_s=args.refresh_s,
+        )
+        if args.json:
+            print(json.dumps(payload, indent=2, ensure_ascii=False))
         return
     if args.command == "gemini-baseline":
         workflow = next((row for row in runtime.list_workflows(lane=args.lane) if row["workflow_id"] == args.workflow_id), None)

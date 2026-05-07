@@ -1,0 +1,15 @@
+{
+  "packet_run_id": "20260507T_parallel_array_replay_live_dry_run_v1",
+  "packet_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260507T_parallel_array_replay_live_dry_run_v1",
+  "source_packet_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_execute_v1",
+  "source_packet_run_id": "20260507T_no_directive_exact_probe_replay_execute_v1",
+  "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+  "case_count": 1,
+  "execute": false,
+  "executed_count": 0,
+  "exact_count": 0,
+  "exact_rate": 0.0,
+  "failure_mode_counts": {
+    "no_tool_call": 1
+  }
+}

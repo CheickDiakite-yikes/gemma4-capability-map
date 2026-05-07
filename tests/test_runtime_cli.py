@@ -500,6 +500,43 @@ def test_runtime_cli_packet_renders_tool_probe_replay_overview(
     assert "no_tool_call" in output
 
 
+def test_runtime_cli_replay_live_json_writes_dry_run_packet(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+    tmp_path: Path,
+) -> None:
+    runtime = LocalAgentRuntime(results_root=tmp_path / "runtime")
+    packet_dir = _write_fake_tool_probe_replay_packet(tmp_path / "replay")
+    output_dir = tmp_path / "live-replay"
+    monkeypatch.setattr(runtime_cli, "LocalAgentRuntime", lambda: runtime)
+    monkeypatch.setattr(
+        runtime_cli,
+        "parse_args",
+        lambda: runtime_cli.argparse.Namespace(
+            command="replay-live",
+            packet_id="latest",
+            packet_dir=str(packet_dir),
+            output_dir=str(output_dir),
+            system_id="mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+            registry=str(tmp_path / "registry.yaml"),
+            case_ids=["parallel_audit_array_literal"],
+            execute=False,
+            refresh_s=0.1,
+            json=True,
+        ),
+    )
+
+    runtime_cli.main()
+
+    output = json.loads(capsys.readouterr().out)
+    assert output["summary"]["case_count"] == 1
+    assert output["summary"]["execute"] is False
+    assert output["case_states"][0]["case_id"] == "parallel_audit_array_literal"
+    assert output["case_states"][0]["status"] == "dry_run"
+    assert output["manifest"]["entrypoint"] == "moonie-agent replay-live"
+    assert (output_dir / "live_case_states.csv").exists()
+
+
 def _write_fake_research_report(report_dir: Path) -> Path:
     (report_dir / "tables").mkdir(parents=True)
     (report_dir / "figures").mkdir()

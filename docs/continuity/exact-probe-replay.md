@@ -6,6 +6,8 @@ H1i repeat3, H1j candidate, and H1j helper-ablation packets all saturated even t
 
 The exact-probe replay packet is the next bridge. It preserves raw probe cases as CLI-inspectable artifacts before they are promoted into any live workflow or H1 packet.
 
+The live operator bridge now starts with `moonie-agent replay-live`. It is intentionally separate from packaged workflow sessions: it replays exact probe cases as raw tool-contract checks, renders progress with Rich, and writes a small live replay packet under `results/tool_probe_replay_live/`.
+
 ## Current Packet
 
 - packet: [`results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1`](../../results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1)
@@ -24,6 +26,7 @@ The exact-probe replay packet is the next bridge. It preserves raw probe cases a
 - executed replay: `8` cases, exact `0 / 8`, same failure split reproduced
 - contracted replay: `7 / 8` exact, with the remaining visual selector paraphrase executable
 - A/B delta: no-directive exact rate is `-0.875` versus contracted on the same eight cases
+- first live operator dry run: [`results/tool_probe_replay_live/20260507T_parallel_array_replay_live_dry_run_v1`](../../results/tool_probe_replay_live/20260507T_parallel_array_replay_live_dry_run_v1)
 
 ## Packet Contents
 
@@ -38,6 +41,8 @@ The exact-probe replay packet is the next bridge. It preserves raw probe cases a
 ## Method Guardrail
 
 This packet is not a packaged live workflow and should not be counted as live workflow execution. It is a raw exact-call replay artifact for deciding what must be represented next.
+
+The `replay-live` CLI follows the same rule. It is an operator-visible exact replay harness, not a workflow-family leaderboard row. Use it to test whether raw no-directive or prompt-contract systems can reproduce exact calls under the same probe messages, media, and allowed tool schemas.
 
 Use it to choose the next live discriminator:
 
@@ -72,6 +77,44 @@ uv run python scripts/build_tool_probe_replay_packet.py \
 ```
 
 Available filters: `--case-id`, `--family`, `--failure-mode`, and `--next-action`.
+
+## Live Operator Replay
+
+Dry-run one exact replay case through the Rich CLI surface:
+
+```bash
+uv run moonie-agent replay-live \
+  --packet-dir results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_execute_v1 \
+  --case-id parallel_audit_array_literal \
+  --output-dir results/tool_probe_replay_live/<timestamp>_parallel_array_replay_live_dry_run_v1
+```
+
+JSON dry run for scripted checks:
+
+```bash
+uv run moonie-agent replay-live \
+  --packet-dir results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_execute_v1 \
+  --case-id parallel_audit_array_literal \
+  --output-dir results/tool_probe_replay_live/<timestamp>_parallel_array_replay_live_dry_run_v1 \
+  --json
+```
+
+Execution mode:
+
+```bash
+uv run moonie-agent replay-live \
+  --packet-dir results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_execute_v1 \
+  --case-id parallel_audit_array_literal \
+  --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive \
+  --output-dir results/tool_probe_replay_live/<timestamp>_parallel_array_replay_live_execute_v1 \
+  --execute
+```
+
+The first tracked live dry run is:
+
+- [`results/tool_probe_replay_live/20260507T_parallel_array_replay_live_dry_run_v1`](../../results/tool_probe_replay_live/20260507T_parallel_array_replay_live_dry_run_v1)
+
+It records the selected source packet, system id, exact replay case id, source failure mode, and the exact command needed to execute the same case.
 
 Executed packet:
 

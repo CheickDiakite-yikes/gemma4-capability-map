@@ -169,6 +169,7 @@ The repo is no longer only a benchmark runner. It now has an explicit local prod
   - `moonie-agent attach <session_id>` watches an existing run through a Rich terminal operator view
   - `moonie-agent report` inspects generated research reports, tables, figures, and prompt-contract candidate metadata from the terminal
   - `moonie-agent packet` inspects generated research packet manifests, commands, candidate rows, replay cases, and dry-run/executed counts
+  - `moonie-agent replay-live` previews or executes exact tool-probe replay cases through a Rich terminal operator view without converting them into packaged workflow rows
 - `moonie-agent-api`
   - local HTTP API for thin desktop and mobile clients
 - React desktop harness
