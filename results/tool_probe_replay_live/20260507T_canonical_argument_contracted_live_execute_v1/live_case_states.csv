@@ -1,0 +1,5 @@
+case_id,family,source_failure_mode,baseline_exact_match,expected_call_count,source_actual_call_count,status,replay_failure_mode,replay_exact_match,replay_executable_match
+api_form_issue_fetch,api_canonicalization,argument_mismatch,True,1,1,exact,exact,True,
+api_invoice_lock_hold_update,api_canonicalization,argument_mismatch,True,1,1,exact,exact,True,
+cli_invoice_lock_hyphen_query,cli_canonicalization,argument_mismatch,True,1,1,exact,exact,True,
+cli_phone_patch_latest_only,cli_patch_copying,argument_mismatch,True,1,1,exact,exact,True,

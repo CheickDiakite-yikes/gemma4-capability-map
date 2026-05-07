@@ -1,0 +1,38 @@
+[
+  {
+    "case_id": "api_invoice_lock_hold_update",
+    "family": "api_canonicalization",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": null,
+    "expected_execution": {},
+    "actual_execution": [],
+    "expected_calls": [
+      {
+        "name": "api_update_record",
+        "arguments": {
+          "record_type": "billing_record",
+          "record_id": "INV-204",
+          "field": "invoice_lock",
+          "value": "hold"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "api_update_record",
+        "arguments": {
+          "record_type": "billing_record",
+          "record_id": "INV-204",
+          "field": "invoice_lock",
+          "value": "hold"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"api_update_record\", \"arguments\": {\"record_type\": \"billing_record\", \"record_id\": \"INV-204\", \"field\": \"invoice_lock\", \"value\": \"hold\"}}",
+    "prompt_tokens": 644,
+    "completion_tokens": 50,
+    "latency_ms": 4874
+  }
+]

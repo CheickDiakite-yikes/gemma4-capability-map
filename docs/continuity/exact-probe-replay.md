@@ -34,6 +34,7 @@ The live operator bridge now starts with `moonie-agent replay-live`. It is inten
 - visual contracted live execution: [`results/tool_probe_replay_live/20260507T_visual_state_contracted_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_visual_state_contracted_live_execute_v1)
 - visual live comparison: [`results/tool_probe_replay_live_comparisons/20260507T_visual_state_contracted_vs_no_directive_live_v1`](../../results/tool_probe_replay_live_comparisons/20260507T_visual_state_contracted_vs_no_directive_live_v1)
 - canonical-argument no-directive live execution: [`results/tool_probe_replay_live/20260507T_canonical_argument_no_directive_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_canonical_argument_no_directive_live_execute_v1)
+- canonical-argument contracted live execution: [`results/tool_probe_replay_live/20260507T_canonical_argument_contracted_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_canonical_argument_contracted_live_execute_v1)
 
 ## Packet Contents
 
@@ -164,6 +165,12 @@ Canonical-argument no-directive live execution:
 - [`results/tool_probe_replay_live/20260507T_canonical_argument_no_directive_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_canonical_argument_no_directive_live_execute_v1)
 
 Result: exact `0 / 4`; all four cases remain `argument_mismatch`. Each case still emits one tool call, which means the no-directive failure is argument fidelity, not total tool-protocol exit.
+
+Canonical-argument contracted live execution:
+
+- [`results/tool_probe_replay_live/20260507T_canonical_argument_contracted_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_canonical_argument_contracted_live_execute_v1)
+
+Result: exact `4 / 4`; all four cases emit the expected single call with canonical arguments. This completes the CLI-live replay baseline for the three focused raw-failure families.
 
 CLI inspection:
 
