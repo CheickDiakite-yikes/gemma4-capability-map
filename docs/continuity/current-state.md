@@ -162,6 +162,8 @@ Latest MLX tool-contract research:
   - parallel no-call remains deferred until a faithful live packaged workflow exists
   - candidate packet: [`results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_candidates_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_candidates_v1_knowledge_work_ablation_packet)
   - H1j candidate result: `30` traces, all five rows matched readiness `0.96577`, strict/recovered `1.0 / 1.0`, repair/fallback/argument repair `0.0 / 0.0 / 0.0`, raw clean `1.0`, with `0` trace notes and `0` failure candidates
+  - helper packet: [`results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_helpers_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_helpers_v1_knowledge_work_ablation_packet)
+  - H1j helper result: `30` traces, all five helper rows matched readiness `0.96577`, strict/recovered `1.0 / 1.0`, repair/fallback/argument repair `0.0 / 0.0 / 0.0`, raw clean `1.0`; trace mining found `21` disabled-repair markers but `0` failure candidates
 
 Current generated research report:
 
@@ -173,6 +175,7 @@ Current generated research report:
 - H1i prompt-contract candidate metrics: [`results/reports/mlx_tool_contract_harnessing/tables/h1i_prompt_contract_candidate_metrics.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/h1i_prompt_contract_candidate_metrics.csv)
 - H1i prompt-contract repeat3 metrics: [`results/reports/mlx_tool_contract_harnessing/tables/h1i_prompt_contract_repeat3_metrics.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/h1i_prompt_contract_repeat3_metrics.csv)
 - H1j probe-derived candidate metrics: [`results/reports/mlx_tool_contract_harnessing/tables/h1j_probe_derived_candidate_metrics.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/h1j_probe_derived_candidate_metrics.csv)
+- H1j probe-derived helper metrics: [`results/reports/mlx_tool_contract_harnessing/tables/h1j_probe_derived_helper_metrics.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/h1j_probe_derived_helper_metrics.csv)
 - figures: [`results/reports/mlx_tool_contract_harnessing/figures`](../../results/reports/mlx_tool_contract_harnessing/figures)
 - regeneration command:
 

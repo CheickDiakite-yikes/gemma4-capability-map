@@ -1,0 +1,278 @@
+{
+  "run_group_id": "20260507T_h1j_probe_derived_helpers_v1",
+  "created_at": "2026-05-07T01:49:04.597673+00:00",
+  "h1_slice": {
+    "name": "knowledge_work_h1j_probe_derived_tool_contract_live",
+    "version": "v1",
+    "description": "Probe-derived successor to saturated H1i. H1j keeps the CLI-first, packaged-workflow-only live entrypoint, but selects workflow families that map directly to the no-directive probe failures: API/CLI argument mismatch, visual no-tool-call collapse, visual referent carryover, and readback pressure. The parallel-tool probe failure remains explicitly deferred until a packaged live workflow exists for it.\n",
+    "run_intent": "exploratory",
+    "update_latest": false,
+    "live_entrypoint": "packaged_workflows_only",
+    "primary_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_system_ids": [
+      "oracle_gemma4_e2b",
+      "hf_service_gemma4_specialists_cpu"
+    ],
+    "ablation_bundle_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "ablation_system_ids": [
+      "mlx_gemma4_e2b_reasoner_only",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_repair",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_fallback",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_argument_repair"
+    ],
+    "lanes": {
+      "replayable_core": {
+        "episode_ids": [
+          "kwa_exec_visual_dashboard_brief",
+          "kwa_exec_visual_dashboard_referent_hold_v3",
+          "kwa_jobs_visual_constraint_override_hold_v2",
+          "kwa_jobs_phone_patch_resume_hold_v4",
+          "kwa_finance_invoice_lock_direction_hold_v4",
+          "kwa_finance_diff_review_hold_v5"
+        ]
+      },
+      "live_web_stress": {
+        "episode_ids": [
+          "kwa_exec_live_visual_dashboard_brief",
+          "kwa_exec_live_visual_dashboard_referent_hold_v3",
+          "kwa_jobs_live_visual_constraint_override_hold_v2",
+          "kwa_jobs_live_phone_patch_resume_hold_v4",
+          "kwa_finance_live_invoice_lock_direction_hold_v4",
+          "kwa_finance_live_diff_review_hold_v5"
+        ]
+      }
+    },
+    "workflow_families": [
+      {
+        "workflow_id": "executive_visual_dashboard_review",
+        "role_family": "executive_assistant",
+        "purpose": "isolate visual target selection and readback after no-directive visual probe collapse",
+        "replayable_episode_id": "kwa_exec_visual_dashboard_brief",
+        "live_episode_id": "kwa_exec_live_visual_dashboard_brief",
+        "h1_stressors": [
+          "visual_argument_copying",
+          "visual_readback_region_literal"
+        ]
+      },
+      {
+        "workflow_id": "executive_visual_referent_review",
+        "role_family": "executive_assistant",
+        "purpose": "carry a dashboard visual referent through latest-filter pressure",
+        "replayable_episode_id": "kwa_exec_visual_dashboard_referent_hold_v3",
+        "live_episode_id": "kwa_exec_live_visual_dashboard_referent_hold_v3",
+        "h1_stressors": [
+          "visual_latest_filter_literal",
+          "visual_referent_carryover"
+        ]
+      },
+      {
+        "workflow_id": "jobs_visual_constraint_override",
+        "role_family": "job_application_ops",
+        "purpose": "preserve form visual constraints while avoiding stale issue carryover",
+        "replayable_episode_id": "kwa_jobs_visual_constraint_override_hold_v2",
+        "live_episode_id": "kwa_jobs_live_visual_constraint_override_hold_v2",
+        "h1_stressors": [
+          "visual_form_target_literal",
+          "approval_safe_stop"
+        ]
+      },
+      {
+        "workflow_id": "jobs_phone_patch_resume",
+        "role_family": "job_application_ops",
+        "purpose": "map the API form-issue and CLI phone-patch probe failures into a live workflow",
+        "replayable_episode_id": "kwa_jobs_phone_patch_resume_hold_v4",
+        "live_episode_id": "kwa_jobs_live_phone_patch_resume_hold_v4",
+        "h1_stressors": [
+          "api_form_issue_fetch",
+          "cli_phone_patch_latest_only",
+          "visual_referent_carryover"
+        ]
+      },
+      {
+        "workflow_id": "finance_visual_invoice_review",
+        "role_family": "finance",
+        "purpose": "map invoice-lock API/CLI argument mismatch into visual approval pressure",
+        "replayable_episode_id": "kwa_finance_invoice_lock_direction_hold_v4",
+        "live_episode_id": "kwa_finance_live_invoice_lock_direction_hold_v4",
+        "h1_stressors": [
+          "api_invoice_lock_hold_update",
+          "cli_invoice_lock_hyphen_query",
+          "visual_evidence"
+        ]
+      },
+      {
+        "workflow_id": "finance_billing_patch_hold",
+        "role_family": "finance",
+        "purpose": "preserve review-only billing direction while API and CLI evidence disagree",
+        "replayable_episode_id": "kwa_finance_diff_review_hold_v5",
+        "live_episode_id": "kwa_finance_live_diff_review_hold_v5",
+        "h1_stressors": [
+          "api_canonicalization",
+          "cli_diff_review_only",
+          "approval_safe_stop"
+        ]
+      }
+    ],
+    "packets": {
+      "mlx_probe_derived_tool_contract_candidates": {
+        "lane": "live_web_stress",
+        "purpose": "Candidate prompt-contract packet derived from exact no-directive probe failures rather than only H1h worst-family attribution.\n",
+        "system_ids": [
+          "mlx_gemma4_e2b_reasoner_only",
+          "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+          "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor",
+          "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_literal_guard",
+          "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_tool_required"
+        ],
+        "episode_ids": [
+          "kwa_exec_live_visual_dashboard_brief",
+          "kwa_exec_live_visual_dashboard_referent_hold_v3",
+          "kwa_jobs_live_visual_constraint_override_hold_v2",
+          "kwa_jobs_live_phone_patch_resume_hold_v4",
+          "kwa_finance_live_invoice_lock_direction_hold_v4",
+          "kwa_finance_live_diff_review_hold_v5"
+        ],
+        "failure_modes": [
+          "argument_mismatch",
+          "no_tool_call",
+          "visual_form_target_literal",
+          "visual_latest_filter_literal",
+          "visual_readback_region_literal",
+          "api_form_issue_fetch",
+          "cli_phone_patch_latest_only",
+          "api_invoice_lock_hold_update",
+          "cli_invoice_lock_hyphen_query",
+          "parallel_tool_protocol_deferred"
+        ]
+      },
+      "mlx_probe_derived_helper_ablation": {
+        "lane": "live_web_stress",
+        "purpose": "Controller-helper causality check on the same probe-derived live workflow set before promoting any second-wave prompt contract.\n",
+        "system_ids": [
+          "mlx_gemma4_e2b_reasoner_only",
+          "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+          "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_repair",
+          "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_fallback",
+          "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_argument_repair"
+        ],
+        "episode_ids": [
+          "kwa_exec_live_visual_dashboard_brief",
+          "kwa_exec_live_visual_dashboard_referent_hold_v3",
+          "kwa_jobs_live_visual_constraint_override_hold_v2",
+          "kwa_jobs_live_phone_patch_resume_hold_v4",
+          "kwa_finance_live_invoice_lock_direction_hold_v4",
+          "kwa_finance_live_diff_review_hold_v5"
+        ],
+        "failure_modes": [
+          "controller_repair",
+          "controller_fallback",
+          "argument_repair",
+          "no_tool_call",
+          "argument_mismatch"
+        ]
+      }
+    },
+    "saturation_breaker_metrics": [
+      "raw_planning_clean_rate_avg",
+      "controller_repair_avg",
+      "controller_fallback_avg",
+      "argument_repair_avg",
+      "strict_interface_avg",
+      "recovered_execution_avg"
+    ],
+    "attribution_tags": [
+      "packaged_workflow",
+      "local_mlx_monolith",
+      "probe_derived",
+      "prompt_contract_ablation",
+      "no_tool_call",
+      "argument_mismatch"
+    ]
+  },
+  "packet_id": "mlx_probe_derived_helper_ablation",
+  "packet": {
+    "lane": "live_web_stress",
+    "purpose": "Controller-helper causality check on the same probe-derived live workflow set before promoting any second-wave prompt contract.\n",
+    "system_ids": [
+      "mlx_gemma4_e2b_reasoner_only",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_repair",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_fallback",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_argument_repair"
+    ],
+    "episode_ids": [
+      "kwa_exec_live_visual_dashboard_brief",
+      "kwa_exec_live_visual_dashboard_referent_hold_v3",
+      "kwa_jobs_live_visual_constraint_override_hold_v2",
+      "kwa_jobs_live_phone_patch_resume_hold_v4",
+      "kwa_finance_live_invoice_lock_direction_hold_v4",
+      "kwa_finance_live_diff_review_hold_v5"
+    ],
+    "failure_modes": [
+      "controller_repair",
+      "controller_fallback",
+      "argument_repair",
+      "no_tool_call",
+      "argument_mismatch"
+    ]
+  },
+  "lane": "live_web_stress",
+  "bundle_system_id": "mlx_gemma4_e2b_reasoner_only",
+  "system_ids": [
+    "mlx_gemma4_e2b_reasoner_only",
+    "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+    "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_repair",
+    "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_fallback",
+    "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_argument_repair"
+  ],
+  "episode_ids": [
+    "kwa_exec_live_visual_dashboard_brief",
+    "kwa_exec_live_visual_dashboard_referent_hold_v3",
+    "kwa_jobs_live_visual_constraint_override_hold_v2",
+    "kwa_jobs_live_phone_patch_resume_hold_v4",
+    "kwa_finance_live_invoice_lock_direction_hold_v4",
+    "kwa_finance_live_diff_review_hold_v5"
+  ],
+  "repeat_count": 1,
+  "command": [
+    "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+    "/Users/cheickdiakite/Codex/moonie/scripts/run_knowledge_work_ablation_packet.py",
+    "--lane",
+    "live_web_stress",
+    "--bundle-system-id",
+    "mlx_gemma4_e2b_reasoner_only",
+    "--output-root",
+    "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice",
+    "--run-group-id",
+    "20260507T_h1j_probe_derived_helpers_v1",
+    "--run-intent",
+    "exploratory",
+    "--repeat",
+    "1",
+    "--system-id",
+    "mlx_gemma4_e2b_reasoner_only",
+    "--system-id",
+    "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+    "--system-id",
+    "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_repair",
+    "--system-id",
+    "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_fallback",
+    "--system-id",
+    "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_argument_repair",
+    "--episode-id",
+    "kwa_exec_live_visual_dashboard_brief",
+    "--episode-id",
+    "kwa_exec_live_visual_dashboard_referent_hold_v3",
+    "--episode-id",
+    "kwa_jobs_live_visual_constraint_override_hold_v2",
+    "--episode-id",
+    "kwa_jobs_live_phone_patch_resume_hold_v4",
+    "--episode-id",
+    "kwa_finance_live_invoice_lock_direction_hold_v4",
+    "--episode-id",
+    "kwa_finance_live_diff_review_hold_v5"
+  ],
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_helpers_v1_knowledge_work_ablation_packet",
+  "dry_run": false
+}

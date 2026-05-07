@@ -2767,6 +2767,13 @@
   - all five rows matched at `real_world_readiness_avg = 0.96577`, `strict_interface_avg = 1.0`, `recovered_execution_avg = 1.0`, `controller_repair_avg = 0.0`, `argument_repair_avg = 0.0`, `controller_fallback_avg = 0.0`, and `raw_planning_clean_rate_avg = 1.0`
   - trace analysis found `0` note events and `0` failure candidates
   - interpretation: mapping probe failures back to packaged workflows was not enough. The raw probe is still the better discriminator. The next H1j run should remove controller helpers on the same probe-derived set, then the next prompt-contract wave should target the probe directly
+- The paired H1j helper-ablation packet also saturated:
+  - command:
+    - `uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1j_slice.yaml --packet-id mlx_probe_derived_helper_ablation --run-group-id 20260507T_h1j_probe_derived_helpers_v1`
+  - packet: [`20260507T_h1j_probe_derived_helpers_v1`](../results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_helpers_v1_knowledge_work_ablation_packet)
+  - contracted, no-directive, no-controller-repair, no-controller-fallback, and no-argument-repair rows all matched at `real_world_readiness_avg = 0.96577`, `strict_interface_avg = 1.0`, `recovered_execution_avg = 1.0`, and `raw_planning_clean_rate_avg = 1.0`
+  - trace analysis found `21` `controller_repair_disabled` markers on the disabled-repair row but `0` failure candidates
+  - interpretation: H1j does not reintroduce controller dependence. The benchmark-style packaged workflow path is now empirically less discriminating than the raw tool-contract probe for this question
 
 ### Verification
 

@@ -47,6 +47,8 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 
 ![H1j probe-derived candidate burden](../../results/reports/mlx_tool_contract_harnessing/figures/h1j_probe_derived_burden.svg)
 
+![H1j probe-derived helper burden](../../results/reports/mlx_tool_contract_harnessing/figures/h1j_probe_derived_helper_burden.svg)
+
 ## Evidence Sources
 
 | Artifact | Purpose |
@@ -59,6 +61,7 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 | [`executed prompt-contract probe packet`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_execute_v1) | Three generic no-directive prompt-contract candidates compared against both contracted and no-directive probe baselines. |
 | [`H1i prompt-contract repeat3 packet`](../../results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_repeat3_v1_knowledge_work_ablation_packet) | Repeated second-stage candidate packet: three attempts per H1i workflow family per row. |
 | [`H1j probe-derived candidate packet`](../../results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_candidates_v1_knowledge_work_ablation_packet) | Six packaged live workflows selected from exact no-directive probe failure families. |
+| [`H1j probe-derived helper packet`](../../results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_helpers_v1_knowledge_work_ablation_packet) | Controller-helper ablation on the same H1j probe-derived packaged workflow set. |
 | [`Gemini CLI dry-run baseline`](../../results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1) | External-reference prompt and command manifest over the H1h workflow families. |
 
 ## Packet Summary
@@ -214,6 +217,16 @@ Result:
 
 Trace analysis again found `0` note events and `0` failure candidates. This makes the current research picture sharper: the raw probe remains a better discriminator than benchmark-style packaged workflow execution, even when the packaged workflow set is selected from the same probe failure families.
 
+The paired helper-ablation packet is now recorded at:
+
+- packet: [`results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_helpers_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_helpers_v1_knowledge_work_ablation_packet)
+- generated table: [`h1j_probe_derived_helper_metrics.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/h1j_probe_derived_helper_metrics.csv)
+- runs: `30` traces, `5` rows x `6` packaged live workflow families
+
+It also saturated. Contracted, no-directive, no-controller-repair, no-controller-fallback, and no-argument-repair rows all matched readiness `0.96577`, strict/recovered `1.0 / 1.0`, repair/fallback/argument repair `0.0 / 0.0 / 0.0`, and raw clean `1.0`. Trace mining recorded `21` `controller_repair_disabled` markers on the disabled-repair row, but `0` failure candidates.
+
+That matters: controller repair remains causal on H1h/H1i, but not on H1j. H1j is currently evidence that the packaged workflow route can wash out raw probe failures, not evidence that the model-side contract is fixed.
+
 ## Gemini CLI Baseline Status
 
 The Gemini CLI adapter is currently a dry-run external baseline, not a replacement for Moonie. The packet uses the same H1h workflow families and records prompt/command artifacts without external side effects:
@@ -251,8 +264,8 @@ The H1h -> H1i narrowing is also useful methodologically. H1h proves the phenome
 
 Use this order before broad `32 / 26` reruns:
 
-1. Run the H1j helper-ablation packet to confirm whether controller-helper causality reappears when repair/fallback/argument repair are removed on the probe-derived live set.
-2. Design a second prompt-contract wave that combines schema anchoring with visual executable recovery while reducing no-call failures.
+1. Design a second prompt-contract wave against the raw probe because H1i repeat3 and H1j both saturated.
+2. Add a packaged live workflow for the deferred parallel no-call family or a live-operator replay mode for exact probe cases.
 3. H1h only after H1i moves for the right reason.
 4. Gemini CLI real execution only when the binary/run environment is explicitly meant to be part of the comparison.
 5. Runtime live-smoke packets after benchmark movement, to confirm the CLI operator path sees the same repair/fallback pattern.

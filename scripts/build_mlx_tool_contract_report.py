@@ -55,6 +55,12 @@ DEFAULT_H1J_PROMPT_CONTRACT_PACKET = (
     / "knowledge_work_h1_slice"
     / "20260507T_h1j_probe_derived_candidates_v1_knowledge_work_ablation_packet"
 )
+DEFAULT_H1J_HELPER_PACKET = (
+    ROOT
+    / "results"
+    / "knowledge_work_h1_slice"
+    / "20260507T_h1j_probe_derived_helpers_v1_knowledge_work_ablation_packet"
+)
 
 SYSTEM_LABELS = {
     "mlx_gemma4_e2b_reasoner_only": "contracted",
@@ -77,6 +83,7 @@ def build_report(
     h1i_prompt_contract_packet: str | Path = DEFAULT_H1I_PROMPT_CONTRACT_PACKET,
     h1i_prompt_contract_repeat_packet: str | Path = DEFAULT_H1I_PROMPT_CONTRACT_REPEAT_PACKET,
     h1j_prompt_contract_packet: str | Path = DEFAULT_H1J_PROMPT_CONTRACT_PACKET,
+    h1j_helper_packet: str | Path = DEFAULT_H1J_HELPER_PACKET,
     registry_path: str | Path = DEFAULT_REGISTRY_PATH,
 ) -> dict[str, Any]:
     target = Path(output_dir)
@@ -108,6 +115,7 @@ def build_report(
         Path(h1i_prompt_contract_repeat_packet) / "tool_contract_system_deltas.csv"
     )
     h1j_prompt_contract_rows = _csv_rows(Path(h1j_prompt_contract_packet) / "tool_contract_system_deltas.csv")
+    h1j_helper_rows = _csv_rows(Path(h1j_helper_packet) / "tool_contract_system_deltas.csv")
 
     _write_csv(tables_dir / "packet_summary.csv", packet_rows)
     _write_csv(tables_dir / "h1i_system_metrics.csv", h1i_system_rows)
@@ -121,6 +129,7 @@ def build_report(
     _write_csv(tables_dir / "h1i_prompt_contract_candidate_metrics.csv", h1i_prompt_contract_rows)
     _write_csv(tables_dir / "h1i_prompt_contract_repeat3_metrics.csv", h1i_prompt_contract_repeat_rows)
     _write_csv(tables_dir / "h1j_probe_derived_candidate_metrics.csv", h1j_prompt_contract_rows)
+    _write_csv(tables_dir / "h1j_probe_derived_helper_metrics.csv", h1j_helper_rows)
 
     _write_grouped_metric_svg(
         figures_dir / "h1i_readiness_strict_recovered.svg",
@@ -216,6 +225,18 @@ def build_report(
             ("raw_planning_clean_rate_avg", "raw clean", "#16A34A"),
         ],
     )
+    _write_grouped_metric_svg(
+        figures_dir / "h1j_probe_derived_helper_burden.svg",
+        title="H1j probe-derived helper burden",
+        rows=_label_system_rows(h1j_helper_rows),
+        label_field="label",
+        metrics=[
+            ("controller_repair_avg", "repair", "#7C3AED"),
+            ("controller_fallback_avg", "fallback", "#DC2626"),
+            ("argument_repair_avg", "arg repair", "#0891B2"),
+            ("raw_planning_clean_rate_avg", "raw clean", "#16A34A"),
+        ],
+    )
 
     manifest = {
         "generated_at": datetime.now(UTC).isoformat(),
@@ -229,9 +250,10 @@ def build_report(
         "h1i_prompt_contract_packet": str(Path(h1i_prompt_contract_packet).resolve()),
         "h1i_prompt_contract_repeat_packet": str(Path(h1i_prompt_contract_repeat_packet).resolve()),
         "h1j_prompt_contract_packet": str(Path(h1j_prompt_contract_packet).resolve()),
+        "h1j_helper_packet": str(Path(h1j_helper_packet).resolve()),
         "registry_path": str(Path(registry_path).resolve()),
-        "table_count": 12,
-        "figure_count": 8,
+        "table_count": 13,
+        "figure_count": 9,
     }
     report_payload = {
         "manifest": manifest,
@@ -244,6 +266,7 @@ def build_report(
         "h1i_prompt_contract_candidate_metrics": h1i_prompt_contract_rows,
         "h1i_prompt_contract_repeat3_metrics": h1i_prompt_contract_repeat_rows,
         "h1j_probe_derived_candidate_metrics": h1j_prompt_contract_rows,
+        "h1j_probe_derived_helper_metrics": h1j_helper_rows,
         "gemini": gemini_manifest,
     }
     (target / "manifest.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
@@ -264,6 +287,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--h1i-prompt-contract-packet", default=str(DEFAULT_H1I_PROMPT_CONTRACT_PACKET))
     parser.add_argument("--h1i-prompt-contract-repeat-packet", default=str(DEFAULT_H1I_PROMPT_CONTRACT_REPEAT_PACKET))
     parser.add_argument("--h1j-prompt-contract-packet", default=str(DEFAULT_H1J_PROMPT_CONTRACT_PACKET))
+    parser.add_argument("--h1j-helper-packet", default=str(DEFAULT_H1J_HELPER_PACKET))
     parser.add_argument("--registry", default=str(DEFAULT_REGISTRY_PATH))
     return parser.parse_args()
 
@@ -281,6 +305,7 @@ def main() -> None:
         h1i_prompt_contract_packet=args.h1i_prompt_contract_packet,
         h1i_prompt_contract_repeat_packet=args.h1i_prompt_contract_repeat_packet,
         h1j_prompt_contract_packet=args.h1j_prompt_contract_packet,
+        h1j_helper_packet=args.h1j_helper_packet,
         registry_path=args.registry,
     )
     print(
@@ -436,6 +461,7 @@ def _markdown_report(payload: dict[str, Any]) -> str:
     h1i_prompt_contract_rows = payload["h1i_prompt_contract_candidate_metrics"]
     h1i_prompt_contract_repeat_rows = payload["h1i_prompt_contract_repeat3_metrics"]
     h1j_prompt_contract_rows = payload["h1j_probe_derived_candidate_metrics"]
+    h1j_helper_rows = payload["h1j_probe_derived_helper_metrics"]
     gemini = payload["gemini"]
     lines = [
         "# MLX Tool-Contract Harnessing Report",
@@ -471,6 +497,8 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "![H1i prompt-contract repeat3 burden](figures/h1i_prompt_contract_repeat3_burden.svg)",
         "",
         "![H1j probe-derived candidate burden](figures/h1j_probe_derived_burden.svg)",
+        "",
+        "![H1j probe-derived helper burden](figures/h1j_probe_derived_helper_burden.svg)",
         "",
         "## Packet Summary",
         "",
@@ -514,6 +542,12 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "",
         "H1j maps the no-directive probe failures back into six packaged live workflow families. This first candidate packet is also saturated: contracted, no-directive, and all three candidate rows remain controller-clean with raw clean rate `1.0`. That widens the evidence that benchmark-style packaged workflows are easier than the raw tool-contract probe, even when selected from the same failure families.",
         "",
+        "## H1j Probe-Derived Helper Packet",
+        "",
+        _markdown_table(h1j_helper_rows),
+        "",
+        "The H1j helper-ablation packet is saturated too. Removing controller repair, controller fallback, or argument repair does not change readiness, strict interface, recovered execution, or raw clean rate on this probe-derived packaged workflow set. The trace miner records disabled-helper markers, but no failure candidates.",
+        "",
         "## Gemini CLI Baseline Status",
         "",
         f"- Packet: `{gemini['packet_run_id']}`",
@@ -544,6 +578,7 @@ def _markdown_report(payload: dict[str, Any]) -> str:
             f"- H1i prompt-contract packet: `{payload['manifest']['h1i_prompt_contract_packet']}`",
             f"- H1i prompt-contract repeat packet: `{payload['manifest']['h1i_prompt_contract_repeat_packet']}`",
             f"- H1j probe-derived prompt-contract packet: `{payload['manifest']['h1j_prompt_contract_packet']}`",
+            f"- H1j probe-derived helper packet: `{payload['manifest']['h1j_helper_packet']}`",
             f"- Gemini dry-run baseline: `{payload['manifest']['gemini_packet']}`",
             "",
         ]
