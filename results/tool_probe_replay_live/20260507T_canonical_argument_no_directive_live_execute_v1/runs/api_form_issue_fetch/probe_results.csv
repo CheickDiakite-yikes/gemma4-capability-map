@@ -1,0 +1,2 @@
+case_id,family,expected_call_count,actual_call_count,exact_match,executable_match,expected_calls,actual_calls,expected_execution,actual_execution,latency_ms,prompt_tokens,completion_tokens
+api_form_issue_fetch,api_canonicalization,1,1,False,,"[{""name"": ""api_fetch_record"", ""arguments"": {""record_type"": ""form_issue"", ""record_id"": ""FORM-88""}}]","[{""name"": ""api_fetch_record"", ""arguments"": {""record_type"": ""FORM-88"", ""record_id"": ""latest""}}]",{},[],8607,537,33

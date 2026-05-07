@@ -1,0 +1,34 @@
+[
+  {
+    "case_id": "cli_invoice_lock_hyphen_query",
+    "family": "cli_canonicalization",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": null,
+    "expected_execution": {},
+    "actual_execution": [],
+    "expected_calls": [
+      {
+        "name": "cli_search_logs",
+        "arguments": {
+          "path": "logs/billing.log",
+          "query": "invoice lock"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "cli_search_logs",
+        "arguments": {
+          "path": "billing.log",
+          "query": "invoice-lock failure"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"cli_search_logs\", \"arguments\": {\"path\": \"billing.log\", \"query\": \"invoice-lock failure\"}}",
+    "prompt_tokens": 503,
+    "completion_tokens": 31,
+    "latency_ms": 3547
+  }
+]

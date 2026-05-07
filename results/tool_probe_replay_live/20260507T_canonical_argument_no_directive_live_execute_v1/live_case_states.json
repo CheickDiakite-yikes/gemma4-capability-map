@@ -1,0 +1,50 @@
+[
+  {
+    "case_id": "api_form_issue_fetch",
+    "family": "api_canonicalization",
+    "source_failure_mode": "argument_mismatch",
+    "baseline_exact_match": "True",
+    "expected_call_count": "1",
+    "source_actual_call_count": "1",
+    "status": "non_exact",
+    "replay_failure_mode": "argument_mismatch",
+    "replay_exact_match": false,
+    "replay_executable_match": null
+  },
+  {
+    "case_id": "api_invoice_lock_hold_update",
+    "family": "api_canonicalization",
+    "source_failure_mode": "argument_mismatch",
+    "baseline_exact_match": "True",
+    "expected_call_count": "1",
+    "source_actual_call_count": "1",
+    "status": "non_exact",
+    "replay_failure_mode": "argument_mismatch",
+    "replay_exact_match": false,
+    "replay_executable_match": null
+  },
+  {
+    "case_id": "cli_invoice_lock_hyphen_query",
+    "family": "cli_canonicalization",
+    "source_failure_mode": "argument_mismatch",
+    "baseline_exact_match": "True",
+    "expected_call_count": "1",
+    "source_actual_call_count": "1",
+    "status": "non_exact",
+    "replay_failure_mode": "argument_mismatch",
+    "replay_exact_match": false,
+    "replay_executable_match": null
+  },
+  {
+    "case_id": "cli_phone_patch_latest_only",
+    "family": "cli_patch_copying",
+    "source_failure_mode": "argument_mismatch",
+    "baseline_exact_match": "True",
+    "expected_call_count": "1",
+    "source_actual_call_count": "1",
+    "status": "non_exact",
+    "replay_failure_mode": "argument_mismatch",
+    "replay_exact_match": false,
+    "replay_executable_match": null
+  }
+]

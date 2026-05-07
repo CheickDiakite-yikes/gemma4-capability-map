@@ -33,6 +33,7 @@ The live operator bridge now starts with `moonie-agent replay-live`. It is inten
 - visual no-directive live execution: [`results/tool_probe_replay_live/20260507T_visual_state_no_directive_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_visual_state_no_directive_live_execute_v1)
 - visual contracted live execution: [`results/tool_probe_replay_live/20260507T_visual_state_contracted_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_visual_state_contracted_live_execute_v1)
 - visual live comparison: [`results/tool_probe_replay_live_comparisons/20260507T_visual_state_contracted_vs_no_directive_live_v1`](../../results/tool_probe_replay_live_comparisons/20260507T_visual_state_contracted_vs_no_directive_live_v1)
+- canonical-argument no-directive live execution: [`results/tool_probe_replay_live/20260507T_canonical_argument_no_directive_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_canonical_argument_no_directive_live_execute_v1)
 
 ## Packet Contents
 
@@ -157,6 +158,12 @@ Visual live A/B comparison:
 - [`results/tool_probe_replay_live_comparisons/20260507T_visual_state_contracted_vs_no_directive_live_v1`](../../results/tool_probe_replay_live_comparisons/20260507T_visual_state_contracted_vs_no_directive_live_v1)
 
 Result: contracted exact `2 / 3`, no-directive exact `0 / 3`, exact-rate delta `-0.6666666666666666`. All three no-directive cases have actual-call delta `-1`; even the contracted executable-paraphrase case collapses to no tool call without the directive. The live comparison now records executable-match deltas as well, so the visual-form case shows executable `true -> false`.
+
+Canonical-argument no-directive live execution:
+
+- [`results/tool_probe_replay_live/20260507T_canonical_argument_no_directive_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_canonical_argument_no_directive_live_execute_v1)
+
+Result: exact `0 / 4`; all four cases remain `argument_mismatch`. Each case still emits one tool call, which means the no-directive failure is argument fidelity, not total tool-protocol exit.
 
 CLI inspection:
 
