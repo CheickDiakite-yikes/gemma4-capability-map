@@ -31,6 +31,7 @@ The live operator bridge now starts with `moonie-agent replay-live`. It is inten
 - first contracted live execution: [`results/tool_probe_replay_live/20260507T_parallel_array_contracted_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_parallel_array_contracted_live_execute_v1)
 - first live comparison: [`results/tool_probe_replay_live_comparisons/20260507T_parallel_array_contracted_vs_no_directive_live_v1`](../../results/tool_probe_replay_live_comparisons/20260507T_parallel_array_contracted_vs_no_directive_live_v1)
 - visual no-directive live execution: [`results/tool_probe_replay_live/20260507T_visual_state_no_directive_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_visual_state_no_directive_live_execute_v1)
+- visual contracted live execution: [`results/tool_probe_replay_live/20260507T_visual_state_contracted_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_visual_state_contracted_live_execute_v1)
 
 ## Packet Contents
 
@@ -143,6 +144,12 @@ Visual no-directive live execution:
 - [`results/tool_probe_replay_live/20260507T_visual_state_no_directive_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_visual_state_no_directive_live_execute_v1)
 
 Result: exact `0 / 3`; all three cases remain `no_tool_call`. `visual_form_target_literal` also remains executable `false`, matching the earlier finding that visual rescue is not doing useful work on this slice.
+
+Visual contracted live execution:
+
+- [`results/tool_probe_replay_live/20260507T_visual_state_contracted_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_visual_state_contracted_live_execute_v1)
+
+Result: exact `2 / 3`; `visual_form_target_literal` remains non-exact but executable through visual selector paraphrase. This matches the focused script-level replay result and gives the CLI-live path a paired visual baseline.
 
 CLI inspection:
 

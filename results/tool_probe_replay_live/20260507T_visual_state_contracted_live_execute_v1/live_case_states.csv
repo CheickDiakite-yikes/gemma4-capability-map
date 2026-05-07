@@ -1,0 +1,4 @@
+case_id,family,source_failure_mode,baseline_exact_match,expected_call_count,source_actual_call_count,status,replay_failure_mode,replay_exact_match,replay_executable_match
+visual_form_target_literal,visual_argument_copying,no_tool_call,False,1,0,non_exact,executable_paraphrase,False,True
+visual_latest_filter_literal,visual_referent_carryover,no_tool_call,True,1,0,exact,exact,True,
+visual_readback_region_literal,visual_referent_carryover,no_tool_call,True,1,0,exact,exact,True,

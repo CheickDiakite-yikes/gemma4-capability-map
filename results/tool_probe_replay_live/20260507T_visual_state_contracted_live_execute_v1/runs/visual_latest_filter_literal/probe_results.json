@@ -1,0 +1,34 @@
+[
+  {
+    "case_id": "visual_latest_filter_literal",
+    "family": "visual_referent_carryover",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": null,
+    "expected_execution": {},
+    "actual_execution": [],
+    "expected_calls": [
+      {
+        "name": "refine_selection",
+        "arguments": {
+          "selection_id": "sel-001",
+          "filter_query": "latest"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "refine_selection",
+        "arguments": {
+          "selection_id": "sel-001",
+          "filter_query": "latest"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"refine_selection\", \"arguments\": {\"selection_id\": \"sel-001\", \"filter_query\": \"latest\"}}",
+    "prompt_tokens": 880,
+    "completion_tokens": 33,
+    "latency_ms": 4706
+  }
+]

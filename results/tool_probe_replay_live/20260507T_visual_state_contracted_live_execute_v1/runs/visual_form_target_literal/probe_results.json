@@ -1,0 +1,61 @@
+[
+  {
+    "case_id": "visual_form_target_literal",
+    "family": "visual_argument_copying",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "form-err-202"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-form-live-latest",
+          "target_query": "phone issue"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-form-live-latest",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "form-err-202"
+          ],
+          "region_id": "form-err-202",
+          "text_preview": "Phone number format invalid"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-form-live-latest",
+          "target_query": "validation error"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-form-live-latest",
+          "target_query": "phone issue"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-form-live-latest\", \"target_query\": \"phone issue\"}}",
+    "prompt_tokens": 810,
+    "completion_tokens": 35,
+    "latency_ms": 9071
+  }
+]
