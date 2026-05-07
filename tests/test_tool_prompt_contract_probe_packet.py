@@ -37,6 +37,24 @@ def test_tool_prompt_contract_probe_packet_dry_run_writes_candidate_commands(tmp
     assert "--output-dir" in first_command
 
 
+def test_tool_prompt_contract_probe_packet_can_select_second_wave(tmp_path: Path) -> None:
+    packet = SCRIPT.build_tool_prompt_contract_probe_packet(
+        output_root=tmp_path,
+        run_group_id="candidate_probe_wave2_dry_run",
+        candidate_wave="v2",
+        execute=False,
+    )
+
+    assert packet["candidate_count"] == 3
+    assert packet["manifest"]["candidate_wave"] == "v2"
+    contract_ids = {row["tool_prompt_contract_id"] for row in packet["rows"]}
+    assert contract_ids == {
+        "schema_literal_tool_required_v2",
+        "visual_next_call_state_v2",
+        "parallel_array_required_v2",
+    }
+
+
 def test_tool_prompt_contract_probe_packet_validates_candidate_controls(tmp_path: Path) -> None:
     registry_path = tmp_path / "registry.yaml"
     registry_path.write_text(

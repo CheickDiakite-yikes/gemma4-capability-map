@@ -84,6 +84,48 @@ TOOL_PROMPT_CONTRACTS: dict[str, ToolPromptContract] = {
             "If no prior visual result is present, start with the visual inspection or layout-extraction tool before any readback.",
         ),
     ),
+    "schema_literal_tool_required_v2": ToolPromptContract(
+        contract_id="schema_literal_tool_required_v2",
+        label="Schema Literal Tool-Required v2",
+        description="Combines schema anchoring, literal argument copying, and tool-required behavior in one generic contract.",
+        hypothesis="The first wave split exact-copy and executable visual gains; a combined contract may preserve schema obedience while reducing no-call failures.",
+        tags=("schema", "arguments", "no_tool_call", "json", "cli", "api", "visual"),
+        instructions=(
+            "When a listed tool can inspect, read, update, patch, search, or handle a visual request, output tool-call JSON only; do not answer in prose.",
+            'Return exactly {"name":"tool_name","arguments":{...}} for one call or a JSON array of those objects for independent calls.',
+            "Use only listed tool names and required schema fields; never rename fields, invent aliases, or wrap the JSON in markdown.",
+            "Copy path, query, record_type, record_id, field, value, image_id, target_query, filter_query, selection_id, and region_id literally from the prompt or latest tool result.",
+            "If you are unsure which literal to use, prefer the latest tool-result id or label over a paraphrase from the user request.",
+        ),
+    ),
+    "visual_next_call_state_v2": ToolPromptContract(
+        contract_id="visual_next_call_state_v2",
+        label="Visual Next-Call State v2",
+        description="Forces visual workflows to continue with the next stateful visual tool call instead of dropping into prose.",
+        hypothesis="No-directive visual failures are concentrated in no-call behavior after a visual referent exists; explicit state-transition wording may reduce that collapse.",
+        tags=("visual", "no_tool_call", "state_machine", "readback"),
+        instructions=(
+            "For visual workflows, make the next visual tool call required by the latest visual state before answering in prose.",
+            "If the latest visual result has selection_id and the user asks to narrow or filter, call refine_selection with that exact selection_id and filter_query.",
+            "If the latest visual result has region_id and the user asks to read or report the remaining text, call read_region_text with that exact region_id and image_id.",
+            "Do not skip a visual tool call because the answer seems inferable from context; use the tool protocol first.",
+            "Resolve selection_id, region_id, image_id, target_query, and filter_query from the latest passing tool result before older context.",
+        ),
+    ),
+    "parallel_array_required_v2": ToolPromptContract(
+        contract_id="parallel_array_required_v2",
+        label="Parallel Array Required v2",
+        description="Forces independent multi-source checks to remain inside JSON-array tool calling.",
+        hypothesis="The parallel probe collapsed to no tool call under no-directive prompting; explicit array-shape rules may recover parallel calls.",
+        tags=("parallel", "no_tool_call", "json_array", "multi_source"),
+        instructions=(
+            "If the request asks for two independent checks, sources, files, images, records, or evidence streams, output a JSON array with one tool-call object per independent check.",
+            "Do not summarize, defer, or ask for confirmation before the independent tool calls when the needed tools are listed.",
+            "Each array element must use one listed tool name and that tool's exact argument field names.",
+            "Keep independent visual, repo, API, CLI, or document checks as separate array elements instead of merging them into one call.",
+            "After parallel tool results are available, use the latest results to decide whether another tool call is needed.",
+        ),
+    ),
 }
 
 

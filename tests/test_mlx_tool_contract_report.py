@@ -38,7 +38,14 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert payload["manifest"]["figure_count"] == 9
 
     candidates = {row["tool_prompt_contract_id"]: row for row in payload["prompt_contract_candidates"]}
-    assert set(candidates) == {"schema_anchor_v1", "literal_argument_guard_v1", "tool_required_parallel_v1"}
+    assert set(candidates) == {
+        "schema_anchor_v1",
+        "literal_argument_guard_v1",
+        "tool_required_parallel_v1",
+        "schema_literal_tool_required_v2",
+        "visual_next_call_state_v2",
+        "parallel_array_required_v2",
+    }
     assert candidates["schema_anchor_v1"]["disable_tool_turn_directive"] is True
     gates = {row["tool_prompt_contract_id"]: row for row in payload["prompt_contract_probe_gates"]}
     assert gates["schema_anchor_v1"]["recommendation"] == "weak_exact_gain"

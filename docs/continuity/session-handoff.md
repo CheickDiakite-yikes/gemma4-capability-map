@@ -53,7 +53,8 @@ Current strongest MLX result:
 Current next loop:
 
 1. Treat H1i candidate v1 and repeat3 as saturated/non-discriminating after the probe gate.
-2. Design a second prompt-contract wave against the raw probe, not another same-shape H1 packet.
+2. Execute prompt-contract wave 2 against the raw probe:
+   `uv run python scripts/run_tool_prompt_contract_probe_packet.py --run-group-id <timestamp>_prompt_contract_wave2_execute_v1 --candidate-wave v2 --execute`
 3. Add a live packaged workflow for the deferred parallel no-call family, or build a live-operator replay mode for exact probe cases.
 4. Return to H1h only after H1i changes for the right mechanism-level reason.
 5. Regenerate the report artifacts after any H1i/H1h/probe/Gemini packet change.
@@ -63,6 +64,11 @@ H1j source:
 - config: [`configs/knowledge_work_h1j_slice.yaml`](../../configs/knowledge_work_h1j_slice.yaml)
 - brief: [`docs/continuity/h1j-slice.md`](./h1j-slice.md)
 - note: `parallel_audit_array_literal` remains deferred until a faithful live packaged workflow exists
+
+Wave 2 source:
+
+- contracts: `schema_literal_tool_required_v2`, `visual_next_call_state_v2`, `parallel_array_required_v2`
+- dry-run packet: [`results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave2_dry_run_v1`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave2_dry_run_v1)
 
 The current research seam is no longer “make the rows tie.”
 

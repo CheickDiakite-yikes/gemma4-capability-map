@@ -164,6 +164,11 @@ Latest MLX tool-contract research:
   - H1j candidate result: `30` traces, all five rows matched readiness `0.96577`, strict/recovered `1.0 / 1.0`, repair/fallback/argument repair `0.0 / 0.0 / 0.0`, raw clean `1.0`, with `0` trace notes and `0` failure candidates
   - helper packet: [`results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_helpers_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_helpers_v1_knowledge_work_ablation_packet)
   - H1j helper result: `30` traces, all five helper rows matched readiness `0.96577`, strict/recovered `1.0 / 1.0`, repair/fallback/argument repair `0.0 / 0.0 / 0.0`, raw clean `1.0`; trace mining found `21` disabled-repair markers but `0` failure candidates
+- Prompt-contract wave 2:
+  - contracts: `schema_literal_tool_required_v2`, `visual_next_call_state_v2`, `parallel_array_required_v2`
+  - runner flag: `scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v2`
+  - dry-run packet: [`results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave2_dry_run_v1`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave2_dry_run_v1)
+  - next gate: execute wave 2 on the raw probe before any more H1 promotion
 
 Current generated research report:
 

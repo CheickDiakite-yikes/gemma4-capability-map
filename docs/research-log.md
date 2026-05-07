@@ -2774,6 +2774,18 @@
   - contracted, no-directive, no-controller-repair, no-controller-fallback, and no-argument-repair rows all matched at `real_world_readiness_avg = 0.96577`, `strict_interface_avg = 1.0`, `recovered_execution_avg = 1.0`, and `raw_planning_clean_rate_avg = 1.0`
   - trace analysis found `21` `controller_repair_disabled` markers on the disabled-repair row but `0` failure candidates
   - interpretation: H1j does not reintroduce controller dependence. The benchmark-style packaged workflow path is now empirically less discriminating than the raw tool-contract probe for this question
+- Prompt-contract wave 2 is now defined as a raw-probe-first candidate set:
+  - contracts:
+    - `schema_literal_tool_required_v2`: combines schema anchoring, literal argument copying, and tool-required behavior
+    - `visual_next_call_state_v2`: targets visual next-call/no-call collapse after a visual result exists
+    - `parallel_array_required_v2`: targets JSON-array shape for independent multi-source/parallel checks
+  - registry rows:
+    - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_literal_tool_required`
+    - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_next_call_state`
+    - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_parallel_array_required`
+  - probe packet runner now accepts `--candidate-wave v2`
+  - dry-run packet: [`20260507T_prompt_contract_wave2_dry_run_v1`](../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave2_dry_run_v1)
+  - interpretation: after H1i/H1j saturation, wave 2 must earn promotion on the raw probe before any more H1 spend
 
 ### Verification
 

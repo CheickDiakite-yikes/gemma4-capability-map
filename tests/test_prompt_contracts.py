@@ -17,8 +17,11 @@ def test_prompt_contract_registry_exposes_current_candidate_ids() -> None:
 
     assert ids == [
         "literal_argument_guard_v1",
+        "parallel_array_required_v2",
         "schema_anchor_v1",
+        "schema_literal_tool_required_v2",
         "tool_required_parallel_v1",
+        "visual_next_call_state_v2",
     ]
     assert get_tool_prompt_contract("schema_anchor_v1") is not None
 

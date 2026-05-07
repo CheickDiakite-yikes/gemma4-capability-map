@@ -107,13 +107,16 @@ This is the strongest current reason to keep exact interface metrics, executable
 
 ## Prompt-Contract Candidate Queue
 
-The next empirical wave has three generic no-directive prompt-contract candidates. They deliberately do not include the exact planned tool call. That keeps the probe honest: a candidate should improve raw tool protocol behavior without simply leaking the oracle next call.
+The prompt-contract queue now has two waves. They deliberately do not include the exact planned tool call. That keeps the probe honest: a candidate should improve raw tool protocol behavior without simply leaking the oracle next call.
 
 | Candidate system | Contract | Target |
 | --- | --- | --- |
 | `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor` | `schema_anchor_v1` | Generic JSON/schema obedience for CLI/API canonicalization. |
 | `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_literal_guard` | `literal_argument_guard_v1` | Literal argument copying for path, query, record ids, visual selectors, and filters. |
 | `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_tool_required` | `tool_required_parallel_v1` | No-tool-call and parallel/visual protocol collapse. |
+| `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_literal_tool_required` | `schema_literal_tool_required_v2` | Combined schema, literal-copy, and tool-required pressure. |
+| `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_next_call_state` | `visual_next_call_state_v2` | Stateful visual next-call behavior after a visual result exists. |
+| `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_parallel_array_required` | `parallel_array_required_v2` | JSON-array shape for independent multi-source/parallel checks. |
 
 Generated candidate table:
 
@@ -131,6 +134,19 @@ Real candidate probe packet command:
 ```bash
 uv run python scripts/run_tool_prompt_contract_probe_packet.py \
   --run-group-id <timestamp>_prompt_contract_probe_candidates \
+  --execute
+```
+
+Second-wave dry-run packet:
+
+- [`results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave2_dry_run_v1`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave2_dry_run_v1)
+
+Second-wave execution command:
+
+```bash
+uv run python scripts/run_tool_prompt_contract_probe_packet.py \
+  --run-group-id <timestamp>_prompt_contract_wave2_execute_v1 \
+  --candidate-wave v2 \
   --execute
 ```
 
@@ -264,7 +280,7 @@ The H1h -> H1i narrowing is also useful methodologically. H1h proves the phenome
 
 Use this order before broad `32 / 26` reruns:
 
-1. Design a second prompt-contract wave against the raw probe because H1i repeat3 and H1j both saturated.
+1. Execute prompt-contract wave 2 against the raw probe because H1i repeat3 and H1j both saturated.
 2. Add a packaged live workflow for the deferred parallel no-call family or a live-operator replay mode for exact probe cases.
 3. H1h only after H1i moves for the right reason.
 4. Gemini CLI real execution only when the binary/run environment is explicitly meant to be part of the comparison.

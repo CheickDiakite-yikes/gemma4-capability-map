@@ -22,6 +22,16 @@ DEFAULT_CANDIDATE_SYSTEM_IDS = [
     "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_literal_guard",
     "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_tool_required",
 ]
+WAVE2_CANDIDATE_SYSTEM_IDS = [
+    "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_literal_tool_required",
+    "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_next_call_state",
+    "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_parallel_array_required",
+]
+PROMPT_CONTRACT_WAVES = {
+    "v1": DEFAULT_CANDIDATE_SYSTEM_IDS,
+    "v2": WAVE2_CANDIDATE_SYSTEM_IDS,
+    "all": [*DEFAULT_CANDIDATE_SYSTEM_IDS, *WAVE2_CANDIDATE_SYSTEM_IDS],
+}
 
 
 def build_tool_prompt_contract_probe_packet(
@@ -32,12 +42,16 @@ def build_tool_prompt_contract_probe_packet(
     run_group_id: str | None = None,
     registry_path: str | Path = DEFAULT_REGISTRY_PATH,
     system_ids: list[str] | None = None,
+    candidate_wave: str = "v1",
     execute: bool = False,
 ) -> dict[str, Any]:
     registry_path = Path(registry_path)
     registry = load_model_registry(registry_path)
     systems = registry.get("systems", {})
-    candidate_ids = system_ids or list(DEFAULT_CANDIDATE_SYSTEM_IDS)
+    if candidate_wave not in PROMPT_CONTRACT_WAVES:
+        known = ", ".join(sorted(PROMPT_CONTRACT_WAVES))
+        raise ValueError(f"Unknown candidate wave `{candidate_wave}`. Known waves: {known}.")
+    candidate_ids = system_ids or list(PROMPT_CONTRACT_WAVES[candidate_wave])
     timestamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
     packet_run_id = run_group_id or f"{timestamp}_mlx_prompt_contract_probe_packet"
     packet_dir = Path(output_root) / packet_run_id
@@ -52,6 +66,7 @@ def build_tool_prompt_contract_probe_packet(
         "no_directive_probe_dir": str(no_directive_probe_path.resolve()) if no_directive_probe_path else "",
         "registry_path": str(registry_path.resolve()),
         "execute": execute,
+        "candidate_wave": candidate_wave,
         "system_ids": candidate_ids,
     }
     rows: list[dict[str, Any]] = []
@@ -151,6 +166,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--run-group-id", default=None)
     parser.add_argument("--registry", default=str(DEFAULT_REGISTRY_PATH))
     parser.add_argument("--system-id", action="append", dest="system_ids", default=[])
+    parser.add_argument("--candidate-wave", choices=sorted(PROMPT_CONTRACT_WAVES), default="v1")
     parser.add_argument("--execute", action="store_true")
     return parser.parse_args()
 
@@ -164,6 +180,7 @@ def main() -> None:
         run_group_id=args.run_group_id,
         registry_path=args.registry,
         system_ids=args.system_ids or None,
+        candidate_wave=args.candidate_wave,
         execute=args.execute,
     )
     print(json.dumps(summary, indent=2, ensure_ascii=False))

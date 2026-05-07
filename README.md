@@ -131,13 +131,14 @@ The active next experiment is now a CLI/research-harness packet, not a UI task:
 - the executed H1i candidate packet is [`results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet`](results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet)
 - the repeated H1i candidate packet is [`results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_repeat3_v1_knowledge_work_ablation_packet`](results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_repeat3_v1_knowledge_work_ablation_packet)
 
-The current read is partial-gain and second-stage saturation: `schema_anchor_v1` recovered one exact probe case, while `literal_argument_guard_v1` and `tool_required_parallel_v1` recovered the executable visual target without improving exact JSON copy. H1i candidate, H1i repeat3, H1j candidates, and H1j helper ablation all saturated. The intended order is now: design a second prompt-contract wave against the raw probe, add a live packaged workflow for the deferred parallel no-call family, and return to full H1h only after a harder slice moves for the right reason.
+The current read is partial-gain and second-stage saturation: `schema_anchor_v1` recovered one exact probe case, while `literal_argument_guard_v1` and `tool_required_parallel_v1` recovered the executable visual target without improving exact JSON copy. H1i candidate, H1i repeat3, H1j candidates, and H1j helper ablation all saturated. Prompt-contract wave 2 now exists and must earn promotion on the raw probe before any more H1 spend.
 
 The next research command should target the raw probe first:
 
 ```bash
 uv run python scripts/run_tool_prompt_contract_probe_packet.py \
   --run-group-id <timestamp>_prompt_contract_wave2 \
+  --candidate-wave v2 \
   --execute
 ```
 

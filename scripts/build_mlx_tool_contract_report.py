@@ -448,6 +448,9 @@ def _candidate_label(system_id: str) -> str:
         "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor": "schema anchor",
         "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_literal_guard": "literal guard",
         "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_tool_required": "tool required",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_literal_tool_required": "schema literal required",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_next_call_state": "visual next call",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_parallel_array_required": "parallel array",
     }
     return suffixes.get(system_id, system_id)
 
@@ -669,7 +672,7 @@ def _write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
         return
     fieldnames = list(rows[0].keys())
     with path.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        writer = csv.DictWriter(handle, fieldnames=fieldnames, lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
 
