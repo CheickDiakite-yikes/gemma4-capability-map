@@ -150,7 +150,9 @@ Latest MLX tool-contract research:
   - H1i graduation packet: `mlx_prompt_contract_candidates` in [`configs/knowledge_work_h1i_slice.yaml`](../../configs/knowledge_work_h1i_slice.yaml)
   - executed H1i candidate packet: [`results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet)
   - H1i candidate result: all five rows matched readiness `0.97710`, strict/recovered `1.0 / 1.0`, repair/fallback/argument repair `0.0 / 0.0 / 0.0`, raw clean `1.0`, with `0` trace notes and `0` failure candidates
-  - interpretation: the probe remains the stronger discriminator; this H1i packet saturated and should be replaced by a harder second-stage packet before another broad H1h run
+  - repeated H1i candidate packet: [`results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_repeat3_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_repeat3_v1_knowledge_work_ablation_packet)
+  - H1i repeat3 result: `60` traces, all five rows matched readiness `0.97710`, strict/recovered `1.0 / 1.0`, repair/fallback/argument repair `0.0 / 0.0 / 0.0`, raw clean `1.0`, with `0` trace notes and `0` failure candidates
+  - interpretation: the probe remains the stronger discriminator; one-pass and repeated H1i are both saturated, so the next packet should be probe-derived live cases before another broad H1h run
 
 Current generated research report:
 
@@ -160,6 +162,7 @@ Current generated research report:
 - prompt-contract candidate table: [`results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_candidates.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_candidates.csv)
 - prompt-contract probe gate table: [`results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_probe_gates.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_probe_gates.csv)
 - H1i prompt-contract candidate metrics: [`results/reports/mlx_tool_contract_harnessing/tables/h1i_prompt_contract_candidate_metrics.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/h1i_prompt_contract_candidate_metrics.csv)
+- H1i prompt-contract repeat3 metrics: [`results/reports/mlx_tool_contract_harnessing/tables/h1i_prompt_contract_repeat3_metrics.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/h1i_prompt_contract_repeat3_metrics.csv)
 - figures: [`results/reports/mlx_tool_contract_harnessing/figures`](../../results/reports/mlx_tool_contract_harnessing/figures)
 - regeneration command:
 

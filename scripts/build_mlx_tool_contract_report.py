@@ -43,6 +43,12 @@ DEFAULT_PROMPT_CONTRACT_PACKET = (
 DEFAULT_H1I_PROMPT_CONTRACT_PACKET = (
     ROOT / "results" / "knowledge_work_h1_slice" / "20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet"
 )
+DEFAULT_H1I_PROMPT_CONTRACT_REPEAT_PACKET = (
+    ROOT
+    / "results"
+    / "knowledge_work_h1_slice"
+    / "20260507T_h1i_prompt_contract_candidates_repeat3_v1_knowledge_work_ablation_packet"
+)
 
 SYSTEM_LABELS = {
     "mlx_gemma4_e2b_reasoner_only": "contracted",
@@ -63,6 +69,7 @@ def build_report(
     gemini_packet: str | Path = DEFAULT_GEMINI_PACKET,
     prompt_contract_packet: str | Path = DEFAULT_PROMPT_CONTRACT_PACKET,
     h1i_prompt_contract_packet: str | Path = DEFAULT_H1I_PROMPT_CONTRACT_PACKET,
+    h1i_prompt_contract_repeat_packet: str | Path = DEFAULT_H1I_PROMPT_CONTRACT_REPEAT_PACKET,
     registry_path: str | Path = DEFAULT_REGISTRY_PATH,
 ) -> dict[str, Any]:
     target = Path(output_dir)
@@ -90,6 +97,9 @@ def build_report(
     prompt_contract_gate_rows = _csv_rows(Path(prompt_contract_packet) / "candidate_gate_summary.csv")
     prompt_contract_failure_rows = _csv_rows(Path(prompt_contract_packet) / "candidate_failure_mode_counts.csv")
     h1i_prompt_contract_rows = _csv_rows(Path(h1i_prompt_contract_packet) / "tool_contract_system_deltas.csv")
+    h1i_prompt_contract_repeat_rows = _csv_rows(
+        Path(h1i_prompt_contract_repeat_packet) / "tool_contract_system_deltas.csv"
+    )
 
     _write_csv(tables_dir / "packet_summary.csv", packet_rows)
     _write_csv(tables_dir / "h1i_system_metrics.csv", h1i_system_rows)
@@ -101,6 +111,7 @@ def build_report(
     _write_csv(tables_dir / "prompt_contract_probe_gates.csv", prompt_contract_gate_rows)
     _write_csv(tables_dir / "prompt_contract_probe_failure_modes.csv", prompt_contract_failure_rows)
     _write_csv(tables_dir / "h1i_prompt_contract_candidate_metrics.csv", h1i_prompt_contract_rows)
+    _write_csv(tables_dir / "h1i_prompt_contract_repeat3_metrics.csv", h1i_prompt_contract_repeat_rows)
 
     _write_grouped_metric_svg(
         figures_dir / "h1i_readiness_strict_recovered.svg",
@@ -172,6 +183,18 @@ def build_report(
             ("delta_exact_vs_no_directive", "delta exact", "#D97706"),
         ],
     )
+    _write_grouped_metric_svg(
+        figures_dir / "h1i_prompt_contract_repeat3_burden.svg",
+        title="H1i prompt-contract repeat3 burden",
+        rows=_label_system_rows(h1i_prompt_contract_repeat_rows),
+        label_field="label",
+        metrics=[
+            ("controller_repair_avg", "repair", "#7C3AED"),
+            ("controller_fallback_avg", "fallback", "#DC2626"),
+            ("argument_repair_avg", "arg repair", "#0891B2"),
+            ("raw_planning_clean_rate_avg", "raw clean", "#16A34A"),
+        ],
+    )
 
     manifest = {
         "generated_at": datetime.now(UTC).isoformat(),
@@ -183,9 +206,10 @@ def build_report(
         "gemini_packet": str(Path(gemini_packet).resolve()),
         "prompt_contract_packet": str(Path(prompt_contract_packet).resolve()),
         "h1i_prompt_contract_packet": str(Path(h1i_prompt_contract_packet).resolve()),
+        "h1i_prompt_contract_repeat_packet": str(Path(h1i_prompt_contract_repeat_packet).resolve()),
         "registry_path": str(Path(registry_path).resolve()),
-        "table_count": 10,
-        "figure_count": 6,
+        "table_count": 11,
+        "figure_count": 7,
     }
     report_payload = {
         "manifest": manifest,
@@ -196,6 +220,7 @@ def build_report(
         "prompt_contract_probe_gates": prompt_contract_gate_rows,
         "prompt_contract_probe_failure_modes": prompt_contract_failure_rows,
         "h1i_prompt_contract_candidate_metrics": h1i_prompt_contract_rows,
+        "h1i_prompt_contract_repeat3_metrics": h1i_prompt_contract_repeat_rows,
         "gemini": gemini_manifest,
     }
     (target / "manifest.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
@@ -214,6 +239,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--gemini-packet", default=str(DEFAULT_GEMINI_PACKET))
     parser.add_argument("--prompt-contract-packet", default=str(DEFAULT_PROMPT_CONTRACT_PACKET))
     parser.add_argument("--h1i-prompt-contract-packet", default=str(DEFAULT_H1I_PROMPT_CONTRACT_PACKET))
+    parser.add_argument("--h1i-prompt-contract-repeat-packet", default=str(DEFAULT_H1I_PROMPT_CONTRACT_REPEAT_PACKET))
     parser.add_argument("--registry", default=str(DEFAULT_REGISTRY_PATH))
     return parser.parse_args()
 
@@ -229,6 +255,7 @@ def main() -> None:
         gemini_packet=args.gemini_packet,
         prompt_contract_packet=args.prompt_contract_packet,
         h1i_prompt_contract_packet=args.h1i_prompt_contract_packet,
+        h1i_prompt_contract_repeat_packet=args.h1i_prompt_contract_repeat_packet,
         registry_path=args.registry,
     )
     print(
@@ -357,6 +384,24 @@ def _candidate_tag_rows(candidate_rows: list[dict[str, Any]]) -> list[dict[str, 
     ]
 
 
+def _label_system_rows(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    labelled: list[dict[str, Any]] = []
+    for row in rows:
+        output = dict(row)
+        output["label"] = SYSTEM_LABELS.get(str(row.get("system_id", "")), _candidate_label(str(row.get("system_id", ""))))
+        labelled.append(output)
+    return sorted(labelled, key=lambda row: _system_order(str(row.get("system_id", ""))))
+
+
+def _candidate_label(system_id: str) -> str:
+    suffixes = {
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor": "schema anchor",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_literal_guard": "literal guard",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_tool_required": "tool required",
+    }
+    return suffixes.get(system_id, system_id)
+
+
 def _markdown_report(payload: dict[str, Any]) -> str:
     packet_rows = payload["packet_summary"]
     h1i_rows = payload["h1i_system_metrics"]
@@ -364,6 +409,7 @@ def _markdown_report(payload: dict[str, Any]) -> str:
     candidate_rows = payload["prompt_contract_candidates"]
     gate_rows = payload["prompt_contract_probe_gates"]
     h1i_prompt_contract_rows = payload["h1i_prompt_contract_candidate_metrics"]
+    h1i_prompt_contract_repeat_rows = payload["h1i_prompt_contract_repeat3_metrics"]
     gemini = payload["gemini"]
     lines = [
         "# MLX Tool-Contract Harnessing Report",
@@ -396,6 +442,8 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "",
         "![Executed prompt contract probe gate](figures/prompt_contract_probe_gate.svg)",
         "",
+        "![H1i prompt-contract repeat3 burden](figures/h1i_prompt_contract_repeat3_burden.svg)",
+        "",
         "## Packet Summary",
         "",
         _markdown_table(packet_rows),
@@ -426,6 +474,12 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "",
         "The H1i candidate packet is saturated: contracted, no-directive, and all three prompt-contract candidates match on readiness, strict interface, recovered execution, controller burden, and raw clean rate. That means this H1i packet did not discriminate after the probe gate; the next second-stage slice needs harder or repeated no-directive cases.",
         "",
+        "## H1i Prompt-Contract Repeat3 Packet",
+        "",
+        _markdown_table(h1i_prompt_contract_repeat_rows),
+        "",
+        "The repeated H1i second-stage packet is also saturated. It expands the candidate packet to three attempts per workflow family per row, but all rows still remain controller-clean with raw clean rate `1.0`. The useful conclusion is negative: these packaged H1i workflows are now too deterministic to validate the prompt-contract candidates. The next harder slice should be probe-derived live cases, especially visual/parallel no-call cases.",
+        "",
         "## Gemini CLI Baseline Status",
         "",
         f"- Packet: `{gemini['packet_run_id']}`",
@@ -454,6 +508,7 @@ def _markdown_report(payload: dict[str, Any]) -> str:
             f"- Probe comparison: `{payload['manifest']['probe_comparison']}`",
             f"- Prompt-contract probe packet: `{payload['manifest']['prompt_contract_packet']}`",
             f"- H1i prompt-contract packet: `{payload['manifest']['h1i_prompt_contract_packet']}`",
+            f"- H1i prompt-contract repeat packet: `{payload['manifest']['h1i_prompt_contract_repeat_packet']}`",
             f"- Gemini dry-run baseline: `{payload['manifest']['gemini_packet']}`",
             "",
         ]

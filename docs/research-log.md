@@ -2743,9 +2743,14 @@
 - H1/H1i ablation packet runners now support repeated episode execution:
   - `scripts/run_knowledge_work_h1_ablation_packet.py` accepts `--repeat <n>` and passes it through to the focused ablation runner
   - `scripts/run_knowledge_work_ablation_packet.py` writes `repeat_count`, `base_episode_count`, and repeated episode execution into manifests and summary payloads
-  - the immediate second-stage command is:
-    - `uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1i_slice.yaml --packet-id mlx_prompt_contract_candidates --run-group-id <timestamp>_h1i_prompt_contract_candidates_repeat3 --repeat 3`
-  - interpretation: this gives the saturated H1i prompt-contract packet a stability test before designing new prompt wording or returning to the full ten-workflow H1h packet
+- The H1i prompt-contract repeat3 second-stage packet is now executed and saturated:
+  - command:
+    - `uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1i_slice.yaml --packet-id mlx_prompt_contract_candidates --run-group-id 20260507T_h1i_prompt_contract_candidates_repeat3_v1 --repeat 3`
+  - packet: [`20260507T_h1i_prompt_contract_candidates_repeat3_v1`](../results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_repeat3_v1_knowledge_work_ablation_packet)
+  - shape: `5` rows x `4` H1i workflow families x `3` repeats = `60` traces
+  - all five rows matched at `real_world_readiness_avg = 0.97710`, `strict_interface_avg = 1.0`, `recovered_execution_avg = 1.0`, `controller_repair_avg = 0.0`, `argument_repair_avg = 0.0`, `controller_fallback_avg = 0.0`, and `raw_planning_clean_rate_avg = 1.0`
+  - trace analysis found `0` note events and `0` failure candidates
+  - interpretation: repeated H1i is a clean negative result. The saturated candidate packet is stable, not flaky. The next packet needs probe-derived live cases, especially visual/parallel no-call and argument-mismatch cases, rather than more repeats of these packaged workflows
 
 ### Verification
 
