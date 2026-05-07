@@ -45,6 +45,8 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 
 ![H1i prompt-contract repeat3 burden](../../results/reports/mlx_tool_contract_harnessing/figures/h1i_prompt_contract_repeat3_burden.svg)
 
+![H1j probe-derived candidate burden](../../results/reports/mlx_tool_contract_harnessing/figures/h1j_probe_derived_burden.svg)
+
 ## Evidence Sources
 
 | Artifact | Purpose |
@@ -56,6 +58,7 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 | [`no-directive tool probe`](../../results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1) | Exact-call probe after removing the directive. |
 | [`executed prompt-contract probe packet`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_execute_v1) | Three generic no-directive prompt-contract candidates compared against both contracted and no-directive probe baselines. |
 | [`H1i prompt-contract repeat3 packet`](../../results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_repeat3_v1_knowledge_work_ablation_packet) | Repeated second-stage candidate packet: three attempts per H1i workflow family per row. |
+| [`H1j probe-derived candidate packet`](../../results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_candidates_v1_knowledge_work_ablation_packet) | Six packaged live workflows selected from exact no-directive probe failure families. |
 | [`Gemini CLI dry-run baseline`](../../results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1) | External-reference prompt and command manifest over the H1h workflow families. |
 
 ## Packet Summary
@@ -190,6 +193,27 @@ Result:
 
 This is a useful negative result. Repeating the saturated H1i candidate packet did not recover the earlier H1i no-directive controller-burden signal. The current H1i packaged workflows are too deterministic to validate prompt-contract candidates after the probe gate. The next harder packet should be probe-derived live cases, especially visual/parallel no-call cases.
 
+## H1j Probe-Derived Packet Result
+
+H1j moved from worst-family attribution to exact probe-family attribution:
+
+- config: [`configs/knowledge_work_h1j_slice.yaml`](../../configs/knowledge_work_h1j_slice.yaml)
+- packet: [`results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_candidates_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_candidates_v1_knowledge_work_ablation_packet)
+- generated table: [`h1j_probe_derived_candidate_metrics.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/h1j_probe_derived_candidate_metrics.csv)
+- runs: `30` traces, `5` rows x `6` packaged live workflow families
+
+Result:
+
+| Row | Readiness | Repair | Fallback | Arg repair | Raw clean |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| contracted | `0.96577` | `0.00` | `0.00` | `0.00` | `1.00` |
+| no directive | `0.96577` | `0.00` | `0.00` | `0.00` | `1.00` |
+| schema anchor | `0.96577` | `0.00` | `0.00` | `0.00` | `1.00` |
+| literal guard | `0.96577` | `0.00` | `0.00` | `0.00` | `1.00` |
+| tool required | `0.96577` | `0.00` | `0.00` | `0.00` | `1.00` |
+
+Trace analysis again found `0` note events and `0` failure candidates. This makes the current research picture sharper: the raw probe remains a better discriminator than benchmark-style packaged workflow execution, even when the packaged workflow set is selected from the same probe failure families.
+
 ## Gemini CLI Baseline Status
 
 The Gemini CLI adapter is currently a dry-run external baseline, not a replacement for Moonie. The packet uses the same H1h workflow families and records prompt/command artifacts without external side effects:
@@ -227,7 +251,7 @@ The H1h -> H1i narrowing is also useful methodologically. H1h proves the phenome
 
 Use this order before broad `32 / 26` reruns:
 
-1. Build probe-derived live cases from the no-call and argument-mismatch probe failures because repeated H1i also saturated.
+1. Run the H1j helper-ablation packet to confirm whether controller-helper causality reappears when repair/fallback/argument repair are removed on the probe-derived live set.
 2. Design a second prompt-contract wave that combines schema anchoring with visual executable recovery while reducing no-call failures.
 3. H1h only after H1i moves for the right reason.
 4. Gemini CLI real execution only when the binary/run environment is explicitly meant to be part of the comparison.

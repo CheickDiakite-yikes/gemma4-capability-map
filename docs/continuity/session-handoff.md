@@ -40,12 +40,17 @@ Current strongest MLX result:
   - `60` traces across five rows, four workflow families, and three repeats
   - all rows matched at readiness `0.97710`, repair/fallback/argument repair `0.0 / 0.0 / 0.0`, raw clean `1.0`
   - trace analysis found `0` notes and `0` failure candidates
+- the H1j probe-derived candidate packet also saturated:
+  - [`results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_candidates_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_candidates_v1_knowledge_work_ablation_packet)
+  - `30` traces across five rows and six probe-derived live workflow families
+  - all rows matched at readiness `0.96577`, repair/fallback/argument repair `0.0 / 0.0 / 0.0`, raw clean `1.0`
+  - trace analysis found `0` notes and `0` failure candidates
 
 Current next loop:
 
 1. Treat H1i candidate v1 and repeat3 as saturated/non-discriminating after the probe gate.
-2. Run the H1j probe-derived live candidate packet:
-   `uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1j_slice.yaml --packet-id mlx_probe_derived_tool_contract_candidates --run-group-id <timestamp>_h1j_probe_derived_candidates_v1`
+2. Run the H1j helper-ablation packet:
+   `uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1j_slice.yaml --packet-id mlx_probe_derived_helper_ablation --run-group-id <timestamp>_h1j_probe_derived_helpers_v1`
 3. Design a second prompt-contract wave that combines schema anchoring with visual executable recovery and reduces no-call failures.
 4. Return to H1h only after H1i changes for the right mechanism-level reason.
 5. Regenerate the report artifacts after any H1i/H1h/probe/Gemini packet change.

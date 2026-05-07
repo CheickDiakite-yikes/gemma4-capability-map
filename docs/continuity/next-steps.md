@@ -134,6 +134,9 @@ What remains:
   - candidate packet id: `mlx_probe_derived_tool_contract_candidates`
   - helper-ablation packet id: `mlx_probe_derived_helper_ablation`
   - parallel no-call is explicitly deferred because there is no faithful live packaged workflow for `parallel_audit_array_literal` yet
+- H1j candidate packet is now executed:
+  - packet: [`results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_candidates_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_candidates_v1_knowledge_work_ablation_packet)
+  - result: all five rows matched readiness `0.96577`, strict/recovered `1.0 / 1.0`, repair/fallback/argument repair `0.0 / 0.0 / 0.0`, raw clean `1.0`, with `0` notes and `0` failure candidates
 - design a second prompt-contract wave that combines schema anchoring with visual executable recovery and directly targets the remaining no-call failures
 - promote a candidate beyond H1i only if it moves raw-clean or controller-burden metrics for the right reason
 - regenerate the MLX tool-contract report after any H1i, H1h, probe, or Gemini baseline packet changes
@@ -151,6 +154,7 @@ uv run python scripts/summarize_tool_prompt_contract_probe_packet.py results/too
 uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1i_slice.yaml --packet-id mlx_prompt_contract_candidates --run-group-id <timestamp>_h1i_prompt_contract_candidates
 uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1i_slice.yaml --packet-id mlx_prompt_contract_candidates --run-group-id 20260507T_h1i_prompt_contract_candidates_repeat3_v1 --repeat 3
 uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1j_slice.yaml --packet-id mlx_probe_derived_tool_contract_candidates --run-group-id <timestamp>_h1j_probe_derived_candidates_v1
+uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1j_slice.yaml --packet-id mlx_probe_derived_helper_ablation --run-group-id <timestamp>_h1j_probe_derived_helpers_v1
 uv run python scripts/summarize_h1_tool_contract.py results/knowledge_work_h1_slice/<packet_id>
 ```
 

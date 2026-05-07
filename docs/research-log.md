@@ -2759,6 +2759,14 @@
   - it selects six packaged live workflows that map to the no-directive probe failures: visual no-call/readback pressure plus API/CLI argument mismatch
   - `parallel_audit_array_literal` is explicitly deferred because the current packaged live surface has no faithful parallel-tool workflow
   - dry-run validation produced the expected command with `5` systems and `6` live episode ids
+- The first H1j probe-derived candidate packet also saturated:
+  - command:
+    - `uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1j_slice.yaml --packet-id mlx_probe_derived_tool_contract_candidates --run-group-id 20260507T_h1j_probe_derived_candidates_v1`
+  - packet: [`20260507T_h1j_probe_derived_candidates_v1`](../results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_candidates_v1_knowledge_work_ablation_packet)
+  - shape: `5` rows x `6` packaged live workflow families = `30` traces
+  - all five rows matched at `real_world_readiness_avg = 0.96577`, `strict_interface_avg = 1.0`, `recovered_execution_avg = 1.0`, `controller_repair_avg = 0.0`, `argument_repair_avg = 0.0`, `controller_fallback_avg = 0.0`, and `raw_planning_clean_rate_avg = 1.0`
+  - trace analysis found `0` note events and `0` failure candidates
+  - interpretation: mapping probe failures back to packaged workflows was not enough. The raw probe is still the better discriminator. The next H1j run should remove controller helpers on the same probe-derived set, then the next prompt-contract wave should target the probe directly
 
 ### Verification
 
