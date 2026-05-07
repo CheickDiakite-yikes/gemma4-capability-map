@@ -1,6 +1,6 @@
 # MLX Tool-Contract Harnessing Report
 
-Generated: `2026-05-07T03:25:06.200728+00:00`
+Generated: `2026-05-07T03:30:06.839050+00:00`
 
 ## Executive Read
 
@@ -41,6 +41,8 @@ The main finding is blunt: the tool-turn directive is a real model-side harness 
 ![Focused exact replay gaps](figures/exact_probe_replay_focus_gap.svg)
 
 ![CLI-live parallel replay gap](figures/live_parallel_replay_gap.svg)
+
+![CLI-live focused replay gaps](figures/live_replay_focus_gap.svg)
 
 ## Packet Summary
 
@@ -152,6 +154,25 @@ The promotion gate is intentionally conservative: weak one-case exact gains and 
 
 This is the live-operator counterpart to the focused parallel-array replay. The contracted row emits both expected tool calls, while the no-directive row emits no tool calls and asks the operator to provide inputs that were already present in the replay context.
 
+- Visual contracted exact rate: `0.6666666666666666`
+- Visual no-directive exact rate: `0.0`
+- Visual delta exact rate: `-0.6666666666666666`
+
+| case_id | family | source_failure_mode | baseline_replay_exact_match | candidate_replay_exact_match | delta_exact_match | baseline_replay_failure_mode | candidate_replay_failure_mode | baseline_actual_call_count | candidate_actual_call_count | delta_actual_call_count |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| visual_form_target_literal | visual_argument_copying | no_tool_call | False | False | 0 | executable_paraphrase | no_tool_call | 1 | 0 | -1 |
+| visual_latest_filter_literal | visual_referent_carryover | no_tool_call | True | False | -1 | exact | no_tool_call | 1 | 0 | -1 |
+| visual_readback_region_literal | visual_referent_carryover | no_tool_call | True | False | -1 | exact | no_tool_call | 1 | 0 | -1 |
+
+The visual CLI-live comparison mirrors the focused visual replay: no-directive emits no tool calls in all three cases, while contracted MLX recovers two exact calls and one executable visual paraphrase.
+
+## CLI-Live Focused Replay Summary
+
+| slice | shared_case_count | baseline_exact_rate | candidate_exact_rate | delta_exact_rate | case_delta_count |
+| --- | --- | --- | --- | --- | --- |
+| parallel array | 1 | 1.0 | 0.0 | -1.0 | 1 |
+| visual no-call | 3 | 0.6666666666666666 | 0.0 | -0.6666666666666666 | 3 |
+
 ## H1i Prompt-Contract Candidate Packet
 
 | system_id | lane | disabled_controls | tool_turn_directive_enabled | real_world_readiness_avg | delta_vs_contracted_real_world_readiness_avg | delta_vs_no_directive_real_world_readiness_avg | strict_interface_avg | delta_vs_contracted_strict_interface_avg | delta_vs_no_directive_strict_interface_avg | recovered_execution_avg | delta_vs_contracted_recovered_execution_avg | delta_vs_no_directive_recovered_execution_avg | controller_repair_avg | delta_vs_contracted_controller_repair_avg | delta_vs_no_directive_controller_repair_avg | argument_repair_avg | delta_vs_contracted_argument_repair_avg | delta_vs_no_directive_argument_repair_avg | controller_fallback_avg | delta_vs_contracted_controller_fallback_avg | delta_vs_no_directive_controller_fallback_avg | intent_override_avg | delta_vs_contracted_intent_override_avg | delta_vs_no_directive_intent_override_avg | raw_planning_clean_rate_avg | delta_vs_contracted_raw_planning_clean_rate_avg | delta_vs_no_directive_raw_planning_clean_rate_avg |
@@ -261,4 +282,5 @@ This packet is deliberately a dry-run prompt and command manifest. It is an exte
 - Visual replay comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_comparisons/20260507T_visual_state_contracted_vs_no_directive_v1`
 - Parallel replay comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_comparisons/20260507T_parallel_array_contracted_vs_no_directive_v1`
 - CLI-live parallel replay comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260507T_parallel_array_contracted_vs_no_directive_live_v1`
+- CLI-live visual replay comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260507T_visual_state_contracted_vs_no_directive_live_v1`
 - Gemini dry-run baseline: `/Users/cheickdiakite/Codex/moonie/results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1`
