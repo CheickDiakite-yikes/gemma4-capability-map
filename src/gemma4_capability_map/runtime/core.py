@@ -50,6 +50,16 @@ DEFAULT_EPISODE_ROOT = ROOT / "data" / "knowledge_work"
 DEFAULT_REASONER_MAX_NEW_TOKENS = 96
 
 
+def _apply_reasoner_prompt_controls(bundle: Any, research_controls: ResearchControls) -> None:
+    reasoner = getattr(bundle, "reasoner", None)
+    if reasoner is None:
+        return
+    if hasattr(reasoner, "tool_turn_directive_enabled"):
+        reasoner.tool_turn_directive_enabled = not research_controls.disable_tool_turn_directive
+    if hasattr(reasoner, "tool_prompt_contract_id"):
+        reasoner.tool_prompt_contract_id = research_controls.tool_prompt_contract_id
+
+
 def execute_task_trace(
     task: Task,
     variant: Variant,
@@ -64,6 +74,7 @@ def execute_task_trace(
     with_oracle_hint: Callable[[list[Message], ExpectedEvent | list[ExpectedEvent] | None, list[str] | None, str], list[Message]],
 ) -> RunTrace:
     research_controls = research_controls or ResearchControls()
+    _apply_reasoner_prompt_controls(bundle, research_controls)
     effective_task = materialize_task(task, variant)
     language_stressor = variant.stressors.get("language") if variant.stressors else None
     state = deepcopy(effective_task.initial_state)
@@ -380,6 +391,7 @@ class LocalAgentRuntime:
     def list_system_profiles(self) -> list[SystemProfile]:
         profiles: list[SystemProfile] = []
         for system_id, meta in (self.registry.get("systems") or {}).items():
+            controls = ResearchControls.from_mapping(meta.get("research_controls"))
             profiles.append(
                 SystemProfile(
                     system_id=system_id,
@@ -403,6 +415,7 @@ class LocalAgentRuntime:
                     reasoner_max_new_tokens=int(meta.get("reasoner_max_new_tokens", DEFAULT_REASONER_MAX_NEW_TOKENS) or DEFAULT_REASONER_MAX_NEW_TOKENS),
                     request_timeout_seconds=float(meta.get("request_timeout_seconds", 600.0) or 600.0),
                     run_timeout_seconds=float(meta.get("run_timeout_seconds", 0.0) or 0.0),
+                    research_controls=controls.manifest_payload(),
                 )
             )
         return sorted(
@@ -775,7 +788,12 @@ class LocalAgentRuntime:
 
             from gemma4_capability_map.knowledge_work.runner import EpisodeRunner
 
-            runner = EpisodeRunner(tasks=self.tasks, bundle=bundle, artifact_output_root=sandbox.artifact_dir)
+            runner = EpisodeRunner(
+                tasks=self.tasks,
+                bundle=bundle,
+                artifact_output_root=sandbox.artifact_dir,
+                research_controls=ResearchControls.from_mapping(profile.research_controls),
+            )
             trace = runner.run(episode)
             policy_blocks = [block.as_payload() for block in sandbox_policy_blocks_for_trace(trace=trace, lane=episode.lane, policy_id=sandbox.policy_id)]
             if policy_blocks:
@@ -888,6 +906,8 @@ class LocalAgentRuntime:
             retriever_device="cpu" if retriever_backend == "hf" else None,
             reasoner_max_new_tokens=profile.reasoner_max_new_tokens or DEFAULT_REASONER_MAX_NEW_TOKENS,
             request_timeout_seconds=profile.request_timeout_seconds or 600.0,
+            tool_turn_directive_enabled=not bool(profile.research_controls.get("disable_tool_turn_directive")),
+            tool_prompt_contract_id=str(profile.research_controls.get("tool_prompt_contract_id", "") or ""),
         )
         warmup = warm_runtime_bundle(bundle, self.tasks)
         return bundle, runtime_bundle_snapshot(bundle), warmup

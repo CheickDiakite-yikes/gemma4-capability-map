@@ -13,6 +13,7 @@ class ResearchControls:
     disable_argument_repair: bool = False
     disable_deterministic_visual_follow_on: bool = False
     disable_tool_turn_directive: bool = False
+    tool_prompt_contract_id: str = ""
 
     @classmethod
     def from_mapping(cls, payload: Mapping[str, Any] | None) -> "ResearchControls":
@@ -25,10 +26,11 @@ class ResearchControls:
             disable_argument_repair=bool(payload.get("disable_argument_repair", False)),
             disable_deterministic_visual_follow_on=bool(payload.get("disable_deterministic_visual_follow_on", False)),
             disable_tool_turn_directive=bool(payload.get("disable_tool_turn_directive", False)),
+            tool_prompt_contract_id=str(payload.get("tool_prompt_contract_id", "") or ""),
         )
 
     def enabled(self) -> bool:
         return any(asdict(self).values())
 
-    def manifest_payload(self) -> dict[str, bool]:
+    def manifest_payload(self) -> dict[str, bool | str]:
         return {key: value for key, value in asdict(self).items() if value}

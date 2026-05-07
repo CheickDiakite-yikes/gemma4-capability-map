@@ -49,6 +49,7 @@ class SystemProfile(StrictModel):
     reasoner_max_new_tokens: int = 96
     request_timeout_seconds: float = 600.0
     run_timeout_seconds: float = 0.0
+    research_controls: dict[str, bool | str] = Field(default_factory=dict)
 
 
 class ToolInvocation(StrictModel):

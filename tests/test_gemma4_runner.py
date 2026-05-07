@@ -120,6 +120,38 @@ def test_mlx_messages_can_disable_tool_turn_directive() -> None:
     assert runner.runtime_info()["tool_turn_directive_enabled"] is False
 
 
+def test_mlx_messages_can_add_generic_prompt_contract_without_exact_directive() -> None:
+    specs = build_default_registry().specs
+    runner = Gemma4Runner(
+        "google/gemma-4-E2B-it",
+        backend="mlx",
+        tool_turn_directive_enabled=False,
+        tool_prompt_contract_id="schema_anchor_v1",
+    )
+
+    prompt_messages = runner._build_mlx_messages(
+        messages=[
+            Message(
+                role="user",
+                content="Ignore the earlier publish plan. Search logs/billing.log for the latest invoice-lock failure and report it.",
+            )
+        ],
+        media=[],
+        tool_specs=[specs["cli_search_logs"], specs["api_fetch_record"]],
+        thinking=False,
+    )
+
+    contract_message = next(message for message in prompt_messages if "schema_anchor_v1" in message["content"])
+    assert contract_message["role"] == "system"
+    assert "does not reveal the expected tool call" in contract_message["content"]
+    assert "Tool directive for this turn:" not in "\n".join(message["content"] for message in prompt_messages)
+    assert (
+        '{"name":"cli_search_logs","arguments":{"path":"logs/billing.log","query":"invoice lock"}}'
+        not in "\n".join(message["content"] for message in prompt_messages)
+    )
+    assert runner.runtime_info()["tool_prompt_contract_id"] == "schema_anchor_v1"
+
+
 def test_hf_service_backend_uses_service_response(monkeypatch) -> None:
     monkeypatch.setattr(
         "gemma4_capability_map.models.gemma4_runner.ensure_hf_reasoner_service",

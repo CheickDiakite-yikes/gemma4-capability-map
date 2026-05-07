@@ -374,6 +374,8 @@ def _handle_request(
     request_id = f"{state['service_id']}_{int(time.time() * 1000)}"
     messages = [Message.model_validate(item) for item in request.get("messages", [])]
     tool_specs = [ToolSpec.model_validate(item) for item in request.get("tool_specs", [])]
+    runner.tool_turn_directive_enabled = bool(request.get("tool_turn_directive_enabled", True))
+    runner.tool_prompt_contract_id = str(request.get("tool_prompt_contract_id", "") or "")
     state["last_request_type"] = request_type
     state["last_request_started_at"] = _utc_now()
     state["active_request"] = {

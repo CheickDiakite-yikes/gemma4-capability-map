@@ -113,6 +113,8 @@ def main() -> None:
             command.append("--disable-deterministic-visual-follow-on")
         if spec.get("disable_tool_turn_directive"):
             command.append("--disable-tool-turn-directive")
+        if spec.get("tool_prompt_contract_id"):
+            command.extend(["--tool-prompt-contract-id", str(spec["tool_prompt_contract_id"])])
 
         timeout_seconds = spec.get("run_timeout_seconds") or None
         try:
@@ -225,6 +227,7 @@ def _system_run_args(system_id: str, registry: dict[str, dict[str, Any]]) -> dic
         "disable_argument_repair": bool((meta.get("research_controls") or {}).get("disable_argument_repair", False)),
         "disable_deterministic_visual_follow_on": bool((meta.get("research_controls") or {}).get("disable_deterministic_visual_follow_on", False)),
         "disable_tool_turn_directive": bool((meta.get("research_controls") or {}).get("disable_tool_turn_directive", False)),
+        "tool_prompt_contract_id": str((meta.get("research_controls") or {}).get("tool_prompt_contract_id", "") or ""),
     }
 
 

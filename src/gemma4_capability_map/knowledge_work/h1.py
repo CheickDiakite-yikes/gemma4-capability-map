@@ -212,6 +212,7 @@ def _system_run_args(system_id: str, meta: dict[str, Any]) -> dict[str, Any]:
         "disable_argument_repair": controls.disable_argument_repair,
         "disable_deterministic_visual_follow_on": controls.disable_deterministic_visual_follow_on,
         "disable_tool_turn_directive": controls.disable_tool_turn_directive,
+        "tool_prompt_contract_id": controls.tool_prompt_contract_id,
     }
 
 

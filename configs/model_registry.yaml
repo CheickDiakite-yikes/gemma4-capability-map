@@ -849,6 +849,84 @@ systems:
     input_cost_per_mtok: 0.0
     output_cost_per_mtok: 0.0
     color: "#7C3AED"
+  mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor:
+    display_name: Gemma 4 E2B (MLX 4-bit, no directive + schema anchor)
+    short_label: Gemma 4 MLX schema anchor
+    provider: mlx-community
+    backend: mlx
+    deployment: local_reasoner_mlx
+    capability_family: reasoner_only_prompt_contract
+    comparison_tier: research
+    publishable_default: false
+    executor_mode: local_reasoner
+    modality: multimodal
+    local: true
+    reasoner: google/gemma-4-E2B-it
+    router: ""
+    retriever: ""
+    reasoner_params_b: 27.0
+    total_params_b: 27.0
+    reasoner_max_new_tokens: 64
+    request_timeout_seconds: 300.0
+    run_timeout_seconds: 1800.0
+    research_controls:
+      disable_tool_turn_directive: true
+      tool_prompt_contract_id: schema_anchor_v1
+    input_cost_per_mtok: 0.0
+    output_cost_per_mtok: 0.0
+    color: "#4338CA"
+  mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_literal_guard:
+    display_name: Gemma 4 E2B (MLX 4-bit, no directive + literal argument guard)
+    short_label: Gemma 4 MLX literal guard
+    provider: mlx-community
+    backend: mlx
+    deployment: local_reasoner_mlx
+    capability_family: reasoner_only_prompt_contract
+    comparison_tier: research
+    publishable_default: false
+    executor_mode: local_reasoner
+    modality: multimodal
+    local: true
+    reasoner: google/gemma-4-E2B-it
+    router: ""
+    retriever: ""
+    reasoner_params_b: 27.0
+    total_params_b: 27.0
+    reasoner_max_new_tokens: 64
+    request_timeout_seconds: 300.0
+    run_timeout_seconds: 1800.0
+    research_controls:
+      disable_tool_turn_directive: true
+      tool_prompt_contract_id: literal_argument_guard_v1
+    input_cost_per_mtok: 0.0
+    output_cost_per_mtok: 0.0
+    color: "#0F766E"
+  mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_tool_required:
+    display_name: Gemma 4 E2B (MLX 4-bit, no directive + tool-required parallel contract)
+    short_label: Gemma 4 MLX tool required
+    provider: mlx-community
+    backend: mlx
+    deployment: local_reasoner_mlx
+    capability_family: reasoner_only_prompt_contract
+    comparison_tier: research
+    publishable_default: false
+    executor_mode: local_reasoner
+    modality: multimodal
+    local: true
+    reasoner: google/gemma-4-E2B-it
+    router: ""
+    retriever: ""
+    reasoner_params_b: 27.0
+    total_params_b: 27.0
+    reasoner_max_new_tokens: 64
+    request_timeout_seconds: 300.0
+    run_timeout_seconds: 1800.0
+    research_controls:
+      disable_tool_turn_directive: true
+      tool_prompt_contract_id: tool_required_parallel_v1
+    input_cost_per_mtok: 0.0
+    output_cost_per_mtok: 0.0
+    color: "#B45309"
   hf_service_gemma4_e4b_reasoner_only:
     display_name: Gemma 4 E4B (HF local)
     short_label: Gemma 4 E4B local

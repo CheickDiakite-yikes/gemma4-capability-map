@@ -163,12 +163,14 @@ def run_tool_directive_probe(
     if str(meta.get("backend", "")) not in {"heuristic", "hf", "hf_service", "mlx", "llama_cpp"}:
         raise ValueError(f"Unsupported probe backend for `{system_id}`: {meta.get('backend')}")
 
+    controls = ResearchControls.from_mapping(meta.get("research_controls"))
     runner = Gemma4Runner(
         model_id=str(meta.get("reasoner") or "google/gemma-4-E2B-it"),
         backend=str(meta.get("backend") or "heuristic"),
         max_new_tokens=int(meta.get("reasoner_max_new_tokens", 64) or 64),
         request_timeout_seconds=float(meta.get("request_timeout_seconds", 300.0) or 300.0),
-        tool_turn_directive_enabled=not ResearchControls.from_mapping(meta.get("research_controls")).disable_tool_turn_directive,
+        tool_turn_directive_enabled=not controls.disable_tool_turn_directive,
+        tool_prompt_contract_id=controls.tool_prompt_contract_id,
     )
     tool_specs_by_name = build_default_registry().specs
     selected_cases = cases or build_tool_directive_probe_cases()
@@ -197,6 +199,7 @@ def run_tool_directive_probe(
         "reasoner": str(meta.get("reasoner") or ""),
         "case_count": len(rows),
         "runtime_info": runner.runtime_info(),
+        "research_controls": controls.manifest_payload(),
         "summary": summary,
     }
     (target / "manifest.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
