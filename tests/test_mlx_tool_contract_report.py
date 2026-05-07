@@ -34,8 +34,8 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
 
     assert payload["gemini"]["dry_run"] is True
     assert payload["gemini"]["workflow_count"] == 10
-    assert payload["manifest"]["table_count"] == 24
-    assert payload["manifest"]["figure_count"] == 16
+    assert payload["manifest"]["table_count"] == 26
+    assert payload["manifest"]["figure_count"] == 17
 
     candidates = {row["tool_prompt_contract_id"]: row for row in payload["prompt_contract_candidates"]}
     assert set(candidates) == {
@@ -59,10 +59,16 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert wave2_gates["schema_literal_tool_required_v2"]["recommendation"] == "weak_exact_gain"
     assert wave2_gates["visual_next_call_state_v2"]["executable_match_rate"] == "1.0"
     assert wave2_gates["parallel_array_required_v2"]["probe_gate"] == "no_probe_improvement_vs_no_directive"
+    wave3_gates = {row["tool_prompt_contract_id"]: row for row in payload["prompt_contract_wave3_probe_gates"]}
+    assert wave3_gates["canonical_json_copy_v3"]["recommendation"] == "weak_exact_gain"
+    assert wave3_gates["visual_tool_initiation_v3"]["executable_match_rate"] == "1.0"
+    assert wave3_gates["parallel_two_call_array_v3"]["probe_gate"] == "no_probe_improvement_vs_no_directive"
     promotion = {row["tool_prompt_contract_id"]: row for row in payload["prompt_contract_promotion_decisions"]}
     assert promotion["schema_anchor_v1"]["promotion_decision"] == "hold_for_exact_probe_replay"
     assert promotion["visual_next_call_state_v2"]["promotion_reason"].startswith("executable recovery exists")
     assert promotion["parallel_array_required_v2"]["promotion_decision"] == "reject_for_h1_promotion"
+    assert promotion["visual_tool_initiation_v3"]["promotion_decision"] == "hold_for_exact_probe_replay"
+    assert promotion["parallel_two_call_array_v3"]["promotion_decision"] == "reject_for_h1_promotion"
     replay_summary = payload["exact_probe_replay_comparison"]["summary"]
     assert replay_summary["baseline_exact_match_rate"] == 0.875
     assert replay_summary["candidate_exact_match_rate"] == 0.0
@@ -124,6 +130,8 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert (tmp_path / "tables" / "prompt_contract_probe_failure_modes.csv").exists()
     assert (tmp_path / "tables" / "prompt_contract_wave2_probe_gates.csv").exists()
     assert (tmp_path / "tables" / "prompt_contract_wave2_probe_failure_modes.csv").exists()
+    assert (tmp_path / "tables" / "prompt_contract_wave3_probe_gates.csv").exists()
+    assert (tmp_path / "tables" / "prompt_contract_wave3_probe_failure_modes.csv").exists()
     assert (tmp_path / "tables" / "prompt_contract_promotion_decisions.csv").exists()
     assert (tmp_path / "tables" / "h1i_prompt_contract_candidate_metrics.csv").exists()
     assert (tmp_path / "tables" / "h1i_prompt_contract_repeat3_metrics.csv").exists()
@@ -142,6 +150,7 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert (tmp_path / "figures" / "prompt_contract_candidate_targets.svg").exists()
     assert (tmp_path / "figures" / "prompt_contract_probe_gate.svg").exists()
     assert (tmp_path / "figures" / "prompt_contract_wave2_probe_gate.svg").exists()
+    assert (tmp_path / "figures" / "prompt_contract_wave3_probe_gate.svg").exists()
     assert (tmp_path / "figures" / "h1i_prompt_contract_repeat3_burden.svg").exists()
     assert (tmp_path / "figures" / "h1j_probe_derived_burden.svg").exists()
     assert (tmp_path / "figures" / "h1j_probe_derived_helper_burden.svg").exists()

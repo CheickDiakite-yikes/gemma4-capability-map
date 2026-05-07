@@ -1,6 +1,6 @@
 # MLX Tool-Contract Harnessing Report
 
-Generated: `2026-05-07T03:36:56.768699+00:00`
+Generated: `2026-05-07T04:36:36.333210+00:00`
 
 ## Executive Read
 
@@ -25,6 +25,8 @@ The main finding is blunt: the tool-turn directive is a real model-side harness 
 ![Executed prompt contract probe gate](figures/prompt_contract_probe_gate.svg)
 
 ![Prompt contract wave two probe gate](figures/prompt_contract_wave2_probe_gate.svg)
+
+![Prompt contract wave three probe gate](figures/prompt_contract_wave3_probe_gate.svg)
 
 ![H1i prompt-contract repeat3 burden](figures/h1i_prompt_contract_repeat3_burden.svg)
 
@@ -74,12 +76,15 @@ The main finding is blunt: the tool-turn directive is a real model-side harness 
 
 | system_id | short_label | tool_prompt_contract_id | disable_tool_turn_directive | label | hypothesis | tags |
 | --- | --- | --- | --- | --- | --- | --- |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_canonical_json_copy | Gemma 4 MLX canonical JSON | canonical_json_copy_v3 | True | Canonical JSON Copy v3 | Live replay shows no-directive MLX often enters the tool protocol but drifts on canonical CLI/API arguments; tighter token-copy rules may reduce argument repair without leaking the planned call. | schema;arguments;canonicalization;json;cli;api |
 | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_literal_guard | Gemma 4 MLX literal guard | literal_argument_guard_v1 | True | Literal Argument Guard v1 | No-directive rows often choose the right tool but drift on arguments; stronger literal-copy rules may reduce repair burden. | arguments;canonicalization;cli;api;visual |
 | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_parallel_array_required | Gemma 4 MLX parallel array | parallel_array_required_v2 | True | Parallel Array Required v2 | The parallel probe collapsed to no tool call under no-directive prompting; explicit array-shape rules may recover parallel calls. | parallel;no_tool_call;json_array;multi_source |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_parallel_two_call_array | Gemma 4 MLX parallel two-call | parallel_two_call_array_v3 | True | Parallel Two-Call Array v3 | CLI-live parallel replay shows no-directive MLX asks the operator for inputs already present; explicit source-count and array-shape rules may preserve the two-call contract. | parallel;no_tool_call;json_array;multi_source;arguments |
 | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor | Gemma 4 MLX schema anchor | schema_anchor_v1 | True | Schema Anchor v1 | No-directive CLI/API misses may improve if the model is reminded that tool names and fields are literal interface tokens. | schema;json;cli;api |
 | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_literal_tool_required | Gemma 4 MLX schema literal required | schema_literal_tool_required_v2 | True | Schema Literal Tool-Required v2 | The first wave split exact-copy and executable visual gains; a combined contract may preserve schema obedience while reducing no-call failures. | schema;arguments;no_tool_call;json;cli;api;visual |
 | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_tool_required | Gemma 4 MLX tool required | tool_required_parallel_v1 | True | Tool Required Parallel v1 | No-directive visual and parallel cases may fail because the model exits the tool protocol; stronger tool-required wording should reduce no-call failures. | no_tool_call;parallel;visual |
 | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_next_call_state | Gemma 4 MLX visual next call | visual_next_call_state_v2 | True | Visual Next-Call State v2 | No-directive visual failures are concentrated in no-call behavior after a visual referent exists; explicit state-transition wording may reduce that collapse. | visual;no_tool_call;state_machine;readback |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_tool_initiation | Gemma 4 MLX visual initiation | visual_tool_initiation_v3 | True | Visual Tool Initiation v3 | CLI-live visual replay shows no-directive MLX often answers or defers instead of initiating the next visual tool call; a compact state-transition contract may recover tool entry before exact selector tuning. | visual;no_tool_call;state_machine;readback;arguments |
 
 These candidates are generic prompt contracts for the no-directive row. They deliberately avoid embedding the expected planned call, so they can be tested on the probe before spending H1i or H1h runs.
 
@@ -103,6 +108,16 @@ The first executed probe gate shows only partial gains. `schema_anchor_v1` recov
 
 The second wave confirms the same shape rather than changing the direction. `schema_literal_tool_required_v2` gives a weak one-case exact gain, `visual_next_call_state_v2` restores executable visual behavior without exact JSON fidelity, and `parallel_array_required_v2` does not improve the parallel/no-call family. None of the wave-two candidates is strong enough to replace the final tool-turn directive.
 
+## Prompt-Contract Wave Three Probe Gate
+
+| system_id | tool_prompt_contract_id | exact_match_rate | executable_match_rate | delta_exact_vs_contracted | delta_exact_vs_no_directive | probe_gate | improved_case_count | regressed_case_count | dominant_failure_mode | failure_modes | recommendation |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_canonical_json_copy | canonical_json_copy_v3 | 0.125 | 0.0 | -0.75 | 0.125 | probe_improved_vs_no_directive | 1 | 0 | no_tool_call | argument_mismatch:2;call_count_mismatch:1;exact:1;no_tool_call:3;wrong_tool:1 | weak_exact_gain |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_tool_initiation | visual_tool_initiation_v3 | 0.125 | 1.0 | -0.75 | 0.125 | probe_improved_vs_no_directive | 2 | 0 | no_tool_call | call_count_mismatch:1;exact:1;executable_paraphrase:1;no_tool_call:4;wrong_tool:1 | weak_exact_gain |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_parallel_two_call_array | parallel_two_call_array_v3 | 0.0 | 0.0 | -0.875 | 0.0 | no_probe_improvement_vs_no_directive | 0 | 0 | no_tool_call | argument_mismatch:1;no_tool_call:7 | no_probe_gain |
+
+The third wave targets the mechanisms exposed by CLI-live replay: canonical argument copying, visual tool initiation, and two-call parallel array shape. It produces the same hard boundary in sharper form: canonical and visual-initiation wording recover one exact case, the visual-initiation contract also recovers the executable visual target, and the parallel two-call contract still does not recover the parallel no-call family.
+
 ## Prompt-Contract Promotion Decisions
 
 | wave | tool_prompt_contract_id | exact_match_rate | executable_match_rate | delta_exact_vs_no_directive | probe_gate | recommendation | promotion_decision | promotion_reason | next_use |
@@ -113,6 +128,9 @@ The second wave confirms the same shape rather than changing the direction. `sch
 | v2 | schema_literal_tool_required_v2 | 0.125 | 0.0 | 0.125 | probe_improved_vs_no_directive | weak_exact_gain | hold_for_exact_probe_replay | probe gain is too weak for H1 promotion without a stricter replay discriminator | test through exact-probe live replay before any H1 spend |
 | v2 | visual_next_call_state_v2 | 0.0 | 1.0 | 0.0 | probe_improved_vs_no_directive | visual_executable_gain_only | hold_for_exact_probe_replay | executable recovery exists, but exact JSON/tool-call fidelity did not improve | use in visual replay only, not as a general H1 candidate |
 | v2 | parallel_array_required_v2 | 0.0 | 0.0 | 0.0 | no_probe_improvement_vs_no_directive | no_probe_gain | reject_for_h1_promotion | no exact or executable probe gain over the no-directive baseline | replace with a sharper contract or a faithful live parallel workflow |
+| v3 | canonical_json_copy_v3 | 0.125 | 0.0 | 0.125 | probe_improved_vs_no_directive | weak_exact_gain | hold_for_exact_probe_replay | probe gain is too weak for H1 promotion without a stricter replay discriminator | test through exact-probe live replay before any H1 spend |
+| v3 | visual_tool_initiation_v3 | 0.125 | 1.0 | 0.125 | probe_improved_vs_no_directive | weak_exact_gain | hold_for_exact_probe_replay | probe gain is too weak for H1 promotion without a stricter replay discriminator | test through exact-probe live replay before any H1 spend |
+| v3 | parallel_two_call_array_v3 | 0.0 | 0.0 | 0.0 | no_probe_improvement_vs_no_directive | no_probe_gain | reject_for_h1_promotion | no exact or executable probe gain over the no-directive baseline | replace with a sharper contract or a faithful live parallel workflow |
 
 The promotion gate is intentionally conservative: weak one-case exact gains and visual executable-only gains are held for exact-probe replay, while candidates with no probe gain are rejected for H1 promotion.
 

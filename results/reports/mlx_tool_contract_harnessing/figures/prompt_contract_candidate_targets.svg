@@ -4,41 +4,41 @@
 <style>text{font-family:Inter,Arial,sans-serif}</style>
 <text x="20" y="97" font-size="13" fill="#111827">no_tool_call</text>
 <rect x="260" y="80" width="560.0" height="24" rx="3" fill="#0F766E"/>
-<text x="830.0" y="97" font-size="12" fill="#334155">4</text>
-<text x="20" y="139" font-size="13" fill="#111827">visual</text>
-<rect x="260" y="122" width="560.0" height="24" rx="3" fill="#0F766E"/>
-<text x="830.0" y="139" font-size="12" fill="#334155">4</text>
-<text x="20" y="181" font-size="13" fill="#111827">api</text>
-<rect x="260" y="164" width="420.0" height="24" rx="3" fill="#0F766E"/>
-<text x="690.0" y="181" font-size="12" fill="#334155">3</text>
-<text x="20" y="223" font-size="13" fill="#111827">cli</text>
-<rect x="260" y="206" width="420.0" height="24" rx="3" fill="#0F766E"/>
-<text x="690.0" y="223" font-size="12" fill="#334155">3</text>
-<text x="20" y="265" font-size="13" fill="#111827">arguments</text>
-<rect x="260" y="248" width="280.0" height="24" rx="3" fill="#0F766E"/>
-<text x="550.0" y="265" font-size="12" fill="#334155">2</text>
+<text x="830.0" y="97" font-size="12" fill="#334155">6</text>
+<text x="20" y="139" font-size="13" fill="#111827">arguments</text>
+<rect x="260" y="122" width="466.7" height="24" rx="3" fill="#0F766E"/>
+<text x="736.6666666666667" y="139" font-size="12" fill="#334155">5</text>
+<text x="20" y="181" font-size="13" fill="#111827">visual</text>
+<rect x="260" y="164" width="466.7" height="24" rx="3" fill="#0F766E"/>
+<text x="736.6666666666667" y="181" font-size="12" fill="#334155">5</text>
+<text x="20" y="223" font-size="13" fill="#111827">api</text>
+<rect x="260" y="206" width="373.3" height="24" rx="3" fill="#0F766E"/>
+<text x="643.3333333333333" y="223" font-size="12" fill="#334155">4</text>
+<text x="20" y="265" font-size="13" fill="#111827">cli</text>
+<rect x="260" y="248" width="373.3" height="24" rx="3" fill="#0F766E"/>
+<text x="643.3333333333333" y="265" font-size="12" fill="#334155">4</text>
 <text x="20" y="307" font-size="13" fill="#111827">json</text>
 <rect x="260" y="290" width="280.0" height="24" rx="3" fill="#0F766E"/>
-<text x="550.0" y="307" font-size="12" fill="#334155">2</text>
+<text x="550.0" y="307" font-size="12" fill="#334155">3</text>
 <text x="20" y="349" font-size="13" fill="#111827">parallel</text>
 <rect x="260" y="332" width="280.0" height="24" rx="3" fill="#0F766E"/>
-<text x="550.0" y="349" font-size="12" fill="#334155">2</text>
+<text x="550.0" y="349" font-size="12" fill="#334155">3</text>
 <text x="20" y="391" font-size="13" fill="#111827">schema</text>
 <rect x="260" y="374" width="280.0" height="24" rx="3" fill="#0F766E"/>
-<text x="550.0" y="391" font-size="12" fill="#334155">2</text>
+<text x="550.0" y="391" font-size="12" fill="#334155">3</text>
 <text x="20" y="433" font-size="13" fill="#111827">canonicalization</text>
-<rect x="260" y="416" width="140.0" height="24" rx="3" fill="#0F766E"/>
-<text x="410.0" y="433" font-size="12" fill="#334155">1</text>
+<rect x="260" y="416" width="186.7" height="24" rx="3" fill="#0F766E"/>
+<text x="456.66666666666663" y="433" font-size="12" fill="#334155">2</text>
 <text x="20" y="475" font-size="13" fill="#111827">json_array</text>
-<rect x="260" y="458" width="140.0" height="24" rx="3" fill="#0F766E"/>
-<text x="410.0" y="475" font-size="12" fill="#334155">1</text>
+<rect x="260" y="458" width="186.7" height="24" rx="3" fill="#0F766E"/>
+<text x="456.66666666666663" y="475" font-size="12" fill="#334155">2</text>
 <text x="20" y="517" font-size="13" fill="#111827">multi_source</text>
-<rect x="260" y="500" width="140.0" height="24" rx="3" fill="#0F766E"/>
-<text x="410.0" y="517" font-size="12" fill="#334155">1</text>
+<rect x="260" y="500" width="186.7" height="24" rx="3" fill="#0F766E"/>
+<text x="456.66666666666663" y="517" font-size="12" fill="#334155">2</text>
 <text x="20" y="559" font-size="13" fill="#111827">readback</text>
-<rect x="260" y="542" width="140.0" height="24" rx="3" fill="#0F766E"/>
-<text x="410.0" y="559" font-size="12" fill="#334155">1</text>
+<rect x="260" y="542" width="186.7" height="24" rx="3" fill="#0F766E"/>
+<text x="456.66666666666663" y="559" font-size="12" fill="#334155">2</text>
 <text x="20" y="601" font-size="13" fill="#111827">state_machine</text>
-<rect x="260" y="584" width="140.0" height="24" rx="3" fill="#0F766E"/>
-<text x="410.0" y="601" font-size="12" fill="#334155">1</text>
+<rect x="260" y="584" width="186.7" height="24" rx="3" fill="#0F766E"/>
+<text x="456.66666666666663" y="601" font-size="12" fill="#334155">2</text>
 </svg>

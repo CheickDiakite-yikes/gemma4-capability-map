@@ -1,6 +1,6 @@
 {
   "manifest": {
-    "generated_at": "2026-05-07T03:36:56.768699+00:00",
+    "generated_at": "2026-05-07T04:36:36.333210+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/mlx_tool_contract_harnessing",
     "source_packets": {
       "H1f compact": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1f_mlx_no_directive_v1_knowledge_work_h1f_mlx_tool_contract_ablation_v1",
@@ -11,6 +11,7 @@
     "gemini_packet": "/Users/cheickdiakite/Codex/moonie/results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1",
     "prompt_contract_packet": "/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_execute_v1",
     "prompt_contract_wave2_packet": "/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave2_execute_v1",
+    "prompt_contract_wave3_packet": "/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave3_execute_v1",
     "h1i_prompt_contract_packet": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet",
     "h1i_prompt_contract_repeat_packet": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_repeat3_v1_knowledge_work_ablation_packet",
     "h1j_prompt_contract_packet": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_candidates_v1_knowledge_work_ablation_packet",
@@ -25,8 +26,8 @@
     "live_visual_replay_comparison": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260507T_visual_state_contracted_vs_no_directive_live_v1",
     "live_canonical_replay_comparison": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260507T_canonical_argument_contracted_vs_no_directive_live_v1",
     "registry_path": "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
-    "table_count": 24,
-    "figure_count": 16
+    "table_count": 26,
+    "figure_count": 17
   },
   "packet_summary": [
     {
@@ -161,6 +162,15 @@
   ],
   "prompt_contract_candidates": [
     {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_canonical_json_copy",
+      "short_label": "Gemma 4 MLX canonical JSON",
+      "tool_prompt_contract_id": "canonical_json_copy_v3",
+      "disable_tool_turn_directive": true,
+      "label": "Canonical JSON Copy v3",
+      "hypothesis": "Live replay shows no-directive MLX often enters the tool protocol but drifts on canonical CLI/API arguments; tighter token-copy rules may reduce argument repair without leaking the planned call.",
+      "tags": "schema;arguments;canonicalization;json;cli;api"
+    },
+    {
       "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_literal_guard",
       "short_label": "Gemma 4 MLX literal guard",
       "tool_prompt_contract_id": "literal_argument_guard_v1",
@@ -177,6 +187,15 @@
       "label": "Parallel Array Required v2",
       "hypothesis": "The parallel probe collapsed to no tool call under no-directive prompting; explicit array-shape rules may recover parallel calls.",
       "tags": "parallel;no_tool_call;json_array;multi_source"
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_parallel_two_call_array",
+      "short_label": "Gemma 4 MLX parallel two-call",
+      "tool_prompt_contract_id": "parallel_two_call_array_v3",
+      "disable_tool_turn_directive": true,
+      "label": "Parallel Two-Call Array v3",
+      "hypothesis": "CLI-live parallel replay shows no-directive MLX asks the operator for inputs already present; explicit source-count and array-shape rules may preserve the two-call contract.",
+      "tags": "parallel;no_tool_call;json_array;multi_source;arguments"
     },
     {
       "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor",
@@ -213,6 +232,15 @@
       "label": "Visual Next-Call State v2",
       "hypothesis": "No-directive visual failures are concentrated in no-call behavior after a visual referent exists; explicit state-transition wording may reduce that collapse.",
       "tags": "visual;no_tool_call;state_machine;readback"
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_tool_initiation",
+      "short_label": "Gemma 4 MLX visual initiation",
+      "tool_prompt_contract_id": "visual_tool_initiation_v3",
+      "disable_tool_turn_directive": true,
+      "label": "Visual Tool Initiation v3",
+      "hypothesis": "CLI-live visual replay shows no-directive MLX often answers or defers instead of initiating the next visual tool call; a compact state-transition contract may recover tool entry before exact selector tuning.",
+      "tags": "visual;no_tool_call;state_machine;readback;arguments"
     }
   ],
   "prompt_contract_probe_gates": [
@@ -427,6 +455,124 @@
       "count": "1"
     }
   ],
+  "prompt_contract_wave3_probe_gates": [
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_canonical_json_copy",
+      "tool_prompt_contract_id": "canonical_json_copy_v3",
+      "exact_match_rate": "0.125",
+      "executable_match_rate": "0.0",
+      "delta_exact_vs_contracted": "-0.75",
+      "delta_exact_vs_no_directive": "0.125",
+      "probe_gate": "probe_improved_vs_no_directive",
+      "improved_case_count": "1",
+      "regressed_case_count": "0",
+      "dominant_failure_mode": "no_tool_call",
+      "failure_modes": "argument_mismatch:2;call_count_mismatch:1;exact:1;no_tool_call:3;wrong_tool:1",
+      "recommendation": "weak_exact_gain"
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_tool_initiation",
+      "tool_prompt_contract_id": "visual_tool_initiation_v3",
+      "exact_match_rate": "0.125",
+      "executable_match_rate": "1.0",
+      "delta_exact_vs_contracted": "-0.75",
+      "delta_exact_vs_no_directive": "0.125",
+      "probe_gate": "probe_improved_vs_no_directive",
+      "improved_case_count": "2",
+      "regressed_case_count": "0",
+      "dominant_failure_mode": "no_tool_call",
+      "failure_modes": "call_count_mismatch:1;exact:1;executable_paraphrase:1;no_tool_call:4;wrong_tool:1",
+      "recommendation": "weak_exact_gain"
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_parallel_two_call_array",
+      "tool_prompt_contract_id": "parallel_two_call_array_v3",
+      "exact_match_rate": "0.0",
+      "executable_match_rate": "0.0",
+      "delta_exact_vs_contracted": "-0.875",
+      "delta_exact_vs_no_directive": "0.0",
+      "probe_gate": "no_probe_improvement_vs_no_directive",
+      "improved_case_count": "0",
+      "regressed_case_count": "0",
+      "dominant_failure_mode": "no_tool_call",
+      "failure_modes": "argument_mismatch:1;no_tool_call:7",
+      "recommendation": "no_probe_gain"
+    }
+  ],
+  "prompt_contract_wave3_probe_failure_modes": [
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_canonical_json_copy",
+      "tool_prompt_contract_id": "canonical_json_copy_v3",
+      "failure_mode": "argument_mismatch",
+      "count": "2"
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_canonical_json_copy",
+      "tool_prompt_contract_id": "canonical_json_copy_v3",
+      "failure_mode": "call_count_mismatch",
+      "count": "1"
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_canonical_json_copy",
+      "tool_prompt_contract_id": "canonical_json_copy_v3",
+      "failure_mode": "exact",
+      "count": "1"
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_canonical_json_copy",
+      "tool_prompt_contract_id": "canonical_json_copy_v3",
+      "failure_mode": "no_tool_call",
+      "count": "3"
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_canonical_json_copy",
+      "tool_prompt_contract_id": "canonical_json_copy_v3",
+      "failure_mode": "wrong_tool",
+      "count": "1"
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_tool_initiation",
+      "tool_prompt_contract_id": "visual_tool_initiation_v3",
+      "failure_mode": "call_count_mismatch",
+      "count": "1"
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_tool_initiation",
+      "tool_prompt_contract_id": "visual_tool_initiation_v3",
+      "failure_mode": "exact",
+      "count": "1"
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_tool_initiation",
+      "tool_prompt_contract_id": "visual_tool_initiation_v3",
+      "failure_mode": "executable_paraphrase",
+      "count": "1"
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_tool_initiation",
+      "tool_prompt_contract_id": "visual_tool_initiation_v3",
+      "failure_mode": "no_tool_call",
+      "count": "4"
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_tool_initiation",
+      "tool_prompt_contract_id": "visual_tool_initiation_v3",
+      "failure_mode": "wrong_tool",
+      "count": "1"
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_parallel_two_call_array",
+      "tool_prompt_contract_id": "parallel_two_call_array_v3",
+      "failure_mode": "argument_mismatch",
+      "count": "1"
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_parallel_two_call_array",
+      "tool_prompt_contract_id": "parallel_two_call_array_v3",
+      "failure_mode": "no_tool_call",
+      "count": "7"
+    }
+  ],
   "prompt_contract_promotion_decisions": [
     {
       "wave": "v1",
@@ -491,6 +637,42 @@
     {
       "wave": "v2",
       "tool_prompt_contract_id": "parallel_array_required_v2",
+      "exact_match_rate": "0.0",
+      "executable_match_rate": "0.0",
+      "delta_exact_vs_no_directive": "0.0",
+      "probe_gate": "no_probe_improvement_vs_no_directive",
+      "recommendation": "no_probe_gain",
+      "promotion_decision": "reject_for_h1_promotion",
+      "promotion_reason": "no exact or executable probe gain over the no-directive baseline",
+      "next_use": "replace with a sharper contract or a faithful live parallel workflow"
+    },
+    {
+      "wave": "v3",
+      "tool_prompt_contract_id": "canonical_json_copy_v3",
+      "exact_match_rate": "0.125",
+      "executable_match_rate": "0.0",
+      "delta_exact_vs_no_directive": "0.125",
+      "probe_gate": "probe_improved_vs_no_directive",
+      "recommendation": "weak_exact_gain",
+      "promotion_decision": "hold_for_exact_probe_replay",
+      "promotion_reason": "probe gain is too weak for H1 promotion without a stricter replay discriminator",
+      "next_use": "test through exact-probe live replay before any H1 spend"
+    },
+    {
+      "wave": "v3",
+      "tool_prompt_contract_id": "visual_tool_initiation_v3",
+      "exact_match_rate": "0.125",
+      "executable_match_rate": "1.0",
+      "delta_exact_vs_no_directive": "0.125",
+      "probe_gate": "probe_improved_vs_no_directive",
+      "recommendation": "weak_exact_gain",
+      "promotion_decision": "hold_for_exact_probe_replay",
+      "promotion_reason": "probe gain is too weak for H1 promotion without a stricter replay discriminator",
+      "next_use": "test through exact-probe live replay before any H1 spend"
+    },
+    {
+      "wave": "v3",
+      "tool_prompt_contract_id": "parallel_two_call_array_v3",
       "exact_match_rate": "0.0",
       "executable_match_rate": "0.0",
       "delta_exact_vs_no_directive": "0.0",

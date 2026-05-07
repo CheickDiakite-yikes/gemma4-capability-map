@@ -43,6 +43,9 @@ DEFAULT_PROMPT_CONTRACT_PACKET = (
 DEFAULT_PROMPT_CONTRACT_WAVE2_PACKET = (
     ROOT / "results" / "tool_prompt_contract_probe_packets" / "20260507T_prompt_contract_wave2_execute_v1"
 )
+DEFAULT_PROMPT_CONTRACT_WAVE3_PACKET = (
+    ROOT / "results" / "tool_prompt_contract_probe_packets" / "20260507T_prompt_contract_wave3_execute_v1"
+)
 DEFAULT_H1I_PROMPT_CONTRACT_PACKET = (
     ROOT / "results" / "knowledge_work_h1_slice" / "20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet"
 )
@@ -138,6 +141,7 @@ def build_report(
     gemini_packet: str | Path = DEFAULT_GEMINI_PACKET,
     prompt_contract_packet: str | Path = DEFAULT_PROMPT_CONTRACT_PACKET,
     prompt_contract_wave2_packet: str | Path = DEFAULT_PROMPT_CONTRACT_WAVE2_PACKET,
+    prompt_contract_wave3_packet: str | Path = DEFAULT_PROMPT_CONTRACT_WAVE3_PACKET,
     h1i_prompt_contract_packet: str | Path = DEFAULT_H1I_PROMPT_CONTRACT_PACKET,
     h1i_prompt_contract_repeat_packet: str | Path = DEFAULT_H1I_PROMPT_CONTRACT_REPEAT_PACKET,
     h1j_prompt_contract_packet: str | Path = DEFAULT_H1J_PROMPT_CONTRACT_PACKET,
@@ -179,9 +183,12 @@ def build_report(
     prompt_contract_failure_rows = _csv_rows(Path(prompt_contract_packet) / "candidate_failure_mode_counts.csv")
     prompt_contract_wave2_gate_rows = _csv_rows(Path(prompt_contract_wave2_packet) / "candidate_gate_summary.csv")
     prompt_contract_wave2_failure_rows = _csv_rows(Path(prompt_contract_wave2_packet) / "candidate_failure_mode_counts.csv")
+    prompt_contract_wave3_gate_rows = _csv_rows(Path(prompt_contract_wave3_packet) / "candidate_gate_summary.csv")
+    prompt_contract_wave3_failure_rows = _csv_rows(Path(prompt_contract_wave3_packet) / "candidate_failure_mode_counts.csv")
     prompt_contract_promotion_rows = _prompt_contract_promotion_rows(
         wave1_rows=prompt_contract_gate_rows,
         wave2_rows=prompt_contract_wave2_gate_rows,
+        wave3_rows=prompt_contract_wave3_gate_rows,
     )
     h1i_prompt_contract_rows = _csv_rows(Path(h1i_prompt_contract_packet) / "tool_contract_system_deltas.csv")
     h1i_prompt_contract_repeat_rows = _csv_rows(
@@ -246,6 +253,8 @@ def build_report(
     _write_csv(tables_dir / "prompt_contract_probe_failure_modes.csv", prompt_contract_failure_rows)
     _write_csv(tables_dir / "prompt_contract_wave2_probe_gates.csv", prompt_contract_wave2_gate_rows)
     _write_csv(tables_dir / "prompt_contract_wave2_probe_failure_modes.csv", prompt_contract_wave2_failure_rows)
+    _write_csv(tables_dir / "prompt_contract_wave3_probe_gates.csv", prompt_contract_wave3_gate_rows)
+    _write_csv(tables_dir / "prompt_contract_wave3_probe_failure_modes.csv", prompt_contract_wave3_failure_rows)
     _write_csv(tables_dir / "prompt_contract_promotion_decisions.csv", prompt_contract_promotion_rows)
     _write_csv(tables_dir / "h1i_prompt_contract_candidate_metrics.csv", h1i_prompt_contract_rows)
     _write_csv(tables_dir / "h1i_prompt_contract_repeat3_metrics.csv", h1i_prompt_contract_repeat_rows)
@@ -334,6 +343,17 @@ def build_report(
         figures_dir / "prompt_contract_wave2_probe_gate.svg",
         title="Prompt contract wave two probe gate",
         rows=prompt_contract_wave2_gate_rows,
+        label_field="tool_prompt_contract_id",
+        metrics=[
+            ("exact_match_rate", "exact", "#2563EB"),
+            ("executable_match_rate", "executable", "#059669"),
+            ("delta_exact_vs_no_directive", "delta exact", "#D97706"),
+        ],
+    )
+    _write_grouped_metric_svg(
+        figures_dir / "prompt_contract_wave3_probe_gate.svg",
+        title="Prompt contract wave three probe gate",
+        rows=prompt_contract_wave3_gate_rows,
         label_field="tool_prompt_contract_id",
         metrics=[
             ("exact_match_rate", "exact", "#2563EB"),
@@ -450,6 +470,7 @@ def build_report(
         "gemini_packet": str(Path(gemini_packet).resolve()),
         "prompt_contract_packet": str(Path(prompt_contract_packet).resolve()),
         "prompt_contract_wave2_packet": str(Path(prompt_contract_wave2_packet).resolve()),
+        "prompt_contract_wave3_packet": str(Path(prompt_contract_wave3_packet).resolve()),
         "h1i_prompt_contract_packet": str(Path(h1i_prompt_contract_packet).resolve()),
         "h1i_prompt_contract_repeat_packet": str(Path(h1i_prompt_contract_repeat_packet).resolve()),
         "h1j_prompt_contract_packet": str(Path(h1j_prompt_contract_packet).resolve()),
@@ -464,8 +485,8 @@ def build_report(
         "live_visual_replay_comparison": str(Path(live_visual_replay_comparison).resolve()),
         "live_canonical_replay_comparison": str(Path(live_canonical_replay_comparison).resolve()),
         "registry_path": str(Path(registry_path).resolve()),
-        "table_count": 24,
-        "figure_count": 16,
+        "table_count": 26,
+        "figure_count": 17,
     }
     report_payload = {
         "manifest": manifest,
@@ -477,6 +498,8 @@ def build_report(
         "prompt_contract_probe_failure_modes": prompt_contract_failure_rows,
         "prompt_contract_wave2_probe_gates": prompt_contract_wave2_gate_rows,
         "prompt_contract_wave2_probe_failure_modes": prompt_contract_wave2_failure_rows,
+        "prompt_contract_wave3_probe_gates": prompt_contract_wave3_gate_rows,
+        "prompt_contract_wave3_probe_failure_modes": prompt_contract_wave3_failure_rows,
         "prompt_contract_promotion_decisions": prompt_contract_promotion_rows,
         "h1i_prompt_contract_candidate_metrics": h1i_prompt_contract_rows,
         "h1i_prompt_contract_repeat3_metrics": h1i_prompt_contract_repeat_rows,
@@ -513,6 +536,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--gemini-packet", default=str(DEFAULT_GEMINI_PACKET))
     parser.add_argument("--prompt-contract-packet", default=str(DEFAULT_PROMPT_CONTRACT_PACKET))
     parser.add_argument("--prompt-contract-wave2-packet", default=str(DEFAULT_PROMPT_CONTRACT_WAVE2_PACKET))
+    parser.add_argument("--prompt-contract-wave3-packet", default=str(DEFAULT_PROMPT_CONTRACT_WAVE3_PACKET))
     parser.add_argument("--h1i-prompt-contract-packet", default=str(DEFAULT_H1I_PROMPT_CONTRACT_PACKET))
     parser.add_argument("--h1i-prompt-contract-repeat-packet", default=str(DEFAULT_H1I_PROMPT_CONTRACT_REPEAT_PACKET))
     parser.add_argument("--h1j-prompt-contract-packet", default=str(DEFAULT_H1J_PROMPT_CONTRACT_PACKET))
@@ -544,6 +568,7 @@ def main() -> None:
         gemini_packet=args.gemini_packet,
         prompt_contract_packet=args.prompt_contract_packet,
         prompt_contract_wave2_packet=args.prompt_contract_wave2_packet,
+        prompt_contract_wave3_packet=args.prompt_contract_wave3_packet,
         h1i_prompt_contract_packet=args.h1i_prompt_contract_packet,
         h1i_prompt_contract_repeat_packet=args.h1i_prompt_contract_repeat_packet,
         h1j_prompt_contract_packet=args.h1j_prompt_contract_packet,
@@ -737,9 +762,10 @@ def _prompt_contract_promotion_rows(
     *,
     wave1_rows: list[dict[str, Any]],
     wave2_rows: list[dict[str, Any]],
+    wave3_rows: list[dict[str, Any]],
 ) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
-    for wave, gate_rows in [("v1", wave1_rows), ("v2", wave2_rows)]:
+    for wave, gate_rows in [("v1", wave1_rows), ("v2", wave2_rows), ("v3", wave3_rows)]:
         for row in gate_rows:
             decision = _promotion_decision(row)
             rows.append(
@@ -821,6 +847,7 @@ def _markdown_report(payload: dict[str, Any]) -> str:
     candidate_rows = payload["prompt_contract_candidates"]
     gate_rows = payload["prompt_contract_probe_gates"]
     wave2_gate_rows = payload["prompt_contract_wave2_probe_gates"]
+    wave3_gate_rows = payload["prompt_contract_wave3_probe_gates"]
     h1i_prompt_contract_rows = payload["h1i_prompt_contract_candidate_metrics"]
     h1i_prompt_contract_repeat_rows = payload["h1i_prompt_contract_repeat3_metrics"]
     h1j_prompt_contract_rows = payload["h1j_probe_derived_candidate_metrics"]
@@ -872,6 +899,8 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "",
         "![Prompt contract wave two probe gate](figures/prompt_contract_wave2_probe_gate.svg)",
         "",
+        "![Prompt contract wave three probe gate](figures/prompt_contract_wave3_probe_gate.svg)",
+        "",
         "![H1i prompt-contract repeat3 burden](figures/h1i_prompt_contract_repeat3_burden.svg)",
         "",
         "![H1j probe-derived candidate burden](figures/h1j_probe_derived_burden.svg)",
@@ -919,6 +948,12 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         _markdown_table(wave2_gate_rows),
         "",
         "The second wave confirms the same shape rather than changing the direction. `schema_literal_tool_required_v2` gives a weak one-case exact gain, `visual_next_call_state_v2` restores executable visual behavior without exact JSON fidelity, and `parallel_array_required_v2` does not improve the parallel/no-call family. None of the wave-two candidates is strong enough to replace the final tool-turn directive.",
+        "",
+        "## Prompt-Contract Wave Three Probe Gate",
+        "",
+        _markdown_table(wave3_gate_rows),
+        "",
+        "The third wave targets the mechanisms exposed by CLI-live replay: canonical argument copying, visual tool initiation, and two-call parallel array shape. It produces the same hard boundary in sharper form: canonical and visual-initiation wording recover one exact case, the visual-initiation contract also recovers the executable visual target, and the parallel two-call contract still does not recover the parallel no-call family.",
         "",
         "## Prompt-Contract Promotion Decisions",
         "",
