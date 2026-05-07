@@ -1,0 +1,233 @@
+{
+  "returncode": 0,
+  "stdout": "{\n  \"run_group_id\": \"20260507T_h1i_prompt_contract_candidates_v1\",\n  \"systems\": 5,\n  \"episodes\": 4,\n  \"output_dir\": \"/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet\"\n}\n",
+  "stderr": "\nFetching 8 files:   0%|          | 0/8 [00:00<?, ?it/s]\nFetching 8 files: 100%|██████████| 8/8 [00:00<00:00, 24314.81it/s]\n\nFetching 8 files:   0%|          | 0/8 [00:00<?, ?it/s]\nFetching 8 files: 100%|██████████| 8/8 [00:00<00:00, 87838.83it/s]\n",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet",
+  "results": [
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet/mlx_gemma4_e2b_reasoner_only__live_web_stress",
+      "summary": {
+        "runs": 4.0,
+        "artifact_quality_avg": 0.94445,
+        "browser_workflow_avg": 1.0,
+        "strict_interface_avg": 1.0,
+        "recovered_execution_avg": 1.0,
+        "real_world_readiness_avg": 0.9771000000000001,
+        "escalation_correctness_avg": 1.0,
+        "controller_repair_avg": 0.0,
+        "argument_repair_avg": 0.0,
+        "controller_fallback_avg": 0.0,
+        "intent_override_avg": 0.0,
+        "raw_planning_clean_rate_avg": 1.0,
+        "lane": "live_web_stress",
+        "created_at": "20260507T011708Z",
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet/mlx_gemma4_e2b_reasoner_only__live_web_stress",
+        "episode_ids": [
+          "kwa_exec_live_latest_action_resume_hold_v4",
+          "kwa_jobs_live_phone_patch_resume_hold_v4",
+          "kwa_jobs_live_email_block_resume_hold_v5",
+          "kwa_exec_live_backlog_resume_hold_v5"
+        ]
+      }
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive__live_web_stress",
+      "summary": {
+        "runs": 4.0,
+        "artifact_quality_avg": 0.94445,
+        "browser_workflow_avg": 1.0,
+        "strict_interface_avg": 1.0,
+        "recovered_execution_avg": 1.0,
+        "real_world_readiness_avg": 0.9771000000000001,
+        "escalation_correctness_avg": 1.0,
+        "controller_repair_avg": 0.0,
+        "argument_repair_avg": 0.0,
+        "controller_fallback_avg": 0.0,
+        "intent_override_avg": 0.0,
+        "raw_planning_clean_rate_avg": 1.0,
+        "lane": "live_web_stress",
+        "created_at": "20260507T011723Z",
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive__live_web_stress",
+        "episode_ids": [
+          "kwa_exec_live_latest_action_resume_hold_v4",
+          "kwa_jobs_live_phone_patch_resume_hold_v4",
+          "kwa_jobs_live_email_block_resume_hold_v5",
+          "kwa_exec_live_backlog_resume_hold_v5"
+        ]
+      }
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor__live_web_stress",
+      "summary": {
+        "runs": 4.0,
+        "artifact_quality_avg": 0.94445,
+        "browser_workflow_avg": 1.0,
+        "strict_interface_avg": 1.0,
+        "recovered_execution_avg": 1.0,
+        "real_world_readiness_avg": 0.9771000000000001,
+        "escalation_correctness_avg": 1.0,
+        "controller_repair_avg": 0.0,
+        "argument_repair_avg": 0.0,
+        "controller_fallback_avg": 0.0,
+        "intent_override_avg": 0.0,
+        "raw_planning_clean_rate_avg": 1.0,
+        "lane": "live_web_stress",
+        "created_at": "20260507T011738Z",
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor__live_web_stress",
+        "episode_ids": [
+          "kwa_exec_live_latest_action_resume_hold_v4",
+          "kwa_jobs_live_phone_patch_resume_hold_v4",
+          "kwa_jobs_live_email_block_resume_hold_v5",
+          "kwa_exec_live_backlog_resume_hold_v5"
+        ]
+      }
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_literal_guard",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_literal_guard__live_web_stress",
+      "summary": {
+        "runs": 4.0,
+        "artifact_quality_avg": 0.94445,
+        "browser_workflow_avg": 1.0,
+        "strict_interface_avg": 1.0,
+        "recovered_execution_avg": 1.0,
+        "real_world_readiness_avg": 0.9771000000000001,
+        "escalation_correctness_avg": 1.0,
+        "controller_repair_avg": 0.0,
+        "argument_repair_avg": 0.0,
+        "controller_fallback_avg": 0.0,
+        "intent_override_avg": 0.0,
+        "raw_planning_clean_rate_avg": 1.0,
+        "lane": "live_web_stress",
+        "created_at": "20260507T011753Z",
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_literal_guard__live_web_stress",
+        "episode_ids": [
+          "kwa_exec_live_latest_action_resume_hold_v4",
+          "kwa_jobs_live_phone_patch_resume_hold_v4",
+          "kwa_jobs_live_email_block_resume_hold_v5",
+          "kwa_exec_live_backlog_resume_hold_v5"
+        ]
+      }
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_tool_required",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_tool_required__live_web_stress",
+      "summary": {
+        "runs": 4.0,
+        "artifact_quality_avg": 0.94445,
+        "browser_workflow_avg": 1.0,
+        "strict_interface_avg": 1.0,
+        "recovered_execution_avg": 1.0,
+        "real_world_readiness_avg": 0.9771000000000001,
+        "escalation_correctness_avg": 1.0,
+        "controller_repair_avg": 0.0,
+        "argument_repair_avg": 0.0,
+        "controller_fallback_avg": 0.0,
+        "intent_override_avg": 0.0,
+        "raw_planning_clean_rate_avg": 1.0,
+        "lane": "live_web_stress",
+        "created_at": "20260507T011808Z",
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_tool_required__live_web_stress",
+        "episode_ids": [
+          "kwa_exec_live_latest_action_resume_hold_v4",
+          "kwa_jobs_live_phone_patch_resume_hold_v4",
+          "kwa_jobs_live_email_block_resume_hold_v5",
+          "kwa_exec_live_backlog_resume_hold_v5"
+        ]
+      }
+    }
+  ],
+  "manifest": {
+    "run_group_id": "20260507T_h1i_prompt_contract_candidates_v1",
+    "created_at": "2026-05-07T01:17:08.422476+00:00",
+    "lane": "live_web_stress",
+    "bundle_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "system_ids": [
+      "mlx_gemma4_e2b_reasoner_only",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_literal_guard",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_tool_required"
+    ],
+    "episode_ids": [
+      "kwa_exec_live_latest_action_resume_hold_v4",
+      "kwa_jobs_live_phone_patch_resume_hold_v4",
+      "kwa_jobs_live_email_block_resume_hold_v5",
+      "kwa_exec_live_backlog_resume_hold_v5"
+    ],
+    "run_intent": "exploratory",
+    "warmup": {
+      "reasoner": {
+        "backend": "mlx",
+        "runtime_posture": "mlx",
+        "requested_model": "google/gemma-4-E2B-it",
+        "effective_model": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_source": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_format": "mlx",
+        "runtime_device": "mlx",
+        "load_mode": "vision",
+        "configured_device": "auto",
+        "request_timeout_seconds": 300.0,
+        "tool_turn_directive_enabled": true,
+        "tool_prompt_contract_id": "",
+        "service": {},
+        "partial_runtime": false,
+        "llama_cpp_error": null,
+        "llama_cpp_context_window": null
+      },
+      "router": {
+        "backend": "heuristic",
+        "requested_model": "",
+        "effective_model": "",
+        "runtime_device": null,
+        "configured_device": "auto"
+      },
+      "retriever": {
+        "backend": "heuristic",
+        "requested_model": "",
+        "effective_model": "",
+        "loaded": false,
+        "configured_device": "auto",
+        "runtime_device": null
+      }
+    },
+    "runtime_bundle": {
+      "reasoner": {
+        "backend": "mlx",
+        "runtime_posture": "mlx",
+        "requested_model": "google/gemma-4-E2B-it",
+        "effective_model": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_source": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_format": "mlx",
+        "runtime_device": "mlx",
+        "load_mode": "vision",
+        "configured_device": "auto",
+        "request_timeout_seconds": 300.0,
+        "tool_turn_directive_enabled": true,
+        "tool_prompt_contract_id": "",
+        "service": {},
+        "partial_runtime": false,
+        "llama_cpp_error": null,
+        "llama_cpp_context_window": null
+      },
+      "router": {
+        "backend": "heuristic",
+        "requested_model": "",
+        "effective_model": "",
+        "runtime_device": null,
+        "configured_device": "auto"
+      },
+      "retriever": {
+        "backend": "heuristic",
+        "requested_model": "",
+        "effective_model": "",
+        "loaded": false,
+        "configured_device": "auto",
+        "runtime_device": null
+      }
+    }
+  }
+}
