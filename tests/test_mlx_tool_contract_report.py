@@ -34,8 +34,8 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
 
     assert payload["gemini"]["dry_run"] is True
     assert payload["gemini"]["workflow_count"] == 10
-    assert payload["manifest"]["table_count"] == 19
-    assert payload["manifest"]["figure_count"] == 12
+    assert payload["manifest"]["table_count"] == 21
+    assert payload["manifest"]["figure_count"] == 14
 
     candidates = {row["tool_prompt_contract_id"]: row for row in payload["prompt_contract_candidates"]}
     assert set(candidates) == {
@@ -82,6 +82,12 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     h1j_helpers = {row["system_id"]: row for row in payload["h1j_probe_derived_helper_metrics"]}
     assert h1j_helpers["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_repair"]["strict_interface_avg"] == "1.0"
     assert h1j_helpers["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_fallback"]["raw_planning_clean_rate_avg"] == "1.0"
+    h1k_candidates = {row["system_id"]: row for row in payload["h1k_parallel_audit_candidate_metrics"]}
+    assert h1k_candidates["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive"]["real_world_readiness_avg"] == "0.9178"
+    assert h1k_candidates["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_parallel_array_required"]["raw_planning_clean_rate_avg"] == "1.0"
+    h1k_helpers = {row["system_id"]: row for row in payload["h1k_parallel_audit_helper_metrics"]}
+    assert h1k_helpers["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_repair"]["controller_repair_avg"] == "0.0"
+    assert h1k_helpers["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_argument_repair"]["strict_interface_avg"] == "1.0"
 
     assert (tmp_path / "report.md").exists()
     assert (tmp_path / "report.json").exists()
@@ -98,6 +104,8 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert (tmp_path / "tables" / "h1i_prompt_contract_repeat3_metrics.csv").exists()
     assert (tmp_path / "tables" / "h1j_probe_derived_candidate_metrics.csv").exists()
     assert (tmp_path / "tables" / "h1j_probe_derived_helper_metrics.csv").exists()
+    assert (tmp_path / "tables" / "h1k_parallel_audit_candidate_metrics.csv").exists()
+    assert (tmp_path / "tables" / "h1k_parallel_audit_helper_metrics.csv").exists()
     assert (tmp_path / "tables" / "exact_probe_replay_case_deltas.csv").exists()
     assert (tmp_path / "tables" / "exact_probe_replay_family_deltas.csv").exists()
     assert (tmp_path / "tables" / "exact_probe_replay_focus_summary.csv").exists()
@@ -109,5 +117,7 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert (tmp_path / "figures" / "h1i_prompt_contract_repeat3_burden.svg").exists()
     assert (tmp_path / "figures" / "h1j_probe_derived_burden.svg").exists()
     assert (tmp_path / "figures" / "h1j_probe_derived_helper_burden.svg").exists()
+    assert (tmp_path / "figures" / "h1k_parallel_audit_burden.svg").exists()
+    assert (tmp_path / "figures" / "h1k_parallel_audit_helper_burden.svg").exists()
     assert (tmp_path / "figures" / "exact_probe_replay_gap.svg").exists()
     assert (tmp_path / "figures" / "exact_probe_replay_focus_gap.svg").exists()

@@ -51,6 +51,10 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 
 ![H1j probe-derived helper burden](../../results/reports/mlx_tool_contract_harnessing/figures/h1j_probe_derived_helper_burden.svg)
 
+![H1k parallel-audit candidate burden](../../results/reports/mlx_tool_contract_harnessing/figures/h1k_parallel_audit_burden.svg)
+
+![H1k parallel-audit helper burden](../../results/reports/mlx_tool_contract_harnessing/figures/h1k_parallel_audit_helper_burden.svg)
+
 ![Exact probe replay gap](../../results/reports/mlx_tool_contract_harnessing/figures/exact_probe_replay_gap.svg)
 
 ![Focused exact replay gaps](../../results/reports/mlx_tool_contract_harnessing/figures/exact_probe_replay_focus_gap.svg)
@@ -69,6 +73,8 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 | [`H1i prompt-contract repeat3 packet`](../../results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_repeat3_v1_knowledge_work_ablation_packet) | Repeated second-stage candidate packet: three attempts per H1i workflow family per row. |
 | [`H1j probe-derived candidate packet`](../../results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_candidates_v1_knowledge_work_ablation_packet) | Six packaged live workflows selected from exact no-directive probe failure families. |
 | [`H1j probe-derived helper packet`](../../results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_helpers_v1_knowledge_work_ablation_packet) | Controller-helper ablation on the same H1j probe-derived packaged workflow set. |
+| [`H1k parallel-audit candidate packet`](../../results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_candidates_v1_knowledge_work_ablation_packet) | Packaged live promotion of the deferred `parallel_audit_array_literal` replay case. |
+| [`H1k parallel-audit helper packet`](../../results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_helpers_v1_knowledge_work_ablation_packet) | Controller-helper ablation on the packaged parallel-audit workflow. |
 | [`exact-probe replay packet`](../../results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1) | Dry-run replay artifacts for the eight failed no-directive exact-call probe cases. |
 | [`Gemini CLI dry-run baseline`](../../results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1) | External-reference prompt and command manifest over the H1h workflow families. |
 
@@ -330,6 +336,29 @@ It also saturated. Contracted, no-directive, no-controller-repair, no-controller
 
 That matters: controller repair remains causal on H1h/H1i, but not on H1j. H1j is currently evidence that the packaged workflow route can wash out raw probe failures, not evidence that the model-side contract is fixed.
 
+## H1k Parallel-Audit Packet Result
+
+H1k closed the last packaged-workflow gap left by H1j: the deferred parallel no-call probe case.
+
+- config: [`configs/knowledge_work_h1k_slice.yaml`](../../configs/knowledge_work_h1k_slice.yaml)
+- workflow: `ops_parallel_audit_review`
+- replay pressure: `parallel_audit_array_literal`
+- candidate packet: [`results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_candidates_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_candidates_v1_knowledge_work_ablation_packet)
+- helper packet: [`results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_helpers_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_helpers_v1_knowledge_work_ablation_packet)
+- generated candidate table: [`h1k_parallel_audit_candidate_metrics.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/h1k_parallel_audit_candidate_metrics.csv)
+- generated helper table: [`h1k_parallel_audit_helper_metrics.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/h1k_parallel_audit_helper_metrics.csv)
+
+Both H1k packets saturated:
+
+| Packet | Rows | Readiness | Strict/recovered | Repair/fallback/arg repair | Raw clean | Failure candidates |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| candidate | `5` | `0.91780` | `1.0 / 1.0` | `0.0 / 0.0 / 0.0` | `1.0` | `0` |
+| helper | `5` | `0.91780` | `1.0 / 1.0` | `0.0 / 0.0 / 0.0` | `1.0` | `0` |
+
+The negative result is important. H1k proves Moonie now has a safe packaged live scaffold for the parallel-audit family, but that staged workflow is easier than the raw one-turn replay case. It decomposes the pressure into known task steps, and no-directive MLX stays controller-clean even when controller repair, controller fallback, or argument repair are removed.
+
+So the next move is not another packaged H1 derivative. The next discriminator should preserve exact-call replay shape, especially the independent two-call array behavior in `parallel_audit_array_literal`.
+
 ## Gemini CLI Baseline Status
 
 The Gemini CLI adapter is currently a dry-run external baseline, not a replacement for Moonie. The packet uses the same H1h workflow families and records prompt/command artifacts without external side effects:
@@ -368,7 +397,7 @@ The H1h -> H1i narrowing is also useful methodologically. H1h proves the phenome
 Use this order before broad `32 / 26` reruns:
 
 1. Convert the raw probe result into a stricter exact-probe live replay packet, because H1i repeat3, H1j, and wave two all failed to break the same packaged-workflow saturation.
-2. Add a packaged live workflow for the deferred parallel no-call family or make the replay mode explicitly cover `parallel_audit_array_literal`.
+2. Make the replay mode explicitly cover `parallel_audit_array_literal`; H1k already showed the packaged live workflow version is too staged to discriminate.
 3. H1h only after H1i moves for the right reason.
 4. Gemini CLI real execution only when the binary/run environment is explicitly meant to be part of the comparison.
 5. Runtime live-smoke packets after benchmark movement, to confirm the CLI operator path sees the same repair/fallback pattern.

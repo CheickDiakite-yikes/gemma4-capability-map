@@ -64,6 +64,18 @@ DEFAULT_H1J_HELPER_PACKET = (
     / "knowledge_work_h1_slice"
     / "20260507T_h1j_probe_derived_helpers_v1_knowledge_work_ablation_packet"
 )
+DEFAULT_H1K_PARALLEL_AUDIT_PACKET = (
+    ROOT
+    / "results"
+    / "knowledge_work_h1_slice"
+    / "20260507T_h1k_parallel_audit_candidates_v1_knowledge_work_ablation_packet"
+)
+DEFAULT_H1K_PARALLEL_AUDIT_HELPER_PACKET = (
+    ROOT
+    / "results"
+    / "knowledge_work_h1_slice"
+    / "20260507T_h1k_parallel_audit_helpers_v1_knowledge_work_ablation_packet"
+)
 DEFAULT_EXACT_REPLAY_COMPARISON = (
     ROOT
     / "results"
@@ -112,6 +124,8 @@ def build_report(
     h1i_prompt_contract_repeat_packet: str | Path = DEFAULT_H1I_PROMPT_CONTRACT_REPEAT_PACKET,
     h1j_prompt_contract_packet: str | Path = DEFAULT_H1J_PROMPT_CONTRACT_PACKET,
     h1j_helper_packet: str | Path = DEFAULT_H1J_HELPER_PACKET,
+    h1k_parallel_audit_packet: str | Path = DEFAULT_H1K_PARALLEL_AUDIT_PACKET,
+    h1k_parallel_audit_helper_packet: str | Path = DEFAULT_H1K_PARALLEL_AUDIT_HELPER_PACKET,
     exact_replay_comparison: str | Path = DEFAULT_EXACT_REPLAY_COMPARISON,
     visual_replay_comparison: str | Path = DEFAULT_VISUAL_REPLAY_COMPARISON,
     parallel_replay_comparison: str | Path = DEFAULT_PARALLEL_REPLAY_COMPARISON,
@@ -154,6 +168,10 @@ def build_report(
     )
     h1j_prompt_contract_rows = _csv_rows(Path(h1j_prompt_contract_packet) / "tool_contract_system_deltas.csv")
     h1j_helper_rows = _csv_rows(Path(h1j_helper_packet) / "tool_contract_system_deltas.csv")
+    h1k_parallel_audit_rows = _csv_rows(Path(h1k_parallel_audit_packet) / "tool_contract_system_deltas.csv")
+    h1k_parallel_audit_helper_rows = _csv_rows(
+        Path(h1k_parallel_audit_helper_packet) / "tool_contract_system_deltas.csv"
+    )
     exact_replay_comparison_payload = json.loads(
         (Path(exact_replay_comparison) / "replay_comparison.json").read_text(encoding="utf-8")
     )
@@ -193,6 +211,8 @@ def build_report(
     _write_csv(tables_dir / "h1i_prompt_contract_repeat3_metrics.csv", h1i_prompt_contract_repeat_rows)
     _write_csv(tables_dir / "h1j_probe_derived_candidate_metrics.csv", h1j_prompt_contract_rows)
     _write_csv(tables_dir / "h1j_probe_derived_helper_metrics.csv", h1j_helper_rows)
+    _write_csv(tables_dir / "h1k_parallel_audit_candidate_metrics.csv", h1k_parallel_audit_rows)
+    _write_csv(tables_dir / "h1k_parallel_audit_helper_metrics.csv", h1k_parallel_audit_helper_rows)
     _write_csv(tables_dir / "exact_probe_replay_case_deltas.csv", exact_replay_case_rows)
     _write_csv(tables_dir / "exact_probe_replay_family_deltas.csv", exact_replay_family_rows)
     _write_csv(tables_dir / "exact_probe_replay_focus_summary.csv", exact_replay_focus_rows)
@@ -315,6 +335,30 @@ def build_report(
         ],
     )
     _write_grouped_metric_svg(
+        figures_dir / "h1k_parallel_audit_burden.svg",
+        title="H1k parallel-audit candidate burden",
+        rows=_label_system_rows(h1k_parallel_audit_rows),
+        label_field="label",
+        metrics=[
+            ("controller_repair_avg", "repair", "#7C3AED"),
+            ("controller_fallback_avg", "fallback", "#DC2626"),
+            ("argument_repair_avg", "arg repair", "#0891B2"),
+            ("raw_planning_clean_rate_avg", "raw clean", "#16A34A"),
+        ],
+    )
+    _write_grouped_metric_svg(
+        figures_dir / "h1k_parallel_audit_helper_burden.svg",
+        title="H1k parallel-audit helper burden",
+        rows=_label_system_rows(h1k_parallel_audit_helper_rows),
+        label_field="label",
+        metrics=[
+            ("controller_repair_avg", "repair", "#7C3AED"),
+            ("controller_fallback_avg", "fallback", "#DC2626"),
+            ("argument_repair_avg", "arg repair", "#0891B2"),
+            ("raw_planning_clean_rate_avg", "raw clean", "#16A34A"),
+        ],
+    )
+    _write_grouped_metric_svg(
         figures_dir / "exact_probe_replay_gap.svg",
         title="Exact probe replay gap",
         rows=_exact_replay_gap_rows(exact_replay_comparison_payload["summary"]),
@@ -348,13 +392,15 @@ def build_report(
         "h1i_prompt_contract_repeat_packet": str(Path(h1i_prompt_contract_repeat_packet).resolve()),
         "h1j_prompt_contract_packet": str(Path(h1j_prompt_contract_packet).resolve()),
         "h1j_helper_packet": str(Path(h1j_helper_packet).resolve()),
+        "h1k_parallel_audit_packet": str(Path(h1k_parallel_audit_packet).resolve()),
+        "h1k_parallel_audit_helper_packet": str(Path(h1k_parallel_audit_helper_packet).resolve()),
         "exact_replay_comparison": str(Path(exact_replay_comparison).resolve()),
         "visual_replay_comparison": str(Path(visual_replay_comparison).resolve()),
         "parallel_replay_comparison": str(Path(parallel_replay_comparison).resolve()),
         "canonical_argument_replay_comparison": str(Path(canonical_argument_replay_comparison).resolve()),
         "registry_path": str(Path(registry_path).resolve()),
-        "table_count": 19,
-        "figure_count": 12,
+        "table_count": 21,
+        "figure_count": 14,
     }
     report_payload = {
         "manifest": manifest,
@@ -371,6 +417,8 @@ def build_report(
         "h1i_prompt_contract_repeat3_metrics": h1i_prompt_contract_repeat_rows,
         "h1j_probe_derived_candidate_metrics": h1j_prompt_contract_rows,
         "h1j_probe_derived_helper_metrics": h1j_helper_rows,
+        "h1k_parallel_audit_candidate_metrics": h1k_parallel_audit_rows,
+        "h1k_parallel_audit_helper_metrics": h1k_parallel_audit_helper_rows,
         "exact_probe_replay_comparison": exact_replay_comparison_payload,
         "exact_probe_replay_case_deltas": exact_replay_case_rows,
         "exact_probe_replay_family_deltas": exact_replay_family_rows,
@@ -397,6 +445,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--h1i-prompt-contract-repeat-packet", default=str(DEFAULT_H1I_PROMPT_CONTRACT_REPEAT_PACKET))
     parser.add_argument("--h1j-prompt-contract-packet", default=str(DEFAULT_H1J_PROMPT_CONTRACT_PACKET))
     parser.add_argument("--h1j-helper-packet", default=str(DEFAULT_H1J_HELPER_PACKET))
+    parser.add_argument("--h1k-parallel-audit-packet", default=str(DEFAULT_H1K_PARALLEL_AUDIT_PACKET))
+    parser.add_argument(
+        "--h1k-parallel-audit-helper-packet",
+        default=str(DEFAULT_H1K_PARALLEL_AUDIT_HELPER_PACKET),
+    )
     parser.add_argument("--exact-replay-comparison", default=str(DEFAULT_EXACT_REPLAY_COMPARISON))
     parser.add_argument("--visual-replay-comparison", default=str(DEFAULT_VISUAL_REPLAY_COMPARISON))
     parser.add_argument("--parallel-replay-comparison", default=str(DEFAULT_PARALLEL_REPLAY_COMPARISON))
@@ -420,6 +473,8 @@ def main() -> None:
         h1i_prompt_contract_repeat_packet=args.h1i_prompt_contract_repeat_packet,
         h1j_prompt_contract_packet=args.h1j_prompt_contract_packet,
         h1j_helper_packet=args.h1j_helper_packet,
+        h1k_parallel_audit_packet=args.h1k_parallel_audit_packet,
+        h1k_parallel_audit_helper_packet=args.h1k_parallel_audit_helper_packet,
         exact_replay_comparison=args.exact_replay_comparison,
         visual_replay_comparison=args.visual_replay_comparison,
         parallel_replay_comparison=args.parallel_replay_comparison,
@@ -665,6 +720,8 @@ def _markdown_report(payload: dict[str, Any]) -> str:
     h1i_prompt_contract_repeat_rows = payload["h1i_prompt_contract_repeat3_metrics"]
     h1j_prompt_contract_rows = payload["h1j_probe_derived_candidate_metrics"]
     h1j_helper_rows = payload["h1j_probe_derived_helper_metrics"]
+    h1k_parallel_audit_rows = payload["h1k_parallel_audit_candidate_metrics"]
+    h1k_parallel_audit_helper_rows = payload["h1k_parallel_audit_helper_metrics"]
     promotion_rows = payload["prompt_contract_promotion_decisions"]
     exact_replay_summary = payload["exact_probe_replay_comparison"]["summary"]
     exact_replay_case_rows = payload["exact_probe_replay_case_deltas"]
@@ -708,6 +765,10 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "![H1j probe-derived candidate burden](figures/h1j_probe_derived_burden.svg)",
         "",
         "![H1j probe-derived helper burden](figures/h1j_probe_derived_helper_burden.svg)",
+        "",
+        "![H1k parallel-audit candidate burden](figures/h1k_parallel_audit_burden.svg)",
+        "",
+        "![H1k parallel-audit helper burden](figures/h1k_parallel_audit_helper_burden.svg)",
         "",
         "![Exact probe replay gap](figures/exact_probe_replay_gap.svg)",
         "",
@@ -785,6 +846,18 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "",
         "The H1j helper-ablation packet is saturated too. Removing controller repair, controller fallback, or argument repair does not change readiness, strict interface, recovered execution, or raw clean rate on this probe-derived packaged workflow set. The trace miner records disabled-helper markers, but no failure candidates.",
         "",
+        "## H1k Parallel-Audit Candidate Packet",
+        "",
+        _markdown_table(h1k_parallel_audit_rows),
+        "",
+        "H1k promotes the deferred `parallel_audit_array_literal` probe pressure into one packaged live workflow, `ops_parallel_audit_review`. The candidate packet is still saturated: the contracted row, no-directive row, and prompt-contract candidates all match readiness `0.91780`, strict/recovered `1.0 / 1.0`, raw clean `1.0`, and zero controller burden.",
+        "",
+        "## H1k Parallel-Audit Helper Packet",
+        "",
+        _markdown_table(h1k_parallel_audit_helper_rows),
+        "",
+        "The H1k helper packet confirms the negative result. Removing controller repair, controller fallback, or argument repair does not move the staged parallel-audit workflow. The result is useful because it narrows the next experiment: the discriminator must preserve exact one-turn replay shape instead of further decomposing the parallel task into staged packaged steps.",
+        "",
         "## Gemini CLI Baseline Status",
         "",
         f"- Packet: `{gemini['packet_run_id']}`",
@@ -817,6 +890,8 @@ def _markdown_report(payload: dict[str, Any]) -> str:
             f"- H1i prompt-contract repeat packet: `{payload['manifest']['h1i_prompt_contract_repeat_packet']}`",
             f"- H1j probe-derived prompt-contract packet: `{payload['manifest']['h1j_prompt_contract_packet']}`",
             f"- H1j probe-derived helper packet: `{payload['manifest']['h1j_helper_packet']}`",
+            f"- H1k parallel-audit prompt-contract packet: `{payload['manifest']['h1k_parallel_audit_packet']}`",
+            f"- H1k parallel-audit helper packet: `{payload['manifest']['h1k_parallel_audit_helper_packet']}`",
             f"- Exact replay comparison: `{payload['manifest']['exact_replay_comparison']}`",
             f"- Canonical argument replay comparison: `{payload['manifest']['canonical_argument_replay_comparison']}`",
             f"- Visual replay comparison: `{payload['manifest']['visual_replay_comparison']}`",
