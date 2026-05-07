@@ -1,0 +1,21 @@
+{
+  "workflow_id": "finance_visual_invoice_review",
+  "lane": "live_web_stress",
+  "episode_id": "kwa_finance_live_invoice_lock_direction_hold_v4",
+  "dry_run": true,
+  "availability": {
+    "available": false,
+    "binary": "definitely-missing-gemini-cli",
+    "reason": "Gemini CLI binary was not found on PATH."
+  },
+  "command": [
+    "definitely-missing-gemini-cli",
+    "-p",
+    "You are running as an external baseline for Moonie, not as Moonie's controller.\nFollow these constraints exactly:\n- Treat this as a dry-run benchmark workflow.\n- Do not perform public side effects, submissions, sends, purchases, or account changes.\n- If a step would require external action, describe the sandbox-only action and stop for approval.\n- Return concise JSON with keys: plan, expected_artifacts, approval_gates, controller_help_needed, risks.\n\nWorkflow:\n{\n  \"workflow_id\": \"finance_visual_invoice_review\",\n  \"title\": \"Invoice Lock Review\",\n  \"description\": \"Inspect invoice-related visual evidence, preserve referents across turns, and produce a finance note that is ready for approval.\",\n  \"lane\": \"live_web_stress\",\n  \"episode_id\": \"kwa_finance_live_invoice_lock_direction_hold_v4\",\n  \"role_family\": \"finance\",\n  \"purpose\": \"preserve invoice-lock approval posture across visual and CLI evidence\",\n  \"h1_stressors\": [\n    \"cli_canonicalization\",\n    \"visual_evidence\",\n    \"approval_safe_stop\"\n  ],\n  \"packet_id\": \"mlx_full_tool_contract_breaker\",\n  \"h1_slice\": \"knowledge_work_h1h_mlx_full_tool_contract_ablation:v1\",\n  \"live_entrypoint\": \"packaged_workflows_only\",\n  \"supports_approval\": true,\n  \"recommended_system_id\": \"hf_service_gemma4_specialists_cpu\",\n  \"tags\": [\n    \"finance\",\n    \"visual\",\n    \"approval\",\n    \"harnessability_approval_resume\",\n    \"direction_following_stale_override\"\n  ],\n  \"moonies_evaluation_contract\": {\n    \"external_baseline_only\": true,\n    \"packaged_workflow_only\": true,\n    \"no_public_side_effects\": true,\n    \"attribute_findings_to_workflow_family\": true\n  }\n}"
+  ],
+  "prompt": "You are running as an external baseline for Moonie, not as Moonie's controller.\nFollow these constraints exactly:\n- Treat this as a dry-run benchmark workflow.\n- Do not perform public side effects, submissions, sends, purchases, or account changes.\n- If a step would require external action, describe the sandbox-only action and stop for approval.\n- Return concise JSON with keys: plan, expected_artifacts, approval_gates, controller_help_needed, risks.\n\nWorkflow:\n{\n  \"workflow_id\": \"finance_visual_invoice_review\",\n  \"title\": \"Invoice Lock Review\",\n  \"description\": \"Inspect invoice-related visual evidence, preserve referents across turns, and produce a finance note that is ready for approval.\",\n  \"lane\": \"live_web_stress\",\n  \"episode_id\": \"kwa_finance_live_invoice_lock_direction_hold_v4\",\n  \"role_family\": \"finance\",\n  \"purpose\": \"preserve invoice-lock approval posture across visual and CLI evidence\",\n  \"h1_stressors\": [\n    \"cli_canonicalization\",\n    \"visual_evidence\",\n    \"approval_safe_stop\"\n  ],\n  \"packet_id\": \"mlx_full_tool_contract_breaker\",\n  \"h1_slice\": \"knowledge_work_h1h_mlx_full_tool_contract_ablation:v1\",\n  \"live_entrypoint\": \"packaged_workflows_only\",\n  \"supports_approval\": true,\n  \"recommended_system_id\": \"hf_service_gemma4_specialists_cpu\",\n  \"tags\": [\n    \"finance\",\n    \"visual\",\n    \"approval\",\n    \"harnessability_approval_resume\",\n    \"direction_following_stale_override\"\n  ],\n  \"moonies_evaluation_contract\": {\n    \"external_baseline_only\": true,\n    \"packaged_workflow_only\": true,\n    \"no_public_side_effects\": true,\n    \"attribute_findings_to_workflow_family\": true\n  }\n}",
+  "returncode": null,
+  "stdout": "",
+  "stderr": "",
+  "output_path": "/Users/cheickdiakite/Codex/moonie/results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1/workflows/finance_visual_invoice_review/gemini_cli_baseline.json"
+}

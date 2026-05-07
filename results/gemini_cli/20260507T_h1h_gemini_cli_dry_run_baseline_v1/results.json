@@ -1,0 +1,243 @@
+{
+  "packet_dir": "/Users/cheickdiakite/Codex/moonie/results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1",
+  "manifest": {
+    "packet_run_id": "20260507T_h1h_gemini_cli_dry_run_baseline_v1",
+    "created_at": "2026-05-07T00:18:39.187250+00:00",
+    "config_path": "/Users/cheickdiakite/Codex/moonie/configs/knowledge_work_h1h_slice.yaml",
+    "h1_slice": "knowledge_work_h1h_mlx_full_tool_contract_ablation:v1",
+    "packet_id": "mlx_full_tool_contract_breaker",
+    "lane": "live_web_stress",
+    "dry_run": true,
+    "binary": "definitely-missing-gemini-cli",
+    "workflow_count": 10,
+    "workflow_ids": [
+      "executive_stale_brief_packet",
+      "executive_visual_dashboard_review",
+      "jobs_visual_form_hold",
+      "finance_billing_patch_hold",
+      "finance_visual_invoice_review",
+      "executive_visual_referent_review",
+      "executive_latest_action_resume",
+      "jobs_visual_constraint_override",
+      "jobs_phone_patch_resume",
+      "finance_visual_invoice_revision"
+    ]
+  },
+  "workflow_count": 10,
+  "dry_run_count": 10,
+  "available_count": 0,
+  "unavailable_count": 10,
+  "nonzero_returncode_count": 0,
+  "results": [
+    {
+      "workflow_id": "executive_stale_brief_packet",
+      "lane": "live_web_stress",
+      "episode_id": "kwa_exec_live_backlog_resume_hold_v5",
+      "dry_run": true,
+      "availability": {
+        "available": false,
+        "binary": "definitely-missing-gemini-cli",
+        "reason": "Gemini CLI binary was not found on PATH."
+      },
+      "command": [
+        "definitely-missing-gemini-cli",
+        "-p",
+        "You are running as an external baseline for Moonie, not as Moonie's controller.\nFollow these constraints exactly:\n- Treat this as a dry-run benchmark workflow.\n- Do not perform public side effects, submissions, sends, purchases, or account changes.\n- If a step would require external action, describe the sandbox-only action and stop for approval.\n- Return concise JSON with keys: plan, expected_artifacts, approval_gates, controller_help_needed, risks.\n\nWorkflow:\n{\n  \"workflow_id\": \"executive_stale_brief_packet\",\n  \"title\": \"Executive Brief Packet\",\n  \"description\": \"Produce a briefing packet, preserve the latest constraints, and stop safely when the work is ready for review.\",\n  \"lane\": \"live_web_stress\",\n  \"episode_id\": \"kwa_exec_live_backlog_resume_hold_v5\",\n  \"role_family\": \"executive_assistant\",\n  \"purpose\": \"stress resume/project-memory handling and approval-safe stops under latest backlog direction\",\n  \"h1_stressors\": [\n    \"project_memory_resume\",\n    \"approval_safe_stop\",\n    \"direction_following_latest_instruction\"\n  ],\n  \"packet_id\": \"mlx_full_tool_contract_breaker\",\n  \"h1_slice\": \"knowledge_work_h1h_mlx_full_tool_contract_ablation:v1\",\n  \"live_entrypoint\": \"packaged_workflows_only\",\n  \"supports_approval\": true,\n  \"recommended_system_id\": \"hf_service_gemma4_specialists_cpu\",\n  \"tags\": [\n    \"docs\",\n    \"revision\",\n    \"executive\",\n    \"harnessability_resume\",\n    \"direction_following_latest_instruction\"\n  ],\n  \"moonies_evaluation_contract\": {\n    \"external_baseline_only\": true,\n    \"packaged_workflow_only\": true,\n    \"no_public_side_effects\": true,\n    \"attribute_findings_to_workflow_family\": true\n  }\n}"
+      ],
+      "prompt": "You are running as an external baseline for Moonie, not as Moonie's controller.\nFollow these constraints exactly:\n- Treat this as a dry-run benchmark workflow.\n- Do not perform public side effects, submissions, sends, purchases, or account changes.\n- If a step would require external action, describe the sandbox-only action and stop for approval.\n- Return concise JSON with keys: plan, expected_artifacts, approval_gates, controller_help_needed, risks.\n\nWorkflow:\n{\n  \"workflow_id\": \"executive_stale_brief_packet\",\n  \"title\": \"Executive Brief Packet\",\n  \"description\": \"Produce a briefing packet, preserve the latest constraints, and stop safely when the work is ready for review.\",\n  \"lane\": \"live_web_stress\",\n  \"episode_id\": \"kwa_exec_live_backlog_resume_hold_v5\",\n  \"role_family\": \"executive_assistant\",\n  \"purpose\": \"stress resume/project-memory handling and approval-safe stops under latest backlog direction\",\n  \"h1_stressors\": [\n    \"project_memory_resume\",\n    \"approval_safe_stop\",\n    \"direction_following_latest_instruction\"\n  ],\n  \"packet_id\": \"mlx_full_tool_contract_breaker\",\n  \"h1_slice\": \"knowledge_work_h1h_mlx_full_tool_contract_ablation:v1\",\n  \"live_entrypoint\": \"packaged_workflows_only\",\n  \"supports_approval\": true,\n  \"recommended_system_id\": \"hf_service_gemma4_specialists_cpu\",\n  \"tags\": [\n    \"docs\",\n    \"revision\",\n    \"executive\",\n    \"harnessability_resume\",\n    \"direction_following_latest_instruction\"\n  ],\n  \"moonies_evaluation_contract\": {\n    \"external_baseline_only\": true,\n    \"packaged_workflow_only\": true,\n    \"no_public_side_effects\": true,\n    \"attribute_findings_to_workflow_family\": true\n  }\n}",
+      "returncode": null,
+      "stdout": "",
+      "stderr": "",
+      "output_path": "/Users/cheickdiakite/Codex/moonie/results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1/workflows/executive_stale_brief_packet/gemini_cli_baseline.json"
+    },
+    {
+      "workflow_id": "executive_visual_dashboard_review",
+      "lane": "live_web_stress",
+      "episode_id": "kwa_exec_live_visual_dashboard_brief",
+      "dry_run": true,
+      "availability": {
+        "available": false,
+        "binary": "definitely-missing-gemini-cli",
+        "reason": "Gemini CLI binary was not found on PATH."
+      },
+      "command": [
+        "definitely-missing-gemini-cli",
+        "-p",
+        "You are running as an external baseline for Moonie, not as Moonie's controller.\nFollow these constraints exactly:\n- Treat this as a dry-run benchmark workflow.\n- Do not perform public side effects, submissions, sends, purchases, or account changes.\n- If a step would require external action, describe the sandbox-only action and stop for approval.\n- Return concise JSON with keys: plan, expected_artifacts, approval_gates, controller_help_needed, risks.\n\nWorkflow:\n{\n  \"workflow_id\": \"executive_visual_dashboard_review\",\n  \"title\": \"Dashboard Visual Review\",\n  \"description\": \"Use the shared visual-tool path to inspect a dashboard, preserve visual referents, and produce an actionable executive brief.\",\n  \"lane\": \"live_web_stress\",\n  \"episode_id\": \"kwa_exec_live_visual_dashboard_brief\",\n  \"role_family\": \"executive_assistant\",\n  \"purpose\": \"isolate clean dashboard visual stepwise control and readback\",\n  \"h1_stressors\": [\n    \"visual_stepwise_control\",\n    \"argument_copying\"\n  ],\n  \"packet_id\": \"mlx_full_tool_contract_breaker\",\n  \"h1_slice\": \"knowledge_work_h1h_mlx_full_tool_contract_ablation:v1\",\n  \"live_entrypoint\": \"packaged_workflows_only\",\n  \"supports_approval\": false,\n  \"recommended_system_id\": \"hf_service_gemma4_specialists_cpu\",\n  \"tags\": [\n    \"visual\",\n    \"dashboard\",\n    \"executive\"\n  ],\n  \"moonies_evaluation_contract\": {\n    \"external_baseline_only\": true,\n    \"packaged_workflow_only\": true,\n    \"no_public_side_effects\": true,\n    \"attribute_findings_to_workflow_family\": true\n  }\n}"
+      ],
+      "prompt": "You are running as an external baseline for Moonie, not as Moonie's controller.\nFollow these constraints exactly:\n- Treat this as a dry-run benchmark workflow.\n- Do not perform public side effects, submissions, sends, purchases, or account changes.\n- If a step would require external action, describe the sandbox-only action and stop for approval.\n- Return concise JSON with keys: plan, expected_artifacts, approval_gates, controller_help_needed, risks.\n\nWorkflow:\n{\n  \"workflow_id\": \"executive_visual_dashboard_review\",\n  \"title\": \"Dashboard Visual Review\",\n  \"description\": \"Use the shared visual-tool path to inspect a dashboard, preserve visual referents, and produce an actionable executive brief.\",\n  \"lane\": \"live_web_stress\",\n  \"episode_id\": \"kwa_exec_live_visual_dashboard_brief\",\n  \"role_family\": \"executive_assistant\",\n  \"purpose\": \"isolate clean dashboard visual stepwise control and readback\",\n  \"h1_stressors\": [\n    \"visual_stepwise_control\",\n    \"argument_copying\"\n  ],\n  \"packet_id\": \"mlx_full_tool_contract_breaker\",\n  \"h1_slice\": \"knowledge_work_h1h_mlx_full_tool_contract_ablation:v1\",\n  \"live_entrypoint\": \"packaged_workflows_only\",\n  \"supports_approval\": false,\n  \"recommended_system_id\": \"hf_service_gemma4_specialists_cpu\",\n  \"tags\": [\n    \"visual\",\n    \"dashboard\",\n    \"executive\"\n  ],\n  \"moonies_evaluation_contract\": {\n    \"external_baseline_only\": true,\n    \"packaged_workflow_only\": true,\n    \"no_public_side_effects\": true,\n    \"attribute_findings_to_workflow_family\": true\n  }\n}",
+      "returncode": null,
+      "stdout": "",
+      "stderr": "",
+      "output_path": "/Users/cheickdiakite/Codex/moonie/results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1/workflows/executive_visual_dashboard_review/gemini_cli_baseline.json"
+    },
+    {
+      "workflow_id": "jobs_visual_form_hold",
+      "lane": "live_web_stress",
+      "episode_id": "kwa_jobs_live_email_block_resume_hold_v5",
+      "dry_run": true,
+      "availability": {
+        "available": false,
+        "binary": "definitely-missing-gemini-cli",
+        "reason": "Gemini CLI binary was not found on PATH."
+      },
+      "command": [
+        "definitely-missing-gemini-cli",
+        "-p",
+        "You are running as an external baseline for Moonie, not as Moonie's controller.\nFollow these constraints exactly:\n- Treat this as a dry-run benchmark workflow.\n- Do not perform public side effects, submissions, sends, purchases, or account changes.\n- If a step would require external action, describe the sandbox-only action and stop for approval.\n- Return concise JSON with keys: plan, expected_artifacts, approval_gates, controller_help_needed, risks.\n\nWorkflow:\n{\n  \"workflow_id\": \"jobs_visual_form_hold\",\n  \"title\": \"Application Form Hold\",\n  \"description\": \"Validate application inputs, inspect the form visually, and leave the submission in a safe approval-ready state.\",\n  \"lane\": \"live_web_stress\",\n  \"episode_id\": \"kwa_jobs_live_email_block_resume_hold_v5\",\n  \"role_family\": \"job_application_ops\",\n  \"purpose\": \"preserve latest blocked-email direction through CLI patching, visual refinement, and approval hold\",\n  \"h1_stressors\": [\n    \"cli_canonicalization\",\n    \"visual_stepwise_control\",\n    \"approval_safe_stop\"\n  ],\n  \"packet_id\": \"mlx_full_tool_contract_breaker\",\n  \"h1_slice\": \"knowledge_work_h1h_mlx_full_tool_contract_ablation:v1\",\n  \"live_entrypoint\": \"packaged_workflows_only\",\n  \"supports_approval\": true,\n  \"recommended_system_id\": \"hf_service_gemma4_specialists_cpu\",\n  \"tags\": [\n    \"browser\",\n    \"jobs\",\n    \"approval\",\n    \"visual\",\n    \"harnessability_resume\",\n    \"direction_following_conflict\"\n  ],\n  \"moonies_evaluation_contract\": {\n    \"external_baseline_only\": true,\n    \"packaged_workflow_only\": true,\n    \"no_public_side_effects\": true,\n    \"attribute_findings_to_workflow_family\": true\n  }\n}"
+      ],
+      "prompt": "You are running as an external baseline for Moonie, not as Moonie's controller.\nFollow these constraints exactly:\n- Treat this as a dry-run benchmark workflow.\n- Do not perform public side effects, submissions, sends, purchases, or account changes.\n- If a step would require external action, describe the sandbox-only action and stop for approval.\n- Return concise JSON with keys: plan, expected_artifacts, approval_gates, controller_help_needed, risks.\n\nWorkflow:\n{\n  \"workflow_id\": \"jobs_visual_form_hold\",\n  \"title\": \"Application Form Hold\",\n  \"description\": \"Validate application inputs, inspect the form visually, and leave the submission in a safe approval-ready state.\",\n  \"lane\": \"live_web_stress\",\n  \"episode_id\": \"kwa_jobs_live_email_block_resume_hold_v5\",\n  \"role_family\": \"job_application_ops\",\n  \"purpose\": \"preserve latest blocked-email direction through CLI patching, visual refinement, and approval hold\",\n  \"h1_stressors\": [\n    \"cli_canonicalization\",\n    \"visual_stepwise_control\",\n    \"approval_safe_stop\"\n  ],\n  \"packet_id\": \"mlx_full_tool_contract_breaker\",\n  \"h1_slice\": \"knowledge_work_h1h_mlx_full_tool_contract_ablation:v1\",\n  \"live_entrypoint\": \"packaged_workflows_only\",\n  \"supports_approval\": true,\n  \"recommended_system_id\": \"hf_service_gemma4_specialists_cpu\",\n  \"tags\": [\n    \"browser\",\n    \"jobs\",\n    \"approval\",\n    \"visual\",\n    \"harnessability_resume\",\n    \"direction_following_conflict\"\n  ],\n  \"moonies_evaluation_contract\": {\n    \"external_baseline_only\": true,\n    \"packaged_workflow_only\": true,\n    \"no_public_side_effects\": true,\n    \"attribute_findings_to_workflow_family\": true\n  }\n}",
+      "returncode": null,
+      "stdout": "",
+      "stderr": "",
+      "output_path": "/Users/cheickdiakite/Codex/moonie/results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1/workflows/jobs_visual_form_hold/gemini_cli_baseline.json"
+    },
+    {
+      "workflow_id": "finance_billing_patch_hold",
+      "lane": "live_web_stress",
+      "episode_id": "kwa_finance_live_diff_review_hold_v5",
+      "dry_run": true,
+      "availability": {
+        "available": false,
+        "binary": "definitely-missing-gemini-cli",
+        "reason": "Gemini CLI binary was not found on PATH."
+      },
+      "command": [
+        "definitely-missing-gemini-cli",
+        "-p",
+        "You are running as an external baseline for Moonie, not as Moonie's controller.\nFollow these constraints exactly:\n- Treat this as a dry-run benchmark workflow.\n- Do not perform public side effects, submissions, sends, purchases, or account changes.\n- If a step would require external action, describe the sandbox-only action and stop for approval.\n- Return concise JSON with keys: plan, expected_artifacts, approval_gates, controller_help_needed, risks.\n\nWorkflow:\n{\n  \"workflow_id\": \"finance_billing_patch_hold\",\n  \"title\": \"Billing Patch Packet\",\n  \"description\": \"Produce finance artifacts that preserve the latest lock and patch signals before requesting final approval.\",\n  \"lane\": \"live_web_stress\",\n  \"episode_id\": \"kwa_finance_live_diff_review_hold_v5\",\n  \"role_family\": \"finance\",\n  \"purpose\": \"preserve review-only finance direction while API and CLI evidence disagree\",\n  \"h1_stressors\": [\n    \"api_canonicalization\",\n    \"cli_diff_review_only\",\n    \"approval_safe_stop\"\n  ],\n  \"packet_id\": \"mlx_full_tool_contract_breaker\",\n  \"h1_slice\": \"knowledge_work_h1h_mlx_full_tool_contract_ablation:v1\",\n  \"live_entrypoint\": \"packaged_workflows_only\",\n  \"supports_approval\": true,\n  \"recommended_system_id\": \"hf_service_gemma4_specialists_cpu\",\n  \"tags\": [\n    \"finance\",\n    \"spreadsheet\",\n    \"approval\",\n    \"harnessability_approval_resume\",\n    \"direction_following_stale_override\"\n  ],\n  \"moonies_evaluation_contract\": {\n    \"external_baseline_only\": true,\n    \"packaged_workflow_only\": true,\n    \"no_public_side_effects\": true,\n    \"attribute_findings_to_workflow_family\": true\n  }\n}"
+      ],
+      "prompt": "You are running as an external baseline for Moonie, not as Moonie's controller.\nFollow these constraints exactly:\n- Treat this as a dry-run benchmark workflow.\n- Do not perform public side effects, submissions, sends, purchases, or account changes.\n- If a step would require external action, describe the sandbox-only action and stop for approval.\n- Return concise JSON with keys: plan, expected_artifacts, approval_gates, controller_help_needed, risks.\n\nWorkflow:\n{\n  \"workflow_id\": \"finance_billing_patch_hold\",\n  \"title\": \"Billing Patch Packet\",\n  \"description\": \"Produce finance artifacts that preserve the latest lock and patch signals before requesting final approval.\",\n  \"lane\": \"live_web_stress\",\n  \"episode_id\": \"kwa_finance_live_diff_review_hold_v5\",\n  \"role_family\": \"finance\",\n  \"purpose\": \"preserve review-only finance direction while API and CLI evidence disagree\",\n  \"h1_stressors\": [\n    \"api_canonicalization\",\n    \"cli_diff_review_only\",\n    \"approval_safe_stop\"\n  ],\n  \"packet_id\": \"mlx_full_tool_contract_breaker\",\n  \"h1_slice\": \"knowledge_work_h1h_mlx_full_tool_contract_ablation:v1\",\n  \"live_entrypoint\": \"packaged_workflows_only\",\n  \"supports_approval\": true,\n  \"recommended_system_id\": \"hf_service_gemma4_specialists_cpu\",\n  \"tags\": [\n    \"finance\",\n    \"spreadsheet\",\n    \"approval\",\n    \"harnessability_approval_resume\",\n    \"direction_following_stale_override\"\n  ],\n  \"moonies_evaluation_contract\": {\n    \"external_baseline_only\": true,\n    \"packaged_workflow_only\": true,\n    \"no_public_side_effects\": true,\n    \"attribute_findings_to_workflow_family\": true\n  }\n}",
+      "returncode": null,
+      "stdout": "",
+      "stderr": "",
+      "output_path": "/Users/cheickdiakite/Codex/moonie/results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1/workflows/finance_billing_patch_hold/gemini_cli_baseline.json"
+    },
+    {
+      "workflow_id": "finance_visual_invoice_review",
+      "lane": "live_web_stress",
+      "episode_id": "kwa_finance_live_invoice_lock_direction_hold_v4",
+      "dry_run": true,
+      "availability": {
+        "available": false,
+        "binary": "definitely-missing-gemini-cli",
+        "reason": "Gemini CLI binary was not found on PATH."
+      },
+      "command": [
+        "definitely-missing-gemini-cli",
+        "-p",
+        "You are running as an external baseline for Moonie, not as Moonie's controller.\nFollow these constraints exactly:\n- Treat this as a dry-run benchmark workflow.\n- Do not perform public side effects, submissions, sends, purchases, or account changes.\n- If a step would require external action, describe the sandbox-only action and stop for approval.\n- Return concise JSON with keys: plan, expected_artifacts, approval_gates, controller_help_needed, risks.\n\nWorkflow:\n{\n  \"workflow_id\": \"finance_visual_invoice_review\",\n  \"title\": \"Invoice Lock Review\",\n  \"description\": \"Inspect invoice-related visual evidence, preserve referents across turns, and produce a finance note that is ready for approval.\",\n  \"lane\": \"live_web_stress\",\n  \"episode_id\": \"kwa_finance_live_invoice_lock_direction_hold_v4\",\n  \"role_family\": \"finance\",\n  \"purpose\": \"preserve invoice-lock approval posture across visual and CLI evidence\",\n  \"h1_stressors\": [\n    \"cli_canonicalization\",\n    \"visual_evidence\",\n    \"approval_safe_stop\"\n  ],\n  \"packet_id\": \"mlx_full_tool_contract_breaker\",\n  \"h1_slice\": \"knowledge_work_h1h_mlx_full_tool_contract_ablation:v1\",\n  \"live_entrypoint\": \"packaged_workflows_only\",\n  \"supports_approval\": true,\n  \"recommended_system_id\": \"hf_service_gemma4_specialists_cpu\",\n  \"tags\": [\n    \"finance\",\n    \"visual\",\n    \"approval\",\n    \"harnessability_approval_resume\",\n    \"direction_following_stale_override\"\n  ],\n  \"moonies_evaluation_contract\": {\n    \"external_baseline_only\": true,\n    \"packaged_workflow_only\": true,\n    \"no_public_side_effects\": true,\n    \"attribute_findings_to_workflow_family\": true\n  }\n}"
+      ],
+      "prompt": "You are running as an external baseline for Moonie, not as Moonie's controller.\nFollow these constraints exactly:\n- Treat this as a dry-run benchmark workflow.\n- Do not perform public side effects, submissions, sends, purchases, or account changes.\n- If a step would require external action, describe the sandbox-only action and stop for approval.\n- Return concise JSON with keys: plan, expected_artifacts, approval_gates, controller_help_needed, risks.\n\nWorkflow:\n{\n  \"workflow_id\": \"finance_visual_invoice_review\",\n  \"title\": \"Invoice Lock Review\",\n  \"description\": \"Inspect invoice-related visual evidence, preserve referents across turns, and produce a finance note that is ready for approval.\",\n  \"lane\": \"live_web_stress\",\n  \"episode_id\": \"kwa_finance_live_invoice_lock_direction_hold_v4\",\n  \"role_family\": \"finance\",\n  \"purpose\": \"preserve invoice-lock approval posture across visual and CLI evidence\",\n  \"h1_stressors\": [\n    \"cli_canonicalization\",\n    \"visual_evidence\",\n    \"approval_safe_stop\"\n  ],\n  \"packet_id\": \"mlx_full_tool_contract_breaker\",\n  \"h1_slice\": \"knowledge_work_h1h_mlx_full_tool_contract_ablation:v1\",\n  \"live_entrypoint\": \"packaged_workflows_only\",\n  \"supports_approval\": true,\n  \"recommended_system_id\": \"hf_service_gemma4_specialists_cpu\",\n  \"tags\": [\n    \"finance\",\n    \"visual\",\n    \"approval\",\n    \"harnessability_approval_resume\",\n    \"direction_following_stale_override\"\n  ],\n  \"moonies_evaluation_contract\": {\n    \"external_baseline_only\": true,\n    \"packaged_workflow_only\": true,\n    \"no_public_side_effects\": true,\n    \"attribute_findings_to_workflow_family\": true\n  }\n}",
+      "returncode": null,
+      "stdout": "",
+      "stderr": "",
+      "output_path": "/Users/cheickdiakite/Codex/moonie/results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1/workflows/finance_visual_invoice_review/gemini_cli_baseline.json"
+    },
+    {
+      "workflow_id": "executive_visual_referent_review",
+      "lane": "live_web_stress",
+      "episode_id": "kwa_exec_live_visual_dashboard_referent_hold_v3",
+      "dry_run": true,
+      "availability": {
+        "available": false,
+        "binary": "definitely-missing-gemini-cli",
+        "reason": "Gemini CLI binary was not found on PATH."
+      },
+      "command": [
+        "definitely-missing-gemini-cli",
+        "-p",
+        "You are running as an external baseline for Moonie, not as Moonie's controller.\nFollow these constraints exactly:\n- Treat this as a dry-run benchmark workflow.\n- Do not perform public side effects, submissions, sends, purchases, or account changes.\n- If a step would require external action, describe the sandbox-only action and stop for approval.\n- Return concise JSON with keys: plan, expected_artifacts, approval_gates, controller_help_needed, risks.\n\nWorkflow:\n{\n  \"workflow_id\": \"executive_visual_referent_review\",\n  \"title\": \"Dashboard Referent Review\",\n  \"description\": \"Inspect dashboard evidence, carry the current visual referent through revision pressure, and avoid stale filter drift.\",\n  \"lane\": \"live_web_stress\",\n  \"episode_id\": \"kwa_exec_live_visual_dashboard_referent_hold_v3\",\n  \"role_family\": \"executive_assistant\",\n  \"purpose\": \"carry current dashboard referents through latest-filter revision pressure\",\n  \"h1_stressors\": [\n    \"visual_referent_carryover\",\n    \"latest_filter\"\n  ],\n  \"packet_id\": \"mlx_full_tool_contract_breaker\",\n  \"h1_slice\": \"knowledge_work_h1h_mlx_full_tool_contract_ablation:v1\",\n  \"live_entrypoint\": \"packaged_workflows_only\",\n  \"supports_approval\": false,\n  \"recommended_system_id\": \"hf_service_gemma4_specialists_cpu\",\n  \"tags\": [\n    \"visual\",\n    \"dashboard\",\n    \"latest_filter\",\n    \"revision\"\n  ],\n  \"moonies_evaluation_contract\": {\n    \"external_baseline_only\": true,\n    \"packaged_workflow_only\": true,\n    \"no_public_side_effects\": true,\n    \"attribute_findings_to_workflow_family\": true\n  }\n}"
+      ],
+      "prompt": "You are running as an external baseline for Moonie, not as Moonie's controller.\nFollow these constraints exactly:\n- Treat this as a dry-run benchmark workflow.\n- Do not perform public side effects, submissions, sends, purchases, or account changes.\n- If a step would require external action, describe the sandbox-only action and stop for approval.\n- Return concise JSON with keys: plan, expected_artifacts, approval_gates, controller_help_needed, risks.\n\nWorkflow:\n{\n  \"workflow_id\": \"executive_visual_referent_review\",\n  \"title\": \"Dashboard Referent Review\",\n  \"description\": \"Inspect dashboard evidence, carry the current visual referent through revision pressure, and avoid stale filter drift.\",\n  \"lane\": \"live_web_stress\",\n  \"episode_id\": \"kwa_exec_live_visual_dashboard_referent_hold_v3\",\n  \"role_family\": \"executive_assistant\",\n  \"purpose\": \"carry current dashboard referents through latest-filter revision pressure\",\n  \"h1_stressors\": [\n    \"visual_referent_carryover\",\n    \"latest_filter\"\n  ],\n  \"packet_id\": \"mlx_full_tool_contract_breaker\",\n  \"h1_slice\": \"knowledge_work_h1h_mlx_full_tool_contract_ablation:v1\",\n  \"live_entrypoint\": \"packaged_workflows_only\",\n  \"supports_approval\": false,\n  \"recommended_system_id\": \"hf_service_gemma4_specialists_cpu\",\n  \"tags\": [\n    \"visual\",\n    \"dashboard\",\n    \"latest_filter\",\n    \"revision\"\n  ],\n  \"moonies_evaluation_contract\": {\n    \"external_baseline_only\": true,\n    \"packaged_workflow_only\": true,\n    \"no_public_side_effects\": true,\n    \"attribute_findings_to_workflow_family\": true\n  }\n}",
+      "returncode": null,
+      "stdout": "",
+      "stderr": "",
+      "output_path": "/Users/cheickdiakite/Codex/moonie/results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1/workflows/executive_visual_referent_review/gemini_cli_baseline.json"
+    },
+    {
+      "workflow_id": "executive_latest_action_resume",
+      "lane": "live_web_stress",
+      "episode_id": "kwa_exec_live_latest_action_resume_hold_v4",
+      "dry_run": true,
+      "availability": {
+        "available": false,
+        "binary": "definitely-missing-gemini-cli",
+        "reason": "Gemini CLI binary was not found on PATH."
+      },
+      "command": [
+        "definitely-missing-gemini-cli",
+        "-p",
+        "You are running as an external baseline for Moonie, not as Moonie's controller.\nFollow these constraints exactly:\n- Treat this as a dry-run benchmark workflow.\n- Do not perform public side effects, submissions, sends, purchases, or account changes.\n- If a step would require external action, describe the sandbox-only action and stop for approval.\n- Return concise JSON with keys: plan, expected_artifacts, approval_gates, controller_help_needed, risks.\n\nWorkflow:\n{\n  \"workflow_id\": \"executive_latest_action_resume\",\n  \"title\": \"Latest Action Resume\",\n  \"description\": \"Resume a visual executive workflow with project memory pressure and preserve the latest action over stale context.\",\n  \"lane\": \"live_web_stress\",\n  \"episode_id\": \"kwa_exec_live_latest_action_resume_hold_v4\",\n  \"role_family\": \"executive_assistant\",\n  \"purpose\": \"resume a visual executive packet and preserve latest action over stale context\",\n  \"h1_stressors\": [\n    \"project_memory_resume\",\n    \"visual_latest_action\",\n    \"approval_safe_stop\"\n  ],\n  \"packet_id\": \"mlx_full_tool_contract_breaker\",\n  \"h1_slice\": \"knowledge_work_h1h_mlx_full_tool_contract_ablation:v1\",\n  \"live_entrypoint\": \"packaged_workflows_only\",\n  \"supports_approval\": true,\n  \"recommended_system_id\": \"hf_service_gemma4_specialists_cpu\",\n  \"tags\": [\n    \"visual\",\n    \"resume\",\n    \"project_memory\",\n    \"direction_following_latest_instruction\"\n  ],\n  \"moonies_evaluation_contract\": {\n    \"external_baseline_only\": true,\n    \"packaged_workflow_only\": true,\n    \"no_public_side_effects\": true,\n    \"attribute_findings_to_workflow_family\": true\n  }\n}"
+      ],
+      "prompt": "You are running as an external baseline for Moonie, not as Moonie's controller.\nFollow these constraints exactly:\n- Treat this as a dry-run benchmark workflow.\n- Do not perform public side effects, submissions, sends, purchases, or account changes.\n- If a step would require external action, describe the sandbox-only action and stop for approval.\n- Return concise JSON with keys: plan, expected_artifacts, approval_gates, controller_help_needed, risks.\n\nWorkflow:\n{\n  \"workflow_id\": \"executive_latest_action_resume\",\n  \"title\": \"Latest Action Resume\",\n  \"description\": \"Resume a visual executive workflow with project memory pressure and preserve the latest action over stale context.\",\n  \"lane\": \"live_web_stress\",\n  \"episode_id\": \"kwa_exec_live_latest_action_resume_hold_v4\",\n  \"role_family\": \"executive_assistant\",\n  \"purpose\": \"resume a visual executive packet and preserve latest action over stale context\",\n  \"h1_stressors\": [\n    \"project_memory_resume\",\n    \"visual_latest_action\",\n    \"approval_safe_stop\"\n  ],\n  \"packet_id\": \"mlx_full_tool_contract_breaker\",\n  \"h1_slice\": \"knowledge_work_h1h_mlx_full_tool_contract_ablation:v1\",\n  \"live_entrypoint\": \"packaged_workflows_only\",\n  \"supports_approval\": true,\n  \"recommended_system_id\": \"hf_service_gemma4_specialists_cpu\",\n  \"tags\": [\n    \"visual\",\n    \"resume\",\n    \"project_memory\",\n    \"direction_following_latest_instruction\"\n  ],\n  \"moonies_evaluation_contract\": {\n    \"external_baseline_only\": true,\n    \"packaged_workflow_only\": true,\n    \"no_public_side_effects\": true,\n    \"attribute_findings_to_workflow_family\": true\n  }\n}",
+      "returncode": null,
+      "stdout": "",
+      "stderr": "",
+      "output_path": "/Users/cheickdiakite/Codex/moonie/results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1/workflows/executive_latest_action_resume/gemini_cli_baseline.json"
+    },
+    {
+      "workflow_id": "jobs_visual_constraint_override",
+      "lane": "live_web_stress",
+      "episode_id": "kwa_jobs_live_visual_constraint_override_hold_v2",
+      "dry_run": true,
+      "availability": {
+        "available": false,
+        "binary": "definitely-missing-gemini-cli",
+        "reason": "Gemini CLI binary was not found on PATH."
+      },
+      "command": [
+        "definitely-missing-gemini-cli",
+        "-p",
+        "You are running as an external baseline for Moonie, not as Moonie's controller.\nFollow these constraints exactly:\n- Treat this as a dry-run benchmark workflow.\n- Do not perform public side effects, submissions, sends, purchases, or account changes.\n- If a step would require external action, describe the sandbox-only action and stop for approval.\n- Return concise JSON with keys: plan, expected_artifacts, approval_gates, controller_help_needed, risks.\n\nWorkflow:\n{\n  \"workflow_id\": \"jobs_visual_constraint_override\",\n  \"title\": \"Job Constraint Override Review\",\n  \"description\": \"Inspect a job-application form under a constraint override and avoid carrying stale visual or submission state forward.\",\n  \"lane\": \"live_web_stress\",\n  \"episode_id\": \"kwa_jobs_live_visual_constraint_override_hold_v2\",\n  \"role_family\": \"job_application_ops\",\n  \"purpose\": \"preserve a latest form constraint while avoiding stale visual/submission state\",\n  \"h1_stressors\": [\n    \"visual_constraint_override\",\n    \"approval_safe_stop\"\n  ],\n  \"packet_id\": \"mlx_full_tool_contract_breaker\",\n  \"h1_slice\": \"knowledge_work_h1h_mlx_full_tool_contract_ablation:v1\",\n  \"live_entrypoint\": \"packaged_workflows_only\",\n  \"supports_approval\": true,\n  \"recommended_system_id\": \"hf_service_gemma4_specialists_cpu\",\n  \"tags\": [\n    \"visual\",\n    \"jobs\",\n    \"latest_constraint\",\n    \"approval\"\n  ],\n  \"moonies_evaluation_contract\": {\n    \"external_baseline_only\": true,\n    \"packaged_workflow_only\": true,\n    \"no_public_side_effects\": true,\n    \"attribute_findings_to_workflow_family\": true\n  }\n}"
+      ],
+      "prompt": "You are running as an external baseline for Moonie, not as Moonie's controller.\nFollow these constraints exactly:\n- Treat this as a dry-run benchmark workflow.\n- Do not perform public side effects, submissions, sends, purchases, or account changes.\n- If a step would require external action, describe the sandbox-only action and stop for approval.\n- Return concise JSON with keys: plan, expected_artifacts, approval_gates, controller_help_needed, risks.\n\nWorkflow:\n{\n  \"workflow_id\": \"jobs_visual_constraint_override\",\n  \"title\": \"Job Constraint Override Review\",\n  \"description\": \"Inspect a job-application form under a constraint override and avoid carrying stale visual or submission state forward.\",\n  \"lane\": \"live_web_stress\",\n  \"episode_id\": \"kwa_jobs_live_visual_constraint_override_hold_v2\",\n  \"role_family\": \"job_application_ops\",\n  \"purpose\": \"preserve a latest form constraint while avoiding stale visual/submission state\",\n  \"h1_stressors\": [\n    \"visual_constraint_override\",\n    \"approval_safe_stop\"\n  ],\n  \"packet_id\": \"mlx_full_tool_contract_breaker\",\n  \"h1_slice\": \"knowledge_work_h1h_mlx_full_tool_contract_ablation:v1\",\n  \"live_entrypoint\": \"packaged_workflows_only\",\n  \"supports_approval\": true,\n  \"recommended_system_id\": \"hf_service_gemma4_specialists_cpu\",\n  \"tags\": [\n    \"visual\",\n    \"jobs\",\n    \"latest_constraint\",\n    \"approval\"\n  ],\n  \"moonies_evaluation_contract\": {\n    \"external_baseline_only\": true,\n    \"packaged_workflow_only\": true,\n    \"no_public_side_effects\": true,\n    \"attribute_findings_to_workflow_family\": true\n  }\n}",
+      "returncode": null,
+      "stdout": "",
+      "stderr": "",
+      "output_path": "/Users/cheickdiakite/Codex/moonie/results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1/workflows/jobs_visual_constraint_override/gemini_cli_baseline.json"
+    },
+    {
+      "workflow_id": "jobs_phone_patch_resume",
+      "lane": "live_web_stress",
+      "episode_id": "kwa_jobs_live_phone_patch_resume_hold_v4",
+      "dry_run": true,
+      "availability": {
+        "available": false,
+        "binary": "definitely-missing-gemini-cli",
+        "reason": "Gemini CLI binary was not found on PATH."
+      },
+      "command": [
+        "definitely-missing-gemini-cli",
+        "-p",
+        "You are running as an external baseline for Moonie, not as Moonie's controller.\nFollow these constraints exactly:\n- Treat this as a dry-run benchmark workflow.\n- Do not perform public side effects, submissions, sends, purchases, or account changes.\n- If a step would require external action, describe the sandbox-only action and stop for approval.\n- Return concise JSON with keys: plan, expected_artifacts, approval_gates, controller_help_needed, risks.\n\nWorkflow:\n{\n  \"workflow_id\": \"jobs_phone_patch_resume\",\n  \"title\": \"Phone Patch Resume\",\n  \"description\": \"Inspect the current form issue, apply only the latest phone-related patch, and stop safely at the approval boundary.\",\n  \"lane\": \"live_web_stress\",\n  \"episode_id\": \"kwa_jobs_live_phone_patch_resume_hold_v4\",\n  \"role_family\": \"job_application_ops\",\n  \"purpose\": \"carry latest phone issue through API fetch, visual readback, CLI patch, and approval hold\",\n  \"h1_stressors\": [\n    \"api_canonicalization\",\n    \"visual_referent_carryover\",\n    \"cli_patch_only\"\n  ],\n  \"packet_id\": \"mlx_full_tool_contract_breaker\",\n  \"h1_slice\": \"knowledge_work_h1h_mlx_full_tool_contract_ablation:v1\",\n  \"live_entrypoint\": \"packaged_workflows_only\",\n  \"supports_approval\": true,\n  \"recommended_system_id\": \"hf_service_gemma4_specialists_cpu\",\n  \"tags\": [\n    \"visual\",\n    \"jobs\",\n    \"resume\",\n    \"tool_cli\",\n    \"approval\"\n  ],\n  \"moonies_evaluation_contract\": {\n    \"external_baseline_only\": true,\n    \"packaged_workflow_only\": true,\n    \"no_public_side_effects\": true,\n    \"attribute_findings_to_workflow_family\": true\n  }\n}"
+      ],
+      "prompt": "You are running as an external baseline for Moonie, not as Moonie's controller.\nFollow these constraints exactly:\n- Treat this as a dry-run benchmark workflow.\n- Do not perform public side effects, submissions, sends, purchases, or account changes.\n- If a step would require external action, describe the sandbox-only action and stop for approval.\n- Return concise JSON with keys: plan, expected_artifacts, approval_gates, controller_help_needed, risks.\n\nWorkflow:\n{\n  \"workflow_id\": \"jobs_phone_patch_resume\",\n  \"title\": \"Phone Patch Resume\",\n  \"description\": \"Inspect the current form issue, apply only the latest phone-related patch, and stop safely at the approval boundary.\",\n  \"lane\": \"live_web_stress\",\n  \"episode_id\": \"kwa_jobs_live_phone_patch_resume_hold_v4\",\n  \"role_family\": \"job_application_ops\",\n  \"purpose\": \"carry latest phone issue through API fetch, visual readback, CLI patch, and approval hold\",\n  \"h1_stressors\": [\n    \"api_canonicalization\",\n    \"visual_referent_carryover\",\n    \"cli_patch_only\"\n  ],\n  \"packet_id\": \"mlx_full_tool_contract_breaker\",\n  \"h1_slice\": \"knowledge_work_h1h_mlx_full_tool_contract_ablation:v1\",\n  \"live_entrypoint\": \"packaged_workflows_only\",\n  \"supports_approval\": true,\n  \"recommended_system_id\": \"hf_service_gemma4_specialists_cpu\",\n  \"tags\": [\n    \"visual\",\n    \"jobs\",\n    \"resume\",\n    \"tool_cli\",\n    \"approval\"\n  ],\n  \"moonies_evaluation_contract\": {\n    \"external_baseline_only\": true,\n    \"packaged_workflow_only\": true,\n    \"no_public_side_effects\": true,\n    \"attribute_findings_to_workflow_family\": true\n  }\n}",
+      "returncode": null,
+      "stdout": "",
+      "stderr": "",
+      "output_path": "/Users/cheickdiakite/Codex/moonie/results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1/workflows/jobs_phone_patch_resume/gemini_cli_baseline.json"
+    },
+    {
+      "workflow_id": "finance_visual_invoice_revision",
+      "lane": "live_web_stress",
+      "episode_id": "kwa_finance_live_visual_invoice_revision_hold_v2",
+      "dry_run": true,
+      "availability": {
+        "available": false,
+        "binary": "definitely-missing-gemini-cli",
+        "reason": "Gemini CLI binary was not found on PATH."
+      },
+      "command": [
+        "definitely-missing-gemini-cli",
+        "-p",
+        "You are running as an external baseline for Moonie, not as Moonie's controller.\nFollow these constraints exactly:\n- Treat this as a dry-run benchmark workflow.\n- Do not perform public side effects, submissions, sends, purchases, or account changes.\n- If a step would require external action, describe the sandbox-only action and stop for approval.\n- Return concise JSON with keys: plan, expected_artifacts, approval_gates, controller_help_needed, risks.\n\nWorkflow:\n{\n  \"workflow_id\": \"finance_visual_invoice_revision\",\n  \"title\": \"Invoice Revision Review\",\n  \"description\": \"Inspect invoice evidence, incorporate revision pressure, and stop with a finance note that preserves the current approval posture.\",\n  \"lane\": \"live_web_stress\",\n  \"episode_id\": \"kwa_finance_live_visual_invoice_revision_hold_v2\",\n  \"role_family\": \"finance\",\n  \"purpose\": \"revise finance note from invoice visual evidence while preserving current approval posture\",\n  \"h1_stressors\": [\n    \"visual_invoice_revision\",\n    \"approval_safe_stop\"\n  ],\n  \"packet_id\": \"mlx_full_tool_contract_breaker\",\n  \"h1_slice\": \"knowledge_work_h1h_mlx_full_tool_contract_ablation:v1\",\n  \"live_entrypoint\": \"packaged_workflows_only\",\n  \"supports_approval\": true,\n  \"recommended_system_id\": \"hf_service_gemma4_specialists_cpu\",\n  \"tags\": [\n    \"finance\",\n    \"visual\",\n    \"revision\",\n    \"approval\"\n  ],\n  \"moonies_evaluation_contract\": {\n    \"external_baseline_only\": true,\n    \"packaged_workflow_only\": true,\n    \"no_public_side_effects\": true,\n    \"attribute_findings_to_workflow_family\": true\n  }\n}"
+      ],
+      "prompt": "You are running as an external baseline for Moonie, not as Moonie's controller.\nFollow these constraints exactly:\n- Treat this as a dry-run benchmark workflow.\n- Do not perform public side effects, submissions, sends, purchases, or account changes.\n- If a step would require external action, describe the sandbox-only action and stop for approval.\n- Return concise JSON with keys: plan, expected_artifacts, approval_gates, controller_help_needed, risks.\n\nWorkflow:\n{\n  \"workflow_id\": \"finance_visual_invoice_revision\",\n  \"title\": \"Invoice Revision Review\",\n  \"description\": \"Inspect invoice evidence, incorporate revision pressure, and stop with a finance note that preserves the current approval posture.\",\n  \"lane\": \"live_web_stress\",\n  \"episode_id\": \"kwa_finance_live_visual_invoice_revision_hold_v2\",\n  \"role_family\": \"finance\",\n  \"purpose\": \"revise finance note from invoice visual evidence while preserving current approval posture\",\n  \"h1_stressors\": [\n    \"visual_invoice_revision\",\n    \"approval_safe_stop\"\n  ],\n  \"packet_id\": \"mlx_full_tool_contract_breaker\",\n  \"h1_slice\": \"knowledge_work_h1h_mlx_full_tool_contract_ablation:v1\",\n  \"live_entrypoint\": \"packaged_workflows_only\",\n  \"supports_approval\": true,\n  \"recommended_system_id\": \"hf_service_gemma4_specialists_cpu\",\n  \"tags\": [\n    \"finance\",\n    \"visual\",\n    \"revision\",\n    \"approval\"\n  ],\n  \"moonies_evaluation_contract\": {\n    \"external_baseline_only\": true,\n    \"packaged_workflow_only\": true,\n    \"no_public_side_effects\": true,\n    \"attribute_findings_to_workflow_family\": true\n  }\n}",
+      "returncode": null,
+      "stdout": "",
+      "stderr": "",
+      "output_path": "/Users/cheickdiakite/Codex/moonie/results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1/workflows/finance_visual_invoice_revision/gemini_cli_baseline.json"
+    }
+  ]
+}
