@@ -157,6 +157,7 @@ Latest MLX tool-contract research:
 - H1j probe-derived live scaffold:
   - config: [`configs/knowledge_work_h1j_slice.yaml`](../../configs/knowledge_work_h1j_slice.yaml)
   - brief: [`docs/continuity/h1j-slice.md`](./h1j-slice.md)
+  - replay-to-live promotion brief: [`docs/continuity/replay-to-live-packaged-workflows.md`](./replay-to-live-packaged-workflows.md)
   - candidate packet id: `mlx_probe_derived_tool_contract_candidates`
   - helper-ablation packet id: `mlx_probe_derived_helper_ablation`
   - shape: six packaged live workflows mapping no-directive probe failures into live API/CLI argument mismatch and visual no-call/readback pressure
