@@ -147,6 +147,7 @@ The repo is no longer only a benchmark runner. It now has an explicit local prod
   - `moonie-agent live` launches packaged workflows only and defaults to `mlx_gemma4_e2b_reasoner_only`
   - `moonie-agent attach <session_id>` watches an existing run through a Rich terminal operator view
   - `moonie-agent report` inspects generated research reports, tables, figures, and prompt-contract candidate metadata from the terminal
+  - `moonie-agent packet` inspects generated research packet manifests, commands, candidate rows, and dry-run/executed counts
 - `moonie-agent-api`
   - local HTTP API for thin desktop and mobile clients
 - React desktop harness

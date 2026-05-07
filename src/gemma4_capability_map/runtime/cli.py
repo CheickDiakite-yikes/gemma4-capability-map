@@ -8,6 +8,7 @@ from pathlib import Path
 from gemma4_capability_map.runtime.core import LocalAgentRuntime
 from gemma4_capability_map.runtime.gemini_cli import run_gemini_cli_baseline
 from gemma4_capability_map.runtime.operator import apply_operator_action, attach_to_session, print_session_inspection, session_inspection_payload
+from gemma4_capability_map.runtime.research_packets import print_research_packet, research_packet_payload
 from gemma4_capability_map.runtime.research_reports import print_research_report, research_report_payload
 from gemma4_capability_map.runtime.sandbox import DEFAULT_SANDBOX_POLICY_ID
 from gemma4_capability_map.runtime.schemas import ApprovalStatus
@@ -70,6 +71,12 @@ def parse_args() -> argparse.Namespace:
     report_parser.add_argument("--report-id", default="mlx-tool-contract")
     report_parser.add_argument("--report-dir", default=None)
     report_parser.add_argument("--json", action="store_true")
+
+    packet_parser = subparsers.add_parser("packet", help="Inspect generated research packet artifacts from the terminal.")
+    packet_parser.add_argument("--kind", choices=["prompt-contract-probe"], default="prompt-contract-probe")
+    packet_parser.add_argument("--packet-id", default="latest")
+    packet_parser.add_argument("--packet-dir", default=None)
+    packet_parser.add_argument("--json", action="store_true")
 
     gemini_parser = subparsers.add_parser("gemini-baseline", help="Prepare or run a Gemini CLI external baseline for a packaged workflow.")
     gemini_parser.add_argument("--workflow-id", required=True)
@@ -205,6 +212,13 @@ def main() -> None:
             print(json.dumps(payload, indent=2, ensure_ascii=False))
         else:
             print_research_report(payload)
+        return
+    if args.command == "packet":
+        payload = research_packet_payload(packet_kind=args.kind, packet_id=args.packet_id, packet_dir=args.packet_dir)
+        if args.json:
+            print(json.dumps(payload, indent=2, ensure_ascii=False))
+        else:
+            print_research_packet(payload)
         return
     if args.command == "gemini-baseline":
         workflow = next((row for row in runtime.list_workflows(lane=args.lane) if row["workflow_id"] == args.workflow_id), None)

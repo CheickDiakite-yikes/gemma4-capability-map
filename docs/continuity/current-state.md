@@ -41,6 +41,10 @@ Current CLI surface:
   - inspects generated research report directories from the terminal
   - current default is the MLX tool-contract report with packet counts, table/figure inventory, Gemini baseline status, and prompt-contract candidate ids
   - supports `--json` for scripted harness checks
+- `moonie-agent packet`
+  - inspects generated research packet directories from the terminal
+  - current default kind is `prompt-contract-probe`, including candidate rows, command counts, dry-run/executed counts, and packet files
+  - supports `--packet-id latest`, explicit `--packet-dir`, and `--json`
 
 The React desktop harness exists and remains useful prior work, but it is no longer the main next workstream:
 

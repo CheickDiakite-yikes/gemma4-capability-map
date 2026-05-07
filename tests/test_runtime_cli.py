@@ -352,6 +352,65 @@ def test_runtime_cli_report_renders_rich_overview(
     assert "schema_anchor_v1" in output
 
 
+def test_runtime_cli_packet_json_inspects_prompt_contract_probe_packet(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+    tmp_path: Path,
+) -> None:
+    runtime = LocalAgentRuntime(results_root=tmp_path / "runtime")
+    packet_dir = _write_fake_prompt_contract_packet(tmp_path / "packet")
+    monkeypatch.setattr(runtime_cli, "LocalAgentRuntime", lambda: runtime)
+    monkeypatch.setattr(
+        runtime_cli,
+        "parse_args",
+        lambda: runtime_cli.argparse.Namespace(
+            command="packet",
+            kind="prompt-contract-probe",
+            packet_id="latest",
+            packet_dir=str(packet_dir),
+            json=True,
+        ),
+    )
+
+    runtime_cli.main()
+
+    output = json.loads(capsys.readouterr().out)
+    assert output["packet_dir"] == str(packet_dir.resolve())
+    assert output["candidate_count"] == 2
+    assert output["executed_count"] == 1
+    assert output["dry_run_count"] == 1
+    assert output["command_count"] == 2
+    assert output["candidate_rows"][0]["tool_prompt_contract_id"] == "schema_anchor_v1"
+
+
+def test_runtime_cli_packet_renders_rich_overview(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+    tmp_path: Path,
+) -> None:
+    runtime = LocalAgentRuntime(results_root=tmp_path / "runtime")
+    packet_dir = _write_fake_prompt_contract_packet(tmp_path / "packet")
+    monkeypatch.setattr(runtime_cli, "LocalAgentRuntime", lambda: runtime)
+    monkeypatch.setattr(
+        runtime_cli,
+        "parse_args",
+        lambda: runtime_cli.argparse.Namespace(
+            command="packet",
+            kind="prompt-contract-probe",
+            packet_id="latest",
+            packet_dir=str(packet_dir),
+            json=False,
+        ),
+    )
+
+    runtime_cli.main()
+
+    output = capsys.readouterr().out
+    assert "Moonie Research Packet" in output
+    assert "schema_anchor_v1" in output
+    assert "literal_argument_guard_v1" in output
+
+
 def _write_fake_research_report(report_dir: Path) -> Path:
     (report_dir / "tables").mkdir(parents=True)
     (report_dir / "figures").mkdir()
@@ -384,3 +443,45 @@ def _write_fake_research_report(report_dir: Path) -> Path:
     (report_dir / "tables" / "packet_summary.csv").write_text("packet\nH1f\n", encoding="utf-8")
     (report_dir / "figures" / "summary.svg").write_text("<svg></svg>\n", encoding="utf-8")
     return report_dir
+
+
+def _write_fake_prompt_contract_packet(packet_dir: Path) -> Path:
+    packet_dir.mkdir(parents=True)
+    (packet_dir / "manifest.json").write_text(
+        json.dumps(
+            {
+                "packet_run_id": "fake_packet",
+                "created_at": "2026-05-07T00:00:00+00:00",
+                "execute": True,
+            }
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    (packet_dir / "commands.json").write_text(
+        json.dumps(
+            [
+                {"system_id": "schema", "command": ["run", "schema"]},
+                {"system_id": "literal", "command": ["run", "literal"]},
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    (packet_dir / "results.json").write_text(
+        json.dumps({"candidate_count": 2, "executed_count": 1, "dry_run_count": 1})
+        + "\n",
+        encoding="utf-8",
+    )
+    (packet_dir / "candidate_summary.csv").write_text(
+        "\n".join(
+            [
+                "system_id,tool_prompt_contract_id,execute,output_dir,comparison_path,exact_match_rate,executable_match_rate",
+                "schema,schema_anchor_v1,True,/tmp/schema,/tmp/schema/probe_comparison.json,0.5,0.5",
+                "literal,literal_argument_guard_v1,False,/tmp/literal,,,",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    return packet_dir
