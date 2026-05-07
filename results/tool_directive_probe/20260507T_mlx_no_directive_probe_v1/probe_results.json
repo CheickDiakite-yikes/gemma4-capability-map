@@ -1,0 +1,239 @@
+[
+  {
+    "case_id": "cli_invoice_lock_hyphen_query",
+    "family": "cli_canonicalization",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": null,
+    "expected_execution": {},
+    "actual_execution": [],
+    "expected_calls": [
+      {
+        "name": "cli_search_logs",
+        "arguments": {
+          "path": "logs/billing.log",
+          "query": "invoice lock"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "cli_search_logs",
+        "arguments": {
+          "path": "billing.log",
+          "query": "invoice-lock failure"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"cli_search_logs\", \"arguments\": {\"path\": \"billing.log\", \"query\": \"invoice-lock failure\"}}",
+    "prompt_tokens": 503,
+    "completion_tokens": 31,
+    "latency_ms": 9094
+  },
+  {
+    "case_id": "cli_phone_patch_latest_only",
+    "family": "cli_patch_copying",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": null,
+    "expected_execution": {},
+    "actual_execution": [],
+    "expected_calls": [
+      {
+        "name": "cli_apply_patch",
+        "arguments": {
+          "path": "config/job_form.yaml",
+          "patch": "phone_validation: strict"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "cli_apply_patch",
+        "arguments": {
+          "path": "config/job_form.yaml",
+          "patch": "..."
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"cli_apply_patch\", \"arguments\": {\"path\": \"config/job_form.yaml\", \"patch\": \"...\"}}",
+    "prompt_tokens": 481,
+    "completion_tokens": 32,
+    "latency_ms": 1049
+  },
+  {
+    "case_id": "api_invoice_lock_hold_update",
+    "family": "api_canonicalization",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": null,
+    "expected_execution": {},
+    "actual_execution": [],
+    "expected_calls": [
+      {
+        "name": "api_update_record",
+        "arguments": {
+          "record_type": "billing_record",
+          "record_id": "INV-204",
+          "field": "invoice_lock",
+          "value": "hold"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "api_update_record",
+        "arguments": {
+          "record_type": "invoice",
+          "record_id": "INV-204",
+          "field": "invoice_lock",
+          "value": "on hold"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"api_update_record\", \"arguments\": {\"record_type\": \"invoice\", \"record_id\": \"INV-204\", \"field\": \"invoice_lock\", \"value\": \"on hold\"}}",
+    "prompt_tokens": 533,
+    "completion_tokens": 49,
+    "latency_ms": 1297
+  },
+  {
+    "case_id": "api_form_issue_fetch",
+    "family": "api_canonicalization",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": null,
+    "expected_execution": {},
+    "actual_execution": [],
+    "expected_calls": [
+      {
+        "name": "api_fetch_record",
+        "arguments": {
+          "record_type": "form_issue",
+          "record_id": "FORM-88"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "api_fetch_record",
+        "arguments": {
+          "record_type": "FORM-88",
+          "record_id": "latest"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"api_fetch_record\", \"arguments\": {\"record_type\": \"FORM-88\", \"record_id\": \"latest\"}}",
+    "prompt_tokens": 537,
+    "completion_tokens": 33,
+    "latency_ms": 1123
+  },
+  {
+    "case_id": "visual_form_target_literal",
+    "family": "visual_argument_copying",
+    "expected_call_count": 1,
+    "actual_call_count": 0,
+    "exact_match": false,
+    "executable_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "form-err-202"
+      ]
+    },
+    "actual_execution": [],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-form-live-latest",
+          "target_query": "validation error"
+        }
+      }
+    ],
+    "actual_calls": [],
+    "raw_model_output": "",
+    "prompt_tokens": 657,
+    "completion_tokens": 1,
+    "latency_ms": 879
+  },
+  {
+    "case_id": "visual_latest_filter_literal",
+    "family": "visual_referent_carryover",
+    "expected_call_count": 1,
+    "actual_call_count": 0,
+    "exact_match": false,
+    "executable_match": null,
+    "expected_execution": {},
+    "actual_execution": [],
+    "expected_calls": [
+      {
+        "name": "refine_selection",
+        "arguments": {
+          "selection_id": "sel-001",
+          "filter_query": "latest"
+        }
+      }
+    ],
+    "actual_calls": [],
+    "raw_model_output": "\"extract_layout\": {\"image_id\": \"img-form-latest\", \"target_query\": \"validation error\"}",
+    "prompt_tokens": 761,
+    "completion_tokens": 27,
+    "latency_ms": 1328
+  },
+  {
+    "case_id": "visual_readback_region_literal",
+    "family": "visual_referent_carryover",
+    "expected_call_count": 1,
+    "actual_call_count": 0,
+    "exact_match": false,
+    "executable_match": null,
+    "expected_execution": {},
+    "actual_execution": [],
+    "expected_calls": [
+      {
+        "name": "read_region_text",
+        "arguments": {
+          "image_id": "img-form-latest",
+          "region_id": "form-err-202"
+        }
+      }
+    ],
+    "actual_calls": [],
+    "raw_model_output": "extract_layout: {\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-form-latest\", \"target_query\": \"validation error\"}}",
+    "prompt_tokens": 935,
+    "completion_tokens": 37,
+    "latency_ms": 1705
+  },
+  {
+    "case_id": "parallel_audit_array_literal",
+    "family": "parallel_tool_calling",
+    "expected_call_count": 2,
+    "actual_call_count": 0,
+    "exact_match": false,
+    "executable_match": null,
+    "expected_execution": {},
+    "actual_execution": [],
+    "expected_calls": [
+      {
+        "name": "inspect_image",
+        "arguments": {
+          "image_id": "img-parallel"
+        }
+      },
+      {
+        "name": "read_repo_file",
+        "arguments": {
+          "path": "config/settings.yaml"
+        }
+      }
+    ],
+    "actual_calls": [],
+    "raw_model_output": "I need the screenshot and the content of `config/settings.yaml` to proceed. Please provide them.",
+    "prompt_tokens": 550,
+    "completion_tokens": 23,
+    "latency_ms": 994
+  }
+]
