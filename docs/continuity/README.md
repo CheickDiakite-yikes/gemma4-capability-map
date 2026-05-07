@@ -16,6 +16,8 @@ This folder is the repo’s long-horizon memory system for research, engineering
   - replayable exact tool-call probe packets and command patterns
 - [`live-exact-replay-results.md`](live-exact-replay-results.md)
   - CLI-live exact replay results for canonical, visual, and parallel failure families
+- [`wave4-visual-state-candidate.md`](wave4-visual-state-candidate.md)
+  - next prompt-contract candidate brief derived from wave-three visual live replay
 - [`session-handoff.md`](session-handoff.md)
   - short, practical resume packet for the next thread
 
@@ -28,6 +30,7 @@ This folder is the repo’s long-horizon memory system for research, engineering
 - use [`next-steps.md`](next-steps.md) for “what should we do next?”
 - use [`exact-probe-replay.md`](exact-probe-replay.md) when reproducing raw probe packets before live runs
 - use [`live-exact-replay-results.md`](live-exact-replay-results.md) for “what did the CLI-live exact replay wave prove?”
+- use [`wave4-visual-state-candidate.md`](wave4-visual-state-candidate.md) for “what should the next prompt-contract candidate test?”
 - use [`session-handoff.md`](session-handoff.md) for “how do we resume if this thread dies right now?”
 
 ## Operating Rules
