@@ -30,6 +30,7 @@ The live operator bridge now starts with `moonie-agent replay-live`. It is inten
 - first no-directive live execution: [`results/tool_probe_replay_live/20260507T_parallel_array_no_directive_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_parallel_array_no_directive_live_execute_v1)
 - first contracted live execution: [`results/tool_probe_replay_live/20260507T_parallel_array_contracted_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_parallel_array_contracted_live_execute_v1)
 - first live comparison: [`results/tool_probe_replay_live_comparisons/20260507T_parallel_array_contracted_vs_no_directive_live_v1`](../../results/tool_probe_replay_live_comparisons/20260507T_parallel_array_contracted_vs_no_directive_live_v1)
+- visual no-directive live execution: [`results/tool_probe_replay_live/20260507T_visual_state_no_directive_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_visual_state_no_directive_live_execute_v1)
 
 ## Packet Contents
 
@@ -136,6 +137,12 @@ Live A/B comparison:
 - [`results/tool_probe_replay_live_comparisons/20260507T_parallel_array_contracted_vs_no_directive_live_v1`](../../results/tool_probe_replay_live_comparisons/20260507T_parallel_array_contracted_vs_no_directive_live_v1)
 
 Result: contracted exact `1 / 1`, no-directive exact `0 / 1`, exact-rate delta `-1.0`, actual-call delta `-2`. This is now the CLI-live counterpart to the focused script-level parallel replay comparison.
+
+Visual no-directive live execution:
+
+- [`results/tool_probe_replay_live/20260507T_visual_state_no_directive_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_visual_state_no_directive_live_execute_v1)
+
+Result: exact `0 / 3`; all three cases remain `no_tool_call`. `visual_form_target_literal` also remains executable `false`, matching the earlier finding that visual rescue is not doing useful work on this slice.
 
 CLI inspection:
 
