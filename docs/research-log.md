@@ -2740,6 +2740,12 @@
   - trace analysis found `0` note events and `0` failure candidates
   - the analyzer now derives `tool_turn_directive_enabled` from row research controls rather than the shared warmed bundle snapshot, so disabled-directive rows are attributed correctly
   - interpretation: the probe remains the stronger discriminator; H1i candidate v1 is saturated and the next second-stage slice needs repeated no-directive trials or probe-derived live cases where visual/parallel no-call failures are stable
+- H1/H1i ablation packet runners now support repeated episode execution:
+  - `scripts/run_knowledge_work_h1_ablation_packet.py` accepts `--repeat <n>` and passes it through to the focused ablation runner
+  - `scripts/run_knowledge_work_ablation_packet.py` writes `repeat_count`, `base_episode_count`, and repeated episode execution into manifests and summary payloads
+  - the immediate second-stage command is:
+    - `uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1i_slice.yaml --packet-id mlx_prompt_contract_candidates --run-group-id <timestamp>_h1i_prompt_contract_candidates_repeat3 --repeat 3`
+  - interpretation: this gives the saturated H1i prompt-contract packet a stability test before designing new prompt wording or returning to the full ten-workflow H1h packet
 
 ### Verification
 

@@ -167,6 +167,18 @@ All five rows matched:
 
 This means H1i did not discriminate after the probe gate. The earlier H1i no-directive packet showed controller burden; this candidate packet sampled clean no-directive tool calls across the same four workflow families. The practical next step is not to declare the prompt contracts solved. It is to define a harder second-stage packet with repeated no-directive trials or probe-derived live cases where exact protocol failure is stable.
 
+The first concrete second-stage lever is now available in the runner:
+
+```bash
+uv run python scripts/run_knowledge_work_h1_ablation_packet.py \
+  --config configs/knowledge_work_h1i_slice.yaml \
+  --packet-id mlx_prompt_contract_candidates \
+  --run-group-id <timestamp>_h1i_prompt_contract_candidates_repeat3 \
+  --repeat 3
+```
+
+This keeps the same workflow-family attribution as the saturated H1i candidate packet, but records three independent attempts per row. A useful result is not just another readiness tie; the signal to look for is whether no-directive and candidate rows remain raw-clean without controller repair/fallback across repeats.
+
 ## Gemini CLI Baseline Status
 
 The Gemini CLI adapter is currently a dry-run external baseline, not a replacement for Moonie. The packet uses the same H1h workflow families and records prompt/command artifacts without external side effects:
@@ -204,7 +216,7 @@ The H1h -> H1i narrowing is also useful methodologically. H1h proves the phenome
 
 Use this order before broad `32 / 26` reruns:
 
-1. Design a harder second-stage packet because the H1i candidate packet saturated after the probe gate.
+1. Run the repeated H1i second-stage packet because the one-pass H1i candidate packet saturated after the probe gate.
 2. Design a second prompt-contract wave that combines schema anchoring with visual executable recovery while reducing no-call failures.
 3. H1h only after H1i moves for the right reason.
 4. Gemini CLI real execution only when the binary/run environment is explicitly meant to be part of the comparison.

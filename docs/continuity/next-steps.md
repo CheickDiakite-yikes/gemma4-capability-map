@@ -118,12 +118,13 @@ Current evidence:
   - H1i graduation packet id: `mlx_prompt_contract_candidates`
   - H1i mechanism packet: [`results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet)
   - H1i result: all five rows are clean at readiness `0.97710`, repair/fallback/argument repair `0.0 / 0.0 / 0.0`, raw clean `1.0`, with `0` failure candidates
+  - H1/H1i packet runners now support `--repeat`, so second-stage saturation checks can run the same packaged workflow families multiple times per row with repeat count written into manifests and summaries
   - design guardrail: candidates add generic interface contract wording only; they must not embed the exact next planned call
 
 What remains:
 
 - treat the H1i candidate packet as saturated/non-discriminating after the probe gate
-- define a harder second-stage packet before spending another full H1h run; likely shapes are repeated no-directive H1i trials, probe-derived live workflow cases, or a packet that forces the visual/parallel no-call families into live execution
+- define a harder second-stage packet before spending another full H1h run; the immediate runnable shape is repeated H1i candidate trials with `--repeat 3`, followed by probe-derived live workflow cases or a packet that forces the visual/parallel no-call families into live execution
 - design a second prompt-contract wave that combines schema anchoring with visual executable recovery and directly targets the remaining no-call failures
 - promote a candidate beyond H1i only if it moves raw-clean or controller-burden metrics for the right reason
 - regenerate the MLX tool-contract report after any H1i, H1h, probe, or Gemini baseline packet changes
@@ -139,6 +140,7 @@ uv run python scripts/compare_tool_directive_probes.py results/tool_directive_pr
 uv run python scripts/run_tool_prompt_contract_probe_packet.py --run-group-id <timestamp>_prompt_contract_probe_candidates --execute
 uv run python scripts/summarize_tool_prompt_contract_probe_packet.py results/tool_prompt_contract_probe_packets/<packet_id>
 uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1i_slice.yaml --packet-id mlx_prompt_contract_candidates --run-group-id <timestamp>_h1i_prompt_contract_candidates
+uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1i_slice.yaml --packet-id mlx_prompt_contract_candidates --run-group-id <timestamp>_h1i_prompt_contract_candidates_repeat3 --repeat 3
 uv run python scripts/summarize_h1_tool_contract.py results/knowledge_work_h1_slice/<packet_id>
 ```
 
