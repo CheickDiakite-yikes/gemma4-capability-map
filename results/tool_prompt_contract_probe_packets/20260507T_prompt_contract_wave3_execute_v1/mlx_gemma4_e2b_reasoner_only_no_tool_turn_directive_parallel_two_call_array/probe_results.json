@@ -1,0 +1,213 @@
+[
+  {
+    "case_id": "cli_invoice_lock_hyphen_query",
+    "family": "cli_canonicalization",
+    "expected_call_count": 1,
+    "actual_call_count": 0,
+    "exact_match": false,
+    "executable_match": null,
+    "expected_execution": {},
+    "actual_execution": [],
+    "expected_calls": [
+      {
+        "name": "cli_search_logs",
+        "arguments": {
+          "path": "logs/billing.log",
+          "query": "invoice lock"
+        }
+      }
+    ],
+    "actual_calls": [],
+    "raw_model_output": "```json\n{\n  \"name\": \"cli_search_logs\",\n  \"arguments\": {\n    \"path\": \"billing.log\",\n    \"query\": \"invoice-lock failure\"\n  }\n}\n```",
+    "prompt_tokens": 729,
+    "completion_tokens": 51,
+    "latency_ms": 4969
+  },
+  {
+    "case_id": "cli_phone_patch_latest_only",
+    "family": "cli_patch_copying",
+    "expected_call_count": 1,
+    "actual_call_count": 0,
+    "exact_match": false,
+    "executable_match": null,
+    "expected_execution": {},
+    "actual_execution": [],
+    "expected_calls": [
+      {
+        "name": "cli_apply_patch",
+        "arguments": {
+          "path": "config/job_form.yaml",
+          "patch": "phone_validation: strict"
+        }
+      }
+    ],
+    "actual_calls": [],
+    "raw_model_output": "",
+    "prompt_tokens": 707,
+    "completion_tokens": 1,
+    "latency_ms": 1010
+  },
+  {
+    "case_id": "api_invoice_lock_hold_update",
+    "family": "api_canonicalization",
+    "expected_call_count": 1,
+    "actual_call_count": 0,
+    "exact_match": false,
+    "executable_match": null,
+    "expected_execution": {},
+    "actual_execution": [],
+    "expected_calls": [
+      {
+        "name": "api_update_record",
+        "arguments": {
+          "record_type": "billing_record",
+          "record_id": "INV-204",
+          "field": "invoice_lock",
+          "value": "hold"
+        }
+      }
+    ],
+    "actual_calls": [],
+    "raw_model_output": "\"api_update_record\": {\"record_type\": \"INV\", \"record_id\": \"INV-204\", \"field\": \"invoice_lock\", \"value\": \"on hold\"}",
+    "prompt_tokens": 759,
+    "completion_tokens": 43,
+    "latency_ms": 1522
+  },
+  {
+    "case_id": "api_form_issue_fetch",
+    "family": "api_canonicalization",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": null,
+    "expected_execution": {},
+    "actual_execution": [],
+    "expected_calls": [
+      {
+        "name": "api_fetch_record",
+        "arguments": {
+          "record_type": "form_issue",
+          "record_id": "FORM-88"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "api_fetch_record",
+        "arguments": {
+          "record_type": "FORM-88",
+          "record_id": "latest"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"api_fetch_record\", \"arguments\": {\"record_type\": \"FORM-88\", \"record_id\": \"latest\"}}",
+    "prompt_tokens": 763,
+    "completion_tokens": 33,
+    "latency_ms": 1428
+  },
+  {
+    "case_id": "visual_form_target_literal",
+    "family": "visual_argument_copying",
+    "expected_call_count": 1,
+    "actual_call_count": 0,
+    "exact_match": false,
+    "executable_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "form-err-202"
+      ]
+    },
+    "actual_execution": [],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-form-live-latest",
+          "target_query": "validation error"
+        }
+      }
+    ],
+    "actual_calls": [],
+    "raw_model_output": "",
+    "prompt_tokens": 913,
+    "completion_tokens": 1,
+    "latency_ms": 1314
+  },
+  {
+    "case_id": "visual_latest_filter_literal",
+    "family": "visual_referent_carryover",
+    "expected_call_count": 1,
+    "actual_call_count": 0,
+    "exact_match": false,
+    "executable_match": null,
+    "expected_execution": {},
+    "actual_execution": [],
+    "expected_calls": [
+      {
+        "name": "refine_selection",
+        "arguments": {
+          "selection_id": "sel-001",
+          "filter_query": "latest"
+        }
+      }
+    ],
+    "actual_calls": [],
+    "raw_model_output": "```json\n[\n  {\n    \"name\": \"refine_selection\",\n    \"arguments\": {\n      \"selection_id\": \"sel-001\",\n      \"filter_query\": \"phone issue\"\n    }\n  },\n  {\n    \"name\": \"",
+    "prompt_tokens": 1035,
+    "completion_tokens": 64,
+    "latency_ms": 2228
+  },
+  {
+    "case_id": "visual_readback_region_literal",
+    "family": "visual_referent_carryover",
+    "expected_call_count": 1,
+    "actual_call_count": 0,
+    "exact_match": false,
+    "executable_match": null,
+    "expected_execution": {},
+    "actual_execution": [],
+    "expected_calls": [
+      {
+        "name": "read_region_text",
+        "arguments": {
+          "image_id": "img-form-latest",
+          "region_id": "form-err-202"
+        }
+      }
+    ],
+    "actual_calls": [],
+    "raw_model_output": "{\"tool_name\": \"read_region_text\", \"arguments\": {\"image_id\": \"img-form-latest\", \"region_id\": \"form-err-202\"}}",
+    "prompt_tokens": 1209,
+    "completion_tokens": 42,
+    "latency_ms": 2201
+  },
+  {
+    "case_id": "parallel_audit_array_literal",
+    "family": "parallel_tool_calling",
+    "expected_call_count": 2,
+    "actual_call_count": 0,
+    "exact_match": false,
+    "executable_match": null,
+    "expected_execution": {},
+    "actual_execution": [],
+    "expected_calls": [
+      {
+        "name": "inspect_image",
+        "arguments": {
+          "image_id": "img-parallel"
+        }
+      },
+      {
+        "name": "read_repo_file",
+        "arguments": {
+          "path": "config/settings.yaml"
+        }
+      }
+    ],
+    "actual_calls": [],
+    "raw_model_output": "{\"name\": \"inspect_image\", \"arguments\": {\"image_id\": \"screenshot\"}},\n{\"name\": \"read_repo_file\", \"arguments\": {\"path\": \"config/settings.yaml\"}}",
+    "prompt_tokens": 806,
+    "completion_tokens": 45,
+    "latency_ms": 1662
+  }
+]
