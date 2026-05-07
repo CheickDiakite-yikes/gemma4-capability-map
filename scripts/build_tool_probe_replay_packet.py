@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any
 
 from gemma4_capability_map.reporting.knowledge_work_board import DEFAULT_REGISTRY_PATH
-from gemma4_capability_map.runtime.tool_directive_probe import build_tool_directive_probe_cases
+from gemma4_capability_map.runtime.tool_directive_probe import build_tool_directive_probe_cases, run_tool_directive_probe
 from gemma4_capability_map.tools.planner import plan_tool_calls
 from gemma4_capability_map.tools.registry import build_default_registry
 
@@ -30,6 +30,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--system-id", default="mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive")
     parser.add_argument("--case-id", action="append", dest="case_ids", default=[])
     parser.add_argument("--include-exact", action="store_true")
+    parser.add_argument("--execute", action="store_true")
     return parser.parse_args()
 
 
@@ -44,6 +45,7 @@ def main() -> None:
         system_id=args.system_id,
         case_ids=args.case_ids,
         include_exact=args.include_exact,
+        execute=args.execute,
     )
     print(json.dumps(packet["summary"], indent=2, ensure_ascii=False))
 
@@ -58,6 +60,7 @@ def build_tool_probe_replay_packet(
     system_id: str = "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
     case_ids: list[str] | None = None,
     include_exact: bool = False,
+    execute: bool = False,
 ) -> dict[str, Any]:
     timestamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
     packet_run_id = run_group_id or f"{timestamp}_tool_probe_replay_packet"
@@ -79,6 +82,7 @@ def build_tool_probe_replay_packet(
     registry = build_default_registry().specs
     rows: list[dict[str, Any]] = []
     replay_cases: list[dict[str, Any]] = []
+    replay_results: list[dict[str, Any]] = []
     commands: list[dict[str, Any]] = []
     for case_id in selected_ids:
         source_row = source_rows[case_id]
@@ -127,6 +131,29 @@ def build_tool_probe_replay_packet(
             case_id,
         ]
         commands.append({"case_id": case_id, "family": case.family, "command": command})
+        if execute:
+            result = run_tool_directive_probe(
+                system_id=system_id,
+                output_dir=packet_dir / "runs" / case_id,
+                registry_path=registry_path,
+                cases=[case],
+            )
+            replay_row = result["rows"][0]
+            replay_results.append(
+                {
+                    "case_id": case_id,
+                    "family": case.family,
+                    "source_failure_mode": failure_mode,
+                    "replay_failure_mode": _failure_mode(replay_row),
+                    "source_exact_match": bool(source_row.get("exact_match")),
+                    "replay_exact_match": bool(replay_row.get("exact_match")),
+                    "source_executable_match": source_row.get("executable_match"),
+                    "replay_executable_match": replay_row.get("executable_match"),
+                    "expected_call_count": int(replay_row.get("expected_call_count") or 0),
+                    "replay_actual_call_count": int(replay_row.get("actual_call_count") or 0),
+                    "output_dir": str((packet_dir / "runs" / case_id).resolve()),
+                }
+            )
         rows.append(
             {
                 "case_id": case_id,
@@ -153,7 +180,10 @@ def build_tool_probe_replay_packet(
         "failure_mode_counts": _count_by(rows, "source_failure_mode"),
         "family_counts": _count_by(rows, "family"),
         "next_action_counts": _count_by(_next_action_rows(rows), "next_action"),
-        "dry_run": True,
+        "dry_run": not execute,
+        "executed_count": len(replay_results),
+        "replay_exact_match_count": sum(1 for row in replay_results if row["replay_exact_match"]),
+        "replay_exact_match_rate": _rate(sum(1 for row in replay_results if row["replay_exact_match"]), len(replay_results)),
     }
     manifest = {
         **summary,
@@ -165,7 +195,9 @@ def build_tool_probe_replay_packet(
     _write_json(packet_dir / "summary.json", summary)
     _write_json(packet_dir / "commands.json", commands)
     _write_json(packet_dir / "replay_cases.json", replay_cases)
+    _write_json(packet_dir / "replay_results.json", replay_results)
     _write_csv(packet_dir / "replay_cases.csv", rows)
+    _write_csv(packet_dir / "replay_results.csv", replay_results)
     _write_csv(packet_dir / "replay_next_actions.csv", _next_action_rows(rows))
     return {
         "packet_dir": str(packet_dir.resolve()),
@@ -174,6 +206,7 @@ def build_tool_probe_replay_packet(
         "rows": rows,
         "commands": commands,
         "replay_cases": replay_cases,
+        "replay_results": replay_results,
         "next_actions": _next_action_rows(rows),
     }
 
@@ -202,6 +235,10 @@ def _count_by(rows: list[dict[str, Any]], field: str) -> dict[str, int]:
         key = str(row.get(field, ""))
         counts[key] = counts.get(key, 0) + 1
     return dict(sorted(counts.items()))
+
+
+def _rate(numerator: int, denominator: int) -> float:
+    return numerator / denominator if denominator else 0.0
 
 
 def _next_action_rows(rows: list[dict[str, Any]]) -> list[dict[str, str]]:

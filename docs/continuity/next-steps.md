@@ -160,6 +160,7 @@ What remains:
   - `8` failed no-directive probe cases
   - failure split: `argument_mismatch = 4`, `no_tool_call = 4`
   - next use: choose between faithful packaged live parallel workflow and replay execution for exact probe cases
+  - execution support: add `--execute` to rerun selected cases and write `replay_results.json` / `replay_results.csv`
 - promote a candidate beyond H1i only if it moves raw-clean or controller-burden metrics for the right reason
 - regenerate the MLX tool-contract report after any H1i, H1h, probe, or Gemini baseline packet changes
 - when a real Gemini CLI binary is available, rerun the same packet with `--execute`; keep the dry-run packet as the no-side-effects prompt manifest

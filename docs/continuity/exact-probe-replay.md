@@ -46,6 +46,16 @@ uv run python scripts/build_tool_probe_replay_packet.py \
   --run-group-id 20260507T_no_directive_exact_probe_replay_v1
 ```
 
+Execution mode:
+
+```bash
+uv run python scripts/build_tool_probe_replay_packet.py \
+  --run-group-id <timestamp>_no_directive_exact_probe_replay_execute \
+  --execute
+```
+
+Execution mode writes per-case runs under `runs/<case_id>/` plus `replay_results.json` and `replay_results.csv`.
+
 Focused verification:
 
 ```bash

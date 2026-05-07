@@ -51,6 +51,7 @@ def _tool_probe_replay_payload(*, packet_kind: str, target: Path) -> dict[str, A
     commands = _read_json(target / "commands.json")
     replay_rows = _read_csv(target / "replay_cases.csv")
     next_action_rows = _read_csv(target / "replay_next_actions.csv")
+    replay_result_rows = _read_csv(target / "replay_results.csv")
     return {
         "packet_kind": packet_kind,
         "packet_id": target.name,
@@ -65,6 +66,7 @@ def _tool_probe_replay_payload(*, packet_kind: str, target: Path) -> dict[str, A
         "family_counts": summary.get("family_counts", {}) if isinstance(summary, dict) else {},
         "replay_case_rows": replay_rows,
         "next_action_rows": next_action_rows,
+        "replay_result_rows": replay_result_rows,
         "files": [_file_payload(child) for child in sorted(target.iterdir()) if child.is_file()] if target.exists() else [],
     }
 
@@ -174,6 +176,19 @@ def _research_packet_renderable(payload: dict[str, Any]) -> Group:
             str(row.get("next_action", "")),
         )
 
+    replay_results = Table(title="Replay Results")
+    replay_results.add_column("Case")
+    replay_results.add_column("Replay failure")
+    replay_results.add_column("Exact")
+    replay_results.add_column("Executable")
+    for row in payload.get("replay_result_rows") or []:
+        replay_results.add_row(
+            str(row.get("case_id", "")),
+            str(row.get("replay_failure_mode", "")),
+            str(row.get("replay_exact_match", "")),
+            str(row.get("replay_executable_match", "")),
+        )
+
     files = Table(title="Files")
     files.add_column("File")
     files.add_column("Bytes", justify="right")
@@ -184,6 +199,8 @@ def _research_packet_renderable(payload: dict[str, Any]) -> Group:
         body.append(replay_cases)
         if payload.get("next_action_rows"):
             body.append(next_actions)
+        if payload.get("replay_result_rows"):
+            body.append(replay_results)
     else:
         body.append(candidates)
     body.append(files)

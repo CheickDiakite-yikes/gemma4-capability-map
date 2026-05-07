@@ -113,6 +113,61 @@ def test_tool_probe_replay_packet_can_include_exact_cases(tmp_path: Path) -> Non
     assert packet["summary"]["failure_mode_counts"] == {"exact": 1}
 
 
+def test_tool_probe_replay_packet_can_execute_selected_cases(tmp_path: Path) -> None:
+    source_probe = tmp_path / "source"
+    baseline_probe = tmp_path / "baseline"
+    source_probe.mkdir()
+    baseline_probe.mkdir()
+    registry_path = tmp_path / "registry.yaml"
+    registry_path.write_text(
+        """
+systems:
+  heuristic_probe:
+    backend: heuristic
+    reasoner: google/gemma-4-E2B-it
+    reasoner_max_new_tokens: 64
+    request_timeout_seconds: 30.0
+""".strip()
+        + "\n",
+        encoding="utf-8",
+    )
+    case = build_tool_directive_probe_cases()[0]
+    rows = [
+        {
+            "case_id": case.case_id,
+            "family": case.family,
+            "expected_call_count": 1,
+            "actual_call_count": 1,
+            "exact_match": False,
+            "executable_match": None,
+            "expected_calls": [{"name": "cli_search_logs", "arguments": {"path": "logs/billing.log"}}],
+            "actual_calls": [{"name": "cli_search_logs", "arguments": {"path": "billing.log"}}],
+            "raw_model_output": "{}",
+        }
+    ]
+    _write_probe(source_probe, "source_system", rows)
+    _write_probe(baseline_probe, "baseline_system", [{**rows[0], "exact_match": True}])
+
+    packet = SCRIPT.build_tool_probe_replay_packet(
+        source_probe_dir=source_probe,
+        baseline_probe_dir=baseline_probe,
+        output_root=tmp_path / "packets",
+        run_group_id="probe_replay_execute",
+        registry_path=registry_path,
+        system_id="heuristic_probe",
+        execute=True,
+    )
+
+    packet_dir = Path(packet["packet_dir"])
+    assert packet["summary"]["dry_run"] is False
+    assert packet["summary"]["executed_count"] == 1
+    assert packet["summary"]["replay_exact_match_rate"] == 1.0
+    assert packet["replay_results"][0]["replay_exact_match"] is True
+    assert (packet_dir / "replay_results.json").exists()
+    assert (packet_dir / "replay_results.csv").exists()
+    assert (packet_dir / "runs" / case.case_id / "probe_results.json").exists()
+
+
 def _write_probe(path: Path, system_id: str, rows: list[dict[str, object]]) -> None:
     manifest = {
         "system_id": system_id,
