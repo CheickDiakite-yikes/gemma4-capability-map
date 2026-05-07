@@ -10,6 +10,32 @@ Use that file first in a new chat.
 
 It supersedes the old assumption that the next main workstream is React workspace refinement.
 
+## Latest Overlay
+
+The freshest research/reporting entrypoint is now:
+
+- [`docs/reports/mlx-tool-contract-harnessing.md`](../reports/mlx-tool-contract-harnessing.md)
+- generated packet: [`results/reports/mlx_tool_contract_harnessing/report.md`](../../results/reports/mlx_tool_contract_harnessing/report.md)
+
+Treat the older H1/HF and React notes below as historical context unless they are explicitly referenced by the current H1i or CLI-live workstream.
+
+Current strongest MLX result:
+
+- H1h proves the no-directive causal ordering across all ten live workflow families.
+- H1i compresses the worst H1h workflow families into the current fast loop.
+- contracted MLX on H1i is clean at readiness `0.97710`, strict/recovered `1.0 / 1.0`, raw clean `1.0`.
+- no-directive MLX on H1i stays top-line clean only with controller repair/fallback/argument repair `1.00 / 0.50 / 0.50` and raw clean `0.00`.
+- no-directive + no controller repair falls to readiness `0.64697`, strict/recovered `0.297 / 0.000`.
+- the no-directive probe falls from contracted exact `7 / 8` to `0 / 8`.
+
+Current next loop:
+
+1. Design prompt-contract candidates from the no-directive probe misses.
+2. Test candidates on the probe.
+3. Test surviving candidates on H1i.
+4. Return to H1h only after H1i changes for the right mechanism-level reason.
+5. Regenerate the report artifacts after any H1i/H1h/probe/Gemini packet change.
+
 The current research seam is no longer “make the rows tie.”
 
 That part is done on the aligned exploratory `32 / 26` surface.

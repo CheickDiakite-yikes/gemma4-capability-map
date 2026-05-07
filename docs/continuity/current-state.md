@@ -123,6 +123,19 @@ Latest MLX tool-contract research:
   - no directive + no argument repair: readiness `0.81220`
   - interpretation: H1i is the current fast loop for MLX prompt-contract/controller experiments; it preserves H1h's causal ordering while making the no-repair and no-fallback gaps larger
 
+Current generated research report:
+
+- human report: [`docs/reports/mlx-tool-contract-harnessing.md`](../reports/mlx-tool-contract-harnessing.md)
+- generated report: [`results/reports/mlx_tool_contract_harnessing/report.md`](../../results/reports/mlx_tool_contract_harnessing/report.md)
+- packet summary table: [`results/reports/mlx_tool_contract_harnessing/tables/packet_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/packet_summary.csv)
+- figures: [`results/reports/mlx_tool_contract_harnessing/figures`](../../results/reports/mlx_tool_contract_harnessing/figures)
+- regeneration command:
+
+```bash
+uv run python scripts/build_mlx_tool_contract_report.py
+uv run pytest tests/test_mlx_tool_contract_report.py -q
+```
+
 Latest real CLI smoke:
 
 - command: `uv run moonie-agent live --workflow-id executive_visual_dashboard_review --system-id mlx_gemma4_e2b_reasoner_only --lane replayable_core --once --refresh-s 0.5 --timeout-s 1.0`

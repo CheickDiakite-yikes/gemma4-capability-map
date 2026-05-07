@@ -2705,6 +2705,18 @@
   - no-directive + no controller repair fell to readiness `0.64697`, strict/recovered `0.297 / 0.000`
   - no-directive + no controller fallback fell to readiness `0.83125`; no-directive + no argument repair fell to `0.81220`
   - interpretation: H1i is now the best fast packet for candidate prompt contracts. It is smaller than H1h, but it amplifies the same causal ordering and should be used before spending another full H1h run
+- The MLX tool-contract report is now a reproducible research artifact rather than only continuity prose:
+  - human report: [`docs/reports/mlx-tool-contract-harnessing.md`](reports/mlx-tool-contract-harnessing.md)
+  - generated report: [`results/reports/mlx_tool_contract_harnessing/report.md`](../results/reports/mlx_tool_contract_harnessing/report.md)
+  - generator: [`scripts/build_mlx_tool_contract_report.py`](../scripts/build_mlx_tool_contract_report.py)
+  - test: [`tests/test_mlx_tool_contract_report.py`](../tests/test_mlx_tool_contract_report.py)
+  - it synthesizes H1f, H1h, H1i, the contracted/no-directive probe comparison, and the H1h Gemini CLI dry-run baseline
+  - the report figures now make the active mechanism visible:
+    - H1i top-line readiness can hide interface and recovery collapse when repair is disabled
+    - H1i amplifies the H1h no-directive controller burden
+    - the no-directive probe drops exact-call compliance from `7 / 8` to `0 / 8`
+    - H1i failure modes remain concentrated in fallback planner, visual stepwise control, argument repair, fallback disabled, and repair disabled
+  - this should be regenerated after any new H1i, H1h, probe, or Gemini baseline packet
 
 ### Verification
 

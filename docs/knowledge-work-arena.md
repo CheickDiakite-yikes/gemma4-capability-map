@@ -108,8 +108,8 @@ That makes it possible to score not just whether a browser step happened, but wh
 
 ## Current Seed Set
 
-- `15` replayable-core episodes
-- `9` live-web stress episodes
+- `32` replayable-core episodes in the generated corpus
+- `26` live-web stress episodes in the generated corpus
 
 Data lives under:
 
@@ -118,6 +118,8 @@ Data lives under:
 - [`data/knowledge_work/workspaces`](/Users/cheickdiakite/Codex/moonie/data/knowledge_work/workspaces)
 - [`data/knowledge_work/artifact_goldens`](/Users/cheickdiakite/Codex/moonie/data/knowledge_work/artifact_goldens)
 - [`data/knowledge_work/review_comments`](/Users/cheickdiakite/Codex/moonie/data/knowledge_work/review_comments)
+
+The older canonical oracle lane pointers remain useful stable references, but the current research surface is wider than those older pointers. The active board-backed comparison surface is the aligned exploratory `32 / 26` matrix, and the active local Gemma harnessing surface is the H1/H1i packet family.
 
 ## Commands
 
@@ -184,3 +186,38 @@ Episode outputs are written under:
 - exploratory multi-episode HF reasoner pilot:
   - [`model_backed_hf_reasoner_pilot/summary.json`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work/model_backed_hf_reasoner_pilot/summary.json)
   - stopped after two completed episodes to isolate a fully completed executive baseline
+
+## Current H1/H1i Harnessing Surface
+
+The H1 series is the current saturation-breaking layer on top of `KnowledgeWorkArena`.
+
+H1 and descendants are deliberately restricted to packaged workflows. That keeps live runs attributable to workflow families and prevents the CLI harness from becoming an unbounded browsing or UI experiment.
+
+Current MLX tool-contract packets:
+
+- H1f compact no-directive packet:
+  - [`results/knowledge_work_h1_slice/20260506T_h1f_mlx_no_directive_v1_knowledge_work_h1f_mlx_tool_contract_ablation_v1`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1f_mlx_no_directive_v1_knowledge_work_h1f_mlx_tool_contract_ablation_v1)
+- H1h full no-directive packet:
+  - [`results/knowledge_work_h1_slice/20260507T_h1h_mlx_full_no_directive_v1_knowledge_work_h1h_mlx_full_tool_contract_ablation_v1`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1h_mlx_full_no_directive_v1_knowledge_work_h1h_mlx_full_tool_contract_ablation_v1)
+- H1i worst-family packet:
+  - [`configs/knowledge_work_h1i_slice.yaml`](/Users/cheickdiakite/Codex/moonie/configs/knowledge_work_h1i_slice.yaml)
+  - [`results/knowledge_work_h1_slice/20260507T_h1i_mlx_worst_no_directive_v1_knowledge_work_h1i_mlx_worst_family_tool_contract_v1`](/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1i_mlx_worst_no_directive_v1_knowledge_work_h1i_mlx_worst_family_tool_contract_v1)
+
+Current H1i workflow families:
+
+- `executive_latest_action_resume`
+- `jobs_phone_patch_resume`
+- `jobs_visual_form_hold`
+- `executive_stale_brief_packet`
+
+Current interpretation:
+
+- contracted MLX is clean on H1i: readiness `0.97710`, strict/recovered `1.0 / 1.0`, raw clean `1.0`
+- no-directive MLX keeps the same readiness only with controller help: repair/fallback/argument repair `1.00 / 0.50 / 0.50`, raw clean `0.00`
+- no-directive plus no controller repair falls to readiness `0.64697`, strict/recovered `0.297 / 0.000`
+- no-directive plus no fallback falls to `0.83125`
+- no-directive plus no argument repair falls to `0.81220`
+
+The current cross-packet report is:
+
+- [`docs/reports/mlx-tool-contract-harnessing.md`](/Users/cheickdiakite/Codex/moonie/docs/reports/mlx-tool-contract-harnessing.md)

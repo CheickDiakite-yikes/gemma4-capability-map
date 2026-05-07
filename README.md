@@ -111,6 +111,16 @@ Two current repo-wide claims are now defensible:
 1. We materially improved Gemma 4 as a full-stack local agent on Moonie without changing model weights.
 2. Top-line parity is not enough. Same readiness score can hide very different controller dependence.
 
+The newest source-of-truth research report is:
+
+- [`docs/reports/mlx-tool-contract-harnessing.md`](docs/reports/mlx-tool-contract-harnessing.md)
+- generated artifacts:
+  - [`results/reports/mlx_tool_contract_harnessing/report.md`](results/reports/mlx_tool_contract_harnessing/report.md)
+  - [`results/reports/mlx_tool_contract_harnessing/tables/packet_summary.csv`](results/reports/mlx_tool_contract_harnessing/tables/packet_summary.csv)
+  - [`results/reports/mlx_tool_contract_harnessing/figures`](results/reports/mlx_tool_contract_harnessing/figures)
+
+That report is now the preferred entrypoint for the H1f/H1h/H1i MLX no-directive tool-contract wave, the probe comparison, and the Gemini CLI dry-run baseline. Its main conclusion is that the final tool-turn directive is a causal harness intervention: removing it preserves top-line readiness only through controller repair, fallback, and argument normalization.
+
 ## Local Agent Harness
 
 The repo is no longer only a benchmark runner. It now has an explicit local product substrate:
@@ -212,88 +222,24 @@ Current examples:
 
 These are not claims of open-ended autonomy. They are controlled, inspectable local workflows that sit on top of the same runtime and scoring assumptions as the benchmark.
 
-## Surface Design Direction
+## Interface Direction
 
-The repo now also has a deliberate product design direction rather than generic benchmark UI.
+The current execution priority is CLI-first. React, Streamlit, and mobile surfaces remain useful prior work, but they are not the active research loop unless a runtime or reporting need requires them.
 
-### One Design Family, Two Expressions
+The active live operator surface is:
 
-Desktop and mobile are supposed to feel like the same system, but not the same layout copied twice.
+- `moonie-agent live`
+  - launches packaged workflows only in v1
+  - defaults to `mlx_gemma4_e2b_reasoner_only`
+  - writes per-session sandbox roots and runtime traces
+  - attaches a Rich terminal view for live status, events, artifacts, and approvals
+- `moonie-agent attach <session_id>`
+  - watches an existing run from the terminal
+  - can approve, deny, resume, retry, or quit without switching surfaces
+- `moonie-agent inspect <session_id>`
+  - reads sandbox roots, artifacts, policy blocks, scorecards, and controller-repair findings
 
-Desktop expression:
-
-- `operator_console`
-  - dark
-  - terminal-native
-  - low-chrome
-  - split-pane
-  - operational and precise
-- `frontend`
-  - lighter desktop shell
-  - project rail on the left
-  - conversation/workspace in the center
-  - review/browser context on the right
-  - closer to a local agent IDE than a benchmark dashboard
-  - designed as the product-facing shell that can later move into Electron or another native desktop host for true embedded browser behavior
-
-Mobile expression:
-
-- lighter
-- calmer
-- card-based
-- touch-first
-- companion-like
-
-Shared identity:
-
-- restrained visual language
-- rounded geometry
-- clear hierarchy
-- quiet but polished motion
-- strong status treatment
-- delight through legibility, not decorative excess
-
-### Desktop Priorities
-
-Desktop is now split into deliberate surfaces, but the current execution priority is terminal-first:
-
-- `moonie-agent live` / `moonie-agent attach`
-  - the main active live-testing surface for local Gemma harness research
-  - sandboxed, packaged-workflow-only, and benchmark-backed
-- `operator_console`
-  - the research and operations surface
-- `frontend`
-  - a useful API-backed shell from the prior phase, not the active refinement target
-
-The live operator priorities are:
-
-- packaged workflow launch only in v1
-- default Gemma MLX posture
-- live event timeline and status
-- sandbox root, policy, artifacts, and approval state visible in terminal
-- approval and resume commands that reuse the existing runtime/session substrate
-- traces, artifacts, and scorecards preserved for every live run
-
-The operator-console priorities remain:
-
-- left rail for sessions, projects, filters, and recent work
-- center pane for conversation and task execution
-- right pane for traces, approvals, diffs, artifacts, and metrics
-- keyboard-first interaction
-- stable streaming
-- clear blocked and approval states
-- easy resumption after interruption
-
-### Mobile Priorities
-
-The iOS surface is a companion in this phase, not a full orchestration workstation.
-
-- fast scan of active work
-- approve / deny / respond flows
-- artifact preview
-- lightweight session continuation
-- clear review and blocked states
-- no attempt to cram dense trace analysis into a phone layout
+The interface rule for this phase is simple: if a workflow cannot be launched, watched, attributed, and reported from CLI, the harness is not done. New UI work is deferred until the CLI path has better evidence on local Gemma harnessing.
 
 ## System Overview
 
@@ -915,34 +861,48 @@ Run a deterministic smoke:
 uv run python scripts/run_eval.py --pipeline monolith --backend oracle --limit 12
 ```
 
-Launch the local API:
+Launch the CLI-first live harness:
+
+```bash
+uv run moonie-agent profiles
+uv run moonie-agent workflows
+uv run moonie-agent live \
+  --workflow-id executive_visual_dashboard_review \
+  --system-id mlx_gemma4_e2b_reasoner_only \
+  --lane replayable_core
+```
+
+Inspect a completed or approval-held session:
+
+```bash
+uv run moonie-agent inspect <session_id> --target scorecard
+uv run moonie-agent inspect <session_id> --target policy
+```
+
+Rebuild the current MLX tool-contract report:
+
+```bash
+uv run python scripts/build_mlx_tool_contract_report.py
+uv run pytest tests/test_mlx_tool_contract_report.py -q
+```
+
+Optional prior surfaces are still available when needed:
 
 ```bash
 uv run moonie-agent-api --host 127.0.0.1 --port 8765
 ```
 
-Launch the React desktop harness:
-
-```bash
-cd frontend
-npm install
-npm run dev -- --host 127.0.0.1 --port 5173
-```
-
-Build the React desktop harness:
-
-```bash
-cd frontend
-npm run build
-```
-
-Launch the Streamlit benchmark and research surfaces:
-
 ```bash
 uv run streamlit run src/gemma4_capability_map/app/streamlit_app.py
 ```
 
-Launch the local CLI:
+```bash
+cd frontend && npm install && npm run dev -- --host 127.0.0.1 --port 5173
+```
+
+Those UI surfaces are parked for now. Use them for inspection only when the CLI/runtime path needs it.
+
+Launch the older one-shot CLI run command:
 
 ```bash
 uv run moonie-agent profiles
@@ -950,7 +910,7 @@ uv run moonie-agent workflows
 uv run moonie-agent run --workflow-id executive_visual_dashboard_review --system-id oracle_gemma4_e2b
 ```
 
-The Streamlit app now includes the benchmark and research surfaces. Use the `Surface` selector to switch between:
+The Streamlit app still includes the benchmark and research surfaces. Use the `Surface` selector to switch between:
 
 - `operator_console`
 - `mobile_companion`
@@ -958,36 +918,35 @@ The Streamlit app now includes the benchmark and research surfaces. Use the `Sur
 - `knowledge_work_episodes`
 - `task_traces`
 
-If the goal is “use Moonie as a local Gemma harness,” start the local API plus the React desktop app.
-If the goal is “inspect the benchmark and the controller/runtime layers,” start in `operator_console`.
+If the goal is "use Moonie as a local Gemma harness," start with `moonie-agent live` and `moonie-agent attach`.
+If the goal is "inspect benchmark/controller/runtime layers," use generated reports first and `operator_console` only when the terminal artifacts are insufficient.
 
 ## Common Workflows
 
 ### Local agent harness
 
-Primary desktop harness surface:
+Primary harness surface:
 
 ```bash
-uv run moonie-agent-api --host 127.0.0.1 --port 8765
-cd frontend
-npm install
-npm run dev -- --host 127.0.0.1 --port 5173
+uv run moonie-agent live \
+  --workflow-id executive_visual_dashboard_review \
+  --system-id mlx_gemma4_e2b_reasoner_only \
+  --lane replayable_core
 ```
 
-Then open [`http://127.0.0.1:5173`](http://127.0.0.1:5173).
-
-Recommended first run inside the workspace:
+Recommended first run:
 
 - runtime: `mlx_gemma4_e2b_reasoner_only`
-- lane: `live_web_stress` if you want the browser-shaped product feel
 - lane: `replayable_core` if you want deterministic benchmark-backed behavior
-- keep in mind that the current `Browser` pane is a synchronized browser-state shell over the runtime API; it previews local assets and browser state now, and is designed to become a real embedded desktop webview later
+- lane: `live_web_stress` only when you are intentionally testing sandbox/approval policy behavior
+- inspect with `moonie-agent inspect <session_id> --target scorecard|policy|artifacts|sandbox`
 
 This flow is now real, not just scaffolded:
 
-- the React shell can launch a fresh `mlx_gemma4_e2b_reasoner_only` session through `moonie-agent-api`
-- the center pane updates through the session stream while the run warms, executes, and completes
-- the left rail and status strip now settle correctly when the stream reaches `completed`, instead of staying stuck on a stale `running` list snapshot
+- `moonie-agent live` can launch and watch a fresh `mlx_gemma4_e2b_reasoner_only` packaged workflow
+- per-session sandbox roots carry copied inputs, output artifacts, trace summaries, policy blocks, and scorecards
+- `moonie-agent attach` and `moonie-agent inspect` expose approval state, controller findings, and run attribution without a frontend
+- the React shell can still exercise the same API, but it is not the active refinement target
 
 List profiles:
 

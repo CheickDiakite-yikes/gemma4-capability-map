@@ -27,6 +27,36 @@ Two distinctions matter:
 - a complete matrix snapshot finished every configured experiment in that manifest
 - a partial rerun can still contain valid experiment-level results, but it should not replace the canonical matrix snapshot for that matrix name
 
+## Current H1/H1i Report Artifacts
+
+The current local Gemma harnessing report is not an alpha-matrix report. It is a cross-packet synthesis over H1f, H1h, H1i, the tool-directive probe, and the Gemini CLI dry-run baseline.
+
+Source report:
+
+- [`docs/reports/mlx-tool-contract-harnessing.md`](/Users/cheickdiakite/Codex/moonie/docs/reports/mlx-tool-contract-harnessing.md)
+
+Generated artifacts:
+
+- [`results/reports/mlx_tool_contract_harnessing/report.md`](/Users/cheickdiakite/Codex/moonie/results/reports/mlx_tool_contract_harnessing/report.md)
+- [`results/reports/mlx_tool_contract_harnessing/report.json`](/Users/cheickdiakite/Codex/moonie/results/reports/mlx_tool_contract_harnessing/report.json)
+- [`results/reports/mlx_tool_contract_harnessing/tables/packet_summary.csv`](/Users/cheickdiakite/Codex/moonie/results/reports/mlx_tool_contract_harnessing/tables/packet_summary.csv)
+- [`results/reports/mlx_tool_contract_harnessing/figures`](/Users/cheickdiakite/Codex/moonie/results/reports/mlx_tool_contract_harnessing/figures)
+
+Rebuild with:
+
+```bash
+uv run python scripts/build_mlx_tool_contract_report.py
+uv run pytest tests/test_mlx_tool_contract_report.py -q
+```
+
+The report currently records:
+
+- H1f compact, H1h full, and H1i worst-family packet summaries
+- H1i system-level readiness, strict interface, recovered execution, repair, fallback, argument-repair, and raw-clean metrics
+- no-directive tool-probe failure modes
+- Gemini CLI dry-run baseline status
+- SVG figures for readiness/recovery, controller burden, probe gap, and H1i failure modes
+
 ## Build the historical digest
 
 Use:
@@ -56,12 +86,34 @@ The history digest now distinguishes:
 0.1. If the recommended local reasoner backend is `hf`, decide whether the slice should use direct `hf` or the reusable `hf_service` path.
 0.2. If the slice is bounded and specialist-heavy, prefer direct in-process `hf` execution first; use `hf_service` only when the worker probe is healthy enough to justify the extra process layer.
 0.3. Run `scripts/probe_specialist_access.py` before any real FunctionGemma or EmbeddingGemma claim. If access is `gated_denied`, do not treat heuristic specialist stand-ins as real-specialist evidence.
+0.4. For current MLX tool-contract work, run the probe and H1i before H1h:
+   - probe first for raw exact-call behavior
+   - H1i second for fast workflow-family attribution
+   - H1h only after H1i changes for the right reason
 1. Run a matrix config.
 2. Inspect the latest matrix `summary.json` and `combined_traces.jsonl`.
 3. Confirm whether the run is a complete matrix snapshot or only a partial rerun.
 4. Build the history report.
 5. Record the conclusion in a short methods or findings note if the run changes a benchmark claim.
 6. Only then expand coverage or change prompts/backends.
+
+For current H1i work, the common command shape is:
+
+```bash
+uv run python scripts/run_knowledge_work_h1_slice.py \
+  --config configs/knowledge_work_h1i_slice.yaml \
+  --run-set ablation \
+  --lane live_web_stress \
+  --run-group-id <timestamp>_h1i_candidate
+```
+
+For probe comparison:
+
+```bash
+uv run python scripts/compare_tool_directive_probes.py \
+  results/tool_directive_probe/20260506T_mlx_tool_directive_probe_v4 \
+  results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1
+```
 
 ## What counts as a meaningful improvement
 

@@ -16,13 +16,14 @@ The primary comparison axis is architecture under drift:
 
 The intended top-line figure is task success versus latency under drift, with Interface Reliability Score as the tool-centric diagnostic metric.
 
-The current alpha corpus is intentionally balanced:
+The current generated corpus on disk is:
 
-- `52` gold tasks total
-- `13` tasks per track
-- `232` explicit factorized variants
+- `91` gold atomic tasks
+- `396` explicit factorized atomic variants
+- `32` replayable `KnowledgeWorkArena` episodes
+- `26` live `KnowledgeWorkArena` episodes
 
-That balance matters because the broader integrated runs surfaced weaknesses that the earlier narrow specialist probes did not.
+The older alpha matrices remain useful historical controls, but current local Gemma harnessing claims should be read through the `KnowledgeWorkArena`, H1/H1i, runtime live-smoke, and tool-probe surfaces rather than only through the original alpha task balance.
 
 ## Run discipline
 
@@ -109,3 +110,50 @@ The real-world autonomy matrix reinforces this split more strongly:
 - routing success dropped to `0.5` on job-shaped routing tasks even though some repair logic still fired
 - full-stack strict success dropped to `0.75`, but recovered execution stayed `1.0`
 - escalation judgment failed completely on the current no-tool approval-escalation slice, so real-world readiness cannot be inferred from tool-bearing task success alone
+
+## Tool-Contract Harnessing Methodology
+
+The current MLX Gemma research wave treats tool-contract compliance as a first-class capability. The key measurement split is:
+
+- `real_world_readiness_avg`
+  - did the workflow end in an acceptable work product?
+- `strict_interface_avg`
+  - did the model produce the expected tool and arguments without interface drift?
+- `recovered_execution_avg`
+  - did the controller recover enough for the work to complete?
+- `controller_repair_avg`
+  - how often the controller repaired the model's proposed call or plan
+- `controller_fallback_avg`
+  - how often the controller had to substitute a fallback plan
+- `argument_repair_avg`
+  - how often the controller normalized near-miss arguments
+- `raw_planning_clean_rate_avg`
+  - how often raw model planning needed no controller help
+
+The H1f/H1h/H1i packet ladder exists to avoid over-reading a saturated top-line board:
+
+- H1f compact packet:
+  - first no-directive causal test on five live workflow families
+  - showed that no-directive readiness parity was controller-mediated
+- H1h full packet:
+  - expanded the same test to all ten H1e live workflow families
+  - preserved the same causal ordering
+- H1i worst-family packet:
+  - derives four workflow families from H1h attribution
+  - is now the fast prompt-contract loop because it amplifies no-repair and no-fallback gaps
+
+The companion probe suite isolates raw tool-call behavior outside full workflows:
+
+- contracted MLX probe:
+  - exact match `7 / 8`
+  - executable visual target `1 / 1`
+- no-directive MLX probe:
+  - exact match `0 / 8`
+  - executable visual target `0 / 1`
+
+This is why Moonie now reports exact interface, executable recovery, and readiness together. A final artifact can be correct while the model-side tool contract is weak.
+
+The generated cross-packet report is the current methods-backed summary:
+
+- [`docs/reports/mlx-tool-contract-harnessing.md`](reports/mlx-tool-contract-harnessing.md)
+- [`results/reports/mlx_tool_contract_harnessing/report.md`](../results/reports/mlx_tool_contract_harnessing/report.md)

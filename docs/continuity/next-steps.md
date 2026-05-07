@@ -48,7 +48,7 @@ Next implementation moves:
   - disabling controller repair under no-directive drops readiness to `0.73801`
 - use H1h workflow-family attribution before changing the controller again
 - keep H1g as a negative result: visual rescue, intent priority, and deterministic visual follow-on do not carry the compact live slice under the directive
-- run a Gemini CLI baseline packet against the same H1h workflow family set, so the external baseline compares against the harder local-Gemma stressor rather than a saturated contracted row
+- use the completed Gemini CLI dry-run packet as the external-reference baseline for the H1h workflow family set; rerun with real execution only when the binary/run environment is intentionally part of the comparison
 - keep using live CLI scorecard and policy inspection as the active operator proof path
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
@@ -65,6 +65,9 @@ The H1f expansion is complete. H1h is now the highest-value benchmark packet for
 
 Current evidence:
 
+- current cross-packet report:
+  - [`docs/reports/mlx-tool-contract-harnessing.md`](../reports/mlx-tool-contract-harnessing.md)
+  - [`results/reports/mlx_tool_contract_harnessing/report.md`](../../results/reports/mlx_tool_contract_harnessing/report.md)
 - H1f compact live packet:
   - [`results/knowledge_work_h1_slice/20260506T_h1f_mlx_no_directive_v1_knowledge_work_h1f_mlx_tool_contract_ablation_v1`](../../results/knowledge_work_h1_slice/20260506T_h1f_mlx_no_directive_v1_knowledge_work_h1f_mlx_tool_contract_ablation_v1)
 - H1h full live packet:
@@ -102,11 +105,13 @@ Current evidence:
 What remains:
 
 - treat H1i as the fast loop for prompt-contract and controller-helper changes before returning to H1h
+- regenerate the MLX tool-contract report after any H1i, H1h, probe, or Gemini baseline packet changes
 - when a real Gemini CLI binary is available, rerun the same packet with `--execute`; keep the dry-run packet as the no-side-effects prompt manifest
 - use the no-directive probe misses to design candidate prompt-contract variants, then test them on H1i first
 - keep the H1h comparison commands close:
 
 ```bash
+uv run python scripts/build_mlx_tool_contract_report.py
 uv run python scripts/analyze_knowledge_work_h1_traces.py <packet_dir>
 uv run python scripts/summarize_h1_tool_contract.py <packet_dir>
 uv run python scripts/summarize_h1_workflow_families.py <packet_dir> --config configs/knowledge_work_h1h_slice.yaml

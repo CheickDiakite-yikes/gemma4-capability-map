@@ -121,8 +121,11 @@ That means the real remaining signal is:
 - raw planning cleanliness
 - harder realism that breaks current parity
 
-The freshest MLX evidence is now H1h/H1g:
+The freshest MLX evidence is now H1h/H1i/H1g:
 
+- current generated report:
+  - [`docs/reports/mlx-tool-contract-harnessing.md`](../reports/mlx-tool-contract-harnessing.md)
+  - [`results/reports/mlx_tool_contract_harnessing/report.md`](../../results/reports/mlx_tool_contract_harnessing/report.md)
 - H1h shows the tool-turn directive is causal on the full ten-workflow live family set:
   - contracted MLX is controller-clean at readiness `0.96891`
   - no-directive MLX keeps readiness `0.96891` only with repair/fallback/argument repair `0.70 / 0.25 / 0.45`
@@ -174,10 +177,11 @@ Build a CLI-first live harness for local Gemma on MLX that lets us:
 2. Add proper sandboxing for live runs.
 3. Use packaged workflows as the only live entrypoint in v1.
 4. Add a Gemini CLI adapter as an external baseline and design reference.
-5. Run Gemini CLI as an attributable H1h workflow-family baseline.
-6. Use H1h workflow attribution to derive the next smaller no-directive stress packet.
+5. Use the completed Gemini CLI dry-run as the attributable H1h workflow-family baseline until a real external run is intentionally requested.
+6. Use H1i as the current smaller no-directive stress packet derived from H1h workflow attribution.
 7. Use H1g as the second-wave helper baseline: visual rescue, intent priority, and deterministic visual follow-on are negative on the compact live slice.
-8. Only after that, revisit Gemma `31B` `GGUF` runtime posture.
+8. Regenerate the MLX tool-contract report after every H1i/H1h/probe/Gemini packet change.
+9. Only after that, revisit Gemma `31B` `GGUF` runtime posture.
 
 ## Implementation Order
 
