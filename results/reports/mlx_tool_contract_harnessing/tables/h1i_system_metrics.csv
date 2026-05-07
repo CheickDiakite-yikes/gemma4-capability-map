@@ -1,0 +1,6 @@
+label,system_id,runs,real_world_readiness_avg,strict_interface_avg,recovered_execution_avg,controller_repair_avg,controller_fallback_avg,argument_repair_avg,raw_planning_clean_rate_avg,disabled_controls
+contracted,mlx_gemma4_e2b_reasoner_only,4,0.9771,1.0,1.0,0.0,0.0,0.0,1.0,
+no directive,mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive,4,0.9771,1.0,1.0,1.0,0.5,0.5,0.0,disable_tool_turn_directive
+no directive + no repair,mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_repair,4,0.64697,0.29688,0.0,1.25,1.25,0.0,0.725,disable_controller_repair;disable_tool_turn_directive
+no directive + no fallback,mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_fallback,4,0.83125,0.625,0.5,0.5,0.0,0.5,0.5,disable_controller_fallback;disable_tool_turn_directive
+no directive + no arg repair,mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_argument_repair,4,0.8122,0.71875,0.5,0.5,0.5,0.0,0.5,disable_argument_repair;disable_tool_turn_directive

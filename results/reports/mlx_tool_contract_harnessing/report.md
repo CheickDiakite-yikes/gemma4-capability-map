@@ -1,0 +1,73 @@
+# MLX Tool-Contract Harnessing Report
+
+Generated: `2026-05-07T00:39:22.309455+00:00`
+
+## Executive Read
+
+The current local-Gemma research frontier is no longer top-line readiness on the aligned `32 / 26` surface. The strongest remaining signal is whether MLX Gemma can stay inside Moonie's tool interface without controller repair, fallback, and argument normalization.
+
+H1h confirmed that the compact H1f no-directive finding survives the full ten-workflow live surface. H1i then compressed the worst H1h workflow families into a faster packet and amplified the same causal ordering.
+
+The main finding is blunt: the tool-turn directive is a real model-side harness intervention, not presentation polish. When it is removed, no-directive MLX can still match readiness only because the controller repairs or substitutes calls. Raw no-directive tool compliance collapses on the probe suite.
+
+## Figures
+
+![H1i readiness, strict interface, and recovered execution](figures/h1i_readiness_strict_recovered.svg)
+
+![H1h vs H1i no-directive controller burden](figures/h1h_h1i_controller_burden.svg)
+
+![Tool probe contract gap](figures/tool_probe_contract_gap.svg)
+
+![H1i failure modes](figures/h1i_failure_modes.svg)
+
+## Packet Summary
+
+| packet | episode_count | contracted_readiness | no_directive_readiness | readiness_delta_no_directive_vs_contracted | no_directive_controller_repair | no_directive_controller_fallback | no_directive_argument_repair | no_directive_raw_clean | no_repair_readiness | no_fallback_readiness | no_argument_repair_readiness | failure_candidates |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| H1f compact | 5 | 0.97936 | 0.97936 | 0.0 | 0.7 | 0.2 | 0.5 | 0.3 | 0.73818 | 0.92104 | 0.82036 | 12 |
+| H1h full | 10 | 0.96891 | 0.96891 | 0.0 | 0.7 | 0.25 | 0.45 | 0.3 | 0.73801 | 0.89598 | 0.83016 | 24 |
+| H1i worst-family | 4 | 0.9771 | 0.9771 | 0.0 | 1.0 | 0.5 | 0.5 | 0.0 | 0.64697 | 0.83125 | 0.8122 | 12 |
+
+## H1i System Metrics
+
+| label | system_id | runs | real_world_readiness_avg | strict_interface_avg | recovered_execution_avg | controller_repair_avg | controller_fallback_avg | argument_repair_avg | raw_planning_clean_rate_avg | disabled_controls |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| contracted | mlx_gemma4_e2b_reasoner_only | 4 | 0.9771 | 1.0 | 1.0 | 0.0 | 0.0 | 0.0 | 1.0 |  |
+| no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | 4 | 0.9771 | 1.0 | 1.0 | 1.0 | 0.5 | 0.5 | 0.0 | disable_tool_turn_directive |
+| no directive + no repair | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_repair | 4 | 0.64697 | 0.29688 | 0.0 | 1.25 | 1.25 | 0.0 | 0.725 | disable_controller_repair;disable_tool_turn_directive |
+| no directive + no fallback | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_fallback | 4 | 0.83125 | 0.625 | 0.5 | 0.5 | 0.0 | 0.5 | 0.5 | disable_controller_fallback;disable_tool_turn_directive |
+| no directive + no arg repair | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_argument_repair | 4 | 0.8122 | 0.71875 | 0.5 | 0.5 | 0.5 | 0.0 | 0.5 | disable_argument_repair;disable_tool_turn_directive |
+
+## Probe Failure Modes
+
+| side | failure_mode | case_count |
+| --- | --- | --- |
+| candidate | argument_mismatch | 4 |
+| candidate | no_tool_call | 4 |
+| baseline_non_exact | executable_paraphrase | 1 |
+
+## Gemini CLI Baseline Status
+
+- Packet: `20260507T_h1h_gemini_cli_dry_run_baseline_v1`
+- H1 slice: `knowledge_work_h1h_mlx_full_tool_contract_ablation:v1`
+- Workflow count: `10`
+- Dry run: `True`
+- Binary: `definitely-missing-gemini-cli`
+
+This packet is deliberately a dry-run prompt and command manifest. It is an external-reference baseline, not a replacement for Moonie's local MLX harness.
+
+## Interpretation
+
+- H1f established the compact causal ordering: no directive plus no controller repair was the largest drop.
+- H1h verified that the ordering survives all ten H1e live workflow families.
+- H1i is now the best fast loop because it targets the worst H1h no-repair families and makes the repair/fallback gaps larger.
+- The no-directive probe explains why: CLI/API calls often keep the right tool but drift on canonical arguments, while visual referent and parallel-tool cases collapse to no tool call.
+- The next prompt-contract experiment should be evaluated first on the probe suite and then on H1i before spending another full H1h run.
+
+## Source Artifacts
+
+- H1f compact: `/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1f_mlx_no_directive_v1_knowledge_work_h1f_mlx_tool_contract_ablation_v1`
+- H1h full: `/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1h_mlx_full_no_directive_v1_knowledge_work_h1h_mlx_full_tool_contract_ablation_v1`
+- H1i worst-family: `/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1i_mlx_worst_no_directive_v1_knowledge_work_h1i_mlx_worst_family_tool_contract_v1`
+- Probe comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1/probe_comparison.json`
+- Gemini dry-run baseline: `/Users/cheickdiakite/Codex/moonie/results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1`

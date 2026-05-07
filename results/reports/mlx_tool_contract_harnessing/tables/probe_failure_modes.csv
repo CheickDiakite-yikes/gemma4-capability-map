@@ -1,0 +1,4 @@
+side,failure_mode,case_count
+candidate,argument_mismatch,4
+candidate,no_tool_call,4
+baseline_non_exact,executable_paraphrase,1

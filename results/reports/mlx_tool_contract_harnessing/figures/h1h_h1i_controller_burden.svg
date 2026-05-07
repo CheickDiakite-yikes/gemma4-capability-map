@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="314" viewBox="0 0 1120 314">
+<rect width="100%" height="100%" fill="#FFFFFF"/>
+<text x="20" y="35" font-size="20" font-family="Inter, Arial, sans-serif" font-weight="700" fill="#0F172A">No-directive controller burden: H1h vs H1i</text>
+<style>text{font-family:Inter,Arial,sans-serif}</style>
+<line x1="250.0" y1="55" x2="250.0" y2="269" stroke="#E5E7EB" stroke-width="1"/>
+<text x="250.0" y="292" text-anchor="middle" font-size="12" fill="#475569">0</text>
+<line x1="402.0" y1="55" x2="402.0" y2="269" stroke="#E5E7EB" stroke-width="1"/>
+<text x="402.0" y="292" text-anchor="middle" font-size="12" fill="#475569">0.2</text>
+<line x1="554.0" y1="55" x2="554.0" y2="269" stroke="#E5E7EB" stroke-width="1"/>
+<text x="554.0" y="292" text-anchor="middle" font-size="12" fill="#475569">0.4</text>
+<line x1="706.0" y1="55" x2="706.0" y2="269" stroke="#E5E7EB" stroke-width="1"/>
+<text x="706.0" y="292" text-anchor="middle" font-size="12" fill="#475569">0.6</text>
+<line x1="858.0" y1="55" x2="858.0" y2="269" stroke="#E5E7EB" stroke-width="1"/>
+<text x="858.0" y="292" text-anchor="middle" font-size="12" fill="#475569">0.8</text>
+<line x1="1010.0" y1="55" x2="1010.0" y2="269" stroke="#E5E7EB" stroke-width="1"/>
+<text x="1010.0" y="292" text-anchor="middle" font-size="12" fill="#475569">1</text>
+<text x="20" y="103" font-size="13" fill="#111827">H1h full</text>
+<rect x="250" y="90" width="532.0" height="12" rx="2" fill="#7C3AED"/>
+<text x="1022" y="100" font-size="12" fill="#334155">repair: 0.700</text>
+<rect x="250" y="108" width="190.0" height="12" rx="2" fill="#DC2626"/>
+<text x="1022" y="118" font-size="12" fill="#334155">fallback: 0.250</text>
+<rect x="250" y="126" width="342.0" height="12" rx="2" fill="#0891B2"/>
+<text x="1022" y="136" font-size="12" fill="#334155">arg repair: 0.450</text>
+<rect x="250" y="144" width="228.0" height="12" rx="2" fill="#16A34A"/>
+<text x="1022" y="154" font-size="12" fill="#334155">raw clean: 0.300</text>
+<text x="20" y="175" font-size="13" fill="#111827">H1i worst-family</text>
+<rect x="250" y="162" width="760.0" height="12" rx="2" fill="#7C3AED"/>
+<text x="1022" y="172" font-size="12" fill="#334155">repair: 1.000</text>
+<rect x="250" y="180" width="380.0" height="12" rx="2" fill="#DC2626"/>
+<text x="1022" y="190" font-size="12" fill="#334155">fallback: 0.500</text>
+<rect x="250" y="198" width="380.0" height="12" rx="2" fill="#0891B2"/>
+<text x="1022" y="208" font-size="12" fill="#334155">arg repair: 0.500</text>
+<rect x="250" y="216" width="0.0" height="12" rx="2" fill="#16A34A"/>
+<text x="1022" y="226" font-size="12" fill="#334155">raw clean: 0.000</text>
+</svg>

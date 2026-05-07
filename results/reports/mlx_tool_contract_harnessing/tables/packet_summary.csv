@@ -1,0 +1,4 @@
+packet,episode_count,contracted_readiness,no_directive_readiness,readiness_delta_no_directive_vs_contracted,no_directive_controller_repair,no_directive_controller_fallback,no_directive_argument_repair,no_directive_raw_clean,no_repair_readiness,no_fallback_readiness,no_argument_repair_readiness,failure_candidates
+H1f compact,5,0.97936,0.97936,0.0,0.7,0.2,0.5,0.3,0.73818,0.92104,0.82036,12
+H1h full,10,0.96891,0.96891,0.0,0.7,0.25,0.45,0.3,0.73801,0.89598,0.83016,24
+H1i worst-family,4,0.9771,0.9771,0.0,1.0,0.5,0.5,0.0,0.64697,0.83125,0.8122,12
