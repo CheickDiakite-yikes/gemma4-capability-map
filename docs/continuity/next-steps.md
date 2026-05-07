@@ -109,17 +109,20 @@ Current evidence:
   - generated table: [`results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_candidates.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_candidates.csv)
   - dry-run probe packet: [`results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_dry_run_v2`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_dry_run_v2)
   - v2 packet schema writes `no_directive_probe_dir`, `delta_exact_vs_no_directive`, and `probe_gate` fields for executed candidate comparisons
+  - executed probe packet: [`results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_execute_v1`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_execute_v1)
+  - executed summary: [`candidate_gate_summary.md`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_execute_v1/candidate_gate_summary.md)
+  - first-gate result:
+    - `schema_anchor_v1`: weak exact gain, exact `0.125`, delta exact vs no-directive `+0.125`
+    - `literal_argument_guard_v1`: visual executable gain only, exact `0.0`, executable `1.0`
+    - `tool_required_parallel_v1`: visual executable gain only, exact `0.0`, executable `1.0`, still dominated by `no_tool_call`
   - H1i graduation packet id: `mlx_prompt_contract_candidates`
   - design guardrail: candidates add generic interface contract wording only; they must not embed the exact next planned call
 
 What remains:
 
-- execute the prompt-contract probe packet first; do not jump straight to live H1i
-- compare each candidate against both:
-  - contracted probe baseline: [`results/tool_directive_probe/20260506T_mlx_tool_directive_probe_v4`](../../results/tool_directive_probe/20260506T_mlx_tool_directive_probe_v4)
-  - no-directive probe baseline: [`results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1`](../../results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1)
-- promote only candidates that improve raw exact/executable tool protocol behavior without increasing no-tool-call or argument drift failures
-- run the promoted candidate or candidates through the H1i `mlx_prompt_contract_candidates` packet before returning to H1h
+- run the partial-gain candidates through H1i only as mechanism probes, not as assumed replacements for the final directive
+- design a second prompt-contract wave that combines schema anchoring with visual executable recovery and directly targets the remaining no-call failures
+- promote a candidate beyond H1i only if it moves raw-clean or controller-burden metrics for the right reason
 - regenerate the MLX tool-contract report after any H1i, H1h, probe, or Gemini baseline packet changes
 - when a real Gemini CLI binary is available, rerun the same packet with `--execute`; keep the dry-run packet as the no-side-effects prompt manifest
 - keep the H1h comparison commands close:
@@ -131,6 +134,7 @@ uv run python scripts/summarize_h1_tool_contract.py <packet_dir>
 uv run python scripts/summarize_h1_workflow_families.py <packet_dir> --config configs/knowledge_work_h1h_slice.yaml
 uv run python scripts/compare_tool_directive_probes.py results/tool_directive_probe/20260506T_mlx_tool_directive_probe_v4 results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1
 uv run python scripts/run_tool_prompt_contract_probe_packet.py --run-group-id <timestamp>_prompt_contract_probe_candidates --execute
+uv run python scripts/summarize_tool_prompt_contract_probe_packet.py results/tool_prompt_contract_probe_packets/<packet_id>
 uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1i_slice.yaml --packet-id mlx_prompt_contract_candidates --run-group-id <timestamp>_h1i_prompt_contract_candidates
 ```
 

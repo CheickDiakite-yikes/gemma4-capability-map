@@ -41,6 +41,8 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 
 ![Prompt contract candidate targets](../../results/reports/mlx_tool_contract_harnessing/figures/prompt_contract_candidate_targets.svg)
 
+![Executed prompt contract probe gate](../../results/reports/mlx_tool_contract_harnessing/figures/prompt_contract_probe_gate.svg)
+
 ## Evidence Sources
 
 | Artifact | Purpose |
@@ -50,6 +52,7 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 | [`H1i worst-family packet`](../../results/knowledge_work_h1_slice/20260507T_h1i_mlx_worst_no_directive_v1_knowledge_work_h1i_mlx_worst_family_tool_contract_v1) | Smaller fast loop derived from the worst H1h workflow families. |
 | [`contracted tool probe`](../../results/tool_directive_probe/20260506T_mlx_tool_directive_probe_v4) | Exact-call probe for MLX with the tool-turn directive. |
 | [`no-directive tool probe`](../../results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1) | Exact-call probe after removing the directive. |
+| [`executed prompt-contract probe packet`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_execute_v1) | Three generic no-directive prompt-contract candidates compared against both contracted and no-directive probe baselines. |
 | [`Gemini CLI dry-run baseline`](../../results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1) | External-reference prompt and command manifest over the H1h workflow families. |
 
 ## Packet Summary
@@ -122,6 +125,28 @@ uv run python scripts/run_tool_prompt_contract_probe_packet.py \
   --execute
 ```
 
+## Executed Prompt-Contract Probe Gate
+
+The first executed candidate packet is now recorded at:
+
+- [`results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_execute_v1`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_execute_v1)
+- [`candidate_gate_summary.md`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_execute_v1/candidate_gate_summary.md)
+- generated report table: [`prompt_contract_probe_gates.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_probe_gates.csv)
+- generated failure table: [`prompt_contract_probe_failure_modes.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_probe_failure_modes.csv)
+
+| Contract | Exact | Executable | Delta exact vs no-directive | Dominant failure | Recommendation |
+| --- | ---: | ---: | ---: | --- | --- |
+| `schema_anchor_v1` | `0.125` | `0.0` | `+0.125` | `argument_mismatch` | weak exact gain |
+| `literal_argument_guard_v1` | `0.0` | `1.0` | `0.0` | `no_tool_call` | visual executable gain only |
+| `tool_required_parallel_v1` | `0.0` | `1.0` | `0.0` | `no_tool_call` | visual executable gain only |
+
+The result is useful but not victory-shaped. All three candidates improve over the raw no-directive probe on one case, but none approaches the contracted MLX row's `7 / 8` exact-call rate. The main practical interpretation is:
+
+- `schema_anchor_v1` is the only exact-copy gain, but it is a weak one-case visual-readback recovery.
+- `literal_argument_guard_v1` and `tool_required_parallel_v1` recover the executable visual target, but they do not improve exact JSON copy rate.
+- `tool_required_parallel_v1` still has the most `no_tool_call` failures, so its wording is not yet solving the no-call family it was meant to target.
+- H1i can use these candidates as mechanism probes, but they are not replacements for the final tool-turn directive.
+
 ## Gemini CLI Baseline Status
 
 The Gemini CLI adapter is currently a dry-run external baseline, not a replacement for Moonie. The packet uses the same H1h workflow families and records prompt/command artifacts without external side effects:
@@ -159,8 +184,8 @@ The H1h -> H1i narrowing is also useful methodologically. H1h proves the phenome
 
 Use this order before broad `32 / 26` reruns:
 
-1. Candidate prompt-contract variants on the eight-case tool probe.
-2. The same candidates on H1i.
+1. Run only the partial-gain candidates on H1i as mechanism probes, not as assumed fixes.
+2. Design a second prompt-contract wave that combines schema anchoring with visual executable recovery while reducing no-call failures.
 3. H1h only after H1i moves for the right reason.
 4. Gemini CLI real execution only when the binary/run environment is explicitly meant to be part of the comparison.
 5. Runtime live-smoke packets after benchmark movement, to confirm the CLI operator path sees the same repair/fallback pattern.

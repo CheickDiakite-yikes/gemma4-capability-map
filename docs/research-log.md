@@ -2727,6 +2727,13 @@
   - dry-run probe packet [`20260507T_prompt_contract_candidates_dry_run_v2`](../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_dry_run_v2) freezes the three candidate probe commands without running MLX and records both contracted and no-directive probe baselines
   - H1i now has a named graduation packet, `mlx_prompt_contract_candidates`, that runs contracted MLX, no-directive MLX, and the three candidate rows across the same four worst-family live workflows
   - empirical gate: execute the probe packet first, compare exact/executable rates against contracted and no-directive baselines, regenerate the report, and only then spend H1i live runtime on candidates that improve raw protocol behavior
+- The first executed prompt-contract probe gate is a partial-gain result, not a solved interface result:
+  - [`20260507T_prompt_contract_candidates_execute_v1`](../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_execute_v1) ran all three candidate rows against the eight-case probe and wrote contracted plus no-directive comparisons for each candidate
+  - [`candidate_gate_summary.md`](../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_execute_v1/candidate_gate_summary.md) is the compact candidate read
+  - `schema_anchor_v1` recovered one exact case over no-directive (`exact_match_rate = 0.125`, `delta_exact_vs_no_directive = 0.125`) but remained far below contracted MLX (`delta_exact_vs_contracted = -0.75`)
+  - `literal_argument_guard_v1` and `tool_required_parallel_v1` recovered the executable visual target (`executable_match_rate = 1.0`) but did not improve exact JSON copy (`exact_match_rate = 0.0`)
+  - `tool_required_parallel_v1` remains dominated by `no_tool_call` (`6` cases), which means its current wording is not yet solving the failure family it was meant to target
+  - interpretation: these candidates can be tried on H1i as mechanism probes, but the second prompt-contract wave should combine schema anchoring with visual executable recovery and explicitly reduce no-call failures
 
 ### Verification
 

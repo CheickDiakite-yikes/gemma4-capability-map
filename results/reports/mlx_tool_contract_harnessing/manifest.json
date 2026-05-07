@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-07T00:56:59.198875+00:00",
+  "generated_at": "2026-05-07T01:14:29.033428+00:00",
   "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/mlx_tool_contract_harnessing",
   "source_packets": {
     "H1f compact": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1f_mlx_no_directive_v1_knowledge_work_h1f_mlx_tool_contract_ablation_v1",
@@ -8,7 +8,8 @@
   },
   "probe_comparison": "/Users/cheickdiakite/Codex/moonie/results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1/probe_comparison.json",
   "gemini_packet": "/Users/cheickdiakite/Codex/moonie/results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1",
+  "prompt_contract_packet": "/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_execute_v1",
   "registry_path": "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
-  "table_count": 7,
-  "figure_count": 5
+  "table_count": 9,
+  "figure_count": 6
 }

@@ -140,6 +140,13 @@ Latest MLX tool-contract research:
   - generated candidate target figure: [`results/reports/mlx_tool_contract_harnessing/figures/prompt_contract_candidate_targets.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/prompt_contract_candidate_targets.svg)
   - dry-run probe packet: [`results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_dry_run_v2`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_dry_run_v2)
   - v2 packet schema records both the contracted probe baseline and the no-directive probe baseline, so executed candidates can be gated on improvement over no-directive before any H1i spend
+  - executed probe packet: [`results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_execute_v1`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_execute_v1)
+  - executed gate summary: [`candidate_gate_summary.md`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_execute_v1/candidate_gate_summary.md)
+  - executed result:
+    - `schema_anchor_v1`: exact `0.125`, executable `0.0`, recommendation `weak_exact_gain`
+    - `literal_argument_guard_v1`: exact `0.0`, executable `1.0`, recommendation `visual_executable_gain_only`
+    - `tool_required_parallel_v1`: exact `0.0`, executable `1.0`, recommendation `visual_executable_gain_only`
+  - interpretation: all three candidates improve one probe case over no-directive, but none approaches the contracted row; H1i should treat them as mechanism probes rather than assumed fixes
   - H1i graduation packet: `mlx_prompt_contract_candidates` in [`configs/knowledge_work_h1i_slice.yaml`](../../configs/knowledge_work_h1i_slice.yaml)
   - interpretation: the next meaningful MLX harnessing question is whether generic prompt contracts can recover raw tool-protocol behavior on the probe before any live H1i spend
 
@@ -149,6 +156,7 @@ Current generated research report:
 - generated report: [`results/reports/mlx_tool_contract_harnessing/report.md`](../../results/reports/mlx_tool_contract_harnessing/report.md)
 - packet summary table: [`results/reports/mlx_tool_contract_harnessing/tables/packet_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/packet_summary.csv)
 - prompt-contract candidate table: [`results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_candidates.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_candidates.csv)
+- prompt-contract probe gate table: [`results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_probe_gates.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_probe_gates.csv)
 - figures: [`results/reports/mlx_tool_contract_harnessing/figures`](../../results/reports/mlx_tool_contract_harnessing/figures)
 - regeneration command:
 

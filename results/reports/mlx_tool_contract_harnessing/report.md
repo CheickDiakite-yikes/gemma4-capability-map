@@ -1,6 +1,6 @@
 # MLX Tool-Contract Harnessing Report
 
-Generated: `2026-05-07T00:56:59.198875+00:00`
+Generated: `2026-05-07T01:14:29.033428+00:00`
 
 ## Executive Read
 
@@ -21,6 +21,8 @@ The main finding is blunt: the tool-turn directive is a real model-side harness 
 ![H1i failure modes](figures/h1i_failure_modes.svg)
 
 ![Prompt contract candidate targets](figures/prompt_contract_candidate_targets.svg)
+
+![Executed prompt contract probe gate](figures/prompt_contract_probe_gate.svg)
 
 ## Packet Summary
 
@@ -58,6 +60,16 @@ The main finding is blunt: the tool-turn directive is a real model-side harness 
 
 These candidates are generic prompt contracts for the no-directive row. They deliberately avoid embedding the expected planned call, so they can be tested on the probe before spending H1i or H1h runs.
 
+## Executed Prompt-Contract Probe Gate
+
+| system_id | tool_prompt_contract_id | exact_match_rate | executable_match_rate | delta_exact_vs_contracted | delta_exact_vs_no_directive | probe_gate | improved_case_count | regressed_case_count | dominant_failure_mode | failure_modes | recommendation |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor | schema_anchor_v1 | 0.125 | 0.0 | -0.75 | 0.125 | probe_improved_vs_no_directive | 1 | 0 | argument_mismatch | argument_mismatch:3;call_count_mismatch:1;exact:1;no_tool_call:3 | weak_exact_gain |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_literal_guard | literal_argument_guard_v1 | 0.0 | 1.0 | -0.875 | 0.0 | probe_improved_vs_no_directive | 1 | 0 | no_tool_call | argument_mismatch:3;executable_paraphrase:1;no_tool_call:4 | visual_executable_gain_only |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_tool_required | tool_required_parallel_v1 | 0.0 | 1.0 | -0.875 | 0.0 | probe_improved_vs_no_directive | 1 | 0 | no_tool_call | argument_mismatch:1;executable_paraphrase:1;no_tool_call:6 | visual_executable_gain_only |
+
+The first executed probe gate shows only partial gains. `schema_anchor_v1` recovers one exact visual readback case over no-directive, while `literal_argument_guard_v1` and `tool_required_parallel_v1` recover the executable visual target without improving exact JSON copy rate. All three remain far below the contracted MLX probe row.
+
 ## Gemini CLI Baseline Status
 
 - Packet: `20260507T_h1h_gemini_cli_dry_run_baseline_v1`
@@ -82,4 +94,5 @@ This packet is deliberately a dry-run prompt and command manifest. It is an exte
 - H1h full: `/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1h_mlx_full_no_directive_v1_knowledge_work_h1h_mlx_full_tool_contract_ablation_v1`
 - H1i worst-family: `/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1i_mlx_worst_no_directive_v1_knowledge_work_h1i_mlx_worst_family_tool_contract_v1`
 - Probe comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1/probe_comparison.json`
+- Prompt-contract probe packet: `/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_execute_v1`
 - Gemini dry-run baseline: `/Users/cheickdiakite/Codex/moonie/results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1`
