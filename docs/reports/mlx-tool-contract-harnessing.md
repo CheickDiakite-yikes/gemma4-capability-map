@@ -59,6 +59,8 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 
 ![Focused exact replay gaps](../../results/reports/mlx_tool_contract_harnessing/figures/exact_probe_replay_focus_gap.svg)
 
+![CLI-live parallel replay gap](../../results/reports/mlx_tool_contract_harnessing/figures/live_parallel_replay_gap.svg)
+
 ## Evidence Sources
 
 | Artifact | Purpose |
@@ -76,6 +78,7 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 | [`H1k parallel-audit candidate packet`](../../results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_candidates_v1_knowledge_work_ablation_packet) | Packaged live promotion of the deferred `parallel_audit_array_literal` replay case. |
 | [`H1k parallel-audit helper packet`](../../results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_helpers_v1_knowledge_work_ablation_packet) | Controller-helper ablation on the packaged parallel-audit workflow. |
 | [`exact-probe replay packet`](../../results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1) | Dry-run replay artifacts for the eight failed no-directive exact-call probe cases. |
+| [`CLI-live parallel replay comparison`](../../results/tool_probe_replay_live_comparisons/20260507T_parallel_array_contracted_vs_no_directive_live_v1) | Operator-surface A/B for the parallel-array exact replay case. |
 | [`Gemini CLI dry-run baseline`](../../results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1) | External-reference prompt and command manifest over the H1h workflow families. |
 
 ## Packet Summary
@@ -264,6 +267,24 @@ Generated replay tables:
 - [`exact_probe_replay_case_deltas.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/exact_probe_replay_case_deltas.csv)
 - [`exact_probe_replay_family_deltas.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/exact_probe_replay_family_deltas.csv)
 - [`exact_probe_replay_focus_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/exact_probe_replay_focus_summary.csv)
+- [`live_parallel_replay_case_deltas.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/live_parallel_replay_case_deltas.csv)
+
+## CLI-Live Parallel Replay
+
+The same `parallel_audit_array_literal` case has now been run through the live terminal replay entrypoint:
+
+- contracted packet: [`results/tool_probe_replay_live/20260507T_parallel_array_contracted_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_parallel_array_contracted_live_execute_v1)
+- no-directive packet: [`results/tool_probe_replay_live/20260507T_parallel_array_no_directive_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_parallel_array_no_directive_live_execute_v1)
+- comparison: [`results/tool_probe_replay_live_comparisons/20260507T_parallel_array_contracted_vs_no_directive_live_v1`](../../results/tool_probe_replay_live_comparisons/20260507T_parallel_array_contracted_vs_no_directive_live_v1)
+
+Result:
+
+| Row | Exact | Actual calls | Failure |
+| --- | ---: | ---: | --- |
+| contracted | `1 / 1` | `2` | `exact` |
+| no directive | `0 / 1` | `0` | `no_tool_call` |
+
+This is the key bridge from raw replay to live CLI testing. H1k packaged workflow execution saturated because it decomposed the parallel audit into staged tasks. The CLI-live replay keeps the exact one-turn shape and reproduces the same model-side contract gap under an operator-visible terminal surface.
 
 ## H1i Candidate Packet Result
 

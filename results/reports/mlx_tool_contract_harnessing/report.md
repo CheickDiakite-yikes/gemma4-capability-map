@@ -1,6 +1,6 @@
 # MLX Tool-Contract Harnessing Report
 
-Generated: `2026-05-07T03:10:26.553575+00:00`
+Generated: `2026-05-07T03:25:06.200728+00:00`
 
 ## Executive Read
 
@@ -39,6 +39,8 @@ The main finding is blunt: the tool-turn directive is a real model-side harness 
 ![Exact probe replay gap](figures/exact_probe_replay_gap.svg)
 
 ![Focused exact replay gaps](figures/exact_probe_replay_focus_gap.svg)
+
+![CLI-live parallel replay gap](figures/live_parallel_replay_gap.svg)
 
 ## Packet Summary
 
@@ -137,6 +139,18 @@ The promotion gate is intentionally conservative: weak one-case exact gains and 
 | canonical arguments | 4 | 1.0 | 0.0 | -1.0 | 4 |
 | visual no-call | 3 | 0.6666666666666666 | 0.0 | -0.6666666666666666 | 2 |
 | parallel array | 1 | 1.0 | 0.0 | -1.0 | 1 |
+
+## CLI-Live Parallel Replay Comparison
+
+- Contracted exact rate: `1.0`
+- No-directive exact rate: `0.0`
+- Delta exact rate: `-1.0`
+
+| case_id | family | source_failure_mode | baseline_replay_exact_match | candidate_replay_exact_match | delta_exact_match | baseline_replay_failure_mode | candidate_replay_failure_mode | baseline_actual_call_count | candidate_actual_call_count | delta_actual_call_count |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| parallel_audit_array_literal | parallel_tool_calling | no_tool_call | True | False | -1 | exact | no_tool_call | 2 | 0 | -2 |
+
+This is the live-operator counterpart to the focused parallel-array replay. The contracted row emits both expected tool calls, while the no-directive row emits no tool calls and asks the operator to provide inputs that were already present in the replay context.
 
 ## H1i Prompt-Contract Candidate Packet
 
@@ -246,4 +260,5 @@ This packet is deliberately a dry-run prompt and command manifest. It is an exte
 - Canonical argument replay comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_comparisons/20260507T_canonical_argument_contracted_vs_no_directive_v1`
 - Visual replay comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_comparisons/20260507T_visual_state_contracted_vs_no_directive_v1`
 - Parallel replay comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_comparisons/20260507T_parallel_array_contracted_vs_no_directive_v1`
+- CLI-live parallel replay comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260507T_parallel_array_contracted_vs_no_directive_live_v1`
 - Gemini dry-run baseline: `/Users/cheickdiakite/Codex/moonie/results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1`

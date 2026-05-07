@@ -1,0 +1,2 @@
+case_id,family,source_failure_mode,baseline_replay_exact_match,candidate_replay_exact_match,delta_exact_match,baseline_replay_failure_mode,candidate_replay_failure_mode,baseline_actual_call_count,candidate_actual_call_count,delta_actual_call_count
+parallel_audit_array_literal,parallel_tool_calling,no_tool_call,True,False,-1,exact,no_tool_call,2,0,-2
