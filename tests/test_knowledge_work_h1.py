@@ -27,6 +27,7 @@ H1G_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_w
 H1H_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1h_slice.yaml"
 H1I_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1i_slice.yaml"
 H1J_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1j_slice.yaml"
+H1K_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1k_slice.yaml"
 
 
 def test_h1_slice_config_maps_to_existing_packaged_workflows_and_episodes() -> None:
@@ -341,6 +342,37 @@ def test_h1j_slice_config_maps_to_probe_derived_live_packet() -> None:
     assert "no_tool_call" in packet.failure_modes
     assert "argument_mismatch" in packet.failure_modes
     assert "parallel_tool_protocol_deferred" in packet.failure_modes
+
+
+def test_h1k_slice_config_maps_to_parallel_audit_live_packet() -> None:
+    config = load_h1_slice(H1K_CONFIG_PATH)
+
+    errors = validate_h1_slice(config)
+
+    assert errors == []
+    assert config.name == "knowledge_work_h1k_parallel_audit_tool_contract_live"
+    assert config.lanes["replayable_core"].episode_ids == ["kwa_ops_parallel_audit_review_v1"]
+    assert config.lanes["live_web_stress"].episode_ids == ["kwa_ops_live_parallel_audit_review_v1"]
+    assert [family.workflow_id for family in config.workflow_families] == ["ops_parallel_audit_review"]
+    assert config.workflow_families[0].h1_stressors == [
+        "parallel_audit_array_literal",
+        "parallel_tool_calling",
+        "two_source_evidence",
+        "inspect_image",
+        "read_repo_file",
+    ]
+    packet = h1_packet_selection(config, "mlx_parallel_audit_tool_contract_candidates")
+    assert packet.lane == "live_web_stress"
+    assert packet.system_ids == [
+        "mlx_gemma4_e2b_reasoner_only",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_literal_tool_required",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_parallel_array_required",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_tool_required",
+    ]
+    assert packet.episode_ids == ["kwa_ops_live_parallel_audit_review_v1"]
+    assert "skipped_evidence_source" in packet.failure_modes
+    assert "parallel_audit_array_literal" in config.attribution_tags
 
 
 def test_h1_primary_run_specs_default_to_mlx_gemma_reasoner_only() -> None:

@@ -1,0 +1,97 @@
+h1_slice:
+  name: knowledge_work_h1k_parallel_audit_tool_contract_live
+  version: v1
+  description: >
+    Parallel-audit successor to saturated H1j. H1k promotes the deferred
+    `parallel_audit_array_literal` exact-probe failure into the packaged live
+    workflow surface while keeping the CLI-first packaged-workflows-only
+    entrypoint. The goal is to test whether no-directive MLX skips one of the
+    two independent evidence calls once the same pressure exists as a live
+    workflow instead of only a raw probe.
+  run_intent: exploratory
+  update_latest: false
+  live_entrypoint: packaged_workflows_only
+  primary_system_id: mlx_gemma4_e2b_reasoner_only
+  baseline_system_ids:
+    - oracle_gemma4_e2b
+    - hf_service_gemma4_specialists_cpu
+  ablation_bundle_system_id: mlx_gemma4_e2b_reasoner_only
+  ablation_system_ids:
+    - mlx_gemma4_e2b_reasoner_only
+    - mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive
+    - mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_repair
+    - mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_fallback
+    - mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_argument_repair
+  lanes:
+    replayable_core:
+      episode_ids:
+        - kwa_ops_parallel_audit_review_v1
+    live_web_stress:
+      episode_ids:
+        - kwa_ops_live_parallel_audit_review_v1
+  workflow_families:
+    - workflow_id: ops_parallel_audit_review
+      role_family: operations_audit
+      purpose: preserve the exact probe's two-source parallel evidence requirement as a packaged live workflow
+      replayable_episode_id: kwa_ops_parallel_audit_review_v1
+      live_episode_id: kwa_ops_live_parallel_audit_review_v1
+      h1_stressors:
+        - parallel_audit_array_literal
+        - parallel_tool_calling
+        - two_source_evidence
+        - inspect_image
+        - read_repo_file
+  packets:
+    mlx_parallel_audit_tool_contract_candidates:
+      lane: live_web_stress
+      purpose: >
+        Prompt-contract candidate packet for the newly promoted parallel-audit
+        live workflow. This packet should run before any broader H1h/H1j rerun.
+      system_ids:
+        - mlx_gemma4_e2b_reasoner_only
+        - mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive
+        - mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_literal_tool_required
+        - mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_parallel_array_required
+        - mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_tool_required
+      episode_ids:
+        - kwa_ops_live_parallel_audit_review_v1
+      failure_modes:
+        - parallel_audit_array_literal
+        - no_tool_call
+        - parallel_tool_protocol
+        - skipped_evidence_source
+    mlx_parallel_audit_helper_ablation:
+      lane: live_web_stress
+      purpose: >
+        Controller-helper causality check on the parallel-audit live workflow
+        before expanding the packet to H1j or H1h.
+      system_ids:
+        - mlx_gemma4_e2b_reasoner_only
+        - mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive
+        - mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_repair
+        - mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_fallback
+        - mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_argument_repair
+      episode_ids:
+        - kwa_ops_live_parallel_audit_review_v1
+      failure_modes:
+        - controller_repair
+        - controller_fallback
+        - argument_repair
+        - no_tool_call
+        - skipped_evidence_source
+  saturation_breaker_metrics:
+    - raw_planning_clean_rate_avg
+    - controller_repair_avg
+    - controller_fallback_avg
+    - argument_repair_avg
+    - strict_interface_avg
+    - recovered_execution_avg
+  attribution_tags:
+    - packaged_workflow
+    - local_mlx_monolith
+    - probe_derived
+    - parallel_audit_array_literal
+    - parallel_tool_calling
+    - no_tool_call
+    - two_source_evidence
+
