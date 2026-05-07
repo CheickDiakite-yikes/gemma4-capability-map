@@ -59,10 +59,12 @@ Current strongest MLX result:
   - packet: [`results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1`](../../results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1)
   - executed packet: [`results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_execute_v1`](../../results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_execute_v1)
   - contracted replay packet: [`results/tool_probe_replay_packets/20260507T_contracted_exact_probe_replay_execute_v1`](../../results/tool_probe_replay_packets/20260507T_contracted_exact_probe_replay_execute_v1)
+  - replay comparison: [`results/tool_probe_replay_comparisons/20260507T_contracted_vs_no_directive_exact_replay_v1`](../../results/tool_probe_replay_comparisons/20260507T_contracted_vs_no_directive_exact_replay_v1)
   - `8` failed no-directive probe cases, split into `4` argument mismatches and `4` no-tool-call cases
   - each case has messages, media, tool specs, expected calls, source actual calls, baseline context, and a runnable `run_tool_directive_probe.py --case-id <case>` command
   - execution reproduced the source failures exactly: `0 / 8` exact, same `4` argument mismatches and same `4` no-tool-call failures
   - contracted replay restored `7 / 8` exact, with the remaining visual paraphrase executable
+  - comparison records no-directive exact-rate delta `-0.875` versus contracted
 
 Current next loop:
 

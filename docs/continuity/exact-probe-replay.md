@@ -11,6 +11,7 @@ The exact-probe replay packet is the next bridge. It preserves raw probe cases a
 - packet: [`results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1`](../../results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1)
 - executed packet: [`results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_execute_v1`](../../results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_execute_v1)
 - contracted replay packet: [`results/tool_probe_replay_packets/20260507T_contracted_exact_probe_replay_execute_v1`](../../results/tool_probe_replay_packets/20260507T_contracted_exact_probe_replay_execute_v1)
+- replay A/B comparison: [`results/tool_probe_replay_comparisons/20260507T_contracted_vs_no_directive_exact_replay_v1`](../../results/tool_probe_replay_comparisons/20260507T_contracted_vs_no_directive_exact_replay_v1)
 - source probe: [`results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1`](../../results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1)
 - contracted baseline: [`results/tool_directive_probe/20260506T_mlx_tool_directive_probe_v4`](../../results/tool_directive_probe/20260506T_mlx_tool_directive_probe_v4)
 - case count: `8`
@@ -22,6 +23,7 @@ The exact-probe replay packet is the next bridge. It preserves raw probe cases a
 - dry run: `true`
 - executed replay: `8` cases, exact `0 / 8`, same failure split reproduced
 - contracted replay: `7 / 8` exact, with the remaining visual selector paraphrase executable
+- A/B delta: no-directive exact rate is `-0.875` versus contracted on the same eight cases
 
 ## Packet Contents
 
@@ -80,6 +82,17 @@ uv run python scripts/build_tool_probe_replay_packet.py \
 ```
 
 Result: `7 / 8` exact. The only non-exact case is `visual_form_target_literal`, which remains executable through visual selector aliasing.
+
+Comparison:
+
+```bash
+uv run python scripts/compare_tool_probe_replay_packets.py \
+  results/tool_probe_replay_packets/20260507T_contracted_exact_probe_replay_execute_v1 \
+  results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_execute_v1 \
+  --output-dir results/tool_probe_replay_comparisons/20260507T_contracted_vs_no_directive_exact_replay_v1
+```
+
+Result: no-directive exact replay rate is `0.0` versus contracted `0.875`, for a delta of `-0.875`.
 
 Focused verification:
 

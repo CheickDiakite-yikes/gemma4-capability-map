@@ -2823,6 +2823,14 @@
   - CLI/API argument cases, parallel array, and visual follow-on/readback cases all become exact
   - `visual_form_target_literal` remains non-exact but executable through selector aliasing
   - interpretation: replay now reproduces the central A/B cleanly: contracted MLX is raw-interface strong on the same eight cases where no-directive MLX remains at `0 / 8`
+- Exact-probe replay comparison is now machine-readable:
+  - script: [`scripts/compare_tool_probe_replay_packets.py`](../scripts/compare_tool_probe_replay_packets.py)
+  - comparison: [`20260507T_contracted_vs_no_directive_exact_replay_v1`](../results/tool_probe_replay_comparisons/20260507T_contracted_vs_no_directive_exact_replay_v1)
+  - shared cases: `8`
+  - contracted exact rate: `0.875`
+  - no-directive exact rate: `0.0`
+  - delta exact rate: `-0.875`
+  - case deltas: `7` exact-match drops plus the visual-form case moving from executable paraphrase to no tool call
 
 ### Verification
 
