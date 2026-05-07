@@ -12,6 +12,10 @@ This folder is the repo’s long-horizon memory system for research, engineering
   - durable architecture and benchmark decisions
 - [`next-steps.md`](next-steps.md)
   - prioritized work queue
+- [`exact-probe-replay.md`](exact-probe-replay.md)
+  - replayable exact tool-call probe packets and command patterns
+- [`live-exact-replay-results.md`](live-exact-replay-results.md)
+  - CLI-live exact replay results for canonical, visual, and parallel failure families
 - [`session-handoff.md`](session-handoff.md)
   - short, practical resume packet for the next thread
 
@@ -22,6 +26,8 @@ This folder is the repo’s long-horizon memory system for research, engineering
 - use [`key-learnings.md`](key-learnings.md) for the durable answer to “what have we learned?”
 - use [`decision-log.md`](decision-log.md) for “what did we lock in and why?”
 - use [`next-steps.md`](next-steps.md) for “what should we do next?”
+- use [`exact-probe-replay.md`](exact-probe-replay.md) when reproducing raw probe packets before live runs
+- use [`live-exact-replay-results.md`](live-exact-replay-results.md) for “what did the CLI-live exact replay wave prove?”
 - use [`session-handoff.md`](session-handoff.md) for “how do we resume if this thread dies right now?”
 
 ## Operating Rules
