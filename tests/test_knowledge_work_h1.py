@@ -25,6 +25,7 @@ H1E_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_w
 H1F_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1f_slice.yaml"
 H1G_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1g_slice.yaml"
 H1H_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1h_slice.yaml"
+H1I_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1i_slice.yaml"
 
 
 def test_h1_slice_config_maps_to_existing_packaged_workflows_and_episodes() -> None:
@@ -238,6 +239,38 @@ def test_h1h_slice_config_maps_to_full_tool_contract_packet() -> None:
     ]
     assert packet.episode_ids == config.lanes["live_web_stress"].episode_ids
     assert "full_live_surface" in config.attribution_tags
+
+
+def test_h1i_slice_config_maps_to_worst_h1h_workflow_families() -> None:
+    config = load_h1_slice(H1I_CONFIG_PATH)
+
+    errors = validate_h1_slice(config)
+
+    assert errors == []
+    assert config.name == "knowledge_work_h1i_mlx_worst_family_tool_contract"
+    assert len(config.workflow_families) == 4
+    assert [family.workflow_id for family in config.workflow_families] == [
+        "executive_latest_action_resume",
+        "jobs_phone_patch_resume",
+        "jobs_visual_form_hold",
+        "executive_stale_brief_packet",
+    ]
+    packet = h1_packet_selection(config, "mlx_worst_family_tool_contract_breaker")
+    assert packet.lane == "live_web_stress"
+    assert packet.system_ids == [
+        "mlx_gemma4_e2b_reasoner_only",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_repair",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_fallback",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_argument_repair",
+    ]
+    assert packet.episode_ids == [
+        "kwa_exec_live_latest_action_resume_hold_v4",
+        "kwa_jobs_live_phone_patch_resume_hold_v4",
+        "kwa_jobs_live_email_block_resume_hold_v5",
+        "kwa_exec_live_backlog_resume_hold_v5",
+    ]
+    assert "worst_workflow_families" in config.attribution_tags
 
 
 def test_h1_primary_run_specs_default_to_mlx_gemma_reasoner_only() -> None:
