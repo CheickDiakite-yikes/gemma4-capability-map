@@ -226,6 +226,28 @@ def test_tool_contract_summary_reports_directive_and_helper_deltas(tmp_path: Pat
     assert Path(paths["markdown"]).read_text(encoding="utf-8").startswith("# Tool Contract Summary")
 
 
+def test_tool_contract_summary_prefers_research_controls_for_directive_state(tmp_path: Path) -> None:
+    _write_packet_run(tmp_path, system_id="mlx_gemma4_e2b_reasoner_only", readiness=0.98, strict=1.0, recovered=1.0)
+    _write_packet_run(
+        tmp_path,
+        system_id="mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+        readiness=0.98,
+        strict=1.0,
+        recovered=1.0,
+        controls={"disable_tool_turn_directive": True},
+        tool_turn_directive_enabled=True,
+    )
+
+    summary = summarize_tool_contract_packet(tmp_path)
+
+    no_directive = next(
+        row
+        for row in summary["delta_rows"]
+        if row["system_id"] == "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive"
+    )
+    assert no_directive["tool_turn_directive_enabled"] is False
+
+
 def test_h1_workflow_family_summary_maps_episode_metrics(tmp_path: Path) -> None:
     config_path = tmp_path / "h1.yaml"
     config_path.write_text(

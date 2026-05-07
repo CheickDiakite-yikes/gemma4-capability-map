@@ -412,7 +412,10 @@ def _load_packet_system_rows(root: Path) -> list[dict[str, Any]]:
         runtime_reasoner = (manifest.get("runtime_bundle", {}) or {}).get("reasoner", {}) or {}
         row = _system_summary(system_id, str(manifest.get("lane") or summary.get("lane") or ""), summary, run_dir)
         row["disabled_controls"] = ";".join(sorted(key for key, value in controls.items() if value))
-        row["tool_turn_directive_enabled"] = bool(runtime_reasoner.get("tool_turn_directive_enabled", True))
+        if "disable_tool_turn_directive" in controls:
+            row["tool_turn_directive_enabled"] = not bool(controls.get("disable_tool_turn_directive"))
+        else:
+            row["tool_turn_directive_enabled"] = bool(runtime_reasoner.get("tool_turn_directive_enabled", True))
         rows.append(row)
     return rows
 
