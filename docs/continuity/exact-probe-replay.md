@@ -46,3 +46,11 @@ Focused verification:
 ```bash
 uv run pytest tests/test_tool_probe_replay_packet.py tests/test_tool_directive_probe.py -q
 ```
+
+CLI inspection:
+
+```bash
+uv run moonie-agent packet \
+  --kind tool-probe-replay \
+  --packet-id 20260507T_no_directive_exact_probe_replay_v1
+```

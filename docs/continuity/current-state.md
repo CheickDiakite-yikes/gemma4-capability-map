@@ -44,6 +44,7 @@ Current CLI surface:
 - `moonie-agent packet`
   - inspects generated research packet directories from the terminal
   - current default kind is `prompt-contract-probe`, including candidate rows, command counts, dry-run/executed counts, and packet files
+  - `--kind tool-probe-replay` inspects exact probe replay packets, including case rows, failure modes, command counts, and packet files
   - supports `--packet-id latest`, explicit `--packet-dir`, and `--json`
 
 The React desktop harness exists and remains useful prior work, but it is no longer the main next workstream:

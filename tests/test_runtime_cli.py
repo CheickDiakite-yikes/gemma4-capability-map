@@ -411,6 +411,63 @@ def test_runtime_cli_packet_renders_rich_overview(
     assert "literal_argument_guard_v1" in output
 
 
+def test_runtime_cli_packet_json_inspects_tool_probe_replay_packet(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+    tmp_path: Path,
+) -> None:
+    runtime = LocalAgentRuntime(results_root=tmp_path / "runtime")
+    packet_dir = _write_fake_tool_probe_replay_packet(tmp_path / "replay")
+    monkeypatch.setattr(runtime_cli, "LocalAgentRuntime", lambda: runtime)
+    monkeypatch.setattr(
+        runtime_cli,
+        "parse_args",
+        lambda: runtime_cli.argparse.Namespace(
+            command="packet",
+            kind="tool-probe-replay",
+            packet_id="latest",
+            packet_dir=str(packet_dir),
+            json=True,
+        ),
+    )
+
+    runtime_cli.main()
+
+    output = json.loads(capsys.readouterr().out)
+    assert output["packet_kind"] == "tool-probe-replay"
+    assert output["case_count"] == 2
+    assert output["failure_mode_counts"] == {"argument_mismatch": 1, "no_tool_call": 1}
+    assert output["replay_case_rows"][0]["case_id"] == "cli_invoice_lock_hyphen_query"
+
+
+def test_runtime_cli_packet_renders_tool_probe_replay_overview(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+    tmp_path: Path,
+) -> None:
+    runtime = LocalAgentRuntime(results_root=tmp_path / "runtime")
+    packet_dir = _write_fake_tool_probe_replay_packet(tmp_path / "replay")
+    monkeypatch.setattr(runtime_cli, "LocalAgentRuntime", lambda: runtime)
+    monkeypatch.setattr(
+        runtime_cli,
+        "parse_args",
+        lambda: runtime_cli.argparse.Namespace(
+            command="packet",
+            kind="tool-probe-replay",
+            packet_id="latest",
+            packet_dir=str(packet_dir),
+            json=False,
+        ),
+    )
+
+    runtime_cli.main()
+
+    output = capsys.readouterr().out
+    assert "Moonie Research Packet" in output
+    assert "Replay Cases" in output
+    assert "no_tool_call" in output
+
+
 def _write_fake_research_report(report_dir: Path) -> Path:
     (report_dir / "tables").mkdir(parents=True)
     (report_dir / "figures").mkdir()
@@ -479,6 +536,55 @@ def _write_fake_prompt_contract_packet(packet_dir: Path) -> Path:
                 "system_id,tool_prompt_contract_id,execute,output_dir,comparison_path,exact_match_rate,executable_match_rate",
                 "schema,schema_anchor_v1,True,/tmp/schema,/tmp/schema/probe_comparison.json,0.5,0.5",
                 "literal,literal_argument_guard_v1,False,/tmp/literal,,,",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    return packet_dir
+
+
+def _write_fake_tool_probe_replay_packet(packet_dir: Path) -> Path:
+    packet_dir.mkdir(parents=True)
+    (packet_dir / "manifest.json").write_text(
+        json.dumps(
+            {
+                "packet_run_id": "fake_replay",
+                "created_at": "2026-05-07T00:00:00+00:00",
+                "case_ids": ["cli_invoice_lock_hyphen_query", "parallel_audit_array_literal"],
+            }
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    (packet_dir / "summary.json").write_text(
+        json.dumps(
+            {
+                "case_count": 2,
+                "dry_run": True,
+                "failure_mode_counts": {"argument_mismatch": 1, "no_tool_call": 1},
+                "family_counts": {"cli_canonicalization": 1, "parallel_tool_calling": 1},
+            }
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    (packet_dir / "commands.json").write_text(
+        json.dumps(
+            [
+                {"case_id": "cli_invoice_lock_hyphen_query", "command": ["run", "cli"]},
+                {"case_id": "parallel_audit_array_literal", "command": ["run", "parallel"]},
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    (packet_dir / "replay_cases.csv").write_text(
+        "\n".join(
+            [
+                "case_id,family,source_failure_mode,baseline_exact_match",
+                "cli_invoice_lock_hyphen_query,cli_canonicalization,argument_mismatch,True",
+                "parallel_audit_array_literal,parallel_tool_calling,no_tool_call,True",
             ]
         )
         + "\n",

@@ -13,6 +13,7 @@ from rich.table import Table
 ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_PACKET_ROOTS = {
     "prompt-contract-probe": ROOT / "results" / "tool_prompt_contract_probe_packets",
+    "tool-probe-replay": ROOT / "results" / "tool_probe_replay_packets",
 }
 
 
@@ -23,6 +24,8 @@ def research_packet_payload(
     packet_dir: str | Path | None = None,
 ) -> dict[str, Any]:
     target = _resolve_packet_dir(packet_kind=packet_kind, packet_id=packet_id, packet_dir=packet_dir)
+    if packet_kind == "tool-probe-replay":
+        return _tool_probe_replay_payload(packet_kind=packet_kind, target=target)
     manifest = _read_json(target / "manifest.json")
     commands = _read_json(target / "commands.json")
     results = _read_json(target / "results.json")
@@ -38,6 +41,28 @@ def research_packet_payload(
         "dry_run_count": _count_or_default(results, "dry_run_count", len(candidates)),
         "command_count": len(commands if isinstance(commands, list) else []),
         "candidate_rows": candidates,
+        "files": [_file_payload(child) for child in sorted(target.iterdir()) if child.is_file()] if target.exists() else [],
+}
+
+
+def _tool_probe_replay_payload(*, packet_kind: str, target: Path) -> dict[str, Any]:
+    manifest = _read_json(target / "manifest.json")
+    summary = _read_json(target / "summary.json")
+    commands = _read_json(target / "commands.json")
+    replay_rows = _read_csv(target / "replay_cases.csv")
+    return {
+        "packet_kind": packet_kind,
+        "packet_id": target.name,
+        "packet_dir": str(target.resolve()),
+        "exists": target.exists(),
+        "manifest": manifest,
+        "summary": summary,
+        "case_count": _count_or_default(summary, "case_count", len(replay_rows)),
+        "dry_run": bool(summary.get("dry_run", False)) if isinstance(summary, dict) else False,
+        "command_count": len(commands if isinstance(commands, list) else []),
+        "failure_mode_counts": summary.get("failure_mode_counts", {}) if isinstance(summary, dict) else {},
+        "family_counts": summary.get("family_counts", {}) if isinstance(summary, dict) else {},
+        "replay_case_rows": replay_rows,
         "files": [_file_payload(child) for child in sorted(target.iterdir()) if child.is_file()] if target.exists() else [],
     }
 
@@ -98,10 +123,15 @@ def _research_packet_renderable(payload: dict[str, Any]) -> Group:
     header.add_row("Packet", str(payload.get("packet_id", "")))
     header.add_row("Path", str(payload.get("packet_dir", "")))
     header.add_row("Created", str(manifest.get("created_at", "")))
-    header.add_row("Execute", str(manifest.get("execute", "")))
-    header.add_row("Candidates", str(payload.get("candidate_count", 0)))
-    header.add_row("Executed", str(payload.get("executed_count", 0)))
-    header.add_row("Dry run", str(payload.get("dry_run_count", 0)))
+    if payload.get("packet_kind") == "tool-probe-replay":
+        header.add_row("Dry run", str(payload.get("dry_run", "")))
+        header.add_row("Cases", str(payload.get("case_count", 0)))
+        header.add_row("Commands", str(payload.get("command_count", 0)))
+    else:
+        header.add_row("Execute", str(manifest.get("execute", "")))
+        header.add_row("Candidates", str(payload.get("candidate_count", 0)))
+        header.add_row("Executed", str(payload.get("executed_count", 0)))
+        header.add_row("Dry run", str(payload.get("dry_run_count", 0)))
 
     candidates = Table(title="Candidates")
     candidates.add_column("System")
@@ -118,9 +148,28 @@ def _research_packet_renderable(payload: dict[str, Any]) -> Group:
             str(row.get("executable_match_rate", "")),
         )
 
+    replay_cases = Table(title="Replay Cases")
+    replay_cases.add_column("Case")
+    replay_cases.add_column("Family")
+    replay_cases.add_column("Failure")
+    replay_cases.add_column("Baseline exact")
+    for row in payload.get("replay_case_rows") or []:
+        replay_cases.add_row(
+            str(row.get("case_id", "")),
+            str(row.get("family", "")),
+            str(row.get("source_failure_mode", "")),
+            str(row.get("baseline_exact_match", "")),
+        )
+
     files = Table(title="Files")
     files.add_column("File")
     files.add_column("Bytes", justify="right")
     for file_row in payload.get("files") or []:
         files.add_row(Path(str(file_row.get("path", ""))).name, str(file_row.get("size_bytes", 0)))
-    return Group(Panel(header, title="Moonie Research Packet"), candidates, files)
+    body = [Panel(header, title="Moonie Research Packet")]
+    if payload.get("packet_kind") == "tool-probe-replay":
+        body.append(replay_cases)
+    else:
+        body.append(candidates)
+    body.append(files)
+    return Group(*body)
