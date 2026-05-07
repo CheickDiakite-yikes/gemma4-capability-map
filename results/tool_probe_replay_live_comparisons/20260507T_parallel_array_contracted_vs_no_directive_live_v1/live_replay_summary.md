@@ -5,7 +5,10 @@
 - Baseline exact rate: `1.0`
 - Candidate exact rate: `0.0`
 - Delta exact rate: `-1.0`
+- Baseline executable rate: `None`
+- Candidate executable rate: `None`
+- Delta executable rate: `None`
 
-| case_id | family | baseline exact | candidate exact | baseline calls | candidate calls | delta calls | candidate failure |
-| --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
-| parallel_audit_array_literal | parallel_tool_calling | True | False | 2 | 0 | -2 | no_tool_call |
+| case_id | family | baseline exact | candidate exact | baseline executable | candidate executable | baseline calls | candidate calls | delta calls | candidate failure |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| parallel_audit_array_literal | parallel_tool_calling | True | False | None | None | 2 | 0 | -2 | no_tool_call |

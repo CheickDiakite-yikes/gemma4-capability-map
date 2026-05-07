@@ -156,7 +156,7 @@ Visual live A/B comparison:
 
 - [`results/tool_probe_replay_live_comparisons/20260507T_visual_state_contracted_vs_no_directive_live_v1`](../../results/tool_probe_replay_live_comparisons/20260507T_visual_state_contracted_vs_no_directive_live_v1)
 
-Result: contracted exact `2 / 3`, no-directive exact `0 / 3`, exact-rate delta `-0.6666666666666666`. All three no-directive cases have actual-call delta `-1`; even the contracted executable-paraphrase case collapses to no tool call without the directive.
+Result: contracted exact `2 / 3`, no-directive exact `0 / 3`, exact-rate delta `-0.6666666666666666`. All three no-directive cases have actual-call delta `-1`; even the contracted executable-paraphrase case collapses to no tool call without the directive. The live comparison now records executable-match deltas as well, so the visual-form case shows executable `true -> false`.
 
 CLI inspection:
 

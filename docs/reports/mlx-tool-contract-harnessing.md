@@ -303,6 +303,8 @@ The visual no-call family has the same live shape:
 
 Together, the parallel and visual live replay packets make the current conclusion more precise: packaged workflow completion can saturate, but exact live replay still shows the model-side directive carrying the raw tool-protocol behavior.
 
+The live comparison tables also record executable-match deltas. That matters for `visual_form_target_literal`: contracted MLX is non-exact but executable, while no-directive MLX makes no call at all.
+
 ## H1i Candidate Packet Result
 
 The H1i mechanism-probe packet is now recorded at:

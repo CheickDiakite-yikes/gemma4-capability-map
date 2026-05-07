@@ -1,6 +1,6 @@
 # MLX Tool-Contract Harnessing Report
 
-Generated: `2026-05-07T03:30:06.839050+00:00`
+Generated: `2026-05-07T03:32:09.131965+00:00`
 
 ## Executive Read
 
@@ -148,9 +148,9 @@ The promotion gate is intentionally conservative: weak one-case exact gains and 
 - No-directive exact rate: `0.0`
 - Delta exact rate: `-1.0`
 
-| case_id | family | source_failure_mode | baseline_replay_exact_match | candidate_replay_exact_match | delta_exact_match | baseline_replay_failure_mode | candidate_replay_failure_mode | baseline_actual_call_count | candidate_actual_call_count | delta_actual_call_count |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| parallel_audit_array_literal | parallel_tool_calling | no_tool_call | True | False | -1 | exact | no_tool_call | 2 | 0 | -2 |
+| case_id | family | source_failure_mode | baseline_replay_exact_match | candidate_replay_exact_match | delta_exact_match | baseline_replay_executable_match | candidate_replay_executable_match | delta_executable_match | baseline_replay_failure_mode | candidate_replay_failure_mode | baseline_actual_call_count | candidate_actual_call_count | delta_actual_call_count |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| parallel_audit_array_literal | parallel_tool_calling | no_tool_call | True | False | -1 |  |  |  | exact | no_tool_call | 2 | 0 | -2 |
 
 This is the live-operator counterpart to the focused parallel-array replay. The contracted row emits both expected tool calls, while the no-directive row emits no tool calls and asks the operator to provide inputs that were already present in the replay context.
 
@@ -158,11 +158,11 @@ This is the live-operator counterpart to the focused parallel-array replay. The 
 - Visual no-directive exact rate: `0.0`
 - Visual delta exact rate: `-0.6666666666666666`
 
-| case_id | family | source_failure_mode | baseline_replay_exact_match | candidate_replay_exact_match | delta_exact_match | baseline_replay_failure_mode | candidate_replay_failure_mode | baseline_actual_call_count | candidate_actual_call_count | delta_actual_call_count |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| visual_form_target_literal | visual_argument_copying | no_tool_call | False | False | 0 | executable_paraphrase | no_tool_call | 1 | 0 | -1 |
-| visual_latest_filter_literal | visual_referent_carryover | no_tool_call | True | False | -1 | exact | no_tool_call | 1 | 0 | -1 |
-| visual_readback_region_literal | visual_referent_carryover | no_tool_call | True | False | -1 | exact | no_tool_call | 1 | 0 | -1 |
+| case_id | family | source_failure_mode | baseline_replay_exact_match | candidate_replay_exact_match | delta_exact_match | baseline_replay_executable_match | candidate_replay_executable_match | delta_executable_match | baseline_replay_failure_mode | candidate_replay_failure_mode | baseline_actual_call_count | candidate_actual_call_count | delta_actual_call_count |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| visual_form_target_literal | visual_argument_copying | no_tool_call | False | False | 0 | True | False | -1 | executable_paraphrase | no_tool_call | 1 | 0 | -1 |
+| visual_latest_filter_literal | visual_referent_carryover | no_tool_call | True | False | -1 |  |  |  | exact | no_tool_call | 1 | 0 | -1 |
+| visual_readback_region_literal | visual_referent_carryover | no_tool_call | True | False | -1 |  |  |  | exact | no_tool_call | 1 | 0 | -1 |
 
 The visual CLI-live comparison mirrors the focused visual replay: no-directive emits no tool calls in all three cases, while contracted MLX recovers two exact calls and one executable visual paraphrase.
 

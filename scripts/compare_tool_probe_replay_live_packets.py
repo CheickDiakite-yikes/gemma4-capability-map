@@ -55,6 +55,12 @@ def compare_tool_probe_replay_live_packets(
                 "baseline_replay_exact_match": bool(baseline.get("replay_exact_match")),
                 "candidate_replay_exact_match": bool(candidate.get("replay_exact_match")),
                 "delta_exact_match": _bool_delta(candidate.get("replay_exact_match"), baseline.get("replay_exact_match")),
+                "baseline_replay_executable_match": _optional_bool(baseline.get("replay_executable_match")),
+                "candidate_replay_executable_match": _optional_bool(candidate.get("replay_executable_match")),
+                "delta_executable_match": _optional_bool_delta(
+                    candidate.get("replay_executable_match"),
+                    baseline.get("replay_executable_match"),
+                ),
                 "baseline_replay_failure_mode": baseline.get("replay_failure_mode", ""),
                 "candidate_replay_failure_mode": candidate.get("replay_failure_mode", ""),
                 "baseline_actual_call_count": int(baseline.get("replay_actual_call_count") or 0),
@@ -76,8 +82,36 @@ def compare_tool_probe_replay_live_packets(
         "candidate_exact_rate": float(candidate_summary.get("exact_rate") or 0.0),
         "delta_exact_rate": float(candidate_summary.get("exact_rate") or 0.0)
         - float(baseline_summary.get("exact_rate") or 0.0),
+        "shared_executable_case_count": sum(
+            1
+            for row in case_deltas
+            if row["baseline_replay_executable_match"] is not None
+            and row["candidate_replay_executable_match"] is not None
+        ),
+        "baseline_executable_rate": _optional_rate(
+            sum(1 for row in case_deltas if row["baseline_replay_executable_match"] is True),
+            sum(
+                1
+                for row in case_deltas
+                if row["baseline_replay_executable_match"] is not None
+                and row["candidate_replay_executable_match"] is not None
+            ),
+        ),
+        "candidate_executable_rate": _optional_rate(
+            sum(1 for row in case_deltas if row["candidate_replay_executable_match"] is True),
+            sum(
+                1
+                for row in case_deltas
+                if row["baseline_replay_executable_match"] is not None
+                and row["candidate_replay_executable_match"] is not None
+            ),
+        ),
         "case_delta_count": len(case_deltas),
     }
+    if summary["baseline_executable_rate"] is not None and summary["candidate_executable_rate"] is not None:
+        summary["delta_executable_rate"] = summary["candidate_executable_rate"] - summary["baseline_executable_rate"]
+    else:
+        summary["delta_executable_rate"] = None
     target = output_dir or DEFAULT_OUTPUT_ROOT / f"{candidate_packet.name}_vs_{baseline_packet.name}"
     target.mkdir(parents=True, exist_ok=True)
     _write_json(target / "live_replay_comparison.json", {"summary": summary, "case_deltas": case_deltas})
@@ -99,9 +133,12 @@ def _summary_markdown(summary: dict[str, Any], case_deltas: list[dict[str, Any]]
         f"- Baseline exact rate: `{summary['baseline_exact_rate']}`",
         f"- Candidate exact rate: `{summary['candidate_exact_rate']}`",
         f"- Delta exact rate: `{summary['delta_exact_rate']}`",
+        f"- Baseline executable rate: `{summary['baseline_executable_rate']}`",
+        f"- Candidate executable rate: `{summary['candidate_executable_rate']}`",
+        f"- Delta executable rate: `{summary['delta_executable_rate']}`",
         "",
-        "| case_id | family | baseline exact | candidate exact | baseline calls | candidate calls | delta calls | candidate failure |",
-        "| --- | --- | ---: | ---: | ---: | ---: | ---: | --- |",
+        "| case_id | family | baseline exact | candidate exact | baseline executable | candidate executable | baseline calls | candidate calls | delta calls | candidate failure |",
+        "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |",
     ]
     for row in case_deltas:
         lines.append(
@@ -112,6 +149,8 @@ def _summary_markdown(summary: dict[str, Any], case_deltas: list[dict[str, Any]]
                     str(row["family"]),
                     str(row["baseline_replay_exact_match"]),
                     str(row["candidate_replay_exact_match"]),
+                    str(row["baseline_replay_executable_match"]),
+                    str(row["candidate_replay_executable_match"]),
                     str(row["baseline_actual_call_count"]),
                     str(row["candidate_actual_call_count"]),
                     str(row["delta_actual_call_count"]),
@@ -126,6 +165,26 @@ def _summary_markdown(summary: dict[str, Any], case_deltas: list[dict[str, Any]]
 
 def _bool_delta(candidate: Any, baseline: Any) -> int:
     return int(bool(candidate)) - int(bool(baseline))
+
+
+def _optional_bool(value: Any) -> bool | None:
+    if value is None or value == "":
+        return None
+    return bool(value)
+
+
+def _optional_bool_delta(candidate: Any, baseline: Any) -> int | None:
+    candidate_bool = _optional_bool(candidate)
+    baseline_bool = _optional_bool(baseline)
+    if candidate_bool is None or baseline_bool is None:
+        return None
+    return int(candidate_bool) - int(baseline_bool)
+
+
+def _optional_rate(numerator: int, denominator: int) -> float | None:
+    if denominator == 0:
+        return None
+    return numerator / denominator
 
 
 def _read_json(path: Path) -> Any:

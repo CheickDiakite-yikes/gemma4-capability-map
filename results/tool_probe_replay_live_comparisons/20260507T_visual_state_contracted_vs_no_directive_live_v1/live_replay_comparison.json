@@ -10,7 +10,11 @@
     "baseline_exact_rate": 0.6666666666666666,
     "candidate_exact_rate": 0.0,
     "delta_exact_rate": -0.6666666666666666,
-    "case_delta_count": 3
+    "shared_executable_case_count": 1,
+    "baseline_executable_rate": 1.0,
+    "candidate_executable_rate": 0.0,
+    "case_delta_count": 3,
+    "delta_executable_rate": -1.0
   },
   "case_deltas": [
     {
@@ -20,6 +24,9 @@
       "baseline_replay_exact_match": false,
       "candidate_replay_exact_match": false,
       "delta_exact_match": 0,
+      "baseline_replay_executable_match": true,
+      "candidate_replay_executable_match": false,
+      "delta_executable_match": -1,
       "baseline_replay_failure_mode": "executable_paraphrase",
       "candidate_replay_failure_mode": "no_tool_call",
       "baseline_actual_call_count": 1,
@@ -33,6 +40,9 @@
       "baseline_replay_exact_match": true,
       "candidate_replay_exact_match": false,
       "delta_exact_match": -1,
+      "baseline_replay_executable_match": null,
+      "candidate_replay_executable_match": null,
+      "delta_executable_match": null,
       "baseline_replay_failure_mode": "exact",
       "candidate_replay_failure_mode": "no_tool_call",
       "baseline_actual_call_count": 1,
@@ -46,6 +56,9 @@
       "baseline_replay_exact_match": true,
       "candidate_replay_exact_match": false,
       "delta_exact_match": -1,
+      "baseline_replay_executable_match": null,
+      "candidate_replay_executable_match": null,
+      "delta_executable_match": null,
       "baseline_replay_failure_mode": "exact",
       "candidate_replay_failure_mode": "no_tool_call",
       "baseline_actual_call_count": 1,
