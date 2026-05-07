@@ -34,8 +34,8 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
 
     assert payload["gemini"]["dry_run"] is True
     assert payload["gemini"]["workflow_count"] == 10
-    assert payload["manifest"]["table_count"] == 26
-    assert payload["manifest"]["figure_count"] == 17
+    assert payload["manifest"]["table_count"] == 28
+    assert payload["manifest"]["figure_count"] == 18
 
     candidates = {row["tool_prompt_contract_id"]: row for row in payload["prompt_contract_candidates"]}
     assert set(candidates) == {
@@ -101,6 +101,19 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert live_focus["canonical arguments"]["delta_exact_rate"] == -1.0
     assert live_focus["parallel array"]["delta_exact_rate"] == -1.0
     assert live_focus["visual no-call"]["shared_case_count"] == 3
+    wave3_live = {row["comparison"]: row for row in payload["wave3_live_candidate_replay_summary"]}
+    assert wave3_live["canonical JSON vs no directive"]["candidate_exact_rate"] == 0.0
+    assert wave3_live["visual initiation vs no directive"]["delta_exact_rate"] == 1 / 3
+    assert wave3_live["visual initiation vs no directive"]["candidate_executable_rate"] == 1.0
+    wave3_live_cases = {
+        (row["comparison"], row["case_id"]): row for row in payload["wave3_live_candidate_case_deltas"]
+    }
+    assert wave3_live_cases[("visual initiation vs no directive", "visual_readback_region_literal")][
+        "candidate_replay_exact_match"
+    ]
+    assert wave3_live_cases[("canonical JSON vs no directive", "api_invoice_lock_hold_update")][
+        "delta_actual_call_count"
+    ] == -1
     h1i_candidates = {row["system_id"]: row for row in payload["h1i_prompt_contract_candidate_metrics"]}
     assert h1i_candidates["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive"]["tool_turn_directive_enabled"] == "False"
     assert h1i_candidates["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor"]["raw_planning_clean_rate_avg"] == "1.0"
@@ -145,6 +158,8 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert (tmp_path / "tables" / "live_parallel_replay_case_deltas.csv").exists()
     assert (tmp_path / "tables" / "live_visual_replay_case_deltas.csv").exists()
     assert (tmp_path / "tables" / "live_canonical_replay_case_deltas.csv").exists()
+    assert (tmp_path / "tables" / "wave3_live_candidate_replay_summary.csv").exists()
+    assert (tmp_path / "tables" / "wave3_live_candidate_case_deltas.csv").exists()
     assert (tmp_path / "figures" / "h1i_readiness_strict_recovered.svg").exists()
     assert (tmp_path / "figures" / "h1h_h1i_controller_burden.svg").exists()
     assert (tmp_path / "figures" / "prompt_contract_candidate_targets.svg").exists()
@@ -160,3 +175,4 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert (tmp_path / "figures" / "exact_probe_replay_focus_gap.svg").exists()
     assert (tmp_path / "figures" / "live_parallel_replay_gap.svg").exists()
     assert (tmp_path / "figures" / "live_replay_focus_gap.svg").exists()
+    assert (tmp_path / "figures" / "wave3_live_candidate_replay_gate.svg").exists()

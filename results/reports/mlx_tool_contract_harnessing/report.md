@@ -1,6 +1,6 @@
 # MLX Tool-Contract Harnessing Report
 
-Generated: `2026-05-07T04:36:36.333210+00:00`
+Generated: `2026-05-07T04:41:40.706439+00:00`
 
 ## Executive Read
 
@@ -45,6 +45,8 @@ The main finding is blunt: the tool-turn directive is a real model-side harness 
 ![CLI-live parallel replay gap](figures/live_parallel_replay_gap.svg)
 
 ![CLI-live focused replay gaps](figures/live_replay_focus_gap.svg)
+
+![Wave three live replay gate](figures/wave3_live_candidate_replay_gate.svg)
 
 ## Packet Summary
 
@@ -204,6 +206,34 @@ The canonical CLI/API comparison isolates argument fidelity: both rows emit one 
 | canonical arguments | 4 | 1.0 | 0.0 | -1.0 | 4 |
 | parallel array | 1 | 1.0 | 0.0 | -1.0 | 1 |
 | visual no-call | 3 | 0.6666666666666666 | 0.0 | -0.6666666666666666 | 3 |
+
+## Wave Three CLI-Live Candidate Replay
+
+| comparison | baseline_system_id | candidate_system_id | shared_case_count | baseline_exact_rate | candidate_exact_rate | delta_exact_rate | baseline_executable_rate | candidate_executable_rate | delta_executable_rate |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| canonical JSON vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_canonical_json_copy | 4 | 0.0 | 0.0 | 0.0 |  |  |  |
+| canonical JSON vs contracted | mlx_gemma4_e2b_reasoner_only | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_canonical_json_copy | 4 | 1.0 | 0.0 | -1.0 |  |  |  |
+| visual initiation vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_tool_initiation | 3 | 0.0 | 0.3333333333333333 | 0.3333333333333333 | 0.0 | 1.0 | 1.0 |
+| visual initiation vs contracted | mlx_gemma4_e2b_reasoner_only | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_tool_initiation | 3 | 0.6666666666666666 | 0.3333333333333333 | -0.3333333333333333 | 1.0 | 1.0 | 0.0 |
+
+The live replay gate rejects `canonical_json_copy_v3` for canonical argument promotion: exact rate stays `0.0` against no-directive and two cases regress from argument mismatch to no tool call. `visual_tool_initiation_v3` is the first candidate with live family movement: it improves visual exact rate from `0.0` to `0.3333333333333333`, restores the executable visual-form target, and emits one tool call in all three visual cases. It remains below contracted MLX because one visual referent case still uses the wrong visual tool.
+
+| comparison | case_id | family | source_failure_mode | baseline_replay_exact_match | candidate_replay_exact_match | delta_exact_match | baseline_replay_executable_match | candidate_replay_executable_match | delta_executable_match | baseline_replay_failure_mode | candidate_replay_failure_mode | baseline_actual_call_count | candidate_actual_call_count | delta_actual_call_count |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| canonical JSON vs no directive | api_form_issue_fetch | api_canonicalization | argument_mismatch | False | False | 0 | None | None | None | argument_mismatch | argument_mismatch | 1 | 1 | 0 |
+| canonical JSON vs no directive | api_invoice_lock_hold_update | api_canonicalization | argument_mismatch | False | False | 0 | None | None | None | argument_mismatch | no_tool_call | 1 | 0 | -1 |
+| canonical JSON vs no directive | cli_invoice_lock_hyphen_query | cli_canonicalization | argument_mismatch | False | False | 0 | None | None | None | argument_mismatch | argument_mismatch | 1 | 1 | 0 |
+| canonical JSON vs no directive | cli_phone_patch_latest_only | cli_patch_copying | argument_mismatch | False | False | 0 | None | None | None | argument_mismatch | no_tool_call | 1 | 0 | -1 |
+| canonical JSON vs contracted | api_form_issue_fetch | api_canonicalization | argument_mismatch | True | False | -1 | None | None | None | exact | argument_mismatch | 1 | 1 | 0 |
+| canonical JSON vs contracted | api_invoice_lock_hold_update | api_canonicalization | argument_mismatch | True | False | -1 | None | None | None | exact | no_tool_call | 1 | 0 | -1 |
+| canonical JSON vs contracted | cli_invoice_lock_hyphen_query | cli_canonicalization | argument_mismatch | True | False | -1 | None | None | None | exact | argument_mismatch | 1 | 1 | 0 |
+| canonical JSON vs contracted | cli_phone_patch_latest_only | cli_patch_copying | argument_mismatch | True | False | -1 | None | None | None | exact | no_tool_call | 1 | 0 | -1 |
+| visual initiation vs no directive | visual_form_target_literal | visual_argument_copying | no_tool_call | False | False | 0 | False | True | 1 | no_tool_call | executable_paraphrase | 0 | 1 | 1 |
+| visual initiation vs no directive | visual_latest_filter_literal | visual_referent_carryover | no_tool_call | False | False | 0 | None | None | None | no_tool_call | wrong_tool | 0 | 1 | 1 |
+| visual initiation vs no directive | visual_readback_region_literal | visual_referent_carryover | no_tool_call | False | True | 1 | None | None | None | no_tool_call | exact | 0 | 1 | 1 |
+| visual initiation vs contracted | visual_form_target_literal | visual_argument_copying | no_tool_call | False | False | 0 | True | True | 0 | executable_paraphrase | executable_paraphrase | 1 | 1 | 0 |
+| visual initiation vs contracted | visual_latest_filter_literal | visual_referent_carryover | no_tool_call | True | False | -1 | None | None | None | exact | wrong_tool | 1 | 1 | 0 |
+| visual initiation vs contracted | visual_readback_region_literal | visual_referent_carryover | no_tool_call | True | True | 0 | None | None | None | exact | exact | 1 | 1 | 0 |
 
 ## H1i Prompt-Contract Candidate Packet
 

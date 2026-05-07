@@ -121,6 +121,30 @@ DEFAULT_LIVE_CANONICAL_REPLAY_COMPARISON = (
     / "tool_probe_replay_live_comparisons"
     / "20260507T_canonical_argument_contracted_vs_no_directive_live_v1"
 )
+DEFAULT_WAVE3_LIVE_CANONICAL_VS_NO_DIRECTIVE_COMPARISON = (
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260507T_canonical_argument_canonical_json_copy_vs_no_directive_live_v1"
+)
+DEFAULT_WAVE3_LIVE_CANONICAL_VS_CONTRACTED_COMPARISON = (
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260507T_canonical_argument_contracted_vs_canonical_json_copy_live_v1"
+)
+DEFAULT_WAVE3_LIVE_VISUAL_VS_NO_DIRECTIVE_COMPARISON = (
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260507T_visual_state_visual_tool_initiation_vs_no_directive_live_v1"
+)
+DEFAULT_WAVE3_LIVE_VISUAL_VS_CONTRACTED_COMPARISON = (
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260507T_visual_state_contracted_vs_visual_tool_initiation_live_v1"
+)
 
 SYSTEM_LABELS = {
     "mlx_gemma4_e2b_reasoner_only": "contracted",
@@ -155,6 +179,10 @@ def build_report(
     live_parallel_replay_comparison: str | Path = DEFAULT_LIVE_PARALLEL_REPLAY_COMPARISON,
     live_visual_replay_comparison: str | Path = DEFAULT_LIVE_VISUAL_REPLAY_COMPARISON,
     live_canonical_replay_comparison: str | Path = DEFAULT_LIVE_CANONICAL_REPLAY_COMPARISON,
+    wave3_live_canonical_vs_no_directive_comparison: str | Path = DEFAULT_WAVE3_LIVE_CANONICAL_VS_NO_DIRECTIVE_COMPARISON,
+    wave3_live_canonical_vs_contracted_comparison: str | Path = DEFAULT_WAVE3_LIVE_CANONICAL_VS_CONTRACTED_COMPARISON,
+    wave3_live_visual_vs_no_directive_comparison: str | Path = DEFAULT_WAVE3_LIVE_VISUAL_VS_NO_DIRECTIVE_COMPARISON,
+    wave3_live_visual_vs_contracted_comparison: str | Path = DEFAULT_WAVE3_LIVE_VISUAL_VS_CONTRACTED_COMPARISON,
     registry_path: str | Path = DEFAULT_REGISTRY_PATH,
 ) -> dict[str, Any]:
     target = Path(output_dir)
@@ -241,6 +269,42 @@ def build_report(
             ("visual no-call", live_visual_replay_comparison_payload),
         ]
     )
+    wave3_live_comparisons = [
+        (
+            "canonical JSON vs no directive",
+            json.loads(
+                (Path(wave3_live_canonical_vs_no_directive_comparison) / "live_replay_comparison.json").read_text(
+                    encoding="utf-8"
+                )
+            ),
+        ),
+        (
+            "canonical JSON vs contracted",
+            json.loads(
+                (Path(wave3_live_canonical_vs_contracted_comparison) / "live_replay_comparison.json").read_text(
+                    encoding="utf-8"
+                )
+            ),
+        ),
+        (
+            "visual initiation vs no directive",
+            json.loads(
+                (Path(wave3_live_visual_vs_no_directive_comparison) / "live_replay_comparison.json").read_text(
+                    encoding="utf-8"
+                )
+            ),
+        ),
+        (
+            "visual initiation vs contracted",
+            json.loads(
+                (Path(wave3_live_visual_vs_contracted_comparison) / "live_replay_comparison.json").read_text(
+                    encoding="utf-8"
+                )
+            ),
+        ),
+    ]
+    wave3_live_summary_rows = _live_candidate_summary_rows(wave3_live_comparisons)
+    wave3_live_case_rows = _live_candidate_case_rows(wave3_live_comparisons)
 
     _write_csv(tables_dir / "packet_summary.csv", packet_rows)
     _write_csv(tables_dir / "h1i_system_metrics.csv", h1i_system_rows)
@@ -268,6 +332,8 @@ def build_report(
     _write_csv(tables_dir / "live_parallel_replay_case_deltas.csv", live_parallel_replay_case_rows)
     _write_csv(tables_dir / "live_visual_replay_case_deltas.csv", live_visual_replay_case_rows)
     _write_csv(tables_dir / "live_canonical_replay_case_deltas.csv", live_canonical_replay_case_rows)
+    _write_csv(tables_dir / "wave3_live_candidate_replay_summary.csv", wave3_live_summary_rows)
+    _write_csv(tables_dir / "wave3_live_candidate_case_deltas.csv", wave3_live_case_rows)
 
     _write_grouped_metric_svg(
         figures_dir / "h1i_readiness_strict_recovered.svg",
@@ -459,6 +525,17 @@ def build_report(
             ("candidate_exact_rate", "no directive", "#DC2626"),
         ],
     )
+    _write_grouped_metric_svg(
+        figures_dir / "wave3_live_candidate_replay_gate.svg",
+        title="Wave three live replay gate",
+        rows=wave3_live_summary_rows,
+        label_field="comparison",
+        metrics=[
+            ("baseline_exact_rate", "baseline exact", "#2563EB"),
+            ("candidate_exact_rate", "candidate exact", "#DC2626"),
+            ("candidate_executable_rate", "candidate executable", "#059669"),
+        ],
+    )
 
     manifest = {
         "generated_at": datetime.now(UTC).isoformat(),
@@ -484,9 +561,21 @@ def build_report(
         "live_parallel_replay_comparison": str(Path(live_parallel_replay_comparison).resolve()),
         "live_visual_replay_comparison": str(Path(live_visual_replay_comparison).resolve()),
         "live_canonical_replay_comparison": str(Path(live_canonical_replay_comparison).resolve()),
+        "wave3_live_canonical_vs_no_directive_comparison": str(
+            Path(wave3_live_canonical_vs_no_directive_comparison).resolve()
+        ),
+        "wave3_live_canonical_vs_contracted_comparison": str(
+            Path(wave3_live_canonical_vs_contracted_comparison).resolve()
+        ),
+        "wave3_live_visual_vs_no_directive_comparison": str(
+            Path(wave3_live_visual_vs_no_directive_comparison).resolve()
+        ),
+        "wave3_live_visual_vs_contracted_comparison": str(
+            Path(wave3_live_visual_vs_contracted_comparison).resolve()
+        ),
         "registry_path": str(Path(registry_path).resolve()),
-        "table_count": 26,
-        "figure_count": 17,
+        "table_count": 28,
+        "figure_count": 18,
     }
     report_payload = {
         "manifest": manifest,
@@ -518,6 +607,8 @@ def build_report(
         "live_canonical_replay_comparison": live_canonical_replay_comparison_payload,
         "live_canonical_replay_case_deltas": live_canonical_replay_case_rows,
         "live_replay_focus_summary": live_replay_focus_rows,
+        "wave3_live_candidate_replay_summary": wave3_live_summary_rows,
+        "wave3_live_candidate_case_deltas": wave3_live_case_rows,
         "gemini": gemini_manifest,
     }
     (target / "manifest.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
@@ -553,6 +644,22 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--live-parallel-replay-comparison", default=str(DEFAULT_LIVE_PARALLEL_REPLAY_COMPARISON))
     parser.add_argument("--live-visual-replay-comparison", default=str(DEFAULT_LIVE_VISUAL_REPLAY_COMPARISON))
     parser.add_argument("--live-canonical-replay-comparison", default=str(DEFAULT_LIVE_CANONICAL_REPLAY_COMPARISON))
+    parser.add_argument(
+        "--wave3-live-canonical-vs-no-directive-comparison",
+        default=str(DEFAULT_WAVE3_LIVE_CANONICAL_VS_NO_DIRECTIVE_COMPARISON),
+    )
+    parser.add_argument(
+        "--wave3-live-canonical-vs-contracted-comparison",
+        default=str(DEFAULT_WAVE3_LIVE_CANONICAL_VS_CONTRACTED_COMPARISON),
+    )
+    parser.add_argument(
+        "--wave3-live-visual-vs-no-directive-comparison",
+        default=str(DEFAULT_WAVE3_LIVE_VISUAL_VS_NO_DIRECTIVE_COMPARISON),
+    )
+    parser.add_argument(
+        "--wave3-live-visual-vs-contracted-comparison",
+        default=str(DEFAULT_WAVE3_LIVE_VISUAL_VS_CONTRACTED_COMPARISON),
+    )
     parser.add_argument("--registry", default=str(DEFAULT_REGISTRY_PATH))
     return parser.parse_args()
 
@@ -582,6 +689,10 @@ def main() -> None:
         live_parallel_replay_comparison=args.live_parallel_replay_comparison,
         live_visual_replay_comparison=args.live_visual_replay_comparison,
         live_canonical_replay_comparison=args.live_canonical_replay_comparison,
+        wave3_live_canonical_vs_no_directive_comparison=args.wave3_live_canonical_vs_no_directive_comparison,
+        wave3_live_canonical_vs_contracted_comparison=args.wave3_live_canonical_vs_contracted_comparison,
+        wave3_live_visual_vs_no_directive_comparison=args.wave3_live_visual_vs_no_directive_comparison,
+        wave3_live_visual_vs_contracted_comparison=args.wave3_live_visual_vs_contracted_comparison,
         registry_path=args.registry,
     )
     print(
@@ -741,6 +852,35 @@ def _live_replay_focus_rows(comparisons: list[tuple[str, dict[str, Any]]]) -> li
     return rows
 
 
+def _live_candidate_summary_rows(comparisons: list[tuple[str, dict[str, Any]]]) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for label, payload in comparisons:
+        summary = payload["summary"]
+        rows.append(
+            {
+                "comparison": label,
+                "baseline_system_id": summary["baseline_system_id"],
+                "candidate_system_id": summary["candidate_system_id"],
+                "shared_case_count": summary["shared_case_count"],
+                "baseline_exact_rate": summary["baseline_exact_rate"],
+                "candidate_exact_rate": summary["candidate_exact_rate"],
+                "delta_exact_rate": summary["delta_exact_rate"],
+                "baseline_executable_rate": _none_to_blank(summary.get("baseline_executable_rate")),
+                "candidate_executable_rate": _none_to_blank(summary.get("candidate_executable_rate")),
+                "delta_executable_rate": _none_to_blank(summary.get("delta_executable_rate")),
+            }
+        )
+    return rows
+
+
+def _live_candidate_case_rows(comparisons: list[tuple[str, dict[str, Any]]]) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for label, payload in comparisons:
+        for row in payload["case_deltas"]:
+            rows.append({"comparison": label, **row})
+    return rows
+
+
 def _replay_focus_summary_rows(comparisons: list[tuple[str, dict[str, Any]]]) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for label, payload in comparisons:
@@ -865,6 +1005,8 @@ def _markdown_report(payload: dict[str, Any]) -> str:
     live_canonical_replay_summary = payload["live_canonical_replay_comparison"]["summary"]
     live_canonical_replay_case_rows = payload["live_canonical_replay_case_deltas"]
     live_replay_focus_rows = payload["live_replay_focus_summary"]
+    wave3_live_summary_rows = payload["wave3_live_candidate_replay_summary"]
+    wave3_live_case_rows = payload["wave3_live_candidate_case_deltas"]
     gemini = payload["gemini"]
     lines = [
         "# MLX Tool-Contract Harnessing Report",
@@ -918,6 +1060,8 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "![CLI-live parallel replay gap](figures/live_parallel_replay_gap.svg)",
         "",
         "![CLI-live focused replay gaps](figures/live_replay_focus_gap.svg)",
+        "",
+        "![Wave three live replay gate](figures/wave3_live_candidate_replay_gate.svg)",
         "",
         "## Packet Summary",
         "",
@@ -1002,6 +1146,14 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "## CLI-Live Focused Replay Summary",
         "",
         _markdown_table(live_replay_focus_rows),
+        "",
+        "## Wave Three CLI-Live Candidate Replay",
+        "",
+        _markdown_table(wave3_live_summary_rows),
+        "",
+        "The live replay gate rejects `canonical_json_copy_v3` for canonical argument promotion: exact rate stays `0.0` against no-directive and two cases regress from argument mismatch to no tool call. `visual_tool_initiation_v3` is the first candidate with live family movement: it improves visual exact rate from `0.0` to `0.3333333333333333`, restores the executable visual-form target, and emits one tool call in all three visual cases. It remains below contracted MLX because one visual referent case still uses the wrong visual tool.",
+        "",
+        _markdown_table(wave3_live_case_rows),
         "",
         "## H1i Prompt-Contract Candidate Packet",
         "",
@@ -1196,6 +1348,10 @@ def _markdown_table(rows: list[dict[str, Any]]) -> str:
 def _system_order(system_id: str) -> int:
     ordered = list(SYSTEM_LABELS)
     return ordered.index(system_id) if system_id in ordered else len(ordered)
+
+
+def _none_to_blank(value: Any) -> Any:
+    return "" if value is None else value
 
 
 def _round(value: Any) -> float:
