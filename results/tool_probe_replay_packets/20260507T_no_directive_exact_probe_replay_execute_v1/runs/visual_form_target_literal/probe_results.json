@@ -1,0 +1,30 @@
+[
+  {
+    "case_id": "visual_form_target_literal",
+    "family": "visual_argument_copying",
+    "expected_call_count": 1,
+    "actual_call_count": 0,
+    "exact_match": false,
+    "executable_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "form-err-202"
+      ]
+    },
+    "actual_execution": [],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-form-live-latest",
+          "target_query": "validation error"
+        }
+      }
+    ],
+    "actual_calls": [],
+    "raw_model_output": "",
+    "prompt_tokens": 657,
+    "completion_tokens": 1,
+    "latency_ms": 4133
+  }
+]

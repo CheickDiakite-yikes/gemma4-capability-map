@@ -179,10 +179,12 @@ Latest MLX tool-contract research:
   - brief: [`docs/continuity/exact-probe-replay.md`](./exact-probe-replay.md)
   - script: [`scripts/build_tool_probe_replay_packet.py`](../../scripts/build_tool_probe_replay_packet.py)
   - packet: [`results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1`](../../results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1)
+  - executed packet: [`results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_execute_v1`](../../results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_execute_v1)
   - source: no-directive probe [`results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1`](../../results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1)
   - shape: `8` failed exact-call probe cases, `4` argument mismatches and `4` no-tool-call cases
   - next-action split: `4` canonical argument replays, `3` visual-state replay executor cases, `1` parallel-array replay/workflow case
-  - interpretation: this is not a packaged live workflow yet; it is the replay artifact that should drive the next live discriminator
+  - execution result: `0 / 8` exact, with the same `4` argument mismatches and `4` no-tool-call failures reproduced
+  - interpretation: this is not a packaged live workflow yet; it is the stable raw-contract replay artifact that should drive the next live discriminator
 
 Current generated research report:
 

@@ -1,0 +1,92 @@
+{
+  "case_id": "cli_phone_patch_latest_only",
+  "family": "cli_patch_copying",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Ignore the earlier work-authorization edit. The newest recruiter instruction is to patch only the phone validation config in config/job_form.yaml.",
+      "image_refs": []
+    }
+  ],
+  "media": [],
+  "tool_names": [
+    "cli_apply_patch",
+    "read_repo_file"
+  ],
+  "tool_specs": [
+    {
+      "name": "cli_apply_patch",
+      "description": "Record a CLI patch action against a local config or source file.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "patch": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "path",
+          "patch"
+        ]
+      },
+      "tool_family": "cli",
+      "tool_intent": "patch"
+    },
+    {
+      "name": "read_repo_file",
+      "description": "Read a repository file by path.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "path"
+        ]
+      },
+      "tool_family": "function_call",
+      "tool_intent": "read"
+    }
+  ],
+  "initial_state": {},
+  "expected_execution": {},
+  "expected_calls": [
+    {
+      "name": "cli_apply_patch",
+      "arguments": {
+        "path": "config/job_form.yaml",
+        "patch": "phone_validation: strict"
+      }
+    }
+  ],
+  "source_actual_calls": [
+    {
+      "name": "cli_apply_patch",
+      "arguments": {
+        "path": "config/job_form.yaml",
+        "patch": "..."
+      }
+    }
+  ],
+  "source_raw_model_output": "{\"name\": \"cli_apply_patch\", \"arguments\": {\"path\": \"config/job_form.yaml\", \"patch\": \"...\"}}",
+  "source_exact_match": false,
+  "source_executable_match": null,
+  "source_failure_mode": "argument_mismatch",
+  "baseline_exact_match": true,
+  "baseline_actual_calls": [
+    {
+      "name": "cli_apply_patch",
+      "arguments": {
+        "path": "config/job_form.yaml",
+        "patch": "phone_validation: strict"
+      }
+    }
+  ],
+  "live_entrypoint_status": "probe_replay_packet_only_v1",
+  "live_entrypoint_note": "This is a raw exact-call replay artifact, not a packaged workflow session."
+}

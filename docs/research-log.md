@@ -2807,6 +2807,14 @@
   - contents: per-case JSON with messages, media, allowed tool specs, expected calls, source actual calls, raw source output, and contracted baseline context
   - command manifest: one runnable `run_tool_directive_probe.py --case-id <case>` command per replay case
   - interpretation: this packet is not live workflow execution. It is the evidence-preserving bridge needed before creating a faithful parallel live workflow or an operator-visible exact-probe replay executor.
+- Exact-probe replay execution confirms the failures are stable:
+  - packet: [`20260507T_no_directive_exact_probe_replay_execute_v1`](../results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_execute_v1)
+  - command:
+    - `uv run python scripts/build_tool_probe_replay_packet.py --run-group-id 20260507T_no_directive_exact_probe_replay_execute_v1 --execute`
+  - result: exact `0 / 8`
+  - all four source `argument_mismatch` cases replayed as `argument_mismatch`
+  - all four source `no_tool_call` cases replayed as `no_tool_call`
+  - interpretation: the raw no-directive failure set is stable under exact-case replay. The next implementation should target one of the three replay next-action families directly, starting with high-priority visual-state replay or parallel-array replay/workflow coverage.
 
 ### Verification
 

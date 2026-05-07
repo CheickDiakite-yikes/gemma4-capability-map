@@ -1,0 +1,31 @@
+[
+  {
+    "case_id": "parallel_audit_array_literal",
+    "family": "parallel_tool_calling",
+    "expected_call_count": 2,
+    "actual_call_count": 0,
+    "exact_match": false,
+    "executable_match": null,
+    "expected_execution": {},
+    "actual_execution": [],
+    "expected_calls": [
+      {
+        "name": "inspect_image",
+        "arguments": {
+          "image_id": "img-parallel"
+        }
+      },
+      {
+        "name": "read_repo_file",
+        "arguments": {
+          "path": "config/settings.yaml"
+        }
+      }
+    ],
+    "actual_calls": [],
+    "raw_model_output": "I need the screenshot and the content of `config/settings.yaml` to proceed. Please provide them.",
+    "prompt_tokens": 550,
+    "completion_tokens": 23,
+    "latency_ms": 4022
+  }
+]

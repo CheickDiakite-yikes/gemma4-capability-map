@@ -1,0 +1,26 @@
+[
+  {
+    "case_id": "visual_readback_region_literal",
+    "family": "visual_referent_carryover",
+    "expected_call_count": 1,
+    "actual_call_count": 0,
+    "exact_match": false,
+    "executable_match": null,
+    "expected_execution": {},
+    "actual_execution": [],
+    "expected_calls": [
+      {
+        "name": "read_region_text",
+        "arguments": {
+          "image_id": "img-form-latest",
+          "region_id": "form-err-202"
+        }
+      }
+    ],
+    "actual_calls": [],
+    "raw_model_output": "extract_layout: {\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-form-latest\", \"target_query\": \"validation error\"}}",
+    "prompt_tokens": 935,
+    "completion_tokens": 37,
+    "latency_ms": 4804
+  }
+]

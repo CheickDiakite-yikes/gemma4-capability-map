@@ -213,6 +213,7 @@ That table is the guardrail for the next loop: a prompt-contract candidate shoul
 The first replay packet is now recorded at:
 
 - [`results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1`](../../results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1)
+- executed packet: [`results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_execute_v1`](../../results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_execute_v1)
 - brief: [`docs/continuity/exact-probe-replay.md`](../continuity/exact-probe-replay.md)
 
 It contains all `8` failed no-directive exact-call cases:
@@ -231,6 +232,8 @@ The generated next-action table splits the implementation backlog into:
 | `build_parallel_array_replay_or_workflow` | `1` |
 
 This packet is deliberately a dry-run replay artifact, not a packaged live workflow. It preserves each case's messages, media, allowed tool specs, expected calls, no-directive actual calls, and contracted baseline context. The next implementation should either turn the deferred parallel case into a faithful packaged workflow or make these exact probe cases operator-visible in a replay executor.
+
+The executed replay packet reproduced the raw failure set exactly: exact match stayed `0 / 8`, the four argument-mismatch cases remained argument mismatches, and the four no-tool-call cases remained no-tool-call cases. That makes this a stable mechanism target rather than a one-off probe artifact.
 
 ## H1i Candidate Packet Result
 
