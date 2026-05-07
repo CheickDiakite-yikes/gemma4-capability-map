@@ -2845,6 +2845,46 @@
   - no-directive exact: `0 / 1`
   - contracted exact: `1 / 1`
   - interpretation: the missing packaged workflow is now backed by a replayable raw A/B. The next live-workflow design should preserve the expected two-call array contract instead of mapping it onto a single packaged task completion.
+- H1k adds the deferred parallel-audit packaged workflow, but it is still a negative live-workflow result:
+  - config: [`configs/knowledge_work_h1k_slice.yaml`](../configs/knowledge_work_h1k_slice.yaml)
+  - brief: [`docs/continuity/h1k-slice.md`](continuity/h1k-slice.md)
+  - workflow: `ops_parallel_audit_review`
+  - replay pressure mapped from: `parallel_audit_array_literal`
+  - candidate packet: [`20260507T_h1k_parallel_audit_candidates_v1`](../results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_candidates_v1_knowledge_work_ablation_packet)
+  - helper packet: [`20260507T_h1k_parallel_audit_helpers_v1`](../results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_helpers_v1_knowledge_work_ablation_packet)
+  - candidate result: all five rows matched readiness `0.91780`, strict/recovered `1.0 / 1.0`, controller repair/fallback/argument repair `0.0 / 0.0 / 0.0`, raw clean `1.0`, and `0` failure candidates
+  - helper result: contracted, no-directive, no-repair, no-fallback, and no-argument-repair rows all matched the same readiness and interface metrics; trace mining found `3` expected `controller_repair_disabled` markers and `0` failure candidates
+  - interpretation: packaged workflow execution is now safe and attributable for the parallel-audit family, but it decomposes the one-turn parallel contract enough that it does not reproduce the raw no-directive failure. This is useful evidence against spending more H1-style cycles until the pressure is preserved exactly.
+- CLI-live exact replay is now the stronger bridge out of packaged-workflow saturation:
+  - operator entrypoint: `uv run moonie-agent replay-live`
+  - inspection entrypoints:
+    - `uv run moonie-agent packet --kind tool-probe-replay-live --packet-id <packet_id>`
+    - `uv run moonie-agent packet --kind tool-probe-replay-live-comparison --packet-id <comparison_id>`
+  - continuity brief: [`docs/continuity/live-exact-replay-results.md`](continuity/live-exact-replay-results.md)
+  - comparison script: [`scripts/compare_tool_probe_replay_live_packets.py`](../scripts/compare_tool_probe_replay_live_packets.py)
+  - dry-run smoke packet: [`20260507T_parallel_array_replay_live_dry_run_v1`](../results/tool_probe_replay_live/20260507T_parallel_array_replay_live_dry_run_v1)
+  - the live replay CLI defaults to no-directive MLX, supports `--execute`, `--case-id`, `--packet-dir`, and `--json`, renders through Rich, and writes under `results/tool_probe_replay_live/`
+- CLI-live replay preserves the raw A/B across all eight source failures:
+  - canonical argument family:
+    - no-directive live packet: [`20260507T_canonical_argument_no_directive_live_execute_v1`](../results/tool_probe_replay_live/20260507T_canonical_argument_no_directive_live_execute_v1), exact `0 / 4`, all `argument_mismatch`
+    - contracted live packet: [`20260507T_canonical_argument_contracted_live_execute_v1`](../results/tool_probe_replay_live/20260507T_canonical_argument_contracted_live_execute_v1), exact `4 / 4`
+    - comparison: [`20260507T_canonical_argument_contracted_vs_no_directive_live_v1`](../results/tool_probe_replay_live_comparisons/20260507T_canonical_argument_contracted_vs_no_directive_live_v1), delta exact `-1.0`, actual-call delta `0`
+  - visual no-call family:
+    - no-directive live packet: [`20260507T_visual_state_no_directive_live_execute_v1`](../results/tool_probe_replay_live/20260507T_visual_state_no_directive_live_execute_v1), exact `0 / 3`, all `no_tool_call`
+    - contracted live packet: [`20260507T_visual_state_contracted_live_execute_v1`](../results/tool_probe_replay_live/20260507T_visual_state_contracted_live_execute_v1), exact `2 / 3`, with the remaining visual-form case executable through selector aliasing
+    - comparison: [`20260507T_visual_state_contracted_vs_no_directive_live_v1`](../results/tool_probe_replay_live_comparisons/20260507T_visual_state_contracted_vs_no_directive_live_v1), delta exact `-0.6666666666666666`
+  - parallel array family:
+    - no-directive live packet: [`20260507T_parallel_array_no_directive_live_execute_v1`](../results/tool_probe_replay_live/20260507T_parallel_array_no_directive_live_execute_v1), exact `0 / 1`, expected calls `2`, actual calls `0`, failure `no_tool_call`
+    - contracted live packet: [`20260507T_parallel_array_contracted_live_execute_v1`](../results/tool_probe_replay_live/20260507T_parallel_array_contracted_live_execute_v1), exact `1 / 1`, expected calls `2`, actual calls `2`
+    - comparison: [`20260507T_parallel_array_contracted_vs_no_directive_live_v1`](../results/tool_probe_replay_live_comparisons/20260507T_parallel_array_contracted_vs_no_directive_live_v1), delta exact `-1.0`, actual-call delta `-2`
+  - interpretation: the final tool-turn directive does three different kinds of work: canonical CLI/API argument copying, visual follow-on tool initiation, and independent two-call parallel shape preservation. H1k proves packaged workflow safety; CLI-live replay proves the raw mechanism still breaks without the directive.
+- The MLX tool-contract report now includes the live replay evidence:
+  - curated report: [`docs/reports/mlx-tool-contract-harnessing.md`](reports/mlx-tool-contract-harnessing.md)
+  - generated report: [`results/reports/mlx_tool_contract_harnessing/report.md`](../results/reports/mlx_tool_contract_harnessing/report.md)
+  - current manifest: `24` tables and `16` figures
+  - new table families include live parallel, live visual, and live canonical replay deltas
+  - new figures include the live parallel replay gap and the combined live replay focus gap
+  - interpretation: the current research artifact now distinguishes top-line readiness, exact raw protocol compliance, executable visual paraphrase, controller helper dependence, and live operator-visible replay behavior in one report family
 
 ### Verification
 

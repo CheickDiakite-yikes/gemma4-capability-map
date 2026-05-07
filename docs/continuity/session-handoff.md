@@ -16,6 +16,7 @@ The freshest research/reporting entrypoint is now:
 
 - [`docs/reports/mlx-tool-contract-harnessing.md`](../reports/mlx-tool-contract-harnessing.md)
 - generated packet: [`results/reports/mlx_tool_contract_harnessing/report.md`](../../results/reports/mlx_tool_contract_harnessing/report.md)
+- CLI-live replay brief: [`docs/continuity/live-exact-replay-results.md`](./live-exact-replay-results.md)
 
 Treat the older H1/HF and React notes below as historical context unless they are explicitly referenced by the current H1i or CLI-live workstream.
 
@@ -65,14 +66,25 @@ Current strongest MLX result:
   - execution reproduced the source failures exactly: `0 / 8` exact, same `4` argument mismatches and same `4` no-tool-call failures
   - contracted replay restored `7 / 8` exact, with the remaining visual paraphrase executable
   - comparison records no-directive exact-rate delta `-0.875` versus contracted
+- CLI-live exact replay is now executed for all eight source failures:
+  - canonical argument live comparison: [`results/tool_probe_replay_live_comparisons/20260507T_canonical_argument_contracted_vs_no_directive_live_v1`](../../results/tool_probe_replay_live_comparisons/20260507T_canonical_argument_contracted_vs_no_directive_live_v1), contracted exact `4 / 4`, no-directive exact `0 / 4`, actual-call delta `0`
+  - visual live comparison: [`results/tool_probe_replay_live_comparisons/20260507T_visual_state_contracted_vs_no_directive_live_v1`](../../results/tool_probe_replay_live_comparisons/20260507T_visual_state_contracted_vs_no_directive_live_v1), contracted exact `2 / 3`, no-directive exact `0 / 3`, no-directive failures all `no_tool_call`
+  - parallel live comparison: [`results/tool_probe_replay_live_comparisons/20260507T_parallel_array_contracted_vs_no_directive_live_v1`](../../results/tool_probe_replay_live_comparisons/20260507T_parallel_array_contracted_vs_no_directive_live_v1), contracted exact `1 / 1`, no-directive exact `0 / 1`, actual-call delta `-2`
+  - operator command: `uv run moonie-agent replay-live --packet-dir results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_execute_v1 --case-id <case_id> --execute`
+- H1k parallel-audit packaged workflow is now a negative result:
+  - candidate packet: [`results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_candidates_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_candidates_v1_knowledge_work_ablation_packet)
+  - helper packet: [`results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_helpers_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_helpers_v1_knowledge_work_ablation_packet)
+  - all rows stayed clean at readiness `0.91780`, strict/recovered `1.0 / 1.0`, repair/fallback/argument repair `0.0 / 0.0 / 0.0`, raw clean `1.0`
+  - interpretation: staged packaged workflows are safe and attributable, but still weaker than exact replay for exposing the one-turn parallel no-call failure
 
 Current next loop:
 
-1. Treat H1i candidate v1 and repeat3 as saturated/non-discriminating after the probe gate.
+1. Treat H1i, H1j, and H1k packaged packets as saturated or non-discriminating for current prompt-contract validation.
 2. Treat prompt-contract wave two as partial-gain evidence, not a fix.
-3. Use the exact-probe replay packet to decide whether the next implementation is a faithful packaged parallel workflow or replay execution for raw probe cases.
-4. Return to H1h only after H1i changes for the right mechanism-level reason.
-5. Regenerate the report artifacts after any H1i/H1h/probe/Gemini packet change.
+3. Use CLI-live exact replay as the active discriminator before promoting another candidate back into H1.
+4. Build the next candidate against the three observed mechanisms: canonical argument copying, visual next-call initiation, and two-call parallel shape.
+5. Return to H1h only after replay-live or raw probe evidence shows a mechanism-level change.
+6. Regenerate the report artifacts after any H1i/H1h/probe/Gemini/live-replay packet change.
 
 H1j source:
 
