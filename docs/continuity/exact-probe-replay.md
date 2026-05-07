@@ -29,6 +29,7 @@ The live operator bridge now starts with `moonie-agent replay-live`. It is inten
 - first live operator dry run: [`results/tool_probe_replay_live/20260507T_parallel_array_replay_live_dry_run_v1`](../../results/tool_probe_replay_live/20260507T_parallel_array_replay_live_dry_run_v1)
 - first no-directive live execution: [`results/tool_probe_replay_live/20260507T_parallel_array_no_directive_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_parallel_array_no_directive_live_execute_v1)
 - first contracted live execution: [`results/tool_probe_replay_live/20260507T_parallel_array_contracted_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_parallel_array_contracted_live_execute_v1)
+- first live comparison: [`results/tool_probe_replay_live_comparisons/20260507T_parallel_array_contracted_vs_no_directive_live_v1`](../../results/tool_probe_replay_live_comparisons/20260507T_parallel_array_contracted_vs_no_directive_live_v1)
 
 ## Packet Contents
 
@@ -129,6 +130,12 @@ The paired contracted live execution is:
 - [`results/tool_probe_replay_live/20260507T_parallel_array_contracted_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_parallel_array_contracted_live_execute_v1)
 
 Result: expected `2` tool calls, actual `2`, exact `true`. The actual calls are `inspect_image({"image_id": "img-parallel"})` and `read_repo_file({"path": "config/settings.yaml"})`, in the same independent-call shape as the exact replay oracle.
+
+Live A/B comparison:
+
+- [`results/tool_probe_replay_live_comparisons/20260507T_parallel_array_contracted_vs_no_directive_live_v1`](../../results/tool_probe_replay_live_comparisons/20260507T_parallel_array_contracted_vs_no_directive_live_v1)
+
+Result: contracted exact `1 / 1`, no-directive exact `0 / 1`, exact-rate delta `-1.0`, actual-call delta `-2`. This is now the CLI-live counterpart to the focused script-level parallel replay comparison.
 
 CLI inspection:
 
