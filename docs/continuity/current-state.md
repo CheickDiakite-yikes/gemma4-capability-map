@@ -194,6 +194,11 @@ Latest MLX tool-contract research:
   - contracted packet: [`results/tool_probe_replay_packets/20260507T_visual_state_exact_replay_contracted_v1`](../../results/tool_probe_replay_packets/20260507T_visual_state_exact_replay_contracted_v1)
   - comparison: [`results/tool_probe_replay_comparisons/20260507T_visual_state_contracted_vs_no_directive_v1`](../../results/tool_probe_replay_comparisons/20260507T_visual_state_contracted_vs_no_directive_v1)
   - result: no-directive exact `0 / 3`; contracted exact `2 / 3` plus one executable visual paraphrase
+- Focused parallel-array replay:
+  - no-directive packet: [`results/tool_probe_replay_packets/20260507T_parallel_array_exact_replay_no_directive_v1`](../../results/tool_probe_replay_packets/20260507T_parallel_array_exact_replay_no_directive_v1)
+  - contracted packet: [`results/tool_probe_replay_packets/20260507T_parallel_array_exact_replay_contracted_v1`](../../results/tool_probe_replay_packets/20260507T_parallel_array_exact_replay_contracted_v1)
+  - comparison: [`results/tool_probe_replay_comparisons/20260507T_parallel_array_contracted_vs_no_directive_v1`](../../results/tool_probe_replay_comparisons/20260507T_parallel_array_contracted_vs_no_directive_v1)
+  - result: no-directive exact `0 / 1`; contracted exact `1 / 1`
 
 Current generated research report:
 

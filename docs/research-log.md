@@ -2838,6 +2838,13 @@
   - no-directive exact: `0 / 3`
   - contracted exact: `2 / 3`, with the remaining case executable
   - interpretation: the visual-specific no-directive failure is not only exact-copy brittleness; it is a tool-call initiation failure. The next model-side experiment should target visual next-call initiation explicitly, or the next harness experiment should make visual replay operator-visible before returning to packaged workflows.
+- Focused parallel-array replay isolates the deferred H1j family:
+  - no-directive packet: [`20260507T_parallel_array_exact_replay_no_directive_v1`](../results/tool_probe_replay_packets/20260507T_parallel_array_exact_replay_no_directive_v1)
+  - contracted packet: [`20260507T_parallel_array_exact_replay_contracted_v1`](../results/tool_probe_replay_packets/20260507T_parallel_array_exact_replay_contracted_v1)
+  - comparison: [`20260507T_parallel_array_contracted_vs_no_directive_v1`](../results/tool_probe_replay_comparisons/20260507T_parallel_array_contracted_vs_no_directive_v1)
+  - no-directive exact: `0 / 1`
+  - contracted exact: `1 / 1`
+  - interpretation: the missing packaged workflow is now backed by a replayable raw A/B. The next live-workflow design should preserve the expected two-call array contract instead of mapping it onto a single packaged task completion.
 
 ### Verification
 

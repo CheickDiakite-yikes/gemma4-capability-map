@@ -1,0 +1,2 @@
+case_id,family,source_failure_mode,source_exact_match,source_executable_match,baseline_exact_match,expected_call_count,source_actual_call_count,case_path
+parallel_audit_array_literal,parallel_tool_calling,no_tool_call,False,,True,2,0,/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260507T_parallel_array_exact_replay_contracted_v1/cases/parallel_audit_array_literal.json

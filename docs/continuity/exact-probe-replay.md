@@ -123,6 +123,23 @@ Comparison:
 - no-directive delta exact rate: `-0.6666666666666666`
 - visual-form target case also drops from executable paraphrase to no tool call
 
+## Focused Parallel Replay
+
+No-directive parallel-array packet:
+
+- [`results/tool_probe_replay_packets/20260507T_parallel_array_exact_replay_no_directive_v1`](../../results/tool_probe_replay_packets/20260507T_parallel_array_exact_replay_no_directive_v1)
+- result: exact `0 / 1`; the case remains `no_tool_call`
+
+Contracted parallel-array packet:
+
+- [`results/tool_probe_replay_packets/20260507T_parallel_array_exact_replay_contracted_v1`](../../results/tool_probe_replay_packets/20260507T_parallel_array_exact_replay_contracted_v1)
+- result: exact `1 / 1`
+
+Comparison:
+
+- [`results/tool_probe_replay_comparisons/20260507T_parallel_array_contracted_vs_no_directive_v1`](../../results/tool_probe_replay_comparisons/20260507T_parallel_array_contracted_vs_no_directive_v1)
+- no-directive delta exact rate: `-1.0`
+
 Focused verification:
 
 ```bash

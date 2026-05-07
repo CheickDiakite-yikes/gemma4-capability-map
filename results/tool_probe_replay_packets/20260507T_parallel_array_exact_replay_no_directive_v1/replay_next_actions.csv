@@ -1,0 +1,2 @@
+case_id,family,source_failure_mode,priority,next_action,why
+parallel_audit_array_literal,parallel_tool_calling,no_tool_call,high,build_parallel_array_replay_or_workflow,current packaged workflows do not faithfully test the two-call array contract
