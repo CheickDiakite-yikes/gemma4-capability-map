@@ -22,12 +22,15 @@ def test_tool_prompt_contract_probe_packet_dry_run_writes_candidate_commands(tmp
     assert packet["candidate_count"] == 3
     assert packet["executed_count"] == 0
     assert packet["dry_run_count"] == 3
+    assert packet["manifest"]["no_directive_probe_dir"]
     assert (packet_dir / "manifest.json").exists()
     assert (packet_dir / "commands.json").exists()
     assert (packet_dir / "candidate_summary.csv").exists()
 
     contract_ids = {row["tool_prompt_contract_id"] for row in packet["rows"]}
     assert contract_ids == {"schema_anchor_v1", "literal_argument_guard_v1", "tool_required_parallel_v1"}
+    assert all("no_directive_comparison_path" in row for row in packet["rows"])
+    assert all("probe_gate" in row for row in packet["rows"])
     first_command = packet["commands"][0]["command"]
     assert "run_tool_directive_probe.py" in first_command[1]
     assert "--system-id" in first_command
@@ -61,3 +64,36 @@ systems:
         assert "must disable the exact tool-turn directive" in str(exc)
     else:
         raise AssertionError("Expected bad candidate validation to fail.")
+
+
+def test_tool_prompt_contract_probe_gate_marks_improvement_over_no_directive() -> None:
+    assert (
+        SCRIPT._probe_gate(
+            {
+                "delta_exact_match_rate": 0.125,
+                "baseline_executable_match_rate": 0.0,
+                "candidate_executable_match_rate": 0.0,
+            }
+        )
+        == "probe_improved_vs_no_directive"
+    )
+    assert (
+        SCRIPT._probe_gate(
+            {
+                "delta_exact_match_rate": 0.0,
+                "baseline_executable_match_rate": 0.0,
+                "candidate_executable_match_rate": 1.0,
+            }
+        )
+        == "probe_improved_vs_no_directive"
+    )
+    assert (
+        SCRIPT._probe_gate(
+            {
+                "delta_exact_match_rate": 0.0,
+                "baseline_executable_match_rate": 1.0,
+                "candidate_executable_match_rate": 0.0,
+            }
+        )
+        == "no_probe_improvement_vs_no_directive"
+    )
