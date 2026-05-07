@@ -1,0 +1,4 @@
+case_id,family,source_failure_mode,baseline_replay_exact_match,candidate_replay_exact_match,delta_exact_match,baseline_replay_failure_mode,candidate_replay_failure_mode,baseline_actual_call_count,candidate_actual_call_count,delta_actual_call_count
+visual_form_target_literal,visual_argument_copying,no_tool_call,False,False,0,executable_paraphrase,no_tool_call,1,0,-1
+visual_latest_filter_literal,visual_referent_carryover,no_tool_call,True,False,-1,exact,no_tool_call,1,0,-1
+visual_readback_region_literal,visual_referent_carryover,no_tool_call,True,False,-1,exact,no_tool_call,1,0,-1
