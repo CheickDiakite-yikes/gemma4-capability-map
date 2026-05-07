@@ -1,0 +1,13 @@
+[
+  {
+    "case_id": "parallel_audit_array_literal",
+    "family": "parallel_tool_calling",
+    "source_failure_mode": "no_tool_call",
+    "replay_failure_mode": "no_tool_call",
+    "replay_exact_match": false,
+    "replay_executable_match": null,
+    "expected_call_count": 2,
+    "replay_actual_call_count": 0,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260507T_parallel_array_no_directive_live_execute_v1/runs/parallel_audit_array_literal"
+  }
+]

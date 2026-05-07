@@ -193,6 +193,7 @@ What remains:
   - replay comparison: [`results/tool_probe_replay_comparisons/20260507T_contracted_vs_no_directive_exact_replay_v1`](../../results/tool_probe_replay_comparisons/20260507T_contracted_vs_no_directive_exact_replay_v1)
   - live operator bridge: `moonie-agent replay-live`
   - first live dry run: [`results/tool_probe_replay_live/20260507T_parallel_array_replay_live_dry_run_v1`](../../results/tool_probe_replay_live/20260507T_parallel_array_replay_live_dry_run_v1)
+  - first no-directive live execution: [`results/tool_probe_replay_live/20260507T_parallel_array_no_directive_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_parallel_array_no_directive_live_execute_v1), exact `0 / 1`, failure `no_tool_call`
   - next use: execute the focused parallel or visual replay cases through `replay-live --execute`, then compare no-directive versus contracted rows without packaging the pressure into staged workflows
 - promote a candidate beyond H1i only if it moves raw-clean or controller-burden metrics for the right reason
 - regenerate the MLX tool-contract report after any H1i, H1h, probe, or Gemini baseline packet changes

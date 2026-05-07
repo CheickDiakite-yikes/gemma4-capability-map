@@ -27,6 +27,7 @@ The live operator bridge now starts with `moonie-agent replay-live`. It is inten
 - contracted replay: `7 / 8` exact, with the remaining visual selector paraphrase executable
 - A/B delta: no-directive exact rate is `-0.875` versus contracted on the same eight cases
 - first live operator dry run: [`results/tool_probe_replay_live/20260507T_parallel_array_replay_live_dry_run_v1`](../../results/tool_probe_replay_live/20260507T_parallel_array_replay_live_dry_run_v1)
+- first no-directive live execution: [`results/tool_probe_replay_live/20260507T_parallel_array_no_directive_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_parallel_array_no_directive_live_execute_v1)
 
 ## Packet Contents
 
@@ -115,6 +116,12 @@ The first tracked live dry run is:
 - [`results/tool_probe_replay_live/20260507T_parallel_array_replay_live_dry_run_v1`](../../results/tool_probe_replay_live/20260507T_parallel_array_replay_live_dry_run_v1)
 
 It records the selected source packet, system id, exact replay case id, source failure mode, and the exact command needed to execute the same case.
+
+The first tracked no-directive live execution is:
+
+- [`results/tool_probe_replay_live/20260507T_parallel_array_no_directive_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_parallel_array_no_directive_live_execute_v1)
+
+Result: expected `2` tool calls, actual `0`, exact `false`, replay failure mode `no_tool_call`. The raw model output asks the operator to provide the screenshot and `config/settings.yaml`, which is precisely the protocol collapse the final tool-turn directive was preventing.
 
 CLI inspection:
 

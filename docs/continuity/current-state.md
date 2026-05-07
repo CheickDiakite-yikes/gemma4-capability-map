@@ -220,6 +220,7 @@ Latest MLX tool-contract research:
   - contracted replay result: `7 / 8` exact, with the remaining visual paraphrase executable
   - comparison result: no-directive exact-rate delta `-0.875` versus contracted on the same cases
   - live operator dry run: [`results/tool_probe_replay_live/20260507T_parallel_array_replay_live_dry_run_v1`](../../results/tool_probe_replay_live/20260507T_parallel_array_replay_live_dry_run_v1)
+  - live no-directive parallel execution: [`results/tool_probe_replay_live/20260507T_parallel_array_no_directive_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_parallel_array_no_directive_live_execute_v1), exact `0 / 1`, expected calls `2`, actual calls `0`, replay failure `no_tool_call`
   - interpretation: this is not a packaged live workflow yet; it is the stable raw-contract replay artifact that should drive the next live discriminator. The new `moonie-agent replay-live` command is the first CLI bridge for watching these exact cases without converting them into easier staged workflows.
 - Focused canonical-argument replay:
   - no-directive packet: [`results/tool_probe_replay_packets/20260507T_canonical_argument_exact_replay_no_directive_v1`](../../results/tool_probe_replay_packets/20260507T_canonical_argument_exact_replay_no_directive_v1)
