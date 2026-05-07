@@ -8,6 +8,7 @@ from gemma4_capability_map.knowledge_work.schemas import BenchmarkLane, BrowserA
 from gemma4_capability_map.runtime.core import LocalAgentRuntime
 from gemma4_capability_map.runtime.sandbox import SandboxViolation, assert_path_inside, sandbox_policy_blocks_for_trace
 from gemma4_capability_map.runtime.schemas import ApprovalStatus, SessionStatus
+from gemma4_capability_map.runtime.workflows import DEFAULT_WORKFLOWS_PATH, validate_packaged_workflows
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -27,6 +28,10 @@ def test_runtime_lists_packaged_workflows_with_absolute_preview_assets(tmp_path:
     parallel_audit = next(workflow for workflow in runtime.list_workflows(lane="live_web_stress") if workflow["workflow_id"] == "ops_parallel_audit_review")
     assert parallel_audit["episode_id"] == "kwa_ops_live_parallel_audit_review_v1"
     assert "parallel_tool_calling" in parallel_audit["tags"]
+
+
+def test_packaged_workflow_registry_resolves_declared_episode_lanes() -> None:
+    assert validate_packaged_workflows(DEFAULT_WORKFLOWS_PATH) == []
 
 
 def test_runtime_profiles_expose_reasoner_budgets(tmp_path: Path) -> None:
