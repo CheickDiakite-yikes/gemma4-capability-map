@@ -87,6 +87,7 @@ systems:
 
     candidate_rows = json.loads((candidate_dir / "probe_results.json").read_text(encoding="utf-8"))
     candidate_rows[0]["exact_match"] = False
+    candidate_rows[0]["actual_calls"][0]["arguments"]["query"] = "invoice-lock failure"
     (candidate_dir / "probe_results.json").write_text(json.dumps(candidate_rows, indent=2) + "\n", encoding="utf-8")
     candidate_manifest = json.loads((candidate_dir / "manifest.json").read_text(encoding="utf-8"))
     candidate_manifest["summary"]["exact_match_count"] = 1
@@ -100,6 +101,8 @@ systems:
     assert comparison["delta_exact_match_rate"] == -0.5
     first = next(row for row in comparison["case_deltas"] if row["case_id"] == cases[0].case_id)
     assert first["delta_exact_match"] == -1
+    assert first["baseline_failure_mode"] == "exact"
+    assert first["candidate_failure_mode"] == "argument_mismatch"
     family = next(row for row in comparison["family_deltas"] if row["family"] == cases[0].family)
     assert family["delta_exact_rate"] == -1.0
     assert Path(outputs["summary"]).exists()

@@ -234,6 +234,8 @@ def compare_tool_directive_probe_packets(
             "baseline_exact_match": bool(baseline.get("exact_match")),
             "candidate_exact_match": bool(candidate.get("exact_match")),
             "delta_exact_match": _bool_delta(candidate.get("exact_match"), baseline.get("exact_match")),
+            "baseline_failure_mode": _probe_failure_mode(baseline),
+            "candidate_failure_mode": _probe_failure_mode(candidate),
             "baseline_executable_match": _optional_bool(baseline.get("executable_match")),
             "candidate_executable_match": _optional_bool(candidate.get("executable_match")),
             "delta_executable_match": _optional_bool_delta(candidate.get("executable_match"), baseline.get("executable_match")),
@@ -456,6 +458,30 @@ def _optional_bool_delta(candidate: Any, baseline: Any) -> int | None:
     if candidate is None or baseline is None:
         return None
     return _bool_delta(candidate, baseline)
+
+
+def _probe_failure_mode(row: dict[str, Any]) -> str:
+    if row.get("exact_match"):
+        return "exact"
+    if row.get("executable_match") is True:
+        return "executable_paraphrase"
+    expected_calls = row.get("expected_calls") or []
+    actual_calls = row.get("actual_calls") or []
+    if not actual_calls:
+        return "no_tool_call"
+    if len(actual_calls) != len(expected_calls):
+        return "call_count_mismatch"
+    expected_names = [str(call.get("name", "")) for call in expected_calls]
+    actual_names = [str(call.get("name", "")) for call in actual_calls]
+    if expected_names != actual_names:
+        return "wrong_tool"
+    expected_args = [call.get("arguments", {}) for call in expected_calls]
+    actual_args = [call.get("arguments", {}) for call in actual_calls]
+    if expected_args != actual_args:
+        return "argument_mismatch"
+    if row.get("executable_match") is False:
+        return "executable_miss"
+    return "unknown_mismatch"
 
 
 def _last_output_list(execution: list[dict[str, Any]], key: str) -> list[str]:
