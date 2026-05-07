@@ -1,0 +1,47 @@
+[
+  {
+    "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_canonical_json_copy",
+    "tool_prompt_contract_id": "canonical_json_copy_v3",
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave3_dry_run_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_canonical_json_copy",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "/Users/cheickdiakite/Codex/moonie/scripts/run_tool_directive_probe.py",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_canonical_json_copy",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave3_dry_run_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_canonical_json_copy"
+    ]
+  },
+  {
+    "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_tool_initiation",
+    "tool_prompt_contract_id": "visual_tool_initiation_v3",
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave3_dry_run_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_tool_initiation",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "/Users/cheickdiakite/Codex/moonie/scripts/run_tool_directive_probe.py",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_tool_initiation",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave3_dry_run_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_tool_initiation"
+    ]
+  },
+  {
+    "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_parallel_two_call_array",
+    "tool_prompt_contract_id": "parallel_two_call_array_v3",
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave3_dry_run_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_parallel_two_call_array",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "/Users/cheickdiakite/Codex/moonie/scripts/run_tool_directive_probe.py",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_parallel_two_call_array",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave3_dry_run_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_parallel_two_call_array"
+    ]
+  }
+]
