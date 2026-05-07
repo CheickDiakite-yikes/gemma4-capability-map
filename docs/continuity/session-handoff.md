@@ -44,10 +44,17 @@ Current strongest MLX result:
 Current next loop:
 
 1. Treat H1i candidate v1 and repeat3 as saturated/non-discriminating after the probe gate.
-2. Define a harder probe-derived live packet around visual/parallel no-call and argument-mismatch cases.
+2. Run the H1j probe-derived live candidate packet:
+   `uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1j_slice.yaml --packet-id mlx_probe_derived_tool_contract_candidates --run-group-id <timestamp>_h1j_probe_derived_candidates_v1`
 3. Design a second prompt-contract wave that combines schema anchoring with visual executable recovery and reduces no-call failures.
 4. Return to H1h only after H1i changes for the right mechanism-level reason.
 5. Regenerate the report artifacts after any H1i/H1h/probe/Gemini packet change.
+
+H1j source:
+
+- config: [`configs/knowledge_work_h1j_slice.yaml`](../../configs/knowledge_work_h1j_slice.yaml)
+- brief: [`docs/continuity/h1j-slice.md`](./h1j-slice.md)
+- note: `parallel_audit_array_literal` remains deferred until a faithful live packaged workflow exists
 
 The current research seam is no longer “make the rows tie.”
 

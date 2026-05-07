@@ -2751,6 +2751,14 @@
   - all five rows matched at `real_world_readiness_avg = 0.97710`, `strict_interface_avg = 1.0`, `recovered_execution_avg = 1.0`, `controller_repair_avg = 0.0`, `argument_repair_avg = 0.0`, `controller_fallback_avg = 0.0`, and `raw_planning_clean_rate_avg = 1.0`
   - trace analysis found `0` note events and `0` failure candidates
   - interpretation: repeated H1i is a clean negative result. The saturated candidate packet is stable, not flaky. The next packet needs probe-derived live cases, especially visual/parallel no-call and argument-mismatch cases, rather than more repeats of these packaged workflows
+- H1j is now scaffolded as the probe-derived live packet:
+  - config: [`configs/knowledge_work_h1j_slice.yaml`](../configs/knowledge_work_h1j_slice.yaml)
+  - brief: [`docs/continuity/h1j-slice.md`](continuity/h1j-slice.md)
+  - candidate packet id: `mlx_probe_derived_tool_contract_candidates`
+  - helper-ablation packet id: `mlx_probe_derived_helper_ablation`
+  - it selects six packaged live workflows that map to the no-directive probe failures: visual no-call/readback pressure plus API/CLI argument mismatch
+  - `parallel_audit_array_literal` is explicitly deferred because the current packaged live surface has no faithful parallel-tool workflow
+  - dry-run validation produced the expected command with `5` systems and `6` live episode ids
 
 ### Verification
 

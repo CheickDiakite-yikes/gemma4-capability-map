@@ -133,14 +133,13 @@ The active next experiment is now a CLI/research-harness packet, not a UI task:
 
 The current read is partial-gain and second-stage saturation: `schema_anchor_v1` recovered one exact probe case, while `literal_argument_guard_v1` and `tool_required_parallel_v1` recovered the executable visual target without improving exact JSON copy. The H1i candidate packet then saturated across all five rows, and the repeat3 packet repeated that saturation across `60` traces with `0` notes and `0` failure candidates. The intended order is now: build probe-derived live cases, design a second prompt-contract wave, and return to full H1h only after a harder slice moves for the right reason.
 
-The runner-side second-stage check is available now:
+The next live packet is H1j, a probe-derived packaged-workflow slice:
 
 ```bash
 uv run python scripts/run_knowledge_work_h1_ablation_packet.py \
-  --config configs/knowledge_work_h1i_slice.yaml \
-  --packet-id mlx_prompt_contract_candidates \
-  --run-group-id 20260507T_h1i_prompt_contract_candidates_repeat3_v1 \
-  --repeat 3
+  --config configs/knowledge_work_h1j_slice.yaml \
+  --packet-id mlx_probe_derived_tool_contract_candidates \
+  --run-group-id <timestamp>_h1j_probe_derived_candidates_v1
 ```
 
 ## Local Agent Harness

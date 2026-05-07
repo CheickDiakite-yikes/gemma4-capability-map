@@ -153,6 +153,13 @@ Latest MLX tool-contract research:
   - repeated H1i candidate packet: [`results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_repeat3_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_repeat3_v1_knowledge_work_ablation_packet)
   - H1i repeat3 result: `60` traces, all five rows matched readiness `0.97710`, strict/recovered `1.0 / 1.0`, repair/fallback/argument repair `0.0 / 0.0 / 0.0`, raw clean `1.0`, with `0` trace notes and `0` failure candidates
   - interpretation: the probe remains the stronger discriminator; one-pass and repeated H1i are both saturated, so the next packet should be probe-derived live cases before another broad H1h run
+- H1j probe-derived live scaffold:
+  - config: [`configs/knowledge_work_h1j_slice.yaml`](../../configs/knowledge_work_h1j_slice.yaml)
+  - brief: [`docs/continuity/h1j-slice.md`](./h1j-slice.md)
+  - candidate packet id: `mlx_probe_derived_tool_contract_candidates`
+  - helper-ablation packet id: `mlx_probe_derived_helper_ablation`
+  - shape: six packaged live workflows mapping no-directive probe failures into live API/CLI argument mismatch and visual no-call/readback pressure
+  - parallel no-call remains deferred until a faithful live packaged workflow exists
 
 Current generated research report:
 

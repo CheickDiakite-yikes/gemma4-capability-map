@@ -128,6 +128,12 @@ What remains:
 - treat the H1i candidate packet as saturated/non-discriminating after the probe gate
 - treat repeated H1i as a completed negative result; it confirms this packet is too deterministic for candidate validation
 - define a harder probe-derived live packet before spending another full H1h run; force the visual/parallel no-call and argument-mismatch probe families into live execution
+- H1j now scaffolds the packaged-workflow-only version of that packet:
+  - config: [`configs/knowledge_work_h1j_slice.yaml`](../../configs/knowledge_work_h1j_slice.yaml)
+  - brief: [`docs/continuity/h1j-slice.md`](./h1j-slice.md)
+  - candidate packet id: `mlx_probe_derived_tool_contract_candidates`
+  - helper-ablation packet id: `mlx_probe_derived_helper_ablation`
+  - parallel no-call is explicitly deferred because there is no faithful live packaged workflow for `parallel_audit_array_literal` yet
 - design a second prompt-contract wave that combines schema anchoring with visual executable recovery and directly targets the remaining no-call failures
 - promote a candidate beyond H1i only if it moves raw-clean or controller-burden metrics for the right reason
 - regenerate the MLX tool-contract report after any H1i, H1h, probe, or Gemini baseline packet changes
@@ -144,6 +150,7 @@ uv run python scripts/run_tool_prompt_contract_probe_packet.py --run-group-id <t
 uv run python scripts/summarize_tool_prompt_contract_probe_packet.py results/tool_prompt_contract_probe_packets/<packet_id>
 uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1i_slice.yaml --packet-id mlx_prompt_contract_candidates --run-group-id <timestamp>_h1i_prompt_contract_candidates
 uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1i_slice.yaml --packet-id mlx_prompt_contract_candidates --run-group-id 20260507T_h1i_prompt_contract_candidates_repeat3_v1 --repeat 3
+uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1j_slice.yaml --packet-id mlx_probe_derived_tool_contract_candidates --run-group-id <timestamp>_h1j_probe_derived_candidates_v1
 uv run python scripts/summarize_h1_tool_contract.py results/knowledge_work_h1_slice/<packet_id>
 ```
 

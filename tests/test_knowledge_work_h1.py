@@ -26,6 +26,7 @@ H1F_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_w
 H1G_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1g_slice.yaml"
 H1H_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1h_slice.yaml"
 H1I_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1i_slice.yaml"
+H1J_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1j_slice.yaml"
 
 
 def test_h1_slice_config_maps_to_existing_packaged_workflows_and_episodes() -> None:
@@ -302,6 +303,44 @@ def test_h1i_slice_config_maps_to_prompt_contract_candidate_packet() -> None:
         "visual_stepwise_control",
         "parallel_tool_protocol",
     ]
+
+
+def test_h1j_slice_config_maps_to_probe_derived_live_packet() -> None:
+    config = load_h1_slice(H1J_CONFIG_PATH)
+
+    errors = validate_h1_slice(config)
+
+    assert errors == []
+    assert config.name == "knowledge_work_h1j_probe_derived_tool_contract_live"
+    assert len(config.workflow_families) == 6
+    assert [family.workflow_id for family in config.workflow_families] == [
+        "executive_visual_dashboard_review",
+        "executive_visual_referent_review",
+        "jobs_visual_constraint_override",
+        "jobs_phone_patch_resume",
+        "finance_visual_invoice_review",
+        "finance_billing_patch_hold",
+    ]
+    packet = h1_packet_selection(config, "mlx_probe_derived_tool_contract_candidates")
+    assert packet.lane == "live_web_stress"
+    assert packet.system_ids == [
+        "mlx_gemma4_e2b_reasoner_only",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_literal_guard",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_tool_required",
+    ]
+    assert packet.episode_ids == [
+        "kwa_exec_live_visual_dashboard_brief",
+        "kwa_exec_live_visual_dashboard_referent_hold_v3",
+        "kwa_jobs_live_visual_constraint_override_hold_v2",
+        "kwa_jobs_live_phone_patch_resume_hold_v4",
+        "kwa_finance_live_invoice_lock_direction_hold_v4",
+        "kwa_finance_live_diff_review_hold_v5",
+    ]
+    assert "no_tool_call" in packet.failure_modes
+    assert "argument_mismatch" in packet.failure_modes
+    assert "parallel_tool_protocol_deferred" in packet.failure_modes
 
 
 def test_h1_primary_run_specs_default_to_mlx_gemma_reasoner_only() -> None:
