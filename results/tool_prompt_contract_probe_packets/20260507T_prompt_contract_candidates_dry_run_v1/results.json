@@ -1,0 +1,95 @@
+{
+  "packet_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_dry_run_v1",
+  "manifest": {
+    "packet_run_id": "20260507T_prompt_contract_candidates_dry_run_v1",
+    "created_at": "2026-05-07T01:00:16.866769+00:00",
+    "baseline_probe_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_directive_probe/20260506T_mlx_tool_directive_probe_v4",
+    "registry_path": "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+    "execute": false,
+    "system_ids": [
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_literal_guard",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_tool_required"
+    ]
+  },
+  "candidate_count": 3,
+  "executed_count": 0,
+  "dry_run_count": 3,
+  "rows": [
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor",
+      "tool_prompt_contract_id": "schema_anchor_v1",
+      "execute": false,
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_dry_run_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor",
+      "comparison_path": "",
+      "exact_match_rate": "",
+      "executable_match_rate": ""
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_literal_guard",
+      "tool_prompt_contract_id": "literal_argument_guard_v1",
+      "execute": false,
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_dry_run_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_literal_guard",
+      "comparison_path": "",
+      "exact_match_rate": "",
+      "executable_match_rate": ""
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_tool_required",
+      "tool_prompt_contract_id": "tool_required_parallel_v1",
+      "execute": false,
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_dry_run_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_tool_required",
+      "comparison_path": "",
+      "exact_match_rate": "",
+      "executable_match_rate": ""
+    }
+  ],
+  "commands": [
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor",
+      "tool_prompt_contract_id": "schema_anchor_v1",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_dry_run_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor",
+      "command": [
+        "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+        "/Users/cheickdiakite/Codex/moonie/scripts/run_tool_directive_probe.py",
+        "--system-id",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor",
+        "--registry",
+        "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+        "--output-dir",
+        "/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_dry_run_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor"
+      ]
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_literal_guard",
+      "tool_prompt_contract_id": "literal_argument_guard_v1",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_dry_run_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_literal_guard",
+      "command": [
+        "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+        "/Users/cheickdiakite/Codex/moonie/scripts/run_tool_directive_probe.py",
+        "--system-id",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_literal_guard",
+        "--registry",
+        "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+        "--output-dir",
+        "/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_dry_run_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_literal_guard"
+      ]
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_tool_required",
+      "tool_prompt_contract_id": "tool_required_parallel_v1",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_dry_run_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_tool_required",
+      "command": [
+        "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+        "/Users/cheickdiakite/Codex/moonie/scripts/run_tool_directive_probe.py",
+        "--system-id",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_tool_required",
+        "--registry",
+        "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+        "--output-dir",
+        "/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_dry_run_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_tool_required"
+      ]
+    }
+  ],
+  "results": []
+}
