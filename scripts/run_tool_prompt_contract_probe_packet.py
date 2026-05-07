@@ -27,10 +27,16 @@ WAVE2_CANDIDATE_SYSTEM_IDS = [
     "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_next_call_state",
     "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_parallel_array_required",
 ]
+WAVE3_CANDIDATE_SYSTEM_IDS = [
+    "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_canonical_json_copy",
+    "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_tool_initiation",
+    "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_parallel_two_call_array",
+]
 PROMPT_CONTRACT_WAVES = {
     "v1": DEFAULT_CANDIDATE_SYSTEM_IDS,
     "v2": WAVE2_CANDIDATE_SYSTEM_IDS,
-    "all": [*DEFAULT_CANDIDATE_SYSTEM_IDS, *WAVE2_CANDIDATE_SYSTEM_IDS],
+    "v3": WAVE3_CANDIDATE_SYSTEM_IDS,
+    "all": [*DEFAULT_CANDIDATE_SYSTEM_IDS, *WAVE2_CANDIDATE_SYSTEM_IDS, *WAVE3_CANDIDATE_SYSTEM_IDS],
 }
 
 

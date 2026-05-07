@@ -16,12 +16,15 @@ def test_prompt_contract_registry_exposes_current_candidate_ids() -> None:
     ids = known_tool_prompt_contract_ids()
 
     assert ids == [
+        "canonical_json_copy_v3",
         "literal_argument_guard_v1",
         "parallel_array_required_v2",
+        "parallel_two_call_array_v3",
         "schema_anchor_v1",
         "schema_literal_tool_required_v2",
         "tool_required_parallel_v1",
         "visual_next_call_state_v2",
+        "visual_tool_initiation_v3",
     ]
     assert get_tool_prompt_contract("schema_anchor_v1") is not None
 
@@ -73,3 +76,19 @@ def test_research_controls_carry_prompt_contract_id_in_manifest() -> None:
         "disable_tool_turn_directive": True,
         "tool_prompt_contract_id": "schema_anchor_v1",
     }
+
+
+def test_wave_three_contracts_target_live_replay_mechanisms_without_oracle_calls() -> None:
+    specs = build_default_registry().specs
+    rendered = render_tool_prompt_contract(
+        "parallel_two_call_array_v3",
+        messages=[Message(role="user", content="Cross-check the screenshot and config/settings.yaml before answering.")],
+        media=["img-parallel"],
+        tool_specs=[specs["inspect_image"], specs["read_repo_file"]],
+    )
+
+    assert "Tool prompt contract candidate: parallel_two_call_array_v3" in rendered
+    assert "one tool-call object per source" in rendered
+    assert "Allowed tool names for this turn: inspect_image, read_repo_file." in rendered
+    assert '{"name":"inspect_image"' not in rendered
+    assert "config/settings.yaml" not in rendered

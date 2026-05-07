@@ -55,6 +55,24 @@ def test_tool_prompt_contract_probe_packet_can_select_second_wave(tmp_path: Path
     }
 
 
+def test_tool_prompt_contract_probe_packet_can_select_third_wave(tmp_path: Path) -> None:
+    packet = SCRIPT.build_tool_prompt_contract_probe_packet(
+        output_root=tmp_path,
+        run_group_id="candidate_probe_wave3_dry_run",
+        candidate_wave="v3",
+        execute=False,
+    )
+
+    assert packet["candidate_count"] == 3
+    assert packet["manifest"]["candidate_wave"] == "v3"
+    contract_ids = {row["tool_prompt_contract_id"] for row in packet["rows"]}
+    assert contract_ids == {
+        "canonical_json_copy_v3",
+        "visual_tool_initiation_v3",
+        "parallel_two_call_array_v3",
+    }
+
+
 def test_tool_prompt_contract_probe_packet_validates_candidate_controls(tmp_path: Path) -> None:
     registry_path = tmp_path / "registry.yaml"
     registry_path.write_text(

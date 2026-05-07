@@ -807,6 +807,9 @@ def _candidate_label(system_id: str) -> str:
         "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_literal_tool_required": "schema literal required",
         "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_next_call_state": "visual next call",
         "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_parallel_array_required": "parallel array",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_canonical_json_copy": "canonical JSON",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_tool_initiation": "visual initiation",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_parallel_two_call_array": "parallel two-call",
     }
     return suffixes.get(system_id, system_id)
 

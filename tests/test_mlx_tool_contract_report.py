@@ -45,8 +45,13 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
         "schema_literal_tool_required_v2",
         "visual_next_call_state_v2",
         "parallel_array_required_v2",
+        "canonical_json_copy_v3",
+        "visual_tool_initiation_v3",
+        "parallel_two_call_array_v3",
     }
     assert candidates["schema_anchor_v1"]["disable_tool_turn_directive"] is True
+    assert candidates["canonical_json_copy_v3"]["label"] == "Canonical JSON Copy v3"
+    assert candidates["parallel_two_call_array_v3"]["disable_tool_turn_directive"] is True
     gates = {row["tool_prompt_contract_id"]: row for row in payload["prompt_contract_probe_gates"]}
     assert gates["schema_anchor_v1"]["recommendation"] == "weak_exact_gain"
     assert gates["literal_argument_guard_v1"]["recommendation"] == "visual_executable_gain_only"

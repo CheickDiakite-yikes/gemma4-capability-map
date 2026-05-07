@@ -126,6 +126,48 @@ TOOL_PROMPT_CONTRACTS: dict[str, ToolPromptContract] = {
             "After parallel tool results are available, use the latest results to decide whether another tool call is needed.",
         ),
     ),
+    "canonical_json_copy_v3": ToolPromptContract(
+        contract_id="canonical_json_copy_v3",
+        label="Canonical JSON Copy v3",
+        description="Targets exact CLI/API argument fidelity with concise JSON-only and literal-copy rules.",
+        hypothesis="Live replay shows no-directive MLX often enters the tool protocol but drifts on canonical CLI/API arguments; tighter token-copy rules may reduce argument repair without leaking the planned call.",
+        tags=("schema", "arguments", "canonicalization", "json", "cli", "api"),
+        instructions=(
+            "When the user asks to inspect, search, read, update, or patch with listed tools, output only valid tool-call JSON.",
+            'Use exactly {"name":"tool_name","arguments":{...}} for one call; do not add markdown, prose, comments, or alternate keys.',
+            "Choose argument values by literal copy from the current prompt or latest tool result; do not paraphrase, normalize, translate, or abbreviate them.",
+            "For CLI/API calls, keep path, query, record_type, record_id, field, and value in their separate schema fields exactly as named.",
+            "If a literal path, record id, or query appears with punctuation, hyphens, spaces, or quotes, preserve that spelling inside the JSON string.",
+        ),
+    ),
+    "visual_tool_initiation_v3": ToolPromptContract(
+        contract_id="visual_tool_initiation_v3",
+        label="Visual Tool Initiation v3",
+        description="Targets visual no-call failures by making visual state transitions tool-first and id-preserving.",
+        hypothesis="CLI-live visual replay shows no-directive MLX often answers or defers instead of initiating the next visual tool call; a compact state-transition contract may recover tool entry before exact selector tuning.",
+        tags=("visual", "no_tool_call", "state_machine", "readback", "arguments"),
+        instructions=(
+            "When visual tools are listed and the user asks about visible state, make a visual tool call before prose.",
+            "Use the latest visual state, not a guessed description, to choose the next visual tool.",
+            "Carry image_id, selection_id, region_id, target_query, and filter_query literally from the latest user or tool message.",
+            "If the task asks to locate a target, call the locating or refinement tool with the literal target_query or filter_query.",
+            "If the task asks to read remaining text or verify a region, call read_region_text with the latest region_id and image_id.",
+        ),
+    ),
+    "parallel_two_call_array_v3": ToolPromptContract(
+        contract_id="parallel_two_call_array_v3",
+        label="Parallel Two-Call Array v3",
+        description="Targets independent evidence-gathering by requiring one JSON-array element per available source.",
+        hypothesis="CLI-live parallel replay shows no-directive MLX asks the operator for inputs already present; explicit source-count and array-shape rules may preserve the two-call contract.",
+        tags=("parallel", "no_tool_call", "json_array", "multi_source", "arguments"),
+        instructions=(
+            "When the request asks for independent checks across two available sources, output a JSON array with exactly one tool-call object per source.",
+            "Do not ask the user to provide a file, screenshot, id, or path that is already present in the prompt, media, or latest tool result.",
+            "Each array element must use one listed tool name, the exact schema field names, and literal source identifiers.",
+            "Keep visual inspection and file/repo/API lookup as separate array elements when both are needed.",
+            "Use the same turn for the independent calls; do not serialize them into prose instructions or defer the second call.",
+        ),
+    ),
 }
 
 
