@@ -112,6 +112,12 @@ DEFAULT_LIVE_VISUAL_REPLAY_COMPARISON = (
     / "tool_probe_replay_live_comparisons"
     / "20260507T_visual_state_contracted_vs_no_directive_live_v1"
 )
+DEFAULT_LIVE_CANONICAL_REPLAY_COMPARISON = (
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260507T_canonical_argument_contracted_vs_no_directive_live_v1"
+)
 
 SYSTEM_LABELS = {
     "mlx_gemma4_e2b_reasoner_only": "contracted",
@@ -144,6 +150,7 @@ def build_report(
     canonical_argument_replay_comparison: str | Path = DEFAULT_CANONICAL_ARGUMENT_REPLAY_COMPARISON,
     live_parallel_replay_comparison: str | Path = DEFAULT_LIVE_PARALLEL_REPLAY_COMPARISON,
     live_visual_replay_comparison: str | Path = DEFAULT_LIVE_VISUAL_REPLAY_COMPARISON,
+    live_canonical_replay_comparison: str | Path = DEFAULT_LIVE_CANONICAL_REPLAY_COMPARISON,
     registry_path: str | Path = DEFAULT_REGISTRY_PATH,
 ) -> dict[str, Any]:
     target = Path(output_dir)
@@ -216,8 +223,13 @@ def build_report(
         (Path(live_visual_replay_comparison) / "live_replay_comparison.json").read_text(encoding="utf-8")
     )
     live_visual_replay_case_rows = _csv_rows(Path(live_visual_replay_comparison) / "live_replay_case_deltas.csv")
+    live_canonical_replay_comparison_payload = json.loads(
+        (Path(live_canonical_replay_comparison) / "live_replay_comparison.json").read_text(encoding="utf-8")
+    )
+    live_canonical_replay_case_rows = _csv_rows(Path(live_canonical_replay_comparison) / "live_replay_case_deltas.csv")
     live_replay_focus_rows = _live_replay_focus_rows(
         [
+            ("canonical arguments", live_canonical_replay_comparison_payload),
             ("parallel array", live_parallel_replay_comparison_payload),
             ("visual no-call", live_visual_replay_comparison_payload),
         ]
@@ -246,6 +258,7 @@ def build_report(
     _write_csv(tables_dir / "exact_probe_replay_focus_summary.csv", exact_replay_focus_rows)
     _write_csv(tables_dir / "live_parallel_replay_case_deltas.csv", live_parallel_replay_case_rows)
     _write_csv(tables_dir / "live_visual_replay_case_deltas.csv", live_visual_replay_case_rows)
+    _write_csv(tables_dir / "live_canonical_replay_case_deltas.csv", live_canonical_replay_case_rows)
 
     _write_grouped_metric_svg(
         figures_dir / "h1i_readiness_strict_recovered.svg",
@@ -449,8 +462,9 @@ def build_report(
         "canonical_argument_replay_comparison": str(Path(canonical_argument_replay_comparison).resolve()),
         "live_parallel_replay_comparison": str(Path(live_parallel_replay_comparison).resolve()),
         "live_visual_replay_comparison": str(Path(live_visual_replay_comparison).resolve()),
+        "live_canonical_replay_comparison": str(Path(live_canonical_replay_comparison).resolve()),
         "registry_path": str(Path(registry_path).resolve()),
-        "table_count": 23,
+        "table_count": 24,
         "figure_count": 16,
     }
     report_payload = {
@@ -478,6 +492,8 @@ def build_report(
         "live_parallel_replay_case_deltas": live_parallel_replay_case_rows,
         "live_visual_replay_comparison": live_visual_replay_comparison_payload,
         "live_visual_replay_case_deltas": live_visual_replay_case_rows,
+        "live_canonical_replay_comparison": live_canonical_replay_comparison_payload,
+        "live_canonical_replay_case_deltas": live_canonical_replay_case_rows,
         "live_replay_focus_summary": live_replay_focus_rows,
         "gemini": gemini_manifest,
     }
@@ -512,6 +528,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--canonical-argument-replay-comparison", default=str(DEFAULT_CANONICAL_ARGUMENT_REPLAY_COMPARISON))
     parser.add_argument("--live-parallel-replay-comparison", default=str(DEFAULT_LIVE_PARALLEL_REPLAY_COMPARISON))
     parser.add_argument("--live-visual-replay-comparison", default=str(DEFAULT_LIVE_VISUAL_REPLAY_COMPARISON))
+    parser.add_argument("--live-canonical-replay-comparison", default=str(DEFAULT_LIVE_CANONICAL_REPLAY_COMPARISON))
     parser.add_argument("--registry", default=str(DEFAULT_REGISTRY_PATH))
     return parser.parse_args()
 
@@ -539,6 +556,7 @@ def main() -> None:
         canonical_argument_replay_comparison=args.canonical_argument_replay_comparison,
         live_parallel_replay_comparison=args.live_parallel_replay_comparison,
         live_visual_replay_comparison=args.live_visual_replay_comparison,
+        live_canonical_replay_comparison=args.live_canonical_replay_comparison,
         registry_path=args.registry,
     )
     print(
@@ -814,6 +832,8 @@ def _markdown_report(payload: dict[str, Any]) -> str:
     live_parallel_replay_case_rows = payload["live_parallel_replay_case_deltas"]
     live_visual_replay_summary = payload["live_visual_replay_comparison"]["summary"]
     live_visual_replay_case_rows = payload["live_visual_replay_case_deltas"]
+    live_canonical_replay_summary = payload["live_canonical_replay_comparison"]["summary"]
+    live_canonical_replay_case_rows = payload["live_canonical_replay_case_deltas"]
     live_replay_focus_rows = payload["live_replay_focus_summary"]
     gemini = payload["gemini"]
     lines = [
@@ -933,6 +953,14 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "",
         "The visual CLI-live comparison mirrors the focused visual replay: no-directive emits no tool calls in all three cases, while contracted MLX recovers two exact calls and one executable visual paraphrase.",
         "",
+        f"- Canonical contracted exact rate: `{live_canonical_replay_summary['baseline_exact_rate']}`",
+        f"- Canonical no-directive exact rate: `{live_canonical_replay_summary['candidate_exact_rate']}`",
+        f"- Canonical delta exact rate: `{live_canonical_replay_summary['delta_exact_rate']}`",
+        "",
+        _markdown_table(live_canonical_replay_case_rows),
+        "",
+        "The canonical CLI/API comparison isolates argument fidelity: both rows emit one tool call per case, but no-directive misses canonical paths, ids, or query strings in all four cases.",
+        "",
         "## CLI-Live Focused Replay Summary",
         "",
         _markdown_table(live_replay_focus_rows),
@@ -1013,6 +1041,7 @@ def _markdown_report(payload: dict[str, Any]) -> str:
             f"- Parallel replay comparison: `{payload['manifest']['parallel_replay_comparison']}`",
             f"- CLI-live parallel replay comparison: `{payload['manifest']['live_parallel_replay_comparison']}`",
             f"- CLI-live visual replay comparison: `{payload['manifest']['live_visual_replay_comparison']}`",
+            f"- CLI-live canonical replay comparison: `{payload['manifest']['live_canonical_replay_comparison']}`",
             f"- Gemini dry-run baseline: `{payload['manifest']['gemini_packet']}`",
             "",
         ]

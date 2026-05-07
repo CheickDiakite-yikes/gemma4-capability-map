@@ -34,7 +34,7 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
 
     assert payload["gemini"]["dry_run"] is True
     assert payload["gemini"]["workflow_count"] == 10
-    assert payload["manifest"]["table_count"] == 23
+    assert payload["manifest"]["table_count"] == 24
     assert payload["manifest"]["figure_count"] == 16
 
     candidates = {row["tool_prompt_contract_id"]: row for row in payload["prompt_contract_candidates"]}
@@ -81,7 +81,13 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert live_visual["candidate_exact_rate"] == 0.0
     live_visual_cases = {row["case_id"]: row for row in payload["live_visual_replay_case_deltas"]}
     assert live_visual_cases["visual_latest_filter_literal"]["delta_actual_call_count"] == "-1"
+    live_canonical = payload["live_canonical_replay_comparison"]["summary"]
+    assert live_canonical["baseline_exact_rate"] == 1.0
+    assert live_canonical["candidate_exact_rate"] == 0.0
+    live_canonical_cases = {row["case_id"]: row for row in payload["live_canonical_replay_case_deltas"]}
+    assert live_canonical_cases["cli_invoice_lock_hyphen_query"]["delta_actual_call_count"] == "0"
     live_focus = {row["slice"]: row for row in payload["live_replay_focus_summary"]}
+    assert live_focus["canonical arguments"]["delta_exact_rate"] == -1.0
     assert live_focus["parallel array"]["delta_exact_rate"] == -1.0
     assert live_focus["visual no-call"]["shared_case_count"] == 3
     h1i_candidates = {row["system_id"]: row for row in payload["h1i_prompt_contract_candidate_metrics"]}
@@ -125,6 +131,7 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert (tmp_path / "tables" / "exact_probe_replay_focus_summary.csv").exists()
     assert (tmp_path / "tables" / "live_parallel_replay_case_deltas.csv").exists()
     assert (tmp_path / "tables" / "live_visual_replay_case_deltas.csv").exists()
+    assert (tmp_path / "tables" / "live_canonical_replay_case_deltas.csv").exists()
     assert (tmp_path / "figures" / "h1i_readiness_strict_recovered.svg").exists()
     assert (tmp_path / "figures" / "h1h_h1i_controller_burden.svg").exists()
     assert (tmp_path / "figures" / "prompt_contract_candidate_targets.svg").exists()

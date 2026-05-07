@@ -1,6 +1,6 @@
 # MLX Tool-Contract Harnessing Report
 
-Generated: `2026-05-07T03:32:09.131965+00:00`
+Generated: `2026-05-07T03:36:56.768699+00:00`
 
 ## Executive Read
 
@@ -166,10 +166,24 @@ This is the live-operator counterpart to the focused parallel-array replay. The 
 
 The visual CLI-live comparison mirrors the focused visual replay: no-directive emits no tool calls in all three cases, while contracted MLX recovers two exact calls and one executable visual paraphrase.
 
+- Canonical contracted exact rate: `1.0`
+- Canonical no-directive exact rate: `0.0`
+- Canonical delta exact rate: `-1.0`
+
+| case_id | family | source_failure_mode | baseline_replay_exact_match | candidate_replay_exact_match | delta_exact_match | baseline_replay_executable_match | candidate_replay_executable_match | delta_executable_match | baseline_replay_failure_mode | candidate_replay_failure_mode | baseline_actual_call_count | candidate_actual_call_count | delta_actual_call_count |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| api_form_issue_fetch | api_canonicalization | argument_mismatch | True | False | -1 |  |  |  | exact | argument_mismatch | 1 | 1 | 0 |
+| api_invoice_lock_hold_update | api_canonicalization | argument_mismatch | True | False | -1 |  |  |  | exact | argument_mismatch | 1 | 1 | 0 |
+| cli_invoice_lock_hyphen_query | cli_canonicalization | argument_mismatch | True | False | -1 |  |  |  | exact | argument_mismatch | 1 | 1 | 0 |
+| cli_phone_patch_latest_only | cli_patch_copying | argument_mismatch | True | False | -1 |  |  |  | exact | argument_mismatch | 1 | 1 | 0 |
+
+The canonical CLI/API comparison isolates argument fidelity: both rows emit one tool call per case, but no-directive misses canonical paths, ids, or query strings in all four cases.
+
 ## CLI-Live Focused Replay Summary
 
 | slice | shared_case_count | baseline_exact_rate | candidate_exact_rate | delta_exact_rate | case_delta_count |
 | --- | --- | --- | --- | --- | --- |
+| canonical arguments | 4 | 1.0 | 0.0 | -1.0 | 4 |
 | parallel array | 1 | 1.0 | 0.0 | -1.0 | 1 |
 | visual no-call | 3 | 0.6666666666666666 | 0.0 | -0.6666666666666666 | 3 |
 
@@ -283,4 +297,5 @@ This packet is deliberately a dry-run prompt and command manifest. It is an exte
 - Parallel replay comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_comparisons/20260507T_parallel_array_contracted_vs_no_directive_v1`
 - CLI-live parallel replay comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260507T_parallel_array_contracted_vs_no_directive_live_v1`
 - CLI-live visual replay comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260507T_visual_state_contracted_vs_no_directive_live_v1`
+- CLI-live canonical replay comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260507T_canonical_argument_contracted_vs_no_directive_live_v1`
 - Gemini dry-run baseline: `/Users/cheickdiakite/Codex/moonie/results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1`

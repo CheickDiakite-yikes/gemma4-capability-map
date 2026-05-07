@@ -82,6 +82,7 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 | [`exact-probe replay packet`](../../results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1) | Dry-run replay artifacts for the eight failed no-directive exact-call probe cases. |
 | [`CLI-live parallel replay comparison`](../../results/tool_probe_replay_live_comparisons/20260507T_parallel_array_contracted_vs_no_directive_live_v1) | Operator-surface A/B for the parallel-array exact replay case. |
 | [`CLI-live visual replay comparison`](../../results/tool_probe_replay_live_comparisons/20260507T_visual_state_contracted_vs_no_directive_live_v1) | Operator-surface A/B for the visual no-call exact replay cases. |
+| [`CLI-live canonical replay comparison`](../../results/tool_probe_replay_live_comparisons/20260507T_canonical_argument_contracted_vs_no_directive_live_v1) | Operator-surface A/B for CLI/API canonical argument exact replay cases. |
 | [`Gemini CLI dry-run baseline`](../../results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1) | External-reference prompt and command manifest over the H1h workflow families. |
 
 ## Packet Summary
@@ -272,6 +273,7 @@ Generated replay tables:
 - [`exact_probe_replay_focus_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/exact_probe_replay_focus_summary.csv)
 - [`live_parallel_replay_case_deltas.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/live_parallel_replay_case_deltas.csv)
 - [`live_visual_replay_case_deltas.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/live_visual_replay_case_deltas.csv)
+- [`live_canonical_replay_case_deltas.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/live_canonical_replay_case_deltas.csv)
 
 ## CLI-Live Parallel Replay
 
@@ -304,6 +306,19 @@ The visual no-call family has the same live shape:
 Together, the parallel and visual live replay packets make the current conclusion more precise: packaged workflow completion can saturate, but exact live replay still shows the model-side directive carrying the raw tool-protocol behavior.
 
 The live comparison tables also record executable-match deltas. That matters for `visual_form_target_literal`: contracted MLX is non-exact but executable, while no-directive MLX makes no call at all.
+
+The canonical CLI/API cases complete the live replay set:
+
+- contracted packet: [`results/tool_probe_replay_live/20260507T_canonical_argument_contracted_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_canonical_argument_contracted_live_execute_v1)
+- no-directive packet: [`results/tool_probe_replay_live/20260507T_canonical_argument_no_directive_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_canonical_argument_no_directive_live_execute_v1)
+- comparison: [`results/tool_probe_replay_live_comparisons/20260507T_canonical_argument_contracted_vs_no_directive_live_v1`](../../results/tool_probe_replay_live_comparisons/20260507T_canonical_argument_contracted_vs_no_directive_live_v1)
+
+| Row | Exact | Actual calls | Failure shape |
+| --- | ---: | ---: | --- |
+| contracted | `4 / 4` | `4` | all exact |
+| no directive | `0 / 4` | `4` | all argument mismatch |
+
+This is the cleanest distinction between protocol entry and argument fidelity: no-directive MLX calls tools, but it does not preserve canonical arguments.
 
 ## H1i Candidate Packet Result
 
