@@ -2717,6 +2717,16 @@
     - the no-directive probe drops exact-call compliance from `7 / 8` to `0 / 8`
     - H1i failure modes remain concentrated in fallback planner, visual stepwise control, argument repair, fallback disabled, and repair disabled
   - this should be regenerated after any new H1i, H1h, probe, or Gemini baseline packet
+- The next MLX harnessing wave is now concretely queued as prompt-contract candidates rather than an open-ended prompt-tuning idea:
+  - candidate systems are defined in [`configs/model_registry.yaml`](../configs/model_registry.yaml):
+    - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor`
+    - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_literal_guard`
+    - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_tool_required`
+  - each candidate keeps `disable_tool_turn_directive = true` and adds a generic `tool_prompt_contract_id`, which means the candidate is testing interface-shaping language rather than reintroducing the exact final directive by another name
+  - generated report artifacts now include [`prompt_contract_candidates.csv`](../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_candidates.csv) and [`prompt_contract_candidate_targets.svg`](../results/reports/mlx_tool_contract_harnessing/figures/prompt_contract_candidate_targets.svg)
+  - dry-run probe packet [`20260507T_prompt_contract_candidates_dry_run_v1`](../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_dry_run_v1) freezes the three candidate probe commands without running MLX
+  - H1i now has a named graduation packet, `mlx_prompt_contract_candidates`, that runs contracted MLX, no-directive MLX, and the three candidate rows across the same four worst-family live workflows
+  - empirical gate: execute the probe packet first, compare exact/executable rates against contracted and no-directive baselines, regenerate the report, and only then spend H1i live runtime on candidates that improve raw protocol behavior
 
 ### Verification
 

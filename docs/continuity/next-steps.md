@@ -101,13 +101,26 @@ Current evidence:
   - no-directive with helpers stays top-line clean but uses repair/fallback/argument repair `1.00 / 0.50 / 0.50` and raw clean `0.00`
   - no-directive + no controller repair drops to readiness `0.64697`
   - no-directive + no controller fallback drops to readiness `0.83125`
+- prompt-contract candidate queue:
+  - registry systems:
+    - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor`
+    - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_literal_guard`
+    - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_tool_required`
+  - generated table: [`results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_candidates.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_candidates.csv)
+  - dry-run probe packet: [`results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_dry_run_v1`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_dry_run_v1)
+  - H1i graduation packet id: `mlx_prompt_contract_candidates`
+  - design guardrail: candidates add generic interface contract wording only; they must not embed the exact next planned call
 
 What remains:
 
-- treat H1i as the fast loop for prompt-contract and controller-helper changes before returning to H1h
+- execute the prompt-contract probe packet first; do not jump straight to live H1i
+- compare each candidate against both:
+  - contracted probe baseline: [`results/tool_directive_probe/20260506T_mlx_tool_directive_probe_v4`](../../results/tool_directive_probe/20260506T_mlx_tool_directive_probe_v4)
+  - no-directive probe baseline: [`results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1`](../../results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1)
+- promote only candidates that improve raw exact/executable tool protocol behavior without increasing no-tool-call or argument drift failures
+- run the promoted candidate or candidates through the H1i `mlx_prompt_contract_candidates` packet before returning to H1h
 - regenerate the MLX tool-contract report after any H1i, H1h, probe, or Gemini baseline packet changes
 - when a real Gemini CLI binary is available, rerun the same packet with `--execute`; keep the dry-run packet as the no-side-effects prompt manifest
-- use the no-directive probe misses to design candidate prompt-contract variants, then test them on H1i first
 - keep the H1h comparison commands close:
 
 ```bash
@@ -116,13 +129,15 @@ uv run python scripts/analyze_knowledge_work_h1_traces.py <packet_dir>
 uv run python scripts/summarize_h1_tool_contract.py <packet_dir>
 uv run python scripts/summarize_h1_workflow_families.py <packet_dir> --config configs/knowledge_work_h1h_slice.yaml
 uv run python scripts/compare_tool_directive_probes.py results/tool_directive_probe/20260506T_mlx_tool_directive_probe_v4 results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1
-uv run python scripts/run_knowledge_work_h1_slice.py --config configs/knowledge_work_h1i_slice.yaml --run-set ablation --lane live_web_stress --run-group-id <timestamp>_h1i_candidate
+uv run python scripts/run_tool_prompt_contract_probe_packet.py --run-group-id <timestamp>_prompt_contract_probe_candidates --execute
+uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1i_slice.yaml --packet-id mlx_prompt_contract_candidates --run-group-id <timestamp>_h1i_prompt_contract_candidates
 ```
 
 Success condition:
 
 - every controller or prompt-contract change is evaluated against H1h or a smaller slice derived from its worst workflow families
 - Gemini CLI baseline artifacts are attributable to the same workflow family IDs
+- prompt-contract changes show raw probe improvement before they are allowed into H1i
 - broad aligned `32 / 26` reruns stay paused until this harder packet produces a specific mechanism-level change
 
 ### 3. Keep using focused packets before any broader rerun

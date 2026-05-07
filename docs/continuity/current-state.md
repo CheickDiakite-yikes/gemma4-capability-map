@@ -122,12 +122,24 @@ Latest MLX tool-contract research:
   - no directive + no controller fallback: readiness `0.83125`
   - no directive + no argument repair: readiness `0.81220`
   - interpretation: H1i is the current fast loop for MLX prompt-contract/controller experiments; it preserves H1h's causal ordering while making the no-repair and no-fallback gaps larger
+- Prompt-contract candidate queue:
+  - candidate systems:
+    - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor`
+    - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_literal_guard`
+    - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_tool_required`
+  - candidates deliberately keep `disable_tool_turn_directive = true` and add only generic contract reminders through `tool_prompt_contract_id`; they do not leak the exact planned tool call
+  - generated candidate table: [`results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_candidates.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_candidates.csv)
+  - generated candidate target figure: [`results/reports/mlx_tool_contract_harnessing/figures/prompt_contract_candidate_targets.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/prompt_contract_candidate_targets.svg)
+  - dry-run probe packet: [`results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_dry_run_v1`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_dry_run_v1)
+  - H1i graduation packet: `mlx_prompt_contract_candidates` in [`configs/knowledge_work_h1i_slice.yaml`](../../configs/knowledge_work_h1i_slice.yaml)
+  - interpretation: the next meaningful MLX harnessing question is whether generic prompt contracts can recover raw tool-protocol behavior on the probe before any live H1i spend
 
 Current generated research report:
 
 - human report: [`docs/reports/mlx-tool-contract-harnessing.md`](../reports/mlx-tool-contract-harnessing.md)
 - generated report: [`results/reports/mlx_tool_contract_harnessing/report.md`](../../results/reports/mlx_tool_contract_harnessing/report.md)
 - packet summary table: [`results/reports/mlx_tool_contract_harnessing/tables/packet_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/packet_summary.csv)
+- prompt-contract candidate table: [`results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_candidates.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_candidates.csv)
 - figures: [`results/reports/mlx_tool_contract_harnessing/figures`](../../results/reports/mlx_tool_contract_harnessing/figures)
 - regeneration command:
 
