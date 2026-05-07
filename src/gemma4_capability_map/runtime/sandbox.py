@@ -105,6 +105,10 @@ def prepare_packaged_workflow_sandbox(
         "workflow_id": workflow_id,
         "episode_id": episode_id,
         "source": source,
+        "workflow_tags": list(workflow_payload.get("tags", [])),
+        "episode_tags": list(episode_payload.get("benchmark_tags", [])),
+        "artifact_targets": _artifact_targets(episode_payload),
+        "source_replay_cases": _source_replay_cases(episode_payload),
         "input_dir": str(input_dir.resolve()),
         "output_dir": str(output_dir.resolve()),
         "artifact_dir": str(artifact_dir.resolve()),
@@ -131,6 +135,38 @@ def prepare_packaged_workflow_sandbox(
         output_dir=output_dir.resolve(),
         artifact_dir=artifact_dir.resolve(),
     )
+
+
+def _artifact_targets(episode_payload: dict[str, Any]) -> list[dict[str, str]]:
+    targets: list[dict[str, str]] = []
+    for artifact in episode_payload.get("artifacts", []) or []:
+        if not isinstance(artifact, dict):
+            continue
+        targets.append(
+            {
+                "artifact_id": str(artifact.get("artifact_id", "")),
+                "kind": str(artifact.get("kind", "")),
+                "path_or_target": str(artifact.get("path_or_target", "")),
+            }
+        )
+    return targets
+
+
+def _source_replay_cases(episode_payload: dict[str, Any]) -> list[str]:
+    cases: set[str] = set()
+    for stage in episode_payload.get("stages", []) or []:
+        if not isinstance(stage, dict):
+            continue
+        state_delta = stage.get("expected_state_delta", {})
+        if not isinstance(state_delta, dict):
+            continue
+        value = state_delta.get("source_replay_case")
+        if isinstance(value, str) and value:
+            cases.add(value)
+        values = state_delta.get("source_replay_cases")
+        if isinstance(values, list):
+            cases.update(str(case) for case in values if str(case))
+    return sorted(cases)
 
 
 def assert_path_inside(path: str | Path, root: str | Path) -> Path:

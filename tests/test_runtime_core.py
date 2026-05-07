@@ -124,6 +124,34 @@ def test_runtime_approval_flow_uses_same_session_contract(tmp_path: Path) -> Non
     assert event_kinds[-1] == "completed"
 
 
+def test_parallel_audit_live_sandbox_manifest_records_replay_attribution(tmp_path: Path) -> None:
+    runtime = LocalAgentRuntime(results_root=tmp_path / "runtime")
+
+    session = runtime.launch_session(
+        workflow_id="ops_parallel_audit_review",
+        system_id="oracle_gemma4_e2b",
+        lane="live_web_stress",
+        background=False,
+    )
+
+    manifest = json.loads(Path(session.sandbox_manifest_path).read_text(encoding="utf-8"))
+    assert manifest["entrypoint"] == "packaged_workflow"
+    assert manifest["workflow_id"] == "ops_parallel_audit_review"
+    assert manifest["episode_id"] == "kwa_ops_live_parallel_audit_review_v1"
+    assert manifest["source_replay_cases"] == ["parallel_audit_array_literal"]
+    assert "parallel_tool_calling" in manifest["workflow_tags"]
+    assert "operations_audit" in manifest["episode_tags"]
+    assert manifest["artifact_targets"] == [
+        {
+            "artifact_id": "live_parallel_audit_note",
+            "kind": "memo",
+            "path_or_target": "workspaces/ops-live-parallel-audit-review/live_parallel_audit_note.docx",
+        }
+    ]
+    assert manifest["live_web_policy"]["packaged_workflows_only"] is True
+    assert manifest["allowed_write_roots"] == [str((Path(session.sandbox_root) / "output").resolve())]
+
+
 def test_runtime_recovers_interrupted_sessions_on_startup(tmp_path: Path) -> None:
     runtime = LocalAgentRuntime(results_root=tmp_path / "runtime")
     session = runtime.launch_session(
