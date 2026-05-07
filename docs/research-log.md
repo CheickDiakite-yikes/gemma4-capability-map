@@ -2687,6 +2687,16 @@
   - the H1h/H1f comparison shows no new causal ordering; the larger workflow set mostly adds more instances of the same failure families: fallback planner, visual stepwise control, repair disabled, fallback disabled, argument repair, visual repeated refinement, and visual readback missing
   - workflow-family attribution now makes the next target concrete: executive latest-action resume, jobs phone patch resume, jobs visual form hold, and executive stale brief packet are the worst no-repair rows
   - next empirical move: run an attributable Gemini CLI baseline packet over the same H1h workflow family set, then derive a smaller no-directive stress packet from the worst H1h workflows
+- The H1h Gemini CLI dry-run baseline is now recorded as an external-reference packet:
+  - [`20260507T_h1h_gemini_cli_dry_run_baseline_v1`](../results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1) contains ten prompt/command artifacts, one per H1h workflow family
+  - the run intentionally used a missing binary, so it recorded safe dry-run prompts without executing Gemini CLI or making external side effects
+  - this is useful as a baseline interface contract: future real Gemini CLI execution can be compared against the exact same workflow-family prompts
+- The no-directive MLX tool probe gives a raw-output explanation for H1h controller burden:
+  - [`20260507T_mlx_no_directive_probe_v1`](../results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1) ran the eight exact-call probe cases with `disable_tool_turn_directive`
+  - exact match fell from contracted MLX `7 / 8` to no-directive `0 / 8`
+  - the visual executable target fell from `1 / 1` to `0 / 1`
+  - [`probe_case_deltas.csv`](../results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1/probe_case_deltas.csv) shows CLI/API cases still often choose the right tool but drift on canonical arguments, while visual referent and parallel cases collapse to no tool call
+  - interpretation: the directive is not cosmetic; it is the main model-side contract that keeps local MLX Gemma inside Moonie's tool interface. When it is absent, H1h readiness parity comes from controller repair/fallback rather than raw model compliance
 
 ### Verification
 

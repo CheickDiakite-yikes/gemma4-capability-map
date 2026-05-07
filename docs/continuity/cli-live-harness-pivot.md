@@ -130,6 +130,13 @@ The freshest MLX evidence is now H1h/H1g:
   - no-directive + no controller fallback drops to `0.89598`
   - no-directive + no argument repair drops to `0.83016`
   - workflow-family attribution shows the worst no-repair cases are executive latest-action resume, jobs phone patch resume, jobs visual form hold, and executive stale brief packet
+- the H1h Gemini CLI dry-run packet now exists for the same ten workflow families:
+  - [`results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1`](../../results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1)
+  - this is a prompt/command manifest only; it intentionally did not execute a real Gemini CLI binary
+- the no-directive MLX tool probe makes the prompt-contract gap stark:
+  - no-directive exact copy `0 / 8`
+  - no-directive executable visual target `0 / 1`
+  - contracted-vs-no-directive probe comparison exact-rate delta `-0.875`
 - H1g shows the remaining helpers are not causal under the directive on the compact live slice:
   - `no_visual_rescue`, `no_intent_priority`, and `no_deterministic_visual_follow_on` all match baseline with `0` failure candidates
 - the latest directive probe separates exact-copy from executable readiness:

@@ -100,6 +100,19 @@ Latest MLX tool-contract research:
   - no directive + no argument repair: readiness `0.83016`
   - comparison to H1f: the causal ordering survives the full `10` workflow family set; extra workflows mainly add more instances of the same failure modes
   - workflow-family attribution: [`workflow_family_failures.csv`](../../results/knowledge_work_h1_slice/20260507T_h1h_mlx_full_no_directive_v1_knowledge_work_h1h_mlx_full_tool_contract_ablation_v1/workflow_family_failures.csv) shows the worst no-repair failures on executive latest-action resume, jobs phone patch resume, jobs visual form hold, and executive stale brief packet
+- H1h Gemini CLI dry-run baseline:
+  - packet: [`results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1`](../../results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1)
+  - `workflow_count = 10`
+  - `dry_run_count = 10`
+  - `available_count = 0` because the run intentionally used `definitely-missing-gemini-cli`
+  - interpretation: the repo now has attributable Gemini CLI prompt/command artifacts for the same H1h workflow families without executing any external side effects
+- MLX no-directive tool probe:
+  - packet: [`results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1`](../../results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1)
+  - exact match `0 / 8`
+  - executable visual match `0 / 1`
+  - comparison against contracted MLX probe: [`probe_comparison.json`](../../results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1/probe_comparison.json)
+  - contracted probe exact rate `0.875`; no-directive exact rate `0.0`; delta `-0.875`
+  - interpretation: H1h top-line parity under no-directive is entirely controller-mediated; raw no-directive MLX loses exact copying across CLI, API, visual, and parallel-tool families
 
 Latest real CLI smoke:
 

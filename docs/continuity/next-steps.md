@@ -85,6 +85,13 @@ Current evidence:
 - H1h workflow-family attribution:
   - [`workflow_family_summary.json`](../../results/knowledge_work_h1_slice/20260507T_h1h_mlx_full_no_directive_v1_knowledge_work_h1h_mlx_full_tool_contract_ablation_v1/workflow_family_summary.json)
   - [`workflow_family_failures.csv`](../../results/knowledge_work_h1_slice/20260507T_h1h_mlx_full_no_directive_v1_knowledge_work_h1h_mlx_full_tool_contract_ablation_v1/workflow_family_failures.csv)
+- H1h Gemini CLI dry-run baseline:
+  - [`results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1`](../../results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1)
+- MLX no-directive tool probe:
+  - [`results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1`](../../results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1)
+  - no-directive exact match `0 / 8`
+  - no-directive executable visual match `0 / 1`
+  - delta against contracted MLX probe: exact-rate `-0.875`, executable-rate `-1.0`
 
 What remains:
 
@@ -93,13 +100,15 @@ What remains:
   - `jobs_phone_patch_resume`
   - `jobs_visual_form_hold`
   - `executive_stale_brief_packet`
-- run the Gemini CLI baseline packet over the same H1h workflows before treating its ergonomics or outputs as evidence
+- when a real Gemini CLI binary is available, rerun the same packet with `--execute`; keep the dry-run packet as the no-side-effects prompt manifest
+- define the next compact MLX packet around the worst no-repair H1h workflows and raw no-directive probe misses
 - keep the H1h comparison commands close:
 
 ```bash
 uv run python scripts/analyze_knowledge_work_h1_traces.py <packet_dir>
 uv run python scripts/summarize_h1_tool_contract.py <packet_dir>
 uv run python scripts/summarize_h1_workflow_families.py <packet_dir> --config configs/knowledge_work_h1h_slice.yaml
+uv run python scripts/compare_tool_directive_probes.py results/tool_directive_probe/20260506T_mlx_tool_directive_probe_v4 results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1
 ```
 
 Success condition:
