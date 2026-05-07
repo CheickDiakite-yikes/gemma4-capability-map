@@ -1,0 +1,319 @@
+{
+  "baseline_packet_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1h_mlx_full_no_directive_v1_knowledge_work_h1h_mlx_full_tool_contract_ablation_v1",
+  "candidate_packet_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1i_mlx_worst_no_directive_v1_knowledge_work_h1i_mlx_worst_family_tool_contract_v1",
+  "baseline": {
+    "system_count": 5,
+    "episode_count": 50,
+    "note_count": 90,
+    "failure_candidate_count": 24
+  },
+  "candidate": {
+    "system_count": 5,
+    "episode_count": 20,
+    "note_count": 52,
+    "failure_candidate_count": 12
+  },
+  "deltas": {
+    "shared_system_count": 5,
+    "note_count_delta": -38,
+    "failure_candidate_count_delta": -12
+  },
+  "system_deltas": [
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only",
+      "baseline_lane": "live_web_stress",
+      "candidate_lane": "live_web_stress",
+      "baseline_real_world_readiness_avg": 0.9689099999999999,
+      "candidate_real_world_readiness_avg": 0.9771000000000001,
+      "delta_real_world_readiness_avg": 0.00819,
+      "baseline_strict_interface_avg": 1.0,
+      "candidate_strict_interface_avg": 1.0,
+      "delta_strict_interface_avg": 0.0,
+      "baseline_recovered_execution_avg": 1.0,
+      "candidate_recovered_execution_avg": 1.0,
+      "delta_recovered_execution_avg": 0.0,
+      "baseline_controller_repair_avg": 0.0,
+      "candidate_controller_repair_avg": 0.0,
+      "delta_controller_repair_avg": 0.0,
+      "baseline_argument_repair_avg": 0.0,
+      "candidate_argument_repair_avg": 0.0,
+      "delta_argument_repair_avg": 0.0,
+      "baseline_controller_fallback_avg": 0.0,
+      "candidate_controller_fallback_avg": 0.0,
+      "delta_controller_fallback_avg": 0.0,
+      "baseline_intent_override_avg": 0.0,
+      "candidate_intent_override_avg": 0.0,
+      "delta_intent_override_avg": 0.0,
+      "baseline_raw_planning_clean_rate_avg": 1.0,
+      "candidate_raw_planning_clean_rate_avg": 1.0,
+      "delta_raw_planning_clean_rate_avg": 0.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "baseline_lane": "live_web_stress",
+      "candidate_lane": "live_web_stress",
+      "baseline_real_world_readiness_avg": 0.9689099999999999,
+      "candidate_real_world_readiness_avg": 0.9771000000000001,
+      "delta_real_world_readiness_avg": 0.00819,
+      "baseline_strict_interface_avg": 1.0,
+      "candidate_strict_interface_avg": 1.0,
+      "delta_strict_interface_avg": 0.0,
+      "baseline_recovered_execution_avg": 1.0,
+      "candidate_recovered_execution_avg": 1.0,
+      "delta_recovered_execution_avg": 0.0,
+      "baseline_controller_repair_avg": 0.7,
+      "candidate_controller_repair_avg": 1.0,
+      "delta_controller_repair_avg": 0.3,
+      "baseline_argument_repair_avg": 0.45,
+      "candidate_argument_repair_avg": 0.5,
+      "delta_argument_repair_avg": 0.05,
+      "baseline_controller_fallback_avg": 0.25,
+      "candidate_controller_fallback_avg": 0.5,
+      "delta_controller_fallback_avg": 0.25,
+      "baseline_intent_override_avg": 0.0,
+      "candidate_intent_override_avg": 0.0,
+      "delta_intent_override_avg": 0.0,
+      "baseline_raw_planning_clean_rate_avg": 0.3,
+      "candidate_raw_planning_clean_rate_avg": 0.0,
+      "delta_raw_planning_clean_rate_avg": -0.3
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_argument_repair",
+      "baseline_lane": "live_web_stress",
+      "candidate_lane": "live_web_stress",
+      "baseline_real_world_readiness_avg": 0.83016,
+      "candidate_real_world_readiness_avg": 0.8122,
+      "delta_real_world_readiness_avg": -0.01796,
+      "baseline_strict_interface_avg": 0.75625,
+      "candidate_strict_interface_avg": 0.71875,
+      "delta_strict_interface_avg": -0.0375,
+      "baseline_recovered_execution_avg": 0.55,
+      "candidate_recovered_execution_avg": 0.5,
+      "delta_recovered_execution_avg": -0.05,
+      "baseline_controller_repair_avg": 0.25,
+      "candidate_controller_repair_avg": 0.5,
+      "delta_controller_repair_avg": 0.25,
+      "baseline_argument_repair_avg": 0.0,
+      "candidate_argument_repair_avg": 0.0,
+      "delta_argument_repair_avg": 0.0,
+      "baseline_controller_fallback_avg": 0.25,
+      "candidate_controller_fallback_avg": 0.5,
+      "delta_controller_fallback_avg": 0.25,
+      "baseline_intent_override_avg": 0.0,
+      "candidate_intent_override_avg": 0.0,
+      "delta_intent_override_avg": 0.0,
+      "baseline_raw_planning_clean_rate_avg": 0.75,
+      "candidate_raw_planning_clean_rate_avg": 0.5,
+      "delta_raw_planning_clean_rate_avg": -0.25
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_fallback",
+      "baseline_lane": "live_web_stress",
+      "candidate_lane": "live_web_stress",
+      "baseline_real_world_readiness_avg": 0.89598,
+      "candidate_real_world_readiness_avg": 0.83125,
+      "delta_real_world_readiness_avg": -0.06473,
+      "baseline_strict_interface_avg": 0.8125,
+      "candidate_strict_interface_avg": 0.625,
+      "delta_strict_interface_avg": -0.1875,
+      "baseline_recovered_execution_avg": 0.75,
+      "candidate_recovered_execution_avg": 0.5,
+      "delta_recovered_execution_avg": -0.25,
+      "baseline_controller_repair_avg": 0.45,
+      "candidate_controller_repair_avg": 0.5,
+      "delta_controller_repair_avg": 0.05,
+      "baseline_argument_repair_avg": 0.45,
+      "candidate_argument_repair_avg": 0.5,
+      "delta_argument_repair_avg": 0.05,
+      "baseline_controller_fallback_avg": 0.0,
+      "candidate_controller_fallback_avg": 0.0,
+      "delta_controller_fallback_avg": 0.0,
+      "baseline_intent_override_avg": 0.0,
+      "candidate_intent_override_avg": 0.0,
+      "delta_intent_override_avg": 0.0,
+      "baseline_raw_planning_clean_rate_avg": 0.55,
+      "candidate_raw_planning_clean_rate_avg": 0.5,
+      "delta_raw_planning_clean_rate_avg": -0.05
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_repair",
+      "baseline_lane": "live_web_stress",
+      "candidate_lane": "live_web_stress",
+      "baseline_real_world_readiness_avg": 0.7380099999999999,
+      "candidate_real_world_readiness_avg": 0.646975,
+      "delta_real_world_readiness_avg": -0.091035,
+      "baseline_strict_interface_avg": 0.48125,
+      "candidate_strict_interface_avg": 0.296875,
+      "delta_strict_interface_avg": -0.184375,
+      "baseline_recovered_execution_avg": 0.3,
+      "candidate_recovered_execution_avg": 0.0,
+      "delta_recovered_execution_avg": -0.3,
+      "baseline_controller_repair_avg": 0.7,
+      "candidate_controller_repair_avg": 1.25,
+      "delta_controller_repair_avg": 0.55,
+      "baseline_argument_repair_avg": 0.0,
+      "candidate_argument_repair_avg": 0.0,
+      "delta_argument_repair_avg": 0.0,
+      "baseline_controller_fallback_avg": 0.7,
+      "candidate_controller_fallback_avg": 1.25,
+      "delta_controller_fallback_avg": 0.55,
+      "baseline_intent_override_avg": 0.0,
+      "candidate_intent_override_avg": 0.0,
+      "delta_intent_override_avg": 0.0,
+      "baseline_raw_planning_clean_rate_avg": 0.83166,
+      "candidate_raw_planning_clean_rate_avg": 0.725,
+      "delta_raw_planning_clean_rate_avg": -0.10666
+    }
+  ],
+  "note_deltas": [
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "note": "controller_fallback_planner",
+      "baseline_count": 5.0,
+      "candidate_count": 4.0,
+      "delta_count": -1.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "note": "repaired_arguments:api_fetch_record",
+      "baseline_count": 3.0,
+      "candidate_count": 3.0,
+      "delta_count": 0.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "note": "repaired_arguments:api_update_record",
+      "baseline_count": 1.0,
+      "candidate_count": 0.0,
+      "delta_count": -1.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "note": "repaired_arguments:cli_apply_patch",
+      "baseline_count": 1.0,
+      "candidate_count": 1.0,
+      "delta_count": 0.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "note": "repaired_arguments:cli_search_logs",
+      "baseline_count": 1.0,
+      "candidate_count": 0.0,
+      "delta_count": -1.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "note": "repaired_arguments:extract_layout",
+      "baseline_count": 3.0,
+      "candidate_count": 0.0,
+      "delta_count": -3.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_argument_repair",
+      "note": "controller_fallback_planner",
+      "baseline_count": 5.0,
+      "candidate_count": 4.0,
+      "delta_count": -1.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_fallback",
+      "note": "controller_fallback_disabled",
+      "baseline_count": 5.0,
+      "candidate_count": 4.0,
+      "delta_count": -1.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_fallback",
+      "note": "repaired_arguments:api_fetch_record",
+      "baseline_count": 3.0,
+      "candidate_count": 3.0,
+      "delta_count": 0.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_fallback",
+      "note": "repaired_arguments:api_update_record",
+      "baseline_count": 1.0,
+      "candidate_count": 0.0,
+      "delta_count": -1.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_fallback",
+      "note": "repaired_arguments:cli_apply_patch",
+      "baseline_count": 1.0,
+      "candidate_count": 1.0,
+      "delta_count": 0.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_fallback",
+      "note": "repaired_arguments:cli_search_logs",
+      "baseline_count": 1.0,
+      "candidate_count": 0.0,
+      "delta_count": -1.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_fallback",
+      "note": "repaired_arguments:extract_layout",
+      "baseline_count": 3.0,
+      "candidate_count": 0.0,
+      "delta_count": -3.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_repair",
+      "note": "controller_fallback_planner",
+      "baseline_count": 14.0,
+      "candidate_count": 10.0,
+      "delta_count": -4.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_repair",
+      "note": "controller_repair_disabled",
+      "baseline_count": 43.0,
+      "candidate_count": 22.0,
+      "delta_count": -21.0
+    }
+  ],
+  "failure_mode_deltas": [
+    {
+      "failure_mode": "argument_repair",
+      "baseline_count": 4.0,
+      "candidate_count": 4.0,
+      "delta_count": 0.0
+    },
+    {
+      "failure_mode": "fallback_disabled",
+      "baseline_count": 5.0,
+      "candidate_count": 4.0,
+      "delta_count": -1.0
+    },
+    {
+      "failure_mode": "fallback_planner",
+      "baseline_count": 11.0,
+      "candidate_count": 8.0,
+      "delta_count": -3.0
+    },
+    {
+      "failure_mode": "repair_disabled",
+      "baseline_count": 10.0,
+      "candidate_count": 4.0,
+      "delta_count": -6.0
+    },
+    {
+      "failure_mode": "visual_readback_missing",
+      "baseline_count": 3.0,
+      "candidate_count": 2.0,
+      "delta_count": -1.0
+    },
+    {
+      "failure_mode": "visual_repeated_refinement",
+      "baseline_count": 4.0,
+      "candidate_count": 3.0,
+      "delta_count": -1.0
+    },
+    {
+      "failure_mode": "visual_stepwise_control",
+      "baseline_count": 13.0,
+      "candidate_count": 8.0,
+      "delta_count": -5.0
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "runs": 4.0,
+  "artifact_quality_avg": 0.94445,
+  "browser_workflow_avg": 1.0,
+  "strict_interface_avg": 0.625,
+  "recovered_execution_avg": 0.5,
+  "real_world_readiness_avg": 0.83125,
+  "escalation_correctness_avg": 1.0,
+  "controller_repair_avg": 0.5,
+  "argument_repair_avg": 0.5,
+  "controller_fallback_avg": 0.0,
+  "intent_override_avg": 0.0,
+  "raw_planning_clean_rate_avg": 0.5,
+  "lane": "live_web_stress",
+  "created_at": "20260507T002741Z",
+  "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1i_mlx_worst_no_directive_v1_knowledge_work_h1i_mlx_worst_family_tool_contract_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_fallback__live_web_stress"
+}
