@@ -7,7 +7,9 @@ from pathlib import Path
 from gemma4_capability_map.knowledge_work.trace_analysis import (
     analyze_ablation_packet,
     compare_ablation_packets,
+    summarize_h1_workflow_families,
     summarize_tool_contract_packet,
+    write_h1_workflow_family_summary,
     write_packet_comparison,
     write_tool_contract_summary,
     write_trace_analysis,
@@ -222,6 +224,59 @@ def test_tool_contract_summary_reports_directive_and_helper_deltas(tmp_path: Pat
     assert repair_row["disabled_controls"] == "disable_controller_repair;disable_tool_turn_directive"
     assert repair_row["delta_vs_no_directive_real_world_readiness_avg"] == -0.24
     assert Path(paths["markdown"]).read_text(encoding="utf-8").startswith("# Tool Contract Summary")
+
+
+def test_h1_workflow_family_summary_maps_episode_metrics(tmp_path: Path) -> None:
+    config_path = tmp_path / "h1.yaml"
+    config_path.write_text(
+        """
+h1_slice:
+  name: test_h1
+  version: v1
+  description: test
+  live_entrypoint: packaged_workflows_only
+  primary_system_id: system_a
+  ablation_bundle_system_id: system_a
+  lanes:
+    replayable_core:
+      episode_ids: [episode_replay]
+    live_web_stress:
+      episode_ids: [episode_live]
+  workflow_families:
+    - workflow_id: workflow_alpha
+      role_family: finance
+      purpose: test workflow
+      replayable_episode_id: episode_replay
+      live_episode_id: episode_live
+      h1_stressors: [api_canonicalization, approval_safe_stop]
+""".lstrip(),
+        encoding="utf-8",
+    )
+    _write_packet_run(
+        tmp_path,
+        system_id="system_a",
+        readiness=0.82,
+        strict=0.5,
+        recovered=0.5,
+        notes=["controller_repair_disabled"],
+        failed=True,
+    )
+    run_dir = tmp_path / "system_a__live_web_stress"
+    trace = json.loads((run_dir / "episode_traces.jsonl").read_text(encoding="utf-8"))
+    trace["episode_id"] = "episode_live"
+    (run_dir / "episode_traces.jsonl").write_text(json.dumps(trace) + "\n", encoding="utf-8")
+
+    summary = summarize_h1_workflow_families(tmp_path, config_path)
+    paths = write_h1_workflow_family_summary(tmp_path, config_path)
+
+    assert summary["workflow_row_count"] == 1
+    row = summary["workflow_rows"][0]
+    assert row["workflow_id"] == "workflow_alpha"
+    assert row["h1_stressors"] == "api_canonicalization;approval_safe_stop"
+    assert row["failure_candidate_count"] == 1
+    assert row["real_world_readiness_avg"] == 0.82
+    assert Path(paths["system_rows"]).exists()
+    assert Path(paths["failures"]).exists()
 
 
 def test_analyze_ablation_packet_labels_visual_stepwise_failures(tmp_path: Path) -> None:

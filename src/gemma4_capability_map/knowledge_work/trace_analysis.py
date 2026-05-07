@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from gemma4_capability_map.io import load_jsonl
+from gemma4_capability_map.knowledge_work.h1 import H1WorkflowFamily, load_h1_slice
 
 
 SYSTEM_DELTA_FIELDS = [
@@ -300,6 +301,81 @@ def write_tool_contract_summary(
     }
 
 
+def summarize_h1_workflow_families(packet_dir: str | Path, config_path: str | Path) -> dict[str, Any]:
+    analysis = analyze_ablation_packet(packet_dir)
+    config = load_h1_slice(config_path)
+    family_by_episode = _family_by_episode(config.workflow_families)
+    rows = []
+    grouped: dict[tuple[str, str], list[dict[str, Any]]] = defaultdict(list)
+    for row in analysis["episode_rows"]:
+        family = family_by_episode.get(str(row["episode_id"]))
+        if family is None:
+            continue
+        grouped[(str(row["system_id"]), family["workflow_id"])].append({**row, **family})
+
+    for (system_id, workflow_id), episode_rows in sorted(grouped.items()):
+        first = episode_rows[0]
+        failures = [row for row in episode_rows if row["failure_candidate"]]
+        failure_modes = sorted(
+            {
+                mode
+                for row in failures
+                for mode in str(row.get("failure_modes", "")).split(";")
+                if mode
+            }
+        )
+        rows.append(
+            {
+                "system_id": system_id,
+                "workflow_id": workflow_id,
+                "role_family": first["workflow_role_family"],
+                "h1_stressors": ";".join(first["h1_stressors"]),
+                "episode_count": len(episode_rows),
+                "failure_candidate_count": len(failures),
+                "failure_modes": ";".join(failure_modes),
+                "real_world_readiness_avg": _avg(row["real_world_readiness_score"] for row in episode_rows),
+                "strict_interface_avg": _avg(row["strict_interface_score"] for row in episode_rows),
+                "recovered_execution_avg": _avg(row["recovered_execution_score"] for row in episode_rows),
+                "controller_repair_avg": _avg(row["controller_repair_count"] for row in episode_rows),
+                "controller_fallback_avg": _avg(row["controller_fallback_count"] for row in episode_rows),
+                "argument_repair_avg": _avg(row["argument_repair_count"] for row in episode_rows),
+                "raw_planning_clean_rate_avg": _avg(row["raw_planning_clean_rate"] for row in episode_rows),
+                "episodes": ";".join(sorted(str(row["episode_id"]) for row in episode_rows)),
+            }
+        )
+
+    failure_rows = [row for row in rows if int(row["failure_candidate_count"]) > 0]
+    return {
+        "packet_dir": str(Path(packet_dir).resolve()),
+        "config_path": str(Path(config_path).resolve()),
+        "workflow_row_count": len(rows),
+        "workflow_failure_row_count": len(failure_rows),
+        "workflow_rows": rows,
+        "workflow_failure_rows": failure_rows,
+    }
+
+
+def write_h1_workflow_family_summary(
+    packet_dir: str | Path,
+    config_path: str | Path,
+    output_dir: str | Path | None = None,
+) -> dict[str, str]:
+    summary = summarize_h1_workflow_families(packet_dir, config_path)
+    target = Path(output_dir) if output_dir else Path(packet_dir)
+    target.mkdir(parents=True, exist_ok=True)
+    summary_path = target / "workflow_family_summary.json"
+    rows_path = target / "workflow_family_system_rows.csv"
+    failures_path = target / "workflow_family_failures.csv"
+    summary_path.write_text(json.dumps(summary, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    _write_csv(rows_path, summary["workflow_rows"])
+    _write_csv(failures_path, summary["workflow_failure_rows"])
+    return {
+        "summary": str(summary_path.resolve()),
+        "system_rows": str(rows_path.resolve()),
+        "failures": str(failures_path.resolve()),
+    }
+
+
 def write_trace_analysis(packet_dir: str | Path, output_dir: str | Path | None = None) -> dict[str, str]:
     analysis = analyze_ablation_packet(packet_dir)
     target = Path(output_dir) if output_dir else Path(packet_dir)
@@ -339,6 +415,25 @@ def _load_packet_system_rows(root: Path) -> list[dict[str, Any]]:
         row["tool_turn_directive_enabled"] = bool(runtime_reasoner.get("tool_turn_directive_enabled", True))
         rows.append(row)
     return rows
+
+
+def _family_by_episode(workflow_families: list[H1WorkflowFamily]) -> dict[str, dict[str, Any]]:
+    mapping: dict[str, dict[str, Any]] = {}
+    for family in workflow_families:
+        payload = {
+            "workflow_id": family.workflow_id,
+            "workflow_role_family": family.role_family,
+            "workflow_purpose": family.purpose,
+            "h1_stressors": list(family.h1_stressors),
+        }
+        mapping[family.replayable_episode_id] = payload
+        mapping[family.live_episode_id] = payload
+    return mapping
+
+
+def _avg(values: Any) -> float:
+    items = [_float(value) for value in values]
+    return sum(items) / len(items) if items else 0.0
 
 
 def _tool_contract_markdown(summary: dict[str, Any]) -> str:
