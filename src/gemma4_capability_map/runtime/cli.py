@@ -8,6 +8,7 @@ from pathlib import Path
 from gemma4_capability_map.runtime.core import LocalAgentRuntime
 from gemma4_capability_map.runtime.gemini_cli import run_gemini_cli_baseline
 from gemma4_capability_map.runtime.operator import apply_operator_action, attach_to_session, print_session_inspection, session_inspection_payload
+from gemma4_capability_map.runtime.research_reports import print_research_report, research_report_payload
 from gemma4_capability_map.runtime.sandbox import DEFAULT_SANDBOX_POLICY_ID
 from gemma4_capability_map.runtime.schemas import ApprovalStatus
 
@@ -64,6 +65,11 @@ def parse_args() -> argparse.Namespace:
     inspect_parser.add_argument("session_id")
     inspect_parser.add_argument("--target", choices=["all", "sandbox", "artifacts", "policy", "summary", "scorecard"], default="all")
     inspect_parser.add_argument("--json", action="store_true")
+
+    report_parser = subparsers.add_parser("report", help="Inspect generated research report artifacts from the terminal.")
+    report_parser.add_argument("--report-id", default="mlx-tool-contract")
+    report_parser.add_argument("--report-dir", default=None)
+    report_parser.add_argument("--json", action="store_true")
 
     gemini_parser = subparsers.add_parser("gemini-baseline", help="Prepare or run a Gemini CLI external baseline for a packaged workflow.")
     gemini_parser.add_argument("--workflow-id", required=True)
@@ -192,6 +198,13 @@ def main() -> None:
             print(json.dumps(session_inspection_payload(runtime, args.session_id, target=args.target), indent=2, ensure_ascii=False))
         else:
             print_session_inspection(runtime, args.session_id, target=args.target)
+        return
+    if args.command == "report":
+        payload = research_report_payload(report_id=args.report_id, report_dir=args.report_dir)
+        if args.json:
+            print(json.dumps(payload, indent=2, ensure_ascii=False))
+        else:
+            print_research_report(payload)
         return
     if args.command == "gemini-baseline":
         workflow = next((row for row in runtime.list_workflows(lane=args.lane) if row["workflow_id"] == args.workflow_id), None)

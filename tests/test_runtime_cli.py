@@ -293,3 +293,94 @@ def test_runtime_cli_gemini_baseline_writes_dry_run_packet(monkeypatch: pytest.M
     assert output["dry_run"] is True
     assert output["availability"]["available"] is False
     assert Path(output["output_path"]).exists()
+
+
+def test_runtime_cli_report_json_inspects_generated_report_artifacts(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+    tmp_path: Path,
+) -> None:
+    runtime = LocalAgentRuntime(results_root=tmp_path / "runtime")
+    report_dir = _write_fake_research_report(tmp_path / "report")
+    monkeypatch.setattr(runtime_cli, "LocalAgentRuntime", lambda: runtime)
+    monkeypatch.setattr(
+        runtime_cli,
+        "parse_args",
+        lambda: runtime_cli.argparse.Namespace(
+            command="report",
+            report_id="custom",
+            report_dir=str(report_dir),
+            json=True,
+        ),
+    )
+
+    runtime_cli.main()
+
+    output = json.loads(capsys.readouterr().out)
+    assert output["report_dir"] == str(report_dir.resolve())
+    assert output["packet_count"] == 2
+    assert output["prompt_contract_candidate_count"] == 2
+    assert output["prompt_contract_candidate_ids"] == ["schema_anchor_v1", "literal_argument_guard_v1"]
+    assert len(output["tables"]) == 1
+    assert len(output["figures"]) == 1
+
+
+def test_runtime_cli_report_renders_rich_overview(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+    tmp_path: Path,
+) -> None:
+    runtime = LocalAgentRuntime(results_root=tmp_path / "runtime")
+    report_dir = _write_fake_research_report(tmp_path / "report")
+    monkeypatch.setattr(runtime_cli, "LocalAgentRuntime", lambda: runtime)
+    monkeypatch.setattr(
+        runtime_cli,
+        "parse_args",
+        lambda: runtime_cli.argparse.Namespace(
+            command="report",
+            report_id="custom",
+            report_dir=str(report_dir),
+            json=False,
+        ),
+    )
+
+    runtime_cli.main()
+
+    output = capsys.readouterr().out
+    assert "Moonie Research Report" in output
+    assert "Prompt-Contract Candidates" in output
+    assert "schema_anchor_v1" in output
+
+
+def _write_fake_research_report(report_dir: Path) -> Path:
+    (report_dir / "tables").mkdir(parents=True)
+    (report_dir / "figures").mkdir()
+    (report_dir / "report.md").write_text("# Fake report\n", encoding="utf-8")
+    (report_dir / "manifest.json").write_text(
+        json.dumps(
+            {
+                "generated_at": "2026-05-07T00:00:00+00:00",
+                "table_count": 1,
+                "figure_count": 1,
+            }
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    (report_dir / "report.json").write_text(
+        json.dumps(
+            {
+                "packet_summary": [{"packet": "H1f"}, {"packet": "H1i"}],
+                "prompt_contract_candidates": [
+                    {"tool_prompt_contract_id": "schema_anchor_v1"},
+                    {"tool_prompt_contract_id": "literal_argument_guard_v1"},
+                ],
+                "gemini": {"packet_run_id": "gemini_dry_run", "dry_run": True},
+            }
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    (report_dir / "tables" / "packet_summary.csv").write_text("packet\nH1f\n", encoding="utf-8")
+    (report_dir / "figures" / "summary.svg").write_text("<svg></svg>\n", encoding="utf-8")
+    return report_dir

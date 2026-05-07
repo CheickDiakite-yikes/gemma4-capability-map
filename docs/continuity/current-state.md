@@ -37,6 +37,10 @@ Current CLI surface:
 - `moonie-agent inspect <session_id>`
   - inspects sandbox roots, artifacts, policy blocks, summary paths, scorecards, and per-task controller repair findings
   - `--target policy` renders live-web sandbox targets, sandbox endpoints, gates, and reasons
+- `moonie-agent report`
+  - inspects generated research report directories from the terminal
+  - current default is the MLX tool-contract report with packet counts, table/figure inventory, Gemini baseline status, and prompt-contract candidate ids
+  - supports `--json` for scripted harness checks
 
 The React desktop harness exists and remains useful prior work, but it is no longer the main next workstream:
 
