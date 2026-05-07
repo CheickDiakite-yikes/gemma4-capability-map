@@ -39,6 +39,8 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 
 ![H1i failure modes](../../results/reports/mlx_tool_contract_harnessing/figures/h1i_failure_modes.svg)
 
+![Prompt contract candidate targets](../../results/reports/mlx_tool_contract_harnessing/figures/prompt_contract_candidate_targets.svg)
+
 ## Evidence Sources
 
 | Artifact | Purpose |
@@ -90,6 +92,35 @@ Failure-mode split:
 | baseline non-exact | `executable_paraphrase` | 1 | Contracted MLX paraphrases one visual selector, but the executor can still resolve it. |
 
 This is the strongest current reason to keep exact interface metrics, executable recovery metrics, and readiness metrics separate. A row can look solved at the task level while being fragile at the contract level.
+
+## Prompt-Contract Candidate Queue
+
+The next empirical wave has three generic no-directive prompt-contract candidates. They deliberately do not include the exact planned tool call. That keeps the probe honest: a candidate should improve raw tool protocol behavior without simply leaking the oracle next call.
+
+| Candidate system | Contract | Target |
+| --- | --- | --- |
+| `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor` | `schema_anchor_v1` | Generic JSON/schema obedience for CLI/API canonicalization. |
+| `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_literal_guard` | `literal_argument_guard_v1` | Literal argument copying for path, query, record ids, visual selectors, and filters. |
+| `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_tool_required` | `tool_required_parallel_v1` | No-tool-call and parallel/visual protocol collapse. |
+
+Generated candidate table:
+
+- [`results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_candidates.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_candidates.csv)
+
+Dry-run candidate probe packet command:
+
+```bash
+uv run python scripts/run_tool_prompt_contract_probe_packet.py \
+  --run-group-id <timestamp>_prompt_contract_probe_candidates
+```
+
+Real candidate probe packet command:
+
+```bash
+uv run python scripts/run_tool_prompt_contract_probe_packet.py \
+  --run-group-id <timestamp>_prompt_contract_probe_candidates \
+  --execute
+```
 
 ## Gemini CLI Baseline Status
 
@@ -149,6 +180,7 @@ Generated reporting now has three layers:
 - packet-local summaries under each H1/probe/Gemini output directory
 - generated cross-packet report artifacts under [`results/reports/mlx_tool_contract_harnessing`](../../results/reports/mlx_tool_contract_harnessing)
 - this curated narrative report under [`docs/reports`](.)
+- dry-run or executed prompt-contract probe packets under [`results/tool_prompt_contract_probe_packets`](../../results/tool_prompt_contract_probe_packets)
 
 When a new H1i/H1h/probe wave runs, update the report by rerunning:
 

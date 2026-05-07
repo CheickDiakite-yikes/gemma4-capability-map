@@ -1,6 +1,6 @@
 {
   "manifest": {
-    "generated_at": "2026-05-07T00:39:22.309455+00:00",
+    "generated_at": "2026-05-07T00:56:59.198875+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/mlx_tool_contract_harnessing",
     "source_packets": {
       "H1f compact": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1f_mlx_no_directive_v1_knowledge_work_h1f_mlx_tool_contract_ablation_v1",
@@ -9,8 +9,9 @@
     },
     "probe_comparison": "/Users/cheickdiakite/Codex/moonie/results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1/probe_comparison.json",
     "gemini_packet": "/Users/cheickdiakite/Codex/moonie/results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1",
-    "table_count": 6,
-    "figure_count": 4
+    "registry_path": "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+    "table_count": 7,
+    "figure_count": 5
   },
   "packet_summary": [
     {
@@ -141,6 +142,35 @@
       "side": "baseline_non_exact",
       "failure_mode": "executable_paraphrase",
       "case_count": 1
+    }
+  ],
+  "prompt_contract_candidates": [
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_literal_guard",
+      "short_label": "Gemma 4 MLX literal guard",
+      "tool_prompt_contract_id": "literal_argument_guard_v1",
+      "disable_tool_turn_directive": true,
+      "label": "Literal Argument Guard v1",
+      "hypothesis": "No-directive rows often choose the right tool but drift on arguments; stronger literal-copy rules may reduce repair burden.",
+      "tags": "arguments;canonicalization;cli;api;visual"
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor",
+      "short_label": "Gemma 4 MLX schema anchor",
+      "tool_prompt_contract_id": "schema_anchor_v1",
+      "disable_tool_turn_directive": true,
+      "label": "Schema Anchor v1",
+      "hypothesis": "No-directive CLI/API misses may improve if the model is reminded that tool names and fields are literal interface tokens.",
+      "tags": "schema;json;cli;api"
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_tool_required",
+      "short_label": "Gemma 4 MLX tool required",
+      "tool_prompt_contract_id": "tool_required_parallel_v1",
+      "disable_tool_turn_directive": true,
+      "label": "Tool Required Parallel v1",
+      "hypothesis": "No-directive visual and parallel cases may fail because the model exits the tool protocol; stronger tool-required wording should reduce no-call failures.",
+      "tags": "no_tool_call;parallel;visual"
     }
   ],
   "gemini": {

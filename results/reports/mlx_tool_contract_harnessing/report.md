@@ -1,6 +1,6 @@
 # MLX Tool-Contract Harnessing Report
 
-Generated: `2026-05-07T00:39:22.309455+00:00`
+Generated: `2026-05-07T00:56:59.198875+00:00`
 
 ## Executive Read
 
@@ -19,6 +19,8 @@ The main finding is blunt: the tool-turn directive is a real model-side harness 
 ![Tool probe contract gap](figures/tool_probe_contract_gap.svg)
 
 ![H1i failure modes](figures/h1i_failure_modes.svg)
+
+![Prompt contract candidate targets](figures/prompt_contract_candidate_targets.svg)
 
 ## Packet Summary
 
@@ -45,6 +47,16 @@ The main finding is blunt: the tool-turn directive is a real model-side harness 
 | candidate | argument_mismatch | 4 |
 | candidate | no_tool_call | 4 |
 | baseline_non_exact | executable_paraphrase | 1 |
+
+## Prompt-Contract Candidate Queue
+
+| system_id | short_label | tool_prompt_contract_id | disable_tool_turn_directive | label | hypothesis | tags |
+| --- | --- | --- | --- | --- | --- | --- |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_literal_guard | Gemma 4 MLX literal guard | literal_argument_guard_v1 | True | Literal Argument Guard v1 | No-directive rows often choose the right tool but drift on arguments; stronger literal-copy rules may reduce repair burden. | arguments;canonicalization;cli;api;visual |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor | Gemma 4 MLX schema anchor | schema_anchor_v1 | True | Schema Anchor v1 | No-directive CLI/API misses may improve if the model is reminded that tool names and fields are literal interface tokens. | schema;json;cli;api |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_tool_required | Gemma 4 MLX tool required | tool_required_parallel_v1 | True | Tool Required Parallel v1 | No-directive visual and parallel cases may fail because the model exits the tool protocol; stronger tool-required wording should reduce no-call failures. | no_tool_call;parallel;visual |
+
+These candidates are generic prompt contracts for the no-directive row. They deliberately avoid embedding the expected planned call, so they can be tested on the probe before spending H1i or H1h runs.
 
 ## Gemini CLI Baseline Status
 

@@ -8,6 +8,10 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
+from gemma4_capability_map.reporting.knowledge_work_board import DEFAULT_REGISTRY_PATH, load_model_registry
+from gemma4_capability_map.research_controls import ResearchControls
+from gemma4_capability_map.tools.prompt_contracts import TOOL_PROMPT_CONTRACTS
+
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT_DIR = ROOT / "results" / "reports" / "mlx_tool_contract_harnessing"
@@ -51,6 +55,7 @@ def build_report(
     h1i_packet: str | Path = DEFAULT_H1I_PACKET,
     probe_comparison_path: str | Path = DEFAULT_PROBE_COMPARISON,
     gemini_packet: str | Path = DEFAULT_GEMINI_PACKET,
+    registry_path: str | Path = DEFAULT_REGISTRY_PATH,
 ) -> dict[str, Any]:
     target = Path(output_dir)
     tables_dir = target / "tables"
@@ -65,6 +70,7 @@ def build_report(
     ]
     probe = json.loads(Path(probe_comparison_path).read_text(encoding="utf-8"))
     gemini_manifest = json.loads((Path(gemini_packet) / "manifest.json").read_text(encoding="utf-8"))
+    registry = load_model_registry(registry_path)
 
     packet_rows = [_packet_summary_row(packet) for packet in packets]
     h1i_system_rows = _system_metric_rows(packets[-1]["tool_contract"]["system_rows"])
@@ -72,6 +78,7 @@ def build_report(
     probe_failure_rows = _probe_failure_rows(probe_case_rows)
     h1i_failure_rows = _csv_rows(Path(h1i_packet) / "trace_failure_mode_counts.csv")
     h1i_workflow_failures = _csv_rows(Path(h1i_packet) / "workflow_family_failures.csv")
+    candidate_rows = _prompt_contract_candidate_rows(registry)
 
     _write_csv(tables_dir / "packet_summary.csv", packet_rows)
     _write_csv(tables_dir / "h1i_system_metrics.csv", h1i_system_rows)
@@ -79,6 +86,7 @@ def build_report(
     _write_csv(tables_dir / "probe_failure_modes.csv", probe_failure_rows)
     _write_csv(tables_dir / "h1i_failure_modes.csv", h1i_failure_rows)
     _write_csv(tables_dir / "h1i_workflow_failures.csv", h1i_workflow_failures)
+    _write_csv(tables_dir / "prompt_contract_candidates.csv", candidate_rows)
 
     _write_grouped_metric_svg(
         figures_dir / "h1i_readiness_strict_recovered.svg",
@@ -133,6 +141,12 @@ def build_report(
         rows=[{"label": row["failure_mode"], "value": int(row["count"])} for row in h1i_failure_rows],
         color="#B91C1C",
     )
+    _write_bar_svg(
+        figures_dir / "prompt_contract_candidate_targets.svg",
+        title="Prompt contract candidate target tags",
+        rows=_candidate_tag_rows(candidate_rows),
+        color="#0F766E",
+    )
 
     manifest = {
         "generated_at": datetime.now(UTC).isoformat(),
@@ -142,14 +156,16 @@ def build_report(
         },
         "probe_comparison": str(Path(probe_comparison_path).resolve()),
         "gemini_packet": str(Path(gemini_packet).resolve()),
-        "table_count": 6,
-        "figure_count": 4,
+        "registry_path": str(Path(registry_path).resolve()),
+        "table_count": 7,
+        "figure_count": 5,
     }
     report_payload = {
         "manifest": manifest,
         "packet_summary": packet_rows,
         "h1i_system_metrics": h1i_system_rows,
         "probe_failure_modes": probe_failure_rows,
+        "prompt_contract_candidates": candidate_rows,
         "gemini": gemini_manifest,
     }
     (target / "manifest.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
@@ -166,6 +182,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--h1i-packet", default=str(DEFAULT_H1I_PACKET))
     parser.add_argument("--probe-comparison", default=str(DEFAULT_PROBE_COMPARISON))
     parser.add_argument("--gemini-packet", default=str(DEFAULT_GEMINI_PACKET))
+    parser.add_argument("--registry", default=str(DEFAULT_REGISTRY_PATH))
     return parser.parse_args()
 
 
@@ -178,6 +195,7 @@ def main() -> None:
         h1i_packet=args.h1i_packet,
         probe_comparison_path=args.probe_comparison,
         gemini_packet=args.gemini_packet,
+        registry_path=args.registry,
     )
     print(
         json.dumps(
@@ -272,10 +290,44 @@ def _probe_failure_rows(case_rows: list[dict[str, Any]]) -> list[dict[str, Any]]
     return rows
 
 
+def _prompt_contract_candidate_rows(registry: dict[str, Any]) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for system_id, meta in sorted((registry.get("systems") or {}).items()):
+        controls = ResearchControls.from_mapping(meta.get("research_controls"))
+        if not controls.tool_prompt_contract_id:
+            continue
+        contract = TOOL_PROMPT_CONTRACTS.get(controls.tool_prompt_contract_id)
+        rows.append(
+            {
+                "system_id": system_id,
+                "short_label": str(meta.get("short_label", system_id)),
+                "tool_prompt_contract_id": controls.tool_prompt_contract_id,
+                "disable_tool_turn_directive": controls.disable_tool_turn_directive,
+                "label": contract.label if contract else "",
+                "hypothesis": contract.hypothesis if contract else "",
+                "tags": ";".join(contract.tags) if contract else "",
+            }
+        )
+    return rows
+
+
+def _candidate_tag_rows(candidate_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    counter: Counter[str] = Counter()
+    for row in candidate_rows:
+        for tag in str(row.get("tags", "")).split(";"):
+            if tag:
+                counter[tag] += 1
+    return [
+        {"label": tag, "value": count}
+        for tag, count in sorted(counter.items(), key=lambda item: (-item[1], item[0]))
+    ]
+
+
 def _markdown_report(payload: dict[str, Any]) -> str:
     packet_rows = payload["packet_summary"]
     h1i_rows = payload["h1i_system_metrics"]
     probe_rows = payload["probe_failure_modes"]
+    candidate_rows = payload["prompt_contract_candidates"]
     gemini = payload["gemini"]
     lines = [
         "# MLX Tool-Contract Harnessing Report",
@@ -304,6 +356,8 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "",
         "![H1i failure modes](figures/h1i_failure_modes.svg)",
         "",
+        "![Prompt contract candidate targets](figures/prompt_contract_candidate_targets.svg)",
+        "",
         "## Packet Summary",
         "",
         _markdown_table(packet_rows),
@@ -315,6 +369,12 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "## Probe Failure Modes",
         "",
         _markdown_table(probe_rows),
+        "",
+        "## Prompt-Contract Candidate Queue",
+        "",
+        _markdown_table(candidate_rows),
+        "",
+        "These candidates are generic prompt contracts for the no-directive row. They deliberately avoid embedding the expected planned call, so they can be tested on the probe before spending H1i or H1h runs.",
         "",
         "## Gemini CLI Baseline Status",
         "",
