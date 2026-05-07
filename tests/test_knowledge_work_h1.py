@@ -416,6 +416,7 @@ def test_h1_ablation_packet_command_uses_shared_bundle_and_episode_filters(tmp_p
     assert command.count("--system-id") == len(config.ablation_system_ids)
     assert command.count("--episode-id") == len(config.lanes["replayable_core"].episode_ids)
     assert command[command.index("--run-intent") + 1] == "exploratory"
+    assert command[command.index("--repeat") + 1] == "1"
 
 
 def test_h1_ablation_packet_command_can_use_named_visual_semantics_packet(tmp_path: Path) -> None:
@@ -436,3 +437,22 @@ def test_h1_ablation_packet_command_can_use_named_visual_semantics_packet(tmp_pa
     assert command.count("--episode-id") == 3
     assert "kwa_exec_visual_dashboard_brief" not in command
     assert "hf_service_gemma4_specialists_cpu_no_controller_repair" in command
+
+
+def test_h1_ablation_packet_command_can_repeat_named_packet(tmp_path: Path) -> None:
+    config = load_h1_slice(H1I_CONFIG_PATH)
+    packet = h1_packet_selection(config, "mlx_prompt_contract_candidates")
+
+    command = PACKET_SCRIPT.h1_ablation_packet_command(
+        run_group_id="h1i_repeat_packet_test",
+        lane=packet.lane,
+        bundle_system_id=config.ablation_bundle_system_id,
+        system_ids=packet.system_ids,
+        episode_ids=packet.episode_ids,
+        output_root=tmp_path,
+        repeat_count=3,
+    )
+
+    assert command[command.index("--repeat") + 1] == "3"
+    assert command.count("--episode-id") == 4
+    assert command.count("--system-id") == 5

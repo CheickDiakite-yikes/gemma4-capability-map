@@ -30,6 +30,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--run-group-id", default=None)
     parser.add_argument("--registry", default=str(DEFAULT_REGISTRY_PATH))
     parser.add_argument("--run-intent", choices=["canonical", "exploratory"], default="exploratory")
+    parser.add_argument("--repeat", type=int, default=1, help="Run each selected episode this many times per system.")
     return parser.parse_args()
 
 
@@ -39,6 +40,8 @@ def main() -> None:
         raise SystemExit("Provide at least one --system-id to evaluate.")
     if not args.episode_ids:
         raise SystemExit("Provide at least one --episode-id for the focused packet.")
+    if args.repeat < 1:
+        raise SystemExit("repeat must be at least 1")
 
     registry = load_model_registry(args.registry)
     systems = registry.get("systems", {})
@@ -53,10 +56,11 @@ def main() -> None:
     lane_dir = ROOT / "data" / "knowledge_work" / args.lane
     episodes = load_episodes(lane_dir / "episodes.jsonl")
     allowed_ids = set(args.episode_ids)
-    episodes = [episode for episode in episodes if episode.episode_id in allowed_ids]
-    missing_ids = [episode_id for episode_id in args.episode_ids if episode_id not in {episode.episode_id for episode in episodes}]
+    base_episodes = [episode for episode in episodes if episode.episode_id in allowed_ids]
+    missing_ids = [episode_id for episode_id in args.episode_ids if episode_id not in {episode.episode_id for episode in base_episodes}]
     if missing_ids:
         raise SystemExit(f"Unknown episode ids: {', '.join(missing_ids)}")
+    episodes = [episode for _ in range(args.repeat) for episode in base_episodes]
 
     tasks = load_tasks(track=None)
     bundle_controls = ResearchControls.from_mapping(bundle_system.get("research_controls"))
@@ -88,6 +92,7 @@ def main() -> None:
         "bundle_system_id": args.bundle_system_id,
         "system_ids": args.system_ids,
         "episode_ids": args.episode_ids,
+        "repeat_count": args.repeat,
         "run_intent": args.run_intent,
         "warmup": warmup,
         "runtime_bundle": bundle_snapshot,
@@ -133,6 +138,8 @@ def main() -> None:
             "thinking": bool(meta.get("thinking", False)),
             "limit": None,
             "episode_count": len(episodes),
+            "base_episode_count": len(base_episodes),
+            "repeat_count": args.repeat,
             "episodes_path": str((lane_dir / "episodes.jsonl").resolve()),
             "runtime_bundle": bundle_snapshot,
             "run_intent": args.run_intent,
@@ -182,6 +189,7 @@ def main() -> None:
             "created_at": created_at,
             "output_dir": str(output_dir.resolve()),
             "episode_ids": args.episode_ids,
+            "repeat_count": args.repeat,
         }
         _write_outputs(output_dir, traces, summary_payload, manifest)
         results.append({"system_id": system_id, "output_dir": str(output_dir.resolve()), "summary": summary_payload})

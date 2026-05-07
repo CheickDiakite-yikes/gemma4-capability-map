@@ -30,6 +30,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--lane", choices=["replayable_core", "live_web_stress"], default="replayable_core")
     parser.add_argument("--system-id", action="append", dest="system_ids", default=[])
     parser.add_argument("--packet-id", default=None, help="Run a named H1 packet from the config instead of the full lane.")
+    parser.add_argument("--repeat", type=int, default=1, help="Run each selected packet episode this many times per system.")
     parser.add_argument("--dry-run", action="store_true")
     return parser.parse_args()
 
@@ -40,6 +41,8 @@ def main() -> None:
     validation_errors = validate_h1_slice(config)
     if validation_errors:
         raise SystemExit("Invalid H1 slice config:\n" + "\n".join(f"- {error}" for error in validation_errors))
+    if args.repeat < 1:
+        raise SystemExit("repeat must be at least 1")
 
     registry = load_model_registry(args.registry)
     packet = h1_packet_selection(config, args.packet_id) if args.packet_id else None
@@ -58,6 +61,7 @@ def main() -> None:
         bundle_system_id=config.ablation_bundle_system_id,
         system_ids=selected_system_ids,
         episode_ids=selected_episode_ids,
+        repeat_count=args.repeat,
         output_root=Path(args.output_root),
     )
     output_dir = Path(args.output_root) / f"{run_group_id}_knowledge_work_ablation_packet"
@@ -71,6 +75,7 @@ def main() -> None:
         "bundle_system_id": config.ablation_bundle_system_id,
         "system_ids": selected_system_ids,
         "episode_ids": selected_episode_ids,
+        "repeat_count": args.repeat,
         "command": command,
         "output_dir": str(output_dir.resolve()),
         "dry_run": bool(args.dry_run),
@@ -114,6 +119,7 @@ def h1_ablation_packet_command(
     system_ids: list[str],
     episode_ids: list[str],
     output_root: Path,
+    repeat_count: int = 1,
 ) -> list[str]:
     command = [
         sys.executable,
@@ -128,6 +134,8 @@ def h1_ablation_packet_command(
         run_group_id,
         "--run-intent",
         "exploratory",
+        "--repeat",
+        str(repeat_count),
     ]
     for system_id in system_ids:
         command.extend(["--system-id", system_id])
