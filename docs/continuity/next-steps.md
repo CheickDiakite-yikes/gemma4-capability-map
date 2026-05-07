@@ -107,7 +107,8 @@ Current evidence:
     - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_literal_guard`
     - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_tool_required`
   - generated table: [`results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_candidates.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_candidates.csv)
-  - dry-run probe packet: [`results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_dry_run_v1`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_dry_run_v1)
+  - dry-run probe packet: [`results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_dry_run_v2`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_dry_run_v2)
+  - v2 packet schema writes `no_directive_probe_dir`, `delta_exact_vs_no_directive`, and `probe_gate` fields for executed candidate comparisons
   - H1i graduation packet id: `mlx_prompt_contract_candidates`
   - design guardrail: candidates add generic interface contract wording only; they must not embed the exact next planned call
 

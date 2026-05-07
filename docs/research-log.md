@@ -2724,7 +2724,7 @@
     - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_tool_required`
   - each candidate keeps `disable_tool_turn_directive = true` and adds a generic `tool_prompt_contract_id`, which means the candidate is testing interface-shaping language rather than reintroducing the exact final directive by another name
   - generated report artifacts now include [`prompt_contract_candidates.csv`](../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_candidates.csv) and [`prompt_contract_candidate_targets.svg`](../results/reports/mlx_tool_contract_harnessing/figures/prompt_contract_candidate_targets.svg)
-  - dry-run probe packet [`20260507T_prompt_contract_candidates_dry_run_v1`](../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_dry_run_v1) freezes the three candidate probe commands without running MLX
+  - dry-run probe packet [`20260507T_prompt_contract_candidates_dry_run_v2`](../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_dry_run_v2) freezes the three candidate probe commands without running MLX and records both contracted and no-directive probe baselines
   - H1i now has a named graduation packet, `mlx_prompt_contract_candidates`, that runs contracted MLX, no-directive MLX, and the three candidate rows across the same four worst-family live workflows
   - empirical gate: execute the probe packet first, compare exact/executable rates against contracted and no-directive baselines, regenerate the report, and only then spend H1i live runtime on candidates that improve raw protocol behavior
 

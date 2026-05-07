@@ -138,7 +138,8 @@ Latest MLX tool-contract research:
   - candidates deliberately keep `disable_tool_turn_directive = true` and add only generic contract reminders through `tool_prompt_contract_id`; they do not leak the exact planned tool call
   - generated candidate table: [`results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_candidates.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_candidates.csv)
   - generated candidate target figure: [`results/reports/mlx_tool_contract_harnessing/figures/prompt_contract_candidate_targets.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/prompt_contract_candidate_targets.svg)
-  - dry-run probe packet: [`results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_dry_run_v1`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_dry_run_v1)
+  - dry-run probe packet: [`results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_dry_run_v2`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_dry_run_v2)
+  - v2 packet schema records both the contracted probe baseline and the no-directive probe baseline, so executed candidates can be gated on improvement over no-directive before any H1i spend
   - H1i graduation packet: `mlx_prompt_contract_candidates` in [`configs/knowledge_work_h1i_slice.yaml`](../../configs/knowledge_work_h1i_slice.yaml)
   - interpretation: the next meaningful MLX harnessing question is whether generic prompt contracts can recover raw tool-protocol behavior on the probe before any live H1i spend
 

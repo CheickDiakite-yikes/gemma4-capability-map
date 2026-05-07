@@ -125,7 +125,7 @@ The active next experiment is now a CLI/research-harness packet, not a UI task:
 
 - generic prompt-contract candidates live in [`configs/model_registry.yaml`](configs/model_registry.yaml)
 - the candidate queue is summarized in [`results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_candidates.csv`](results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_candidates.csv)
-- the replayable dry-run probe packet is [`results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_dry_run_v1`](results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_dry_run_v1)
+- the replayable dry-run probe packet is [`results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_dry_run_v2`](results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_dry_run_v2)
 - the H1i graduation packet is `mlx_prompt_contract_candidates` in [`configs/knowledge_work_h1i_slice.yaml`](configs/knowledge_work_h1i_slice.yaml)
 
 The intended order is: execute the prompt-contract probe packet, compare each candidate to the contracted/no-directive probe baselines, regenerate the report, then run the best candidate or candidates on H1i before considering another full H1h run.
