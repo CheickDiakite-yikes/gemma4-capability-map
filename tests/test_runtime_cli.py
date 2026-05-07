@@ -12,12 +12,42 @@ from gemma4_capability_map.runtime.sandbox import DEFAULT_SANDBOX_POLICY_ID
 
 def test_runtime_cli_lists_workflows(monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str], tmp_path: Path) -> None:
     monkeypatch.setattr(runtime_cli, "LocalAgentRuntime", lambda: LocalAgentRuntime(results_root=tmp_path / "runtime"))
-    monkeypatch.setattr(runtime_cli, "parse_args", lambda: runtime_cli.argparse.Namespace(command="workflows", lane="replayable_core"))
+    monkeypatch.setattr(
+        runtime_cli,
+        "parse_args",
+        lambda: runtime_cli.argparse.Namespace(command="workflows", lane="replayable_core", workflow_id=None, validate=False),
+    )
 
     runtime_cli.main()
 
     output = json.loads(capsys.readouterr().out)
     assert any(workflow["workflow_id"] == "executive_visual_dashboard_review" for workflow in output)
+
+
+def test_runtime_cli_validates_and_filters_parallel_workflow(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+    tmp_path: Path,
+) -> None:
+    monkeypatch.setattr(runtime_cli, "LocalAgentRuntime", lambda: LocalAgentRuntime(results_root=tmp_path / "runtime"))
+    monkeypatch.setattr(
+        runtime_cli,
+        "parse_args",
+        lambda: runtime_cli.argparse.Namespace(
+            command="workflows",
+            lane="live_web_stress",
+            workflow_id="ops_parallel_audit_review",
+            validate=True,
+        ),
+    )
+
+    runtime_cli.main()
+
+    output = json.loads(capsys.readouterr().out)
+    assert output["valid"] is True
+    assert output["validation_errors"] == []
+    assert output["workflow_count"] == 1
+    assert output["workflows"][0]["episode_id"] == "kwa_ops_live_parallel_audit_review_v1"
 
 
 def test_runtime_cli_lists_pending_approvals(monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str], tmp_path: Path) -> None:

@@ -12,6 +12,7 @@ from gemma4_capability_map.runtime.research_packets import print_research_packet
 from gemma4_capability_map.runtime.research_reports import print_research_report, research_report_payload
 from gemma4_capability_map.runtime.sandbox import DEFAULT_SANDBOX_POLICY_ID
 from gemma4_capability_map.runtime.schemas import ApprovalStatus
+from gemma4_capability_map.runtime.workflows import DEFAULT_WORKFLOWS_PATH, validate_packaged_workflows
 
 
 def parse_args() -> argparse.Namespace:
@@ -21,6 +22,8 @@ def parse_args() -> argparse.Namespace:
     subparsers.add_parser("profiles", help="List available system profiles.")
     workflows_parser = subparsers.add_parser("workflows", help="List packaged workflows.")
     workflows_parser.add_argument("--lane", default=None)
+    workflows_parser.add_argument("--workflow-id", default=None)
+    workflows_parser.add_argument("--validate", action="store_true")
 
     sessions_parser = subparsers.add_parser("sessions", help="List saved sessions.")
     sessions_parser.add_argument("--status", default=None)
@@ -131,7 +134,25 @@ def main() -> None:
         print(json.dumps([profile.model_dump(mode="json") for profile in runtime.list_system_profiles()], indent=2, ensure_ascii=False))
         return
     if args.command == "workflows":
-        print(json.dumps(runtime.list_workflows(lane=args.lane), indent=2, ensure_ascii=False))
+        workflows = runtime.list_workflows(lane=args.lane)
+        if args.workflow_id:
+            workflows = [workflow for workflow in workflows if workflow["workflow_id"] == args.workflow_id]
+        if args.validate:
+            validation_errors = validate_packaged_workflows(DEFAULT_WORKFLOWS_PATH)
+            print(
+                json.dumps(
+                    {
+                        "valid": not validation_errors,
+                        "validation_errors": validation_errors,
+                        "workflow_count": len(workflows),
+                        "workflows": workflows,
+                    },
+                    indent=2,
+                    ensure_ascii=False,
+                )
+            )
+            return
+        print(json.dumps(workflows, indent=2, ensure_ascii=False))
         return
     if args.command == "sessions":
         print(json.dumps([session.model_dump(mode="json") for session in runtime.list_sessions(status=args.status)], indent=2, ensure_ascii=False))
