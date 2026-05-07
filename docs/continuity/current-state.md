@@ -185,6 +185,10 @@ Latest MLX tool-contract research:
     ```bash
     uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1k_slice.yaml --packet-id mlx_parallel_audit_tool_contract_candidates --run-group-id 20260507T_h1k_parallel_audit_candidates_dry_run_v1 --dry-run
     ```
+
+  - candidate packet: [`results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_candidates_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_candidates_v1_knowledge_work_ablation_packet)
+  - H1k candidate result: `5` traces, all rows matched readiness `0.91780`, strict/recovered `1.0 / 1.0`, repair/fallback/argument repair `0.0 / 0.0 / 0.0`, raw clean `1.0`, with `0` trace notes and `0` failure candidates
+  - interpretation: H1k is a useful negative result. It adds the deferred parallel-audit packaged workflow, but the staged live workflow is still easier than the raw one-turn `parallel_audit_array_literal` exact probe.
 - Prompt-contract wave 2:
   - contracts: `schema_literal_tool_required_v2`, `visual_next_call_state_v2`, `parallel_array_required_v2`
   - runner flag: `scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v2`

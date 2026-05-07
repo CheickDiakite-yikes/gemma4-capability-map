@@ -1,0 +1,221 @@
+{
+  "returncode": 0,
+  "stdout": "{\n  \"run_group_id\": \"20260507T_h1k_parallel_audit_candidates_v1\",\n  \"systems\": 5,\n  \"episodes\": 1,\n  \"output_dir\": \"/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_candidates_v1_knowledge_work_ablation_packet\"\n}\n",
+  "stderr": "\nFetching 8 files:   0%|          | 0/8 [00:00<?, ?it/s]\nFetching 8 files: 100%|██████████| 8/8 [00:00<00:00, 62022.98it/s]\n\nFetching 8 files:   0%|          | 0/8 [00:00<?, ?it/s]\nFetching 8 files: 100%|██████████| 8/8 [00:00<00:00, 241398.79it/s]\n",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_candidates_v1_knowledge_work_ablation_packet",
+  "results": [
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_candidates_v1_knowledge_work_ablation_packet/mlx_gemma4_e2b_reasoner_only__live_web_stress",
+      "summary": {
+        "runs": 1.0,
+        "artifact_quality_avg": 0.625,
+        "browser_workflow_avg": 1.0,
+        "strict_interface_avg": 1.0,
+        "recovered_execution_avg": 1.0,
+        "real_world_readiness_avg": 0.9178,
+        "escalation_correctness_avg": 1.0,
+        "controller_repair_avg": 0.0,
+        "argument_repair_avg": 0.0,
+        "controller_fallback_avg": 0.0,
+        "intent_override_avg": 0.0,
+        "raw_planning_clean_rate_avg": 1.0,
+        "lane": "live_web_stress",
+        "created_at": "20260507T030317Z",
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_candidates_v1_knowledge_work_ablation_packet/mlx_gemma4_e2b_reasoner_only__live_web_stress",
+        "episode_ids": [
+          "kwa_ops_live_parallel_audit_review_v1"
+        ],
+        "repeat_count": 1
+      }
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_candidates_v1_knowledge_work_ablation_packet/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive__live_web_stress",
+      "summary": {
+        "runs": 1.0,
+        "artifact_quality_avg": 0.625,
+        "browser_workflow_avg": 1.0,
+        "strict_interface_avg": 1.0,
+        "recovered_execution_avg": 1.0,
+        "real_world_readiness_avg": 0.9178,
+        "escalation_correctness_avg": 1.0,
+        "controller_repair_avg": 0.0,
+        "argument_repair_avg": 0.0,
+        "controller_fallback_avg": 0.0,
+        "intent_override_avg": 0.0,
+        "raw_planning_clean_rate_avg": 1.0,
+        "lane": "live_web_stress",
+        "created_at": "20260507T030320Z",
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_candidates_v1_knowledge_work_ablation_packet/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive__live_web_stress",
+        "episode_ids": [
+          "kwa_ops_live_parallel_audit_review_v1"
+        ],
+        "repeat_count": 1
+      }
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_literal_tool_required",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_candidates_v1_knowledge_work_ablation_packet/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_literal_tool_required__live_web_stress",
+      "summary": {
+        "runs": 1.0,
+        "artifact_quality_avg": 0.625,
+        "browser_workflow_avg": 1.0,
+        "strict_interface_avg": 1.0,
+        "recovered_execution_avg": 1.0,
+        "real_world_readiness_avg": 0.9178,
+        "escalation_correctness_avg": 1.0,
+        "controller_repair_avg": 0.0,
+        "argument_repair_avg": 0.0,
+        "controller_fallback_avg": 0.0,
+        "intent_override_avg": 0.0,
+        "raw_planning_clean_rate_avg": 1.0,
+        "lane": "live_web_stress",
+        "created_at": "20260507T030322Z",
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_candidates_v1_knowledge_work_ablation_packet/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_literal_tool_required__live_web_stress",
+        "episode_ids": [
+          "kwa_ops_live_parallel_audit_review_v1"
+        ],
+        "repeat_count": 1
+      }
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_parallel_array_required",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_candidates_v1_knowledge_work_ablation_packet/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_parallel_array_required__live_web_stress",
+      "summary": {
+        "runs": 1.0,
+        "artifact_quality_avg": 0.625,
+        "browser_workflow_avg": 1.0,
+        "strict_interface_avg": 1.0,
+        "recovered_execution_avg": 1.0,
+        "real_world_readiness_avg": 0.9178,
+        "escalation_correctness_avg": 1.0,
+        "controller_repair_avg": 0.0,
+        "argument_repair_avg": 0.0,
+        "controller_fallback_avg": 0.0,
+        "intent_override_avg": 0.0,
+        "raw_planning_clean_rate_avg": 1.0,
+        "lane": "live_web_stress",
+        "created_at": "20260507T030324Z",
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_candidates_v1_knowledge_work_ablation_packet/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_parallel_array_required__live_web_stress",
+        "episode_ids": [
+          "kwa_ops_live_parallel_audit_review_v1"
+        ],
+        "repeat_count": 1
+      }
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_tool_required",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_candidates_v1_knowledge_work_ablation_packet/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_tool_required__live_web_stress",
+      "summary": {
+        "runs": 1.0,
+        "artifact_quality_avg": 0.625,
+        "browser_workflow_avg": 1.0,
+        "strict_interface_avg": 1.0,
+        "recovered_execution_avg": 1.0,
+        "real_world_readiness_avg": 0.9178,
+        "escalation_correctness_avg": 1.0,
+        "controller_repair_avg": 0.0,
+        "argument_repair_avg": 0.0,
+        "controller_fallback_avg": 0.0,
+        "intent_override_avg": 0.0,
+        "raw_planning_clean_rate_avg": 1.0,
+        "lane": "live_web_stress",
+        "created_at": "20260507T030326Z",
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_candidates_v1_knowledge_work_ablation_packet/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_tool_required__live_web_stress",
+        "episode_ids": [
+          "kwa_ops_live_parallel_audit_review_v1"
+        ],
+        "repeat_count": 1
+      }
+    }
+  ],
+  "manifest": {
+    "run_group_id": "20260507T_h1k_parallel_audit_candidates_v1",
+    "created_at": "2026-05-07T03:03:17.801423+00:00",
+    "lane": "live_web_stress",
+    "bundle_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "system_ids": [
+      "mlx_gemma4_e2b_reasoner_only",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_literal_tool_required",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_parallel_array_required",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_tool_required"
+    ],
+    "episode_ids": [
+      "kwa_ops_live_parallel_audit_review_v1"
+    ],
+    "repeat_count": 1,
+    "run_intent": "exploratory",
+    "warmup": {
+      "reasoner": {
+        "backend": "mlx",
+        "runtime_posture": "mlx",
+        "requested_model": "google/gemma-4-E2B-it",
+        "effective_model": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_source": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_format": "mlx",
+        "runtime_device": "mlx",
+        "load_mode": "vision",
+        "configured_device": "auto",
+        "request_timeout_seconds": 300.0,
+        "tool_turn_directive_enabled": true,
+        "tool_prompt_contract_id": "",
+        "service": {},
+        "partial_runtime": false,
+        "llama_cpp_error": null,
+        "llama_cpp_context_window": null
+      },
+      "router": {
+        "backend": "heuristic",
+        "requested_model": "",
+        "effective_model": "",
+        "runtime_device": null,
+        "configured_device": "auto"
+      },
+      "retriever": {
+        "backend": "heuristic",
+        "requested_model": "",
+        "effective_model": "",
+        "loaded": false,
+        "configured_device": "auto",
+        "runtime_device": null
+      }
+    },
+    "runtime_bundle": {
+      "reasoner": {
+        "backend": "mlx",
+        "runtime_posture": "mlx",
+        "requested_model": "google/gemma-4-E2B-it",
+        "effective_model": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_source": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_format": "mlx",
+        "runtime_device": "mlx",
+        "load_mode": "vision",
+        "configured_device": "auto",
+        "request_timeout_seconds": 300.0,
+        "tool_turn_directive_enabled": true,
+        "tool_prompt_contract_id": "",
+        "service": {},
+        "partial_runtime": false,
+        "llama_cpp_error": null,
+        "llama_cpp_context_window": null
+      },
+      "router": {
+        "backend": "heuristic",
+        "requested_model": "",
+        "effective_model": "",
+        "runtime_device": null,
+        "configured_device": "auto"
+      },
+      "retriever": {
+        "backend": "heuristic",
+        "requested_model": "",
+        "effective_model": "",
+        "loaded": false,
+        "configured_device": "auto",
+        "runtime_device": null
+      }
+    }
+  }
+}

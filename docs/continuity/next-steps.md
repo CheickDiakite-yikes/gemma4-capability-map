@@ -160,6 +160,10 @@ What remains:
     uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1k_slice.yaml --packet-id mlx_parallel_audit_tool_contract_candidates --run-group-id <timestamp>_h1k_parallel_audit_candidates_v1 --dry-run
     ```
 
+  - executed candidate packet: [`results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_candidates_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_candidates_v1_knowledge_work_ablation_packet)
+  - result: all five rows matched readiness `0.91780`, strict/recovered `1.0 / 1.0`, repair/fallback/argument repair `0.0 / 0.0 / 0.0`, raw clean `1.0`, with `0` trace notes and `0` failure candidates
+  - interpretation: the packaged parallel workflow is still too staged to reproduce the raw no-directive one-turn parallel no-call failure. The next discriminator should preserve the exact-call replay shape.
+
 - second prompt-contract wave now exists:
   - contracts: `schema_literal_tool_required_v2`, `visual_next_call_state_v2`, `parallel_array_required_v2`
   - registry systems:
