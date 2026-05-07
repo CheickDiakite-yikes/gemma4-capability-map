@@ -82,6 +82,12 @@ DEFAULT_PARALLEL_REPLAY_COMPARISON = (
     / "tool_probe_replay_comparisons"
     / "20260507T_parallel_array_contracted_vs_no_directive_v1"
 )
+DEFAULT_CANONICAL_ARGUMENT_REPLAY_COMPARISON = (
+    ROOT
+    / "results"
+    / "tool_probe_replay_comparisons"
+    / "20260507T_canonical_argument_contracted_vs_no_directive_v1"
+)
 
 SYSTEM_LABELS = {
     "mlx_gemma4_e2b_reasoner_only": "contracted",
@@ -109,6 +115,7 @@ def build_report(
     exact_replay_comparison: str | Path = DEFAULT_EXACT_REPLAY_COMPARISON,
     visual_replay_comparison: str | Path = DEFAULT_VISUAL_REPLAY_COMPARISON,
     parallel_replay_comparison: str | Path = DEFAULT_PARALLEL_REPLAY_COMPARISON,
+    canonical_argument_replay_comparison: str | Path = DEFAULT_CANONICAL_ARGUMENT_REPLAY_COMPARISON,
     registry_path: str | Path = DEFAULT_REGISTRY_PATH,
 ) -> dict[str, Any]:
     target = Path(output_dir)
@@ -158,9 +165,13 @@ def build_report(
     parallel_replay_comparison_payload = json.loads(
         (Path(parallel_replay_comparison) / "replay_comparison.json").read_text(encoding="utf-8")
     )
+    canonical_argument_replay_comparison_payload = json.loads(
+        (Path(canonical_argument_replay_comparison) / "replay_comparison.json").read_text(encoding="utf-8")
+    )
     exact_replay_focus_rows = _replay_focus_summary_rows(
         [
             ("all failures", exact_replay_comparison_payload),
+            ("canonical arguments", canonical_argument_replay_comparison_payload),
             ("visual no-call", visual_replay_comparison_payload),
             ("parallel array", parallel_replay_comparison_payload),
         ]
@@ -340,6 +351,7 @@ def build_report(
         "exact_replay_comparison": str(Path(exact_replay_comparison).resolve()),
         "visual_replay_comparison": str(Path(visual_replay_comparison).resolve()),
         "parallel_replay_comparison": str(Path(parallel_replay_comparison).resolve()),
+        "canonical_argument_replay_comparison": str(Path(canonical_argument_replay_comparison).resolve()),
         "registry_path": str(Path(registry_path).resolve()),
         "table_count": 19,
         "figure_count": 12,
@@ -388,6 +400,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--exact-replay-comparison", default=str(DEFAULT_EXACT_REPLAY_COMPARISON))
     parser.add_argument("--visual-replay-comparison", default=str(DEFAULT_VISUAL_REPLAY_COMPARISON))
     parser.add_argument("--parallel-replay-comparison", default=str(DEFAULT_PARALLEL_REPLAY_COMPARISON))
+    parser.add_argument("--canonical-argument-replay-comparison", default=str(DEFAULT_CANONICAL_ARGUMENT_REPLAY_COMPARISON))
     parser.add_argument("--registry", default=str(DEFAULT_REGISTRY_PATH))
     return parser.parse_args()
 
@@ -410,6 +423,7 @@ def main() -> None:
         exact_replay_comparison=args.exact_replay_comparison,
         visual_replay_comparison=args.visual_replay_comparison,
         parallel_replay_comparison=args.parallel_replay_comparison,
+        canonical_argument_replay_comparison=args.canonical_argument_replay_comparison,
         registry_path=args.registry,
     )
     print(
@@ -804,6 +818,7 @@ def _markdown_report(payload: dict[str, Any]) -> str:
             f"- H1j probe-derived prompt-contract packet: `{payload['manifest']['h1j_prompt_contract_packet']}`",
             f"- H1j probe-derived helper packet: `{payload['manifest']['h1j_helper_packet']}`",
             f"- Exact replay comparison: `{payload['manifest']['exact_replay_comparison']}`",
+            f"- Canonical argument replay comparison: `{payload['manifest']['canonical_argument_replay_comparison']}`",
             f"- Visual replay comparison: `{payload['manifest']['visual_replay_comparison']}`",
             f"- Parallel replay comparison: `{payload['manifest']['parallel_replay_comparison']}`",
             f"- Gemini dry-run baseline: `{payload['manifest']['gemini_packet']}`",

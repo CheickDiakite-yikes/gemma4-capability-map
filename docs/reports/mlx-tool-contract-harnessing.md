@@ -245,6 +245,14 @@ The contracted replay packet restores `7 / 8` exact on the same cases, with the 
 
 The generated replay comparison records a `-0.875` exact-rate delta for no-directive versus contracted MLX on the same replay case set.
 
+Focused replay slices now isolate each `next_action` family:
+
+| Slice | Contracted exact | No-directive exact | Delta | Interpretation |
+| --- | ---: | ---: | ---: | --- |
+| canonical arguments | `4 / 4` | `0 / 4` | `-1.0` | Final directive is carrying exact CLI/API argument canonicalization. |
+| visual no-call | `2 / 3` plus one executable paraphrase | `0 / 3` | `-0.667` | Visual cases still need a stateful/executable replay path before another broad H1 run. |
+| parallel array | `1 / 1` | `0 / 1` | `-1.0` | The missing faithful live workflow should preserve independent two-call array shape. |
+
 Generated replay tables:
 
 - [`exact_probe_replay_case_deltas.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/exact_probe_replay_case_deltas.csv)

@@ -66,6 +66,8 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert replay_cases["parallel_audit_array_literal"]["delta_actual_call_count"] == "-2"
     focus = {row["slice"]: row for row in payload["exact_probe_replay_focus_summary"]}
     assert focus["all failures"]["delta_exact_match_rate"] == -0.875
+    assert focus["canonical arguments"]["delta_exact_match_rate"] == -1.0
+    assert focus["canonical arguments"]["shared_case_count"] == 4
     assert focus["visual no-call"]["candidate_exact_match_rate"] == 0.0
     assert focus["parallel array"]["baseline_exact_match_rate"] == 1.0
     h1i_candidates = {row["system_id"]: row for row in payload["h1i_prompt_contract_candidate_metrics"]}

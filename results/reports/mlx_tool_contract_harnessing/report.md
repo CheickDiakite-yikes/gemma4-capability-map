@@ -1,6 +1,6 @@
 # MLX Tool-Contract Harnessing Report
 
-Generated: `2026-05-07T02:41:02.478169+00:00`
+Generated: `2026-05-07T02:49:51.023724+00:00`
 
 ## Executive Read
 
@@ -130,6 +130,7 @@ The promotion gate is intentionally conservative: weak one-case exact gains and 
 | slice | shared_case_count | baseline_exact_match_rate | candidate_exact_match_rate | delta_exact_match_rate | case_delta_count |
 | --- | --- | --- | --- | --- | --- |
 | all failures | 8 | 0.875 | 0.0 | -0.875 | 7 |
+| canonical arguments | 4 | 1.0 | 0.0 | -1.0 | 4 |
 | visual no-call | 3 | 0.6666666666666666 | 0.0 | -0.6666666666666666 | 2 |
 | parallel array | 1 | 1.0 | 0.0 | -1.0 | 1 |
 
@@ -212,6 +213,7 @@ This packet is deliberately a dry-run prompt and command manifest. It is an exte
 - H1j probe-derived prompt-contract packet: `/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_candidates_v1_knowledge_work_ablation_packet`
 - H1j probe-derived helper packet: `/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_helpers_v1_knowledge_work_ablation_packet`
 - Exact replay comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_comparisons/20260507T_contracted_vs_no_directive_exact_replay_v1`
+- Canonical argument replay comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_comparisons/20260507T_canonical_argument_contracted_vs_no_directive_v1`
 - Visual replay comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_comparisons/20260507T_visual_state_contracted_vs_no_directive_v1`
 - Parallel replay comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_comparisons/20260507T_parallel_array_contracted_vs_no_directive_v1`
 - Gemini dry-run baseline: `/Users/cheickdiakite/Codex/moonie/results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1`

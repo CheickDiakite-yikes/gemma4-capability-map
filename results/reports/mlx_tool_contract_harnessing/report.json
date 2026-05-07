@@ -1,6 +1,6 @@
 {
   "manifest": {
-    "generated_at": "2026-05-07T02:41:02.478169+00:00",
+    "generated_at": "2026-05-07T02:49:51.023724+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/mlx_tool_contract_harnessing",
     "source_packets": {
       "H1f compact": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1f_mlx_no_directive_v1_knowledge_work_h1f_mlx_tool_contract_ablation_v1",
@@ -18,6 +18,7 @@
     "exact_replay_comparison": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_comparisons/20260507T_contracted_vs_no_directive_exact_replay_v1",
     "visual_replay_comparison": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_comparisons/20260507T_visual_state_contracted_vs_no_directive_v1",
     "parallel_replay_comparison": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_comparisons/20260507T_parallel_array_contracted_vs_no_directive_v1",
+    "canonical_argument_replay_comparison": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_comparisons/20260507T_canonical_argument_contracted_vs_no_directive_v1",
     "registry_path": "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
     "table_count": 19,
     "figure_count": 12
@@ -1476,6 +1477,14 @@
       "candidate_exact_match_rate": 0.0,
       "delta_exact_match_rate": -0.875,
       "case_delta_count": 7
+    },
+    {
+      "slice": "canonical arguments",
+      "shared_case_count": 4,
+      "baseline_exact_match_rate": 1.0,
+      "candidate_exact_match_rate": 0.0,
+      "delta_exact_match_rate": -1.0,
+      "case_delta_count": 4
     },
     {
       "slice": "visual no-call",
