@@ -24,6 +24,7 @@ H1D_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_w
 H1E_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1e_slice.yaml"
 H1F_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1f_slice.yaml"
 H1G_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1g_slice.yaml"
+H1H_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1h_slice.yaml"
 
 
 def test_h1_slice_config_maps_to_existing_packaged_workflows_and_episodes() -> None:
@@ -216,6 +217,27 @@ def test_h1g_slice_config_maps_to_remaining_helper_packet() -> None:
     ]
     assert packet.episode_ids == config.lanes["live_web_stress"].episode_ids
     assert "second_wave_helper_ablation" in config.attribution_tags
+
+
+def test_h1h_slice_config_maps_to_full_tool_contract_packet() -> None:
+    config = load_h1_slice(H1H_CONFIG_PATH)
+
+    errors = validate_h1_slice(config)
+
+    assert errors == []
+    assert config.name == "knowledge_work_h1h_mlx_full_tool_contract_ablation"
+    assert len(config.workflow_families) == 10
+    packet = h1_packet_selection(config, "mlx_full_tool_contract_breaker")
+    assert packet.lane == "live_web_stress"
+    assert packet.system_ids == [
+        "mlx_gemma4_e2b_reasoner_only",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_repair",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_fallback",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_argument_repair",
+    ]
+    assert packet.episode_ids == config.lanes["live_web_stress"].episode_ids
+    assert "full_live_surface" in config.attribution_tags
 
 
 def test_h1_primary_run_specs_default_to_mlx_gemma_reasoner_only() -> None:
