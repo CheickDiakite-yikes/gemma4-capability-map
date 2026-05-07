@@ -116,6 +116,14 @@ The first tracked live dry run is:
 
 It records the selected source packet, system id, exact replay case id, source failure mode, and the exact command needed to execute the same case.
 
+CLI inspection:
+
+```bash
+uv run moonie-agent packet \
+  --kind tool-probe-replay-live \
+  --packet-id 20260507T_parallel_array_replay_live_dry_run_v1
+```
+
 Executed packet:
 
 ```bash

@@ -45,6 +45,7 @@ Current CLI surface:
   - inspects generated research packet directories from the terminal
   - current default kind is `prompt-contract-probe`, including candidate rows, command counts, dry-run/executed counts, and packet files
   - `--kind tool-probe-replay` inspects exact probe replay packets, including case rows, failure modes, command counts, and packet files
+  - `--kind tool-probe-replay-live` inspects live exact-replay packets, including case status rows, exact rate, command count, and packet files
   - supports `--packet-id latest`, explicit `--packet-dir`, and `--json`
 - `moonie-agent replay-live`
   - previews or executes exact tool-probe replay cases through a Rich CLI operator view

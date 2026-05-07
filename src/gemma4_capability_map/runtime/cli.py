@@ -78,7 +78,11 @@ def parse_args() -> argparse.Namespace:
     report_parser.add_argument("--json", action="store_true")
 
     packet_parser = subparsers.add_parser("packet", help="Inspect generated research packet artifacts from the terminal.")
-    packet_parser.add_argument("--kind", choices=["prompt-contract-probe", "tool-probe-replay"], default="prompt-contract-probe")
+    packet_parser.add_argument(
+        "--kind",
+        choices=["prompt-contract-probe", "tool-probe-replay", "tool-probe-replay-live"],
+        default="prompt-contract-probe",
+    )
     packet_parser.add_argument("--packet-id", default="latest")
     packet_parser.add_argument("--packet-dir", default=None)
     packet_parser.add_argument("--json", action="store_true")

@@ -537,6 +537,65 @@ def test_runtime_cli_replay_live_json_writes_dry_run_packet(
     assert (output_dir / "live_case_states.csv").exists()
 
 
+def test_runtime_cli_packet_json_inspects_tool_probe_replay_live_packet(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+    tmp_path: Path,
+) -> None:
+    runtime = LocalAgentRuntime(results_root=tmp_path / "runtime")
+    packet_dir = _write_fake_tool_probe_replay_live_packet(tmp_path / "live-replay")
+    monkeypatch.setattr(runtime_cli, "LocalAgentRuntime", lambda: runtime)
+    monkeypatch.setattr(
+        runtime_cli,
+        "parse_args",
+        lambda: runtime_cli.argparse.Namespace(
+            command="packet",
+            kind="tool-probe-replay-live",
+            packet_id="latest",
+            packet_dir=str(packet_dir),
+            json=True,
+        ),
+    )
+
+    runtime_cli.main()
+
+    output = json.loads(capsys.readouterr().out)
+    assert output["packet_kind"] == "tool-probe-replay-live"
+    assert output["case_count"] == 1
+    assert output["execute"] is True
+    assert output["executed_count"] == 1
+    assert output["exact_rate"] == 0.0
+    assert output["case_state_rows"][0]["status"] == "non_exact"
+
+
+def test_runtime_cli_packet_renders_tool_probe_replay_live_overview(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+    tmp_path: Path,
+) -> None:
+    runtime = LocalAgentRuntime(results_root=tmp_path / "runtime")
+    packet_dir = _write_fake_tool_probe_replay_live_packet(tmp_path / "live-replay")
+    monkeypatch.setattr(runtime_cli, "LocalAgentRuntime", lambda: runtime)
+    monkeypatch.setattr(
+        runtime_cli,
+        "parse_args",
+        lambda: runtime_cli.argparse.Namespace(
+            command="packet",
+            kind="tool-probe-replay-live",
+            packet_id="latest",
+            packet_dir=str(packet_dir),
+            json=False,
+        ),
+    )
+
+    runtime_cli.main()
+
+    output = capsys.readouterr().out
+    assert "Moonie Research Packet" in output
+    assert "Live Replay Cases" in output
+    assert "no_tool_call" in output
+
+
 def _write_fake_research_report(report_dir: Path) -> Path:
     (report_dir / "tables").mkdir(parents=True)
     (report_dir / "figures").mkdir()
@@ -665,6 +724,62 @@ def _write_fake_tool_probe_replay_packet(packet_dir: Path) -> Path:
                 "case_id,family,source_failure_mode,priority,next_action,why",
                 "cli_invoice_lock_hyphen_query,cli_canonicalization,argument_mismatch,medium,build_canonical_argument_replay,right tool wrong args",
                 "parallel_audit_array_literal,parallel_tool_calling,no_tool_call,high,build_parallel_array_replay_or_workflow,missing array workflow",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    return packet_dir
+
+
+def _write_fake_tool_probe_replay_live_packet(packet_dir: Path) -> Path:
+    packet_dir.mkdir(parents=True)
+    (packet_dir / "manifest.json").write_text(
+        json.dumps(
+            {
+                "packet_run_id": "fake_live_replay",
+                "created_at": "2026-05-07T00:00:00+00:00",
+                "operator_surface": "rich_cli_exact_probe_replay_v1",
+                "entrypoint": "moonie-agent replay-live",
+            }
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    (packet_dir / "summary.json").write_text(
+        json.dumps(
+            {
+                "case_count": 1,
+                "execute": True,
+                "executed_count": 1,
+                "exact_count": 0,
+                "exact_rate": 0.0,
+                "failure_mode_counts": {"no_tool_call": 1},
+            }
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    (packet_dir / "commands.json").write_text(
+        json.dumps([{"case_id": "parallel_audit_array_literal", "command": ["moonie-agent", "replay-live"]}])
+        + "\n",
+        encoding="utf-8",
+    )
+    (packet_dir / "live_case_states.csv").write_text(
+        "\n".join(
+            [
+                "case_id,family,source_failure_mode,status,replay_failure_mode,replay_exact_match",
+                "parallel_audit_array_literal,parallel_tool_calling,no_tool_call,non_exact,no_tool_call,False",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    (packet_dir / "live_replay_results.csv").write_text(
+        "\n".join(
+            [
+                "case_id,family,source_failure_mode,replay_failure_mode,replay_exact_match",
+                "parallel_audit_array_literal,parallel_tool_calling,no_tool_call,no_tool_call,False",
             ]
         )
         + "\n",
