@@ -2815,6 +2815,14 @@
   - all four source `argument_mismatch` cases replayed as `argument_mismatch`
   - all four source `no_tool_call` cases replayed as `no_tool_call`
   - interpretation: the raw no-directive failure set is stable under exact-case replay. The next implementation should target one of the three replay next-action families directly, starting with high-priority visual-state replay or parallel-array replay/workflow coverage.
+- Contracted exact-probe replay gives the matched replay baseline:
+  - packet: [`20260507T_contracted_exact_probe_replay_execute_v1`](../results/tool_probe_replay_packets/20260507T_contracted_exact_probe_replay_execute_v1)
+  - command:
+    - `uv run python scripts/build_tool_probe_replay_packet.py --run-group-id 20260507T_contracted_exact_probe_replay_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only --execute`
+  - result: exact `7 / 8`
+  - CLI/API argument cases, parallel array, and visual follow-on/readback cases all become exact
+  - `visual_form_target_literal` remains non-exact but executable through selector aliasing
+  - interpretation: replay now reproduces the central A/B cleanly: contracted MLX is raw-interface strong on the same eight cases where no-directive MLX remains at `0 / 8`
 
 ### Verification
 

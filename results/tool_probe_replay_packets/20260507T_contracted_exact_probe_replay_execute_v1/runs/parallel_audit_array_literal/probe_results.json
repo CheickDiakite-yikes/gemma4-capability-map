@@ -1,0 +1,44 @@
+[
+  {
+    "case_id": "parallel_audit_array_literal",
+    "family": "parallel_tool_calling",
+    "expected_call_count": 2,
+    "actual_call_count": 2,
+    "exact_match": true,
+    "executable_match": null,
+    "expected_execution": {},
+    "actual_execution": [],
+    "expected_calls": [
+      {
+        "name": "inspect_image",
+        "arguments": {
+          "image_id": "img-parallel"
+        }
+      },
+      {
+        "name": "read_repo_file",
+        "arguments": {
+          "path": "config/settings.yaml"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "inspect_image",
+        "arguments": {
+          "image_id": "img-parallel"
+        }
+      },
+      {
+        "name": "read_repo_file",
+        "arguments": {
+          "path": "config/settings.yaml"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"inspect_image\", \"arguments\": {\"image_id\": \"img-parallel\"}}\n{\"name\": \"read_repo_file\", \"arguments\": {\"path\": \"config/settings.yaml\"}}",
+    "prompt_tokens": 661,
+    "completion_tokens": 46,
+    "latency_ms": 4293
+  }
+]

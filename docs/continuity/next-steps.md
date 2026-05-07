@@ -163,6 +163,8 @@ What remains:
   - execution support: add `--execute` to rerun selected cases and write `replay_results.json` / `replay_results.csv`
   - executed replay packet: [`results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_execute_v1`](../../results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_execute_v1)
   - executed result: exact `0 / 8`; all source failure modes reproduced
+  - contracted replay packet: [`results/tool_probe_replay_packets/20260507T_contracted_exact_probe_replay_execute_v1`](../../results/tool_probe_replay_packets/20260507T_contracted_exact_probe_replay_execute_v1)
+  - contracted result: exact `7 / 8`; remaining visual paraphrase is executable
 - promote a candidate beyond H1i only if it moves raw-clean or controller-burden metrics for the right reason
 - regenerate the MLX tool-contract report after any H1i, H1h, probe, or Gemini baseline packet changes
 - when a real Gemini CLI binary is available, rerun the same packet with `--execute`; keep the dry-run packet as the no-side-effects prompt manifest

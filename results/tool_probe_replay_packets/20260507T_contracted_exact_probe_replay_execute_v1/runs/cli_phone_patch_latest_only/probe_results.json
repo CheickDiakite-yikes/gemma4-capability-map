@@ -1,0 +1,34 @@
+[
+  {
+    "case_id": "cli_phone_patch_latest_only",
+    "family": "cli_patch_copying",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": null,
+    "expected_execution": {},
+    "actual_execution": [],
+    "expected_calls": [
+      {
+        "name": "cli_apply_patch",
+        "arguments": {
+          "path": "config/job_form.yaml",
+          "patch": "phone_validation: strict"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "cli_apply_patch",
+        "arguments": {
+          "path": "config/job_form.yaml",
+          "patch": "phone_validation: strict"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"cli_apply_patch\", \"arguments\": {\"path\": \"config/job_form.yaml\", \"patch\": \"phone_validation: strict\"}}",
+    "prompt_tokens": 582,
+    "completion_tokens": 36,
+    "latency_ms": 4420
+  }
+]
