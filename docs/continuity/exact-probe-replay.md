@@ -28,6 +28,7 @@ The live operator bridge now starts with `moonie-agent replay-live`. It is inten
 - A/B delta: no-directive exact rate is `-0.875` versus contracted on the same eight cases
 - first live operator dry run: [`results/tool_probe_replay_live/20260507T_parallel_array_replay_live_dry_run_v1`](../../results/tool_probe_replay_live/20260507T_parallel_array_replay_live_dry_run_v1)
 - first no-directive live execution: [`results/tool_probe_replay_live/20260507T_parallel_array_no_directive_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_parallel_array_no_directive_live_execute_v1)
+- first contracted live execution: [`results/tool_probe_replay_live/20260507T_parallel_array_contracted_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_parallel_array_contracted_live_execute_v1)
 
 ## Packet Contents
 
@@ -122,6 +123,12 @@ The first tracked no-directive live execution is:
 - [`results/tool_probe_replay_live/20260507T_parallel_array_no_directive_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_parallel_array_no_directive_live_execute_v1)
 
 Result: expected `2` tool calls, actual `0`, exact `false`, replay failure mode `no_tool_call`. The raw model output asks the operator to provide the screenshot and `config/settings.yaml`, which is precisely the protocol collapse the final tool-turn directive was preventing.
+
+The paired contracted live execution is:
+
+- [`results/tool_probe_replay_live/20260507T_parallel_array_contracted_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_parallel_array_contracted_live_execute_v1)
+
+Result: expected `2` tool calls, actual `2`, exact `true`. The actual calls are `inspect_image({"image_id": "img-parallel"})` and `read_repo_file({"path": "config/settings.yaml"})`, in the same independent-call shape as the exact replay oracle.
 
 CLI inspection:
 

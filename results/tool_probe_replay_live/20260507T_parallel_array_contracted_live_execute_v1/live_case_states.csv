@@ -1,0 +1,2 @@
+case_id,family,source_failure_mode,baseline_exact_match,expected_call_count,source_actual_call_count,status,replay_failure_mode,replay_exact_match,replay_executable_match
+parallel_audit_array_literal,parallel_tool_calling,no_tool_call,True,2,0,exact,exact,True,

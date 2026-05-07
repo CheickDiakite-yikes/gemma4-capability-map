@@ -1,0 +1,14 @@
+[
+  {
+    "case_id": "parallel_audit_array_literal",
+    "family": "parallel_tool_calling",
+    "source_failure_mode": "no_tool_call",
+    "baseline_exact_match": "True",
+    "expected_call_count": "2",
+    "source_actual_call_count": "0",
+    "status": "exact",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": null
+  }
+]
