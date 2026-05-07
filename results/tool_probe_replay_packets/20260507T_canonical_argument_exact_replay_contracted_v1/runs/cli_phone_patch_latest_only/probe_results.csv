@@ -1,0 +1,2 @@
+case_id,family,expected_call_count,actual_call_count,exact_match,executable_match,expected_calls,actual_calls,expected_execution,actual_execution,latency_ms,prompt_tokens,completion_tokens
+cli_phone_patch_latest_only,cli_patch_copying,1,1,True,,"[{""name"": ""cli_apply_patch"", ""arguments"": {""path"": ""config/job_form.yaml"", ""patch"": ""phone_validation: strict""}}]","[{""name"": ""cli_apply_patch"", ""arguments"": {""path"": ""config/job_form.yaml"", ""patch"": ""phone_validation: strict""}}]",{},[],3546,582,36

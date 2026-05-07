@@ -1,0 +1,25 @@
+{
+  "packet_run_id": "20260507T_canonical_argument_exact_replay_contracted_v1",
+  "packet_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260507T_canonical_argument_exact_replay_contracted_v1",
+  "source_probe_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1",
+  "baseline_probe_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_directive_probe/20260506T_mlx_tool_directive_probe_v4",
+  "source_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+  "replay_system_id": "mlx_gemma4_e2b_reasoner_only",
+  "include_exact": false,
+  "case_count": 4,
+  "failure_mode_counts": {
+    "argument_mismatch": 4
+  },
+  "family_counts": {
+    "api_canonicalization": 2,
+    "cli_canonicalization": 1,
+    "cli_patch_copying": 1
+  },
+  "next_action_counts": {
+    "build_canonical_argument_replay": 4
+  },
+  "dry_run": false,
+  "executed_count": 4,
+  "replay_exact_match_count": 4,
+  "replay_exact_match_rate": 1.0
+}

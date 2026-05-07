@@ -1,0 +1,104 @@
+{
+  "case_id": "api_form_issue_fetch",
+  "family": "api_canonicalization",
+  "messages": [
+    {
+      "role": "user",
+      "content": "The first note mentioned work authorization, but the latest recruiter note says focus on the phone field. Fetch issue FORM-88 and identify the latest blocker.",
+      "image_refs": []
+    }
+  ],
+  "media": [],
+  "tool_names": [
+    "api_fetch_record",
+    "api_update_record"
+  ],
+  "tool_specs": [
+    {
+      "name": "api_fetch_record",
+      "description": "Fetch a record from a simulated API by type and id.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "record_type": {
+            "type": "string"
+          },
+          "record_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "record_type",
+          "record_id"
+        ]
+      },
+      "tool_family": "api",
+      "tool_intent": "read"
+    },
+    {
+      "name": "api_update_record",
+      "description": "Update a single field on a simulated API record.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "record_type": {
+            "type": "string"
+          },
+          "record_id": {
+            "type": "string"
+          },
+          "field": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "record_type",
+          "record_id",
+          "field",
+          "value"
+        ]
+      },
+      "tool_family": "api",
+      "tool_intent": "write"
+    }
+  ],
+  "initial_state": {},
+  "expected_execution": {},
+  "expected_calls": [
+    {
+      "name": "api_fetch_record",
+      "arguments": {
+        "record_type": "form_issue",
+        "record_id": "FORM-88"
+      }
+    }
+  ],
+  "source_actual_calls": [
+    {
+      "name": "api_fetch_record",
+      "arguments": {
+        "record_type": "FORM-88",
+        "record_id": "latest"
+      }
+    }
+  ],
+  "source_raw_model_output": "{\"name\": \"api_fetch_record\", \"arguments\": {\"record_type\": \"FORM-88\", \"record_id\": \"latest\"}}",
+  "source_exact_match": false,
+  "source_executable_match": null,
+  "source_failure_mode": "argument_mismatch",
+  "baseline_exact_match": true,
+  "baseline_actual_calls": [
+    {
+      "name": "api_fetch_record",
+      "arguments": {
+        "record_type": "form_issue",
+        "record_id": "FORM-88"
+      }
+    }
+  ],
+  "live_entrypoint_status": "probe_replay_packet_only_v1",
+  "live_entrypoint_note": "This is a raw exact-call replay artifact, not a packaged workflow session."
+}

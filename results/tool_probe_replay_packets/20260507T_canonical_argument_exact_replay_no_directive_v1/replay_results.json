@@ -1,0 +1,54 @@
+[
+  {
+    "case_id": "api_form_issue_fetch",
+    "family": "api_canonicalization",
+    "source_failure_mode": "argument_mismatch",
+    "replay_failure_mode": "argument_mismatch",
+    "source_exact_match": false,
+    "replay_exact_match": false,
+    "source_executable_match": null,
+    "replay_executable_match": null,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260507T_canonical_argument_exact_replay_no_directive_v1/runs/api_form_issue_fetch"
+  },
+  {
+    "case_id": "api_invoice_lock_hold_update",
+    "family": "api_canonicalization",
+    "source_failure_mode": "argument_mismatch",
+    "replay_failure_mode": "argument_mismatch",
+    "source_exact_match": false,
+    "replay_exact_match": false,
+    "source_executable_match": null,
+    "replay_executable_match": null,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260507T_canonical_argument_exact_replay_no_directive_v1/runs/api_invoice_lock_hold_update"
+  },
+  {
+    "case_id": "cli_invoice_lock_hyphen_query",
+    "family": "cli_canonicalization",
+    "source_failure_mode": "argument_mismatch",
+    "replay_failure_mode": "argument_mismatch",
+    "source_exact_match": false,
+    "replay_exact_match": false,
+    "source_executable_match": null,
+    "replay_executable_match": null,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260507T_canonical_argument_exact_replay_no_directive_v1/runs/cli_invoice_lock_hyphen_query"
+  },
+  {
+    "case_id": "cli_phone_patch_latest_only",
+    "family": "cli_patch_copying",
+    "source_failure_mode": "argument_mismatch",
+    "replay_failure_mode": "argument_mismatch",
+    "source_exact_match": false,
+    "replay_exact_match": false,
+    "source_executable_match": null,
+    "replay_executable_match": null,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260507T_canonical_argument_exact_replay_no_directive_v1/runs/cli_phone_patch_latest_only"
+  }
+]

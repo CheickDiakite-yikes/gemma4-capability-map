@@ -1,0 +1,2 @@
+case_id,family,expected_call_count,actual_call_count,exact_match,executable_match,expected_calls,actual_calls,expected_execution,actual_execution,latency_ms,prompt_tokens,completion_tokens
+cli_invoice_lock_hyphen_query,cli_canonicalization,1,1,False,,"[{""name"": ""cli_search_logs"", ""arguments"": {""path"": ""logs/billing.log"", ""query"": ""invoice lock""}}]","[{""name"": ""cli_search_logs"", ""arguments"": {""path"": ""billing.log"", ""query"": ""invoice-lock failure""}}]",{},[],3230,503,31

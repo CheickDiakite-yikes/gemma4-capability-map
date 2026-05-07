@@ -1,0 +1,34 @@
+[
+  {
+    "case_id": "api_form_issue_fetch",
+    "family": "api_canonicalization",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": null,
+    "expected_execution": {},
+    "actual_execution": [],
+    "expected_calls": [
+      {
+        "name": "api_fetch_record",
+        "arguments": {
+          "record_type": "form_issue",
+          "record_id": "FORM-88"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "api_fetch_record",
+        "arguments": {
+          "record_type": "form_issue",
+          "record_id": "FORM-88"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"api_fetch_record\", \"arguments\": {\"record_type\": \"form_issue\", \"record_id\": \"FORM-88\"}}",
+    "prompt_tokens": 637,
+    "completion_tokens": 35,
+    "latency_ms": 7376
+  }
+]

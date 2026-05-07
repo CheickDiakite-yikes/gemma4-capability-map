@@ -1,0 +1,66 @@
+[
+  {
+    "case_id": "api_form_issue_fetch",
+    "family": "api_canonicalization",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "/Users/cheickdiakite/Codex/moonie/scripts/run_tool_directive_probe.py",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260507T_canonical_argument_exact_replay_no_directive_v1/runs/api_form_issue_fetch",
+      "--case-id",
+      "api_form_issue_fetch"
+    ]
+  },
+  {
+    "case_id": "api_invoice_lock_hold_update",
+    "family": "api_canonicalization",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "/Users/cheickdiakite/Codex/moonie/scripts/run_tool_directive_probe.py",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260507T_canonical_argument_exact_replay_no_directive_v1/runs/api_invoice_lock_hold_update",
+      "--case-id",
+      "api_invoice_lock_hold_update"
+    ]
+  },
+  {
+    "case_id": "cli_invoice_lock_hyphen_query",
+    "family": "cli_canonicalization",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "/Users/cheickdiakite/Codex/moonie/scripts/run_tool_directive_probe.py",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260507T_canonical_argument_exact_replay_no_directive_v1/runs/cli_invoice_lock_hyphen_query",
+      "--case-id",
+      "cli_invoice_lock_hyphen_query"
+    ]
+  },
+  {
+    "case_id": "cli_phone_patch_latest_only",
+    "family": "cli_patch_copying",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "/Users/cheickdiakite/Codex/moonie/scripts/run_tool_directive_probe.py",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260507T_canonical_argument_exact_replay_no_directive_v1/runs/cli_phone_patch_latest_only",
+      "--case-id",
+      "cli_phone_patch_latest_only"
+    ]
+  }
+]

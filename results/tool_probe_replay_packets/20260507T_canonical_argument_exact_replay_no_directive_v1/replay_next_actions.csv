@@ -1,0 +1,5 @@
+case_id,family,source_failure_mode,priority,next_action,why
+api_form_issue_fetch,api_canonicalization,argument_mismatch,medium,build_canonical_argument_replay,model chooses the right tool family but drifts on canonical path/query/record arguments
+api_invoice_lock_hold_update,api_canonicalization,argument_mismatch,medium,build_canonical_argument_replay,model chooses the right tool family but drifts on canonical path/query/record arguments
+cli_invoice_lock_hyphen_query,cli_canonicalization,argument_mismatch,medium,build_canonical_argument_replay,model chooses the right tool family but drifts on canonical path/query/record arguments
+cli_phone_patch_latest_only,cli_patch_copying,argument_mismatch,medium,build_canonical_argument_replay,model chooses the right tool family but drifts on canonical path/query/record arguments
