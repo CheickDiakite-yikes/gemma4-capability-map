@@ -222,6 +222,14 @@ It contains all `8` failed no-directive exact-call cases:
 | `argument_mismatch` | `4` |
 | `no_tool_call` | `4` |
 
+The generated next-action table splits the implementation backlog into:
+
+| Next action | Count |
+| --- | ---: |
+| `build_canonical_argument_replay` | `4` |
+| `build_visual_state_replay_executor` | `3` |
+| `build_parallel_array_replay_or_workflow` | `1` |
+
 This packet is deliberately a dry-run replay artifact, not a packaged live workflow. It preserves each case's messages, media, allowed tool specs, expected calls, no-directive actual calls, and contracted baseline context. The next implementation should either turn the deferred parallel case into a faithful packaged workflow or make these exact probe cases operator-visible in a replay executor.
 
 ## H1i Candidate Packet Result

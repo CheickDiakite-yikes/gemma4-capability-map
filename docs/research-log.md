@@ -2803,6 +2803,7 @@
   - packet: [`20260507T_no_directive_exact_probe_replay_v1`](../results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1)
   - source probe: [`20260507T_mlx_no_directive_probe_v1`](../results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1)
   - shape: `8` failed no-directive exact-call cases, with `argument_mismatch = 4` and `no_tool_call = 4`
+  - next-action table: `build_canonical_argument_replay = 4`, `build_visual_state_replay_executor = 3`, `build_parallel_array_replay_or_workflow = 1`
   - contents: per-case JSON with messages, media, allowed tool specs, expected calls, source actual calls, raw source output, and contracted baseline context
   - command manifest: one runnable `run_tool_directive_probe.py --case-id <case>` command per replay case
   - interpretation: this packet is not live workflow execution. It is the evidence-preserving bridge needed before creating a faithful parallel live workflow or an operator-visible exact-probe replay executor.

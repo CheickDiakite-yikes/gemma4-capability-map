@@ -1,0 +1,9 @@
+case_id,family,source_failure_mode,priority,next_action,why
+api_form_issue_fetch,api_canonicalization,argument_mismatch,medium,build_canonical_argument_replay,model chooses the right tool family but drifts on canonical path/query/record arguments
+api_invoice_lock_hold_update,api_canonicalization,argument_mismatch,medium,build_canonical_argument_replay,model chooses the right tool family but drifts on canonical path/query/record arguments
+cli_invoice_lock_hyphen_query,cli_canonicalization,argument_mismatch,medium,build_canonical_argument_replay,model chooses the right tool family but drifts on canonical path/query/record arguments
+cli_phone_patch_latest_only,cli_patch_copying,argument_mismatch,medium,build_canonical_argument_replay,model chooses the right tool family but drifts on canonical path/query/record arguments
+parallel_audit_array_literal,parallel_tool_calling,no_tool_call,high,build_parallel_array_replay_or_workflow,current packaged workflows do not faithfully test the two-call array contract
+visual_form_target_literal,visual_argument_copying,no_tool_call,high,build_visual_state_replay_executor,"packaged visual workflows complete, but raw no-directive visual cases collapse to no call"
+visual_latest_filter_literal,visual_referent_carryover,no_tool_call,high,build_visual_state_replay_executor,"packaged visual workflows complete, but raw no-directive visual cases collapse to no call"
+visual_readback_region_literal,visual_referent_carryover,no_tool_call,high,build_visual_state_replay_executor,"packaged visual workflows complete, but raw no-directive visual cases collapse to no call"

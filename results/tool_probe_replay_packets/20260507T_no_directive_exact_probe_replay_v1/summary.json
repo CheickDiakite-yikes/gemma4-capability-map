@@ -19,5 +19,10 @@
     "visual_argument_copying": 1,
     "visual_referent_carryover": 2
   },
+  "next_action_counts": {
+    "build_canonical_argument_replay": 4,
+    "build_parallel_array_replay_or_workflow": 1,
+    "build_visual_state_replay_executor": 3
+  },
   "dry_run": true
 }

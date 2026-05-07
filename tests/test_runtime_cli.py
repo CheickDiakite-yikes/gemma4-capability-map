@@ -438,6 +438,7 @@ def test_runtime_cli_packet_json_inspects_tool_probe_replay_packet(
     assert output["case_count"] == 2
     assert output["failure_mode_counts"] == {"argument_mismatch": 1, "no_tool_call": 1}
     assert output["replay_case_rows"][0]["case_id"] == "cli_invoice_lock_hyphen_query"
+    assert output["next_action_rows"][1]["next_action"] == "build_parallel_array_replay_or_workflow"
 
 
 def test_runtime_cli_packet_renders_tool_probe_replay_overview(
@@ -465,6 +466,7 @@ def test_runtime_cli_packet_renders_tool_probe_replay_overview(
     output = capsys.readouterr().out
     assert "Moonie Research Packet" in output
     assert "Replay Cases" in output
+    assert "Next Actions" in output
     assert "no_tool_call" in output
 
 
@@ -585,6 +587,17 @@ def _write_fake_tool_probe_replay_packet(packet_dir: Path) -> Path:
                 "case_id,family,source_failure_mode,baseline_exact_match",
                 "cli_invoice_lock_hyphen_query,cli_canonicalization,argument_mismatch,True",
                 "parallel_audit_array_literal,parallel_tool_calling,no_tool_call,True",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    (packet_dir / "replay_next_actions.csv").write_text(
+        "\n".join(
+            [
+                "case_id,family,source_failure_mode,priority,next_action,why",
+                "cli_invoice_lock_hyphen_query,cli_canonicalization,argument_mismatch,medium,build_canonical_argument_replay,right tool wrong args",
+                "parallel_audit_array_literal,parallel_tool_calling,no_tool_call,high,build_parallel_array_replay_or_workflow,missing array workflow",
             ]
         )
         + "\n",

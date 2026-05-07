@@ -61,7 +61,9 @@ def test_tool_probe_replay_packet_writes_failed_case_artifacts(tmp_path: Path) -
     packet_dir = Path(packet["packet_dir"])
     assert packet["summary"]["case_count"] == 1
     assert packet["summary"]["failure_mode_counts"] == {"argument_mismatch": 1}
+    assert packet["summary"]["next_action_counts"] == {"build_canonical_argument_replay": 1}
     assert packet["rows"][0]["case_id"] == cases[0].case_id
+    assert packet["next_actions"][0]["priority"] == "medium"
     assert packet["rows"][0]["baseline_exact_match"] is True
     assert packet["replay_cases"][0]["live_entrypoint_status"] == "probe_replay_packet_only_v1"
     assert "messages" in packet["replay_cases"][0]
@@ -70,6 +72,7 @@ def test_tool_probe_replay_packet_writes_failed_case_artifacts(tmp_path: Path) -
     assert (packet_dir / "summary.json").exists()
     assert (packet_dir / "commands.json").exists()
     assert (packet_dir / "replay_cases.csv").exists()
+    assert (packet_dir / "replay_next_actions.csv").exists()
     assert (packet_dir / "cases" / f"{cases[0].case_id}.json").exists()
     command = packet["commands"][0]["command"]
     assert "--case-id" in command

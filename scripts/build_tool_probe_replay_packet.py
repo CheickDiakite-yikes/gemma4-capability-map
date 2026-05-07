@@ -152,6 +152,7 @@ def build_tool_probe_replay_packet(
         "case_count": len(rows),
         "failure_mode_counts": _count_by(rows, "source_failure_mode"),
         "family_counts": _count_by(rows, "family"),
+        "next_action_counts": _count_by(_next_action_rows(rows), "next_action"),
         "dry_run": True,
     }
     manifest = {
@@ -165,6 +166,7 @@ def build_tool_probe_replay_packet(
     _write_json(packet_dir / "commands.json", commands)
     _write_json(packet_dir / "replay_cases.json", replay_cases)
     _write_csv(packet_dir / "replay_cases.csv", rows)
+    _write_csv(packet_dir / "replay_next_actions.csv", _next_action_rows(rows))
     return {
         "packet_dir": str(packet_dir.resolve()),
         "summary": summary,
@@ -172,6 +174,7 @@ def build_tool_probe_replay_packet(
         "rows": rows,
         "commands": commands,
         "replay_cases": replay_cases,
+        "next_actions": _next_action_rows(rows),
     }
 
 
@@ -199,6 +202,50 @@ def _count_by(rows: list[dict[str, Any]], field: str) -> dict[str, int]:
         key = str(row.get(field, ""))
         counts[key] = counts.get(key, 0) + 1
     return dict(sorted(counts.items()))
+
+
+def _next_action_rows(rows: list[dict[str, Any]]) -> list[dict[str, str]]:
+    return [_next_action_row(row) for row in rows]
+
+
+def _next_action_row(row: dict[str, Any]) -> dict[str, str]:
+    family = str(row.get("family", ""))
+    failure_mode = str(row.get("source_failure_mode", ""))
+    if family == "parallel_tool_calling":
+        return {
+            "case_id": str(row.get("case_id", "")),
+            "family": family,
+            "source_failure_mode": failure_mode,
+            "priority": "high",
+            "next_action": "build_parallel_array_replay_or_workflow",
+            "why": "current packaged workflows do not faithfully test the two-call array contract",
+        }
+    if family.startswith("visual") and failure_mode == "no_tool_call":
+        return {
+            "case_id": str(row.get("case_id", "")),
+            "family": family,
+            "source_failure_mode": failure_mode,
+            "priority": "high",
+            "next_action": "build_visual_state_replay_executor",
+            "why": "packaged visual workflows complete, but raw no-directive visual cases collapse to no call",
+        }
+    if family.startswith(("cli", "api")) and failure_mode == "argument_mismatch":
+        return {
+            "case_id": str(row.get("case_id", "")),
+            "family": family,
+            "source_failure_mode": failure_mode,
+            "priority": "medium",
+            "next_action": "build_canonical_argument_replay",
+            "why": "model chooses the right tool family but drifts on canonical path/query/record arguments",
+        }
+    return {
+        "case_id": str(row.get("case_id", "")),
+        "family": family,
+        "source_failure_mode": failure_mode,
+        "priority": "low",
+        "next_action": "inspect_case_manually",
+        "why": "case does not match a known replay implementation family",
+    }
 
 
 def _read_json(path: Path) -> Any:
