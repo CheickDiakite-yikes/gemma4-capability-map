@@ -62,6 +62,17 @@ uv run python scripts/build_tool_probe_replay_packet.py \
 
 Execution mode writes per-case runs under `runs/<case_id>/` plus `replay_results.json` and `replay_results.csv`.
 
+The builder also supports focused filters:
+
+```bash
+uv run python scripts/build_tool_probe_replay_packet.py \
+  --run-group-id <timestamp>_visual_state_replay \
+  --next-action build_visual_state_replay_executor \
+  --execute
+```
+
+Available filters: `--case-id`, `--family`, `--failure-mode`, and `--next-action`.
+
 Executed packet:
 
 ```bash

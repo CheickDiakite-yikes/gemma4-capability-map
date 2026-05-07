@@ -29,6 +29,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--registry", default=str(DEFAULT_REGISTRY_PATH))
     parser.add_argument("--system-id", default="mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive")
     parser.add_argument("--case-id", action="append", dest="case_ids", default=[])
+    parser.add_argument("--family", action="append", dest="families", default=[])
+    parser.add_argument("--failure-mode", action="append", dest="failure_modes", default=[])
+    parser.add_argument("--next-action", action="append", dest="next_actions", default=[])
     parser.add_argument("--include-exact", action="store_true")
     parser.add_argument("--execute", action="store_true")
     return parser.parse_args()
@@ -44,6 +47,9 @@ def main() -> None:
         registry_path=Path(args.registry),
         system_id=args.system_id,
         case_ids=args.case_ids,
+        families=args.families,
+        failure_modes=args.failure_modes,
+        next_actions=args.next_actions,
         include_exact=args.include_exact,
         execute=args.execute,
     )
@@ -59,6 +65,9 @@ def build_tool_probe_replay_packet(
     registry_path: Path = DEFAULT_REGISTRY_PATH,
     system_id: str = "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
     case_ids: list[str] | None = None,
+    families: list[str] | None = None,
+    failure_modes: list[str] | None = None,
+    next_actions: list[str] | None = None,
     include_exact: bool = False,
     execute: bool = False,
 ) -> dict[str, Any]:
@@ -89,12 +98,25 @@ def build_tool_probe_replay_packet(
         if bool(source_row.get("exact_match")) and not include_exact:
             continue
         case = cases_by_id[case_id]
+        failure_mode = _failure_mode(source_row)
+        action_row = _next_action_row(
+            {
+                "case_id": case_id,
+                "family": case.family,
+                "source_failure_mode": failure_mode,
+            }
+        )
+        if families and case.family not in families:
+            continue
+        if failure_modes and failure_mode not in failure_modes:
+            continue
+        if next_actions and action_row["next_action"] not in next_actions:
+            continue
         tool_specs = [registry[name] for name in case.tool_names]
         expected_calls = [
             {"name": call.name, "arguments": call.arguments}
             for call in plan_tool_calls(case.messages, case.media, tool_specs)
         ]
-        failure_mode = _failure_mode(source_row)
         replay_case = {
             "case_id": case.case_id,
             "family": case.family,
@@ -190,6 +212,11 @@ def build_tool_probe_replay_packet(
         "created_at": datetime.now(UTC).isoformat(),
         "registry_path": str(registry_path.resolve()),
         "case_ids": [row["case_id"] for row in rows],
+        "filters": {
+            "families": families or [],
+            "failure_modes": failure_modes or [],
+            "next_actions": next_actions or [],
+        },
     }
     _write_json(packet_dir / "manifest.json", manifest)
     _write_json(packet_dir / "summary.json", summary)

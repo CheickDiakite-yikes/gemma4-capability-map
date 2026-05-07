@@ -168,6 +168,54 @@ systems:
     assert (packet_dir / "runs" / case.case_id / "probe_results.json").exists()
 
 
+def test_tool_probe_replay_packet_can_filter_by_next_action(tmp_path: Path) -> None:
+    source_probe = tmp_path / "source"
+    baseline_probe = tmp_path / "baseline"
+    source_probe.mkdir()
+    baseline_probe.mkdir()
+    cases = build_tool_directive_probe_cases()
+    cli_case = cases[0]
+    visual_case = next(case for case in cases if case.case_id == "visual_form_target_literal")
+    rows = [
+        {
+            "case_id": cli_case.case_id,
+            "family": cli_case.family,
+            "expected_call_count": 1,
+            "actual_call_count": 1,
+            "exact_match": False,
+            "executable_match": None,
+            "expected_calls": [{"name": "cli_search_logs", "arguments": {"path": "logs/billing.log"}}],
+            "actual_calls": [{"name": "cli_search_logs", "arguments": {"path": "billing.log"}}],
+            "raw_model_output": "{}",
+        },
+        {
+            "case_id": visual_case.case_id,
+            "family": visual_case.family,
+            "expected_call_count": 1,
+            "actual_call_count": 0,
+            "exact_match": False,
+            "executable_match": False,
+            "expected_calls": [{"name": "extract_layout", "arguments": {}}],
+            "actual_calls": [],
+            "raw_model_output": "",
+        },
+    ]
+    _write_probe(source_probe, "source_system", rows)
+    _write_probe(baseline_probe, "baseline_system", rows)
+
+    packet = SCRIPT.build_tool_probe_replay_packet(
+        source_probe_dir=source_probe,
+        baseline_probe_dir=baseline_probe,
+        output_root=tmp_path / "packets",
+        run_group_id="probe_replay_visual_filter",
+        next_actions=["build_visual_state_replay_executor"],
+    )
+
+    assert packet["summary"]["case_count"] == 1
+    assert packet["rows"][0]["case_id"] == visual_case.case_id
+    assert packet["manifest"]["filters"]["next_actions"] == ["build_visual_state_replay_executor"]
+
+
 def _write_probe(path: Path, system_id: str, rows: list[dict[str, object]]) -> None:
     manifest = {
         "system_id": system_id,
