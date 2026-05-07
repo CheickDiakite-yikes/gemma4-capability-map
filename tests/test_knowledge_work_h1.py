@@ -273,6 +273,37 @@ def test_h1i_slice_config_maps_to_worst_h1h_workflow_families() -> None:
     assert "worst_workflow_families" in config.attribution_tags
 
 
+def test_h1i_slice_config_maps_to_prompt_contract_candidate_packet() -> None:
+    config = load_h1_slice(H1I_CONFIG_PATH)
+
+    errors = validate_h1_slice(config)
+
+    assert errors == []
+    packet = h1_packet_selection(config, "mlx_prompt_contract_candidates")
+    assert packet.lane == "live_web_stress"
+    assert packet.system_ids == [
+        "mlx_gemma4_e2b_reasoner_only",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_literal_guard",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_tool_required",
+    ]
+    assert packet.episode_ids == [
+        "kwa_exec_live_latest_action_resume_hold_v4",
+        "kwa_jobs_live_phone_patch_resume_hold_v4",
+        "kwa_jobs_live_email_block_resume_hold_v5",
+        "kwa_exec_live_backlog_resume_hold_v5",
+    ]
+    assert packet.failure_modes == [
+        "no_directive_argument_drift",
+        "no_tool_call",
+        "cli_canonicalization",
+        "api_canonicalization",
+        "visual_stepwise_control",
+        "parallel_tool_protocol",
+    ]
+
+
 def test_h1_primary_run_specs_default_to_mlx_gemma_reasoner_only() -> None:
     config = load_h1_slice()
     registry = load_model_registry()

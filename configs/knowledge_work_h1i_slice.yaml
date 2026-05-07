@@ -93,6 +93,32 @@ h1_slice:
         - fallback_planner
         - repair_disabled
         - approval_safe_stop
+    mlx_prompt_contract_candidates:
+      lane: live_web_stress
+      purpose: >
+        Fast H1i graduation packet for generic no-directive prompt contracts
+        after probe validation. Keeps the same worst-family live workflows but
+        swaps repair-disabled rows for candidate no-directive prompt contracts,
+        so gains remain attributable to protocol prompting instead of broader
+        controller changes.
+      system_ids:
+        - mlx_gemma4_e2b_reasoner_only
+        - mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive
+        - mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor
+        - mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_literal_guard
+        - mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_tool_required
+      episode_ids:
+        - kwa_exec_live_latest_action_resume_hold_v4
+        - kwa_jobs_live_phone_patch_resume_hold_v4
+        - kwa_jobs_live_email_block_resume_hold_v5
+        - kwa_exec_live_backlog_resume_hold_v5
+      failure_modes:
+        - no_directive_argument_drift
+        - no_tool_call
+        - cli_canonicalization
+        - api_canonicalization
+        - visual_stepwise_control
+        - parallel_tool_protocol
   saturation_breaker_metrics:
     - raw_planning_clean_rate_avg
     - controller_repair_avg
