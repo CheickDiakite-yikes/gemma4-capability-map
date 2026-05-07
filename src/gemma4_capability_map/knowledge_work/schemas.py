@@ -12,6 +12,7 @@ class RoleFamily(str, Enum):
     EXECUTIVE_ASSISTANT = "executive_assistant"
     JOB_APPLICATION_OPS = "job_application_ops"
     FINANCE = "finance"
+    OPERATIONS_AUDIT = "operations_audit"
 
 
 class BenchmarkLane(str, Enum):

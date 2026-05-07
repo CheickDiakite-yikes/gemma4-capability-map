@@ -60,8 +60,8 @@ The current repo state is:
 - `396` explicit factorized atomic variants
 - `16` real-world-tagged atomic tasks
 - `30` atomic `visual_tool_orchestration` tasks in the current gold corpus
-- `32` replayable `KnowledgeWorkArena` episodes in the generated corpus
-- `26` live `KnowledgeWorkArena` episodes in the generated corpus
+- `33` replayable `KnowledgeWorkArena` episodes in the generated corpus
+- `27` live `KnowledgeWorkArena` episodes in the generated corpus
 - a shared local runtime with persistent sessions, approvals, artifacts, and event traces
 - a local CLI and local HTTP API over that runtime
 - CLI-first live harness scaffolding with Rich rendering, `live` / `attach`, and per-session sandboxes
@@ -77,7 +77,8 @@ The current source-of-truth comparison surface is the aligned exploratory `32 / 
 
 Important distinction:
 
-- the generated corpora are now `91 / 396 / 32 / 26`
+- the generated corpora are now `91 / 396 / 33 / 27`
+- the historical aligned source-of-truth comparison surface remains the saturated `32 / 26` board-backed matrix until the new parallel-audit workflow is run into a successor slice
 - the board-backed aligned full-lane comparison now exists for:
   - `oracle_gemma4_e2b`
   - `hf_gemma4_e2b_specialists_cpu`

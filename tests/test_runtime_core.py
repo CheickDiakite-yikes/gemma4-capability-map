@@ -24,6 +24,9 @@ def test_runtime_lists_packaged_workflows_with_absolute_preview_assets(tmp_path:
     assert Path(dashboard["preview_asset"]).is_absolute()
     live_dashboard = next(workflow for workflow in runtime.list_workflows(lane="live_web_stress") if workflow["workflow_id"] == "executive_visual_dashboard_review")
     assert live_dashboard["episode_id"] == "kwa_exec_live_visual_dashboard_brief"
+    parallel_audit = next(workflow for workflow in runtime.list_workflows(lane="live_web_stress") if workflow["workflow_id"] == "ops_parallel_audit_review")
+    assert parallel_audit["episode_id"] == "kwa_ops_live_parallel_audit_review_v1"
+    assert "parallel_tool_calling" in parallel_audit["tags"]
 
 
 def test_runtime_profiles_expose_reasoner_budgets(tmp_path: Path) -> None:

@@ -47,8 +47,8 @@ def test_tool_specs_serialize_with_schema_alias() -> None:
 def test_knowledge_work_episode_specs_validate() -> None:
     replayable = load_jsonl(ROOT / "data" / "knowledge_work" / "replayable_core" / "episodes.jsonl", Episode)
     live = load_jsonl(ROOT / "data" / "knowledge_work" / "live_web_stress" / "episodes.jsonl", Episode)
-    assert len(replayable) == 32
-    assert len(live) == 26
+    assert len(replayable) == 33
+    assert len(live) == 27
     assert all(stage.browser_plan for episode in replayable + live for stage in episode.stages)
     assert any(episode.browser_state_machines for episode in replayable + live)
     assert any("visual_kwa" in episode.benchmark_tags for episode in replayable + live)

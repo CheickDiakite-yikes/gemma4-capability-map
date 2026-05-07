@@ -6,10 +6,10 @@ Current generated corpus on disk:
 
 - atomic tasks: `91`
 - variants: `396`
-- replayable KWA episodes: `32`
-- live KWA episodes: `26`
+- replayable KWA episodes: `33`
+- live KWA episodes: `27`
 
-The current headline comparison surface is the aligned exploratory `32 / 26` lane.
+The current headline comparison surface is still the saturated aligned exploratory `32 / 26` lane. The new `33 / 27` corpus additions are the parallel-audit scaffold for the next successor slice, not a completed replacement board yet.
 
 On the live-harness side, the active direction is now CLI-first rather than frontend-first.
 
