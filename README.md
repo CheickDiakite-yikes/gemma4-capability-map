@@ -128,8 +128,9 @@ The active next experiment is now a CLI/research-harness packet, not a UI task:
 - the replayable dry-run probe packet is [`results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_dry_run_v2`](results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_dry_run_v2)
 - the executed probe gate is [`results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_execute_v1`](results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_execute_v1)
 - the H1i graduation packet is `mlx_prompt_contract_candidates` in [`configs/knowledge_work_h1i_slice.yaml`](configs/knowledge_work_h1i_slice.yaml)
+- the executed H1i candidate packet is [`results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet`](results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet)
 
-The current read is partial-gain only: `schema_anchor_v1` recovered one exact probe case, while `literal_argument_guard_v1` and `tool_required_parallel_v1` recovered the executable visual target without improving exact JSON copy. The intended order is now: use H1i only as a mechanism probe for these partial gains, design a second prompt-contract wave, and return to full H1h only after H1i moves for the right reason.
+The current read is partial-gain and second-stage saturation: `schema_anchor_v1` recovered one exact probe case, while `literal_argument_guard_v1` and `tool_required_parallel_v1` recovered the executable visual target without improving exact JSON copy. The H1i candidate packet then saturated across all five rows. The intended order is now: design a harder second-stage packet, design a second prompt-contract wave, and return to full H1h only after a harder slice moves for the right reason.
 
 ## Local Agent Harness
 

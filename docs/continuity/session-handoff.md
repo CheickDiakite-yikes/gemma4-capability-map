@@ -31,12 +31,16 @@ Current strongest MLX result:
   - [`results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_execute_v1`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_execute_v1)
   - `schema_anchor_v1` recovers one exact case (`0.125`)
   - `literal_argument_guard_v1` and `tool_required_parallel_v1` recover the executable visual target but not exact JSON copy
+- the H1i candidate packet saturated:
+  - [`results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet)
+  - all five rows matched at readiness `0.97710`, repair/fallback/argument repair `0.0 / 0.0 / 0.0`, raw clean `1.0`
+  - trace analysis found `0` failure candidates
 
 Current next loop:
 
-1. Treat the first prompt-contract candidates as H1i mechanism probes, not fixes.
-2. Design a second prompt-contract wave that combines schema anchoring with visual executable recovery and reduces no-call failures.
-3. Test any new candidates on the probe before live H1i.
+1. Treat H1i candidate v1 as saturated/non-discriminating after the probe gate.
+2. Define a harder second-stage packet, likely repeated no-directive H1i trials or probe-derived live cases.
+3. Design a second prompt-contract wave that combines schema anchoring with visual executable recovery and reduces no-call failures.
 4. Return to H1h only after H1i changes for the right mechanism-level reason.
 5. Regenerate the report artifacts after any H1i/H1h/probe/Gemini packet change.
 

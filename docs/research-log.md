@@ -2734,6 +2734,12 @@
   - `literal_argument_guard_v1` and `tool_required_parallel_v1` recovered the executable visual target (`executable_match_rate = 1.0`) but did not improve exact JSON copy (`exact_match_rate = 0.0`)
   - `tool_required_parallel_v1` remains dominated by `no_tool_call` (`6` cases), which means its current wording is not yet solving the failure family it was meant to target
   - interpretation: these candidates can be tried on H1i as mechanism probes, but the second prompt-contract wave should combine schema anchoring with visual executable recovery and explicitly reduce no-call failures
+- The first H1i prompt-contract candidate packet saturated and therefore did not validate the probe gains as live improvements:
+  - [`20260507T_h1i_prompt_contract_candidates_v1`](../results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet) ran contracted MLX, no-directive MLX, and all three prompt-contract candidates over the four H1i worst-family live workflows
+  - all five rows matched at `real_world_readiness_avg = 0.97710`, `strict_interface_avg = 1.0`, `recovered_execution_avg = 1.0`, `controller_repair_avg = 0.0`, `argument_repair_avg = 0.0`, `controller_fallback_avg = 0.0`, and `raw_planning_clean_rate_avg = 1.0`
+  - trace analysis found `0` note events and `0` failure candidates
+  - the analyzer now derives `tool_turn_directive_enabled` from row research controls rather than the shared warmed bundle snapshot, so disabled-directive rows are attributed correctly
+  - interpretation: the probe remains the stronger discriminator; H1i candidate v1 is saturated and the next second-stage slice needs repeated no-directive trials or probe-derived live cases where visual/parallel no-call failures are stable
 
 ### Verification
 

@@ -147,6 +147,26 @@ The result is useful but not victory-shaped. All three candidates improve over t
 - `tool_required_parallel_v1` still has the most `no_tool_call` failures, so its wording is not yet solving the no-call family it was meant to target.
 - H1i can use these candidates as mechanism probes, but they are not replacements for the final tool-turn directive.
 
+## H1i Candidate Packet Result
+
+The H1i mechanism-probe packet is now recorded at:
+
+- [`results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet)
+- [`tool_contract_summary.md`](../../results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet/tool_contract_summary.md)
+- generated report table: [`h1i_prompt_contract_candidate_metrics.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/h1i_prompt_contract_candidate_metrics.csv)
+
+All five rows matched:
+
+| Row | Readiness | Repair | Fallback | Arg repair | Raw clean |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| contracted | `0.97710` | `0.00` | `0.00` | `0.00` | `1.00` |
+| no directive | `0.97710` | `0.00` | `0.00` | `0.00` | `1.00` |
+| schema anchor | `0.97710` | `0.00` | `0.00` | `0.00` | `1.00` |
+| literal guard | `0.97710` | `0.00` | `0.00` | `0.00` | `1.00` |
+| tool required | `0.97710` | `0.00` | `0.00` | `0.00` | `1.00` |
+
+This means H1i did not discriminate after the probe gate. The earlier H1i no-directive packet showed controller burden; this candidate packet sampled clean no-directive tool calls across the same four workflow families. The practical next step is not to declare the prompt contracts solved. It is to define a harder second-stage packet with repeated no-directive trials or probe-derived live cases where exact protocol failure is stable.
+
 ## Gemini CLI Baseline Status
 
 The Gemini CLI adapter is currently a dry-run external baseline, not a replacement for Moonie. The packet uses the same H1h workflow families and records prompt/command artifacts without external side effects:
@@ -184,7 +204,7 @@ The H1h -> H1i narrowing is also useful methodologically. H1h proves the phenome
 
 Use this order before broad `32 / 26` reruns:
 
-1. Run only the partial-gain candidates on H1i as mechanism probes, not as assumed fixes.
+1. Design a harder second-stage packet because the H1i candidate packet saturated after the probe gate.
 2. Design a second prompt-contract wave that combines schema anchoring with visual executable recovery while reducing no-call failures.
 3. H1h only after H1i moves for the right reason.
 4. Gemini CLI real execution only when the binary/run environment is explicitly meant to be part of the comparison.

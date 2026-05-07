@@ -34,7 +34,7 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
 
     assert payload["gemini"]["dry_run"] is True
     assert payload["gemini"]["workflow_count"] == 10
-    assert payload["manifest"]["table_count"] == 9
+    assert payload["manifest"]["table_count"] == 10
     assert payload["manifest"]["figure_count"] == 6
 
     candidates = {row["tool_prompt_contract_id"]: row for row in payload["prompt_contract_candidates"]}
@@ -43,6 +43,9 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     gates = {row["tool_prompt_contract_id"]: row for row in payload["prompt_contract_probe_gates"]}
     assert gates["schema_anchor_v1"]["recommendation"] == "weak_exact_gain"
     assert gates["literal_argument_guard_v1"]["recommendation"] == "visual_executable_gain_only"
+    h1i_candidates = {row["system_id"]: row for row in payload["h1i_prompt_contract_candidate_metrics"]}
+    assert h1i_candidates["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive"]["tool_turn_directive_enabled"] == "False"
+    assert h1i_candidates["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor"]["raw_planning_clean_rate_avg"] == "1.0"
 
     assert (tmp_path / "report.md").exists()
     assert (tmp_path / "report.json").exists()
@@ -52,6 +55,7 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert (tmp_path / "tables" / "prompt_contract_candidates.csv").exists()
     assert (tmp_path / "tables" / "prompt_contract_probe_gates.csv").exists()
     assert (tmp_path / "tables" / "prompt_contract_probe_failure_modes.csv").exists()
+    assert (tmp_path / "tables" / "h1i_prompt_contract_candidate_metrics.csv").exists()
     assert (tmp_path / "figures" / "h1i_readiness_strict_recovered.svg").exists()
     assert (tmp_path / "figures" / "h1h_h1i_controller_burden.svg").exists()
     assert (tmp_path / "figures" / "prompt_contract_candidate_targets.svg").exists()
