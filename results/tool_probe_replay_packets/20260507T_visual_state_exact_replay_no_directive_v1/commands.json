@@ -1,0 +1,50 @@
+[
+  {
+    "case_id": "visual_form_target_literal",
+    "family": "visual_argument_copying",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "/Users/cheickdiakite/Codex/moonie/scripts/run_tool_directive_probe.py",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260507T_visual_state_exact_replay_no_directive_v1/runs/visual_form_target_literal",
+      "--case-id",
+      "visual_form_target_literal"
+    ]
+  },
+  {
+    "case_id": "visual_latest_filter_literal",
+    "family": "visual_referent_carryover",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "/Users/cheickdiakite/Codex/moonie/scripts/run_tool_directive_probe.py",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260507T_visual_state_exact_replay_no_directive_v1/runs/visual_latest_filter_literal",
+      "--case-id",
+      "visual_latest_filter_literal"
+    ]
+  },
+  {
+    "case_id": "visual_readback_region_literal",
+    "family": "visual_referent_carryover",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "/Users/cheickdiakite/Codex/moonie/scripts/run_tool_directive_probe.py",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260507T_visual_state_exact_replay_no_directive_v1/runs/visual_readback_region_literal",
+      "--case-id",
+      "visual_readback_region_literal"
+    ]
+  }
+]

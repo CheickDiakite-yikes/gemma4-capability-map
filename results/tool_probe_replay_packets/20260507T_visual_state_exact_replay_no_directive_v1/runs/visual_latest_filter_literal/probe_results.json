@@ -1,0 +1,26 @@
+[
+  {
+    "case_id": "visual_latest_filter_literal",
+    "family": "visual_referent_carryover",
+    "expected_call_count": 1,
+    "actual_call_count": 0,
+    "exact_match": false,
+    "executable_match": null,
+    "expected_execution": {},
+    "actual_execution": [],
+    "expected_calls": [
+      {
+        "name": "refine_selection",
+        "arguments": {
+          "selection_id": "sel-001",
+          "filter_query": "latest"
+        }
+      }
+    ],
+    "actual_calls": [],
+    "raw_model_output": "\"extract_layout\": {\"image_id\": \"img-form-latest\", \"target_query\": \"validation error\"}",
+    "prompt_tokens": 761,
+    "completion_tokens": 27,
+    "latency_ms": 4641
+  }
+]

@@ -189,6 +189,11 @@ Latest MLX tool-contract research:
   - contracted replay result: `7 / 8` exact, with the remaining visual paraphrase executable
   - comparison result: no-directive exact-rate delta `-0.875` versus contracted on the same cases
   - interpretation: this is not a packaged live workflow yet; it is the stable raw-contract replay artifact that should drive the next live discriminator
+- Focused visual-state replay:
+  - no-directive packet: [`results/tool_probe_replay_packets/20260507T_visual_state_exact_replay_no_directive_v1`](../../results/tool_probe_replay_packets/20260507T_visual_state_exact_replay_no_directive_v1)
+  - contracted packet: [`results/tool_probe_replay_packets/20260507T_visual_state_exact_replay_contracted_v1`](../../results/tool_probe_replay_packets/20260507T_visual_state_exact_replay_contracted_v1)
+  - comparison: [`results/tool_probe_replay_comparisons/20260507T_visual_state_contracted_vs_no_directive_v1`](../../results/tool_probe_replay_comparisons/20260507T_visual_state_contracted_vs_no_directive_v1)
+  - result: no-directive exact `0 / 3`; contracted exact `2 / 3` plus one executable visual paraphrase
 
 Current generated research report:
 

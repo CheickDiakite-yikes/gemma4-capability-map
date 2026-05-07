@@ -105,6 +105,24 @@ uv run python scripts/compare_tool_probe_replay_packets.py \
 
 Result: no-directive exact replay rate is `0.0` versus contracted `0.875`, for a delta of `-0.875`.
 
+## Focused Visual Replay
+
+No-directive visual-state packet:
+
+- [`results/tool_probe_replay_packets/20260507T_visual_state_exact_replay_no_directive_v1`](../../results/tool_probe_replay_packets/20260507T_visual_state_exact_replay_no_directive_v1)
+- result: exact `0 / 3`; all three cases remain `no_tool_call`
+
+Contracted visual-state packet:
+
+- [`results/tool_probe_replay_packets/20260507T_visual_state_exact_replay_contracted_v1`](../../results/tool_probe_replay_packets/20260507T_visual_state_exact_replay_contracted_v1)
+- result: exact `2 / 3`; the remaining case is executable through visual selector aliasing
+
+Comparison:
+
+- [`results/tool_probe_replay_comparisons/20260507T_visual_state_contracted_vs_no_directive_v1`](../../results/tool_probe_replay_comparisons/20260507T_visual_state_contracted_vs_no_directive_v1)
+- no-directive delta exact rate: `-0.6666666666666666`
+- visual-form target case also drops from executable paraphrase to no tool call
+
 Focused verification:
 
 ```bash

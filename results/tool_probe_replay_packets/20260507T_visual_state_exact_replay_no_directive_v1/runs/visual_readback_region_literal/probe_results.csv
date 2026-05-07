@@ -1,0 +1,2 @@
+case_id,family,expected_call_count,actual_call_count,exact_match,executable_match,expected_calls,actual_calls,expected_execution,actual_execution,latency_ms,prompt_tokens,completion_tokens
+visual_readback_region_literal,visual_referent_carryover,1,0,False,,"[{""name"": ""read_region_text"", ""arguments"": {""image_id"": ""img-form-latest"", ""region_id"": ""form-err-202""}}]",[],{},[],4411,935,37

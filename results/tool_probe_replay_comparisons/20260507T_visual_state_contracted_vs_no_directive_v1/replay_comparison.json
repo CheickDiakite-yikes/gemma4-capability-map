@@ -1,0 +1,79 @@
+{
+  "summary": {
+    "baseline_packet": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260507T_visual_state_exact_replay_contracted_v1",
+    "candidate_packet": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260507T_visual_state_exact_replay_no_directive_v1",
+    "baseline_replay_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "candidate_replay_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+    "shared_case_count": 3,
+    "baseline_exact_match_rate": 0.6666666666666666,
+    "candidate_exact_match_rate": 0.0,
+    "delta_exact_match_rate": -0.6666666666666666,
+    "case_delta_count": 2
+  },
+  "case_deltas": [
+    {
+      "case_id": "visual_form_target_literal",
+      "family": "visual_argument_copying",
+      "baseline_failure_mode": "executable_paraphrase",
+      "candidate_failure_mode": "no_tool_call",
+      "baseline_exact_match": false,
+      "candidate_exact_match": false,
+      "delta_exact_match": 0,
+      "baseline_executable_match": true,
+      "candidate_executable_match": false,
+      "baseline_actual_call_count": 1,
+      "candidate_actual_call_count": 0,
+      "delta_actual_call_count": -1
+    },
+    {
+      "case_id": "visual_latest_filter_literal",
+      "family": "visual_referent_carryover",
+      "baseline_failure_mode": "exact",
+      "candidate_failure_mode": "no_tool_call",
+      "baseline_exact_match": true,
+      "candidate_exact_match": false,
+      "delta_exact_match": -1,
+      "baseline_executable_match": null,
+      "candidate_executable_match": null,
+      "baseline_actual_call_count": 1,
+      "candidate_actual_call_count": 0,
+      "delta_actual_call_count": -1
+    },
+    {
+      "case_id": "visual_readback_region_literal",
+      "family": "visual_referent_carryover",
+      "baseline_failure_mode": "exact",
+      "candidate_failure_mode": "no_tool_call",
+      "baseline_exact_match": true,
+      "candidate_exact_match": false,
+      "delta_exact_match": -1,
+      "baseline_executable_match": null,
+      "candidate_executable_match": null,
+      "baseline_actual_call_count": 1,
+      "candidate_actual_call_count": 0,
+      "delta_actual_call_count": -1
+    }
+  ],
+  "family_deltas": [
+    {
+      "family": "visual_argument_copying",
+      "case_count": 1,
+      "baseline_exact_count": 0,
+      "candidate_exact_count": 0,
+      "delta_exact_count": 0,
+      "baseline_exact_rate": 0.0,
+      "candidate_exact_rate": 0.0,
+      "delta_exact_rate": 0.0
+    },
+    {
+      "family": "visual_referent_carryover",
+      "case_count": 2,
+      "baseline_exact_count": 2,
+      "candidate_exact_count": 0,
+      "delta_exact_count": -2,
+      "baseline_exact_rate": 1.0,
+      "candidate_exact_rate": 0.0,
+      "delta_exact_rate": -1.0
+    }
+  ]
+}

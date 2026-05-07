@@ -1,0 +1,405 @@
+[
+  {
+    "case_id": "visual_form_target_literal",
+    "family": "visual_argument_copying",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-form-live-latest",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "Using the local visual executor path, respect the latest recruiter note, isolate the phone issue first, and read back that message.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-form-live-latest"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-form-live-latest": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "form-err-201",
+              "label": "validation error",
+              "text": "Work authorization required before submission",
+              "attributes": {
+                "field": "work authorization",
+                "priority": "earlier"
+              }
+            },
+            {
+              "region_id": "form-err-202",
+              "label": "validation error",
+              "text": "Phone number format invalid",
+              "attributes": {
+                "field": "phone",
+                "priority": "latest"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "form-err-202"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-form-live-latest",
+          "target_query": "validation error"
+        }
+      }
+    ],
+    "source_actual_calls": [],
+    "source_raw_model_output": "",
+    "source_exact_match": false,
+    "source_executable_match": false,
+    "source_failure_mode": "no_tool_call",
+    "baseline_exact_match": false,
+    "baseline_actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-form-live-latest",
+          "target_query": "phone issue"
+        }
+      }
+    ],
+    "live_entrypoint_status": "probe_replay_packet_only_v1",
+    "live_entrypoint_note": "This is a raw exact-call replay artifact, not a packaged workflow session."
+  },
+  {
+    "case_id": "visual_latest_filter_literal",
+    "family": "visual_referent_carryover",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-form-latest",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "Inspect the form errors, keep only the latest issue first, then narrow to the phone issue and read back the remaining message.",
+        "image_refs": []
+      },
+      {
+        "role": "tool",
+        "content": "{\"tool_name\":\"extract_layout\",\"status\":\"pass\",\"arguments\":{\"image_id\":\"img-form-latest\",\"target_query\":\"validation error\"},\"output\":{\"selection_id\":\"sel-001\",\"image_id\":\"img-form-latest\",\"selection_kind\":\"regions\",\"count\":2,\"region_ids\":[\"form-err-201\",\"form-err-202\"],\"region_id\":\"form-err-201\"}}",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-form-latest"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {},
+    "expected_execution": {},
+    "expected_calls": [
+      {
+        "name": "refine_selection",
+        "arguments": {
+          "selection_id": "sel-001",
+          "filter_query": "latest"
+        }
+      }
+    ],
+    "source_actual_calls": [],
+    "source_raw_model_output": "\"extract_layout\": {\"image_id\": \"img-form-latest\", \"target_query\": \"validation error\"}",
+    "source_exact_match": false,
+    "source_executable_match": null,
+    "source_failure_mode": "no_tool_call",
+    "baseline_exact_match": true,
+    "baseline_actual_calls": [
+      {
+        "name": "refine_selection",
+        "arguments": {
+          "selection_id": "sel-001",
+          "filter_query": "latest"
+        }
+      }
+    ],
+    "live_entrypoint_status": "probe_replay_packet_only_v1",
+    "live_entrypoint_note": "This is a raw exact-call replay artifact, not a packaged workflow session."
+  },
+  {
+    "case_id": "visual_readback_region_literal",
+    "family": "visual_referent_carryover",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-form-latest",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "Inspect the form errors, keep only the latest issue first, then narrow to the phone issue and read back the remaining message.",
+        "image_refs": []
+      },
+      {
+        "role": "tool",
+        "content": "{\"tool_name\":\"extract_layout\",\"status\":\"pass\",\"arguments\":{\"image_id\":\"img-form-latest\",\"target_query\":\"validation error\"},\"output\":{\"selection_id\":\"sel-001\",\"image_id\":\"img-form-latest\",\"selection_kind\":\"regions\",\"count\":2,\"region_ids\":[\"form-err-201\",\"form-err-202\"],\"region_id\":\"form-err-201\"}}",
+        "image_refs": []
+      },
+      {
+        "role": "tool",
+        "content": "{\"tool_name\":\"refine_selection\",\"status\":\"pass\",\"arguments\":{\"selection_id\":\"sel-001\",\"filter_query\":\"latest\"},\"output\":{\"selection_id\":\"sel-002\",\"image_id\":\"img-form-latest\",\"selection_kind\":\"regions\",\"count\":1,\"region_ids\":[\"form-err-202\"]}}",
+        "image_refs": []
+      },
+      {
+        "role": "tool",
+        "content": "{\"tool_name\":\"refine_selection\",\"status\":\"pass\",\"arguments\":{\"selection_id\":\"sel-002\",\"filter_query\":\"phone\"},\"output\":{\"selection_id\":\"sel-003\",\"image_id\":\"img-form-latest\",\"selection_kind\":\"regions\",\"count\":1,\"region_ids\":[\"form-err-202\"]}}",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-form-latest"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {},
+    "expected_execution": {},
+    "expected_calls": [
+      {
+        "name": "read_region_text",
+        "arguments": {
+          "image_id": "img-form-latest",
+          "region_id": "form-err-202"
+        }
+      }
+    ],
+    "source_actual_calls": [],
+    "source_raw_model_output": "extract_layout: {\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-form-latest\", \"target_query\": \"validation error\"}}",
+    "source_exact_match": false,
+    "source_executable_match": null,
+    "source_failure_mode": "no_tool_call",
+    "baseline_exact_match": true,
+    "baseline_actual_calls": [
+      {
+        "name": "read_region_text",
+        "arguments": {
+          "image_id": "img-form-latest",
+          "region_id": "form-err-202"
+        }
+      }
+    ],
+    "live_entrypoint_status": "probe_replay_packet_only_v1",
+    "live_entrypoint_note": "This is a raw exact-call replay artifact, not a packaged workflow session."
+  }
+]
