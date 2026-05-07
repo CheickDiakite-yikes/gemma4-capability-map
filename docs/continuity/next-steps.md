@@ -179,6 +179,15 @@ What remains:
   - `visual_next_call_state_v2`: exact `0.0`, executable `1.0`, visual executable gain only
   - `parallel_array_required_v2`: exact `0.0`, executable `0.0`, no probe gain
 - do not promote wave two back to H1 as a fix; use it as evidence that raw-probe replay or a faithful parallel live workflow is the next needed discriminator
+- wave three is now the current prompt-contract evidence:
+  - dry-run packet: [`results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave3_dry_run_v1`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave3_dry_run_v1)
+  - executed packet: [`results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave3_execute_v1`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave3_execute_v1)
+  - `canonical_json_copy_v3`: exact `0.125`, executable `0.0`, weak exact gain
+  - `visual_tool_initiation_v3`: exact `0.125`, executable `1.0`, weak exact gain
+  - `parallel_two_call_array_v3`: exact `0.0`, executable `0.0`, no probe gain
+  - live canonical replay: [`results/tool_probe_replay_live/20260507T_canonical_argument_canonical_json_copy_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_canonical_argument_canonical_json_copy_live_execute_v1), exact `0 / 4`, no promotion
+  - live visual replay: [`results/tool_probe_replay_live/20260507T_visual_state_visual_tool_initiation_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_visual_state_visual_tool_initiation_live_execute_v1), exact `1 / 3`, executable visual target recovered
+  - next candidate should combine visual tool initiation with stricter visual state/tool selection for `visual_latest_filter_literal`; do not spend H1 on canonical JSON or parallel two-call wording as currently written
 - exact-probe replay now exists:
   - brief: [`docs/continuity/exact-probe-replay.md`](./exact-probe-replay.md)
   - packet: [`results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1`](../../results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1)
@@ -215,9 +224,11 @@ uv run python scripts/summarize_h1_tool_contract.py <packet_dir>
 uv run python scripts/summarize_h1_workflow_families.py <packet_dir> --config configs/knowledge_work_h1h_slice.yaml
 uv run python scripts/compare_tool_directive_probes.py results/tool_directive_probe/20260506T_mlx_tool_directive_probe_v4 results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1
 uv run python scripts/run_tool_prompt_contract_probe_packet.py --run-group-id <timestamp>_prompt_contract_probe_candidates --execute
+uv run python scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v3 --run-group-id <timestamp>_prompt_contract_wave3_execute_v1 --execute
 uv run python scripts/summarize_tool_prompt_contract_probe_packet.py results/tool_prompt_contract_probe_packets/<packet_id>
 uv run python scripts/build_tool_probe_replay_packet.py --run-group-id <timestamp>_no_directive_exact_probe_replay
 uv run moonie-agent replay-live --packet-dir results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_execute_v1 --case-id parallel_audit_array_literal --execute
+uv run moonie-agent replay-live --packet-dir results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_tool_initiation --case-id visual_form_target_literal --case-id visual_latest_filter_literal --case-id visual_readback_region_literal --execute
 uv run python scripts/compare_tool_probe_replay_live_packets.py results/tool_probe_replay_live/<contracted_packet> results/tool_probe_replay_live/<no_directive_packet>
 uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1i_slice.yaml --packet-id mlx_prompt_contract_candidates --run-group-id <timestamp>_h1i_prompt_contract_candidates
 uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1i_slice.yaml --packet-id mlx_prompt_contract_candidates --run-group-id 20260507T_h1i_prompt_contract_candidates_repeat3_v1 --repeat 3

@@ -207,6 +207,16 @@ Latest MLX tool-contract research:
     - `visual_next_call_state_v2`: exact `0.0`, executable `1.0`, recommendation `visual_executable_gain_only`
     - `parallel_array_required_v2`: exact `0.0`, executable `0.0`, recommendation `no_probe_gain`
   - interpretation: wave 2 confirms the prior shape rather than solving it. The next move is stricter exact-probe live replay or a faithful live packaged workflow for the deferred parallel no-call family, not promotion back to H1
+- Prompt-contract wave 3:
+  - contracts: `canonical_json_copy_v3`, `visual_tool_initiation_v3`, `parallel_two_call_array_v3`
+  - runner flag: `scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v3`
+  - dry-run packet: [`results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave3_dry_run_v1`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave3_dry_run_v1)
+  - executed packet: [`results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave3_execute_v1`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave3_execute_v1)
+  - gate result:
+    - `canonical_json_copy_v3`: exact `0.125`, executable `0.0`, recommendation `weak_exact_gain`
+    - `visual_tool_initiation_v3`: exact `0.125`, executable `1.0`, recommendation `weak_exact_gain`
+    - `parallel_two_call_array_v3`: exact `0.0`, executable `0.0`, recommendation `no_probe_gain`
+  - interpretation: visual initiation is the strongest candidate so far, but wave three still does not replace the final tool-turn directive. Parallel no-call remains unsolved.
 - Exact-probe replay packet:
   - brief: [`docs/continuity/exact-probe-replay.md`](./exact-probe-replay.md)
   - script: [`scripts/build_tool_probe_replay_packet.py`](../../scripts/build_tool_probe_replay_packet.py)
@@ -230,6 +240,10 @@ Latest MLX tool-contract research:
   - live no-directive canonical-argument execution: [`results/tool_probe_replay_live/20260507T_canonical_argument_no_directive_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_canonical_argument_no_directive_live_execute_v1), exact `0 / 4`, all replay failures `argument_mismatch`
   - live contracted canonical-argument execution: [`results/tool_probe_replay_live/20260507T_canonical_argument_contracted_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_canonical_argument_contracted_live_execute_v1), exact `4 / 4`
   - live canonical-argument comparison: [`results/tool_probe_replay_live_comparisons/20260507T_canonical_argument_contracted_vs_no_directive_live_v1`](../../results/tool_probe_replay_live_comparisons/20260507T_canonical_argument_contracted_vs_no_directive_live_v1), delta exact `-1.0`, actual-call delta `0` on all four cases
+  - wave-three canonical candidate live packet: [`results/tool_probe_replay_live/20260507T_canonical_argument_canonical_json_copy_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_canonical_argument_canonical_json_copy_live_execute_v1), exact `0 / 4`
+  - wave-three visual candidate live packet: [`results/tool_probe_replay_live/20260507T_visual_state_visual_tool_initiation_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_visual_state_visual_tool_initiation_live_execute_v1), exact `1 / 3`, visual executable `1 / 1`
+  - wave-three live candidate summary: [`results/reports/mlx_tool_contract_harnessing/tables/wave3_live_candidate_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/wave3_live_candidate_replay_summary.csv)
+  - interpretation update: `canonical_json_copy_v3` should not be promoted because live exact stays `0 / 4` and two cases regress to no-call. `visual_tool_initiation_v3` is a real partial live gain over no-directive, but it still misses one visual referent case with the wrong tool and remains below contracted MLX.
   - interpretation: this is not a packaged live workflow yet; it is the stable raw-contract replay artifact that should drive the next live discriminator. The new `moonie-agent replay-live` command is the first CLI bridge for watching these exact cases without converting them into easier staged workflows.
 - Focused canonical-argument replay:
   - no-directive packet: [`results/tool_probe_replay_packets/20260507T_canonical_argument_exact_replay_no_directive_v1`](../../results/tool_probe_replay_packets/20260507T_canonical_argument_exact_replay_no_directive_v1)
@@ -256,6 +270,7 @@ Current generated research report:
 - prompt-contract candidate table: [`results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_candidates.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_candidates.csv)
 - prompt-contract probe gate table: [`results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_probe_gates.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_probe_gates.csv)
 - prompt-contract wave-two probe gate table: [`results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_wave2_probe_gates.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_wave2_probe_gates.csv)
+- prompt-contract wave-three probe gate table: [`results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_wave3_probe_gates.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_wave3_probe_gates.csv)
 - prompt-contract promotion decisions: [`results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_promotion_decisions.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_promotion_decisions.csv)
 - H1i prompt-contract candidate metrics: [`results/reports/mlx_tool_contract_harnessing/tables/h1i_prompt_contract_candidate_metrics.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/h1i_prompt_contract_candidate_metrics.csv)
 - H1i prompt-contract repeat3 metrics: [`results/reports/mlx_tool_contract_harnessing/tables/h1i_prompt_contract_repeat3_metrics.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/h1i_prompt_contract_repeat3_metrics.csv)
@@ -264,6 +279,7 @@ Current generated research report:
 - exact probe replay case deltas: [`results/reports/mlx_tool_contract_harnessing/tables/exact_probe_replay_case_deltas.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/exact_probe_replay_case_deltas.csv)
 - exact probe replay family deltas: [`results/reports/mlx_tool_contract_harnessing/tables/exact_probe_replay_family_deltas.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/exact_probe_replay_family_deltas.csv)
 - exact probe replay focus summary: [`results/reports/mlx_tool_contract_harnessing/tables/exact_probe_replay_focus_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/exact_probe_replay_focus_summary.csv)
+- wave-three live candidate replay summary: [`results/reports/mlx_tool_contract_harnessing/tables/wave3_live_candidate_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/wave3_live_candidate_replay_summary.csv)
 - figures: [`results/reports/mlx_tool_contract_harnessing/figures`](../../results/reports/mlx_tool_contract_harnessing/figures)
 - regeneration command:
 

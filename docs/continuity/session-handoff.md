@@ -55,6 +55,13 @@ Current strongest MLX result:
   - `schema_literal_tool_required_v2`: exact `0.125`, executable `0.0`, weak exact gain
   - `visual_next_call_state_v2`: exact `0.0`, executable `1.0`, visual executable gain only
   - `parallel_array_required_v2`: exact `0.0`, executable `0.0`, no probe gain
+- the third prompt-contract wave is executed and live-gated:
+  - probe packet: [`results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave3_execute_v1`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave3_execute_v1)
+  - `canonical_json_copy_v3`: probe exact `0.125`, live canonical exact `0 / 4`; do not promote
+  - `visual_tool_initiation_v3`: probe exact `0.125`, probe executable `1.0`, live visual exact `1 / 3`, live executable visual target recovered
+  - `parallel_two_call_array_v3`: probe exact `0.0`, executable `0.0`; reject as written
+  - candidate live summary: [`results/reports/mlx_tool_contract_harnessing/tables/wave3_live_candidate_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/wave3_live_candidate_replay_summary.csv)
+  - interpretation: visual tool initiation is a real partial improvement, but not a directive replacement. The next candidate should target the remaining wrong-tool visual referent failure.
 - exact-probe replay is now scaffolded and recorded:
   - brief: [`docs/continuity/exact-probe-replay.md`](./exact-probe-replay.md)
   - packet: [`results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1`](../../results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1)
@@ -80,11 +87,12 @@ Current strongest MLX result:
 Current next loop:
 
 1. Treat H1i, H1j, and H1k packaged packets as saturated or non-discriminating for current prompt-contract validation.
-2. Treat prompt-contract wave two as partial-gain evidence, not a fix.
-3. Use CLI-live exact replay as the active discriminator before promoting another candidate back into H1.
-4. Build the next candidate against the three observed mechanisms: canonical argument copying, visual next-call initiation, and two-call parallel shape.
-5. Return to H1h only after replay-live or raw probe evidence shows a mechanism-level change.
-6. Regenerate the report artifacts after any H1i/H1h/probe/Gemini/live-replay packet change.
+2. Treat waves one through three as partial-gain evidence, not fixes.
+3. Keep `visual_tool_initiation_v3` as the only candidate with live replay movement.
+4. Design the next candidate around visual state/tool selection, especially `visual_latest_filter_literal`, without losing the tool-initiation behavior.
+5. Use CLI-live exact replay as the active discriminator before promoting another candidate back into H1.
+6. Return to H1h only after replay-live or raw probe evidence shows a mechanism-level change.
+7. Regenerate the report artifacts after any H1i/H1h/probe/Gemini/live-replay packet change.
 
 H1j source:
 

@@ -2881,10 +2881,31 @@
 - The MLX tool-contract report now includes the live replay evidence:
   - curated report: [`docs/reports/mlx-tool-contract-harnessing.md`](reports/mlx-tool-contract-harnessing.md)
   - generated report: [`results/reports/mlx_tool_contract_harnessing/report.md`](../results/reports/mlx_tool_contract_harnessing/report.md)
-  - current manifest: `24` tables and `16` figures
+  - current manifest: `28` tables and `18` figures
   - new table families include live parallel, live visual, and live canonical replay deltas
   - new figures include the live parallel replay gap and the combined live replay focus gap
   - interpretation: the current research artifact now distinguishes top-line readiness, exact raw protocol compliance, executable visual paraphrase, controller helper dependence, and live operator-visible replay behavior in one report family
+- Prompt-contract wave three is now executed against the raw probe:
+  - dry-run packet: [`20260507T_prompt_contract_wave3_dry_run_v1`](../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave3_dry_run_v1)
+  - executed packet: [`20260507T_prompt_contract_wave3_execute_v1`](../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave3_execute_v1)
+  - candidates:
+    - `canonical_json_copy_v3`
+    - `visual_tool_initiation_v3`
+    - `parallel_two_call_array_v3`
+  - raw probe result:
+    - `canonical_json_copy_v3`: exact `0.125`, executable `0.0`, delta exact vs no-directive `+0.125`, recommendation `weak_exact_gain`
+    - `visual_tool_initiation_v3`: exact `0.125`, executable `1.0`, delta exact vs no-directive `+0.125`, recommendation `weak_exact_gain`
+    - `parallel_two_call_array_v3`: exact `0.0`, executable `0.0`, delta exact vs no-directive `0.0`, recommendation `no_probe_gain`
+  - interpretation: wave three sharpens the same boundary rather than solving it. Visual initiation is the best candidate so far because it combines an exact probe gain with executable visual recovery. The parallel-specific wording still does not fix parallel no-call collapse.
+- Wave-three live replay gives the first candidate-level live discriminator:
+  - canonical candidate packet: [`20260507T_canonical_argument_canonical_json_copy_live_execute_v1`](../results/tool_probe_replay_live/20260507T_canonical_argument_canonical_json_copy_live_execute_v1)
+  - visual candidate packet: [`20260507T_visual_state_visual_tool_initiation_live_execute_v1`](../results/tool_probe_replay_live/20260507T_visual_state_visual_tool_initiation_live_execute_v1)
+  - canonical comparison vs no-directive: [`20260507T_canonical_argument_canonical_json_copy_vs_no_directive_live_v1`](../results/tool_probe_replay_live_comparisons/20260507T_canonical_argument_canonical_json_copy_vs_no_directive_live_v1)
+  - visual comparison vs no-directive: [`20260507T_visual_state_visual_tool_initiation_vs_no_directive_live_v1`](../results/tool_probe_replay_live_comparisons/20260507T_visual_state_visual_tool_initiation_vs_no_directive_live_v1)
+  - canonical live result: exact stays `0 / 4`; two cases regress from argument mismatch to no tool call, so `canonical_json_copy_v3` should not be promoted
+  - visual live result: exact improves from `0 / 3` to `1 / 3`, executable visual-form recovery improves from `0.0` to `1.0`, and all three visual cases emit one tool call
+  - visual still trails contracted MLX: contracted exact `2 / 3`, visual-initiation exact `1 / 3`; the remaining miss is `visual_latest_filter_literal`, where the candidate enters the protocol but uses the wrong visual tool
+  - interpretation: the next useful candidate should preserve visual tool initiation while adding stricter visual state/tool selection. The live replay gate prevented a false promotion of canonical JSON copy and narrowed the real remaining target.
 
 ### Verification
 

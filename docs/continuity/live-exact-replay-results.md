@@ -71,6 +71,20 @@ The final tool-turn directive is doing three different kinds of work:
 
 This explains why H1k can be useful but non-discriminating. H1k proves the packaged `ops_parallel_audit_review` workflow is safe and runnable, but it decomposes the raw parallel pressure enough that no-directive MLX stays clean. The CLI-live exact replay path keeps the raw contract pressure intact.
 
+## Candidate Replay Update
+
+Wave three was the first prompt-contract wave gated through CLI-live replay:
+
+| Candidate | Family | Candidate exact | No-directive exact | Contracted exact | Interpretation |
+| --- | --- | ---: | ---: | ---: | --- |
+| `canonical_json_copy_v3` | canonical CLI/API arguments | `0 / 4` | `0 / 4` | `4 / 4` | no live gain; two cases regress to no-call |
+| `visual_tool_initiation_v3` | visual no-call | `1 / 3` plus one executable paraphrase | `0 / 3` | `2 / 3` plus one executable paraphrase | first live candidate movement, but still one wrong-tool visual referent miss |
+
+Source comparisons:
+
+- [`20260507T_canonical_argument_canonical_json_copy_vs_no_directive_live_v1`](../../results/tool_probe_replay_live_comparisons/20260507T_canonical_argument_canonical_json_copy_vs_no_directive_live_v1)
+- [`20260507T_visual_state_visual_tool_initiation_vs_no_directive_live_v1`](../../results/tool_probe_replay_live_comparisons/20260507T_visual_state_visual_tool_initiation_vs_no_directive_live_v1)
+
 ## Next Use
 
 Use live replay before promoting any new prompt-contract candidate back into H1:
