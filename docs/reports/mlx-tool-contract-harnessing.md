@@ -53,6 +53,8 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 
 ![Exact probe replay gap](../../results/reports/mlx_tool_contract_harnessing/figures/exact_probe_replay_gap.svg)
 
+![Focused exact replay gaps](../../results/reports/mlx_tool_contract_harnessing/figures/exact_probe_replay_focus_gap.svg)
+
 ## Evidence Sources
 
 | Artifact | Purpose |
@@ -247,6 +249,7 @@ Generated replay tables:
 
 - [`exact_probe_replay_case_deltas.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/exact_probe_replay_case_deltas.csv)
 - [`exact_probe_replay_family_deltas.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/exact_probe_replay_family_deltas.csv)
+- [`exact_probe_replay_focus_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/exact_probe_replay_focus_summary.csv)
 
 ## H1i Candidate Packet Result
 

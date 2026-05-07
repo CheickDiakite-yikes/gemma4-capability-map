@@ -1,6 +1,6 @@
 {
   "manifest": {
-    "generated_at": "2026-05-07T02:33:10.923877+00:00",
+    "generated_at": "2026-05-07T02:41:02.478169+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/mlx_tool_contract_harnessing",
     "source_packets": {
       "H1f compact": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1f_mlx_no_directive_v1_knowledge_work_h1f_mlx_tool_contract_ablation_v1",
@@ -16,9 +16,11 @@
     "h1j_prompt_contract_packet": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_candidates_v1_knowledge_work_ablation_packet",
     "h1j_helper_packet": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_helpers_v1_knowledge_work_ablation_packet",
     "exact_replay_comparison": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_comparisons/20260507T_contracted_vs_no_directive_exact_replay_v1",
+    "visual_replay_comparison": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_comparisons/20260507T_visual_state_contracted_vs_no_directive_v1",
+    "parallel_replay_comparison": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_comparisons/20260507T_parallel_array_contracted_vs_no_directive_v1",
     "registry_path": "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
-    "table_count": 18,
-    "figure_count": 11
+    "table_count": 19,
+    "figure_count": 12
   },
   "packet_summary": [
     {
@@ -1464,6 +1466,32 @@
       "baseline_exact_rate": "1.0",
       "candidate_exact_rate": "0.0",
       "delta_exact_rate": "-1.0"
+    }
+  ],
+  "exact_probe_replay_focus_summary": [
+    {
+      "slice": "all failures",
+      "shared_case_count": 8,
+      "baseline_exact_match_rate": 0.875,
+      "candidate_exact_match_rate": 0.0,
+      "delta_exact_match_rate": -0.875,
+      "case_delta_count": 7
+    },
+    {
+      "slice": "visual no-call",
+      "shared_case_count": 3,
+      "baseline_exact_match_rate": 0.6666666666666666,
+      "candidate_exact_match_rate": 0.0,
+      "delta_exact_match_rate": -0.6666666666666666,
+      "case_delta_count": 2
+    },
+    {
+      "slice": "parallel array",
+      "shared_case_count": 1,
+      "baseline_exact_match_rate": 1.0,
+      "candidate_exact_match_rate": 0.0,
+      "delta_exact_match_rate": -1.0,
+      "case_delta_count": 1
     }
   ],
   "gemini": {

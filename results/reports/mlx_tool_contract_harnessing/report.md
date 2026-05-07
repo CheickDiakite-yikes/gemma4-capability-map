@@ -1,6 +1,6 @@
 # MLX Tool-Contract Harnessing Report
 
-Generated: `2026-05-07T02:33:10.923877+00:00`
+Generated: `2026-05-07T02:41:02.478169+00:00`
 
 ## Executive Read
 
@@ -33,6 +33,8 @@ The main finding is blunt: the tool-turn directive is a real model-side harness 
 ![H1j probe-derived helper burden](figures/h1j_probe_derived_helper_burden.svg)
 
 ![Exact probe replay gap](figures/exact_probe_replay_gap.svg)
+
+![Focused exact replay gaps](figures/exact_probe_replay_focus_gap.svg)
 
 ## Packet Summary
 
@@ -123,6 +125,14 @@ The promotion gate is intentionally conservative: weak one-case exact gains and 
 | visual_latest_filter_literal | visual_referent_carryover | exact | no_tool_call | True | False | -1 |  |  | 1 | 0 | -1 |
 | visual_readback_region_literal | visual_referent_carryover | exact | no_tool_call | True | False | -1 |  |  | 1 | 0 | -1 |
 
+## Focused Exact-Replay Slices
+
+| slice | shared_case_count | baseline_exact_match_rate | candidate_exact_match_rate | delta_exact_match_rate | case_delta_count |
+| --- | --- | --- | --- | --- | --- |
+| all failures | 8 | 0.875 | 0.0 | -0.875 | 7 |
+| visual no-call | 3 | 0.6666666666666666 | 0.0 | -0.6666666666666666 | 2 |
+| parallel array | 1 | 1.0 | 0.0 | -1.0 | 1 |
+
 ## H1i Prompt-Contract Candidate Packet
 
 | system_id | lane | disabled_controls | tool_turn_directive_enabled | real_world_readiness_avg | delta_vs_contracted_real_world_readiness_avg | delta_vs_no_directive_real_world_readiness_avg | strict_interface_avg | delta_vs_contracted_strict_interface_avg | delta_vs_no_directive_strict_interface_avg | recovered_execution_avg | delta_vs_contracted_recovered_execution_avg | delta_vs_no_directive_recovered_execution_avg | controller_repair_avg | delta_vs_contracted_controller_repair_avg | delta_vs_no_directive_controller_repair_avg | argument_repair_avg | delta_vs_contracted_argument_repair_avg | delta_vs_no_directive_argument_repair_avg | controller_fallback_avg | delta_vs_contracted_controller_fallback_avg | delta_vs_no_directive_controller_fallback_avg | intent_override_avg | delta_vs_contracted_intent_override_avg | delta_vs_no_directive_intent_override_avg | raw_planning_clean_rate_avg | delta_vs_contracted_raw_planning_clean_rate_avg | delta_vs_no_directive_raw_planning_clean_rate_avg |
@@ -202,4 +212,6 @@ This packet is deliberately a dry-run prompt and command manifest. It is an exte
 - H1j probe-derived prompt-contract packet: `/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_candidates_v1_knowledge_work_ablation_packet`
 - H1j probe-derived helper packet: `/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_helpers_v1_knowledge_work_ablation_packet`
 - Exact replay comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_comparisons/20260507T_contracted_vs_no_directive_exact_replay_v1`
+- Visual replay comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_comparisons/20260507T_visual_state_contracted_vs_no_directive_v1`
+- Parallel replay comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_comparisons/20260507T_parallel_array_contracted_vs_no_directive_v1`
 - Gemini dry-run baseline: `/Users/cheickdiakite/Codex/moonie/results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1`

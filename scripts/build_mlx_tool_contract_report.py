@@ -70,6 +70,18 @@ DEFAULT_EXACT_REPLAY_COMPARISON = (
     / "tool_probe_replay_comparisons"
     / "20260507T_contracted_vs_no_directive_exact_replay_v1"
 )
+DEFAULT_VISUAL_REPLAY_COMPARISON = (
+    ROOT
+    / "results"
+    / "tool_probe_replay_comparisons"
+    / "20260507T_visual_state_contracted_vs_no_directive_v1"
+)
+DEFAULT_PARALLEL_REPLAY_COMPARISON = (
+    ROOT
+    / "results"
+    / "tool_probe_replay_comparisons"
+    / "20260507T_parallel_array_contracted_vs_no_directive_v1"
+)
 
 SYSTEM_LABELS = {
     "mlx_gemma4_e2b_reasoner_only": "contracted",
@@ -95,6 +107,8 @@ def build_report(
     h1j_prompt_contract_packet: str | Path = DEFAULT_H1J_PROMPT_CONTRACT_PACKET,
     h1j_helper_packet: str | Path = DEFAULT_H1J_HELPER_PACKET,
     exact_replay_comparison: str | Path = DEFAULT_EXACT_REPLAY_COMPARISON,
+    visual_replay_comparison: str | Path = DEFAULT_VISUAL_REPLAY_COMPARISON,
+    parallel_replay_comparison: str | Path = DEFAULT_PARALLEL_REPLAY_COMPARISON,
     registry_path: str | Path = DEFAULT_REGISTRY_PATH,
 ) -> dict[str, Any]:
     target = Path(output_dir)
@@ -138,6 +152,19 @@ def build_report(
     )
     exact_replay_case_rows = _csv_rows(Path(exact_replay_comparison) / "replay_case_deltas.csv")
     exact_replay_family_rows = _csv_rows(Path(exact_replay_comparison) / "replay_family_deltas.csv")
+    visual_replay_comparison_payload = json.loads(
+        (Path(visual_replay_comparison) / "replay_comparison.json").read_text(encoding="utf-8")
+    )
+    parallel_replay_comparison_payload = json.loads(
+        (Path(parallel_replay_comparison) / "replay_comparison.json").read_text(encoding="utf-8")
+    )
+    exact_replay_focus_rows = _replay_focus_summary_rows(
+        [
+            ("all failures", exact_replay_comparison_payload),
+            ("visual no-call", visual_replay_comparison_payload),
+            ("parallel array", parallel_replay_comparison_payload),
+        ]
+    )
 
     _write_csv(tables_dir / "packet_summary.csv", packet_rows)
     _write_csv(tables_dir / "h1i_system_metrics.csv", h1i_system_rows)
@@ -157,6 +184,7 @@ def build_report(
     _write_csv(tables_dir / "h1j_probe_derived_helper_metrics.csv", h1j_helper_rows)
     _write_csv(tables_dir / "exact_probe_replay_case_deltas.csv", exact_replay_case_rows)
     _write_csv(tables_dir / "exact_probe_replay_family_deltas.csv", exact_replay_family_rows)
+    _write_csv(tables_dir / "exact_probe_replay_focus_summary.csv", exact_replay_focus_rows)
 
     _write_grouped_metric_svg(
         figures_dir / "h1i_readiness_strict_recovered.svg",
@@ -284,6 +312,16 @@ def build_report(
             ("exact_match_rate", "exact", "#2563EB"),
         ],
     )
+    _write_grouped_metric_svg(
+        figures_dir / "exact_probe_replay_focus_gap.svg",
+        title="Focused exact replay gaps",
+        rows=exact_replay_focus_rows,
+        label_field="slice",
+        metrics=[
+            ("baseline_exact_match_rate", "contracted", "#2563EB"),
+            ("candidate_exact_match_rate", "no directive", "#DC2626"),
+        ],
+    )
 
     manifest = {
         "generated_at": datetime.now(UTC).isoformat(),
@@ -300,9 +338,11 @@ def build_report(
         "h1j_prompt_contract_packet": str(Path(h1j_prompt_contract_packet).resolve()),
         "h1j_helper_packet": str(Path(h1j_helper_packet).resolve()),
         "exact_replay_comparison": str(Path(exact_replay_comparison).resolve()),
+        "visual_replay_comparison": str(Path(visual_replay_comparison).resolve()),
+        "parallel_replay_comparison": str(Path(parallel_replay_comparison).resolve()),
         "registry_path": str(Path(registry_path).resolve()),
-        "table_count": 18,
-        "figure_count": 11,
+        "table_count": 19,
+        "figure_count": 12,
     }
     report_payload = {
         "manifest": manifest,
@@ -322,6 +362,7 @@ def build_report(
         "exact_probe_replay_comparison": exact_replay_comparison_payload,
         "exact_probe_replay_case_deltas": exact_replay_case_rows,
         "exact_probe_replay_family_deltas": exact_replay_family_rows,
+        "exact_probe_replay_focus_summary": exact_replay_focus_rows,
         "gemini": gemini_manifest,
     }
     (target / "manifest.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
@@ -345,6 +386,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--h1j-prompt-contract-packet", default=str(DEFAULT_H1J_PROMPT_CONTRACT_PACKET))
     parser.add_argument("--h1j-helper-packet", default=str(DEFAULT_H1J_HELPER_PACKET))
     parser.add_argument("--exact-replay-comparison", default=str(DEFAULT_EXACT_REPLAY_COMPARISON))
+    parser.add_argument("--visual-replay-comparison", default=str(DEFAULT_VISUAL_REPLAY_COMPARISON))
+    parser.add_argument("--parallel-replay-comparison", default=str(DEFAULT_PARALLEL_REPLAY_COMPARISON))
     parser.add_argument("--registry", default=str(DEFAULT_REGISTRY_PATH))
     return parser.parse_args()
 
@@ -365,6 +408,8 @@ def main() -> None:
         h1j_prompt_contract_packet=args.h1j_prompt_contract_packet,
         h1j_helper_packet=args.h1j_helper_packet,
         exact_replay_comparison=args.exact_replay_comparison,
+        visual_replay_comparison=args.visual_replay_comparison,
+        parallel_replay_comparison=args.parallel_replay_comparison,
         registry_path=args.registry,
     )
     print(
@@ -500,6 +545,23 @@ def _exact_replay_gap_rows(summary: dict[str, Any]) -> list[dict[str, Any]]:
     ]
 
 
+def _replay_focus_summary_rows(comparisons: list[tuple[str, dict[str, Any]]]) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for label, payload in comparisons:
+        summary = payload["summary"]
+        rows.append(
+            {
+                "slice": label,
+                "shared_case_count": summary["shared_case_count"],
+                "baseline_exact_match_rate": summary["baseline_exact_match_rate"],
+                "candidate_exact_match_rate": summary["candidate_exact_match_rate"],
+                "delta_exact_match_rate": summary["delta_exact_match_rate"],
+                "case_delta_count": summary["case_delta_count"],
+            }
+        )
+    return rows
+
+
 def _prompt_contract_promotion_rows(
     *,
     wave1_rows: list[dict[str, Any]],
@@ -592,6 +654,7 @@ def _markdown_report(payload: dict[str, Any]) -> str:
     promotion_rows = payload["prompt_contract_promotion_decisions"]
     exact_replay_summary = payload["exact_probe_replay_comparison"]["summary"]
     exact_replay_case_rows = payload["exact_probe_replay_case_deltas"]
+    exact_replay_focus_rows = payload["exact_probe_replay_focus_summary"]
     gemini = payload["gemini"]
     lines = [
         "# MLX Tool-Contract Harnessing Report",
@@ -633,6 +696,8 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "![H1j probe-derived helper burden](figures/h1j_probe_derived_helper_burden.svg)",
         "",
         "![Exact probe replay gap](figures/exact_probe_replay_gap.svg)",
+        "",
+        "![Focused exact replay gaps](figures/exact_probe_replay_focus_gap.svg)",
         "",
         "## Packet Summary",
         "",
@@ -677,6 +742,10 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         f"- Delta exact rate: `{exact_replay_summary['delta_exact_match_rate']}`",
         "",
         _markdown_table(exact_replay_case_rows),
+        "",
+        "## Focused Exact-Replay Slices",
+        "",
+        _markdown_table(exact_replay_focus_rows),
         "",
         "## H1i Prompt-Contract Candidate Packet",
         "",
@@ -735,6 +804,8 @@ def _markdown_report(payload: dict[str, Any]) -> str:
             f"- H1j probe-derived prompt-contract packet: `{payload['manifest']['h1j_prompt_contract_packet']}`",
             f"- H1j probe-derived helper packet: `{payload['manifest']['h1j_helper_packet']}`",
             f"- Exact replay comparison: `{payload['manifest']['exact_replay_comparison']}`",
+            f"- Visual replay comparison: `{payload['manifest']['visual_replay_comparison']}`",
+            f"- Parallel replay comparison: `{payload['manifest']['parallel_replay_comparison']}`",
             f"- Gemini dry-run baseline: `{payload['manifest']['gemini_packet']}`",
             "",
         ]

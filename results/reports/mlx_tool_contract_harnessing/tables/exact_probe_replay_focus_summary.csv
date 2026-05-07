@@ -1,0 +1,4 @@
+slice,shared_case_count,baseline_exact_match_rate,candidate_exact_match_rate,delta_exact_match_rate,case_delta_count
+all failures,8,0.875,0.0,-0.875,7
+visual no-call,3,0.6666666666666666,0.0,-0.6666666666666666,2
+parallel array,1,1.0,0.0,-1.0,1
