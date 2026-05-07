@@ -43,6 +43,8 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 
 ![Executed prompt contract probe gate](../../results/reports/mlx_tool_contract_harnessing/figures/prompt_contract_probe_gate.svg)
 
+![Prompt contract wave two probe gate](../../results/reports/mlx_tool_contract_harnessing/figures/prompt_contract_wave2_probe_gate.svg)
+
 ![H1i prompt-contract repeat3 burden](../../results/reports/mlx_tool_contract_harnessing/figures/h1i_prompt_contract_repeat3_burden.svg)
 
 ![H1j probe-derived candidate burden](../../results/reports/mlx_tool_contract_harnessing/figures/h1j_probe_derived_burden.svg)
@@ -59,6 +61,7 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 | [`contracted tool probe`](../../results/tool_directive_probe/20260506T_mlx_tool_directive_probe_v4) | Exact-call probe for MLX with the tool-turn directive. |
 | [`no-directive tool probe`](../../results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1) | Exact-call probe after removing the directive. |
 | [`executed prompt-contract probe packet`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_execute_v1) | Three generic no-directive prompt-contract candidates compared against both contracted and no-directive probe baselines. |
+| [`executed prompt-contract wave-two packet`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave2_execute_v1) | Three second-wave prompt-contract candidates tested on the raw probe before any further H1 promotion. |
 | [`H1i prompt-contract repeat3 packet`](../../results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_repeat3_v1_knowledge_work_ablation_packet) | Repeated second-stage candidate packet: three attempts per H1i workflow family per row. |
 | [`H1j probe-derived candidate packet`](../../results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_candidates_v1_knowledge_work_ablation_packet) | Six packaged live workflows selected from exact no-directive probe failure families. |
 | [`H1j probe-derived helper packet`](../../results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_helpers_v1_knowledge_work_ablation_packet) | Controller-helper ablation on the same H1j probe-derived packaged workflow set. |
@@ -172,6 +175,23 @@ The result is useful but not victory-shaped. All three candidates improve over t
 - `tool_required_parallel_v1` still has the most `no_tool_call` failures, so its wording is not yet solving the no-call family it was meant to target.
 - H1i can use these candidates as mechanism probes, but they are not replacements for the final tool-turn directive.
 
+## Prompt-Contract Wave Two Probe Gate
+
+The second executed candidate packet is now recorded at:
+
+- [`results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave2_execute_v1`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave2_execute_v1)
+- [`candidate_gate_summary.md`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave2_execute_v1/candidate_gate_summary.md)
+- generated report table: [`prompt_contract_wave2_probe_gates.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_wave2_probe_gates.csv)
+- generated failure table: [`prompt_contract_wave2_probe_failure_modes.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_wave2_probe_failure_modes.csv)
+
+| Contract | Exact | Executable | Delta exact vs no-directive | Dominant failure | Recommendation |
+| --- | ---: | ---: | ---: | --- | --- |
+| `schema_literal_tool_required_v2` | `0.125` | `0.0` | `+0.125` | `argument_mismatch` | weak exact gain |
+| `visual_next_call_state_v2` | `0.0` | `1.0` | `0.0` | `no_tool_call` | visual executable gain only |
+| `parallel_array_required_v2` | `0.0` | `0.0` | `0.0` | `no_tool_call` | no probe gain |
+
+Wave two does not change the research direction. Combining schema anchoring, literal copying, and tool-required language still recovers only one exact case. The visual-state contract again repairs executable visual behavior without exact JSON fidelity. The parallel-array contract does not fix the no-call family. None of these candidates should be promoted as a replacement for the final tool-turn directive.
+
 ## H1i Candidate Packet Result
 
 The H1i mechanism-probe packet is now recorded at:
@@ -280,8 +300,8 @@ The H1h -> H1i narrowing is also useful methodologically. H1h proves the phenome
 
 Use this order before broad `32 / 26` reruns:
 
-1. Execute prompt-contract wave 2 against the raw probe because H1i repeat3 and H1j both saturated.
-2. Add a packaged live workflow for the deferred parallel no-call family or a live-operator replay mode for exact probe cases.
+1. Convert the raw probe result into a stricter exact-probe live replay packet, because H1i repeat3, H1j, and wave two all failed to break the same packaged-workflow saturation.
+2. Add a packaged live workflow for the deferred parallel no-call family or make the replay mode explicitly cover `parallel_audit_array_literal`.
 3. H1h only after H1i moves for the right reason.
 4. Gemini CLI real execution only when the binary/run environment is explicitly meant to be part of the comparison.
 5. Runtime live-smoke packets after benchmark movement, to confirm the CLI operator path sees the same repair/fallback pattern.

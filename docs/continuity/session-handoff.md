@@ -49,12 +49,16 @@ Current strongest MLX result:
   - [`results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_helpers_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_helpers_v1_knowledge_work_ablation_packet)
   - no-repair, no-fallback, and no-argument-repair rows matched baseline at readiness `0.96577`, strict/recovered `1.0 / 1.0`, raw clean `1.0`
   - trace analysis found `21` disabled-repair markers but `0` failure candidates
+- the second prompt-contract wave is executed and remains only a partial-gain result:
+  - [`results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave2_execute_v1`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave2_execute_v1)
+  - `schema_literal_tool_required_v2`: exact `0.125`, executable `0.0`, weak exact gain
+  - `visual_next_call_state_v2`: exact `0.0`, executable `1.0`, visual executable gain only
+  - `parallel_array_required_v2`: exact `0.0`, executable `0.0`, no probe gain
 
 Current next loop:
 
 1. Treat H1i candidate v1 and repeat3 as saturated/non-discriminating after the probe gate.
-2. Execute prompt-contract wave 2 against the raw probe:
-   `uv run python scripts/run_tool_prompt_contract_probe_packet.py --run-group-id <timestamp>_prompt_contract_wave2_execute_v1 --candidate-wave v2 --execute`
+2. Treat prompt-contract wave two as partial-gain evidence, not a fix.
 3. Add a live packaged workflow for the deferred parallel no-call family, or build a live-operator replay mode for exact probe cases.
 4. Return to H1h only after H1i changes for the right mechanism-level reason.
 5. Regenerate the report artifacts after any H1i/H1h/probe/Gemini packet change.
@@ -69,6 +73,7 @@ Wave 2 source:
 
 - contracts: `schema_literal_tool_required_v2`, `visual_next_call_state_v2`, `parallel_array_required_v2`
 - dry-run packet: [`results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave2_dry_run_v1`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave2_dry_run_v1)
+- executed packet: [`results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave2_execute_v1`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave2_execute_v1)
 
 The current research seam is no longer “make the rows tie.”
 

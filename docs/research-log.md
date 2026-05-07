@@ -2786,6 +2786,13 @@
   - probe packet runner now accepts `--candidate-wave v2`
   - dry-run packet: [`20260507T_prompt_contract_wave2_dry_run_v1`](../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave2_dry_run_v1)
   - interpretation: after H1i/H1j saturation, wave 2 must earn promotion on the raw probe before any more H1 spend
+- Prompt-contract wave 2 is now executed and remains a partial-gain probe result:
+  - packet: [`20260507T_prompt_contract_wave2_execute_v1`](../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave2_execute_v1)
+  - summary: [`candidate_gate_summary.md`](../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave2_execute_v1/candidate_gate_summary.md)
+  - `schema_literal_tool_required_v2`: exact `0.125`, executable `0.0`, delta exact vs no-directive `+0.125`, dominant failure `argument_mismatch`, recommendation `weak_exact_gain`
+  - `visual_next_call_state_v2`: exact `0.0`, executable `1.0`, dominant failure `no_tool_call`, recommendation `visual_executable_gain_only`
+  - `parallel_array_required_v2`: exact `0.0`, executable `0.0`, dominant failure `no_tool_call`, recommendation `no_probe_gain`
+  - interpretation: wave 2 confirms the split between exact protocol fidelity and executable visual recovery. Combining schema/literal/tool-required wording still only moves one exact case, visual-state wording recovers executable behavior without canonical JSON, and parallel-array wording does not fix no-call collapse. The next discriminator should be exact-probe live replay or a faithful parallel packaged workflow, not another H1i/H1j repeat.
 
 ### Verification
 

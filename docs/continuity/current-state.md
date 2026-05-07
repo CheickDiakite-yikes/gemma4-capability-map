@@ -168,7 +168,12 @@ Latest MLX tool-contract research:
   - contracts: `schema_literal_tool_required_v2`, `visual_next_call_state_v2`, `parallel_array_required_v2`
   - runner flag: `scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v2`
   - dry-run packet: [`results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave2_dry_run_v1`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave2_dry_run_v1)
-  - next gate: execute wave 2 on the raw probe before any more H1 promotion
+  - executed packet: [`results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave2_execute_v1`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave2_execute_v1)
+  - gate result:
+    - `schema_literal_tool_required_v2`: exact `0.125`, executable `0.0`, recommendation `weak_exact_gain`
+    - `visual_next_call_state_v2`: exact `0.0`, executable `1.0`, recommendation `visual_executable_gain_only`
+    - `parallel_array_required_v2`: exact `0.0`, executable `0.0`, recommendation `no_probe_gain`
+  - interpretation: wave 2 confirms the prior shape rather than solving it. The next move is stricter exact-probe live replay or a faithful live packaged workflow for the deferred parallel no-call family, not promotion back to H1
 
 Current generated research report:
 
@@ -177,6 +182,7 @@ Current generated research report:
 - packet summary table: [`results/reports/mlx_tool_contract_harnessing/tables/packet_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/packet_summary.csv)
 - prompt-contract candidate table: [`results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_candidates.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_candidates.csv)
 - prompt-contract probe gate table: [`results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_probe_gates.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_probe_gates.csv)
+- prompt-contract wave-two probe gate table: [`results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_wave2_probe_gates.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_wave2_probe_gates.csv)
 - H1i prompt-contract candidate metrics: [`results/reports/mlx_tool_contract_harnessing/tables/h1i_prompt_contract_candidate_metrics.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/h1i_prompt_contract_candidate_metrics.csv)
 - H1i prompt-contract repeat3 metrics: [`results/reports/mlx_tool_contract_harnessing/tables/h1i_prompt_contract_repeat3_metrics.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/h1i_prompt_contract_repeat3_metrics.csv)
 - H1j probe-derived candidate metrics: [`results/reports/mlx_tool_contract_harnessing/tables/h1j_probe_derived_candidate_metrics.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/h1j_probe_derived_candidate_metrics.csv)

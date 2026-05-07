@@ -148,7 +148,12 @@ What remains:
     - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_next_call_state`
     - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_parallel_array_required`
   - dry-run packet: [`results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave2_dry_run_v1`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave2_dry_run_v1)
-- execute the second prompt-contract wave against the raw probe before promoting anything back to H1
+- second prompt-contract wave is now executed:
+  - packet: [`results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave2_execute_v1`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave2_execute_v1)
+  - `schema_literal_tool_required_v2`: exact `0.125`, executable `0.0`, weak exact gain
+  - `visual_next_call_state_v2`: exact `0.0`, executable `1.0`, visual executable gain only
+  - `parallel_array_required_v2`: exact `0.0`, executable `0.0`, no probe gain
+- do not promote wave two back to H1 as a fix; use it as evidence that raw-probe replay or a faithful parallel live workflow is the next needed discriminator
 - promote a candidate beyond H1i only if it moves raw-clean or controller-burden metrics for the right reason
 - regenerate the MLX tool-contract report after any H1i, H1h, probe, or Gemini baseline packet changes
 - when a real Gemini CLI binary is available, rerun the same packet with `--execute`; keep the dry-run packet as the no-side-effects prompt manifest
@@ -162,7 +167,6 @@ uv run python scripts/summarize_h1_workflow_families.py <packet_dir> --config co
 uv run python scripts/compare_tool_directive_probes.py results/tool_directive_probe/20260506T_mlx_tool_directive_probe_v4 results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1
 uv run python scripts/run_tool_prompt_contract_probe_packet.py --run-group-id <timestamp>_prompt_contract_probe_candidates --execute
 uv run python scripts/summarize_tool_prompt_contract_probe_packet.py results/tool_prompt_contract_probe_packets/<packet_id>
-uv run python scripts/run_tool_prompt_contract_probe_packet.py --run-group-id <timestamp>_prompt_contract_wave2_execute_v1 --candidate-wave v2 --execute
 uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1i_slice.yaml --packet-id mlx_prompt_contract_candidates --run-group-id <timestamp>_h1i_prompt_contract_candidates
 uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1i_slice.yaml --packet-id mlx_prompt_contract_candidates --run-group-id 20260507T_h1i_prompt_contract_candidates_repeat3_v1 --repeat 3
 uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1j_slice.yaml --packet-id mlx_probe_derived_tool_contract_candidates --run-group-id <timestamp>_h1j_probe_derived_candidates_v1
