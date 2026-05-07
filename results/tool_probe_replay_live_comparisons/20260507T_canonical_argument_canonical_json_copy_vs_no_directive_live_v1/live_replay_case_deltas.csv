@@ -1,0 +1,5 @@
+case_id,family,source_failure_mode,baseline_replay_exact_match,candidate_replay_exact_match,delta_exact_match,baseline_replay_executable_match,candidate_replay_executable_match,delta_executable_match,baseline_replay_failure_mode,candidate_replay_failure_mode,baseline_actual_call_count,candidate_actual_call_count,delta_actual_call_count
+api_form_issue_fetch,api_canonicalization,argument_mismatch,False,False,0,,,,argument_mismatch,argument_mismatch,1,1,0
+api_invoice_lock_hold_update,api_canonicalization,argument_mismatch,False,False,0,,,,argument_mismatch,no_tool_call,1,0,-1
+cli_invoice_lock_hyphen_query,cli_canonicalization,argument_mismatch,False,False,0,,,,argument_mismatch,argument_mismatch,1,1,0
+cli_phone_patch_latest_only,cli_patch_copying,argument_mismatch,False,False,0,,,,argument_mismatch,no_tool_call,1,0,-1
