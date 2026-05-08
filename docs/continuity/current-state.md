@@ -217,6 +217,13 @@ Latest MLX tool-contract research:
     - `visual_tool_initiation_v3`: exact `0.125`, executable `1.0`, recommendation `weak_exact_gain`
     - `parallel_two_call_array_v3`: exact `0.0`, executable `0.0`, recommendation `no_probe_gain`
   - interpretation: visual initiation is the strongest candidate so far, but wave three still does not replace the final tool-turn directive. Parallel no-call remains unsolved.
+- Prompt-contract wave 4:
+  - contract: `visual_state_tool_selection_v4`
+  - runner flag: `scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v4`
+  - dry-run packet: [`results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave4_dry_run_v1`](../../results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave4_dry_run_v1)
+  - executed packet: [`results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave4_execute_v1`](../../results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave4_execute_v1)
+  - gate result: exact `0.125`, executable `0.0`, delta exact vs no-directive `+0.125`, recommendation `weak_exact_gain`
+  - interpretation: v4 is a useful negative result. It preserves one exact visual referent recovery but does not improve over the wave-three live ceiling and does not fix the targeted wrong-tool filter case.
 - Exact-probe replay packet:
   - brief: [`docs/continuity/exact-probe-replay.md`](./exact-probe-replay.md)
   - script: [`scripts/build_tool_probe_replay_packet.py`](../../scripts/build_tool_probe_replay_packet.py)
@@ -244,6 +251,10 @@ Latest MLX tool-contract research:
   - wave-three visual candidate live packet: [`results/tool_probe_replay_live/20260507T_visual_state_visual_tool_initiation_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_visual_state_visual_tool_initiation_live_execute_v1), exact `1 / 3`, visual executable `1 / 1`
   - wave-three live candidate summary: [`results/reports/mlx_tool_contract_harnessing/tables/wave3_live_candidate_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/wave3_live_candidate_replay_summary.csv)
   - interpretation update: `canonical_json_copy_v3` should not be promoted because live exact stays `0 / 4` and two cases regress to no-call. `visual_tool_initiation_v3` is a real partial live gain over no-directive, but it still misses one visual referent case with the wrong tool and remains below contracted MLX.
+  - wave-four visual candidate live packet: [`results/tool_probe_replay_live/20260508T_visual_state_tool_selection_live_execute_v1`](../../results/tool_probe_replay_live/20260508T_visual_state_tool_selection_live_execute_v1), exact `1 / 3`, visual executable `0 / 1`
+  - wave-four live comparison vs no-directive: [`results/tool_probe_replay_live_comparisons/20260508T_visual_state_tool_selection_vs_no_directive_live_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_state_tool_selection_vs_no_directive_live_v1), exact `+0.3333333333333333`
+  - wave-four live comparison vs contracted: [`results/tool_probe_replay_live_comparisons/20260508T_visual_state_contracted_vs_tool_selection_live_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_state_contracted_vs_tool_selection_live_v1), exact `-0.3333333333333333`, executable `-1.0`
+  - interpretation update: `visual_state_tool_selection_v4` did not beat `visual_tool_initiation_v3`; `visual_latest_filter_literal` remains `wrong_tool`, and `visual_form_target_literal` regressed to `no_tool_call`.
   - interpretation: this is not a packaged live workflow yet; it is the stable raw-contract replay artifact that should drive the next live discriminator. The new `moonie-agent replay-live` command is the first CLI bridge for watching these exact cases without converting them into easier staged workflows.
 - Focused canonical-argument replay:
   - no-directive packet: [`results/tool_probe_replay_packets/20260507T_canonical_argument_exact_replay_no_directive_v1`](../../results/tool_probe_replay_packets/20260507T_canonical_argument_exact_replay_no_directive_v1)
@@ -271,6 +282,7 @@ Current generated research report:
 - prompt-contract probe gate table: [`results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_probe_gates.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_probe_gates.csv)
 - prompt-contract wave-two probe gate table: [`results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_wave2_probe_gates.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_wave2_probe_gates.csv)
 - prompt-contract wave-three probe gate table: [`results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_wave3_probe_gates.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_wave3_probe_gates.csv)
+- prompt-contract wave-four probe gate table: [`results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_wave4_probe_gates.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_wave4_probe_gates.csv)
 - prompt-contract promotion decisions: [`results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_promotion_decisions.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_promotion_decisions.csv)
 - H1i prompt-contract candidate metrics: [`results/reports/mlx_tool_contract_harnessing/tables/h1i_prompt_contract_candidate_metrics.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/h1i_prompt_contract_candidate_metrics.csv)
 - H1i prompt-contract repeat3 metrics: [`results/reports/mlx_tool_contract_harnessing/tables/h1i_prompt_contract_repeat3_metrics.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/h1i_prompt_contract_repeat3_metrics.csv)
@@ -280,6 +292,7 @@ Current generated research report:
 - exact probe replay family deltas: [`results/reports/mlx_tool_contract_harnessing/tables/exact_probe_replay_family_deltas.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/exact_probe_replay_family_deltas.csv)
 - exact probe replay focus summary: [`results/reports/mlx_tool_contract_harnessing/tables/exact_probe_replay_focus_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/exact_probe_replay_focus_summary.csv)
 - wave-three live candidate replay summary: [`results/reports/mlx_tool_contract_harnessing/tables/wave3_live_candidate_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/wave3_live_candidate_replay_summary.csv)
+- wave-four live candidate replay summary: [`results/reports/mlx_tool_contract_harnessing/tables/wave4_live_candidate_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/wave4_live_candidate_replay_summary.csv)
 - figures: [`results/reports/mlx_tool_contract_harnessing/figures`](../../results/reports/mlx_tool_contract_harnessing/figures)
 - regeneration command:
 

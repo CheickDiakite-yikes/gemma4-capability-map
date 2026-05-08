@@ -1,5 +1,26 @@
 # Wave Four Visual State Candidate
 
+## Status
+
+Executed on May 8, 2026. Result: useful negative evidence, not a promotion candidate.
+
+- raw probe packet: [`results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave4_execute_v1`](../../results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave4_execute_v1)
+- live visual packet: [`results/tool_probe_replay_live/20260508T_visual_state_tool_selection_live_execute_v1`](../../results/tool_probe_replay_live/20260508T_visual_state_tool_selection_live_execute_v1)
+- comparison vs no-directive: [`results/tool_probe_replay_live_comparisons/20260508T_visual_state_tool_selection_vs_no_directive_live_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_state_tool_selection_vs_no_directive_live_v1)
+- comparison vs contracted: [`results/tool_probe_replay_live_comparisons/20260508T_visual_state_contracted_vs_tool_selection_live_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_state_contracted_vs_tool_selection_live_v1)
+
+Key result:
+
+| Surface | Result |
+| --- | --- |
+| raw probe | exact `1 / 8`, executable `0 / 1`, weak exact gain |
+| live visual vs no-directive | exact improves from `0 / 3` to `1 / 3` |
+| live visual vs contracted | exact falls from `2 / 3` to `1 / 3`; executable falls from `1.0` to `0.0` |
+| targeted case | `visual_latest_filter_literal` still fails as `wrong_tool` |
+| regression | `visual_form_target_literal` falls back to `no_tool_call` |
+
+Interpretation: the broad visual state/tool-selection wording did not solve the remaining wrong-tool referent failure. Wave three's useful behavior was visual tool initiation; v4 did not preserve that enough to recover the executable form target.
+
 ## Why This Exists
 
 Wave three produced the first prompt-contract candidate with live replay movement:
@@ -13,13 +34,13 @@ It still failed one core case:
 - `visual_latest_filter_literal`
 - failure mode: `wrong_tool`
 
-So the next candidate should not broadly repeat schema, literal-copy, or parallel wording. The useful target is narrower:
+So the next candidate did not broadly repeat schema, literal-copy, or parallel wording. The useful target was narrower:
 
 > Preserve visual tool initiation while improving visual state and tool selection.
 
 ## Candidate Hypothesis
 
-`visual_state_tool_selection_v4` should test whether no-directive MLX can choose the correct visual tool from the latest visual state when multiple visual tools are available.
+`visual_state_tool_selection_v4` tested whether no-directive MLX can choose the correct visual tool from the latest visual state when multiple visual tools are available.
 
 Expected mechanism:
 
@@ -35,9 +56,9 @@ Non-goals:
 - do not spend H1i/H1h until raw probe or CLI-live replay moves
 - do not treat packaged-workflow saturation as a pass
 
-## Required Gate
+## Executed Gate
 
-Run in this order:
+The gate was run in this order:
 
 ```bash
 uv run python scripts/run_tool_prompt_contract_probe_packet.py \
@@ -46,7 +67,7 @@ uv run python scripts/run_tool_prompt_contract_probe_packet.py \
   --execute
 ```
 
-Then, only if the raw probe improves visual-family behavior:
+The raw probe produced a weak exact gain, so the visual live replay was run:
 
 ```bash
 uv run moonie-agent replay-live \
@@ -73,7 +94,7 @@ uv run python scripts/compare_tool_probe_replay_live_packets.py \
   --output-dir results/tool_probe_replay_live_comparisons/<timestamp>_visual_state_contracted_vs_tool_selection_live_v1
 ```
 
-## Promotion Criteria
+## Promotion Criteria Outcome
 
 Minimum useful signal:
 
@@ -88,6 +109,8 @@ Reject if:
 - candidate improves only packaged workflow readiness
 - candidate increases no-call failures in canonical or visual replay
 
+Outcome: reject for H1 promotion. Live visual exact stayed `1 / 3`, `visual_latest_filter_literal` remained `wrong_tool`, and executable visual-form recovery did not stay at `1.0`.
+
 ## Current Baseline To Beat
 
 | Row | Visual exact | Visual executable | Notes |
@@ -96,4 +119,4 @@ Reject if:
 | `visual_tool_initiation_v3` | `1 / 3` | `1 / 1` | one wrong-tool visual referent miss |
 | contracted | `2 / 3` | `1 / 1` | remaining non-exact case is executable |
 
-The target is not a new leaderboard row. The target is evidence that a weaker generic contract can reduce model-side visual tool-selection fragility before the controller has to rescue it.
+The target was not a new leaderboard row. The target was evidence that a weaker generic contract can reduce model-side visual tool-selection fragility before the controller has to rescue it. The current answer is no: this wording did not reduce the remaining visual tool-selection fragility.

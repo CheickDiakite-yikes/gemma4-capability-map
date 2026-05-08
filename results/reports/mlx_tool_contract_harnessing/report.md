@@ -1,6 +1,6 @@
 # MLX Tool-Contract Harnessing Report
 
-Generated: `2026-05-07T04:41:40.706439+00:00`
+Generated: `2026-05-08T16:13:01.708860+00:00`
 
 ## Executive Read
 
@@ -28,6 +28,8 @@ The main finding is blunt: the tool-turn directive is a real model-side harness 
 
 ![Prompt contract wave three probe gate](figures/prompt_contract_wave3_probe_gate.svg)
 
+![Prompt contract wave four probe gate](figures/prompt_contract_wave4_probe_gate.svg)
+
 ![H1i prompt-contract repeat3 burden](figures/h1i_prompt_contract_repeat3_burden.svg)
 
 ![H1j probe-derived candidate burden](figures/h1j_probe_derived_burden.svg)
@@ -47,6 +49,8 @@ The main finding is blunt: the tool-turn directive is a real model-side harness 
 ![CLI-live focused replay gaps](figures/live_replay_focus_gap.svg)
 
 ![Wave three live replay gate](figures/wave3_live_candidate_replay_gate.svg)
+
+![Wave four live replay gate](figures/wave4_live_candidate_replay_gate.svg)
 
 ## Packet Summary
 
@@ -86,6 +90,7 @@ The main finding is blunt: the tool-turn directive is a real model-side harness 
 | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_literal_tool_required | Gemma 4 MLX schema literal required | schema_literal_tool_required_v2 | True | Schema Literal Tool-Required v2 | The first wave split exact-copy and executable visual gains; a combined contract may preserve schema obedience while reducing no-call failures. | schema;arguments;no_tool_call;json;cli;api;visual |
 | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_tool_required | Gemma 4 MLX tool required | tool_required_parallel_v1 | True | Tool Required Parallel v1 | No-directive visual and parallel cases may fail because the model exits the tool protocol; stronger tool-required wording should reduce no-call failures. | no_tool_call;parallel;visual |
 | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_next_call_state | Gemma 4 MLX visual next call | visual_next_call_state_v2 | True | Visual Next-Call State v2 | No-directive visual failures are concentrated in no-call behavior after a visual referent exists; explicit state-transition wording may reduce that collapse. | visual;no_tool_call;state_machine;readback |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_state_tool_selection | Gemma 4 MLX visual state tool | visual_state_tool_selection_v4 | True | Visual State Tool Selection v4 | Wave three recovered visual tool initiation but still chose the wrong visual tool for a filter/refinement case; state-specific selection rules may preserve tool entry while improving exact visual replay. | visual;state_machine;tool_selection;no_tool_call;arguments |
 | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_tool_initiation | Gemma 4 MLX visual initiation | visual_tool_initiation_v3 | True | Visual Tool Initiation v3 | CLI-live visual replay shows no-directive MLX often answers or defers instead of initiating the next visual tool call; a compact state-transition contract may recover tool entry before exact selector tuning. | visual;no_tool_call;state_machine;readback;arguments |
 
 These candidates are generic prompt contracts for the no-directive row. They deliberately avoid embedding the expected planned call, so they can be tested on the probe before spending H1i or H1h runs.
@@ -120,6 +125,14 @@ The second wave confirms the same shape rather than changing the direction. `sch
 
 The third wave targets the mechanisms exposed by CLI-live replay: canonical argument copying, visual tool initiation, and two-call parallel array shape. It produces the same hard boundary in sharper form: canonical and visual-initiation wording recover one exact case, the visual-initiation contract also recovers the executable visual target, and the parallel two-call contract still does not recover the parallel no-call family.
 
+## Prompt-Contract Wave Four Probe Gate
+
+| system_id | tool_prompt_contract_id | exact_match_rate | executable_match_rate | delta_exact_vs_contracted | delta_exact_vs_no_directive | probe_gate | improved_case_count | regressed_case_count | dominant_failure_mode | failure_modes | recommendation |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_state_tool_selection | visual_state_tool_selection_v4 | 0.125 | 0.0 | -0.75 | 0.125 | probe_improved_vs_no_directive | 1 | 0 | no_tool_call | argument_mismatch:2;call_count_mismatch:1;exact:1;no_tool_call:3;wrong_tool:1 | weak_exact_gain |
+
+`visual_state_tool_selection_v4` was the narrow follow-up to wave three's best partial result. Raw probe exact rate again reaches only `0.125`: enough to improve over the no-directive row by one case, but still far below the contracted row. The dominant failure remains `no_tool_call`, so the contract should be treated as a targeted visual replay candidate, not a general harness fix.
+
 ## Prompt-Contract Promotion Decisions
 
 | wave | tool_prompt_contract_id | exact_match_rate | executable_match_rate | delta_exact_vs_no_directive | probe_gate | recommendation | promotion_decision | promotion_reason | next_use |
@@ -133,6 +146,7 @@ The third wave targets the mechanisms exposed by CLI-live replay: canonical argu
 | v3 | canonical_json_copy_v3 | 0.125 | 0.0 | 0.125 | probe_improved_vs_no_directive | weak_exact_gain | hold_for_exact_probe_replay | probe gain is too weak for H1 promotion without a stricter replay discriminator | test through exact-probe live replay before any H1 spend |
 | v3 | visual_tool_initiation_v3 | 0.125 | 1.0 | 0.125 | probe_improved_vs_no_directive | weak_exact_gain | hold_for_exact_probe_replay | probe gain is too weak for H1 promotion without a stricter replay discriminator | test through exact-probe live replay before any H1 spend |
 | v3 | parallel_two_call_array_v3 | 0.0 | 0.0 | 0.0 | no_probe_improvement_vs_no_directive | no_probe_gain | reject_for_h1_promotion | no exact or executable probe gain over the no-directive baseline | replace with a sharper contract or a faithful live parallel workflow |
+| v4 | visual_state_tool_selection_v4 | 0.125 | 0.0 | 0.125 | probe_improved_vs_no_directive | weak_exact_gain | hold_for_exact_probe_replay | probe gain is too weak for H1 promotion without a stricter replay discriminator | test through exact-probe live replay before any H1 spend |
 
 The promotion gate is intentionally conservative: weak one-case exact gains and visual executable-only gains are held for exact-probe replay, while candidates with no probe gain are rejected for H1 promotion.
 
@@ -235,6 +249,24 @@ The live replay gate rejects `canonical_json_copy_v3` for canonical argument pro
 | visual initiation vs contracted | visual_latest_filter_literal | visual_referent_carryover | no_tool_call | True | False | -1 | None | None | None | exact | wrong_tool | 1 | 1 | 0 |
 | visual initiation vs contracted | visual_readback_region_literal | visual_referent_carryover | no_tool_call | True | True | 0 | None | None | None | exact | exact | 1 | 1 | 0 |
 
+## Wave Four CLI-Live Candidate Replay
+
+| comparison | baseline_system_id | candidate_system_id | shared_case_count | baseline_exact_rate | candidate_exact_rate | delta_exact_rate | baseline_executable_rate | candidate_executable_rate | delta_executable_rate |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| visual state tool selection vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_state_tool_selection | 3 | 0.0 | 0.3333333333333333 | 0.3333333333333333 | 0.0 | 0.0 | 0.0 |
+| visual state tool selection vs contracted | mlx_gemma4_e2b_reasoner_only | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_state_tool_selection | 3 | 0.6666666666666666 | 0.3333333333333333 | -0.3333333333333333 | 1.0 | 0.0 | -1.0 |
+
+`visual_state_tool_selection_v4` keeps the same exact live ceiling as wave three, not a promotion path. It improves over no-directive from `0 / 3` to `1 / 3`, but trails contracted MLX at `2 / 3`, loses executable visual-form recovery, and still fails `visual_latest_filter_literal` with the wrong visual tool. This is useful negative evidence: adding state/tool-selection wording did not fix the remaining visual referent failure.
+
+| comparison | case_id | family | source_failure_mode | baseline_replay_exact_match | candidate_replay_exact_match | delta_exact_match | baseline_replay_executable_match | candidate_replay_executable_match | delta_executable_match | baseline_replay_failure_mode | candidate_replay_failure_mode | baseline_actual_call_count | candidate_actual_call_count | delta_actual_call_count |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| visual state tool selection vs no directive | visual_form_target_literal | visual_argument_copying | no_tool_call | False | False | 0 | False | False | 0 | no_tool_call | no_tool_call | 0 | 0 | 0 |
+| visual state tool selection vs no directive | visual_latest_filter_literal | visual_referent_carryover | no_tool_call | False | False | 0 | None | None | None | no_tool_call | wrong_tool | 0 | 1 | 1 |
+| visual state tool selection vs no directive | visual_readback_region_literal | visual_referent_carryover | no_tool_call | False | True | 1 | None | None | None | no_tool_call | exact | 0 | 1 | 1 |
+| visual state tool selection vs contracted | visual_form_target_literal | visual_argument_copying | no_tool_call | False | False | 0 | True | False | -1 | executable_paraphrase | no_tool_call | 1 | 0 | -1 |
+| visual state tool selection vs contracted | visual_latest_filter_literal | visual_referent_carryover | no_tool_call | True | False | -1 | None | None | None | exact | wrong_tool | 1 | 1 | 0 |
+| visual state tool selection vs contracted | visual_readback_region_literal | visual_referent_carryover | no_tool_call | True | True | 0 | None | None | None | exact | exact | 1 | 1 | 0 |
+
 ## H1i Prompt-Contract Candidate Packet
 
 | system_id | lane | disabled_controls | tool_turn_directive_enabled | real_world_readiness_avg | delta_vs_contracted_real_world_readiness_avg | delta_vs_no_directive_real_world_readiness_avg | strict_interface_avg | delta_vs_contracted_strict_interface_avg | delta_vs_no_directive_strict_interface_avg | recovered_execution_avg | delta_vs_contracted_recovered_execution_avg | delta_vs_no_directive_recovered_execution_avg | controller_repair_avg | delta_vs_contracted_controller_repair_avg | delta_vs_no_directive_controller_repair_avg | argument_repair_avg | delta_vs_contracted_argument_repair_avg | delta_vs_no_directive_argument_repair_avg | controller_fallback_avg | delta_vs_contracted_controller_fallback_avg | delta_vs_no_directive_controller_fallback_avg | intent_override_avg | delta_vs_contracted_intent_override_avg | delta_vs_no_directive_intent_override_avg | raw_planning_clean_rate_avg | delta_vs_contracted_raw_planning_clean_rate_avg | delta_vs_no_directive_raw_planning_clean_rate_avg |
@@ -333,6 +365,8 @@ This packet is deliberately a dry-run prompt and command manifest. It is an exte
 - Probe comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1/probe_comparison.json`
 - Prompt-contract probe packet: `/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_execute_v1`
 - Prompt-contract wave two packet: `/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave2_execute_v1`
+- Prompt-contract wave three packet: `/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave3_execute_v1`
+- Prompt-contract wave four packet: `/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave4_execute_v1`
 - H1i prompt-contract packet: `/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet`
 - H1i prompt-contract repeat packet: `/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_repeat3_v1_knowledge_work_ablation_packet`
 - H1j probe-derived prompt-contract packet: `/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_candidates_v1_knowledge_work_ablation_packet`
@@ -346,4 +380,6 @@ This packet is deliberately a dry-run prompt and command manifest. It is an exte
 - CLI-live parallel replay comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260507T_parallel_array_contracted_vs_no_directive_live_v1`
 - CLI-live visual replay comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260507T_visual_state_contracted_vs_no_directive_live_v1`
 - CLI-live canonical replay comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260507T_canonical_argument_contracted_vs_no_directive_live_v1`
+- Wave four live visual vs no-directive comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260508T_visual_state_tool_selection_vs_no_directive_live_v1`
+- Wave four live visual vs contracted comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260508T_visual_state_contracted_vs_tool_selection_live_v1`
 - Gemini dry-run baseline: `/Users/cheickdiakite/Codex/moonie/results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1`

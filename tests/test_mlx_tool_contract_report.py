@@ -34,8 +34,8 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
 
     assert payload["gemini"]["dry_run"] is True
     assert payload["gemini"]["workflow_count"] == 10
-    assert payload["manifest"]["table_count"] == 28
-    assert payload["manifest"]["figure_count"] == 18
+    assert payload["manifest"]["table_count"] == 32
+    assert payload["manifest"]["figure_count"] == 20
 
     candidates = {row["tool_prompt_contract_id"]: row for row in payload["prompt_contract_candidates"]}
     assert set(candidates) == {
@@ -65,12 +65,16 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert wave3_gates["canonical_json_copy_v3"]["recommendation"] == "weak_exact_gain"
     assert wave3_gates["visual_tool_initiation_v3"]["executable_match_rate"] == "1.0"
     assert wave3_gates["parallel_two_call_array_v3"]["probe_gate"] == "no_probe_improvement_vs_no_directive"
+    wave4_gates = {row["tool_prompt_contract_id"]: row for row in payload["prompt_contract_wave4_probe_gates"]}
+    assert wave4_gates["visual_state_tool_selection_v4"]["recommendation"] == "weak_exact_gain"
+    assert wave4_gates["visual_state_tool_selection_v4"]["dominant_failure_mode"] == "no_tool_call"
     promotion = {row["tool_prompt_contract_id"]: row for row in payload["prompt_contract_promotion_decisions"]}
     assert promotion["schema_anchor_v1"]["promotion_decision"] == "hold_for_exact_probe_replay"
     assert promotion["visual_next_call_state_v2"]["promotion_reason"].startswith("executable recovery exists")
     assert promotion["parallel_array_required_v2"]["promotion_decision"] == "reject_for_h1_promotion"
     assert promotion["visual_tool_initiation_v3"]["promotion_decision"] == "hold_for_exact_probe_replay"
     assert promotion["parallel_two_call_array_v3"]["promotion_decision"] == "reject_for_h1_promotion"
+    assert promotion["visual_state_tool_selection_v4"]["promotion_decision"] == "hold_for_exact_probe_replay"
     replay_summary = payload["exact_probe_replay_comparison"]["summary"]
     assert replay_summary["baseline_exact_match_rate"] == 0.875
     assert replay_summary["candidate_exact_match_rate"] == 0.0
@@ -116,6 +120,18 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert wave3_live_cases[("canonical JSON vs no directive", "api_invoice_lock_hold_update")][
         "delta_actual_call_count"
     ] == -1
+    wave4_live = {row["comparison"]: row for row in payload["wave4_live_candidate_replay_summary"]}
+    assert wave4_live["visual state tool selection vs no directive"]["delta_exact_rate"] == 1 / 3
+    assert wave4_live["visual state tool selection vs contracted"]["delta_executable_rate"] == -1.0
+    wave4_live_cases = {
+        (row["comparison"], row["case_id"]): row for row in payload["wave4_live_candidate_case_deltas"]
+    }
+    assert wave4_live_cases[("visual state tool selection vs no directive", "visual_readback_region_literal")][
+        "candidate_replay_exact_match"
+    ]
+    assert wave4_live_cases[("visual state tool selection vs contracted", "visual_latest_filter_literal")][
+        "candidate_replay_failure_mode"
+    ] == "wrong_tool"
     h1i_candidates = {row["system_id"]: row for row in payload["h1i_prompt_contract_candidate_metrics"]}
     assert h1i_candidates["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive"]["tool_turn_directive_enabled"] == "False"
     assert h1i_candidates["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor"]["raw_planning_clean_rate_avg"] == "1.0"

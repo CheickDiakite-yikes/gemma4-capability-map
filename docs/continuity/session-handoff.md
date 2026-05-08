@@ -61,7 +61,15 @@ Current strongest MLX result:
   - `visual_tool_initiation_v3`: probe exact `0.125`, probe executable `1.0`, live visual exact `1 / 3`, live executable visual target recovered
   - `parallel_two_call_array_v3`: probe exact `0.0`, executable `0.0`; reject as written
   - candidate live summary: [`results/reports/mlx_tool_contract_harnessing/tables/wave3_live_candidate_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/wave3_live_candidate_replay_summary.csv)
-  - interpretation: visual tool initiation is a real partial improvement, but not a directive replacement. The next candidate should target the remaining wrong-tool visual referent failure.
+  - interpretation: visual tool initiation is a real partial improvement, but not a directive replacement. It set up the wave-four wrong-tool visual referent test.
+- the fourth prompt-contract wave is executed and live-gated:
+  - dry-run packet: [`results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave4_dry_run_v1`](../../results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave4_dry_run_v1)
+  - probe packet: [`results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave4_execute_v1`](../../results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave4_execute_v1)
+  - `visual_state_tool_selection_v4`: probe exact `0.125`, probe executable `0.0`, recommendation `weak_exact_gain`
+  - live visual packet: [`results/tool_probe_replay_live/20260508T_visual_state_tool_selection_live_execute_v1`](../../results/tool_probe_replay_live/20260508T_visual_state_tool_selection_live_execute_v1), exact `1 / 3`, executable visual target not recovered
+  - comparison vs no-directive: [`results/tool_probe_replay_live_comparisons/20260508T_visual_state_tool_selection_vs_no_directive_live_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_state_tool_selection_vs_no_directive_live_v1)
+  - comparison vs contracted: [`results/tool_probe_replay_live_comparisons/20260508T_visual_state_contracted_vs_tool_selection_live_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_state_contracted_vs_tool_selection_live_v1)
+  - interpretation: v4 did not improve the wave-three ceiling. `visual_latest_filter_literal` still fails as `wrong_tool`, and `visual_form_target_literal` regressed to `no_tool_call`.
 - exact-probe replay is now scaffolded and recorded:
   - brief: [`docs/continuity/exact-probe-replay.md`](./exact-probe-replay.md)
   - packet: [`results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1`](../../results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1)
@@ -87,9 +95,9 @@ Current strongest MLX result:
 Current next loop:
 
 1. Treat H1i, H1j, and H1k packaged packets as saturated or non-discriminating for current prompt-contract validation.
-2. Treat waves one through three as partial-gain evidence, not fixes.
-3. Keep `visual_tool_initiation_v3` as the only candidate with live replay movement.
-4. Design the next candidate around visual state/tool selection, especially `visual_latest_filter_literal`, without losing the tool-initiation behavior.
+2. Treat waves one through four as partial-gain or negative evidence, not fixes.
+3. Keep `visual_tool_initiation_v3` as the only candidate that recovered executable visual-form behavior.
+4. Design the next candidate around the exact missing visual mechanism: choose the refinement/filtering visual tool for `visual_latest_filter_literal` without losing tool initiation.
 5. Use CLI-live exact replay as the active discriminator before promoting another candidate back into H1.
 6. Return to H1h only after replay-live or raw probe evidence shows a mechanism-level change.
 7. Regenerate the report artifacts after any H1i/H1h/probe/Gemini/live-replay packet change.

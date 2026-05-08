@@ -2881,7 +2881,7 @@
 - The MLX tool-contract report now includes the live replay evidence:
   - curated report: [`docs/reports/mlx-tool-contract-harnessing.md`](reports/mlx-tool-contract-harnessing.md)
   - generated report: [`results/reports/mlx_tool_contract_harnessing/report.md`](../results/reports/mlx_tool_contract_harnessing/report.md)
-  - current manifest: `28` tables and `18` figures
+  - current manifest: `32` tables and `20` figures
   - new table families include live parallel, live visual, and live canonical replay deltas
   - new figures include the live parallel replay gap and the combined live replay focus gap
   - interpretation: the current research artifact now distinguishes top-line readiness, exact raw protocol compliance, executable visual paraphrase, controller helper dependence, and live operator-visible replay behavior in one report family
@@ -2906,6 +2906,18 @@
   - visual live result: exact improves from `0 / 3` to `1 / 3`, executable visual-form recovery improves from `0.0` to `1.0`, and all three visual cases emit one tool call
   - visual still trails contracted MLX: contracted exact `2 / 3`, visual-initiation exact `1 / 3`; the remaining miss is `visual_latest_filter_literal`, where the candidate enters the protocol but uses the wrong visual tool
   - interpretation: the next useful candidate should preserve visual tool initiation while adding stricter visual state/tool selection. The live replay gate prevented a false promotion of canonical JSON copy and narrowed the real remaining target.
+- Prompt-contract wave four is now executed and reported:
+  - implementation: `visual_state_tool_selection_v4`
+  - dry-run packet: [`20260508T_prompt_contract_wave4_dry_run_v1`](../results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave4_dry_run_v1)
+  - executed packet: [`20260508T_prompt_contract_wave4_execute_v1`](../results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave4_execute_v1)
+  - raw probe result: exact `1 / 8`, executable `0 / 1`, delta exact vs no-directive `+0.125`, recommendation `weak_exact_gain`
+  - summary: one improved case, zero regressed cases versus no-directive, dominant failure `no_tool_call`, failure split `argument_mismatch:2`, `call_count_mismatch:1`, `no_tool_call:3`, `wrong_tool:1`, `exact:1`
+  - live visual packet: [`20260508T_visual_state_tool_selection_live_execute_v1`](../results/tool_probe_replay_live/20260508T_visual_state_tool_selection_live_execute_v1)
+  - live comparison vs no-directive: [`20260508T_visual_state_tool_selection_vs_no_directive_live_v1`](../results/tool_probe_replay_live_comparisons/20260508T_visual_state_tool_selection_vs_no_directive_live_v1), exact improves from `0 / 3` to `1 / 3`
+  - live comparison vs contracted: [`20260508T_visual_state_contracted_vs_tool_selection_live_v1`](../results/tool_probe_replay_live_comparisons/20260508T_visual_state_contracted_vs_tool_selection_live_v1), exact falls from `2 / 3` to `1 / 3`, executable visual-form recovery falls from `1.0` to `0.0`
+  - case read: `visual_readback_region_literal` remains exact, `visual_latest_filter_literal` still fails as `wrong_tool`, and `visual_form_target_literal` regresses to `no_tool_call`
+  - interpretation: the added state/tool-selection wording did not solve the targeted remaining visual referent failure. Wave three's useful mechanism appears to be tool initiation, not broad visual state rule text.
+  - next research move: try a more surgical prompt-contract or harness hint around latest-selection filtering and `refine_selection`, then gate it through raw probe plus CLI-live visual replay before any H1 spend.
 
 ### Verification
 

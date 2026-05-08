@@ -127,3 +127,19 @@ Reason:
 
 - seeded visual execution is deterministic and reproducible
 - local visual execution is valuable realism pressure, but it is not stable enough to replace the canonical lane
+
+### 13. Prompt-contract candidates must clear CLI-live exact replay before H1 promotion
+
+Operational rule:
+
+- run `scripts/run_tool_prompt_contract_probe_packet.py` first
+- promote only probe movers into the relevant `moonie-agent replay-live --execute` family
+- compare against both no-directive and contracted live replay packets
+- spend H1i/H1h only after the candidate beats the current live replay ceiling or changes the targeted failure mode
+
+Reason:
+
+- H1i/H1j/H1k packaged workflows are now saturated for current prompt-contract validation
+- raw probe gains can be weak and misleading
+- CLI-live exact replay keeps the one-turn tool-contract pressure intact while still giving an operator-visible terminal surface
+- wave four showed that a plausible visual state/tool-selection contract can tie wave three on exact rate, regress executable recovery, and leave the targeted wrong-tool case unsolved

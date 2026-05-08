@@ -263,3 +263,22 @@ with:
 - `escalation_correctness = 1.0`
 
 That means the next benchmark question is no longer whether this local stack can survive the current corpus. It is how it compares against other systems on the same surface, and what new harder episodes are needed to keep the benchmark informative.
+
+## 30. Prompt contracts need live exact replay, not just plausible wording or packaged-workflow success
+
+The MLX no-directive prompt-contract waves now show a consistent pattern:
+
+- packaged H1i/H1j/H1k workflows can saturate and look clean
+- raw one-turn probes still expose exact tool-contract failures
+- CLI-live exact replay preserves the failure pressure while making it watchable from the terminal
+
+Wave three taught that `visual_tool_initiation_v3` was the first real partial live gain: visual exact replay moved from `0 / 3` to `1 / 3`, and executable visual-form recovery returned.
+
+Wave four then tested the obvious-looking follow-up, `visual_state_tool_selection_v4`, and showed why wording alone is not enough:
+
+- raw probe exact stayed weak at `1 / 8`
+- live visual exact stayed at `1 / 3`
+- `visual_latest_filter_literal` still failed as `wrong_tool`
+- `visual_form_target_literal` regressed to `no_tool_call`
+
+The durable lesson is that “more specific rules” can fail to preserve the one useful behavior a previous contract created. Promotion should require live exact-replay improvement on the targeted mechanism, not just a raw one-case gain or a plausible prompt hypothesis.

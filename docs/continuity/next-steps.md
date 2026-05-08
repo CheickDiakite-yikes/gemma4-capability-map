@@ -179,7 +179,7 @@ What remains:
   - `visual_next_call_state_v2`: exact `0.0`, executable `1.0`, visual executable gain only
   - `parallel_array_required_v2`: exact `0.0`, executable `0.0`, no probe gain
 - do not promote wave two back to H1 as a fix; use it as evidence that raw-probe replay or a faithful parallel live workflow is the next needed discriminator
-- wave three is now the current prompt-contract evidence:
+- wave three established the first prompt-contract live movement:
   - dry-run packet: [`results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave3_dry_run_v1`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave3_dry_run_v1)
   - executed packet: [`results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave3_execute_v1`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave3_execute_v1)
   - `canonical_json_copy_v3`: exact `0.125`, executable `0.0`, weak exact gain
@@ -187,7 +187,15 @@ What remains:
   - `parallel_two_call_array_v3`: exact `0.0`, executable `0.0`, no probe gain
   - live canonical replay: [`results/tool_probe_replay_live/20260507T_canonical_argument_canonical_json_copy_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_canonical_argument_canonical_json_copy_live_execute_v1), exact `0 / 4`, no promotion
   - live visual replay: [`results/tool_probe_replay_live/20260507T_visual_state_visual_tool_initiation_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_visual_state_visual_tool_initiation_live_execute_v1), exact `1 / 3`, executable visual target recovered
-  - next candidate should combine visual tool initiation with stricter visual state/tool selection for `visual_latest_filter_literal`; do not spend H1 on canonical JSON or parallel two-call wording as currently written
+  - interpretation: `visual_tool_initiation_v3` is useful but incomplete; do not spend H1 on canonical JSON or parallel two-call wording as currently written
+- wave four is now executed and should be treated as a negative discriminator:
+  - dry-run packet: [`results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave4_dry_run_v1`](../../results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave4_dry_run_v1)
+  - executed packet: [`results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave4_execute_v1`](../../results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave4_execute_v1)
+  - `visual_state_tool_selection_v4`: exact `0.125`, executable `0.0`, weak exact gain
+  - live visual replay: [`results/tool_probe_replay_live/20260508T_visual_state_tool_selection_live_execute_v1`](../../results/tool_probe_replay_live/20260508T_visual_state_tool_selection_live_execute_v1), exact `1 / 3`, executable visual target not recovered
+  - comparison vs no-directive: [`results/tool_probe_replay_live_comparisons/20260508T_visual_state_tool_selection_vs_no_directive_live_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_state_tool_selection_vs_no_directive_live_v1), delta exact `+0.3333333333333333`
+  - comparison vs contracted: [`results/tool_probe_replay_live_comparisons/20260508T_visual_state_contracted_vs_tool_selection_live_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_state_contracted_vs_tool_selection_live_v1), delta exact `-0.3333333333333333`, delta executable `-1.0`
+  - interpretation: visual state/tool-selection wording did not fix `visual_latest_filter_literal`; the remaining failure is still `wrong_tool`, and v4 regresses `visual_form_target_literal` to `no_tool_call`
 - exact-probe replay now exists:
   - brief: [`docs/continuity/exact-probe-replay.md`](./exact-probe-replay.md)
   - packet: [`results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1`](../../results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1)
@@ -211,7 +219,7 @@ What remains:
   - canonical-argument no-directive live execution: [`results/tool_probe_replay_live/20260507T_canonical_argument_no_directive_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_canonical_argument_no_directive_live_execute_v1), exact `0 / 4`, all failures `argument_mismatch`
   - canonical-argument contracted live execution: [`results/tool_probe_replay_live/20260507T_canonical_argument_contracted_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_canonical_argument_contracted_live_execute_v1), exact `4 / 4`
   - canonical-argument live comparison: [`results/tool_probe_replay_live_comparisons/20260507T_canonical_argument_contracted_vs_no_directive_live_v1`](../../results/tool_probe_replay_live_comparisons/20260507T_canonical_argument_contracted_vs_no_directive_live_v1), delta exact `-1.0`, actual-call delta `0`
-  - next use: execute the focused parallel or visual replay cases through `replay-live --execute`, then compare no-directive versus contracted rows without packaging the pressure into staged workflows
+  - next use: design a more surgical candidate for latest-selection filtering or add a harness-side diagnostic around visual tool choice, then compare through `replay-live --execute` without packaging the pressure into staged workflows
 - promote a candidate beyond H1i only if it moves raw-clean or controller-burden metrics for the right reason
 - regenerate the MLX tool-contract report after any H1i, H1h, probe, or Gemini baseline packet changes
 - when a real Gemini CLI binary is available, rerun the same packet with `--execute`; keep the dry-run packet as the no-side-effects prompt manifest
@@ -225,10 +233,12 @@ uv run python scripts/summarize_h1_workflow_families.py <packet_dir> --config co
 uv run python scripts/compare_tool_directive_probes.py results/tool_directive_probe/20260506T_mlx_tool_directive_probe_v4 results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1
 uv run python scripts/run_tool_prompt_contract_probe_packet.py --run-group-id <timestamp>_prompt_contract_probe_candidates --execute
 uv run python scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v3 --run-group-id <timestamp>_prompt_contract_wave3_execute_v1 --execute
+uv run python scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v4 --run-group-id <timestamp>_prompt_contract_wave4_execute_v1 --execute
 uv run python scripts/summarize_tool_prompt_contract_probe_packet.py results/tool_prompt_contract_probe_packets/<packet_id>
 uv run python scripts/build_tool_probe_replay_packet.py --run-group-id <timestamp>_no_directive_exact_probe_replay
 uv run moonie-agent replay-live --packet-dir results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_execute_v1 --case-id parallel_audit_array_literal --execute
 uv run moonie-agent replay-live --packet-dir results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_tool_initiation --case-id visual_form_target_literal --case-id visual_latest_filter_literal --case-id visual_readback_region_literal --execute
+uv run moonie-agent replay-live --packet-dir results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_state_tool_selection --case-id visual_form_target_literal --case-id visual_latest_filter_literal --case-id visual_readback_region_literal --execute
 uv run python scripts/compare_tool_probe_replay_live_packets.py results/tool_probe_replay_live/<contracted_packet> results/tool_probe_replay_live/<no_directive_packet>
 uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1i_slice.yaml --packet-id mlx_prompt_contract_candidates --run-group-id <timestamp>_h1i_prompt_contract_candidates
 uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1i_slice.yaml --packet-id mlx_prompt_contract_candidates --run-group-id 20260507T_h1i_prompt_contract_candidates_repeat3_v1 --repeat 3
@@ -242,6 +252,7 @@ Success condition:
 - every controller or prompt-contract change is evaluated against H1h or a smaller slice derived from its worst workflow families
 - Gemini CLI baseline artifacts are attributable to the same workflow family IDs
 - prompt-contract changes show raw probe improvement before they are allowed into H1i
+- prompt-contract changes beat the current live replay ceiling, not merely tie wave three's `1 / 3` visual exact rate
 - broad aligned `32 / 26` reruns stay paused until this harder packet produces a specific mechanism-level change
 
 ### 3. Keep using focused packets before any broader rerun

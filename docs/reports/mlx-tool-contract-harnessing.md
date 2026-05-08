@@ -45,6 +45,10 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 
 ![Prompt contract wave two probe gate](../../results/reports/mlx_tool_contract_harnessing/figures/prompt_contract_wave2_probe_gate.svg)
 
+![Prompt contract wave three probe gate](../../results/reports/mlx_tool_contract_harnessing/figures/prompt_contract_wave3_probe_gate.svg)
+
+![Prompt contract wave four probe gate](../../results/reports/mlx_tool_contract_harnessing/figures/prompt_contract_wave4_probe_gate.svg)
+
 ![H1i prompt-contract repeat3 burden](../../results/reports/mlx_tool_contract_harnessing/figures/h1i_prompt_contract_repeat3_burden.svg)
 
 ![H1j probe-derived candidate burden](../../results/reports/mlx_tool_contract_harnessing/figures/h1j_probe_derived_burden.svg)
@@ -65,6 +69,8 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 
 ![Wave three live replay gate](../../results/reports/mlx_tool_contract_harnessing/figures/wave3_live_candidate_replay_gate.svg)
 
+![Wave four live replay gate](../../results/reports/mlx_tool_contract_harnessing/figures/wave4_live_candidate_replay_gate.svg)
+
 ## Evidence Sources
 
 | Artifact | Purpose |
@@ -77,6 +83,7 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 | [`executed prompt-contract probe packet`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_candidates_execute_v1) | Three generic no-directive prompt-contract candidates compared against both contracted and no-directive probe baselines. |
 | [`executed prompt-contract wave-two packet`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave2_execute_v1) | Three second-wave prompt-contract candidates tested on the raw probe before any further H1 promotion. |
 | [`executed prompt-contract wave-three packet`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave3_execute_v1) | Three mechanism-targeted candidates derived from CLI-live replay: canonical JSON copy, visual tool initiation, and parallel two-call array. |
+| [`executed prompt-contract wave-four packet`](../../results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave4_execute_v1) | Narrow visual state/tool-selection candidate tested after wave three exposed the remaining wrong-tool visual referent failure. |
 | [`H1i prompt-contract repeat3 packet`](../../results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_repeat3_v1_knowledge_work_ablation_packet) | Repeated second-stage candidate packet: three attempts per H1i workflow family per row. |
 | [`H1j probe-derived candidate packet`](../../results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_candidates_v1_knowledge_work_ablation_packet) | Six packaged live workflows selected from exact no-directive probe failure families. |
 | [`H1j probe-derived helper packet`](../../results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_helpers_v1_knowledge_work_ablation_packet) | Controller-helper ablation on the same H1j probe-derived packaged workflow set. |
@@ -88,6 +95,7 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 | [`CLI-live canonical replay comparison`](../../results/tool_probe_replay_live_comparisons/20260507T_canonical_argument_contracted_vs_no_directive_live_v1) | Operator-surface A/B for CLI/API canonical argument exact replay cases. |
 | [`wave-three visual live candidate comparison`](../../results/tool_probe_replay_live_comparisons/20260507T_visual_state_visual_tool_initiation_vs_no_directive_live_v1) | Candidate live replay showing visual tool initiation improves over no-directive but remains below contracted. |
 | [`wave-three canonical live candidate comparison`](../../results/tool_probe_replay_live_comparisons/20260507T_canonical_argument_canonical_json_copy_vs_no_directive_live_v1) | Candidate live replay showing canonical JSON copy does not improve exact canonical argument replay. |
+| [`wave-four visual live candidate comparison`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_state_tool_selection_vs_no_directive_live_v1) | Candidate live replay showing visual state/tool-selection wording preserves one exact visual recovery but does not beat wave three. |
 | [`Gemini CLI dry-run baseline`](../../results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1) | External-reference prompt and command manifest over the H1h workflow families. |
 
 ## Packet Summary
@@ -133,7 +141,7 @@ This is the strongest current reason to keep exact interface metrics, executable
 
 ## Prompt-Contract Candidate Queue
 
-The prompt-contract queue now has three waves. They deliberately do not include the exact planned tool call. That keeps the probe honest: a candidate should improve raw tool protocol behavior without simply leaking the oracle next call.
+The prompt-contract queue now has four waves. They deliberately do not include the exact planned tool call. That keeps the probe honest: a candidate should improve raw tool protocol behavior without simply leaking the oracle next call.
 
 | Candidate system | Contract | Target |
 | --- | --- | --- |
@@ -146,6 +154,7 @@ The prompt-contract queue now has three waves. They deliberately do not include 
 | `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_canonical_json_copy` | `canonical_json_copy_v3` | Exact CLI/API JSON and literal argument token copying. |
 | `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_tool_initiation` | `visual_tool_initiation_v3` | Visual no-call recovery through stateful visual tool initiation. |
 | `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_parallel_two_call_array` | `parallel_two_call_array_v3` | Independent two-source checks as a two-call JSON array. |
+| `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_state_tool_selection` | `visual_state_tool_selection_v4` | Visual state-specific tool selection after wave three recovered tool initiation but missed a filter/refinement case. |
 
 Generated candidate table:
 
@@ -189,6 +198,19 @@ Third-wave execution command:
 uv run python scripts/run_tool_prompt_contract_probe_packet.py \
   --run-group-id <timestamp>_prompt_contract_wave3_execute_v1 \
   --candidate-wave v3 \
+  --execute
+```
+
+Fourth-wave executed packet:
+
+- [`results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave4_execute_v1`](../../results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave4_execute_v1)
+
+Fourth-wave execution command:
+
+```bash
+uv run python scripts/run_tool_prompt_contract_probe_packet.py \
+  --run-group-id <timestamp>_prompt_contract_wave4_execute_v1 \
+  --candidate-wave v4 \
   --execute
 ```
 
@@ -248,6 +270,21 @@ The third executed candidate packet is now recorded at:
 | `parallel_two_call_array_v3` | `0.0` | `0.0` | `0.0` | `no_tool_call` | no probe gain |
 
 Wave three makes the current boundary crisper. Canonical JSON wording still gives only the familiar one-case exact gain. Visual tool initiation is the best candidate so far because it combines the one-case exact gain with executable visual recovery. Parallel two-call wording still fails to move the parallel no-call case.
+
+## Prompt-Contract Wave Four Probe Gate
+
+The fourth executed candidate packet is now recorded at:
+
+- [`results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave4_execute_v1`](../../results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave4_execute_v1)
+- [`candidate_gate_summary.md`](../../results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave4_execute_v1/candidate_gate_summary.md)
+- generated report table: [`prompt_contract_wave4_probe_gates.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_wave4_probe_gates.csv)
+- generated failure table: [`prompt_contract_wave4_probe_failure_modes.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_wave4_probe_failure_modes.csv)
+
+| Contract | Exact | Executable | Delta exact vs no-directive | Dominant failure | Recommendation |
+| --- | ---: | ---: | ---: | --- | --- |
+| `visual_state_tool_selection_v4` | `0.125` | `0.0` | `+0.125` | `no_tool_call` | weak exact gain |
+
+Wave four is a useful negative result. It reproduces the familiar one-case exact gain, but does not improve executable visual recovery in the raw probe and does not reduce the dominant no-tool-call failure pattern enough to justify H1 spend on its own.
 
 ## Prompt-Contract Promotion Decisions
 
@@ -375,6 +412,31 @@ Wave three was gated through live replay only where the raw probe showed movemen
 | visual initiation vs contracted | `0.6666666666666666` | `0.3333333333333333` | `-0.3333333333333333` | `1.0` | still misses one visual referent case with the wrong tool |
 
 This is the most useful wave-three finding. Generic canonical JSON copy is not enough; it can even reduce protocol entry on some canonical cases. Visual tool initiation is the first candidate that improves live exact replay and executable visual recovery over no-directive, but it is not yet a replacement for the final tool-turn directive.
+
+## Wave Four CLI-Live Candidate Replay
+
+Wave four was gated through the same visual live replay surface:
+
+- visual state/tool-selection candidate packet: [`results/tool_probe_replay_live/20260508T_visual_state_tool_selection_live_execute_v1`](../../results/tool_probe_replay_live/20260508T_visual_state_tool_selection_live_execute_v1)
+- comparison vs no-directive: [`results/tool_probe_replay_live_comparisons/20260508T_visual_state_tool_selection_vs_no_directive_live_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_state_tool_selection_vs_no_directive_live_v1)
+- comparison vs contracted: [`results/tool_probe_replay_live_comparisons/20260508T_visual_state_contracted_vs_tool_selection_live_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_state_contracted_vs_tool_selection_live_v1)
+- generated summary table: [`wave4_live_candidate_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/wave4_live_candidate_replay_summary.csv)
+- generated case table: [`wave4_live_candidate_case_deltas.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/wave4_live_candidate_case_deltas.csv)
+
+| Comparison | Baseline exact | Candidate exact | Delta exact | Candidate executable | Read |
+| --- | ---: | ---: | ---: | ---: | --- |
+| visual state tool selection vs no-directive | `0.0` | `0.3333333333333333` | `+0.3333333333333333` | `0.0` | preserves one exact visual recovery over no-directive |
+| visual state tool selection vs contracted | `0.6666666666666666` | `0.3333333333333333` | `-0.3333333333333333` | `0.0` | below directive and loses executable visual-form recovery |
+
+Case read:
+
+| Case | v4 replay failure | Interpretation |
+| --- | --- | --- |
+| `visual_form_target_literal` | `no_tool_call` | worse than wave-three visual initiation, which made an executable visual call |
+| `visual_latest_filter_literal` | `wrong_tool` | the targeted remaining failure did not move |
+| `visual_readback_region_literal` | `exact` | preserves the one exact visual referent recovery |
+
+The conclusion is tighter now: visual-initiation wording was doing the useful work in wave three. Additional generic visual state/tool-selection rules did not solve the wrong-tool filter case and cost the executable form-target recovery.
 
 ## H1i Candidate Packet Result
 
@@ -507,8 +569,8 @@ The H1h -> H1i narrowing is also useful methodologically. H1h proves the phenome
 
 Use this order before broad `32 / 26` reruns:
 
-1. Build a fourth visual-focused candidate that preserves `visual_tool_initiation_v3`'s tool-entry behavior but improves visual state/tool selection on `visual_latest_filter_literal`.
-2. Gate that candidate through the raw probe and CLI-live visual replay before any H1 spend.
+1. Treat `visual_state_tool_selection_v4` as a failed-to-improve live candidate, not a promotion candidate.
+2. Move the next prompt-contract attempt away from broad rule text and toward the exact missing mechanism: choosing `refine_selection` for latest-selection filtering without losing visual tool initiation.
 3. Keep canonical JSON copy and parallel two-call wording out of H1 as currently written; they did not earn live promotion.
 4. H1h only after replay-live or raw probe evidence shows a mechanism-level change.
 5. Gemini CLI real execution only when the binary/run environment is explicitly meant to be part of the comparison.

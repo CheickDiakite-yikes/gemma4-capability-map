@@ -1,0 +1,7 @@
+comparison,case_id,family,source_failure_mode,baseline_replay_exact_match,candidate_replay_exact_match,delta_exact_match,baseline_replay_executable_match,candidate_replay_executable_match,delta_executable_match,baseline_replay_failure_mode,candidate_replay_failure_mode,baseline_actual_call_count,candidate_actual_call_count,delta_actual_call_count
+visual state tool selection vs no directive,visual_form_target_literal,visual_argument_copying,no_tool_call,False,False,0,False,False,0,no_tool_call,no_tool_call,0,0,0
+visual state tool selection vs no directive,visual_latest_filter_literal,visual_referent_carryover,no_tool_call,False,False,0,,,,no_tool_call,wrong_tool,0,1,1
+visual state tool selection vs no directive,visual_readback_region_literal,visual_referent_carryover,no_tool_call,False,True,1,,,,no_tool_call,exact,0,1,1
+visual state tool selection vs contracted,visual_form_target_literal,visual_argument_copying,no_tool_call,False,False,0,True,False,-1,executable_paraphrase,no_tool_call,1,0,-1
+visual state tool selection vs contracted,visual_latest_filter_literal,visual_referent_carryover,no_tool_call,True,False,-1,,,,exact,wrong_tool,1,1,0
+visual state tool selection vs contracted,visual_readback_region_literal,visual_referent_carryover,no_tool_call,True,True,0,,,,exact,exact,1,1,0

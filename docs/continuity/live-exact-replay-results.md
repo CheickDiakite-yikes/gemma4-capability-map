@@ -73,17 +73,20 @@ This explains why H1k can be useful but non-discriminating. H1k proves the packa
 
 ## Candidate Replay Update
 
-Wave three was the first prompt-contract wave gated through CLI-live replay:
+Wave three was the first prompt-contract wave gated through CLI-live replay; wave four tested the next visual-state hypothesis and did not improve the live ceiling:
 
 | Candidate | Family | Candidate exact | No-directive exact | Contracted exact | Interpretation |
 | --- | --- | ---: | ---: | ---: | --- |
 | `canonical_json_copy_v3` | canonical CLI/API arguments | `0 / 4` | `0 / 4` | `4 / 4` | no live gain; two cases regress to no-call |
 | `visual_tool_initiation_v3` | visual no-call | `1 / 3` plus one executable paraphrase | `0 / 3` | `2 / 3` plus one executable paraphrase | first live candidate movement, but still one wrong-tool visual referent miss |
+| `visual_state_tool_selection_v4` | visual state/tool selection | `1 / 3` and no executable visual-form recovery | `0 / 3` | `2 / 3` plus one executable paraphrase | preserves one exact visual recovery, but does not fix `visual_latest_filter_literal` and regresses form targeting to no-call |
 
 Source comparisons:
 
 - [`20260507T_canonical_argument_canonical_json_copy_vs_no_directive_live_v1`](../../results/tool_probe_replay_live_comparisons/20260507T_canonical_argument_canonical_json_copy_vs_no_directive_live_v1)
 - [`20260507T_visual_state_visual_tool_initiation_vs_no_directive_live_v1`](../../results/tool_probe_replay_live_comparisons/20260507T_visual_state_visual_tool_initiation_vs_no_directive_live_v1)
+- [`20260508T_visual_state_tool_selection_vs_no_directive_live_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_state_tool_selection_vs_no_directive_live_v1)
+- [`20260508T_visual_state_contracted_vs_tool_selection_live_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_state_contracted_vs_tool_selection_live_v1)
 
 ## Next Use
 

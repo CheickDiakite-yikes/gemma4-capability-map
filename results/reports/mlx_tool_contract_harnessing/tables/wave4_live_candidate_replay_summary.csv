@@ -1,0 +1,3 @@
+comparison,baseline_system_id,candidate_system_id,shared_case_count,baseline_exact_rate,candidate_exact_rate,delta_exact_rate,baseline_executable_rate,candidate_executable_rate,delta_executable_rate
+visual state tool selection vs no directive,mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive,mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_state_tool_selection,3,0.0,0.3333333333333333,0.3333333333333333,0.0,0.0,0.0
+visual state tool selection vs contracted,mlx_gemma4_e2b_reasoner_only,mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_state_tool_selection,3,0.6666666666666666,0.3333333333333333,-0.3333333333333333,1.0,0.0,-1.0
