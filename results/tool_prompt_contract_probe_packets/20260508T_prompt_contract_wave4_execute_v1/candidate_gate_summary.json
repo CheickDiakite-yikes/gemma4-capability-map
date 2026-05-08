@@ -1,0 +1,52 @@
+{
+  "packet_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave4_execute_v1",
+  "candidate_count": 1,
+  "candidate_gate_summary": [
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_state_tool_selection",
+      "tool_prompt_contract_id": "visual_state_tool_selection_v4",
+      "exact_match_rate": "0.125",
+      "executable_match_rate": "0.0",
+      "delta_exact_vs_contracted": "-0.75",
+      "delta_exact_vs_no_directive": "0.125",
+      "probe_gate": "probe_improved_vs_no_directive",
+      "improved_case_count": 1,
+      "regressed_case_count": 0,
+      "dominant_failure_mode": "no_tool_call",
+      "failure_modes": "argument_mismatch:2;call_count_mismatch:1;exact:1;no_tool_call:3;wrong_tool:1",
+      "recommendation": "weak_exact_gain"
+    }
+  ],
+  "failure_mode_counts": [
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_state_tool_selection",
+      "tool_prompt_contract_id": "visual_state_tool_selection_v4",
+      "failure_mode": "argument_mismatch",
+      "count": 2
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_state_tool_selection",
+      "tool_prompt_contract_id": "visual_state_tool_selection_v4",
+      "failure_mode": "call_count_mismatch",
+      "count": 1
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_state_tool_selection",
+      "tool_prompt_contract_id": "visual_state_tool_selection_v4",
+      "failure_mode": "exact",
+      "count": 1
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_state_tool_selection",
+      "tool_prompt_contract_id": "visual_state_tool_selection_v4",
+      "failure_mode": "no_tool_call",
+      "count": 3
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_state_tool_selection",
+      "tool_prompt_contract_id": "visual_state_tool_selection_v4",
+      "failure_mode": "wrong_tool",
+      "count": 1
+    }
+  ]
+}
