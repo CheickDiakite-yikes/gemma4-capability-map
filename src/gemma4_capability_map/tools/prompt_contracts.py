@@ -183,6 +183,21 @@ TOOL_PROMPT_CONTRACTS: dict[str, ToolPromptContract] = {
             "Do not ask the user to provide visual state that is already present in the prompt, media, or latest tool result.",
         ),
     ),
+    "visual_refine_selection_v5": ToolPromptContract(
+        contract_id="visual_refine_selection_v5",
+        label="Visual Refine Selection v5",
+        description="Targets the remaining visual latest-filter wrong-tool failure with a narrow selection-refinement rule.",
+        hypothesis="Wave four proved broad visual state wording did not fix the filter/refinement case; a narrower contract that prioritizes refine_selection for existing selection_id filtering may preserve visual initiation while changing the targeted wrong-tool failure.",
+        tags=("visual", "tool_selection", "refine_selection", "filtering", "arguments"),
+        instructions=(
+            "When visual tools are listed and the user asks about visible state, make a visual tool call before prose.",
+            "If the latest visual state contains selection_id and the user asks to filter, narrow, refine, constrain, latest-only, remaining, or open items, choose refine_selection when it is an allowed tool.",
+            "Do not use read_region_text for filtering or narrowing a selection; reserve read_region_text for reading text from an existing region_id.",
+            "Do not use inspect_image or extract_layout again when a current selection_id already names the visual set to filter.",
+            "Carry image_id, selection_id, and filter_query literally from the latest state or user request.",
+            "If the latest visual state has no selection_id, fall back to the visual locating or inspection tool before prose.",
+        ),
+    ),
 }
 
 

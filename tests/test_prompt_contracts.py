@@ -24,6 +24,7 @@ def test_prompt_contract_registry_exposes_current_candidate_ids() -> None:
         "schema_literal_tool_required_v2",
         "tool_required_parallel_v1",
         "visual_next_call_state_v2",
+        "visual_refine_selection_v5",
         "visual_state_tool_selection_v4",
         "visual_tool_initiation_v3",
     ]
@@ -114,5 +115,29 @@ def test_wave_four_visual_state_contract_is_tool_selection_specific_and_generic(
     assert "use an existing selection_id for narrowing" in rendered
     assert "Use an existing region_id for readback" in rendered
     assert "Allowed tool names for this turn: refine_selection, read_region_text." in rendered
+    assert '{"name":"refine_selection"' not in rendered
+    assert "sel-open-items" not in rendered
+
+
+def test_wave_five_visual_refine_contract_targets_latest_selection_filtering_only() -> None:
+    specs = build_default_registry().specs
+    rendered = render_tool_prompt_contract(
+        "visual_refine_selection_v5",
+        messages=[
+            Message(
+                role="tool",
+                content='{"image_id":"img-dashboard","selection_id":"sel-open-items","region_id":"region-summary"}',
+            ),
+            Message(role="user", content="Filter to the latest open item and then read the remaining summary."),
+        ],
+        media=["img-dashboard"],
+        tool_specs=[specs["refine_selection"], specs["read_region_text"], specs["extract_layout"]],
+    )
+
+    assert "Tool prompt contract candidate: visual_refine_selection_v5" in rendered
+    assert "choose refine_selection when it is an allowed tool" in rendered
+    assert "Do not use read_region_text for filtering" in rendered
+    assert "Do not use inspect_image or extract_layout again" in rendered
+    assert "Allowed tool names for this turn: refine_selection, read_region_text, extract_layout." in rendered
     assert '{"name":"refine_selection"' not in rendered
     assert "sel-open-items" not in rendered
