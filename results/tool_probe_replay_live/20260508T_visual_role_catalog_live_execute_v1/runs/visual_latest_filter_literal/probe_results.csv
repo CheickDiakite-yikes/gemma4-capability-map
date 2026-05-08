@@ -1,0 +1,2 @@
+case_id,family,expected_call_count,actual_call_count,exact_match,executable_match,expected_calls,actual_calls,expected_execution,actual_execution,latency_ms,prompt_tokens,completion_tokens
+visual_latest_filter_literal,visual_referent_carryover,1,1,False,,"[{""name"": ""refine_selection"", ""arguments"": {""selection_id"": ""sel-001"", ""filter_query"": ""latest""}}]","[{""name"": ""refine_selection"", ""arguments"": {""selection_id"": ""sel-001"", ""filter_query"": ""latest issue""}}]",{},[],4422,954,34
