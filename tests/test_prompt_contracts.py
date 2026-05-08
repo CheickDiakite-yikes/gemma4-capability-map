@@ -24,6 +24,7 @@ def test_prompt_contract_registry_exposes_current_candidate_ids() -> None:
         "schema_literal_tool_required_v2",
         "tool_required_parallel_v1",
         "visual_next_call_state_v2",
+        "visual_state_tool_selection_v4",
         "visual_tool_initiation_v3",
     ]
     assert get_tool_prompt_contract("schema_anchor_v1") is not None
@@ -92,3 +93,26 @@ def test_wave_three_contracts_target_live_replay_mechanisms_without_oracle_calls
     assert "Allowed tool names for this turn: inspect_image, read_repo_file." in rendered
     assert '{"name":"inspect_image"' not in rendered
     assert "config/settings.yaml" not in rendered
+
+
+def test_wave_four_visual_state_contract_is_tool_selection_specific_and_generic() -> None:
+    specs = build_default_registry().specs
+    rendered = render_tool_prompt_contract(
+        "visual_state_tool_selection_v4",
+        messages=[
+            Message(
+                role="tool",
+                content='{"image_id":"img-dashboard","selection_id":"sel-open-items","region_id":"region-summary"}',
+            ),
+            Message(role="user", content="Filter to the latest open item and then read the remaining summary."),
+        ],
+        media=["img-dashboard"],
+        tool_specs=[specs["refine_selection"], specs["read_region_text"]],
+    )
+
+    assert "Tool prompt contract candidate: visual_state_tool_selection_v4" in rendered
+    assert "use an existing selection_id for narrowing" in rendered
+    assert "Use an existing region_id for readback" in rendered
+    assert "Allowed tool names for this turn: refine_selection, read_region_text." in rendered
+    assert '{"name":"refine_selection"' not in rendered
+    assert "sel-open-items" not in rendered

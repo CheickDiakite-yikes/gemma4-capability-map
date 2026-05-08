@@ -1083,6 +1083,32 @@ systems:
     input_cost_per_mtok: 0.0
     output_cost_per_mtok: 0.0
     color: "#9333EA"
+  mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_state_tool_selection:
+    display_name: Gemma 4 E2B (MLX 4-bit, no directive + visual state tool selection v4)
+    short_label: Gemma 4 MLX visual state tool
+    provider: mlx-community
+    backend: mlx
+    deployment: local_reasoner_mlx
+    capability_family: reasoner_only_prompt_contract
+    comparison_tier: research
+    publishable_default: false
+    executor_mode: local_reasoner
+    modality: multimodal
+    local: true
+    reasoner: google/gemma-4-E2B-it
+    router: ""
+    retriever: ""
+    reasoner_params_b: 27.0
+    total_params_b: 27.0
+    reasoner_max_new_tokens: 64
+    request_timeout_seconds: 300.0
+    run_timeout_seconds: 1800.0
+    research_controls:
+      disable_tool_turn_directive: true
+      tool_prompt_contract_id: visual_state_tool_selection_v4
+    input_cost_per_mtok: 0.0
+    output_cost_per_mtok: 0.0
+    color: "#0284C7"
   hf_service_gemma4_e4b_reasoner_only:
     display_name: Gemma 4 E4B (HF local)
     short_label: Gemma 4 E4B local

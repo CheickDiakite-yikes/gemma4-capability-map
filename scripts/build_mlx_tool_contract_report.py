@@ -976,6 +976,7 @@ def _candidate_label(system_id: str) -> str:
         "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_canonical_json_copy": "canonical JSON",
         "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_tool_initiation": "visual initiation",
         "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_parallel_two_call_array": "parallel two-call",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_state_tool_selection": "visual state tool",
     }
     return suffixes.get(system_id, system_id)
 

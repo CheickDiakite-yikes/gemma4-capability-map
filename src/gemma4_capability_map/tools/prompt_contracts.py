@@ -168,6 +168,21 @@ TOOL_PROMPT_CONTRACTS: dict[str, ToolPromptContract] = {
             "Use the same turn for the independent calls; do not serialize them into prose instructions or defer the second call.",
         ),
     ),
+    "visual_state_tool_selection_v4": ToolPromptContract(
+        contract_id="visual_state_tool_selection_v4",
+        label="Visual State Tool Selection v4",
+        description="Targets visual wrong-tool failures by pairing tool-first visual behavior with state-specific tool selection rules.",
+        hypothesis="Wave three recovered visual tool initiation but still chose the wrong visual tool for a filter/refinement case; state-specific selection rules may preserve tool entry while improving exact visual replay.",
+        tags=("visual", "state_machine", "tool_selection", "no_tool_call", "arguments"),
+        instructions=(
+            "When visual tools are listed and the user asks about visible state, make a visual tool call before prose.",
+            "Select the visual tool from the latest visual state: use an existing selection_id for narrowing, filtering, constraining, latest-only, or refinement requests.",
+            "Use an existing region_id for readback, transcription, text reporting, or verification requests.",
+            "If no selection_id or region_id is available and the task asks to locate a target, start with the locating or inspection visual tool.",
+            "Carry image_id, selection_id, region_id, target_query, and filter_query literally; do not replace ids with descriptive phrases.",
+            "Do not ask the user to provide visual state that is already present in the prompt, media, or latest tool result.",
+        ),
+    ),
 }
 
 
