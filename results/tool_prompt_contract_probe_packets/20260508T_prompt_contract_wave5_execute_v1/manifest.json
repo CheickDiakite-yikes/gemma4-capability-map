@@ -1,0 +1,12 @@
+{
+  "packet_run_id": "20260508T_prompt_contract_wave5_execute_v1",
+  "created_at": "2026-05-08T17:31:06.149067+00:00",
+  "baseline_probe_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_directive_probe/20260506T_mlx_tool_directive_probe_v4",
+  "no_directive_probe_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1",
+  "registry_path": "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+  "execute": true,
+  "candidate_wave": "v5",
+  "system_ids": [
+    "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_refine_selection"
+  ]
+}
