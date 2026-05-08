@@ -80,14 +80,14 @@ def tool_catalog_text(tool_specs: list[ToolSpec], *, profile_id: str = "") -> st
 
 
 def known_tool_catalog_profile_ids() -> list[str]:
-    return ["visual_role_catalog_v1"]
+    return ["visual_role_catalog_argument_hints_v2", "visual_role_catalog_v1"]
 
 
 def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> str:
     normalized = profile_id.strip()
     if not normalized:
         return ""
-    if normalized != "visual_role_catalog_v1":
+    if normalized not in set(known_tool_catalog_profile_ids()):
         known = ", ".join(known_tool_catalog_profile_ids())
         raise ValueError(f"Unknown tool catalog profile `{profile_id}`. Known profiles: {known}")
     tool_names = {tool.name for tool in tool_specs}
@@ -96,7 +96,7 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
         return ""
 
     lines = [
-        "Tool catalog profile: visual_role_catalog_v1",
+        f"Tool catalog profile: {normalized}",
         "This catalog profile defines generic visual tool roles only; it does not reveal the expected tool call for this turn.",
         "Visual tool routing roles:",
     ]
@@ -110,6 +110,16 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
         lines.append("- read_region_text: read text from an existing region_id; consume image_id and region_id after the region is already selected.")
     lines.append("When a latest passing visual tool result already contains selection_id, prefer selection refinement over starting a fresh layout extraction for filtering or narrowing.")
     lines.append("When a latest passing visual tool result already contains region_id and the request is readback, prefer region text reading over selection refinement.")
+    if normalized == "visual_role_catalog_argument_hints_v2":
+        lines.extend(
+            [
+                "Visual argument field semantics:",
+                "- target_query is a compact visual selector label for the executor; prefer visible state labels, tool-result labels, or canonical UI category text over a paraphrase of the user's business reason.",
+                "- filter_query is a compact selector token for an existing selection_id; prefer the shortest literal filter token such as latest, remaining, open, selected, or unread when that token is present.",
+                "- Do not append surrounding nouns to target_query or filter_query when the selector token already identifies the visual operation.",
+                "- Keep image_id, selection_id, and region_id as opaque ids copied from the latest passing visual state.",
+            ]
+        )
     return "\n".join(lines)
 
 

@@ -113,6 +113,22 @@ def test_visual_role_catalog_profile_is_generic_and_tool_catalog_scoped() -> Non
     assert "sel-open-items" not in rendered
 
 
+def test_visual_role_catalog_argument_hints_profile_keeps_selector_guidance_generic() -> None:
+    specs = build_default_registry().specs
+    rendered = render_tool_catalog_profile(
+        "visual_role_catalog_argument_hints_v2",
+        tool_specs=[specs["extract_layout"], specs["refine_selection"], specs["read_region_text"]],
+    )
+
+    assert "Tool catalog profile: visual_role_catalog_argument_hints_v2" in rendered
+    assert "Visual argument field semantics:" in rendered
+    assert "target_query is a compact visual selector label" in rendered
+    assert "filter_query is a compact selector token" in rendered
+    assert "shortest literal filter token" in rendered
+    assert '{"name":"refine_selection"' not in rendered
+    assert "sel-open-items" not in rendered
+
+
 def test_tool_catalog_profile_renders_inside_catalog_without_exact_directive() -> None:
     specs = build_default_registry().specs
     rendered = tool_catalog_text(

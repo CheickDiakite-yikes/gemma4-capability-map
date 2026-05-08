@@ -37,6 +37,21 @@ def test_tool_catalog_profile_probe_packet_dry_run_writes_candidate_commands(tmp
     assert "--output-dir" in first_command
 
 
+def test_tool_catalog_profile_probe_packet_wave_two_targets_argument_hints(tmp_path: Path) -> None:
+    packet = SCRIPT.build_tool_catalog_profile_probe_packet(
+        output_root=tmp_path,
+        run_group_id="catalog_profile_probe_v2_dry_run",
+        candidate_wave="v2",
+        execute=False,
+    )
+
+    row = packet["rows"][0]
+    assert packet["candidate_count"] == 1
+    assert packet["manifest"]["candidate_wave"] == "v2"
+    assert row["system_id"] == "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints"
+    assert row["tool_catalog_profile_id"] == "visual_role_catalog_argument_hints_v2"
+
+
 def test_tool_catalog_profile_probe_packet_validates_candidate_controls(tmp_path: Path) -> None:
     registry_path = tmp_path / "registry.yaml"
     registry_path.write_text(
