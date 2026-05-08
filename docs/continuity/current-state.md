@@ -47,6 +47,7 @@ Current CLI surface:
   - `--kind tool-probe-replay` inspects exact probe replay packets, including case rows, failure modes, command counts, and packet files
   - `--kind tool-probe-replay-live` inspects live exact-replay packets, including case status rows, exact rate, command count, and packet files
   - `--kind tool-probe-replay-live-comparison` inspects live replay A/B comparison packets, including exact-rate deltas and case-level call deltas
+  - `--kind tool-probe-replay-live-diagnostic` inspects visual tool-choice diagnostic packets, including diagnosis transitions and expected-vs-actual visual tool rows
   - supports `--packet-id latest`, explicit `--packet-dir`, and `--json`
 - `moonie-agent replay-live`
   - previews or executes exact tool-probe replay cases through a Rich CLI operator view
@@ -244,6 +245,19 @@ Latest MLX tool-contract research:
     - [`results/tool_probe_replay_live_comparisons/20260508T_visual_role_catalog_vs_visual_tool_initiation_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_role_catalog_vs_visual_tool_initiation_v1)
     - [`results/tool_probe_replay_live_comparisons/20260508T_visual_role_catalog_vs_visual_state_tool_selection_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_role_catalog_vs_visual_state_tool_selection_v1)
   - interpretation: the catalog profile changes the remaining visual failure from `wrong_tool` / `no_tool_call` into `argument_mismatch`. The useful mechanism is tool-role separability in the catalog, not another standalone visual prompt rule.
+- Tool-catalog visual argument-hints profile:
+  - profile: `visual_role_catalog_argument_hints_v2`
+  - candidate system: `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints`
+  - dry-run packet: [`results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_argument_hints_v2_dry_run`](../../results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_argument_hints_v2_dry_run)
+  - executed probe packet: [`results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_argument_hints_v2_probe`](../../results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_argument_hints_v2_probe)
+  - raw gate result: exact `0.25`, executable `0.0`, delta exact vs no-directive `+0.25`
+  - comparison vs v1 catalog: [`results/tool_catalog_profile_probe_comparisons/20260508T_visual_argument_hints_vs_role_catalog_v1`](../../results/tool_catalog_profile_probe_comparisons/20260508T_visual_argument_hints_vs_role_catalog_v1)
+  - live replay packet: [`results/tool_probe_replay_live/20260508T_visual_catalog_argument_hints_live_execute_v1`](../../results/tool_probe_replay_live/20260508T_visual_catalog_argument_hints_live_execute_v1), exact `2 / 3`
+  - live comparisons:
+    - [`results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_no_directive_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_no_directive_v1)
+    - [`results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_contracted_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_contracted_v1)
+    - [`results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_role_catalog_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_role_catalog_v1)
+  - interpretation: this is now the best exact visual no-directive candidate. It fixes `visual_latest_filter_literal` and preserves exact readback, matching contracted MLX at `2 / 3` exact on the focused visual replay. It is not solved because it loses the executable `visual_form_target_literal` rescue.
 - Prompt-contract wave 6:
   - candidate: `literal_argument_guard_v1` + `visual_role_catalog_v1`
   - runner flag: `scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v6`
@@ -282,8 +296,8 @@ Latest MLX tool-contract research:
   - wave-four live comparison vs no-directive: [`results/tool_probe_replay_live_comparisons/20260508T_visual_state_tool_selection_vs_no_directive_live_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_state_tool_selection_vs_no_directive_live_v1), exact `+0.3333333333333333`
   - wave-four live comparison vs contracted: [`results/tool_probe_replay_live_comparisons/20260508T_visual_state_contracted_vs_tool_selection_live_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_state_contracted_vs_tool_selection_live_v1), exact `-0.3333333333333333`, executable `-1.0`
   - interpretation update: `visual_state_tool_selection_v4` did not beat `visual_tool_initiation_v3`; `visual_latest_filter_literal` remains `wrong_tool`, and `visual_form_target_literal` regressed to `no_tool_call`.
-  - visual tool-choice diagnostic: [`results/tool_probe_replay_live_diagnostics/20260508T_visual_tool_choice_wave3_wave4_v1`](../../results/tool_probe_replay_live_diagnostics/20260508T_visual_tool_choice_wave3_wave4_v1)
-  - diagnostic read: `visual_latest_filter_literal` expected `refine_selection` but both wave-three and wave-four candidates emitted `extract_layout`; v4 additionally lost visual tool initiation for `visual_form_target_literal`
+  - visual tool-choice diagnostic: [`results/tool_probe_replay_live_diagnostics/20260508T_visual_tool_choice_wave3_wave4_catalog_v1`](../../results/tool_probe_replay_live_diagnostics/20260508T_visual_tool_choice_wave3_wave4_catalog_v1)
+  - diagnostic read: `visual_latest_filter_literal` expected `refine_selection`; wave three and wave four emitted `extract_layout`, while the catalog profile emitted `refine_selection` with `filter_query` drift. That transition is what motivated the argument-hints candidate.
   - interpretation: this is not a packaged live workflow yet; it is the stable raw-contract replay artifact that should drive the next live discriminator. The new `moonie-agent replay-live` command is the first CLI bridge for watching these exact cases without converting them into easier staged workflows.
 - Focused canonical-argument replay:
   - no-directive packet: [`results/tool_probe_replay_packets/20260507T_canonical_argument_exact_replay_no_directive_v1`](../../results/tool_probe_replay_packets/20260507T_canonical_argument_exact_replay_no_directive_v1)
@@ -323,7 +337,10 @@ Current generated research report:
 - exact probe replay focus summary: [`results/reports/mlx_tool_contract_harnessing/tables/exact_probe_replay_focus_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/exact_probe_replay_focus_summary.csv)
 - wave-three live candidate replay summary: [`results/reports/mlx_tool_contract_harnessing/tables/wave3_live_candidate_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/wave3_live_candidate_replay_summary.csv)
 - wave-four live candidate replay summary: [`results/reports/mlx_tool_contract_harnessing/tables/wave4_live_candidate_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/wave4_live_candidate_replay_summary.csv)
+- visual catalog argument-hints live summary: [`results/reports/mlx_tool_contract_harnessing/tables/visual_catalog_argument_hints_live_candidate_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_catalog_argument_hints_live_candidate_replay_summary.csv)
+- visual catalog argument-hints case deltas: [`results/reports/mlx_tool_contract_harnessing/tables/visual_catalog_argument_hints_live_candidate_case_deltas.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_catalog_argument_hints_live_candidate_case_deltas.csv)
 - figures: [`results/reports/mlx_tool_contract_harnessing/figures`](../../results/reports/mlx_tool_contract_harnessing/figures)
+- current manifest count: `42` tables and `25` figures
 - regeneration command:
 
 ```bash

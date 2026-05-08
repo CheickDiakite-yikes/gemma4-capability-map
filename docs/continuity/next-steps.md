@@ -202,12 +202,21 @@ What remains:
   - `visual_refine_selection_v5`: exact `0.0`, executable `0.0`, no probe gain
   - live replay was skipped because the raw gate did not move
   - interpretation: standalone wording-only visual refinements have now produced one failed-to-improve live candidate and one raw-gate rejection
-- visual role catalog is now the best current visual mechanism:
+- visual role catalog is now the stable routing baseline:
   - isolated catalog probe: [`results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_v1_probe`](../../results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_v1_probe)
   - raw result: exact `0.125`, executable `1.0`, delta exact vs no-directive `+0.125`
   - live replay: [`results/tool_probe_replay_live/20260508T_visual_role_catalog_live_execute_v1`](../../results/tool_probe_replay_live/20260508T_visual_role_catalog_live_execute_v1), exact `1 / 3`, executable visual target recovered
   - comparison vs wave four: [`results/tool_probe_replay_live_comparisons/20260508T_visual_role_catalog_vs_visual_state_tool_selection_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_role_catalog_vs_visual_state_tool_selection_v1)
   - interpretation: the catalog profile fixes the remaining wrong-tool failure class by making `refine_selection` a separable role, but exact literals still drift (`latest` becomes `latest issue`; `validation error` becomes `phone issue`)
+- visual role catalog argument hints are now the best exact visual no-directive candidate:
+  - profile: `visual_role_catalog_argument_hints_v2`
+  - isolated probe: [`results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_argument_hints_v2_probe`](../../results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_argument_hints_v2_probe)
+  - raw result: exact `0.25`, executable `0.0`, delta exact vs no-directive `+0.25`
+  - live replay: [`results/tool_probe_replay_live/20260508T_visual_catalog_argument_hints_live_execute_v1`](../../results/tool_probe_replay_live/20260508T_visual_catalog_argument_hints_live_execute_v1), exact `2 / 3`
+  - comparison vs no-directive: [`results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_no_directive_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_no_directive_v1), delta exact `+0.6666666666666666`
+  - comparison vs contracted: [`results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_contracted_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_contracted_v1), delta exact `0.0`, delta executable `-1.0`
+  - comparison vs v1 catalog: [`results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_role_catalog_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_role_catalog_v1), delta exact `+0.3333333333333333`, delta executable `-1.0`
+  - interpretation: v2 fixes `visual_latest_filter_literal` exactly and preserves readback, but it regresses `visual_form_target_literal` from executable paraphrase to non-executable argument mismatch. The next useful candidate must keep v2's `filter_query` exactness while restoring v1's executable `target_query` behavior.
 - wave six is now executed and should be treated as negative composition evidence:
   - dry-run packet: [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run)
   - executed packet: [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe)
@@ -216,8 +225,8 @@ What remains:
   - interpretation: combining broad literal-guard wording with the catalog profile loses the catalog-only executable recovery and introduces no-call regressions; do not promote it
 - visual tool-choice diagnostics now exist:
   - script: [`scripts/analyze_visual_tool_choice_diagnostics.py`](../../scripts/analyze_visual_tool_choice_diagnostics.py)
-  - packet: [`results/tool_probe_replay_live_diagnostics/20260508T_visual_tool_choice_wave3_wave4_v1`](../../results/tool_probe_replay_live_diagnostics/20260508T_visual_tool_choice_wave3_wave4_v1)
-  - result: both wave-three and wave-four candidates choose `extract_layout` where `visual_latest_filter_literal` expects `refine_selection`
+  - packet: [`results/tool_probe_replay_live_diagnostics/20260508T_visual_tool_choice_wave3_wave4_catalog_v1`](../../results/tool_probe_replay_live_diagnostics/20260508T_visual_tool_choice_wave3_wave4_catalog_v1)
+  - result: wave-three and wave-four candidates choose `extract_layout` where `visual_latest_filter_literal` expects `refine_selection`; the catalog profile reaches `refine_selection` and only misses the literal selector
 - exact-probe replay now exists:
   - brief: [`docs/continuity/exact-probe-replay.md`](./exact-probe-replay.md)
   - packet: [`results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1`](../../results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1)
@@ -241,7 +250,7 @@ What remains:
   - canonical-argument no-directive live execution: [`results/tool_probe_replay_live/20260507T_canonical_argument_no_directive_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_canonical_argument_no_directive_live_execute_v1), exact `0 / 4`, all failures `argument_mismatch`
   - canonical-argument contracted live execution: [`results/tool_probe_replay_live/20260507T_canonical_argument_contracted_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_canonical_argument_contracted_live_execute_v1), exact `4 / 4`
   - canonical-argument live comparison: [`results/tool_probe_replay_live_comparisons/20260507T_canonical_argument_contracted_vs_no_directive_live_v1`](../../results/tool_probe_replay_live_comparisons/20260507T_canonical_argument_contracted_vs_no_directive_live_v1), delta exact `-1.0`, actual-call delta `0`
-  - next use: change the tool catalog/routing presentation so existing-selection filtering is not competing with locating/extract-layout behavior; compare through `replay-live --execute` only after raw probe movement
+  - next use: design a v3 catalog profile or schema-local visual selector hint that preserves `visual_role_catalog_argument_hints_v2` on latest filtering while restoring executable form-target behavior; compare through `replay-live --execute` only after raw probe movement
 - promote a candidate beyond H1i only if it moves raw-clean or controller-burden metrics for the right reason
 - regenerate the MLX tool-contract report after any H1i, H1h, probe, or Gemini baseline packet changes
 - when a real Gemini CLI binary is available, rerun the same packet with `--execute`; keep the dry-run packet as the no-side-effects prompt manifest
@@ -258,6 +267,7 @@ uv run python scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave 
 uv run python scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v4 --run-group-id <timestamp>_prompt_contract_wave4_execute_v1 --execute
 uv run python scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v5 --run-group-id <timestamp>_prompt_contract_wave5_execute_v1 --execute
 uv run python scripts/run_tool_catalog_profile_probe_packet.py --run-group-id <timestamp>_visual_role_catalog_probe --execute
+uv run python scripts/run_tool_catalog_profile_probe_packet.py --candidate-wave v2 --run-group-id <timestamp>_visual_catalog_argument_hints_probe --execute
 uv run python scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v6 --run-group-id <timestamp>_visual_catalog_literal_guard_probe --execute
 uv run python scripts/summarize_tool_prompt_contract_probe_packet.py results/tool_prompt_contract_probe_packets/<packet_id>
 uv run python scripts/build_tool_probe_replay_packet.py --run-group-id <timestamp>_no_directive_exact_probe_replay

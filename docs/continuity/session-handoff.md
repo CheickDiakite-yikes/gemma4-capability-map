@@ -75,13 +75,22 @@ Current strongest MLX result:
   - probe packet: [`results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave5_execute_v1`](../../results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave5_execute_v1)
   - `visual_refine_selection_v5`: probe exact `0.0`, probe executable `0.0`, recommendation `no_probe_gain`
   - interpretation: surgical `refine_selection` wording did not preserve tool initiation and should not spend CLI-live replay or H1 budget.
-- the visual role catalog profile is now the current best visual mechanism:
+- the visual role catalog profile is now the stable visual routing baseline:
   - isolated catalog probe: [`results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_v1_probe`](../../results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_v1_probe)
   - raw result: exact `0.125`, executable `1.0`, delta exact vs no-directive `+0.125`
   - live replay: [`results/tool_probe_replay_live/20260508T_visual_role_catalog_live_execute_v1`](../../results/tool_probe_replay_live/20260508T_visual_role_catalog_live_execute_v1), exact `1 / 3`, executable visual target recovered
   - comparison vs no-directive: [`results/tool_probe_replay_live_comparisons/20260508T_visual_role_catalog_vs_no_directive_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_role_catalog_vs_no_directive_v1)
   - comparison vs wave four: [`results/tool_probe_replay_live_comparisons/20260508T_visual_role_catalog_vs_visual_state_tool_selection_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_role_catalog_vs_visual_state_tool_selection_v1)
   - interpretation: it converts the targeted remaining visual failure from `wrong_tool`/no-call into `argument_mismatch`, so the next visual problem is literal argument preservation after correct tool routing.
+- the visual role catalog argument-hints profile is now the current best exact visual no-directive candidate:
+  - profile: `visual_role_catalog_argument_hints_v2`
+  - isolated probe: [`results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_argument_hints_v2_probe`](../../results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_argument_hints_v2_probe)
+  - raw result: exact `0.25`, executable `0.0`, delta exact vs no-directive `+0.25`
+  - live replay: [`results/tool_probe_replay_live/20260508T_visual_catalog_argument_hints_live_execute_v1`](../../results/tool_probe_replay_live/20260508T_visual_catalog_argument_hints_live_execute_v1), exact `2 / 3`
+  - comparison vs no-directive: [`results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_no_directive_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_no_directive_v1)
+  - comparison vs contracted: [`results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_contracted_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_contracted_v1)
+  - comparison vs v1 catalog: [`results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_role_catalog_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_role_catalog_v1)
+  - interpretation: it fixes `visual_latest_filter_literal` exactly and preserves exact readback, matching contracted MLX at `2 / 3` exact on the focused visual replay. It is not solved because it loses the v1/contracted executable `visual_form_target_literal` recovery.
 - the sixth prompt-contract wave is a negative composition result:
   - dry-run packet: [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run)
   - probe packet: [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe)
@@ -90,8 +99,8 @@ Current strongest MLX result:
   - interpretation: broad literal-guard wording interfered with the catalog profile and should not move to live replay or H1.
 - visual tool-choice diagnostics are now available:
   - script: [`scripts/analyze_visual_tool_choice_diagnostics.py`](../../scripts/analyze_visual_tool_choice_diagnostics.py)
-  - packet: [`results/tool_probe_replay_live_diagnostics/20260508T_visual_tool_choice_wave3_wave4_v1`](../../results/tool_probe_replay_live_diagnostics/20260508T_visual_tool_choice_wave3_wave4_v1)
-  - finding: both wave-three and wave-four visual candidates choose `extract_layout` when `visual_latest_filter_literal` expects `refine_selection`; v4 also loses visual tool initiation on `visual_form_target_literal`.
+  - packet: [`results/tool_probe_replay_live_diagnostics/20260508T_visual_tool_choice_wave3_wave4_catalog_v1`](../../results/tool_probe_replay_live_diagnostics/20260508T_visual_tool_choice_wave3_wave4_catalog_v1)
+  - finding: wave-three and wave-four visual candidates choose `extract_layout` when `visual_latest_filter_literal` expects `refine_selection`; the catalog profile reaches `refine_selection` and only misses the literal selector.
 - exact-probe replay is now scaffolded and recorded:
   - brief: [`docs/continuity/exact-probe-replay.md`](./exact-probe-replay.md)
   - packet: [`results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1`](../../results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1)
@@ -118,11 +127,12 @@ Current next loop:
 
 1. Treat H1i, H1j, and H1k packaged packets as saturated or non-discriminating for current prompt-contract validation.
 2. Treat waves one through five as partial-gain or negative evidence, not fixes.
-3. Keep `visual_tool_initiation_v3` as the only candidate that recovered executable visual-form behavior.
-4. Change the harness/tool-catalog presentation before another wording-only visual candidate; v4 and v5 show prompt wording alone is not enough.
-5. Use CLI-live exact replay as the active discriminator before promoting another candidate back into H1.
-6. Return to H1h only after replay-live or raw probe evidence shows a mechanism-level change.
-7. Regenerate the report artifacts after any H1i/H1h/probe/Gemini/live-replay packet change.
+3. Treat `visual_role_catalog_argument_hints_v2` as the current best exact visual candidate, with the explicit caveat that it lost executable form-target recovery.
+4. Keep `visual_tool_initiation_v3` and `visual_role_catalog_v1` as the executable/routing baselines for the next visual candidate.
+5. Design the next harness/tool-catalog change to preserve v2's exact latest-filter selector while restoring v1's executable form-target behavior.
+6. Use CLI-live exact replay as the active discriminator before promoting another candidate back into H1.
+7. Return to H1h only after replay-live or raw probe evidence shows a mechanism-level change.
+8. Regenerate the report artifacts after any H1i/H1h/probe/Gemini/live-replay packet change.
 
 H1j source:
 

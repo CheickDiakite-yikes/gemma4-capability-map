@@ -2881,7 +2881,7 @@
 - The MLX tool-contract report now includes the live replay evidence:
   - curated report: [`docs/reports/mlx-tool-contract-harnessing.md`](reports/mlx-tool-contract-harnessing.md)
   - generated report: [`results/reports/mlx_tool_contract_harnessing/report.md`](../results/reports/mlx_tool_contract_harnessing/report.md)
-  - current manifest: `32` tables and `20` figures
+  - then-current manifest: `32` tables and `20` figures
   - new table families include live parallel, live visual, and live canonical replay deltas
   - new figures include the live parallel replay gap and the combined live replay focus gap
   - interpretation: the current research artifact now distinguishes top-line readiness, exact raw protocol compliance, executable visual paraphrase, controller helper dependence, and live operator-visible replay behavior in one report family
@@ -2985,3 +2985,36 @@
   - `tests/test_runtime_utils.py`
   - `tests/test_real_world_metrics.py`
   - `tests/test_replay_summary.py`
+
+## 2026-05-08 - Visual Catalog Argument-Hints Wave
+
+- Visual tool-choice diagnostics were refreshed to include wave three, wave four, and the visual role catalog profile:
+  - script: [`scripts/analyze_visual_tool_choice_diagnostics.py`](../scripts/analyze_visual_tool_choice_diagnostics.py)
+  - packet: [`20260508T_visual_tool_choice_wave3_wave4_catalog_v1`](../results/tool_probe_replay_live_diagnostics/20260508T_visual_tool_choice_wave3_wave4_catalog_v1)
+  - diagnostic transition: `visual_latest_filter_literal` moves from `wrong_visual_tool_selection` under `visual_tool_initiation_v3` and `visual_state_tool_selection_v4` to `visual_literal_argument_mismatch` under `visual_role_catalog_v1`
+  - interpretation: the catalog profile solved routing for the latest-filter case; the remaining miss was literal selector preservation.
+- A narrower catalog profile was added and probed:
+  - profile: `visual_role_catalog_argument_hints_v2`
+  - candidate system: `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints`
+  - dry-run packet: [`20260508T_visual_role_catalog_argument_hints_v2_dry_run`](../results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_argument_hints_v2_dry_run)
+  - executed probe packet: [`20260508T_visual_role_catalog_argument_hints_v2_probe`](../results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_argument_hints_v2_probe)
+  - raw result: exact `2 / 8`, executable visual `0 / 1`, delta exact vs no-directive `+0.25`
+  - comparison vs v1 catalog: [`20260508T_visual_argument_hints_vs_role_catalog_v1`](../results/tool_catalog_profile_probe_comparisons/20260508T_visual_argument_hints_vs_role_catalog_v1)
+- Live replay promoted the argument-hints candidate because the raw gate moved the targeted case:
+  - live packet: [`20260508T_visual_catalog_argument_hints_live_execute_v1`](../results/tool_probe_replay_live/20260508T_visual_catalog_argument_hints_live_execute_v1)
+  - exact result: `2 / 3`
+  - comparison vs no-directive: [`20260508T_visual_catalog_argument_hints_vs_no_directive_v1`](../results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_no_directive_v1), delta exact `+0.6666666666666666`
+  - comparison vs contracted: [`20260508T_visual_catalog_argument_hints_vs_contracted_v1`](../results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_contracted_v1), delta exact `0.0`, delta executable `-1.0`
+  - comparison vs v1 catalog: [`20260508T_visual_catalog_argument_hints_vs_role_catalog_v1`](../results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_role_catalog_v1), delta exact `+0.3333333333333333`, delta executable `-1.0`
+- What changed:
+  - `visual_latest_filter_literal` is now exact with `refine_selection(selection_id="sel-001", filter_query="latest")`
+  - `visual_readback_region_literal` stays exact
+  - `visual_form_target_literal` regresses from v1's executable paraphrase to non-executable argument mismatch
+- Interpretation:
+  - This is the strongest visual exactness result so far for no-directive MLX: it matches contracted MLX at `2 / 3` exact on the focused visual live replay.
+  - It is not a full replacement for controller-backed recovery because executable visual-form targeting is worse than both contracted MLX and `visual_role_catalog_v1`.
+  - The next candidate should preserve v2's exact latest-filter selector behavior while restoring v1's executable form-target behavior.
+- Report update:
+  - generated report: [`results/reports/mlx_tool_contract_harnessing/report.md`](../results/reports/mlx_tool_contract_harnessing/report.md)
+  - curated report: [`docs/reports/mlx-tool-contract-harnessing.md`](reports/mlx-tool-contract-harnessing.md)
+  - current manifest: `42` tables and `25` figures
