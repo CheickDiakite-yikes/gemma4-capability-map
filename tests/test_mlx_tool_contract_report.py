@@ -34,8 +34,8 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
 
     assert payload["gemini"]["dry_run"] is True
     assert payload["gemini"]["workflow_count"] == 10
-    assert payload["manifest"]["table_count"] == 39
-    assert payload["manifest"]["figure_count"] == 24
+    assert payload["manifest"]["table_count"] == 42
+    assert payload["manifest"]["figure_count"] == 25
 
     candidate_ids = {row["tool_prompt_contract_id"] for row in payload["prompt_contract_candidates"]}
     assert candidate_ids == {
@@ -84,6 +84,13 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     catalog_gates = {row["tool_catalog_profile_id"]: row for row in payload["tool_catalog_profile_probe_gates"]}
     assert catalog_gates["visual_role_catalog_v1"]["exact_match_rate"] == "0.125"
     assert catalog_gates["visual_role_catalog_v1"]["executable_match_rate"] == "1.0"
+    assert catalog_gates["visual_role_catalog_argument_hints_v2"]["exact_match_rate"] == "0.25"
+    assert catalog_gates["visual_role_catalog_argument_hints_v2"]["executable_match_rate"] == "0.0"
+    argument_hint_probe_cases = {
+        row["case_id"]: row for row in payload["tool_catalog_argument_hints_vs_role_catalog_case_deltas"]
+    }
+    assert argument_hint_probe_cases["visual_latest_filter_literal"]["delta_exact_match"] == "1"
+    assert argument_hint_probe_cases["visual_form_target_literal"]["delta_executable_match"] == "-1"
     wave6_gates = {row["tool_catalog_profile_id"]: row for row in payload["prompt_contract_wave6_probe_gates"]}
     assert wave6_gates["visual_role_catalog_v1"]["tool_prompt_contract_id"] == "literal_argument_guard_v1"
     assert wave6_gates["visual_role_catalog_v1"]["executable_match_rate"] == "0.0"
@@ -161,6 +168,23 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert catalog_live_cases[("visual role catalog vs visual state tool", "visual_latest_filter_literal")][
         "candidate_replay_failure_mode"
     ] == "argument_mismatch"
+    argument_hints_live = {
+        row["comparison"]: row for row in payload["visual_catalog_argument_hints_live_candidate_replay_summary"]
+    }
+    assert argument_hints_live["visual argument hints vs no directive"]["delta_exact_rate"] == 2 / 3
+    assert argument_hints_live["visual argument hints vs contracted"]["delta_exact_rate"] == 0.0
+    assert argument_hints_live["visual argument hints vs role catalog"]["delta_exact_rate"] == 1 / 3
+    assert argument_hints_live["visual argument hints vs role catalog"]["delta_executable_rate"] == -1.0
+    argument_hints_live_cases = {
+        (row["comparison"], row["case_id"]): row
+        for row in payload["visual_catalog_argument_hints_live_candidate_case_deltas"]
+    }
+    assert argument_hints_live_cases[("visual argument hints vs role catalog", "visual_latest_filter_literal")][
+        "candidate_replay_failure_mode"
+    ] == "exact"
+    assert argument_hints_live_cases[("visual argument hints vs contracted", "visual_form_target_literal")][
+        "delta_executable_match"
+    ] == -1
     h1i_candidates = {row["system_id"]: row for row in payload["h1i_prompt_contract_candidate_metrics"]}
     assert h1i_candidates["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive"]["tool_turn_directive_enabled"] == "False"
     assert h1i_candidates["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor"]["raw_planning_clean_rate_avg"] == "1.0"
@@ -193,9 +217,12 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert (tmp_path / "tables" / "prompt_contract_wave3_probe_gates.csv").exists()
     assert (tmp_path / "tables" / "prompt_contract_wave3_probe_failure_modes.csv").exists()
     assert (tmp_path / "tables" / "tool_catalog_profile_probe_gates.csv").exists()
+    assert (tmp_path / "tables" / "tool_catalog_argument_hints_vs_role_catalog_case_deltas.csv").exists()
     assert (tmp_path / "tables" / "prompt_contract_wave6_probe_gates.csv").exists()
     assert (tmp_path / "tables" / "visual_catalog_live_candidate_replay_summary.csv").exists()
     assert (tmp_path / "tables" / "visual_catalog_live_candidate_case_deltas.csv").exists()
+    assert (tmp_path / "tables" / "visual_catalog_argument_hints_live_candidate_replay_summary.csv").exists()
+    assert (tmp_path / "tables" / "visual_catalog_argument_hints_live_candidate_case_deltas.csv").exists()
     assert (tmp_path / "tables" / "prompt_contract_promotion_decisions.csv").exists()
     assert (tmp_path / "tables" / "h1i_prompt_contract_candidate_metrics.csv").exists()
     assert (tmp_path / "tables" / "h1i_prompt_contract_repeat3_metrics.csv").exists()
@@ -230,3 +257,4 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert (tmp_path / "figures" / "live_replay_focus_gap.svg").exists()
     assert (tmp_path / "figures" / "wave3_live_candidate_replay_gate.svg").exists()
     assert (tmp_path / "figures" / "visual_catalog_live_candidate_replay_gate.svg").exists()
+    assert (tmp_path / "figures" / "visual_catalog_argument_hints_live_candidate_replay_gate.svg").exists()

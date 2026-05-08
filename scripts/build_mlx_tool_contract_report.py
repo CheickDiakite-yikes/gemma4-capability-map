@@ -55,6 +55,15 @@ DEFAULT_PROMPT_CONTRACT_WAVE5_PACKET = (
 DEFAULT_TOOL_CATALOG_PROFILE_PACKET = (
     ROOT / "results" / "tool_catalog_profile_probe_packets" / "20260508T_visual_role_catalog_v1_probe"
 )
+DEFAULT_TOOL_CATALOG_ARGUMENT_HINTS_PACKET = (
+    ROOT / "results" / "tool_catalog_profile_probe_packets" / "20260508T_visual_role_catalog_argument_hints_v2_probe"
+)
+DEFAULT_TOOL_CATALOG_ARGUMENT_HINTS_VS_ROLE_CATALOG_COMPARISON = (
+    ROOT
+    / "results"
+    / "tool_catalog_profile_probe_comparisons"
+    / "20260508T_visual_argument_hints_vs_role_catalog_v1"
+)
 DEFAULT_PROMPT_CONTRACT_WAVE6_PACKET = (
     ROOT / "results" / "tool_prompt_contract_probe_packets" / "20260508T_visual_catalog_literal_guard_v6_probe"
 )
@@ -187,6 +196,24 @@ DEFAULT_CATALOG_LIVE_VISUAL_VS_VISUAL_STATE_COMPARISON = (
     / "tool_probe_replay_live_comparisons"
     / "20260508T_visual_role_catalog_vs_visual_state_tool_selection_v1"
 )
+DEFAULT_ARGUMENT_HINTS_LIVE_VISUAL_VS_NO_DIRECTIVE_COMPARISON = (
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260508T_visual_catalog_argument_hints_vs_no_directive_v1"
+)
+DEFAULT_ARGUMENT_HINTS_LIVE_VISUAL_VS_CONTRACTED_COMPARISON = (
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260508T_visual_catalog_argument_hints_vs_contracted_v1"
+)
+DEFAULT_ARGUMENT_HINTS_LIVE_VISUAL_VS_ROLE_CATALOG_COMPARISON = (
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260508T_visual_catalog_argument_hints_vs_role_catalog_v1"
+)
 
 SYSTEM_LABELS = {
     "mlx_gemma4_e2b_reasoner_only": "contracted",
@@ -211,6 +238,9 @@ def build_report(
     prompt_contract_wave4_packet: str | Path = DEFAULT_PROMPT_CONTRACT_WAVE4_PACKET,
     prompt_contract_wave5_packet: str | Path = DEFAULT_PROMPT_CONTRACT_WAVE5_PACKET,
     tool_catalog_profile_packet: str | Path = DEFAULT_TOOL_CATALOG_PROFILE_PACKET,
+    tool_catalog_argument_hints_packet: str | Path = DEFAULT_TOOL_CATALOG_ARGUMENT_HINTS_PACKET,
+    tool_catalog_argument_hints_vs_role_catalog_comparison: str
+    | Path = DEFAULT_TOOL_CATALOG_ARGUMENT_HINTS_VS_ROLE_CATALOG_COMPARISON,
     prompt_contract_wave6_packet: str | Path = DEFAULT_PROMPT_CONTRACT_WAVE6_PACKET,
     h1i_prompt_contract_packet: str | Path = DEFAULT_H1I_PROMPT_CONTRACT_PACKET,
     h1i_prompt_contract_repeat_packet: str | Path = DEFAULT_H1I_PROMPT_CONTRACT_REPEAT_PACKET,
@@ -234,6 +264,12 @@ def build_report(
     catalog_live_visual_vs_no_directive_comparison: str | Path = DEFAULT_CATALOG_LIVE_VISUAL_VS_NO_DIRECTIVE_COMPARISON,
     catalog_live_visual_vs_visual_initiation_comparison: str | Path = DEFAULT_CATALOG_LIVE_VISUAL_VS_VISUAL_INITIATION_COMPARISON,
     catalog_live_visual_vs_visual_state_comparison: str | Path = DEFAULT_CATALOG_LIVE_VISUAL_VS_VISUAL_STATE_COMPARISON,
+    argument_hints_live_visual_vs_no_directive_comparison: str
+    | Path = DEFAULT_ARGUMENT_HINTS_LIVE_VISUAL_VS_NO_DIRECTIVE_COMPARISON,
+    argument_hints_live_visual_vs_contracted_comparison: str
+    | Path = DEFAULT_ARGUMENT_HINTS_LIVE_VISUAL_VS_CONTRACTED_COMPARISON,
+    argument_hints_live_visual_vs_role_catalog_comparison: str
+    | Path = DEFAULT_ARGUMENT_HINTS_LIVE_VISUAL_VS_ROLE_CATALOG_COMPARISON,
     registry_path: str | Path = DEFAULT_REGISTRY_PATH,
 ) -> dict[str, Any]:
     target = Path(output_dir)
@@ -268,7 +304,18 @@ def build_report(
     prompt_contract_wave4_failure_rows = _csv_rows(Path(prompt_contract_wave4_packet) / "candidate_failure_mode_counts.csv")
     prompt_contract_wave5_gate_rows = _csv_rows(Path(prompt_contract_wave5_packet) / "candidate_gate_summary.csv")
     prompt_contract_wave5_failure_rows = _csv_rows(Path(prompt_contract_wave5_packet) / "candidate_failure_mode_counts.csv")
-    tool_catalog_profile_gate_rows = _csv_rows(Path(tool_catalog_profile_packet) / "candidate_summary.csv")
+    tool_catalog_profile_gate_rows = _csv_rows(Path(tool_catalog_profile_packet) / "candidate_summary.csv") + _csv_rows(
+        Path(tool_catalog_argument_hints_packet) / "candidate_summary.csv"
+    )
+    tool_catalog_argument_hints_vs_role_catalog_payload = json.loads(
+        (
+            Path(tool_catalog_argument_hints_vs_role_catalog_comparison)
+            / "probe_comparison.json"
+        ).read_text(encoding="utf-8")
+    )
+    tool_catalog_argument_hints_vs_role_catalog_case_rows = _csv_rows(
+        Path(tool_catalog_argument_hints_vs_role_catalog_comparison) / "probe_case_deltas.csv"
+    )
     prompt_contract_wave6_gate_rows = _csv_rows(Path(prompt_contract_wave6_packet) / "candidate_gate_summary.csv")
     prompt_contract_wave6_failure_rows = _csv_rows(Path(prompt_contract_wave6_packet) / "candidate_failure_mode_counts.csv")
     prompt_contract_promotion_rows = _prompt_contract_promotion_rows(
@@ -415,6 +462,37 @@ def build_report(
     ]
     catalog_live_summary_rows = _live_candidate_summary_rows(catalog_live_comparisons)
     catalog_live_case_rows = _live_candidate_case_rows(catalog_live_comparisons)
+    argument_hints_live_comparisons = [
+        (
+            "visual argument hints vs no directive",
+            json.loads(
+                (
+                    Path(argument_hints_live_visual_vs_no_directive_comparison)
+                    / "live_replay_comparison.json"
+                ).read_text(encoding="utf-8")
+            ),
+        ),
+        (
+            "visual argument hints vs contracted",
+            json.loads(
+                (
+                    Path(argument_hints_live_visual_vs_contracted_comparison)
+                    / "live_replay_comparison.json"
+                ).read_text(encoding="utf-8")
+            ),
+        ),
+        (
+            "visual argument hints vs role catalog",
+            json.loads(
+                (
+                    Path(argument_hints_live_visual_vs_role_catalog_comparison)
+                    / "live_replay_comparison.json"
+                ).read_text(encoding="utf-8")
+            ),
+        ),
+    ]
+    argument_hints_live_summary_rows = _live_candidate_summary_rows(argument_hints_live_comparisons)
+    argument_hints_live_case_rows = _live_candidate_case_rows(argument_hints_live_comparisons)
 
     _write_csv(tables_dir / "packet_summary.csv", packet_rows)
     _write_csv(tables_dir / "h1i_system_metrics.csv", h1i_system_rows)
@@ -434,6 +512,10 @@ def build_report(
     _write_csv(tables_dir / "prompt_contract_wave5_probe_gates.csv", prompt_contract_wave5_gate_rows)
     _write_csv(tables_dir / "prompt_contract_wave5_probe_failure_modes.csv", prompt_contract_wave5_failure_rows)
     _write_csv(tables_dir / "tool_catalog_profile_probe_gates.csv", tool_catalog_profile_gate_rows)
+    _write_csv(
+        tables_dir / "tool_catalog_argument_hints_vs_role_catalog_case_deltas.csv",
+        tool_catalog_argument_hints_vs_role_catalog_case_rows,
+    )
     _write_csv(tables_dir / "prompt_contract_wave6_probe_gates.csv", prompt_contract_wave6_gate_rows)
     _write_csv(tables_dir / "prompt_contract_wave6_probe_failure_modes.csv", prompt_contract_wave6_failure_rows)
     _write_csv(tables_dir / "prompt_contract_promotion_decisions.csv", prompt_contract_promotion_rows)
@@ -455,6 +537,14 @@ def build_report(
     _write_csv(tables_dir / "wave4_live_candidate_case_deltas.csv", wave4_live_case_rows)
     _write_csv(tables_dir / "visual_catalog_live_candidate_replay_summary.csv", catalog_live_summary_rows)
     _write_csv(tables_dir / "visual_catalog_live_candidate_case_deltas.csv", catalog_live_case_rows)
+    _write_csv(
+        tables_dir / "visual_catalog_argument_hints_live_candidate_replay_summary.csv",
+        argument_hints_live_summary_rows,
+    )
+    _write_csv(
+        tables_dir / "visual_catalog_argument_hints_live_candidate_case_deltas.csv",
+        argument_hints_live_case_rows,
+    )
 
     _write_grouped_metric_svg(
         figures_dir / "h1i_readiness_strict_recovered.svg",
@@ -723,6 +813,17 @@ def build_report(
             ("candidate_executable_rate", "candidate executable", "#059669"),
         ],
     )
+    _write_grouped_metric_svg(
+        figures_dir / "visual_catalog_argument_hints_live_candidate_replay_gate.svg",
+        title="Visual catalog argument-hints live replay gate",
+        rows=argument_hints_live_summary_rows,
+        label_field="comparison",
+        metrics=[
+            ("baseline_exact_rate", "baseline exact", "#2563EB"),
+            ("candidate_exact_rate", "candidate exact", "#DC2626"),
+            ("candidate_executable_rate", "candidate executable", "#059669"),
+        ],
+    )
 
     manifest = {
         "generated_at": datetime.now(UTC).isoformat(),
@@ -738,6 +839,10 @@ def build_report(
         "prompt_contract_wave4_packet": str(Path(prompt_contract_wave4_packet).resolve()),
         "prompt_contract_wave5_packet": str(Path(prompt_contract_wave5_packet).resolve()),
         "tool_catalog_profile_packet": str(Path(tool_catalog_profile_packet).resolve()),
+        "tool_catalog_argument_hints_packet": str(Path(tool_catalog_argument_hints_packet).resolve()),
+        "tool_catalog_argument_hints_vs_role_catalog_comparison": str(
+            Path(tool_catalog_argument_hints_vs_role_catalog_comparison).resolve()
+        ),
         "prompt_contract_wave6_packet": str(Path(prompt_contract_wave6_packet).resolve()),
         "h1i_prompt_contract_packet": str(Path(h1i_prompt_contract_packet).resolve()),
         "h1i_prompt_contract_repeat_packet": str(Path(h1i_prompt_contract_repeat_packet).resolve()),
@@ -779,9 +884,18 @@ def build_report(
         "catalog_live_visual_vs_visual_state_comparison": str(
             Path(catalog_live_visual_vs_visual_state_comparison).resolve()
         ),
+        "argument_hints_live_visual_vs_no_directive_comparison": str(
+            Path(argument_hints_live_visual_vs_no_directive_comparison).resolve()
+        ),
+        "argument_hints_live_visual_vs_contracted_comparison": str(
+            Path(argument_hints_live_visual_vs_contracted_comparison).resolve()
+        ),
+        "argument_hints_live_visual_vs_role_catalog_comparison": str(
+            Path(argument_hints_live_visual_vs_role_catalog_comparison).resolve()
+        ),
         "registry_path": str(Path(registry_path).resolve()),
-        "table_count": 39,
-        "figure_count": 24,
+        "table_count": 42,
+        "figure_count": 25,
     }
     report_payload = {
         "manifest": manifest,
@@ -800,6 +914,8 @@ def build_report(
         "prompt_contract_wave5_probe_gates": prompt_contract_wave5_gate_rows,
         "prompt_contract_wave5_probe_failure_modes": prompt_contract_wave5_failure_rows,
         "tool_catalog_profile_probe_gates": tool_catalog_profile_gate_rows,
+        "tool_catalog_argument_hints_vs_role_catalog_comparison": tool_catalog_argument_hints_vs_role_catalog_payload,
+        "tool_catalog_argument_hints_vs_role_catalog_case_deltas": tool_catalog_argument_hints_vs_role_catalog_case_rows,
         "prompt_contract_wave6_probe_gates": prompt_contract_wave6_gate_rows,
         "prompt_contract_wave6_probe_failure_modes": prompt_contract_wave6_failure_rows,
         "prompt_contract_promotion_decisions": prompt_contract_promotion_rows,
@@ -826,6 +942,8 @@ def build_report(
         "wave4_live_candidate_case_deltas": wave4_live_case_rows,
         "visual_catalog_live_candidate_replay_summary": catalog_live_summary_rows,
         "visual_catalog_live_candidate_case_deltas": catalog_live_case_rows,
+        "visual_catalog_argument_hints_live_candidate_replay_summary": argument_hints_live_summary_rows,
+        "visual_catalog_argument_hints_live_candidate_case_deltas": argument_hints_live_case_rows,
         "gemini": gemini_manifest,
     }
     (target / "manifest.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
@@ -848,6 +966,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--prompt-contract-wave4-packet", default=str(DEFAULT_PROMPT_CONTRACT_WAVE4_PACKET))
     parser.add_argument("--prompt-contract-wave5-packet", default=str(DEFAULT_PROMPT_CONTRACT_WAVE5_PACKET))
     parser.add_argument("--tool-catalog-profile-packet", default=str(DEFAULT_TOOL_CATALOG_PROFILE_PACKET))
+    parser.add_argument("--tool-catalog-argument-hints-packet", default=str(DEFAULT_TOOL_CATALOG_ARGUMENT_HINTS_PACKET))
+    parser.add_argument(
+        "--tool-catalog-argument-hints-vs-role-catalog-comparison",
+        default=str(DEFAULT_TOOL_CATALOG_ARGUMENT_HINTS_VS_ROLE_CATALOG_COMPARISON),
+    )
     parser.add_argument("--prompt-contract-wave6-packet", default=str(DEFAULT_PROMPT_CONTRACT_WAVE6_PACKET))
     parser.add_argument("--h1i-prompt-contract-packet", default=str(DEFAULT_H1I_PROMPT_CONTRACT_PACKET))
     parser.add_argument("--h1i-prompt-contract-repeat-packet", default=str(DEFAULT_H1I_PROMPT_CONTRACT_REPEAT_PACKET))
@@ -901,6 +1024,18 @@ def parse_args() -> argparse.Namespace:
         "--catalog-live-visual-vs-visual-state-comparison",
         default=str(DEFAULT_CATALOG_LIVE_VISUAL_VS_VISUAL_STATE_COMPARISON),
     )
+    parser.add_argument(
+        "--argument-hints-live-visual-vs-no-directive-comparison",
+        default=str(DEFAULT_ARGUMENT_HINTS_LIVE_VISUAL_VS_NO_DIRECTIVE_COMPARISON),
+    )
+    parser.add_argument(
+        "--argument-hints-live-visual-vs-contracted-comparison",
+        default=str(DEFAULT_ARGUMENT_HINTS_LIVE_VISUAL_VS_CONTRACTED_COMPARISON),
+    )
+    parser.add_argument(
+        "--argument-hints-live-visual-vs-role-catalog-comparison",
+        default=str(DEFAULT_ARGUMENT_HINTS_LIVE_VISUAL_VS_ROLE_CATALOG_COMPARISON),
+    )
     parser.add_argument("--registry", default=str(DEFAULT_REGISTRY_PATH))
     return parser.parse_args()
 
@@ -920,6 +1055,8 @@ def main() -> None:
         prompt_contract_wave4_packet=args.prompt_contract_wave4_packet,
         prompt_contract_wave5_packet=args.prompt_contract_wave5_packet,
         tool_catalog_profile_packet=args.tool_catalog_profile_packet,
+        tool_catalog_argument_hints_packet=args.tool_catalog_argument_hints_packet,
+        tool_catalog_argument_hints_vs_role_catalog_comparison=args.tool_catalog_argument_hints_vs_role_catalog_comparison,
         prompt_contract_wave6_packet=args.prompt_contract_wave6_packet,
         h1i_prompt_contract_packet=args.h1i_prompt_contract_packet,
         h1i_prompt_contract_repeat_packet=args.h1i_prompt_contract_repeat_packet,
@@ -943,6 +1080,9 @@ def main() -> None:
         catalog_live_visual_vs_no_directive_comparison=args.catalog_live_visual_vs_no_directive_comparison,
         catalog_live_visual_vs_visual_initiation_comparison=args.catalog_live_visual_vs_visual_initiation_comparison,
         catalog_live_visual_vs_visual_state_comparison=args.catalog_live_visual_vs_visual_state_comparison,
+        argument_hints_live_visual_vs_no_directive_comparison=args.argument_hints_live_visual_vs_no_directive_comparison,
+        argument_hints_live_visual_vs_contracted_comparison=args.argument_hints_live_visual_vs_contracted_comparison,
+        argument_hints_live_visual_vs_role_catalog_comparison=args.argument_hints_live_visual_vs_role_catalog_comparison,
         registry_path=args.registry,
     )
     print(
@@ -1257,6 +1397,7 @@ def _markdown_report(payload: dict[str, Any]) -> str:
     wave4_gate_rows = payload["prompt_contract_wave4_probe_gates"]
     wave5_gate_rows = payload["prompt_contract_wave5_probe_gates"]
     catalog_profile_gate_rows = payload["tool_catalog_profile_probe_gates"]
+    argument_hints_vs_catalog_case_rows = payload["tool_catalog_argument_hints_vs_role_catalog_case_deltas"]
     wave6_gate_rows = payload["prompt_contract_wave6_probe_gates"]
     h1i_prompt_contract_rows = payload["h1i_prompt_contract_candidate_metrics"]
     h1i_prompt_contract_repeat_rows = payload["h1i_prompt_contract_repeat3_metrics"]
@@ -1281,6 +1422,8 @@ def _markdown_report(payload: dict[str, Any]) -> str:
     wave4_live_case_rows = payload["wave4_live_candidate_case_deltas"]
     catalog_live_summary_rows = payload["visual_catalog_live_candidate_replay_summary"]
     catalog_live_case_rows = payload["visual_catalog_live_candidate_case_deltas"]
+    argument_hints_live_summary_rows = payload["visual_catalog_argument_hints_live_candidate_replay_summary"]
+    argument_hints_live_case_rows = payload["visual_catalog_argument_hints_live_candidate_case_deltas"]
     gemini = payload["gemini"]
     lines = [
         "# MLX Tool-Contract Harnessing Report",
@@ -1349,6 +1492,8 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "",
         "![Visual catalog live replay gate](figures/visual_catalog_live_candidate_replay_gate.svg)",
         "",
+        "![Visual catalog argument-hints live replay gate](figures/visual_catalog_argument_hints_live_candidate_replay_gate.svg)",
+        "",
         "## Packet Summary",
         "",
         _markdown_table(packet_rows),
@@ -1401,7 +1546,13 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "",
         _markdown_table(catalog_profile_gate_rows),
         "",
-        "`visual_role_catalog_v1` moves the intervention from standalone prompt-contract wording into the tool-catalog presentation. It keeps the exact directive disabled, improves raw exact rate from `0.0` to `0.125`, restores the visual executable target to `1.0`, and changes the live visual failure from wrong-tool/no-call into literal argument mismatch. This is a real routing signal, not a complete harness replacement.",
+        "`visual_role_catalog_v1` moves the intervention from standalone prompt-contract wording into the tool-catalog presentation. It keeps the exact directive disabled, improves raw exact rate from `0.0` to `0.125`, restores the visual executable target to `1.0`, and changes the live visual failure from wrong-tool/no-call into literal argument mismatch. `visual_role_catalog_argument_hints_v2` then tests the next narrow question: can field-level selector semantics fix that literal mismatch while preserving routing?",
+        "",
+        "## Tool-Catalog Argument-Hints vs Role-Catalog Probe Delta",
+        "",
+        _markdown_table(argument_hints_vs_catalog_case_rows),
+        "",
+        "The raw answer is mixed but materially informative. Argument hints raise probe exactness from `1 / 8` to `2 / 8` by making `visual_latest_filter_literal` exact, while preserving exact readback. The cost is that `visual_form_target_literal` drops from executable paraphrase to non-executable argument mismatch, so this is a candidate for visual referent exactness, not a complete visual recovery profile.",
         "",
         "## Prompt-Contract Wave Six Probe Gate",
         "",
@@ -1481,6 +1632,14 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "",
         _markdown_table(catalog_live_case_rows),
         "",
+        "## Visual Catalog Argument-Hints CLI-Live Candidate Replay",
+        "",
+        _markdown_table(argument_hints_live_summary_rows),
+        "",
+        "`visual_role_catalog_argument_hints_v2` is the first no-directive candidate to match contracted MLX on this focused visual exact replay: `2 / 3` exact. It fixes `visual_latest_filter_literal` exactly and preserves exact readback. The remaining gap is important: the candidate loses the contracted/v1 executable visual-form rescue, turning `visual_form_target_literal` into a non-executable argument mismatch. This is progress on selector literalness, but not yet a full replacement for controller-backed visual recovery.",
+        "",
+        _markdown_table(argument_hints_live_case_rows),
+        "",
         "## H1i Prompt-Contract Candidate Packet",
         "",
         _markdown_table(h1i_prompt_contract_rows),
@@ -1533,7 +1692,8 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "- H1h verified that the ordering survives all ten H1e live workflow families.",
         "- H1i is now the best fast loop because it targets the worst H1h no-repair families and makes the repair/fallback gaps larger.",
         "- The no-directive probe explains why: CLI/API calls often keep the right tool but drift on canonical arguments, while visual referent and parallel-tool cases collapse to no tool call.",
-        "- The next prompt-contract experiment should be evaluated first on the probe suite and then on H1i before spending another full H1h run.",
+        "- The visual catalog path now gives a sharper positive result than the prompt-contract path: argument-hints cataloging reaches `2 / 3` live exact visual replay without the exact directive, but still misses executable form-target recovery.",
+        "- The next experiment should preserve the argument-hints selector win while separately recovering form-target executability before spending H1 budget.",
         "",
         "## Source Artifacts",
         "",
@@ -1549,6 +1709,8 @@ def _markdown_report(payload: dict[str, Any]) -> str:
             f"- Prompt-contract wave four packet: `{payload['manifest']['prompt_contract_wave4_packet']}`",
             f"- Prompt-contract wave five packet: `{payload['manifest']['prompt_contract_wave5_packet']}`",
             f"- Tool catalog profile packet: `{payload['manifest']['tool_catalog_profile_packet']}`",
+            f"- Tool catalog argument-hints packet: `{payload['manifest']['tool_catalog_argument_hints_packet']}`",
+            f"- Tool catalog argument-hints vs role-catalog comparison: `{payload['manifest']['tool_catalog_argument_hints_vs_role_catalog_comparison']}`",
             f"- Prompt-contract wave six packet: `{payload['manifest']['prompt_contract_wave6_packet']}`",
             f"- H1i prompt-contract packet: `{payload['manifest']['h1i_prompt_contract_packet']}`",
             f"- H1i prompt-contract repeat packet: `{payload['manifest']['h1i_prompt_contract_repeat_packet']}`",
@@ -1565,6 +1727,9 @@ def _markdown_report(payload: dict[str, Any]) -> str:
             f"- CLI-live canonical replay comparison: `{payload['manifest']['live_canonical_replay_comparison']}`",
             f"- Wave four live visual vs no-directive comparison: `{payload['manifest']['wave4_live_visual_vs_no_directive_comparison']}`",
             f"- Wave four live visual vs contracted comparison: `{payload['manifest']['wave4_live_visual_vs_contracted_comparison']}`",
+            f"- Argument-hints live visual vs no-directive comparison: `{payload['manifest']['argument_hints_live_visual_vs_no_directive_comparison']}`",
+            f"- Argument-hints live visual vs contracted comparison: `{payload['manifest']['argument_hints_live_visual_vs_contracted_comparison']}`",
+            f"- Argument-hints live visual vs role-catalog comparison: `{payload['manifest']['argument_hints_live_visual_vs_role_catalog_comparison']}`",
             f"- Gemini dry-run baseline: `{payload['manifest']['gemini_packet']}`",
             "",
         ]

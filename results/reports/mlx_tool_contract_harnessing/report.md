@@ -1,6 +1,6 @@
 # MLX Tool-Contract Harnessing Report
 
-Generated: `2026-05-08T20:03:20.234458+00:00`
+Generated: `2026-05-08T20:19:39.743531+00:00`
 
 ## Executive Read
 
@@ -59,6 +59,8 @@ The main finding is blunt: the tool-turn directive is a real model-side harness 
 ![Wave four live replay gate](figures/wave4_live_candidate_replay_gate.svg)
 
 ![Visual catalog live replay gate](figures/visual_catalog_live_candidate_replay_gate.svg)
+
+![Visual catalog argument-hints live replay gate](figures/visual_catalog_argument_hints_live_candidate_replay_gate.svg)
 
 ## Packet Summary
 
@@ -156,8 +158,24 @@ The third wave targets the mechanisms exposed by CLI-live replay: canonical argu
 | system_id | tool_catalog_profile_id | execute | output_dir | comparison_path | no_directive_comparison_path | exact_match_rate | executable_match_rate | delta_exact_vs_contracted | delta_exact_vs_no_directive | probe_gate |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog | visual_role_catalog_v1 | True | /Users/cheickdiakite/Codex/moonie/results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_v1_probe/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog | /Users/cheickdiakite/Codex/moonie/results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_v1_probe/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog/comparison_vs_contracted/probe_comparison.json | /Users/cheickdiakite/Codex/moonie/results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_v1_probe/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog/comparison_vs_no_directive/probe_comparison.json | 0.125 | 1.0 | -0.75 | 0.125 | probe_improved_vs_no_directive |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints | visual_role_catalog_argument_hints_v2 | True | /Users/cheickdiakite/Codex/moonie/results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_argument_hints_v2_probe/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints | /Users/cheickdiakite/Codex/moonie/results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_argument_hints_v2_probe/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints/comparison_vs_contracted/probe_comparison.json | /Users/cheickdiakite/Codex/moonie/results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_argument_hints_v2_probe/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints/comparison_vs_no_directive/probe_comparison.json | 0.25 | 0.0 | -0.625 | 0.25 | probe_improved_vs_no_directive |
 
-`visual_role_catalog_v1` moves the intervention from standalone prompt-contract wording into the tool-catalog presentation. It keeps the exact directive disabled, improves raw exact rate from `0.0` to `0.125`, restores the visual executable target to `1.0`, and changes the live visual failure from wrong-tool/no-call into literal argument mismatch. This is a real routing signal, not a complete harness replacement.
+`visual_role_catalog_v1` moves the intervention from standalone prompt-contract wording into the tool-catalog presentation. It keeps the exact directive disabled, improves raw exact rate from `0.0` to `0.125`, restores the visual executable target to `1.0`, and changes the live visual failure from wrong-tool/no-call into literal argument mismatch. `visual_role_catalog_argument_hints_v2` then tests the next narrow question: can field-level selector semantics fix that literal mismatch while preserving routing?
+
+## Tool-Catalog Argument-Hints vs Role-Catalog Probe Delta
+
+| case_id | family | baseline_exact_match | candidate_exact_match | delta_exact_match | baseline_failure_mode | candidate_failure_mode | baseline_executable_match | candidate_executable_match | delta_executable_match | baseline_actual_call_count | candidate_actual_call_count | delta_actual_call_count |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| api_form_issue_fetch | api_canonicalization | False | False | 0 | argument_mismatch | argument_mismatch |  |  |  | 1 | 1 | 0 |
+| api_invoice_lock_hold_update | api_canonicalization | False | False | 0 | argument_mismatch | argument_mismatch |  |  |  | 1 | 1 | 0 |
+| cli_invoice_lock_hyphen_query | cli_canonicalization | False | False | 0 | argument_mismatch | argument_mismatch |  |  |  | 1 | 1 | 0 |
+| cli_phone_patch_latest_only | cli_patch_copying | False | False | 0 | argument_mismatch | argument_mismatch |  |  |  | 1 | 1 | 0 |
+| parallel_audit_array_literal | parallel_tool_calling | False | False | 0 | no_tool_call | no_tool_call |  |  |  | 0 | 0 | 0 |
+| visual_form_target_literal | visual_argument_copying | False | False | 0 | executable_paraphrase | argument_mismatch | True | False | -1 | 1 | 1 | 0 |
+| visual_latest_filter_literal | visual_referent_carryover | False | True | 1 | argument_mismatch | exact |  |  |  | 1 | 1 | 0 |
+| visual_readback_region_literal | visual_referent_carryover | True | True | 0 | exact | exact |  |  |  | 1 | 1 | 0 |
+
+The raw answer is mixed but materially informative. Argument hints raise probe exactness from `1 / 8` to `2 / 8` by making `visual_latest_filter_literal` exact, while preserving exact readback. The cost is that `visual_form_target_literal` drops from executable paraphrase to non-executable argument mismatch, so this is a candidate for visual referent exactness, not a complete visual recovery profile.
 
 ## Prompt-Contract Wave Six Probe Gate
 
@@ -325,6 +343,28 @@ The live replay gate rejects `canonical_json_copy_v3` for canonical argument pro
 | visual role catalog vs visual state tool | visual_latest_filter_literal | visual_referent_carryover | no_tool_call | False | False | 0 | None | None | None | wrong_tool | argument_mismatch | 1 | 1 | 0 |
 | visual role catalog vs visual state tool | visual_readback_region_literal | visual_referent_carryover | no_tool_call | True | True | 0 | None | None | None | exact | exact | 1 | 1 | 0 |
 
+## Visual Catalog Argument-Hints CLI-Live Candidate Replay
+
+| comparison | baseline_system_id | candidate_system_id | shared_case_count | baseline_exact_rate | candidate_exact_rate | delta_exact_rate | baseline_executable_rate | candidate_executable_rate | delta_executable_rate |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| visual argument hints vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints | 3 | 0.0 | 0.6666666666666666 | 0.6666666666666666 | 0.0 | 0.0 | 0.0 |
+| visual argument hints vs contracted | mlx_gemma4_e2b_reasoner_only | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints | 3 | 0.6666666666666666 | 0.6666666666666666 | 0.0 | 1.0 | 0.0 | -1.0 |
+| visual argument hints vs role catalog | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints | 3 | 0.3333333333333333 | 0.6666666666666666 | 0.3333333333333333 | 1.0 | 0.0 | -1.0 |
+
+`visual_role_catalog_argument_hints_v2` is the first no-directive candidate to match contracted MLX on this focused visual exact replay: `2 / 3` exact. It fixes `visual_latest_filter_literal` exactly and preserves exact readback. The remaining gap is important: the candidate loses the contracted/v1 executable visual-form rescue, turning `visual_form_target_literal` into a non-executable argument mismatch. This is progress on selector literalness, but not yet a full replacement for controller-backed visual recovery.
+
+| comparison | case_id | family | source_failure_mode | baseline_replay_exact_match | candidate_replay_exact_match | delta_exact_match | baseline_replay_executable_match | candidate_replay_executable_match | delta_executable_match | baseline_replay_failure_mode | candidate_replay_failure_mode | baseline_actual_call_count | candidate_actual_call_count | delta_actual_call_count |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| visual argument hints vs no directive | visual_form_target_literal | visual_argument_copying | no_tool_call | False | False | 0 | False | False | 0 | no_tool_call | argument_mismatch | 0 | 1 | 1 |
+| visual argument hints vs no directive | visual_latest_filter_literal | visual_referent_carryover | no_tool_call | False | True | 1 | None | None | None | no_tool_call | exact | 0 | 1 | 1 |
+| visual argument hints vs no directive | visual_readback_region_literal | visual_referent_carryover | no_tool_call | False | True | 1 | None | None | None | no_tool_call | exact | 0 | 1 | 1 |
+| visual argument hints vs contracted | visual_form_target_literal | visual_argument_copying | no_tool_call | False | False | 0 | True | False | -1 | executable_paraphrase | argument_mismatch | 1 | 1 | 0 |
+| visual argument hints vs contracted | visual_latest_filter_literal | visual_referent_carryover | no_tool_call | True | True | 0 | None | None | None | exact | exact | 1 | 1 | 0 |
+| visual argument hints vs contracted | visual_readback_region_literal | visual_referent_carryover | no_tool_call | True | True | 0 | None | None | None | exact | exact | 1 | 1 | 0 |
+| visual argument hints vs role catalog | visual_form_target_literal | visual_argument_copying | no_tool_call | False | False | 0 | True | False | -1 | executable_paraphrase | argument_mismatch | 1 | 1 | 0 |
+| visual argument hints vs role catalog | visual_latest_filter_literal | visual_referent_carryover | no_tool_call | False | True | 1 | None | None | None | argument_mismatch | exact | 1 | 1 | 0 |
+| visual argument hints vs role catalog | visual_readback_region_literal | visual_referent_carryover | no_tool_call | True | True | 0 | None | None | None | exact | exact | 1 | 1 | 0 |
+
 ## H1i Prompt-Contract Candidate Packet
 
 | system_id | lane | disabled_controls | tool_turn_directive_enabled | real_world_readiness_avg | delta_vs_contracted_real_world_readiness_avg | delta_vs_no_directive_real_world_readiness_avg | strict_interface_avg | delta_vs_contracted_strict_interface_avg | delta_vs_no_directive_strict_interface_avg | recovered_execution_avg | delta_vs_contracted_recovered_execution_avg | delta_vs_no_directive_recovered_execution_avg | controller_repair_avg | delta_vs_contracted_controller_repair_avg | delta_vs_no_directive_controller_repair_avg | argument_repair_avg | delta_vs_contracted_argument_repair_avg | delta_vs_no_directive_argument_repair_avg | controller_fallback_avg | delta_vs_contracted_controller_fallback_avg | delta_vs_no_directive_controller_fallback_avg | intent_override_avg | delta_vs_contracted_intent_override_avg | delta_vs_no_directive_intent_override_avg | raw_planning_clean_rate_avg | delta_vs_contracted_raw_planning_clean_rate_avg | delta_vs_no_directive_raw_planning_clean_rate_avg |
@@ -413,7 +453,8 @@ This packet is deliberately a dry-run prompt and command manifest. It is an exte
 - H1h verified that the ordering survives all ten H1e live workflow families.
 - H1i is now the best fast loop because it targets the worst H1h no-repair families and makes the repair/fallback gaps larger.
 - The no-directive probe explains why: CLI/API calls often keep the right tool but drift on canonical arguments, while visual referent and parallel-tool cases collapse to no tool call.
-- The next prompt-contract experiment should be evaluated first on the probe suite and then on H1i before spending another full H1h run.
+- The visual catalog path now gives a sharper positive result than the prompt-contract path: argument-hints cataloging reaches `2 / 3` live exact visual replay without the exact directive, but still misses executable form-target recovery.
+- The next experiment should preserve the argument-hints selector win while separately recovering form-target executability before spending H1 budget.
 
 ## Source Artifacts
 
@@ -427,6 +468,8 @@ This packet is deliberately a dry-run prompt and command manifest. It is an exte
 - Prompt-contract wave four packet: `/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave4_execute_v1`
 - Prompt-contract wave five packet: `/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave5_execute_v1`
 - Tool catalog profile packet: `/Users/cheickdiakite/Codex/moonie/results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_v1_probe`
+- Tool catalog argument-hints packet: `/Users/cheickdiakite/Codex/moonie/results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_argument_hints_v2_probe`
+- Tool catalog argument-hints vs role-catalog comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_catalog_profile_probe_comparisons/20260508T_visual_argument_hints_vs_role_catalog_v1`
 - Prompt-contract wave six packet: `/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe`
 - H1i prompt-contract packet: `/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet`
 - H1i prompt-contract repeat packet: `/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_repeat3_v1_knowledge_work_ablation_packet`
@@ -443,4 +486,7 @@ This packet is deliberately a dry-run prompt and command manifest. It is an exte
 - CLI-live canonical replay comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260507T_canonical_argument_contracted_vs_no_directive_live_v1`
 - Wave four live visual vs no-directive comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260508T_visual_state_tool_selection_vs_no_directive_live_v1`
 - Wave four live visual vs contracted comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260508T_visual_state_contracted_vs_tool_selection_live_v1`
+- Argument-hints live visual vs no-directive comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_no_directive_v1`
+- Argument-hints live visual vs contracted comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_contracted_v1`
+- Argument-hints live visual vs role-catalog comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_role_catalog_v1`
 - Gemini dry-run baseline: `/Users/cheickdiakite/Codex/moonie/results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1`
