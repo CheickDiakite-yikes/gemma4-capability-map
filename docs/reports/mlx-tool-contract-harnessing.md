@@ -49,6 +49,8 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 
 ![Prompt contract wave four probe gate](../../results/reports/mlx_tool_contract_harnessing/figures/prompt_contract_wave4_probe_gate.svg)
 
+![Prompt contract wave five probe gate](../../results/reports/mlx_tool_contract_harnessing/figures/prompt_contract_wave5_probe_gate.svg)
+
 ![H1i prompt-contract repeat3 burden](../../results/reports/mlx_tool_contract_harnessing/figures/h1i_prompt_contract_repeat3_burden.svg)
 
 ![H1j probe-derived candidate burden](../../results/reports/mlx_tool_contract_harnessing/figures/h1j_probe_derived_burden.svg)
@@ -84,6 +86,7 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 | [`executed prompt-contract wave-two packet`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave2_execute_v1) | Three second-wave prompt-contract candidates tested on the raw probe before any further H1 promotion. |
 | [`executed prompt-contract wave-three packet`](../../results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave3_execute_v1) | Three mechanism-targeted candidates derived from CLI-live replay: canonical JSON copy, visual tool initiation, and parallel two-call array. |
 | [`executed prompt-contract wave-four packet`](../../results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave4_execute_v1) | Narrow visual state/tool-selection candidate tested after wave three exposed the remaining wrong-tool visual referent failure. |
+| [`executed prompt-contract wave-five packet`](../../results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave5_execute_v1) | Surgical latest-selection refinement candidate tested after wave four failed to improve live visual tool selection. |
 | [`H1i prompt-contract repeat3 packet`](../../results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_repeat3_v1_knowledge_work_ablation_packet) | Repeated second-stage candidate packet: three attempts per H1i workflow family per row. |
 | [`H1j probe-derived candidate packet`](../../results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_candidates_v1_knowledge_work_ablation_packet) | Six packaged live workflows selected from exact no-directive probe failure families. |
 | [`H1j probe-derived helper packet`](../../results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_helpers_v1_knowledge_work_ablation_packet) | Controller-helper ablation on the same H1j probe-derived packaged workflow set. |
@@ -155,6 +158,7 @@ The prompt-contract queue now has four waves. They deliberately do not include t
 | `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_tool_initiation` | `visual_tool_initiation_v3` | Visual no-call recovery through stateful visual tool initiation. |
 | `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_parallel_two_call_array` | `parallel_two_call_array_v3` | Independent two-source checks as a two-call JSON array. |
 | `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_state_tool_selection` | `visual_state_tool_selection_v4` | Visual state-specific tool selection after wave three recovered tool initiation but missed a filter/refinement case. |
+| `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_refine_selection` | `visual_refine_selection_v5` | Surgical latest-selection filtering pressure that prioritizes `refine_selection` when a current `selection_id` exists. |
 
 Generated candidate table:
 
@@ -211,6 +215,19 @@ Fourth-wave execution command:
 uv run python scripts/run_tool_prompt_contract_probe_packet.py \
   --run-group-id <timestamp>_prompt_contract_wave4_execute_v1 \
   --candidate-wave v4 \
+  --execute
+```
+
+Fifth-wave executed packet:
+
+- [`results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave5_execute_v1`](../../results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave5_execute_v1)
+
+Fifth-wave execution command:
+
+```bash
+uv run python scripts/run_tool_prompt_contract_probe_packet.py \
+  --run-group-id <timestamp>_prompt_contract_wave5_execute_v1 \
+  --candidate-wave v5 \
   --execute
 ```
 
@@ -285,6 +302,21 @@ The fourth executed candidate packet is now recorded at:
 | `visual_state_tool_selection_v4` | `0.125` | `0.0` | `+0.125` | `no_tool_call` | weak exact gain |
 
 Wave four is a useful negative result. It reproduces the familiar one-case exact gain, but does not improve executable visual recovery in the raw probe and does not reduce the dominant no-tool-call failure pattern enough to justify H1 spend on its own.
+
+## Prompt-Contract Wave Five Probe Gate
+
+The fifth executed candidate packet is now recorded at:
+
+- [`results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave5_execute_v1`](../../results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave5_execute_v1)
+- [`candidate_gate_summary.md`](../../results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave5_execute_v1/candidate_gate_summary.md)
+- generated report table: [`prompt_contract_wave5_probe_gates.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_wave5_probe_gates.csv)
+- generated failure table: [`prompt_contract_wave5_probe_failure_modes.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_wave5_probe_failure_modes.csv)
+
+| Contract | Exact | Executable | Delta exact vs no-directive | Dominant failure | Recommendation |
+| --- | ---: | ---: | ---: | --- | --- |
+| `visual_refine_selection_v5` | `0.0` | `0.0` | `0.0` | `no_tool_call` | no probe gain |
+
+Wave five is an even sharper negative result. It tried to make the remaining visual hypothesis more surgical by naming the latest-selection filtering transition and `refine_selection`, but raw probe behavior got worse rather than better: no exact cases, no executable visual recovery, and six no-tool-call failures. Per the current gate, it should not spend CLI-live replay or H1 budget.
 
 ## Prompt-Contract Promotion Decisions
 
@@ -569,8 +601,8 @@ The H1h -> H1i narrowing is also useful methodologically. H1h proves the phenome
 
 Use this order before broad `32 / 26` reruns:
 
-1. Treat `visual_state_tool_selection_v4` as a failed-to-improve live candidate, not a promotion candidate.
-2. Move the next prompt-contract attempt away from broad rule text and toward the exact missing mechanism: choosing `refine_selection` for latest-selection filtering without losing visual tool initiation.
+1. Treat `visual_state_tool_selection_v4` as a failed-to-improve live candidate and `visual_refine_selection_v5` as a raw-gate rejection.
+2. Stop iterating on standalone visual prompt rules unless the next idea changes the generation point or the tool catalog/routing shape; wording-only refinements are now negative twice in a row.
 3. Keep canonical JSON copy and parallel two-call wording out of H1 as currently written; they did not earn live promotion.
 4. H1h only after replay-live or raw probe evidence shows a mechanism-level change.
 5. Gemini CLI real execution only when the binary/run environment is explicitly meant to be part of the comparison.

@@ -196,6 +196,12 @@ What remains:
   - comparison vs no-directive: [`results/tool_probe_replay_live_comparisons/20260508T_visual_state_tool_selection_vs_no_directive_live_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_state_tool_selection_vs_no_directive_live_v1), delta exact `+0.3333333333333333`
   - comparison vs contracted: [`results/tool_probe_replay_live_comparisons/20260508T_visual_state_contracted_vs_tool_selection_live_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_state_contracted_vs_tool_selection_live_v1), delta exact `-0.3333333333333333`, delta executable `-1.0`
   - interpretation: visual state/tool-selection wording did not fix `visual_latest_filter_literal`; the remaining failure is still `wrong_tool`, and v4 regresses `visual_form_target_literal` to `no_tool_call`
+- wave five is now executed and rejected at the raw gate:
+  - dry-run packet: [`results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave5_dry_run_v1`](../../results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave5_dry_run_v1)
+  - executed packet: [`results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave5_execute_v1`](../../results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave5_execute_v1)
+  - `visual_refine_selection_v5`: exact `0.0`, executable `0.0`, no probe gain
+  - live replay was skipped because the raw gate did not move
+  - interpretation: standalone wording-only visual refinements have now produced one failed-to-improve live candidate and one raw-gate rejection
 - exact-probe replay now exists:
   - brief: [`docs/continuity/exact-probe-replay.md`](./exact-probe-replay.md)
   - packet: [`results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1`](../../results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1)
@@ -219,7 +225,7 @@ What remains:
   - canonical-argument no-directive live execution: [`results/tool_probe_replay_live/20260507T_canonical_argument_no_directive_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_canonical_argument_no_directive_live_execute_v1), exact `0 / 4`, all failures `argument_mismatch`
   - canonical-argument contracted live execution: [`results/tool_probe_replay_live/20260507T_canonical_argument_contracted_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_canonical_argument_contracted_live_execute_v1), exact `4 / 4`
   - canonical-argument live comparison: [`results/tool_probe_replay_live_comparisons/20260507T_canonical_argument_contracted_vs_no_directive_live_v1`](../../results/tool_probe_replay_live_comparisons/20260507T_canonical_argument_contracted_vs_no_directive_live_v1), delta exact `-1.0`, actual-call delta `0`
-  - next use: design a more surgical candidate for latest-selection filtering or add a harness-side diagnostic around visual tool choice, then compare through `replay-live --execute` without packaging the pressure into staged workflows
+  - next use: add a harness-side diagnostic around visual tool choice or change the tool catalog/routing presentation before another prompt-contract attempt; compare through `replay-live --execute` only after raw probe movement
 - promote a candidate beyond H1i only if it moves raw-clean or controller-burden metrics for the right reason
 - regenerate the MLX tool-contract report after any H1i, H1h, probe, or Gemini baseline packet changes
 - when a real Gemini CLI binary is available, rerun the same packet with `--execute`; keep the dry-run packet as the no-side-effects prompt manifest
@@ -234,6 +240,7 @@ uv run python scripts/compare_tool_directive_probes.py results/tool_directive_pr
 uv run python scripts/run_tool_prompt_contract_probe_packet.py --run-group-id <timestamp>_prompt_contract_probe_candidates --execute
 uv run python scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v3 --run-group-id <timestamp>_prompt_contract_wave3_execute_v1 --execute
 uv run python scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v4 --run-group-id <timestamp>_prompt_contract_wave4_execute_v1 --execute
+uv run python scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v5 --run-group-id <timestamp>_prompt_contract_wave5_execute_v1 --execute
 uv run python scripts/summarize_tool_prompt_contract_probe_packet.py results/tool_prompt_contract_probe_packets/<packet_id>
 uv run python scripts/build_tool_probe_replay_packet.py --run-group-id <timestamp>_no_directive_exact_probe_replay
 uv run moonie-agent replay-live --packet-dir results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_execute_v1 --case-id parallel_audit_array_literal --execute

@@ -34,8 +34,8 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
 
     assert payload["gemini"]["dry_run"] is True
     assert payload["gemini"]["workflow_count"] == 10
-    assert payload["manifest"]["table_count"] == 32
-    assert payload["manifest"]["figure_count"] == 20
+    assert payload["manifest"]["table_count"] == 34
+    assert payload["manifest"]["figure_count"] == 21
 
     candidates = {row["tool_prompt_contract_id"]: row for row in payload["prompt_contract_candidates"]}
     assert set(candidates) == {
@@ -70,6 +70,9 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     wave4_gates = {row["tool_prompt_contract_id"]: row for row in payload["prompt_contract_wave4_probe_gates"]}
     assert wave4_gates["visual_state_tool_selection_v4"]["recommendation"] == "weak_exact_gain"
     assert wave4_gates["visual_state_tool_selection_v4"]["dominant_failure_mode"] == "no_tool_call"
+    wave5_gates = {row["tool_prompt_contract_id"]: row for row in payload["prompt_contract_wave5_probe_gates"]}
+    assert wave5_gates["visual_refine_selection_v5"]["recommendation"] == "no_probe_gain"
+    assert wave5_gates["visual_refine_selection_v5"]["probe_gate"] == "no_probe_improvement_vs_no_directive"
     promotion = {row["tool_prompt_contract_id"]: row for row in payload["prompt_contract_promotion_decisions"]}
     assert promotion["schema_anchor_v1"]["promotion_decision"] == "hold_for_exact_probe_replay"
     assert promotion["visual_next_call_state_v2"]["promotion_reason"].startswith("executable recovery exists")
@@ -77,6 +80,7 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert promotion["visual_tool_initiation_v3"]["promotion_decision"] == "hold_for_exact_probe_replay"
     assert promotion["parallel_two_call_array_v3"]["promotion_decision"] == "reject_for_h1_promotion"
     assert promotion["visual_state_tool_selection_v4"]["promotion_decision"] == "hold_for_exact_probe_replay"
+    assert promotion["visual_refine_selection_v5"]["promotion_decision"] == "reject_for_h1_promotion"
     replay_summary = payload["exact_probe_replay_comparison"]["summary"]
     assert replay_summary["baseline_exact_match_rate"] == 0.875
     assert replay_summary["candidate_exact_match_rate"] == 0.0

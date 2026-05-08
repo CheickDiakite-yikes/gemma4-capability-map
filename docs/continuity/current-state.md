@@ -224,6 +224,13 @@ Latest MLX tool-contract research:
   - executed packet: [`results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave4_execute_v1`](../../results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave4_execute_v1)
   - gate result: exact `0.125`, executable `0.0`, delta exact vs no-directive `+0.125`, recommendation `weak_exact_gain`
   - interpretation: v4 is a useful negative result. It preserves one exact visual referent recovery but does not improve over the wave-three live ceiling and does not fix the targeted wrong-tool filter case.
+- Prompt-contract wave 5:
+  - contract: `visual_refine_selection_v5`
+  - runner flag: `scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v5`
+  - dry-run packet: [`results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave5_dry_run_v1`](../../results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave5_dry_run_v1)
+  - executed packet: [`results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave5_execute_v1`](../../results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave5_execute_v1)
+  - gate result: exact `0.0`, executable `0.0`, delta exact vs no-directive `0.0`, recommendation `no_probe_gain`
+  - interpretation: v5 is rejected before live replay. The surgical `refine_selection` wording did not preserve visual tool initiation and increased no-call concentration.
 - Exact-probe replay packet:
   - brief: [`docs/continuity/exact-probe-replay.md`](./exact-probe-replay.md)
   - script: [`scripts/build_tool_probe_replay_packet.py`](../../scripts/build_tool_probe_replay_packet.py)
@@ -283,6 +290,7 @@ Current generated research report:
 - prompt-contract wave-two probe gate table: [`results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_wave2_probe_gates.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_wave2_probe_gates.csv)
 - prompt-contract wave-three probe gate table: [`results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_wave3_probe_gates.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_wave3_probe_gates.csv)
 - prompt-contract wave-four probe gate table: [`results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_wave4_probe_gates.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_wave4_probe_gates.csv)
+- prompt-contract wave-five probe gate table: [`results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_wave5_probe_gates.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_wave5_probe_gates.csv)
 - prompt-contract promotion decisions: [`results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_promotion_decisions.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_promotion_decisions.csv)
 - H1i prompt-contract candidate metrics: [`results/reports/mlx_tool_contract_harnessing/tables/h1i_prompt_contract_candidate_metrics.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/h1i_prompt_contract_candidate_metrics.csv)
 - H1i prompt-contract repeat3 metrics: [`results/reports/mlx_tool_contract_harnessing/tables/h1i_prompt_contract_repeat3_metrics.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/h1i_prompt_contract_repeat3_metrics.csv)

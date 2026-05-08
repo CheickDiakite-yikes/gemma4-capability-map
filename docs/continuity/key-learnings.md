@@ -274,11 +274,12 @@ The MLX no-directive prompt-contract waves now show a consistent pattern:
 
 Wave three taught that `visual_tool_initiation_v3` was the first real partial live gain: visual exact replay moved from `0 / 3` to `1 / 3`, and executable visual-form recovery returned.
 
-Wave four then tested the obvious-looking follow-up, `visual_state_tool_selection_v4`, and showed why wording alone is not enough:
+Wave four and wave five then tested obvious-looking follow-ups and showed why wording alone is not enough:
 
 - raw probe exact stayed weak at `1 / 8`
 - live visual exact stayed at `1 / 3`
 - `visual_latest_filter_literal` still failed as `wrong_tool`
 - `visual_form_target_literal` regressed to `no_tool_call`
+- the more surgical `visual_refine_selection_v5` failed the raw gate at `0 / 8` exact and `0 / 1` executable
 
 The durable lesson is that “more specific rules” can fail to preserve the one useful behavior a previous contract created. Promotion should require live exact-replay improvement on the targeted mechanism, not just a raw one-case gain or a plausible prompt hypothesis.

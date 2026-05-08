@@ -2918,6 +2918,14 @@
   - case read: `visual_readback_region_literal` remains exact, `visual_latest_filter_literal` still fails as `wrong_tool`, and `visual_form_target_literal` regresses to `no_tool_call`
   - interpretation: the added state/tool-selection wording did not solve the targeted remaining visual referent failure. Wave three's useful mechanism appears to be tool initiation, not broad visual state rule text.
   - next research move: try a more surgical prompt-contract or harness hint around latest-selection filtering and `refine_selection`, then gate it through raw probe plus CLI-live visual replay before any H1 spend.
+- Prompt-contract wave five is now executed and rejected at the raw gate:
+  - implementation: `visual_refine_selection_v5`
+  - dry-run packet: [`20260508T_prompt_contract_wave5_dry_run_v1`](../results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave5_dry_run_v1)
+  - executed packet: [`20260508T_prompt_contract_wave5_execute_v1`](../results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave5_execute_v1)
+  - raw probe result: exact `0 / 8`, executable `0 / 1`, delta exact vs no-directive `0.0`, recommendation `no_probe_gain`
+  - summary: zero improved cases, zero regressed cases versus no-directive, dominant failure `no_tool_call`, failure split `argument_mismatch:1`, `call_count_mismatch:1`, `no_tool_call:6`
+  - live replay was intentionally skipped because the candidate did not clear the raw probe gate
+  - interpretation: making the prompt more surgical around `refine_selection` did not preserve visual tool initiation. Standalone wording-only refinement has now failed twice after wave three; the next move should change either the generation-time contract shape, the tool catalog/routing presentation, or the harness diagnostic around visual tool choice.
 
 ### Verification
 

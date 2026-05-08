@@ -143,3 +143,4 @@ Reason:
 - raw probe gains can be weak and misleading
 - CLI-live exact replay keeps the one-turn tool-contract pressure intact while still giving an operator-visible terminal surface
 - wave four showed that a plausible visual state/tool-selection contract can tie wave three on exact rate, regress executable recovery, and leave the targeted wrong-tool case unsolved
+- wave five showed that a more surgical `refine_selection` wording can fail the raw gate entirely, so no-live-spend gates are doing useful work too

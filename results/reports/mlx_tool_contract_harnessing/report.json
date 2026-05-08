@@ -1,6 +1,6 @@
 {
   "manifest": {
-    "generated_at": "2026-05-08T16:13:01.708860+00:00",
+    "generated_at": "2026-05-08T17:33:19.583126+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/mlx_tool_contract_harnessing",
     "source_packets": {
       "H1f compact": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1f_mlx_no_directive_v1_knowledge_work_h1f_mlx_tool_contract_ablation_v1",
@@ -13,6 +13,7 @@
     "prompt_contract_wave2_packet": "/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave2_execute_v1",
     "prompt_contract_wave3_packet": "/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260507T_prompt_contract_wave3_execute_v1",
     "prompt_contract_wave4_packet": "/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave4_execute_v1",
+    "prompt_contract_wave5_packet": "/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave5_execute_v1",
     "h1i_prompt_contract_packet": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet",
     "h1i_prompt_contract_repeat_packet": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_repeat3_v1_knowledge_work_ablation_packet",
     "h1j_prompt_contract_packet": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_candidates_v1_knowledge_work_ablation_packet",
@@ -33,8 +34,8 @@
     "wave4_live_visual_vs_no_directive_comparison": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260508T_visual_state_tool_selection_vs_no_directive_live_v1",
     "wave4_live_visual_vs_contracted_comparison": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260508T_visual_state_contracted_vs_tool_selection_live_v1",
     "registry_path": "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
-    "table_count": 32,
-    "figure_count": 20
+    "table_count": 34,
+    "figure_count": 21
   },
   "packet_summary": [
     {
@@ -239,6 +240,15 @@
       "label": "Visual Next-Call State v2",
       "hypothesis": "No-directive visual failures are concentrated in no-call behavior after a visual referent exists; explicit state-transition wording may reduce that collapse.",
       "tags": "visual;no_tool_call;state_machine;readback"
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_refine_selection",
+      "short_label": "Gemma 4 MLX visual refine",
+      "tool_prompt_contract_id": "visual_refine_selection_v5",
+      "disable_tool_turn_directive": true,
+      "label": "Visual Refine Selection v5",
+      "hypothesis": "Wave four proved broad visual state wording did not fix the filter/refinement case; a narrower contract that prioritizes refine_selection for existing selection_id filtering may preserve visual initiation while changing the targeted wrong-tool failure.",
+      "tags": "visual;tool_selection;refine_selection;filtering;arguments"
     },
     {
       "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_state_tool_selection",
@@ -637,6 +647,42 @@
       "count": "1"
     }
   ],
+  "prompt_contract_wave5_probe_gates": [
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_refine_selection",
+      "tool_prompt_contract_id": "visual_refine_selection_v5",
+      "exact_match_rate": "0.0",
+      "executable_match_rate": "0.0",
+      "delta_exact_vs_contracted": "-0.875",
+      "delta_exact_vs_no_directive": "0.0",
+      "probe_gate": "no_probe_improvement_vs_no_directive",
+      "improved_case_count": "0",
+      "regressed_case_count": "0",
+      "dominant_failure_mode": "no_tool_call",
+      "failure_modes": "argument_mismatch:1;call_count_mismatch:1;no_tool_call:6",
+      "recommendation": "no_probe_gain"
+    }
+  ],
+  "prompt_contract_wave5_probe_failure_modes": [
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_refine_selection",
+      "tool_prompt_contract_id": "visual_refine_selection_v5",
+      "failure_mode": "argument_mismatch",
+      "count": "1"
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_refine_selection",
+      "tool_prompt_contract_id": "visual_refine_selection_v5",
+      "failure_mode": "call_count_mismatch",
+      "count": "1"
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_refine_selection",
+      "tool_prompt_contract_id": "visual_refine_selection_v5",
+      "failure_mode": "no_tool_call",
+      "count": "6"
+    }
+  ],
   "prompt_contract_promotion_decisions": [
     {
       "wave": "v1",
@@ -757,6 +803,18 @@
       "promotion_decision": "hold_for_exact_probe_replay",
       "promotion_reason": "probe gain is too weak for H1 promotion without a stricter replay discriminator",
       "next_use": "test through exact-probe live replay before any H1 spend"
+    },
+    {
+      "wave": "v5",
+      "tool_prompt_contract_id": "visual_refine_selection_v5",
+      "exact_match_rate": "0.0",
+      "executable_match_rate": "0.0",
+      "delta_exact_vs_no_directive": "0.0",
+      "probe_gate": "no_probe_improvement_vs_no_directive",
+      "recommendation": "no_probe_gain",
+      "promotion_decision": "reject_for_h1_promotion",
+      "promotion_reason": "no exact or executable probe gain over the no-directive baseline",
+      "next_use": "replace with a sharper contract or a faithful live parallel workflow"
     }
   ],
   "h1i_prompt_contract_candidate_metrics": [
