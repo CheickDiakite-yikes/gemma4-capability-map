@@ -1,0 +1,57 @@
+[
+  {
+    "case_id": "visual_form_target_literal",
+    "family": "visual_argument_copying",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "form-err-202"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-form-live-latest",
+          "target_query": "recruiter note"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-form-live-latest",
+          "selection_kind": "regions",
+          "count": 0,
+          "executor_mode": "local",
+          "region_ids": []
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-form-live-latest",
+          "target_query": "validation error"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-form-live-latest",
+          "target_query": "recruiter note"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-form-live-latest\", \"target_query\": \"recruiter note\"}}",
+    "prompt_tokens": 994,
+    "completion_tokens": 36,
+    "latency_ms": 9294
+  }
+]
