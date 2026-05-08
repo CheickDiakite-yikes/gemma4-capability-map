@@ -376,6 +376,7 @@ def _handle_request(
     tool_specs = [ToolSpec.model_validate(item) for item in request.get("tool_specs", [])]
     runner.tool_turn_directive_enabled = bool(request.get("tool_turn_directive_enabled", True))
     runner.tool_prompt_contract_id = str(request.get("tool_prompt_contract_id", "") or "")
+    runner.tool_catalog_profile_id = str(request.get("tool_catalog_profile_id", "") or "")
     state["last_request_type"] = request_type
     state["last_request_started_at"] = _utc_now()
     state["active_request"] = {

@@ -59,7 +59,7 @@ TOOL_NAME_ALIASES = {
 }
 
 
-def tool_catalog_text(tool_specs: list[ToolSpec]) -> str:
+def tool_catalog_text(tool_specs: list[ToolSpec], *, profile_id: str = "") -> str:
     if not tool_specs:
         return ""
     lines = [
@@ -69,9 +69,47 @@ def tool_catalog_text(tool_specs: list[ToolSpec]) -> str:
         "Use exact schema field names.",
         "",
     ]
+    profile_lines = render_tool_catalog_profile(profile_id, tool_specs)
+    if profile_lines:
+        lines.extend(profile_lines.splitlines())
+        lines.append("")
     for tool in tool_specs:
         lines.append(f"- {tool.name}: {tool.description}")
         lines.append(json.dumps(tool.model_dump(mode="json", by_alias=True), ensure_ascii=False))
+    return "\n".join(lines)
+
+
+def known_tool_catalog_profile_ids() -> list[str]:
+    return ["visual_role_catalog_v1"]
+
+
+def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> str:
+    normalized = profile_id.strip()
+    if not normalized:
+        return ""
+    if normalized != "visual_role_catalog_v1":
+        known = ", ".join(known_tool_catalog_profile_ids())
+        raise ValueError(f"Unknown tool catalog profile `{profile_id}`. Known profiles: {known}")
+    tool_names = {tool.name for tool in tool_specs}
+    visual_names = {"segment_entities", "extract_layout", "refine_selection", "read_region_text"}
+    if not tool_names.intersection(visual_names):
+        return ""
+
+    lines = [
+        "Tool catalog profile: visual_role_catalog_v1",
+        "This catalog profile defines generic visual tool roles only; it does not reveal the expected tool call for this turn.",
+        "Visual tool routing roles:",
+    ]
+    if "segment_entities" in tool_names:
+        lines.append("- segment_entities: start entity/object selection from an image when no prior selection_id names the target set.")
+    if "extract_layout" in tool_names:
+        lines.append("- extract_layout: start layout or region extraction from an image when no prior selection_id or region_id names the target set.")
+    if "refine_selection" in tool_names:
+        lines.append("- refine_selection: filter, narrow, constrain, or choose latest/remaining items from an existing selection_id; consume selection_id and filter_query.")
+    if "read_region_text" in tool_names:
+        lines.append("- read_region_text: read text from an existing region_id; consume image_id and region_id after the region is already selected.")
+    lines.append("When a latest passing visual tool result already contains selection_id, prefer selection refinement over starting a fresh layout extraction for filtering or narrowing.")
+    lines.append("When a latest passing visual tool result already contains region_id and the request is readback, prefer region text reading over selection refinement.")
     return "\n".join(lines)
 
 

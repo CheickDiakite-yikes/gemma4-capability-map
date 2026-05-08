@@ -98,6 +98,39 @@ systems:
     assert result["manifest"]["runtime_info"]["tool_prompt_contract_id"] == "schema_anchor_v1"
 
 
+def test_run_tool_directive_probe_records_tool_catalog_profile_controls(tmp_path: Path) -> None:
+    registry_path = tmp_path / "registry.yaml"
+    registry_path.write_text(
+        """
+systems:
+  heuristic_tool_catalog_profile:
+    backend: heuristic
+    reasoner: google/gemma-4-E2B-it
+    reasoner_max_new_tokens: 64
+    request_timeout_seconds: 30.0
+    research_controls:
+      disable_tool_turn_directive: true
+      tool_catalog_profile_id: visual_role_catalog_v1
+""".strip()
+        + "\n",
+        encoding="utf-8",
+    )
+    output_dir = tmp_path / "probe"
+    result = run_tool_directive_probe(
+        system_id="heuristic_tool_catalog_profile",
+        output_dir=output_dir,
+        registry_path=registry_path,
+        cases=build_tool_directive_probe_cases()[4:5],
+    )
+
+    assert result["manifest"]["research_controls"] == {
+        "disable_tool_turn_directive": True,
+        "tool_catalog_profile_id": "visual_role_catalog_v1",
+    }
+    assert result["manifest"]["runtime_info"]["tool_turn_directive_enabled"] is False
+    assert result["manifest"]["runtime_info"]["tool_catalog_profile_id"] == "visual_role_catalog_v1"
+
+
 def test_tool_directive_probe_comparison_reports_case_and_family_deltas(tmp_path: Path) -> None:
     registry_path = tmp_path / "registry.yaml"
     registry_path.write_text(

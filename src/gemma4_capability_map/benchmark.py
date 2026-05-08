@@ -78,6 +78,7 @@ def build_runtime_bundle(
     retriever_device: str | None = None,
     tool_turn_directive_enabled: bool = True,
     tool_prompt_contract_id: str = "",
+    tool_catalog_profile_id: str = "",
 ) -> RuntimeBundle:
     registry = build_default_registry()
     resolved_reasoner_backend = reasoner_backend or backend
@@ -94,6 +95,7 @@ def build_runtime_bundle(
             request_timeout_seconds=request_timeout_seconds or 600.0,
             tool_turn_directive_enabled=tool_turn_directive_enabled,
             tool_prompt_contract_id=tool_prompt_contract_id,
+            tool_catalog_profile_id=tool_catalog_profile_id,
         ),
         router=FunctionGemmaRunner(router_id, backend=resolved_router_backend, device=resolved_router_device) if pipeline_name == "modular" else None,
         retriever=EmbeddingGemmaRetriever(retriever_id, backend=resolved_retriever_backend, device=resolved_retriever_device) if pipeline_name in {"hybrid", "modular"} or any(task.track.value == "retrieval" for task in tasks) else None,

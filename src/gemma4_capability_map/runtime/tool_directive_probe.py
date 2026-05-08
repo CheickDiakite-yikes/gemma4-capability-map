@@ -171,6 +171,7 @@ def run_tool_directive_probe(
         request_timeout_seconds=float(meta.get("request_timeout_seconds", 300.0) or 300.0),
         tool_turn_directive_enabled=not controls.disable_tool_turn_directive,
         tool_prompt_contract_id=controls.tool_prompt_contract_id,
+        tool_catalog_profile_id=controls.tool_catalog_profile_id,
     )
     tool_specs_by_name = build_default_registry().specs
     selected_cases = cases or build_tool_directive_probe_cases()

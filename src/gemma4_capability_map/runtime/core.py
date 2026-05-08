@@ -58,6 +58,8 @@ def _apply_reasoner_prompt_controls(bundle: Any, research_controls: ResearchCont
         reasoner.tool_turn_directive_enabled = not research_controls.disable_tool_turn_directive
     if hasattr(reasoner, "tool_prompt_contract_id"):
         reasoner.tool_prompt_contract_id = research_controls.tool_prompt_contract_id
+    if hasattr(reasoner, "tool_catalog_profile_id"):
+        reasoner.tool_catalog_profile_id = research_controls.tool_catalog_profile_id
 
 
 def execute_task_trace(
@@ -908,6 +910,7 @@ class LocalAgentRuntime:
             request_timeout_seconds=profile.request_timeout_seconds or 600.0,
             tool_turn_directive_enabled=not bool(profile.research_controls.get("disable_tool_turn_directive")),
             tool_prompt_contract_id=str(profile.research_controls.get("tool_prompt_contract_id", "") or ""),
+            tool_catalog_profile_id=str(profile.research_controls.get("tool_catalog_profile_id", "") or ""),
         )
         warmup = warm_runtime_bundle(bundle, self.tasks)
         return bundle, runtime_bundle_snapshot(bundle), warmup

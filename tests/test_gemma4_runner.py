@@ -152,6 +152,36 @@ def test_mlx_messages_can_add_generic_prompt_contract_without_exact_directive() 
     assert runner.runtime_info()["tool_prompt_contract_id"] == "schema_anchor_v1"
 
 
+def test_mlx_messages_can_add_tool_catalog_profile_without_exact_directive() -> None:
+    specs = build_default_registry().specs
+    runner = Gemma4Runner(
+        "google/gemma-4-E2B-it",
+        backend="mlx",
+        tool_turn_directive_enabled=False,
+        tool_catalog_profile_id="visual_role_catalog_v1",
+    )
+
+    prompt_messages = runner._build_mlx_messages(
+        messages=[
+            Message(
+                role="tool",
+                content='{"image_id":"img-form-latest","selection_id":"sel-001","region_id":"form-err-201"}',
+            ),
+            Message(role="user", content="Keep only the latest issue, then narrow to the phone issue."),
+        ],
+        media=["img-form-latest"],
+        tool_specs=[specs["extract_layout"], specs["refine_selection"], specs["read_region_text"]],
+        thinking=False,
+    )
+
+    rendered = "\n".join(message["content"] for message in prompt_messages)
+    assert "Tool catalog profile: visual_role_catalog_v1" in rendered
+    assert "refine_selection: filter, narrow, constrain" in rendered
+    assert "Tool directive for this turn:" not in rendered
+    assert '{"name":"refine_selection","arguments":{"selection_id":"sel-001","filter_query":"latest"}}' not in rendered
+    assert runner.runtime_info()["tool_catalog_profile_id"] == "visual_role_catalog_v1"
+
+
 def test_hf_service_backend_uses_service_response(monkeypatch) -> None:
     monkeypatch.setattr(
         "gemma4_capability_map.models.gemma4_runner.ensure_hf_reasoner_service",

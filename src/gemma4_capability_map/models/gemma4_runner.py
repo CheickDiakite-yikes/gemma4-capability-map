@@ -32,6 +32,7 @@ class Gemma4Runner(Runner):
         request_timeout_seconds: float = 600.0,
         tool_turn_directive_enabled: bool = True,
         tool_prompt_contract_id: str = "",
+        tool_catalog_profile_id: str = "",
         load_event_hook: Callable[[dict[str, Any]], None] | None = None,
     ) -> None:
         super().__init__(model_id=model_id, backend=backend)
@@ -41,6 +42,7 @@ class Gemma4Runner(Runner):
         self.request_timeout_seconds = request_timeout_seconds
         self.tool_turn_directive_enabled = tool_turn_directive_enabled
         self.tool_prompt_contract_id = tool_prompt_contract_id
+        self.tool_catalog_profile_id = tool_catalog_profile_id
         self._load_event_hook = load_event_hook
         self._processor = None
         self._tokenizer = None
@@ -81,6 +83,7 @@ class Gemma4Runner(Runner):
             "request_timeout_seconds": self.request_timeout_seconds,
             "tool_turn_directive_enabled": self.tool_turn_directive_enabled,
             "tool_prompt_contract_id": self.tool_prompt_contract_id,
+            "tool_catalog_profile_id": self.tool_catalog_profile_id,
             "service": self._service_info,
             "partial_runtime": self._llama_cpp_partial,
             "llama_cpp_error": self._llama_cpp_error,
@@ -288,6 +291,7 @@ class Gemma4Runner(Runner):
                 "max_new_tokens": max_new_tokens,
                 "tool_turn_directive_enabled": self.tool_turn_directive_enabled,
                 "tool_prompt_contract_id": self.tool_prompt_contract_id,
+                "tool_catalog_profile_id": self.tool_catalog_profile_id,
             },
             timeout_seconds=self.request_timeout_seconds,
         )
@@ -645,13 +649,17 @@ class Gemma4Runner(Runner):
         if system_text:
             prepared.append({"role": "system", "content": [{"type": "text", "text": system_text}]})
         if tool_specs:
+            catalog_text = self._tool_catalog_text(tool_specs)
             prepared.append(
                 {
                     "role": "system",
                     "content": [
                         {
                             "type": "text",
-                            "text": "Available tools:\n" + "\n".join(
+                            "text": catalog_text
+                            if self.tool_catalog_profile_id
+                            else "Available tools:\n"
+                            + "\n".join(
                                 json.dumps(tool.model_dump(mode="json", by_alias=True), ensure_ascii=False) for tool in tool_specs
                             ),
                         },
@@ -694,10 +702,13 @@ class Gemma4Runner(Runner):
         if system_text:
             prepared.append({"role": "system", "content": system_text})
         if tool_specs:
+            catalog_text = self._tool_catalog_text(tool_specs)
             prepared.append(
                 {
                     "role": "system",
-                    "content": "Available tools:\n"
+                    "content": catalog_text
+                    if self.tool_catalog_profile_id
+                    else "Available tools:\n"
                     + "\n".join(
                         json.dumps(tool.model_dump(mode="json", by_alias=True), ensure_ascii=False) for tool in tool_specs
                     ),
@@ -744,7 +755,7 @@ class Gemma4Runner(Runner):
         system_text = self._system_instruction(tool_specs, thinking=thinking, native_thinking=False)
         if system_text:
             prepared.append({"role": "system", "content": system_text})
-        catalog_text = tool_catalog_text(tool_specs)
+        catalog_text = self._tool_catalog_text(tool_specs)
         if catalog_text:
             prepared.append({"role": "system", "content": catalog_text})
         prompt_contract = self._tool_prompt_contract_text(messages, media, tool_specs)
@@ -803,6 +814,9 @@ class Gemma4Runner(Runner):
         tool_specs: list[ToolSpec],
     ) -> str:
         return render_tool_prompt_contract(self.tool_prompt_contract_id, messages, media, tool_specs)
+
+    def _tool_catalog_text(self, tool_specs: list[ToolSpec]) -> str:
+        return tool_catalog_text(tool_specs, profile_id=self.tool_catalog_profile_id)
 
     def _system_instruction(self, tool_specs: list[ToolSpec], thinking: bool, native_thinking: bool) -> str:
         instructions: list[str] = []

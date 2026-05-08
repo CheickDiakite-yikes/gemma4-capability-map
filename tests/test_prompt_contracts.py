@@ -9,6 +9,7 @@ from gemma4_capability_map.tools.prompt_contracts import (
     known_tool_prompt_contract_ids,
     render_tool_prompt_contract,
 )
+from gemma4_capability_map.tools.planner import render_tool_catalog_profile, tool_catalog_text
 from gemma4_capability_map.tools.registry import build_default_registry
 
 
@@ -78,6 +79,51 @@ def test_research_controls_carry_prompt_contract_id_in_manifest() -> None:
         "disable_tool_turn_directive": True,
         "tool_prompt_contract_id": "schema_anchor_v1",
     }
+
+
+def test_research_controls_carry_tool_catalog_profile_id_in_manifest() -> None:
+    controls = ResearchControls.from_mapping(
+        {
+            "disable_tool_turn_directive": True,
+            "tool_catalog_profile_id": "visual_role_catalog_v1",
+        }
+    )
+
+    assert controls.disable_tool_turn_directive is True
+    assert controls.tool_catalog_profile_id == "visual_role_catalog_v1"
+    assert controls.manifest_payload() == {
+        "disable_tool_turn_directive": True,
+        "tool_catalog_profile_id": "visual_role_catalog_v1",
+    }
+
+
+def test_visual_role_catalog_profile_is_generic_and_tool_catalog_scoped() -> None:
+    specs = build_default_registry().specs
+    rendered = render_tool_catalog_profile(
+        "visual_role_catalog_v1",
+        tool_specs=[specs["extract_layout"], specs["refine_selection"], specs["read_region_text"]],
+    )
+
+    assert "Tool catalog profile: visual_role_catalog_v1" in rendered
+    assert "does not reveal the expected tool call" in rendered
+    assert "extract_layout: start layout or region extraction" in rendered
+    assert "refine_selection: filter, narrow, constrain" in rendered
+    assert "read_region_text: read text from an existing region_id" in rendered
+    assert '{"name":"refine_selection"' not in rendered
+    assert "sel-open-items" not in rendered
+
+
+def test_tool_catalog_profile_renders_inside_catalog_without_exact_directive() -> None:
+    specs = build_default_registry().specs
+    rendered = tool_catalog_text(
+        [specs["extract_layout"], specs["refine_selection"], specs["read_region_text"]],
+        profile_id="visual_role_catalog_v1",
+    )
+
+    assert "Tool catalog profile: visual_role_catalog_v1" in rendered
+    assert "Allowed tools. Use only these exact names." in rendered
+    assert "Tool directive for this turn:" not in rendered
+    assert '"name": "refine_selection"' in rendered
 
 
 def test_wave_three_contracts_target_live_replay_mechanisms_without_oracle_calls() -> None:
