@@ -38,18 +38,23 @@ WAVE4_CANDIDATE_SYSTEM_IDS = [
 WAVE5_CANDIDATE_SYSTEM_IDS = [
     "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_refine_selection",
 ]
+WAVE6_CANDIDATE_SYSTEM_IDS = [
+    "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard",
+]
 PROMPT_CONTRACT_WAVES = {
     "v1": DEFAULT_CANDIDATE_SYSTEM_IDS,
     "v2": WAVE2_CANDIDATE_SYSTEM_IDS,
     "v3": WAVE3_CANDIDATE_SYSTEM_IDS,
     "v4": WAVE4_CANDIDATE_SYSTEM_IDS,
     "v5": WAVE5_CANDIDATE_SYSTEM_IDS,
+    "v6": WAVE6_CANDIDATE_SYSTEM_IDS,
     "all": [
         *DEFAULT_CANDIDATE_SYSTEM_IDS,
         *WAVE2_CANDIDATE_SYSTEM_IDS,
         *WAVE3_CANDIDATE_SYSTEM_IDS,
         *WAVE4_CANDIDATE_SYSTEM_IDS,
         *WAVE5_CANDIDATE_SYSTEM_IDS,
+        *WAVE6_CANDIDATE_SYSTEM_IDS,
     ],
 }
 
@@ -109,6 +114,7 @@ def build_tool_prompt_contract_probe_packet(
             {
                 "system_id": system_id,
                 "tool_prompt_contract_id": controls.tool_prompt_contract_id,
+                "tool_catalog_profile_id": controls.tool_catalog_profile_id,
                 "output_dir": str(output_dir.resolve()),
                 "command": command,
             }
@@ -116,6 +122,7 @@ def build_tool_prompt_contract_probe_packet(
         row = {
             "system_id": system_id,
             "tool_prompt_contract_id": controls.tool_prompt_contract_id,
+            "tool_catalog_profile_id": controls.tool_catalog_profile_id,
             "execute": execute,
             "output_dir": str(output_dir.resolve()),
             "comparison_path": "",

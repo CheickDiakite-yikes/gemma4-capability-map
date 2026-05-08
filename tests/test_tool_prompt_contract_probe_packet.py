@@ -101,6 +101,21 @@ def test_tool_prompt_contract_probe_packet_can_select_fifth_wave(tmp_path: Path)
     assert contract_ids == {"visual_refine_selection_v5"}
 
 
+def test_tool_prompt_contract_probe_packet_can_select_sixth_wave_combined_catalog_profile(tmp_path: Path) -> None:
+    packet = SCRIPT.build_tool_prompt_contract_probe_packet(
+        output_root=tmp_path,
+        run_group_id="candidate_probe_wave6_dry_run",
+        candidate_wave="v6",
+        execute=False,
+    )
+
+    assert packet["candidate_count"] == 1
+    assert packet["manifest"]["candidate_wave"] == "v6"
+    row = packet["rows"][0]
+    assert row["tool_prompt_contract_id"] == "literal_argument_guard_v1"
+    assert row["tool_catalog_profile_id"] == "visual_role_catalog_v1"
+
+
 def test_tool_prompt_contract_probe_packet_validates_candidate_controls(tmp_path: Path) -> None:
     registry_path = tmp_path / "registry.yaml"
     registry_path.write_text(
