@@ -99,6 +99,7 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 | [`wave-three visual live candidate comparison`](../../results/tool_probe_replay_live_comparisons/20260507T_visual_state_visual_tool_initiation_vs_no_directive_live_v1) | Candidate live replay showing visual tool initiation improves over no-directive but remains below contracted. |
 | [`wave-three canonical live candidate comparison`](../../results/tool_probe_replay_live_comparisons/20260507T_canonical_argument_canonical_json_copy_vs_no_directive_live_v1) | Candidate live replay showing canonical JSON copy does not improve exact canonical argument replay. |
 | [`wave-four visual live candidate comparison`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_state_tool_selection_vs_no_directive_live_v1) | Candidate live replay showing visual state/tool-selection wording preserves one exact visual recovery but does not beat wave three. |
+| [`visual tool-choice diagnostic`](../../results/tool_probe_replay_live_diagnostics/20260508T_visual_tool_choice_wave3_wave4_v1) | Expected-vs-actual tool-choice diagnostic showing both visual candidates choose `extract_layout` where latest filtering expects `refine_selection`. |
 | [`Gemini CLI dry-run baseline`](../../results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1) | External-reference prompt and command manifest over the H1h workflow families. |
 
 ## Packet Summary
@@ -469,6 +470,8 @@ Case read:
 | `visual_readback_region_literal` | `exact` | preserves the one exact visual referent recovery |
 
 The conclusion is tighter now: visual-initiation wording was doing the useful work in wave three. Additional generic visual state/tool-selection rules did not solve the wrong-tool filter case and cost the executable form-target recovery.
+
+The visual tool-choice diagnostic packet makes the remaining failure explicit: in both wave-three and wave-four live candidate packets, `visual_latest_filter_literal` expects `refine_selection` but the model emits `extract_layout`. That means the next harness change should make existing-selection filtering separable from locating/layout extraction at generation time, not just add another generic prompt rule.
 
 ## H1i Candidate Packet Result
 

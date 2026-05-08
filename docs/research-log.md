@@ -2926,6 +2926,13 @@
   - summary: zero improved cases, zero regressed cases versus no-directive, dominant failure `no_tool_call`, failure split `argument_mismatch:1`, `call_count_mismatch:1`, `no_tool_call:6`
   - live replay was intentionally skipped because the candidate did not clear the raw probe gate
   - interpretation: making the prompt more surgical around `refine_selection` did not preserve visual tool initiation. Standalone wording-only refinement has now failed twice after wave three; the next move should change either the generation-time contract shape, the tool catalog/routing presentation, or the harness diagnostic around visual tool choice.
+- Visual tool-choice diagnostics now turn live visual replay failures into expected-vs-actual tool rows:
+  - script: [`scripts/analyze_visual_tool_choice_diagnostics.py`](../scripts/analyze_visual_tool_choice_diagnostics.py)
+  - packet: [`20260508T_visual_tool_choice_wave3_wave4_v1`](../results/tool_probe_replay_live_diagnostics/20260508T_visual_tool_choice_wave3_wave4_v1)
+  - inputs: wave-three visual initiation live packet and wave-four visual state/tool-selection live packet
+  - output counts: `exact = 2`, `tool_ok_argument_alias_executable = 1`, `visual_tool_initiation_missing = 1`, `wrong_visual_tool_selection = 2`
+  - key row: `visual_latest_filter_literal` expects `refine_selection`, but both candidate packets emit `extract_layout`
+  - interpretation: the next fix should not be another generic prompt reminder. The model is still treating a latest-selection filtering request as a locating/layout request, so the next harness change should make tool roles or routing priority more separable at generation time.
 
 ### Verification
 

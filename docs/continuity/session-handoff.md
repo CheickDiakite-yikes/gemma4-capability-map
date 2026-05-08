@@ -75,6 +75,10 @@ Current strongest MLX result:
   - probe packet: [`results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave5_execute_v1`](../../results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave5_execute_v1)
   - `visual_refine_selection_v5`: probe exact `0.0`, probe executable `0.0`, recommendation `no_probe_gain`
   - interpretation: surgical `refine_selection` wording did not preserve tool initiation and should not spend CLI-live replay or H1 budget.
+- visual tool-choice diagnostics are now available:
+  - script: [`scripts/analyze_visual_tool_choice_diagnostics.py`](../../scripts/analyze_visual_tool_choice_diagnostics.py)
+  - packet: [`results/tool_probe_replay_live_diagnostics/20260508T_visual_tool_choice_wave3_wave4_v1`](../../results/tool_probe_replay_live_diagnostics/20260508T_visual_tool_choice_wave3_wave4_v1)
+  - finding: both wave-three and wave-four visual candidates choose `extract_layout` when `visual_latest_filter_literal` expects `refine_selection`; v4 also loses visual tool initiation on `visual_form_target_literal`.
 - exact-probe replay is now scaffolded and recorded:
   - brief: [`docs/continuity/exact-probe-replay.md`](./exact-probe-replay.md)
   - packet: [`results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1`](../../results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1)
@@ -102,7 +106,7 @@ Current next loop:
 1. Treat H1i, H1j, and H1k packaged packets as saturated or non-discriminating for current prompt-contract validation.
 2. Treat waves one through five as partial-gain or negative evidence, not fixes.
 3. Keep `visual_tool_initiation_v3` as the only candidate that recovered executable visual-form behavior.
-4. Change the harness/tool-catalog diagnostic before another wording-only visual candidate; v4 and v5 show prompt wording alone is not enough.
+4. Change the harness/tool-catalog presentation before another wording-only visual candidate; v4 and v5 show prompt wording alone is not enough.
 5. Use CLI-live exact replay as the active discriminator before promoting another candidate back into H1.
 6. Return to H1h only after replay-live or raw probe evidence shows a mechanism-level change.
 7. Regenerate the report artifacts after any H1i/H1h/probe/Gemini/live-replay packet change.

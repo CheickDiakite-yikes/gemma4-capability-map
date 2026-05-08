@@ -202,6 +202,10 @@ What remains:
   - `visual_refine_selection_v5`: exact `0.0`, executable `0.0`, no probe gain
   - live replay was skipped because the raw gate did not move
   - interpretation: standalone wording-only visual refinements have now produced one failed-to-improve live candidate and one raw-gate rejection
+- visual tool-choice diagnostics now exist:
+  - script: [`scripts/analyze_visual_tool_choice_diagnostics.py`](../../scripts/analyze_visual_tool_choice_diagnostics.py)
+  - packet: [`results/tool_probe_replay_live_diagnostics/20260508T_visual_tool_choice_wave3_wave4_v1`](../../results/tool_probe_replay_live_diagnostics/20260508T_visual_tool_choice_wave3_wave4_v1)
+  - result: both wave-three and wave-four candidates choose `extract_layout` where `visual_latest_filter_literal` expects `refine_selection`
 - exact-probe replay now exists:
   - brief: [`docs/continuity/exact-probe-replay.md`](./exact-probe-replay.md)
   - packet: [`results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1`](../../results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1)
@@ -225,7 +229,7 @@ What remains:
   - canonical-argument no-directive live execution: [`results/tool_probe_replay_live/20260507T_canonical_argument_no_directive_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_canonical_argument_no_directive_live_execute_v1), exact `0 / 4`, all failures `argument_mismatch`
   - canonical-argument contracted live execution: [`results/tool_probe_replay_live/20260507T_canonical_argument_contracted_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_canonical_argument_contracted_live_execute_v1), exact `4 / 4`
   - canonical-argument live comparison: [`results/tool_probe_replay_live_comparisons/20260507T_canonical_argument_contracted_vs_no_directive_live_v1`](../../results/tool_probe_replay_live_comparisons/20260507T_canonical_argument_contracted_vs_no_directive_live_v1), delta exact `-1.0`, actual-call delta `0`
-  - next use: add a harness-side diagnostic around visual tool choice or change the tool catalog/routing presentation before another prompt-contract attempt; compare through `replay-live --execute` only after raw probe movement
+  - next use: change the tool catalog/routing presentation so existing-selection filtering is not competing with locating/extract-layout behavior; compare through `replay-live --execute` only after raw probe movement
 - promote a candidate beyond H1i only if it moves raw-clean or controller-burden metrics for the right reason
 - regenerate the MLX tool-contract report after any H1i, H1h, probe, or Gemini baseline packet changes
 - when a real Gemini CLI binary is available, rerun the same packet with `--execute`; keep the dry-run packet as the no-side-effects prompt manifest
