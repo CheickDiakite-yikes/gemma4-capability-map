@@ -1,0 +1,7 @@
+family,case_count,baseline_exact_count,candidate_exact_count,baseline_executable_count,candidate_executable_count,shared_executable_case_count,baseline_exact_rate,candidate_exact_rate,delta_exact_rate,baseline_executable_rate,candidate_executable_rate,delta_executable_rate
+api_canonicalization,2,0,0,0,0,0,0.0,0.0,0.0,,,
+cli_canonicalization,1,0,0,0,0,0,0.0,0.0,0.0,,,
+cli_patch_copying,1,0,0,0,0,0,0.0,0.0,0.0,,,
+parallel_tool_calling,1,0,0,0,0,0,0.0,0.0,0.0,,,
+visual_argument_copying,1,0,0,0,0,1,0.0,0.0,0.0,0.0,0.0,0.0
+visual_referent_carryover,2,0,2,0,0,0,0.0,1.0,1.0,,,
