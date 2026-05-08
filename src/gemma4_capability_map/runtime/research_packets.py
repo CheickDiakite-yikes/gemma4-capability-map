@@ -13,6 +13,7 @@ from rich.table import Table
 ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_PACKET_ROOTS = {
     "prompt-contract-probe": ROOT / "results" / "tool_prompt_contract_probe_packets",
+    "tool-catalog-profile-probe": ROOT / "results" / "tool_catalog_profile_probe_packets",
     "tool-probe-replay": ROOT / "results" / "tool_probe_replay_packets",
     "tool-probe-replay-live": ROOT / "results" / "tool_probe_replay_live",
     "tool-probe-replay-live-comparison": ROOT / "results" / "tool_probe_replay_live_comparisons",
@@ -204,6 +205,7 @@ def _research_packet_renderable(payload: dict[str, Any]) -> Group:
     candidates = Table(title="Candidates")
     candidates.add_column("System")
     candidates.add_column("Contract")
+    candidates.add_column("Catalog")
     candidates.add_column("Execute")
     candidates.add_column("Exact")
     candidates.add_column("Executable")
@@ -211,6 +213,7 @@ def _research_packet_renderable(payload: dict[str, Any]) -> Group:
         candidates.add_row(
             str(row.get("system_id", "")),
             str(row.get("tool_prompt_contract_id", "")),
+            str(row.get("tool_catalog_profile_id", "")),
             str(row.get("execute", "")),
             str(row.get("exact_match_rate", "")),
             str(row.get("executable_match_rate", "")),
