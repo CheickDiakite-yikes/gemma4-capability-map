@@ -20,9 +20,9 @@ def test_prompt_contract_probe_packet_summary_writes_candidate_gate_outputs(tmp_
     (packet_dir / "candidate_summary.csv").write_text(
         "\n".join(
             [
-                "system_id,tool_prompt_contract_id,execute,output_dir,comparison_path,no_directive_comparison_path,exact_match_rate,executable_match_rate,delta_exact_vs_contracted,delta_exact_vs_no_directive,probe_gate",
-                f"schema,schema_anchor_v1,True,{packet_dir / 'schema'},,{schema_dir / 'probe_comparison.json'},0.125,0.0,-0.75,0.125,probe_improved_vs_no_directive",
-                f"literal,literal_argument_guard_v1,True,{packet_dir / 'literal'},,{literal_dir / 'probe_comparison.json'},0.0,1.0,-0.875,0.0,probe_improved_vs_no_directive",
+                "system_id,tool_prompt_contract_id,tool_catalog_profile_id,execute,output_dir,comparison_path,no_directive_comparison_path,exact_match_rate,executable_match_rate,delta_exact_vs_contracted,delta_exact_vs_no_directive,probe_gate",
+                f"schema,schema_anchor_v1,,True,{packet_dir / 'schema'},,{schema_dir / 'probe_comparison.json'},0.125,0.0,-0.75,0.125,probe_improved_vs_no_directive",
+                f"literal,literal_argument_guard_v1,visual_role_catalog_v1,True,{packet_dir / 'literal'},,{literal_dir / 'probe_comparison.json'},0.0,1.0,-0.875,0.0,probe_improved_vs_no_directive",
             ]
         )
         + "\n",
@@ -56,6 +56,7 @@ def test_prompt_contract_probe_packet_summary_writes_candidate_gate_outputs(tmp_
     assert rows["schema_anchor_v1"]["recommendation"] == "weak_exact_gain"
     assert rows["schema_anchor_v1"]["improved_case_count"] == 1
     assert rows["literal_argument_guard_v1"]["recommendation"] == "visual_executable_gain_only"
+    assert rows["literal_argument_guard_v1"]["tool_catalog_profile_id"] == "visual_role_catalog_v1"
     assert (packet_dir / "candidate_gate_summary.csv").exists()
     assert (packet_dir / "candidate_failure_mode_counts.csv").exists()
     assert "weak_exact_gain" in (packet_dir / "candidate_gate_summary.md").read_text(encoding="utf-8")

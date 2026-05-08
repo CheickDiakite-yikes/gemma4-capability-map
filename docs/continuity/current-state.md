@@ -231,6 +231,26 @@ Latest MLX tool-contract research:
   - executed packet: [`results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave5_execute_v1`](../../results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave5_execute_v1)
   - gate result: exact `0.0`, executable `0.0`, delta exact vs no-directive `0.0`, recommendation `no_probe_gain`
   - interpretation: v5 is rejected before live replay. The surgical `refine_selection` wording did not preserve visual tool initiation and increased no-call concentration.
+- Tool-catalog visual role profile:
+  - profile: `visual_role_catalog_v1`
+  - runner: [`scripts/run_tool_catalog_profile_probe_packet.py`](../../scripts/run_tool_catalog_profile_probe_packet.py)
+  - dry-run packet: [`results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_v1_dry_run`](../../results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_v1_dry_run)
+  - executed probe packet: [`results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_v1_probe`](../../results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_v1_probe)
+  - raw gate result: exact `0.125`, executable `1.0`, delta exact vs no-directive `+0.125`
+  - live replay packet: [`results/tool_probe_replay_live/20260508T_visual_role_catalog_live_execute_v1`](../../results/tool_probe_replay_live/20260508T_visual_role_catalog_live_execute_v1)
+  - live replay result: exact `1 / 3`, executable visual-form recovery `1.0`, all three visual cases enter the tool protocol
+  - comparisons:
+    - [`results/tool_probe_replay_live_comparisons/20260508T_visual_role_catalog_vs_no_directive_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_role_catalog_vs_no_directive_v1)
+    - [`results/tool_probe_replay_live_comparisons/20260508T_visual_role_catalog_vs_visual_tool_initiation_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_role_catalog_vs_visual_tool_initiation_v1)
+    - [`results/tool_probe_replay_live_comparisons/20260508T_visual_role_catalog_vs_visual_state_tool_selection_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_role_catalog_vs_visual_state_tool_selection_v1)
+  - interpretation: the catalog profile changes the remaining visual failure from `wrong_tool` / `no_tool_call` into `argument_mismatch`. The useful mechanism is tool-role separability in the catalog, not another standalone visual prompt rule.
+- Prompt-contract wave 6:
+  - candidate: `literal_argument_guard_v1` + `visual_role_catalog_v1`
+  - runner flag: `scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v6`
+  - dry-run packet: [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run)
+  - executed packet: [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe)
+  - gate result: exact `0.125`, executable `0.0`, delta exact vs no-directive `+0.125`
+  - interpretation: negative composition result. Adding the literal guard on top of the visual catalog does not fix literal drift and loses the catalog-only executable visual rescue, so it should not spend live replay or H1 budget.
 - Exact-probe replay packet:
   - brief: [`docs/continuity/exact-probe-replay.md`](./exact-probe-replay.md)
   - script: [`scripts/build_tool_probe_replay_packet.py`](../../scripts/build_tool_probe_replay_packet.py)

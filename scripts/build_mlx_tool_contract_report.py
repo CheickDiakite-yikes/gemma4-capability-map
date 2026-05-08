@@ -52,6 +52,12 @@ DEFAULT_PROMPT_CONTRACT_WAVE4_PACKET = (
 DEFAULT_PROMPT_CONTRACT_WAVE5_PACKET = (
     ROOT / "results" / "tool_prompt_contract_probe_packets" / "20260508T_prompt_contract_wave5_execute_v1"
 )
+DEFAULT_TOOL_CATALOG_PROFILE_PACKET = (
+    ROOT / "results" / "tool_catalog_profile_probe_packets" / "20260508T_visual_role_catalog_v1_probe"
+)
+DEFAULT_PROMPT_CONTRACT_WAVE6_PACKET = (
+    ROOT / "results" / "tool_prompt_contract_probe_packets" / "20260508T_visual_catalog_literal_guard_v6_probe"
+)
 DEFAULT_H1I_PROMPT_CONTRACT_PACKET = (
     ROOT / "results" / "knowledge_work_h1_slice" / "20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet"
 )
@@ -163,6 +169,24 @@ DEFAULT_WAVE4_LIVE_VISUAL_VS_CONTRACTED_COMPARISON = (
     / "tool_probe_replay_live_comparisons"
     / "20260508T_visual_state_contracted_vs_tool_selection_live_v1"
 )
+DEFAULT_CATALOG_LIVE_VISUAL_VS_NO_DIRECTIVE_COMPARISON = (
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260508T_visual_role_catalog_vs_no_directive_v1"
+)
+DEFAULT_CATALOG_LIVE_VISUAL_VS_VISUAL_INITIATION_COMPARISON = (
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260508T_visual_role_catalog_vs_visual_tool_initiation_v1"
+)
+DEFAULT_CATALOG_LIVE_VISUAL_VS_VISUAL_STATE_COMPARISON = (
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260508T_visual_role_catalog_vs_visual_state_tool_selection_v1"
+)
 
 SYSTEM_LABELS = {
     "mlx_gemma4_e2b_reasoner_only": "contracted",
@@ -186,6 +210,8 @@ def build_report(
     prompt_contract_wave3_packet: str | Path = DEFAULT_PROMPT_CONTRACT_WAVE3_PACKET,
     prompt_contract_wave4_packet: str | Path = DEFAULT_PROMPT_CONTRACT_WAVE4_PACKET,
     prompt_contract_wave5_packet: str | Path = DEFAULT_PROMPT_CONTRACT_WAVE5_PACKET,
+    tool_catalog_profile_packet: str | Path = DEFAULT_TOOL_CATALOG_PROFILE_PACKET,
+    prompt_contract_wave6_packet: str | Path = DEFAULT_PROMPT_CONTRACT_WAVE6_PACKET,
     h1i_prompt_contract_packet: str | Path = DEFAULT_H1I_PROMPT_CONTRACT_PACKET,
     h1i_prompt_contract_repeat_packet: str | Path = DEFAULT_H1I_PROMPT_CONTRACT_REPEAT_PACKET,
     h1j_prompt_contract_packet: str | Path = DEFAULT_H1J_PROMPT_CONTRACT_PACKET,
@@ -205,6 +231,9 @@ def build_report(
     wave3_live_visual_vs_contracted_comparison: str | Path = DEFAULT_WAVE3_LIVE_VISUAL_VS_CONTRACTED_COMPARISON,
     wave4_live_visual_vs_no_directive_comparison: str | Path = DEFAULT_WAVE4_LIVE_VISUAL_VS_NO_DIRECTIVE_COMPARISON,
     wave4_live_visual_vs_contracted_comparison: str | Path = DEFAULT_WAVE4_LIVE_VISUAL_VS_CONTRACTED_COMPARISON,
+    catalog_live_visual_vs_no_directive_comparison: str | Path = DEFAULT_CATALOG_LIVE_VISUAL_VS_NO_DIRECTIVE_COMPARISON,
+    catalog_live_visual_vs_visual_initiation_comparison: str | Path = DEFAULT_CATALOG_LIVE_VISUAL_VS_VISUAL_INITIATION_COMPARISON,
+    catalog_live_visual_vs_visual_state_comparison: str | Path = DEFAULT_CATALOG_LIVE_VISUAL_VS_VISUAL_STATE_COMPARISON,
     registry_path: str | Path = DEFAULT_REGISTRY_PATH,
 ) -> dict[str, Any]:
     target = Path(output_dir)
@@ -239,12 +268,16 @@ def build_report(
     prompt_contract_wave4_failure_rows = _csv_rows(Path(prompt_contract_wave4_packet) / "candidate_failure_mode_counts.csv")
     prompt_contract_wave5_gate_rows = _csv_rows(Path(prompt_contract_wave5_packet) / "candidate_gate_summary.csv")
     prompt_contract_wave5_failure_rows = _csv_rows(Path(prompt_contract_wave5_packet) / "candidate_failure_mode_counts.csv")
+    tool_catalog_profile_gate_rows = _csv_rows(Path(tool_catalog_profile_packet) / "candidate_summary.csv")
+    prompt_contract_wave6_gate_rows = _csv_rows(Path(prompt_contract_wave6_packet) / "candidate_gate_summary.csv")
+    prompt_contract_wave6_failure_rows = _csv_rows(Path(prompt_contract_wave6_packet) / "candidate_failure_mode_counts.csv")
     prompt_contract_promotion_rows = _prompt_contract_promotion_rows(
         wave1_rows=prompt_contract_gate_rows,
         wave2_rows=prompt_contract_wave2_gate_rows,
         wave3_rows=prompt_contract_wave3_gate_rows,
         wave4_rows=prompt_contract_wave4_gate_rows,
         wave5_rows=prompt_contract_wave5_gate_rows,
+        wave6_rows=prompt_contract_wave6_gate_rows,
     )
     h1i_prompt_contract_rows = _csv_rows(Path(h1i_prompt_contract_packet) / "tool_contract_system_deltas.csv")
     h1i_prompt_contract_repeat_rows = _csv_rows(
@@ -353,6 +386,35 @@ def build_report(
     ]
     wave4_live_summary_rows = _live_candidate_summary_rows(wave4_live_comparisons)
     wave4_live_case_rows = _live_candidate_case_rows(wave4_live_comparisons)
+    catalog_live_comparisons = [
+        (
+            "visual role catalog vs no directive",
+            json.loads(
+                (Path(catalog_live_visual_vs_no_directive_comparison) / "live_replay_comparison.json").read_text(
+                    encoding="utf-8"
+                )
+            ),
+        ),
+        (
+            "visual role catalog vs visual initiation",
+            json.loads(
+                (
+                    Path(catalog_live_visual_vs_visual_initiation_comparison)
+                    / "live_replay_comparison.json"
+                ).read_text(encoding="utf-8")
+            ),
+        ),
+        (
+            "visual role catalog vs visual state tool",
+            json.loads(
+                (Path(catalog_live_visual_vs_visual_state_comparison) / "live_replay_comparison.json").read_text(
+                    encoding="utf-8"
+                )
+            ),
+        ),
+    ]
+    catalog_live_summary_rows = _live_candidate_summary_rows(catalog_live_comparisons)
+    catalog_live_case_rows = _live_candidate_case_rows(catalog_live_comparisons)
 
     _write_csv(tables_dir / "packet_summary.csv", packet_rows)
     _write_csv(tables_dir / "h1i_system_metrics.csv", h1i_system_rows)
@@ -371,6 +433,9 @@ def build_report(
     _write_csv(tables_dir / "prompt_contract_wave4_probe_failure_modes.csv", prompt_contract_wave4_failure_rows)
     _write_csv(tables_dir / "prompt_contract_wave5_probe_gates.csv", prompt_contract_wave5_gate_rows)
     _write_csv(tables_dir / "prompt_contract_wave5_probe_failure_modes.csv", prompt_contract_wave5_failure_rows)
+    _write_csv(tables_dir / "tool_catalog_profile_probe_gates.csv", tool_catalog_profile_gate_rows)
+    _write_csv(tables_dir / "prompt_contract_wave6_probe_gates.csv", prompt_contract_wave6_gate_rows)
+    _write_csv(tables_dir / "prompt_contract_wave6_probe_failure_modes.csv", prompt_contract_wave6_failure_rows)
     _write_csv(tables_dir / "prompt_contract_promotion_decisions.csv", prompt_contract_promotion_rows)
     _write_csv(tables_dir / "h1i_prompt_contract_candidate_metrics.csv", h1i_prompt_contract_rows)
     _write_csv(tables_dir / "h1i_prompt_contract_repeat3_metrics.csv", h1i_prompt_contract_repeat_rows)
@@ -388,6 +453,8 @@ def build_report(
     _write_csv(tables_dir / "wave3_live_candidate_case_deltas.csv", wave3_live_case_rows)
     _write_csv(tables_dir / "wave4_live_candidate_replay_summary.csv", wave4_live_summary_rows)
     _write_csv(tables_dir / "wave4_live_candidate_case_deltas.csv", wave4_live_case_rows)
+    _write_csv(tables_dir / "visual_catalog_live_candidate_replay_summary.csv", catalog_live_summary_rows)
+    _write_csv(tables_dir / "visual_catalog_live_candidate_case_deltas.csv", catalog_live_case_rows)
 
     _write_grouped_metric_svg(
         figures_dir / "h1i_readiness_strict_recovered.svg",
@@ -496,6 +563,28 @@ def build_report(
         figures_dir / "prompt_contract_wave5_probe_gate.svg",
         title="Prompt contract wave five probe gate",
         rows=prompt_contract_wave5_gate_rows,
+        label_field="tool_prompt_contract_id",
+        metrics=[
+            ("exact_match_rate", "exact", "#2563EB"),
+            ("executable_match_rate", "executable", "#059669"),
+            ("delta_exact_vs_no_directive", "delta exact", "#D97706"),
+        ],
+    )
+    _write_grouped_metric_svg(
+        figures_dir / "tool_catalog_profile_probe_gate.svg",
+        title="Tool catalog profile probe gate",
+        rows=tool_catalog_profile_gate_rows,
+        label_field="tool_catalog_profile_id",
+        metrics=[
+            ("exact_match_rate", "exact", "#2563EB"),
+            ("executable_match_rate", "executable", "#059669"),
+            ("delta_exact_vs_no_directive", "delta exact", "#D97706"),
+        ],
+    )
+    _write_grouped_metric_svg(
+        figures_dir / "prompt_contract_wave6_probe_gate.svg",
+        title="Prompt contract wave six probe gate",
+        rows=prompt_contract_wave6_gate_rows,
         label_field="tool_prompt_contract_id",
         metrics=[
             ("exact_match_rate", "exact", "#2563EB"),
@@ -623,6 +712,17 @@ def build_report(
             ("candidate_executable_rate", "candidate executable", "#059669"),
         ],
     )
+    _write_grouped_metric_svg(
+        figures_dir / "visual_catalog_live_candidate_replay_gate.svg",
+        title="Visual catalog live replay gate",
+        rows=catalog_live_summary_rows,
+        label_field="comparison",
+        metrics=[
+            ("baseline_exact_rate", "baseline exact", "#2563EB"),
+            ("candidate_exact_rate", "candidate exact", "#DC2626"),
+            ("candidate_executable_rate", "candidate executable", "#059669"),
+        ],
+    )
 
     manifest = {
         "generated_at": datetime.now(UTC).isoformat(),
@@ -637,6 +737,8 @@ def build_report(
         "prompt_contract_wave3_packet": str(Path(prompt_contract_wave3_packet).resolve()),
         "prompt_contract_wave4_packet": str(Path(prompt_contract_wave4_packet).resolve()),
         "prompt_contract_wave5_packet": str(Path(prompt_contract_wave5_packet).resolve()),
+        "tool_catalog_profile_packet": str(Path(tool_catalog_profile_packet).resolve()),
+        "prompt_contract_wave6_packet": str(Path(prompt_contract_wave6_packet).resolve()),
         "h1i_prompt_contract_packet": str(Path(h1i_prompt_contract_packet).resolve()),
         "h1i_prompt_contract_repeat_packet": str(Path(h1i_prompt_contract_repeat_packet).resolve()),
         "h1j_prompt_contract_packet": str(Path(h1j_prompt_contract_packet).resolve()),
@@ -668,9 +770,18 @@ def build_report(
         "wave4_live_visual_vs_contracted_comparison": str(
             Path(wave4_live_visual_vs_contracted_comparison).resolve()
         ),
+        "catalog_live_visual_vs_no_directive_comparison": str(
+            Path(catalog_live_visual_vs_no_directive_comparison).resolve()
+        ),
+        "catalog_live_visual_vs_visual_initiation_comparison": str(
+            Path(catalog_live_visual_vs_visual_initiation_comparison).resolve()
+        ),
+        "catalog_live_visual_vs_visual_state_comparison": str(
+            Path(catalog_live_visual_vs_visual_state_comparison).resolve()
+        ),
         "registry_path": str(Path(registry_path).resolve()),
-        "table_count": 34,
-        "figure_count": 21,
+        "table_count": 39,
+        "figure_count": 24,
     }
     report_payload = {
         "manifest": manifest,
@@ -688,6 +799,9 @@ def build_report(
         "prompt_contract_wave4_probe_failure_modes": prompt_contract_wave4_failure_rows,
         "prompt_contract_wave5_probe_gates": prompt_contract_wave5_gate_rows,
         "prompt_contract_wave5_probe_failure_modes": prompt_contract_wave5_failure_rows,
+        "tool_catalog_profile_probe_gates": tool_catalog_profile_gate_rows,
+        "prompt_contract_wave6_probe_gates": prompt_contract_wave6_gate_rows,
+        "prompt_contract_wave6_probe_failure_modes": prompt_contract_wave6_failure_rows,
         "prompt_contract_promotion_decisions": prompt_contract_promotion_rows,
         "h1i_prompt_contract_candidate_metrics": h1i_prompt_contract_rows,
         "h1i_prompt_contract_repeat3_metrics": h1i_prompt_contract_repeat_rows,
@@ -710,6 +824,8 @@ def build_report(
         "wave3_live_candidate_case_deltas": wave3_live_case_rows,
         "wave4_live_candidate_replay_summary": wave4_live_summary_rows,
         "wave4_live_candidate_case_deltas": wave4_live_case_rows,
+        "visual_catalog_live_candidate_replay_summary": catalog_live_summary_rows,
+        "visual_catalog_live_candidate_case_deltas": catalog_live_case_rows,
         "gemini": gemini_manifest,
     }
     (target / "manifest.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
@@ -731,6 +847,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--prompt-contract-wave3-packet", default=str(DEFAULT_PROMPT_CONTRACT_WAVE3_PACKET))
     parser.add_argument("--prompt-contract-wave4-packet", default=str(DEFAULT_PROMPT_CONTRACT_WAVE4_PACKET))
     parser.add_argument("--prompt-contract-wave5-packet", default=str(DEFAULT_PROMPT_CONTRACT_WAVE5_PACKET))
+    parser.add_argument("--tool-catalog-profile-packet", default=str(DEFAULT_TOOL_CATALOG_PROFILE_PACKET))
+    parser.add_argument("--prompt-contract-wave6-packet", default=str(DEFAULT_PROMPT_CONTRACT_WAVE6_PACKET))
     parser.add_argument("--h1i-prompt-contract-packet", default=str(DEFAULT_H1I_PROMPT_CONTRACT_PACKET))
     parser.add_argument("--h1i-prompt-contract-repeat-packet", default=str(DEFAULT_H1I_PROMPT_CONTRACT_REPEAT_PACKET))
     parser.add_argument("--h1j-prompt-contract-packet", default=str(DEFAULT_H1J_PROMPT_CONTRACT_PACKET))
@@ -771,6 +889,18 @@ def parse_args() -> argparse.Namespace:
         "--wave4-live-visual-vs-contracted-comparison",
         default=str(DEFAULT_WAVE4_LIVE_VISUAL_VS_CONTRACTED_COMPARISON),
     )
+    parser.add_argument(
+        "--catalog-live-visual-vs-no-directive-comparison",
+        default=str(DEFAULT_CATALOG_LIVE_VISUAL_VS_NO_DIRECTIVE_COMPARISON),
+    )
+    parser.add_argument(
+        "--catalog-live-visual-vs-visual-initiation-comparison",
+        default=str(DEFAULT_CATALOG_LIVE_VISUAL_VS_VISUAL_INITIATION_COMPARISON),
+    )
+    parser.add_argument(
+        "--catalog-live-visual-vs-visual-state-comparison",
+        default=str(DEFAULT_CATALOG_LIVE_VISUAL_VS_VISUAL_STATE_COMPARISON),
+    )
     parser.add_argument("--registry", default=str(DEFAULT_REGISTRY_PATH))
     return parser.parse_args()
 
@@ -789,6 +919,8 @@ def main() -> None:
         prompt_contract_wave3_packet=args.prompt_contract_wave3_packet,
         prompt_contract_wave4_packet=args.prompt_contract_wave4_packet,
         prompt_contract_wave5_packet=args.prompt_contract_wave5_packet,
+        tool_catalog_profile_packet=args.tool_catalog_profile_packet,
+        prompt_contract_wave6_packet=args.prompt_contract_wave6_packet,
         h1i_prompt_contract_packet=args.h1i_prompt_contract_packet,
         h1i_prompt_contract_repeat_packet=args.h1i_prompt_contract_repeat_packet,
         h1j_prompt_contract_packet=args.h1j_prompt_contract_packet,
@@ -808,6 +940,9 @@ def main() -> None:
         wave3_live_visual_vs_contracted_comparison=args.wave3_live_visual_vs_contracted_comparison,
         wave4_live_visual_vs_no_directive_comparison=args.wave4_live_visual_vs_no_directive_comparison,
         wave4_live_visual_vs_contracted_comparison=args.wave4_live_visual_vs_contracted_comparison,
+        catalog_live_visual_vs_no_directive_comparison=args.catalog_live_visual_vs_no_directive_comparison,
+        catalog_live_visual_vs_visual_initiation_comparison=args.catalog_live_visual_vs_visual_initiation_comparison,
+        catalog_live_visual_vs_visual_state_comparison=args.catalog_live_visual_vs_visual_state_comparison,
         registry_path=args.registry,
     )
     print(
@@ -915,6 +1050,7 @@ def _prompt_contract_candidate_rows(registry: dict[str, Any]) -> list[dict[str, 
                 "system_id": system_id,
                 "short_label": str(meta.get("short_label", system_id)),
                 "tool_prompt_contract_id": controls.tool_prompt_contract_id,
+                "tool_catalog_profile_id": controls.tool_catalog_profile_id,
                 "disable_tool_turn_directive": controls.disable_tool_turn_directive,
                 "label": contract.label if contract else "",
                 "hypothesis": contract.hypothesis if contract else "",
@@ -1020,6 +1156,7 @@ def _prompt_contract_promotion_rows(
     wave3_rows: list[dict[str, Any]],
     wave4_rows: list[dict[str, Any]],
     wave5_rows: list[dict[str, Any]],
+    wave6_rows: list[dict[str, Any]],
 ) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for wave, gate_rows in [
@@ -1028,6 +1165,7 @@ def _prompt_contract_promotion_rows(
         ("v3", wave3_rows),
         ("v4", wave4_rows),
         ("v5", wave5_rows),
+        ("v6", wave6_rows),
     ]:
         for row in gate_rows:
             decision = _promotion_decision(row)
@@ -1035,6 +1173,7 @@ def _prompt_contract_promotion_rows(
                 {
                     "wave": wave,
                     "tool_prompt_contract_id": row["tool_prompt_contract_id"],
+                    "tool_catalog_profile_id": row.get("tool_catalog_profile_id", ""),
                     "exact_match_rate": row["exact_match_rate"],
                     "executable_match_rate": row["executable_match_rate"],
                     "delta_exact_vs_no_directive": row["delta_exact_vs_no_directive"],
@@ -1101,6 +1240,8 @@ def _candidate_label(system_id: str) -> str:
         "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_parallel_two_call_array": "parallel two-call",
         "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_state_tool_selection": "visual state tool",
         "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_refine_selection": "visual refine",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog": "visual role catalog",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard": "visual catalog literal",
     }
     return suffixes.get(system_id, system_id)
 
@@ -1115,6 +1256,8 @@ def _markdown_report(payload: dict[str, Any]) -> str:
     wave3_gate_rows = payload["prompt_contract_wave3_probe_gates"]
     wave4_gate_rows = payload["prompt_contract_wave4_probe_gates"]
     wave5_gate_rows = payload["prompt_contract_wave5_probe_gates"]
+    catalog_profile_gate_rows = payload["tool_catalog_profile_probe_gates"]
+    wave6_gate_rows = payload["prompt_contract_wave6_probe_gates"]
     h1i_prompt_contract_rows = payload["h1i_prompt_contract_candidate_metrics"]
     h1i_prompt_contract_repeat_rows = payload["h1i_prompt_contract_repeat3_metrics"]
     h1j_prompt_contract_rows = payload["h1j_probe_derived_candidate_metrics"]
@@ -1136,6 +1279,8 @@ def _markdown_report(payload: dict[str, Any]) -> str:
     wave3_live_case_rows = payload["wave3_live_candidate_case_deltas"]
     wave4_live_summary_rows = payload["wave4_live_candidate_replay_summary"]
     wave4_live_case_rows = payload["wave4_live_candidate_case_deltas"]
+    catalog_live_summary_rows = payload["visual_catalog_live_candidate_replay_summary"]
+    catalog_live_case_rows = payload["visual_catalog_live_candidate_case_deltas"]
     gemini = payload["gemini"]
     lines = [
         "# MLX Tool-Contract Harnessing Report",
@@ -1176,6 +1321,10 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "",
         "![Prompt contract wave five probe gate](figures/prompt_contract_wave5_probe_gate.svg)",
         "",
+        "![Tool catalog profile probe gate](figures/tool_catalog_profile_probe_gate.svg)",
+        "",
+        "![Prompt contract wave six probe gate](figures/prompt_contract_wave6_probe_gate.svg)",
+        "",
         "![H1i prompt-contract repeat3 burden](figures/h1i_prompt_contract_repeat3_burden.svg)",
         "",
         "![H1j probe-derived candidate burden](figures/h1j_probe_derived_burden.svg)",
@@ -1197,6 +1346,8 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "![Wave three live replay gate](figures/wave3_live_candidate_replay_gate.svg)",
         "",
         "![Wave four live replay gate](figures/wave4_live_candidate_replay_gate.svg)",
+        "",
+        "![Visual catalog live replay gate](figures/visual_catalog_live_candidate_replay_gate.svg)",
         "",
         "## Packet Summary",
         "",
@@ -1245,6 +1396,18 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         _markdown_table(wave5_gate_rows),
         "",
         "`visual_refine_selection_v5` was more surgical: it targeted only latest-selection filtering and `refine_selection`. The raw probe rejected it before live replay: exact rate stayed `0.0`, executable rate stayed `0.0`, and the dominant failure shifted further toward `no_tool_call`. Under the current gate, this candidate should not spend CLI-live replay or H1 budget.",
+        "",
+        "## Tool-Catalog Profile Probe Gate",
+        "",
+        _markdown_table(catalog_profile_gate_rows),
+        "",
+        "`visual_role_catalog_v1` moves the intervention from standalone prompt-contract wording into the tool-catalog presentation. It keeps the exact directive disabled, improves raw exact rate from `0.0` to `0.125`, restores the visual executable target to `1.0`, and changes the live visual failure from wrong-tool/no-call into literal argument mismatch. This is a real routing signal, not a complete harness replacement.",
+        "",
+        "## Prompt-Contract Wave Six Probe Gate",
+        "",
+        _markdown_table(wave6_gate_rows),
+        "",
+        "Wave six composes the visual role catalog with `literal_argument_guard_v1`. It keeps the same one-case exact gain but loses the catalog-only executable visual rescue and introduces no-call regressions on CLI/API cases. Treat it as a negative composition result: routing guidance and literal-copy wording interfere in this form.",
         "",
         "## Prompt-Contract Promotion Decisions",
         "",
@@ -1309,6 +1472,14 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "`visual_state_tool_selection_v4` keeps the same exact live ceiling as wave three, not a promotion path. It improves over no-directive from `0 / 3` to `1 / 3`, but trails contracted MLX at `2 / 3`, loses executable visual-form recovery, and still fails `visual_latest_filter_literal` with the wrong visual tool. This is useful negative evidence: adding state/tool-selection wording did not fix the remaining visual referent failure.",
         "",
         _markdown_table(wave4_live_case_rows),
+        "",
+        "## Visual Catalog CLI-Live Candidate Replay",
+        "",
+        _markdown_table(catalog_live_summary_rows),
+        "",
+        "`visual_role_catalog_v1` matches wave three's `1 / 3` exact ceiling, beats wave four on executable visual-form recovery, and converts the remaining latest-filter failure from `wrong_tool` to `argument_mismatch`. The next useful move is not more broad visual state wording; it is a narrow argument-literal mechanism that preserves the catalog routing win.",
+        "",
+        _markdown_table(catalog_live_case_rows),
         "",
         "## H1i Prompt-Contract Candidate Packet",
         "",
@@ -1377,6 +1548,8 @@ def _markdown_report(payload: dict[str, Any]) -> str:
             f"- Prompt-contract wave three packet: `{payload['manifest']['prompt_contract_wave3_packet']}`",
             f"- Prompt-contract wave four packet: `{payload['manifest']['prompt_contract_wave4_packet']}`",
             f"- Prompt-contract wave five packet: `{payload['manifest']['prompt_contract_wave5_packet']}`",
+            f"- Tool catalog profile packet: `{payload['manifest']['tool_catalog_profile_packet']}`",
+            f"- Prompt-contract wave six packet: `{payload['manifest']['prompt_contract_wave6_packet']}`",
             f"- H1i prompt-contract packet: `{payload['manifest']['h1i_prompt_contract_packet']}`",
             f"- H1i prompt-contract repeat packet: `{payload['manifest']['h1i_prompt_contract_repeat_packet']}`",
             f"- H1j probe-derived prompt-contract packet: `{payload['manifest']['h1j_prompt_contract_packet']}`",

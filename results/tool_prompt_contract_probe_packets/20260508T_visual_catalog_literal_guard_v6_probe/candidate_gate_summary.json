@@ -1,0 +1,44 @@
+{
+  "packet_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe",
+  "candidate_count": 1,
+  "candidate_gate_summary": [
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard",
+      "tool_prompt_contract_id": "literal_argument_guard_v1",
+      "tool_catalog_profile_id": "visual_role_catalog_v1",
+      "exact_match_rate": "0.125",
+      "executable_match_rate": "0.0",
+      "delta_exact_vs_contracted": "-0.75",
+      "delta_exact_vs_no_directive": "0.125",
+      "probe_gate": "probe_improved_vs_no_directive",
+      "improved_case_count": 1,
+      "regressed_case_count": 0,
+      "dominant_failure_mode": "argument_mismatch",
+      "failure_modes": "argument_mismatch:4;exact:1;no_tool_call:3",
+      "recommendation": "weak_exact_gain"
+    }
+  ],
+  "failure_mode_counts": [
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard",
+      "tool_prompt_contract_id": "literal_argument_guard_v1",
+      "tool_catalog_profile_id": "visual_role_catalog_v1",
+      "failure_mode": "argument_mismatch",
+      "count": 4
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard",
+      "tool_prompt_contract_id": "literal_argument_guard_v1",
+      "tool_catalog_profile_id": "visual_role_catalog_v1",
+      "failure_mode": "exact",
+      "count": 1
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard",
+      "tool_prompt_contract_id": "literal_argument_guard_v1",
+      "tool_catalog_profile_id": "visual_role_catalog_v1",
+      "failure_mode": "no_tool_call",
+      "count": 3
+    }
+  ]
+}

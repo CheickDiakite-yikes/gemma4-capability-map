@@ -24,6 +24,7 @@ def summarize_prompt_contract_probe_packet(packet_dir: str | Path, *, output_dir
         summary_row = {
             "system_id": row.get("system_id", ""),
             "tool_prompt_contract_id": row.get("tool_prompt_contract_id", ""),
+            "tool_catalog_profile_id": row.get("tool_catalog_profile_id", ""),
             "exact_match_rate": row.get("exact_match_rate", ""),
             "executable_match_rate": row.get("executable_match_rate", ""),
             "delta_exact_vs_contracted": row.get("delta_exact_vs_contracted", ""),
@@ -41,6 +42,7 @@ def summarize_prompt_contract_probe_packet(packet_dir: str | Path, *, output_dir
                 {
                     "system_id": row.get("system_id", ""),
                     "tool_prompt_contract_id": row.get("tool_prompt_contract_id", ""),
+                    "tool_catalog_profile_id": row.get("tool_catalog_profile_id", ""),
                     "failure_mode": failure_mode,
                     "count": count,
                 }

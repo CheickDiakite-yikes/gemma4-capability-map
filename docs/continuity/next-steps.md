@@ -202,6 +202,18 @@ What remains:
   - `visual_refine_selection_v5`: exact `0.0`, executable `0.0`, no probe gain
   - live replay was skipped because the raw gate did not move
   - interpretation: standalone wording-only visual refinements have now produced one failed-to-improve live candidate and one raw-gate rejection
+- visual role catalog is now the best current visual mechanism:
+  - isolated catalog probe: [`results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_v1_probe`](../../results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_v1_probe)
+  - raw result: exact `0.125`, executable `1.0`, delta exact vs no-directive `+0.125`
+  - live replay: [`results/tool_probe_replay_live/20260508T_visual_role_catalog_live_execute_v1`](../../results/tool_probe_replay_live/20260508T_visual_role_catalog_live_execute_v1), exact `1 / 3`, executable visual target recovered
+  - comparison vs wave four: [`results/tool_probe_replay_live_comparisons/20260508T_visual_role_catalog_vs_visual_state_tool_selection_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_role_catalog_vs_visual_state_tool_selection_v1)
+  - interpretation: the catalog profile fixes the remaining wrong-tool failure class by making `refine_selection` a separable role, but exact literals still drift (`latest` becomes `latest issue`; `validation error` becomes `phone issue`)
+- wave six is now executed and should be treated as negative composition evidence:
+  - dry-run packet: [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run)
+  - executed packet: [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe)
+  - candidate: `literal_argument_guard_v1` + `visual_role_catalog_v1`
+  - raw result: exact `0.125`, executable `0.0`, delta exact vs no-directive `+0.125`
+  - interpretation: combining broad literal-guard wording with the catalog profile loses the catalog-only executable recovery and introduces no-call regressions; do not promote it
 - visual tool-choice diagnostics now exist:
   - script: [`scripts/analyze_visual_tool_choice_diagnostics.py`](../../scripts/analyze_visual_tool_choice_diagnostics.py)
   - packet: [`results/tool_probe_replay_live_diagnostics/20260508T_visual_tool_choice_wave3_wave4_v1`](../../results/tool_probe_replay_live_diagnostics/20260508T_visual_tool_choice_wave3_wave4_v1)
@@ -245,6 +257,8 @@ uv run python scripts/run_tool_prompt_contract_probe_packet.py --run-group-id <t
 uv run python scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v3 --run-group-id <timestamp>_prompt_contract_wave3_execute_v1 --execute
 uv run python scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v4 --run-group-id <timestamp>_prompt_contract_wave4_execute_v1 --execute
 uv run python scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v5 --run-group-id <timestamp>_prompt_contract_wave5_execute_v1 --execute
+uv run python scripts/run_tool_catalog_profile_probe_packet.py --run-group-id <timestamp>_visual_role_catalog_probe --execute
+uv run python scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v6 --run-group-id <timestamp>_visual_catalog_literal_guard_probe --execute
 uv run python scripts/summarize_tool_prompt_contract_probe_packet.py results/tool_prompt_contract_probe_packets/<packet_id>
 uv run python scripts/build_tool_probe_replay_packet.py --run-group-id <timestamp>_no_directive_exact_probe_replay
 uv run moonie-agent replay-live --packet-dir results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_execute_v1 --case-id parallel_audit_array_literal --execute

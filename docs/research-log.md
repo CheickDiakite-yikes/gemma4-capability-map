@@ -2933,6 +2933,33 @@
   - output counts: `exact = 2`, `tool_ok_argument_alias_executable = 1`, `visual_tool_initiation_missing = 1`, `wrong_visual_tool_selection = 2`
   - key row: `visual_latest_filter_literal` expects `refine_selection`, but both candidate packets emit `extract_layout`
   - interpretation: the next fix should not be another generic prompt reminder. The model is still treating a latest-selection filtering request as a locating/layout request, so the next harness change should make tool roles or routing priority more separable at generation time.
+- Tool-catalog visual role profile now isolates that routing mechanism:
+  - implementation:
+    - [`src/gemma4_capability_map/tools/planner.py`](../src/gemma4_capability_map/tools/planner.py)
+    - [`src/gemma4_capability_map/research_controls.py`](../src/gemma4_capability_map/research_controls.py)
+    - [`scripts/run_tool_catalog_profile_probe_packet.py`](../scripts/run_tool_catalog_profile_probe_packet.py)
+  - profile: `visual_role_catalog_v1`
+  - candidate system: `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog`
+  - dry-run packet: [`20260508T_visual_role_catalog_v1_dry_run`](../results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_v1_dry_run)
+  - executed packet: [`20260508T_visual_role_catalog_v1_probe`](../results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_v1_probe)
+  - raw probe result: exact `1 / 8`, executable visual `1 / 1`, delta exact vs no-directive `+0.125`
+  - visual case read:
+    - `visual_form_target_literal`: tool entry recovered and executable target succeeds, but `target_query` is `phone issue` instead of canonical `validation error`
+    - `visual_latest_filter_literal`: wrong-tool/no-call collapses into the right tool, `refine_selection`, but `filter_query` is `latest issue` instead of canonical `latest`
+    - `visual_readback_region_literal`: exact
+  - live replay packet: [`20260508T_visual_role_catalog_live_execute_v1`](../results/tool_probe_replay_live/20260508T_visual_role_catalog_live_execute_v1), exact `1 / 3`, executable visual target recovered
+  - comparisons:
+    - [`20260508T_visual_role_catalog_vs_no_directive_v1`](../results/tool_probe_replay_live_comparisons/20260508T_visual_role_catalog_vs_no_directive_v1)
+    - [`20260508T_visual_role_catalog_vs_visual_tool_initiation_v1`](../results/tool_probe_replay_live_comparisons/20260508T_visual_role_catalog_vs_visual_tool_initiation_v1)
+    - [`20260508T_visual_role_catalog_vs_visual_state_tool_selection_v1`](../results/tool_probe_replay_live_comparisons/20260508T_visual_role_catalog_vs_visual_state_tool_selection_v1)
+  - interpretation: this is the clearest post-wave-five learning. The tool catalog can change Gemma's visual tool choice without reintroducing the exact directive. The remaining visual problem is now literal argument fidelity after correct routing, not broad visual initiation.
+- Prompt-contract wave six tests and rejects a broad composition with literal guarding:
+  - candidate: `literal_argument_guard_v1` + `visual_role_catalog_v1`
+  - dry-run packet: [`20260508T_visual_catalog_literal_guard_v6_dry_run`](../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run)
+  - executed packet: [`20260508T_visual_catalog_literal_guard_v6_probe`](../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe)
+  - raw result: exact `1 / 8`, executable visual `0 / 1`, delta exact vs no-directive `+0.125`
+  - failure split: `argument_mismatch:4`, `no_tool_call:3`, `exact:1`
+  - interpretation: adding generic literal-copy wording on top of the catalog profile interferes with protocol entry and loses the catalog-only executable recovery. The next literal mechanism must be narrower than the existing broad `literal_argument_guard_v1`.
 
 ### Verification
 
