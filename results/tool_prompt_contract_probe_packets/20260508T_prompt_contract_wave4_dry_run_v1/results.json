@@ -1,0 +1,51 @@
+{
+  "packet_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave4_dry_run_v1",
+  "manifest": {
+    "packet_run_id": "20260508T_prompt_contract_wave4_dry_run_v1",
+    "created_at": "2026-05-08T16:07:55.855966+00:00",
+    "baseline_probe_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_directive_probe/20260506T_mlx_tool_directive_probe_v4",
+    "no_directive_probe_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_directive_probe/20260507T_mlx_no_directive_probe_v1",
+    "registry_path": "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+    "execute": false,
+    "candidate_wave": "v4",
+    "system_ids": [
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_state_tool_selection"
+    ]
+  },
+  "candidate_count": 1,
+  "executed_count": 0,
+  "dry_run_count": 1,
+  "rows": [
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_state_tool_selection",
+      "tool_prompt_contract_id": "visual_state_tool_selection_v4",
+      "execute": false,
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave4_dry_run_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_state_tool_selection",
+      "comparison_path": "",
+      "no_directive_comparison_path": "",
+      "exact_match_rate": "",
+      "executable_match_rate": "",
+      "delta_exact_vs_contracted": "",
+      "delta_exact_vs_no_directive": "",
+      "probe_gate": ""
+    }
+  ],
+  "commands": [
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_state_tool_selection",
+      "tool_prompt_contract_id": "visual_state_tool_selection_v4",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave4_dry_run_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_state_tool_selection",
+      "command": [
+        "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+        "/Users/cheickdiakite/Codex/moonie/scripts/run_tool_directive_probe.py",
+        "--system-id",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_state_tool_selection",
+        "--registry",
+        "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+        "--output-dir",
+        "/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave4_dry_run_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_state_tool_selection"
+      ]
+    }
+  ],
+  "results": []
+}

@@ -1,0 +1,17 @@
+[
+  {
+    "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_state_tool_selection",
+    "tool_prompt_contract_id": "visual_state_tool_selection_v4",
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave4_dry_run_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_state_tool_selection",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "/Users/cheickdiakite/Codex/moonie/scripts/run_tool_directive_probe.py",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_state_tool_selection",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave4_dry_run_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_state_tool_selection"
+    ]
+  }
+]
