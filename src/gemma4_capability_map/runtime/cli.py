@@ -86,6 +86,7 @@ def parse_args() -> argparse.Namespace:
             "tool-probe-replay",
             "tool-probe-replay-live",
             "tool-probe-replay-live-comparison",
+            "tool-probe-replay-live-diagnostic",
         ],
         default="prompt-contract-probe",
     )

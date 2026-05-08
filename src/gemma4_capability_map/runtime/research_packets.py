@@ -17,6 +17,7 @@ DEFAULT_PACKET_ROOTS = {
     "tool-probe-replay": ROOT / "results" / "tool_probe_replay_packets",
     "tool-probe-replay-live": ROOT / "results" / "tool_probe_replay_live",
     "tool-probe-replay-live-comparison": ROOT / "results" / "tool_probe_replay_live_comparisons",
+    "tool-probe-replay-live-diagnostic": ROOT / "results" / "tool_probe_replay_live_diagnostics",
 }
 
 
@@ -33,6 +34,8 @@ def research_packet_payload(
         return _tool_probe_replay_live_payload(packet_kind=packet_kind, target=target)
     if packet_kind == "tool-probe-replay-live-comparison":
         return _tool_probe_replay_live_comparison_payload(packet_kind=packet_kind, target=target)
+    if packet_kind == "tool-probe-replay-live-diagnostic":
+        return _tool_probe_replay_live_diagnostic_payload(packet_kind=packet_kind, target=target)
     manifest = _read_json(target / "manifest.json")
     commands = _read_json(target / "commands.json")
     results = _read_json(target / "results.json")
@@ -123,6 +126,26 @@ def _tool_probe_replay_live_comparison_payload(*, packet_kind: str, target: Path
         "delta_exact_rate": float(summary.get("delta_exact_rate") or 0.0) if isinstance(summary, dict) else 0.0,
         "case_delta_rows": case_delta_rows,
         "files": [_file_payload(child) for child in sorted(target.iterdir()) if child.is_file()] if target.exists() else [],
+}
+
+
+def _tool_probe_replay_live_diagnostic_payload(*, packet_kind: str, target: Path) -> dict[str, Any]:
+    diagnostics = _read_json(target / "visual_tool_choice_diagnostics.json")
+    summary = diagnostics.get("summary", {}) if isinstance(diagnostics, dict) else {}
+    diagnostic_rows = _read_csv(target / "visual_tool_choice_diagnostics.csv")
+    return {
+        "packet_kind": packet_kind,
+        "packet_id": target.name,
+        "packet_dir": str(target.resolve()),
+        "exists": target.exists(),
+        "manifest": {"created_at": summary.get("created_at", "") if isinstance(summary, dict) else ""},
+        "summary": summary,
+        "packet_count": _count_or_default(summary, "packet_count", 0),
+        "case_count": _count_or_default(summary, "case_count", len(diagnostic_rows)),
+        "diagnosis_counts": summary.get("diagnosis_counts", {}) if isinstance(summary, dict) else {},
+        "case_diagnosis_transitions": summary.get("case_diagnosis_transitions", {}) if isinstance(summary, dict) else {},
+        "diagnostic_rows": diagnostic_rows,
+        "files": [_file_payload(child) for child in sorted(target.iterdir()) if child.is_file()] if target.exists() else [],
     }
 
 
@@ -196,6 +219,10 @@ def _research_packet_renderable(payload: dict[str, Any]) -> Group:
         header.add_row("Candidate", str(payload.get("candidate_system_id", "")))
         header.add_row("Shared cases", str(payload.get("shared_case_count", 0)))
         header.add_row("Delta exact", str(payload.get("delta_exact_rate", 0.0)))
+    elif payload.get("packet_kind") == "tool-probe-replay-live-diagnostic":
+        header.add_row("Packets", str(payload.get("packet_count", 0)))
+        header.add_row("Cases", str(payload.get("case_count", 0)))
+        header.add_row("Diagnoses", str(payload.get("diagnosis_counts", {})))
     else:
         header.add_row("Execute", str(manifest.get("execute", "")))
         header.add_row("Candidates", str(payload.get("candidate_count", 0)))
@@ -290,6 +317,25 @@ def _research_packet_renderable(payload: dict[str, Any]) -> Group:
             str(row.get("candidate_replay_failure_mode", "")),
         )
 
+    live_diagnostics = Table(title="Live Replay Diagnostics")
+    live_diagnostics.add_column("Label")
+    live_diagnostics.add_column("Case")
+    live_diagnostics.add_column("Expected")
+    live_diagnostics.add_column("Actual")
+    live_diagnostics.add_column("Failure")
+    live_diagnostics.add_column("Diagnosis")
+    live_diagnostics.add_column("Next")
+    for row in payload.get("diagnostic_rows") or []:
+        live_diagnostics.add_row(
+            str(row.get("packet_label", "")),
+            str(row.get("case_id", "")),
+            str(row.get("expected_tools", "")),
+            str(row.get("actual_tools", "")),
+            str(row.get("replay_failure_mode", "")),
+            str(row.get("diagnosis", "")),
+            str(row.get("next_diagnostic", "")),
+        )
+
     files = Table(title="Files")
     files.add_column("File")
     files.add_column("Bytes", justify="right")
@@ -306,6 +352,8 @@ def _research_packet_renderable(payload: dict[str, Any]) -> Group:
         body.append(live_cases)
     elif payload.get("packet_kind") == "tool-probe-replay-live-comparison":
         body.append(live_comparison)
+    elif payload.get("packet_kind") == "tool-probe-replay-live-diagnostic":
+        body.append(live_diagnostics)
     else:
         body.append(candidates)
     body.append(files)

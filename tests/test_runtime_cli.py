@@ -681,6 +681,64 @@ def test_runtime_cli_packet_renders_tool_probe_replay_live_comparison(
     assert "Delta exact" in output
 
 
+def test_runtime_cli_packet_json_inspects_tool_probe_replay_live_diagnostic(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+    tmp_path: Path,
+) -> None:
+    runtime = LocalAgentRuntime(results_root=tmp_path / "runtime")
+    packet_dir = _write_fake_tool_probe_replay_live_diagnostic(tmp_path / "live-diagnostic")
+    monkeypatch.setattr(runtime_cli, "LocalAgentRuntime", lambda: runtime)
+    monkeypatch.setattr(
+        runtime_cli,
+        "parse_args",
+        lambda: runtime_cli.argparse.Namespace(
+            command="packet",
+            kind="tool-probe-replay-live-diagnostic",
+            packet_id="latest",
+            packet_dir=str(packet_dir),
+            json=True,
+        ),
+    )
+
+    runtime_cli.main()
+
+    output = json.loads(capsys.readouterr().out)
+    assert output["packet_kind"] == "tool-probe-replay-live-diagnostic"
+    assert output["packet_count"] == 3
+    assert output["case_count"] == 1
+    assert output["diagnosis_counts"] == {"visual_literal_argument_mismatch": 1}
+    assert output["diagnostic_rows"][0]["packet_label"] == "visual_role_catalog_v1"
+
+
+def test_runtime_cli_packet_renders_tool_probe_replay_live_diagnostic(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+    tmp_path: Path,
+) -> None:
+    runtime = LocalAgentRuntime(results_root=tmp_path / "runtime")
+    packet_dir = _write_fake_tool_probe_replay_live_diagnostic(tmp_path / "live-diagnostic")
+    monkeypatch.setattr(runtime_cli, "LocalAgentRuntime", lambda: runtime)
+    monkeypatch.setattr(
+        runtime_cli,
+        "parse_args",
+        lambda: runtime_cli.argparse.Namespace(
+            command="packet",
+            kind="tool-probe-replay-live-diagnostic",
+            packet_id="latest",
+            packet_dir=str(packet_dir),
+            json=False,
+        ),
+    )
+
+    runtime_cli.main()
+
+    output = capsys.readouterr().out
+    assert "Moonie Research Packet" in output
+    assert "Live Replay Diagnostics" in output
+    assert "visual_literal_argument_mismatch" in output
+
+
 def _write_fake_research_report(report_dir: Path) -> Path:
     (report_dir / "tables").mkdir(parents=True)
     (report_dir / "figures").mkdir()
@@ -937,4 +995,40 @@ def _write_fake_tool_probe_replay_live_comparison(packet_dir: Path) -> Path:
         encoding="utf-8",
     )
     (packet_dir / "live_replay_summary.md").write_text("# Fake comparison\n", encoding="utf-8")
+    return packet_dir
+
+
+def _write_fake_tool_probe_replay_live_diagnostic(packet_dir: Path) -> Path:
+    packet_dir.mkdir(parents=True)
+    (packet_dir / "visual_tool_choice_diagnostics.json").write_text(
+        json.dumps(
+            {
+                "summary": {
+                    "created_at": "2026-05-08T00:00:00+00:00",
+                    "packet_count": 3,
+                    "case_count": 1,
+                    "diagnosis_counts": {"visual_literal_argument_mismatch": 1},
+                    "case_diagnosis_transitions": {
+                        "visual_latest_filter_literal": [
+                            "visual_role_catalog_v1:visual_literal_argument_mismatch"
+                        ]
+                    },
+                },
+                "rows": [],
+            }
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    (packet_dir / "visual_tool_choice_diagnostics.csv").write_text(
+        "\n".join(
+            [
+                "packet_run_id,packet_label,system_id,case_id,family,expected_tools,actual_tools,replay_failure_mode,diagnosis,next_diagnostic",
+                "catalog,visual_role_catalog_v1,candidate,visual_latest_filter_literal,visual_referent_carryover,refine_selection,refine_selection,argument_mismatch,visual_literal_argument_mismatch,preserve literal visual selector arguments after correct routing",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    (packet_dir / "visual_tool_choice_diagnostics.md").write_text("# Fake diagnostic\n", encoding="utf-8")
     return packet_dir
