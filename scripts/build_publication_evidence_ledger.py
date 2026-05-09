@@ -227,12 +227,12 @@ CLAIMS: tuple[Claim, ...] = (
         evidence_strength="moderate_internal",
         primary_metric="Contracted MLX reaches 8/8 exact and executable; no-directive falls to 1/8; schema-field hints reach 6/8 exact and 8/8 executable.",
         limitation="The packet is eight independently authored visual cases, so it is stronger than design-only evidence but still not a population estimate.",
-        next_test="Inspect the two schema-field exact misses, then repeat or extend the hard slice before promoting to a packaged H1 workflow.",
+        next_test="Treat v4 as the current hard-slice profile; inspect whether the remaining exact misses are benchmark-canonical-label artifacts versus executor-visible failures before promoting to a packaged H1 workflow.",
         sources=(
             EvidenceSource(
                 "visual_hard_slice_probe_packet",
-                "results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_execute_v1",
-                "Executed fresh visual hard-slice packet across contracted, no-directive, and visual catalog profile rows.",
+                "results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1",
+                "Executed fresh visual hard-slice packet across contracted, no-directive, v1-v5, and visual catalog literal-guard rows.",
             ),
             EvidenceSource(
                 "design_packet",
@@ -243,6 +243,27 @@ CLAIMS: tuple[Claim, ...] = (
                 "live_replay_decision",
                 "results/tool_probe_replay_live/20260509T_visual_schema_field_hints_live_replay_skipped_v1",
                 "Negative v4 promotion decision motivating a fresh visual hard-slice rather than another live replay.",
+            ),
+        ),
+    ),
+    Claim(
+        claim_id="C9_schema_literal_targets_v5_is_negative_evidence",
+        claim="A narrow schema-target-literal repair did not improve hard-slice exactness and introduced a routing regression.",
+        status="negative_result_current_packets",
+        evidence_strength="moderate_internal",
+        primary_metric="v5 reaches 5/8 exact and 7/8 executable versus v4 at 6/8 exact and 8/8 executable; v5 adds one wrong-tool failure on the stale-selection decoy.",
+        limitation="This is still one eight-case hard-slice packet; it rejects the current wording, not all possible target-query exactness interventions.",
+        next_test="Diagnose the two v4 executable paraphrases as benchmark-canonical-label versus true executor-targeting failures before another wording candidate.",
+        sources=(
+            EvidenceSource(
+                "visual_hard_slice_probe_packet",
+                "results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1",
+                "Executed v5 hard-slice packet showing the schema-target-literal profile underperforms schema-field hints.",
+            ),
+            EvidenceSource(
+                "visual_hard_slice_profile_comparison",
+                "results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/schema_literal_targets_vs_schema_field_hints",
+                "Direct v5-vs-v4 comparison showing exact and executable regressions concentrated in visual tool routing.",
             ),
         ),
     ),

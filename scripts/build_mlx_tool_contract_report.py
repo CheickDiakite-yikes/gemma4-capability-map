@@ -110,7 +110,7 @@ DEFAULT_PROMPT_CONTRACT_WAVE6_PACKET = (
     ROOT / "results" / "tool_prompt_contract_probe_packets" / "20260508T_visual_catalog_literal_guard_v6_probe"
 )
 DEFAULT_VISUAL_HARD_SLICE_PACKET = (
-    ROOT / "results" / "visual_hard_slice_probe_packets" / "20260509T_visual_hard_slice_execute_v1"
+    ROOT / "results" / "visual_hard_slice_probe_packets" / "20260509T_visual_hard_slice_v5_execute_v1"
 )
 DEFAULT_H1I_PROMPT_CONTRACT_PACKET = (
     ROOT / "results" / "knowledge_work_h1_slice" / "20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet"
@@ -1724,8 +1724,8 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "Raw no-directive tool compliance collapses on the probe suite.",
         "",
         "The visual catalog branch now includes an explicit negative-result loop. "
-        "`visual_role_catalog_argument_hints_v2` remains the best exact visual candidate. "
-        "`visual_role_catalog_split_selector_hints_v3` was rejected before live replay because it regressed exact readback, and `visual_role_catalog_schema_field_hints_v4` tied v2 on exactness without recovering executable form targeting.",
+        "`visual_role_catalog_argument_hints_v2` remains the best focused-replay exact visual candidate. "
+        "`visual_role_catalog_split_selector_hints_v3` was rejected before live replay because it regressed exact readback, `visual_role_catalog_schema_field_hints_v4` is the strongest fresh hard-slice profile, and `visual_role_catalog_schema_literal_targets_v5` is now negative evidence because it failed to fix the exact string misses while adding a wrong-tool regression.",
         "",
         "## Figures",
         "",
@@ -1871,13 +1871,13 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "",
         _markdown_table(visual_hard_slice_gate_rows),
         "",
-        "The fresh visual hard slice breaks the earlier top-line saturation and gives a cleaner read on harness shape. Contracted MLX is the upper bound at `8 / 8` exact and executable. The no-directive row falls to `1 / 8` exact and executable, with no-tool-call as the dominant failure. The strongest no-directive profile is `visual_role_catalog_schema_field_hints_v4`: `6 / 8` exact and `8 / 8` executable. That changes the status of schema-field hints from a negative focused-replay result into a promising hard-slice harness candidate, while still leaving the exact directive as the only full protocol match.",
+        "The fresh visual hard slice breaks the earlier top-line saturation and gives a cleaner read on harness shape. Contracted MLX is the upper bound at `8 / 8` exact and executable. The no-directive row falls to `1 / 8` exact and executable, with no-tool-call as the dominant failure. The strongest no-directive profile remains `visual_role_catalog_schema_field_hints_v4`: `6 / 8` exact and `8 / 8` executable. The attempted v5 target-literal repair drops to `5 / 8` exact and `7 / 8` executable, so the hard-slice evidence now rejects that wording as an overcorrection rather than a promotion candidate.",
         "",
         "## Visual Hard-Slice Family Summary",
         "",
         _markdown_table(visual_hard_slice_family_rows),
         "",
-        "The family breakdown explains the new signal. Schema-field hints preserve full executable behavior across visible-region targeting, valid selection carryover, and region readback, but exactness still lags on visual argument-copying cases. The next experiment should isolate those two exact misses before spending another packaged H1 slice.",
+        "The family breakdown explains the new signal. Schema-field hints preserve full executable behavior across visible-region targeting, valid selection carryover, and region readback, but exactness still lags on visual argument-copying cases. The v5 target-literal repair did not improve that family and regressed the stale-selection decoy into a wrong-tool call, which suggests the next experiment should separate hidden benchmark canonical labels from observable executor-success labels before spending another packaged H1 slice.",
         "",
         "## Visual Hard-Slice Case Deltas vs No Directive",
         "",

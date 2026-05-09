@@ -1,9 +1,9 @@
 {
   "summary": {
-    "generated_at": "2026-05-09T11:05:44.145065+00:00",
+    "generated_at": "2026-05-09T12:03:13.084609+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 25,
-    "blocking_check_count": 23,
+    "check_count": 26,
+    "blocking_check_count": 24,
     "blocking_failed_count": 0,
     "recommended_check_count": 2,
     "recommended_failed_count": 0,
@@ -29,7 +29,7 @@
       "check_id": "ledger_has_claims",
       "severity": "blocking",
       "passed": true,
-      "detail": "claim_count=8",
+      "detail": "claim_count=9",
       "path": ""
     },
     {
@@ -92,8 +92,15 @@
       "check_id": "visual_hard_slice_execute_packet_exists",
       "severity": "blocking",
       "passed": true,
-      "detail": "Executed visual hard-slice packet exists with candidate gate summary.",
-      "path": "results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_execute_v1/candidate_gate_summary.md"
+      "detail": "Latest executed visual hard-slice packet exists with candidate gate summary.",
+      "path": "results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/candidate_gate_summary.md"
+    },
+    {
+      "check_id": "visual_hard_slice_v5_vs_v4_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Direct v5-vs-v4 comparison exists to preserve the negative target-literal result.",
+      "path": "results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/schema_literal_targets_vs_schema_field_hints/probe_comparison.json"
     },
     {
       "check_id": "current_state_doc_exists",

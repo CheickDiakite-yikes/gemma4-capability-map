@@ -1,0 +1,1576 @@
+{
+  "packet_dir": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1",
+  "manifest": {
+    "packet_run_id": "20260509T_visual_hard_slice_v5_execute_v1",
+    "created_at": "2026-05-09T11:57:55.491493+00:00",
+    "registry_path": "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+    "execute": true,
+    "system_ids": [
+      "mlx_gemma4_e2b_reasoner_only",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard"
+    ],
+    "case_ids": [
+      "visual_form_error_vs_message_author",
+      "visual_form_error_with_prior_selection_decoy",
+      "visual_latest_filter_existing_selection",
+      "visual_remaining_filter_existing_selection",
+      "visual_region_readback_after_layout_result",
+      "visual_metric_panel_vs_table_selector",
+      "visual_callout_warning_with_user_decoy",
+      "visual_selection_id_opaque_copy_with_filter"
+    ],
+    "case_count": 8,
+    "contracted_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "no_directive_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+    "purpose": "Fresh executable visual hard slice for measuring whether catalog/profile harnesses generalize beyond saturated top-line readiness."
+  },
+  "candidate_count": 8,
+  "system_count": 8,
+  "case_count": 8,
+  "executed_count": 8,
+  "dry_run_count": 0,
+  "rows": [
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only",
+      "execute": true,
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only",
+      "exact_match_count": 8,
+      "exact_match_rate": 1.0,
+      "executable_match_count": 8,
+      "executable_match_rate": 1.0,
+      "dominant_failure_mode": "exact",
+      "failure_mode_counts": {
+        "exact": 8
+      },
+      "comparison_path": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only/comparison_vs_contracted/probe_comparison.json",
+      "comparison_vs_contracted": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only/comparison_vs_contracted/probe_comparison.json",
+      "comparison_vs_no_directive": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only/comparison_vs_no_directive/probe_comparison.json",
+      "delta_exact_vs_contracted": 0.0,
+      "delta_exact_vs_no_directive": 0.875,
+      "delta_executable_vs_contracted": 0.0,
+      "delta_executable_vs_no_directive": 0.875,
+      "hard_slice_gate": "contracted_reference"
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "execute": true,
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "exact_match_count": 1,
+      "exact_match_rate": 0.125,
+      "executable_match_count": 1,
+      "executable_match_rate": 0.125,
+      "dominant_failure_mode": "no_tool_call",
+      "failure_mode_counts": {
+        "argument_mismatch": 2,
+        "exact": 1,
+        "no_tool_call": 4,
+        "wrong_tool": 1
+      },
+      "comparison_path": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive/comparison_vs_contracted/probe_comparison.json",
+      "comparison_vs_contracted": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive/comparison_vs_contracted/probe_comparison.json",
+      "comparison_vs_no_directive": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive/comparison_vs_no_directive/probe_comparison.json",
+      "delta_exact_vs_contracted": -0.875,
+      "delta_exact_vs_no_directive": 0.0,
+      "delta_executable_vs_contracted": -0.875,
+      "delta_executable_vs_no_directive": 0.0,
+      "hard_slice_gate": "no_directive_reference"
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog",
+      "execute": true,
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog",
+      "exact_match_count": 3,
+      "exact_match_rate": 0.375,
+      "executable_match_count": 3,
+      "executable_match_rate": 0.375,
+      "dominant_failure_mode": "argument_mismatch",
+      "failure_mode_counts": {
+        "argument_mismatch": 3,
+        "exact": 3,
+        "wrong_tool": 2
+      },
+      "comparison_path": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog/comparison_vs_contracted/probe_comparison.json",
+      "comparison_vs_contracted": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog/comparison_vs_contracted/probe_comparison.json",
+      "comparison_vs_no_directive": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog/comparison_vs_no_directive/probe_comparison.json",
+      "delta_exact_vs_contracted": -0.625,
+      "delta_exact_vs_no_directive": 0.25,
+      "delta_executable_vs_contracted": -0.625,
+      "delta_executable_vs_no_directive": 0.25,
+      "hard_slice_gate": "hard_slice_improved_vs_no_directive"
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints",
+      "execute": true,
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints",
+      "exact_match_count": 6,
+      "exact_match_rate": 0.75,
+      "executable_match_count": 7,
+      "executable_match_rate": 0.875,
+      "dominant_failure_mode": "exact",
+      "failure_mode_counts": {
+        "argument_mismatch": 1,
+        "exact": 6,
+        "executable_paraphrase": 1
+      },
+      "comparison_path": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints/comparison_vs_contracted/probe_comparison.json",
+      "comparison_vs_contracted": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints/comparison_vs_contracted/probe_comparison.json",
+      "comparison_vs_no_directive": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints/comparison_vs_no_directive/probe_comparison.json",
+      "delta_exact_vs_contracted": -0.25,
+      "delta_exact_vs_no_directive": 0.625,
+      "delta_executable_vs_contracted": -0.125,
+      "delta_executable_vs_no_directive": 0.75,
+      "hard_slice_gate": "hard_slice_improved_vs_no_directive"
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints",
+      "execute": true,
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints",
+      "exact_match_count": 5,
+      "exact_match_rate": 0.625,
+      "executable_match_count": 6,
+      "executable_match_rate": 0.75,
+      "dominant_failure_mode": "exact",
+      "failure_mode_counts": {
+        "argument_mismatch": 1,
+        "exact": 5,
+        "executable_paraphrase": 1,
+        "wrong_tool": 1
+      },
+      "comparison_path": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints/comparison_vs_contracted/probe_comparison.json",
+      "comparison_vs_contracted": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints/comparison_vs_contracted/probe_comparison.json",
+      "comparison_vs_no_directive": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints/comparison_vs_no_directive/probe_comparison.json",
+      "delta_exact_vs_contracted": -0.375,
+      "delta_exact_vs_no_directive": 0.5,
+      "delta_executable_vs_contracted": -0.25,
+      "delta_executable_vs_no_directive": 0.625,
+      "hard_slice_gate": "hard_slice_improved_vs_no_directive"
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints",
+      "execute": true,
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints",
+      "exact_match_count": 6,
+      "exact_match_rate": 0.75,
+      "executable_match_count": 8,
+      "executable_match_rate": 1.0,
+      "dominant_failure_mode": "exact",
+      "failure_mode_counts": {
+        "exact": 6,
+        "executable_paraphrase": 2
+      },
+      "comparison_path": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints/comparison_vs_contracted/probe_comparison.json",
+      "comparison_vs_contracted": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints/comparison_vs_contracted/probe_comparison.json",
+      "comparison_vs_no_directive": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints/comparison_vs_no_directive/probe_comparison.json",
+      "delta_exact_vs_contracted": -0.25,
+      "delta_exact_vs_no_directive": 0.625,
+      "delta_executable_vs_contracted": 0.0,
+      "delta_executable_vs_no_directive": 0.875,
+      "hard_slice_gate": "hard_slice_improved_vs_no_directive"
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets",
+      "execute": true,
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets",
+      "exact_match_count": 5,
+      "exact_match_rate": 0.625,
+      "executable_match_count": 7,
+      "executable_match_rate": 0.875,
+      "dominant_failure_mode": "exact",
+      "failure_mode_counts": {
+        "exact": 5,
+        "executable_paraphrase": 2,
+        "wrong_tool": 1
+      },
+      "comparison_path": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets/comparison_vs_contracted/probe_comparison.json",
+      "comparison_vs_contracted": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets/comparison_vs_contracted/probe_comparison.json",
+      "comparison_vs_no_directive": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets/comparison_vs_no_directive/probe_comparison.json",
+      "delta_exact_vs_contracted": -0.375,
+      "delta_exact_vs_no_directive": 0.5,
+      "delta_executable_vs_contracted": -0.125,
+      "delta_executable_vs_no_directive": 0.75,
+      "hard_slice_gate": "hard_slice_improved_vs_no_directive"
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard",
+      "execute": true,
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard",
+      "exact_match_count": 3,
+      "exact_match_rate": 0.375,
+      "executable_match_count": 4,
+      "executable_match_rate": 0.5,
+      "dominant_failure_mode": "exact",
+      "failure_mode_counts": {
+        "argument_mismatch": 2,
+        "exact": 3,
+        "executable_paraphrase": 1,
+        "no_tool_call": 1,
+        "wrong_tool": 1
+      },
+      "comparison_path": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard/comparison_vs_contracted/probe_comparison.json",
+      "comparison_vs_contracted": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard/comparison_vs_contracted/probe_comparison.json",
+      "comparison_vs_no_directive": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard/comparison_vs_no_directive/probe_comparison.json",
+      "delta_exact_vs_contracted": -0.625,
+      "delta_exact_vs_no_directive": 0.25,
+      "delta_executable_vs_contracted": -0.5,
+      "delta_executable_vs_no_directive": 0.375,
+      "hard_slice_gate": "hard_slice_improved_vs_no_directive"
+    }
+  ],
+  "gate_rows": [
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only",
+      "exact_match_count": 8,
+      "exact_match_rate": 1.0,
+      "executable_match_count": 8,
+      "executable_match_rate": 1.0,
+      "delta_exact_vs_contracted": 0.0,
+      "delta_exact_vs_no_directive": 0.875,
+      "delta_executable_vs_contracted": 0.0,
+      "delta_executable_vs_no_directive": 0.875,
+      "dominant_failure_mode": "exact",
+      "hard_slice_gate": "contracted_reference",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only"
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "exact_match_count": 1,
+      "exact_match_rate": 0.125,
+      "executable_match_count": 1,
+      "executable_match_rate": 0.125,
+      "delta_exact_vs_contracted": -0.875,
+      "delta_exact_vs_no_directive": 0.0,
+      "delta_executable_vs_contracted": -0.875,
+      "delta_executable_vs_no_directive": 0.0,
+      "dominant_failure_mode": "no_tool_call",
+      "hard_slice_gate": "no_directive_reference",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive"
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog",
+      "exact_match_count": 3,
+      "exact_match_rate": 0.375,
+      "executable_match_count": 3,
+      "executable_match_rate": 0.375,
+      "delta_exact_vs_contracted": -0.625,
+      "delta_exact_vs_no_directive": 0.25,
+      "delta_executable_vs_contracted": -0.625,
+      "delta_executable_vs_no_directive": 0.25,
+      "dominant_failure_mode": "argument_mismatch",
+      "hard_slice_gate": "hard_slice_improved_vs_no_directive",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog"
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints",
+      "exact_match_count": 6,
+      "exact_match_rate": 0.75,
+      "executable_match_count": 7,
+      "executable_match_rate": 0.875,
+      "delta_exact_vs_contracted": -0.25,
+      "delta_exact_vs_no_directive": 0.625,
+      "delta_executable_vs_contracted": -0.125,
+      "delta_executable_vs_no_directive": 0.75,
+      "dominant_failure_mode": "exact",
+      "hard_slice_gate": "hard_slice_improved_vs_no_directive",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints"
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints",
+      "exact_match_count": 5,
+      "exact_match_rate": 0.625,
+      "executable_match_count": 6,
+      "executable_match_rate": 0.75,
+      "delta_exact_vs_contracted": -0.375,
+      "delta_exact_vs_no_directive": 0.5,
+      "delta_executable_vs_contracted": -0.25,
+      "delta_executable_vs_no_directive": 0.625,
+      "dominant_failure_mode": "exact",
+      "hard_slice_gate": "hard_slice_improved_vs_no_directive",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints"
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints",
+      "exact_match_count": 6,
+      "exact_match_rate": 0.75,
+      "executable_match_count": 8,
+      "executable_match_rate": 1.0,
+      "delta_exact_vs_contracted": -0.25,
+      "delta_exact_vs_no_directive": 0.625,
+      "delta_executable_vs_contracted": 0.0,
+      "delta_executable_vs_no_directive": 0.875,
+      "dominant_failure_mode": "exact",
+      "hard_slice_gate": "hard_slice_improved_vs_no_directive",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints"
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets",
+      "exact_match_count": 5,
+      "exact_match_rate": 0.625,
+      "executable_match_count": 7,
+      "executable_match_rate": 0.875,
+      "delta_exact_vs_contracted": -0.375,
+      "delta_exact_vs_no_directive": 0.5,
+      "delta_executable_vs_contracted": -0.125,
+      "delta_executable_vs_no_directive": 0.75,
+      "dominant_failure_mode": "exact",
+      "hard_slice_gate": "hard_slice_improved_vs_no_directive",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets"
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard",
+      "exact_match_count": 3,
+      "exact_match_rate": 0.375,
+      "executable_match_count": 4,
+      "executable_match_rate": 0.5,
+      "delta_exact_vs_contracted": -0.625,
+      "delta_exact_vs_no_directive": 0.25,
+      "delta_executable_vs_contracted": -0.5,
+      "delta_executable_vs_no_directive": 0.375,
+      "dominant_failure_mode": "exact",
+      "hard_slice_gate": "hard_slice_improved_vs_no_directive",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard"
+    }
+  ],
+  "failure_mode_rows": [
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only",
+      "failure_mode": "exact",
+      "count": 8
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "failure_mode": "argument_mismatch",
+      "count": 2
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "failure_mode": "exact",
+      "count": 1
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "failure_mode": "no_tool_call",
+      "count": 4
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "failure_mode": "wrong_tool",
+      "count": 1
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog",
+      "failure_mode": "argument_mismatch",
+      "count": 3
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog",
+      "failure_mode": "exact",
+      "count": 3
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog",
+      "failure_mode": "wrong_tool",
+      "count": 2
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints",
+      "failure_mode": "argument_mismatch",
+      "count": 1
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints",
+      "failure_mode": "exact",
+      "count": 6
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints",
+      "failure_mode": "executable_paraphrase",
+      "count": 1
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints",
+      "failure_mode": "argument_mismatch",
+      "count": 1
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints",
+      "failure_mode": "exact",
+      "count": 5
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints",
+      "failure_mode": "executable_paraphrase",
+      "count": 1
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints",
+      "failure_mode": "wrong_tool",
+      "count": 1
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints",
+      "failure_mode": "exact",
+      "count": 6
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints",
+      "failure_mode": "executable_paraphrase",
+      "count": 2
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets",
+      "failure_mode": "exact",
+      "count": 5
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets",
+      "failure_mode": "executable_paraphrase",
+      "count": 2
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets",
+      "failure_mode": "wrong_tool",
+      "count": 1
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard",
+      "failure_mode": "argument_mismatch",
+      "count": 2
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard",
+      "failure_mode": "exact",
+      "count": 3
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard",
+      "failure_mode": "executable_paraphrase",
+      "count": 1
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard",
+      "failure_mode": "no_tool_call",
+      "count": 1
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard",
+      "failure_mode": "wrong_tool",
+      "count": 1
+    }
+  ],
+  "family_rows": [
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only",
+      "family": "visual_argument_copying",
+      "case_count": 3,
+      "exact_count": 3,
+      "exact_rate": 1.0,
+      "executable_case_count": 3,
+      "executable_count": 3,
+      "executable_rate": 1.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only",
+      "family": "visual_referent_carryover",
+      "case_count": 3,
+      "exact_count": 3,
+      "exact_rate": 1.0,
+      "executable_case_count": 3,
+      "executable_count": 3,
+      "executable_rate": 1.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only",
+      "family": "visual_region_readback",
+      "case_count": 1,
+      "exact_count": 1,
+      "exact_rate": 1.0,
+      "executable_case_count": 1,
+      "executable_count": 1,
+      "executable_rate": 1.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only",
+      "family": "visual_tool_routing",
+      "case_count": 1,
+      "exact_count": 1,
+      "exact_rate": 1.0,
+      "executable_case_count": 1,
+      "executable_count": 1,
+      "executable_rate": 1.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "family": "visual_argument_copying",
+      "case_count": 3,
+      "exact_count": 1,
+      "exact_rate": 0.3333333333333333,
+      "executable_case_count": 3,
+      "executable_count": 1,
+      "executable_rate": 0.3333333333333333
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "family": "visual_referent_carryover",
+      "case_count": 3,
+      "exact_count": 0,
+      "exact_rate": 0.0,
+      "executable_case_count": 3,
+      "executable_count": 0,
+      "executable_rate": 0.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "family": "visual_region_readback",
+      "case_count": 1,
+      "exact_count": 0,
+      "exact_rate": 0.0,
+      "executable_case_count": 1,
+      "executable_count": 0,
+      "executable_rate": 0.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "family": "visual_tool_routing",
+      "case_count": 1,
+      "exact_count": 0,
+      "exact_rate": 0.0,
+      "executable_case_count": 1,
+      "executable_count": 0,
+      "executable_rate": 0.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog",
+      "family": "visual_argument_copying",
+      "case_count": 3,
+      "exact_count": 1,
+      "exact_rate": 0.3333333333333333,
+      "executable_case_count": 3,
+      "executable_count": 1,
+      "executable_rate": 0.3333333333333333
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog",
+      "family": "visual_referent_carryover",
+      "case_count": 3,
+      "exact_count": 0,
+      "exact_rate": 0.0,
+      "executable_case_count": 3,
+      "executable_count": 0,
+      "executable_rate": 0.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog",
+      "family": "visual_region_readback",
+      "case_count": 1,
+      "exact_count": 1,
+      "exact_rate": 1.0,
+      "executable_case_count": 1,
+      "executable_count": 1,
+      "executable_rate": 1.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog",
+      "family": "visual_tool_routing",
+      "case_count": 1,
+      "exact_count": 1,
+      "exact_rate": 1.0,
+      "executable_case_count": 1,
+      "executable_count": 1,
+      "executable_rate": 1.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints",
+      "family": "visual_argument_copying",
+      "case_count": 3,
+      "exact_count": 1,
+      "exact_rate": 0.3333333333333333,
+      "executable_case_count": 3,
+      "executable_count": 2,
+      "executable_rate": 0.6666666666666666
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints",
+      "family": "visual_referent_carryover",
+      "case_count": 3,
+      "exact_count": 3,
+      "exact_rate": 1.0,
+      "executable_case_count": 3,
+      "executable_count": 3,
+      "executable_rate": 1.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints",
+      "family": "visual_region_readback",
+      "case_count": 1,
+      "exact_count": 1,
+      "exact_rate": 1.0,
+      "executable_case_count": 1,
+      "executable_count": 1,
+      "executable_rate": 1.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints",
+      "family": "visual_tool_routing",
+      "case_count": 1,
+      "exact_count": 1,
+      "exact_rate": 1.0,
+      "executable_case_count": 1,
+      "executable_count": 1,
+      "executable_rate": 1.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints",
+      "family": "visual_argument_copying",
+      "case_count": 3,
+      "exact_count": 1,
+      "exact_rate": 0.3333333333333333,
+      "executable_case_count": 3,
+      "executable_count": 2,
+      "executable_rate": 0.6666666666666666
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints",
+      "family": "visual_referent_carryover",
+      "case_count": 3,
+      "exact_count": 2,
+      "exact_rate": 0.6666666666666666,
+      "executable_case_count": 3,
+      "executable_count": 2,
+      "executable_rate": 0.6666666666666666
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints",
+      "family": "visual_region_readback",
+      "case_count": 1,
+      "exact_count": 1,
+      "exact_rate": 1.0,
+      "executable_case_count": 1,
+      "executable_count": 1,
+      "executable_rate": 1.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints",
+      "family": "visual_tool_routing",
+      "case_count": 1,
+      "exact_count": 1,
+      "exact_rate": 1.0,
+      "executable_case_count": 1,
+      "executable_count": 1,
+      "executable_rate": 1.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints",
+      "family": "visual_argument_copying",
+      "case_count": 3,
+      "exact_count": 1,
+      "exact_rate": 0.3333333333333333,
+      "executable_case_count": 3,
+      "executable_count": 3,
+      "executable_rate": 1.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints",
+      "family": "visual_referent_carryover",
+      "case_count": 3,
+      "exact_count": 3,
+      "exact_rate": 1.0,
+      "executable_case_count": 3,
+      "executable_count": 3,
+      "executable_rate": 1.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints",
+      "family": "visual_region_readback",
+      "case_count": 1,
+      "exact_count": 1,
+      "exact_rate": 1.0,
+      "executable_case_count": 1,
+      "executable_count": 1,
+      "executable_rate": 1.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints",
+      "family": "visual_tool_routing",
+      "case_count": 1,
+      "exact_count": 1,
+      "exact_rate": 1.0,
+      "executable_case_count": 1,
+      "executable_count": 1,
+      "executable_rate": 1.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets",
+      "family": "visual_argument_copying",
+      "case_count": 3,
+      "exact_count": 1,
+      "exact_rate": 0.3333333333333333,
+      "executable_case_count": 3,
+      "executable_count": 3,
+      "executable_rate": 1.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets",
+      "family": "visual_referent_carryover",
+      "case_count": 3,
+      "exact_count": 3,
+      "exact_rate": 1.0,
+      "executable_case_count": 3,
+      "executable_count": 3,
+      "executable_rate": 1.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets",
+      "family": "visual_region_readback",
+      "case_count": 1,
+      "exact_count": 1,
+      "exact_rate": 1.0,
+      "executable_case_count": 1,
+      "executable_count": 1,
+      "executable_rate": 1.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets",
+      "family": "visual_tool_routing",
+      "case_count": 1,
+      "exact_count": 0,
+      "exact_rate": 0.0,
+      "executable_case_count": 1,
+      "executable_count": 0,
+      "executable_rate": 0.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard",
+      "family": "visual_argument_copying",
+      "case_count": 3,
+      "exact_count": 1,
+      "exact_rate": 0.3333333333333333,
+      "executable_case_count": 3,
+      "executable_count": 2,
+      "executable_rate": 0.6666666666666666
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard",
+      "family": "visual_referent_carryover",
+      "case_count": 3,
+      "exact_count": 0,
+      "exact_rate": 0.0,
+      "executable_case_count": 3,
+      "executable_count": 0,
+      "executable_rate": 0.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard",
+      "family": "visual_region_readback",
+      "case_count": 1,
+      "exact_count": 1,
+      "exact_rate": 1.0,
+      "executable_case_count": 1,
+      "executable_count": 1,
+      "executable_rate": 1.0
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard",
+      "family": "visual_tool_routing",
+      "case_count": 1,
+      "exact_count": 1,
+      "exact_rate": 1.0,
+      "executable_case_count": 1,
+      "executable_count": 1,
+      "executable_rate": 1.0
+    }
+  ],
+  "commands": [
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only",
+      "case_ids": [
+        "visual_form_error_vs_message_author",
+        "visual_form_error_with_prior_selection_decoy",
+        "visual_latest_filter_existing_selection",
+        "visual_remaining_filter_existing_selection",
+        "visual_region_readback_after_layout_result",
+        "visual_metric_panel_vs_table_selector",
+        "visual_callout_warning_with_user_decoy",
+        "visual_selection_id_opaque_copy_with_filter"
+      ],
+      "command": [
+        "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+        "/Users/cheickdiakite/Codex/moonie/scripts/run_visual_hard_slice_probe.py",
+        "--system-id",
+        "mlx_gemma4_e2b_reasoner_only",
+        "--registry",
+        "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+        "--output-dir",
+        "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only",
+        "--case-id",
+        "visual_form_error_vs_message_author",
+        "--case-id",
+        "visual_form_error_with_prior_selection_decoy",
+        "--case-id",
+        "visual_latest_filter_existing_selection",
+        "--case-id",
+        "visual_remaining_filter_existing_selection",
+        "--case-id",
+        "visual_region_readback_after_layout_result",
+        "--case-id",
+        "visual_metric_panel_vs_table_selector",
+        "--case-id",
+        "visual_callout_warning_with_user_decoy",
+        "--case-id",
+        "visual_selection_id_opaque_copy_with_filter"
+      ]
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "case_ids": [
+        "visual_form_error_vs_message_author",
+        "visual_form_error_with_prior_selection_decoy",
+        "visual_latest_filter_existing_selection",
+        "visual_remaining_filter_existing_selection",
+        "visual_region_readback_after_layout_result",
+        "visual_metric_panel_vs_table_selector",
+        "visual_callout_warning_with_user_decoy",
+        "visual_selection_id_opaque_copy_with_filter"
+      ],
+      "command": [
+        "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+        "/Users/cheickdiakite/Codex/moonie/scripts/run_visual_hard_slice_probe.py",
+        "--system-id",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+        "--registry",
+        "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+        "--output-dir",
+        "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+        "--case-id",
+        "visual_form_error_vs_message_author",
+        "--case-id",
+        "visual_form_error_with_prior_selection_decoy",
+        "--case-id",
+        "visual_latest_filter_existing_selection",
+        "--case-id",
+        "visual_remaining_filter_existing_selection",
+        "--case-id",
+        "visual_region_readback_after_layout_result",
+        "--case-id",
+        "visual_metric_panel_vs_table_selector",
+        "--case-id",
+        "visual_callout_warning_with_user_decoy",
+        "--case-id",
+        "visual_selection_id_opaque_copy_with_filter"
+      ]
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog",
+      "case_ids": [
+        "visual_form_error_vs_message_author",
+        "visual_form_error_with_prior_selection_decoy",
+        "visual_latest_filter_existing_selection",
+        "visual_remaining_filter_existing_selection",
+        "visual_region_readback_after_layout_result",
+        "visual_metric_panel_vs_table_selector",
+        "visual_callout_warning_with_user_decoy",
+        "visual_selection_id_opaque_copy_with_filter"
+      ],
+      "command": [
+        "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+        "/Users/cheickdiakite/Codex/moonie/scripts/run_visual_hard_slice_probe.py",
+        "--system-id",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog",
+        "--registry",
+        "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+        "--output-dir",
+        "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog",
+        "--case-id",
+        "visual_form_error_vs_message_author",
+        "--case-id",
+        "visual_form_error_with_prior_selection_decoy",
+        "--case-id",
+        "visual_latest_filter_existing_selection",
+        "--case-id",
+        "visual_remaining_filter_existing_selection",
+        "--case-id",
+        "visual_region_readback_after_layout_result",
+        "--case-id",
+        "visual_metric_panel_vs_table_selector",
+        "--case-id",
+        "visual_callout_warning_with_user_decoy",
+        "--case-id",
+        "visual_selection_id_opaque_copy_with_filter"
+      ]
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints",
+      "case_ids": [
+        "visual_form_error_vs_message_author",
+        "visual_form_error_with_prior_selection_decoy",
+        "visual_latest_filter_existing_selection",
+        "visual_remaining_filter_existing_selection",
+        "visual_region_readback_after_layout_result",
+        "visual_metric_panel_vs_table_selector",
+        "visual_callout_warning_with_user_decoy",
+        "visual_selection_id_opaque_copy_with_filter"
+      ],
+      "command": [
+        "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+        "/Users/cheickdiakite/Codex/moonie/scripts/run_visual_hard_slice_probe.py",
+        "--system-id",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints",
+        "--registry",
+        "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+        "--output-dir",
+        "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints",
+        "--case-id",
+        "visual_form_error_vs_message_author",
+        "--case-id",
+        "visual_form_error_with_prior_selection_decoy",
+        "--case-id",
+        "visual_latest_filter_existing_selection",
+        "--case-id",
+        "visual_remaining_filter_existing_selection",
+        "--case-id",
+        "visual_region_readback_after_layout_result",
+        "--case-id",
+        "visual_metric_panel_vs_table_selector",
+        "--case-id",
+        "visual_callout_warning_with_user_decoy",
+        "--case-id",
+        "visual_selection_id_opaque_copy_with_filter"
+      ]
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints",
+      "case_ids": [
+        "visual_form_error_vs_message_author",
+        "visual_form_error_with_prior_selection_decoy",
+        "visual_latest_filter_existing_selection",
+        "visual_remaining_filter_existing_selection",
+        "visual_region_readback_after_layout_result",
+        "visual_metric_panel_vs_table_selector",
+        "visual_callout_warning_with_user_decoy",
+        "visual_selection_id_opaque_copy_with_filter"
+      ],
+      "command": [
+        "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+        "/Users/cheickdiakite/Codex/moonie/scripts/run_visual_hard_slice_probe.py",
+        "--system-id",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints",
+        "--registry",
+        "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+        "--output-dir",
+        "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints",
+        "--case-id",
+        "visual_form_error_vs_message_author",
+        "--case-id",
+        "visual_form_error_with_prior_selection_decoy",
+        "--case-id",
+        "visual_latest_filter_existing_selection",
+        "--case-id",
+        "visual_remaining_filter_existing_selection",
+        "--case-id",
+        "visual_region_readback_after_layout_result",
+        "--case-id",
+        "visual_metric_panel_vs_table_selector",
+        "--case-id",
+        "visual_callout_warning_with_user_decoy",
+        "--case-id",
+        "visual_selection_id_opaque_copy_with_filter"
+      ]
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints",
+      "case_ids": [
+        "visual_form_error_vs_message_author",
+        "visual_form_error_with_prior_selection_decoy",
+        "visual_latest_filter_existing_selection",
+        "visual_remaining_filter_existing_selection",
+        "visual_region_readback_after_layout_result",
+        "visual_metric_panel_vs_table_selector",
+        "visual_callout_warning_with_user_decoy",
+        "visual_selection_id_opaque_copy_with_filter"
+      ],
+      "command": [
+        "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+        "/Users/cheickdiakite/Codex/moonie/scripts/run_visual_hard_slice_probe.py",
+        "--system-id",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints",
+        "--registry",
+        "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+        "--output-dir",
+        "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints",
+        "--case-id",
+        "visual_form_error_vs_message_author",
+        "--case-id",
+        "visual_form_error_with_prior_selection_decoy",
+        "--case-id",
+        "visual_latest_filter_existing_selection",
+        "--case-id",
+        "visual_remaining_filter_existing_selection",
+        "--case-id",
+        "visual_region_readback_after_layout_result",
+        "--case-id",
+        "visual_metric_panel_vs_table_selector",
+        "--case-id",
+        "visual_callout_warning_with_user_decoy",
+        "--case-id",
+        "visual_selection_id_opaque_copy_with_filter"
+      ]
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets",
+      "case_ids": [
+        "visual_form_error_vs_message_author",
+        "visual_form_error_with_prior_selection_decoy",
+        "visual_latest_filter_existing_selection",
+        "visual_remaining_filter_existing_selection",
+        "visual_region_readback_after_layout_result",
+        "visual_metric_panel_vs_table_selector",
+        "visual_callout_warning_with_user_decoy",
+        "visual_selection_id_opaque_copy_with_filter"
+      ],
+      "command": [
+        "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+        "/Users/cheickdiakite/Codex/moonie/scripts/run_visual_hard_slice_probe.py",
+        "--system-id",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets",
+        "--registry",
+        "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+        "--output-dir",
+        "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets",
+        "--case-id",
+        "visual_form_error_vs_message_author",
+        "--case-id",
+        "visual_form_error_with_prior_selection_decoy",
+        "--case-id",
+        "visual_latest_filter_existing_selection",
+        "--case-id",
+        "visual_remaining_filter_existing_selection",
+        "--case-id",
+        "visual_region_readback_after_layout_result",
+        "--case-id",
+        "visual_metric_panel_vs_table_selector",
+        "--case-id",
+        "visual_callout_warning_with_user_decoy",
+        "--case-id",
+        "visual_selection_id_opaque_copy_with_filter"
+      ]
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard",
+      "case_ids": [
+        "visual_form_error_vs_message_author",
+        "visual_form_error_with_prior_selection_decoy",
+        "visual_latest_filter_existing_selection",
+        "visual_remaining_filter_existing_selection",
+        "visual_region_readback_after_layout_result",
+        "visual_metric_panel_vs_table_selector",
+        "visual_callout_warning_with_user_decoy",
+        "visual_selection_id_opaque_copy_with_filter"
+      ],
+      "command": [
+        "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+        "/Users/cheickdiakite/Codex/moonie/scripts/run_visual_hard_slice_probe.py",
+        "--system-id",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard",
+        "--registry",
+        "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+        "--output-dir",
+        "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard",
+        "--case-id",
+        "visual_form_error_vs_message_author",
+        "--case-id",
+        "visual_form_error_with_prior_selection_decoy",
+        "--case-id",
+        "visual_latest_filter_existing_selection",
+        "--case-id",
+        "visual_remaining_filter_existing_selection",
+        "--case-id",
+        "visual_region_readback_after_layout_result",
+        "--case-id",
+        "visual_metric_panel_vs_table_selector",
+        "--case-id",
+        "visual_callout_warning_with_user_decoy",
+        "--case-id",
+        "visual_selection_id_opaque_copy_with_filter"
+      ]
+    }
+  ],
+  "results": [
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only",
+      "probe_output_dir": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only",
+      "summary": {
+        "case_count": 8,
+        "exact_match_count": 8,
+        "exact_match_rate": 1.0,
+        "executable_evaluable_count": 8,
+        "executable_match_count": 8,
+        "executable_match_rate": 1.0,
+        "family_summary": {
+          "visual_argument_copying": {
+            "cases": 3,
+            "exact": 3,
+            "executable_cases": 3,
+            "executable": 3,
+            "exact_rate": 1.0,
+            "executable_rate": 1.0
+          },
+          "visual_tool_routing": {
+            "cases": 1,
+            "exact": 1,
+            "executable_cases": 1,
+            "executable": 1,
+            "exact_rate": 1.0,
+            "executable_rate": 1.0
+          },
+          "visual_referent_carryover": {
+            "cases": 3,
+            "exact": 3,
+            "executable_cases": 3,
+            "executable": 3,
+            "exact_rate": 1.0,
+            "executable_rate": 1.0
+          },
+          "visual_region_readback": {
+            "cases": 1,
+            "exact": 1,
+            "executable_cases": 1,
+            "executable": 1,
+            "exact_rate": 1.0,
+            "executable_rate": 1.0
+          }
+        }
+      },
+      "comparison_outputs": {
+        "comparison_vs_contracted": {
+          "summary": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only/comparison_vs_contracted/probe_comparison.json",
+          "case_deltas": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only/comparison_vs_contracted/probe_case_deltas.csv",
+          "family_deltas": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only/comparison_vs_contracted/probe_family_deltas.csv"
+        },
+        "comparison_vs_no_directive": {
+          "summary": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only/comparison_vs_no_directive/probe_comparison.json",
+          "case_deltas": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only/comparison_vs_no_directive/probe_case_deltas.csv",
+          "family_deltas": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only/comparison_vs_no_directive/probe_family_deltas.csv"
+        }
+      }
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "probe_output_dir": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "summary": {
+        "case_count": 8,
+        "exact_match_count": 1,
+        "exact_match_rate": 0.125,
+        "executable_evaluable_count": 8,
+        "executable_match_count": 1,
+        "executable_match_rate": 0.125,
+        "family_summary": {
+          "visual_argument_copying": {
+            "cases": 3,
+            "exact": 1,
+            "executable_cases": 3,
+            "executable": 1,
+            "exact_rate": 0.3333333333333333,
+            "executable_rate": 0.3333333333333333
+          },
+          "visual_tool_routing": {
+            "cases": 1,
+            "exact": 0,
+            "executable_cases": 1,
+            "executable": 0,
+            "exact_rate": 0.0,
+            "executable_rate": 0.0
+          },
+          "visual_referent_carryover": {
+            "cases": 3,
+            "exact": 0,
+            "executable_cases": 3,
+            "executable": 0,
+            "exact_rate": 0.0,
+            "executable_rate": 0.0
+          },
+          "visual_region_readback": {
+            "cases": 1,
+            "exact": 0,
+            "executable_cases": 1,
+            "executable": 0,
+            "exact_rate": 0.0,
+            "executable_rate": 0.0
+          }
+        }
+      },
+      "comparison_outputs": {
+        "comparison_vs_contracted": {
+          "summary": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive/comparison_vs_contracted/probe_comparison.json",
+          "case_deltas": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive/comparison_vs_contracted/probe_case_deltas.csv",
+          "family_deltas": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive/comparison_vs_contracted/probe_family_deltas.csv"
+        },
+        "comparison_vs_no_directive": {
+          "summary": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive/comparison_vs_no_directive/probe_comparison.json",
+          "case_deltas": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive/comparison_vs_no_directive/probe_case_deltas.csv",
+          "family_deltas": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive/comparison_vs_no_directive/probe_family_deltas.csv"
+        }
+      }
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog",
+      "probe_output_dir": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog",
+      "summary": {
+        "case_count": 8,
+        "exact_match_count": 3,
+        "exact_match_rate": 0.375,
+        "executable_evaluable_count": 8,
+        "executable_match_count": 3,
+        "executable_match_rate": 0.375,
+        "family_summary": {
+          "visual_argument_copying": {
+            "cases": 3,
+            "exact": 1,
+            "executable_cases": 3,
+            "executable": 1,
+            "exact_rate": 0.3333333333333333,
+            "executable_rate": 0.3333333333333333
+          },
+          "visual_tool_routing": {
+            "cases": 1,
+            "exact": 1,
+            "executable_cases": 1,
+            "executable": 1,
+            "exact_rate": 1.0,
+            "executable_rate": 1.0
+          },
+          "visual_referent_carryover": {
+            "cases": 3,
+            "exact": 0,
+            "executable_cases": 3,
+            "executable": 0,
+            "exact_rate": 0.0,
+            "executable_rate": 0.0
+          },
+          "visual_region_readback": {
+            "cases": 1,
+            "exact": 1,
+            "executable_cases": 1,
+            "executable": 1,
+            "exact_rate": 1.0,
+            "executable_rate": 1.0
+          }
+        }
+      },
+      "comparison_outputs": {
+        "comparison_vs_contracted": {
+          "summary": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog/comparison_vs_contracted/probe_comparison.json",
+          "case_deltas": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog/comparison_vs_contracted/probe_case_deltas.csv",
+          "family_deltas": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog/comparison_vs_contracted/probe_family_deltas.csv"
+        },
+        "comparison_vs_no_directive": {
+          "summary": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog/comparison_vs_no_directive/probe_comparison.json",
+          "case_deltas": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog/comparison_vs_no_directive/probe_case_deltas.csv",
+          "family_deltas": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog/comparison_vs_no_directive/probe_family_deltas.csv"
+        }
+      }
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints",
+      "probe_output_dir": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints",
+      "summary": {
+        "case_count": 8,
+        "exact_match_count": 6,
+        "exact_match_rate": 0.75,
+        "executable_evaluable_count": 8,
+        "executable_match_count": 7,
+        "executable_match_rate": 0.875,
+        "family_summary": {
+          "visual_argument_copying": {
+            "cases": 3,
+            "exact": 1,
+            "executable_cases": 3,
+            "executable": 2,
+            "exact_rate": 0.3333333333333333,
+            "executable_rate": 0.6666666666666666
+          },
+          "visual_tool_routing": {
+            "cases": 1,
+            "exact": 1,
+            "executable_cases": 1,
+            "executable": 1,
+            "exact_rate": 1.0,
+            "executable_rate": 1.0
+          },
+          "visual_referent_carryover": {
+            "cases": 3,
+            "exact": 3,
+            "executable_cases": 3,
+            "executable": 3,
+            "exact_rate": 1.0,
+            "executable_rate": 1.0
+          },
+          "visual_region_readback": {
+            "cases": 1,
+            "exact": 1,
+            "executable_cases": 1,
+            "executable": 1,
+            "exact_rate": 1.0,
+            "executable_rate": 1.0
+          }
+        }
+      },
+      "comparison_outputs": {
+        "comparison_vs_contracted": {
+          "summary": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints/comparison_vs_contracted/probe_comparison.json",
+          "case_deltas": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints/comparison_vs_contracted/probe_case_deltas.csv",
+          "family_deltas": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints/comparison_vs_contracted/probe_family_deltas.csv"
+        },
+        "comparison_vs_no_directive": {
+          "summary": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints/comparison_vs_no_directive/probe_comparison.json",
+          "case_deltas": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints/comparison_vs_no_directive/probe_case_deltas.csv",
+          "family_deltas": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints/comparison_vs_no_directive/probe_family_deltas.csv"
+        }
+      }
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints",
+      "probe_output_dir": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints",
+      "summary": {
+        "case_count": 8,
+        "exact_match_count": 5,
+        "exact_match_rate": 0.625,
+        "executable_evaluable_count": 8,
+        "executable_match_count": 6,
+        "executable_match_rate": 0.75,
+        "family_summary": {
+          "visual_argument_copying": {
+            "cases": 3,
+            "exact": 1,
+            "executable_cases": 3,
+            "executable": 2,
+            "exact_rate": 0.3333333333333333,
+            "executable_rate": 0.6666666666666666
+          },
+          "visual_tool_routing": {
+            "cases": 1,
+            "exact": 1,
+            "executable_cases": 1,
+            "executable": 1,
+            "exact_rate": 1.0,
+            "executable_rate": 1.0
+          },
+          "visual_referent_carryover": {
+            "cases": 3,
+            "exact": 2,
+            "executable_cases": 3,
+            "executable": 2,
+            "exact_rate": 0.6666666666666666,
+            "executable_rate": 0.6666666666666666
+          },
+          "visual_region_readback": {
+            "cases": 1,
+            "exact": 1,
+            "executable_cases": 1,
+            "executable": 1,
+            "exact_rate": 1.0,
+            "executable_rate": 1.0
+          }
+        }
+      },
+      "comparison_outputs": {
+        "comparison_vs_contracted": {
+          "summary": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints/comparison_vs_contracted/probe_comparison.json",
+          "case_deltas": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints/comparison_vs_contracted/probe_case_deltas.csv",
+          "family_deltas": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints/comparison_vs_contracted/probe_family_deltas.csv"
+        },
+        "comparison_vs_no_directive": {
+          "summary": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints/comparison_vs_no_directive/probe_comparison.json",
+          "case_deltas": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints/comparison_vs_no_directive/probe_case_deltas.csv",
+          "family_deltas": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints/comparison_vs_no_directive/probe_family_deltas.csv"
+        }
+      }
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints",
+      "probe_output_dir": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints",
+      "summary": {
+        "case_count": 8,
+        "exact_match_count": 6,
+        "exact_match_rate": 0.75,
+        "executable_evaluable_count": 8,
+        "executable_match_count": 8,
+        "executable_match_rate": 1.0,
+        "family_summary": {
+          "visual_argument_copying": {
+            "cases": 3,
+            "exact": 1,
+            "executable_cases": 3,
+            "executable": 3,
+            "exact_rate": 0.3333333333333333,
+            "executable_rate": 1.0
+          },
+          "visual_tool_routing": {
+            "cases": 1,
+            "exact": 1,
+            "executable_cases": 1,
+            "executable": 1,
+            "exact_rate": 1.0,
+            "executable_rate": 1.0
+          },
+          "visual_referent_carryover": {
+            "cases": 3,
+            "exact": 3,
+            "executable_cases": 3,
+            "executable": 3,
+            "exact_rate": 1.0,
+            "executable_rate": 1.0
+          },
+          "visual_region_readback": {
+            "cases": 1,
+            "exact": 1,
+            "executable_cases": 1,
+            "executable": 1,
+            "exact_rate": 1.0,
+            "executable_rate": 1.0
+          }
+        }
+      },
+      "comparison_outputs": {
+        "comparison_vs_contracted": {
+          "summary": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints/comparison_vs_contracted/probe_comparison.json",
+          "case_deltas": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints/comparison_vs_contracted/probe_case_deltas.csv",
+          "family_deltas": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints/comparison_vs_contracted/probe_family_deltas.csv"
+        },
+        "comparison_vs_no_directive": {
+          "summary": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints/comparison_vs_no_directive/probe_comparison.json",
+          "case_deltas": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints/comparison_vs_no_directive/probe_case_deltas.csv",
+          "family_deltas": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints/comparison_vs_no_directive/probe_family_deltas.csv"
+        }
+      }
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets",
+      "probe_output_dir": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets",
+      "summary": {
+        "case_count": 8,
+        "exact_match_count": 5,
+        "exact_match_rate": 0.625,
+        "executable_evaluable_count": 8,
+        "executable_match_count": 7,
+        "executable_match_rate": 0.875,
+        "family_summary": {
+          "visual_argument_copying": {
+            "cases": 3,
+            "exact": 1,
+            "executable_cases": 3,
+            "executable": 3,
+            "exact_rate": 0.3333333333333333,
+            "executable_rate": 1.0
+          },
+          "visual_tool_routing": {
+            "cases": 1,
+            "exact": 0,
+            "executable_cases": 1,
+            "executable": 0,
+            "exact_rate": 0.0,
+            "executable_rate": 0.0
+          },
+          "visual_referent_carryover": {
+            "cases": 3,
+            "exact": 3,
+            "executable_cases": 3,
+            "executable": 3,
+            "exact_rate": 1.0,
+            "executable_rate": 1.0
+          },
+          "visual_region_readback": {
+            "cases": 1,
+            "exact": 1,
+            "executable_cases": 1,
+            "executable": 1,
+            "exact_rate": 1.0,
+            "executable_rate": 1.0
+          }
+        }
+      },
+      "comparison_outputs": {
+        "comparison_vs_contracted": {
+          "summary": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets/comparison_vs_contracted/probe_comparison.json",
+          "case_deltas": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets/comparison_vs_contracted/probe_case_deltas.csv",
+          "family_deltas": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets/comparison_vs_contracted/probe_family_deltas.csv"
+        },
+        "comparison_vs_no_directive": {
+          "summary": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets/comparison_vs_no_directive/probe_comparison.json",
+          "case_deltas": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets/comparison_vs_no_directive/probe_case_deltas.csv",
+          "family_deltas": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets/comparison_vs_no_directive/probe_family_deltas.csv"
+        }
+      }
+    },
+    {
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard",
+      "probe_output_dir": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard",
+      "summary": {
+        "case_count": 8,
+        "exact_match_count": 3,
+        "exact_match_rate": 0.375,
+        "executable_evaluable_count": 8,
+        "executable_match_count": 4,
+        "executable_match_rate": 0.5,
+        "family_summary": {
+          "visual_argument_copying": {
+            "cases": 3,
+            "exact": 1,
+            "executable_cases": 3,
+            "executable": 2,
+            "exact_rate": 0.3333333333333333,
+            "executable_rate": 0.6666666666666666
+          },
+          "visual_tool_routing": {
+            "cases": 1,
+            "exact": 1,
+            "executable_cases": 1,
+            "executable": 1,
+            "exact_rate": 1.0,
+            "executable_rate": 1.0
+          },
+          "visual_referent_carryover": {
+            "cases": 3,
+            "exact": 0,
+            "executable_cases": 3,
+            "executable": 0,
+            "exact_rate": 0.0,
+            "executable_rate": 0.0
+          },
+          "visual_region_readback": {
+            "cases": 1,
+            "exact": 1,
+            "executable_cases": 1,
+            "executable": 1,
+            "exact_rate": 1.0,
+            "executable_rate": 1.0
+          }
+        }
+      },
+      "comparison_outputs": {
+        "comparison_vs_contracted": {
+          "summary": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard/comparison_vs_contracted/probe_comparison.json",
+          "case_deltas": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard/comparison_vs_contracted/probe_case_deltas.csv",
+          "family_deltas": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard/comparison_vs_contracted/probe_family_deltas.csv"
+        },
+        "comparison_vs_no_directive": {
+          "summary": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard/comparison_vs_no_directive/probe_comparison.json",
+          "case_deltas": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard/comparison_vs_no_directive/probe_case_deltas.csv",
+          "family_deltas": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard/comparison_vs_no_directive/probe_family_deltas.csv"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+case_id,family,baseline_exact_match,candidate_exact_match,delta_exact_match,baseline_failure_mode,candidate_failure_mode,baseline_executable_match,candidate_executable_match,delta_executable_match,baseline_actual_call_count,candidate_actual_call_count,delta_actual_call_count
+visual_callout_warning_with_user_decoy,visual_argument_copying,False,False,0,no_tool_call,argument_mismatch,False,False,0,0,1,1
+visual_form_error_vs_message_author,visual_argument_copying,True,True,0,exact,exact,True,True,0,1,1,0
+visual_form_error_with_prior_selection_decoy,visual_tool_routing,False,True,1,argument_mismatch,exact,False,True,1,1,1,0
+visual_latest_filter_existing_selection,visual_referent_carryover,False,False,0,no_tool_call,wrong_tool,False,False,0,0,1,1
+visual_metric_panel_vs_table_selector,visual_argument_copying,False,False,0,argument_mismatch,argument_mismatch,False,False,0,1,1,0
+visual_region_readback_after_layout_result,visual_region_readback,False,True,1,no_tool_call,exact,False,True,1,0,1,1
+visual_remaining_filter_existing_selection,visual_referent_carryover,False,False,0,wrong_tool,wrong_tool,False,False,0,1,1,0
+visual_selection_id_opaque_copy_with_filter,visual_referent_carryover,False,False,0,no_tool_call,argument_mismatch,False,False,0,0,1,1

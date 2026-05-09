@@ -4,9 +4,9 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 
 ## Manifest
 
-- generated_at: `2026-05-09T11:05:44.150380+00:00`
-- claim_count: `8`
-- evidence_source_count: `25`
+- generated_at: `2026-05-09T12:03:10.172134+00:00`
+- claim_count: `9`
+- evidence_source_count: `27`
 - missing_source_count: `0`
 
 ## Claims
@@ -20,7 +20,8 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C5_visual_argument_hints_improve_exactness_but_not_executability | supported_current_packets | moderate_internal | v2 reaches 2/3 focused visual live exactness but loses executable form-target recovery. | The improvement is focused on three visual replay cases and has a known form-target regression. | Search for a split selector intervention that preserves v2 filter exactness and v1 form-target executability. |
 | C6_split_selector_wording_is_negative_evidence | negative_result_current_packets | moderate_internal | v3 raw exact falls to 1/8 versus v2 at 2/8 and readback regresses through tool_name/name mismatch. | This is one candidate profile; it does not rule out all field-specific selector interventions. | Try an executor-grounded schema annotation or few-shot-free field contract that does not add broad behavioral prose. |
 | C7_schema_field_hints_tie_exactness_without_executability | negative_result_current_packets | moderate_internal | v4 ties v2 at 2/8 raw exact and preserves readback, but stays 0/1 executable and over-prefers refine_selection on form-target. | This tests one schema-field annotation profile on the focused eight-case replay-derived probe. | Create a fresh visual hard slice or constrain refine_selection preference only when a real selection_id is present. |
-| C8_visual_hard_slice_targets_remaining_uncertainty | supported_current_packets | moderate_internal | Contracted MLX reaches 8/8 exact and executable; no-directive falls to 1/8; schema-field hints reach 6/8 exact and 8/8 executable. | The packet is eight independently authored visual cases, so it is stronger than design-only evidence but still not a population estimate. | Inspect the two schema-field exact misses, then repeat or extend the hard slice before promoting to a packaged H1 workflow. |
+| C8_visual_hard_slice_targets_remaining_uncertainty | supported_current_packets | moderate_internal | Contracted MLX reaches 8/8 exact and executable; no-directive falls to 1/8; schema-field hints reach 6/8 exact and 8/8 executable. | The packet is eight independently authored visual cases, so it is stronger than design-only evidence but still not a population estimate. | Treat v4 as the current hard-slice profile; inspect whether the remaining exact misses are benchmark-canonical-label artifacts versus executor-visible failures before promoting to a packaged H1 workflow. |
+| C9_schema_literal_targets_v5_is_negative_evidence | negative_result_current_packets | moderate_internal | v5 reaches 5/8 exact and 7/8 executable versus v4 at 6/8 exact and 8/8 executable; v5 adds one wrong-tool failure on the stale-selection decoy. | This is still one eight-case hard-slice packet; it rejects the current wording, not all possible target-query exactness interventions. | Diagnose the two v4 executable paraphrases as benchmark-canonical-label versus true executor-targeting failures before another wording candidate. |
 
 ## Evidence Sources
 
@@ -48,6 +49,8 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C7_schema_field_hints_tie_exactness_without_executability | catalog_probe_packet | True | results/tool_catalog_profile_probe_packets/20260509T_visual_role_catalog_schema_field_hints_v4_probe | Raw v4 probe packet showing schema-field exactness tie and form-target wrong-tool regression. |
 | C7_schema_field_hints_tie_exactness_without_executability | catalog_probe_comparison | True | results/tool_catalog_profile_probe_comparisons/20260509T_visual_schema_field_hints_vs_argument_hints_v2 | Direct v4-vs-v2 comparison showing no exact gain over the current best visual candidate. |
 | C7_schema_field_hints_tie_exactness_without_executability | live_replay_decision | True | results/tool_probe_replay_live/20260509T_visual_schema_field_hints_live_replay_skipped_v1 | Promotion decision packet explaining why v4 did not spend live replay budget. |
-| C8_visual_hard_slice_targets_remaining_uncertainty | visual_hard_slice_probe_packet | True | results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_execute_v1 | Executed fresh visual hard-slice packet across contracted, no-directive, and visual catalog profile rows. |
+| C8_visual_hard_slice_targets_remaining_uncertainty | visual_hard_slice_probe_packet | True | results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1 | Executed fresh visual hard-slice packet across contracted, no-directive, v1-v5, and visual catalog literal-guard rows. |
 | C8_visual_hard_slice_targets_remaining_uncertainty | design_packet | True | results/reports/visual_hard_slice_design | Fresh visual hard-slice design packet derived from v1/v2/v3/v4 failure analysis. |
 | C8_visual_hard_slice_targets_remaining_uncertainty | live_replay_decision | True | results/tool_probe_replay_live/20260509T_visual_schema_field_hints_live_replay_skipped_v1 | Negative v4 promotion decision motivating a fresh visual hard-slice rather than another live replay. |
+| C9_schema_literal_targets_v5_is_negative_evidence | visual_hard_slice_probe_packet | True | results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1 | Executed v5 hard-slice packet showing the schema-target-literal profile underperforms schema-field hints. |
+| C9_schema_literal_targets_v5_is_negative_evidence | visual_hard_slice_profile_comparison | True | results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/schema_literal_targets_vs_schema_field_hints | Direct v5-vs-v4 comparison showing exact and executable regressions concentrated in visual tool routing. |

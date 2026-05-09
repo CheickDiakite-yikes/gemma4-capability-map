@@ -237,10 +237,12 @@ What remains:
   - runner: [`scripts/run_visual_hard_slice_probe_packet.py`](../../scripts/run_visual_hard_slice_probe_packet.py)
   - design packet: [`results/reports/visual_hard_slice_design/design.md`](../../results/reports/visual_hard_slice_design/design.md)
   - dry-run packet: [`results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_dry_run_v1`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_dry_run_v1)
-  - executed packet: [`results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_execute_v1`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_execute_v1)
-  - gate summary: [`candidate_gate_summary.md`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_execute_v1/candidate_gate_summary.md)
-  - result: contracted MLX `8 / 8` exact and executable; no-directive MLX `1 / 8` exact and executable; schema-field hints `6 / 8` exact and `8 / 8` executable.
-  - next use: inspect the two schema-field exact misses, compare them against argument-hints and contracted deltas, and decide whether a narrow exactness repair deserves a repeat hard-slice packet before any H1/H1h spend.
+  - first executed packet: [`results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_execute_v1`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_execute_v1)
+  - latest executed packet: [`results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1)
+  - latest gate summary: [`candidate_gate_summary.md`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/candidate_gate_summary.md)
+  - v5-vs-v4 comparison: [`schema_literal_targets_vs_schema_field_hints`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/schema_literal_targets_vs_schema_field_hints)
+  - result: contracted MLX `8 / 8` exact and executable; no-directive MLX `1 / 8` exact and executable; schema-field hints v4 `6 / 8` exact and `8 / 8` executable; schema-target-literal v5 `5 / 8` exact and `7 / 8` executable.
+  - next use: treat v5 as negative evidence. Before writing another exactness repair, decide whether the two v4 executable paraphrases are true executor failures or benchmark-canonical-label artifacts.
 - wave six is now executed and should be treated as negative composition evidence:
   - dry-run packet: [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run)
   - executed packet: [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe)
@@ -295,6 +297,7 @@ uv run python scripts/run_tool_catalog_profile_probe_packet.py --candidate-wave 
 uv run python scripts/run_tool_catalog_profile_probe_packet.py --candidate-wave v4 --run-group-id <timestamp>_visual_schema_field_hints_probe --execute
 uv run python scripts/build_visual_hard_slice_design.py
 uv run python scripts/run_visual_hard_slice_probe_packet.py --run-group-id <timestamp>_visual_hard_slice_probe --execute
+uv run python scripts/compare_tool_directive_probes.py results/visual_hard_slice_probe_packets/<packet_id>/<baseline_system_id> results/visual_hard_slice_probe_packets/<packet_id>/<candidate_system_id> --output-dir results/visual_hard_slice_probe_packets/<packet_id>/<comparison_id>
 uv run moonie-agent packet --kind visual-hard-slice-probe --packet-id <packet_id> --json
 uv run python scripts/build_publication_evidence_ledger.py
 uv run python scripts/audit_publication_readiness.py

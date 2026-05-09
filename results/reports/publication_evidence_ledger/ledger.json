@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-09T11:05:44.150380+00:00",
+    "generated_at": "2026-05-09T12:03:10.172134+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-    "claim_count": 8,
-    "evidence_source_count": 25,
+    "claim_count": 9,
+    "evidence_source_count": 27,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -13,7 +13,8 @@
       "C5_visual_argument_hints_improve_exactness_but_not_executability",
       "C6_split_selector_wording_is_negative_evidence",
       "C7_schema_field_hints_tie_exactness_without_executability",
-      "C8_visual_hard_slice_targets_remaining_uncertainty"
+      "C8_visual_hard_slice_targets_remaining_uncertainty",
+      "C9_schema_literal_targets_v5_is_negative_evidence"
     ]
   },
   "claims": [
@@ -94,8 +95,18 @@
       "evidence_strength": "moderate_internal",
       "primary_metric": "Contracted MLX reaches 8/8 exact and executable; no-directive falls to 1/8; schema-field hints reach 6/8 exact and 8/8 executable.",
       "limitation": "The packet is eight independently authored visual cases, so it is stronger than design-only evidence but still not a population estimate.",
-      "next_test": "Inspect the two schema-field exact misses, then repeat or extend the hard slice before promoting to a packaged H1 workflow.",
+      "next_test": "Treat v4 as the current hard-slice profile; inspect whether the remaining exact misses are benchmark-canonical-label artifacts versus executor-visible failures before promoting to a packaged H1 workflow.",
       "source_count": 3
+    },
+    {
+      "claim_id": "C9_schema_literal_targets_v5_is_negative_evidence",
+      "claim": "A narrow schema-target-literal repair did not improve hard-slice exactness and introduced a routing regression.",
+      "status": "negative_result_current_packets",
+      "evidence_strength": "moderate_internal",
+      "primary_metric": "v5 reaches 5/8 exact and 7/8 executable versus v4 at 6/8 exact and 8/8 executable; v5 adds one wrong-tool failure on the stale-selection decoy.",
+      "limitation": "This is still one eight-case hard-slice packet; it rejects the current wording, not all possible target-query exactness interventions.",
+      "next_test": "Diagnose the two v4 executable paraphrases as benchmark-canonical-label versus true executor-targeting failures before another wording candidate.",
+      "source_count": 2
     }
   ],
   "evidence_sources": [
@@ -256,8 +267,8 @@
     {
       "claim_id": "C8_visual_hard_slice_targets_remaining_uncertainty",
       "artifact_type": "visual_hard_slice_probe_packet",
-      "path": "results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_execute_v1",
-      "purpose": "Executed fresh visual hard-slice packet across contracted, no-directive, and visual catalog profile rows.",
+      "path": "results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1",
+      "purpose": "Executed fresh visual hard-slice packet across contracted, no-directive, v1-v5, and visual catalog literal-guard rows.",
       "exists": true
     },
     {
@@ -272,6 +283,20 @@
       "artifact_type": "live_replay_decision",
       "path": "results/tool_probe_replay_live/20260509T_visual_schema_field_hints_live_replay_skipped_v1",
       "purpose": "Negative v4 promotion decision motivating a fresh visual hard-slice rather than another live replay.",
+      "exists": true
+    },
+    {
+      "claim_id": "C9_schema_literal_targets_v5_is_negative_evidence",
+      "artifact_type": "visual_hard_slice_probe_packet",
+      "path": "results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1",
+      "purpose": "Executed v5 hard-slice packet showing the schema-target-literal profile underperforms schema-field hints.",
+      "exists": true
+    },
+    {
+      "claim_id": "C9_schema_literal_targets_v5_is_negative_evidence",
+      "artifact_type": "visual_hard_slice_profile_comparison",
+      "path": "results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/schema_literal_targets_vs_schema_field_hints",
+      "purpose": "Direct v5-vs-v4 comparison showing exact and executable regressions concentrated in visual tool routing.",
       "exists": true
     }
   ],

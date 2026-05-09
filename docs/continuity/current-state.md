@@ -284,18 +284,22 @@ Latest MLX tool-contract research:
   - runner: [`scripts/run_visual_hard_slice_probe_packet.py`](../../scripts/run_visual_hard_slice_probe_packet.py)
   - design packet: [`results/reports/visual_hard_slice_design/design.md`](../../results/reports/visual_hard_slice_design/design.md)
   - dry-run packet: [`results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_dry_run_v1`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_dry_run_v1)
-  - executed packet: [`results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_execute_v1`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_execute_v1)
-  - gate summary: [`candidate_gate_summary.md`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_execute_v1/candidate_gate_summary.md)
+  - first executed packet: [`results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_execute_v1`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_execute_v1)
+  - v5 dry-run packet: [`results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_dry_run`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_dry_run)
+  - latest executed packet: [`results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1)
+  - latest gate summary: [`candidate_gate_summary.md`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/candidate_gate_summary.md)
+  - v5-vs-v4 comparison: [`schema_literal_targets_vs_schema_field_hints`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/schema_literal_targets_vs_schema_field_hints)
   - shape: `8` executable cases across visual argument copying, visual tool routing, referent carryover, and region readback
-  - result:
+  - latest result:
     - contracted MLX: exact `8 / 8`, executable `8 / 8`
     - no-directive MLX: exact `1 / 8`, executable `1 / 8`, dominant failure `no_tool_call`
     - `visual_role_catalog_v1`: exact/executable `3 / 8`
     - `visual_role_catalog_argument_hints_v2`: exact `6 / 8`, executable `7 / 8`
     - `visual_role_catalog_split_selector_hints_v3`: exact `5 / 8`, executable `6 / 8`
     - `visual_role_catalog_schema_field_hints_v4`: exact `6 / 8`, executable `8 / 8`
+    - `visual_role_catalog_schema_literal_targets_v5`: exact `5 / 8`, executable `7 / 8`
     - `visual_role_catalog_v1 + literal_guard`: exact `3 / 8`, executable `4 / 8`
-  - interpretation: the hard slice breaks prior top-line saturation. Schema-field hints move from a focused-replay negative result to the strongest fresh-slice no-directive candidate because they preserve full executability, but they still trail contracted MLX on exact protocol fidelity.
+  - interpretation: the hard slice breaks prior top-line saturation. Schema-field hints move from a focused-replay negative result to the strongest fresh-slice no-directive candidate because they preserve full executability, but they still trail contracted MLX on exact protocol fidelity. The v5 schema-target-literal repair is negative evidence: it does not fix the two v4 paraphrases and adds a wrong-tool stale-selection regression.
 - Prompt-contract wave 6:
   - candidate: `literal_argument_guard_v1` + `visual_role_catalog_v1`
   - runner flag: `scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v6`
@@ -383,7 +387,8 @@ Current generated research report:
 - visual schema-field probe deltas vs v3: [`results/reports/mlx_tool_contract_harnessing/tables/tool_catalog_schema_field_hints_vs_split_selector_case_deltas.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/tool_catalog_schema_field_hints_vs_split_selector_case_deltas.csv)
 - visual schema-field probe deltas vs v1: [`results/reports/mlx_tool_contract_harnessing/tables/tool_catalog_schema_field_hints_vs_role_catalog_case_deltas.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/tool_catalog_schema_field_hints_vs_role_catalog_case_deltas.csv)
 - visual schema-field live decision: [`results/reports/mlx_tool_contract_harnessing/tables/tool_catalog_schema_field_hints_live_replay_decision.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/tool_catalog_schema_field_hints_live_replay_decision.csv)
-- visual hard-slice executed packet: [`results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_execute_v1`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_execute_v1)
+- visual hard-slice latest executed packet: [`results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1)
+- visual hard-slice v5-vs-v4 comparison: [`results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/schema_literal_targets_vs_schema_field_hints`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/schema_literal_targets_vs_schema_field_hints)
 - visual hard-slice probe gates: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_probe_gates.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_probe_gates.csv)
 - visual hard-slice family summary: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_family_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_family_summary.csv)
 - visual hard-slice failure modes: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_failure_modes.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_failure_modes.csv)

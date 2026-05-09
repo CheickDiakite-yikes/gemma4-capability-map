@@ -3127,3 +3127,40 @@
   - `uv run python scripts/build_mlx_tool_contract_report.py`
   - `uv run python scripts/build_publication_evidence_ledger.py`
   - `uv run python scripts/audit_publication_readiness.py`
+
+## 2026-05-09 - Schema Target Literal v5 Negative Hard-Slice Repair
+
+- A narrow hard-slice repair candidate was added after inspecting the two v4 exact misses:
+  - profile: `visual_role_catalog_schema_literal_targets_v5`
+  - registry system: `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets`
+  - implementation: [`src/gemma4_capability_map/tools/planner.py`](../src/gemma4_capability_map/tools/planner.py)
+  - dry-run packet: [`20260509T_visual_hard_slice_v5_dry_run`](../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_dry_run)
+  - executed packet: [`20260509T_visual_hard_slice_v5_execute_v1`](../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1)
+  - v5-vs-v4 comparison: [`schema_literal_targets_vs_schema_field_hints`](../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/schema_literal_targets_vs_schema_field_hints)
+- Result:
+  - v4 schema-field hints: exact `6 / 8`, executable `8 / 8`
+  - v5 schema target literals: exact `5 / 8`, executable `7 / 8`
+  - direct v5-vs-v4 delta: exact `-0.125`, executable `-0.125`
+  - v5 did not repair either v4 paraphrase:
+    - `visual_metric_panel_vs_table_selector`: expected `dashboard metric`, actual `metric panel`
+    - `visual_callout_warning_with_user_decoy`: expected `slide callout`, actual `slide callout warning`
+  - v5 introduced a new wrong-tool failure on `visual_form_error_with_prior_selection_decoy`: expected `extract_layout`, actual `refine_selection(selection_id="sel-stale", filter_query="validation error")`
+- Interpretation:
+  - The target-literal wording is an overcorrection. It does not solve exact target-label fidelity and weakens the important no-stale-selection guard.
+  - v4 remains the best no-directive hard-slice profile because it preserves full executability.
+  - The remaining research question is sharper now: are the two v4 exact misses true executor failures, or are they benchmark-canonical-label mismatches where the model produced an executable label? The next slice should separate exact-protocol label fidelity from executor-visible target success before writing another wording profile.
+- Reporting updates:
+  - generated report manifest remains `54` tables and `26` figures
+  - evidence ledger is now `9` claims and `27` evidence sources with `0` missing sources
+  - readiness audit is now `26` checks, `24` blocking checks, `0` blocking failures, and status `paper_draft_ready`
+  - new ledger claim: `C9_schema_literal_targets_v5_is_negative_evidence`
+- Verification:
+  - `uv run pytest tests/test_prompt_contracts.py tests/test_visual_hard_slice_probe_packet.py -q`
+  - `uv run python scripts/run_visual_hard_slice_probe_packet.py --run-group-id 20260509T_visual_hard_slice_v5_dry_run --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets`
+  - `uv run python scripts/run_visual_hard_slice_probe_packet.py --run-group-id 20260509T_visual_hard_slice_v5_execute_v1 --execute`
+  - `uv run python scripts/compare_tool_directive_probes.py results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets --output-dir results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/schema_literal_targets_vs_schema_field_hints`
+  - `uv run python scripts/build_mlx_tool_contract_report.py`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`
+  - `uv run pytest tests/test_prompt_contracts.py tests/test_visual_hard_slice_probe_packet.py tests/test_mlx_tool_contract_report.py tests/test_publication_evidence_ledger.py tests/test_publication_readiness_audit.py tests/test_runtime_cli.py::test_runtime_cli_packet_json_inspects_visual_hard_slice_probe_packet -q`
+  - `uv run moonie-agent packet --kind visual-hard-slice-probe --packet-id 20260509T_visual_hard_slice_v5_execute_v1 --json`

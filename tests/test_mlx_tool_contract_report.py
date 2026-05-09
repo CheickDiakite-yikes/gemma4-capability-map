@@ -122,6 +122,12 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert schema_hard_slice["exact_match_rate"] == "0.75"
     assert schema_hard_slice["executable_match_rate"] == "1.0"
     assert schema_hard_slice["label"] == "catalog schema fields"
+    v5_hard_slice = hard_slice_gates[
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets"
+    ]
+    assert v5_hard_slice["exact_match_rate"] == "0.625"
+    assert v5_hard_slice["executable_match_rate"] == "0.875"
+    assert v5_hard_slice["label"] == "catalog schema target literals"
     hard_slice_families = {
         (row["system_id"], row["family"]): row for row in payload["visual_hard_slice_family_summary"]
     }
@@ -131,6 +137,12 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
             "visual_argument_copying",
         )
     ]["executable_rate"] == "1.0"
+    assert hard_slice_families[
+        (
+            "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets",
+            "visual_tool_routing",
+        )
+    ]["executable_rate"] == "0.0"
     promotion = {row["tool_prompt_contract_id"]: row for row in payload["prompt_contract_promotion_decisions"]}
     assert promotion["schema_anchor_v1"]["promotion_decision"] == "hold_for_exact_probe_replay"
     assert promotion["visual_next_call_state_v2"]["promotion_reason"].startswith("executable recovery exists")
