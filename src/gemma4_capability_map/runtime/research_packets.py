@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_PACKET_ROOTS = {
     "prompt-contract-probe": ROOT / "results" / "tool_prompt_contract_probe_packets",
     "tool-catalog-profile-probe": ROOT / "results" / "tool_catalog_profile_probe_packets",
+    "visual-hard-slice-probe": ROOT / "results" / "visual_hard_slice_probe_packets",
     "tool-probe-replay": ROOT / "results" / "tool_probe_replay_packets",
     "tool-probe-replay-live": ROOT / "results" / "tool_probe_replay_live",
     "tool-probe-replay-live-comparison": ROOT / "results" / "tool_probe_replay_live_comparisons",
@@ -36,6 +37,12 @@ def research_packet_payload(
         return _tool_probe_replay_live_comparison_payload(packet_kind=packet_kind, target=target)
     if packet_kind == "tool-probe-replay-live-diagnostic":
         return _tool_probe_replay_live_diagnostic_payload(packet_kind=packet_kind, target=target)
+    if packet_kind == "visual-hard-slice-probe":
+        return _candidate_probe_payload(packet_kind=packet_kind, target=target)
+    return _candidate_probe_payload(packet_kind=packet_kind, target=target)
+
+
+def _candidate_probe_payload(*, packet_kind: str, target: Path) -> dict[str, Any]:
     manifest = _read_json(target / "manifest.json")
     commands = _read_json(target / "commands.json")
     results = _read_json(target / "results.json")

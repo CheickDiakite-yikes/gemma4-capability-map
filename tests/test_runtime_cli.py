@@ -441,6 +441,34 @@ def test_runtime_cli_packet_json_inspects_tool_catalog_profile_probe_packet(
     assert output["candidate_rows"][0]["tool_catalog_profile_id"] == "visual_role_catalog_v1"
 
 
+def test_runtime_cli_packet_json_inspects_visual_hard_slice_probe_packet(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+    tmp_path: Path,
+) -> None:
+    runtime = LocalAgentRuntime(results_root=tmp_path / "runtime")
+    packet_dir = _write_fake_visual_hard_slice_packet(tmp_path / "visual_packet")
+    monkeypatch.setattr(runtime_cli, "LocalAgentRuntime", lambda: runtime)
+    monkeypatch.setattr(
+        runtime_cli,
+        "parse_args",
+        lambda: runtime_cli.argparse.Namespace(
+            command="packet",
+            kind="visual-hard-slice-probe",
+            packet_id="latest",
+            packet_dir=str(packet_dir),
+            json=True,
+        ),
+    )
+
+    runtime_cli.main()
+
+    output = json.loads(capsys.readouterr().out)
+    assert output["packet_kind"] == "visual-hard-slice-probe"
+    assert output["candidate_count"] == 2
+    assert output["candidate_rows"][1]["hard_slice_gate"] == "no_directive_reference"
+
+
 def test_runtime_cli_packet_renders_rich_overview(
     monkeypatch: pytest.MonkeyPatch,
     capsys: pytest.CaptureFixture[str],
@@ -841,6 +869,48 @@ def _write_fake_tool_catalog_profile_packet(packet_dir: Path) -> Path:
             [
                 "system_id,tool_catalog_profile_id,execute,output_dir,comparison_path,exact_match_rate,executable_match_rate",
                 "catalog,visual_role_catalog_v1,True,/tmp/catalog,/tmp/catalog/probe_comparison.json,0.125,1.0",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    return packet_dir
+
+
+def _write_fake_visual_hard_slice_packet(packet_dir: Path) -> Path:
+    packet_dir.mkdir(parents=True)
+    (packet_dir / "manifest.json").write_text(
+        json.dumps(
+            {
+                "packet_run_id": "fake_visual_hard_slice",
+                "created_at": "2026-05-09T00:00:00+00:00",
+                "execute": True,
+                "case_count": 8,
+            }
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    (packet_dir / "commands.json").write_text(
+        json.dumps(
+            [
+                {"system_id": "contracted", "command": ["run", "contracted"]},
+                {"system_id": "no_directive", "command": ["run", "no_directive"]},
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    (packet_dir / "results.json").write_text(
+        json.dumps({"candidate_count": 2, "executed_count": 2, "dry_run_count": 0, "case_count": 8}) + "\n",
+        encoding="utf-8",
+    )
+    (packet_dir / "candidate_summary.csv").write_text(
+        "\n".join(
+            [
+                "system_id,execute,output_dir,exact_match_rate,executable_match_rate,hard_slice_gate",
+                "contracted,True,/tmp/contracted,1.0,1.0,contracted_reference",
+                "no_directive,True,/tmp/no_directive,0.0,0.0,no_directive_reference",
             ]
         )
         + "\n",

@@ -83,6 +83,7 @@ def parse_args() -> argparse.Namespace:
         choices=[
             "prompt-contract-probe",
             "tool-catalog-profile-probe",
+            "visual-hard-slice-probe",
             "tool-probe-replay",
             "tool-probe-replay-live",
             "tool-probe-replay-live-comparison",
