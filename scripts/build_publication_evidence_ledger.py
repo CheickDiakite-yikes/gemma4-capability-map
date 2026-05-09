@@ -389,10 +389,11 @@ CLAIMS: tuple[Claim, ...] = (
         primary_metric=(
             "On four fresh stress cases, no-directive MLX is 2/4 strict and 3/4 executor-equivalent; "
             "contracted MLX is 4/4 strict and executor-equivalent; schema-field hints and schema target literals are "
-            "2/4 strict but 4/4 executor-equivalent."
+            "2/4 strict but 4/4 executor-equivalent. On the 8-case alias-repeat follow-up, schema-field hints "
+            "matches no-directive at 2/8 strict but improves executor-equivalence from 5/8 to 7/8."
         ),
-        limitation="This is still a four-case replay-shaped live slice, not a broad packaged workflow or repeated stochastic estimate.",
-        next_test="Repeat the stress replay with additional metric-panel decoys and then decide whether to promote the surviving cases into an H1m packaged workflow.",
+        limitation="The full matrix is complete for the four-case stress slice, while the eight-case alias-repeat follow-up currently has only the no-directive vs schema-field minimal pair.",
+        next_test="Run the alias-repeat suite through contracted, role catalog, argument hints, and schema target literals before deciding whether to promote the surviving cases into an H1m packaged workflow.",
         sources=(
             EvidenceSource(
                 "tool_probe_replay_packet",
@@ -423,6 +424,16 @@ CLAIMS: tuple[Claim, ...] = (
                 "report_table",
                 "results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_stress_live_replay_summary.csv",
                 "Report table summarizing exact, executable, and executor-equivalence stress replay deltas.",
+            ),
+            EvidenceSource(
+                "tool_probe_replay_packet",
+                "results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_repeat_dry_run_v1",
+                "Eight-case alias-repeat follow-up with additional metric-panel and callout decoys.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_repeat_schema_field_hints_vs_no_directive_v1",
+                "Alias-repeat comparison showing schema-field hints improve executor-equivalence without strict exactness gain.",
             ),
             EvidenceSource(
                 "diagnostic_report",

@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-09T23:12:17.515419+00:00",
+    "generated_at": "2026-05-09T23:19:14.562639+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
     "claim_count": 13,
-    "evidence_source_count": 47,
+    "evidence_source_count": 49,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -147,10 +147,10 @@
       "claim": "A harder visual live stress replay preserves the executor-grounding advantage of schema-local catalog hints without improving strict protocol fidelity.",
       "status": "supported_current_packets",
       "evidence_strength": "moderate_internal",
-      "primary_metric": "On four fresh stress cases, no-directive MLX is 2/4 strict and 3/4 executor-equivalent; contracted MLX is 4/4 strict and executor-equivalent; schema-field hints and schema target literals are 2/4 strict but 4/4 executor-equivalent.",
-      "limitation": "This is still a four-case replay-shaped live slice, not a broad packaged workflow or repeated stochastic estimate.",
-      "next_test": "Repeat the stress replay with additional metric-panel decoys and then decide whether to promote the surviving cases into an H1m packaged workflow.",
-      "source_count": 7
+      "primary_metric": "On four fresh stress cases, no-directive MLX is 2/4 strict and 3/4 executor-equivalent; contracted MLX is 4/4 strict and executor-equivalent; schema-field hints and schema target literals are 2/4 strict but 4/4 executor-equivalent. On the 8-case alias-repeat follow-up, schema-field hints matches no-directive at 2/8 strict but improves executor-equivalence from 5/8 to 7/8.",
+      "limitation": "The full matrix is complete for the four-case stress slice, while the eight-case alias-repeat follow-up currently has only the no-directive vs schema-field minimal pair.",
+      "next_test": "Run the alias-repeat suite through contracted, role catalog, argument hints, and schema target literals before deciding whether to promote the surviving cases into an H1m packaged workflow.",
+      "source_count": 9
     }
   ],
   "evidence_sources": [
@@ -474,6 +474,20 @@
       "artifact_type": "report_table",
       "path": "results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_stress_live_replay_summary.csv",
       "purpose": "Report table summarizing exact, executable, and executor-equivalence stress replay deltas.",
+      "exists": true
+    },
+    {
+      "claim_id": "C13_visual_live_stress_separates_executor_grounding_from_strict_fidelity",
+      "artifact_type": "tool_probe_replay_packet",
+      "path": "results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_repeat_dry_run_v1",
+      "purpose": "Eight-case alias-repeat follow-up with additional metric-panel and callout decoys.",
+      "exists": true
+    },
+    {
+      "claim_id": "C13_visual_live_stress_separates_executor_grounding_from_strict_fidelity",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_repeat_schema_field_hints_vs_no_directive_v1",
+      "purpose": "Alias-repeat comparison showing schema-field hints improve executor-equivalence without strict exactness gain.",
       "exists": true
     },
     {

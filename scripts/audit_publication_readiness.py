@@ -227,6 +227,26 @@ def audit_publication_readiness(
             detail="Visual live stress diagnostic report exists.",
         ),
         _check_path(
+            check_id="visual_hard_slice_alias_repeat_packet_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_packets"
+            / "20260509T_visual_hard_slice_live_stress_alias_repeat_dry_run_v1"
+            / "replay_cases.json",
+            detail="Eight-case alias-repeat visual stress replay packet exists.",
+        ),
+        _check_path(
+            check_id="visual_hard_slice_alias_repeat_schema_field_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260509T_visual_hard_slice_live_stress_alias_repeat_schema_field_hints_vs_no_directive_v1"
+            / "live_replay_comparison.json",
+            detail="Alias-repeat schema-field live replay comparison exists.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",

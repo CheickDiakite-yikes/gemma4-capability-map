@@ -3320,3 +3320,35 @@
   - `uv run moonie-agent replay-live --packet-id 20260509T_visual_hard_slice_live_stress_dry_run_v1 --output-dir results/tool_probe_replay_live/20260509T_visual_hard_slice_live_stress_no_directive_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive --execute --json`
   - `uv run moonie-agent replay-live --packet-id 20260509T_visual_hard_slice_live_stress_dry_run_v1 --output-dir results/tool_probe_replay_live/20260509T_visual_hard_slice_live_stress_schema_field_hints_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints --execute --json`
   - `uv run python scripts/build_mlx_tool_contract_report.py`
+
+## 2026-05-09 - Visual Hard-Slice Alias-Repeat Minimal Pair
+
+- Added an eight-case alias-repeat stress suite to repeat the metric-panel and callout selector-alias mechanisms before promoting anything into a new packaged H1 workflow:
+  - builder: [`scripts/build_visual_hard_slice_live_stress_packet.py`](../scripts/build_visual_hard_slice_live_stress_packet.py)
+  - suite flag: `--suite alias_repeat_v2`
+  - source packet: [`20260509T_visual_hard_slice_live_stress_alias_repeat_dry_run_v1`](../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_repeat_dry_run_v1)
+  - no-directive live packet: [`20260509T_visual_hard_slice_live_stress_alias_repeat_no_directive_execute_v1`](../results/tool_probe_replay_live/20260509T_visual_hard_slice_live_stress_alias_repeat_no_directive_execute_v1)
+  - schema-field live packet: [`20260509T_visual_hard_slice_live_stress_alias_repeat_schema_field_hints_execute_v1`](../results/tool_probe_replay_live/20260509T_visual_hard_slice_live_stress_alias_repeat_schema_field_hints_execute_v1)
+  - comparison: [`20260509T_visual_hard_slice_live_stress_alias_repeat_schema_field_hints_vs_no_directive_v1`](../results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_repeat_schema_field_hints_vs_no_directive_v1)
+- Result:
+  - no-directive MLX: strict `2 / 8`, executable/executor-equivalent `5 / 8`
+  - schema-field hints v4: strict `2 / 8`, executable/executor-equivalent `7 / 8`
+  - strict delta remains `0.0`; executor-equivalence delta is `+0.25`
+  - improved cases:
+    - `stress_callout_warning_person_table_decoy`: no tool call becomes executor-equivalent
+    - `stress_metric_panel_with_chart_table_decoys`: argument mismatch becomes executor-equivalent
+  - remaining schema-field miss:
+    - `stress_callout_warning_risk_note_decoy`
+- Interpretation:
+  - The four-case stress result was not a one-off from a single metric-panel example. When alias/decoy pressure is repeated, schema-field hints still improve executor-visible grounding while leaving strict canonical-label fidelity unchanged.
+  - This strengthens the central research answer: local MLX Gemma harnessing gains are showing up as executor-grounding improvements under visual alias pressure, not as full strict protocol-copy recovery.
+  - The next empirical move is to finish the alias-repeat matrix for contracted MLX, role catalog v1, argument hints v2, and schema target literals v5 before deciding whether the surviving cases deserve an H1m packaged workflow.
+- Reporting updates:
+  - publication evidence claim `C13_visual_live_stress_separates_executor_grounding_from_strict_fidelity` now includes the alias-repeat minimal pair
+  - publication readiness audit now requires the alias-repeat packet and schema-field-vs-no-directive comparison
+- Verification:
+  - `uv run pytest tests/test_visual_hard_slice_live_stress_packet.py -q`
+  - `uv run python scripts/build_visual_hard_slice_live_stress_packet.py --run-group-id 20260509T_visual_hard_slice_live_stress_alias_repeat_dry_run_v1 --suite alias_repeat_v2`
+  - `uv run moonie-agent replay-live --packet-id 20260509T_visual_hard_slice_live_stress_alias_repeat_dry_run_v1 --output-dir results/tool_probe_replay_live/20260509T_visual_hard_slice_live_stress_alias_repeat_no_directive_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive --execute --json`
+  - `uv run moonie-agent replay-live --packet-id 20260509T_visual_hard_slice_live_stress_alias_repeat_dry_run_v1 --output-dir results/tool_probe_replay_live/20260509T_visual_hard_slice_live_stress_alias_repeat_schema_field_hints_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints --execute --json`
+  - `uv run python scripts/compare_tool_probe_replay_live_packets.py results/tool_probe_replay_live/20260509T_visual_hard_slice_live_stress_alias_repeat_no_directive_execute_v1 results/tool_probe_replay_live/20260509T_visual_hard_slice_live_stress_alias_repeat_schema_field_hints_execute_v1 --output-dir results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_repeat_schema_field_hints_vs_no_directive_v1`

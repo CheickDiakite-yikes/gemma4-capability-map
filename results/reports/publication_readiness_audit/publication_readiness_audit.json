@@ -1,9 +1,9 @@
 {
   "summary": {
-    "generated_at": "2026-05-09T23:12:17.522677+00:00",
+    "generated_at": "2026-05-09T23:19:14.555075+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 39,
-    "blocking_check_count": 37,
+    "check_count": 41,
+    "blocking_check_count": 39,
     "blocking_failed_count": 0,
     "recommended_check_count": 2,
     "recommended_failed_count": 0,
@@ -178,6 +178,20 @@
       "passed": true,
       "detail": "Visual live stress diagnostic report exists.",
       "path": "results/reports/visual_live_stress_diagnostic/diagnostic.md"
+    },
+    {
+      "check_id": "visual_hard_slice_alias_repeat_packet_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Eight-case alias-repeat visual stress replay packet exists.",
+      "path": "results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_repeat_dry_run_v1/replay_cases.json"
+    },
+    {
+      "check_id": "visual_hard_slice_alias_repeat_schema_field_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Alias-repeat schema-field live replay comparison exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_repeat_schema_field_hints_vs_no_directive_v1/live_replay_comparison.json"
     },
     {
       "check_id": "current_state_doc_exists",
