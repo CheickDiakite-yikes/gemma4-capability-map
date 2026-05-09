@@ -81,6 +81,18 @@ def audit_publication_readiness(
             detail="Skipped-live decision is preserved as an auditable packet.",
         ),
         _check_path(
+            check_id="v4_negative_probe_packet_exists",
+            severity="blocking",
+            path=ROOT / "results" / "tool_catalog_profile_probe_packets" / "20260509T_visual_role_catalog_schema_field_hints_v4_probe",
+            detail="Negative v4 schema-field probe is preserved.",
+        ),
+        _check_path(
+            check_id="v4_skipped_live_decision_exists",
+            severity="blocking",
+            path=ROOT / "results" / "tool_probe_replay_live" / "20260509T_visual_schema_field_hints_live_replay_skipped_v1" / "decision.md",
+            detail="Skipped-live decision is preserved as an auditable packet.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",

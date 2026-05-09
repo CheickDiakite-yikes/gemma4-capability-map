@@ -194,6 +194,32 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C7_schema_field_hints_tie_exactness_without_executability",
+        claim="Schema-local visual field hints are cleaner than broad selector prose but still do not recover executable form targeting.",
+        status="negative_result_current_packets",
+        evidence_strength="moderate_internal",
+        primary_metric="v4 ties v2 at 2/8 raw exact and preserves readback, but stays 0/1 executable and over-prefers refine_selection on form-target.",
+        limitation="This tests one schema-field annotation profile on the focused eight-case replay-derived probe.",
+        next_test="Create a fresh visual hard slice or constrain refine_selection preference only when a real selection_id is present.",
+        sources=(
+            EvidenceSource(
+                "catalog_probe_packet",
+                "results/tool_catalog_profile_probe_packets/20260509T_visual_role_catalog_schema_field_hints_v4_probe",
+                "Raw v4 probe packet showing schema-field exactness tie and form-target wrong-tool regression.",
+            ),
+            EvidenceSource(
+                "catalog_probe_comparison",
+                "results/tool_catalog_profile_probe_comparisons/20260509T_visual_schema_field_hints_vs_argument_hints_v2",
+                "Direct v4-vs-v2 comparison showing no exact gain over the current best visual candidate.",
+            ),
+            EvidenceSource(
+                "live_replay_decision",
+                "results/tool_probe_replay_live/20260509T_visual_schema_field_hints_live_replay_skipped_v1",
+                "Promotion decision packet explaining why v4 did not spend live replay budget.",
+            ),
+        ),
+    ),
 )
 
 

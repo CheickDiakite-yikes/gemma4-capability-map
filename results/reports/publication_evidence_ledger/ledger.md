@@ -4,9 +4,9 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 
 ## Manifest
 
-- generated_at: `2026-05-09T00:28:26.047126+00:00`
-- claim_count: `6`
-- evidence_source_count: `19`
+- generated_at: `2026-05-09T00:35:45.493159+00:00`
+- claim_count: `7`
+- evidence_source_count: `22`
 - missing_source_count: `0`
 
 ## Claims
@@ -19,6 +19,7 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C4_visual_catalog_role_routing_is_real | supported_current_packets | moderate_internal | visual_role_catalog_v1 moves latest-filter from wrong/no-call behavior to refine_selection argument mismatch. | The intervention improves routing more than exact literal fidelity. | Test catalog-role profiles across a larger visual follow-on set with fresh UI states. |
 | C5_visual_argument_hints_improve_exactness_but_not_executability | supported_current_packets | moderate_internal | v2 reaches 2/3 focused visual live exactness but loses executable form-target recovery. | The improvement is focused on three visual replay cases and has a known form-target regression. | Search for a split selector intervention that preserves v2 filter exactness and v1 form-target executability. |
 | C6_split_selector_wording_is_negative_evidence | negative_result_current_packets | moderate_internal | v3 raw exact falls to 1/8 versus v2 at 2/8 and readback regresses through tool_name/name mismatch. | This is one candidate profile; it does not rule out all field-specific selector interventions. | Try an executor-grounded schema annotation or few-shot-free field contract that does not add broad behavioral prose. |
+| C7_schema_field_hints_tie_exactness_without_executability | negative_result_current_packets | moderate_internal | v4 ties v2 at 2/8 raw exact and preserves readback, but stays 0/1 executable and over-prefers refine_selection on form-target. | This tests one schema-field annotation profile on the focused eight-case replay-derived probe. | Create a fresh visual hard slice or constrain refine_selection preference only when a real selection_id is present. |
 
 ## Evidence Sources
 
@@ -43,3 +44,6 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C6_split_selector_wording_is_negative_evidence | catalog_probe_packet | True | results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_split_selector_hints_v3_probe | Raw v3 probe packet and case outputs. |
 | C6_split_selector_wording_is_negative_evidence | catalog_probe_comparison | True | results/tool_catalog_profile_probe_comparisons/20260508T_visual_split_selector_hints_vs_argument_hints_v2 | Direct v3-vs-v2 comparison showing exact regression. |
 | C6_split_selector_wording_is_negative_evidence | live_replay_decision | True | results/tool_probe_replay_live/20260508T_visual_split_selector_hints_live_replay_skipped_v1 | Promotion decision packet explaining why v3 did not spend live replay budget. |
+| C7_schema_field_hints_tie_exactness_without_executability | catalog_probe_packet | True | results/tool_catalog_profile_probe_packets/20260509T_visual_role_catalog_schema_field_hints_v4_probe | Raw v4 probe packet showing schema-field exactness tie and form-target wrong-tool regression. |
+| C7_schema_field_hints_tie_exactness_without_executability | catalog_probe_comparison | True | results/tool_catalog_profile_probe_comparisons/20260509T_visual_schema_field_hints_vs_argument_hints_v2 | Direct v4-vs-v2 comparison showing no exact gain over the current best visual candidate. |
+| C7_schema_field_hints_tie_exactness_without_executability | live_replay_decision | True | results/tool_probe_replay_live/20260509T_visual_schema_field_hints_live_replay_skipped_v1 | Promotion decision packet explaining why v4 did not spend live replay budget. |

@@ -1,9 +1,9 @@
 {
   "summary": {
-    "generated_at": "2026-05-09T00:28:52.439615+00:00",
+    "generated_at": "2026-05-09T00:35:45.535736+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 18,
-    "blocking_check_count": 16,
+    "check_count": 20,
+    "blocking_check_count": 18,
     "blocking_failed_count": 0,
     "recommended_check_count": 2,
     "recommended_failed_count": 0,
@@ -29,7 +29,7 @@
       "check_id": "ledger_has_claims",
       "severity": "blocking",
       "passed": true,
-      "detail": "claim_count=6",
+      "detail": "claim_count=7",
       "path": ""
     },
     {
@@ -43,7 +43,7 @@
       "check_id": "tool_contract_report_has_current_tables",
       "severity": "blocking",
       "passed": true,
-      "detail": "table_count=45",
+      "detail": "table_count=49",
       "path": ""
     },
     {
@@ -66,6 +66,20 @@
       "passed": true,
       "detail": "Skipped-live decision is preserved as an auditable packet.",
       "path": "results/tool_probe_replay_live/20260508T_visual_split_selector_hints_live_replay_skipped_v1/decision.md"
+    },
+    {
+      "check_id": "v4_negative_probe_packet_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Negative v4 schema-field probe is preserved.",
+      "path": "results/tool_catalog_profile_probe_packets/20260509T_visual_role_catalog_schema_field_hints_v4_probe"
+    },
+    {
+      "check_id": "v4_skipped_live_decision_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Skipped-live decision is preserved as an auditable packet.",
+      "path": "results/tool_probe_replay_live/20260509T_visual_schema_field_hints_live_replay_skipped_v1/decision.md"
     },
     {
       "check_id": "current_state_doc_exists",

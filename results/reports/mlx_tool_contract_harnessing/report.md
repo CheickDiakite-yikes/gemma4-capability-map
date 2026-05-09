@@ -1,6 +1,6 @@
 # MLX Tool-Contract Harnessing Report
 
-Generated: `2026-05-09T00:23:30.083329+00:00`
+Generated: `2026-05-09T00:35:45.433862+00:00`
 
 ## Executive Read
 
@@ -10,7 +10,7 @@ H1h confirmed that the compact H1f no-directive finding survives the full ten-wo
 
 The main finding is blunt: the tool-turn directive is a real model-side harness intervention, not presentation polish. When it is removed, no-directive MLX can still match readiness only because the controller repairs or substitutes calls. Raw no-directive tool compliance collapses on the probe suite.
 
-The visual catalog branch now includes an explicit negative-result loop. `visual_role_catalog_argument_hints_v2` remains the best exact visual candidate, while `visual_role_catalog_split_selector_hints_v3` was rejected before live replay because it regressed exact readback and did not recover executable form targeting.
+The visual catalog branch now includes an explicit negative-result loop. `visual_role_catalog_argument_hints_v2` remains the best exact visual candidate. `visual_role_catalog_split_selector_hints_v3` was rejected before live replay because it regressed exact readback, and `visual_role_catalog_schema_field_hints_v4` tied v2 on exactness without recovering executable form targeting.
 
 ## Figures
 
@@ -162,6 +162,7 @@ The third wave targets the mechanisms exposed by CLI-live replay: canonical argu
 | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog | visual_role_catalog_v1 | True | /Users/cheickdiakite/Codex/moonie/results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_v1_probe/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog | /Users/cheickdiakite/Codex/moonie/results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_v1_probe/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog/comparison_vs_contracted/probe_comparison.json | /Users/cheickdiakite/Codex/moonie/results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_v1_probe/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog/comparison_vs_no_directive/probe_comparison.json | 0.125 | 1.0 | -0.75 | 0.125 | probe_improved_vs_no_directive |
 | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints | visual_role_catalog_argument_hints_v2 | True | /Users/cheickdiakite/Codex/moonie/results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_argument_hints_v2_probe/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints | /Users/cheickdiakite/Codex/moonie/results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_argument_hints_v2_probe/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints/comparison_vs_contracted/probe_comparison.json | /Users/cheickdiakite/Codex/moonie/results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_argument_hints_v2_probe/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints/comparison_vs_no_directive/probe_comparison.json | 0.25 | 0.0 | -0.625 | 0.25 | probe_improved_vs_no_directive |
 | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints | visual_role_catalog_split_selector_hints_v3 | True | /Users/cheickdiakite/Codex/moonie/results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_split_selector_hints_v3_probe/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints | /Users/cheickdiakite/Codex/moonie/results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_split_selector_hints_v3_probe/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints/comparison_vs_contracted/probe_comparison.json | /Users/cheickdiakite/Codex/moonie/results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_split_selector_hints_v3_probe/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints/comparison_vs_no_directive/probe_comparison.json | 0.125 | 0.0 | -0.75 | 0.125 | probe_improved_vs_no_directive |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints | visual_role_catalog_schema_field_hints_v4 | True | /Users/cheickdiakite/Codex/moonie/results/tool_catalog_profile_probe_packets/20260509T_visual_role_catalog_schema_field_hints_v4_probe/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints | /Users/cheickdiakite/Codex/moonie/results/tool_catalog_profile_probe_packets/20260509T_visual_role_catalog_schema_field_hints_v4_probe/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints/comparison_vs_contracted/probe_comparison.json | /Users/cheickdiakite/Codex/moonie/results/tool_catalog_profile_probe_packets/20260509T_visual_role_catalog_schema_field_hints_v4_probe/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints/comparison_vs_no_directive/probe_comparison.json | 0.25 | 0.0 | -0.625 | 0.25 | probe_improved_vs_no_directive |
 
 `visual_role_catalog_v1` moves the intervention from standalone prompt-contract wording into the tool-catalog presentation. It keeps the exact directive disabled, improves raw exact rate from `0.0` to `0.125`, restores the visual executable target to `1.0`, and changes the live visual failure from wrong-tool/no-call into literal argument mismatch. `visual_role_catalog_argument_hints_v2` then tests the next narrow question: can field-level selector semantics fix that literal mismatch while preserving routing?
 
@@ -209,6 +210,36 @@ The raw answer is mixed but materially informative. Argument hints raise probe e
 | 20260508T_visual_split_selector_hints_live_replay_skipped_v1 | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints | visual_role_catalog_split_selector_hints_v3 | skip_live_replay | v3 did not beat the v2 raw exact gate and lost readback exactness, so live replay would spend budget on a weaker candidate. | 0.125 | 0.0 | visual_role_catalog_argument_hints_v2 | 0.25 | visual_role_catalog_v1 | 1.0 |
 
 `visual_role_catalog_split_selector_hints_v3` is useful as negative evidence. It preserved the v2 latest-filter exact call, but dropped overall raw exactness from `2 / 8` to `1 / 8` versus v2 and regressed readback by emitting `tool_name` instead of `name`. It also failed to recover the v1 executable form-target behavior, so focused live replay was intentionally skipped.
+
+## Tool-Catalog Schema-Field Negative Probe Delta
+
+| case_id | family | baseline_exact_match | candidate_exact_match | delta_exact_match | baseline_failure_mode | candidate_failure_mode | baseline_executable_match | candidate_executable_match | delta_executable_match | baseline_actual_call_count | candidate_actual_call_count | delta_actual_call_count |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| api_form_issue_fetch | api_canonicalization | False | False | 0 | argument_mismatch | argument_mismatch |  |  |  | 1 | 1 | 0 |
+| api_invoice_lock_hold_update | api_canonicalization | False | False | 0 | argument_mismatch | argument_mismatch |  |  |  | 1 | 1 | 0 |
+| cli_invoice_lock_hyphen_query | cli_canonicalization | False | False | 0 | argument_mismatch | argument_mismatch |  |  |  | 1 | 1 | 0 |
+| cli_phone_patch_latest_only | cli_patch_copying | False | False | 0 | argument_mismatch | argument_mismatch |  |  |  | 1 | 1 | 0 |
+| parallel_audit_array_literal | parallel_tool_calling | False | False | 0 | no_tool_call | no_tool_call |  |  |  | 0 | 0 | 0 |
+| visual_form_target_literal | visual_argument_copying | False | False | 0 | argument_mismatch | wrong_tool | False | False | 0 | 1 | 1 | 0 |
+| visual_latest_filter_literal | visual_referent_carryover | True | True | 0 | exact | exact |  |  |  | 1 | 1 | 0 |
+| visual_readback_region_literal | visual_referent_carryover | True | True | 0 | exact | exact |  |  |  | 1 | 1 | 0 |
+
+| case_id | family | baseline_exact_match | candidate_exact_match | delta_exact_match | baseline_failure_mode | candidate_failure_mode | baseline_executable_match | candidate_executable_match | delta_executable_match | baseline_actual_call_count | candidate_actual_call_count | delta_actual_call_count |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| api_form_issue_fetch | api_canonicalization | False | False | 0 | argument_mismatch | argument_mismatch |  |  |  | 1 | 1 | 0 |
+| api_invoice_lock_hold_update | api_canonicalization | False | False | 0 | argument_mismatch | argument_mismatch |  |  |  | 1 | 1 | 0 |
+| cli_invoice_lock_hyphen_query | cli_canonicalization | False | False | 0 | argument_mismatch | argument_mismatch |  |  |  | 1 | 1 | 0 |
+| cli_phone_patch_latest_only | cli_patch_copying | False | False | 0 | argument_mismatch | argument_mismatch |  |  |  | 1 | 1 | 0 |
+| parallel_audit_array_literal | parallel_tool_calling | False | False | 0 | no_tool_call | no_tool_call |  |  |  | 0 | 0 | 0 |
+| visual_form_target_literal | visual_argument_copying | False | False | 0 | argument_mismatch | wrong_tool | False | False | 0 | 1 | 1 | 0 |
+| visual_latest_filter_literal | visual_referent_carryover | True | True | 0 | exact | exact |  |  |  | 1 | 1 | 0 |
+| visual_readback_region_literal | visual_referent_carryover | False | True | 1 | no_tool_call | exact |  |  |  | 0 | 1 | 1 |
+
+| packet_run_id | candidate_system_id | tool_catalog_profile_id | decision | reason | candidate_exact_match_rate | candidate_executable_match_rate | best_current_exact_candidate | best_current_exact_candidate_rate | best_current_executable_routing_candidate | best_current_executable_routing_rate |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 20260509T_visual_schema_field_hints_live_replay_skipped_v1 | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints | visual_role_catalog_schema_field_hints_v4 | skip_live_replay | v4 tied the v2 raw exact rate but did not improve it, failed executable form targeting, and over-preferred refine_selection on the form-target case. | 0.25 | 0.0 | visual_role_catalog_argument_hints_v2 | 0.25 | visual_role_catalog_v1 | 1.0 |
+
+`visual_role_catalog_schema_field_hints_v4` is cleaner than v3 because it avoids broad prose and restores the exact readback case. It still does not beat v2: raw exact stays `2 / 8`, executable visual-form recovery stays `0 / 1`, and the form-target case over-prefers `refine_selection` with `selection_id="latest"`. Live replay was skipped because it tied the current best exact candidate while remaining below the executable routing baseline.
 
 ## Prompt-Contract Wave Six Probe Gate
 
@@ -507,6 +538,11 @@ This packet is deliberately a dry-run prompt and command manifest. It is an exte
 - Tool catalog split-selector vs argument-hints comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_catalog_profile_probe_comparisons/20260508T_visual_split_selector_hints_vs_argument_hints_v2`
 - Tool catalog split-selector vs role-catalog comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_catalog_profile_probe_comparisons/20260508T_visual_split_selector_hints_vs_role_catalog_v1`
 - Tool catalog split-selector live decision: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260508T_visual_split_selector_hints_live_replay_skipped_v1`
+- Tool catalog schema-field packet: `/Users/cheickdiakite/Codex/moonie/results/tool_catalog_profile_probe_packets/20260509T_visual_role_catalog_schema_field_hints_v4_probe`
+- Tool catalog schema-field vs argument-hints comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_catalog_profile_probe_comparisons/20260509T_visual_schema_field_hints_vs_argument_hints_v2`
+- Tool catalog schema-field vs split-selector comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_catalog_profile_probe_comparisons/20260509T_visual_schema_field_hints_vs_split_selector_v3`
+- Tool catalog schema-field vs role-catalog comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_catalog_profile_probe_comparisons/20260509T_visual_schema_field_hints_vs_role_catalog_v1`
+- Tool catalog schema-field live decision: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260509T_visual_schema_field_hints_live_replay_skipped_v1`
 - Prompt-contract wave six packet: `/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe`
 - H1i prompt-contract packet: `/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet`
 - H1i prompt-contract repeat packet: `/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_repeat3_v1_knowledge_work_ablation_packet`

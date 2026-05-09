@@ -82,6 +82,30 @@ DEFAULT_TOOL_CATALOG_SPLIT_SELECTOR_VS_ROLE_CATALOG_COMPARISON = (
 DEFAULT_TOOL_CATALOG_SPLIT_SELECTOR_LIVE_DECISION = (
     ROOT / "results" / "tool_probe_replay_live" / "20260508T_visual_split_selector_hints_live_replay_skipped_v1"
 )
+DEFAULT_TOOL_CATALOG_SCHEMA_FIELD_HINTS_PACKET = (
+    ROOT / "results" / "tool_catalog_profile_probe_packets" / "20260509T_visual_role_catalog_schema_field_hints_v4_probe"
+)
+DEFAULT_TOOL_CATALOG_SCHEMA_FIELD_HINTS_VS_ARGUMENT_HINTS_COMPARISON = (
+    ROOT
+    / "results"
+    / "tool_catalog_profile_probe_comparisons"
+    / "20260509T_visual_schema_field_hints_vs_argument_hints_v2"
+)
+DEFAULT_TOOL_CATALOG_SCHEMA_FIELD_HINTS_VS_SPLIT_SELECTOR_COMPARISON = (
+    ROOT
+    / "results"
+    / "tool_catalog_profile_probe_comparisons"
+    / "20260509T_visual_schema_field_hints_vs_split_selector_v3"
+)
+DEFAULT_TOOL_CATALOG_SCHEMA_FIELD_HINTS_VS_ROLE_CATALOG_COMPARISON = (
+    ROOT
+    / "results"
+    / "tool_catalog_profile_probe_comparisons"
+    / "20260509T_visual_schema_field_hints_vs_role_catalog_v1"
+)
+DEFAULT_TOOL_CATALOG_SCHEMA_FIELD_HINTS_LIVE_DECISION = (
+    ROOT / "results" / "tool_probe_replay_live" / "20260509T_visual_schema_field_hints_live_replay_skipped_v1"
+)
 DEFAULT_PROMPT_CONTRACT_WAVE6_PACKET = (
     ROOT / "results" / "tool_prompt_contract_probe_packets" / "20260508T_visual_catalog_literal_guard_v6_probe"
 )
@@ -265,6 +289,14 @@ def build_report(
     tool_catalog_split_selector_vs_role_catalog_comparison: str
     | Path = DEFAULT_TOOL_CATALOG_SPLIT_SELECTOR_VS_ROLE_CATALOG_COMPARISON,
     tool_catalog_split_selector_live_decision: str | Path = DEFAULT_TOOL_CATALOG_SPLIT_SELECTOR_LIVE_DECISION,
+    tool_catalog_schema_field_hints_packet: str | Path = DEFAULT_TOOL_CATALOG_SCHEMA_FIELD_HINTS_PACKET,
+    tool_catalog_schema_field_hints_vs_argument_hints_comparison: str
+    | Path = DEFAULT_TOOL_CATALOG_SCHEMA_FIELD_HINTS_VS_ARGUMENT_HINTS_COMPARISON,
+    tool_catalog_schema_field_hints_vs_split_selector_comparison: str
+    | Path = DEFAULT_TOOL_CATALOG_SCHEMA_FIELD_HINTS_VS_SPLIT_SELECTOR_COMPARISON,
+    tool_catalog_schema_field_hints_vs_role_catalog_comparison: str
+    | Path = DEFAULT_TOOL_CATALOG_SCHEMA_FIELD_HINTS_VS_ROLE_CATALOG_COMPARISON,
+    tool_catalog_schema_field_hints_live_decision: str | Path = DEFAULT_TOOL_CATALOG_SCHEMA_FIELD_HINTS_LIVE_DECISION,
     prompt_contract_wave6_packet: str | Path = DEFAULT_PROMPT_CONTRACT_WAVE6_PACKET,
     h1i_prompt_contract_packet: str | Path = DEFAULT_H1I_PROMPT_CONTRACT_PACKET,
     h1i_prompt_contract_repeat_packet: str | Path = DEFAULT_H1I_PROMPT_CONTRACT_REPEAT_PACKET,
@@ -332,6 +364,7 @@ def build_report(
         _csv_rows(Path(tool_catalog_profile_packet) / "candidate_summary.csv")
         + _csv_rows(Path(tool_catalog_argument_hints_packet) / "candidate_summary.csv")
         + _csv_rows(Path(tool_catalog_split_selector_packet) / "candidate_summary.csv")
+        + _csv_rows(Path(tool_catalog_schema_field_hints_packet) / "candidate_summary.csv")
     )
     tool_catalog_argument_hints_vs_role_catalog_payload = json.loads(
         (
@@ -362,6 +395,36 @@ def build_report(
     )
     tool_catalog_split_selector_live_decision_rows = [
         _live_decision_row(Path(tool_catalog_split_selector_live_decision) / "manifest.json")
+    ]
+    tool_catalog_schema_field_hints_vs_argument_hints_payload = json.loads(
+        (
+            Path(tool_catalog_schema_field_hints_vs_argument_hints_comparison)
+            / "probe_comparison.json"
+        ).read_text(encoding="utf-8")
+    )
+    tool_catalog_schema_field_hints_vs_argument_hints_case_rows = _csv_rows(
+        Path(tool_catalog_schema_field_hints_vs_argument_hints_comparison) / "probe_case_deltas.csv"
+    )
+    tool_catalog_schema_field_hints_vs_split_selector_payload = json.loads(
+        (
+            Path(tool_catalog_schema_field_hints_vs_split_selector_comparison)
+            / "probe_comparison.json"
+        ).read_text(encoding="utf-8")
+    )
+    tool_catalog_schema_field_hints_vs_split_selector_case_rows = _csv_rows(
+        Path(tool_catalog_schema_field_hints_vs_split_selector_comparison) / "probe_case_deltas.csv"
+    )
+    tool_catalog_schema_field_hints_vs_role_catalog_payload = json.loads(
+        (
+            Path(tool_catalog_schema_field_hints_vs_role_catalog_comparison)
+            / "probe_comparison.json"
+        ).read_text(encoding="utf-8")
+    )
+    tool_catalog_schema_field_hints_vs_role_catalog_case_rows = _csv_rows(
+        Path(tool_catalog_schema_field_hints_vs_role_catalog_comparison) / "probe_case_deltas.csv"
+    )
+    tool_catalog_schema_field_hints_live_decision_rows = [
+        _live_decision_row(Path(tool_catalog_schema_field_hints_live_decision) / "manifest.json")
     ]
     prompt_contract_wave6_gate_rows = _csv_rows(Path(prompt_contract_wave6_packet) / "candidate_gate_summary.csv")
     prompt_contract_wave6_failure_rows = _csv_rows(Path(prompt_contract_wave6_packet) / "candidate_failure_mode_counts.csv")
@@ -574,6 +637,22 @@ def build_report(
     _write_csv(
         tables_dir / "tool_catalog_split_selector_live_replay_decision.csv",
         tool_catalog_split_selector_live_decision_rows,
+    )
+    _write_csv(
+        tables_dir / "tool_catalog_schema_field_hints_vs_argument_hints_case_deltas.csv",
+        tool_catalog_schema_field_hints_vs_argument_hints_case_rows,
+    )
+    _write_csv(
+        tables_dir / "tool_catalog_schema_field_hints_vs_split_selector_case_deltas.csv",
+        tool_catalog_schema_field_hints_vs_split_selector_case_rows,
+    )
+    _write_csv(
+        tables_dir / "tool_catalog_schema_field_hints_vs_role_catalog_case_deltas.csv",
+        tool_catalog_schema_field_hints_vs_role_catalog_case_rows,
+    )
+    _write_csv(
+        tables_dir / "tool_catalog_schema_field_hints_live_replay_decision.csv",
+        tool_catalog_schema_field_hints_live_decision_rows,
     )
     _write_csv(tables_dir / "prompt_contract_wave6_probe_gates.csv", prompt_contract_wave6_gate_rows)
     _write_csv(tables_dir / "prompt_contract_wave6_probe_failure_modes.csv", prompt_contract_wave6_failure_rows)
@@ -910,6 +989,17 @@ def build_report(
             Path(tool_catalog_split_selector_vs_role_catalog_comparison).resolve()
         ),
         "tool_catalog_split_selector_live_decision": str(Path(tool_catalog_split_selector_live_decision).resolve()),
+        "tool_catalog_schema_field_hints_packet": str(Path(tool_catalog_schema_field_hints_packet).resolve()),
+        "tool_catalog_schema_field_hints_vs_argument_hints_comparison": str(
+            Path(tool_catalog_schema_field_hints_vs_argument_hints_comparison).resolve()
+        ),
+        "tool_catalog_schema_field_hints_vs_split_selector_comparison": str(
+            Path(tool_catalog_schema_field_hints_vs_split_selector_comparison).resolve()
+        ),
+        "tool_catalog_schema_field_hints_vs_role_catalog_comparison": str(
+            Path(tool_catalog_schema_field_hints_vs_role_catalog_comparison).resolve()
+        ),
+        "tool_catalog_schema_field_hints_live_decision": str(Path(tool_catalog_schema_field_hints_live_decision).resolve()),
         "prompt_contract_wave6_packet": str(Path(prompt_contract_wave6_packet).resolve()),
         "h1i_prompt_contract_packet": str(Path(h1i_prompt_contract_packet).resolve()),
         "h1i_prompt_contract_repeat_packet": str(Path(h1i_prompt_contract_repeat_packet).resolve()),
@@ -961,7 +1051,7 @@ def build_report(
             Path(argument_hints_live_visual_vs_role_catalog_comparison).resolve()
         ),
         "registry_path": str(Path(registry_path).resolve()),
-        "table_count": 45,
+        "table_count": 49,
         "figure_count": 25,
     }
     report_payload = {
@@ -988,6 +1078,13 @@ def build_report(
         "tool_catalog_split_selector_vs_role_catalog_comparison": tool_catalog_split_selector_vs_role_catalog_payload,
         "tool_catalog_split_selector_vs_role_catalog_case_deltas": tool_catalog_split_selector_vs_role_catalog_case_rows,
         "tool_catalog_split_selector_live_replay_decision": tool_catalog_split_selector_live_decision_rows,
+        "tool_catalog_schema_field_hints_vs_argument_hints_comparison": tool_catalog_schema_field_hints_vs_argument_hints_payload,
+        "tool_catalog_schema_field_hints_vs_argument_hints_case_deltas": tool_catalog_schema_field_hints_vs_argument_hints_case_rows,
+        "tool_catalog_schema_field_hints_vs_split_selector_comparison": tool_catalog_schema_field_hints_vs_split_selector_payload,
+        "tool_catalog_schema_field_hints_vs_split_selector_case_deltas": tool_catalog_schema_field_hints_vs_split_selector_case_rows,
+        "tool_catalog_schema_field_hints_vs_role_catalog_comparison": tool_catalog_schema_field_hints_vs_role_catalog_payload,
+        "tool_catalog_schema_field_hints_vs_role_catalog_case_deltas": tool_catalog_schema_field_hints_vs_role_catalog_case_rows,
+        "tool_catalog_schema_field_hints_live_replay_decision": tool_catalog_schema_field_hints_live_decision_rows,
         "prompt_contract_wave6_probe_gates": prompt_contract_wave6_gate_rows,
         "prompt_contract_wave6_probe_failure_modes": prompt_contract_wave6_failure_rows,
         "prompt_contract_promotion_decisions": prompt_contract_promotion_rows,
@@ -1055,6 +1152,23 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--tool-catalog-split-selector-live-decision",
         default=str(DEFAULT_TOOL_CATALOG_SPLIT_SELECTOR_LIVE_DECISION),
+    )
+    parser.add_argument("--tool-catalog-schema-field-hints-packet", default=str(DEFAULT_TOOL_CATALOG_SCHEMA_FIELD_HINTS_PACKET))
+    parser.add_argument(
+        "--tool-catalog-schema-field-hints-vs-argument-hints-comparison",
+        default=str(DEFAULT_TOOL_CATALOG_SCHEMA_FIELD_HINTS_VS_ARGUMENT_HINTS_COMPARISON),
+    )
+    parser.add_argument(
+        "--tool-catalog-schema-field-hints-vs-split-selector-comparison",
+        default=str(DEFAULT_TOOL_CATALOG_SCHEMA_FIELD_HINTS_VS_SPLIT_SELECTOR_COMPARISON),
+    )
+    parser.add_argument(
+        "--tool-catalog-schema-field-hints-vs-role-catalog-comparison",
+        default=str(DEFAULT_TOOL_CATALOG_SCHEMA_FIELD_HINTS_VS_ROLE_CATALOG_COMPARISON),
+    )
+    parser.add_argument(
+        "--tool-catalog-schema-field-hints-live-decision",
+        default=str(DEFAULT_TOOL_CATALOG_SCHEMA_FIELD_HINTS_LIVE_DECISION),
     )
     parser.add_argument("--prompt-contract-wave6-packet", default=str(DEFAULT_PROMPT_CONTRACT_WAVE6_PACKET))
     parser.add_argument("--h1i-prompt-contract-packet", default=str(DEFAULT_H1I_PROMPT_CONTRACT_PACKET))
@@ -1146,6 +1260,11 @@ def main() -> None:
         tool_catalog_split_selector_vs_argument_hints_comparison=args.tool_catalog_split_selector_vs_argument_hints_comparison,
         tool_catalog_split_selector_vs_role_catalog_comparison=args.tool_catalog_split_selector_vs_role_catalog_comparison,
         tool_catalog_split_selector_live_decision=args.tool_catalog_split_selector_live_decision,
+        tool_catalog_schema_field_hints_packet=args.tool_catalog_schema_field_hints_packet,
+        tool_catalog_schema_field_hints_vs_argument_hints_comparison=args.tool_catalog_schema_field_hints_vs_argument_hints_comparison,
+        tool_catalog_schema_field_hints_vs_split_selector_comparison=args.tool_catalog_schema_field_hints_vs_split_selector_comparison,
+        tool_catalog_schema_field_hints_vs_role_catalog_comparison=args.tool_catalog_schema_field_hints_vs_role_catalog_comparison,
+        tool_catalog_schema_field_hints_live_decision=args.tool_catalog_schema_field_hints_live_decision,
         prompt_contract_wave6_packet=args.prompt_contract_wave6_packet,
         h1i_prompt_contract_packet=args.h1i_prompt_contract_packet,
         h1i_prompt_contract_repeat_packet=args.h1i_prompt_contract_repeat_packet,
@@ -1507,6 +1626,9 @@ def _markdown_report(payload: dict[str, Any]) -> str:
     split_selector_vs_argument_hints_case_rows = payload["tool_catalog_split_selector_vs_argument_hints_case_deltas"]
     split_selector_vs_role_catalog_case_rows = payload["tool_catalog_split_selector_vs_role_catalog_case_deltas"]
     split_selector_live_decision_rows = payload["tool_catalog_split_selector_live_replay_decision"]
+    schema_field_hints_vs_argument_hints_case_rows = payload["tool_catalog_schema_field_hints_vs_argument_hints_case_deltas"]
+    schema_field_hints_vs_split_selector_case_rows = payload["tool_catalog_schema_field_hints_vs_split_selector_case_deltas"]
+    schema_field_hints_live_decision_rows = payload["tool_catalog_schema_field_hints_live_replay_decision"]
     wave6_gate_rows = payload["prompt_contract_wave6_probe_gates"]
     h1i_prompt_contract_rows = payload["h1i_prompt_contract_candidate_metrics"]
     h1i_prompt_contract_repeat_rows = payload["h1i_prompt_contract_repeat3_metrics"]
@@ -1552,7 +1674,8 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "Raw no-directive tool compliance collapses on the probe suite.",
         "",
         "The visual catalog branch now includes an explicit negative-result loop. "
-        "`visual_role_catalog_argument_hints_v2` remains the best exact visual candidate, while `visual_role_catalog_split_selector_hints_v3` was rejected before live replay because it regressed exact readback and did not recover executable form targeting.",
+        "`visual_role_catalog_argument_hints_v2` remains the best exact visual candidate. "
+        "`visual_role_catalog_split_selector_hints_v3` was rejected before live replay because it regressed exact readback, and `visual_role_catalog_schema_field_hints_v4` tied v2 on exactness without recovering executable form targeting.",
         "",
         "## Figures",
         "",
@@ -1675,6 +1798,16 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         _markdown_table(split_selector_live_decision_rows),
         "",
         "`visual_role_catalog_split_selector_hints_v3` is useful as negative evidence. It preserved the v2 latest-filter exact call, but dropped overall raw exactness from `2 / 8` to `1 / 8` versus v2 and regressed readback by emitting `tool_name` instead of `name`. It also failed to recover the v1 executable form-target behavior, so focused live replay was intentionally skipped.",
+        "",
+        "## Tool-Catalog Schema-Field Negative Probe Delta",
+        "",
+        _markdown_table(schema_field_hints_vs_argument_hints_case_rows),
+        "",
+        _markdown_table(schema_field_hints_vs_split_selector_case_rows),
+        "",
+        _markdown_table(schema_field_hints_live_decision_rows),
+        "",
+        "`visual_role_catalog_schema_field_hints_v4` is cleaner than v3 because it avoids broad prose and restores the exact readback case. It still does not beat v2: raw exact stays `2 / 8`, executable visual-form recovery stays `0 / 1`, and the form-target case over-prefers `refine_selection` with `selection_id=\"latest\"`. Live replay was skipped because it tied the current best exact candidate while remaining below the executable routing baseline.",
         "",
         "## Prompt-Contract Wave Six Probe Gate",
         "",
@@ -1837,6 +1970,11 @@ def _markdown_report(payload: dict[str, Any]) -> str:
             f"- Tool catalog split-selector vs argument-hints comparison: `{payload['manifest']['tool_catalog_split_selector_vs_argument_hints_comparison']}`",
             f"- Tool catalog split-selector vs role-catalog comparison: `{payload['manifest']['tool_catalog_split_selector_vs_role_catalog_comparison']}`",
             f"- Tool catalog split-selector live decision: `{payload['manifest']['tool_catalog_split_selector_live_decision']}`",
+            f"- Tool catalog schema-field packet: `{payload['manifest']['tool_catalog_schema_field_hints_packet']}`",
+            f"- Tool catalog schema-field vs argument-hints comparison: `{payload['manifest']['tool_catalog_schema_field_hints_vs_argument_hints_comparison']}`",
+            f"- Tool catalog schema-field vs split-selector comparison: `{payload['manifest']['tool_catalog_schema_field_hints_vs_split_selector_comparison']}`",
+            f"- Tool catalog schema-field vs role-catalog comparison: `{payload['manifest']['tool_catalog_schema_field_hints_vs_role_catalog_comparison']}`",
+            f"- Tool catalog schema-field live decision: `{payload['manifest']['tool_catalog_schema_field_hints_live_decision']}`",
             f"- Prompt-contract wave six packet: `{payload['manifest']['prompt_contract_wave6_packet']}`",
             f"- H1i prompt-contract packet: `{payload['manifest']['h1i_prompt_contract_packet']}`",
             f"- H1i prompt-contract repeat packet: `{payload['manifest']['h1i_prompt_contract_repeat_packet']}`",

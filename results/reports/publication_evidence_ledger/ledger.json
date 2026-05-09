@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-09T00:28:26.047126+00:00",
+    "generated_at": "2026-05-09T00:35:45.493159+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-    "claim_count": 6,
-    "evidence_source_count": 19,
+    "claim_count": 7,
+    "evidence_source_count": 22,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -11,7 +11,8 @@
       "C3_packaged_workflows_can_saturate",
       "C4_visual_catalog_role_routing_is_real",
       "C5_visual_argument_hints_improve_exactness_but_not_executability",
-      "C6_split_selector_wording_is_negative_evidence"
+      "C6_split_selector_wording_is_negative_evidence",
+      "C7_schema_field_hints_tie_exactness_without_executability"
     ]
   },
   "claims": [
@@ -73,6 +74,16 @@
       "primary_metric": "v3 raw exact falls to 1/8 versus v2 at 2/8 and readback regresses through tool_name/name mismatch.",
       "limitation": "This is one candidate profile; it does not rule out all field-specific selector interventions.",
       "next_test": "Try an executor-grounded schema annotation or few-shot-free field contract that does not add broad behavioral prose.",
+      "source_count": 3
+    },
+    {
+      "claim_id": "C7_schema_field_hints_tie_exactness_without_executability",
+      "claim": "Schema-local visual field hints are cleaner than broad selector prose but still do not recover executable form targeting.",
+      "status": "negative_result_current_packets",
+      "evidence_strength": "moderate_internal",
+      "primary_metric": "v4 ties v2 at 2/8 raw exact and preserves readback, but stays 0/1 executable and over-prefers refine_selection on form-target.",
+      "limitation": "This tests one schema-field annotation profile on the focused eight-case replay-derived probe.",
+      "next_test": "Create a fresh visual hard slice or constrain refine_selection preference only when a real selection_id is present.",
       "source_count": 3
     }
   ],
@@ -208,6 +219,27 @@
       "artifact_type": "live_replay_decision",
       "path": "results/tool_probe_replay_live/20260508T_visual_split_selector_hints_live_replay_skipped_v1",
       "purpose": "Promotion decision packet explaining why v3 did not spend live replay budget.",
+      "exists": true
+    },
+    {
+      "claim_id": "C7_schema_field_hints_tie_exactness_without_executability",
+      "artifact_type": "catalog_probe_packet",
+      "path": "results/tool_catalog_profile_probe_packets/20260509T_visual_role_catalog_schema_field_hints_v4_probe",
+      "purpose": "Raw v4 probe packet showing schema-field exactness tie and form-target wrong-tool regression.",
+      "exists": true
+    },
+    {
+      "claim_id": "C7_schema_field_hints_tie_exactness_without_executability",
+      "artifact_type": "catalog_probe_comparison",
+      "path": "results/tool_catalog_profile_probe_comparisons/20260509T_visual_schema_field_hints_vs_argument_hints_v2",
+      "purpose": "Direct v4-vs-v2 comparison showing no exact gain over the current best visual candidate.",
+      "exists": true
+    },
+    {
+      "claim_id": "C7_schema_field_hints_tie_exactness_without_executability",
+      "artifact_type": "live_replay_decision",
+      "path": "results/tool_probe_replay_live/20260509T_visual_schema_field_hints_live_replay_skipped_v1",
+      "purpose": "Promotion decision packet explaining why v4 did not spend live replay budget.",
       "exists": true
     }
   ],

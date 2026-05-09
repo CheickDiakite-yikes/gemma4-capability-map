@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-09T00:23:30.083329+00:00",
+  "generated_at": "2026-05-09T00:35:45.433862+00:00",
   "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/mlx_tool_contract_harnessing",
   "source_packets": {
     "H1f compact": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1f_mlx_no_directive_v1_knowledge_work_h1f_mlx_tool_contract_ablation_v1",
@@ -20,6 +20,11 @@
   "tool_catalog_split_selector_vs_argument_hints_comparison": "/Users/cheickdiakite/Codex/moonie/results/tool_catalog_profile_probe_comparisons/20260508T_visual_split_selector_hints_vs_argument_hints_v2",
   "tool_catalog_split_selector_vs_role_catalog_comparison": "/Users/cheickdiakite/Codex/moonie/results/tool_catalog_profile_probe_comparisons/20260508T_visual_split_selector_hints_vs_role_catalog_v1",
   "tool_catalog_split_selector_live_decision": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260508T_visual_split_selector_hints_live_replay_skipped_v1",
+  "tool_catalog_schema_field_hints_packet": "/Users/cheickdiakite/Codex/moonie/results/tool_catalog_profile_probe_packets/20260509T_visual_role_catalog_schema_field_hints_v4_probe",
+  "tool_catalog_schema_field_hints_vs_argument_hints_comparison": "/Users/cheickdiakite/Codex/moonie/results/tool_catalog_profile_probe_comparisons/20260509T_visual_schema_field_hints_vs_argument_hints_v2",
+  "tool_catalog_schema_field_hints_vs_split_selector_comparison": "/Users/cheickdiakite/Codex/moonie/results/tool_catalog_profile_probe_comparisons/20260509T_visual_schema_field_hints_vs_split_selector_v3",
+  "tool_catalog_schema_field_hints_vs_role_catalog_comparison": "/Users/cheickdiakite/Codex/moonie/results/tool_catalog_profile_probe_comparisons/20260509T_visual_schema_field_hints_vs_role_catalog_v1",
+  "tool_catalog_schema_field_hints_live_decision": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260509T_visual_schema_field_hints_live_replay_skipped_v1",
   "prompt_contract_wave6_packet": "/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe",
   "h1i_prompt_contract_packet": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet",
   "h1i_prompt_contract_repeat_packet": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_repeat3_v1_knowledge_work_ablation_packet",
@@ -47,6 +52,6 @@
   "argument_hints_live_visual_vs_contracted_comparison": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_contracted_v1",
   "argument_hints_live_visual_vs_role_catalog_comparison": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_role_catalog_v1",
   "registry_path": "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
-  "table_count": 45,
+  "table_count": 49,
   "figure_count": 25
 }
