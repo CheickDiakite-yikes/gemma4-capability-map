@@ -1,0 +1,54 @@
+[
+  {
+    "case_id": "stress_metric_panel_with_chart_table_decoys",
+    "family": "visual_argument_copying_stress",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "baseline_exact_match": "",
+    "expected_call_count": "1",
+    "source_actual_call_count": "",
+    "status": "non_exact",
+    "replay_failure_mode": "argument_mismatch",
+    "replay_exact_match": false,
+    "replay_executable_match": false,
+    "replay_executor_equivalence_match": false
+  },
+  {
+    "case_id": "stress_metric_panel_with_kpi_copy_decoy",
+    "family": "visual_argument_copying_stress",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "baseline_exact_match": "",
+    "expected_call_count": "1",
+    "source_actual_call_count": "",
+    "status": "non_exact",
+    "replay_failure_mode": "executable_paraphrase",
+    "replay_exact_match": false,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true
+  },
+  {
+    "case_id": "stress_form_error_stale_selection_status_decoy",
+    "family": "visual_tool_routing_stress",
+    "source_failure_mode": "wrong_tool_or_stale_selection_risk",
+    "baseline_exact_match": "",
+    "expected_call_count": "1",
+    "source_actual_call_count": "",
+    "status": "exact",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true
+  },
+  {
+    "case_id": "stress_form_error_stale_selection_warning_decoy",
+    "family": "visual_tool_routing_stress",
+    "source_failure_mode": "wrong_tool_or_stale_selection_risk",
+    "baseline_exact_match": "",
+    "expected_call_count": "1",
+    "source_actual_call_count": "",
+    "status": "exact",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true
+  }
+]

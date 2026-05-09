@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "stress_form_error_stale_selection_status_decoy",
+    "family": "visual_tool_routing_stress",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "stress-form-2202"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-stress-form-status",
+          "target_query": "validation error"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-stress-form-status",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "stress-form-2202"
+          ],
+          "region_id": "stress-form-2202",
+          "text_preview": "Routing code is missing"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-stress-form-status",
+          "target_query": "validation error"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-stress-form-status",
+          "target_query": "validation error"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-stress-form-status\", \"target_query\": \"validation error\"}}",
+    "prompt_tokens": 959,
+    "completion_tokens": 35,
+    "latency_ms": 6409
+  }
+]

@@ -1,0 +1,58 @@
+[
+  {
+    "case_id": "stress_metric_panel_with_chart_table_decoys",
+    "family": "visual_argument_copying_stress",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "stress-metric-2001"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-stress-metric-chart-table",
+          "target_query": "metric panel that needs review"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-stress-metric-chart-table",
+          "selection_kind": "regions",
+          "count": 0,
+          "executor_mode": "local",
+          "region_ids": []
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-stress-metric-chart-table",
+          "target_query": "dashboard metric"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-stress-metric-chart-table",
+          "target_query": "metric panel that needs review"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-stress-metric-chart-table\", \"target_query\": \"metric panel that needs review\"}}",
+    "prompt_tokens": 994,
+    "completion_tokens": 40,
+    "latency_ms": 7465
+  }
+]

@@ -1,0 +1,29 @@
+{
+  "packet_run_id": "20260509T_visual_hard_slice_live_stress_role_catalog_execute_v1",
+  "packet_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260509T_visual_hard_slice_live_stress_role_catalog_execute_v1",
+  "source_packet_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_dry_run_v1",
+  "source_packet_run_id": "20260509T_visual_hard_slice_live_stress_dry_run_v1",
+  "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog",
+  "case_count": 4,
+  "execute": true,
+  "executed_count": 4,
+  "exact_count": 1,
+  "exact_rate": 0.25,
+  "executor_equivalence_evaluable_count": 4,
+  "executor_equivalence_count": 2,
+  "executor_equivalence_rate": 0.5,
+  "failure_mode_counts": {
+    "argument_alias_or_decoy_risk": 2,
+    "wrong_tool_or_stale_selection_risk": 2
+  },
+  "created_at": "2026-05-09T23:02:35.235500+00:00",
+  "registry_path": "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+  "case_ids": [
+    "stress_metric_panel_with_chart_table_decoys",
+    "stress_metric_panel_with_kpi_copy_decoy",
+    "stress_form_error_stale_selection_status_decoy",
+    "stress_form_error_stale_selection_warning_decoy"
+  ],
+  "operator_surface": "rich_cli_exact_probe_replay_v1",
+  "entrypoint": "moonie-agent replay-live"
+}
