@@ -33,6 +33,8 @@ def test_visual_hard_slice_probe_packet_dry_run_writes_system_commands(tmp_path:
     assert (packet_dir / "candidate_gate_summary.md").exists()
     assert (packet_dir / "candidate_failure_mode_counts.csv").exists()
     assert (packet_dir / "family_summary.csv").exists()
+    assert packet["rows"][0]["executor_equivalence_match_rate"] == ""
+    assert packet["gate_rows"][0]["delta_executor_equivalence_vs_no_directive"] == ""
 
     first_command = packet["commands"][0]["command"]
     assert "run_visual_hard_slice_probe.py" in first_command[1]
@@ -85,6 +87,24 @@ def test_visual_hard_slice_gate_marks_reference_and_gain() -> None:
                 "delta_exact_match_rate": 0.0,
                 "baseline_executable_match_rate": 0.0,
                 "candidate_executable_match_rate": 0.25,
+                "baseline_executor_equivalence_match_rate": 0.0,
+                "candidate_executor_equivalence_match_rate": 0.25,
+            },
+        )
+        == "hard_slice_improved_vs_no_directive"
+    )
+
+
+def test_visual_hard_slice_gate_uses_executor_equivalence_gain() -> None:
+    assert (
+        SCRIPT._hard_slice_gate(
+            system_id="candidate",
+            comparison_vs_no_directive={
+                "delta_exact_match_rate": 0.0,
+                "baseline_executable_match_rate": 0.5,
+                "candidate_executable_match_rate": 0.5,
+                "baseline_executor_equivalence_match_rate": 0.0,
+                "candidate_executor_equivalence_match_rate": 1.0,
             },
         )
         == "hard_slice_improved_vs_no_directive"

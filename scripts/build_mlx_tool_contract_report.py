@@ -110,7 +110,7 @@ DEFAULT_PROMPT_CONTRACT_WAVE6_PACKET = (
     ROOT / "results" / "tool_prompt_contract_probe_packets" / "20260508T_visual_catalog_literal_guard_v6_probe"
 )
 DEFAULT_VISUAL_HARD_SLICE_PACKET = (
-    ROOT / "results" / "visual_hard_slice_probe_packets" / "20260509T_visual_hard_slice_v5_execute_v1"
+    ROOT / "results" / "visual_hard_slice_probe_packets" / "20260509T_visual_hard_slice_executor_equivalence_v1"
 )
 DEFAULT_VISUAL_HARD_SLICE_EXACTNESS_DIAGNOSTIC = (
     ROOT / "results" / "reports" / "visual_hard_slice_exactness_diagnostic"
@@ -1893,13 +1893,13 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "",
         _markdown_table(visual_hard_slice_gate_rows),
         "",
-        "The fresh visual hard slice breaks the earlier top-line saturation and gives a cleaner read on harness shape. Contracted MLX is the upper bound at `8 / 8` exact and executable. The no-directive row falls to `1 / 8` exact and executable, with no-tool-call as the dominant failure. The strongest no-directive profile remains `visual_role_catalog_schema_field_hints_v4`: `6 / 8` exact and `8 / 8` executable. The attempted v5 target-literal repair drops to `5 / 8` exact and `7 / 8` executable, so the hard-slice evidence now rejects that wording as an overcorrection rather than a promotion candidate.",
+        "The fresh visual hard slice breaks the earlier top-line saturation and gives a cleaner read on harness shape. Contracted MLX is the upper bound at `8 / 8` strict, executable, and executor-equivalent. The no-directive row falls to `1 / 8` on all three metrics, with no-tool-call as the dominant failure. The strongest no-directive profile remains `visual_role_catalog_schema_field_hints_v4`: `6 / 8` strict and `8 / 8` executor-equivalent. The attempted v5 target-literal repair drops to `5 / 8` strict and `7 / 8` executor-equivalent, so the hard-slice evidence now rejects that wording as an overcorrection rather than a promotion candidate.",
         "",
         "## Visual Hard-Slice Family Summary",
         "",
         _markdown_table(visual_hard_slice_family_rows),
         "",
-        "The family breakdown explains the new signal. Schema-field hints preserve full executable behavior across visible-region targeting, valid selection carryover, and region readback, but exactness still lags on visual argument-copying cases. The v5 target-literal repair did not improve that family and regressed the stale-selection decoy into a wrong-tool call, which suggests the next experiment should separate hidden benchmark canonical labels from observable executor-success labels before spending another packaged H1 slice.",
+        "The family breakdown explains the new signal. Schema-field hints preserve full executor-equivalent behavior across visible-region targeting, valid selection carryover, and region readback, but strict exactness still lags on visual argument-copying cases. The v5 target-literal repair did not improve that family and regressed the stale-selection decoy into a wrong-tool call, which suggests the next packaged H1 slice should treat strict protocol fidelity and executor-visible success as separate endpoints.",
         "",
         "## Visual Hard-Slice Exactness Diagnostic",
         "",
@@ -1907,7 +1907,7 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "",
         _markdown_table(visual_hard_slice_exactness_gaps),
         "",
-        "The exactness diagnostic sharpens the v4/v5 interpretation. The two v4 non-exact rows are not executor-targeting failures: both reach the expected local visual regions and are best treated as benchmark-label artifact candidates until the benchmark has explicit executor-equivalence scoring. The v5 target-literal profile keeps those same two aliases and adds one true harness failure by choosing stale `refine_selection` instead of current-image `extract_layout`.",
+        "The exactness diagnostic sharpens the v4/v5 interpretation. The two v4 non-exact rows are not executor-targeting failures: both reach the expected local visual regions, and the probe now scores them as executor-equivalent target matches. The v5 target-literal profile keeps those same two aliases and adds one true harness failure by choosing stale `refine_selection` instead of current-image `extract_layout`.",
         "",
         "## Visual Hard-Slice Case Deltas vs No Directive",
         "",
@@ -2046,8 +2046,8 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "- H1i is now the best fast loop because it targets the worst H1h no-repair families and makes the repair/fallback gaps larger.",
         "- The no-directive probe explains why: CLI/API calls often keep the right tool but drift on canonical arguments, while visual referent and parallel-tool cases collapse to no tool call.",
         "- The visual catalog path now gives a sharper positive result than the prompt-contract path: argument-hints cataloging reaches `2 / 3` live exact visual replay without the exact directive, but still misses executable form-target recovery.",
-        "- The fresh visual hard slice updates that picture: schema-field hints preserve full executable behavior on independently authored visual cases, but still trail contracted exactness.",
-        "- The next experiment should isolate the remaining schema-field exact misses, then decide whether a smaller H1 packaged slice can stay hard enough to discriminate controller dependence.",
+        "- The fresh visual hard slice updates that picture: schema-field hints preserve full executor-equivalent behavior on independently authored visual cases, but still trail contracted strict exactness.",
+        "- The next experiment should promote this distinction into a packaged H1 visual workflow that keeps strict protocol fidelity and executor-visible success as separate endpoints.",
         "",
         "## Source Artifacts",
         "",

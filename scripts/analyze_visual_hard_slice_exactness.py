@@ -12,7 +12,9 @@ from gemma4_capability_map.runtime.tool_directive_probe import _probe_failure_mo
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_PACKET_DIR = ROOT / "results" / "visual_hard_slice_probe_packets" / "20260509T_visual_hard_slice_v5_execute_v1"
+DEFAULT_PACKET_DIR = (
+    ROOT / "results" / "visual_hard_slice_probe_packets" / "20260509T_visual_hard_slice_executor_equivalence_v1"
+)
 DEFAULT_OUTPUT_DIR = ROOT / "results" / "reports" / "visual_hard_slice_exactness_diagnostic"
 DEFAULT_SYSTEM_IDS = [
     "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints",
@@ -201,7 +203,7 @@ def _next_action(diagnosis: str) -> str:
     if diagnosis == "exact_contract_match":
         return "preserve as control"
     if diagnosis == "executable_selector_alias":
-        return "add executor-equivalence scoring before tuning another target_query wording profile"
+        return "use executor-equivalence score before tuning another target_query wording profile"
     if diagnosis == "executor_success_noncanonical_protocol":
         return "inspect protocol shape before treating the result as a model failure"
     if diagnosis == "wrong_tool_executor_failure":

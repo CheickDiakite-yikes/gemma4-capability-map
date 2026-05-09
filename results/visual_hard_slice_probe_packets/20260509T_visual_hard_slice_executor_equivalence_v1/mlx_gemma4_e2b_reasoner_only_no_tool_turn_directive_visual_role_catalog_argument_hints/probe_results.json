@@ -1,0 +1,468 @@
+[
+  {
+    "case_id": "visual_form_error_vs_message_author",
+    "family": "visual_argument_copying",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "hard-form-author-502"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-hard-form-author",
+          "target_query": "validation error"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-hard-form-author",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "hard-form-author-502"
+          ],
+          "region_id": "hard-form-author-502",
+          "text_preview": "Phone number format invalid"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-hard-form-author",
+          "target_query": "validation error"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-hard-form-author",
+          "target_query": "validation error"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-hard-form-author\", \"target_query\": \"validation error\"}}",
+    "prompt_tokens": 997,
+    "completion_tokens": 35,
+    "latency_ms": 4731
+  },
+  {
+    "case_id": "visual_form_error_with_prior_selection_decoy",
+    "family": "visual_tool_routing",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "hard-form-decoy-602"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-hard-form-decoy",
+          "target_query": "validation error"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-hard-form-decoy",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "hard-form-decoy-602"
+          ],
+          "region_id": "hard-form-decoy-602",
+          "text_preview": "Email address is blocked"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-hard-form-decoy",
+          "target_query": "validation error"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-hard-form-decoy",
+          "target_query": "validation error"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-hard-form-decoy\", \"target_query\": \"validation error\"}}",
+    "prompt_tokens": 1000,
+    "completion_tokens": 36,
+    "latency_ms": 1791
+  },
+  {
+    "case_id": "visual_latest_filter_existing_selection",
+    "family": "visual_referent_carryover",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "hard-form-priority-702"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "refine_selection",
+        "arguments": {
+          "selection_id": "sel-hard-errors",
+          "filter_query": "latest"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-101",
+          "image_id": "img-hard-form-latest",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "parent_selection_id": "sel-hard-errors",
+          "region_ids": [
+            "hard-form-priority-702"
+          ]
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "refine_selection",
+        "arguments": {
+          "selection_id": "sel-hard-errors",
+          "filter_query": "latest"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "refine_selection",
+        "arguments": {
+          "selection_id": "sel-hard-errors",
+          "filter_query": "latest"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"refine_selection\", \"arguments\": {\"selection_id\": \"sel-hard-errors\", \"filter_query\": \"latest\"}}",
+    "prompt_tokens": 1103,
+    "completion_tokens": 33,
+    "latency_ms": 1905
+  },
+  {
+    "case_id": "visual_remaining_filter_existing_selection",
+    "family": "visual_referent_carryover",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "hard-form-queue-802"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "refine_selection",
+        "arguments": {
+          "selection_id": "sel-hard-remaining",
+          "filter_query": "remaining"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-101",
+          "image_id": "img-hard-form-remaining",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "parent_selection_id": "sel-hard-remaining",
+          "region_ids": [
+            "hard-form-queue-802"
+          ]
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "refine_selection",
+        "arguments": {
+          "selection_id": "sel-hard-remaining",
+          "filter_query": "remaining"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "refine_selection",
+        "arguments": {
+          "selection_id": "sel-hard-remaining",
+          "filter_query": "remaining"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"refine_selection\", \"arguments\": {\"selection_id\": \"sel-hard-remaining\", \"filter_query\": \"remaining\"}}",
+    "prompt_tokens": 1088,
+    "completion_tokens": 33,
+    "latency_ms": 1873
+  },
+  {
+    "case_id": "visual_region_readback_after_layout_result",
+    "family": "visual_region_readback",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_id": "hard-callout-901"
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "read_region_text",
+        "arguments": {
+          "image_id": "img-hard-callout-readback",
+          "region_id": "hard-callout-901"
+        },
+        "validator_result": "pass",
+        "output": {
+          "image_id": "img-hard-callout-readback",
+          "region_id": "hard-callout-901",
+          "text": "Warning: approval is required before release",
+          "label": "slide callout",
+          "executor_mode": "local"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "read_region_text",
+        "arguments": {
+          "image_id": "img-hard-callout-readback",
+          "region_id": "hard-callout-901"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "read_region_text",
+        "arguments": {
+          "image_id": "img-hard-callout-readback",
+          "region_id": "hard-callout-901"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"read_region_text\", \"arguments\": {\"image_id\": \"img-hard-callout-readback\", \"region_id\": \"hard-callout-901\"}}",
+    "prompt_tokens": 1094,
+    "completion_tokens": 45,
+    "latency_ms": 2057
+  },
+  {
+    "case_id": "visual_metric_panel_vs_table_selector",
+    "family": "visual_argument_copying",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "hard-metric-1001"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-hard-metric-table",
+          "target_query": "metric panel that needs review"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-hard-metric-table",
+          "selection_kind": "regions",
+          "count": 0,
+          "executor_mode": "local",
+          "region_ids": []
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-hard-metric-table",
+          "target_query": "dashboard metric"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-hard-metric-table",
+          "target_query": "metric panel that needs review"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-hard-metric-table\", \"target_query\": \"metric panel that needs review\"}}",
+    "prompt_tokens": 990,
+    "completion_tokens": 38,
+    "latency_ms": 1802
+  },
+  {
+    "case_id": "visual_callout_warning_with_user_decoy",
+    "family": "visual_argument_copying",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "hard-callout-decoy-1102"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-hard-callout-decoy",
+          "target_query": "slide callout warning"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-hard-callout-decoy",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "hard-callout-decoy-1102"
+          ],
+          "region_id": "hard-callout-decoy-1102",
+          "text_preview": "Warning: customer data is stale"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-hard-callout-decoy",
+          "target_query": "slide callout"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-hard-callout-decoy",
+          "target_query": "slide callout warning"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-hard-callout-decoy\", \"target_query\": \"slide callout warning\"}}",
+    "prompt_tokens": 996,
+    "completion_tokens": 39,
+    "latency_ms": 1875
+  },
+  {
+    "case_id": "visual_selection_id_opaque_copy_with_filter",
+    "family": "visual_referent_carryover",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "hard-opaque-1202"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "refine_selection",
+        "arguments": {
+          "selection_id": "sel-opaque-77",
+          "filter_query": "blocked"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-101",
+          "image_id": "img-hard-opaque-selection",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "parent_selection_id": "sel-opaque-77",
+          "region_ids": [
+            "hard-opaque-1202"
+          ]
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "refine_selection",
+        "arguments": {
+          "selection_id": "sel-opaque-77",
+          "filter_query": "blocked"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "refine_selection",
+        "arguments": {
+          "selection_id": "sel-opaque-77",
+          "filter_query": "blocked"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"refine_selection\", \"arguments\": {\"selection_id\": \"sel-opaque-77\", \"filter_query\": \"blocked\"}}",
+    "prompt_tokens": 1088,
+    "completion_tokens": 34,
+    "latency_ms": 1943
+  }
+]

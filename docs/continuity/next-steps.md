@@ -231,20 +231,20 @@ What remains:
   - comparison vs v1: [`results/tool_catalog_profile_probe_comparisons/20260509T_visual_schema_field_hints_vs_role_catalog_v1`](../../results/tool_catalog_profile_probe_comparisons/20260509T_visual_schema_field_hints_vs_role_catalog_v1), delta exact `+0.125`, executable regression vs v1
   - skipped-live decision: [`results/tool_probe_replay_live/20260509T_visual_schema_field_hints_live_replay_skipped_v1`](../../results/tool_probe_replay_live/20260509T_visual_schema_field_hints_live_replay_skipped_v1)
   - focused-slice interpretation: schema-local field hints restored exact readback and tied v2 at `2 / 8`, but did not recover the original form-target executable case.
-  - fresh hard-slice result: exact `6 / 8`, executable `8 / 8`; this is the strongest no-directive hard-slice candidate, but still below contracted MLX on exact protocol fidelity.
+  - fresh hard-slice result: strict `6 / 8`, executable/executor-equivalent `8 / 8`; this is the strongest no-directive hard-slice candidate, but still below contracted MLX on exact protocol fidelity.
 - visual hard-slice execution is now the active discriminator:
   - script: [`scripts/build_visual_hard_slice_design.py`](../../scripts/build_visual_hard_slice_design.py)
   - runner: [`scripts/run_visual_hard_slice_probe_packet.py`](../../scripts/run_visual_hard_slice_probe_packet.py)
   - design packet: [`results/reports/visual_hard_slice_design/design.md`](../../results/reports/visual_hard_slice_design/design.md)
   - dry-run packet: [`results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_dry_run_v1`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_dry_run_v1)
   - first executed packet: [`results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_execute_v1`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_execute_v1)
-  - latest executed packet: [`results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1)
-  - latest gate summary: [`candidate_gate_summary.md`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/candidate_gate_summary.md)
-  - v5-vs-v4 comparison: [`schema_literal_targets_vs_schema_field_hints`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/schema_literal_targets_vs_schema_field_hints)
+  - latest executed packet: [`results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1)
+  - latest gate summary: [`candidate_gate_summary.md`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1/candidate_gate_summary.md)
+  - v5-vs-v4 comparison: [`schema_literal_targets_vs_schema_field_hints`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1/schema_literal_targets_vs_schema_field_hints)
   - exactness-vs-executor diagnostic: [`results/reports/visual_hard_slice_exactness_diagnostic`](../../results/reports/visual_hard_slice_exactness_diagnostic)
-  - result: contracted MLX `8 / 8` exact and executable; no-directive MLX `1 / 8` exact and executable; schema-field hints v4 `6 / 8` exact and `8 / 8` executable; schema-target-literal v5 `5 / 8` exact and `7 / 8` executable.
+  - result: contracted MLX `8 / 8` strict/executable/executor-equivalent; no-directive MLX `1 / 8` strict/executable/executor-equivalent; schema-field hints v4 `6 / 8` strict and `8 / 8` executor-equivalent; schema-target-literal v5 `5 / 8` strict and `7 / 8` executor-equivalent.
   - diagnostic result: v4 has `2` non-exact rows and both are executor-target matches, so the current evidence classifies them as benchmark-label artifact candidates; v5 has those same `2` aliases plus `1` true wrong-tool stale-selection failure.
-  - next use: do not write another target-query wording repair yet. Add executor-equivalence scoring beside strict exactness, then decide whether v4 should move into a packaged visual H1 workflow.
+  - next use: do not write another target-query wording repair yet. Use the first-class executor-equivalence score to design a packaged visual H1 workflow that separates strict protocol fidelity from executor-visible success.
 - wave six is now executed and should be treated as negative composition evidence:
   - dry-run packet: [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run)
   - executed packet: [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe)

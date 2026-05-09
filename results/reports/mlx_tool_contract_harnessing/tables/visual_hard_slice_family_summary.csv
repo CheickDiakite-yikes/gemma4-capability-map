@@ -1,33 +1,33 @@
-system_id,family,case_count,exact_count,exact_rate,executable_case_count,executable_count,executable_rate,label
-mlx_gemma4_e2b_reasoner_only,visual_argument_copying,3,3,1.0,3,3,1.0,contracted
-mlx_gemma4_e2b_reasoner_only,visual_referent_carryover,3,3,1.0,3,3,1.0,contracted
-mlx_gemma4_e2b_reasoner_only,visual_region_readback,1,1,1.0,1,1,1.0,contracted
-mlx_gemma4_e2b_reasoner_only,visual_tool_routing,1,1,1.0,1,1,1.0,contracted
-mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive,visual_argument_copying,3,1,0.3333333333333333,3,1,0.3333333333333333,no directive
-mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive,visual_referent_carryover,3,0,0.0,3,0,0.0,no directive
-mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive,visual_region_readback,1,0,0.0,1,0,0.0,no directive
-mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive,visual_tool_routing,1,0,0.0,1,0,0.0,no directive
-mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog,visual_argument_copying,3,1,0.3333333333333333,3,1,0.3333333333333333,visual role catalog
-mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog,visual_referent_carryover,3,0,0.0,3,0,0.0,visual role catalog
-mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog,visual_region_readback,1,1,1.0,1,1,1.0,visual role catalog
-mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog,visual_tool_routing,1,1,1.0,1,1,1.0,visual role catalog
-mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints,visual_argument_copying,3,1,0.3333333333333333,3,2,0.6666666666666666,catalog arg hints
-mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints,visual_referent_carryover,3,3,1.0,3,3,1.0,catalog arg hints
-mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints,visual_region_readback,1,1,1.0,1,1,1.0,catalog arg hints
-mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints,visual_tool_routing,1,1,1.0,1,1,1.0,catalog arg hints
-mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints,visual_argument_copying,3,1,0.3333333333333333,3,2,0.6666666666666666,catalog split selector
-mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints,visual_referent_carryover,3,2,0.6666666666666666,3,2,0.6666666666666666,catalog split selector
-mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints,visual_region_readback,1,1,1.0,1,1,1.0,catalog split selector
-mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints,visual_tool_routing,1,1,1.0,1,1,1.0,catalog split selector
-mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints,visual_argument_copying,3,1,0.3333333333333333,3,3,1.0,catalog schema fields
-mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints,visual_referent_carryover,3,3,1.0,3,3,1.0,catalog schema fields
-mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints,visual_region_readback,1,1,1.0,1,1,1.0,catalog schema fields
-mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints,visual_tool_routing,1,1,1.0,1,1,1.0,catalog schema fields
-mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets,visual_argument_copying,3,1,0.3333333333333333,3,3,1.0,catalog schema target literals
-mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets,visual_referent_carryover,3,3,1.0,3,3,1.0,catalog schema target literals
-mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets,visual_region_readback,1,1,1.0,1,1,1.0,catalog schema target literals
-mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets,visual_tool_routing,1,0,0.0,1,0,0.0,catalog schema target literals
-mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard,visual_argument_copying,3,1,0.3333333333333333,3,2,0.6666666666666666,visual catalog literal
-mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard,visual_referent_carryover,3,0,0.0,3,0,0.0,visual catalog literal
-mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard,visual_region_readback,1,1,1.0,1,1,1.0,visual catalog literal
-mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard,visual_tool_routing,1,1,1.0,1,1,1.0,visual catalog literal
+system_id,family,case_count,exact_count,exact_rate,executable_case_count,executable_count,executable_rate,executor_equivalence_case_count,executor_equivalence_count,executor_equivalence_rate,label
+mlx_gemma4_e2b_reasoner_only,visual_argument_copying,3,3,1.0,3,3,1.0,3,3,1.0,contracted
+mlx_gemma4_e2b_reasoner_only,visual_referent_carryover,3,3,1.0,3,3,1.0,3,3,1.0,contracted
+mlx_gemma4_e2b_reasoner_only,visual_region_readback,1,1,1.0,1,1,1.0,1,1,1.0,contracted
+mlx_gemma4_e2b_reasoner_only,visual_tool_routing,1,1,1.0,1,1,1.0,1,1,1.0,contracted
+mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive,visual_argument_copying,3,1,0.3333333333333333,3,1,0.3333333333333333,3,1,0.3333333333333333,no directive
+mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive,visual_referent_carryover,3,0,0.0,3,0,0.0,3,0,0.0,no directive
+mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive,visual_region_readback,1,0,0.0,1,0,0.0,1,0,0.0,no directive
+mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive,visual_tool_routing,1,0,0.0,1,0,0.0,1,0,0.0,no directive
+mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog,visual_argument_copying,3,1,0.3333333333333333,3,1,0.3333333333333333,3,1,0.3333333333333333,visual role catalog
+mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog,visual_referent_carryover,3,0,0.0,3,0,0.0,3,0,0.0,visual role catalog
+mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog,visual_region_readback,1,1,1.0,1,1,1.0,1,1,1.0,visual role catalog
+mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog,visual_tool_routing,1,1,1.0,1,1,1.0,1,1,1.0,visual role catalog
+mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints,visual_argument_copying,3,1,0.3333333333333333,3,2,0.6666666666666666,3,2,0.6666666666666666,catalog arg hints
+mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints,visual_referent_carryover,3,3,1.0,3,3,1.0,3,3,1.0,catalog arg hints
+mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints,visual_region_readback,1,1,1.0,1,1,1.0,1,1,1.0,catalog arg hints
+mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints,visual_tool_routing,1,1,1.0,1,1,1.0,1,1,1.0,catalog arg hints
+mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints,visual_argument_copying,3,1,0.3333333333333333,3,2,0.6666666666666666,3,2,0.6666666666666666,catalog split selector
+mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints,visual_referent_carryover,3,2,0.6666666666666666,3,2,0.6666666666666666,3,2,0.6666666666666666,catalog split selector
+mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints,visual_region_readback,1,1,1.0,1,1,1.0,1,1,1.0,catalog split selector
+mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints,visual_tool_routing,1,1,1.0,1,1,1.0,1,1,1.0,catalog split selector
+mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints,visual_argument_copying,3,1,0.3333333333333333,3,3,1.0,3,3,1.0,catalog schema fields
+mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints,visual_referent_carryover,3,3,1.0,3,3,1.0,3,3,1.0,catalog schema fields
+mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints,visual_region_readback,1,1,1.0,1,1,1.0,1,1,1.0,catalog schema fields
+mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints,visual_tool_routing,1,1,1.0,1,1,1.0,1,1,1.0,catalog schema fields
+mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets,visual_argument_copying,3,1,0.3333333333333333,3,3,1.0,3,3,1.0,catalog schema target literals
+mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets,visual_referent_carryover,3,3,1.0,3,3,1.0,3,3,1.0,catalog schema target literals
+mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets,visual_region_readback,1,1,1.0,1,1,1.0,1,1,1.0,catalog schema target literals
+mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets,visual_tool_routing,1,0,0.0,1,0,0.0,1,0,0.0,catalog schema target literals
+mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard,visual_argument_copying,3,1,0.3333333333333333,3,2,0.6666666666666666,3,2,0.6666666666666666,visual catalog literal
+mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard,visual_referent_carryover,3,0,0.0,3,0,0.0,3,0,0.0,visual catalog literal
+mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard,visual_region_readback,1,1,1.0,1,1,1.0,1,1,1.0,visual catalog literal
+mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard,visual_tool_routing,1,1,1.0,1,1,1.0,1,1,1.0,visual catalog literal

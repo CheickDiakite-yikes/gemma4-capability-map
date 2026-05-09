@@ -225,14 +225,17 @@ CLAIMS: tuple[Claim, ...] = (
         claim="A fresh visual hard slice breaks the earlier saturation and shows schema-field catalog hints can recover executable visual behavior without the exact directive.",
         status="supported_current_packets",
         evidence_strength="moderate_internal",
-        primary_metric="Contracted MLX reaches 8/8 exact and executable; no-directive falls to 1/8; schema-field hints reach 6/8 exact and 8/8 executable.",
+        primary_metric=(
+            "Contracted MLX reaches 8/8 strict, executable, and executor-equivalent; "
+            "no-directive falls to 1/8; schema-field hints reach 6/8 strict and 8/8 executor-equivalent."
+        ),
         limitation="The packet is eight independently authored visual cases, so it is stronger than design-only evidence but still not a population estimate.",
-        next_test="Promote v4 only after adding executor-equivalence scoring to the benchmark contract or building a packaged H1 visual workflow that tests executor-visible success directly.",
+        next_test="Promote v4 only after building a packaged H1 visual workflow that tests executor-visible success directly.",
         sources=(
             EvidenceSource(
                 "visual_hard_slice_probe_packet",
-                "results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1",
-                "Executed fresh visual hard-slice packet across contracted, no-directive, v1-v5, and visual catalog literal-guard rows.",
+                "results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1",
+                "Executed fresh visual hard-slice packet with first-class strict, executable, and executor-equivalence metrics.",
             ),
             EvidenceSource(
                 "design_packet",
@@ -256,19 +259,22 @@ CLAIMS: tuple[Claim, ...] = (
         claim="A narrow schema-target-literal repair did not improve hard-slice exactness and introduced a routing regression.",
         status="negative_result_current_packets",
         evidence_strength="moderate_internal",
-        primary_metric="v5 reaches 5/8 exact and 7/8 executable versus v4 at 6/8 exact and 8/8 executable; v5 adds one wrong-tool failure on the stale-selection decoy.",
+        primary_metric=(
+            "v5 reaches 5/8 strict and 7/8 executor-equivalent versus v4 at 6/8 strict "
+            "and 8/8 executor-equivalent; v5 adds one wrong-tool failure on the stale-selection decoy."
+        ),
         limitation="This is still one eight-case hard-slice packet; it rejects the current wording, not all possible target-query exactness interventions.",
-        next_test="Do not iterate target-literal wording again until executor-equivalence scoring is explicit; focus on the stale-selection routing failure separately.",
+        next_test="Do not iterate target-literal wording again until the stale-selection routing failure is isolated separately.",
         sources=(
             EvidenceSource(
                 "visual_hard_slice_probe_packet",
-                "results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1",
+                "results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1",
                 "Executed v5 hard-slice packet showing the schema-target-literal profile underperforms schema-field hints.",
             ),
             EvidenceSource(
                 "visual_hard_slice_profile_comparison",
-                "results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/schema_literal_targets_vs_schema_field_hints",
-                "Direct v5-vs-v4 comparison showing exact and executable regressions concentrated in visual tool routing.",
+                "results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1/schema_literal_targets_vs_schema_field_hints",
+                "Direct v5-vs-v4 comparison showing strict, executable, and executor-equivalence regressions concentrated in visual tool routing.",
             ),
             EvidenceSource(
                 "visual_hard_slice_exactness_diagnostic",
@@ -282,9 +288,12 @@ CLAIMS: tuple[Claim, ...] = (
         claim="The remaining v4 visual hard-slice exact misses are executor-success selector aliases, not current evidence of failed visual targeting.",
         status="supported_current_packets",
         evidence_strength="moderate_internal",
-        primary_metric="v4 has 2/8 non-exact rows, both executor-target matches; benchmark-label artifact candidate count is 2 and true harness failure count is 0.",
+        primary_metric=(
+            "v4 has 2/8 non-exact rows, both executor-target matches; first-class executor-equivalence "
+            "scores v4 at 8/8 while benchmark-label artifact candidate count is 2 and true harness failure count is 0."
+        ),
         limitation="This does not prove every visual selector paraphrase is acceptable; it only classifies the current hard-slice v4 misses under the local deterministic executor.",
-        next_test="Add an executor-equivalence score beside strict exactness and rerun the hard slice before H1 visual workflow promotion.",
+        next_test="Use the executor-equivalence score to design a packaged H1 visual workflow that separates executor success from strict protocol fidelity.",
         sources=(
             EvidenceSource(
                 "visual_hard_slice_exactness_diagnostic",
@@ -293,8 +302,8 @@ CLAIMS: tuple[Claim, ...] = (
             ),
             EvidenceSource(
                 "visual_hard_slice_probe_packet",
-                "results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1",
-                "Underlying executed hard-slice packet with raw expected/actual calls and deterministic execution outputs.",
+                "results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1",
+                "Underlying executed hard-slice packet with raw expected/actual calls, deterministic execution outputs, and executor-equivalence scores.",
             ),
         ),
     ),

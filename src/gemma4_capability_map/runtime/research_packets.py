@@ -243,6 +243,7 @@ def _research_packet_renderable(payload: dict[str, Any]) -> Group:
     candidates.add_column("Execute")
     candidates.add_column("Exact")
     candidates.add_column("Executable")
+    candidates.add_column("Executor Eq")
     for row in payload.get("candidate_rows") or []:
         candidates.add_row(
             str(row.get("system_id", "")),
@@ -251,6 +252,7 @@ def _research_packet_renderable(payload: dict[str, Any]) -> Group:
             str(row.get("execute", "")),
             str(row.get("exact_match_rate", "")),
             str(row.get("executable_match_rate", "")),
+            str(row.get("executor_equivalence_match_rate", "")),
         )
 
     replay_cases = Table(title="Replay Cases")

@@ -1,6 +1,6 @@
 # Visual Hard-Slice Exactness Diagnostic
 
-- packet_run_id: `20260509T_visual_hard_slice_v5_execute_v1`
+- packet_run_id: `20260509T_visual_hard_slice_executor_equivalence_v1`
 - system_count: `2`
 - case_row_count: `16`
 - exactness_gap_count: `5`

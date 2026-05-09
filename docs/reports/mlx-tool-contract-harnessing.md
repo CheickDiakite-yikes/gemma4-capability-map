@@ -106,8 +106,8 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 | [`publication evidence ledger`](../../results/reports/publication_evidence_ledger/ledger.md) | Paper-facing claim ledger mapping each claim to packet-backed evidence, limitations, and next tests. |
 | [`publication readiness audit`](../../results/reports/publication_readiness_audit/publication_readiness_audit.md) | Blocking/recommended audit of whether the current evidence tree is ready to support a manuscript draft. |
 | [`visual hard-slice design`](../../results/reports/visual_hard_slice_design/design.md) | Shared case-design source for the fresh visual discriminator across argument copying, routing, referent carryover, and readback. |
-| [`executed visual hard-slice packet`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1) | Eight-system hard-slice probe showing schema-field hints as the strongest no-directive executable visual profile and v5 target-literal wording as a negative repair attempt. |
-| [`visual hard-slice v5-vs-v4 comparison`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/schema_literal_targets_vs_schema_field_hints) | Direct comparison showing v5 loses exactness and executability versus v4 by introducing a stale-selection wrong-tool regression. |
+| [`executed visual hard-slice packet`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1) | Eight-system hard-slice probe showing schema-field hints as the strongest no-directive executable visual profile and v5 target-literal wording as a negative repair attempt. |
+| [`visual hard-slice v5-vs-v4 comparison`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1/schema_literal_targets_vs_schema_field_hints) | Direct comparison showing v5 loses exactness and executability versus v4 by introducing a stale-selection wrong-tool regression. |
 | [`visual hard-slice exactness diagnostic`](../../results/reports/visual_hard_slice_exactness_diagnostic) | Separates strict benchmark-canonical target labels from executor-visible target success for v4 and v5. |
 | [`visual catalog literal-guard v6 packet`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe) | Composition test combining the visual role catalog with `literal_argument_guard_v1`. |
 | [`H1i prompt-contract repeat3 packet`](../../results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_repeat3_v1_knowledge_work_ablation_packet) | Repeated second-stage candidate packet: three attempts per H1i workflow family per row. |
@@ -388,32 +388,32 @@ The v4 schema-field profile is negative only on the original focused probe/repla
 - [`tool_catalog_schema_field_hints_vs_role_catalog_case_deltas.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/tool_catalog_schema_field_hints_vs_role_catalog_case_deltas.csv)
 - [`tool_catalog_schema_field_hints_live_replay_decision.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/tool_catalog_schema_field_hints_live_replay_decision.csv)
 
-That negative focused-slice result is not the full story. The next visual surface was therefore not another tweak to the same three replay cases. The design packet at [`results/reports/visual_hard_slice_design/design.md`](../../results/reports/visual_hard_slice_design/design.md) defines eight fresh cases to separate visible-region targeting, valid selection carryover, compact filter copying, and readback protocol shape. Those cases are now executed in [`results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1), which includes the v5 target-literal repair attempt.
+That negative focused-slice result is not the full story. The next visual surface was therefore not another tweak to the same three replay cases. The design packet at [`results/reports/visual_hard_slice_design/design.md`](../../results/reports/visual_hard_slice_design/design.md) defines eight fresh cases to separate visible-region targeting, valid selection carryover, compact filter copying, and readback protocol shape. Those cases are now executed in [`results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1), which includes the v5 target-literal repair attempt.
 
 ## Visual Hard-Slice Probe Gate
 
 The executed hard slice is the cleanest current visual discriminator because it uses independently authored cases instead of repeatedly tuning against the original three visual replay failures:
 
-- packet: [`results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1)
-- packet-local gate summary: [`candidate_gate_summary.md`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/candidate_gate_summary.md)
-- v5-vs-v4 comparison: [`schema_literal_targets_vs_schema_field_hints`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/schema_literal_targets_vs_schema_field_hints)
+- packet: [`results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1)
+- packet-local gate summary: [`candidate_gate_summary.md`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1/candidate_gate_summary.md)
+- v5-vs-v4 comparison: [`schema_literal_targets_vs_schema_field_hints`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1/schema_literal_targets_vs_schema_field_hints)
 - generated gate table: [`visual_hard_slice_probe_gates.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_probe_gates.csv)
 - generated family table: [`visual_hard_slice_family_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_family_summary.csv)
 - generated case deltas: [`visual_hard_slice_case_deltas_vs_no_directive.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_case_deltas_vs_no_directive.csv) and [`visual_hard_slice_case_deltas_vs_contracted.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_case_deltas_vs_contracted.csv)
 - exactness diagnostic: [`results/reports/visual_hard_slice_exactness_diagnostic`](../../results/reports/visual_hard_slice_exactness_diagnostic)
 
-| System profile | Exact | Executable | Dominant failure | Gate |
-| --- | ---: | ---: | --- | --- |
-| contracted MLX | `8 / 8` | `8 / 8` | exact | contracted reference |
-| no-directive MLX | `1 / 8` | `1 / 8` | no tool call | no-directive reference |
-| visual role catalog v1 | `3 / 8` | `3 / 8` | argument mismatch | improved vs no-directive |
-| visual role catalog + argument hints v2 | `6 / 8` | `7 / 8` | exact | improved vs no-directive |
-| visual role catalog + split selector v3 | `5 / 8` | `6 / 8` | exact | improved vs no-directive |
-| visual role catalog + schema-field hints v4 | `6 / 8` | `8 / 8` | exact | improved vs no-directive |
-| visual role catalog + schema target literals v5 | `5 / 8` | `7 / 8` | exact | improved vs no-directive |
-| visual role catalog + literal guard v6 | `3 / 8` | `4 / 8` | exact | improved vs no-directive |
+| System profile | Strict | Executable | Executor Eq | Dominant failure | Gate |
+| --- | ---: | ---: | ---: | --- | --- |
+| contracted MLX | `8 / 8` | `8 / 8` | `8 / 8` | exact | contracted reference |
+| no-directive MLX | `1 / 8` | `1 / 8` | `1 / 8` | no tool call | no-directive reference |
+| visual role catalog v1 | `3 / 8` | `3 / 8` | `3 / 8` | argument mismatch | improved vs no-directive |
+| visual role catalog + argument hints v2 | `6 / 8` | `7 / 8` | `7 / 8` | exact | improved vs no-directive |
+| visual role catalog + split selector v3 | `5 / 8` | `6 / 8` | `6 / 8` | exact | improved vs no-directive |
+| visual role catalog + schema-field hints v4 | `6 / 8` | `8 / 8` | `8 / 8` | exact | improved vs no-directive |
+| visual role catalog + schema target literals v5 | `5 / 8` | `7 / 8` | `7 / 8` | exact | improved vs no-directive |
+| visual role catalog + literal guard v6 | `3 / 8` | `4 / 8` | `4 / 8` | exact | improved vs no-directive |
 
-This changes the visual interpretation. Schema-field hints were not a focused-replay promotion candidate, but on the fresh hard slice they become the strongest no-directive harness profile because they preserve full executability. The exact directive still matters: contracted MLX is the only row with `8 / 8` strict protocol fidelity. The exactness diagnostic resolves the immediate ambiguity: v4's two non-exact rows are executor-success selector aliases, while v5 keeps those same aliases and adds a true stale-selection wrong-tool failure. The next useful work is therefore executor-equivalence scoring, not another target-query wording patch.
+This changes the visual interpretation. Schema-field hints were not a focused-replay promotion candidate, but on the fresh hard slice they become the strongest no-directive harness profile because they preserve full executor-equivalent target success. The exact directive still matters: contracted MLX is the only row with `8 / 8` strict protocol fidelity. The exactness diagnostic resolves the immediate ambiguity: v4's two non-exact rows are executor-success selector aliases, while v5 keeps those same aliases and adds a true stale-selection wrong-tool failure. Executor-equivalence is now a first-class packet metric, so the next useful work is a packaged H1 visual workflow rather than another target-query wording patch.
 
 ## Visual Hard-Slice Exactness Diagnostic
 
@@ -786,9 +786,9 @@ The H1h -> H1i narrowing is also useful methodologically. H1h proves the phenome
 Use this order before broad `32 / 26` reruns:
 
 1. Treat `visual_role_catalog_argument_hints_v2` as the best exact candidate on the original focused visual replay, not as the overall visual answer.
-2. Treat `visual_role_catalog_schema_field_hints_v4` as the best fresh hard-slice no-directive profile because it reaches `8 / 8` executable, while still missing exact protocol on two cases.
-3. Treat `visual_role_catalog_schema_literal_targets_v5` as negative evidence: it drops to `5 / 8` exact and `7 / 8` executable while adding a wrong-tool stale-selection regression.
-4. Add executor-equivalence scoring beside strict exactness, using the exactness diagnostic as the seed fixture.
+2. Treat `visual_role_catalog_schema_field_hints_v4` as the best fresh hard-slice no-directive profile because it reaches `8 / 8` executor-equivalent target success, while still missing exact protocol on two cases.
+3. Treat `visual_role_catalog_schema_literal_targets_v5` as negative evidence: it drops to `5 / 8` strict exactness and `7 / 8` executor-equivalent target success while adding a wrong-tool stale-selection regression.
+4. Use executor-equivalence beside strict exactness as the gate fixture for a packaged H1 visual workflow.
 5. Treat `visual_role_catalog_v1` as the stable routing baseline, `visual_state_tool_selection_v4` as a failed-to-improve live candidate, `visual_refine_selection_v5` as a raw-gate rejection, and the v6 catalog-plus-literal-guard composition as negative interference.
 6. Stop iterating on standalone visual prompt rules unless the next idea changes tool-catalog role shape or generation-time argument copying without sacrificing protocol entry.
 7. Keep canonical JSON copy and parallel two-call wording out of H1 as currently written; they did not earn live promotion.

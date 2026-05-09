@@ -3135,8 +3135,8 @@
   - registry system: `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets`
   - implementation: [`src/gemma4_capability_map/tools/planner.py`](../src/gemma4_capability_map/tools/planner.py)
   - dry-run packet: [`20260509T_visual_hard_slice_v5_dry_run`](../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_dry_run)
-  - executed packet: [`20260509T_visual_hard_slice_v5_execute_v1`](../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1)
-  - v5-vs-v4 comparison: [`schema_literal_targets_vs_schema_field_hints`](../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/schema_literal_targets_vs_schema_field_hints)
+  - executed packet: [`20260509T_visual_hard_slice_executor_equivalence_v1`](../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1)
+  - v5-vs-v4 comparison: [`schema_literal_targets_vs_schema_field_hints`](../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1/schema_literal_targets_vs_schema_field_hints)
 - Result:
   - v4 schema-field hints: exact `6 / 8`, executable `8 / 8`
   - v5 schema target literals: exact `5 / 8`, executable `7 / 8`
@@ -3157,20 +3157,20 @@
 - Verification:
   - `uv run pytest tests/test_prompt_contracts.py tests/test_visual_hard_slice_probe_packet.py -q`
   - `uv run python scripts/run_visual_hard_slice_probe_packet.py --run-group-id 20260509T_visual_hard_slice_v5_dry_run --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets`
-  - `uv run python scripts/run_visual_hard_slice_probe_packet.py --run-group-id 20260509T_visual_hard_slice_v5_execute_v1 --execute`
-  - `uv run python scripts/compare_tool_directive_probes.py results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets --output-dir results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/schema_literal_targets_vs_schema_field_hints`
+  - `uv run python scripts/run_visual_hard_slice_probe_packet.py --run-group-id 20260509T_visual_hard_slice_executor_equivalence_v1 --execute`
+  - `uv run python scripts/compare_tool_directive_probes.py results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets --output-dir results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1/schema_literal_targets_vs_schema_field_hints`
   - `uv run python scripts/build_mlx_tool_contract_report.py`
   - `uv run python scripts/build_publication_evidence_ledger.py`
   - `uv run python scripts/audit_publication_readiness.py`
   - `uv run pytest tests/test_prompt_contracts.py tests/test_visual_hard_slice_probe_packet.py tests/test_mlx_tool_contract_report.py tests/test_publication_evidence_ledger.py tests/test_publication_readiness_audit.py tests/test_runtime_cli.py::test_runtime_cli_packet_json_inspects_visual_hard_slice_probe_packet -q`
-  - `uv run moonie-agent packet --kind visual-hard-slice-probe --packet-id 20260509T_visual_hard_slice_v5_execute_v1 --json`
+  - `uv run moonie-agent packet --kind visual-hard-slice-probe --packet-id 20260509T_visual_hard_slice_executor_equivalence_v1 --json`
 
 ## 2026-05-09 - Visual Hard-Slice Exactness Versus Executor Target Diagnostic
 
 - A new diagnostic script now separates strict benchmark-canonical visual argument exactness from executor-visible target success:
   - script: [`scripts/analyze_visual_hard_slice_exactness.py`](../scripts/analyze_visual_hard_slice_exactness.py)
   - artifact: [`results/reports/visual_hard_slice_exactness_diagnostic`](../results/reports/visual_hard_slice_exactness_diagnostic)
-  - seed packet: [`20260509T_visual_hard_slice_v5_execute_v1`](../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1)
+  - seed packet: [`20260509T_visual_hard_slice_executor_equivalence_v1`](../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1)
 - Result:
   - v4 schema-field hints: exact `6 / 8`, executable `8 / 8`, non-exact executor successes `2`, benchmark-label artifact candidates `2`, true harness failures `0`
   - v5 schema target literals: exact `5 / 8`, executable `7 / 8`, non-exact executor successes `2`, benchmark-label artifact candidates `2`, true harness failures `1`
@@ -3180,7 +3180,7 @@
 - Interpretation:
   - The two v4 hard-slice exact misses are not current evidence of failed visual targeting. They are better classified as executor-success selector aliases under the local deterministic visual executor.
   - This strengthens the paper framing: strict correctness, exact protocol fidelity, and executor-visible success are distinct metrics.
-  - The next useful implementation is executor-equivalence scoring beside strict exactness, not another target-query wording profile.
+  - This led directly to first-class executor-equivalence scoring beside strict exactness, instead of another target-query wording profile.
 - Reporting updates:
   - generated MLX tool-contract report now has `56` tables and `26` figures
   - evidence ledger now has `10` claims, `31` evidence sources, `0` missing sources
@@ -3192,3 +3192,31 @@
   - `uv run python scripts/build_mlx_tool_contract_report.py`
   - `uv run python scripts/build_publication_evidence_ledger.py`
   - `uv run python scripts/audit_publication_readiness.py`
+
+## 2026-05-09 - First-Class Executor-Equivalence Hard-Slice Metric
+
+- Executor-visible visual target success is now measured directly in the tool-directive probe and hard-slice packet:
+  - probe implementation: [`src/gemma4_capability_map/runtime/tool_directive_probe.py`](../src/gemma4_capability_map/runtime/tool_directive_probe.py)
+  - packet runner: [`scripts/run_visual_hard_slice_probe_packet.py`](../scripts/run_visual_hard_slice_probe_packet.py)
+  - CLI packet renderer: [`src/gemma4_capability_map/runtime/research_packets.py`](../src/gemma4_capability_map/runtime/research_packets.py)
+  - executed packet: [`20260509T_visual_hard_slice_executor_equivalence_v1`](../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1)
+  - v5-vs-v4 comparison: [`schema_literal_targets_vs_schema_field_hints`](../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1/schema_literal_targets_vs_schema_field_hints)
+- Result:
+  - contracted MLX: strict `8 / 8`, executable `8 / 8`, executor-equivalent `8 / 8`
+  - no-directive MLX: strict `1 / 8`, executable `1 / 8`, executor-equivalent `1 / 8`
+  - `visual_role_catalog_schema_field_hints_v4`: strict `6 / 8`, executable `8 / 8`, executor-equivalent `8 / 8`
+  - `visual_role_catalog_schema_literal_targets_v5`: strict `5 / 8`, executable `7 / 8`, executor-equivalent `7 / 8`
+  - direct v5-vs-v4 comparison now reports executor-equivalence delta `-0.125`, matching the executable regression and making the stale-selection wrong-tool failure measurable without relying only on strict JSON labels.
+- Interpretation:
+  - This turns the previous exactness diagnostic into a first-class benchmark channel. The v4 "misses" still matter for strict protocol fidelity, but they are no longer scored as visual target failures when the deterministic executor reaches the expected local element.
+  - The current paper framing becomes stronger: strict exactness, recovered/executable operation, and executor-equivalent target success are distinct endpoints. Harness improvements should declare which endpoint they improve.
+  - The next H1 move should build a packaged visual workflow around executor-visible success while retaining strict exactness as a separate protocol-fidelity measure.
+- Reporting updates to regenerate after this slice:
+  - MLX tool-contract report should use [`20260509T_visual_hard_slice_executor_equivalence_v1`](../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1) as the latest visual hard-slice packet.
+  - publication evidence ledger claims C8-C10 should point at the executor-equivalence packet.
+  - publication readiness audit should require the executor-equivalence packet and its v5-vs-v4 comparison.
+- Verification:
+  - `uv run pytest tests/test_tool_directive_probe.py tests/test_visual_hard_slice.py tests/test_visual_hard_slice_probe_packet.py tests/test_runtime_cli.py::test_runtime_cli_packet_json_inspects_visual_hard_slice_probe_packet -q`
+  - `uv run python scripts/run_visual_hard_slice_probe_packet.py --run-group-id 20260509T_visual_hard_slice_executor_equivalence_v1 --execute`
+  - `uv run python scripts/analyze_visual_hard_slice_exactness.py --json`
+  - `uv run python scripts/compare_tool_directive_probes.py results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets --output-dir results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1/schema_literal_targets_vs_schema_field_hints`

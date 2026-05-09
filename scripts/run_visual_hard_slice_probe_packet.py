@@ -205,6 +205,8 @@ def _empty_row(*, system_id: str, execute: bool, output_dir: Path) -> dict[str, 
         "exact_match_rate": "",
         "executable_match_count": "",
         "executable_match_rate": "",
+        "executor_equivalence_match_count": "",
+        "executor_equivalence_match_rate": "",
         "dominant_failure_mode": "",
         "failure_mode_counts": "",
         "comparison_path": "",
@@ -214,6 +216,8 @@ def _empty_row(*, system_id: str, execute: bool, output_dir: Path) -> dict[str, 
         "delta_exact_vs_no_directive": "",
         "delta_executable_vs_contracted": "",
         "delta_executable_vs_no_directive": "",
+        "delta_executor_equivalence_vs_contracted": "",
+        "delta_executor_equivalence_vs_no_directive": "",
         "hard_slice_gate": "",
     }
 
@@ -228,6 +232,8 @@ def _summary_fields(summary: dict[str, Any], rows: list[dict[str, Any]]) -> dict
         "exact_match_rate": summary.get("exact_match_rate", 0.0),
         "executable_match_count": summary.get("executable_match_count", 0),
         "executable_match_rate": summary.get("executable_match_rate", ""),
+        "executor_equivalence_match_count": summary.get("executor_equivalence_match_count", 0),
+        "executor_equivalence_match_rate": summary.get("executor_equivalence_match_rate", ""),
         "dominant_failure_mode": dominant,
         "failure_mode_counts": dict(sorted(failure_counts.items())),
     }
@@ -241,10 +247,14 @@ def _gate_rows(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
             "exact_match_rate": row.get("exact_match_rate", ""),
             "executable_match_count": row.get("executable_match_count", ""),
             "executable_match_rate": row.get("executable_match_rate", ""),
+            "executor_equivalence_match_count": row.get("executor_equivalence_match_count", ""),
+            "executor_equivalence_match_rate": row.get("executor_equivalence_match_rate", ""),
             "delta_exact_vs_contracted": row.get("delta_exact_vs_contracted", ""),
             "delta_exact_vs_no_directive": row.get("delta_exact_vs_no_directive", ""),
             "delta_executable_vs_contracted": row.get("delta_executable_vs_contracted", ""),
             "delta_executable_vs_no_directive": row.get("delta_executable_vs_no_directive", ""),
+            "delta_executor_equivalence_vs_contracted": row.get("delta_executor_equivalence_vs_contracted", ""),
+            "delta_executor_equivalence_vs_no_directive": row.get("delta_executor_equivalence_vs_no_directive", ""),
             "dominant_failure_mode": row.get("dominant_failure_mode", ""),
             "hard_slice_gate": row.get("hard_slice_gate", ""),
             "output_dir": row.get("output_dir", ""),
@@ -291,6 +301,9 @@ def _family_rows(results: list[dict[str, Any]]) -> list[dict[str, Any]]:
                     "executable_case_count": bucket.get("executable_cases", ""),
                     "executable_count": bucket.get("executable", ""),
                     "executable_rate": bucket.get("executable_rate", ""),
+                    "executor_equivalence_case_count": bucket.get("executor_equivalence_cases", ""),
+                    "executor_equivalence_count": bucket.get("executor_equivalence", ""),
+                    "executor_equivalence_rate": bucket.get("executor_equivalence_rate", ""),
                 }
             )
     return output
@@ -358,6 +371,8 @@ def _attach_comparisons(
         row["delta_exact_vs_no_directive"] = no_directive_comparison.get("delta_exact_match_rate", "")
         row["delta_executable_vs_contracted"] = _executable_delta(contracted_comparison)
         row["delta_executable_vs_no_directive"] = _executable_delta(no_directive_comparison)
+        row["delta_executor_equivalence_vs_contracted"] = _executor_equivalence_delta(contracted_comparison)
+        row["delta_executor_equivalence_vs_no_directive"] = _executor_equivalence_delta(no_directive_comparison)
         row["hard_slice_gate"] = _hard_slice_gate(system_id=system_id, comparison_vs_no_directive=no_directive_comparison)
 
         result_by_system.get(system_id, {}).setdefault("comparison_outputs", {})
@@ -374,7 +389,12 @@ def _hard_slice_gate(*, system_id: str, comparison_vs_no_directive: dict[str, An
         return "no_directive_reference"
     exact_delta = float(comparison_vs_no_directive.get("delta_exact_match_rate") or 0.0)
     executable_delta = _executable_delta(comparison_vs_no_directive)
-    if exact_delta > 0.0 or (executable_delta not in ("", None) and float(executable_delta) > 0.0):
+    executor_equivalence_delta = _executor_equivalence_delta(comparison_vs_no_directive)
+    if (
+        exact_delta > 0.0
+        or (executable_delta not in ("", None) and float(executable_delta) > 0.0)
+        or (executor_equivalence_delta not in ("", None) and float(executor_equivalence_delta) > 0.0)
+    ):
         return "hard_slice_improved_vs_no_directive"
     return "no_hard_slice_gain"
 
@@ -382,6 +402,14 @@ def _hard_slice_gate(*, system_id: str, comparison_vs_no_directive: dict[str, An
 def _executable_delta(comparison: dict[str, Any]) -> float | str:
     candidate = comparison.get("candidate_executable_match_rate")
     baseline = comparison.get("baseline_executable_match_rate")
+    if candidate is None or baseline is None:
+        return ""
+    return float(candidate or 0.0) - float(baseline or 0.0)
+
+
+def _executor_equivalence_delta(comparison: dict[str, Any]) -> float | str:
+    candidate = comparison.get("candidate_executor_equivalence_match_rate")
+    baseline = comparison.get("baseline_executor_equivalence_match_rate")
     if candidate is None or baseline is None:
         return ""
     return float(candidate or 0.0) - float(baseline or 0.0)
@@ -419,8 +447,8 @@ def _gate_markdown(manifest: dict[str, Any], gate_rows: list[dict[str, Any]]) ->
         f"- contracted_system_id: `{manifest['contracted_system_id']}`",
         f"- no_directive_system_id: `{manifest['no_directive_system_id']}`",
         "",
-        "| System | Exact | Executable | Delta Exact vs No Directive | Delta Exec vs No Directive | Failure | Gate |",
-        "| --- | ---: | ---: | ---: | ---: | --- | --- |",
+        "| System | Exact | Executable | Executor Eq | Delta Exact vs No Directive | Delta Exec Eq vs No Directive | Failure | Gate |",
+        "| --- | ---: | ---: | ---: | ---: | ---: | --- | --- |",
     ]
     for row in gate_rows:
         lines.append(
@@ -430,8 +458,9 @@ def _gate_markdown(manifest: dict[str, Any], gate_rows: list[dict[str, Any]]) ->
                     str(row.get("system_id", "")),
                     _markdown_number(row.get("exact_match_rate", "")),
                     _markdown_number(row.get("executable_match_rate", "")),
+                    _markdown_number(row.get("executor_equivalence_match_rate", "")),
                     _markdown_number(row.get("delta_exact_vs_no_directive", "")),
-                    _markdown_number(row.get("delta_executable_vs_no_directive", "")),
+                    _markdown_number(row.get("delta_executor_equivalence_vs_no_directive", "")),
                     str(row.get("dominant_failure_mode", "")),
                     str(row.get("hard_slice_gate", "")),
                 ]

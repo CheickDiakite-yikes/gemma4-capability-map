@@ -243,6 +243,9 @@ def compare_tool_directive_probe_packets(
             "baseline_executable_match": _optional_bool(baseline.get("executable_match")),
             "candidate_executable_match": _optional_bool(candidate.get("executable_match")),
             "delta_executable_match": _optional_bool_delta(candidate.get("executable_match"), baseline.get("executable_match")),
+            "baseline_executor_target_match": _executor_target_value(baseline),
+            "candidate_executor_target_match": _executor_target_value(candidate),
+            "delta_executor_target_match": _optional_bool_delta(_executor_target_value(candidate), _executor_target_value(baseline)),
             "baseline_actual_call_count": int(baseline.get("actual_call_count") or 0),
             "candidate_actual_call_count": int(candidate.get("actual_call_count") or 0),
             "delta_actual_call_count": int(candidate.get("actual_call_count") or 0) - int(baseline.get("actual_call_count") or 0),
@@ -258,6 +261,9 @@ def compare_tool_directive_probe_packets(
                 "baseline_executable_count": 0,
                 "candidate_executable_count": 0,
                 "shared_executable_case_count": 0,
+                "baseline_executor_target_count": 0,
+                "candidate_executor_target_count": 0,
+                "shared_executor_target_case_count": 0,
             },
         )
         bucket["case_count"] += 1
@@ -267,11 +273,18 @@ def compare_tool_directive_probe_packets(
             bucket["shared_executable_case_count"] += 1
             bucket["baseline_executable_count"] += int(bool(baseline.get("executable_match")))
             bucket["candidate_executable_count"] += int(bool(candidate.get("executable_match")))
+        baseline_target = _executor_target_value(baseline)
+        candidate_target = _executor_target_value(candidate)
+        if baseline_target is not None and candidate_target is not None:
+            bucket["shared_executor_target_case_count"] += 1
+            bucket["baseline_executor_target_count"] += int(bool(baseline_target))
+            bucket["candidate_executor_target_count"] += int(bool(candidate_target))
 
     family_deltas = []
     for bucket in sorted(family_buckets.values(), key=lambda item: str(item["family"])):
         case_count = int(bucket["case_count"])
         executable_count = int(bucket["shared_executable_case_count"])
+        executor_target_count = int(bucket["shared_executor_target_case_count"])
         family_deltas.append(
             {
                 **bucket,
@@ -282,6 +295,20 @@ def compare_tool_directive_probe_packets(
                 "candidate_executable_rate": bucket["candidate_executable_count"] / executable_count if executable_count else None,
                 "delta_executable_rate": (
                     (bucket["candidate_executable_count"] - bucket["baseline_executable_count"]) / executable_count if executable_count else None
+                ),
+                "baseline_executor_target_rate": (
+                    bucket["baseline_executor_target_count"] / executor_target_count if executor_target_count else None
+                ),
+                "candidate_executor_target_rate": (
+                    bucket["candidate_executor_target_count"] / executor_target_count if executor_target_count else None
+                ),
+                "delta_executor_target_rate": (
+                    (
+                        bucket["candidate_executor_target_count"] - bucket["baseline_executor_target_count"]
+                    )
+                    / executor_target_count
+                    if executor_target_count
+                    else None
                 ),
             }
         )
@@ -300,6 +327,12 @@ def compare_tool_directive_probe_packets(
         - float(baseline_summary.get("exact_match_rate") or 0.0),
         "baseline_executable_match_rate": baseline_summary.get("executable_match_rate"),
         "candidate_executable_match_rate": candidate_summary.get("executable_match_rate"),
+        "baseline_executor_equivalence_match_rate": baseline_summary.get("executor_equivalence_match_rate"),
+        "candidate_executor_equivalence_match_rate": candidate_summary.get("executor_equivalence_match_rate"),
+        "delta_executor_equivalence_match_rate": _optional_rate_delta(
+            candidate_summary.get("executor_equivalence_match_rate"),
+            baseline_summary.get("executor_equivalence_match_rate"),
+        ),
         "case_deltas": case_deltas,
         "family_deltas": family_deltas,
     }
@@ -338,6 +371,10 @@ def _score_probe_case(
         tool_specs=tool_specs,
         actual_calls=turn.normalized_tool_call,
     )
+    executor_target_match = _score_executor_target_case(
+        case=case,
+        actual_execution=actual_execution,
+    )
     expected_payload = [{"name": call.name, "arguments": call.arguments} for call in expected_calls]
     actual_payload = [{"name": call.name, "arguments": call.arguments} for call in turn.normalized_tool_call]
     return {
@@ -347,6 +384,7 @@ def _score_probe_case(
         "actual_call_count": len(turn.normalized_tool_call),
         "exact_match": exact_match,
         "executable_match": executable_match,
+        "executor_target_match": executor_target_match,
         "expected_execution": case.expected_execution,
         "actual_execution": actual_execution,
         "expected_calls": expected_payload,
@@ -363,10 +401,22 @@ def _summarize_probe(rows: list[dict[str, Any]]) -> dict[str, Any]:
     exact = sum(1 for row in rows if row["exact_match"])
     executable_rows = [row for row in rows if row.get("executable_match") is not None]
     executable = sum(1 for row in executable_rows if row["executable_match"])
+    executor_target_rows = [row for row in rows if _executor_target_value(row) is not None]
+    executor_target = sum(1 for row in executor_target_rows if _executor_target_value(row))
     by_family: dict[str, dict[str, Any]] = {}
     for row in rows:
         family = str(row["family"])
-        bucket = by_family.setdefault(family, {"cases": 0, "exact": 0, "executable_cases": 0, "executable": 0})
+        bucket = by_family.setdefault(
+            family,
+            {
+                "cases": 0,
+                "exact": 0,
+                "executable_cases": 0,
+                "executable": 0,
+                "executor_equivalence_cases": 0,
+                "executor_equivalence": 0,
+            },
+        )
         bucket["cases"] += 1
         if row["exact_match"]:
             bucket["exact"] += 1
@@ -374,11 +424,20 @@ def _summarize_probe(rows: list[dict[str, Any]]) -> dict[str, Any]:
             bucket["executable_cases"] += 1
             if row["executable_match"]:
                 bucket["executable"] += 1
+        executor_target_match = _executor_target_value(row)
+        if executor_target_match is not None:
+            bucket["executor_equivalence_cases"] += 1
+            if executor_target_match:
+                bucket["executor_equivalence"] += 1
     for bucket in by_family.values():
         cases = int(bucket["cases"])
         bucket["exact_rate"] = bucket["exact"] / cases if cases else 0.0
         executable_cases = int(bucket["executable_cases"])
         bucket["executable_rate"] = bucket["executable"] / executable_cases if executable_cases else None
+        executor_equivalence_cases = int(bucket["executor_equivalence_cases"])
+        bucket["executor_equivalence_rate"] = (
+            bucket["executor_equivalence"] / executor_equivalence_cases if executor_equivalence_cases else None
+        )
     return {
         "case_count": total,
         "exact_match_count": exact,
@@ -386,6 +445,9 @@ def _summarize_probe(rows: list[dict[str, Any]]) -> dict[str, Any]:
         "executable_evaluable_count": len(executable_rows),
         "executable_match_count": executable,
         "executable_match_rate": executable / len(executable_rows) if executable_rows else None,
+        "executor_equivalence_evaluable_count": len(executor_target_rows),
+        "executor_equivalence_match_count": executor_target,
+        "executor_equivalence_match_rate": executor_target / len(executor_target_rows) if executor_target_rows else None,
         "family_summary": by_family,
     }
 
@@ -415,6 +477,20 @@ def _score_executable_case(
     if not case.expected_execution:
         return True, execution
     return _execution_satisfies_contract(execution, case.expected_execution), execution
+
+
+def _score_executor_target_case(
+    *,
+    case: ToolDirectiveProbeCase,
+    actual_execution: list[dict[str, Any]],
+) -> bool | None:
+    if not case.initial_state or not case.expected_execution:
+        return None
+    if not actual_execution:
+        return False
+    if any(result.get("validator_result") != "pass" for result in actual_execution):
+        return False
+    return _execution_satisfies_contract(actual_execution, case.expected_execution)
 
 
 def _execute_calls(initial_state: dict[str, Any], tool_specs: list[ToolSpec], calls: list[ToolCall]) -> list[dict[str, Any]]:
@@ -462,6 +538,20 @@ def _optional_bool_delta(candidate: Any, baseline: Any) -> int | None:
     if candidate is None or baseline is None:
         return None
     return _bool_delta(candidate, baseline)
+
+
+def _optional_rate_delta(candidate: Any, baseline: Any) -> float | None:
+    if candidate is None or baseline is None:
+        return None
+    return float(candidate or 0.0) - float(baseline or 0.0)
+
+
+def _executor_target_value(row: dict[str, Any]) -> bool | None:
+    if "executor_target_match" in row:
+        return _optional_bool(row.get("executor_target_match"))
+    if row.get("expected_execution"):
+        return _optional_bool(row.get("executable_match"))
+    return None
 
 
 def _probe_failure_mode(row: dict[str, Any]) -> str:
@@ -543,6 +633,7 @@ def _write_probe_csv(path: Path, rows: list[dict[str, Any]]) -> None:
         "actual_call_count",
         "exact_match",
         "executable_match",
+        "executor_target_match",
         "expected_calls",
         "actual_calls",
         "expected_execution",
@@ -552,7 +643,7 @@ def _write_probe_csv(path: Path, rows: list[dict[str, Any]]) -> None:
         "completion_tokens",
     ]
     with path.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        writer = csv.DictWriter(handle, fieldnames=fieldnames, lineterminator="\n")
         writer.writeheader()
         for row in rows:
             writer.writerow(
@@ -574,7 +665,7 @@ def _write_dict_csv(path: Path, rows: list[dict[str, Any]]) -> None:
         return
     fieldnames = list(rows[0].keys())
     with path.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        writer = csv.DictWriter(handle, fieldnames=fieldnames, lineterminator="\n")
         writer.writeheader()
         for row in rows:
             writer.writerow({field: _csv_cell(row.get(field, "")) for field in fieldnames})

@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-09T12:17:06.047622+00:00",
+    "generated_at": "2026-05-09T12:31:18.966152+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/visual_hard_slice_exactness_diagnostic",
-    "packet_dir": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1",
-    "packet_run_id": "20260509T_visual_hard_slice_v5_execute_v1",
+    "packet_dir": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1",
+    "packet_run_id": "20260509T_visual_hard_slice_executor_equivalence_v1",
     "system_ids": [
       "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints",
       "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets"
@@ -173,7 +173,7 @@
       "failure_mode": "executable_paraphrase",
       "exactness_diagnosis": "executable_selector_alias",
       "research_interpretation": "benchmark_label_artifact_candidate",
-      "next_action": "add executor-equivalence scoring before tuning another target_query wording profile"
+      "next_action": "use executor-equivalence score before tuning another target_query wording profile"
     },
     {
       "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints",
@@ -194,7 +194,7 @@
       "failure_mode": "executable_paraphrase",
       "exactness_diagnosis": "executable_selector_alias",
       "research_interpretation": "benchmark_label_artifact_candidate",
-      "next_action": "add executor-equivalence scoring before tuning another target_query wording profile"
+      "next_action": "use executor-equivalence score before tuning another target_query wording profile"
     },
     {
       "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints",
@@ -341,7 +341,7 @@
       "failure_mode": "executable_paraphrase",
       "exactness_diagnosis": "executable_selector_alias",
       "research_interpretation": "benchmark_label_artifact_candidate",
-      "next_action": "add executor-equivalence scoring before tuning another target_query wording profile"
+      "next_action": "use executor-equivalence score before tuning another target_query wording profile"
     },
     {
       "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets",
@@ -362,7 +362,7 @@
       "failure_mode": "executable_paraphrase",
       "exactness_diagnosis": "executable_selector_alias",
       "research_interpretation": "benchmark_label_artifact_candidate",
-      "next_action": "add executor-equivalence scoring before tuning another target_query wording profile"
+      "next_action": "use executor-equivalence score before tuning another target_query wording profile"
     },
     {
       "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets",
@@ -406,7 +406,7 @@
       "failure_mode": "executable_paraphrase",
       "exactness_diagnosis": "executable_selector_alias",
       "research_interpretation": "benchmark_label_artifact_candidate",
-      "next_action": "add executor-equivalence scoring before tuning another target_query wording profile"
+      "next_action": "use executor-equivalence score before tuning another target_query wording profile"
     },
     {
       "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints",
@@ -427,7 +427,7 @@
       "failure_mode": "executable_paraphrase",
       "exactness_diagnosis": "executable_selector_alias",
       "research_interpretation": "benchmark_label_artifact_candidate",
-      "next_action": "add executor-equivalence scoring before tuning another target_query wording profile"
+      "next_action": "use executor-equivalence score before tuning another target_query wording profile"
     },
     {
       "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets",
@@ -469,7 +469,7 @@
       "failure_mode": "executable_paraphrase",
       "exactness_diagnosis": "executable_selector_alias",
       "research_interpretation": "benchmark_label_artifact_candidate",
-      "next_action": "add executor-equivalence scoring before tuning another target_query wording profile"
+      "next_action": "use executor-equivalence score before tuning another target_query wording profile"
     },
     {
       "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets",
@@ -490,7 +490,7 @@
       "failure_mode": "executable_paraphrase",
       "exactness_diagnosis": "executable_selector_alias",
       "research_interpretation": "benchmark_label_artifact_candidate",
-      "next_action": "add executor-equivalence scoring before tuning another target_query wording profile"
+      "next_action": "use executor-equivalence score before tuning another target_query wording profile"
     }
   ]
 }

@@ -59,9 +59,11 @@ systems:
 
     assert result["summary"]["case_count"] == 2
     assert result["summary"]["exact_match_rate"] == 1.0
+    assert result["summary"]["executor_equivalence_match_rate"] is None
     assert (output_dir / "manifest.json").exists()
     rows = json.loads((output_dir / "probe_results.json").read_text(encoding="utf-8"))
     assert rows[0]["exact_match"] is True
+    assert rows[0]["executor_target_match"] is None
     assert (output_dir / "probe_results.csv").exists()
 
 
@@ -165,12 +167,16 @@ systems:
 
     assert comparison["shared_case_count"] == 2
     assert comparison["delta_exact_match_rate"] == -0.5
+    assert comparison["delta_executor_equivalence_match_rate"] is None
     first = next(row for row in comparison["case_deltas"] if row["case_id"] == cases[0].case_id)
     assert first["delta_exact_match"] == -1
     assert first["baseline_failure_mode"] == "exact"
     assert first["candidate_failure_mode"] == "argument_mismatch"
+    assert first["baseline_executor_target_match"] is None
+    assert first["candidate_executor_target_match"] is None
     family = next(row for row in comparison["family_deltas"] if row["family"] == cases[0].family)
     assert family["delta_exact_rate"] == -1.0
+    assert family["delta_executor_target_rate"] is None
     assert Path(outputs["summary"]).exists()
     assert Path(outputs["case_deltas"]).exists()
 
@@ -196,4 +202,5 @@ def test_tool_directive_probe_scores_visual_paraphrase_execution() -> None:
 
     assert row["exact_match"] is False
     assert row["executable_match"] is True
+    assert row["executor_target_match"] is True
     assert row["actual_execution"][0]["output"]["region_ids"] == ["form-err-202"]

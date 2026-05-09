@@ -144,7 +144,7 @@ The active next experiment is now a CLI/research-harness packet, not a UI task:
 - the visual schema-field hints probe packet is [`results/tool_catalog_profile_probe_packets/20260509T_visual_role_catalog_schema_field_hints_v4_probe`](results/tool_catalog_profile_probe_packets/20260509T_visual_role_catalog_schema_field_hints_v4_probe)
 - the visual schema-field skipped-live decision is [`results/tool_probe_replay_live/20260509T_visual_schema_field_hints_live_replay_skipped_v1`](results/tool_probe_replay_live/20260509T_visual_schema_field_hints_live_replay_skipped_v1)
 - the fresh visual hard-slice design packet is [`results/reports/visual_hard_slice_design/design.md`](results/reports/visual_hard_slice_design/design.md)
-- the latest executed visual hard-slice packet is [`results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1`](results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1)
+- the latest executed visual hard-slice packet is [`results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1`](results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1)
 - the visual hard-slice exactness diagnostic is [`results/reports/visual_hard_slice_exactness_diagnostic`](results/reports/visual_hard_slice_exactness_diagnostic)
 - the paper-facing evidence ledger is [`results/reports/publication_evidence_ledger/ledger.md`](results/reports/publication_evidence_ledger/ledger.md)
 - the publication readiness audit is [`results/reports/publication_readiness_audit/publication_readiness_audit.md`](results/reports/publication_readiness_audit/publication_readiness_audit.md)
@@ -162,12 +162,13 @@ The active next experiment is now a CLI/research-harness packet, not a UI task:
 - the visual role catalog argument-hints live comparison is [`results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_no_directive_v1`](results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_no_directive_v1)
 - visual tool-choice diagnostics for wave three/four/catalog are in [`results/tool_probe_replay_live_diagnostics/20260508T_visual_tool_choice_wave3_wave4_catalog_v1`](results/tool_probe_replay_live_diagnostics/20260508T_visual_tool_choice_wave3_wave4_catalog_v1)
 
-The current read is partial-gain plus stable raw replay failure, with a useful visual mechanism split. `visual_role_catalog_v1` moved visual behavior at the tool-catalog layer, and `visual_role_catalog_argument_hints_v2` remains the strongest exact candidate on the old focused visual replay. The fresh hard slice changed the interpretation: `visual_role_catalog_schema_field_hints_v4` is now the strongest no-directive visual hard-slice profile at `6 / 8` strict exactness and `8 / 8` executable target success. The attempted `visual_role_catalog_schema_literal_targets_v5` repair is negative evidence because it falls to `5 / 8` exact and `7 / 8` executable while adding a stale-selection wrong-tool failure. The exactness diagnostic now classifies the two v4 non-exact rows as executor-success selector aliases, not true visual target failures. H1i candidate, H1i repeat3, H1j candidates, H1j helper ablation, and H1k parallel-audit packets all saturated. Exact replay of the no-directive failure set stayed at `0 / 8`; contracted replay on the same cases restored `7 / 8`.
+The current read is partial-gain plus stable raw replay failure, with a useful visual mechanism split. `visual_role_catalog_v1` moved visual behavior at the tool-catalog layer, and `visual_role_catalog_argument_hints_v2` remains the strongest exact candidate on the old focused visual replay. The fresh hard slice changed the interpretation: `visual_role_catalog_schema_field_hints_v4` is now the strongest no-directive visual hard-slice profile at `6 / 8` strict exactness and `8 / 8` executor-equivalent target success. The attempted `visual_role_catalog_schema_literal_targets_v5` repair is negative evidence because it falls to `5 / 8` strict exactness and `7 / 8` executor-equivalent target success while adding a stale-selection wrong-tool failure. The exactness diagnostic classifies the two v4 non-exact rows as executor-success selector aliases, not true visual target failures, and executor-equivalence is now a first-class packet metric beside strict exactness and executability. H1i candidate, H1i repeat3, H1j candidates, H1j helper ablation, and H1k parallel-audit packets all saturated. Exact replay of the no-directive failure set stayed at `0 / 8`; contracted replay on the same cases restored `7 / 8`.
 
-The next research move is to add executor-equivalence scoring beside strict exactness, using the visual hard-slice diagnostic as the seed fixture, before spending H1/H1h budget on another packaged workflow:
+The next research move is to use the executor-equivalence packet as the gate fixture for a packaged H1 visual workflow, then test whether v4's executor-visible recovery survives a benchmark-backed live workflow rather than only a probe packet:
 
 ```bash
 uv run python scripts/build_visual_hard_slice_design.py
+uv run python scripts/run_visual_hard_slice_probe_packet.py --run-group-id 20260509T_visual_hard_slice_executor_equivalence_v1 --execute
 uv run python scripts/analyze_visual_hard_slice_exactness.py --json
 uv run python scripts/build_publication_evidence_ledger.py
 uv run python scripts/audit_publication_readiness.py
@@ -197,7 +198,7 @@ The repo is no longer only a benchmark runner. It now has an explicit local prod
   - `moonie-agent packet --kind tool-probe-replay-live-comparison` inspects live replay A/B comparison packets and case-level deltas
 - `moonie-agent-api`
   - local HTTP API for thin desktop and mobile clients
-- React desktop harness
+- React desktop harness (parked while the research pivot is CLI-first)
   - [`frontend`](frontend)
     - a proper three-pane desktop shell
     - left rail for projects and threads

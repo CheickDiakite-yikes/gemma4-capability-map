@@ -115,12 +115,12 @@ Current strongest MLX result:
   - runner: [`scripts/run_visual_hard_slice_probe_packet.py`](../../scripts/run_visual_hard_slice_probe_packet.py)
   - dry-run packet: [`results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_dry_run_v1`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_dry_run_v1)
   - first executed packet: [`results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_execute_v1`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_execute_v1)
-  - latest executed packet: [`results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1)
-  - latest gate summary: [`candidate_gate_summary.md`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/candidate_gate_summary.md)
-  - v5-vs-v4 comparison: [`schema_literal_targets_vs_schema_field_hints`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/schema_literal_targets_vs_schema_field_hints)
+  - latest executed packet: [`results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1)
+  - latest gate summary: [`candidate_gate_summary.md`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1/candidate_gate_summary.md)
+  - v5-vs-v4 comparison: [`schema_literal_targets_vs_schema_field_hints`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1/schema_literal_targets_vs_schema_field_hints)
   - exactness-vs-executor diagnostic: [`results/reports/visual_hard_slice_exactness_diagnostic`](../../results/reports/visual_hard_slice_exactness_diagnostic)
   - case count: `8`
-  - result: contracted MLX `8 / 8` exact and executable; no-directive MLX `1 / 8` exact and executable; schema-field hints v4 `6 / 8` exact and `8 / 8` executable; schema-target-literal v5 `5 / 8` exact and `7 / 8` executable
+  - result: contracted MLX `8 / 8` strict/executable/executor-equivalent; no-directive MLX `1 / 8` strict/executable/executor-equivalent; schema-field hints v4 `6 / 8` strict and `8 / 8` executor-equivalent; schema-target-literal v5 `5 / 8` strict and `7 / 8` executor-equivalent
   - exactness diagnostic: v4's two non-exact rows are executor-success selector aliases, while v5 adds a true stale-selection wrong-tool failure
   - status: current visual prompt-contract restart point, not a packaged H1 promotion yet
 - the sixth prompt-contract wave is a negative composition result:
@@ -160,10 +160,10 @@ Current next loop:
 1. Treat H1i, H1j, and H1k packaged packets as saturated or non-discriminating for current prompt-contract validation.
 2. Treat waves one through six as partial-gain or negative/composition evidence, not fixes.
 3. Treat `visual_role_catalog_argument_hints_v2` as the best exact candidate on the old focused visual replay, with the explicit caveat that it lost executable form-target recovery.
-4. Treat `visual_role_catalog_schema_field_hints_v4` as the strongest fresh hard-slice no-directive candidate because it reaches `8 / 8` executable, with the explicit caveat that it still misses exact protocol on two cases.
+4. Treat `visual_role_catalog_schema_field_hints_v4` as the strongest fresh hard-slice no-directive candidate because it reaches `8 / 8` executor-equivalent, with the explicit caveat that it still misses exact protocol on two cases.
 5. Treat `visual_role_catalog_schema_literal_targets_v5` as negative evidence: it did not fix the two v4 executable paraphrases and introduced a wrong-tool stale-selection regression.
 6. Treat the two v4 exact misses as benchmark-label artifact candidates under the current local executor, not true executor-targeting failures.
-7. Add executor-equivalence scoring beside strict exactness before writing another target-query wording candidate or promoting v4 into packaged workflows.
+7. Use first-class executor-equivalence scoring beside strict exactness before writing another target-query wording candidate or promoting v4 into packaged workflows.
 8. Return to H1h only after replay-live or raw/hard-slice evidence shows a mechanism-level change.
 9. Keep Gemini CLI as an external baseline/reference, not a replacement for Moonie's local Gemma harness.
 10. Regenerate the report, publication ledger, publication audit, and visual hard-slice packet summaries after any H1i/H1h/probe/Gemini/live-replay packet change.

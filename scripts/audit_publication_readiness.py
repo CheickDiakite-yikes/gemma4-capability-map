@@ -104,9 +104,9 @@ def audit_publication_readiness(
             path=ROOT
             / "results"
             / "visual_hard_slice_probe_packets"
-            / "20260509T_visual_hard_slice_v5_execute_v1"
+            / "20260509T_visual_hard_slice_executor_equivalence_v1"
             / "candidate_gate_summary.md",
-            detail="Latest executed visual hard-slice packet exists with candidate gate summary.",
+            detail="Latest executed visual hard-slice packet exists with strict, executable, and executor-equivalence gate summary.",
         ),
         _check_path(
             check_id="visual_hard_slice_v5_vs_v4_comparison_exists",
@@ -114,10 +114,10 @@ def audit_publication_readiness(
             path=ROOT
             / "results"
             / "visual_hard_slice_probe_packets"
-            / "20260509T_visual_hard_slice_v5_execute_v1"
+            / "20260509T_visual_hard_slice_executor_equivalence_v1"
             / "schema_literal_targets_vs_schema_field_hints"
             / "probe_comparison.json",
-            detail="Direct v5-vs-v4 comparison exists to preserve the negative target-literal result.",
+            detail="Direct v5-vs-v4 comparison exists to preserve the negative target-literal result with executor-equivalence metrics.",
         ),
         _check_path(
             check_id="visual_hard_slice_exactness_diagnostic_exists",

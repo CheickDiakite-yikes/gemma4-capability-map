@@ -74,3 +74,4 @@ def test_visual_hard_slice_expected_calls_are_executable() -> None:
 
         assert row["exact_match"] is True
         assert row["executable_match"] is True
+        assert row["executor_target_match"] is True

@@ -1,0 +1,87 @@
+{
+  "created_at": "20260509T122203Z",
+  "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints",
+  "backend": "mlx",
+  "reasoner": "google/gemma-4-E2B-it",
+  "case_count": 8,
+  "runtime_info": {
+    "backend": "mlx",
+    "runtime_posture": "mlx",
+    "requested_model": "google/gemma-4-E2B-it",
+    "effective_model": "mlx-community/gemma-4-e2b-it-4bit",
+    "model_source": "mlx-community/gemma-4-e2b-it-4bit",
+    "model_format": "mlx",
+    "runtime_device": "mlx",
+    "load_mode": "vision",
+    "configured_device": "auto",
+    "request_timeout_seconds": 300.0,
+    "tool_turn_directive_enabled": false,
+    "tool_prompt_contract_id": "",
+    "tool_catalog_profile_id": "visual_role_catalog_split_selector_hints_v3",
+    "service": {},
+    "partial_runtime": false,
+    "llama_cpp_error": null,
+    "llama_cpp_context_window": null
+  },
+  "research_controls": {
+    "disable_tool_turn_directive": true,
+    "tool_catalog_profile_id": "visual_role_catalog_split_selector_hints_v3"
+  },
+  "summary": {
+    "case_count": 8,
+    "exact_match_count": 5,
+    "exact_match_rate": 0.625,
+    "executable_evaluable_count": 8,
+    "executable_match_count": 6,
+    "executable_match_rate": 0.75,
+    "executor_equivalence_evaluable_count": 8,
+    "executor_equivalence_match_count": 6,
+    "executor_equivalence_match_rate": 0.75,
+    "family_summary": {
+      "visual_argument_copying": {
+        "cases": 3,
+        "exact": 1,
+        "executable_cases": 3,
+        "executable": 2,
+        "executor_equivalence_cases": 3,
+        "executor_equivalence": 2,
+        "exact_rate": 0.3333333333333333,
+        "executable_rate": 0.6666666666666666,
+        "executor_equivalence_rate": 0.6666666666666666
+      },
+      "visual_tool_routing": {
+        "cases": 1,
+        "exact": 1,
+        "executable_cases": 1,
+        "executable": 1,
+        "executor_equivalence_cases": 1,
+        "executor_equivalence": 1,
+        "exact_rate": 1.0,
+        "executable_rate": 1.0,
+        "executor_equivalence_rate": 1.0
+      },
+      "visual_referent_carryover": {
+        "cases": 3,
+        "exact": 2,
+        "executable_cases": 3,
+        "executable": 2,
+        "executor_equivalence_cases": 3,
+        "executor_equivalence": 2,
+        "exact_rate": 0.6666666666666666,
+        "executable_rate": 0.6666666666666666,
+        "executor_equivalence_rate": 0.6666666666666666
+      },
+      "visual_region_readback": {
+        "cases": 1,
+        "exact": 1,
+        "executable_cases": 1,
+        "executable": 1,
+        "executor_equivalence_cases": 1,
+        "executor_equivalence": 1,
+        "exact_rate": 1.0,
+        "executable_rate": 1.0,
+        "executor_equivalence_rate": 1.0
+      }
+    }
+  }
+}
