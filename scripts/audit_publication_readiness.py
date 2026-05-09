@@ -221,6 +221,12 @@ def audit_publication_readiness(
             detail="Visual hard-slice stress live replay summary table exists in the main report.",
         ),
         _check_path(
+            check_id="visual_live_stress_diagnostic_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "visual_live_stress_diagnostic" / "diagnostic.md",
+            detail="Visual live stress diagnostic report exists.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",

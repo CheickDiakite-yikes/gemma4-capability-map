@@ -424,6 +424,11 @@ CLAIMS: tuple[Claim, ...] = (
                 "results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_stress_live_replay_summary.csv",
                 "Report table summarizing exact, executable, and executor-equivalence stress replay deltas.",
             ),
+            EvidenceSource(
+                "diagnostic_report",
+                "results/reports/visual_live_stress_diagnostic/diagnostic.md",
+                "Diagnostic report explaining strict gains, executor-only gains, and regressions across the stress matrix.",
+            ),
         ),
     ),
 )

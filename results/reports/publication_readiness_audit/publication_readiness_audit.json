@@ -1,9 +1,9 @@
 {
   "summary": {
-    "generated_at": "2026-05-09T23:09:58.047785+00:00",
+    "generated_at": "2026-05-09T23:12:17.522677+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 38,
-    "blocking_check_count": 36,
+    "check_count": 39,
+    "blocking_check_count": 37,
     "blocking_failed_count": 0,
     "recommended_check_count": 2,
     "recommended_failed_count": 0,
@@ -171,6 +171,13 @@
       "passed": true,
       "detail": "Visual hard-slice stress live replay summary table exists in the main report.",
       "path": "results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_stress_live_replay_summary.csv"
+    },
+    {
+      "check_id": "visual_live_stress_diagnostic_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Visual live stress diagnostic report exists.",
+      "path": "results/reports/visual_live_stress_diagnostic/diagnostic.md"
     },
     {
       "check_id": "current_state_doc_exists",

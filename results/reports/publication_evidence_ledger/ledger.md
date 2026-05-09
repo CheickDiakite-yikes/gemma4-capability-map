@@ -4,9 +4,9 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 
 ## Manifest
 
-- generated_at: `2026-05-09T23:09:57.888816+00:00`
+- generated_at: `2026-05-09T23:12:17.515419+00:00`
 - claim_count: `13`
-- evidence_source_count: `46`
+- evidence_source_count: `47`
 - missing_source_count: `0`
 
 ## Claims
@@ -77,3 +77,4 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C13_visual_live_stress_separates_executor_grounding_from_strict_fidelity | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_schema_field_hints_vs_no_directive_v1 | Stress replay comparison showing schema-field hints recover executor-equivalence without strict exactness gain. |
 | C13_visual_live_stress_separates_executor_grounding_from_strict_fidelity | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_schema_literal_targets_vs_no_directive_v1 | Stress replay comparison showing schema target literals match the executor-equivalence gain but not strict fidelity. |
 | C13_visual_live_stress_separates_executor_grounding_from_strict_fidelity | report_table | True | results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_stress_live_replay_summary.csv | Report table summarizing exact, executable, and executor-equivalence stress replay deltas. |
+| C13_visual_live_stress_separates_executor_grounding_from_strict_fidelity | diagnostic_report | True | results/reports/visual_live_stress_diagnostic/diagnostic.md | Diagnostic report explaining strict gains, executor-only gains, and regressions across the stress matrix. |

@@ -54,6 +54,7 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert "visual_hard_slice_probe_packet" in source_types
     assert "visual_hard_slice_profile_comparison" in source_types
     assert "visual_hard_slice_exactness_diagnostic" in source_types
+    assert "diagnostic_report" in source_types
     assert "design_packet" in source_types
     assert "live_replay_decision" in source_types
     assert all(row["exists"] for row in payload["evidence_sources"])
