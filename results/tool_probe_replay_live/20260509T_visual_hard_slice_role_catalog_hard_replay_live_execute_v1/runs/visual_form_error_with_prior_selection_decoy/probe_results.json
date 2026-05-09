@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "visual_form_error_with_prior_selection_decoy",
+    "family": "visual_tool_routing",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "hard-form-decoy-602"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-hard-form-decoy",
+          "target_query": "validation error"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-hard-form-decoy",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "hard-form-decoy-602"
+          ],
+          "region_id": "hard-form-decoy-602",
+          "text_preview": "Email address is blocked"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-hard-form-decoy",
+          "target_query": "validation error"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-hard-form-decoy",
+          "target_query": "validation error"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-hard-form-decoy\", \"target_query\": \"validation error\"}}",
+    "prompt_tokens": 856,
+    "completion_tokens": 36,
+    "latency_ms": 8204
+  }
+]
