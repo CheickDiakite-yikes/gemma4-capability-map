@@ -1,0 +1,3 @@
+case_id,family,source_failure_mode,baseline_exact_match,expected_call_count,source_actual_call_count,status,replay_failure_mode,replay_exact_match,replay_executable_match
+visual_form_error_with_prior_selection_decoy,visual_tool_routing,argument_mismatch,True,1,1,dry_run,,,
+visual_metric_panel_vs_table_selector,visual_argument_copying,argument_mismatch,True,1,1,dry_run,,,
