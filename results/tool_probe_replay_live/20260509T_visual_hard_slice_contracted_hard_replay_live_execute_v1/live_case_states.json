@@ -1,0 +1,28 @@
+[
+  {
+    "case_id": "visual_form_error_with_prior_selection_decoy",
+    "family": "visual_tool_routing",
+    "source_failure_mode": "argument_mismatch",
+    "baseline_exact_match": "True",
+    "expected_call_count": "1",
+    "source_actual_call_count": "1",
+    "status": "exact",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true
+  },
+  {
+    "case_id": "visual_metric_panel_vs_table_selector",
+    "family": "visual_argument_copying",
+    "source_failure_mode": "argument_mismatch",
+    "baseline_exact_match": "True",
+    "expected_call_count": "1",
+    "source_actual_call_count": "1",
+    "status": "exact",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true
+  }
+]

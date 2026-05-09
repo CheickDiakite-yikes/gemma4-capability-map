@@ -1,0 +1,26 @@
+[
+  {
+    "case_id": "visual_form_error_with_prior_selection_decoy",
+    "family": "visual_tool_routing",
+    "source_failure_mode": "argument_mismatch",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260509T_visual_hard_slice_contracted_hard_replay_live_execute_v1/runs/visual_form_error_with_prior_selection_decoy"
+  },
+  {
+    "case_id": "visual_metric_panel_vs_table_selector",
+    "family": "visual_argument_copying",
+    "source_failure_mode": "argument_mismatch",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260509T_visual_hard_slice_contracted_hard_replay_live_execute_v1/runs/visual_metric_panel_vs_table_selector"
+  }
+]
