@@ -1,6 +1,6 @@
 # MLX Tool-Contract Harnessing Report
 
-Generated: `2026-05-09T12:43:40.280253+00:00`
+Generated: `2026-05-09T22:45:19.480182+00:00`
 
 ## Executive Read
 
@@ -67,6 +67,8 @@ The visual catalog branch now includes an explicit negative-result loop. `visual
 ![Visual catalog live replay gate](figures/visual_catalog_live_candidate_replay_gate.svg)
 
 ![Visual catalog argument-hints live replay gate](figures/visual_catalog_argument_hints_live_candidate_replay_gate.svg)
+
+![Visual hard-slice live replay gate](figures/visual_hard_slice_live_replay_gate.svg)
 
 ## Packet Summary
 
@@ -324,6 +326,19 @@ The family breakdown explains the new signal. Schema-field hints preserve full e
 
 The exactness diagnostic sharpens the v4/v5 interpretation. The two v4 non-exact rows are not executor-targeting failures: both reach the expected local visual regions, and the probe now scores them as executor-equivalent target matches. The v5 target-literal profile keeps those same two aliases and adds one true harness failure by choosing stale `refine_selection` instead of current-image `extract_layout`.
 
+## Visual Hard-Slice CLI-Live Replay
+
+| comparison | baseline_system_id | candidate_system_id | shared_case_count | baseline_exact_rate | candidate_exact_rate | delta_exact_rate | baseline_executable_rate | candidate_executable_rate | delta_executable_rate | baseline_executor_equivalence_rate | candidate_executor_equivalence_rate | delta_executor_equivalence_rate |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| schema-field hard-slice vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints | 2 | 0.0 | 0.5 | 0.5 | 0.0 | 1.0 | 1.0 | 0.0 | 1.0 | 1.0 |
+
+| case_id | family | source_failure_mode | baseline_replay_exact_match | candidate_replay_exact_match | delta_exact_match | baseline_replay_executable_match | candidate_replay_executable_match | delta_executable_match | baseline_replay_executor_equivalence_match | candidate_replay_executor_equivalence_match | delta_executor_equivalence_match | baseline_replay_failure_mode | candidate_replay_failure_mode | baseline_actual_call_count | candidate_actual_call_count | delta_actual_call_count |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| visual_form_error_with_prior_selection_decoy | visual_tool_routing | argument_mismatch | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| visual_metric_panel_vs_table_selector | visual_argument_copying | argument_mismatch | False | False | 0 | False | True | 1 | False | True | 1 | argument_mismatch | executable_paraphrase | 1 | 1 | 0 |
+
+The live operator replay now preserves the hard-slice discriminator instead of smoothing it into staged packaged workflows. On the two no-directive hard-slice failures, the no-directive row remains `0 / 2` strict and `0 / 2` executor-equivalent. The schema-field catalog candidate reaches `1 / 2` strict and `2 / 2` executor-equivalent, so the v4 hard-slice result is not just an offline probe artifact when replay shape is preserved.
+
 ## Visual Hard-Slice Case Deltas vs No Directive
 
 | system_id | case_id | family | baseline_exact_match | candidate_exact_match | delta_exact_match | baseline_failure_mode | candidate_failure_mode | baseline_executable_match | candidate_executable_match | delta_executable_match | baseline_executor_target_match | candidate_executor_target_match | delta_executor_target_match | baseline_actual_call_count | candidate_actual_call_count | delta_actual_call_count | label |
@@ -485,12 +500,12 @@ The canonical CLI/API comparison isolates argument fidelity: both rows emit one 
 
 ## Wave Three CLI-Live Candidate Replay
 
-| comparison | baseline_system_id | candidate_system_id | shared_case_count | baseline_exact_rate | candidate_exact_rate | delta_exact_rate | baseline_executable_rate | candidate_executable_rate | delta_executable_rate |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| canonical JSON vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_canonical_json_copy | 4 | 0.0 | 0.0 | 0.0 |  |  |  |
-| canonical JSON vs contracted | mlx_gemma4_e2b_reasoner_only | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_canonical_json_copy | 4 | 1.0 | 0.0 | -1.0 |  |  |  |
-| visual initiation vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_tool_initiation | 3 | 0.0 | 0.3333333333333333 | 0.3333333333333333 | 0.0 | 1.0 | 1.0 |
-| visual initiation vs contracted | mlx_gemma4_e2b_reasoner_only | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_tool_initiation | 3 | 0.6666666666666666 | 0.3333333333333333 | -0.3333333333333333 | 1.0 | 1.0 | 0.0 |
+| comparison | baseline_system_id | candidate_system_id | shared_case_count | baseline_exact_rate | candidate_exact_rate | delta_exact_rate | baseline_executable_rate | candidate_executable_rate | delta_executable_rate | baseline_executor_equivalence_rate | candidate_executor_equivalence_rate | delta_executor_equivalence_rate |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| canonical JSON vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_canonical_json_copy | 4 | 0.0 | 0.0 | 0.0 |  |  |  |  |  |  |
+| canonical JSON vs contracted | mlx_gemma4_e2b_reasoner_only | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_canonical_json_copy | 4 | 1.0 | 0.0 | -1.0 |  |  |  |  |  |  |
+| visual initiation vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_tool_initiation | 3 | 0.0 | 0.3333333333333333 | 0.3333333333333333 | 0.0 | 1.0 | 1.0 |  |  |  |
+| visual initiation vs contracted | mlx_gemma4_e2b_reasoner_only | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_tool_initiation | 3 | 0.6666666666666666 | 0.3333333333333333 | -0.3333333333333333 | 1.0 | 1.0 | 0.0 |  |  |  |
 
 The live replay gate rejects `canonical_json_copy_v3` for canonical argument promotion: exact rate stays `0.0` against no-directive and two cases regress from argument mismatch to no tool call. `visual_tool_initiation_v3` is the first candidate with live family movement: it improves visual exact rate from `0.0` to `0.3333333333333333`, restores the executable visual-form target, and emits one tool call in all three visual cases. It remains below contracted MLX because one visual referent case still uses the wrong visual tool.
 
@@ -513,10 +528,10 @@ The live replay gate rejects `canonical_json_copy_v3` for canonical argument pro
 
 ## Wave Four CLI-Live Candidate Replay
 
-| comparison | baseline_system_id | candidate_system_id | shared_case_count | baseline_exact_rate | candidate_exact_rate | delta_exact_rate | baseline_executable_rate | candidate_executable_rate | delta_executable_rate |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| visual state tool selection vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_state_tool_selection | 3 | 0.0 | 0.3333333333333333 | 0.3333333333333333 | 0.0 | 0.0 | 0.0 |
-| visual state tool selection vs contracted | mlx_gemma4_e2b_reasoner_only | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_state_tool_selection | 3 | 0.6666666666666666 | 0.3333333333333333 | -0.3333333333333333 | 1.0 | 0.0 | -1.0 |
+| comparison | baseline_system_id | candidate_system_id | shared_case_count | baseline_exact_rate | candidate_exact_rate | delta_exact_rate | baseline_executable_rate | candidate_executable_rate | delta_executable_rate | baseline_executor_equivalence_rate | candidate_executor_equivalence_rate | delta_executor_equivalence_rate |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| visual state tool selection vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_state_tool_selection | 3 | 0.0 | 0.3333333333333333 | 0.3333333333333333 | 0.0 | 0.0 | 0.0 |  |  |  |
+| visual state tool selection vs contracted | mlx_gemma4_e2b_reasoner_only | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_state_tool_selection | 3 | 0.6666666666666666 | 0.3333333333333333 | -0.3333333333333333 | 1.0 | 0.0 | -1.0 |  |  |  |
 
 `visual_state_tool_selection_v4` keeps the same exact live ceiling as wave three, not a promotion path. It improves over no-directive from `0 / 3` to `1 / 3`, but trails contracted MLX at `2 / 3`, loses executable visual-form recovery, and still fails `visual_latest_filter_literal` with the wrong visual tool. This is useful negative evidence: adding state/tool-selection wording did not fix the remaining visual referent failure.
 
@@ -531,11 +546,11 @@ The live replay gate rejects `canonical_json_copy_v3` for canonical argument pro
 
 ## Visual Catalog CLI-Live Candidate Replay
 
-| comparison | baseline_system_id | candidate_system_id | shared_case_count | baseline_exact_rate | candidate_exact_rate | delta_exact_rate | baseline_executable_rate | candidate_executable_rate | delta_executable_rate |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| visual role catalog vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog | 3 | 0.0 | 0.3333333333333333 | 0.3333333333333333 | 0.0 | 1.0 | 1.0 |
-| visual role catalog vs visual initiation | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_tool_initiation | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog | 3 | 0.3333333333333333 | 0.3333333333333333 | 0.0 | 1.0 | 1.0 | 0.0 |
-| visual role catalog vs visual state tool | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_state_tool_selection | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog | 3 | 0.3333333333333333 | 0.3333333333333333 | 0.0 | 0.0 | 1.0 | 1.0 |
+| comparison | baseline_system_id | candidate_system_id | shared_case_count | baseline_exact_rate | candidate_exact_rate | delta_exact_rate | baseline_executable_rate | candidate_executable_rate | delta_executable_rate | baseline_executor_equivalence_rate | candidate_executor_equivalence_rate | delta_executor_equivalence_rate |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| visual role catalog vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog | 3 | 0.0 | 0.3333333333333333 | 0.3333333333333333 | 0.0 | 1.0 | 1.0 |  |  |  |
+| visual role catalog vs visual initiation | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_tool_initiation | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog | 3 | 0.3333333333333333 | 0.3333333333333333 | 0.0 | 1.0 | 1.0 | 0.0 |  |  |  |
+| visual role catalog vs visual state tool | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_state_tool_selection | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog | 3 | 0.3333333333333333 | 0.3333333333333333 | 0.0 | 0.0 | 1.0 | 1.0 |  |  |  |
 
 `visual_role_catalog_v1` matches wave three's `1 / 3` exact ceiling, beats wave four on executable visual-form recovery, and converts the remaining latest-filter failure from `wrong_tool` to `argument_mismatch`. The next useful move is not more broad visual state wording; it is a narrow argument-literal mechanism that preserves the catalog routing win.
 
@@ -553,11 +568,11 @@ The live replay gate rejects `canonical_json_copy_v3` for canonical argument pro
 
 ## Visual Catalog Argument-Hints CLI-Live Candidate Replay
 
-| comparison | baseline_system_id | candidate_system_id | shared_case_count | baseline_exact_rate | candidate_exact_rate | delta_exact_rate | baseline_executable_rate | candidate_executable_rate | delta_executable_rate |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| visual argument hints vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints | 3 | 0.0 | 0.6666666666666666 | 0.6666666666666666 | 0.0 | 0.0 | 0.0 |
-| visual argument hints vs contracted | mlx_gemma4_e2b_reasoner_only | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints | 3 | 0.6666666666666666 | 0.6666666666666666 | 0.0 | 1.0 | 0.0 | -1.0 |
-| visual argument hints vs role catalog | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints | 3 | 0.3333333333333333 | 0.6666666666666666 | 0.3333333333333333 | 1.0 | 0.0 | -1.0 |
+| comparison | baseline_system_id | candidate_system_id | shared_case_count | baseline_exact_rate | candidate_exact_rate | delta_exact_rate | baseline_executable_rate | candidate_executable_rate | delta_executable_rate | baseline_executor_equivalence_rate | candidate_executor_equivalence_rate | delta_executor_equivalence_rate |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| visual argument hints vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints | 3 | 0.0 | 0.6666666666666666 | 0.6666666666666666 | 0.0 | 0.0 | 0.0 |  |  |  |
+| visual argument hints vs contracted | mlx_gemma4_e2b_reasoner_only | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints | 3 | 0.6666666666666666 | 0.6666666666666666 | 0.0 | 1.0 | 0.0 | -1.0 |  |  |  |
+| visual argument hints vs role catalog | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints | 3 | 0.3333333333333333 | 0.6666666666666666 | 0.3333333333333333 | 1.0 | 0.0 | -1.0 |  |  |  |
 
 `visual_role_catalog_argument_hints_v2` is the first no-directive candidate to match contracted MLX on this focused visual exact replay: `2 / 3` exact. It fixes `visual_latest_filter_literal` exactly and preserves exact readback. The remaining gap is important: the candidate loses the contracted/v1 executable visual-form rescue, turning `visual_form_target_literal` into a non-executable argument mismatch. This is progress on selector literalness, but not yet a full replacement for controller-backed visual recovery.
 
@@ -676,8 +691,9 @@ This packet is deliberately a dry-run prompt and command manifest. It is an exte
 - The no-directive probe explains why: CLI/API calls often keep the right tool but drift on canonical arguments, while visual referent and parallel-tool cases collapse to no tool call.
 - The visual catalog path now gives a sharper positive result than the prompt-contract path: argument-hints cataloging reaches `2 / 3` live exact visual replay without the exact directive, but still misses executable form-target recovery.
 - The fresh visual hard slice updates that picture: schema-field hints preserve full executor-equivalent behavior on independently authored visual cases, but still trail contracted strict exactness.
+- The visual hard-slice live replay now confirms the same distinction in the CLI operator path when the raw case shape is preserved.
 - H1l then shows the current packaged visual workflows are too staged to preserve that distinction: all visual catalog rows tie on readiness, strict interface, recovered execution, raw clean rate, and controller burden.
-- The next experiment should either run H1l helper only after a non-saturated visual live packet appears or preserve the hard-slice/exact-replay shape more faithfully in the live operator.
+- The next experiment should use preserved replay-shaped live packets for helper ablations before returning to packaged H1-style workflows.
 
 ## Source Artifacts
 
@@ -724,4 +740,5 @@ This packet is deliberately a dry-run prompt and command manifest. It is an exte
 - Argument-hints live visual vs no-directive comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_no_directive_v1`
 - Argument-hints live visual vs contracted comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_contracted_v1`
 - Argument-hints live visual vs role-catalog comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_role_catalog_v1`
+- Visual hard-slice live replay comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_schema_field_hints_vs_no_directive_live_v2`
 - Gemini dry-run baseline: `/Users/cheickdiakite/Codex/moonie/results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1`

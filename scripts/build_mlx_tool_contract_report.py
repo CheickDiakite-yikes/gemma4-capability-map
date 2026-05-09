@@ -268,6 +268,12 @@ DEFAULT_ARGUMENT_HINTS_LIVE_VISUAL_VS_ROLE_CATALOG_COMPARISON = (
     / "tool_probe_replay_live_comparisons"
     / "20260508T_visual_catalog_argument_hints_vs_role_catalog_v1"
 )
+DEFAULT_VISUAL_HARD_SLICE_LIVE_REPLAY_COMPARISON = (
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260509T_visual_hard_slice_schema_field_hints_vs_no_directive_live_v2"
+)
 
 SYSTEM_LABELS = {
     "mlx_gemma4_e2b_reasoner_only": "contracted",
@@ -341,6 +347,7 @@ def build_report(
     | Path = DEFAULT_ARGUMENT_HINTS_LIVE_VISUAL_VS_CONTRACTED_COMPARISON,
     argument_hints_live_visual_vs_role_catalog_comparison: str
     | Path = DEFAULT_ARGUMENT_HINTS_LIVE_VISUAL_VS_ROLE_CATALOG_COMPARISON,
+    visual_hard_slice_live_replay_comparison: str | Path = DEFAULT_VISUAL_HARD_SLICE_LIVE_REPLAY_COMPARISON,
     registry_path: str | Path = DEFAULT_REGISTRY_PATH,
 ) -> dict[str, Any]:
     target = Path(output_dir)
@@ -636,6 +643,15 @@ def build_report(
     ]
     argument_hints_live_summary_rows = _live_candidate_summary_rows(argument_hints_live_comparisons)
     argument_hints_live_case_rows = _live_candidate_case_rows(argument_hints_live_comparisons)
+    visual_hard_slice_live_replay_comparison_payload = json.loads(
+        (Path(visual_hard_slice_live_replay_comparison) / "live_replay_comparison.json").read_text(encoding="utf-8")
+    )
+    visual_hard_slice_live_replay_summary_rows = _live_candidate_summary_rows(
+        [("schema-field hard-slice vs no directive", visual_hard_slice_live_replay_comparison_payload)]
+    )
+    visual_hard_slice_live_replay_case_rows = _csv_rows(
+        Path(visual_hard_slice_live_replay_comparison) / "live_replay_case_deltas.csv"
+    )
 
     _write_csv(tables_dir / "packet_summary.csv", packet_rows)
     _write_csv(tables_dir / "h1i_system_metrics.csv", h1i_system_rows)
@@ -730,6 +746,8 @@ def build_report(
         tables_dir / "visual_catalog_argument_hints_live_candidate_case_deltas.csv",
         argument_hints_live_case_rows,
     )
+    _write_csv(tables_dir / "visual_hard_slice_live_replay_summary.csv", visual_hard_slice_live_replay_summary_rows)
+    _write_csv(tables_dir / "visual_hard_slice_live_replay_case_deltas.csv", visual_hard_slice_live_replay_case_rows)
 
     _write_grouped_metric_svg(
         figures_dir / "h1i_readiness_strict_recovered.svg",
@@ -1032,6 +1050,17 @@ def build_report(
             ("candidate_executable_rate", "candidate executable", "#059669"),
         ],
     )
+    _write_grouped_metric_svg(
+        figures_dir / "visual_hard_slice_live_replay_gate.svg",
+        title="Visual hard-slice live replay gate",
+        rows=visual_hard_slice_live_replay_summary_rows,
+        label_field="comparison",
+        metrics=[
+            ("baseline_exact_rate", "baseline exact", "#2563EB"),
+            ("candidate_exact_rate", "candidate exact", "#DC2626"),
+            ("candidate_executor_equivalence_rate", "candidate executor eq", "#059669"),
+        ],
+    )
 
     manifest = {
         "generated_at": datetime.now(UTC).isoformat(),
@@ -1123,9 +1152,10 @@ def build_report(
         "argument_hints_live_visual_vs_role_catalog_comparison": str(
             Path(argument_hints_live_visual_vs_role_catalog_comparison).resolve()
         ),
+        "visual_hard_slice_live_replay_comparison": str(Path(visual_hard_slice_live_replay_comparison).resolve()),
         "registry_path": str(Path(registry_path).resolve()),
-        "table_count": 57,
-        "figure_count": 27,
+        "table_count": 59,
+        "figure_count": 28,
     }
     report_payload = {
         "manifest": manifest,
@@ -1194,6 +1224,9 @@ def build_report(
         "visual_catalog_live_candidate_case_deltas": catalog_live_case_rows,
         "visual_catalog_argument_hints_live_candidate_replay_summary": argument_hints_live_summary_rows,
         "visual_catalog_argument_hints_live_candidate_case_deltas": argument_hints_live_case_rows,
+        "visual_hard_slice_live_replay_comparison": visual_hard_slice_live_replay_comparison_payload,
+        "visual_hard_slice_live_replay_summary": visual_hard_slice_live_replay_summary_rows,
+        "visual_hard_slice_live_replay_case_deltas": visual_hard_slice_live_replay_case_rows,
         "gemini": gemini_manifest,
     }
     (target / "manifest.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
@@ -1325,6 +1358,10 @@ def parse_args() -> argparse.Namespace:
         "--argument-hints-live-visual-vs-role-catalog-comparison",
         default=str(DEFAULT_ARGUMENT_HINTS_LIVE_VISUAL_VS_ROLE_CATALOG_COMPARISON),
     )
+    parser.add_argument(
+        "--visual-hard-slice-live-replay-comparison",
+        default=str(DEFAULT_VISUAL_HARD_SLICE_LIVE_REPLAY_COMPARISON),
+    )
     parser.add_argument("--registry", default=str(DEFAULT_REGISTRY_PATH))
     return parser.parse_args()
 
@@ -1384,6 +1421,7 @@ def main() -> None:
         argument_hints_live_visual_vs_no_directive_comparison=args.argument_hints_live_visual_vs_no_directive_comparison,
         argument_hints_live_visual_vs_contracted_comparison=args.argument_hints_live_visual_vs_contracted_comparison,
         argument_hints_live_visual_vs_role_catalog_comparison=args.argument_hints_live_visual_vs_role_catalog_comparison,
+        visual_hard_slice_live_replay_comparison=args.visual_hard_slice_live_replay_comparison,
         registry_path=args.registry,
     )
     print(
@@ -1577,6 +1615,9 @@ def _live_candidate_summary_rows(comparisons: list[tuple[str, dict[str, Any]]]) 
                 "baseline_executable_rate": _none_to_blank(summary.get("baseline_executable_rate")),
                 "candidate_executable_rate": _none_to_blank(summary.get("candidate_executable_rate")),
                 "delta_executable_rate": _none_to_blank(summary.get("delta_executable_rate")),
+                "baseline_executor_equivalence_rate": _none_to_blank(summary.get("baseline_executor_equivalence_rate")),
+                "candidate_executor_equivalence_rate": _none_to_blank(summary.get("candidate_executor_equivalence_rate")),
+                "delta_executor_equivalence_rate": _none_to_blank(summary.get("delta_executor_equivalence_rate")),
             }
         )
     return rows
@@ -1758,6 +1799,8 @@ def _markdown_report(payload: dict[str, Any]) -> str:
     catalog_live_case_rows = payload["visual_catalog_live_candidate_case_deltas"]
     argument_hints_live_summary_rows = payload["visual_catalog_argument_hints_live_candidate_replay_summary"]
     argument_hints_live_case_rows = payload["visual_catalog_argument_hints_live_candidate_case_deltas"]
+    visual_hard_slice_live_summary_rows = payload["visual_hard_slice_live_replay_summary"]
+    visual_hard_slice_live_case_rows = payload["visual_hard_slice_live_replay_case_deltas"]
     gemini = payload["gemini"]
     lines = [
         "# MLX Tool-Contract Harnessing Report",
@@ -1835,6 +1878,8 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "![Visual catalog live replay gate](figures/visual_catalog_live_candidate_replay_gate.svg)",
         "",
         "![Visual catalog argument-hints live replay gate](figures/visual_catalog_argument_hints_live_candidate_replay_gate.svg)",
+        "",
+        "![Visual hard-slice live replay gate](figures/visual_hard_slice_live_replay_gate.svg)",
         "",
         "## Packet Summary",
         "",
@@ -1941,6 +1986,14 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         _markdown_table(visual_hard_slice_exactness_gaps),
         "",
         "The exactness diagnostic sharpens the v4/v5 interpretation. The two v4 non-exact rows are not executor-targeting failures: both reach the expected local visual regions, and the probe now scores them as executor-equivalent target matches. The v5 target-literal profile keeps those same two aliases and adds one true harness failure by choosing stale `refine_selection` instead of current-image `extract_layout`.",
+        "",
+        "## Visual Hard-Slice CLI-Live Replay",
+        "",
+        _markdown_table(visual_hard_slice_live_summary_rows),
+        "",
+        _markdown_table(visual_hard_slice_live_case_rows),
+        "",
+        "The live operator replay now preserves the hard-slice discriminator instead of smoothing it into staged packaged workflows. On the two no-directive hard-slice failures, the no-directive row remains `0 / 2` strict and `0 / 2` executor-equivalent. The schema-field catalog candidate reaches `1 / 2` strict and `2 / 2` executor-equivalent, so the v4 hard-slice result is not just an offline probe artifact when replay shape is preserved.",
         "",
         "## Visual Hard-Slice Case Deltas vs No Directive",
         "",
@@ -2086,8 +2139,9 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "- The no-directive probe explains why: CLI/API calls often keep the right tool but drift on canonical arguments, while visual referent and parallel-tool cases collapse to no tool call.",
         "- The visual catalog path now gives a sharper positive result than the prompt-contract path: argument-hints cataloging reaches `2 / 3` live exact visual replay without the exact directive, but still misses executable form-target recovery.",
         "- The fresh visual hard slice updates that picture: schema-field hints preserve full executor-equivalent behavior on independently authored visual cases, but still trail contracted strict exactness.",
+        "- The visual hard-slice live replay now confirms the same distinction in the CLI operator path when the raw case shape is preserved.",
         "- H1l then shows the current packaged visual workflows are too staged to preserve that distinction: all visual catalog rows tie on readiness, strict interface, recovered execution, raw clean rate, and controller burden.",
-        "- The next experiment should either run H1l helper only after a non-saturated visual live packet appears or preserve the hard-slice/exact-replay shape more faithfully in the live operator.",
+        "- The next experiment should use preserved replay-shaped live packets for helper ablations before returning to packaged H1-style workflows.",
         "",
         "## Source Artifacts",
         "",
@@ -2136,6 +2190,7 @@ def _markdown_report(payload: dict[str, Any]) -> str:
             f"- Argument-hints live visual vs no-directive comparison: `{payload['manifest']['argument_hints_live_visual_vs_no_directive_comparison']}`",
             f"- Argument-hints live visual vs contracted comparison: `{payload['manifest']['argument_hints_live_visual_vs_contracted_comparison']}`",
             f"- Argument-hints live visual vs role-catalog comparison: `{payload['manifest']['argument_hints_live_visual_vs_role_catalog_comparison']}`",
+            f"- Visual hard-slice live replay comparison: `{payload['manifest']['visual_hard_slice_live_replay_comparison']}`",
             f"- Gemini dry-run baseline: `{payload['manifest']['gemini_packet']}`",
             "",
         ]
