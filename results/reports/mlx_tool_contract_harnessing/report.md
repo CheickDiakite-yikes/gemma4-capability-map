@@ -1,6 +1,6 @@
 # MLX Tool-Contract Harnessing Report
 
-Generated: `2026-05-09T22:54:01.963501+00:00`
+Generated: `2026-05-09T23:06:50.035195+00:00`
 
 ## Executive Read
 
@@ -69,6 +69,8 @@ The visual catalog branch now includes an explicit negative-result loop. `visual
 ![Visual catalog argument-hints live replay gate](figures/visual_catalog_argument_hints_live_candidate_replay_gate.svg)
 
 ![Visual hard-slice live replay gate](figures/visual_hard_slice_live_replay_gate.svg)
+
+![Visual hard-slice stress live replay gate](figures/visual_hard_slice_stress_live_replay_gate.svg)
 
 ## Packet Summary
 
@@ -350,6 +352,41 @@ The exactness diagnostic sharpens the v4/v5 interpretation. The two v4 non-exact
 | schema literal targets vs no directive | visual_metric_panel_vs_table_selector | visual_argument_copying | argument_mismatch | False | False | 0 | False | True | 1 | False | True | 1 | argument_mismatch | executable_paraphrase | 1 | 1 | 0 |
 
 The live operator replay now preserves the hard-slice discriminator instead of smoothing it into staged packaged workflows. Contracted MLX is the upper bound at `2 / 2` strict and executor-equivalent. Role catalog v1 and argument hints v2 each recover only the stale-selection decoy (`1 / 2` strict, `1 / 2` executor-equivalent). Schema-field hints v4 keeps that exact stale-selection win and also recovers the metric-panel target as an executor-equivalent paraphrase (`1 / 2` strict, `2 / 2` executor-equivalent). Schema target literals v5 remains negative: `0 / 2` strict and `1 / 2` executor-equivalent, with the stale-selection decoy becoming a wrong-tool failure.
+
+## Visual Hard-Slice Stress CLI-Live Replay
+
+| comparison | baseline_system_id | candidate_system_id | shared_case_count | baseline_exact_rate | candidate_exact_rate | delta_exact_rate | baseline_executable_rate | candidate_executable_rate | delta_executable_rate | baseline_executor_equivalence_rate | candidate_executor_equivalence_rate | delta_executor_equivalence_rate |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| stress contracted vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only | 4 | 0.5 | 1.0 | 0.5 | 0.75 | 1.0 | 0.25 | 0.75 | 1.0 | 0.25 |
+| stress role catalog vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog | 4 | 0.5 | 0.25 | -0.25 | 0.75 | 0.5 | -0.25 | 0.75 | 0.5 | -0.25 |
+| stress argument hints vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints | 4 | 0.5 | 0.5 | 0.0 | 0.75 | 0.75 | 0.0 | 0.75 | 0.75 | 0.0 |
+| stress schema-field hints vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints | 4 | 0.5 | 0.5 | 0.0 | 0.75 | 1.0 | 0.25 | 0.75 | 1.0 | 0.25 |
+| stress schema literal targets vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets | 4 | 0.5 | 0.5 | 0.0 | 0.75 | 1.0 | 0.25 | 0.75 | 1.0 | 0.25 |
+
+| comparison | case_id | family | source_failure_mode | baseline_replay_exact_match | candidate_replay_exact_match | delta_exact_match | baseline_replay_executable_match | candidate_replay_executable_match | delta_executable_match | baseline_replay_executor_equivalence_match | candidate_replay_executor_equivalence_match | delta_executor_equivalence_match | baseline_replay_failure_mode | candidate_replay_failure_mode | baseline_actual_call_count | candidate_actual_call_count | delta_actual_call_count |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| stress contracted vs no directive | stress_form_error_stale_selection_status_decoy | visual_tool_routing_stress | wrong_tool_or_stale_selection_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| stress contracted vs no directive | stress_form_error_stale_selection_warning_decoy | visual_tool_routing_stress | wrong_tool_or_stale_selection_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| stress contracted vs no directive | stress_metric_panel_with_chart_table_decoys | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| stress contracted vs no directive | stress_metric_panel_with_kpi_copy_decoy | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | True | 1 | True | True | 0 | True | True | 0 | executable_paraphrase | exact | 1 | 1 | 0 |
+| stress role catalog vs no directive | stress_form_error_stale_selection_status_decoy | visual_tool_routing_stress | wrong_tool_or_stale_selection_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| stress role catalog vs no directive | stress_form_error_stale_selection_warning_decoy | visual_tool_routing_stress | wrong_tool_or_stale_selection_risk | True | False | -1 | True | False | -1 | True | False | -1 | exact | no_tool_call | 1 | 0 | -1 |
+| stress role catalog vs no directive | stress_metric_panel_with_chart_table_decoys | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | argument_mismatch | argument_mismatch | 1 | 1 | 0 |
+| stress role catalog vs no directive | stress_metric_panel_with_kpi_copy_decoy | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | False | 0 | True | True | 0 | True | True | 0 | executable_paraphrase | executable_paraphrase | 1 | 1 | 0 |
+| stress argument hints vs no directive | stress_form_error_stale_selection_status_decoy | visual_tool_routing_stress | wrong_tool_or_stale_selection_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| stress argument hints vs no directive | stress_form_error_stale_selection_warning_decoy | visual_tool_routing_stress | wrong_tool_or_stale_selection_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| stress argument hints vs no directive | stress_metric_panel_with_chart_table_decoys | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | argument_mismatch | argument_mismatch | 1 | 1 | 0 |
+| stress argument hints vs no directive | stress_metric_panel_with_kpi_copy_decoy | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | False | 0 | True | True | 0 | True | True | 0 | executable_paraphrase | executable_paraphrase | 1 | 1 | 0 |
+| stress schema-field hints vs no directive | stress_form_error_stale_selection_status_decoy | visual_tool_routing_stress | wrong_tool_or_stale_selection_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| stress schema-field hints vs no directive | stress_form_error_stale_selection_warning_decoy | visual_tool_routing_stress | wrong_tool_or_stale_selection_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| stress schema-field hints vs no directive | stress_metric_panel_with_chart_table_decoys | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | False | 0 | False | True | 1 | False | True | 1 | argument_mismatch | executable_paraphrase | 1 | 1 | 0 |
+| stress schema-field hints vs no directive | stress_metric_panel_with_kpi_copy_decoy | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | False | 0 | True | True | 0 | True | True | 0 | executable_paraphrase | executable_paraphrase | 1 | 1 | 0 |
+| stress schema literal targets vs no directive | stress_form_error_stale_selection_status_decoy | visual_tool_routing_stress | wrong_tool_or_stale_selection_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| stress schema literal targets vs no directive | stress_form_error_stale_selection_warning_decoy | visual_tool_routing_stress | wrong_tool_or_stale_selection_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| stress schema literal targets vs no directive | stress_metric_panel_with_chart_table_decoys | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | False | 0 | False | True | 1 | False | True | 1 | argument_mismatch | executable_paraphrase | 1 | 1 | 0 |
+| stress schema literal targets vs no directive | stress_metric_panel_with_kpi_copy_decoy | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | False | 0 | True | True | 0 | True | True | 0 | executable_paraphrase | executable_paraphrase | 1 | 1 | 0 |
+
+The harder stress replay repeats the two mechanisms with fresh decoys. It no longer fully separates no-directive MLX: no-directive reaches `2 / 4` strict and `3 / 4` executor-equivalent. Contracted MLX remains the `4 / 4` strict upper bound. Schema-field hints v4 and schema target literals v5 do not improve strict exactness over no-directive (`2 / 4`), but both recover full executor-equivalence (`4 / 4`) by turning the hardest metric-panel decoy into an executor-valid selector alias. Role catalog v1 is negative on this stress slice, dropping to `1 / 4` strict and `2 / 4` executor-equivalent.
 
 ## Visual Hard-Slice Case Deltas vs No Directive
 
