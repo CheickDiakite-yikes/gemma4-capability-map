@@ -1,0 +1,58 @@
+{
+  "manifest": {
+    "generated_at": "2026-05-09T23:46:33.286582+00:00",
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/packaged_replay_gap_diagnostic",
+    "surface_count": 2,
+    "saturated_packaged_surface_count": 2,
+    "purpose": "Compare replay-shaped visual gains against packaged H1 visual workflow saturation."
+  },
+  "surface_rows": [
+    {
+      "surface_id": "h1l_visual_executor_equivalence",
+      "replay_signal": "preserved two-case visual hard-slice replay",
+      "packaged_surface": "five packaged visual workflows",
+      "replay_comparison_count": 5,
+      "replay_max_delta_exact_rate": 1.0,
+      "replay_max_delta_executor_equivalence_rate": 1.0,
+      "replay_positive_executor_delta_count": 5,
+      "packaged_system_count": 6,
+      "packaged_readiness_span": 0.0,
+      "packaged_strict_interface_span": 0.0,
+      "packaged_recovered_execution_span": 0.0,
+      "packaged_controller_burden_max": 0.0,
+      "classification": "positive_replay_saturated_packaged_surface"
+    },
+    {
+      "surface_id": "h1m_visual_alias_repeat",
+      "replay_signal": "eight-case visual alias-repeat replay",
+      "packaged_surface": "three packaged alias-repeat visual workflows",
+      "replay_comparison_count": 5,
+      "replay_max_delta_exact_rate": 0.625,
+      "replay_max_delta_executor_equivalence_rate": 0.375,
+      "replay_positive_executor_delta_count": 5,
+      "packaged_system_count": 6,
+      "packaged_readiness_span": 0.0,
+      "packaged_strict_interface_span": 0.0,
+      "packaged_recovered_execution_span": 0.0,
+      "packaged_controller_burden_max": 0.0,
+      "classification": "positive_replay_saturated_packaged_surface"
+    }
+  ],
+  "recommendations": [
+    {
+      "recommendation_id": "do_not_spend_helper_budget_on_saturated_packaged_visual_surfaces",
+      "status": "active",
+      "evidence": "2 visual surfaces have positive replay gains but zero packaged strict/readiness span."
+    },
+    {
+      "recommendation_id": "preserve_replay_shape_before_packaging",
+      "status": "active",
+      "evidence": "The next visual task should keep alias/decoy pressure in the live prompt instead of decomposing it into staged packaged steps."
+    },
+    {
+      "recommendation_id": "report_strict_and_executor_equivalence_separately",
+      "status": "active",
+      "evidence": "Replay gains appear first as executor-equivalence gains, while packaged readiness can saturate."
+    }
+  ]
+}

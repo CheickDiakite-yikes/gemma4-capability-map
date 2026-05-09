@@ -31,6 +31,9 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
         "status"
     ] == "supported_current_packets"
     assert claims["C14_h1m_packaged_alias_repeat_saturates"]["status"] == "negative_result_current_packets"
+    assert claims["C15_packaged_visual_surfaces_wash_out_replay_discrimination"][
+        "status"
+    ] == "supported_current_packets"
     assert "7/8" in claims["C2_final_tool_directive_causal_for_protocol"]["primary_metric"]
     assert "v3 raw exact falls" in claims["C6_split_selector_wording_is_negative_evidence"]["primary_metric"]
     assert "schema-field hints reach 6/8 strict and 8/8 executor-equivalent" in claims[
@@ -60,6 +63,12 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     ]["primary_metric"]
     assert "zero controller repair/fallback/argument repair" in claims[
         "C14_h1m_packaged_alias_repeat_saturates"
+    ]["primary_metric"]
+    assert "2/2 visual promotion surfaces" in claims[
+        "C15_packaged_visual_surfaces_wash_out_replay_discrimination"
+    ]["primary_metric"]
+    assert "H1m max replay executor-equivalence delta 0.375" in claims[
+        "C15_packaged_visual_surfaces_wash_out_replay_discrimination"
     ]["primary_metric"]
 
     source_types = {row["artifact_type"] for row in payload["evidence_sources"]}

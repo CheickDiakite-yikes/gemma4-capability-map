@@ -845,6 +845,22 @@ Result:
 
 This is the second packaged visual saturation result after H1l. It matters because it prevents an overclaim: the alias-repeat replay matrix separates rows, but the current packaged workflows do not. The correct next move is not H1m helper ablation; there is no candidate separation to attribute. The next visual evidence should preserve replay shape, repeat alias cases, or use a less staged CLI live task.
 
+## Packaged Replay Gap Diagnostic
+
+The packaged replay gap diagnostic makes the design lesson explicit:
+
+- diagnostic: [`results/reports/packaged_replay_gap_diagnostic/diagnostic.md`](../../results/reports/packaged_replay_gap_diagnostic/diagnostic.md)
+- surface table: [`packaged_replay_gap_surfaces.csv`](../../results/reports/packaged_replay_gap_diagnostic/tables/packaged_replay_gap_surfaces.csv)
+
+Result:
+
+| Surface | Max replay executor-equivalence delta | Packaged readiness span | Packaged strict span | Classification |
+| --- | ---: | ---: | ---: | --- |
+| H1l visual executor-equivalence | `1.0` | `0.0` | `0.0` | positive replay, saturated packaged surface |
+| H1m visual alias-repeat | `0.375` | `0.0` | `0.0` | positive replay, saturated packaged surface |
+
+This is now a research finding about benchmark construction. Packaged workflows are still useful for safe live operation, attribution, and operator observability, but they can become too staged to preserve one-turn visual alias/decoy failures. The paper should report this as contract quality affecting measured capability, not as a Gemma-only behavior.
+
 ## Gemini CLI Baseline Status
 
 The Gemini CLI adapter is currently a dry-run external baseline, not a replacement for Moonie. The packet uses the same H1h workflow families and records prompt/command artifacts without external side effects:

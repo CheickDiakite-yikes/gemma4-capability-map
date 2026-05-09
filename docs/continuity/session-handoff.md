@@ -141,6 +141,10 @@ Current strongest MLX result:
   - executed packet: [`results/knowledge_work_h1_slice/20260509T_h1m_visual_alias_repeat_candidates_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260509T_h1m_visual_alias_repeat_candidates_v1_knowledge_work_ablation_packet)
   - status: negative packaged-workflow result; all six rows tie at readiness `0.87783`, strict `0.75`, recovered `0.667`, raw clean `1.0`, and zero controller burden
   - next: skip helper ablation until a visual live surface separates rows; preserve alias-repeat replay shape or make less staged non-packaged live tasks
+- packaged replay gap diagnostic:
+  - diagnostic: [`results/reports/packaged_replay_gap_diagnostic/diagnostic.md`](../../results/reports/packaged_replay_gap_diagnostic/diagnostic.md)
+  - result: `2 / 2` visual promotion surfaces have positive replay gains but zero packaged readiness/strict span
+  - next: treat packaged workflow design as part of the benchmark contract, not just a neutral execution wrapper
 - the sixth prompt-contract wave is a negative composition result:
   - dry-run packet: [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run)
   - probe packet: [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe)

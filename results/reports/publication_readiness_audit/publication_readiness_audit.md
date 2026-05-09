@@ -41,6 +41,7 @@
 | visual_hard_slice_alias_repeat_report_table_exists | blocking | True | Alias-repeat live replay summary table exists in the main report. | results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_repeat_live_replay_summary.csv |
 | visual_alias_repeat_diagnostic_exists | blocking | True | Visual alias-repeat diagnostic report exists. | results/reports/visual_alias_repeat_diagnostic/diagnostic.md |
 | h1m_visual_alias_repeat_report_table_exists | blocking | True | H1m visual alias-repeat candidate metrics table exists in the main report. | results/reports/mlx_tool_contract_harnessing/tables/h1m_visual_alias_repeat_candidate_metrics.csv |
+| packaged_replay_gap_diagnostic_exists | blocking | True | Packaged replay gap diagnostic exists to compare replay gains with H1l/H1m packaged saturation. | results/reports/packaged_replay_gap_diagnostic/diagnostic.md |
 | current_state_doc_exists | blocking | True | Continuity current-state doc exists. | docs/continuity/current-state.md |
 | next_steps_doc_exists | blocking | True | Continuity next-steps doc exists. | docs/continuity/next-steps.md |
 | research_log_exists | blocking | True | Research log exists. | docs/research-log.md |
@@ -53,6 +54,7 @@
 | script_run_visual_hard_slice_probe.py_exists | blocking | True | Reproduction script `run_visual_hard_slice_probe.py` exists. | scripts/run_visual_hard_slice_probe.py |
 | script_run_visual_hard_slice_probe_packet.py_exists | blocking | True | Reproduction script `run_visual_hard_slice_probe_packet.py` exists. | scripts/run_visual_hard_slice_probe_packet.py |
 | script_analyze_visual_hard_slice_exactness.py_exists | blocking | True | Reproduction script `analyze_visual_hard_slice_exactness.py` exists. | scripts/analyze_visual_hard_slice_exactness.py |
+| script_analyze_packaged_replay_gap.py_exists | blocking | True | Reproduction script `analyze_packaged_replay_gap.py` exists. | scripts/analyze_packaged_replay_gap.py |
 | script_compare_tool_directive_probes.py_exists | blocking | True | Reproduction script `compare_tool_directive_probes.py` exists. | scripts/compare_tool_directive_probes.py |
 | script_build_visual_hard_slice_design.py_exists | blocking | True | Reproduction script `build_visual_hard_slice_design.py` exists. | scripts/build_visual_hard_slice_design.py |
 | script_build_visual_hard_slice_replay_packet.py_exists | blocking | True | Reproduction script `build_visual_hard_slice_replay_packet.py` exists. | scripts/build_visual_hard_slice_replay_packet.py |

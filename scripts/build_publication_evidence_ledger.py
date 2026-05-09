@@ -508,6 +508,47 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C15_packaged_visual_surfaces_wash_out_replay_discrimination",
+        claim="Current packaged visual workflows can erase replay-shaped visual row separation, so packaging is an experimental variable.",
+        status="supported_current_packets",
+        evidence_strength="moderate_internal",
+        primary_metric=(
+            "The packaged replay gap diagnostic finds 2/2 visual promotion surfaces with positive replay gains but "
+            "zero packaged readiness and strict-interface span: H1l max replay executor-equivalence delta 1.0, "
+            "H1m max replay executor-equivalence delta 0.375, both packaged spans 0.0."
+        ),
+        limitation=(
+            "This is a two-surface internal diagnostic over current visual packets, not a general proof that all "
+            "packaged workflows are too easy."
+        ),
+        next_test=(
+            "Design a less staged live visual task or repeated replay packet before returning to packaged helper "
+            "ablations."
+        ),
+        sources=(
+            EvidenceSource(
+                "diagnostic_report",
+                "results/reports/packaged_replay_gap_diagnostic/diagnostic.md",
+                "Diagnostic comparing replay-shaped visual gains against H1l/H1m packaged workflow saturation.",
+            ),
+            EvidenceSource(
+                "diagnostic_table",
+                "results/reports/packaged_replay_gap_diagnostic/tables/packaged_replay_gap_surfaces.csv",
+                "Surface-level table with replay deltas and packaged metric spans.",
+            ),
+            EvidenceSource(
+                "report_table",
+                "results/reports/mlx_tool_contract_harnessing/tables/h1l_visual_executor_equivalence_candidate_metrics.csv",
+                "Generated H1l packaged metrics table used in the gap diagnostic.",
+            ),
+            EvidenceSource(
+                "report_table",
+                "results/reports/mlx_tool_contract_harnessing/tables/h1m_visual_alias_repeat_candidate_metrics.csv",
+                "Generated H1m packaged metrics table used in the gap diagnostic.",
+            ),
+        ),
+    ),
 )
 
 

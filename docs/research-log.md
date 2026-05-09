@@ -3128,6 +3128,30 @@
   - `uv run python scripts/build_publication_evidence_ledger.py`
   - `uv run python scripts/audit_publication_readiness.py`
 
+## 2026-05-09 - Packaged Replay Gap Diagnostic
+
+- Added a diagnostic that compares replay-shaped visual gains against packaged H1 visual workflow saturation:
+  - script: [`scripts/analyze_packaged_replay_gap.py`](../scripts/analyze_packaged_replay_gap.py)
+  - diagnostic: [`results/reports/packaged_replay_gap_diagnostic/diagnostic.md`](../results/reports/packaged_replay_gap_diagnostic/diagnostic.md)
+  - surface table: [`packaged_replay_gap_surfaces.csv`](../results/reports/packaged_replay_gap_diagnostic/tables/packaged_replay_gap_surfaces.csv)
+- Result:
+  - H1l visual executor-equivalence: max replay executor-equivalence delta `1.0`; packaged readiness span `0.0`; packaged strict-interface span `0.0`
+  - H1m visual alias-repeat: max replay executor-equivalence delta `0.375`; packaged readiness span `0.0`; packaged strict-interface span `0.0`
+  - saturated packaged surfaces: `2 / 2`
+- Interpretation:
+  - Packaged workflow design is not a neutral wrapper. It is part of the benchmark contract.
+  - H1l/H1m are valid negative results about current packaged surfaces, not negative results about the underlying visual alias/decoy mechanism.
+  - The next visual experiment should preserve replay pressure more faithfully or use less staged live tasks before returning to packaged helper ablations.
+- Reporting updates:
+  - publication evidence claim `C15_packaged_visual_surfaces_wash_out_replay_discrimination` records the gap
+  - publication readiness audit now requires the diagnostic and reproduction script
+  - readiness audit now has `51` checks, `49` blocking, and `0` blocking failures
+- Verification:
+  - `uv run python scripts/analyze_packaged_replay_gap.py`
+  - `uv run pytest tests/test_packaged_replay_gap_diagnostic.py -q`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`
+
 ## 2026-05-09 - Schema Target Literal v5 Negative Hard-Slice Repair
 
 - A narrow hard-slice repair candidate was added after inspecting the two v4 exact misses:

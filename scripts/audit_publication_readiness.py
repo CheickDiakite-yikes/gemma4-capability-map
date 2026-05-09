@@ -325,6 +325,12 @@ def audit_publication_readiness(
             detail="H1m visual alias-repeat candidate metrics table exists in the main report.",
         ),
         _check_path(
+            check_id="packaged_replay_gap_diagnostic_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "packaged_replay_gap_diagnostic" / "diagnostic.md",
+            detail="Packaged replay gap diagnostic exists to compare replay gains with H1l/H1m packaged saturation.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",
@@ -363,6 +369,7 @@ def audit_publication_readiness(
         "run_visual_hard_slice_probe.py",
         "run_visual_hard_slice_probe_packet.py",
         "analyze_visual_hard_slice_exactness.py",
+        "analyze_packaged_replay_gap.py",
         "compare_tool_directive_probes.py",
         "build_visual_hard_slice_design.py",
         "build_visual_hard_slice_replay_packet.py",

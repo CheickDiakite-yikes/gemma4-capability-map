@@ -61,6 +61,10 @@ Next implementation moves:
   - candidate packet: `mlx_visual_alias_repeat_packaged_candidates`
   - executed result: all six rows tie at readiness `0.87783`, strict `0.75`, recovered `0.667`, raw clean `1.0`, and zero repair/fallback/argument-repair burden
   - guardrail: do not run H1m helper ablation until a live surface separates rows
+- packaged replay gap diagnostic:
+  - diagnostic: [`results/reports/packaged_replay_gap_diagnostic/diagnostic.md`](../../results/reports/packaged_replay_gap_diagnostic/diagnostic.md)
+  - result: H1l and H1m both show positive replay gains followed by zero packaged readiness/strict span
+  - implication: packaging is part of the benchmark contract; a packaged workflow can be valid live scaffolding while still being too staged for a mechanism-level visual claim
 - next replay-shaped target: repeat the alias-repeat packet, add stochastic/repeat estimates, or build a less staged non-packaged live visual task that preserves the alias/decoy pressure before returning to packaged H1 workflows
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions

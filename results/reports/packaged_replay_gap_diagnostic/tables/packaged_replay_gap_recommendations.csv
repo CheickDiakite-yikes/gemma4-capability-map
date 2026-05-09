@@ -1,0 +1,4 @@
+recommendation_id,status,evidence
+do_not_spend_helper_budget_on_saturated_packaged_visual_surfaces,active,2 visual surfaces have positive replay gains but zero packaged strict/readiness span.
+preserve_replay_shape_before_packaging,active,The next visual task should keep alias/decoy pressure in the live prompt instead of decomposing it into staged packaged steps.
+report_strict_and_executor_equivalence_separately,active,"Replay gains appear first as executor-equivalence gains, while packaged readiness can saturate."
