@@ -1,0 +1,17 @@
+{
+  "packet_run_id": "20260508T_visual_split_selector_hints_live_replay_skipped_v1",
+  "created_at": "2026-05-09T00:16:00+00:00",
+  "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints",
+  "tool_catalog_profile_id": "visual_role_catalog_split_selector_hints_v3",
+  "decision": "skip_live_replay",
+  "reason": "v3 did not beat the v2 raw exact gate and lost readback exactness, so live replay would spend budget on a weaker candidate.",
+  "raw_probe_packet": "results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_split_selector_hints_v3_probe",
+  "comparison_vs_v2": "results/tool_catalog_profile_probe_comparisons/20260508T_visual_split_selector_hints_vs_argument_hints_v2",
+  "comparison_vs_v1": "results/tool_catalog_profile_probe_comparisons/20260508T_visual_split_selector_hints_vs_role_catalog_v1",
+  "candidate_exact_match_rate": 0.125,
+  "candidate_executable_match_rate": 0.0,
+  "best_current_exact_candidate": "visual_role_catalog_argument_hints_v2",
+  "best_current_exact_candidate_rate": 0.25,
+  "best_current_executable_routing_candidate": "visual_role_catalog_v1",
+  "best_current_executable_routing_rate": 1.0
+}
