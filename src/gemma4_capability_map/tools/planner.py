@@ -80,7 +80,11 @@ def tool_catalog_text(tool_specs: list[ToolSpec], *, profile_id: str = "") -> st
 
 
 def known_tool_catalog_profile_ids() -> list[str]:
-    return ["visual_role_catalog_argument_hints_v2", "visual_role_catalog_v1"]
+    return [
+        "visual_role_catalog_split_selector_hints_v3",
+        "visual_role_catalog_argument_hints_v2",
+        "visual_role_catalog_v1",
+    ]
 
 
 def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> str:
@@ -110,7 +114,7 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
         lines.append("- read_region_text: read text from an existing region_id; consume image_id and region_id after the region is already selected.")
     lines.append("When a latest passing visual tool result already contains selection_id, prefer selection refinement over starting a fresh layout extraction for filtering or narrowing.")
     lines.append("When a latest passing visual tool result already contains region_id and the request is readback, prefer region text reading over selection refinement.")
-    if normalized == "visual_role_catalog_argument_hints_v2":
+    if normalized in {"visual_role_catalog_argument_hints_v2", "visual_role_catalog_split_selector_hints_v3"}:
         lines.extend(
             [
                 "Visual argument field semantics:",
@@ -118,6 +122,16 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
                 "- filter_query is a compact selector token for an existing selection_id; prefer the shortest literal filter token such as latest, remaining, open, selected, or unread when that token is present.",
                 "- Do not append surrounding nouns to target_query or filter_query when the selector token already identifies the visual operation.",
                 "- Keep image_id, selection_id, and region_id as opaque ids copied from the latest passing visual state.",
+            ]
+        )
+    if normalized == "visual_role_catalog_split_selector_hints_v3":
+        lines.extend(
+            [
+                "Split selector discipline:",
+                "- For extract_layout.target_query, name the visible region class or UI state to locate, not the upstream task subject, data source, author, customer, or business reason.",
+                "- If the request asks you to locate an error, warning, table, callout, or metric panel, keep target_query on that visible region class.",
+                "- For refine_selection.filter_query, keep using the shortest literal narrowing token from the follow-up request; do not turn it into a descriptive phrase.",
+                "- These rules separate region-location selectors from existing-selection filters; do not merge the two selector styles.",
             ]
         )
     return "\n".join(lines)

@@ -129,6 +129,22 @@ def test_visual_role_catalog_argument_hints_profile_keeps_selector_guidance_gene
     assert "sel-open-items" not in rendered
 
 
+def test_visual_role_catalog_split_selector_profile_separates_region_and_filter_semantics() -> None:
+    specs = build_default_registry().specs
+    rendered = render_tool_catalog_profile(
+        "visual_role_catalog_split_selector_hints_v3",
+        tool_specs=[specs["extract_layout"], specs["refine_selection"], specs["read_region_text"]],
+    )
+
+    assert "Tool catalog profile: visual_role_catalog_split_selector_hints_v3" in rendered
+    assert "Split selector discipline:" in rendered
+    assert "visible region class or UI state" in rendered
+    assert "not the upstream task subject" in rendered
+    assert "shortest literal narrowing token" in rendered
+    assert '{"name":"extract_layout"' not in rendered
+    assert "sel-open-items" not in rendered
+
+
 def test_tool_catalog_profile_renders_inside_catalog_without_exact_directive() -> None:
     specs = build_default_registry().specs
     rendered = tool_catalog_text(
