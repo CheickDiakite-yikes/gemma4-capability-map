@@ -20,6 +20,7 @@ def test_compare_tool_probe_replay_live_packets_writes_case_delta(tmp_path: Path
         failure_mode="exact",
         actual_call_count=2,
         executable=None,
+        executor_equivalence=None,
     )
     candidate = _write_packet(
         tmp_path / "candidate",
@@ -28,6 +29,7 @@ def test_compare_tool_probe_replay_live_packets_writes_case_delta(tmp_path: Path
         failure_mode="no_tool_call",
         actual_call_count=0,
         executable=None,
+        executor_equivalence=None,
     )
 
     comparison = SCRIPT.compare_tool_probe_replay_live_packets(
@@ -41,6 +43,8 @@ def test_compare_tool_probe_replay_live_packets_writes_case_delta(tmp_path: Path
     assert comparison["summary"]["delta_exact_rate"] == -1.0
     assert comparison["summary"]["shared_executable_case_count"] == 0
     assert comparison["summary"]["delta_executable_rate"] is None
+    assert comparison["summary"]["shared_executor_equivalence_case_count"] == 0
+    assert comparison["summary"]["delta_executor_equivalence_rate"] is None
     assert comparison["case_deltas"][0]["delta_actual_call_count"] == -2
     assert comparison["case_deltas"][0]["candidate_replay_failure_mode"] == "no_tool_call"
     assert (tmp_path / "comparison" / "live_replay_comparison.json").exists()
@@ -56,6 +60,7 @@ def test_compare_tool_probe_replay_live_packets_records_executable_delta(tmp_pat
         failure_mode="executable_paraphrase",
         actual_call_count=1,
         executable=True,
+        executor_equivalence=True,
     )
     candidate = _write_packet(
         tmp_path / "candidate",
@@ -64,6 +69,7 @@ def test_compare_tool_probe_replay_live_packets_records_executable_delta(tmp_pat
         failure_mode="no_tool_call",
         actual_call_count=0,
         executable=False,
+        executor_equivalence=False,
     )
 
     comparison = SCRIPT.compare_tool_probe_replay_live_packets(
@@ -76,7 +82,12 @@ def test_compare_tool_probe_replay_live_packets_records_executable_delta(tmp_pat
     assert comparison["summary"]["baseline_executable_rate"] == 1.0
     assert comparison["summary"]["candidate_executable_rate"] == 0.0
     assert comparison["summary"]["delta_executable_rate"] == -1.0
+    assert comparison["summary"]["shared_executor_equivalence_case_count"] == 1
+    assert comparison["summary"]["baseline_executor_equivalence_rate"] == 1.0
+    assert comparison["summary"]["candidate_executor_equivalence_rate"] == 0.0
+    assert comparison["summary"]["delta_executor_equivalence_rate"] == -1.0
     assert comparison["case_deltas"][0]["delta_executable_match"] == -1
+    assert comparison["case_deltas"][0]["delta_executor_equivalence_match"] == -1
 
 
 def _write_packet(
@@ -87,6 +98,7 @@ def _write_packet(
     failure_mode: str,
     actual_call_count: int,
     executable: bool | None,
+    executor_equivalence: bool | None,
 ) -> Path:
     path.mkdir(parents=True)
     path.joinpath("manifest.json").write_text(
@@ -107,6 +119,7 @@ def _write_packet(
                     "replay_failure_mode": failure_mode,
                     "replay_exact_match": exact,
                     "replay_executable_match": executable,
+                    "replay_executor_equivalence_match": executor_equivalence,
                     "replay_actual_call_count": actual_call_count,
                 }
             ]

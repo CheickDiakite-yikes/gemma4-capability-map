@@ -107,6 +107,7 @@ def run_tool_probe_replay_live(
                             "replay_failure_mode": result["replay_failure_mode"],
                             "replay_exact_match": result["replay_exact_match"],
                             "replay_executable_match": result["replay_executable_match"],
+                            "replay_executor_equivalence_match": result["replay_executor_equivalence_match"],
                         }
                     )
                     _write_outputs(
@@ -146,6 +147,7 @@ def run_tool_probe_replay_live(
                         "replay_failure_mode": result["replay_failure_mode"],
                         "replay_exact_match": result["replay_exact_match"],
                         "replay_executable_match": result["replay_executable_match"],
+                        "replay_executor_equivalence_match": result["replay_executor_equivalence_match"],
                     }
                 )
     else:
@@ -198,6 +200,7 @@ def _execute_case(
         "replay_failure_mode": _failure_mode(row),
         "replay_exact_match": bool(row.get("exact_match")),
         "replay_executable_match": row.get("executable_match"),
+        "replay_executor_equivalence_match": row.get("executor_target_match"),
         "expected_call_count": int(row.get("expected_call_count") or 0),
         "replay_actual_call_count": int(row.get("actual_call_count") or 0),
         "output_dir": str(output_dir.resolve()),
@@ -216,6 +219,8 @@ def _write_outputs(
     commands: list[dict[str, Any]],
     results: list[dict[str, Any]],
 ) -> dict[str, Any]:
+    executor_rows = [row for row in results if row.get("replay_executor_equivalence_match") is not None]
+    executor_count = sum(1 for row in executor_rows if row.get("replay_executor_equivalence_match"))
     summary = {
         "packet_run_id": target.name,
         "packet_dir": str(target.resolve()),
@@ -227,6 +232,9 @@ def _write_outputs(
         "executed_count": len(results),
         "exact_count": sum(1 for row in results if row["replay_exact_match"]),
         "exact_rate": _rate(sum(1 for row in results if row["replay_exact_match"]), len(results)),
+        "executor_equivalence_evaluable_count": len(executor_rows),
+        "executor_equivalence_count": executor_count,
+        "executor_equivalence_rate": _optional_rate(executor_count, len(executor_rows)),
         "failure_mode_counts": _count_by(case_states, "source_failure_mode"),
     }
     manifest = {
@@ -278,6 +286,7 @@ def _render_live_replay(
     table.add_column("Status")
     table.add_column("Replay failure")
     table.add_column("Exact")
+    table.add_column("Executor Eq")
     for state in case_states:
         table.add_row(
             str(state.get("case_id", "")),
@@ -286,6 +295,7 @@ def _render_live_replay(
             str(state.get("status", "")),
             str(state.get("replay_failure_mode", "")),
             str(state.get("replay_exact_match", "")),
+            str(state.get("replay_executor_equivalence_match", "")),
         )
     return Group(Panel(header, title="Moonie Exact Replay"), table)
 
@@ -324,6 +334,7 @@ def _case_state(row: dict[str, str], *, status: str) -> dict[str, Any]:
         "replay_failure_mode": "",
         "replay_exact_match": "",
         "replay_executable_match": "",
+        "replay_executor_equivalence_match": "",
     }
 
 
@@ -412,6 +423,10 @@ def _count_by(rows: list[dict[str, Any]], field: str) -> dict[str, int]:
 
 def _rate(numerator: int, denominator: int) -> float:
     return numerator / denominator if denominator else 0.0
+
+
+def _optional_rate(numerator: int, denominator: int) -> float | None:
+    return numerator / denominator if denominator else None
 
 
 def _read_json(path: Path) -> Any:

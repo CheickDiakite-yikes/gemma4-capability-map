@@ -61,6 +61,16 @@ def compare_tool_probe_replay_live_packets(
                     candidate.get("replay_executable_match"),
                     baseline.get("replay_executable_match"),
                 ),
+                "baseline_replay_executor_equivalence_match": _optional_bool(
+                    baseline.get("replay_executor_equivalence_match")
+                ),
+                "candidate_replay_executor_equivalence_match": _optional_bool(
+                    candidate.get("replay_executor_equivalence_match")
+                ),
+                "delta_executor_equivalence_match": _optional_bool_delta(
+                    candidate.get("replay_executor_equivalence_match"),
+                    baseline.get("replay_executor_equivalence_match"),
+                ),
                 "baseline_replay_failure_mode": baseline.get("replay_failure_mode", ""),
                 "candidate_replay_failure_mode": candidate.get("replay_failure_mode", ""),
                 "baseline_actual_call_count": int(baseline.get("replay_actual_call_count") or 0),
@@ -106,12 +116,45 @@ def compare_tool_probe_replay_live_packets(
                 and row["candidate_replay_executable_match"] is not None
             ),
         ),
+        "shared_executor_equivalence_case_count": sum(
+            1
+            for row in case_deltas
+            if row["baseline_replay_executor_equivalence_match"] is not None
+            and row["candidate_replay_executor_equivalence_match"] is not None
+        ),
+        "baseline_executor_equivalence_rate": _optional_rate(
+            sum(1 for row in case_deltas if row["baseline_replay_executor_equivalence_match"] is True),
+            sum(
+                1
+                for row in case_deltas
+                if row["baseline_replay_executor_equivalence_match"] is not None
+                and row["candidate_replay_executor_equivalence_match"] is not None
+            ),
+        ),
+        "candidate_executor_equivalence_rate": _optional_rate(
+            sum(1 for row in case_deltas if row["candidate_replay_executor_equivalence_match"] is True),
+            sum(
+                1
+                for row in case_deltas
+                if row["baseline_replay_executor_equivalence_match"] is not None
+                and row["candidate_replay_executor_equivalence_match"] is not None
+            ),
+        ),
         "case_delta_count": len(case_deltas),
     }
     if summary["baseline_executable_rate"] is not None and summary["candidate_executable_rate"] is not None:
         summary["delta_executable_rate"] = summary["candidate_executable_rate"] - summary["baseline_executable_rate"]
     else:
         summary["delta_executable_rate"] = None
+    if (
+        summary["baseline_executor_equivalence_rate"] is not None
+        and summary["candidate_executor_equivalence_rate"] is not None
+    ):
+        summary["delta_executor_equivalence_rate"] = (
+            summary["candidate_executor_equivalence_rate"] - summary["baseline_executor_equivalence_rate"]
+        )
+    else:
+        summary["delta_executor_equivalence_rate"] = None
     target = output_dir or DEFAULT_OUTPUT_ROOT / f"{candidate_packet.name}_vs_{baseline_packet.name}"
     target.mkdir(parents=True, exist_ok=True)
     _write_json(target / "live_replay_comparison.json", {"summary": summary, "case_deltas": case_deltas})
@@ -136,9 +179,12 @@ def _summary_markdown(summary: dict[str, Any], case_deltas: list[dict[str, Any]]
         f"- Baseline executable rate: `{summary['baseline_executable_rate']}`",
         f"- Candidate executable rate: `{summary['candidate_executable_rate']}`",
         f"- Delta executable rate: `{summary['delta_executable_rate']}`",
+        f"- Baseline executor-equivalence rate: `{summary['baseline_executor_equivalence_rate']}`",
+        f"- Candidate executor-equivalence rate: `{summary['candidate_executor_equivalence_rate']}`",
+        f"- Delta executor-equivalence rate: `{summary['delta_executor_equivalence_rate']}`",
         "",
-        "| case_id | family | baseline exact | candidate exact | baseline executable | candidate executable | baseline calls | candidate calls | delta calls | candidate failure |",
-        "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |",
+        "| case_id | family | baseline exact | candidate exact | baseline executable | candidate executable | baseline executor eq | candidate executor eq | baseline calls | candidate calls | delta calls | candidate failure |",
+        "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |",
     ]
     for row in case_deltas:
         lines.append(
@@ -151,6 +197,8 @@ def _summary_markdown(summary: dict[str, Any], case_deltas: list[dict[str, Any]]
                     str(row["candidate_replay_exact_match"]),
                     str(row["baseline_replay_executable_match"]),
                     str(row["candidate_replay_executable_match"]),
+                    str(row["baseline_replay_executor_equivalence_match"]),
+                    str(row["candidate_replay_executor_equivalence_match"]),
                     str(row["baseline_actual_call_count"]),
                     str(row["candidate_actual_call_count"]),
                     str(row["delta_actual_call_count"]),

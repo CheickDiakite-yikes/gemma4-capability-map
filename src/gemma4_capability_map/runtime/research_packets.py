@@ -106,6 +106,8 @@ def _tool_probe_replay_live_payload(*, packet_kind: str, target: Path) -> dict[s
         "executed_count": _count_or_default(summary, "executed_count", len(result_rows)),
         "exact_count": _count_or_default(summary, "exact_count", 0),
         "exact_rate": float(summary.get("exact_rate") or 0.0) if isinstance(summary, dict) else 0.0,
+        "executor_equivalence_count": _count_or_default(summary, "executor_equivalence_count", 0),
+        "executor_equivalence_rate": summary.get("executor_equivalence_rate") if isinstance(summary, dict) else None,
         "command_count": len(commands if isinstance(commands, list) else []),
         "failure_mode_counts": summary.get("failure_mode_counts", {}) if isinstance(summary, dict) else {},
         "case_state_rows": case_state_rows,
@@ -131,6 +133,9 @@ def _tool_probe_replay_live_comparison_payload(*, packet_kind: str, target: Path
         "baseline_exact_rate": float(summary.get("baseline_exact_rate") or 0.0) if isinstance(summary, dict) else 0.0,
         "candidate_exact_rate": float(summary.get("candidate_exact_rate") or 0.0) if isinstance(summary, dict) else 0.0,
         "delta_exact_rate": float(summary.get("delta_exact_rate") or 0.0) if isinstance(summary, dict) else 0.0,
+        "baseline_executor_equivalence_rate": summary.get("baseline_executor_equivalence_rate") if isinstance(summary, dict) else None,
+        "candidate_executor_equivalence_rate": summary.get("candidate_executor_equivalence_rate") if isinstance(summary, dict) else None,
+        "delta_executor_equivalence_rate": summary.get("delta_executor_equivalence_rate") if isinstance(summary, dict) else None,
         "case_delta_rows": case_delta_rows,
         "files": [_file_payload(child) for child in sorted(target.iterdir()) if child.is_file()] if target.exists() else [],
 }
@@ -299,6 +304,7 @@ def _research_packet_renderable(payload: dict[str, Any]) -> Group:
     live_cases.add_column("Status")
     live_cases.add_column("Replay failure")
     live_cases.add_column("Exact")
+    live_cases.add_column("Executor Eq")
     for row in payload.get("case_state_rows") or []:
         live_cases.add_row(
             str(row.get("case_id", "")),
@@ -307,6 +313,7 @@ def _research_packet_renderable(payload: dict[str, Any]) -> Group:
             str(row.get("status", "")),
             str(row.get("replay_failure_mode", "")),
             str(row.get("replay_exact_match", "")),
+            str(row.get("replay_executor_equivalence_match", "")),
         )
 
     live_comparison = Table(title="Live Replay Comparison")
@@ -314,6 +321,8 @@ def _research_packet_renderable(payload: dict[str, Any]) -> Group:
     live_comparison.add_column("Family")
     live_comparison.add_column("Baseline exact")
     live_comparison.add_column("Candidate exact")
+    live_comparison.add_column("Baseline eq")
+    live_comparison.add_column("Candidate eq")
     live_comparison.add_column("Delta calls")
     live_comparison.add_column("Candidate failure")
     for row in payload.get("case_delta_rows") or []:
@@ -322,6 +331,8 @@ def _research_packet_renderable(payload: dict[str, Any]) -> Group:
             str(row.get("family", "")),
             str(row.get("baseline_replay_exact_match", "")),
             str(row.get("candidate_replay_exact_match", "")),
+            str(row.get("baseline_replay_executor_equivalence_match", "")),
+            str(row.get("candidate_replay_executor_equivalence_match", "")),
             str(row.get("delta_actual_call_count", "")),
             str(row.get("candidate_replay_failure_mode", "")),
         )

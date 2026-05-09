@@ -59,6 +59,8 @@ systems:
     assert payload["summary"]["execute"] is True
     assert payload["summary"]["executed_count"] == 1
     assert payload["results"][0]["replay_exact_match"] is True
+    assert payload["results"][0]["replay_executor_equivalence_match"] is None
+    assert payload["summary"]["executor_equivalence_rate"] is None
     assert payload["case_states"][0]["status"] == "exact"
     assert (output_dir / "live_replay_results.json").exists()
     assert (output_dir / "runs" / "cli_invoice_lock_hyphen_query" / "probe_results.json").exists()
