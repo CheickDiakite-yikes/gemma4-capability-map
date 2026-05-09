@@ -45,8 +45,8 @@ Current CLI surface:
   - inspects generated research packet directories from the terminal
   - current default kind is `prompt-contract-probe`, including candidate rows, command counts, dry-run/executed counts, and packet files
   - `--kind tool-probe-replay` inspects exact probe replay packets, including case rows, failure modes, command counts, and packet files
-  - `--kind tool-probe-replay-live` inspects live exact-replay packets, including case status rows, exact rate, command count, and packet files
-  - `--kind tool-probe-replay-live-comparison` inspects live replay A/B comparison packets, including exact-rate deltas and case-level call deltas
+  - `--kind tool-probe-replay-live` inspects live exact-replay packets, including case status rows, exact rate, executor-equivalence rate, command count, and packet files
+  - `--kind tool-probe-replay-live-comparison` inspects live replay A/B comparison packets, including exact-rate deltas, executor-equivalence deltas, and case-level call deltas
   - `--kind tool-probe-replay-live-diagnostic` inspects visual tool-choice diagnostic packets, including diagnosis transitions and expected-vs-actual visual tool rows
   - supports `--packet-id latest`, explicit `--packet-dir`, and `--json`
 - `moonie-agent replay-live`
@@ -208,6 +208,13 @@ Latest MLX tool-contract research:
   - candidate packet: [`results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet)
   - result: all six rows tie at readiness `0.90406`, strict `0.85`, recovered `0.8`, raw clean `1.0`, and repair/fallback/argument repair `0.0 / 0.0 / 0.0`
   - interpretation: current packaged visual workflows are saturated and do not preserve the hard-slice executor-equivalence discriminator; defer helper spend until a non-saturated visual live surface exists
+- Replay-shaped visual hard-slice CLI-live result:
+  - replay source packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_no_directive_replay_dry_run_v1`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_no_directive_replay_dry_run_v1)
+  - no-directive live packet: [`results/tool_probe_replay_live/20260509T_visual_hard_slice_no_directive_hard_replay_live_execute_v2`](../../results/tool_probe_replay_live/20260509T_visual_hard_slice_no_directive_hard_replay_live_execute_v2)
+  - schema-field live packet: [`results/tool_probe_replay_live/20260509T_visual_hard_slice_schema_field_hints_hard_replay_live_execute_v2`](../../results/tool_probe_replay_live/20260509T_visual_hard_slice_schema_field_hints_hard_replay_live_execute_v2)
+  - comparison: [`results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_schema_field_hints_vs_no_directive_live_v2`](../../results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_schema_field_hints_vs_no_directive_live_v2)
+  - result: no-directive stays strict/executor-equivalent `0 / 2`; schema-field hints reaches strict `1 / 2` and executor-equivalent `2 / 2`
+  - interpretation: the v4 hard-slice signal survives in the CLI live operator path when raw replay shape is preserved; H1l saturation is evidence about staged packaged workflows, not evidence that the v4 mechanism is gone
 - Prompt-contract wave 2:
   - contracts: `schema_literal_tool_required_v2`, `visual_next_call_state_v2`, `parallel_array_required_v2`
   - runner flag: `scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v2`

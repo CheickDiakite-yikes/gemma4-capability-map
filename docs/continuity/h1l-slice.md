@@ -36,6 +36,15 @@ Result:
 
 Interpretation: H1l is a negative packaged-workflow result. The hard-slice executor-equivalence signal is still real, but these staged packaged visual workflows do not preserve the discriminator. Do not spend the helper packet until a visual live surface separates at least one candidate row.
 
+Follow-up result: the replay-shaped CLI-live surface now does separate the rows when the raw hard-slice cases are preserved. On the two no-directive visual hard-slice failures, no-directive stays at strict/executor-equivalent `0 / 2`, while `visual_role_catalog_schema_field_hints_v4` reaches strict `1 / 2` and executor-equivalent `2 / 2`.
+
+Key artifacts:
+
+- replay source packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_no_directive_replay_dry_run_v1`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_no_directive_replay_dry_run_v1)
+- live comparison: [`results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_schema_field_hints_vs_no_directive_live_v2`](../../results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_schema_field_hints_vs_no_directive_live_v2)
+
+Updated guardrail: use replay-shaped live packets for the next visual candidate/helper attribution step. Return to packaged workflows only after a live surface preserves the discriminator.
+
 Dry run:
 
 ```bash

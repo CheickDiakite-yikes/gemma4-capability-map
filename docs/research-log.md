@@ -3242,3 +3242,38 @@
   - `uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1l_slice.yaml --packet-id mlx_visual_executor_equivalence_candidates --run-group-id 20260509T_h1l_visual_executor_equivalence_candidates_dry_run_v1 --dry-run`
   - `uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1l_slice.yaml --packet-id mlx_visual_executor_equivalence_candidates --run-group-id 20260509T_h1l_visual_executor_equivalence_candidates_v1`
   - `uv run python scripts/summarize_h1_tool_contract.py results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet`
+
+## 2026-05-09 - Replay-Shaped Visual Hard-Slice CLI-Live Result
+
+- The live replay operator can now preserve visual hard-slice cases directly instead of only replaying the original legacy tool-directive cases:
+  - runtime loader: [`src/gemma4_capability_map/runtime/tool_probe_replay_live.py`](../src/gemma4_capability_map/runtime/tool_probe_replay_live.py)
+  - converter: [`scripts/build_visual_hard_slice_replay_packet.py`](../scripts/build_visual_hard_slice_replay_packet.py)
+  - source packet: [`20260509T_visual_hard_slice_no_directive_replay_dry_run_v1`](../results/tool_probe_replay_packets/20260509T_visual_hard_slice_no_directive_replay_dry_run_v1)
+  - no-directive live packet: [`20260509T_visual_hard_slice_no_directive_hard_replay_live_execute_v2`](../results/tool_probe_replay_live/20260509T_visual_hard_slice_no_directive_hard_replay_live_execute_v2)
+  - schema-field live packet: [`20260509T_visual_hard_slice_schema_field_hints_hard_replay_live_execute_v2`](../results/tool_probe_replay_live/20260509T_visual_hard_slice_schema_field_hints_hard_replay_live_execute_v2)
+  - comparison: [`20260509T_visual_hard_slice_schema_field_hints_vs_no_directive_live_v2`](../results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_schema_field_hints_vs_no_directive_live_v2)
+- Result:
+  - no-directive replay on the two preserved hard-slice failures: strict `0 / 2`, executable `0 / 2`, executor-equivalent `0 / 2`
+  - `visual_role_catalog_schema_field_hints_v4`: strict `1 / 2`, executable `2 / 2`, executor-equivalent `2 / 2`
+  - comparison deltas: exact `+0.5`, executable `+1.0`, executor-equivalence `+1.0`
+  - `visual_form_error_with_prior_selection_decoy` becomes exact under v4
+  - `visual_metric_panel_vs_table_selector` remains non-exact but executor-equivalent under v4 because `metric panel` reaches the expected local visual target even though the benchmark-canonical label is `dashboard metric`
+- Interpretation:
+  - H1l's packaged-workflow saturation was not the final word on the v4 result. It showed that the current packaged visual workflows are too staged. The replay-shaped CLI-live result shows the same hard-slice signal survives in the operator path when the raw case shape is preserved.
+  - This is now the best evidence that v4 is a real harnessing improvement for local MLX visual execution, but the improvement target is executor-equivalent visual grounding, not full strict protocol fidelity.
+  - The next experiment should expand the replay-shaped live matrix across contracted, no-directive, role catalog v1, argument hints v2, schema-field hints v4, and schema target literals v5 before returning to packaged H1-style workflows.
+- Reporting updates:
+  - live replay packets now carry executor-equivalence counts/rates beside strict exactness and executable match
+  - live replay comparisons now carry per-case executor-equivalence deltas
+  - generated MLX tool-contract report now has `59` tables and `28` figures
+  - new report section: `Visual Hard-Slice CLI-Live Replay`
+  - new report figure: [`visual_hard_slice_live_replay_gate.svg`](../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_live_replay_gate.svg)
+- Verification:
+  - `uv run pytest tests/test_tool_probe_replay_live.py tests/test_tool_probe_replay_live_comparison.py tests/test_runtime_cli.py::test_runtime_cli_packet_json_inspects_tool_probe_replay_live_packet tests/test_runtime_cli.py::test_runtime_cli_packet_json_inspects_tool_probe_replay_live_comparison -q`
+  - `uv run pytest tests/test_visual_hard_slice_replay_packet.py tests/test_tool_probe_replay_live.py -q`
+  - `uv run python scripts/build_visual_hard_slice_replay_packet.py --run-group-id 20260509T_visual_hard_slice_no_directive_replay_dry_run_v1 --failure-mode argument_mismatch`
+  - `uv run moonie-agent replay-live --packet-id 20260509T_visual_hard_slice_no_directive_replay_dry_run_v1 --output-dir results/tool_probe_replay_live/20260509T_visual_hard_slice_no_directive_hard_replay_live_execute_v2 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive --execute --json`
+  - `uv run moonie-agent replay-live --packet-id 20260509T_visual_hard_slice_no_directive_replay_dry_run_v1 --output-dir results/tool_probe_replay_live/20260509T_visual_hard_slice_schema_field_hints_hard_replay_live_execute_v2 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints --execute --json`
+  - `uv run python scripts/compare_tool_probe_replay_live_packets.py results/tool_probe_replay_live/20260509T_visual_hard_slice_no_directive_hard_replay_live_execute_v2 results/tool_probe_replay_live/20260509T_visual_hard_slice_schema_field_hints_hard_replay_live_execute_v2 --output-dir results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_schema_field_hints_vs_no_directive_live_v2`
+  - `uv run python scripts/build_mlx_tool_contract_report.py`
+  - `uv run pytest tests/test_mlx_tool_contract_report.py tests/test_tool_probe_replay_live_comparison.py -q`

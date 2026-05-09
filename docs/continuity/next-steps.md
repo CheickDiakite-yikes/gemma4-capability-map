@@ -50,6 +50,9 @@ Next implementation moves:
 - keep H1g as a negative result: visual rescue, intent priority, and deterministic visual follow-on do not carry the compact live slice under the directive
 - use the completed Gemini CLI dry-run packet as the external-reference baseline for the H1h workflow family set; rerun with real execution only when the binary/run environment is intentionally part of the comparison
 - keep using live CLI scorecard and policy inspection as the active operator proof path
+- treat replay-shaped CLI-live packets as the active discriminator when packaged workflows are saturated
+- use [`scripts/build_visual_hard_slice_replay_packet.py`](../../scripts/build_visual_hard_slice_replay_packet.py) to preserve hard-slice visual cases for `moonie-agent replay-live`
+- current replay-shaped result: schema-field hints improves over no-directive by exact `+0.5`, executable `+1.0`, and executor-equivalence `+1.0` on the preserved visual hard-slice failures
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1
@@ -165,6 +168,17 @@ What remains:
   - executed helper packet: [`results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_helpers_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_helpers_v1_knowledge_work_ablation_packet)
   - helper result: contracted, no-directive, no-repair, no-fallback, and no-argument-repair rows all matched readiness `0.91780`; trace analysis found `3` expected disabled-repair markers and `0` failure candidates
   - interpretation: the packaged parallel workflow is still too staged to reproduce the raw no-directive one-turn parallel no-call failure. The next discriminator should preserve the exact-call replay shape.
+
+- H1l packaged visual executor-equivalence is now a completed negative packaged-workflow result:
+  - config: [`configs/knowledge_work_h1l_slice.yaml`](../../configs/knowledge_work_h1l_slice.yaml)
+  - result packet: [`results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet)
+  - result: contracted, no-directive, role catalog v1, argument hints v2, schema-field hints v4, and schema target literals v5 all tie at readiness `0.90406`, strict `0.85`, recovered `0.8`, raw clean `1.0`, and zero controller burden
+  - interpretation: packaged visual workflows are too staged to preserve the hard-slice executor-equivalence split
+- replay-shaped visual hard-slice live replay is the new active positive surface:
+  - source packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_no_directive_replay_dry_run_v1`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_no_directive_replay_dry_run_v1)
+  - comparison: [`results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_schema_field_hints_vs_no_directive_live_v2`](../../results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_schema_field_hints_vs_no_directive_live_v2)
+  - result: no-directive `0 / 2` exact and executor-equivalent; schema-field hints `1 / 2` exact and `2 / 2` executor-equivalent
+  - next best move: run the same replay-shaped live packet across contracted, role catalog v1, argument hints v2, schema-field hints v4, and schema target literals v5, then report a compact live candidate matrix before spending another packaged H1 slice
 
 - second prompt-contract wave now exists:
   - contracts: `schema_literal_tool_required_v2`, `visual_next_call_state_v2`, `parallel_array_required_v2`
