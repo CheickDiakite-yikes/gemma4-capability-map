@@ -1,2 +1,6 @@
 comparison,baseline_system_id,candidate_system_id,shared_case_count,baseline_exact_rate,candidate_exact_rate,delta_exact_rate,baseline_executable_rate,candidate_executable_rate,delta_executable_rate,baseline_executor_equivalence_rate,candidate_executor_equivalence_rate,delta_executor_equivalence_rate
-schema-field hard-slice vs no directive,mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive,mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints,2,0.0,0.5,0.5,0.0,1.0,1.0,0.0,1.0,1.0
+contracted vs no directive,mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive,mlx_gemma4_e2b_reasoner_only,2,0.0,1.0,1.0,0.0,1.0,1.0,0.0,1.0,1.0
+role catalog vs no directive,mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive,mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog,2,0.0,0.5,0.5,0.0,0.5,0.5,0.0,0.5,0.5
+argument hints vs no directive,mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive,mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints,2,0.0,0.5,0.5,0.0,0.5,0.5,0.0,0.5,0.5
+schema-field hints vs no directive,mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive,mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints,2,0.0,0.5,0.5,0.0,1.0,1.0,0.0,1.0,1.0
+schema literal targets vs no directive,mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive,mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets,2,0.0,0.0,0.0,0.0,0.5,0.5,0.0,0.5,0.5

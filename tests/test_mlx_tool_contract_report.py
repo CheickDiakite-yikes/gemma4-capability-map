@@ -262,12 +262,34 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
         "delta_executable_match"
     ] == -1
     visual_hard_slice_live = {row["comparison"]: row for row in payload["visual_hard_slice_live_replay_summary"]}
-    assert visual_hard_slice_live["schema-field hard-slice vs no directive"]["delta_exact_rate"] == 0.5
-    assert visual_hard_slice_live["schema-field hard-slice vs no directive"]["delta_executor_equivalence_rate"] == 1.0
-    visual_hard_slice_live_cases = {row["case_id"]: row for row in payload["visual_hard_slice_live_replay_case_deltas"]}
-    assert visual_hard_slice_live_cases["visual_metric_panel_vs_table_selector"][
+    assert set(visual_hard_slice_live) == {
+        "contracted vs no directive",
+        "role catalog vs no directive",
+        "argument hints vs no directive",
+        "schema-field hints vs no directive",
+        "schema literal targets vs no directive",
+    }
+    assert visual_hard_slice_live["contracted vs no directive"]["delta_exact_rate"] == 1.0
+    assert visual_hard_slice_live["contracted vs no directive"]["delta_executor_equivalence_rate"] == 1.0
+    assert visual_hard_slice_live["role catalog vs no directive"]["delta_exact_rate"] == 0.5
+    assert visual_hard_slice_live["role catalog vs no directive"]["delta_executor_equivalence_rate"] == 0.5
+    assert visual_hard_slice_live["argument hints vs no directive"]["delta_exact_rate"] == 0.5
+    assert visual_hard_slice_live["argument hints vs no directive"]["delta_executor_equivalence_rate"] == 0.5
+    assert visual_hard_slice_live["schema-field hints vs no directive"]["delta_exact_rate"] == 0.5
+    assert visual_hard_slice_live["schema-field hints vs no directive"]["delta_executor_equivalence_rate"] == 1.0
+    assert visual_hard_slice_live["schema literal targets vs no directive"]["delta_exact_rate"] == 0.0
+    assert visual_hard_slice_live["schema literal targets vs no directive"]["delta_executor_equivalence_rate"] == 0.5
+    visual_hard_slice_live_cases = {
+        (row["comparison"], row["case_id"]): row for row in payload["visual_hard_slice_live_replay_case_deltas"]
+    }
+    assert visual_hard_slice_live_cases[
+        ("schema-field hints vs no directive", "visual_metric_panel_vs_table_selector")
+    ][
         "candidate_replay_executor_equivalence_match"
-    ] == "True"
+    ] is True
+    assert visual_hard_slice_live_cases[
+        ("schema literal targets vs no directive", "visual_form_error_with_prior_selection_decoy")
+    ]["candidate_replay_failure_mode"] == "wrong_tool"
     h1i_candidates = {row["system_id"]: row for row in payload["h1i_prompt_contract_candidate_metrics"]}
     assert h1i_candidates["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive"]["tool_turn_directive_enabled"] == "False"
     assert h1i_candidates["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor"]["raw_planning_clean_rate_avg"] == "1.0"

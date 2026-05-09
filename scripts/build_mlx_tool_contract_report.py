@@ -274,6 +274,30 @@ DEFAULT_VISUAL_HARD_SLICE_LIVE_REPLAY_COMPARISON = (
     / "tool_probe_replay_live_comparisons"
     / "20260509T_visual_hard_slice_schema_field_hints_vs_no_directive_live_v2"
 )
+DEFAULT_VISUAL_HARD_SLICE_CONTRACTED_LIVE_COMPARISON = (
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260509T_visual_hard_slice_contracted_vs_no_directive_live_v1"
+)
+DEFAULT_VISUAL_HARD_SLICE_ROLE_CATALOG_LIVE_COMPARISON = (
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260509T_visual_hard_slice_role_catalog_vs_no_directive_live_v1"
+)
+DEFAULT_VISUAL_HARD_SLICE_ARGUMENT_HINTS_LIVE_COMPARISON = (
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260509T_visual_hard_slice_argument_hints_vs_no_directive_live_v1"
+)
+DEFAULT_VISUAL_HARD_SLICE_SCHEMA_LITERAL_TARGETS_LIVE_COMPARISON = (
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260509T_visual_hard_slice_schema_literal_targets_vs_no_directive_live_v1"
+)
 
 SYSTEM_LABELS = {
     "mlx_gemma4_e2b_reasoner_only": "contracted",
@@ -347,7 +371,15 @@ def build_report(
     | Path = DEFAULT_ARGUMENT_HINTS_LIVE_VISUAL_VS_CONTRACTED_COMPARISON,
     argument_hints_live_visual_vs_role_catalog_comparison: str
     | Path = DEFAULT_ARGUMENT_HINTS_LIVE_VISUAL_VS_ROLE_CATALOG_COMPARISON,
+    visual_hard_slice_contracted_live_comparison: str
+    | Path = DEFAULT_VISUAL_HARD_SLICE_CONTRACTED_LIVE_COMPARISON,
+    visual_hard_slice_role_catalog_live_comparison: str
+    | Path = DEFAULT_VISUAL_HARD_SLICE_ROLE_CATALOG_LIVE_COMPARISON,
+    visual_hard_slice_argument_hints_live_comparison: str
+    | Path = DEFAULT_VISUAL_HARD_SLICE_ARGUMENT_HINTS_LIVE_COMPARISON,
     visual_hard_slice_live_replay_comparison: str | Path = DEFAULT_VISUAL_HARD_SLICE_LIVE_REPLAY_COMPARISON,
+    visual_hard_slice_schema_literal_targets_live_comparison: str
+    | Path = DEFAULT_VISUAL_HARD_SLICE_SCHEMA_LITERAL_TARGETS_LIVE_COMPARISON,
     registry_path: str | Path = DEFAULT_REGISTRY_PATH,
 ) -> dict[str, Any]:
     target = Path(output_dir)
@@ -643,15 +675,51 @@ def build_report(
     ]
     argument_hints_live_summary_rows = _live_candidate_summary_rows(argument_hints_live_comparisons)
     argument_hints_live_case_rows = _live_candidate_case_rows(argument_hints_live_comparisons)
-    visual_hard_slice_live_replay_comparison_payload = json.loads(
-        (Path(visual_hard_slice_live_replay_comparison) / "live_replay_comparison.json").read_text(encoding="utf-8")
-    )
-    visual_hard_slice_live_replay_summary_rows = _live_candidate_summary_rows(
-        [("schema-field hard-slice vs no directive", visual_hard_slice_live_replay_comparison_payload)]
-    )
-    visual_hard_slice_live_replay_case_rows = _csv_rows(
-        Path(visual_hard_slice_live_replay_comparison) / "live_replay_case_deltas.csv"
-    )
+    visual_hard_slice_live_comparisons = [
+        (
+            "contracted vs no directive",
+            json.loads(
+                (Path(visual_hard_slice_contracted_live_comparison) / "live_replay_comparison.json").read_text(
+                    encoding="utf-8"
+                )
+            ),
+        ),
+        (
+            "role catalog vs no directive",
+            json.loads(
+                (Path(visual_hard_slice_role_catalog_live_comparison) / "live_replay_comparison.json").read_text(
+                    encoding="utf-8"
+                )
+            ),
+        ),
+        (
+            "argument hints vs no directive",
+            json.loads(
+                (Path(visual_hard_slice_argument_hints_live_comparison) / "live_replay_comparison.json").read_text(
+                    encoding="utf-8"
+                )
+            ),
+        ),
+        (
+            "schema-field hints vs no directive",
+            json.loads(
+                (Path(visual_hard_slice_live_replay_comparison) / "live_replay_comparison.json").read_text(
+                    encoding="utf-8"
+                )
+            ),
+        ),
+        (
+            "schema literal targets vs no directive",
+            json.loads(
+                (
+                    Path(visual_hard_slice_schema_literal_targets_live_comparison)
+                    / "live_replay_comparison.json"
+                ).read_text(encoding="utf-8")
+            ),
+        ),
+    ]
+    visual_hard_slice_live_replay_summary_rows = _live_candidate_summary_rows(visual_hard_slice_live_comparisons)
+    visual_hard_slice_live_replay_case_rows = _live_candidate_case_rows(visual_hard_slice_live_comparisons)
 
     _write_csv(tables_dir / "packet_summary.csv", packet_rows)
     _write_csv(tables_dir / "h1i_system_metrics.csv", h1i_system_rows)
@@ -1152,7 +1220,19 @@ def build_report(
         "argument_hints_live_visual_vs_role_catalog_comparison": str(
             Path(argument_hints_live_visual_vs_role_catalog_comparison).resolve()
         ),
+        "visual_hard_slice_contracted_live_comparison": str(
+            Path(visual_hard_slice_contracted_live_comparison).resolve()
+        ),
+        "visual_hard_slice_role_catalog_live_comparison": str(
+            Path(visual_hard_slice_role_catalog_live_comparison).resolve()
+        ),
+        "visual_hard_slice_argument_hints_live_comparison": str(
+            Path(visual_hard_slice_argument_hints_live_comparison).resolve()
+        ),
         "visual_hard_slice_live_replay_comparison": str(Path(visual_hard_slice_live_replay_comparison).resolve()),
+        "visual_hard_slice_schema_literal_targets_live_comparison": str(
+            Path(visual_hard_slice_schema_literal_targets_live_comparison).resolve()
+        ),
         "registry_path": str(Path(registry_path).resolve()),
         "table_count": 59,
         "figure_count": 28,
@@ -1224,7 +1304,7 @@ def build_report(
         "visual_catalog_live_candidate_case_deltas": catalog_live_case_rows,
         "visual_catalog_argument_hints_live_candidate_replay_summary": argument_hints_live_summary_rows,
         "visual_catalog_argument_hints_live_candidate_case_deltas": argument_hints_live_case_rows,
-        "visual_hard_slice_live_replay_comparison": visual_hard_slice_live_replay_comparison_payload,
+        "visual_hard_slice_live_replay_comparisons": [payload for _, payload in visual_hard_slice_live_comparisons],
         "visual_hard_slice_live_replay_summary": visual_hard_slice_live_replay_summary_rows,
         "visual_hard_slice_live_replay_case_deltas": visual_hard_slice_live_replay_case_rows,
         "gemini": gemini_manifest,
@@ -1359,8 +1439,24 @@ def parse_args() -> argparse.Namespace:
         default=str(DEFAULT_ARGUMENT_HINTS_LIVE_VISUAL_VS_ROLE_CATALOG_COMPARISON),
     )
     parser.add_argument(
+        "--visual-hard-slice-contracted-live-comparison",
+        default=str(DEFAULT_VISUAL_HARD_SLICE_CONTRACTED_LIVE_COMPARISON),
+    )
+    parser.add_argument(
+        "--visual-hard-slice-role-catalog-live-comparison",
+        default=str(DEFAULT_VISUAL_HARD_SLICE_ROLE_CATALOG_LIVE_COMPARISON),
+    )
+    parser.add_argument(
+        "--visual-hard-slice-argument-hints-live-comparison",
+        default=str(DEFAULT_VISUAL_HARD_SLICE_ARGUMENT_HINTS_LIVE_COMPARISON),
+    )
+    parser.add_argument(
         "--visual-hard-slice-live-replay-comparison",
         default=str(DEFAULT_VISUAL_HARD_SLICE_LIVE_REPLAY_COMPARISON),
+    )
+    parser.add_argument(
+        "--visual-hard-slice-schema-literal-targets-live-comparison",
+        default=str(DEFAULT_VISUAL_HARD_SLICE_SCHEMA_LITERAL_TARGETS_LIVE_COMPARISON),
     )
     parser.add_argument("--registry", default=str(DEFAULT_REGISTRY_PATH))
     return parser.parse_args()
@@ -1421,7 +1517,11 @@ def main() -> None:
         argument_hints_live_visual_vs_no_directive_comparison=args.argument_hints_live_visual_vs_no_directive_comparison,
         argument_hints_live_visual_vs_contracted_comparison=args.argument_hints_live_visual_vs_contracted_comparison,
         argument_hints_live_visual_vs_role_catalog_comparison=args.argument_hints_live_visual_vs_role_catalog_comparison,
+        visual_hard_slice_contracted_live_comparison=args.visual_hard_slice_contracted_live_comparison,
+        visual_hard_slice_role_catalog_live_comparison=args.visual_hard_slice_role_catalog_live_comparison,
+        visual_hard_slice_argument_hints_live_comparison=args.visual_hard_slice_argument_hints_live_comparison,
         visual_hard_slice_live_replay_comparison=args.visual_hard_slice_live_replay_comparison,
+        visual_hard_slice_schema_literal_targets_live_comparison=args.visual_hard_slice_schema_literal_targets_live_comparison,
         registry_path=args.registry,
     )
     print(
@@ -1993,7 +2093,7 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "",
         _markdown_table(visual_hard_slice_live_case_rows),
         "",
-        "The live operator replay now preserves the hard-slice discriminator instead of smoothing it into staged packaged workflows. On the two no-directive hard-slice failures, the no-directive row remains `0 / 2` strict and `0 / 2` executor-equivalent. The schema-field catalog candidate reaches `1 / 2` strict and `2 / 2` executor-equivalent, so the v4 hard-slice result is not just an offline probe artifact when replay shape is preserved.",
+        "The live operator replay now preserves the hard-slice discriminator instead of smoothing it into staged packaged workflows. Contracted MLX is the upper bound at `2 / 2` strict and executor-equivalent. Role catalog v1 and argument hints v2 each recover only the stale-selection decoy (`1 / 2` strict, `1 / 2` executor-equivalent). Schema-field hints v4 keeps that exact stale-selection win and also recovers the metric-panel target as an executor-equivalent paraphrase (`1 / 2` strict, `2 / 2` executor-equivalent). Schema target literals v5 remains negative: `0 / 2` strict and `1 / 2` executor-equivalent, with the stale-selection decoy becoming a wrong-tool failure.",
         "",
         "## Visual Hard-Slice Case Deltas vs No Directive",
         "",
@@ -2190,7 +2290,11 @@ def _markdown_report(payload: dict[str, Any]) -> str:
             f"- Argument-hints live visual vs no-directive comparison: `{payload['manifest']['argument_hints_live_visual_vs_no_directive_comparison']}`",
             f"- Argument-hints live visual vs contracted comparison: `{payload['manifest']['argument_hints_live_visual_vs_contracted_comparison']}`",
             f"- Argument-hints live visual vs role-catalog comparison: `{payload['manifest']['argument_hints_live_visual_vs_role_catalog_comparison']}`",
+            f"- Visual hard-slice contracted live comparison: `{payload['manifest']['visual_hard_slice_contracted_live_comparison']}`",
+            f"- Visual hard-slice role-catalog live comparison: `{payload['manifest']['visual_hard_slice_role_catalog_live_comparison']}`",
+            f"- Visual hard-slice argument-hints live comparison: `{payload['manifest']['visual_hard_slice_argument_hints_live_comparison']}`",
             f"- Visual hard-slice live replay comparison: `{payload['manifest']['visual_hard_slice_live_replay_comparison']}`",
+            f"- Visual hard-slice schema-literal-targets live comparison: `{payload['manifest']['visual_hard_slice_schema_literal_targets_live_comparison']}`",
             f"- Gemini dry-run baseline: `{payload['manifest']['gemini_packet']}`",
             "",
         ]

@@ -1,6 +1,6 @@
 # MLX Tool-Contract Harnessing Report
 
-Generated: `2026-05-09T22:45:19.480182+00:00`
+Generated: `2026-05-09T22:54:01.963501+00:00`
 
 ## Executive Read
 
@@ -330,14 +330,26 @@ The exactness diagnostic sharpens the v4/v5 interpretation. The two v4 non-exact
 
 | comparison | baseline_system_id | candidate_system_id | shared_case_count | baseline_exact_rate | candidate_exact_rate | delta_exact_rate | baseline_executable_rate | candidate_executable_rate | delta_executable_rate | baseline_executor_equivalence_rate | candidate_executor_equivalence_rate | delta_executor_equivalence_rate |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| schema-field hard-slice vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints | 2 | 0.0 | 0.5 | 0.5 | 0.0 | 1.0 | 1.0 | 0.0 | 1.0 | 1.0 |
+| contracted vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only | 2 | 0.0 | 1.0 | 1.0 | 0.0 | 1.0 | 1.0 | 0.0 | 1.0 | 1.0 |
+| role catalog vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog | 2 | 0.0 | 0.5 | 0.5 | 0.0 | 0.5 | 0.5 | 0.0 | 0.5 | 0.5 |
+| argument hints vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints | 2 | 0.0 | 0.5 | 0.5 | 0.0 | 0.5 | 0.5 | 0.0 | 0.5 | 0.5 |
+| schema-field hints vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints | 2 | 0.0 | 0.5 | 0.5 | 0.0 | 1.0 | 1.0 | 0.0 | 1.0 | 1.0 |
+| schema literal targets vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets | 2 | 0.0 | 0.0 | 0.0 | 0.0 | 0.5 | 0.5 | 0.0 | 0.5 | 0.5 |
 
-| case_id | family | source_failure_mode | baseline_replay_exact_match | candidate_replay_exact_match | delta_exact_match | baseline_replay_executable_match | candidate_replay_executable_match | delta_executable_match | baseline_replay_executor_equivalence_match | candidate_replay_executor_equivalence_match | delta_executor_equivalence_match | baseline_replay_failure_mode | candidate_replay_failure_mode | baseline_actual_call_count | candidate_actual_call_count | delta_actual_call_count |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| visual_form_error_with_prior_selection_decoy | visual_tool_routing | argument_mismatch | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
-| visual_metric_panel_vs_table_selector | visual_argument_copying | argument_mismatch | False | False | 0 | False | True | 1 | False | True | 1 | argument_mismatch | executable_paraphrase | 1 | 1 | 0 |
+| comparison | case_id | family | source_failure_mode | baseline_replay_exact_match | candidate_replay_exact_match | delta_exact_match | baseline_replay_executable_match | candidate_replay_executable_match | delta_executable_match | baseline_replay_executor_equivalence_match | candidate_replay_executor_equivalence_match | delta_executor_equivalence_match | baseline_replay_failure_mode | candidate_replay_failure_mode | baseline_actual_call_count | candidate_actual_call_count | delta_actual_call_count |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| contracted vs no directive | visual_form_error_with_prior_selection_decoy | visual_tool_routing | argument_mismatch | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| contracted vs no directive | visual_metric_panel_vs_table_selector | visual_argument_copying | argument_mismatch | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| role catalog vs no directive | visual_form_error_with_prior_selection_decoy | visual_tool_routing | argument_mismatch | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| role catalog vs no directive | visual_metric_panel_vs_table_selector | visual_argument_copying | argument_mismatch | False | False | 0 | False | False | 0 | False | False | 0 | argument_mismatch | argument_mismatch | 1 | 1 | 0 |
+| argument hints vs no directive | visual_form_error_with_prior_selection_decoy | visual_tool_routing | argument_mismatch | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| argument hints vs no directive | visual_metric_panel_vs_table_selector | visual_argument_copying | argument_mismatch | False | False | 0 | False | False | 0 | False | False | 0 | argument_mismatch | argument_mismatch | 1 | 1 | 0 |
+| schema-field hints vs no directive | visual_form_error_with_prior_selection_decoy | visual_tool_routing | argument_mismatch | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| schema-field hints vs no directive | visual_metric_panel_vs_table_selector | visual_argument_copying | argument_mismatch | False | False | 0 | False | True | 1 | False | True | 1 | argument_mismatch | executable_paraphrase | 1 | 1 | 0 |
+| schema literal targets vs no directive | visual_form_error_with_prior_selection_decoy | visual_tool_routing | argument_mismatch | False | False | 0 | False | False | 0 | False | False | 0 | argument_mismatch | wrong_tool | 1 | 1 | 0 |
+| schema literal targets vs no directive | visual_metric_panel_vs_table_selector | visual_argument_copying | argument_mismatch | False | False | 0 | False | True | 1 | False | True | 1 | argument_mismatch | executable_paraphrase | 1 | 1 | 0 |
 
-The live operator replay now preserves the hard-slice discriminator instead of smoothing it into staged packaged workflows. On the two no-directive hard-slice failures, the no-directive row remains `0 / 2` strict and `0 / 2` executor-equivalent. The schema-field catalog candidate reaches `1 / 2` strict and `2 / 2` executor-equivalent, so the v4 hard-slice result is not just an offline probe artifact when replay shape is preserved.
+The live operator replay now preserves the hard-slice discriminator instead of smoothing it into staged packaged workflows. Contracted MLX is the upper bound at `2 / 2` strict and executor-equivalent. Role catalog v1 and argument hints v2 each recover only the stale-selection decoy (`1 / 2` strict, `1 / 2` executor-equivalent). Schema-field hints v4 keeps that exact stale-selection win and also recovers the metric-panel target as an executor-equivalent paraphrase (`1 / 2` strict, `2 / 2` executor-equivalent). Schema target literals v5 remains negative: `0 / 2` strict and `1 / 2` executor-equivalent, with the stale-selection decoy becoming a wrong-tool failure.
 
 ## Visual Hard-Slice Case Deltas vs No Directive
 
@@ -740,5 +752,9 @@ This packet is deliberately a dry-run prompt and command manifest. It is an exte
 - Argument-hints live visual vs no-directive comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_no_directive_v1`
 - Argument-hints live visual vs contracted comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_contracted_v1`
 - Argument-hints live visual vs role-catalog comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_role_catalog_v1`
+- Visual hard-slice contracted live comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_contracted_vs_no_directive_live_v1`
+- Visual hard-slice role-catalog live comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_role_catalog_vs_no_directive_live_v1`
+- Visual hard-slice argument-hints live comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_argument_hints_vs_no_directive_live_v1`
 - Visual hard-slice live replay comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_schema_field_hints_vs_no_directive_live_v2`
+- Visual hard-slice schema-literal-targets live comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_schema_literal_targets_vs_no_directive_live_v1`
 - Gemini dry-run baseline: `/Users/cheickdiakite/Codex/moonie/results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1`
