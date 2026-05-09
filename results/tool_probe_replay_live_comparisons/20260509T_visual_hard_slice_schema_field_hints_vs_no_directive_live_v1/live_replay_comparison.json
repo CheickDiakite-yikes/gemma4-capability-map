@@ -1,0 +1,53 @@
+{
+  "summary": {
+    "baseline_packet": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260509T_visual_hard_slice_no_directive_hard_replay_live_execute_v1",
+    "candidate_packet": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260509T_visual_hard_slice_schema_field_hints_hard_replay_live_execute_v1",
+    "baseline_packet_run_id": "20260509T_visual_hard_slice_no_directive_hard_replay_live_execute_v1",
+    "candidate_packet_run_id": "20260509T_visual_hard_slice_schema_field_hints_hard_replay_live_execute_v1",
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+    "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints",
+    "shared_case_count": 2,
+    "baseline_exact_rate": 0.0,
+    "candidate_exact_rate": 0.5,
+    "delta_exact_rate": 0.5,
+    "shared_executable_case_count": 2,
+    "baseline_executable_rate": 0.0,
+    "candidate_executable_rate": 1.0,
+    "case_delta_count": 2,
+    "delta_executable_rate": 1.0
+  },
+  "case_deltas": [
+    {
+      "case_id": "visual_form_error_with_prior_selection_decoy",
+      "family": "visual_tool_routing",
+      "source_failure_mode": "argument_mismatch",
+      "baseline_replay_exact_match": false,
+      "candidate_replay_exact_match": true,
+      "delta_exact_match": 1,
+      "baseline_replay_executable_match": false,
+      "candidate_replay_executable_match": true,
+      "delta_executable_match": 1,
+      "baseline_replay_failure_mode": "argument_mismatch",
+      "candidate_replay_failure_mode": "exact",
+      "baseline_actual_call_count": 1,
+      "candidate_actual_call_count": 1,
+      "delta_actual_call_count": 0
+    },
+    {
+      "case_id": "visual_metric_panel_vs_table_selector",
+      "family": "visual_argument_copying",
+      "source_failure_mode": "argument_mismatch",
+      "baseline_replay_exact_match": false,
+      "candidate_replay_exact_match": false,
+      "delta_exact_match": 0,
+      "baseline_replay_executable_match": false,
+      "candidate_replay_executable_match": true,
+      "delta_executable_match": 1,
+      "baseline_replay_failure_mode": "argument_mismatch",
+      "candidate_replay_failure_mode": "executable_paraphrase",
+      "baseline_actual_call_count": 1,
+      "candidate_actual_call_count": 1,
+      "delta_actual_call_count": 0
+    }
+  ]
+}
