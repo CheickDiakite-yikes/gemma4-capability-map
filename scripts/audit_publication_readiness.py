@@ -59,13 +59,13 @@ def audit_publication_readiness(
         _check_bool(
             check_id="tool_contract_report_has_current_tables",
             severity="blocking",
-            passed=int(report_manifest.get("table_count", 0) or 0) >= 63,
+            passed=int(report_manifest.get("table_count", 0) or 0) >= 64,
             detail=f"table_count={report_manifest.get('table_count', '')}",
         ),
         _check_bool(
             check_id="tool_contract_report_has_current_figures",
             severity="blocking",
-            passed=int(report_manifest.get("figure_count", 0) or 0) >= 30,
+            passed=int(report_manifest.get("figure_count", 0) or 0) >= 31,
             detail=f"figure_count={report_manifest.get('figure_count', '')}",
         ),
         _check_path(
@@ -138,6 +138,16 @@ def audit_publication_readiness(
             / "20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet"
             / "tool_contract_system_deltas.csv",
             detail="Executed H1l visual executor-equivalence packaged-workflow packet exists with system deltas.",
+        ),
+        _check_path(
+            check_id="h1m_visual_alias_repeat_packet_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "knowledge_work_h1_slice"
+            / "20260509T_h1m_visual_alias_repeat_candidates_v1_knowledge_work_ablation_packet"
+            / "tool_contract_system_deltas.csv",
+            detail="Executed H1m visual alias-repeat packaged-workflow packet exists with system deltas.",
         ),
         _check_path(
             check_id="visual_hard_slice_live_replay_comparison_exists",
@@ -302,6 +312,17 @@ def audit_publication_readiness(
             severity="blocking",
             path=ROOT / "results" / "reports" / "visual_alias_repeat_diagnostic" / "diagnostic.md",
             detail="Visual alias-repeat diagnostic report exists.",
+        ),
+        _check_path(
+            check_id="h1m_visual_alias_repeat_report_table_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "mlx_tool_contract_harnessing"
+            / "tables"
+            / "h1m_visual_alias_repeat_candidate_metrics.csv",
+            detail="H1m visual alias-repeat candidate metrics table exists in the main report.",
         ),
         _check_path(
             check_id="current_state_doc_exists",

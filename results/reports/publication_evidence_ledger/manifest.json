@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-05-09T23:31:35.947481+00:00",
+  "generated_at": "2026-05-09T23:42:41.343552+00:00",
   "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-  "claim_count": 13,
-  "evidence_source_count": 55,
+  "claim_count": 14,
+  "evidence_source_count": 58,
   "missing_source_count": 0,
   "claim_ids": [
     "C1_controller_dependence_hidden_by_readiness",
@@ -17,6 +17,7 @@
     "C10_v4_exact_misses_are_executor_success_aliases",
     "C11_h1l_packaged_visual_workflows_remain_saturated",
     "C12_replay_shaped_live_preserves_visual_hard_slice_signal",
-    "C13_visual_live_stress_separates_executor_grounding_from_strict_fidelity"
+    "C13_visual_live_stress_separates_executor_grounding_from_strict_fidelity",
+    "C14_h1m_packaged_alias_repeat_saturates"
   ]
 }

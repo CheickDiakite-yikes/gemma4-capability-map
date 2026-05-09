@@ -1,9 +1,9 @@
 {
   "summary": {
-    "generated_at": "2026-05-09T23:31:35.943014+00:00",
+    "generated_at": "2026-05-09T23:42:44.718113+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 47,
-    "blocking_check_count": 45,
+    "check_count": 49,
+    "blocking_check_count": 47,
     "blocking_failed_count": 0,
     "recommended_check_count": 2,
     "recommended_failed_count": 0,
@@ -29,7 +29,7 @@
       "check_id": "ledger_has_claims",
       "severity": "blocking",
       "passed": true,
-      "detail": "claim_count=13",
+      "detail": "claim_count=14",
       "path": ""
     },
     {
@@ -43,14 +43,14 @@
       "check_id": "tool_contract_report_has_current_tables",
       "severity": "blocking",
       "passed": true,
-      "detail": "table_count=63",
+      "detail": "table_count=64",
       "path": ""
     },
     {
       "check_id": "tool_contract_report_has_current_figures",
       "severity": "blocking",
       "passed": true,
-      "detail": "figure_count=30",
+      "detail": "figure_count=31",
       "path": ""
     },
     {
@@ -115,6 +115,13 @@
       "passed": true,
       "detail": "Executed H1l visual executor-equivalence packaged-workflow packet exists with system deltas.",
       "path": "results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet/tool_contract_system_deltas.csv"
+    },
+    {
+      "check_id": "h1m_visual_alias_repeat_packet_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Executed H1m visual alias-repeat packaged-workflow packet exists with system deltas.",
+      "path": "results/knowledge_work_h1_slice/20260509T_h1m_visual_alias_repeat_candidates_v1_knowledge_work_ablation_packet/tool_contract_system_deltas.csv"
     },
     {
       "check_id": "visual_hard_slice_live_replay_comparison_exists",
@@ -234,6 +241,13 @@
       "passed": true,
       "detail": "Visual alias-repeat diagnostic report exists.",
       "path": "results/reports/visual_alias_repeat_diagnostic/diagnostic.md"
+    },
+    {
+      "check_id": "h1m_visual_alias_repeat_report_table_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H1m visual alias-repeat candidate metrics table exists in the main report.",
+      "path": "results/reports/mlx_tool_contract_harnessing/tables/h1m_visual_alias_repeat_candidate_metrics.csv"
     },
     {
       "check_id": "current_state_doc_exists",

@@ -3365,12 +3365,15 @@
   - `uv run python scripts/compare_tool_probe_replay_live_packets.py results/tool_probe_replay_live/20260509T_visual_hard_slice_live_stress_alias_repeat_no_directive_execute_v1 results/tool_probe_replay_live/20260509T_visual_hard_slice_live_stress_alias_repeat_schema_field_hints_execute_v1 --output-dir results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_repeat_schema_field_hints_vs_no_directive_v1`
   - `uv run python scripts/analyze_visual_live_stress_matrix.py --matrix alias-repeat`
 
-## 2026-05-09 - H1m Visual Alias-Repeat Packaged Scaffold
+## 2026-05-09 - H1m Visual Alias-Repeat Packaged Result
 
-- Added the packaged-workflow promotion target for the completed alias-repeat replay matrix:
+- Added and executed the packaged-workflow promotion target for the completed alias-repeat replay matrix:
   - config: [`configs/knowledge_work_h1m_slice.yaml`](../configs/knowledge_work_h1m_slice.yaml)
   - brief: [`docs/continuity/h1m-slice.md`](continuity/h1m-slice.md)
   - packaged workflow registry: [`configs/packaged_workflows.yaml`](../configs/packaged_workflows.yaml)
+  - executed packet: [`20260509T_h1m_visual_alias_repeat_candidates_v1`](../results/knowledge_work_h1_slice/20260509T_h1m_visual_alias_repeat_candidates_v1_knowledge_work_ablation_packet)
+  - generated table: [`h1m_visual_alias_repeat_candidate_metrics.csv`](../results/reports/mlx_tool_contract_harnessing/tables/h1m_visual_alias_repeat_candidate_metrics.csv)
+  - generated figure: [`h1m_visual_alias_repeat_burden.svg`](../results/reports/mlx_tool_contract_harnessing/figures/h1m_visual_alias_repeat_burden.svg)
 - New packaged workflows:
   - `executive_visual_dashboard_revision`
   - `jobs_visual_latest_issue_review`
@@ -3378,10 +3381,27 @@
 - Packet plan:
   - candidate packet: `mlx_visual_alias_repeat_packaged_candidates`
   - helper packet: `mlx_visual_alias_repeat_helper_ablation`
+- Result:
+  - contracted MLX, no-directive MLX, role catalog v1, argument hints v2, schema-field hints v4, and schema-target-literal v5 all tie
+  - readiness: `0.87783`
+  - strict/recovered: `0.75 / 0.667`
+  - repair/fallback/argument repair: `0.0 / 0.0 / 0.0`
+  - raw clean: `1.0`
 - Interpretation:
-  - H1m is not evidence yet. It is the next packaged-workflow test surface for checking whether replay-shaped alias-repeat gains survive live workflow execution.
-  - If the candidate packet saturates like H1l, record it as another negative packaged-workflow result. If it separates schema-field or schema-target-literal rows from no-directive, run the helper packet for controller attribution.
+  - H1m is evidence now, and it is negative evidence about the current packaged live surface.
+  - The replay-shaped alias-repeat matrix still separates strict protocol fidelity from executor-equivalent visual grounding, but these three packaged workflows wash out that discrimination.
+  - Do not run the H1m helper packet yet. There is no row separation for repair/fallback/argument-repair attribution to explain.
+  - The next useful visual move is either repeated alias replay, stochastic repeats, or a less staged non-packaged CLI live task that preserves alias/decoy pressure more faithfully than packaged workflows.
+- Reporting updates:
+  - generated MLX tool-contract report now has `64` tables and `31` figures
+  - publication evidence claim `C14_h1m_packaged_alias_repeat_saturates` records the negative packaged result
+  - publication readiness audit now requires the H1m packet and generated report table
 - Verification:
   - `uv run pytest tests/test_knowledge_work_h1.py::test_h1m_slice_config_maps_to_visual_alias_repeat_packet tests/test_runtime_cli.py::test_runtime_cli_lists_workflows -q`
   - `uv run moonie-agent workflows --lane live_web_stress --workflow-id executive_visual_dashboard_revision --validate`
   - `uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1m_slice.yaml --packet-id mlx_visual_alias_repeat_packaged_candidates --run-group-id 20260509T_h1m_visual_alias_repeat_candidates_dry_run_v1 --dry-run`
+  - `uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1m_slice.yaml --packet-id mlx_visual_alias_repeat_packaged_candidates --run-group-id 20260509T_h1m_visual_alias_repeat_candidates_v1`
+  - `uv run python scripts/summarize_h1_tool_contract.py results/knowledge_work_h1_slice/20260509T_h1m_visual_alias_repeat_candidates_v1_knowledge_work_ablation_packet`
+  - `uv run python scripts/build_mlx_tool_contract_report.py`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`

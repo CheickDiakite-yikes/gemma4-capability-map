@@ -55,12 +55,13 @@ Next implementation moves:
 - current replay-shaped matrix: contracted MLX is `2 / 2` strict/executor-equivalent; role catalog v1 and argument hints v2 are `1 / 2`; schema-field hints v4 is `1 / 2` strict and `2 / 2` executor-equivalent; schema target literals v5 is `0 / 2` strict and `1 / 2` executor-equivalent with a wrong-tool stale-selection miss
 - current replay-shaped stress matrix: no-directive MLX is `2 / 4` strict and `3 / 4` executor-equivalent; contracted MLX is `4 / 4`; schema-field hints v4 and schema target literals v5 are `2 / 4` strict and `4 / 4` executor-equivalent
 - alias-repeat matrix: no-directive MLX is `2 / 8` strict and `5 / 8` executor-equivalent; contracted MLX is `7 / 8` strict and `8 / 8` executor-equivalent; schema-field hints v4 is `2 / 8` strict and `7 / 8` executor-equivalent; schema target literals v5 is `3 / 8` strict and `8 / 8` executor-equivalent
-- next replay-shaped target: repeat the alias-repeat packet or package only the surviving metric-panel/callout mechanisms into a non-saturated H1m workflow
-- H1m scaffold now exists for that packaged promotion:
+- H1m packaged promotion was executed and saturated:
   - config: [`configs/knowledge_work_h1m_slice.yaml`](../../configs/knowledge_work_h1m_slice.yaml)
   - brief: [`docs/continuity/h1m-slice.md`](./h1m-slice.md)
   - candidate packet: `mlx_visual_alias_repeat_packaged_candidates`
-  - guardrail: dry-run and validate first; run helper ablation only if candidates separate
+  - executed result: all six rows tie at readiness `0.87783`, strict `0.75`, recovered `0.667`, raw clean `1.0`, and zero repair/fallback/argument-repair burden
+  - guardrail: do not run H1m helper ablation until a live surface separates rows
+- next replay-shaped target: repeat the alias-repeat packet, add stochastic/repeat estimates, or build a less staged non-packaged live visual task that preserves the alias/decoy pressure before returning to packaged H1 workflows
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1

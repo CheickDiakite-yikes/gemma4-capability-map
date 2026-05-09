@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-09T23:31:35.947481+00:00",
+    "generated_at": "2026-05-09T23:42:41.343552+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-    "claim_count": 13,
-    "evidence_source_count": 55,
+    "claim_count": 14,
+    "evidence_source_count": 58,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -18,7 +18,8 @@
       "C10_v4_exact_misses_are_executor_success_aliases",
       "C11_h1l_packaged_visual_workflows_remain_saturated",
       "C12_replay_shaped_live_preserves_visual_hard_slice_signal",
-      "C13_visual_live_stress_separates_executor_grounding_from_strict_fidelity"
+      "C13_visual_live_stress_separates_executor_grounding_from_strict_fidelity",
+      "C14_h1m_packaged_alias_repeat_saturates"
     ]
   },
   "claims": [
@@ -151,6 +152,16 @@
       "limitation": "The alias-repeat matrix is still one deterministic replay-shaped live packet, not a repeated stochastic estimate or a broad packaged workflow.",
       "next_test": "Repeat the alias-repeat packet across seeds or promote only the surviving metric-panel/callout mechanisms into a non-saturated H1m packaged workflow.",
       "source_count": 15
+    },
+    {
+      "claim_id": "C14_h1m_packaged_alias_repeat_saturates",
+      "claim": "Promoting the alias-repeat visual replay result into current packaged workflows washes out the replay discrimination.",
+      "status": "negative_result_current_packets",
+      "evidence_strength": "moderate_internal",
+      "primary_metric": "H1m candidate rows tie at readiness 0.87783, strict interface 0.75, recovered execution 0.667, raw clean 1.0, and zero controller repair/fallback/argument repair across all six visual contract rows.",
+      "limitation": "H1m rejects this staged packaged-workflow surface; it does not reject the alias-repeat replay result, which still separates strict fidelity from executor-equivalent visual grounding.",
+      "next_test": "Do not run H1m helper ablations until a packaged or non-packaged live visual surface separates; next preserve replay shape through repeated alias packets or less staged live tasks.",
+      "source_count": 3
     }
   ],
   "evidence_sources": [
@@ -537,6 +548,27 @@
       "artifact_type": "diagnostic_report",
       "path": "results/reports/visual_live_stress_diagnostic/diagnostic.md",
       "purpose": "Diagnostic report explaining strict gains, executor-only gains, and regressions across the stress matrix.",
+      "exists": true
+    },
+    {
+      "claim_id": "C14_h1m_packaged_alias_repeat_saturates",
+      "artifact_type": "h1_ablation_packet",
+      "path": "results/knowledge_work_h1_slice/20260509T_h1m_visual_alias_repeat_candidates_v1_knowledge_work_ablation_packet",
+      "purpose": "Executed H1m visual alias-repeat candidate packet showing all rows tie on packaged workflows.",
+      "exists": true
+    },
+    {
+      "claim_id": "C14_h1m_packaged_alias_repeat_saturates",
+      "artifact_type": "report_table",
+      "path": "results/reports/mlx_tool_contract_harnessing/tables/h1m_visual_alias_repeat_candidate_metrics.csv",
+      "purpose": "Generated H1m candidate metrics table in the main harnessing report.",
+      "exists": true
+    },
+    {
+      "claim_id": "C14_h1m_packaged_alias_repeat_saturates",
+      "artifact_type": "continuity_brief",
+      "path": "docs/continuity/h1m-slice.md",
+      "purpose": "H1m design brief describing the packaged workflow promotion target and helper-ablation gate.",
       "exists": true
     }
   ],

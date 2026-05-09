@@ -132,13 +132,15 @@ Current strongest MLX result:
   - alias-repeat follow-up: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_repeat_dry_run_v1`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_repeat_dry_run_v1)
   - alias-repeat diagnostic: [`results/reports/visual_alias_repeat_diagnostic/diagnostic.md`](../../results/reports/visual_alias_repeat_diagnostic/diagnostic.md)
   - alias-repeat result: no-directive `2 / 8` strict and `5 / 8` executor-equivalent; contracted MLX `7 / 8` strict and `8 / 8` executor-equivalent; schema-field hints v4 `2 / 8` strict and `7 / 8` executor-equivalent; schema-target-literal v5 `3 / 8` strict and `8 / 8` executor-equivalent
-  - status: repeat alias-repeat or package only the surviving metric-panel/callout mechanisms before H1m, not another broad prompt wording patch
-- H1m packaged promotion scaffold:
+  - status: replay-shaped signal is positive; H1m packaged promotion below shows the current packaged surface washes it out
+- H1m packaged promotion result:
   - config: [`configs/knowledge_work_h1m_slice.yaml`](../../configs/knowledge_work_h1m_slice.yaml)
   - brief: [`docs/continuity/h1m-slice.md`](./h1m-slice.md)
   - workflows: `executive_visual_dashboard_revision`, `jobs_visual_latest_issue_review`, `finance_visual_invoice_hold_review`
   - packet ids: `mlx_visual_alias_repeat_packaged_candidates`, `mlx_visual_alias_repeat_helper_ablation`
-  - status: validated and dry-run scaffolded, not executed as evidence yet
+  - executed packet: [`results/knowledge_work_h1_slice/20260509T_h1m_visual_alias_repeat_candidates_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260509T_h1m_visual_alias_repeat_candidates_v1_knowledge_work_ablation_packet)
+  - status: negative packaged-workflow result; all six rows tie at readiness `0.87783`, strict `0.75`, recovered `0.667`, raw clean `1.0`, and zero controller burden
+  - next: skip helper ablation until a visual live surface separates rows; preserve alias-repeat replay shape or make less staged non-packaged live tasks
 - the sixth prompt-contract wave is a negative composition result:
   - dry-run packet: [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run)
   - probe packet: [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe)

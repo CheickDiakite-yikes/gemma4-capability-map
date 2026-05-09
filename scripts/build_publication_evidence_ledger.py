@@ -473,6 +473,41 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C14_h1m_packaged_alias_repeat_saturates",
+        claim="Promoting the alias-repeat visual replay result into current packaged workflows washes out the replay discrimination.",
+        status="negative_result_current_packets",
+        evidence_strength="moderate_internal",
+        primary_metric=(
+            "H1m candidate rows tie at readiness 0.87783, strict interface 0.75, recovered execution 0.667, "
+            "raw clean 1.0, and zero controller repair/fallback/argument repair across all six visual contract rows."
+        ),
+        limitation=(
+            "H1m rejects this staged packaged-workflow surface; it does not reject the alias-repeat replay result, "
+            "which still separates strict fidelity from executor-equivalent visual grounding."
+        ),
+        next_test=(
+            "Do not run H1m helper ablations until a packaged or non-packaged live visual surface separates; "
+            "next preserve replay shape through repeated alias packets or less staged live tasks."
+        ),
+        sources=(
+            EvidenceSource(
+                "h1_ablation_packet",
+                "results/knowledge_work_h1_slice/20260509T_h1m_visual_alias_repeat_candidates_v1_knowledge_work_ablation_packet",
+                "Executed H1m visual alias-repeat candidate packet showing all rows tie on packaged workflows.",
+            ),
+            EvidenceSource(
+                "report_table",
+                "results/reports/mlx_tool_contract_harnessing/tables/h1m_visual_alias_repeat_candidate_metrics.csv",
+                "Generated H1m candidate metrics table in the main harnessing report.",
+            ),
+            EvidenceSource(
+                "continuity_brief",
+                "docs/continuity/h1m-slice.md",
+                "H1m design brief describing the packaged workflow promotion target and helper-ablation gate.",
+            ),
+        ),
+    ),
 )
 
 

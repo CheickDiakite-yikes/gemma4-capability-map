@@ -69,6 +69,8 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 
 ![H1l visual executor-equivalence burden](../../results/reports/mlx_tool_contract_harnessing/figures/h1l_visual_executor_equivalence_burden.svg)
 
+![H1m visual alias-repeat burden](../../results/reports/mlx_tool_contract_harnessing/figures/h1m_visual_alias_repeat_burden.svg)
+
 ![Exact probe replay gap](../../results/reports/mlx_tool_contract_harnessing/figures/exact_probe_replay_gap.svg)
 
 ![Focused exact replay gaps](../../results/reports/mlx_tool_contract_harnessing/figures/exact_probe_replay_focus_gap.svg)
@@ -826,6 +828,23 @@ Result:
 
 The result is negative but useful. Schema-field hints v4 still matter on the hard slice because they separate strict exactness from executor-equivalent target success, but current packaged visual workflows are too staged to preserve that distinction. The H1l helper packet should wait until a visual live surface separates at least one candidate row.
 
+## H1m Visual Alias-Repeat Candidate Packet
+
+H1m tests whether the harder eight-case visual alias-repeat replay signal survives a narrower packaged visual workflow set:
+
+- config: [`configs/knowledge_work_h1m_slice.yaml`](../../configs/knowledge_work_h1m_slice.yaml)
+- packet: [`results/knowledge_work_h1_slice/20260509T_h1m_visual_alias_repeat_candidates_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260509T_h1m_visual_alias_repeat_candidates_v1_knowledge_work_ablation_packet)
+- generated table: [`h1m_visual_alias_repeat_candidate_metrics.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/h1m_visual_alias_repeat_candidate_metrics.csv)
+- generated figure: [`h1m_visual_alias_repeat_burden.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/h1m_visual_alias_repeat_burden.svg)
+
+Result:
+
+| Rows | Workflows per row | Readiness | Strict/recovered | Repair/fallback/arg repair | Raw clean |
+| ---: | ---: | ---: | ---: | ---: | ---: |
+| `6` | `3` | `0.87783` | `0.75 / 0.667` | `0.0 / 0.0 / 0.0` | `1.0` |
+
+This is the second packaged visual saturation result after H1l. It matters because it prevents an overclaim: the alias-repeat replay matrix separates rows, but the current packaged workflows do not. The correct next move is not H1m helper ablation; there is no candidate separation to attribute. The next visual evidence should preserve replay shape, repeat alias cases, or use a less staged CLI live task.
+
 ## Gemini CLI Baseline Status
 
 The Gemini CLI adapter is currently a dry-run external baseline, not a replacement for Moonie. The packet uses the same H1h workflow families and records prompt/command artifacts without external side effects:
@@ -867,11 +886,11 @@ Use this order before broad `32 / 26` reruns:
 1. Treat `visual_role_catalog_argument_hints_v2` as the best exact candidate on the original focused visual replay, not as the overall visual answer.
 2. Treat `visual_role_catalog_schema_field_hints_v4` as the best fresh hard-slice no-directive profile because it reaches `8 / 8` executor-equivalent target success, while still missing exact protocol on two cases.
 3. Treat `visual_role_catalog_schema_literal_targets_v5` as negative evidence: it drops to `5 / 8` strict exactness and `7 / 8` executor-equivalent target success while adding a wrong-tool stale-selection regression.
-4. Use executor-equivalence beside strict exactness as the gate fixture for a packaged H1 visual workflow.
+4. Treat H1l and H1m as negative packaged-workflow results: current packaged visual workflows wash out hard-slice and alias-repeat row separation.
 5. Treat `visual_role_catalog_v1` as the stable routing baseline, `visual_state_tool_selection_v4` as a failed-to-improve live candidate, `visual_refine_selection_v5` as a raw-gate rejection, and the v6 catalog-plus-literal-guard composition as negative interference.
 6. Stop iterating on standalone visual prompt rules unless the next idea changes tool-catalog role shape or generation-time argument copying without sacrificing protocol entry.
 7. Keep canonical JSON copy and parallel two-call wording out of H1 as currently written; they did not earn live promotion.
-8. H1h only after replay-live, raw probe, or hard-slice evidence shows a mechanism-level change.
+8. H1h only after replay-live, raw probe, hard-slice, or less staged live evidence shows a mechanism-level change.
 9. Gemini CLI real execution only when the binary/run environment is explicitly meant to be part of the comparison.
 10. Runtime live-smoke packets after benchmark movement, to confirm the CLI operator path sees the same repair/fallback pattern.
 

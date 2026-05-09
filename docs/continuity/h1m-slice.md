@@ -34,3 +34,24 @@ Interpretation guardrail:
 - If all rows tie again, record H1m as a saturated packaged-workflow negative result and return to replay-shaped or raw hard-slice evidence.
 - If schema-field or schema target literals separate from no-directive, run `mlx_visual_alias_repeat_helper_ablation` to attribute controller repair, fallback, and argument repair.
 - Strict protocol fidelity and executor-equivalent visual success must remain separate endpoints.
+
+## Executed Result
+
+H1m was executed as `20260509T_h1m_visual_alias_repeat_candidates_v1`.
+
+- packet: [`results/knowledge_work_h1_slice/20260509T_h1m_visual_alias_repeat_candidates_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260509T_h1m_visual_alias_repeat_candidates_v1_knowledge_work_ablation_packet)
+- generated table: [`results/reports/mlx_tool_contract_harnessing/tables/h1m_visual_alias_repeat_candidate_metrics.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/h1m_visual_alias_repeat_candidate_metrics.csv)
+- generated figure: [`results/reports/mlx_tool_contract_harnessing/figures/h1m_visual_alias_repeat_burden.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/h1m_visual_alias_repeat_burden.svg)
+
+All six candidate rows tied:
+
+| Rows | Workflows per row | Readiness | Strict/recovered | Repair/fallback/arg repair | Raw clean |
+| ---: | ---: | ---: | ---: | ---: | ---: |
+| `6` | `3` | `0.87783` | `0.75 / 0.667` | `0.0 / 0.0 / 0.0` | `1.0` |
+
+Interpretation:
+
+- H1m is a negative packaged-workflow result.
+- The alias-repeat replay matrix still carries the best current visual signal, but this staged packaged surface washes out the row-level differences.
+- Do not run `mlx_visual_alias_repeat_helper_ablation` until a future live visual surface separates candidate rows.
+- The next useful move is a replay repeat, a stochastic/repeated alias packet, or a less staged non-packaged CLI live visual task.

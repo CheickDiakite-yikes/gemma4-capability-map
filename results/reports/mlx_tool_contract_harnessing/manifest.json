@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-09T23:28:14.323116+00:00",
+  "generated_at": "2026-05-09T23:42:41.320380+00:00",
   "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/mlx_tool_contract_harnessing",
   "source_packets": {
     "H1f compact": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1f_mlx_no_directive_v1_knowledge_work_h1f_mlx_tool_contract_ablation_v1",
@@ -35,6 +35,7 @@
   "h1k_parallel_audit_packet": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_candidates_v1_knowledge_work_ablation_packet",
   "h1k_parallel_audit_helper_packet": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_helpers_v1_knowledge_work_ablation_packet",
   "h1l_visual_executor_equivalence_packet": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet",
+  "h1m_visual_alias_repeat_packet": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260509T_h1m_visual_alias_repeat_candidates_v1_knowledge_work_ablation_packet",
   "exact_replay_comparison": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_comparisons/20260507T_contracted_vs_no_directive_exact_replay_v1",
   "visual_replay_comparison": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_comparisons/20260507T_visual_state_contracted_vs_no_directive_v1",
   "parallel_replay_comparison": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_comparisons/20260507T_parallel_array_contracted_vs_no_directive_v1",
@@ -70,6 +71,6 @@
   "visual_hard_slice_alias_repeat_schema_field_hints_live_comparison": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_repeat_schema_field_hints_vs_no_directive_v1",
   "visual_hard_slice_alias_repeat_schema_literal_targets_live_comparison": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_repeat_schema_literal_targets_vs_no_directive_v1",
   "registry_path": "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
-  "table_count": 63,
-  "figure_count": 30
+  "table_count": 64,
+  "figure_count": 31
 }

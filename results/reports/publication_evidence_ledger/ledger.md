@@ -4,9 +4,9 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 
 ## Manifest
 
-- generated_at: `2026-05-09T23:31:35.947481+00:00`
-- claim_count: `13`
-- evidence_source_count: `55`
+- generated_at: `2026-05-09T23:42:41.343552+00:00`
+- claim_count: `14`
+- evidence_source_count: `58`
 - missing_source_count: `0`
 
 ## Claims
@@ -26,6 +26,7 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C11_h1l_packaged_visual_workflows_remain_saturated | negative_result_current_packets | moderate_internal | H1l candidate rows tie at readiness 0.90406, strict interface 0.85, recovered execution 0.8, raw clean 1.0, and zero controller repair/fallback/argument repair. | H1l uses existing staged packaged workflows, so it can reject this packaged surface without rejecting the hard-slice executor-equivalence signal. | Preserve the hard-slice or exact-replay shape more faithfully in live operator execution before spending H1l helper-ablation budget. |
 | C12_replay_shaped_live_preserves_visual_hard_slice_signal | supported_current_packets | moderate_internal | On the two preserved no-directive visual hard-slice failures, no-directive is 0/2 strict and 0/2 executor-equivalent; contracted MLX is 2/2 strict and executor-equivalent; schema-field hints is the strongest no-directive row at 1/2 strict and 2/2 executor-equivalent. | The live replay matrix covers the two preserved no-directive hard-slice failures, not the full eight-case hard-slice candidate matrix. | Build a second replay-shaped live slice that repeats the executor-alias and stale-selection cases under harder decoys before returning to packaged H1 workflows. |
 | C13_visual_live_stress_separates_executor_grounding_from_strict_fidelity | supported_current_packets | moderate_internal | On four fresh stress cases, no-directive MLX is 2/4 strict and 3/4 executor-equivalent; contracted MLX is 4/4 strict and executor-equivalent; schema-field hints and schema target literals are 2/4 strict but 4/4 executor-equivalent. On the 8-case alias-repeat follow-up, schema-field hints matches no-directive at 2/8 strict but improves executor-equivalence from 5/8 to 7/8, while schema target literals reach 3/8 strict and 8/8 executor-equivalent. | The alias-repeat matrix is still one deterministic replay-shaped live packet, not a repeated stochastic estimate or a broad packaged workflow. | Repeat the alias-repeat packet across seeds or promote only the surviving metric-panel/callout mechanisms into a non-saturated H1m packaged workflow. |
+| C14_h1m_packaged_alias_repeat_saturates | negative_result_current_packets | moderate_internal | H1m candidate rows tie at readiness 0.87783, strict interface 0.75, recovered execution 0.667, raw clean 1.0, and zero controller repair/fallback/argument repair across all six visual contract rows. | H1m rejects this staged packaged-workflow surface; it does not reject the alias-repeat replay result, which still separates strict fidelity from executor-equivalent visual grounding. | Do not run H1m helper ablations until a packaged or non-packaged live visual surface separates; next preserve replay shape through repeated alias packets or less staged live tasks. |
 
 ## Evidence Sources
 
@@ -86,3 +87,6 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C13_visual_live_stress_separates_executor_grounding_from_strict_fidelity | report_table | True | results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_repeat_live_replay_summary.csv | Report table summarizing the completed alias-repeat replay matrix. |
 | C13_visual_live_stress_separates_executor_grounding_from_strict_fidelity | diagnostic_report | True | results/reports/visual_alias_repeat_diagnostic/diagnostic.md | Diagnostic report classifying strict gains, executor-only gains, and regressions on the alias-repeat matrix. |
 | C13_visual_live_stress_separates_executor_grounding_from_strict_fidelity | diagnostic_report | True | results/reports/visual_live_stress_diagnostic/diagnostic.md | Diagnostic report explaining strict gains, executor-only gains, and regressions across the stress matrix. |
+| C14_h1m_packaged_alias_repeat_saturates | h1_ablation_packet | True | results/knowledge_work_h1_slice/20260509T_h1m_visual_alias_repeat_candidates_v1_knowledge_work_ablation_packet | Executed H1m visual alias-repeat candidate packet showing all rows tie on packaged workflows. |
+| C14_h1m_packaged_alias_repeat_saturates | report_table | True | results/reports/mlx_tool_contract_harnessing/tables/h1m_visual_alias_repeat_candidate_metrics.csv | Generated H1m candidate metrics table in the main harnessing report. |
+| C14_h1m_packaged_alias_repeat_saturates | continuity_brief | True | docs/continuity/h1m-slice.md | H1m design brief describing the packaged workflow promotion target and helper-ablation gate. |
