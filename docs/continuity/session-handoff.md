@@ -127,7 +127,9 @@ Current strongest MLX result:
   - source packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_no_directive_replay_dry_run_v1`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_no_directive_replay_dry_run_v1)
   - summary table: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_live_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_live_replay_summary.csv)
   - result: no-directive `0 / 2`; contracted MLX `2 / 2`; role catalog v1 and argument hints v2 `1 / 2`; schema-field hints v4 `1 / 2` strict and `2 / 2` executor-equivalent; schema-target-literal v5 `0 / 2` strict and `1 / 2` executor-equivalent
-  - status: next best move is a harder replay-shaped slice with repeated decoys, not another broad prompt wording patch
+  - stress follow-up: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_dry_run_v1`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_dry_run_v1)
+  - stress result: no-directive `2 / 4` strict and `3 / 4` executor-equivalent; contracted MLX `4 / 4`; schema-field hints v4 and schema-target-literal v5 `2 / 4` strict and `4 / 4` executor-equivalent
+  - status: next best move is more alias/decoy repetition before H1m, not another broad prompt wording patch
 - the sixth prompt-contract wave is a negative composition result:
   - dry-run packet: [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run)
   - probe packet: [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe)

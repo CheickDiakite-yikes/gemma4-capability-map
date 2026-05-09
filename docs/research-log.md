@@ -3272,7 +3272,7 @@
 - Interpretation:
   - H1l's packaged-workflow saturation was not the final word on the v4 result. It showed that the current packaged visual workflows are too staged. The replay-shaped CLI-live result shows the same hard-slice signal survives in the operator path when the raw case shape is preserved.
   - This is now the best evidence that v4 is a real harnessing improvement for local MLX visual execution, but the improvement target is executor-equivalent visual grounding, not full strict protocol fidelity.
-  - The next experiment should not be another broad prompt wording patch. It should build a harder replay-shaped live slice from the executor-alias and stale-selection cases, with repeated decoys that test whether v4's executor-equivalent behavior remains stable.
+  - The next experiment should not be another broad prompt wording patch. The follow-up stress slice now repeats the executor-alias and stale-selection cases with fresh decoys; the remaining useful extension is more alias/decoy repetition before any H1m packaged workflow.
 - Reporting updates:
   - live replay packets now carry executor-equivalence counts/rates beside strict exactness and executable match
   - live replay comparisons now carry per-case executor-equivalence deltas
@@ -3293,3 +3293,30 @@
   - `uv run python scripts/compare_tool_probe_replay_live_packets.py results/tool_probe_replay_live/20260509T_visual_hard_slice_no_directive_hard_replay_live_execute_v2 results/tool_probe_replay_live/20260509T_visual_hard_slice_schema_literal_targets_hard_replay_live_execute_v1 --output-dir results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_schema_literal_targets_vs_no_directive_live_v1`
   - `uv run python scripts/build_mlx_tool_contract_report.py`
   - `uv run pytest tests/test_mlx_tool_contract_report.py tests/test_tool_probe_replay_live_comparison.py -q`
+
+## 2026-05-09 - Visual Hard-Slice Stress CLI-Live Matrix
+
+- Built the next replay-shaped visual stress packet from the two mechanisms exposed by the preserved hard-slice replay:
+  - builder: [`scripts/build_visual_hard_slice_live_stress_packet.py`](../scripts/build_visual_hard_slice_live_stress_packet.py)
+  - source packet: [`20260509T_visual_hard_slice_live_stress_dry_run_v1`](../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_dry_run_v1)
+  - no-directive live baseline: [`20260509T_visual_hard_slice_live_stress_no_directive_execute_v1`](../results/tool_probe_replay_live/20260509T_visual_hard_slice_live_stress_no_directive_execute_v1)
+  - contracted live upper bound: [`20260509T_visual_hard_slice_live_stress_contracted_execute_v1`](../results/tool_probe_replay_live/20260509T_visual_hard_slice_live_stress_contracted_execute_v1)
+  - report table: [`visual_hard_slice_stress_live_replay_summary.csv`](../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_stress_live_replay_summary.csv)
+  - report figure: [`visual_hard_slice_stress_live_replay_gate.svg`](../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_stress_live_replay_gate.svg)
+- Result:
+  - no-directive MLX: strict `2 / 4`, executable/executor-equivalent `3 / 4`
+  - contracted MLX: strict/executable/executor-equivalent `4 / 4`
+  - role catalog v1: strict `1 / 4`, executor-equivalent `2 / 4`; this row regresses relative to no-directive on the warning stale-selection decoy
+  - argument hints v2: strict `2 / 4`, executor-equivalent `3 / 4`; tied with no-directive on this stress packet
+  - schema-field hints v4: strict `2 / 4`, executor-equivalent `4 / 4`
+  - schema target literals v5: strict `2 / 4`, executor-equivalent `4 / 4`
+- Interpretation:
+  - The stress slice is deliberately harder than the preserved two-case slice but less decisive than the original hard-slice probe. It shows no-directive MLX can solve the stale-selection cases without help, while the remaining difference concentrates on a metric-panel alias/decoy case.
+  - The main finding survives in a more nuanced form: schema-local catalog hints do not improve strict JSON fidelity over no-directive on this stress packet, but they do recover executor-visible target success on the hardest metric-panel case.
+  - This strengthens the paper framing that strict protocol fidelity and executor target success must be reported separately. It also makes the next move clearer: add more metric-panel/callout alias cases and repeats before promoting anything to H1m packaged workflows.
+- Verification:
+  - `uv run pytest tests/test_visual_hard_slice_live_stress_packet.py tests/test_tool_probe_replay_live.py::test_tool_probe_replay_live_loads_packet_serialized_custom_cases -q`
+  - `uv run python scripts/build_visual_hard_slice_live_stress_packet.py --run-group-id 20260509T_visual_hard_slice_live_stress_dry_run_v1`
+  - `uv run moonie-agent replay-live --packet-id 20260509T_visual_hard_slice_live_stress_dry_run_v1 --output-dir results/tool_probe_replay_live/20260509T_visual_hard_slice_live_stress_no_directive_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive --execute --json`
+  - `uv run moonie-agent replay-live --packet-id 20260509T_visual_hard_slice_live_stress_dry_run_v1 --output-dir results/tool_probe_replay_live/20260509T_visual_hard_slice_live_stress_schema_field_hints_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints --execute --json`
+  - `uv run python scripts/build_mlx_tool_contract_report.py`

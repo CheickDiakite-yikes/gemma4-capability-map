@@ -4,9 +4,9 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 
 ## Manifest
 
-- generated_at: `2026-05-09T22:57:46.942019+00:00`
-- claim_count: `12`
-- evidence_source_count: `40`
+- generated_at: `2026-05-09T23:09:57.888816+00:00`
+- claim_count: `13`
+- evidence_source_count: `46`
 - missing_source_count: `0`
 
 ## Claims
@@ -25,6 +25,7 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C10_v4_exact_misses_are_executor_success_aliases | supported_current_packets | moderate_internal | v4 has 2/8 non-exact rows, both executor-target matches; first-class executor-equivalence scores v4 at 8/8 while benchmark-label artifact candidate count is 2 and true harness failure count is 0. | This does not prove every visual selector paraphrase is acceptable; it only classifies the current hard-slice v4 misses under the local deterministic executor. | Use the executor-equivalence score to design a packaged H1 visual workflow that separates executor success from strict protocol fidelity. |
 | C11_h1l_packaged_visual_workflows_remain_saturated | negative_result_current_packets | moderate_internal | H1l candidate rows tie at readiness 0.90406, strict interface 0.85, recovered execution 0.8, raw clean 1.0, and zero controller repair/fallback/argument repair. | H1l uses existing staged packaged workflows, so it can reject this packaged surface without rejecting the hard-slice executor-equivalence signal. | Preserve the hard-slice or exact-replay shape more faithfully in live operator execution before spending H1l helper-ablation budget. |
 | C12_replay_shaped_live_preserves_visual_hard_slice_signal | supported_current_packets | moderate_internal | On the two preserved no-directive visual hard-slice failures, no-directive is 0/2 strict and 0/2 executor-equivalent; contracted MLX is 2/2 strict and executor-equivalent; schema-field hints is the strongest no-directive row at 1/2 strict and 2/2 executor-equivalent. | The live replay matrix covers the two preserved no-directive hard-slice failures, not the full eight-case hard-slice candidate matrix. | Build a second replay-shaped live slice that repeats the executor-alias and stale-selection cases under harder decoys before returning to packaged H1 workflows. |
+| C13_visual_live_stress_separates_executor_grounding_from_strict_fidelity | supported_current_packets | moderate_internal | On four fresh stress cases, no-directive MLX is 2/4 strict and 3/4 executor-equivalent; contracted MLX is 4/4 strict and executor-equivalent; schema-field hints and schema target literals are 2/4 strict but 4/4 executor-equivalent. | This is still a four-case replay-shaped live slice, not a broad packaged workflow or repeated stochastic estimate. | Repeat the stress replay with additional metric-panel decoys and then decide whether to promote the surviving cases into an H1m packaged workflow. |
 
 ## Evidence Sources
 
@@ -70,3 +71,9 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C12_replay_shaped_live_preserves_visual_hard_slice_signal | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_schema_field_hints_vs_no_directive_live_v2 | Replay-shaped CLI-live comparison showing schema-field hints recovers executor-equivalent target success over no-directive. |
 | C12_replay_shaped_live_preserves_visual_hard_slice_signal | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_schema_literal_targets_vs_no_directive_live_v1 | Replay-shaped CLI-live comparison showing schema target literals v5 remain negative on strict exactness and introduce a wrong-tool stale-selection miss. |
 | C12_replay_shaped_live_preserves_visual_hard_slice_signal | report_table | True | results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_live_replay_summary.csv | Report table summarizing exact, executable, and executor-equivalence live replay deltas. |
+| C13_visual_live_stress_separates_executor_grounding_from_strict_fidelity | tool_probe_replay_packet | True | results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_dry_run_v1 | Designed stress replay packet with fresh metric-panel alias and stale-selection decoy cases. |
+| C13_visual_live_stress_separates_executor_grounding_from_strict_fidelity | live_replay_packet | True | results/tool_probe_replay_live/20260509T_visual_hard_slice_live_stress_no_directive_execute_v1 | No-directive MLX stress replay baseline. |
+| C13_visual_live_stress_separates_executor_grounding_from_strict_fidelity | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_contracted_vs_no_directive_v1 | Stress replay comparison showing contracted MLX remains the strict and executor-equivalent upper bound. |
+| C13_visual_live_stress_separates_executor_grounding_from_strict_fidelity | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_schema_field_hints_vs_no_directive_v1 | Stress replay comparison showing schema-field hints recover executor-equivalence without strict exactness gain. |
+| C13_visual_live_stress_separates_executor_grounding_from_strict_fidelity | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_schema_literal_targets_vs_no_directive_v1 | Stress replay comparison showing schema target literals match the executor-equivalence gain but not strict fidelity. |
+| C13_visual_live_stress_separates_executor_grounding_from_strict_fidelity | report_table | True | results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_stress_live_replay_summary.csv | Report table summarizing exact, executable, and executor-equivalence stress replay deltas. |

@@ -59,13 +59,13 @@ def audit_publication_readiness(
         _check_bool(
             check_id="tool_contract_report_has_current_tables",
             severity="blocking",
-            passed=int(report_manifest.get("table_count", 0) or 0) >= 59,
+            passed=int(report_manifest.get("table_count", 0) or 0) >= 61,
             detail=f"table_count={report_manifest.get('table_count', '')}",
         ),
         _check_bool(
             check_id="tool_contract_report_has_current_figures",
             severity="blocking",
-            passed=int(report_manifest.get("figure_count", 0) or 0) >= 28,
+            passed=int(report_manifest.get("figure_count", 0) or 0) >= 29,
             detail=f"figure_count={report_manifest.get('figure_count', '')}",
         ),
         _check_path(
@@ -188,6 +188,37 @@ def audit_publication_readiness(
             / "20260509T_visual_hard_slice_schema_literal_targets_vs_no_directive_live_v1"
             / "live_replay_comparison.json",
             detail="Replay-shaped visual hard-slice CLI-live schema-target-literal comparison exists.",
+        ),
+        _check_path(
+            check_id="visual_hard_slice_stress_packet_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_packets"
+            / "20260509T_visual_hard_slice_live_stress_dry_run_v1"
+            / "replay_cases.json",
+            detail="Designed visual hard-slice stress replay packet exists.",
+        ),
+        _check_path(
+            check_id="visual_hard_slice_stress_schema_field_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260509T_visual_hard_slice_live_stress_schema_field_hints_vs_no_directive_v1"
+            / "live_replay_comparison.json",
+            detail="Visual hard-slice stress schema-field live replay comparison exists.",
+        ),
+        _check_path(
+            check_id="visual_hard_slice_stress_report_table_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "mlx_tool_contract_harnessing"
+            / "tables"
+            / "visual_hard_slice_stress_live_replay_summary.csv",
+            detail="Visual hard-slice stress live replay summary table exists in the main report.",
         ),
         _check_path(
             check_id="current_state_doc_exists",

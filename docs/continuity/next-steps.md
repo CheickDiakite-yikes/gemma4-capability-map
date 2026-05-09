@@ -53,7 +53,8 @@ Next implementation moves:
 - treat replay-shaped CLI-live packets as the active discriminator when packaged workflows are saturated
 - use [`scripts/build_visual_hard_slice_replay_packet.py`](../../scripts/build_visual_hard_slice_replay_packet.py) to preserve hard-slice visual cases for `moonie-agent replay-live`
 - current replay-shaped matrix: contracted MLX is `2 / 2` strict/executor-equivalent; role catalog v1 and argument hints v2 are `1 / 2`; schema-field hints v4 is `1 / 2` strict and `2 / 2` executor-equivalent; schema target literals v5 is `0 / 2` strict and `1 / 2` executor-equivalent with a wrong-tool stale-selection miss
-- next replay-shaped target: repeat the executor-alias and stale-selection cases under harder decoys before returning to packaged H1-style workflows
+- current replay-shaped stress matrix: no-directive MLX is `2 / 4` strict and `3 / 4` executor-equivalent; contracted MLX is `4 / 4`; schema-field hints v4 and schema target literals v5 are `2 / 4` strict and `4 / 4` executor-equivalent
+- next replay-shaped target: add more metric-panel/callout alias decoys and repeats before returning to packaged H1-style workflows
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1
@@ -186,7 +187,9 @@ What remains:
     - argument hints v2: exact/executable/executor-equivalent `1 / 2`
     - schema-field hints v4: exact `1 / 2`, executable/executor-equivalent `2 / 2`
     - schema target literals v5: exact `0 / 2`, executable/executor-equivalent `1 / 2`
-  - next best move: build a harder replay-shaped visual live slice that repeats `visual_metric_panel_vs_table_selector` and `visual_form_error_with_prior_selection_decoy` under fresh decoys, then rerun the same matrix before spending another packaged H1 slice
+  - completed stress packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_dry_run_v1`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_dry_run_v1)
+  - stress result table: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_stress_live_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_stress_live_replay_summary.csv)
+  - stress interpretation: schema-field hints v4 and schema target literals v5 recover full executor-equivalence on the metric-panel stress case without increasing strict exactness over no-directive. The next best move is more alias/decoy repetition, not H1m yet.
 
 - second prompt-contract wave now exists:
   - contracts: `schema_literal_tool_required_v2`, `visual_next_call_state_v2`, `parallel_array_required_v2`

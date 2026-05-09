@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-09T22:57:46.942019+00:00",
+    "generated_at": "2026-05-09T23:09:57.888816+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-    "claim_count": 12,
-    "evidence_source_count": 40,
+    "claim_count": 13,
+    "evidence_source_count": 46,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -17,7 +17,8 @@
       "C9_schema_literal_targets_v5_is_negative_evidence",
       "C10_v4_exact_misses_are_executor_success_aliases",
       "C11_h1l_packaged_visual_workflows_remain_saturated",
-      "C12_replay_shaped_live_preserves_visual_hard_slice_signal"
+      "C12_replay_shaped_live_preserves_visual_hard_slice_signal",
+      "C13_visual_live_stress_separates_executor_grounding_from_strict_fidelity"
     ]
   },
   "claims": [
@@ -140,6 +141,16 @@
       "limitation": "The live replay matrix covers the two preserved no-directive hard-slice failures, not the full eight-case hard-slice candidate matrix.",
       "next_test": "Build a second replay-shaped live slice that repeats the executor-alias and stale-selection cases under harder decoys before returning to packaged H1 workflows.",
       "source_count": 7
+    },
+    {
+      "claim_id": "C13_visual_live_stress_separates_executor_grounding_from_strict_fidelity",
+      "claim": "A harder visual live stress replay preserves the executor-grounding advantage of schema-local catalog hints without improving strict protocol fidelity.",
+      "status": "supported_current_packets",
+      "evidence_strength": "moderate_internal",
+      "primary_metric": "On four fresh stress cases, no-directive MLX is 2/4 strict and 3/4 executor-equivalent; contracted MLX is 4/4 strict and executor-equivalent; schema-field hints and schema target literals are 2/4 strict but 4/4 executor-equivalent.",
+      "limitation": "This is still a four-case replay-shaped live slice, not a broad packaged workflow or repeated stochastic estimate.",
+      "next_test": "Repeat the stress replay with additional metric-panel decoys and then decide whether to promote the surviving cases into an H1m packaged workflow.",
+      "source_count": 6
     }
   ],
   "evidence_sources": [
@@ -421,6 +432,48 @@
       "artifact_type": "report_table",
       "path": "results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_live_replay_summary.csv",
       "purpose": "Report table summarizing exact, executable, and executor-equivalence live replay deltas.",
+      "exists": true
+    },
+    {
+      "claim_id": "C13_visual_live_stress_separates_executor_grounding_from_strict_fidelity",
+      "artifact_type": "tool_probe_replay_packet",
+      "path": "results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_dry_run_v1",
+      "purpose": "Designed stress replay packet with fresh metric-panel alias and stale-selection decoy cases.",
+      "exists": true
+    },
+    {
+      "claim_id": "C13_visual_live_stress_separates_executor_grounding_from_strict_fidelity",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260509T_visual_hard_slice_live_stress_no_directive_execute_v1",
+      "purpose": "No-directive MLX stress replay baseline.",
+      "exists": true
+    },
+    {
+      "claim_id": "C13_visual_live_stress_separates_executor_grounding_from_strict_fidelity",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_contracted_vs_no_directive_v1",
+      "purpose": "Stress replay comparison showing contracted MLX remains the strict and executor-equivalent upper bound.",
+      "exists": true
+    },
+    {
+      "claim_id": "C13_visual_live_stress_separates_executor_grounding_from_strict_fidelity",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_schema_field_hints_vs_no_directive_v1",
+      "purpose": "Stress replay comparison showing schema-field hints recover executor-equivalence without strict exactness gain.",
+      "exists": true
+    },
+    {
+      "claim_id": "C13_visual_live_stress_separates_executor_grounding_from_strict_fidelity",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_schema_literal_targets_vs_no_directive_v1",
+      "purpose": "Stress replay comparison showing schema target literals match the executor-equivalence gain but not strict fidelity.",
+      "exists": true
+    },
+    {
+      "claim_id": "C13_visual_live_stress_separates_executor_grounding_from_strict_fidelity",
+      "artifact_type": "report_table",
+      "path": "results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_stress_live_replay_summary.csv",
+      "purpose": "Report table summarizing exact, executable, and executor-equivalence stress replay deltas.",
       "exists": true
     }
   ],

@@ -451,7 +451,26 @@ The packaged H1l visual workflows saturated, so the live operator path now prese
 | schema-field hints v4 | `+0.5` | `+1.0` | `+1.0` | strongest no-directive row; one strict hit plus one executor-equivalent selector alias |
 | schema target literals v5 | `0.0` | `+0.5` | `+0.5` | negative strict result; stale-selection decoy becomes wrong-tool |
 
-This is the cleanest live evidence so far that the schema-field catalog helps local MLX visual grounding without fully replacing the final tool-turn directive. The next useful move is a harder replay-shaped live slice with fresh decoys around the same two mechanisms, not another broad wording repair.
+This is the cleanest live evidence so far that the schema-field catalog helps local MLX visual grounding without fully replacing the final tool-turn directive.
+
+## Visual Hard-Slice Stress CLI-Live Replay Matrix
+
+The follow-up stress packet repeats the same mechanisms with four fresh decoys:
+
+- stress replay packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_dry_run_v1`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_dry_run_v1)
+- generated summary table: [`visual_hard_slice_stress_live_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_stress_live_replay_summary.csv)
+- generated case table: [`visual_hard_slice_stress_live_replay_case_deltas.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_stress_live_replay_case_deltas.csv)
+- generated figure: [`visual_hard_slice_stress_live_replay_gate.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_stress_live_replay_gate.svg)
+
+| Stress row vs no-directive | Exact delta | Executable delta | Executor-eq delta | Interpretation |
+| --- | ---: | ---: | ---: | --- |
+| contracted MLX | `+0.5` | `+0.25` | `+0.25` | strict upper bound, `4 / 4` |
+| visual role catalog v1 | `-0.25` | `-0.25` | `-0.25` | regresses on a stale-selection warning decoy |
+| argument hints v2 | `0.0` | `0.0` | `0.0` | tied with no-directive |
+| schema-field hints v4 | `0.0` | `+0.25` | `+0.25` | recovers executor-equivalence on the hardest metric-panel decoy |
+| schema target literals v5 | `0.0` | `+0.25` | `+0.25` | same executor-equivalence gain as v4, still no strict gain |
+
+This makes the research conclusion more precise: schema-local visual catalog hints improve executor-visible grounding on alias-heavy metric panels, but strict JSON/canonical-label fidelity still belongs to the full contracted MLX profile. The next useful move is additional alias/decoy repetition before packaging an H1m workflow.
 
 ## Prompt-Contract Wave Six Probe Gate
 

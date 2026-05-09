@@ -367,6 +367,14 @@ Latest MLX tool-contract research:
     - role catalog v1 and argument hints v2: strict/executable/executor-equivalent `1 / 2`
     - schema-field hints v4: strict `1 / 2`, executable/executor-equivalent `2 / 2`
     - schema target literals v5: strict `0 / 2`, executable/executor-equivalent `1 / 2`, with a wrong-tool stale-selection miss
+  - replay-shaped visual stress live matrix:
+    - source packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_dry_run_v1`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_dry_run_v1)
+    - summary table: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_stress_live_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_stress_live_replay_summary.csv)
+    - no-directive MLX: strict `2 / 4`, executor-equivalent `3 / 4`
+    - contracted MLX: strict/executor-equivalent `4 / 4`
+    - role catalog v1: strict `1 / 4`, executor-equivalent `2 / 4`
+    - argument hints v2: strict `2 / 4`, executor-equivalent `3 / 4`
+    - schema-field hints v4 and schema target literals v5: strict `2 / 4`, executor-equivalent `4 / 4`
   - interpretation: this is not a packaged live workflow yet; it is the stable raw-contract replay artifact that should drive the next live discriminator. The new `moonie-agent replay-live` command is the first CLI bridge for watching these exact cases without converting them into easier staged workflows.
 - Focused canonical-argument replay:
   - no-directive packet: [`results/tool_probe_replay_packets/20260507T_canonical_argument_exact_replay_no_directive_v1`](../../results/tool_probe_replay_packets/20260507T_canonical_argument_exact_replay_no_directive_v1)
@@ -424,11 +432,12 @@ Current generated research report:
 - visual hard-slice case deltas vs contracted: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_case_deltas_vs_contracted.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_case_deltas_vs_contracted.csv)
 - visual hard-slice probe gate figure: [`results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_probe_gate.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_probe_gate.svg)
 - visual hard-slice live replay gate figure: [`results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_live_replay_gate.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_live_replay_gate.svg)
+- visual hard-slice stress live replay gate figure: [`results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_stress_live_replay_gate.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_stress_live_replay_gate.svg)
 - publication evidence ledger: [`results/reports/publication_evidence_ledger/ledger.md`](../../results/reports/publication_evidence_ledger/ledger.md)
 - publication readiness audit: [`results/reports/publication_readiness_audit/publication_readiness_audit.md`](../../results/reports/publication_readiness_audit/publication_readiness_audit.md)
 - visual hard-slice design: [`results/reports/visual_hard_slice_design/design.md`](../../results/reports/visual_hard_slice_design/design.md)
 - figures: [`results/reports/mlx_tool_contract_harnessing/figures`](../../results/reports/mlx_tool_contract_harnessing/figures)
-- current manifest count: `59` tables and `28` figures
+- current manifest count: `61` tables and `29` figures
 - regeneration command:
 
 ```bash
