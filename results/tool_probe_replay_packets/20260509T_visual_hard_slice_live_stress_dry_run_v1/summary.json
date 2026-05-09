@@ -1,0 +1,18 @@
+{
+  "packet_run_id": "20260509T_visual_hard_slice_live_stress_dry_run_v1",
+  "packet_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_dry_run_v1",
+  "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+  "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+  "replay_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints",
+  "case_count": 4,
+  "family_counts": {
+    "visual_argument_copying_stress": 2,
+    "visual_tool_routing_stress": 2
+  },
+  "failure_mode_counts": {
+    "argument_alias_or_decoy_risk": 2,
+    "wrong_tool_or_stale_selection_risk": 2
+  },
+  "dry_run": true,
+  "executed_count": 0
+}
