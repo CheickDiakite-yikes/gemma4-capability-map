@@ -55,6 +55,8 @@ Local-first agent quality is a systems problem. On Moonie's current Gemma-on-MLX
    - `visual_role_catalog_v1` moves routing from wrong-tool/no-call to argument mismatch.
    - `visual_role_catalog_argument_hints_v2` reaches `2 / 3` focused visual live exactness but loses executable form-target recovery.
    - `visual_role_catalog_split_selector_hints_v3` is negative evidence: broader prose preserves latest-filter exactness but regresses readback shape and does not earn live replay.
+   - `visual_role_catalog_schema_field_hints_v4` is negative evidence with a more precise mechanism: schema-local hints restore readback versus v3 and tie v2 exactness, but still fail form-target executability and over-prefer `refine_selection` without a valid selection id.
+   - The next evidence surface is an eight-case visual hard-slice design that separates visible-region targeting, valid selection carryover, compact filter copying, and readback protocol shape.
 
 7. Threats To Validity
    - Internal benchmark and local runtime only.
@@ -66,14 +68,16 @@ Local-first agent quality is a systems problem. On Moonie's current Gemma-on-MLX
 8. Reproducibility
    - Evidence ledger: `results/reports/publication_evidence_ledger/ledger.md`.
    - Readiness audit: `results/reports/publication_readiness_audit/publication_readiness_audit.md`.
+   - Visual hard-slice design: `results/reports/visual_hard_slice_design/design.md`.
    - Main report: `results/reports/mlx_tool_contract_harnessing/report.md`.
    - Regeneration commands:
 
 ```bash
+uv run python scripts/build_visual_hard_slice_design.py
 uv run python scripts/build_mlx_tool_contract_report.py
 uv run python scripts/build_publication_evidence_ledger.py
 uv run python scripts/audit_publication_readiness.py
-uv run pytest tests/test_mlx_tool_contract_report.py tests/test_publication_evidence_ledger.py tests/test_publication_readiness_audit.py -q
+uv run pytest tests/test_mlx_tool_contract_report.py tests/test_publication_evidence_ledger.py tests/test_publication_readiness_audit.py tests/test_visual_hard_slice_design.py -q
 ```
 
 ## Current Paper-Ready Figures
@@ -87,7 +91,7 @@ uv run pytest tests/test_mlx_tool_contract_report.py tests/test_publication_evid
 
 ## Next Evidence Needed Before Submission
 
-- A fresh hard visual slice beyond the three current focused visual replay cases.
-- A v4 schema-local or executor-grounded selector intervention that does not use broad prose.
+- Implement and execute the fresh hard visual slice beyond the three current focused visual replay cases.
+- A refine-selection-gated or executor-grounded selector intervention that does not use broad prose and does not select `refine_selection` without a real `selection_id`.
 - Repeated-seed or repeated-run variance for the strongest exact-replay claims.
 - A clean table separating population-style benchmark claims from failure-conditioned replay claims.

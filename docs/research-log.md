@@ -3044,3 +3044,48 @@
   - paper outline: [`docs/paper/moonie-gemma-harnessing-paper-outline.md`](paper/moonie-gemma-harnessing-paper-outline.md)
   - updated generated report: [`results/reports/mlx_tool_contract_harnessing/report.md`](../results/reports/mlx_tool_contract_harnessing/report.md)
   - current manifest: `45` tables and `25` figures
+
+## 2026-05-09 - Visual Schema-Field Hints And Hard-Slice Design
+
+- A schema-local visual catalog profile was added after v3 showed that broader selector prose could destabilize JSON shape:
+  - implementation: [`src/gemma4_capability_map/tools/planner.py`](../src/gemma4_capability_map/tools/planner.py)
+  - registry system: `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints`
+  - profile: `visual_role_catalog_schema_field_hints_v4`
+  - dry-run packet: [`20260509T_visual_role_catalog_schema_field_hints_v4_dry_run`](../results/tool_catalog_profile_probe_packets/20260509T_visual_role_catalog_schema_field_hints_v4_dry_run)
+  - executed probe packet: [`20260509T_visual_role_catalog_schema_field_hints_v4_probe`](../results/tool_catalog_profile_probe_packets/20260509T_visual_role_catalog_schema_field_hints_v4_probe)
+- Raw result:
+  - exact `2 / 8`
+  - executable visual `0 / 1`
+  - delta exact vs no-directive `+0.25`
+  - comparison vs v2: [`20260509T_visual_schema_field_hints_vs_argument_hints_v2`](../results/tool_catalog_profile_probe_comparisons/20260509T_visual_schema_field_hints_vs_argument_hints_v2), delta exact `0.0`
+  - comparison vs v3: [`20260509T_visual_schema_field_hints_vs_split_selector_v3`](../results/tool_catalog_profile_probe_comparisons/20260509T_visual_schema_field_hints_vs_split_selector_v3), delta exact `+0.125`
+  - comparison vs v1: [`20260509T_visual_schema_field_hints_vs_role_catalog_v1`](../results/tool_catalog_profile_probe_comparisons/20260509T_visual_schema_field_hints_vs_role_catalog_v1), delta exact `+0.125`, executable regression vs v1
+- Case read:
+  - `visual_latest_filter_literal` stays exact with `refine_selection(selection_id="sel-001", filter_query="latest")`
+  - `visual_readback_region_literal` is exact again, so v4 repairs the v3 `tool_name`/`name` regression
+  - `visual_form_target_literal` remains non-executable and now over-prefers `refine_selection(selection_id="latest", filter_query="phone issue")` even though no real selection id exists
+- Promotion decision:
+  - skipped-live packet: [`20260509T_visual_schema_field_hints_live_replay_skipped_v1`](../results/tool_probe_replay_live/20260509T_visual_schema_field_hints_live_replay_skipped_v1)
+  - reason: v4 ties v2 exactness but does not improve it, remains below v1/contracted executable form targeting, and risks false selection carryover
+- Interpretation:
+  - schema-local field descriptions are cleaner than broad visual prose, but they are not enough
+  - the remaining mechanism is not simply "tell the model what fields mean"
+  - the next candidate should explicitly separate valid opaque `selection_id` carryover from literal filter-token copying and visible-region targeting
+- A fresh visual hard-slice design packet was added:
+  - script: [`scripts/build_visual_hard_slice_design.py`](../scripts/build_visual_hard_slice_design.py)
+  - test: [`tests/test_visual_hard_slice_design.py`](../tests/test_visual_hard_slice_design.py)
+  - packet: [`results/reports/visual_hard_slice_design/design.md`](../results/reports/visual_hard_slice_design/design.md)
+  - case count: `8`
+  - families: visual argument copying, visual tool routing, visual referent carryover, and visual region readback
+  - status: design-only artifact, not model-performance evidence
+- Publication/reporting updates:
+  - MLX tool-contract report manifest is now `49` tables and `25` figures
+  - evidence ledger is now `8` claims and `24` evidence sources with `0` missing sources
+  - readiness audit is now `22` checks, `20` blocking checks, `0` blocking failures, and `paper_draft_ready`
+  - new ledger claim: `C8_visual_hard_slice_targets_remaining_uncertainty`
+- Verification:
+  - `uv run pytest tests/test_visual_hard_slice_design.py -q`
+  - `uv run pytest tests/test_publication_evidence_ledger.py tests/test_publication_readiness_audit.py -q`
+  - `uv run python scripts/build_visual_hard_slice_design.py`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`
