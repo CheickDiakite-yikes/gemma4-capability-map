@@ -34,7 +34,7 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
 
     assert payload["gemini"]["dry_run"] is True
     assert payload["gemini"]["workflow_count"] == 10
-    assert payload["manifest"]["table_count"] == 42
+    assert payload["manifest"]["table_count"] == 45
     assert payload["manifest"]["figure_count"] == 25
 
     candidate_ids = {row["tool_prompt_contract_id"] for row in payload["prompt_contract_candidates"]}
@@ -86,11 +86,20 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert catalog_gates["visual_role_catalog_v1"]["executable_match_rate"] == "1.0"
     assert catalog_gates["visual_role_catalog_argument_hints_v2"]["exact_match_rate"] == "0.25"
     assert catalog_gates["visual_role_catalog_argument_hints_v2"]["executable_match_rate"] == "0.0"
+    assert catalog_gates["visual_role_catalog_split_selector_hints_v3"]["exact_match_rate"] == "0.125"
+    assert catalog_gates["visual_role_catalog_split_selector_hints_v3"]["executable_match_rate"] == "0.0"
     argument_hint_probe_cases = {
         row["case_id"]: row for row in payload["tool_catalog_argument_hints_vs_role_catalog_case_deltas"]
     }
     assert argument_hint_probe_cases["visual_latest_filter_literal"]["delta_exact_match"] == "1"
     assert argument_hint_probe_cases["visual_form_target_literal"]["delta_executable_match"] == "-1"
+    split_selector_cases = {
+        row["case_id"]: row for row in payload["tool_catalog_split_selector_vs_argument_hints_case_deltas"]
+    }
+    assert split_selector_cases["visual_readback_region_literal"]["delta_exact_match"] == "-1"
+    split_selector_decision = payload["tool_catalog_split_selector_live_replay_decision"][0]
+    assert split_selector_decision["decision"] == "skip_live_replay"
+    assert split_selector_decision["best_current_exact_candidate"] == "visual_role_catalog_argument_hints_v2"
     wave6_gates = {row["tool_catalog_profile_id"]: row for row in payload["prompt_contract_wave6_probe_gates"]}
     assert wave6_gates["visual_role_catalog_v1"]["tool_prompt_contract_id"] == "literal_argument_guard_v1"
     assert wave6_gates["visual_role_catalog_v1"]["executable_match_rate"] == "0.0"
@@ -218,6 +227,9 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert (tmp_path / "tables" / "prompt_contract_wave3_probe_failure_modes.csv").exists()
     assert (tmp_path / "tables" / "tool_catalog_profile_probe_gates.csv").exists()
     assert (tmp_path / "tables" / "tool_catalog_argument_hints_vs_role_catalog_case_deltas.csv").exists()
+    assert (tmp_path / "tables" / "tool_catalog_split_selector_vs_argument_hints_case_deltas.csv").exists()
+    assert (tmp_path / "tables" / "tool_catalog_split_selector_vs_role_catalog_case_deltas.csv").exists()
+    assert (tmp_path / "tables" / "tool_catalog_split_selector_live_replay_decision.csv").exists()
     assert (tmp_path / "tables" / "prompt_contract_wave6_probe_gates.csv").exists()
     assert (tmp_path / "tables" / "visual_catalog_live_candidate_replay_summary.csv").exists()
     assert (tmp_path / "tables" / "visual_catalog_live_candidate_case_deltas.csv").exists()
