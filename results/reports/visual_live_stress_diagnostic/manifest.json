@@ -1,0 +1,8 @@
+{
+  "generated_at": "2026-05-09T23:11:38.039095+00:00",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/visual_live_stress_diagnostic",
+  "comparison_count": 5,
+  "case_count": 4,
+  "finding_count": 4,
+  "purpose": "Diagnose strict-vs-executor behavior in the visual hard-slice stress live replay matrix."
+}
