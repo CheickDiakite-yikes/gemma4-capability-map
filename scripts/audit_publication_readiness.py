@@ -59,13 +59,13 @@ def audit_publication_readiness(
         _check_bool(
             check_id="tool_contract_report_has_current_tables",
             severity="blocking",
-            passed=int(report_manifest.get("table_count", 0) or 0) >= 56,
+            passed=int(report_manifest.get("table_count", 0) or 0) >= 59,
             detail=f"table_count={report_manifest.get('table_count', '')}",
         ),
         _check_bool(
             check_id="tool_contract_report_has_current_figures",
             severity="blocking",
-            passed=int(report_manifest.get("figure_count", 0) or 0) >= 26,
+            passed=int(report_manifest.get("figure_count", 0) or 0) >= 28,
             detail=f"figure_count={report_manifest.get('figure_count', '')}",
         ),
         _check_path(
@@ -140,6 +140,16 @@ def audit_publication_readiness(
             detail="Executed H1l visual executor-equivalence packaged-workflow packet exists with system deltas.",
         ),
         _check_path(
+            check_id="visual_hard_slice_live_replay_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260509T_visual_hard_slice_schema_field_hints_vs_no_directive_live_v2"
+            / "live_replay_comparison.json",
+            detail="Replay-shaped visual hard-slice CLI-live comparison exists with executor-equivalence deltas.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",
@@ -180,6 +190,7 @@ def audit_publication_readiness(
         "analyze_visual_hard_slice_exactness.py",
         "compare_tool_directive_probes.py",
         "build_visual_hard_slice_design.py",
+        "build_visual_hard_slice_replay_packet.py",
     ]:
         checks.append(
             _check_path(

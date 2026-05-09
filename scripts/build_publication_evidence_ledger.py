@@ -331,6 +331,35 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C12_replay_shaped_live_preserves_visual_hard_slice_signal",
+        claim="Replay-shaped CLI-live execution preserves the visual hard-slice executor-equivalence signal that packaged H1l workflows washed out.",
+        status="supported_current_packets",
+        evidence_strength="moderate_internal",
+        primary_metric=(
+            "On the two preserved no-directive visual hard-slice failures, no-directive is 0/2 strict "
+            "and 0/2 executor-equivalent while schema-field hints is 1/2 strict and 2/2 executor-equivalent."
+        ),
+        limitation="The live replay currently covers the two no-directive hard-slice failures, not the full eight-case hard-slice candidate matrix.",
+        next_test="Run the replay-shaped live packet across contracted, role catalog v1, argument hints v2, schema-field hints v4, and schema target literals v5.",
+        sources=(
+            EvidenceSource(
+                "tool_probe_replay_packet",
+                "results/tool_probe_replay_packets/20260509T_visual_hard_slice_no_directive_replay_dry_run_v1",
+                "Replay source packet preserving visual hard-slice cases for CLI-live execution.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_schema_field_hints_vs_no_directive_live_v2",
+                "Replay-shaped CLI-live comparison showing schema-field hints recovers executor-equivalent target success over no-directive.",
+            ),
+            EvidenceSource(
+                "report_table",
+                "results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_live_replay_summary.csv",
+                "Report table summarizing exact, executable, and executor-equivalence live replay deltas.",
+            ),
+        ),
+    ),
 )
 
 

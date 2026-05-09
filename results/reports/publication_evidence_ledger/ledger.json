@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-09T12:43:40.164854+00:00",
+    "generated_at": "2026-05-09T22:48:14.310856+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-    "claim_count": 11,
-    "evidence_source_count": 33,
+    "claim_count": 12,
+    "evidence_source_count": 36,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -16,7 +16,8 @@
       "C8_visual_hard_slice_targets_remaining_uncertainty",
       "C9_schema_literal_targets_v5_is_negative_evidence",
       "C10_v4_exact_misses_are_executor_success_aliases",
-      "C11_h1l_packaged_visual_workflows_remain_saturated"
+      "C11_h1l_packaged_visual_workflows_remain_saturated",
+      "C12_replay_shaped_live_preserves_visual_hard_slice_signal"
     ]
   },
   "claims": [
@@ -129,6 +130,16 @@
       "limitation": "H1l uses existing staged packaged workflows, so it can reject this packaged surface without rejecting the hard-slice executor-equivalence signal.",
       "next_test": "Preserve the hard-slice or exact-replay shape more faithfully in live operator execution before spending H1l helper-ablation budget.",
       "source_count": 2
+    },
+    {
+      "claim_id": "C12_replay_shaped_live_preserves_visual_hard_slice_signal",
+      "claim": "Replay-shaped CLI-live execution preserves the visual hard-slice executor-equivalence signal that packaged H1l workflows washed out.",
+      "status": "supported_current_packets",
+      "evidence_strength": "moderate_internal",
+      "primary_metric": "On the two preserved no-directive visual hard-slice failures, no-directive is 0/2 strict and 0/2 executor-equivalent while schema-field hints is 1/2 strict and 2/2 executor-equivalent.",
+      "limitation": "The live replay currently covers the two no-directive hard-slice failures, not the full eight-case hard-slice candidate matrix.",
+      "next_test": "Run the replay-shaped live packet across contracted, role catalog v1, argument hints v2, schema-field hints v4, and schema target literals v5.",
+      "source_count": 3
     }
   ],
   "evidence_sources": [
@@ -361,6 +372,27 @@
       "artifact_type": "visual_hard_slice_probe_packet",
       "path": "results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1",
       "purpose": "Underlying hard-slice packet that motivated H1l by separating strict exactness from executor-equivalent target success.",
+      "exists": true
+    },
+    {
+      "claim_id": "C12_replay_shaped_live_preserves_visual_hard_slice_signal",
+      "artifact_type": "tool_probe_replay_packet",
+      "path": "results/tool_probe_replay_packets/20260509T_visual_hard_slice_no_directive_replay_dry_run_v1",
+      "purpose": "Replay source packet preserving visual hard-slice cases for CLI-live execution.",
+      "exists": true
+    },
+    {
+      "claim_id": "C12_replay_shaped_live_preserves_visual_hard_slice_signal",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_schema_field_hints_vs_no_directive_live_v2",
+      "purpose": "Replay-shaped CLI-live comparison showing schema-field hints recovers executor-equivalent target success over no-directive.",
+      "exists": true
+    },
+    {
+      "claim_id": "C12_replay_shaped_live_preserves_visual_hard_slice_signal",
+      "artifact_type": "report_table",
+      "path": "results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_live_replay_summary.csv",
+      "purpose": "Report table summarizing exact, executable, and executor-equivalence live replay deltas.",
       "exists": true
     }
   ],

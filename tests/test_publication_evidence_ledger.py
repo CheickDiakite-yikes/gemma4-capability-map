@@ -26,6 +26,7 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert claims["C9_schema_literal_targets_v5_is_negative_evidence"]["status"] == "negative_result_current_packets"
     assert claims["C10_v4_exact_misses_are_executor_success_aliases"]["status"] == "supported_current_packets"
     assert claims["C11_h1l_packaged_visual_workflows_remain_saturated"]["status"] == "negative_result_current_packets"
+    assert claims["C12_replay_shaped_live_preserves_visual_hard_slice_signal"]["status"] == "supported_current_packets"
     assert "7/8" in claims["C2_final_tool_directive_causal_for_protocol"]["primary_metric"]
     assert "v3 raw exact falls" in claims["C6_split_selector_wording_is_negative_evidence"]["primary_metric"]
     assert "schema-field hints reach 6/8 strict and 8/8 executor-equivalent" in claims[
@@ -37,6 +38,9 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert "true harness failure count is 0" in claims["C10_v4_exact_misses_are_executor_success_aliases"]["primary_metric"]
     assert "H1l candidate rows tie" in claims[
         "C11_h1l_packaged_visual_workflows_remain_saturated"
+    ]["primary_metric"]
+    assert "schema-field hints is 1/2 strict and 2/2 executor-equivalent" in claims[
+        "C12_replay_shaped_live_preserves_visual_hard_slice_signal"
     ]["primary_metric"]
 
     source_types = {row["artifact_type"] for row in payload["evidence_sources"]}

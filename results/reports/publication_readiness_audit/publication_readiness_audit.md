@@ -9,10 +9,10 @@
 | --- | --- | ---: | --- | --- |
 | ledger_manifest_exists | blocking | True | Publication evidence ledger manifest exists. | results/reports/publication_evidence_ledger/manifest.json |
 | ledger_has_no_missing_sources | blocking | True | missing_source_count=0 |  |
-| ledger_has_claims | blocking | True | claim_count=10 |  |
+| ledger_has_claims | blocking | True | claim_count=12 |  |
 | ledger_includes_negative_results | blocking | True | At least one claim is explicitly labeled as negative-result evidence. |  |
-| tool_contract_report_has_current_tables | blocking | True | table_count=56 |  |
-| tool_contract_report_has_current_figures | blocking | True | figure_count=26 |  |
+| tool_contract_report_has_current_tables | blocking | True | table_count=59 |  |
+| tool_contract_report_has_current_figures | blocking | True | figure_count=28 |  |
 | v3_negative_probe_packet_exists | blocking | True | Negative v3 catalog-profile probe is preserved. | results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_split_selector_hints_v3_probe |
 | v3_skipped_live_decision_exists | blocking | True | Skipped-live decision is preserved as an auditable packet. | results/tool_probe_replay_live/20260508T_visual_split_selector_hints_live_replay_skipped_v1/decision.md |
 | v4_negative_probe_packet_exists | blocking | True | Negative v4 schema-field probe is preserved. | results/tool_catalog_profile_probe_packets/20260509T_visual_role_catalog_schema_field_hints_v4_probe |
@@ -22,6 +22,7 @@
 | visual_hard_slice_v5_vs_v4_comparison_exists | blocking | True | Direct v5-vs-v4 comparison exists to preserve the negative target-literal result with executor-equivalence metrics. | results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1/schema_literal_targets_vs_schema_field_hints/probe_comparison.json |
 | visual_hard_slice_exactness_diagnostic_exists | blocking | True | Exactness-vs-executor diagnostic exists for interpreting v4 paraphrases and v5 regression. | results/reports/visual_hard_slice_exactness_diagnostic/exactness_diagnostic.json |
 | h1l_visual_executor_equivalence_packet_exists | blocking | True | Executed H1l visual executor-equivalence packaged-workflow packet exists with system deltas. | results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet/tool_contract_system_deltas.csv |
+| visual_hard_slice_live_replay_comparison_exists | blocking | True | Replay-shaped visual hard-slice CLI-live comparison exists with executor-equivalence deltas. | results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_schema_field_hints_vs_no_directive_live_v2/live_replay_comparison.json |
 | current_state_doc_exists | blocking | True | Continuity current-state doc exists. | docs/continuity/current-state.md |
 | next_steps_doc_exists | blocking | True | Continuity next-steps doc exists. | docs/continuity/next-steps.md |
 | research_log_exists | blocking | True | Research log exists. | docs/research-log.md |
@@ -36,3 +37,4 @@
 | script_analyze_visual_hard_slice_exactness.py_exists | blocking | True | Reproduction script `analyze_visual_hard_slice_exactness.py` exists. | scripts/analyze_visual_hard_slice_exactness.py |
 | script_compare_tool_directive_probes.py_exists | blocking | True | Reproduction script `compare_tool_directive_probes.py` exists. | scripts/compare_tool_directive_probes.py |
 | script_build_visual_hard_slice_design.py_exists | blocking | True | Reproduction script `build_visual_hard_slice_design.py` exists. | scripts/build_visual_hard_slice_design.py |
+| script_build_visual_hard_slice_replay_packet.py_exists | blocking | True | Reproduction script `build_visual_hard_slice_replay_packet.py` exists. | scripts/build_visual_hard_slice_replay_packet.py |

@@ -1,9 +1,9 @@
 {
   "summary": {
-    "generated_at": "2026-05-09T12:43:40.158957+00:00",
+    "generated_at": "2026-05-09T22:48:17.808934+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 29,
-    "blocking_check_count": 27,
+    "check_count": 31,
+    "blocking_check_count": 29,
     "blocking_failed_count": 0,
     "recommended_check_count": 2,
     "recommended_failed_count": 0,
@@ -29,7 +29,7 @@
       "check_id": "ledger_has_claims",
       "severity": "blocking",
       "passed": true,
-      "detail": "claim_count=10",
+      "detail": "claim_count=12",
       "path": ""
     },
     {
@@ -43,14 +43,14 @@
       "check_id": "tool_contract_report_has_current_tables",
       "severity": "blocking",
       "passed": true,
-      "detail": "table_count=56",
+      "detail": "table_count=59",
       "path": ""
     },
     {
       "check_id": "tool_contract_report_has_current_figures",
       "severity": "blocking",
       "passed": true,
-      "detail": "figure_count=26",
+      "detail": "figure_count=28",
       "path": ""
     },
     {
@@ -115,6 +115,13 @@
       "passed": true,
       "detail": "Executed H1l visual executor-equivalence packaged-workflow packet exists with system deltas.",
       "path": "results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet/tool_contract_system_deltas.csv"
+    },
+    {
+      "check_id": "visual_hard_slice_live_replay_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Replay-shaped visual hard-slice CLI-live comparison exists with executor-equivalence deltas.",
+      "path": "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_schema_field_hints_vs_no_directive_live_v2/live_replay_comparison.json"
     },
     {
       "check_id": "current_state_doc_exists",
@@ -213,6 +220,13 @@
       "passed": true,
       "detail": "Reproduction script `build_visual_hard_slice_design.py` exists.",
       "path": "scripts/build_visual_hard_slice_design.py"
+    },
+    {
+      "check_id": "script_build_visual_hard_slice_replay_packet.py_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Reproduction script `build_visual_hard_slice_replay_packet.py` exists.",
+      "path": "scripts/build_visual_hard_slice_replay_packet.py"
     }
   ]
 }
