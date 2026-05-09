@@ -120,6 +120,12 @@ def build_visual_hard_slice_probe_packet(
     if execute:
         _attach_comparisons(rows=rows, results=results, probe_dirs=probe_dirs, comparison_payloads=comparison_payloads)
 
+    gate_rows = _gate_rows(rows)
+    failure_rows = _failure_mode_rows(rows)
+    family_rows = _family_rows(results)
+    case_deltas_vs_contracted = _comparison_case_rows(comparison_payloads, baseline_system_id=CONTRACTED_SYSTEM_ID)
+    case_deltas_vs_no_directive = _comparison_case_rows(comparison_payloads, baseline_system_id=NO_DIRECTIVE_SYSTEM_ID)
+
     summary = {
         "packet_dir": str(packet_dir.resolve()),
         "manifest": manifest,
@@ -129,6 +135,9 @@ def build_visual_hard_slice_probe_packet(
         "executed_count": sum(1 for row in rows if row["execute"]),
         "dry_run_count": sum(1 for row in rows if not row["execute"]),
         "rows": rows,
+        "gate_rows": gate_rows,
+        "failure_mode_rows": failure_rows,
+        "family_rows": family_rows,
         "commands": commands,
         "results": results,
     }
@@ -137,6 +146,12 @@ def build_visual_hard_slice_probe_packet(
     (packet_dir / "results.json").write_text(json.dumps(summary, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     _write_csv(packet_dir / "candidate_summary.csv", rows)
     _write_csv(packet_dir / "system_summary.csv", rows)
+    _write_csv(packet_dir / "candidate_gate_summary.csv", gate_rows)
+    _write_csv(packet_dir / "candidate_failure_mode_counts.csv", failure_rows)
+    _write_csv(packet_dir / "family_summary.csv", family_rows)
+    _write_csv(packet_dir / "case_deltas_vs_contracted.csv", case_deltas_vs_contracted)
+    _write_csv(packet_dir / "case_deltas_vs_no_directive.csv", case_deltas_vs_no_directive)
+    (packet_dir / "candidate_gate_summary.md").write_text(_gate_markdown(manifest, gate_rows), encoding="utf-8")
     return summary
 
 
@@ -215,6 +230,88 @@ def _summary_fields(summary: dict[str, Any], rows: list[dict[str, Any]]) -> dict
         "dominant_failure_mode": dominant,
         "failure_mode_counts": dict(sorted(failure_counts.items())),
     }
+
+
+def _gate_rows(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    return [
+        {
+            "system_id": row.get("system_id", ""),
+            "exact_match_count": row.get("exact_match_count", ""),
+            "exact_match_rate": row.get("exact_match_rate", ""),
+            "executable_match_count": row.get("executable_match_count", ""),
+            "executable_match_rate": row.get("executable_match_rate", ""),
+            "delta_exact_vs_contracted": row.get("delta_exact_vs_contracted", ""),
+            "delta_exact_vs_no_directive": row.get("delta_exact_vs_no_directive", ""),
+            "delta_executable_vs_contracted": row.get("delta_executable_vs_contracted", ""),
+            "delta_executable_vs_no_directive": row.get("delta_executable_vs_no_directive", ""),
+            "dominant_failure_mode": row.get("dominant_failure_mode", ""),
+            "hard_slice_gate": row.get("hard_slice_gate", ""),
+            "output_dir": row.get("output_dir", ""),
+        }
+        for row in rows
+    ]
+
+
+def _failure_mode_rows(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    output: list[dict[str, Any]] = []
+    for row in rows:
+        counts = row.get("failure_mode_counts", {})
+        if not isinstance(counts, dict):
+            continue
+        for failure_mode, count in sorted(counts.items()):
+            output.append(
+                {
+                    "system_id": row.get("system_id", ""),
+                    "failure_mode": failure_mode,
+                    "count": count,
+                }
+            )
+    return output
+
+
+def _family_rows(results: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    output: list[dict[str, Any]] = []
+    for result in results:
+        system_id = str(result.get("system_id", ""))
+        summary = result.get("summary", {})
+        family_summary = summary.get("family_summary", {}) if isinstance(summary, dict) else {}
+        if not isinstance(family_summary, dict):
+            continue
+        for family, bucket in sorted(family_summary.items()):
+            if not isinstance(bucket, dict):
+                continue
+            output.append(
+                {
+                    "system_id": system_id,
+                    "family": family,
+                    "case_count": bucket.get("cases", ""),
+                    "exact_count": bucket.get("exact", ""),
+                    "exact_rate": bucket.get("exact_rate", ""),
+                    "executable_case_count": bucket.get("executable_cases", ""),
+                    "executable_count": bucket.get("executable", ""),
+                    "executable_rate": bucket.get("executable_rate", ""),
+                }
+            )
+    return output
+
+
+def _comparison_case_rows(
+    comparison_payloads: dict[tuple[str, str], dict[str, Any]],
+    *,
+    baseline_system_id: str,
+) -> list[dict[str, Any]]:
+    output: list[dict[str, Any]] = []
+    for (baseline_id, system_id), comparison in sorted(comparison_payloads.items()):
+        if baseline_id != baseline_system_id:
+            continue
+        case_deltas = comparison.get("case_deltas", []) if isinstance(comparison, dict) else []
+        if not isinstance(case_deltas, list):
+            continue
+        for case_delta in case_deltas:
+            if not isinstance(case_delta, dict):
+                continue
+            output.append({"system_id": system_id, **case_delta})
+    return output
 
 
 def _attach_comparisons(
@@ -309,6 +406,48 @@ def _csv_cell(value: Any) -> Any:
 
 def _read_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _gate_markdown(manifest: dict[str, Any], gate_rows: list[dict[str, Any]]) -> str:
+    lines = [
+        "# Visual Hard Slice Candidate Gates",
+        "",
+        f"- packet_run_id: `{manifest['packet_run_id']}`",
+        f"- created_at: `{manifest['created_at']}`",
+        f"- case_count: `{manifest['case_count']}`",
+        f"- contracted_system_id: `{manifest['contracted_system_id']}`",
+        f"- no_directive_system_id: `{manifest['no_directive_system_id']}`",
+        "",
+        "| System | Exact | Executable | Delta Exact vs No Directive | Delta Exec vs No Directive | Failure | Gate |",
+        "| --- | ---: | ---: | ---: | ---: | --- | --- |",
+    ]
+    for row in gate_rows:
+        lines.append(
+            "| "
+            + " | ".join(
+                [
+                    str(row.get("system_id", "")),
+                    _markdown_number(row.get("exact_match_rate", "")),
+                    _markdown_number(row.get("executable_match_rate", "")),
+                    _markdown_number(row.get("delta_exact_vs_no_directive", "")),
+                    _markdown_number(row.get("delta_executable_vs_no_directive", "")),
+                    str(row.get("dominant_failure_mode", "")),
+                    str(row.get("hard_slice_gate", "")),
+                ]
+            )
+            + " |"
+        )
+    lines.append("")
+    return "\n".join(lines)
+
+
+def _markdown_number(value: Any) -> str:
+    if value == "":
+        return ""
+    try:
+        return f"{float(value):.3f}"
+    except (TypeError, ValueError):
+        return str(value)
 
 
 if __name__ == "__main__":

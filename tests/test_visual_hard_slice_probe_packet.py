@@ -29,6 +29,10 @@ def test_visual_hard_slice_probe_packet_dry_run_writes_system_commands(tmp_path:
     assert (packet_dir / "commands.json").exists()
     assert (packet_dir / "candidate_summary.csv").exists()
     assert (packet_dir / "system_summary.csv").exists()
+    assert (packet_dir / "candidate_gate_summary.csv").exists()
+    assert (packet_dir / "candidate_gate_summary.md").exists()
+    assert (packet_dir / "candidate_failure_mode_counts.csv").exists()
+    assert (packet_dir / "family_summary.csv").exists()
 
     first_command = packet["commands"][0]["command"]
     assert "run_visual_hard_slice_probe.py" in first_command[1]
