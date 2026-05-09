@@ -22,6 +22,20 @@ This is deliberately narrower than H1j. It avoids API/CLI argument families and 
 
 ## Candidate Packet
 
+Executed packet:
+
+- [`results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet)
+
+Result:
+
+- `6` rows, `5` live workflows each
+- all rows tie at readiness `0.90406`
+- strict/recovered `0.85 / 0.8`
+- repair/fallback/argument repair `0.0 / 0.0 / 0.0`
+- raw clean `1.0`
+
+Interpretation: H1l is a negative packaged-workflow result. The hard-slice executor-equivalence signal is still real, but these staged packaged visual workflows do not preserve the discriminator. Do not spend the helper packet until a visual live surface separates at least one candidate row.
+
 Dry run:
 
 ```bash

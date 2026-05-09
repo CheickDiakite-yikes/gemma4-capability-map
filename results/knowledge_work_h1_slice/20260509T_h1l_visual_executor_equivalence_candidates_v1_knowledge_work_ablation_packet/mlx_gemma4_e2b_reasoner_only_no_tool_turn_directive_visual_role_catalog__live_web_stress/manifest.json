@@ -1,0 +1,108 @@
+{
+  "run_group_id": "20260509T_h1l_visual_executor_equivalence_candidates_v1_live_web_stress",
+  "created_at": "20260509T123810Z",
+  "lane": "live_web_stress",
+  "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog",
+  "backend": "mlx",
+  "reasoner_backend": "mlx",
+  "router_backend": "heuristic",
+  "retriever_backend": "heuristic",
+  "reasoner": "google/gemma-4-E2B-it",
+  "router": "",
+  "retriever": "",
+  "reasoner_device": "auto",
+  "router_device": null,
+  "retriever_device": null,
+  "reasoner_max_new_tokens": 64,
+  "request_timeout_seconds": 300.0,
+  "thinking": false,
+  "limit": null,
+  "episode_count": 5,
+  "base_episode_count": 5,
+  "repeat_count": 1,
+  "episodes_path": "/Users/cheickdiakite/Codex/moonie/data/knowledge_work/live_web_stress/episodes.jsonl",
+  "runtime_bundle": {
+    "reasoner": {
+      "backend": "mlx",
+      "runtime_posture": "mlx",
+      "requested_model": "google/gemma-4-E2B-it",
+      "effective_model": "mlx-community/gemma-4-e2b-it-4bit",
+      "model_source": "mlx-community/gemma-4-e2b-it-4bit",
+      "model_format": "mlx",
+      "runtime_device": "mlx",
+      "load_mode": "vision",
+      "configured_device": "auto",
+      "request_timeout_seconds": 300.0,
+      "tool_turn_directive_enabled": true,
+      "tool_prompt_contract_id": "",
+      "tool_catalog_profile_id": "",
+      "service": {},
+      "partial_runtime": false,
+      "llama_cpp_error": null,
+      "llama_cpp_context_window": null
+    },
+    "router": {
+      "backend": "heuristic",
+      "requested_model": "",
+      "effective_model": "",
+      "runtime_device": null,
+      "configured_device": "auto"
+    },
+    "retriever": {
+      "backend": "heuristic",
+      "requested_model": "",
+      "effective_model": "",
+      "loaded": false,
+      "configured_device": "auto",
+      "runtime_device": null
+    }
+  },
+  "run_intent": "exploratory",
+  "research_controls": {
+    "disable_tool_turn_directive": true,
+    "tool_catalog_profile_id": "visual_role_catalog_v1"
+  },
+  "warmup": {
+    "reasoner": {
+      "backend": "mlx",
+      "runtime_posture": "mlx",
+      "requested_model": "google/gemma-4-E2B-it",
+      "effective_model": "mlx-community/gemma-4-e2b-it-4bit",
+      "model_source": "mlx-community/gemma-4-e2b-it-4bit",
+      "model_format": "mlx",
+      "runtime_device": "mlx",
+      "load_mode": "vision",
+      "configured_device": "auto",
+      "request_timeout_seconds": 300.0,
+      "tool_turn_directive_enabled": true,
+      "tool_prompt_contract_id": "",
+      "tool_catalog_profile_id": "",
+      "service": {},
+      "partial_runtime": false,
+      "llama_cpp_error": null,
+      "llama_cpp_context_window": null
+    },
+    "router": {
+      "backend": "heuristic",
+      "requested_model": "",
+      "effective_model": "",
+      "runtime_device": null,
+      "configured_device": "auto"
+    },
+    "retriever": {
+      "backend": "heuristic",
+      "requested_model": "",
+      "effective_model": "",
+      "loaded": false,
+      "configured_device": "auto",
+      "runtime_device": null
+    }
+  },
+  "ablation_packet_episode_ids": [
+    "kwa_exec_live_visual_dashboard_brief",
+    "kwa_exec_live_visual_dashboard_referent_hold_v3",
+    "kwa_jobs_live_visual_constraint_override_hold_v2",
+    "kwa_finance_live_invoice_lock_direction_hold_v4",
+    "kwa_finance_live_visual_invoice_revision_hold_v2"
+  ]
+}

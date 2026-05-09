@@ -1,0 +1,260 @@
+{
+  "run_group_id": "20260509T_h1l_visual_executor_equivalence_candidates_v1",
+  "created_at": "2026-05-09T12:37:22.926930+00:00",
+  "h1_slice": {
+    "name": "knowledge_work_h1l_visual_executor_equivalence_live",
+    "version": "v1",
+    "description": "Visual executor-equivalence successor to the hard-slice probe packet. H1l keeps the CLI-first packaged-workflows-only rule, but narrows the live workflow surface to visual target selection, visual referent carryover, and visual approval evidence. The goal is to test whether the schema-field catalog profile's executor-equivalent recovery survives packaged live workflows while strict protocol fidelity remains a separate endpoint.\n",
+    "run_intent": "exploratory",
+    "update_latest": false,
+    "live_entrypoint": "packaged_workflows_only",
+    "primary_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_system_ids": [
+      "oracle_gemma4_e2b",
+      "hf_service_gemma4_specialists_cpu"
+    ],
+    "ablation_bundle_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "ablation_system_ids": [
+      "mlx_gemma4_e2b_reasoner_only",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_repair",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_fallback",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_argument_repair"
+    ],
+    "lanes": {
+      "replayable_core": {
+        "episode_ids": [
+          "kwa_exec_visual_dashboard_brief",
+          "kwa_exec_visual_dashboard_referent_hold_v3",
+          "kwa_jobs_visual_constraint_override_hold_v2",
+          "kwa_finance_invoice_lock_direction_hold_v4",
+          "kwa_finance_visual_invoice_revision_hold_v2"
+        ]
+      },
+      "live_web_stress": {
+        "episode_ids": [
+          "kwa_exec_live_visual_dashboard_brief",
+          "kwa_exec_live_visual_dashboard_referent_hold_v3",
+          "kwa_jobs_live_visual_constraint_override_hold_v2",
+          "kwa_finance_live_invoice_lock_direction_hold_v4",
+          "kwa_finance_live_visual_invoice_revision_hold_v2"
+        ]
+      }
+    },
+    "workflow_families": [
+      {
+        "workflow_id": "executive_visual_dashboard_review",
+        "role_family": "executive_assistant",
+        "purpose": "promote visual argument-copying and region-readback pressure into a packaged live workflow",
+        "replayable_episode_id": "kwa_exec_visual_dashboard_brief",
+        "live_episode_id": "kwa_exec_live_visual_dashboard_brief",
+        "h1_stressors": [
+          "visual_argument_copying",
+          "visual_region_readback",
+          "executor_equivalence"
+        ]
+      },
+      {
+        "workflow_id": "executive_visual_referent_review",
+        "role_family": "executive_assistant",
+        "purpose": "carry a current dashboard visual referent through latest-filter pressure",
+        "replayable_episode_id": "kwa_exec_visual_dashboard_referent_hold_v3",
+        "live_episode_id": "kwa_exec_live_visual_dashboard_referent_hold_v3",
+        "h1_stressors": [
+          "visual_referent_carryover",
+          "visual_latest_filter_literal",
+          "executor_equivalence"
+        ]
+      },
+      {
+        "workflow_id": "jobs_visual_constraint_override",
+        "role_family": "job_application_ops",
+        "purpose": "preserve current form visual targeting while avoiding stale constraint or selection carryover",
+        "replayable_episode_id": "kwa_jobs_visual_constraint_override_hold_v2",
+        "live_episode_id": "kwa_jobs_live_visual_constraint_override_hold_v2",
+        "h1_stressors": [
+          "visual_tool_routing",
+          "stale_selection_decoy",
+          "approval_safe_stop"
+        ]
+      },
+      {
+        "workflow_id": "finance_visual_invoice_review",
+        "role_family": "finance",
+        "purpose": "inspect invoice visual evidence under approval pressure while preserving current lock direction",
+        "replayable_episode_id": "kwa_finance_invoice_lock_direction_hold_v4",
+        "live_episode_id": "kwa_finance_live_invoice_lock_direction_hold_v4",
+        "h1_stressors": [
+          "visual_evidence",
+          "visual_argument_copying",
+          "approval_safe_stop"
+        ]
+      },
+      {
+        "workflow_id": "finance_visual_invoice_revision",
+        "role_family": "finance",
+        "purpose": "revise a finance note from current invoice visual evidence without stale referent drift",
+        "replayable_episode_id": "kwa_finance_visual_invoice_revision_hold_v2",
+        "live_episode_id": "kwa_finance_live_visual_invoice_revision_hold_v2",
+        "h1_stressors": [
+          "visual_referent_carryover",
+          "visual_readback_region_literal",
+          "approval_safe_stop"
+        ]
+      }
+    ],
+    "packets": {
+      "mlx_visual_executor_equivalence_candidates": {
+        "lane": "live_web_stress",
+        "purpose": "Candidate packet for the hard-slice visual catalog profiles after executor-equivalence became first-class. This packet is not meant to make strict and executor-equivalent rows tie; it should reveal whether the v4 schema-field profile's executor-visible recovery survives packaged visual workflows and whether v5 remains negative.\n",
+        "system_ids": [
+          "mlx_gemma4_e2b_reasoner_only",
+          "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+          "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog",
+          "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints",
+          "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints",
+          "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets"
+        ],
+        "episode_ids": [
+          "kwa_exec_live_visual_dashboard_brief",
+          "kwa_exec_live_visual_dashboard_referent_hold_v3",
+          "kwa_jobs_live_visual_constraint_override_hold_v2",
+          "kwa_finance_live_invoice_lock_direction_hold_v4",
+          "kwa_finance_live_visual_invoice_revision_hold_v2"
+        ],
+        "failure_modes": [
+          "visual_argument_copying",
+          "visual_tool_routing",
+          "visual_referent_carryover",
+          "executor_equivalence",
+          "strict_protocol_fidelity"
+        ]
+      },
+      "mlx_visual_executor_equivalence_helper_ablation": {
+        "lane": "live_web_stress",
+        "purpose": "Controller-helper causality check on the same visual executor- equivalence workflow set. This should run after the candidate packet if packaged visual rows separate enough to justify helper attribution.\n",
+        "system_ids": [
+          "mlx_gemma4_e2b_reasoner_only",
+          "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+          "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_repair",
+          "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_fallback",
+          "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_argument_repair"
+        ],
+        "episode_ids": [
+          "kwa_exec_live_visual_dashboard_brief",
+          "kwa_exec_live_visual_dashboard_referent_hold_v3",
+          "kwa_jobs_live_visual_constraint_override_hold_v2",
+          "kwa_finance_live_invoice_lock_direction_hold_v4",
+          "kwa_finance_live_visual_invoice_revision_hold_v2"
+        ],
+        "failure_modes": [
+          "controller_repair",
+          "controller_fallback",
+          "argument_repair",
+          "visual_tool_routing",
+          "executor_equivalence"
+        ]
+      }
+    },
+    "saturation_breaker_metrics": [
+      "raw_planning_clean_rate_avg",
+      "controller_repair_avg",
+      "controller_fallback_avg",
+      "argument_repair_avg",
+      "strict_interface_avg",
+      "recovered_execution_avg"
+    ],
+    "attribution_tags": [
+      "packaged_workflow",
+      "local_mlx_monolith",
+      "visual_executor_equivalence",
+      "visual_hard_slice_derived",
+      "prompt_contract_ablation"
+    ]
+  },
+  "packet_id": "mlx_visual_executor_equivalence_candidates",
+  "packet": {
+    "lane": "live_web_stress",
+    "purpose": "Candidate packet for the hard-slice visual catalog profiles after executor-equivalence became first-class. This packet is not meant to make strict and executor-equivalent rows tie; it should reveal whether the v4 schema-field profile's executor-visible recovery survives packaged visual workflows and whether v5 remains negative.\n",
+    "system_ids": [
+      "mlx_gemma4_e2b_reasoner_only",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets"
+    ],
+    "episode_ids": [
+      "kwa_exec_live_visual_dashboard_brief",
+      "kwa_exec_live_visual_dashboard_referent_hold_v3",
+      "kwa_jobs_live_visual_constraint_override_hold_v2",
+      "kwa_finance_live_invoice_lock_direction_hold_v4",
+      "kwa_finance_live_visual_invoice_revision_hold_v2"
+    ],
+    "failure_modes": [
+      "visual_argument_copying",
+      "visual_tool_routing",
+      "visual_referent_carryover",
+      "executor_equivalence",
+      "strict_protocol_fidelity"
+    ]
+  },
+  "lane": "live_web_stress",
+  "bundle_system_id": "mlx_gemma4_e2b_reasoner_only",
+  "system_ids": [
+    "mlx_gemma4_e2b_reasoner_only",
+    "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+    "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog",
+    "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints",
+    "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints",
+    "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets"
+  ],
+  "episode_ids": [
+    "kwa_exec_live_visual_dashboard_brief",
+    "kwa_exec_live_visual_dashboard_referent_hold_v3",
+    "kwa_jobs_live_visual_constraint_override_hold_v2",
+    "kwa_finance_live_invoice_lock_direction_hold_v4",
+    "kwa_finance_live_visual_invoice_revision_hold_v2"
+  ],
+  "repeat_count": 1,
+  "command": [
+    "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+    "/Users/cheickdiakite/Codex/moonie/scripts/run_knowledge_work_ablation_packet.py",
+    "--lane",
+    "live_web_stress",
+    "--bundle-system-id",
+    "mlx_gemma4_e2b_reasoner_only",
+    "--output-root",
+    "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice",
+    "--run-group-id",
+    "20260509T_h1l_visual_executor_equivalence_candidates_v1",
+    "--run-intent",
+    "exploratory",
+    "--repeat",
+    "1",
+    "--system-id",
+    "mlx_gemma4_e2b_reasoner_only",
+    "--system-id",
+    "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+    "--system-id",
+    "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog",
+    "--system-id",
+    "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints",
+    "--system-id",
+    "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints",
+    "--system-id",
+    "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets",
+    "--episode-id",
+    "kwa_exec_live_visual_dashboard_brief",
+    "--episode-id",
+    "kwa_exec_live_visual_dashboard_referent_hold_v3",
+    "--episode-id",
+    "kwa_jobs_live_visual_constraint_override_hold_v2",
+    "--episode-id",
+    "kwa_finance_live_invoice_lock_direction_hold_v4",
+    "--episode-id",
+    "kwa_finance_live_visual_invoice_revision_hold_v2"
+  ],
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet",
+  "dry_run": false
+}

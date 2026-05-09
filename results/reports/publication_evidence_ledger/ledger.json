@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-09T12:30:44.242012+00:00",
+    "generated_at": "2026-05-09T12:43:40.164854+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-    "claim_count": 10,
-    "evidence_source_count": 31,
+    "claim_count": 11,
+    "evidence_source_count": 33,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -15,7 +15,8 @@
       "C7_schema_field_hints_tie_exactness_without_executability",
       "C8_visual_hard_slice_targets_remaining_uncertainty",
       "C9_schema_literal_targets_v5_is_negative_evidence",
-      "C10_v4_exact_misses_are_executor_success_aliases"
+      "C10_v4_exact_misses_are_executor_success_aliases",
+      "C11_h1l_packaged_visual_workflows_remain_saturated"
     ]
   },
   "claims": [
@@ -117,6 +118,16 @@
       "primary_metric": "v4 has 2/8 non-exact rows, both executor-target matches; first-class executor-equivalence scores v4 at 8/8 while benchmark-label artifact candidate count is 2 and true harness failure count is 0.",
       "limitation": "This does not prove every visual selector paraphrase is acceptable; it only classifies the current hard-slice v4 misses under the local deterministic executor.",
       "next_test": "Use the executor-equivalence score to design a packaged H1 visual workflow that separates executor success from strict protocol fidelity.",
+      "source_count": 2
+    },
+    {
+      "claim_id": "C11_h1l_packaged_visual_workflows_remain_saturated",
+      "claim": "Promoting the visual executor-equivalence result into current packaged visual workflows does not yet preserve the hard-slice discrimination.",
+      "status": "negative_result_current_packets",
+      "evidence_strength": "moderate_internal",
+      "primary_metric": "H1l candidate rows tie at readiness 0.90406, strict interface 0.85, recovered execution 0.8, raw clean 1.0, and zero controller repair/fallback/argument repair.",
+      "limitation": "H1l uses existing staged packaged workflows, so it can reject this packaged surface without rejecting the hard-slice executor-equivalence signal.",
+      "next_test": "Preserve the hard-slice or exact-replay shape more faithfully in live operator execution before spending H1l helper-ablation budget.",
       "source_count": 2
     }
   ],
@@ -336,6 +347,20 @@
       "artifact_type": "visual_hard_slice_probe_packet",
       "path": "results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1",
       "purpose": "Underlying executed hard-slice packet with raw expected/actual calls, deterministic execution outputs, and executor-equivalence scores.",
+      "exists": true
+    },
+    {
+      "claim_id": "C11_h1l_packaged_visual_workflows_remain_saturated",
+      "artifact_type": "h1_ablation_packet",
+      "path": "results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet",
+      "purpose": "Executed H1l visual executor-equivalence candidate packet showing all visual catalog rows saturate on packaged workflows.",
+      "exists": true
+    },
+    {
+      "claim_id": "C11_h1l_packaged_visual_workflows_remain_saturated",
+      "artifact_type": "visual_hard_slice_probe_packet",
+      "path": "results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1",
+      "purpose": "Underlying hard-slice packet that motivated H1l by separating strict exactness from executor-equivalent target success.",
       "exists": true
     }
   ],

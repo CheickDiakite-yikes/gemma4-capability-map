@@ -205,7 +205,9 @@ Latest MLX tool-contract research:
   - candidate packet id: `mlx_visual_executor_equivalence_candidates`
   - helper-ablation packet id: `mlx_visual_executor_equivalence_helper_ablation`
   - live workflows: `executive_visual_dashboard_review`, `executive_visual_referent_review`, `jobs_visual_constraint_override`, `finance_visual_invoice_review`, `finance_visual_invoice_revision`
-  - status: configured and dry-run ready; not executed yet
+  - candidate packet: [`results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet)
+  - result: all six rows tie at readiness `0.90406`, strict `0.85`, recovered `0.8`, raw clean `1.0`, and repair/fallback/argument repair `0.0 / 0.0 / 0.0`
+  - interpretation: current packaged visual workflows are saturated and do not preserve the hard-slice executor-equivalence discriminator; defer helper spend until a non-saturated visual live surface exists
 - Prompt-contract wave 2:
   - contracts: `schema_literal_tool_required_v2`, `visual_next_call_state_v2`, `parallel_array_required_v2`
   - runner flag: `scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v2`

@@ -1,9 +1,9 @@
 {
   "summary": {
-    "generated_at": "2026-05-09T12:30:49.962884+00:00",
+    "generated_at": "2026-05-09T12:43:40.158957+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 28,
-    "blocking_check_count": 26,
+    "check_count": 29,
+    "blocking_check_count": 27,
     "blocking_failed_count": 0,
     "recommended_check_count": 2,
     "recommended_failed_count": 0,
@@ -108,6 +108,13 @@
       "passed": true,
       "detail": "Exactness-vs-executor diagnostic exists for interpreting v4 paraphrases and v5 regression.",
       "path": "results/reports/visual_hard_slice_exactness_diagnostic/exactness_diagnostic.json"
+    },
+    {
+      "check_id": "h1l_visual_executor_equivalence_packet_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Executed H1l visual executor-equivalence packaged-workflow packet exists with system deltas.",
+      "path": "results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet/tool_contract_system_deltas.csv"
     },
     {
       "check_id": "current_state_doc_exists",

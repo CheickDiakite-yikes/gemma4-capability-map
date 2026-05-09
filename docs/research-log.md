@@ -3227,14 +3227,18 @@
   - config: [`configs/knowledge_work_h1l_slice.yaml`](../configs/knowledge_work_h1l_slice.yaml)
   - brief: [`docs/continuity/h1l-slice.md`](continuity/h1l-slice.md)
   - candidate packet id: `mlx_visual_executor_equivalence_candidates`
+  - executed candidate packet: [`20260509T_h1l_visual_executor_equivalence_candidates_v1`](../results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet)
   - helper packet id: `mlx_visual_executor_equivalence_helper_ablation`
 - Packet shape:
   - five visual live workflows: dashboard review, dashboard referent review, job visual constraint override, finance invoice lock review, and finance invoice revision
   - six candidate rows: contracted MLX, no-directive MLX, role catalog v1, argument hints v2, schema-field hints v4, and schema target literals v5
   - five helper rows for controller repair, controller fallback, and argument repair attribution on the same workflow set
 - Interpretation:
-  - H1l is not another prompt wording patch. It is the next attribution surface for asking whether v4's `8 / 8` executor-equivalent hard-slice behavior survives packaged workflows.
-  - Strict exactness and executor-equivalent visual target success should remain separate endpoints in H1l summaries.
+  - H1l is not another prompt wording patch. It is the attribution surface for asking whether v4's `8 / 8` executor-equivalent hard-slice behavior survives packaged workflows.
+  - The executed candidate packet is negative as a discriminator: all six rows tie at readiness `0.90406`, strict `0.85`, recovered `0.8`, raw clean `1.0`, and repair/fallback/argument repair `0.0 / 0.0 / 0.0`.
+  - Current packaged visual workflows are too staged to preserve the hard-slice distinction. Defer the H1l helper packet until a visual live surface separates at least one candidate row.
 - Verification:
   - `uv run pytest tests/test_knowledge_work_h1.py::test_h1l_slice_config_maps_to_visual_executor_equivalence_packet -q`
   - `uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1l_slice.yaml --packet-id mlx_visual_executor_equivalence_candidates --run-group-id 20260509T_h1l_visual_executor_equivalence_candidates_dry_run_v1 --dry-run`
+  - `uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1l_slice.yaml --packet-id mlx_visual_executor_equivalence_candidates --run-group-id 20260509T_h1l_visual_executor_equivalence_candidates_v1`
+  - `uv run python scripts/summarize_h1_tool_contract.py results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet`

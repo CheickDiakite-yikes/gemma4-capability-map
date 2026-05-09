@@ -21,6 +21,7 @@
 | visual_hard_slice_execute_packet_exists | blocking | True | Latest executed visual hard-slice packet exists with strict, executable, and executor-equivalence gate summary. | results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1/candidate_gate_summary.md |
 | visual_hard_slice_v5_vs_v4_comparison_exists | blocking | True | Direct v5-vs-v4 comparison exists to preserve the negative target-literal result with executor-equivalence metrics. | results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1/schema_literal_targets_vs_schema_field_hints/probe_comparison.json |
 | visual_hard_slice_exactness_diagnostic_exists | blocking | True | Exactness-vs-executor diagnostic exists for interpreting v4 paraphrases and v5 regression. | results/reports/visual_hard_slice_exactness_diagnostic/exactness_diagnostic.json |
+| h1l_visual_executor_equivalence_packet_exists | blocking | True | Executed H1l visual executor-equivalence packaged-workflow packet exists with system deltas. | results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet/tool_contract_system_deltas.csv |
 | current_state_doc_exists | blocking | True | Continuity current-state doc exists. | docs/continuity/current-state.md |
 | next_steps_doc_exists | blocking | True | Continuity next-steps doc exists. | docs/continuity/next-steps.md |
 | research_log_exists | blocking | True | Research log exists. | docs/research-log.md |

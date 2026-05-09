@@ -148,6 +148,12 @@ DEFAULT_H1K_PARALLEL_AUDIT_HELPER_PACKET = (
     / "knowledge_work_h1_slice"
     / "20260507T_h1k_parallel_audit_helpers_v1_knowledge_work_ablation_packet"
 )
+DEFAULT_H1L_VISUAL_EXECUTOR_EQUIVALENCE_PACKET = (
+    ROOT
+    / "results"
+    / "knowledge_work_h1_slice"
+    / "20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet"
+)
 DEFAULT_EXACT_REPLAY_COMPARISON = (
     ROOT
     / "results"
@@ -312,6 +318,7 @@ def build_report(
     h1j_helper_packet: str | Path = DEFAULT_H1J_HELPER_PACKET,
     h1k_parallel_audit_packet: str | Path = DEFAULT_H1K_PARALLEL_AUDIT_PACKET,
     h1k_parallel_audit_helper_packet: str | Path = DEFAULT_H1K_PARALLEL_AUDIT_HELPER_PACKET,
+    h1l_visual_executor_equivalence_packet: str | Path = DEFAULT_H1L_VISUAL_EXECUTOR_EQUIVALENCE_PACKET,
     exact_replay_comparison: str | Path = DEFAULT_EXACT_REPLAY_COMPARISON,
     visual_replay_comparison: str | Path = DEFAULT_VISUAL_REPLAY_COMPARISON,
     parallel_replay_comparison: str | Path = DEFAULT_PARALLEL_REPLAY_COMPARISON,
@@ -468,6 +475,9 @@ def build_report(
     h1k_parallel_audit_rows = _csv_rows(Path(h1k_parallel_audit_packet) / "tool_contract_system_deltas.csv")
     h1k_parallel_audit_helper_rows = _csv_rows(
         Path(h1k_parallel_audit_helper_packet) / "tool_contract_system_deltas.csv"
+    )
+    h1l_visual_executor_equivalence_rows = _csv_rows(
+        Path(h1l_visual_executor_equivalence_packet) / "tool_contract_system_deltas.csv"
     )
     exact_replay_comparison_payload = json.loads(
         (Path(exact_replay_comparison) / "replay_comparison.json").read_text(encoding="utf-8")
@@ -699,6 +709,7 @@ def build_report(
     _write_csv(tables_dir / "h1j_probe_derived_helper_metrics.csv", h1j_helper_rows)
     _write_csv(tables_dir / "h1k_parallel_audit_candidate_metrics.csv", h1k_parallel_audit_rows)
     _write_csv(tables_dir / "h1k_parallel_audit_helper_metrics.csv", h1k_parallel_audit_helper_rows)
+    _write_csv(tables_dir / "h1l_visual_executor_equivalence_candidate_metrics.csv", h1l_visual_executor_equivalence_rows)
     _write_csv(tables_dir / "exact_probe_replay_case_deltas.csv", exact_replay_case_rows)
     _write_csv(tables_dir / "exact_probe_replay_family_deltas.csv", exact_replay_family_rows)
     _write_csv(tables_dir / "exact_probe_replay_focus_summary.csv", exact_replay_focus_rows)
@@ -928,6 +939,18 @@ def build_report(
         ],
     )
     _write_grouped_metric_svg(
+        figures_dir / "h1l_visual_executor_equivalence_burden.svg",
+        title="H1l visual executor-equivalence candidate burden",
+        rows=_label_system_rows(h1l_visual_executor_equivalence_rows),
+        label_field="label",
+        metrics=[
+            ("controller_repair_avg", "repair", "#7C3AED"),
+            ("controller_fallback_avg", "fallback", "#DC2626"),
+            ("argument_repair_avg", "arg repair", "#0891B2"),
+            ("raw_planning_clean_rate_avg", "raw clean", "#16A34A"),
+        ],
+    )
+    _write_grouped_metric_svg(
         figures_dir / "exact_probe_replay_gap.svg",
         title="Exact probe replay gap",
         rows=_exact_replay_gap_rows(exact_replay_comparison_payload["summary"]),
@@ -1056,6 +1079,7 @@ def build_report(
         "h1j_helper_packet": str(Path(h1j_helper_packet).resolve()),
         "h1k_parallel_audit_packet": str(Path(h1k_parallel_audit_packet).resolve()),
         "h1k_parallel_audit_helper_packet": str(Path(h1k_parallel_audit_helper_packet).resolve()),
+        "h1l_visual_executor_equivalence_packet": str(Path(h1l_visual_executor_equivalence_packet).resolve()),
         "exact_replay_comparison": str(Path(exact_replay_comparison).resolve()),
         "visual_replay_comparison": str(Path(visual_replay_comparison).resolve()),
         "parallel_replay_comparison": str(Path(parallel_replay_comparison).resolve()),
@@ -1100,8 +1124,8 @@ def build_report(
             Path(argument_hints_live_visual_vs_role_catalog_comparison).resolve()
         ),
         "registry_path": str(Path(registry_path).resolve()),
-        "table_count": 56,
-        "figure_count": 26,
+        "table_count": 57,
+        "figure_count": 27,
     }
     report_payload = {
         "manifest": manifest,
@@ -1150,6 +1174,7 @@ def build_report(
         "h1j_probe_derived_helper_metrics": h1j_helper_rows,
         "h1k_parallel_audit_candidate_metrics": h1k_parallel_audit_rows,
         "h1k_parallel_audit_helper_metrics": h1k_parallel_audit_helper_rows,
+        "h1l_visual_executor_equivalence_candidate_metrics": h1l_visual_executor_equivalence_rows,
         "exact_probe_replay_comparison": exact_replay_comparison_payload,
         "exact_probe_replay_case_deltas": exact_replay_case_rows,
         "exact_probe_replay_family_deltas": exact_replay_family_rows,
@@ -1240,6 +1265,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--h1k-parallel-audit-helper-packet",
         default=str(DEFAULT_H1K_PARALLEL_AUDIT_HELPER_PACKET),
+    )
+    parser.add_argument(
+        "--h1l-visual-executor-equivalence-packet",
+        default=str(DEFAULT_H1L_VISUAL_EXECUTOR_EQUIVALENCE_PACKET),
     )
     parser.add_argument("--exact-replay-comparison", default=str(DEFAULT_EXACT_REPLAY_COMPARISON))
     parser.add_argument("--visual-replay-comparison", default=str(DEFAULT_VISUAL_REPLAY_COMPARISON))
@@ -1335,6 +1364,7 @@ def main() -> None:
         h1j_helper_packet=args.h1j_helper_packet,
         h1k_parallel_audit_packet=args.h1k_parallel_audit_packet,
         h1k_parallel_audit_helper_packet=args.h1k_parallel_audit_helper_packet,
+        h1l_visual_executor_equivalence_packet=args.h1l_visual_executor_equivalence_packet,
         exact_replay_comparison=args.exact_replay_comparison,
         visual_replay_comparison=args.visual_replay_comparison,
         parallel_replay_comparison=args.parallel_replay_comparison,
@@ -1708,6 +1738,7 @@ def _markdown_report(payload: dict[str, Any]) -> str:
     h1j_helper_rows = payload["h1j_probe_derived_helper_metrics"]
     h1k_parallel_audit_rows = payload["h1k_parallel_audit_candidate_metrics"]
     h1k_parallel_audit_helper_rows = payload["h1k_parallel_audit_helper_metrics"]
+    h1l_visual_executor_equivalence_rows = payload["h1l_visual_executor_equivalence_candidate_metrics"]
     promotion_rows = payload["prompt_contract_promotion_decisions"]
     exact_replay_summary = payload["exact_probe_replay_comparison"]["summary"]
     exact_replay_case_rows = payload["exact_probe_replay_case_deltas"]
@@ -1786,6 +1817,8 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "![H1k parallel-audit candidate burden](figures/h1k_parallel_audit_burden.svg)",
         "",
         "![H1k parallel-audit helper burden](figures/h1k_parallel_audit_helper_burden.svg)",
+        "",
+        "![H1l visual executor-equivalence burden](figures/h1l_visual_executor_equivalence_burden.svg)",
         "",
         "![Exact probe replay gap](figures/exact_probe_replay_gap.svg)",
         "",
@@ -2029,6 +2062,12 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "",
         "The H1k helper packet confirms the negative result. Removing controller repair, controller fallback, or argument repair does not move the staged parallel-audit workflow. The result is useful because it narrows the next experiment: the discriminator must preserve exact one-turn replay shape instead of further decomposing the parallel task into staged packaged steps.",
         "",
+        "## H1l Visual Executor-Equivalence Candidate Packet",
+        "",
+        _markdown_table(h1l_visual_executor_equivalence_rows),
+        "",
+        "H1l promotes the visual hard-slice executor-equivalence result into five packaged visual live workflows. The packet is currently negative as a discriminator: contracted MLX, no-directive MLX, role catalog v1, argument hints v2, schema-field hints v4, and schema target literals v5 all tie at readiness `0.90406`, strict interface `0.85`, recovered execution `0.8`, raw clean `1.0`, and zero repair/fallback burden. That means the v4 hard-slice executor-equivalence gain is still a probe-level signal, not yet a packaged-workflow signal.",
+        "",
         "## Gemini CLI Baseline Status",
         "",
         f"- Packet: `{gemini['packet_run_id']}`",
@@ -2047,7 +2086,8 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "- The no-directive probe explains why: CLI/API calls often keep the right tool but drift on canonical arguments, while visual referent and parallel-tool cases collapse to no tool call.",
         "- The visual catalog path now gives a sharper positive result than the prompt-contract path: argument-hints cataloging reaches `2 / 3` live exact visual replay without the exact directive, but still misses executable form-target recovery.",
         "- The fresh visual hard slice updates that picture: schema-field hints preserve full executor-equivalent behavior on independently authored visual cases, but still trail contracted strict exactness.",
-        "- The next experiment should promote this distinction into a packaged H1 visual workflow that keeps strict protocol fidelity and executor-visible success as separate endpoints.",
+        "- H1l then shows the current packaged visual workflows are too staged to preserve that distinction: all visual catalog rows tie on readiness, strict interface, recovered execution, raw clean rate, and controller burden.",
+        "- The next experiment should either run H1l helper only after a non-saturated visual live packet appears or preserve the hard-slice/exact-replay shape more faithfully in the live operator.",
         "",
         "## Source Artifacts",
         "",
@@ -2083,6 +2123,7 @@ def _markdown_report(payload: dict[str, Any]) -> str:
             f"- H1j probe-derived helper packet: `{payload['manifest']['h1j_helper_packet']}`",
             f"- H1k parallel-audit prompt-contract packet: `{payload['manifest']['h1k_parallel_audit_packet']}`",
             f"- H1k parallel-audit helper packet: `{payload['manifest']['h1k_parallel_audit_helper_packet']}`",
+            f"- H1l visual executor-equivalence packet: `{payload['manifest']['h1l_visual_executor_equivalence_packet']}`",
             f"- Exact replay comparison: `{payload['manifest']['exact_replay_comparison']}`",
             f"- Canonical argument replay comparison: `{payload['manifest']['canonical_argument_replay_comparison']}`",
             f"- Visual replay comparison: `{payload['manifest']['visual_replay_comparison']}`",

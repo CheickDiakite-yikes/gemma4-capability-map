@@ -307,6 +307,30 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C11_h1l_packaged_visual_workflows_remain_saturated",
+        claim="Promoting the visual executor-equivalence result into current packaged visual workflows does not yet preserve the hard-slice discrimination.",
+        status="negative_result_current_packets",
+        evidence_strength="moderate_internal",
+        primary_metric=(
+            "H1l candidate rows tie at readiness 0.90406, strict interface 0.85, recovered execution 0.8, "
+            "raw clean 1.0, and zero controller repair/fallback/argument repair."
+        ),
+        limitation="H1l uses existing staged packaged workflows, so it can reject this packaged surface without rejecting the hard-slice executor-equivalence signal.",
+        next_test="Preserve the hard-slice or exact-replay shape more faithfully in live operator execution before spending H1l helper-ablation budget.",
+        sources=(
+            EvidenceSource(
+                "h1_ablation_packet",
+                "results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet",
+                "Executed H1l visual executor-equivalence candidate packet showing all visual catalog rows saturate on packaged workflows.",
+            ),
+            EvidenceSource(
+                "visual_hard_slice_probe_packet",
+                "results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1",
+                "Underlying hard-slice packet that motivated H1l by separating strict exactness from executor-equivalent target success.",
+            ),
+        ),
+    ),
 )
 
 

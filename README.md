@@ -146,7 +146,7 @@ The active next experiment is now a CLI/research-harness packet, not a UI task:
 - the fresh visual hard-slice design packet is [`results/reports/visual_hard_slice_design/design.md`](results/reports/visual_hard_slice_design/design.md)
 - the latest executed visual hard-slice packet is [`results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1`](results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1)
 - the visual hard-slice exactness diagnostic is [`results/reports/visual_hard_slice_exactness_diagnostic`](results/reports/visual_hard_slice_exactness_diagnostic)
-- the H1l visual executor-equivalence live scaffold is [`configs/knowledge_work_h1l_slice.yaml`](configs/knowledge_work_h1l_slice.yaml) with handoff notes in [`docs/continuity/h1l-slice.md`](docs/continuity/h1l-slice.md)
+- the H1l visual executor-equivalence packaged-workflow packet is [`results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet`](results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet), with config in [`configs/knowledge_work_h1l_slice.yaml`](configs/knowledge_work_h1l_slice.yaml)
 - the paper-facing evidence ledger is [`results/reports/publication_evidence_ledger/ledger.md`](results/reports/publication_evidence_ledger/ledger.md)
 - the publication readiness audit is [`results/reports/publication_readiness_audit/publication_readiness_audit.md`](results/reports/publication_readiness_audit/publication_readiness_audit.md)
 - the visual catalog + literal guard v6 packet is [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe`](results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe)
@@ -165,13 +165,13 @@ The active next experiment is now a CLI/research-harness packet, not a UI task:
 
 The current read is partial-gain plus stable raw replay failure, with a useful visual mechanism split. `visual_role_catalog_v1` moved visual behavior at the tool-catalog layer, and `visual_role_catalog_argument_hints_v2` remains the strongest exact candidate on the old focused visual replay. The fresh hard slice changed the interpretation: `visual_role_catalog_schema_field_hints_v4` is now the strongest no-directive visual hard-slice profile at `6 / 8` strict exactness and `8 / 8` executor-equivalent target success. The attempted `visual_role_catalog_schema_literal_targets_v5` repair is negative evidence because it falls to `5 / 8` strict exactness and `7 / 8` executor-equivalent target success while adding a stale-selection wrong-tool failure. The exactness diagnostic classifies the two v4 non-exact rows as executor-success selector aliases, not true visual target failures, and executor-equivalence is now a first-class packet metric beside strict exactness and executability. H1i candidate, H1i repeat3, H1j candidates, H1j helper ablation, and H1k parallel-audit packets all saturated. Exact replay of the no-directive failure set stayed at `0 / 8`; contracted replay on the same cases restored `7 / 8`.
 
-The next research move is to use the executor-equivalence packet as the gate fixture for a packaged H1 visual workflow, then test whether v4's executor-visible recovery survives a benchmark-backed live workflow rather than only a probe packet:
+The next research move is to preserve the hard-slice or exact-replay shape more faithfully in live operator execution. H1l already tested the current packaged visual workflows and saturated across the visual catalog rows, so broad packaged workflow reruns should stay paused:
 
 ```bash
 uv run python scripts/build_visual_hard_slice_design.py
 uv run python scripts/run_visual_hard_slice_probe_packet.py --run-group-id 20260509T_visual_hard_slice_executor_equivalence_v1 --execute
 uv run python scripts/analyze_visual_hard_slice_exactness.py --json
-uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1l_slice.yaml --packet-id mlx_visual_executor_equivalence_candidates --run-group-id <timestamp>_h1l_visual_executor_equivalence_candidates_v1 --dry-run
+uv run python scripts/summarize_h1_tool_contract.py results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet
 uv run python scripts/build_publication_evidence_ledger.py
 uv run python scripts/audit_publication_readiness.py
 uv run python scripts/build_mlx_tool_contract_report.py

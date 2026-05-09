@@ -1,6 +1,6 @@
 # MLX Tool-Contract Harnessing Report
 
-Generated: `2026-05-09T12:30:50.071359+00:00`
+Generated: `2026-05-09T12:43:40.280253+00:00`
 
 ## Executive Read
 
@@ -49,6 +49,8 @@ The visual catalog branch now includes an explicit negative-result loop. `visual
 ![H1k parallel-audit candidate burden](figures/h1k_parallel_audit_burden.svg)
 
 ![H1k parallel-audit helper burden](figures/h1k_parallel_audit_helper_burden.svg)
+
+![H1l visual executor-equivalence burden](figures/h1l_visual_executor_equivalence_burden.svg)
 
 ![Exact probe replay gap](figures/exact_probe_replay_gap.svg)
 
@@ -643,6 +645,19 @@ H1k promotes the deferred `parallel_audit_array_literal` probe pressure into one
 
 The H1k helper packet confirms the negative result. Removing controller repair, controller fallback, or argument repair does not move the staged parallel-audit workflow. The result is useful because it narrows the next experiment: the discriminator must preserve exact one-turn replay shape instead of further decomposing the parallel task into staged packaged steps.
 
+## H1l Visual Executor-Equivalence Candidate Packet
+
+| system_id | lane | disabled_controls | tool_turn_directive_enabled | real_world_readiness_avg | delta_vs_contracted_real_world_readiness_avg | delta_vs_no_directive_real_world_readiness_avg | strict_interface_avg | delta_vs_contracted_strict_interface_avg | delta_vs_no_directive_strict_interface_avg | recovered_execution_avg | delta_vs_contracted_recovered_execution_avg | delta_vs_no_directive_recovered_execution_avg | controller_repair_avg | delta_vs_contracted_controller_repair_avg | delta_vs_no_directive_controller_repair_avg | argument_repair_avg | delta_vs_contracted_argument_repair_avg | delta_vs_no_directive_argument_repair_avg | controller_fallback_avg | delta_vs_contracted_controller_fallback_avg | delta_vs_no_directive_controller_fallback_avg | intent_override_avg | delta_vs_contracted_intent_override_avg | delta_vs_no_directive_intent_override_avg | raw_planning_clean_rate_avg | delta_vs_contracted_raw_planning_clean_rate_avg | delta_vs_no_directive_raw_planning_clean_rate_avg |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| mlx_gemma4_e2b_reasoner_only | live_web_stress |  | True | 0.90406 | 0.0 | 0.0 | 0.85 | 0.0 | 0.0 | 0.8 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 1.0 | 0.0 | 0.0 |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | live_web_stress | disable_tool_turn_directive | False | 0.90406 | 0.0 | 0.0 | 0.85 | 0.0 | 0.0 | 0.8 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 1.0 | 0.0 | 0.0 |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog | live_web_stress | disable_tool_turn_directive;tool_catalog_profile_id | False | 0.90406 | 0.0 | 0.0 | 0.85 | 0.0 | 0.0 | 0.8 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 1.0 | 0.0 | 0.0 |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints | live_web_stress | disable_tool_turn_directive;tool_catalog_profile_id | False | 0.90406 | 0.0 | 0.0 | 0.85 | 0.0 | 0.0 | 0.8 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 1.0 | 0.0 | 0.0 |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints | live_web_stress | disable_tool_turn_directive;tool_catalog_profile_id | False | 0.90406 | 0.0 | 0.0 | 0.85 | 0.0 | 0.0 | 0.8 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 1.0 | 0.0 | 0.0 |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets | live_web_stress | disable_tool_turn_directive;tool_catalog_profile_id | False | 0.90406 | 0.0 | 0.0 | 0.85 | 0.0 | 0.0 | 0.8 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 1.0 | 0.0 | 0.0 |
+
+H1l promotes the visual hard-slice executor-equivalence result into five packaged visual live workflows. The packet is currently negative as a discriminator: contracted MLX, no-directive MLX, role catalog v1, argument hints v2, schema-field hints v4, and schema target literals v5 all tie at readiness `0.90406`, strict interface `0.85`, recovered execution `0.8`, raw clean `1.0`, and zero repair/fallback burden. That means the v4 hard-slice executor-equivalence gain is still a probe-level signal, not yet a packaged-workflow signal.
+
 ## Gemini CLI Baseline Status
 
 - Packet: `20260507T_h1h_gemini_cli_dry_run_baseline_v1`
@@ -661,7 +676,8 @@ This packet is deliberately a dry-run prompt and command manifest. It is an exte
 - The no-directive probe explains why: CLI/API calls often keep the right tool but drift on canonical arguments, while visual referent and parallel-tool cases collapse to no tool call.
 - The visual catalog path now gives a sharper positive result than the prompt-contract path: argument-hints cataloging reaches `2 / 3` live exact visual replay without the exact directive, but still misses executable form-target recovery.
 - The fresh visual hard slice updates that picture: schema-field hints preserve full executor-equivalent behavior on independently authored visual cases, but still trail contracted strict exactness.
-- The next experiment should promote this distinction into a packaged H1 visual workflow that keeps strict protocol fidelity and executor-visible success as separate endpoints.
+- H1l then shows the current packaged visual workflows are too staged to preserve that distinction: all visual catalog rows tie on readiness, strict interface, recovered execution, raw clean rate, and controller burden.
+- The next experiment should either run H1l helper only after a non-saturated visual live packet appears or preserve the hard-slice/exact-replay shape more faithfully in the live operator.
 
 ## Source Artifacts
 
@@ -695,6 +711,7 @@ This packet is deliberately a dry-run prompt and command manifest. It is an exte
 - H1j probe-derived helper packet: `/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_helpers_v1_knowledge_work_ablation_packet`
 - H1k parallel-audit prompt-contract packet: `/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_candidates_v1_knowledge_work_ablation_packet`
 - H1k parallel-audit helper packet: `/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_helpers_v1_knowledge_work_ablation_packet`
+- H1l visual executor-equivalence packet: `/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet`
 - Exact replay comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_comparisons/20260507T_contracted_vs_no_directive_exact_replay_v1`
 - Canonical argument replay comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_comparisons/20260507T_canonical_argument_contracted_vs_no_directive_v1`
 - Visual replay comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_comparisons/20260507T_visual_state_contracted_vs_no_directive_v1`

@@ -4,9 +4,9 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 
 ## Manifest
 
-- generated_at: `2026-05-09T12:30:44.242012+00:00`
-- claim_count: `10`
-- evidence_source_count: `31`
+- generated_at: `2026-05-09T12:43:40.164854+00:00`
+- claim_count: `11`
+- evidence_source_count: `33`
 - missing_source_count: `0`
 
 ## Claims
@@ -23,6 +23,7 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C8_visual_hard_slice_targets_remaining_uncertainty | supported_current_packets | moderate_internal | Contracted MLX reaches 8/8 strict, executable, and executor-equivalent; no-directive falls to 1/8; schema-field hints reach 6/8 strict and 8/8 executor-equivalent. | The packet is eight independently authored visual cases, so it is stronger than design-only evidence but still not a population estimate. | Promote v4 only after building a packaged H1 visual workflow that tests executor-visible success directly. |
 | C9_schema_literal_targets_v5_is_negative_evidence | negative_result_current_packets | moderate_internal | v5 reaches 5/8 strict and 7/8 executor-equivalent versus v4 at 6/8 strict and 8/8 executor-equivalent; v5 adds one wrong-tool failure on the stale-selection decoy. | This is still one eight-case hard-slice packet; it rejects the current wording, not all possible target-query exactness interventions. | Do not iterate target-literal wording again until the stale-selection routing failure is isolated separately. |
 | C10_v4_exact_misses_are_executor_success_aliases | supported_current_packets | moderate_internal | v4 has 2/8 non-exact rows, both executor-target matches; first-class executor-equivalence scores v4 at 8/8 while benchmark-label artifact candidate count is 2 and true harness failure count is 0. | This does not prove every visual selector paraphrase is acceptable; it only classifies the current hard-slice v4 misses under the local deterministic executor. | Use the executor-equivalence score to design a packaged H1 visual workflow that separates executor success from strict protocol fidelity. |
+| C11_h1l_packaged_visual_workflows_remain_saturated | negative_result_current_packets | moderate_internal | H1l candidate rows tie at readiness 0.90406, strict interface 0.85, recovered execution 0.8, raw clean 1.0, and zero controller repair/fallback/argument repair. | H1l uses existing staged packaged workflows, so it can reject this packaged surface without rejecting the hard-slice executor-equivalence signal. | Preserve the hard-slice or exact-replay shape more faithfully in live operator execution before spending H1l helper-ablation budget. |
 
 ## Evidence Sources
 
@@ -59,3 +60,5 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C9_schema_literal_targets_v5_is_negative_evidence | visual_hard_slice_exactness_diagnostic | True | results/reports/visual_hard_slice_exactness_diagnostic | Diagnostic showing v5 preserves the same two label-artifact candidates as v4 while adding one true wrong-tool failure. |
 | C10_v4_exact_misses_are_executor_success_aliases | visual_hard_slice_exactness_diagnostic | True | results/reports/visual_hard_slice_exactness_diagnostic | System and gap tables separating canonical argument exactness from executor-visible target success. |
 | C10_v4_exact_misses_are_executor_success_aliases | visual_hard_slice_probe_packet | True | results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1 | Underlying executed hard-slice packet with raw expected/actual calls, deterministic execution outputs, and executor-equivalence scores. |
+| C11_h1l_packaged_visual_workflows_remain_saturated | h1_ablation_packet | True | results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet | Executed H1l visual executor-equivalence candidate packet showing all visual catalog rows saturate on packaged workflows. |
+| C11_h1l_packaged_visual_workflows_remain_saturated | visual_hard_slice_probe_packet | True | results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1 | Underlying hard-slice packet that motivated H1l by separating strict exactness from executor-equivalent target success. |

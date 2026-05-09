@@ -67,6 +67,8 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 
 ![H1k parallel-audit helper burden](../../results/reports/mlx_tool_contract_harnessing/figures/h1k_parallel_audit_helper_burden.svg)
 
+![H1l visual executor-equivalence burden](../../results/reports/mlx_tool_contract_harnessing/figures/h1l_visual_executor_equivalence_burden.svg)
+
 ![Exact probe replay gap](../../results/reports/mlx_tool_contract_harnessing/figures/exact_probe_replay_gap.svg)
 
 ![Focused exact replay gaps](../../results/reports/mlx_tool_contract_harnessing/figures/exact_probe_replay_focus_gap.svg)
@@ -115,6 +117,7 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 | [`H1j probe-derived helper packet`](../../results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_helpers_v1_knowledge_work_ablation_packet) | Controller-helper ablation on the same H1j probe-derived packaged workflow set. |
 | [`H1k parallel-audit candidate packet`](../../results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_candidates_v1_knowledge_work_ablation_packet) | Packaged live promotion of the deferred `parallel_audit_array_literal` replay case. |
 | [`H1k parallel-audit helper packet`](../../results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_helpers_v1_knowledge_work_ablation_packet) | Controller-helper ablation on the packaged parallel-audit workflow. |
+| [`H1l visual executor-equivalence candidate packet`](../../results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet) | Packaged visual live promotion of the visual hard-slice executor-equivalence result. |
 | [`exact-probe replay packet`](../../results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1) | Dry-run replay artifacts for the eight failed no-directive exact-call probe cases. |
 | [`CLI-live parallel replay comparison`](../../results/tool_probe_replay_live_comparisons/20260507T_parallel_array_contracted_vs_no_directive_live_v1) | Operator-surface A/B for the parallel-array exact replay case. |
 | [`CLI-live visual replay comparison`](../../results/tool_probe_replay_live_comparisons/20260507T_visual_state_contracted_vs_no_directive_live_v1) | Operator-surface A/B for the visual no-call exact replay cases. |
@@ -746,6 +749,23 @@ Both H1k packets saturated:
 The negative result is important. H1k proves Moonie now has a safe packaged live scaffold for the parallel-audit family, but that staged workflow is easier than the raw one-turn replay case. It decomposes the pressure into known task steps, and no-directive MLX stays controller-clean even when controller repair, controller fallback, or argument repair are removed.
 
 So the next move is not another packaged H1 derivative. The next discriminator should preserve exact-call replay shape, especially the independent two-call array behavior in `parallel_audit_array_literal`.
+
+## H1l Visual Executor-Equivalence Candidate Packet
+
+H1l tests whether the visual hard-slice executor-equivalence split survives current packaged visual workflows:
+
+- config: [`configs/knowledge_work_h1l_slice.yaml`](../../configs/knowledge_work_h1l_slice.yaml)
+- packet: [`results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet)
+- generated table: [`h1l_visual_executor_equivalence_candidate_metrics.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/h1l_visual_executor_equivalence_candidate_metrics.csv)
+- generated figure: [`h1l_visual_executor_equivalence_burden.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/h1l_visual_executor_equivalence_burden.svg)
+
+Result:
+
+| Rows | Workflows per row | Readiness | Strict/recovered | Repair/fallback/arg repair | Raw clean |
+| ---: | ---: | ---: | ---: | ---: | ---: |
+| `6` | `5` | `0.90406` | `0.85 / 0.8` | `0.0 / 0.0 / 0.0` | `1.0` |
+
+The result is negative but useful. Schema-field hints v4 still matter on the hard slice because they separate strict exactness from executor-equivalent target success, but current packaged visual workflows are too staged to preserve that distinction. The H1l helper packet should wait until a visual live surface separates at least one candidate row.
 
 ## Gemini CLI Baseline Status
 

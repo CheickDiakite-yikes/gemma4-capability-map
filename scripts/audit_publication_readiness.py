@@ -130,6 +130,16 @@ def audit_publication_readiness(
             detail="Exactness-vs-executor diagnostic exists for interpreting v4 paraphrases and v5 regression.",
         ),
         _check_path(
+            check_id="h1l_visual_executor_equivalence_packet_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "knowledge_work_h1_slice"
+            / "20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet"
+            / "tool_contract_system_deltas.csv",
+            detail="Executed H1l visual executor-equivalence packaged-workflow packet exists with system deltas.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",
