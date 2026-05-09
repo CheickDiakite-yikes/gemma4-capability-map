@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-09T00:35:45.493159+00:00",
+    "generated_at": "2026-05-09T00:40:57.639143+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-    "claim_count": 7,
-    "evidence_source_count": 22,
+    "claim_count": 8,
+    "evidence_source_count": 24,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -12,7 +12,8 @@
       "C4_visual_catalog_role_routing_is_real",
       "C5_visual_argument_hints_improve_exactness_but_not_executability",
       "C6_split_selector_wording_is_negative_evidence",
-      "C7_schema_field_hints_tie_exactness_without_executability"
+      "C7_schema_field_hints_tie_exactness_without_executability",
+      "C8_visual_hard_slice_targets_remaining_uncertainty"
     ]
   },
   "claims": [
@@ -85,6 +86,16 @@
       "limitation": "This tests one schema-field annotation profile on the focused eight-case replay-derived probe.",
       "next_test": "Create a fresh visual hard slice or constrain refine_selection preference only when a real selection_id is present.",
       "source_count": 3
+    },
+    {
+      "claim_id": "C8_visual_hard_slice_targets_remaining_uncertainty",
+      "claim": "The next visual hard slice should separate visible-region targeting, valid selection carryover, compact filter copying, and protocol-shape readback.",
+      "status": "design_packet_current",
+      "evidence_strength": "design_only",
+      "primary_metric": "Eight fresh planned cases across visual argument copying, routing, referent carryover, and region readback.",
+      "limitation": "This packet is an eval design artifact; it is not model-performance evidence until run against candidate rows.",
+      "next_test": "Implement the designed cases as a replayable visual hard-slice packet, then compare contracted, no-directive, v1, v2, and any refine-selection-gated candidate.",
+      "source_count": 2
     }
   ],
   "evidence_sources": [
@@ -240,6 +251,20 @@
       "artifact_type": "live_replay_decision",
       "path": "results/tool_probe_replay_live/20260509T_visual_schema_field_hints_live_replay_skipped_v1",
       "purpose": "Promotion decision packet explaining why v4 did not spend live replay budget.",
+      "exists": true
+    },
+    {
+      "claim_id": "C8_visual_hard_slice_targets_remaining_uncertainty",
+      "artifact_type": "design_packet",
+      "path": "results/reports/visual_hard_slice_design",
+      "purpose": "Fresh visual hard-slice design packet derived from v1/v2/v3/v4 failure analysis.",
+      "exists": true
+    },
+    {
+      "claim_id": "C8_visual_hard_slice_targets_remaining_uncertainty",
+      "artifact_type": "live_replay_decision",
+      "path": "results/tool_probe_replay_live/20260509T_visual_schema_field_hints_live_replay_skipped_v1",
+      "purpose": "Negative v4 promotion decision motivating a fresh visual hard-slice rather than another live replay.",
       "exists": true
     }
   ],

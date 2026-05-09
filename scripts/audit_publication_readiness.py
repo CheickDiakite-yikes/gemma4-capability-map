@@ -93,6 +93,12 @@ def audit_publication_readiness(
             detail="Skipped-live decision is preserved as an auditable packet.",
         ),
         _check_path(
+            check_id="visual_hard_slice_design_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "visual_hard_slice_design" / "design.json",
+            detail="Fresh visual hard-slice design packet exists before new benchmark execution.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",
@@ -129,6 +135,7 @@ def audit_publication_readiness(
         "audit_publication_readiness.py",
         "run_tool_catalog_profile_probe_packet.py",
         "compare_tool_directive_probes.py",
+        "build_visual_hard_slice_design.py",
     ]:
         checks.append(
             _check_path(

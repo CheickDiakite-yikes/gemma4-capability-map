@@ -1,9 +1,9 @@
 {
   "summary": {
-    "generated_at": "2026-05-09T00:35:45.535736+00:00",
+    "generated_at": "2026-05-09T00:40:57.634943+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 20,
-    "blocking_check_count": 18,
+    "check_count": 22,
+    "blocking_check_count": 20,
     "blocking_failed_count": 0,
     "recommended_check_count": 2,
     "recommended_failed_count": 0,
@@ -29,7 +29,7 @@
       "check_id": "ledger_has_claims",
       "severity": "blocking",
       "passed": true,
-      "detail": "claim_count=7",
+      "detail": "claim_count=8",
       "path": ""
     },
     {
@@ -80,6 +80,13 @@
       "passed": true,
       "detail": "Skipped-live decision is preserved as an auditable packet.",
       "path": "results/tool_probe_replay_live/20260509T_visual_schema_field_hints_live_replay_skipped_v1/decision.md"
+    },
+    {
+      "check_id": "visual_hard_slice_design_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Fresh visual hard-slice design packet exists before new benchmark execution.",
+      "path": "results/reports/visual_hard_slice_design/design.json"
     },
     {
       "check_id": "current_state_doc_exists",
@@ -150,6 +157,13 @@
       "passed": true,
       "detail": "Reproduction script `compare_tool_directive_probes.py` exists.",
       "path": "scripts/compare_tool_directive_probes.py"
+    },
+    {
+      "check_id": "script_build_visual_hard_slice_design.py_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Reproduction script `build_visual_hard_slice_design.py` exists.",
+      "path": "scripts/build_visual_hard_slice_design.py"
     }
   ]
 }

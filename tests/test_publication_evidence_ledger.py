@@ -22,11 +22,14 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     claims = {row["claim_id"]: row for row in payload["claims"]}
     assert claims["C2_final_tool_directive_causal_for_protocol"]["status"] == "supported_current_packets"
     assert claims["C6_split_selector_wording_is_negative_evidence"]["status"] == "negative_result_current_packets"
+    assert claims["C8_visual_hard_slice_targets_remaining_uncertainty"]["status"] == "design_packet_current"
     assert "7/8" in claims["C2_final_tool_directive_causal_for_protocol"]["primary_metric"]
     assert "v3 raw exact falls" in claims["C6_split_selector_wording_is_negative_evidence"]["primary_metric"]
+    assert "Eight fresh planned cases" in claims["C8_visual_hard_slice_targets_remaining_uncertainty"]["primary_metric"]
 
     source_types = {row["artifact_type"] for row in payload["evidence_sources"]}
     assert "h1_ablation_packet" in source_types
+    assert "design_packet" in source_types
     assert "live_replay_decision" in source_types
     assert all(row["exists"] for row in payload["evidence_sources"])
 

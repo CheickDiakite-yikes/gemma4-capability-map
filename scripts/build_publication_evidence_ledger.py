@@ -220,6 +220,27 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C8_visual_hard_slice_targets_remaining_uncertainty",
+        claim="The next visual hard slice should separate visible-region targeting, valid selection carryover, compact filter copying, and protocol-shape readback.",
+        status="design_packet_current",
+        evidence_strength="design_only",
+        primary_metric="Eight fresh planned cases across visual argument copying, routing, referent carryover, and region readback.",
+        limitation="This packet is an eval design artifact; it is not model-performance evidence until run against candidate rows.",
+        next_test="Implement the designed cases as a replayable visual hard-slice packet, then compare contracted, no-directive, v1, v2, and any refine-selection-gated candidate.",
+        sources=(
+            EvidenceSource(
+                "design_packet",
+                "results/reports/visual_hard_slice_design",
+                "Fresh visual hard-slice design packet derived from v1/v2/v3/v4 failure analysis.",
+            ),
+            EvidenceSource(
+                "live_replay_decision",
+                "results/tool_probe_replay_live/20260509T_visual_schema_field_hints_live_replay_skipped_v1",
+                "Negative v4 promotion decision motivating a fresh visual hard-slice rather than another live replay.",
+            ),
+        ),
+    ),
 )
 
 
@@ -304,7 +325,7 @@ def _write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
         return
     fieldnames = list(rows[0].keys())
     with path.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        writer = csv.DictWriter(handle, fieldnames=fieldnames, lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
 

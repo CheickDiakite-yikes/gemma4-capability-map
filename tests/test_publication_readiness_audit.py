@@ -22,6 +22,7 @@ def test_publication_readiness_audit_writes_blocking_checks(tmp_path: Path) -> N
     checks = {row["check_id"]: row for row in payload["checks"]}
     assert checks["ledger_has_no_missing_sources"]["passed"] is True
     assert checks["ledger_includes_negative_results"]["passed"] is True
+    assert checks["visual_hard_slice_design_exists"]["passed"] is True
     assert checks["v3_skipped_live_decision_exists"]["passed"] is True
     assert checks["paper_outline_exists"]["severity"] == "recommended"
 
