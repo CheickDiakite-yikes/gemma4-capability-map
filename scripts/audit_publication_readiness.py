@@ -59,13 +59,13 @@ def audit_publication_readiness(
         _check_bool(
             check_id="tool_contract_report_has_current_tables",
             severity="blocking",
-            passed=int(report_manifest.get("table_count", 0) or 0) >= 61,
+            passed=int(report_manifest.get("table_count", 0) or 0) >= 63,
             detail=f"table_count={report_manifest.get('table_count', '')}",
         ),
         _check_bool(
             check_id="tool_contract_report_has_current_figures",
             severity="blocking",
-            passed=int(report_manifest.get("figure_count", 0) or 0) >= 29,
+            passed=int(report_manifest.get("figure_count", 0) or 0) >= 30,
             detail=f"figure_count={report_manifest.get('figure_count', '')}",
         ),
         _check_path(
@@ -245,6 +245,57 @@ def audit_publication_readiness(
             / "20260509T_visual_hard_slice_live_stress_alias_repeat_schema_field_hints_vs_no_directive_v1"
             / "live_replay_comparison.json",
             detail="Alias-repeat schema-field live replay comparison exists.",
+        ),
+        _check_path(
+            check_id="visual_hard_slice_alias_repeat_contracted_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260509T_visual_hard_slice_live_stress_alias_repeat_contracted_vs_no_directive_v1"
+            / "live_replay_comparison.json",
+            detail="Alias-repeat contracted live replay comparison exists.",
+        ),
+        _check_path(
+            check_id="visual_hard_slice_alias_repeat_role_catalog_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260509T_visual_hard_slice_live_stress_alias_repeat_role_catalog_vs_no_directive_v1"
+            / "live_replay_comparison.json",
+            detail="Alias-repeat role-catalog live replay comparison exists.",
+        ),
+        _check_path(
+            check_id="visual_hard_slice_alias_repeat_argument_hints_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260509T_visual_hard_slice_live_stress_alias_repeat_argument_hints_vs_no_directive_v1"
+            / "live_replay_comparison.json",
+            detail="Alias-repeat argument-hints live replay comparison exists.",
+        ),
+        _check_path(
+            check_id="visual_hard_slice_alias_repeat_schema_literals_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260509T_visual_hard_slice_live_stress_alias_repeat_schema_literal_targets_vs_no_directive_v1"
+            / "live_replay_comparison.json",
+            detail="Alias-repeat schema-target-literal live replay comparison exists.",
+        ),
+        _check_path(
+            check_id="visual_hard_slice_alias_repeat_report_table_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "mlx_tool_contract_harnessing"
+            / "tables"
+            / "visual_hard_slice_alias_repeat_live_replay_summary.csv",
+            detail="Alias-repeat live replay summary table exists in the main report.",
         ),
         _check_path(
             check_id="current_state_doc_exists",

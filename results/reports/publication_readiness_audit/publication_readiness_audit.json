@@ -1,9 +1,9 @@
 {
   "summary": {
-    "generated_at": "2026-05-09T23:19:14.555075+00:00",
+    "generated_at": "2026-05-09T23:28:58.047035+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 41,
-    "blocking_check_count": 39,
+    "check_count": 46,
+    "blocking_check_count": 44,
     "blocking_failed_count": 0,
     "recommended_check_count": 2,
     "recommended_failed_count": 0,
@@ -43,14 +43,14 @@
       "check_id": "tool_contract_report_has_current_tables",
       "severity": "blocking",
       "passed": true,
-      "detail": "table_count=61",
+      "detail": "table_count=63",
       "path": ""
     },
     {
       "check_id": "tool_contract_report_has_current_figures",
       "severity": "blocking",
       "passed": true,
-      "detail": "figure_count=29",
+      "detail": "figure_count=30",
       "path": ""
     },
     {
@@ -192,6 +192,41 @@
       "passed": true,
       "detail": "Alias-repeat schema-field live replay comparison exists.",
       "path": "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_repeat_schema_field_hints_vs_no_directive_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "visual_hard_slice_alias_repeat_contracted_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Alias-repeat contracted live replay comparison exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_repeat_contracted_vs_no_directive_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "visual_hard_slice_alias_repeat_role_catalog_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Alias-repeat role-catalog live replay comparison exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_repeat_role_catalog_vs_no_directive_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "visual_hard_slice_alias_repeat_argument_hints_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Alias-repeat argument-hints live replay comparison exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_repeat_argument_hints_vs_no_directive_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "visual_hard_slice_alias_repeat_schema_literals_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Alias-repeat schema-target-literal live replay comparison exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_repeat_schema_literal_targets_vs_no_directive_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "visual_hard_slice_alias_repeat_report_table_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Alias-repeat live replay summary table exists in the main report.",
+      "path": "results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_repeat_live_replay_summary.csv"
     },
     {
       "check_id": "current_state_doc_exists",

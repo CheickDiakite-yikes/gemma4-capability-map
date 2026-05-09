@@ -130,8 +130,8 @@ Current strongest MLX result:
   - stress follow-up: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_dry_run_v1`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_dry_run_v1)
   - stress result: no-directive `2 / 4` strict and `3 / 4` executor-equivalent; contracted MLX `4 / 4`; schema-field hints v4 and schema-target-literal v5 `2 / 4` strict and `4 / 4` executor-equivalent
   - alias-repeat follow-up: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_repeat_dry_run_v1`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_repeat_dry_run_v1)
-  - alias-repeat minimal pair: no-directive `2 / 8` strict and `5 / 8` executor-equivalent; schema-field hints v4 `2 / 8` strict and `7 / 8` executor-equivalent
-  - status: complete the remaining alias-repeat rows before H1m, not another broad prompt wording patch
+  - alias-repeat result: no-directive `2 / 8` strict and `5 / 8` executor-equivalent; contracted MLX `7 / 8` strict and `8 / 8` executor-equivalent; schema-field hints v4 `2 / 8` strict and `7 / 8` executor-equivalent; schema-target-literal v5 `3 / 8` strict and `8 / 8` executor-equivalent
+  - status: repeat alias-repeat or package only the surviving metric-panel/callout mechanisms before H1m, not another broad prompt wording patch
 - the sixth prompt-contract wave is a negative composition result:
   - dry-run packet: [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run)
   - probe packet: [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe)
@@ -173,7 +173,7 @@ Current next loop:
 5. Treat `visual_role_catalog_schema_literal_targets_v5` as negative evidence: it did not fix the two v4 executable paraphrases and introduced a wrong-tool stale-selection regression.
 6. Treat the two v4 exact misses as benchmark-label artifact candidates under the current local executor, not true executor-targeting failures.
 7. Treat H1l as a negative packaged-workflow result: the current packaged visual workflows saturate and do not preserve v4's hard-slice executor-equivalence discriminator.
-8. Treat the alias-repeat minimal pair as positive but incomplete: schema-field hints improves executor-equivalence by `+0.25`, but the matrix still needs contracted, role catalog, argument hints, and schema target literals.
+8. Treat the completed alias-repeat matrix as positive but still replay-shaped: schema-field hints improves executor-equivalence by `+0.25`, schema target literals reaches full executor-equivalence with a small strict gain, and contracted MLX remains the strict upper bound.
 9. Return to H1h only after replay-live or raw/hard-slice evidence shows a mechanism-level change.
 10. Keep Gemini CLI as an external baseline/reference, not a replacement for Moonie's local Gemma harness.
 11. Regenerate the report, publication ledger, publication audit, and visual hard-slice packet summaries after any H1i/H1h/probe/Gemini/live-replay packet change.

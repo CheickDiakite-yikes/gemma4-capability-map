@@ -51,6 +51,9 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert "improves executor-equivalence from 5/8 to 7/8" in claims[
         "C13_visual_live_stress_separates_executor_grounding_from_strict_fidelity"
     ]["primary_metric"]
+    assert "schema target literals reach 3/8 strict and 8/8 executor-equivalent" in claims[
+        "C13_visual_live_stress_separates_executor_grounding_from_strict_fidelity"
+    ]["primary_metric"]
 
     source_types = {row["artifact_type"] for row in payload["evidence_sources"]}
     assert "h1_ablation_packet" in source_types

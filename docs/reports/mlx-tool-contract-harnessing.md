@@ -472,19 +472,25 @@ The follow-up stress packet repeats the same mechanisms with four fresh decoys:
 
 This makes the research conclusion more precise: schema-local visual catalog hints improve executor-visible grounding on alias-heavy metric panels, but strict JSON/canonical-label fidelity still belongs to the full contracted MLX profile. The next useful move is additional alias/decoy repetition before packaging an H1m workflow.
 
-### Alias-Repeat Minimal Pair
+### Alias-Repeat Matrix
 
-The first alias-repeat follow-up expands the four-case stress slice to eight repeated metric-panel, callout, and stale-selection cases:
+The alias-repeat follow-up expands the four-case stress slice to eight repeated metric-panel, callout, and stale-selection cases:
 
 - alias-repeat packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_repeat_dry_run_v1`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_repeat_dry_run_v1)
-- schema-field-vs-no-directive comparison: [`results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_repeat_schema_field_hints_vs_no_directive_v1`](../../results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_repeat_schema_field_hints_vs_no_directive_v1)
+- generated summary table: [`visual_hard_slice_alias_repeat_live_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_repeat_live_replay_summary.csv)
+- generated case table: [`visual_hard_slice_alias_repeat_live_replay_case_deltas.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_repeat_live_replay_case_deltas.csv)
+- generated figure: [`visual_hard_slice_alias_repeat_live_replay_gate.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_alias_repeat_live_replay_gate.svg)
 
 | Row | Strict | Executable | Executor-equivalent |
 | --- | ---: | ---: | ---: |
 | no-directive MLX | `2 / 8` | `5 / 8` | `5 / 8` |
+| contracted MLX | `7 / 8` | `8 / 8` | `8 / 8` |
+| role catalog v1 | `1 / 8` | `6 / 8` | `6 / 8` |
+| argument hints v2 | `2 / 8` | `6 / 8` | `6 / 8` |
 | schema-field hints v4 | `2 / 8` | `7 / 8` | `7 / 8` |
+| schema target literals v5 | `3 / 8` | `8 / 8` | `8 / 8` |
 
-This minimal pair repeats the same story under more alias pressure: schema-field hints improve executor-visible visual grounding by `+0.25` without improving strict canonical-label fidelity. The matrix is not complete yet; contracted MLX, role catalog v1, argument hints v2, and schema target literals v5 still need to run on the same alias-repeat packet before this becomes an H1m candidate.
+This repeats the same story under more alias pressure but adds nuance. Schema-field hints improve executor-visible visual grounding by `+0.25` without improving strict canonical-label fidelity. Schema target literals v5, which was negative on the preserved two-case hard replay, is positive on this repeated alias slice: it reaches full executor-equivalence and adds one strict exact win. The contracted row still owns strict fidelity, so the next step is not to declare v5 "fixed"; it is to repeat the alias packet or package the surviving metric-panel/callout mechanisms into a non-saturated H1m workflow.
 
 ## Prompt-Contract Wave Six Probe Gate
 

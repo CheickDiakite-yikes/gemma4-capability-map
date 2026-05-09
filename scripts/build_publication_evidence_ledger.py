@@ -390,10 +390,11 @@ CLAIMS: tuple[Claim, ...] = (
             "On four fresh stress cases, no-directive MLX is 2/4 strict and 3/4 executor-equivalent; "
             "contracted MLX is 4/4 strict and executor-equivalent; schema-field hints and schema target literals are "
             "2/4 strict but 4/4 executor-equivalent. On the 8-case alias-repeat follow-up, schema-field hints "
-            "matches no-directive at 2/8 strict but improves executor-equivalence from 5/8 to 7/8."
+            "matches no-directive at 2/8 strict but improves executor-equivalence from 5/8 to 7/8, while schema "
+            "target literals reach 3/8 strict and 8/8 executor-equivalent."
         ),
-        limitation="The full matrix is complete for the four-case stress slice, while the eight-case alias-repeat follow-up currently has only the no-directive vs schema-field minimal pair.",
-        next_test="Run the alias-repeat suite through contracted, role catalog, argument hints, and schema target literals before deciding whether to promote the surviving cases into an H1m packaged workflow.",
+        limitation="The alias-repeat matrix is still one deterministic replay-shaped live packet, not a repeated stochastic estimate or a broad packaged workflow.",
+        next_test="Repeat the alias-repeat packet across seeds or promote only the surviving metric-panel/callout mechanisms into a non-saturated H1m packaged workflow.",
         sources=(
             EvidenceSource(
                 "tool_probe_replay_packet",
@@ -434,6 +435,31 @@ CLAIMS: tuple[Claim, ...] = (
                 "live_replay_comparison",
                 "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_repeat_schema_field_hints_vs_no_directive_v1",
                 "Alias-repeat comparison showing schema-field hints improve executor-equivalence without strict exactness gain.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_repeat_contracted_vs_no_directive_v1",
+                "Alias-repeat comparison showing contracted MLX remains the strict upper bound.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_repeat_role_catalog_vs_no_directive_v1",
+                "Alias-repeat comparison showing role catalog is partial and loses strict exactness versus no-directive.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_repeat_argument_hints_vs_no_directive_v1",
+                "Alias-repeat comparison showing argument hints improve executor-equivalence but not strict exactness.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_repeat_schema_literal_targets_vs_no_directive_v1",
+                "Alias-repeat comparison showing schema target literals reach full executor-equivalence with a small strict gain.",
+            ),
+            EvidenceSource(
+                "report_table",
+                "results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_repeat_live_replay_summary.csv",
+                "Report table summarizing the completed alias-repeat replay matrix.",
             ),
             EvidenceSource(
                 "diagnostic_report",

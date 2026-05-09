@@ -215,11 +215,11 @@ Latest MLX tool-contract research:
   - comparison: [`results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_schema_field_hints_vs_no_directive_live_v2`](../../results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_schema_field_hints_vs_no_directive_live_v2)
   - result: no-directive stays strict/executor-equivalent `0 / 2`; schema-field hints reaches strict `1 / 2` and executor-equivalent `2 / 2`
   - interpretation: the v4 hard-slice signal survives in the CLI live operator path when raw replay shape is preserved; H1l saturation is evidence about staged packaged workflows, not evidence that the v4 mechanism is gone
-- Visual hard-slice alias-repeat minimal pair:
+- Visual hard-slice alias-repeat matrix:
   - source packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_repeat_dry_run_v1`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_repeat_dry_run_v1)
-  - comparison: [`results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_repeat_schema_field_hints_vs_no_directive_v1`](../../results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_repeat_schema_field_hints_vs_no_directive_v1)
-  - result: no-directive MLX is strict `2 / 8` and executor-equivalent `5 / 8`; schema-field hints v4 is strict `2 / 8` and executor-equivalent `7 / 8`
-  - interpretation: repeated alias/decoy pressure preserves the executor-grounding gain without improving strict canonical-label fidelity; finish the remaining alias-repeat rows before any H1m promotion
+  - summary table: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_repeat_live_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_repeat_live_replay_summary.csv)
+  - result: no-directive MLX is strict `2 / 8` and executor-equivalent `5 / 8`; contracted MLX is `7 / 8` strict and `8 / 8` executor-equivalent; schema-field hints v4 is strict `2 / 8` and executor-equivalent `7 / 8`; schema target literals v5 is strict `3 / 8` and executor-equivalent `8 / 8`
+  - interpretation: repeated alias/decoy pressure preserves the executor-grounding gain; schema target literals are no longer purely negative on this repeated slice, but contracted MLX remains the strict upper bound
 - Prompt-contract wave 2:
   - contracts: `schema_literal_tool_required_v2`, `visual_next_call_state_v2`, `parallel_array_required_v2`
   - runner flag: `scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v2`

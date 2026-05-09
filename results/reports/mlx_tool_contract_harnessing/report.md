@@ -1,6 +1,6 @@
 # MLX Tool-Contract Harnessing Report
 
-Generated: `2026-05-09T23:06:50.035195+00:00`
+Generated: `2026-05-09T23:28:14.323116+00:00`
 
 ## Executive Read
 
@@ -71,6 +71,8 @@ The visual catalog branch now includes an explicit negative-result loop. `visual
 ![Visual hard-slice live replay gate](figures/visual_hard_slice_live_replay_gate.svg)
 
 ![Visual hard-slice stress live replay gate](figures/visual_hard_slice_stress_live_replay_gate.svg)
+
+![Visual hard-slice alias-repeat live replay gate](figures/visual_hard_slice_alias_repeat_live_replay_gate.svg)
 
 ## Packet Summary
 
@@ -387,6 +389,61 @@ The live operator replay now preserves the hard-slice discriminator instead of s
 | stress schema literal targets vs no directive | stress_metric_panel_with_kpi_copy_decoy | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | False | 0 | True | True | 0 | True | True | 0 | executable_paraphrase | executable_paraphrase | 1 | 1 | 0 |
 
 The harder stress replay repeats the two mechanisms with fresh decoys. It no longer fully separates no-directive MLX: no-directive reaches `2 / 4` strict and `3 / 4` executor-equivalent. Contracted MLX remains the `4 / 4` strict upper bound. Schema-field hints v4 and schema target literals v5 do not improve strict exactness over no-directive (`2 / 4`), but both recover full executor-equivalence (`4 / 4`) by turning the hardest metric-panel decoy into an executor-valid selector alias. Role catalog v1 is negative on this stress slice, dropping to `1 / 4` strict and `2 / 4` executor-equivalent.
+
+## Visual Hard-Slice Alias-Repeat CLI-Live Replay
+
+| comparison | baseline_system_id | candidate_system_id | shared_case_count | baseline_exact_rate | candidate_exact_rate | delta_exact_rate | baseline_executable_rate | candidate_executable_rate | delta_executable_rate | baseline_executor_equivalence_rate | candidate_executor_equivalence_rate | delta_executor_equivalence_rate |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| alias-repeat contracted vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only | 8 | 0.25 | 0.875 | 0.625 | 0.625 | 1.0 | 0.375 | 0.625 | 1.0 | 0.375 |
+| alias-repeat role catalog vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog | 8 | 0.25 | 0.125 | -0.125 | 0.625 | 0.75 | 0.125 | 0.625 | 0.75 | 0.125 |
+| alias-repeat argument hints vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints | 8 | 0.25 | 0.25 | 0.0 | 0.625 | 0.75 | 0.125 | 0.625 | 0.75 | 0.125 |
+| alias-repeat schema-field hints vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints | 8 | 0.25 | 0.25 | 0.0 | 0.625 | 0.875 | 0.25 | 0.625 | 0.875 | 0.25 |
+| alias-repeat schema literal targets vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets | 8 | 0.25 | 0.375 | 0.125 | 0.625 | 1.0 | 0.375 | 0.625 | 1.0 | 0.375 |
+
+| comparison | case_id | family | source_failure_mode | baseline_replay_exact_match | candidate_replay_exact_match | delta_exact_match | baseline_replay_executable_match | candidate_replay_executable_match | delta_executable_match | baseline_replay_executor_equivalence_match | candidate_replay_executor_equivalence_match | delta_executor_equivalence_match | baseline_replay_failure_mode | candidate_replay_failure_mode | baseline_actual_call_count | candidate_actual_call_count | delta_actual_call_count |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| alias-repeat contracted vs no directive | stress_callout_warning_person_table_decoy | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | False | 0 | False | True | 1 | False | True | 1 | no_tool_call | executable_paraphrase | 0 | 1 | 1 |
+| alias-repeat contracted vs no directive | stress_callout_warning_risk_note_decoy | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | True | 1 | False | True | 1 | False | True | 1 | no_tool_call | exact | 0 | 1 | 1 |
+| alias-repeat contracted vs no directive | stress_form_error_stale_selection_status_decoy | visual_tool_routing_stress | wrong_tool_or_stale_selection_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| alias-repeat contracted vs no directive | stress_form_error_stale_selection_warning_decoy | visual_tool_routing_stress | wrong_tool_or_stale_selection_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| alias-repeat contracted vs no directive | stress_metric_panel_status_banner_decoy | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | True | 1 | True | True | 0 | True | True | 0 | executable_paraphrase | exact | 1 | 1 | 0 |
+| alias-repeat contracted vs no directive | stress_metric_panel_summary_card_decoy | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | True | 1 | True | True | 0 | True | True | 0 | executable_paraphrase | exact | 1 | 1 | 0 |
+| alias-repeat contracted vs no directive | stress_metric_panel_with_chart_table_decoys | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| alias-repeat contracted vs no directive | stress_metric_panel_with_kpi_copy_decoy | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | True | 1 | True | True | 0 | True | True | 0 | executable_paraphrase | exact | 1 | 1 | 0 |
+| alias-repeat role catalog vs no directive | stress_callout_warning_person_table_decoy | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | False | 0 | False | True | 1 | False | True | 1 | no_tool_call | executable_paraphrase | 0 | 1 | 1 |
+| alias-repeat role catalog vs no directive | stress_callout_warning_risk_note_decoy | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | False | 0 | False | True | 1 | False | True | 1 | no_tool_call | executable_paraphrase | 0 | 1 | 1 |
+| alias-repeat role catalog vs no directive | stress_form_error_stale_selection_status_decoy | visual_tool_routing_stress | wrong_tool_or_stale_selection_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| alias-repeat role catalog vs no directive | stress_form_error_stale_selection_warning_decoy | visual_tool_routing_stress | wrong_tool_or_stale_selection_risk | True | False | -1 | True | False | -1 | True | False | -1 | exact | no_tool_call | 1 | 0 | -1 |
+| alias-repeat role catalog vs no directive | stress_metric_panel_status_banner_decoy | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | False | 0 | True | True | 0 | True | True | 0 | executable_paraphrase | executable_paraphrase | 1 | 1 | 0 |
+| alias-repeat role catalog vs no directive | stress_metric_panel_summary_card_decoy | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | False | 0 | True | True | 0 | True | True | 0 | executable_paraphrase | executable_paraphrase | 1 | 1 | 0 |
+| alias-repeat role catalog vs no directive | stress_metric_panel_with_chart_table_decoys | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | argument_mismatch | argument_mismatch | 1 | 1 | 0 |
+| alias-repeat role catalog vs no directive | stress_metric_panel_with_kpi_copy_decoy | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | False | 0 | True | True | 0 | True | True | 0 | executable_paraphrase | executable_paraphrase | 1 | 1 | 0 |
+| alias-repeat argument hints vs no directive | stress_callout_warning_person_table_decoy | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | False | 0 | False | True | 1 | False | True | 1 | no_tool_call | executable_paraphrase | 0 | 1 | 1 |
+| alias-repeat argument hints vs no directive | stress_callout_warning_risk_note_decoy | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | no_tool_call | argument_mismatch | 0 | 1 | 1 |
+| alias-repeat argument hints vs no directive | stress_form_error_stale_selection_status_decoy | visual_tool_routing_stress | wrong_tool_or_stale_selection_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| alias-repeat argument hints vs no directive | stress_form_error_stale_selection_warning_decoy | visual_tool_routing_stress | wrong_tool_or_stale_selection_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| alias-repeat argument hints vs no directive | stress_metric_panel_status_banner_decoy | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | False | 0 | True | True | 0 | True | True | 0 | executable_paraphrase | executable_paraphrase | 1 | 1 | 0 |
+| alias-repeat argument hints vs no directive | stress_metric_panel_summary_card_decoy | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | False | 0 | True | True | 0 | True | True | 0 | executable_paraphrase | executable_paraphrase | 1 | 1 | 0 |
+| alias-repeat argument hints vs no directive | stress_metric_panel_with_chart_table_decoys | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | argument_mismatch | argument_mismatch | 1 | 1 | 0 |
+| alias-repeat argument hints vs no directive | stress_metric_panel_with_kpi_copy_decoy | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | False | 0 | True | True | 0 | True | True | 0 | executable_paraphrase | executable_paraphrase | 1 | 1 | 0 |
+| alias-repeat schema-field hints vs no directive | stress_callout_warning_person_table_decoy | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | False | 0 | False | True | 1 | False | True | 1 | no_tool_call | executable_paraphrase | 0 | 1 | 1 |
+| alias-repeat schema-field hints vs no directive | stress_callout_warning_risk_note_decoy | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | no_tool_call | argument_mismatch | 0 | 1 | 1 |
+| alias-repeat schema-field hints vs no directive | stress_form_error_stale_selection_status_decoy | visual_tool_routing_stress | wrong_tool_or_stale_selection_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| alias-repeat schema-field hints vs no directive | stress_form_error_stale_selection_warning_decoy | visual_tool_routing_stress | wrong_tool_or_stale_selection_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| alias-repeat schema-field hints vs no directive | stress_metric_panel_status_banner_decoy | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | False | 0 | True | True | 0 | True | True | 0 | executable_paraphrase | executable_paraphrase | 1 | 1 | 0 |
+| alias-repeat schema-field hints vs no directive | stress_metric_panel_summary_card_decoy | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | False | 0 | True | True | 0 | True | True | 0 | executable_paraphrase | executable_paraphrase | 1 | 1 | 0 |
+| alias-repeat schema-field hints vs no directive | stress_metric_panel_with_chart_table_decoys | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | False | 0 | False | True | 1 | False | True | 1 | argument_mismatch | executable_paraphrase | 1 | 1 | 0 |
+| alias-repeat schema-field hints vs no directive | stress_metric_panel_with_kpi_copy_decoy | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | False | 0 | True | True | 0 | True | True | 0 | executable_paraphrase | executable_paraphrase | 1 | 1 | 0 |
+| alias-repeat schema literal targets vs no directive | stress_callout_warning_person_table_decoy | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | False | 0 | False | True | 1 | False | True | 1 | no_tool_call | executable_paraphrase | 0 | 1 | 1 |
+| alias-repeat schema literal targets vs no directive | stress_callout_warning_risk_note_decoy | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | True | 1 | False | True | 1 | False | True | 1 | no_tool_call | exact | 0 | 1 | 1 |
+| alias-repeat schema literal targets vs no directive | stress_form_error_stale_selection_status_decoy | visual_tool_routing_stress | wrong_tool_or_stale_selection_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| alias-repeat schema literal targets vs no directive | stress_form_error_stale_selection_warning_decoy | visual_tool_routing_stress | wrong_tool_or_stale_selection_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| alias-repeat schema literal targets vs no directive | stress_metric_panel_status_banner_decoy | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | False | 0 | True | True | 0 | True | True | 0 | executable_paraphrase | executable_paraphrase | 1 | 1 | 0 |
+| alias-repeat schema literal targets vs no directive | stress_metric_panel_summary_card_decoy | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | False | 0 | True | True | 0 | True | True | 0 | executable_paraphrase | executable_paraphrase | 1 | 1 | 0 |
+| alias-repeat schema literal targets vs no directive | stress_metric_panel_with_chart_table_decoys | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | False | 0 | False | True | 1 | False | True | 1 | argument_mismatch | executable_paraphrase | 1 | 1 | 0 |
+| alias-repeat schema literal targets vs no directive | stress_metric_panel_with_kpi_copy_decoy | visual_argument_copying_stress | argument_alias_or_decoy_risk | False | False | 0 | True | True | 0 | True | True | 0 | executable_paraphrase | executable_paraphrase | 1 | 1 | 0 |
+
+The eight-case alias-repeat packet makes the stress finding more publication-useful. No-directive MLX reaches `2 / 8` strict and `5 / 8` executor-equivalent. Schema-field hints v4 preserves the same strict count but improves executor-equivalence to `7 / 8`, while schema target literals v5 reaches `3 / 8` strict and full `8 / 8` executor-equivalence. Contracted MLX remains the strict upper bound at `7 / 8` and `8 / 8` executor-equivalent. Role catalog v1 and argument hints v2 are partial: they improve executor-equivalence to `6 / 8`, but do not match the schema-local profiles.
 
 ## Visual Hard-Slice Case Deltas vs No Directive
 

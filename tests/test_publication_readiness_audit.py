@@ -38,6 +38,11 @@ def test_publication_readiness_audit_writes_blocking_checks(tmp_path: Path) -> N
     assert checks["visual_live_stress_diagnostic_exists"]["passed"] is True
     assert checks["visual_hard_slice_alias_repeat_packet_exists"]["passed"] is True
     assert checks["visual_hard_slice_alias_repeat_schema_field_comparison_exists"]["passed"] is True
+    assert checks["visual_hard_slice_alias_repeat_contracted_comparison_exists"]["passed"] is True
+    assert checks["visual_hard_slice_alias_repeat_role_catalog_comparison_exists"]["passed"] is True
+    assert checks["visual_hard_slice_alias_repeat_argument_hints_comparison_exists"]["passed"] is True
+    assert checks["visual_hard_slice_alias_repeat_schema_literals_comparison_exists"]["passed"] is True
+    assert checks["visual_hard_slice_alias_repeat_report_table_exists"]["passed"] is True
     assert checks["script_analyze_visual_hard_slice_exactness.py_exists"]["passed"] is True
     assert checks["script_run_visual_hard_slice_probe_packet.py_exists"]["passed"] is True
     assert checks["script_build_visual_hard_slice_replay_packet.py_exists"]["passed"] is True
