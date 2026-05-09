@@ -28,6 +28,7 @@ H1H_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_w
 H1I_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1i_slice.yaml"
 H1J_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1j_slice.yaml"
 H1K_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1k_slice.yaml"
+H1L_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1l_slice.yaml"
 
 
 def test_h1_slice_config_maps_to_existing_packaged_workflows_and_episodes() -> None:
@@ -373,6 +374,50 @@ def test_h1k_slice_config_maps_to_parallel_audit_live_packet() -> None:
     assert packet.episode_ids == ["kwa_ops_live_parallel_audit_review_v1"]
     assert "skipped_evidence_source" in packet.failure_modes
     assert "parallel_audit_array_literal" in config.attribution_tags
+
+
+def test_h1l_slice_config_maps_to_visual_executor_equivalence_packet() -> None:
+    config = load_h1_slice(H1L_CONFIG_PATH)
+
+    errors = validate_h1_slice(config)
+
+    assert errors == []
+    assert config.name == "knowledge_work_h1l_visual_executor_equivalence_live"
+    assert [family.workflow_id for family in config.workflow_families] == [
+        "executive_visual_dashboard_review",
+        "executive_visual_referent_review",
+        "jobs_visual_constraint_override",
+        "finance_visual_invoice_review",
+        "finance_visual_invoice_revision",
+    ]
+    packet = h1_packet_selection(config, "mlx_visual_executor_equivalence_candidates")
+    assert packet.lane == "live_web_stress"
+    assert packet.system_ids == [
+        "mlx_gemma4_e2b_reasoner_only",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets",
+    ]
+    assert packet.episode_ids == [
+        "kwa_exec_live_visual_dashboard_brief",
+        "kwa_exec_live_visual_dashboard_referent_hold_v3",
+        "kwa_jobs_live_visual_constraint_override_hold_v2",
+        "kwa_finance_live_invoice_lock_direction_hold_v4",
+        "kwa_finance_live_visual_invoice_revision_hold_v2",
+    ]
+    assert "executor_equivalence" in packet.failure_modes
+    helper_packet = h1_packet_selection(config, "mlx_visual_executor_equivalence_helper_ablation")
+    assert helper_packet.system_ids == [
+        "mlx_gemma4_e2b_reasoner_only",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_repair",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_fallback",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_argument_repair",
+    ]
+    assert helper_packet.episode_ids == packet.episode_ids
+    assert "visual_executor_equivalence" in config.attribution_tags
 
 
 def test_h1_primary_run_specs_default_to_mlx_gemma_reasoner_only() -> None:

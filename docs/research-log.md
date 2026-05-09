@@ -3220,3 +3220,21 @@
   - `uv run python scripts/run_visual_hard_slice_probe_packet.py --run-group-id 20260509T_visual_hard_slice_executor_equivalence_v1 --execute`
   - `uv run python scripts/analyze_visual_hard_slice_exactness.py --json`
   - `uv run python scripts/compare_tool_directive_probes.py results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets --output-dir results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1/schema_literal_targets_vs_schema_field_hints`
+
+## 2026-05-09 - H1l Visual Executor-Equivalence Live Scaffold
+
+- A new packaged-workflow H1 slice now carries the executor-equivalence result into the CLI-first live harness:
+  - config: [`configs/knowledge_work_h1l_slice.yaml`](../configs/knowledge_work_h1l_slice.yaml)
+  - brief: [`docs/continuity/h1l-slice.md`](continuity/h1l-slice.md)
+  - candidate packet id: `mlx_visual_executor_equivalence_candidates`
+  - helper packet id: `mlx_visual_executor_equivalence_helper_ablation`
+- Packet shape:
+  - five visual live workflows: dashboard review, dashboard referent review, job visual constraint override, finance invoice lock review, and finance invoice revision
+  - six candidate rows: contracted MLX, no-directive MLX, role catalog v1, argument hints v2, schema-field hints v4, and schema target literals v5
+  - five helper rows for controller repair, controller fallback, and argument repair attribution on the same workflow set
+- Interpretation:
+  - H1l is not another prompt wording patch. It is the next attribution surface for asking whether v4's `8 / 8` executor-equivalent hard-slice behavior survives packaged workflows.
+  - Strict exactness and executor-equivalent visual target success should remain separate endpoints in H1l summaries.
+- Verification:
+  - `uv run pytest tests/test_knowledge_work_h1.py::test_h1l_slice_config_maps_to_visual_executor_equivalence_packet -q`
+  - `uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1l_slice.yaml --packet-id mlx_visual_executor_equivalence_candidates --run-group-id 20260509T_h1l_visual_executor_equivalence_candidates_dry_run_v1 --dry-run`

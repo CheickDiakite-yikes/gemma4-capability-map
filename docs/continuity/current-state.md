@@ -198,6 +198,14 @@ Latest MLX tool-contract research:
   - helper packet: [`results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_helpers_v1_knowledge_work_ablation_packet`](../../results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_helpers_v1_knowledge_work_ablation_packet)
   - H1k helper result: `5` traces, all helper-ablation rows matched readiness `0.91780`, strict/recovered `1.0 / 1.0`, repair/fallback/argument repair `0.0 / 0.0 / 0.0`, raw clean `1.0`; trace mining found `3` expected `controller_repair_disabled` markers and `0` failure candidates
   - interpretation: H1k is a useful negative result. It adds the deferred parallel-audit packaged workflow, but the staged live workflow is still easier than the raw one-turn `parallel_audit_array_literal` exact probe. Removing controller repair, controller fallback, or argument repair does not move this packaged slice, so the next discriminator needs to preserve exact-call replay shape.
+- H1l visual executor-equivalence live scaffold:
+  - config: [`configs/knowledge_work_h1l_slice.yaml`](../../configs/knowledge_work_h1l_slice.yaml)
+  - brief: [`docs/continuity/h1l-slice.md`](./h1l-slice.md)
+  - purpose: promote the visual hard-slice executor-equivalence split into packaged visual live workflows
+  - candidate packet id: `mlx_visual_executor_equivalence_candidates`
+  - helper-ablation packet id: `mlx_visual_executor_equivalence_helper_ablation`
+  - live workflows: `executive_visual_dashboard_review`, `executive_visual_referent_review`, `jobs_visual_constraint_override`, `finance_visual_invoice_review`, `finance_visual_invoice_revision`
+  - status: configured and dry-run ready; not executed yet
 - Prompt-contract wave 2:
   - contracts: `schema_literal_tool_required_v2`, `visual_next_call_state_v2`, `parallel_array_required_v2`
   - runner flag: `scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v2`

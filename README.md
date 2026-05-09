@@ -146,6 +146,7 @@ The active next experiment is now a CLI/research-harness packet, not a UI task:
 - the fresh visual hard-slice design packet is [`results/reports/visual_hard_slice_design/design.md`](results/reports/visual_hard_slice_design/design.md)
 - the latest executed visual hard-slice packet is [`results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1`](results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_executor_equivalence_v1)
 - the visual hard-slice exactness diagnostic is [`results/reports/visual_hard_slice_exactness_diagnostic`](results/reports/visual_hard_slice_exactness_diagnostic)
+- the H1l visual executor-equivalence live scaffold is [`configs/knowledge_work_h1l_slice.yaml`](configs/knowledge_work_h1l_slice.yaml) with handoff notes in [`docs/continuity/h1l-slice.md`](docs/continuity/h1l-slice.md)
 - the paper-facing evidence ledger is [`results/reports/publication_evidence_ledger/ledger.md`](results/reports/publication_evidence_ledger/ledger.md)
 - the publication readiness audit is [`results/reports/publication_readiness_audit/publication_readiness_audit.md`](results/reports/publication_readiness_audit/publication_readiness_audit.md)
 - the visual catalog + literal guard v6 packet is [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe`](results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe)
@@ -170,6 +171,7 @@ The next research move is to use the executor-equivalence packet as the gate fix
 uv run python scripts/build_visual_hard_slice_design.py
 uv run python scripts/run_visual_hard_slice_probe_packet.py --run-group-id 20260509T_visual_hard_slice_executor_equivalence_v1 --execute
 uv run python scripts/analyze_visual_hard_slice_exactness.py --json
+uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1l_slice.yaml --packet-id mlx_visual_executor_equivalence_candidates --run-group-id <timestamp>_h1l_visual_executor_equivalence_candidates_v1 --dry-run
 uv run python scripts/build_publication_evidence_ledger.py
 uv run python scripts/audit_publication_readiness.py
 uv run python scripts/build_mlx_tool_contract_report.py

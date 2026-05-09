@@ -163,10 +163,17 @@ Current next loop:
 4. Treat `visual_role_catalog_schema_field_hints_v4` as the strongest fresh hard-slice no-directive candidate because it reaches `8 / 8` executor-equivalent, with the explicit caveat that it still misses exact protocol on two cases.
 5. Treat `visual_role_catalog_schema_literal_targets_v5` as negative evidence: it did not fix the two v4 executable paraphrases and introduced a wrong-tool stale-selection regression.
 6. Treat the two v4 exact misses as benchmark-label artifact candidates under the current local executor, not true executor-targeting failures.
-7. Use first-class executor-equivalence scoring beside strict exactness before writing another target-query wording candidate or promoting v4 into packaged workflows.
+7. Use [`configs/knowledge_work_h1l_slice.yaml`](../../configs/knowledge_work_h1l_slice.yaml) as the packaged visual workflow scaffold for testing whether v4's executor-equivalent recovery survives live runs.
 8. Return to H1h only after replay-live or raw/hard-slice evidence shows a mechanism-level change.
 9. Keep Gemini CLI as an external baseline/reference, not a replacement for Moonie's local Gemma harness.
 10. Regenerate the report, publication ledger, publication audit, and visual hard-slice packet summaries after any H1i/H1h/probe/Gemini/live-replay packet change.
+
+H1l source:
+
+- config: [`configs/knowledge_work_h1l_slice.yaml`](../../configs/knowledge_work_h1l_slice.yaml)
+- brief: [`docs/continuity/h1l-slice.md`](./h1l-slice.md)
+- candidate packet id: `mlx_visual_executor_equivalence_candidates`
+- helper packet id: `mlx_visual_executor_equivalence_helper_ablation`
 
 H1j source:
 

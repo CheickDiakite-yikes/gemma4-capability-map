@@ -315,6 +315,8 @@ uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/
 uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1i_slice.yaml --packet-id mlx_prompt_contract_candidates --run-group-id 20260507T_h1i_prompt_contract_candidates_repeat3_v1 --repeat 3
 uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1j_slice.yaml --packet-id mlx_probe_derived_tool_contract_candidates --run-group-id <timestamp>_h1j_probe_derived_candidates_v1
 uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1j_slice.yaml --packet-id mlx_probe_derived_helper_ablation --run-group-id <timestamp>_h1j_probe_derived_helpers_v1
+uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1l_slice.yaml --packet-id mlx_visual_executor_equivalence_candidates --run-group-id <timestamp>_h1l_visual_executor_equivalence_candidates_v1 --dry-run
+uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1l_slice.yaml --packet-id mlx_visual_executor_equivalence_candidates --run-group-id <timestamp>_h1l_visual_executor_equivalence_candidates_v1
 uv run python scripts/summarize_h1_tool_contract.py results/knowledge_work_h1_slice/<packet_id>
 ```
 
@@ -324,6 +326,7 @@ Success condition:
 - Gemini CLI baseline artifacts are attributable to the same workflow family IDs
 - prompt-contract changes show raw probe improvement before they are allowed into H1i
 - prompt-contract changes beat the current live replay ceiling, not merely tie wave three's `1 / 3` visual exact rate
+- visual catalog changes preserve the strict-vs-executor-equivalence distinction when promoted into H1l packaged workflows
 - broad aligned `32 / 26` reruns stay paused until this harder packet produces a specific mechanism-level change
 
 ### 3. Keep using focused packets before any broader rerun
