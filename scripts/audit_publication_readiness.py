@@ -298,6 +298,12 @@ def audit_publication_readiness(
             detail="Alias-repeat live replay summary table exists in the main report.",
         ),
         _check_path(
+            check_id="visual_alias_repeat_diagnostic_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "visual_alias_repeat_diagnostic" / "diagnostic.md",
+            detail="Visual alias-repeat diagnostic report exists.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",

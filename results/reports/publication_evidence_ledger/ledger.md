@@ -4,9 +4,9 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 
 ## Manifest
 
-- generated_at: `2026-05-09T23:28:58.052348+00:00`
+- generated_at: `2026-05-09T23:31:35.947481+00:00`
 - claim_count: `13`
-- evidence_source_count: `54`
+- evidence_source_count: `55`
 - missing_source_count: `0`
 
 ## Claims
@@ -84,4 +84,5 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C13_visual_live_stress_separates_executor_grounding_from_strict_fidelity | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_repeat_argument_hints_vs_no_directive_v1 | Alias-repeat comparison showing argument hints improve executor-equivalence but not strict exactness. |
 | C13_visual_live_stress_separates_executor_grounding_from_strict_fidelity | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_repeat_schema_literal_targets_vs_no_directive_v1 | Alias-repeat comparison showing schema target literals reach full executor-equivalence with a small strict gain. |
 | C13_visual_live_stress_separates_executor_grounding_from_strict_fidelity | report_table | True | results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_repeat_live_replay_summary.csv | Report table summarizing the completed alias-repeat replay matrix. |
+| C13_visual_live_stress_separates_executor_grounding_from_strict_fidelity | diagnostic_report | True | results/reports/visual_alias_repeat_diagnostic/diagnostic.md | Diagnostic report classifying strict gains, executor-only gains, and regressions on the alias-repeat matrix. |
 | C13_visual_live_stress_separates_executor_grounding_from_strict_fidelity | diagnostic_report | True | results/reports/visual_live_stress_diagnostic/diagnostic.md | Diagnostic report explaining strict gains, executor-only gains, and regressions across the stress matrix. |

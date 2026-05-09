@@ -193,6 +193,7 @@ What remains:
   - stress interpretation: schema-field hints v4 and schema target literals v5 recover full executor-equivalence on the metric-panel stress case without increasing strict exactness over no-directive. The next best move is more alias/decoy repetition, not H1m yet.
   - alias-repeat follow-up: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_repeat_dry_run_v1`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_repeat_dry_run_v1)
   - alias-repeat summary table: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_repeat_live_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_repeat_live_replay_summary.csv)
+  - alias-repeat diagnostic: [`results/reports/visual_alias_repeat_diagnostic/diagnostic.md`](../../results/reports/visual_alias_repeat_diagnostic/diagnostic.md)
   - alias-repeat interpretation: schema-field hints improve executor-equivalence from `5 / 8` to `7 / 8` without strict gain, while schema target literals reach `3 / 8` strict and full `8 / 8` executor-equivalence; repeat or package the surviving mechanisms before H1m.
 
 - second prompt-contract wave now exists:

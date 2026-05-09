@@ -1,9 +1,9 @@
 {
   "summary": {
-    "generated_at": "2026-05-09T23:28:58.047035+00:00",
+    "generated_at": "2026-05-09T23:31:35.943014+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 46,
-    "blocking_check_count": 44,
+    "check_count": 47,
+    "blocking_check_count": 45,
     "blocking_failed_count": 0,
     "recommended_check_count": 2,
     "recommended_failed_count": 0,
@@ -227,6 +227,13 @@
       "passed": true,
       "detail": "Alias-repeat live replay summary table exists in the main report.",
       "path": "results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_repeat_live_replay_summary.csv"
+    },
+    {
+      "check_id": "visual_alias_repeat_diagnostic_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Visual alias-repeat diagnostic report exists.",
+      "path": "results/reports/visual_alias_repeat_diagnostic/diagnostic.md"
     },
     {
       "check_id": "current_state_doc_exists",

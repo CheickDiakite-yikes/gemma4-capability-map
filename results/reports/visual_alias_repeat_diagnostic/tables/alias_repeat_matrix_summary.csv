@@ -1,0 +1,6 @@
+label,candidate_system_id,shared_case_count,baseline_exact_rate,candidate_exact_rate,delta_exact_rate,baseline_executor_equivalence_rate,candidate_executor_equivalence_rate,delta_executor_equivalence_rate
+contracted,mlx_gemma4_e2b_reasoner_only,8,0.25,0.875,0.625,0.625,1.0,0.375
+role_catalog_v1,mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog,8,0.25,0.125,-0.125,0.625,0.75,0.125
+argument_hints_v2,mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints,8,0.25,0.25,0.0,0.625,0.75,0.125
+schema_field_hints_v4,mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints,8,0.25,0.25,0.0,0.625,0.875,0.25
+schema_literal_targets_v5,mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets,8,0.25,0.375,0.125,0.625,1.0,0.375

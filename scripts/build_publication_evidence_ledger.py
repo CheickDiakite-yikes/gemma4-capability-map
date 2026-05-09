@@ -463,6 +463,11 @@ CLAIMS: tuple[Claim, ...] = (
             ),
             EvidenceSource(
                 "diagnostic_report",
+                "results/reports/visual_alias_repeat_diagnostic/diagnostic.md",
+                "Diagnostic report classifying strict gains, executor-only gains, and regressions on the alias-repeat matrix.",
+            ),
+            EvidenceSource(
+                "diagnostic_report",
                 "results/reports/visual_live_stress_diagnostic/diagnostic.md",
                 "Diagnostic report explaining strict gains, executor-only gains, and regressions across the stress matrix.",
             ),

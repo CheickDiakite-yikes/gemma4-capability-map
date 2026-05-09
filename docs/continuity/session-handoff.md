@@ -130,6 +130,7 @@ Current strongest MLX result:
   - stress follow-up: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_dry_run_v1`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_dry_run_v1)
   - stress result: no-directive `2 / 4` strict and `3 / 4` executor-equivalent; contracted MLX `4 / 4`; schema-field hints v4 and schema-target-literal v5 `2 / 4` strict and `4 / 4` executor-equivalent
   - alias-repeat follow-up: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_repeat_dry_run_v1`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_repeat_dry_run_v1)
+  - alias-repeat diagnostic: [`results/reports/visual_alias_repeat_diagnostic/diagnostic.md`](../../results/reports/visual_alias_repeat_diagnostic/diagnostic.md)
   - alias-repeat result: no-directive `2 / 8` strict and `5 / 8` executor-equivalent; contracted MLX `7 / 8` strict and `8 / 8` executor-equivalent; schema-field hints v4 `2 / 8` strict and `7 / 8` executor-equivalent; schema-target-literal v5 `3 / 8` strict and `8 / 8` executor-equivalent
   - status: repeat alias-repeat or package only the surviving metric-panel/callout mechanisms before H1m, not another broad prompt wording patch
 - the sixth prompt-contract wave is a negative composition result:

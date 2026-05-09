@@ -480,6 +480,7 @@ The alias-repeat follow-up expands the four-case stress slice to eight repeated 
 - generated summary table: [`visual_hard_slice_alias_repeat_live_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_repeat_live_replay_summary.csv)
 - generated case table: [`visual_hard_slice_alias_repeat_live_replay_case_deltas.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_repeat_live_replay_case_deltas.csv)
 - generated figure: [`visual_hard_slice_alias_repeat_live_replay_gate.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_alias_repeat_live_replay_gate.svg)
+- diagnostic: [`results/reports/visual_alias_repeat_diagnostic/diagnostic.md`](../../results/reports/visual_alias_repeat_diagnostic/diagnostic.md)
 
 | Row | Strict | Executable | Executor-equivalent |
 | --- | ---: | ---: | ---: |

@@ -3335,6 +3335,7 @@
   - schema-target-literal live packet: [`20260509T_visual_hard_slice_live_stress_alias_repeat_schema_literal_targets_execute_v1`](../results/tool_probe_replay_live/20260509T_visual_hard_slice_live_stress_alias_repeat_schema_literal_targets_execute_v1)
   - report table: [`visual_hard_slice_alias_repeat_live_replay_summary.csv`](../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_repeat_live_replay_summary.csv)
   - report figure: [`visual_hard_slice_alias_repeat_live_replay_gate.svg`](../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_alias_repeat_live_replay_gate.svg)
+  - diagnostic: [`results/reports/visual_alias_repeat_diagnostic`](../results/reports/visual_alias_repeat_diagnostic)
 - Result:
   - no-directive MLX: strict `2 / 8`, executable/executor-equivalent `5 / 8`
   - contracted MLX: strict `7 / 8`, executable/executor-equivalent `8 / 8`
@@ -3353,6 +3354,7 @@
   - The next empirical move is to repeat the alias-repeat packet or package only the surviving metric-panel/callout mechanisms into a non-saturated H1m workflow.
 - Reporting updates:
   - generated MLX tool-contract report now has `63` tables and `30` figures
+  - alias-repeat diagnostic classifies strict gains, executor-only gains, and regressions across the completed five-row matrix
   - publication evidence claim `C13_visual_live_stress_separates_executor_grounding_from_strict_fidelity` now includes the completed alias-repeat matrix
   - publication readiness audit now requires the alias-repeat packet, full comparison set, and generated summary table
 - Verification:
@@ -3361,3 +3363,4 @@
   - `uv run moonie-agent replay-live --packet-id 20260509T_visual_hard_slice_live_stress_alias_repeat_dry_run_v1 --output-dir results/tool_probe_replay_live/20260509T_visual_hard_slice_live_stress_alias_repeat_no_directive_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive --execute --json`
   - `uv run moonie-agent replay-live --packet-id 20260509T_visual_hard_slice_live_stress_alias_repeat_dry_run_v1 --output-dir results/tool_probe_replay_live/20260509T_visual_hard_slice_live_stress_alias_repeat_schema_field_hints_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints --execute --json`
   - `uv run python scripts/compare_tool_probe_replay_live_packets.py results/tool_probe_replay_live/20260509T_visual_hard_slice_live_stress_alias_repeat_no_directive_execute_v1 results/tool_probe_replay_live/20260509T_visual_hard_slice_live_stress_alias_repeat_schema_field_hints_execute_v1 --output-dir results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_repeat_schema_field_hints_vs_no_directive_v1`
+  - `uv run python scripts/analyze_visual_live_stress_matrix.py --matrix alias-repeat`

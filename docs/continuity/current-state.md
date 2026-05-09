@@ -218,6 +218,7 @@ Latest MLX tool-contract research:
 - Visual hard-slice alias-repeat matrix:
   - source packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_repeat_dry_run_v1`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_repeat_dry_run_v1)
   - summary table: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_repeat_live_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_repeat_live_replay_summary.csv)
+  - diagnostic: [`results/reports/visual_alias_repeat_diagnostic/diagnostic.md`](../../results/reports/visual_alias_repeat_diagnostic/diagnostic.md)
   - result: no-directive MLX is strict `2 / 8` and executor-equivalent `5 / 8`; contracted MLX is `7 / 8` strict and `8 / 8` executor-equivalent; schema-field hints v4 is strict `2 / 8` and executor-equivalent `7 / 8`; schema target literals v5 is strict `3 / 8` and executor-equivalent `8 / 8`
   - interpretation: repeated alias/decoy pressure preserves the executor-grounding gain; schema target literals are no longer purely negative on this repeated slice, but contracted MLX remains the strict upper bound
 - Prompt-contract wave 2:

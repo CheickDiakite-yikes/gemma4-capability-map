@@ -1,0 +1,9 @@
+{
+  "generated_at": "2026-05-09T23:30:30.180861+00:00",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/visual_alias_repeat_diagnostic",
+  "comparison_count": 5,
+  "case_count": 8,
+  "finding_count": 4,
+  "matrix_name": "alias-repeat",
+  "purpose": "Diagnose strict-vs-executor behavior in the visual hard-slice alias-repeat live replay matrix."
+}

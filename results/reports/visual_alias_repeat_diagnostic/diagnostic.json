@@ -1,0 +1,555 @@
+{
+  "manifest": {
+    "generated_at": "2026-05-09T23:30:30.180861+00:00",
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/visual_alias_repeat_diagnostic",
+    "comparison_count": 5,
+    "case_count": 8,
+    "finding_count": 4,
+    "matrix_name": "alias-repeat",
+    "purpose": "Diagnose strict-vs-executor behavior in the visual hard-slice alias-repeat live replay matrix."
+  },
+  "summary_rows": [
+    {
+      "label": "contracted",
+      "candidate_system_id": "mlx_gemma4_e2b_reasoner_only",
+      "shared_case_count": 8,
+      "baseline_exact_rate": 0.25,
+      "candidate_exact_rate": 0.875,
+      "delta_exact_rate": 0.625,
+      "baseline_executor_equivalence_rate": 0.625,
+      "candidate_executor_equivalence_rate": 1.0,
+      "delta_executor_equivalence_rate": 0.375
+    },
+    {
+      "label": "role_catalog_v1",
+      "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog",
+      "shared_case_count": 8,
+      "baseline_exact_rate": 0.25,
+      "candidate_exact_rate": 0.125,
+      "delta_exact_rate": -0.125,
+      "baseline_executor_equivalence_rate": 0.625,
+      "candidate_executor_equivalence_rate": 0.75,
+      "delta_executor_equivalence_rate": 0.125
+    },
+    {
+      "label": "argument_hints_v2",
+      "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints",
+      "shared_case_count": 8,
+      "baseline_exact_rate": 0.25,
+      "candidate_exact_rate": 0.25,
+      "delta_exact_rate": 0.0,
+      "baseline_executor_equivalence_rate": 0.625,
+      "candidate_executor_equivalence_rate": 0.75,
+      "delta_executor_equivalence_rate": 0.125
+    },
+    {
+      "label": "schema_field_hints_v4",
+      "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints",
+      "shared_case_count": 8,
+      "baseline_exact_rate": 0.25,
+      "candidate_exact_rate": 0.25,
+      "delta_exact_rate": 0.0,
+      "baseline_executor_equivalence_rate": 0.625,
+      "candidate_executor_equivalence_rate": 0.875,
+      "delta_executor_equivalence_rate": 0.25
+    },
+    {
+      "label": "schema_literal_targets_v5",
+      "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets",
+      "shared_case_count": 8,
+      "baseline_exact_rate": 0.25,
+      "candidate_exact_rate": 0.375,
+      "delta_exact_rate": 0.125,
+      "baseline_executor_equivalence_rate": 0.625,
+      "candidate_executor_equivalence_rate": 1.0,
+      "delta_executor_equivalence_rate": 0.375
+    }
+  ],
+  "case_rows": [
+    {
+      "label": "contracted",
+      "case_id": "stress_callout_warning_person_table_decoy",
+      "family": "visual_argument_copying_stress",
+      "baseline_failure_mode": "no_tool_call",
+      "candidate_failure_mode": "executable_paraphrase",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 1,
+      "transition": "executor_gain_without_strict"
+    },
+    {
+      "label": "contracted",
+      "case_id": "stress_callout_warning_risk_note_decoy",
+      "family": "visual_argument_copying_stress",
+      "baseline_failure_mode": "no_tool_call",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 1,
+      "delta_executor_equivalence_match": 1,
+      "transition": "strict_gain"
+    },
+    {
+      "label": "contracted",
+      "case_id": "stress_form_error_stale_selection_status_decoy",
+      "family": "visual_tool_routing_stress",
+      "baseline_failure_mode": "exact",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "contracted",
+      "case_id": "stress_form_error_stale_selection_warning_decoy",
+      "family": "visual_tool_routing_stress",
+      "baseline_failure_mode": "exact",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "contracted",
+      "case_id": "stress_metric_panel_status_banner_decoy",
+      "family": "visual_argument_copying_stress",
+      "baseline_failure_mode": "executable_paraphrase",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 1,
+      "delta_executor_equivalence_match": 0,
+      "transition": "strict_gain"
+    },
+    {
+      "label": "contracted",
+      "case_id": "stress_metric_panel_summary_card_decoy",
+      "family": "visual_argument_copying_stress",
+      "baseline_failure_mode": "executable_paraphrase",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 1,
+      "delta_executor_equivalence_match": 0,
+      "transition": "strict_gain"
+    },
+    {
+      "label": "contracted",
+      "case_id": "stress_metric_panel_with_chart_table_decoys",
+      "family": "visual_argument_copying_stress",
+      "baseline_failure_mode": "argument_mismatch",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 1,
+      "delta_executor_equivalence_match": 1,
+      "transition": "strict_gain"
+    },
+    {
+      "label": "contracted",
+      "case_id": "stress_metric_panel_with_kpi_copy_decoy",
+      "family": "visual_argument_copying_stress",
+      "baseline_failure_mode": "executable_paraphrase",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 1,
+      "delta_executor_equivalence_match": 0,
+      "transition": "strict_gain"
+    },
+    {
+      "label": "role_catalog_v1",
+      "case_id": "stress_callout_warning_person_table_decoy",
+      "family": "visual_argument_copying_stress",
+      "baseline_failure_mode": "no_tool_call",
+      "candidate_failure_mode": "executable_paraphrase",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 1,
+      "transition": "executor_gain_without_strict"
+    },
+    {
+      "label": "role_catalog_v1",
+      "case_id": "stress_callout_warning_risk_note_decoy",
+      "family": "visual_argument_copying_stress",
+      "baseline_failure_mode": "no_tool_call",
+      "candidate_failure_mode": "executable_paraphrase",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 1,
+      "transition": "executor_gain_without_strict"
+    },
+    {
+      "label": "role_catalog_v1",
+      "case_id": "stress_form_error_stale_selection_status_decoy",
+      "family": "visual_tool_routing_stress",
+      "baseline_failure_mode": "exact",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "role_catalog_v1",
+      "case_id": "stress_form_error_stale_selection_warning_decoy",
+      "family": "visual_tool_routing_stress",
+      "baseline_failure_mode": "exact",
+      "candidate_failure_mode": "no_tool_call",
+      "delta_exact_match": -1,
+      "delta_executor_equivalence_match": -1,
+      "transition": "regression"
+    },
+    {
+      "label": "role_catalog_v1",
+      "case_id": "stress_metric_panel_status_banner_decoy",
+      "family": "visual_argument_copying_stress",
+      "baseline_failure_mode": "executable_paraphrase",
+      "candidate_failure_mode": "executable_paraphrase",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "role_catalog_v1",
+      "case_id": "stress_metric_panel_summary_card_decoy",
+      "family": "visual_argument_copying_stress",
+      "baseline_failure_mode": "executable_paraphrase",
+      "candidate_failure_mode": "executable_paraphrase",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "role_catalog_v1",
+      "case_id": "stress_metric_panel_with_chart_table_decoys",
+      "family": "visual_argument_copying_stress",
+      "baseline_failure_mode": "argument_mismatch",
+      "candidate_failure_mode": "argument_mismatch",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "role_catalog_v1",
+      "case_id": "stress_metric_panel_with_kpi_copy_decoy",
+      "family": "visual_argument_copying_stress",
+      "baseline_failure_mode": "executable_paraphrase",
+      "candidate_failure_mode": "executable_paraphrase",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "argument_hints_v2",
+      "case_id": "stress_callout_warning_person_table_decoy",
+      "family": "visual_argument_copying_stress",
+      "baseline_failure_mode": "no_tool_call",
+      "candidate_failure_mode": "executable_paraphrase",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 1,
+      "transition": "executor_gain_without_strict"
+    },
+    {
+      "label": "argument_hints_v2",
+      "case_id": "stress_callout_warning_risk_note_decoy",
+      "family": "visual_argument_copying_stress",
+      "baseline_failure_mode": "no_tool_call",
+      "candidate_failure_mode": "argument_mismatch",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "argument_hints_v2",
+      "case_id": "stress_form_error_stale_selection_status_decoy",
+      "family": "visual_tool_routing_stress",
+      "baseline_failure_mode": "exact",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "argument_hints_v2",
+      "case_id": "stress_form_error_stale_selection_warning_decoy",
+      "family": "visual_tool_routing_stress",
+      "baseline_failure_mode": "exact",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "argument_hints_v2",
+      "case_id": "stress_metric_panel_status_banner_decoy",
+      "family": "visual_argument_copying_stress",
+      "baseline_failure_mode": "executable_paraphrase",
+      "candidate_failure_mode": "executable_paraphrase",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "argument_hints_v2",
+      "case_id": "stress_metric_panel_summary_card_decoy",
+      "family": "visual_argument_copying_stress",
+      "baseline_failure_mode": "executable_paraphrase",
+      "candidate_failure_mode": "executable_paraphrase",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "argument_hints_v2",
+      "case_id": "stress_metric_panel_with_chart_table_decoys",
+      "family": "visual_argument_copying_stress",
+      "baseline_failure_mode": "argument_mismatch",
+      "candidate_failure_mode": "argument_mismatch",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "argument_hints_v2",
+      "case_id": "stress_metric_panel_with_kpi_copy_decoy",
+      "family": "visual_argument_copying_stress",
+      "baseline_failure_mode": "executable_paraphrase",
+      "candidate_failure_mode": "executable_paraphrase",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "schema_field_hints_v4",
+      "case_id": "stress_callout_warning_person_table_decoy",
+      "family": "visual_argument_copying_stress",
+      "baseline_failure_mode": "no_tool_call",
+      "candidate_failure_mode": "executable_paraphrase",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 1,
+      "transition": "executor_gain_without_strict"
+    },
+    {
+      "label": "schema_field_hints_v4",
+      "case_id": "stress_callout_warning_risk_note_decoy",
+      "family": "visual_argument_copying_stress",
+      "baseline_failure_mode": "no_tool_call",
+      "candidate_failure_mode": "argument_mismatch",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "schema_field_hints_v4",
+      "case_id": "stress_form_error_stale_selection_status_decoy",
+      "family": "visual_tool_routing_stress",
+      "baseline_failure_mode": "exact",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "schema_field_hints_v4",
+      "case_id": "stress_form_error_stale_selection_warning_decoy",
+      "family": "visual_tool_routing_stress",
+      "baseline_failure_mode": "exact",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "schema_field_hints_v4",
+      "case_id": "stress_metric_panel_status_banner_decoy",
+      "family": "visual_argument_copying_stress",
+      "baseline_failure_mode": "executable_paraphrase",
+      "candidate_failure_mode": "executable_paraphrase",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "schema_field_hints_v4",
+      "case_id": "stress_metric_panel_summary_card_decoy",
+      "family": "visual_argument_copying_stress",
+      "baseline_failure_mode": "executable_paraphrase",
+      "candidate_failure_mode": "executable_paraphrase",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "schema_field_hints_v4",
+      "case_id": "stress_metric_panel_with_chart_table_decoys",
+      "family": "visual_argument_copying_stress",
+      "baseline_failure_mode": "argument_mismatch",
+      "candidate_failure_mode": "executable_paraphrase",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 1,
+      "transition": "executor_gain_without_strict"
+    },
+    {
+      "label": "schema_field_hints_v4",
+      "case_id": "stress_metric_panel_with_kpi_copy_decoy",
+      "family": "visual_argument_copying_stress",
+      "baseline_failure_mode": "executable_paraphrase",
+      "candidate_failure_mode": "executable_paraphrase",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "schema_literal_targets_v5",
+      "case_id": "stress_callout_warning_person_table_decoy",
+      "family": "visual_argument_copying_stress",
+      "baseline_failure_mode": "no_tool_call",
+      "candidate_failure_mode": "executable_paraphrase",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 1,
+      "transition": "executor_gain_without_strict"
+    },
+    {
+      "label": "schema_literal_targets_v5",
+      "case_id": "stress_callout_warning_risk_note_decoy",
+      "family": "visual_argument_copying_stress",
+      "baseline_failure_mode": "no_tool_call",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 1,
+      "delta_executor_equivalence_match": 1,
+      "transition": "strict_gain"
+    },
+    {
+      "label": "schema_literal_targets_v5",
+      "case_id": "stress_form_error_stale_selection_status_decoy",
+      "family": "visual_tool_routing_stress",
+      "baseline_failure_mode": "exact",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "schema_literal_targets_v5",
+      "case_id": "stress_form_error_stale_selection_warning_decoy",
+      "family": "visual_tool_routing_stress",
+      "baseline_failure_mode": "exact",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "schema_literal_targets_v5",
+      "case_id": "stress_metric_panel_status_banner_decoy",
+      "family": "visual_argument_copying_stress",
+      "baseline_failure_mode": "executable_paraphrase",
+      "candidate_failure_mode": "executable_paraphrase",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "schema_literal_targets_v5",
+      "case_id": "stress_metric_panel_summary_card_decoy",
+      "family": "visual_argument_copying_stress",
+      "baseline_failure_mode": "executable_paraphrase",
+      "candidate_failure_mode": "executable_paraphrase",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "schema_literal_targets_v5",
+      "case_id": "stress_metric_panel_with_chart_table_decoys",
+      "family": "visual_argument_copying_stress",
+      "baseline_failure_mode": "argument_mismatch",
+      "candidate_failure_mode": "executable_paraphrase",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 1,
+      "transition": "executor_gain_without_strict"
+    },
+    {
+      "label": "schema_literal_targets_v5",
+      "case_id": "stress_metric_panel_with_kpi_copy_decoy",
+      "family": "visual_argument_copying_stress",
+      "baseline_failure_mode": "executable_paraphrase",
+      "candidate_failure_mode": "executable_paraphrase",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    }
+  ],
+  "transition_rows": [
+    {
+      "label": "argument_hints_v2",
+      "transition": "executor_gain_without_strict",
+      "count": 1
+    },
+    {
+      "label": "argument_hints_v2",
+      "transition": "unchanged",
+      "count": 7
+    },
+    {
+      "label": "contracted",
+      "transition": "executor_gain_without_strict",
+      "count": 1
+    },
+    {
+      "label": "contracted",
+      "transition": "strict_gain",
+      "count": 5
+    },
+    {
+      "label": "contracted",
+      "transition": "unchanged",
+      "count": 2
+    },
+    {
+      "label": "role_catalog_v1",
+      "transition": "executor_gain_without_strict",
+      "count": 2
+    },
+    {
+      "label": "role_catalog_v1",
+      "transition": "regression",
+      "count": 1
+    },
+    {
+      "label": "role_catalog_v1",
+      "transition": "unchanged",
+      "count": 5
+    },
+    {
+      "label": "schema_field_hints_v4",
+      "transition": "executor_gain_without_strict",
+      "count": 2
+    },
+    {
+      "label": "schema_field_hints_v4",
+      "transition": "unchanged",
+      "count": 6
+    },
+    {
+      "label": "schema_literal_targets_v5",
+      "transition": "executor_gain_without_strict",
+      "count": 2
+    },
+    {
+      "label": "schema_literal_targets_v5",
+      "transition": "strict_gain",
+      "count": 1
+    },
+    {
+      "label": "schema_literal_targets_v5",
+      "transition": "unchanged",
+      "count": 5
+    }
+  ],
+  "finding_rows": [
+    {
+      "finding_id": "strict_upper_bound",
+      "finding": "contracted is the strict upper bound at 0.875."
+    },
+    {
+      "finding_id": "executor_equivalence_set",
+      "finding": "Executor-equivalent full-success rows: contracted, schema_literal_targets_v5."
+    },
+    {
+      "finding_id": "executor_without_strict",
+      "finding": "Rows with executor gain without strict gain: argument_hints_v2, contracted, role_catalog_v1, schema_field_hints_v4, schema_literal_targets_v5."
+    },
+    {
+      "finding_id": "regressions",
+      "finding": "Regression cases: role_catalog_v1:stress_form_error_stale_selection_warning_decoy."
+    }
+  ]
+}
