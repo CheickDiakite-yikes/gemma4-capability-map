@@ -37,6 +37,26 @@ workflows:
       replayable_core: kwa_exec_visual_dashboard_brief
       live_web_stress: kwa_exec_live_visual_dashboard_brief
 
+  executive_visual_dashboard_revision:
+    title: Dashboard Revision Hold
+    subtitle: Repair a dashboard brief after stale-panel validation fails
+    description: Use visual evidence to replace a stale dashboard panel, preserve the latest customer-ops issue, and stop at the approval boundary.
+    role_family: executive_assistant
+    category: visual_review
+    preview_asset: data/assets/visual_dashboard.png
+    recommended_system_id: mlx_gemma4_e2b_reasoner_only
+    default_lane: replayable_core
+    supports_approval: true
+    tags:
+      - visual
+      - dashboard
+      - stale_selection
+      - revision_pressure
+      - h1m_alias_repeat
+    lane_episode_map:
+      replayable_core: kwa_exec_visual_dashboard_revision_hold_v2
+      live_web_stress: kwa_exec_live_visual_dashboard_revision_hold_v2
+
   jobs_visual_form_hold:
     title: Application Form Hold
     subtitle: Review materials, work the form, and stop at the approval gate
@@ -98,6 +118,26 @@ workflows:
       replayable_core: kwa_finance_invoice_lock_direction_hold_v4
       live_web_stress: kwa_finance_live_invoice_lock_direction_hold_v4
 
+  finance_visual_invoice_hold_review:
+    title: Invoice Visual Hold
+    subtitle: Carry invoice totals into a finance note and stop for approval
+    description: Inspect invoice visual evidence, preserve the total and approval hold, and avoid releasing the finance note without approval.
+    role_family: finance
+    category: visual_review
+    preview_asset: data/assets/visual_invoice.png
+    recommended_system_id: mlx_gemma4_e2b_reasoner_only
+    default_lane: replayable_core
+    supports_approval: true
+    tags:
+      - finance
+      - visual
+      - invoice
+      - approval
+      - h1m_alias_repeat
+    lane_episode_map:
+      replayable_core: kwa_finance_visual_invoice_hold
+      live_web_stress: kwa_finance_live_visual_invoice_hold
+
   executive_visual_referent_review:
     title: Dashboard Referent Review
     subtitle: Preserve dashboard referents across a latest-filter revision
@@ -154,6 +194,26 @@ workflows:
     lane_episode_map:
       replayable_core: kwa_jobs_visual_constraint_override_hold_v2
       live_web_stress: kwa_jobs_live_visual_constraint_override_hold_v2
+
+  jobs_visual_latest_issue_review:
+    title: Job Latest Issue Review
+    subtitle: Preserve the latest phone issue through visual referent revision
+    description: Inspect a job form under latest-issue pressure, keep the phone issue isolated, retain the work-authorization constraint, and stop for approval.
+    role_family: job_application_ops
+    category: browser_approval_hold
+    preview_asset: data/assets/visual_form.png
+    recommended_system_id: mlx_gemma4_e2b_reasoner_only
+    default_lane: replayable_core
+    supports_approval: true
+    tags:
+      - visual
+      - jobs
+      - latest_issue
+      - referent_carryover
+      - h1m_alias_repeat
+    lane_episode_map:
+      replayable_core: kwa_jobs_visual_latest_issue_hold_v3
+      live_web_stress: kwa_jobs_live_visual_latest_issue_hold_v3
 
   jobs_phone_patch_resume:
     title: Phone Patch Resume

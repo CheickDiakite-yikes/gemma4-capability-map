@@ -3364,3 +3364,24 @@
   - `uv run moonie-agent replay-live --packet-id 20260509T_visual_hard_slice_live_stress_alias_repeat_dry_run_v1 --output-dir results/tool_probe_replay_live/20260509T_visual_hard_slice_live_stress_alias_repeat_schema_field_hints_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints --execute --json`
   - `uv run python scripts/compare_tool_probe_replay_live_packets.py results/tool_probe_replay_live/20260509T_visual_hard_slice_live_stress_alias_repeat_no_directive_execute_v1 results/tool_probe_replay_live/20260509T_visual_hard_slice_live_stress_alias_repeat_schema_field_hints_execute_v1 --output-dir results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_repeat_schema_field_hints_vs_no_directive_v1`
   - `uv run python scripts/analyze_visual_live_stress_matrix.py --matrix alias-repeat`
+
+## 2026-05-09 - H1m Visual Alias-Repeat Packaged Scaffold
+
+- Added the packaged-workflow promotion target for the completed alias-repeat replay matrix:
+  - config: [`configs/knowledge_work_h1m_slice.yaml`](../configs/knowledge_work_h1m_slice.yaml)
+  - brief: [`docs/continuity/h1m-slice.md`](continuity/h1m-slice.md)
+  - packaged workflow registry: [`configs/packaged_workflows.yaml`](../configs/packaged_workflows.yaml)
+- New packaged workflows:
+  - `executive_visual_dashboard_revision`
+  - `jobs_visual_latest_issue_review`
+  - `finance_visual_invoice_hold_review`
+- Packet plan:
+  - candidate packet: `mlx_visual_alias_repeat_packaged_candidates`
+  - helper packet: `mlx_visual_alias_repeat_helper_ablation`
+- Interpretation:
+  - H1m is not evidence yet. It is the next packaged-workflow test surface for checking whether replay-shaped alias-repeat gains survive live workflow execution.
+  - If the candidate packet saturates like H1l, record it as another negative packaged-workflow result. If it separates schema-field or schema-target-literal rows from no-directive, run the helper packet for controller attribution.
+- Verification:
+  - `uv run pytest tests/test_knowledge_work_h1.py::test_h1m_slice_config_maps_to_visual_alias_repeat_packet tests/test_runtime_cli.py::test_runtime_cli_lists_workflows -q`
+  - `uv run moonie-agent workflows --lane live_web_stress --workflow-id executive_visual_dashboard_revision --validate`
+  - `uv run python scripts/run_knowledge_work_h1_ablation_packet.py --config configs/knowledge_work_h1m_slice.yaml --packet-id mlx_visual_alias_repeat_packaged_candidates --run-group-id 20260509T_h1m_visual_alias_repeat_candidates_dry_run_v1 --dry-run`

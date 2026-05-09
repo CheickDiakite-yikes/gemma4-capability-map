@@ -133,6 +133,12 @@ Current strongest MLX result:
   - alias-repeat diagnostic: [`results/reports/visual_alias_repeat_diagnostic/diagnostic.md`](../../results/reports/visual_alias_repeat_diagnostic/diagnostic.md)
   - alias-repeat result: no-directive `2 / 8` strict and `5 / 8` executor-equivalent; contracted MLX `7 / 8` strict and `8 / 8` executor-equivalent; schema-field hints v4 `2 / 8` strict and `7 / 8` executor-equivalent; schema-target-literal v5 `3 / 8` strict and `8 / 8` executor-equivalent
   - status: repeat alias-repeat or package only the surviving metric-panel/callout mechanisms before H1m, not another broad prompt wording patch
+- H1m packaged promotion scaffold:
+  - config: [`configs/knowledge_work_h1m_slice.yaml`](../../configs/knowledge_work_h1m_slice.yaml)
+  - brief: [`docs/continuity/h1m-slice.md`](./h1m-slice.md)
+  - workflows: `executive_visual_dashboard_revision`, `jobs_visual_latest_issue_review`, `finance_visual_invoice_hold_review`
+  - packet ids: `mlx_visual_alias_repeat_packaged_candidates`, `mlx_visual_alias_repeat_helper_ablation`
+  - status: validated and dry-run scaffolded, not executed as evidence yet
 - the sixth prompt-contract wave is a negative composition result:
   - dry-run packet: [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run)
   - probe packet: [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe)

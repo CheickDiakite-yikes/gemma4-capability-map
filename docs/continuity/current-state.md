@@ -221,6 +221,13 @@ Latest MLX tool-contract research:
   - diagnostic: [`results/reports/visual_alias_repeat_diagnostic/diagnostic.md`](../../results/reports/visual_alias_repeat_diagnostic/diagnostic.md)
   - result: no-directive MLX is strict `2 / 8` and executor-equivalent `5 / 8`; contracted MLX is `7 / 8` strict and `8 / 8` executor-equivalent; schema-field hints v4 is strict `2 / 8` and executor-equivalent `7 / 8`; schema target literals v5 is strict `3 / 8` and executor-equivalent `8 / 8`
   - interpretation: repeated alias/decoy pressure preserves the executor-grounding gain; schema target literals are no longer purely negative on this repeated slice, but contracted MLX remains the strict upper bound
+- H1m visual alias-repeat packaged live scaffold:
+  - config: [`configs/knowledge_work_h1m_slice.yaml`](../../configs/knowledge_work_h1m_slice.yaml)
+  - brief: [`docs/continuity/h1m-slice.md`](./h1m-slice.md)
+  - workflows packaged for CLI live use: `executive_visual_dashboard_revision`, `jobs_visual_latest_issue_review`, `finance_visual_invoice_hold_review`
+  - candidate packet id: `mlx_visual_alias_repeat_packaged_candidates`
+  - helper packet id: `mlx_visual_alias_repeat_helper_ablation`
+  - interpretation: H1m is a scaffolded promotion target, not evidence yet; dry-run and validation pass before any live candidate execution
 - Prompt-contract wave 2:
   - contracts: `schema_literal_tool_required_v2`, `visual_next_call_state_v2`, `parallel_array_required_v2`
   - runner flag: `scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v2`

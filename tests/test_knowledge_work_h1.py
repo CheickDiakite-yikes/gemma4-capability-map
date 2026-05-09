@@ -29,6 +29,7 @@ H1I_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_w
 H1J_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1j_slice.yaml"
 H1K_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1k_slice.yaml"
 H1L_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1l_slice.yaml"
+H1M_CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "knowledge_work_h1m_slice.yaml"
 
 
 def test_h1_slice_config_maps_to_existing_packaged_workflows_and_episodes() -> None:
@@ -418,6 +419,46 @@ def test_h1l_slice_config_maps_to_visual_executor_equivalence_packet() -> None:
     ]
     assert helper_packet.episode_ids == packet.episode_ids
     assert "visual_executor_equivalence" in config.attribution_tags
+
+
+def test_h1m_slice_config_maps_to_visual_alias_repeat_packet() -> None:
+    config = load_h1_slice(H1M_CONFIG_PATH)
+
+    errors = validate_h1_slice(config)
+
+    assert errors == []
+    assert config.name == "knowledge_work_h1m_visual_alias_repeat_packaged_live"
+    assert [family.workflow_id for family in config.workflow_families] == [
+        "executive_visual_dashboard_revision",
+        "jobs_visual_latest_issue_review",
+        "finance_visual_invoice_hold_review",
+    ]
+    packet = h1_packet_selection(config, "mlx_visual_alias_repeat_packaged_candidates")
+    assert packet.lane == "live_web_stress"
+    assert packet.system_ids == [
+        "mlx_gemma4_e2b_reasoner_only",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets",
+    ]
+    assert packet.episode_ids == [
+        "kwa_exec_live_visual_dashboard_revision_hold_v2",
+        "kwa_jobs_live_visual_latest_issue_hold_v3",
+        "kwa_finance_live_visual_invoice_hold",
+    ]
+    assert "visual_alias_repeat" in packet.failure_modes
+    helper_packet = h1_packet_selection(config, "mlx_visual_alias_repeat_helper_ablation")
+    assert helper_packet.system_ids == [
+        "mlx_gemma4_e2b_reasoner_only",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_repair",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_fallback",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_argument_repair",
+    ]
+    assert helper_packet.episode_ids == packet.episode_ids
+    assert "visual_alias_repeat" in config.attribution_tags
 
 
 def test_h1_primary_run_specs_default_to_mlx_gemma_reasoner_only() -> None:

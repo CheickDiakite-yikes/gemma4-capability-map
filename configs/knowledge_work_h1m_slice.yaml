@@ -1,0 +1,126 @@
+h1_slice:
+  name: knowledge_work_h1m_visual_alias_repeat_packaged_live
+  version: v1
+  description: >
+    Packaged-workflow successor to the visual alias-repeat replay matrix.
+    H1m keeps the CLI-first packaged-workflows-only rule, but uses already
+    generated visual episodes that are closer to the repeated alias/decoy
+    mechanisms than H1l's staged dashboard/invoice set. The goal is to test
+    whether schema-local visual catalog profiles still separate when the
+    pressure is promoted back into live workflow execution.
+  run_intent: exploratory
+  update_latest: false
+  live_entrypoint: packaged_workflows_only
+  primary_system_id: mlx_gemma4_e2b_reasoner_only
+  baseline_system_ids:
+    - oracle_gemma4_e2b
+    - hf_service_gemma4_specialists_cpu
+  ablation_bundle_system_id: mlx_gemma4_e2b_reasoner_only
+  ablation_system_ids:
+    - mlx_gemma4_e2b_reasoner_only
+    - mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive
+    - mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_repair
+    - mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_fallback
+    - mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_argument_repair
+  lanes:
+    replayable_core:
+      episode_ids:
+        - kwa_exec_visual_dashboard_revision_hold_v2
+        - kwa_jobs_visual_latest_issue_hold_v3
+        - kwa_finance_visual_invoice_hold
+    live_web_stress:
+      episode_ids:
+        - kwa_exec_live_visual_dashboard_revision_hold_v2
+        - kwa_jobs_live_visual_latest_issue_hold_v3
+        - kwa_finance_live_visual_invoice_hold
+  workflow_families:
+    - workflow_id: executive_visual_dashboard_revision
+      role_family: executive_assistant
+      purpose: preserve the alias-repeat stale-panel pressure in a packaged dashboard revision workflow
+      replayable_episode_id: kwa_exec_visual_dashboard_revision_hold_v2
+      live_episode_id: kwa_exec_live_visual_dashboard_revision_hold_v2
+      h1_stressors:
+        - visual_metric_panel_alias
+        - stale_selection_decoy
+        - revision_after_validation_failure
+        - approval_safe_stop
+    - workflow_id: jobs_visual_latest_issue_review
+      role_family: job_application_ops
+      purpose: preserve the latest visual issue through a form revision without stale constraint drift
+      replayable_episode_id: kwa_jobs_visual_latest_issue_hold_v3
+      live_episode_id: kwa_jobs_live_visual_latest_issue_hold_v3
+      h1_stressors:
+        - visual_callout_alias
+        - visual_referent_carryover
+        - stale_constraint_decoy
+        - approval_safe_stop
+    - workflow_id: finance_visual_invoice_hold_review
+      role_family: finance
+      purpose: carry invoice visual totals into an approval-held note without releasing it
+      replayable_episode_id: kwa_finance_visual_invoice_hold
+      live_episode_id: kwa_finance_live_visual_invoice_hold
+      h1_stressors:
+        - visual_table_alias
+        - visual_readback_region_literal
+        - finance_approval_hold
+        - approval_safe_stop
+  packets:
+    mlx_visual_alias_repeat_packaged_candidates:
+      lane: live_web_stress
+      purpose: >
+        Candidate packet for the completed alias-repeat replay matrix. This
+        packet checks whether schema-field hints and schema target literals
+        still separate from no-directive MLX when replay-shaped alias pressure
+        is promoted into packaged live workflows.
+      system_ids:
+        - mlx_gemma4_e2b_reasoner_only
+        - mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive
+        - mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog
+        - mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints
+        - mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints
+        - mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets
+      episode_ids:
+        - kwa_exec_live_visual_dashboard_revision_hold_v2
+        - kwa_jobs_live_visual_latest_issue_hold_v3
+        - kwa_finance_live_visual_invoice_hold
+      failure_modes:
+        - visual_alias_repeat
+        - strict_protocol_fidelity
+        - executor_equivalence
+        - stale_selection_decoy
+        - approval_safe_stop
+    mlx_visual_alias_repeat_helper_ablation:
+      lane: live_web_stress
+      purpose: >
+        Controller-helper causality check for H1m. Run this only if the
+        candidate packet preserves a meaningful separation; otherwise record
+        H1m as another saturated packaged-workflow negative result.
+      system_ids:
+        - mlx_gemma4_e2b_reasoner_only
+        - mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive
+        - mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_repair
+        - mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_controller_fallback
+        - mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_no_argument_repair
+      episode_ids:
+        - kwa_exec_live_visual_dashboard_revision_hold_v2
+        - kwa_jobs_live_visual_latest_issue_hold_v3
+        - kwa_finance_live_visual_invoice_hold
+      failure_modes:
+        - controller_repair
+        - controller_fallback
+        - argument_repair
+        - visual_alias_repeat
+        - approval_safe_stop
+  saturation_breaker_metrics:
+    - raw_planning_clean_rate_avg
+    - controller_repair_avg
+    - controller_fallback_avg
+    - argument_repair_avg
+    - strict_interface_avg
+    - recovered_execution_avg
+  attribution_tags:
+    - packaged_workflow
+    - local_mlx_monolith
+    - visual_alias_repeat
+    - visual_hard_slice_derived
+    - strict_vs_executor_equivalence
