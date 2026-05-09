@@ -5,6 +5,7 @@ from pathlib import Path
 
 from gemma4_capability_map.runtime.tool_directive_probe import build_tool_directive_probe_cases
 from gemma4_capability_map.runtime.tool_probe_replay_live import run_tool_probe_replay_live
+from gemma4_capability_map.runtime.visual_hard_slice import build_visual_hard_slice_cases
 
 
 def test_tool_probe_replay_live_dry_run_writes_operator_packet(tmp_path: Path) -> None:
@@ -61,6 +62,48 @@ systems:
     assert payload["case_states"][0]["status"] == "exact"
     assert (output_dir / "live_replay_results.json").exists()
     assert (output_dir / "runs" / "cli_invoice_lock_hyphen_query" / "probe_results.json").exists()
+
+
+def test_tool_probe_replay_live_loads_packet_serialized_custom_cases(tmp_path: Path) -> None:
+    case = build_visual_hard_slice_cases()[0]
+    packet_dir = tmp_path / "visual_replay"
+    packet_dir.mkdir(parents=True)
+    replay_case = {
+        "case_id": case.case_id,
+        "family": case.family,
+        "messages": [message.model_dump(mode="json") for message in case.messages],
+        "media": case.media,
+        "tool_names": case.tool_names,
+        "initial_state": case.initial_state,
+        "expected_execution": case.expected_execution,
+    }
+    (packet_dir / "manifest.json").write_text(
+        json.dumps({"packet_run_id": packet_dir.name, "case_ids": [case.case_id]}) + "\n",
+        encoding="utf-8",
+    )
+    (packet_dir / "replay_cases.json").write_text(json.dumps([replay_case], indent=2) + "\n", encoding="utf-8")
+    (packet_dir / "replay_cases.csv").write_text(
+        "\n".join(
+            [
+                "case_id,family,source_failure_mode,source_exact_match,source_executable_match,baseline_exact_match,expected_call_count,source_actual_call_count,case_path",
+                f"{case.case_id},{case.family},argument_mismatch,False,False,True,1,1,{packet_dir / 'cases' / f'{case.case_id}.json'}",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    payload = run_tool_probe_replay_live(
+        packet_dir=packet_dir,
+        output_dir=tmp_path / "live_replay",
+        case_ids=[case.case_id],
+        execute=False,
+        render=False,
+    )
+
+    assert payload["summary"]["case_count"] == 1
+    assert payload["case_states"][0]["case_id"] == case.case_id
+    assert payload["case_states"][0]["status"] == "dry_run"
 
 
 def _write_replay_packet(packet_dir: Path, case_ids: list[str]) -> Path:

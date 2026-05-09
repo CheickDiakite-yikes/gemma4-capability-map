@@ -18,6 +18,7 @@ from gemma4_capability_map.runtime.tool_directive_probe import (
     build_tool_directive_probe_cases,
     run_tool_directive_probe,
 )
+from gemma4_capability_map.schemas import Message
 
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -42,7 +43,7 @@ def run_tool_probe_replay_live(
     source_manifest = _read_json(source_packet / "manifest.json")
     source_rows = _read_csv(source_packet / "replay_cases.csv")
     selected_rows = _select_rows(source_rows, case_ids or [])
-    cases_by_id = {case.case_id: case for case in build_tool_directive_probe_cases()}
+    cases_by_id = _load_cases_by_id(source_packet)
     missing = [row["case_id"] for row in selected_rows if row["case_id"] not in cases_by_id]
     if missing:
         raise ValueError(f"Replay packet references unknown case id(s): {', '.join(missing)}")
@@ -326,6 +327,36 @@ def _case_state(row: dict[str, str], *, status: str) -> dict[str, Any]:
     }
 
 
+def _load_cases_by_id(source_packet: Path) -> dict[str, ToolDirectiveProbeCase]:
+    cases_by_id = {case.case_id: case for case in build_tool_directive_probe_cases()}
+    for case in _packet_replay_cases(source_packet):
+        cases_by_id[case.case_id] = case
+    return cases_by_id
+
+
+def _packet_replay_cases(source_packet: Path) -> list[ToolDirectiveProbeCase]:
+    payload = _read_json(source_packet / "replay_cases.json")
+    if not isinstance(payload, list):
+        return []
+
+    cases: list[ToolDirectiveProbeCase] = []
+    for row in payload:
+        if not isinstance(row, dict) or not row.get("case_id"):
+            continue
+        cases.append(
+            ToolDirectiveProbeCase(
+                case_id=str(row["case_id"]),
+                family=str(row.get("family", "")),
+                messages=[Message.model_validate(message) for message in row.get("messages", [])],
+                media=[str(item) for item in row.get("media", [])],
+                tool_names=[str(item) for item in row.get("tool_names", [])],
+                initial_state=row.get("initial_state") if isinstance(row.get("initial_state"), dict) else {},
+                expected_execution=row.get("expected_execution") if isinstance(row.get("expected_execution"), dict) else {},
+            )
+        )
+    return cases
+
+
 def _case_command(
     *,
     source_packet: Path,
@@ -383,7 +414,7 @@ def _rate(numerator: int, denominator: int) -> float:
     return numerator / denominator if denominator else 0.0
 
 
-def _read_json(path: Path) -> dict[str, Any]:
+def _read_json(path: Path) -> Any:
     if not path.exists():
         return {}
     return json.loads(path.read_text(encoding="utf-8"))
