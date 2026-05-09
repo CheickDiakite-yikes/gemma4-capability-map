@@ -56,3 +56,21 @@ def test_visual_hard_slice_live_stress_packet_filters_cases(tmp_path: Path) -> N
     assert packet["summary"]["case_count"] == 1
     assert packet["rows"][0]["case_id"] == "stress_form_error_stale_selection_status_decoy"
     assert packet["rows"][0]["family"] == "visual_tool_routing_stress"
+
+
+def test_visual_hard_slice_live_stress_packet_supports_alias_repeat_suite(tmp_path: Path) -> None:
+    packet = SCRIPT.build_visual_hard_slice_live_stress_packet(
+        output_root=tmp_path / "replay_packets",
+        run_group_id="visual_stress_alias_repeat",
+        suite="alias_repeat_v2",
+    )
+
+    assert packet["summary"]["suite"] == "alias_repeat_v2"
+    assert packet["summary"]["case_count"] == 8
+    assert packet["summary"]["family_counts"] == {
+        "visual_argument_copying_stress": 6,
+        "visual_tool_routing_stress": 2,
+    }
+    case_ids = {row["case_id"] for row in packet["rows"]}
+    assert "stress_metric_panel_status_banner_decoy" in case_ids
+    assert "stress_callout_warning_risk_note_decoy" in case_ids

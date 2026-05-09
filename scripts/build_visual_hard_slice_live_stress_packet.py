@@ -30,6 +30,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--run-group-id", default=None)
     parser.add_argument("--registry", default=str(DEFAULT_REGISTRY_PATH))
     parser.add_argument("--replay-system-id", default=DEFAULT_REPLAY_SYSTEM_ID)
+    parser.add_argument("--suite", choices=["v1", "alias_repeat_v2"], default="v1")
     parser.add_argument("--case-id", action="append", dest="case_ids", default=[])
     return parser.parse_args()
 
@@ -41,6 +42,7 @@ def main() -> None:
         run_group_id=args.run_group_id,
         registry_path=Path(args.registry),
         replay_system_id=args.replay_system_id,
+        suite=args.suite,
         case_ids=args.case_ids,
     )
     print(json.dumps(packet["summary"], indent=2, ensure_ascii=False))
@@ -52,9 +54,10 @@ def build_visual_hard_slice_live_stress_packet(
     run_group_id: str | None = None,
     registry_path: Path = DEFAULT_REGISTRY_PATH,
     replay_system_id: str = DEFAULT_REPLAY_SYSTEM_ID,
+    suite: str = "v1",
     case_ids: list[str] | None = None,
 ) -> dict[str, Any]:
-    cases = _stress_cases()
+    cases = _stress_cases_for_suite(suite)
     cases_by_id = {case.case_id: case for case in cases}
     selected_ids = case_ids or [case.case_id for case in cases]
     missing = [case_id for case_id in selected_ids if case_id not in cases_by_id]
@@ -134,6 +137,7 @@ def build_visual_hard_slice_live_stress_packet(
         "source_system_id": DEFAULT_SOURCE_SYSTEM_ID,
         "baseline_system_id": DEFAULT_BASELINE_SYSTEM_ID,
         "replay_system_id": replay_system_id,
+        "suite": suite,
         "case_count": len(rows),
         "family_counts": _count_by(rows, "family"),
         "failure_mode_counts": _count_by(rows, "source_failure_mode"),
@@ -147,6 +151,7 @@ def build_visual_hard_slice_live_stress_packet(
         "case_ids": [row["case_id"] for row in rows],
         "operator_surface": "rich_cli_visual_hard_slice_live_stress_v1",
         "entrypoint": "moonie-agent replay-live",
+        "suite": suite,
         "purpose": (
             "Repeat the visual hard-slice executor-alias and stale-selection mechanisms under fresh decoys before "
             "spending packaged H1 workflow budget."
@@ -167,6 +172,14 @@ def build_visual_hard_slice_live_stress_packet(
         "commands": commands,
         "replay_cases": replay_cases,
     }
+
+
+def _stress_cases_for_suite(suite: str) -> list[ToolDirectiveProbeCase]:
+    if suite == "v1":
+        return _stress_cases()
+    if suite == "alias_repeat_v2":
+        return [*_stress_cases(), *_alias_repeat_cases_v2()]
+    raise ValueError(f"Unknown visual live stress suite: {suite}")
 
 
 def _stress_cases() -> list[ToolDirectiveProbeCase]:
@@ -268,6 +281,111 @@ def _stress_cases() -> list[ToolDirectiveProbeCase]:
                 ],
             ),
             expected_execution={"region_ids": ["stress-form-2302"]},
+        ),
+    ]
+
+
+def _alias_repeat_cases_v2() -> list[ToolDirectiveProbeCase]:
+    return [
+        ToolDirectiveProbeCase(
+            case_id="stress_metric_panel_status_banner_decoy",
+            family="visual_argument_copying_stress",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-stress-metric-status"),
+                Message(
+                    role="user",
+                    content=(
+                        "The dashboard status banner mentions the same customer, but locate the dashboard metric "
+                        "panel before inspecting the banner or table."
+                    ),
+                ),
+            ],
+            media=["img-stress-metric-status"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-stress-metric-status",
+                [
+                    _region("stress-metric-2401", "dashboard metric", "Escalation rate above limit", area="metric panel"),
+                    _region("stress-metric-2402", "status banner", "Customer renewal review", area="banner"),
+                    _region("stress-metric-2403", "invoice totals table", "Renewal invoices", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["stress-metric-2401"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="stress_metric_panel_summary_card_decoy",
+            family="visual_argument_copying_stress",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-stress-summary-card"),
+                Message(
+                    role="user",
+                    content=(
+                        "There is a summary card and a table nearby. Locate the dashboard metric panel itself "
+                        "before reading the summary card."
+                    ),
+                ),
+            ],
+            media=["img-stress-summary-card"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-stress-summary-card",
+                [
+                    _region("stress-summary-2501", "dashboard metric", "Response SLA below target", area="metric panel"),
+                    _region("stress-summary-2502", "summary card", "SLA review owner listed", area="card"),
+                    _region("stress-summary-2503", "invoice totals table", "Open invoice exceptions", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["stress-summary-2501"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="stress_callout_warning_person_table_decoy",
+            family="visual_argument_copying_stress",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-stress-callout-person"),
+                Message(
+                    role="user",
+                    content=(
+                        "Morgan is named in the table. Locate the slide callout warning first and do not use "
+                        "the table or person note as the target."
+                    ),
+                ),
+            ],
+            media=["img-stress-callout-person"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-stress-callout-person",
+                [
+                    _region("stress-callout-2601", "assignee note", "Morgan owns follow-up", person="Morgan"),
+                    _region("stress-callout-2602", "slide callout", "Warning: launch approval is missing", tone="warning"),
+                    _region("stress-callout-2603", "invoice totals table", "Launch invoices", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["stress-callout-2602"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="stress_callout_warning_risk_note_decoy",
+            family="visual_argument_copying_stress",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-stress-callout-risk"),
+                Message(
+                    role="user",
+                    content=(
+                        "The note says risk is high, but the target is the slide callout warning. Locate the "
+                        "callout before reading any risk note."
+                    ),
+                ),
+            ],
+            media=["img-stress-callout-risk"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-stress-callout-risk",
+                [
+                    _region("stress-callout-2701", "risk note", "Risk is high for this account", tone="risk"),
+                    _region("stress-callout-2702", "slide callout", "Warning: data freshness check failed", tone="warning"),
+                    _region("stress-callout-2703", "dashboard metric", "Freshness below target", area="metric panel"),
+                ],
+            ),
+            expected_execution={"region_ids": ["stress-callout-2702"]},
         ),
     ]
 
