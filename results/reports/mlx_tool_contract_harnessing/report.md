@@ -1,6 +1,6 @@
 # MLX Tool-Contract Harnessing Report
 
-Generated: `2026-05-09T12:03:10.284663+00:00`
+Generated: `2026-05-09T12:14:18.768402+00:00`
 
 ## Executive Read
 
@@ -304,6 +304,23 @@ The fresh visual hard slice breaks the earlier top-line saturation and gives a c
 | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard | visual_tool_routing | 1 | 1 | 1.0 | 1 | 1 | 1.0 | visual catalog literal |
 
 The family breakdown explains the new signal. Schema-field hints preserve full executable behavior across visible-region targeting, valid selection carryover, and region readback, but exactness still lags on visual argument-copying cases. The v5 target-literal repair did not improve that family and regressed the stale-selection decoy into a wrong-tool call, which suggests the next experiment should separate hidden benchmark canonical labels from observable executor-success labels before spending another packaged H1 slice.
+
+## Visual Hard-Slice Exactness Diagnostic
+
+| system_id | system_label | case_count | exact_count | exact_rate | executable_count | executable_rate | executor_success_non_exact_count | benchmark_label_artifact_candidate_count | true_harness_failure_count | diagnosis_counts |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints | catalog schema fields | 8 | 6 | 0.75 | 8 | 1.0 | 2 | 2 | 0 | {"exact_contract_match": 6, "executable_selector_alias": 2} |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets | catalog schema target literals | 8 | 5 | 0.625 | 7 | 0.875 | 2 | 2 | 1 | {"exact_contract_match": 5, "executable_selector_alias": 2, "wrong_tool_executor_failure": 1} |
+
+| system_id | system_label | case_id | family | exact_match | executable_match | executor_target_match | strict_tool_match | strict_argument_match | expected_tools | actual_tools | expected_arguments | actual_arguments | expected_target_region_ids | actual_target_region_ids | failure_mode | exactness_diagnosis | research_interpretation | next_action |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints | catalog schema fields | visual_metric_panel_vs_table_selector | visual_argument_copying | False | True | True | True | False | extract_layout | extract_layout | [{"image_id": "img-hard-metric-table", "target_query": "dashboard metric"}] | [{"image_id": "img-hard-metric-table", "target_query": "metric panel"}] | hard-metric-1001 | hard-metric-1001 | executable_paraphrase | executable_selector_alias | benchmark_label_artifact_candidate | add executor-equivalence scoring before tuning another target_query wording profile |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints | catalog schema fields | visual_callout_warning_with_user_decoy | visual_argument_copying | False | True | True | True | False | extract_layout | extract_layout | [{"image_id": "img-hard-callout-decoy", "target_query": "slide callout"}] | [{"image_id": "img-hard-callout-decoy", "target_query": "callout warning"}] | hard-callout-decoy-1102 | hard-callout-decoy-1102 | executable_paraphrase | executable_selector_alias | benchmark_label_artifact_candidate | add executor-equivalence scoring before tuning another target_query wording profile |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets | catalog schema target literals | visual_form_error_with_prior_selection_decoy | visual_tool_routing | False | False | False | False | False | extract_layout | refine_selection | [{"image_id": "img-hard-form-decoy", "target_query": "validation error"}] | [{"filter_query": "validation error", "selection_id": "sel-stale"}] | hard-form-decoy-602 |  | wrong_tool | wrong_tool_executor_failure | true_harness_failure | treat as routing failure; check stale selection and allowed-tool priority |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets | catalog schema target literals | visual_metric_panel_vs_table_selector | visual_argument_copying | False | True | True | True | False | extract_layout | extract_layout | [{"image_id": "img-hard-metric-table", "target_query": "dashboard metric"}] | [{"image_id": "img-hard-metric-table", "target_query": "metric panel"}] | hard-metric-1001 | hard-metric-1001 | executable_paraphrase | executable_selector_alias | benchmark_label_artifact_candidate | add executor-equivalence scoring before tuning another target_query wording profile |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets | catalog schema target literals | visual_callout_warning_with_user_decoy | visual_argument_copying | False | True | True | True | False | extract_layout | extract_layout | [{"image_id": "img-hard-callout-decoy", "target_query": "slide callout"}] | [{"image_id": "img-hard-callout-decoy", "target_query": "slide callout warning"}] | hard-callout-decoy-1102 | hard-callout-decoy-1102 | executable_paraphrase | executable_selector_alias | benchmark_label_artifact_candidate | add executor-equivalence scoring before tuning another target_query wording profile |
+
+The exactness diagnostic sharpens the v4/v5 interpretation. The two v4 non-exact rows are not executor-targeting failures: both reach the expected local visual regions and are best treated as benchmark-label artifact candidates until the benchmark has explicit executor-equivalence scoring. The v5 target-literal profile keeps those same two aliases and adds one true harness failure by choosing stale `refine_selection` instead of current-image `extract_layout`.
 
 ## Visual Hard-Slice Case Deltas vs No Directive
 
@@ -671,6 +688,7 @@ This packet is deliberately a dry-run prompt and command manifest. It is an exte
 - Tool catalog schema-field live decision: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260509T_visual_schema_field_hints_live_replay_skipped_v1`
 - Prompt-contract wave six packet: `/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe`
 - Visual hard-slice packet: `/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1`
+- Visual hard-slice exactness diagnostic: `/Users/cheickdiakite/Codex/moonie/results/reports/visual_hard_slice_exactness_diagnostic`
 - H1i prompt-contract packet: `/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet`
 - H1i prompt-contract repeat packet: `/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_repeat3_v1_knowledge_work_ablation_packet`
 - H1j probe-derived prompt-contract packet: `/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_candidates_v1_knowledge_work_ablation_packet`

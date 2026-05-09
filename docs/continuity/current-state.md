@@ -289,6 +289,7 @@ Latest MLX tool-contract research:
   - latest executed packet: [`results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1)
   - latest gate summary: [`candidate_gate_summary.md`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/candidate_gate_summary.md)
   - v5-vs-v4 comparison: [`schema_literal_targets_vs_schema_field_hints`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/schema_literal_targets_vs_schema_field_hints)
+  - exactness-vs-executor diagnostic: [`results/reports/visual_hard_slice_exactness_diagnostic`](../../results/reports/visual_hard_slice_exactness_diagnostic)
   - shape: `8` executable cases across visual argument copying, visual tool routing, referent carryover, and region readback
   - latest result:
     - contracted MLX: exact `8 / 8`, executable `8 / 8`
@@ -299,7 +300,7 @@ Latest MLX tool-contract research:
     - `visual_role_catalog_schema_field_hints_v4`: exact `6 / 8`, executable `8 / 8`
     - `visual_role_catalog_schema_literal_targets_v5`: exact `5 / 8`, executable `7 / 8`
     - `visual_role_catalog_v1 + literal_guard`: exact `3 / 8`, executable `4 / 8`
-  - interpretation: the hard slice breaks prior top-line saturation. Schema-field hints move from a focused-replay negative result to the strongest fresh-slice no-directive candidate because they preserve full executability, but they still trail contracted MLX on exact protocol fidelity. The v5 schema-target-literal repair is negative evidence: it does not fix the two v4 paraphrases and adds a wrong-tool stale-selection regression.
+  - interpretation: the hard slice breaks prior top-line saturation. Schema-field hints move from a focused-replay negative result to the strongest fresh-slice no-directive candidate because they preserve full executability, but they still trail contracted MLX on strict exact protocol fidelity. The exactness diagnostic classifies both v4 non-exact rows as executor-success selector aliases, so the current evidence says those are benchmark-label artifact candidates rather than true visual targeting failures. The v5 schema-target-literal repair is negative evidence: it keeps those two aliases and adds a wrong-tool stale-selection regression.
 - Prompt-contract wave 6:
   - candidate: `literal_argument_guard_v1` + `visual_role_catalog_v1`
   - runner flag: `scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v6`
@@ -389,6 +390,7 @@ Current generated research report:
 - visual schema-field live decision: [`results/reports/mlx_tool_contract_harnessing/tables/tool_catalog_schema_field_hints_live_replay_decision.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/tool_catalog_schema_field_hints_live_replay_decision.csv)
 - visual hard-slice latest executed packet: [`results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1)
 - visual hard-slice v5-vs-v4 comparison: [`results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/schema_literal_targets_vs_schema_field_hints`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/schema_literal_targets_vs_schema_field_hints)
+- visual hard-slice exactness diagnostic: [`results/reports/visual_hard_slice_exactness_diagnostic`](../../results/reports/visual_hard_slice_exactness_diagnostic)
 - visual hard-slice probe gates: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_probe_gates.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_probe_gates.csv)
 - visual hard-slice family summary: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_family_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_family_summary.csv)
 - visual hard-slice failure modes: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_failure_modes.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_failure_modes.csv)

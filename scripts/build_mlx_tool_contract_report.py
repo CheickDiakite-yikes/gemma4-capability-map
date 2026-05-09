@@ -112,6 +112,9 @@ DEFAULT_PROMPT_CONTRACT_WAVE6_PACKET = (
 DEFAULT_VISUAL_HARD_SLICE_PACKET = (
     ROOT / "results" / "visual_hard_slice_probe_packets" / "20260509T_visual_hard_slice_v5_execute_v1"
 )
+DEFAULT_VISUAL_HARD_SLICE_EXACTNESS_DIAGNOSTIC = (
+    ROOT / "results" / "reports" / "visual_hard_slice_exactness_diagnostic"
+)
 DEFAULT_H1I_PROMPT_CONTRACT_PACKET = (
     ROOT / "results" / "knowledge_work_h1_slice" / "20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet"
 )
@@ -302,6 +305,7 @@ def build_report(
     tool_catalog_schema_field_hints_live_decision: str | Path = DEFAULT_TOOL_CATALOG_SCHEMA_FIELD_HINTS_LIVE_DECISION,
     prompt_contract_wave6_packet: str | Path = DEFAULT_PROMPT_CONTRACT_WAVE6_PACKET,
     visual_hard_slice_packet: str | Path = DEFAULT_VISUAL_HARD_SLICE_PACKET,
+    visual_hard_slice_exactness_diagnostic: str | Path = DEFAULT_VISUAL_HARD_SLICE_EXACTNESS_DIAGNOSTIC,
     h1i_prompt_contract_packet: str | Path = DEFAULT_H1I_PROMPT_CONTRACT_PACKET,
     h1i_prompt_contract_repeat_packet: str | Path = DEFAULT_H1I_PROMPT_CONTRACT_REPEAT_PACKET,
     h1j_prompt_contract_packet: str | Path = DEFAULT_H1J_PROMPT_CONTRACT_PACKET,
@@ -440,6 +444,12 @@ def build_report(
     )
     visual_hard_slice_case_deltas_vs_contracted_rows = _label_system_rows(
         _csv_rows(Path(visual_hard_slice_packet) / "case_deltas_vs_contracted.csv")
+    )
+    visual_hard_slice_exactness_summary_rows = _csv_rows(
+        Path(visual_hard_slice_exactness_diagnostic) / "tables" / "visual_hard_slice_exactness_summary.csv"
+    )
+    visual_hard_slice_exactness_gap_rows = _csv_rows(
+        Path(visual_hard_slice_exactness_diagnostic) / "tables" / "visual_hard_slice_exactness_gaps.csv"
     )
     prompt_contract_promotion_rows = _prompt_contract_promotion_rows(
         wave1_rows=prompt_contract_gate_rows,
@@ -680,6 +690,8 @@ def build_report(
         tables_dir / "visual_hard_slice_case_deltas_vs_contracted.csv",
         visual_hard_slice_case_deltas_vs_contracted_rows,
     )
+    _write_csv(tables_dir / "visual_hard_slice_exactness_summary.csv", visual_hard_slice_exactness_summary_rows)
+    _write_csv(tables_dir / "visual_hard_slice_exactness_gaps.csv", visual_hard_slice_exactness_gap_rows)
     _write_csv(tables_dir / "prompt_contract_promotion_decisions.csv", prompt_contract_promotion_rows)
     _write_csv(tables_dir / "h1i_prompt_contract_candidate_metrics.csv", h1i_prompt_contract_rows)
     _write_csv(tables_dir / "h1i_prompt_contract_repeat3_metrics.csv", h1i_prompt_contract_repeat_rows)
@@ -1037,6 +1049,7 @@ def build_report(
         "tool_catalog_schema_field_hints_live_decision": str(Path(tool_catalog_schema_field_hints_live_decision).resolve()),
         "prompt_contract_wave6_packet": str(Path(prompt_contract_wave6_packet).resolve()),
         "visual_hard_slice_packet": str(Path(visual_hard_slice_packet).resolve()),
+        "visual_hard_slice_exactness_diagnostic": str(Path(visual_hard_slice_exactness_diagnostic).resolve()),
         "h1i_prompt_contract_packet": str(Path(h1i_prompt_contract_packet).resolve()),
         "h1i_prompt_contract_repeat_packet": str(Path(h1i_prompt_contract_repeat_packet).resolve()),
         "h1j_prompt_contract_packet": str(Path(h1j_prompt_contract_packet).resolve()),
@@ -1087,7 +1100,7 @@ def build_report(
             Path(argument_hints_live_visual_vs_role_catalog_comparison).resolve()
         ),
         "registry_path": str(Path(registry_path).resolve()),
-        "table_count": 54,
+        "table_count": 56,
         "figure_count": 26,
     }
     report_payload = {
@@ -1128,6 +1141,8 @@ def build_report(
         "visual_hard_slice_family_summary": visual_hard_slice_family_rows,
         "visual_hard_slice_case_deltas_vs_no_directive": visual_hard_slice_case_deltas_vs_no_directive_rows,
         "visual_hard_slice_case_deltas_vs_contracted": visual_hard_slice_case_deltas_vs_contracted_rows,
+        "visual_hard_slice_exactness_summary": visual_hard_slice_exactness_summary_rows,
+        "visual_hard_slice_exactness_gaps": visual_hard_slice_exactness_gap_rows,
         "prompt_contract_promotion_decisions": prompt_contract_promotion_rows,
         "h1i_prompt_contract_candidate_metrics": h1i_prompt_contract_rows,
         "h1i_prompt_contract_repeat3_metrics": h1i_prompt_contract_repeat_rows,
@@ -1213,6 +1228,10 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--prompt-contract-wave6-packet", default=str(DEFAULT_PROMPT_CONTRACT_WAVE6_PACKET))
     parser.add_argument("--visual-hard-slice-packet", default=str(DEFAULT_VISUAL_HARD_SLICE_PACKET))
+    parser.add_argument(
+        "--visual-hard-slice-exactness-diagnostic",
+        default=str(DEFAULT_VISUAL_HARD_SLICE_EXACTNESS_DIAGNOSTIC),
+    )
     parser.add_argument("--h1i-prompt-contract-packet", default=str(DEFAULT_H1I_PROMPT_CONTRACT_PACKET))
     parser.add_argument("--h1i-prompt-contract-repeat-packet", default=str(DEFAULT_H1I_PROMPT_CONTRACT_REPEAT_PACKET))
     parser.add_argument("--h1j-prompt-contract-packet", default=str(DEFAULT_H1J_PROMPT_CONTRACT_PACKET))
@@ -1309,6 +1328,7 @@ def main() -> None:
         tool_catalog_schema_field_hints_live_decision=args.tool_catalog_schema_field_hints_live_decision,
         prompt_contract_wave6_packet=args.prompt_contract_wave6_packet,
         visual_hard_slice_packet=args.visual_hard_slice_packet,
+        visual_hard_slice_exactness_diagnostic=args.visual_hard_slice_exactness_diagnostic,
         h1i_prompt_contract_packet=args.h1i_prompt_contract_packet,
         h1i_prompt_contract_repeat_packet=args.h1i_prompt_contract_repeat_packet,
         h1j_prompt_contract_packet=args.h1j_prompt_contract_packet,
@@ -1680,6 +1700,8 @@ def _markdown_report(payload: dict[str, Any]) -> str:
     visual_hard_slice_gate_rows = payload["visual_hard_slice_probe_gates"]
     visual_hard_slice_family_rows = payload["visual_hard_slice_family_summary"]
     visual_hard_slice_case_deltas_vs_no_directive = payload["visual_hard_slice_case_deltas_vs_no_directive"]
+    visual_hard_slice_exactness_summary = payload["visual_hard_slice_exactness_summary"]
+    visual_hard_slice_exactness_gaps = payload["visual_hard_slice_exactness_gaps"]
     h1i_prompt_contract_rows = payload["h1i_prompt_contract_candidate_metrics"]
     h1i_prompt_contract_repeat_rows = payload["h1i_prompt_contract_repeat3_metrics"]
     h1j_prompt_contract_rows = payload["h1j_probe_derived_candidate_metrics"]
@@ -1879,6 +1901,14 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "",
         "The family breakdown explains the new signal. Schema-field hints preserve full executable behavior across visible-region targeting, valid selection carryover, and region readback, but exactness still lags on visual argument-copying cases. The v5 target-literal repair did not improve that family and regressed the stale-selection decoy into a wrong-tool call, which suggests the next experiment should separate hidden benchmark canonical labels from observable executor-success labels before spending another packaged H1 slice.",
         "",
+        "## Visual Hard-Slice Exactness Diagnostic",
+        "",
+        _markdown_table(visual_hard_slice_exactness_summary),
+        "",
+        _markdown_table(visual_hard_slice_exactness_gaps),
+        "",
+        "The exactness diagnostic sharpens the v4/v5 interpretation. The two v4 non-exact rows are not executor-targeting failures: both reach the expected local visual regions and are best treated as benchmark-label artifact candidates until the benchmark has explicit executor-equivalence scoring. The v5 target-literal profile keeps those same two aliases and adds one true harness failure by choosing stale `refine_selection` instead of current-image `extract_layout`.",
+        "",
         "## Visual Hard-Slice Case Deltas vs No Directive",
         "",
         _markdown_table(visual_hard_slice_case_deltas_vs_no_directive),
@@ -2046,6 +2076,7 @@ def _markdown_report(payload: dict[str, Any]) -> str:
             f"- Tool catalog schema-field live decision: `{payload['manifest']['tool_catalog_schema_field_hints_live_decision']}`",
             f"- Prompt-contract wave six packet: `{payload['manifest']['prompt_contract_wave6_packet']}`",
             f"- Visual hard-slice packet: `{payload['manifest']['visual_hard_slice_packet']}`",
+            f"- Visual hard-slice exactness diagnostic: `{payload['manifest']['visual_hard_slice_exactness_diagnostic']}`",
             f"- H1i prompt-contract packet: `{payload['manifest']['h1i_prompt_contract_packet']}`",
             f"- H1i prompt-contract repeat packet: `{payload['manifest']['h1i_prompt_contract_repeat_packet']}`",
             f"- H1j probe-derived prompt-contract packet: `{payload['manifest']['h1j_prompt_contract_packet']}`",

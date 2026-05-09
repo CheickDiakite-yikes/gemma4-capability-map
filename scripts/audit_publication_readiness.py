@@ -59,7 +59,7 @@ def audit_publication_readiness(
         _check_bool(
             check_id="tool_contract_report_has_current_tables",
             severity="blocking",
-            passed=int(report_manifest.get("table_count", 0) or 0) >= 54,
+            passed=int(report_manifest.get("table_count", 0) or 0) >= 56,
             detail=f"table_count={report_manifest.get('table_count', '')}",
         ),
         _check_bool(
@@ -120,6 +120,16 @@ def audit_publication_readiness(
             detail="Direct v5-vs-v4 comparison exists to preserve the negative target-literal result.",
         ),
         _check_path(
+            check_id="visual_hard_slice_exactness_diagnostic_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "visual_hard_slice_exactness_diagnostic"
+            / "exactness_diagnostic.json",
+            detail="Exactness-vs-executor diagnostic exists for interpreting v4 paraphrases and v5 regression.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",
@@ -157,6 +167,7 @@ def audit_publication_readiness(
         "run_tool_catalog_profile_probe_packet.py",
         "run_visual_hard_slice_probe.py",
         "run_visual_hard_slice_probe_packet.py",
+        "analyze_visual_hard_slice_exactness.py",
         "compare_tool_directive_probes.py",
         "build_visual_hard_slice_design.py",
     ]:

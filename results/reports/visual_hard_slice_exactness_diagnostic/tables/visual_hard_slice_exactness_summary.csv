@@ -1,0 +1,3 @@
+system_id,system_label,case_count,exact_count,exact_rate,executable_count,executable_rate,executor_success_non_exact_count,benchmark_label_artifact_candidate_count,true_harness_failure_count,diagnosis_counts
+mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints,catalog schema fields,8,6,0.75,8,1.0,2,2,0,"{""exact_contract_match"": 6, ""executable_selector_alias"": 2}"
+mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets,catalog schema target literals,8,5,0.625,7,0.875,2,2,1,"{""exact_contract_match"": 5, ""executable_selector_alias"": 2, ""wrong_tool_executor_failure"": 1}"

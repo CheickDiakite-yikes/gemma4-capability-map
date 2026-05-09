@@ -3164,3 +3164,31 @@
   - `uv run python scripts/audit_publication_readiness.py`
   - `uv run pytest tests/test_prompt_contracts.py tests/test_visual_hard_slice_probe_packet.py tests/test_mlx_tool_contract_report.py tests/test_publication_evidence_ledger.py tests/test_publication_readiness_audit.py tests/test_runtime_cli.py::test_runtime_cli_packet_json_inspects_visual_hard_slice_probe_packet -q`
   - `uv run moonie-agent packet --kind visual-hard-slice-probe --packet-id 20260509T_visual_hard_slice_v5_execute_v1 --json`
+
+## 2026-05-09 - Visual Hard-Slice Exactness Versus Executor Target Diagnostic
+
+- A new diagnostic script now separates strict benchmark-canonical visual argument exactness from executor-visible target success:
+  - script: [`scripts/analyze_visual_hard_slice_exactness.py`](../scripts/analyze_visual_hard_slice_exactness.py)
+  - artifact: [`results/reports/visual_hard_slice_exactness_diagnostic`](../results/reports/visual_hard_slice_exactness_diagnostic)
+  - seed packet: [`20260509T_visual_hard_slice_v5_execute_v1`](../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1)
+- Result:
+  - v4 schema-field hints: exact `6 / 8`, executable `8 / 8`, non-exact executor successes `2`, benchmark-label artifact candidates `2`, true harness failures `0`
+  - v5 schema target literals: exact `5 / 8`, executable `7 / 8`, non-exact executor successes `2`, benchmark-label artifact candidates `2`, true harness failures `1`
+  - v4 exact gap `visual_metric_panel_vs_table_selector`: expected target `hard-metric-1001`, actual target `hard-metric-1001`
+  - v4 exact gap `visual_callout_warning_with_user_decoy`: expected target `hard-callout-decoy-1102`, actual target `hard-callout-decoy-1102`
+  - v5 adds a true executor failure on `visual_form_error_with_prior_selection_decoy` by choosing stale `refine_selection(selection_id="sel-stale")` instead of current-image `extract_layout`
+- Interpretation:
+  - The two v4 hard-slice exact misses are not current evidence of failed visual targeting. They are better classified as executor-success selector aliases under the local deterministic visual executor.
+  - This strengthens the paper framing: strict correctness, exact protocol fidelity, and executor-visible success are distinct metrics.
+  - The next useful implementation is executor-equivalence scoring beside strict exactness, not another target-query wording profile.
+- Reporting updates:
+  - generated MLX tool-contract report now has `56` tables and `26` figures
+  - evidence ledger now has `10` claims, `31` evidence sources, `0` missing sources
+  - readiness audit now has `28` checks, `26` blocking checks, `0` blocking failures, status `paper_draft_ready`
+  - new ledger claim: `C10_v4_exact_misses_are_executor_success_aliases`
+- Verification:
+  - `uv run pytest tests/test_visual_hard_slice_exactness_diagnostic.py -q`
+  - `uv run python scripts/analyze_visual_hard_slice_exactness.py --json`
+  - `uv run python scripts/build_mlx_tool_contract_report.py`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`

@@ -34,7 +34,7 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
 
     assert payload["gemini"]["dry_run"] is True
     assert payload["gemini"]["workflow_count"] == 10
-    assert payload["manifest"]["table_count"] == 54
+    assert payload["manifest"]["table_count"] == 56
     assert payload["manifest"]["figure_count"] == 26
 
     candidate_ids = {row["tool_prompt_contract_id"] for row in payload["prompt_contract_candidates"]}
@@ -143,6 +143,19 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
             "visual_tool_routing",
         )
     ]["executable_rate"] == "0.0"
+    exactness_summary = {row["system_label"]: row for row in payload["visual_hard_slice_exactness_summary"]}
+    assert exactness_summary["catalog schema fields"]["benchmark_label_artifact_candidate_count"] == "2"
+    assert exactness_summary["catalog schema fields"]["true_harness_failure_count"] == "0"
+    assert exactness_summary["catalog schema target literals"]["true_harness_failure_count"] == "1"
+    exactness_gaps = {
+        (row["system_label"], row["case_id"]): row for row in payload["visual_hard_slice_exactness_gaps"]
+    }
+    assert exactness_gaps[
+        ("catalog schema fields", "visual_metric_panel_vs_table_selector")
+    ]["research_interpretation"] == "benchmark_label_artifact_candidate"
+    assert exactness_gaps[
+        ("catalog schema target literals", "visual_form_error_with_prior_selection_decoy")
+    ]["research_interpretation"] == "true_harness_failure"
     promotion = {row["tool_prompt_contract_id"]: row for row in payload["prompt_contract_promotion_decisions"]}
     assert promotion["schema_anchor_v1"]["promotion_decision"] == "hold_for_exact_probe_replay"
     assert promotion["visual_next_call_state_v2"]["promotion_reason"].startswith("executable recovery exists")
@@ -258,6 +271,7 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert (tmp_path / "manifest.json").exists()
     assert (tmp_path / "tables" / "packet_summary.csv").exists()
     assert (tmp_path / "tables" / "probe_failure_modes.csv").exists()
+    assert (tmp_path / "tables" / "visual_hard_slice_exactness_gaps.csv").exists()
     assert (tmp_path / "tables" / "prompt_contract_candidates.csv").exists()
     assert (tmp_path / "tables" / "prompt_contract_probe_gates.csv").exists()
     assert (tmp_path / "tables" / "prompt_contract_probe_failure_modes.csv").exists()

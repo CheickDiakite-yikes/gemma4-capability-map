@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-09T12:03:10.172134+00:00",
+    "generated_at": "2026-05-09T12:14:18.617726+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-    "claim_count": 9,
-    "evidence_source_count": 27,
+    "claim_count": 10,
+    "evidence_source_count": 31,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -14,7 +14,8 @@
       "C6_split_selector_wording_is_negative_evidence",
       "C7_schema_field_hints_tie_exactness_without_executability",
       "C8_visual_hard_slice_targets_remaining_uncertainty",
-      "C9_schema_literal_targets_v5_is_negative_evidence"
+      "C9_schema_literal_targets_v5_is_negative_evidence",
+      "C10_v4_exact_misses_are_executor_success_aliases"
     ]
   },
   "claims": [
@@ -95,8 +96,8 @@
       "evidence_strength": "moderate_internal",
       "primary_metric": "Contracted MLX reaches 8/8 exact and executable; no-directive falls to 1/8; schema-field hints reach 6/8 exact and 8/8 executable.",
       "limitation": "The packet is eight independently authored visual cases, so it is stronger than design-only evidence but still not a population estimate.",
-      "next_test": "Treat v4 as the current hard-slice profile; inspect whether the remaining exact misses are benchmark-canonical-label artifacts versus executor-visible failures before promoting to a packaged H1 workflow.",
-      "source_count": 3
+      "next_test": "Promote v4 only after adding executor-equivalence scoring to the benchmark contract or building a packaged H1 visual workflow that tests executor-visible success directly.",
+      "source_count": 4
     },
     {
       "claim_id": "C9_schema_literal_targets_v5_is_negative_evidence",
@@ -105,7 +106,17 @@
       "evidence_strength": "moderate_internal",
       "primary_metric": "v5 reaches 5/8 exact and 7/8 executable versus v4 at 6/8 exact and 8/8 executable; v5 adds one wrong-tool failure on the stale-selection decoy.",
       "limitation": "This is still one eight-case hard-slice packet; it rejects the current wording, not all possible target-query exactness interventions.",
-      "next_test": "Diagnose the two v4 executable paraphrases as benchmark-canonical-label versus true executor-targeting failures before another wording candidate.",
+      "next_test": "Do not iterate target-literal wording again until executor-equivalence scoring is explicit; focus on the stale-selection routing failure separately.",
+      "source_count": 3
+    },
+    {
+      "claim_id": "C10_v4_exact_misses_are_executor_success_aliases",
+      "claim": "The remaining v4 visual hard-slice exact misses are executor-success selector aliases, not current evidence of failed visual targeting.",
+      "status": "supported_current_packets",
+      "evidence_strength": "moderate_internal",
+      "primary_metric": "v4 has 2/8 non-exact rows, both executor-target matches; benchmark-label artifact candidate count is 2 and true harness failure count is 0.",
+      "limitation": "This does not prove every visual selector paraphrase is acceptable; it only classifies the current hard-slice v4 misses under the local deterministic executor.",
+      "next_test": "Add an executor-equivalence score beside strict exactness and rerun the hard slice before H1 visual workflow promotion.",
       "source_count": 2
     }
   ],
@@ -286,6 +297,13 @@
       "exists": true
     },
     {
+      "claim_id": "C8_visual_hard_slice_targets_remaining_uncertainty",
+      "artifact_type": "visual_hard_slice_exactness_diagnostic",
+      "path": "results/reports/visual_hard_slice_exactness_diagnostic",
+      "purpose": "Exactness-vs-executor diagnostic showing v4's two non-exact rows still hit the expected local visual regions.",
+      "exists": true
+    },
+    {
       "claim_id": "C9_schema_literal_targets_v5_is_negative_evidence",
       "artifact_type": "visual_hard_slice_probe_packet",
       "path": "results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1",
@@ -297,6 +315,27 @@
       "artifact_type": "visual_hard_slice_profile_comparison",
       "path": "results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/schema_literal_targets_vs_schema_field_hints",
       "purpose": "Direct v5-vs-v4 comparison showing exact and executable regressions concentrated in visual tool routing.",
+      "exists": true
+    },
+    {
+      "claim_id": "C9_schema_literal_targets_v5_is_negative_evidence",
+      "artifact_type": "visual_hard_slice_exactness_diagnostic",
+      "path": "results/reports/visual_hard_slice_exactness_diagnostic",
+      "purpose": "Diagnostic showing v5 preserves the same two label-artifact candidates as v4 while adding one true wrong-tool failure.",
+      "exists": true
+    },
+    {
+      "claim_id": "C10_v4_exact_misses_are_executor_success_aliases",
+      "artifact_type": "visual_hard_slice_exactness_diagnostic",
+      "path": "results/reports/visual_hard_slice_exactness_diagnostic",
+      "purpose": "System and gap tables separating canonical argument exactness from executor-visible target success.",
+      "exists": true
+    },
+    {
+      "claim_id": "C10_v4_exact_misses_are_executor_success_aliases",
+      "artifact_type": "visual_hard_slice_probe_packet",
+      "path": "results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1",
+      "purpose": "Underlying executed hard-slice packet with raw expected/actual calls and deterministic execution outputs.",
       "exists": true
     }
   ],

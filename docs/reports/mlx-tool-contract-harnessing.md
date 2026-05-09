@@ -20,7 +20,7 @@ The current Moonie frontier is no longer whether `mlx_gemma4_e2b_reasoner_only` 
 
 The newest evidence says the final tool-turn directive is a causal model-side harness intervention. With the directive present, MLX Gemma is controller-clean on the current H1 live workflow packets. When the directive is removed, no-directive MLX can still match top-line readiness only because Moonie's controller repairs arguments, falls back to a planner, or substitutes the correct call. Raw no-directive tool compliance collapses on the focused probe suite.
 
-The sharpest new movement is in the visual catalog line. A catalog-only role profile first moved the remaining visual failure from wrong-tool/no-call into argument mismatch. A narrower `visual_role_catalog_argument_hints_v2` profile then fixed the targeted selector literal in raw and live replay, reaching `2 / 3` live visual exactness without the exact directive. The follow-up `visual_role_catalog_split_selector_hints_v3` is negative evidence: it preserved latest-filter exactness but regressed readback JSON shape and did not earn live replay. The schema-local `visual_role_catalog_schema_field_hints_v4` profile is cleaner than v3 and restores readback, but only ties v2 at raw `2 / 8`, remains `0 / 1` executable, and over-prefers `refine_selection` when the form-target case has no real selection id. The open gap is now specific: keep `filter_query` exactness and readback shape while recovering executable form-target `target_query` behavior.
+The sharpest new movement is in the visual catalog line. A catalog-only role profile first moved the remaining visual failure from wrong-tool/no-call into argument mismatch. A narrower `visual_role_catalog_argument_hints_v2` profile then fixed the targeted selector literal in raw and live replay, reaching `2 / 3` live visual exactness without the exact directive. The follow-up `visual_role_catalog_split_selector_hints_v3` is negative evidence: it preserved latest-filter exactness but regressed readback JSON shape and did not earn live replay. The schema-local `visual_role_catalog_schema_field_hints_v4` profile is split evidence: it is still negative on the old focused three-case slice, but it is the strongest fresh visual hard-slice profile at `6 / 8` exact and `8 / 8` executable. A new exactness diagnostic shows both v4 non-exact hard-slice rows still hit the expected local visual regions, so the current gap is benchmark-label fidelity rather than visual target failure.
 
 That means the next useful work is not broad leaderboard reruns or UI polish. It is a CLI-first, benchmark-backed harness loop around:
 
@@ -108,6 +108,7 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 | [`visual hard-slice design`](../../results/reports/visual_hard_slice_design/design.md) | Shared case-design source for the fresh visual discriminator across argument copying, routing, referent carryover, and readback. |
 | [`executed visual hard-slice packet`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1) | Eight-system hard-slice probe showing schema-field hints as the strongest no-directive executable visual profile and v5 target-literal wording as a negative repair attempt. |
 | [`visual hard-slice v5-vs-v4 comparison`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/schema_literal_targets_vs_schema_field_hints) | Direct comparison showing v5 loses exactness and executability versus v4 by introducing a stale-selection wrong-tool regression. |
+| [`visual hard-slice exactness diagnostic`](../../results/reports/visual_hard_slice_exactness_diagnostic) | Separates strict benchmark-canonical target labels from executor-visible target success for v4 and v5. |
 | [`visual catalog literal-guard v6 packet`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe) | Composition test combining the visual role catalog with `literal_argument_guard_v1`. |
 | [`H1i prompt-contract repeat3 packet`](../../results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_repeat3_v1_knowledge_work_ablation_packet) | Repeated second-stage candidate packet: three attempts per H1i workflow family per row. |
 | [`H1j probe-derived candidate packet`](../../results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_candidates_v1_knowledge_work_ablation_packet) | Six packaged live workflows selected from exact no-directive probe failure families. |
@@ -399,6 +400,7 @@ The executed hard slice is the cleanest current visual discriminator because it 
 - generated gate table: [`visual_hard_slice_probe_gates.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_probe_gates.csv)
 - generated family table: [`visual_hard_slice_family_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_family_summary.csv)
 - generated case deltas: [`visual_hard_slice_case_deltas_vs_no_directive.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_case_deltas_vs_no_directive.csv) and [`visual_hard_slice_case_deltas_vs_contracted.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_case_deltas_vs_contracted.csv)
+- exactness diagnostic: [`results/reports/visual_hard_slice_exactness_diagnostic`](../../results/reports/visual_hard_slice_exactness_diagnostic)
 
 | System profile | Exact | Executable | Dominant failure | Gate |
 | --- | ---: | ---: | --- | --- |
@@ -411,7 +413,23 @@ The executed hard slice is the cleanest current visual discriminator because it 
 | visual role catalog + schema target literals v5 | `5 / 8` | `7 / 8` | exact | improved vs no-directive |
 | visual role catalog + literal guard v6 | `3 / 8` | `4 / 8` | exact | improved vs no-directive |
 
-This changes the visual interpretation. Schema-field hints were not a focused-replay promotion candidate, but on the fresh hard slice they become the strongest no-directive harness profile because they preserve full executability. The exact directive still matters: contracted MLX is the only row with `8 / 8` exact protocol fidelity. The v5 target-literal repair is negative: it keeps the two v4 executable paraphrases and adds a wrong-tool stale-selection regression, so the next useful work is to distinguish benchmark-canonical label exactness from true executor-targeting failure.
+This changes the visual interpretation. Schema-field hints were not a focused-replay promotion candidate, but on the fresh hard slice they become the strongest no-directive harness profile because they preserve full executability. The exact directive still matters: contracted MLX is the only row with `8 / 8` strict protocol fidelity. The exactness diagnostic resolves the immediate ambiguity: v4's two non-exact rows are executor-success selector aliases, while v5 keeps those same aliases and adds a true stale-selection wrong-tool failure. The next useful work is therefore executor-equivalence scoring, not another target-query wording patch.
+
+## Visual Hard-Slice Exactness Diagnostic
+
+| System | Exact | Executable | Non-exact executor success | Label-artifact candidates | True harness failures |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| visual role catalog + schema-field hints v4 | `6 / 8` | `8 / 8` | `2` | `2` | `0` |
+| visual role catalog + schema target literals v5 | `5 / 8` | `7 / 8` | `2` | `2` | `1` |
+
+The two v4 exact gaps are:
+
+| Case | Expected target | Actual target | Interpretation |
+| --- | --- | --- | --- |
+| `visual_metric_panel_vs_table_selector` | `hard-metric-1001` | `hard-metric-1001` | benchmark-label artifact candidate |
+| `visual_callout_warning_with_user_decoy` | `hard-callout-decoy-1102` | `hard-callout-decoy-1102` | benchmark-label artifact candidate |
+
+This is an important research distinction. Strict JSON/canonical-label exactness is still useful because it measures interface fidelity, but it should not be confused with executor-visible success. For publication, this supports separating "protocol fidelity" from "local executor target success" in the metric table.
 
 ## Prompt-Contract Wave Six Probe Gate
 
@@ -770,7 +788,7 @@ Use this order before broad `32 / 26` reruns:
 1. Treat `visual_role_catalog_argument_hints_v2` as the best exact candidate on the original focused visual replay, not as the overall visual answer.
 2. Treat `visual_role_catalog_schema_field_hints_v4` as the best fresh hard-slice no-directive profile because it reaches `8 / 8` executable, while still missing exact protocol on two cases.
 3. Treat `visual_role_catalog_schema_literal_targets_v5` as negative evidence: it drops to `5 / 8` exact and `7 / 8` executable while adding a wrong-tool stale-selection regression.
-4. Before writing another visual wording candidate, decide whether the two v4 executable paraphrases are benchmark-canonical-label artifacts or true executor-targeting failures.
+4. Add executor-equivalence scoring beside strict exactness, using the exactness diagnostic as the seed fixture.
 5. Treat `visual_role_catalog_v1` as the stable routing baseline, `visual_state_tool_selection_v4` as a failed-to-improve live candidate, `visual_refine_selection_v5` as a raw-gate rejection, and the v6 catalog-plus-literal-guard composition as negative interference.
 6. Stop iterating on standalone visual prompt rules unless the next idea changes tool-catalog role shape or generation-time argument copying without sacrificing protocol entry.
 7. Keep canonical JSON copy and parallel two-call wording out of H1 as currently written; they did not earn live promotion.

@@ -227,7 +227,7 @@ CLAIMS: tuple[Claim, ...] = (
         evidence_strength="moderate_internal",
         primary_metric="Contracted MLX reaches 8/8 exact and executable; no-directive falls to 1/8; schema-field hints reach 6/8 exact and 8/8 executable.",
         limitation="The packet is eight independently authored visual cases, so it is stronger than design-only evidence but still not a population estimate.",
-        next_test="Treat v4 as the current hard-slice profile; inspect whether the remaining exact misses are benchmark-canonical-label artifacts versus executor-visible failures before promoting to a packaged H1 workflow.",
+        next_test="Promote v4 only after adding executor-equivalence scoring to the benchmark contract or building a packaged H1 visual workflow that tests executor-visible success directly.",
         sources=(
             EvidenceSource(
                 "visual_hard_slice_probe_packet",
@@ -244,6 +244,11 @@ CLAIMS: tuple[Claim, ...] = (
                 "results/tool_probe_replay_live/20260509T_visual_schema_field_hints_live_replay_skipped_v1",
                 "Negative v4 promotion decision motivating a fresh visual hard-slice rather than another live replay.",
             ),
+            EvidenceSource(
+                "visual_hard_slice_exactness_diagnostic",
+                "results/reports/visual_hard_slice_exactness_diagnostic",
+                "Exactness-vs-executor diagnostic showing v4's two non-exact rows still hit the expected local visual regions.",
+            ),
         ),
     ),
     Claim(
@@ -253,7 +258,7 @@ CLAIMS: tuple[Claim, ...] = (
         evidence_strength="moderate_internal",
         primary_metric="v5 reaches 5/8 exact and 7/8 executable versus v4 at 6/8 exact and 8/8 executable; v5 adds one wrong-tool failure on the stale-selection decoy.",
         limitation="This is still one eight-case hard-slice packet; it rejects the current wording, not all possible target-query exactness interventions.",
-        next_test="Diagnose the two v4 executable paraphrases as benchmark-canonical-label versus true executor-targeting failures before another wording candidate.",
+        next_test="Do not iterate target-literal wording again until executor-equivalence scoring is explicit; focus on the stale-selection routing failure separately.",
         sources=(
             EvidenceSource(
                 "visual_hard_slice_probe_packet",
@@ -264,6 +269,32 @@ CLAIMS: tuple[Claim, ...] = (
                 "visual_hard_slice_profile_comparison",
                 "results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/schema_literal_targets_vs_schema_field_hints",
                 "Direct v5-vs-v4 comparison showing exact and executable regressions concentrated in visual tool routing.",
+            ),
+            EvidenceSource(
+                "visual_hard_slice_exactness_diagnostic",
+                "results/reports/visual_hard_slice_exactness_diagnostic",
+                "Diagnostic showing v5 preserves the same two label-artifact candidates as v4 while adding one true wrong-tool failure.",
+            ),
+        ),
+    ),
+    Claim(
+        claim_id="C10_v4_exact_misses_are_executor_success_aliases",
+        claim="The remaining v4 visual hard-slice exact misses are executor-success selector aliases, not current evidence of failed visual targeting.",
+        status="supported_current_packets",
+        evidence_strength="moderate_internal",
+        primary_metric="v4 has 2/8 non-exact rows, both executor-target matches; benchmark-label artifact candidate count is 2 and true harness failure count is 0.",
+        limitation="This does not prove every visual selector paraphrase is acceptable; it only classifies the current hard-slice v4 misses under the local deterministic executor.",
+        next_test="Add an executor-equivalence score beside strict exactness and rerun the hard slice before H1 visual workflow promotion.",
+        sources=(
+            EvidenceSource(
+                "visual_hard_slice_exactness_diagnostic",
+                "results/reports/visual_hard_slice_exactness_diagnostic",
+                "System and gap tables separating canonical argument exactness from executor-visible target success.",
+            ),
+            EvidenceSource(
+                "visual_hard_slice_probe_packet",
+                "results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1",
+                "Underlying executed hard-slice packet with raw expected/actual calls and deterministic execution outputs.",
             ),
         ),
     ),

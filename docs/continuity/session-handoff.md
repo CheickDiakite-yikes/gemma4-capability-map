@@ -118,8 +118,10 @@ Current strongest MLX result:
   - latest executed packet: [`results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1)
   - latest gate summary: [`candidate_gate_summary.md`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/candidate_gate_summary.md)
   - v5-vs-v4 comparison: [`schema_literal_targets_vs_schema_field_hints`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/schema_literal_targets_vs_schema_field_hints)
+  - exactness-vs-executor diagnostic: [`results/reports/visual_hard_slice_exactness_diagnostic`](../../results/reports/visual_hard_slice_exactness_diagnostic)
   - case count: `8`
   - result: contracted MLX `8 / 8` exact and executable; no-directive MLX `1 / 8` exact and executable; schema-field hints v4 `6 / 8` exact and `8 / 8` executable; schema-target-literal v5 `5 / 8` exact and `7 / 8` executable
+  - exactness diagnostic: v4's two non-exact rows are executor-success selector aliases, while v5 adds a true stale-selection wrong-tool failure
   - status: current visual prompt-contract restart point, not a packaged H1 promotion yet
 - the sixth prompt-contract wave is a negative composition result:
   - dry-run packet: [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run)
@@ -160,8 +162,8 @@ Current next loop:
 3. Treat `visual_role_catalog_argument_hints_v2` as the best exact candidate on the old focused visual replay, with the explicit caveat that it lost executable form-target recovery.
 4. Treat `visual_role_catalog_schema_field_hints_v4` as the strongest fresh hard-slice no-directive candidate because it reaches `8 / 8` executable, with the explicit caveat that it still misses exact protocol on two cases.
 5. Treat `visual_role_catalog_schema_literal_targets_v5` as negative evidence: it did not fix the two v4 executable paraphrases and introduced a wrong-tool stale-selection regression.
-6. Before writing another candidate, decide whether the two v4 exact misses are true executor-targeting failures or benchmark-canonical-label artifacts.
-7. Keep CLI-live exact replay as the controller-dependence anchor before promoting another candidate into packaged workflows.
+6. Treat the two v4 exact misses as benchmark-label artifact candidates under the current local executor, not true executor-targeting failures.
+7. Add executor-equivalence scoring beside strict exactness before writing another target-query wording candidate or promoting v4 into packaged workflows.
 8. Return to H1h only after replay-live or raw/hard-slice evidence shows a mechanism-level change.
 9. Keep Gemini CLI as an external baseline/reference, not a replacement for Moonie's local Gemma harness.
 10. Regenerate the report, publication ledger, publication audit, and visual hard-slice packet summaries after any H1i/H1h/probe/Gemini/live-replay packet change.

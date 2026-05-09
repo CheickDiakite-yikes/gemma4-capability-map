@@ -1,9 +1,9 @@
 {
   "summary": {
-    "generated_at": "2026-05-09T12:03:13.084609+00:00",
+    "generated_at": "2026-05-09T12:14:22.625235+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 26,
-    "blocking_check_count": 24,
+    "check_count": 28,
+    "blocking_check_count": 26,
     "blocking_failed_count": 0,
     "recommended_check_count": 2,
     "recommended_failed_count": 0,
@@ -29,7 +29,7 @@
       "check_id": "ledger_has_claims",
       "severity": "blocking",
       "passed": true,
-      "detail": "claim_count=9",
+      "detail": "claim_count=10",
       "path": ""
     },
     {
@@ -43,7 +43,7 @@
       "check_id": "tool_contract_report_has_current_tables",
       "severity": "blocking",
       "passed": true,
-      "detail": "table_count=54",
+      "detail": "table_count=56",
       "path": ""
     },
     {
@@ -101,6 +101,13 @@
       "passed": true,
       "detail": "Direct v5-vs-v4 comparison exists to preserve the negative target-literal result.",
       "path": "results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_execute_v1/schema_literal_targets_vs_schema_field_hints/probe_comparison.json"
+    },
+    {
+      "check_id": "visual_hard_slice_exactness_diagnostic_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Exactness-vs-executor diagnostic exists for interpreting v4 paraphrases and v5 regression.",
+      "path": "results/reports/visual_hard_slice_exactness_diagnostic/exactness_diagnostic.json"
     },
     {
       "check_id": "current_state_doc_exists",
@@ -178,6 +185,13 @@
       "passed": true,
       "detail": "Reproduction script `run_visual_hard_slice_probe_packet.py` exists.",
       "path": "scripts/run_visual_hard_slice_probe_packet.py"
+    },
+    {
+      "check_id": "script_analyze_visual_hard_slice_exactness.py_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Reproduction script `analyze_visual_hard_slice_exactness.py` exists.",
+      "path": "scripts/analyze_visual_hard_slice_exactness.py"
     },
     {
       "check_id": "script_compare_tool_directive_probes.py_exists",
