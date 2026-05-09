@@ -139,6 +139,10 @@ The active next experiment is now a CLI/research-harness packet, not a UI task:
 - the executed prompt-contract wave-five probe packet is [`results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave5_execute_v1`](results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave5_execute_v1)
 - the visual role catalog probe packet is [`results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_v1_probe`](results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_v1_probe)
 - the visual role catalog argument-hints probe packet is [`results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_argument_hints_v2_probe`](results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_argument_hints_v2_probe)
+- the visual split-selector hints probe packet is [`results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_split_selector_hints_v3_probe`](results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_split_selector_hints_v3_probe)
+- the visual split-selector skipped-live decision is [`results/tool_probe_replay_live/20260508T_visual_split_selector_hints_live_replay_skipped_v1`](results/tool_probe_replay_live/20260508T_visual_split_selector_hints_live_replay_skipped_v1)
+- the paper-facing evidence ledger is [`results/reports/publication_evidence_ledger/ledger.md`](results/reports/publication_evidence_ledger/ledger.md)
+- the publication readiness audit is [`results/reports/publication_readiness_audit/publication_readiness_audit.md`](results/reports/publication_readiness_audit/publication_readiness_audit.md)
 - the visual catalog + literal guard v6 packet is [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe`](results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe)
 - prompt-contract promotion decisions are generated at [`results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_promotion_decisions.csv`](results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_promotion_decisions.csv)
 - the exact-probe replay packet is [`results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1`](results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1)
@@ -153,15 +157,14 @@ The active next experiment is now a CLI/research-harness packet, not a UI task:
 - the visual role catalog argument-hints live comparison is [`results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_no_directive_v1`](results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_no_directive_v1)
 - visual tool-choice diagnostics for wave three/four/catalog are in [`results/tool_probe_replay_live_diagnostics/20260508T_visual_tool_choice_wave3_wave4_catalog_v1`](results/tool_probe_replay_live_diagnostics/20260508T_visual_tool_choice_wave3_wave4_catalog_v1)
 
-The current read is partial-gain plus stable raw replay failure, with a useful visual mechanism split. `visual_role_catalog_v1` moved visual behavior at the tool-catalog layer: raw exact `1 / 8`, visual executable `1 / 1`, live visual `1 / 3`, and `visual_latest_filter_literal` changed from `wrong_tool`/no-call into the right tool with an argument mismatch. The narrower `visual_role_catalog_argument_hints_v2` then fixed that selector case: raw exact rose to `2 / 8`, live visual exact rose to `2 / 3`, and the candidate matched contracted MLX on focused visual exactness. The remaining gap is form-target executability: argument hints lose the v1/contracted executable visual-form rescue. The v6 composition with broad `literal_argument_guard_v1` did not help. H1i candidate, H1i repeat3, H1j candidates, H1j helper ablation, and H1k parallel-audit packets all saturated. Exact replay of the no-directive failure set stayed at `0 / 8`; contracted replay on the same cases restored `7 / 8`.
+The current read is partial-gain plus stable raw replay failure, with a useful visual mechanism split. `visual_role_catalog_v1` moved visual behavior at the tool-catalog layer: raw exact `1 / 8`, visual executable `1 / 1`, live visual `1 / 3`, and `visual_latest_filter_literal` changed from `wrong_tool`/no-call into the right tool with an argument mismatch. The narrower `visual_role_catalog_argument_hints_v2` then fixed that selector case: raw exact rose to `2 / 8`, live visual exact rose to `2 / 3`, and the candidate matched contracted MLX on focused visual exactness. The follow-up `visual_role_catalog_split_selector_hints_v3` is negative evidence: it preserved the latest-filter exactness but regressed readback by emitting `tool_name` instead of `name`, stayed at raw `1 / 8`, and did not earn live replay. The remaining gap is form-target executability: argument hints lose the v1/contracted executable visual-form rescue. The v6 composition with broad `literal_argument_guard_v1` did not help. H1i candidate, H1i repeat3, H1j candidates, H1j helper ablation, and H1k parallel-audit packets all saturated. Exact replay of the no-directive failure set stayed at `0 / 8`; contracted replay on the same cases restored `7 / 8`.
 
-The next research move is to preserve the argument-hints selector win while recovering form-target executability. Do not spend H1/H1h budget until raw probe or CLI-live replay shows that both properties can coexist:
+The next research move is to preserve the argument-hints selector win while recovering form-target executability without broad prose that destabilizes JSON shape. Do not spend H1/H1h budget until raw probe or CLI-live replay shows that both properties can coexist:
 
 ```bash
-uv run python scripts/run_tool_catalog_profile_probe_packet.py \
-  --candidate-wave v2 \
-  --run-group-id <timestamp>_visual_catalog_argument_hints_probe \
-  --execute
+uv run python scripts/build_publication_evidence_ledger.py
+uv run python scripts/audit_publication_readiness.py
+uv run python scripts/build_mlx_tool_contract_report.py
 ```
 
 ## Local Agent Harness

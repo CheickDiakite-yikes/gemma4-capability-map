@@ -258,6 +258,16 @@ Latest MLX tool-contract research:
     - [`results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_contracted_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_contracted_v1)
     - [`results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_role_catalog_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_role_catalog_v1)
   - interpretation: this is now the best exact visual no-directive candidate. It fixes `visual_latest_filter_literal` and preserves exact readback, matching contracted MLX at `2 / 3` exact on the focused visual replay. It is not solved because it loses the executable `visual_form_target_literal` rescue.
+- Tool-catalog visual split-selector profile:
+  - profile: `visual_role_catalog_split_selector_hints_v3`
+  - candidate system: `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints`
+  - dry-run packet: [`results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_split_selector_hints_v3_dry_run`](../../results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_split_selector_hints_v3_dry_run)
+  - executed probe packet: [`results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_split_selector_hints_v3_probe`](../../results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_split_selector_hints_v3_probe)
+  - raw gate result: exact `0.125`, executable `0.0`, delta exact vs no-directive `+0.125`
+  - comparison vs v2: [`results/tool_catalog_profile_probe_comparisons/20260508T_visual_split_selector_hints_vs_argument_hints_v2`](../../results/tool_catalog_profile_probe_comparisons/20260508T_visual_split_selector_hints_vs_argument_hints_v2), delta exact `-0.125`
+  - comparison vs v1: [`results/tool_catalog_profile_probe_comparisons/20260508T_visual_split_selector_hints_vs_role_catalog_v1`](../../results/tool_catalog_profile_probe_comparisons/20260508T_visual_split_selector_hints_vs_role_catalog_v1), delta exact `0.0`, executable regression from v1
+  - skipped-live decision: [`results/tool_probe_replay_live/20260508T_visual_split_selector_hints_live_replay_skipped_v1`](../../results/tool_probe_replay_live/20260508T_visual_split_selector_hints_live_replay_skipped_v1)
+  - interpretation: v3 is negative evidence. It preserved the v2 latest-filter exact case but regressed readback by emitting `tool_name` instead of `name`, did not recover form-target executability, and did not earn live replay.
 - Prompt-contract wave 6:
   - candidate: `literal_argument_guard_v1` + `visual_role_catalog_v1`
   - runner flag: `scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v6`
@@ -339,8 +349,12 @@ Current generated research report:
 - wave-four live candidate replay summary: [`results/reports/mlx_tool_contract_harnessing/tables/wave4_live_candidate_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/wave4_live_candidate_replay_summary.csv)
 - visual catalog argument-hints live summary: [`results/reports/mlx_tool_contract_harnessing/tables/visual_catalog_argument_hints_live_candidate_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_catalog_argument_hints_live_candidate_replay_summary.csv)
 - visual catalog argument-hints case deltas: [`results/reports/mlx_tool_contract_harnessing/tables/visual_catalog_argument_hints_live_candidate_case_deltas.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_catalog_argument_hints_live_candidate_case_deltas.csv)
+- visual split-selector probe deltas vs v2: [`results/reports/mlx_tool_contract_harnessing/tables/tool_catalog_split_selector_vs_argument_hints_case_deltas.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/tool_catalog_split_selector_vs_argument_hints_case_deltas.csv)
+- visual split-selector live decision: [`results/reports/mlx_tool_contract_harnessing/tables/tool_catalog_split_selector_live_replay_decision.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/tool_catalog_split_selector_live_replay_decision.csv)
+- publication evidence ledger: [`results/reports/publication_evidence_ledger/ledger.md`](../../results/reports/publication_evidence_ledger/ledger.md)
+- publication readiness audit: [`results/reports/publication_readiness_audit/publication_readiness_audit.md`](../../results/reports/publication_readiness_audit/publication_readiness_audit.md)
 - figures: [`results/reports/mlx_tool_contract_harnessing/figures`](../../results/reports/mlx_tool_contract_harnessing/figures)
-- current manifest count: `42` tables and `25` figures
+- current manifest count: `45` tables and `25` figures
 - regeneration command:
 
 ```bash

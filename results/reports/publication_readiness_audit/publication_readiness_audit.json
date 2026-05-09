@@ -1,12 +1,12 @@
 {
   "summary": {
-    "generated_at": "2026-05-09T00:20:53.584870+00:00",
+    "generated_at": "2026-05-09T00:28:52.439615+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
     "check_count": 18,
     "blocking_check_count": 16,
     "blocking_failed_count": 0,
     "recommended_check_count": 2,
-    "recommended_failed_count": 1,
+    "recommended_failed_count": 0,
     "blocking_passed": true,
     "readiness_level": "paper_draft_ready"
   },
@@ -43,7 +43,7 @@
       "check_id": "tool_contract_report_has_current_tables",
       "severity": "blocking",
       "passed": true,
-      "detail": "table_count=42",
+      "detail": "table_count=45",
       "path": ""
     },
     {
@@ -91,9 +91,9 @@
     {
       "check_id": "paper_outline_exists",
       "severity": "recommended",
-      "passed": false,
+      "passed": true,
       "detail": "Paper outline exists for publication drafting.",
-      "path": "docs/paper/moonies-gemma-harnessing-paper-outline.md"
+      "path": "docs/paper/moonie-gemma-harnessing-paper-outline.md"
     },
     {
       "check_id": "methodology_doc_exists",

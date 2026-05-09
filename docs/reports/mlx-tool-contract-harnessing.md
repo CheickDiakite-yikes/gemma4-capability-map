@@ -20,7 +20,7 @@ The current Moonie frontier is no longer whether `mlx_gemma4_e2b_reasoner_only` 
 
 The newest evidence says the final tool-turn directive is a causal model-side harness intervention. With the directive present, MLX Gemma is controller-clean on the current H1 live workflow packets. When the directive is removed, no-directive MLX can still match top-line readiness only because Moonie's controller repairs arguments, falls back to a planner, or substitutes the correct call. Raw no-directive tool compliance collapses on the focused probe suite.
 
-The sharpest new movement is in the visual catalog line. A catalog-only role profile first moved the remaining visual failure from wrong-tool/no-call into argument mismatch. A narrower `visual_role_catalog_argument_hints_v2` profile then fixed the targeted selector literal in raw and live replay, reaching `2 / 3` live visual exactness without the exact directive. The open gap is now specific: keep that `filter_query` exactness while recovering executable form-target `target_query` behavior.
+The sharpest new movement is in the visual catalog line. A catalog-only role profile first moved the remaining visual failure from wrong-tool/no-call into argument mismatch. A narrower `visual_role_catalog_argument_hints_v2` profile then fixed the targeted selector literal in raw and live replay, reaching `2 / 3` live visual exactness without the exact directive. The follow-up `visual_role_catalog_split_selector_hints_v3` is negative evidence: it preserved latest-filter exactness but regressed readback JSON shape and did not earn live replay. The open gap is now specific: keep that `filter_query` exactness while recovering executable form-target `target_query` behavior.
 
 That means the next useful work is not broad leaderboard reruns or UI polish. It is a CLI-first, benchmark-backed harness loop around:
 
@@ -99,6 +99,9 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 | [`executed prompt-contract wave-five packet`](../../results/tool_prompt_contract_probe_packets/20260508T_prompt_contract_wave5_execute_v1) | Surgical latest-selection refinement candidate tested after wave four failed to improve live visual tool selection. |
 | [`visual role catalog probe`](../../results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_v1_probe) | Isolated tool-catalog presentation intervention for visual routing roles, tested without any prompt contract. |
 | [`visual catalog argument-hints probe`](../../results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_argument_hints_v2_probe) | Narrow catalog-profile argument semantics test that preserves the visual routing profile while targeting selector literal drift. |
+| [`visual split-selector probe`](../../results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_split_selector_hints_v3_probe) | Negative catalog-profile follow-up showing broader split-selector prose regresses readback shape and does not beat v2. |
+| [`publication evidence ledger`](../../results/reports/publication_evidence_ledger/ledger.md) | Paper-facing claim ledger mapping each claim to packet-backed evidence, limitations, and next tests. |
+| [`publication readiness audit`](../../results/reports/publication_readiness_audit/publication_readiness_audit.md) | Blocking/recommended audit of whether the current evidence tree is ready to support a manuscript draft. |
 | [`visual catalog literal-guard v6 packet`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe) | Composition test combining the visual role catalog with `literal_argument_guard_v1`. |
 | [`H1i prompt-contract repeat3 packet`](../../results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_repeat3_v1_knowledge_work_ablation_packet) | Repeated second-stage candidate packet: three attempts per H1i workflow family per row. |
 | [`H1j probe-derived candidate packet`](../../results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_candidates_v1_knowledge_work_ablation_packet) | Six packaged live workflows selected from exact no-directive probe failure families. |
@@ -347,6 +350,7 @@ The catalog-profile packets are recorded at:
 | --- | ---: | ---: | ---: | --- |
 | `visual_role_catalog_v1` | `0.125` | `1.0` | `+0.125` | improved vs no-directive |
 | `visual_role_catalog_argument_hints_v2` | `0.25` | `0.0` | `+0.25` | improved vs no-directive |
+| `visual_role_catalog_split_selector_hints_v3` | `0.125` | `0.0` | `+0.125` | improved vs no-directive |
 
 This is the first visual intervention after wave five that changed the failure class in the desired direction. With the exact directive still disabled and no prompt contract attached, the tool catalog profile:
 
@@ -360,6 +364,11 @@ Interpretation: visual role presentation inside the tool catalog is doing real r
 The v2 argument-hints profile is the first narrow follow-up that improves that literal selector problem. It raises raw exactness from `1 / 8` to `2 / 8` by making `visual_latest_filter_literal` exact and preserving exact readback. The tradeoff is also real: `visual_form_target_literal` falls from executable paraphrase to non-executable argument mismatch (`target_query="recruiter note"` instead of canonical `validation error`). The generated delta table is:
 
 - [`tool_catalog_argument_hints_vs_role_catalog_case_deltas.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/tool_catalog_argument_hints_vs_role_catalog_case_deltas.csv)
+
+The v3 split-selector profile is a negative follow-up. It preserves the v2 latest-filter exact case, but raw exactness falls back to `1 / 8` and `visual_readback_region_literal` regresses because the model emits `tool_name` instead of `name`. Live replay was intentionally skipped:
+
+- [`tool_catalog_split_selector_vs_argument_hints_case_deltas.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/tool_catalog_split_selector_vs_argument_hints_case_deltas.csv)
+- [`tool_catalog_split_selector_live_replay_decision.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/tool_catalog_split_selector_live_replay_decision.csv)
 
 ## Prompt-Contract Wave Six Probe Gate
 
@@ -717,12 +726,13 @@ Use this order before broad `32 / 26` reruns:
 
 1. Treat `visual_role_catalog_argument_hints_v2` as the current best exact visual no-directive candidate: it reaches `2 / 3` live exact and matches contracted MLX on exactness for the focused visual replay.
 2. Do not treat v2 as solved: it loses the v1/contracted executable form-target recovery, so the next candidate must preserve exact `filter_query` behavior while recovering executable `target_query` behavior.
-3. Treat `visual_role_catalog_v1` as the stable routing baseline, `visual_state_tool_selection_v4` as a failed-to-improve live candidate, `visual_refine_selection_v5` as a raw-gate rejection, and the v6 catalog-plus-literal-guard composition as negative interference.
-4. Stop iterating on standalone visual prompt rules unless the next idea changes either tool-catalog role shape or generation-time argument copying without sacrificing protocol entry.
-5. Keep canonical JSON copy and parallel two-call wording out of H1 as currently written; they did not earn live promotion.
-6. H1h only after replay-live or raw probe evidence shows a mechanism-level change.
-7. Gemini CLI real execution only when the binary/run environment is explicitly meant to be part of the comparison.
-8. Runtime live-smoke packets after benchmark movement, to confirm the CLI operator path sees the same repair/fallback pattern.
+3. Treat `visual_role_catalog_split_selector_hints_v3` as negative evidence against broader selector prose; the next attempt should be schema-local or executor-grounded.
+4. Treat `visual_role_catalog_v1` as the stable routing baseline, `visual_state_tool_selection_v4` as a failed-to-improve live candidate, `visual_refine_selection_v5` as a raw-gate rejection, and the v6 catalog-plus-literal-guard composition as negative interference.
+5. Stop iterating on standalone visual prompt rules unless the next idea changes either tool-catalog role shape or generation-time argument copying without sacrificing protocol entry.
+6. Keep canonical JSON copy and parallel two-call wording out of H1 as currently written; they did not earn live promotion.
+7. H1h only after replay-live or raw probe evidence shows a mechanism-level change.
+8. Gemini CLI real execution only when the binary/run environment is explicitly meant to be part of the comparison.
+9. Runtime live-smoke packets after benchmark movement, to confirm the CLI operator path sees the same repair/fallback pattern.
 
 Acceptance criteria for a useful candidate:
 

@@ -101,7 +101,7 @@ def audit_publication_readiness(
         _check_path(
             check_id="paper_outline_exists",
             severity="recommended",
-            path=ROOT / "docs" / "paper" / "moonies-gemma-harnessing-paper-outline.md",
+            path=ROOT / "docs" / "paper" / "moonie-gemma-harnessing-paper-outline.md",
             detail="Paper outline exists for publication drafting.",
         ),
         _check_path(
@@ -204,7 +204,7 @@ def _write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
         return
     fieldnames = list(rows[0].keys())
     with path.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        writer = csv.DictWriter(handle, fieldnames=fieldnames, lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
 

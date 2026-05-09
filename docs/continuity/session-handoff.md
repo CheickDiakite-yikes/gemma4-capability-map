@@ -91,6 +91,16 @@ Current strongest MLX result:
   - comparison vs contracted: [`results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_contracted_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_contracted_v1)
   - comparison vs v1 catalog: [`results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_role_catalog_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_role_catalog_v1)
   - interpretation: it fixes `visual_latest_filter_literal` exactly and preserves exact readback, matching contracted MLX at `2 / 3` exact on the focused visual replay. It is not solved because it loses the v1/contracted executable `visual_form_target_literal` recovery.
+- the visual split-selector profile is negative evidence:
+  - profile: `visual_role_catalog_split_selector_hints_v3`
+  - probe packet: [`results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_split_selector_hints_v3_probe`](../../results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_split_selector_hints_v3_probe)
+  - comparison vs v2: [`results/tool_catalog_profile_probe_comparisons/20260508T_visual_split_selector_hints_vs_argument_hints_v2`](../../results/tool_catalog_profile_probe_comparisons/20260508T_visual_split_selector_hints_vs_argument_hints_v2)
+  - skipped-live decision: [`results/tool_probe_replay_live/20260508T_visual_split_selector_hints_live_replay_skipped_v1`](../../results/tool_probe_replay_live/20260508T_visual_split_selector_hints_live_replay_skipped_v1)
+  - interpretation: v3 stayed below v2 on exactness, did not recover executable form targeting, and regressed readback JSON shape
+- paper-facing artifacts now exist:
+  - evidence ledger: [`results/reports/publication_evidence_ledger/ledger.md`](../../results/reports/publication_evidence_ledger/ledger.md)
+  - publication readiness audit: [`results/reports/publication_readiness_audit/publication_readiness_audit.md`](../../results/reports/publication_readiness_audit/publication_readiness_audit.md)
+  - paper outline: [`docs/paper/moonie-gemma-harnessing-paper-outline.md`](../paper/moonie-gemma-harnessing-paper-outline.md)
 - the sixth prompt-contract wave is a negative composition result:
   - dry-run packet: [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run)
   - probe packet: [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe)
@@ -128,11 +138,12 @@ Current next loop:
 1. Treat H1i, H1j, and H1k packaged packets as saturated or non-discriminating for current prompt-contract validation.
 2. Treat waves one through five as partial-gain or negative evidence, not fixes.
 3. Treat `visual_role_catalog_argument_hints_v2` as the current best exact visual candidate, with the explicit caveat that it lost executable form-target recovery.
-4. Keep `visual_tool_initiation_v3` and `visual_role_catalog_v1` as the executable/routing baselines for the next visual candidate.
-5. Design the next harness/tool-catalog change to preserve v2's exact latest-filter selector while restoring v1's executable form-target behavior.
-6. Use CLI-live exact replay as the active discriminator before promoting another candidate back into H1.
-7. Return to H1h only after replay-live or raw probe evidence shows a mechanism-level change.
-8. Regenerate the report artifacts after any H1i/H1h/probe/Gemini/live-replay packet change.
+4. Treat `visual_role_catalog_split_selector_hints_v3` as a negative result; do not live-replay it unless a new raw probe changes the decision.
+5. Keep `visual_tool_initiation_v3` and `visual_role_catalog_v1` as the executable/routing baselines for the next visual candidate.
+6. Design the next harness/tool-catalog change as schema-local or executor-grounded field annotation, not broader prose. It must preserve v2's exact latest-filter selector while restoring v1's executable form-target behavior.
+7. Use CLI-live exact replay as the active discriminator before promoting another candidate back into H1.
+8. Return to H1h only after replay-live or raw probe evidence shows a mechanism-level change.
+9. Regenerate the report, publication ledger, and publication audit after any H1i/H1h/probe/Gemini/live-replay packet change.
 
 H1j source:
 

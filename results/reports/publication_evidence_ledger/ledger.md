@@ -4,7 +4,7 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 
 ## Manifest
 
-- generated_at: `2026-05-09T00:19:14.665184+00:00`
+- generated_at: `2026-05-09T00:28:26.047126+00:00`
 - claim_count: `6`
 - evidence_source_count: `19`
 - missing_source_count: `0`

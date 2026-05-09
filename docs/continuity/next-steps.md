@@ -217,6 +217,12 @@ What remains:
   - comparison vs contracted: [`results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_contracted_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_contracted_v1), delta exact `0.0`, delta executable `-1.0`
   - comparison vs v1 catalog: [`results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_role_catalog_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_role_catalog_v1), delta exact `+0.3333333333333333`, delta executable `-1.0`
   - interpretation: v2 fixes `visual_latest_filter_literal` exactly and preserves readback, but it regresses `visual_form_target_literal` from executable paraphrase to non-executable argument mismatch. The next useful candidate must keep v2's `filter_query` exactness while restoring v1's executable `target_query` behavior.
+- visual split-selector hints are now negative evidence:
+  - profile: `visual_role_catalog_split_selector_hints_v3`
+  - isolated probe: [`results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_split_selector_hints_v3_probe`](../../results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_split_selector_hints_v3_probe)
+  - comparison vs v2: [`results/tool_catalog_profile_probe_comparisons/20260508T_visual_split_selector_hints_vs_argument_hints_v2`](../../results/tool_catalog_profile_probe_comparisons/20260508T_visual_split_selector_hints_vs_argument_hints_v2), delta exact `-0.125`
+  - skipped-live decision: [`results/tool_probe_replay_live/20260508T_visual_split_selector_hints_live_replay_skipped_v1`](../../results/tool_probe_replay_live/20260508T_visual_split_selector_hints_live_replay_skipped_v1)
+  - interpretation: adding broader split-selector prose preserved `filter_query="latest"` but broke the readback JSON shape and did not restore form-target executability. The next candidate should avoid broad prose and test schema-local/executor-grounded field annotations or a larger fresh visual slice.
 - wave six is now executed and should be treated as negative composition evidence:
   - dry-run packet: [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run)
   - executed packet: [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe)
@@ -250,7 +256,7 @@ What remains:
   - canonical-argument no-directive live execution: [`results/tool_probe_replay_live/20260507T_canonical_argument_no_directive_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_canonical_argument_no_directive_live_execute_v1), exact `0 / 4`, all failures `argument_mismatch`
   - canonical-argument contracted live execution: [`results/tool_probe_replay_live/20260507T_canonical_argument_contracted_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_canonical_argument_contracted_live_execute_v1), exact `4 / 4`
   - canonical-argument live comparison: [`results/tool_probe_replay_live_comparisons/20260507T_canonical_argument_contracted_vs_no_directive_live_v1`](../../results/tool_probe_replay_live_comparisons/20260507T_canonical_argument_contracted_vs_no_directive_live_v1), delta exact `-1.0`, actual-call delta `0`
-  - next use: design a v3 catalog profile or schema-local visual selector hint that preserves `visual_role_catalog_argument_hints_v2` on latest filtering while restoring executable form-target behavior; compare through `replay-live --execute` only after raw probe movement
+  - next use: design a v4 schema-local or executor-grounded visual selector hint that preserves `visual_role_catalog_argument_hints_v2` on latest filtering while restoring executable form-target behavior; compare through `replay-live --execute` only after raw probe movement
 - promote a candidate beyond H1i only if it moves raw-clean or controller-burden metrics for the right reason
 - regenerate the MLX tool-contract report after any H1i, H1h, probe, or Gemini baseline packet changes
 - when a real Gemini CLI binary is available, rerun the same packet with `--execute`; keep the dry-run packet as the no-side-effects prompt manifest
@@ -268,6 +274,8 @@ uv run python scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave 
 uv run python scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v5 --run-group-id <timestamp>_prompt_contract_wave5_execute_v1 --execute
 uv run python scripts/run_tool_catalog_profile_probe_packet.py --run-group-id <timestamp>_visual_role_catalog_probe --execute
 uv run python scripts/run_tool_catalog_profile_probe_packet.py --candidate-wave v2 --run-group-id <timestamp>_visual_catalog_argument_hints_probe --execute
+uv run python scripts/build_publication_evidence_ledger.py
+uv run python scripts/audit_publication_readiness.py
 uv run python scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v6 --run-group-id <timestamp>_visual_catalog_literal_guard_probe --execute
 uv run python scripts/summarize_tool_prompt_contract_probe_packet.py results/tool_prompt_contract_probe_packets/<packet_id>
 uv run python scripts/build_tool_probe_replay_packet.py --run-group-id <timestamp>_no_directive_exact_probe_replay

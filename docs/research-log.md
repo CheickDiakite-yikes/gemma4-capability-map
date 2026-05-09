@@ -3017,4 +3017,30 @@
 - Report update:
   - generated report: [`results/reports/mlx_tool_contract_harnessing/report.md`](../results/reports/mlx_tool_contract_harnessing/report.md)
   - curated report: [`docs/reports/mlx-tool-contract-harnessing.md`](reports/mlx-tool-contract-harnessing.md)
-  - current manifest: `42` tables and `25` figures
+  - then-current manifest: `42` tables and `25` figures
+
+## 2026-05-08 - Visual Split-Selector Negative Result And Publication Ledger
+
+- A follow-up visual catalog profile was added to test whether broader split-selector wording could preserve v2's latest-filter exactness while restoring v1's executable form-target behavior:
+  - profile: `visual_role_catalog_split_selector_hints_v3`
+  - candidate system: `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints`
+  - dry-run packet: [`20260508T_visual_role_catalog_split_selector_hints_v3_dry_run`](../results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_split_selector_hints_v3_dry_run)
+  - executed probe packet: [`20260508T_visual_role_catalog_split_selector_hints_v3_probe`](../results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_split_selector_hints_v3_probe)
+  - raw result: exact `1 / 8`, executable visual `0 / 1`, delta exact vs no-directive `+0.125`
+- Direct comparisons showed v3 should not be promoted:
+  - v3 vs v2: [`20260508T_visual_split_selector_hints_vs_argument_hints_v2`](../results/tool_catalog_profile_probe_comparisons/20260508T_visual_split_selector_hints_vs_argument_hints_v2), delta exact `-0.125`
+  - v3 vs v1: [`20260508T_visual_split_selector_hints_vs_role_catalog_v1`](../results/tool_catalog_profile_probe_comparisons/20260508T_visual_split_selector_hints_vs_role_catalog_v1), delta exact `0.0`, executable regression vs v1
+  - skipped-live decision: [`20260508T_visual_split_selector_hints_live_replay_skipped_v1`](../results/tool_probe_replay_live/20260508T_visual_split_selector_hints_live_replay_skipped_v1)
+- What changed:
+  - `visual_latest_filter_literal` stayed exact, preserving the useful v2 selector behavior.
+  - `visual_readback_region_literal` regressed because the model emitted `tool_name` instead of `name`.
+  - `visual_form_target_literal` still did not become executable.
+- Interpretation:
+  - v3 is negative evidence against broader visual selector prose as the next mechanism.
+  - The next visual intervention should be schema-local or executor-grounded, with a raw-probe gate before any live replay.
+- Publication-facing artifacts were added:
+  - claim/evidence ledger: [`results/reports/publication_evidence_ledger/ledger.md`](../results/reports/publication_evidence_ledger/ledger.md)
+  - publication readiness audit: [`results/reports/publication_readiness_audit/publication_readiness_audit.md`](../results/reports/publication_readiness_audit/publication_readiness_audit.md)
+  - paper outline: [`docs/paper/moonie-gemma-harnessing-paper-outline.md`](paper/moonie-gemma-harnessing-paper-outline.md)
+  - updated generated report: [`results/reports/mlx_tool_contract_harnessing/report.md`](../results/reports/mlx_tool_contract_harnessing/report.md)
+  - current manifest: `45` tables and `25` figures
