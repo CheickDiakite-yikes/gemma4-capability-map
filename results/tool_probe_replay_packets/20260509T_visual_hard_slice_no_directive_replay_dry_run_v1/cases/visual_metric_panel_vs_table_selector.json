@@ -1,0 +1,157 @@
+{
+  "case_id": "visual_metric_panel_vs_table_selector",
+  "family": "visual_argument_copying",
+  "messages": [
+    {
+      "role": "system",
+      "content": "visual_image_ids: img-hard-metric-table",
+      "image_refs": []
+    },
+    {
+      "role": "user",
+      "content": "The dashboard also has a table, but locate the metric panel that needs review before reading any table contents.",
+      "image_refs": []
+    }
+  ],
+  "media": [
+    "img-hard-metric-table"
+  ],
+  "tool_names": [
+    "extract_layout",
+    "refine_selection",
+    "read_region_text"
+  ],
+  "tool_specs": [
+    {
+      "name": "extract_layout",
+      "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "image_id": {
+            "type": "string"
+          },
+          "target_query": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "image_id",
+          "target_query"
+        ]
+      },
+      "tool_family": "function_call",
+      "tool_intent": "inspect"
+    },
+    {
+      "name": "refine_selection",
+      "description": "Refine a prior visual selection using a follow-up filter query.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "selection_id": {
+            "type": "string"
+          },
+          "filter_query": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "selection_id",
+          "filter_query"
+        ]
+      },
+      "tool_family": "function_call",
+      "tool_intent": "revise"
+    },
+    {
+      "name": "read_region_text",
+      "description": "Read the text inside a previously selected region.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "image_id": {
+            "type": "string"
+          },
+          "region_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "image_id",
+          "region_id"
+        ]
+      },
+      "tool_family": "function_call",
+      "tool_intent": "read"
+    }
+  ],
+  "initial_state": {
+    "visual_executor_mode": "local",
+    "images": {
+      "img-hard-metric-table": {
+        "entities": [],
+        "layouts": [],
+        "local_layouts": [
+          {
+            "region_id": "hard-metric-1001",
+            "label": "dashboard metric",
+            "text": "Support backlog below target",
+            "attributes": {
+              "area": "metric panel"
+            }
+          },
+          {
+            "region_id": "hard-metric-1002",
+            "label": "invoice totals table",
+            "text": "Q2 invoice totals",
+            "attributes": {
+              "area": "table"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "expected_execution": {
+    "region_ids": [
+      "hard-metric-1001"
+    ]
+  },
+  "expected_calls": [
+    {
+      "name": "extract_layout",
+      "arguments": {
+        "image_id": "img-hard-metric-table",
+        "target_query": "dashboard metric"
+      }
+    }
+  ],
+  "source_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+  "source_actual_calls": [
+    {
+      "name": "extract_layout",
+      "arguments": {
+        "image_id": "img-hard-metric-table",
+        "target_query": "metric panel that needs review"
+      }
+    }
+  ],
+  "source_raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-hard-metric-table\", \"target_query\": \"metric panel that needs review\"}}",
+  "source_exact_match": false,
+  "source_executable_match": false,
+  "source_failure_mode": "argument_mismatch",
+  "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+  "baseline_exact_match": true,
+  "baseline_actual_calls": [
+    {
+      "name": "extract_layout",
+      "arguments": {
+        "image_id": "img-hard-metric-table",
+        "target_query": "dashboard metric"
+      }
+    }
+  ],
+  "live_entrypoint_status": "visual_hard_slice_replay_packet_v1",
+  "live_entrypoint_note": "This preserves visual hard-slice probe cases for moonie-agent replay-live."
+}

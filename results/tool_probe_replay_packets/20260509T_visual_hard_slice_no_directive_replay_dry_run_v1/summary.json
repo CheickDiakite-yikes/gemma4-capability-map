@@ -1,0 +1,21 @@
+{
+  "packet_run_id": "20260509T_visual_hard_slice_no_directive_replay_dry_run_v1",
+  "packet_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260509T_visual_hard_slice_no_directive_replay_dry_run_v1",
+  "visual_packet_dir": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_execute_v1",
+  "source_probe_dir": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+  "baseline_probe_dir": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_execute_v1/mlx_gemma4_e2b_reasoner_only",
+  "source_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+  "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+  "replay_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+  "include_exact": false,
+  "case_count": 2,
+  "failure_mode_counts": {
+    "argument_mismatch": 2
+  },
+  "family_counts": {
+    "visual_argument_copying": 1,
+    "visual_tool_routing": 1
+  },
+  "dry_run": true,
+  "executed_count": 0
+}
