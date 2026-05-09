@@ -434,6 +434,25 @@ The two v4 exact gaps are:
 
 This is an important research distinction. Strict JSON/canonical-label exactness is still useful because it measures interface fidelity, but it should not be confused with executor-visible success. For publication, this supports separating "protocol fidelity" from "local executor target success" in the metric table.
 
+## Visual Hard-Slice CLI-Live Replay Matrix
+
+The packaged H1l visual workflows saturated, so the live operator path now preserves the raw hard-slice replay shape directly:
+
+- source replay packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_no_directive_replay_dry_run_v1`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_no_directive_replay_dry_run_v1)
+- generated summary table: [`visual_hard_slice_live_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_live_replay_summary.csv)
+- generated case table: [`visual_hard_slice_live_replay_case_deltas.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_live_replay_case_deltas.csv)
+- generated figure: [`visual_hard_slice_live_replay_gate.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_live_replay_gate.svg)
+
+| Live row vs no-directive | Exact delta | Executable delta | Executor-eq delta | Interpretation |
+| --- | ---: | ---: | ---: | --- |
+| contracted MLX | `+1.0` | `+1.0` | `+1.0` | upper bound, `2 / 2` strict and executor-equivalent |
+| visual role catalog v1 | `+0.5` | `+0.5` | `+0.5` | recovers only the stale-selection decoy |
+| argument hints v2 | `+0.5` | `+0.5` | `+0.5` | matches role catalog on this two-case slice |
+| schema-field hints v4 | `+0.5` | `+1.0` | `+1.0` | strongest no-directive row; one strict hit plus one executor-equivalent selector alias |
+| schema target literals v5 | `0.0` | `+0.5` | `+0.5` | negative strict result; stale-selection decoy becomes wrong-tool |
+
+This is the cleanest live evidence so far that the schema-field catalog helps local MLX visual grounding without fully replacing the final tool-turn directive. The next useful move is a harder replay-shaped live slice with fresh decoys around the same two mechanisms, not another broad wording repair.
+
 ## Prompt-Contract Wave Six Probe Gate
 
 Wave six tests whether adding the existing literal-argument guard on top of the visual role catalog closes that remaining literal mismatch:

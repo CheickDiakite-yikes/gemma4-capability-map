@@ -1,9 +1,9 @@
 {
   "summary": {
-    "generated_at": "2026-05-09T22:54:05.597496+00:00",
+    "generated_at": "2026-05-09T22:57:46.937459+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 31,
-    "blocking_check_count": 29,
+    "check_count": 35,
+    "blocking_check_count": 33,
     "blocking_failed_count": 0,
     "recommended_check_count": 2,
     "recommended_failed_count": 0,
@@ -122,6 +122,34 @@
       "passed": true,
       "detail": "Replay-shaped visual hard-slice CLI-live comparison exists with executor-equivalence deltas.",
       "path": "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_schema_field_hints_vs_no_directive_live_v2/live_replay_comparison.json"
+    },
+    {
+      "check_id": "visual_hard_slice_live_contracted_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Replay-shaped visual hard-slice CLI-live contracted upper-bound comparison exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_contracted_vs_no_directive_live_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "visual_hard_slice_live_role_catalog_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Replay-shaped visual hard-slice CLI-live role-catalog comparison exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_role_catalog_vs_no_directive_live_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "visual_hard_slice_live_argument_hints_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Replay-shaped visual hard-slice CLI-live argument-hints comparison exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_argument_hints_vs_no_directive_live_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "visual_hard_slice_live_schema_literals_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Replay-shaped visual hard-slice CLI-live schema-target-literal comparison exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_schema_literal_targets_vs_no_directive_live_v1/live_replay_comparison.json"
     },
     {
       "check_id": "current_state_doc_exists",

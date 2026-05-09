@@ -338,10 +338,11 @@ CLAIMS: tuple[Claim, ...] = (
         evidence_strength="moderate_internal",
         primary_metric=(
             "On the two preserved no-directive visual hard-slice failures, no-directive is 0/2 strict "
-            "and 0/2 executor-equivalent while schema-field hints is 1/2 strict and 2/2 executor-equivalent."
+            "and 0/2 executor-equivalent; contracted MLX is 2/2 strict and executor-equivalent; schema-field "
+            "hints is the strongest no-directive row at 1/2 strict and 2/2 executor-equivalent."
         ),
-        limitation="The live replay currently covers the two no-directive hard-slice failures, not the full eight-case hard-slice candidate matrix.",
-        next_test="Run the replay-shaped live packet across contracted, role catalog v1, argument hints v2, schema-field hints v4, and schema target literals v5.",
+        limitation="The live replay matrix covers the two preserved no-directive hard-slice failures, not the full eight-case hard-slice candidate matrix.",
+        next_test="Build a second replay-shaped live slice that repeats the executor-alias and stale-selection cases under harder decoys before returning to packaged H1 workflows.",
         sources=(
             EvidenceSource(
                 "tool_probe_replay_packet",
@@ -350,8 +351,28 @@ CLAIMS: tuple[Claim, ...] = (
             ),
             EvidenceSource(
                 "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_contracted_vs_no_directive_live_v1",
+                "Replay-shaped CLI-live comparison showing contracted MLX is the 2/2 strict and executor-equivalent upper bound.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_role_catalog_vs_no_directive_live_v1",
+                "Replay-shaped CLI-live comparison showing role catalog v1 recovers one strict/executor-equivalent case over no-directive.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_argument_hints_vs_no_directive_live_v1",
+                "Replay-shaped CLI-live comparison showing argument hints v2 matches role catalog v1 on this preserved failure slice.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
                 "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_schema_field_hints_vs_no_directive_live_v2",
                 "Replay-shaped CLI-live comparison showing schema-field hints recovers executor-equivalent target success over no-directive.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_schema_literal_targets_vs_no_directive_live_v1",
+                "Replay-shaped CLI-live comparison showing schema target literals v5 remain negative on strict exactness and introduce a wrong-tool stale-selection miss.",
             ),
             EvidenceSource(
                 "report_table",

@@ -39,7 +39,7 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert "H1l candidate rows tie" in claims[
         "C11_h1l_packaged_visual_workflows_remain_saturated"
     ]["primary_metric"]
-    assert "schema-field hints is 1/2 strict and 2/2 executor-equivalent" in claims[
+    assert "schema-field hints is the strongest no-directive row" in claims[
         "C12_replay_shaped_live_preserves_visual_hard_slice_signal"
     ]["primary_metric"]
 

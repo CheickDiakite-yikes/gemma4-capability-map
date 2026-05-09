@@ -358,6 +358,15 @@ Latest MLX tool-contract research:
   - interpretation update: `visual_state_tool_selection_v4` did not beat `visual_tool_initiation_v3`; `visual_latest_filter_literal` remains `wrong_tool`, and `visual_form_target_literal` regressed to `no_tool_call`.
   - visual tool-choice diagnostic: [`results/tool_probe_replay_live_diagnostics/20260508T_visual_tool_choice_wave3_wave4_catalog_v1`](../../results/tool_probe_replay_live_diagnostics/20260508T_visual_tool_choice_wave3_wave4_catalog_v1)
   - diagnostic read: `visual_latest_filter_literal` expected `refine_selection`; wave three and wave four emitted `extract_layout`, while the catalog profile emitted `refine_selection` with `filter_query` drift. That transition is what motivated the argument-hints candidate.
+  - replay-shaped visual hard-slice live matrix:
+    - source packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_no_directive_replay_dry_run_v1`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_no_directive_replay_dry_run_v1)
+    - summary table: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_live_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_live_replay_summary.csv)
+    - case table: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_live_replay_case_deltas.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_live_replay_case_deltas.csv)
+    - no-directive baseline: strict/executable/executor-equivalent `0 / 2`
+    - contracted MLX: strict/executable/executor-equivalent `2 / 2`
+    - role catalog v1 and argument hints v2: strict/executable/executor-equivalent `1 / 2`
+    - schema-field hints v4: strict `1 / 2`, executable/executor-equivalent `2 / 2`
+    - schema target literals v5: strict `0 / 2`, executable/executor-equivalent `1 / 2`, with a wrong-tool stale-selection miss
   - interpretation: this is not a packaged live workflow yet; it is the stable raw-contract replay artifact that should drive the next live discriminator. The new `moonie-agent replay-live` command is the first CLI bridge for watching these exact cases without converting them into easier staged workflows.
 - Focused canonical-argument replay:
   - no-directive packet: [`results/tool_probe_replay_packets/20260507T_canonical_argument_exact_replay_no_directive_v1`](../../results/tool_probe_replay_packets/20260507T_canonical_argument_exact_replay_no_directive_v1)
@@ -414,11 +423,12 @@ Current generated research report:
 - visual hard-slice case deltas vs no-directive: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_case_deltas_vs_no_directive.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_case_deltas_vs_no_directive.csv)
 - visual hard-slice case deltas vs contracted: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_case_deltas_vs_contracted.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_case_deltas_vs_contracted.csv)
 - visual hard-slice probe gate figure: [`results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_probe_gate.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_probe_gate.svg)
+- visual hard-slice live replay gate figure: [`results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_live_replay_gate.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_live_replay_gate.svg)
 - publication evidence ledger: [`results/reports/publication_evidence_ledger/ledger.md`](../../results/reports/publication_evidence_ledger/ledger.md)
 - publication readiness audit: [`results/reports/publication_readiness_audit/publication_readiness_audit.md`](../../results/reports/publication_readiness_audit/publication_readiness_audit.md)
 - visual hard-slice design: [`results/reports/visual_hard_slice_design/design.md`](../../results/reports/visual_hard_slice_design/design.md)
 - figures: [`results/reports/mlx_tool_contract_harnessing/figures`](../../results/reports/mlx_tool_contract_harnessing/figures)
-- current manifest count: `54` tables and `26` figures
+- current manifest count: `59` tables and `28` figures
 - regeneration command:
 
 ```bash

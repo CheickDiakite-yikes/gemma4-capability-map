@@ -52,7 +52,8 @@ Next implementation moves:
 - keep using live CLI scorecard and policy inspection as the active operator proof path
 - treat replay-shaped CLI-live packets as the active discriminator when packaged workflows are saturated
 - use [`scripts/build_visual_hard_slice_replay_packet.py`](../../scripts/build_visual_hard_slice_replay_packet.py) to preserve hard-slice visual cases for `moonie-agent replay-live`
-- current replay-shaped result: schema-field hints improves over no-directive by exact `+0.5`, executable `+1.0`, and executor-equivalence `+1.0` on the preserved visual hard-slice failures
+- current replay-shaped matrix: contracted MLX is `2 / 2` strict/executor-equivalent; role catalog v1 and argument hints v2 are `1 / 2`; schema-field hints v4 is `1 / 2` strict and `2 / 2` executor-equivalent; schema target literals v5 is `0 / 2` strict and `1 / 2` executor-equivalent with a wrong-tool stale-selection miss
+- next replay-shaped target: repeat the executor-alias and stale-selection cases under harder decoys before returning to packaged H1-style workflows
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1
@@ -176,9 +177,16 @@ What remains:
   - interpretation: packaged visual workflows are too staged to preserve the hard-slice executor-equivalence split
 - replay-shaped visual hard-slice live replay is the new active positive surface:
   - source packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_no_directive_replay_dry_run_v1`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_no_directive_replay_dry_run_v1)
-  - comparison: [`results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_schema_field_hints_vs_no_directive_live_v2`](../../results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_schema_field_hints_vs_no_directive_live_v2)
-  - result: no-directive `0 / 2` exact and executor-equivalent; schema-field hints `1 / 2` exact and `2 / 2` executor-equivalent
-  - next best move: run the same replay-shaped live packet across contracted, role catalog v1, argument hints v2, schema-field hints v4, and schema target literals v5, then report a compact live candidate matrix before spending another packaged H1 slice
+  - matrix summary table: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_live_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_live_replay_summary.csv)
+  - case-delta table: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_live_replay_case_deltas.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_live_replay_case_deltas.csv)
+  - full matrix result:
+    - no-directive baseline: exact/executable/executor-equivalent `0 / 2`
+    - contracted MLX: exact/executable/executor-equivalent `2 / 2`
+    - role catalog v1: exact/executable/executor-equivalent `1 / 2`
+    - argument hints v2: exact/executable/executor-equivalent `1 / 2`
+    - schema-field hints v4: exact `1 / 2`, executable/executor-equivalent `2 / 2`
+    - schema target literals v5: exact `0 / 2`, executable/executor-equivalent `1 / 2`
+  - next best move: build a harder replay-shaped visual live slice that repeats `visual_metric_panel_vs_table_selector` and `visual_form_error_with_prior_selection_decoy` under fresh decoys, then rerun the same matrix before spending another packaged H1 slice
 
 - second prompt-contract wave now exists:
   - contracts: `schema_literal_tool_required_v2`, `visual_next_call_state_v2`, `parallel_array_required_v2`

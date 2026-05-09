@@ -123,6 +123,11 @@ Current strongest MLX result:
   - result: contracted MLX `8 / 8` strict/executable/executor-equivalent; no-directive MLX `1 / 8` strict/executable/executor-equivalent; schema-field hints v4 `6 / 8` strict and `8 / 8` executor-equivalent; schema-target-literal v5 `5 / 8` strict and `7 / 8` executor-equivalent
   - exactness diagnostic: v4's two non-exact rows are executor-success selector aliases, while v5 adds a true stale-selection wrong-tool failure
   - status: current visual prompt-contract restart point, not a packaged H1 promotion yet
+- replay-shaped visual hard-slice CLI-live matrix now preserves the same discriminator:
+  - source packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_no_directive_replay_dry_run_v1`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_no_directive_replay_dry_run_v1)
+  - summary table: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_live_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_live_replay_summary.csv)
+  - result: no-directive `0 / 2`; contracted MLX `2 / 2`; role catalog v1 and argument hints v2 `1 / 2`; schema-field hints v4 `1 / 2` strict and `2 / 2` executor-equivalent; schema-target-literal v5 `0 / 2` strict and `1 / 2` executor-equivalent
+  - status: next best move is a harder replay-shaped slice with repeated decoys, not another broad prompt wording patch
 - the sixth prompt-contract wave is a negative composition result:
   - dry-run packet: [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run)
   - probe packet: [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe)

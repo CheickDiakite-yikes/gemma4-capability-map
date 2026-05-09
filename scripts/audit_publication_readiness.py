@@ -150,6 +150,46 @@ def audit_publication_readiness(
             detail="Replay-shaped visual hard-slice CLI-live comparison exists with executor-equivalence deltas.",
         ),
         _check_path(
+            check_id="visual_hard_slice_live_contracted_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260509T_visual_hard_slice_contracted_vs_no_directive_live_v1"
+            / "live_replay_comparison.json",
+            detail="Replay-shaped visual hard-slice CLI-live contracted upper-bound comparison exists.",
+        ),
+        _check_path(
+            check_id="visual_hard_slice_live_role_catalog_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260509T_visual_hard_slice_role_catalog_vs_no_directive_live_v1"
+            / "live_replay_comparison.json",
+            detail="Replay-shaped visual hard-slice CLI-live role-catalog comparison exists.",
+        ),
+        _check_path(
+            check_id="visual_hard_slice_live_argument_hints_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260509T_visual_hard_slice_argument_hints_vs_no_directive_live_v1"
+            / "live_replay_comparison.json",
+            detail="Replay-shaped visual hard-slice CLI-live argument-hints comparison exists.",
+        ),
+        _check_path(
+            check_id="visual_hard_slice_live_schema_literals_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260509T_visual_hard_slice_schema_literal_targets_vs_no_directive_live_v1"
+            / "live_replay_comparison.json",
+            detail="Replay-shaped visual hard-slice CLI-live schema-target-literal comparison exists.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",

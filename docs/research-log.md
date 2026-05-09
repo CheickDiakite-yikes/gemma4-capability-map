@@ -3250,18 +3250,29 @@
   - converter: [`scripts/build_visual_hard_slice_replay_packet.py`](../scripts/build_visual_hard_slice_replay_packet.py)
   - source packet: [`20260509T_visual_hard_slice_no_directive_replay_dry_run_v1`](../results/tool_probe_replay_packets/20260509T_visual_hard_slice_no_directive_replay_dry_run_v1)
   - no-directive live packet: [`20260509T_visual_hard_slice_no_directive_hard_replay_live_execute_v2`](../results/tool_probe_replay_live/20260509T_visual_hard_slice_no_directive_hard_replay_live_execute_v2)
+  - contracted live packet: [`20260509T_visual_hard_slice_contracted_hard_replay_live_execute_v1`](../results/tool_probe_replay_live/20260509T_visual_hard_slice_contracted_hard_replay_live_execute_v1)
+  - role-catalog live packet: [`20260509T_visual_hard_slice_role_catalog_hard_replay_live_execute_v1`](../results/tool_probe_replay_live/20260509T_visual_hard_slice_role_catalog_hard_replay_live_execute_v1)
+  - argument-hints live packet: [`20260509T_visual_hard_slice_argument_hints_hard_replay_live_execute_v1`](../results/tool_probe_replay_live/20260509T_visual_hard_slice_argument_hints_hard_replay_live_execute_v1)
   - schema-field live packet: [`20260509T_visual_hard_slice_schema_field_hints_hard_replay_live_execute_v2`](../results/tool_probe_replay_live/20260509T_visual_hard_slice_schema_field_hints_hard_replay_live_execute_v2)
-  - comparison: [`20260509T_visual_hard_slice_schema_field_hints_vs_no_directive_live_v2`](../results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_schema_field_hints_vs_no_directive_live_v2)
+  - schema-target-literal live packet: [`20260509T_visual_hard_slice_schema_literal_targets_hard_replay_live_execute_v1`](../results/tool_probe_replay_live/20260509T_visual_hard_slice_schema_literal_targets_hard_replay_live_execute_v1)
+  - comparison matrix:
+    - [`20260509T_visual_hard_slice_contracted_vs_no_directive_live_v1`](../results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_contracted_vs_no_directive_live_v1)
+    - [`20260509T_visual_hard_slice_role_catalog_vs_no_directive_live_v1`](../results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_role_catalog_vs_no_directive_live_v1)
+    - [`20260509T_visual_hard_slice_argument_hints_vs_no_directive_live_v1`](../results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_argument_hints_vs_no_directive_live_v1)
+    - [`20260509T_visual_hard_slice_schema_field_hints_vs_no_directive_live_v2`](../results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_schema_field_hints_vs_no_directive_live_v2)
+    - [`20260509T_visual_hard_slice_schema_literal_targets_vs_no_directive_live_v1`](../results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_schema_literal_targets_vs_no_directive_live_v1)
 - Result:
   - no-directive replay on the two preserved hard-slice failures: strict `0 / 2`, executable `0 / 2`, executor-equivalent `0 / 2`
-  - `visual_role_catalog_schema_field_hints_v4`: strict `1 / 2`, executable `2 / 2`, executor-equivalent `2 / 2`
-  - comparison deltas: exact `+0.5`, executable `+1.0`, executor-equivalence `+1.0`
-  - `visual_form_error_with_prior_selection_decoy` becomes exact under v4
-  - `visual_metric_panel_vs_table_selector` remains non-exact but executor-equivalent under v4 because `metric panel` reaches the expected local visual target even though the benchmark-canonical label is `dashboard metric`
+  - contracted MLX is the upper bound: strict/executable/executor-equivalent `2 / 2`
+  - role catalog v1 and argument hints v2 each recover only the stale-selection decoy: strict/executable/executor-equivalent `1 / 2`
+  - schema-field hints v4 is the strongest no-directive row: strict `1 / 2`, executable/executor-equivalent `2 / 2`
+  - schema target literals v5 remains negative on strict fidelity: strict `0 / 2`, executable/executor-equivalent `1 / 2`
+  - v4 makes `visual_form_error_with_prior_selection_decoy` exact and keeps `visual_metric_panel_vs_table_selector` executor-equivalent through a selector alias
+  - v5 makes the stale-selection decoy worse by turning it into a wrong-tool failure
 - Interpretation:
   - H1l's packaged-workflow saturation was not the final word on the v4 result. It showed that the current packaged visual workflows are too staged. The replay-shaped CLI-live result shows the same hard-slice signal survives in the operator path when the raw case shape is preserved.
   - This is now the best evidence that v4 is a real harnessing improvement for local MLX visual execution, but the improvement target is executor-equivalent visual grounding, not full strict protocol fidelity.
-  - The next experiment should expand the replay-shaped live matrix across contracted, no-directive, role catalog v1, argument hints v2, schema-field hints v4, and schema target literals v5 before returning to packaged H1-style workflows.
+  - The next experiment should not be another broad prompt wording patch. It should build a harder replay-shaped live slice from the executor-alias and stale-selection cases, with repeated decoys that test whether v4's executor-equivalent behavior remains stable.
 - Reporting updates:
   - live replay packets now carry executor-equivalence counts/rates beside strict exactness and executable match
   - live replay comparisons now carry per-case executor-equivalence deltas
@@ -3273,7 +3284,12 @@
   - `uv run pytest tests/test_visual_hard_slice_replay_packet.py tests/test_tool_probe_replay_live.py -q`
   - `uv run python scripts/build_visual_hard_slice_replay_packet.py --run-group-id 20260509T_visual_hard_slice_no_directive_replay_dry_run_v1 --failure-mode argument_mismatch`
   - `uv run moonie-agent replay-live --packet-id 20260509T_visual_hard_slice_no_directive_replay_dry_run_v1 --output-dir results/tool_probe_replay_live/20260509T_visual_hard_slice_no_directive_hard_replay_live_execute_v2 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive --execute --json`
+  - `uv run moonie-agent replay-live --packet-id 20260509T_visual_hard_slice_no_directive_replay_dry_run_v1 --output-dir results/tool_probe_replay_live/20260509T_visual_hard_slice_contracted_hard_replay_live_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only --execute --json`
+  - `uv run moonie-agent replay-live --packet-id 20260509T_visual_hard_slice_no_directive_replay_dry_run_v1 --output-dir results/tool_probe_replay_live/20260509T_visual_hard_slice_role_catalog_hard_replay_live_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog --execute --json`
+  - `uv run moonie-agent replay-live --packet-id 20260509T_visual_hard_slice_no_directive_replay_dry_run_v1 --output-dir results/tool_probe_replay_live/20260509T_visual_hard_slice_argument_hints_hard_replay_live_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints --execute --json`
   - `uv run moonie-agent replay-live --packet-id 20260509T_visual_hard_slice_no_directive_replay_dry_run_v1 --output-dir results/tool_probe_replay_live/20260509T_visual_hard_slice_schema_field_hints_hard_replay_live_execute_v2 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints --execute --json`
+  - `uv run moonie-agent replay-live --packet-id 20260509T_visual_hard_slice_no_directive_replay_dry_run_v1 --output-dir results/tool_probe_replay_live/20260509T_visual_hard_slice_schema_literal_targets_hard_replay_live_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets --execute --json`
   - `uv run python scripts/compare_tool_probe_replay_live_packets.py results/tool_probe_replay_live/20260509T_visual_hard_slice_no_directive_hard_replay_live_execute_v2 results/tool_probe_replay_live/20260509T_visual_hard_slice_schema_field_hints_hard_replay_live_execute_v2 --output-dir results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_schema_field_hints_vs_no_directive_live_v2`
+  - `uv run python scripts/compare_tool_probe_replay_live_packets.py results/tool_probe_replay_live/20260509T_visual_hard_slice_no_directive_hard_replay_live_execute_v2 results/tool_probe_replay_live/20260509T_visual_hard_slice_schema_literal_targets_hard_replay_live_execute_v1 --output-dir results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_schema_literal_targets_vs_no_directive_live_v1`
   - `uv run python scripts/build_mlx_tool_contract_report.py`
   - `uv run pytest tests/test_mlx_tool_contract_report.py tests/test_tool_probe_replay_live_comparison.py -q`

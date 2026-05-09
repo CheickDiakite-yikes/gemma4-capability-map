@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-09T22:54:05.601519+00:00",
+    "generated_at": "2026-05-09T22:57:46.942019+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
     "claim_count": 12,
-    "evidence_source_count": 36,
+    "evidence_source_count": 40,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -136,10 +136,10 @@
       "claim": "Replay-shaped CLI-live execution preserves the visual hard-slice executor-equivalence signal that packaged H1l workflows washed out.",
       "status": "supported_current_packets",
       "evidence_strength": "moderate_internal",
-      "primary_metric": "On the two preserved no-directive visual hard-slice failures, no-directive is 0/2 strict and 0/2 executor-equivalent while schema-field hints is 1/2 strict and 2/2 executor-equivalent.",
-      "limitation": "The live replay currently covers the two no-directive hard-slice failures, not the full eight-case hard-slice candidate matrix.",
-      "next_test": "Run the replay-shaped live packet across contracted, role catalog v1, argument hints v2, schema-field hints v4, and schema target literals v5.",
-      "source_count": 3
+      "primary_metric": "On the two preserved no-directive visual hard-slice failures, no-directive is 0/2 strict and 0/2 executor-equivalent; contracted MLX is 2/2 strict and executor-equivalent; schema-field hints is the strongest no-directive row at 1/2 strict and 2/2 executor-equivalent.",
+      "limitation": "The live replay matrix covers the two preserved no-directive hard-slice failures, not the full eight-case hard-slice candidate matrix.",
+      "next_test": "Build a second replay-shaped live slice that repeats the executor-alias and stale-selection cases under harder decoys before returning to packaged H1 workflows.",
+      "source_count": 7
     }
   ],
   "evidence_sources": [
@@ -384,8 +384,36 @@
     {
       "claim_id": "C12_replay_shaped_live_preserves_visual_hard_slice_signal",
       "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_contracted_vs_no_directive_live_v1",
+      "purpose": "Replay-shaped CLI-live comparison showing contracted MLX is the 2/2 strict and executor-equivalent upper bound.",
+      "exists": true
+    },
+    {
+      "claim_id": "C12_replay_shaped_live_preserves_visual_hard_slice_signal",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_role_catalog_vs_no_directive_live_v1",
+      "purpose": "Replay-shaped CLI-live comparison showing role catalog v1 recovers one strict/executor-equivalent case over no-directive.",
+      "exists": true
+    },
+    {
+      "claim_id": "C12_replay_shaped_live_preserves_visual_hard_slice_signal",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_argument_hints_vs_no_directive_live_v1",
+      "purpose": "Replay-shaped CLI-live comparison showing argument hints v2 matches role catalog v1 on this preserved failure slice.",
+      "exists": true
+    },
+    {
+      "claim_id": "C12_replay_shaped_live_preserves_visual_hard_slice_signal",
+      "artifact_type": "live_replay_comparison",
       "path": "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_schema_field_hints_vs_no_directive_live_v2",
       "purpose": "Replay-shaped CLI-live comparison showing schema-field hints recovers executor-equivalent target success over no-directive.",
+      "exists": true
+    },
+    {
+      "claim_id": "C12_replay_shaped_live_preserves_visual_hard_slice_signal",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_schema_literal_targets_vs_no_directive_live_v1",
+      "purpose": "Replay-shaped CLI-live comparison showing schema target literals v5 remain negative on strict exactness and introduce a wrong-tool stale-selection miss.",
       "exists": true
     },
     {
