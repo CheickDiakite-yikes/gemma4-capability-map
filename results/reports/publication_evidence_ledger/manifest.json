@@ -1,0 +1,15 @@
+{
+  "generated_at": "2026-05-09T00:19:14.665184+00:00",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
+  "claim_count": 6,
+  "evidence_source_count": 19,
+  "missing_source_count": 0,
+  "claim_ids": [
+    "C1_controller_dependence_hidden_by_readiness",
+    "C2_final_tool_directive_causal_for_protocol",
+    "C3_packaged_workflows_can_saturate",
+    "C4_visual_catalog_role_routing_is_real",
+    "C5_visual_argument_hints_improve_exactness_but_not_executability",
+    "C6_split_selector_wording_is_negative_evidence"
+  ]
+}

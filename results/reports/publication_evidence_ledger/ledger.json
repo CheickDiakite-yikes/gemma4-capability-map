@@ -1,0 +1,215 @@
+{
+  "manifest": {
+    "generated_at": "2026-05-09T00:19:14.665184+00:00",
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
+    "claim_count": 6,
+    "evidence_source_count": 19,
+    "missing_source_count": 0,
+    "claim_ids": [
+      "C1_controller_dependence_hidden_by_readiness",
+      "C2_final_tool_directive_causal_for_protocol",
+      "C3_packaged_workflows_can_saturate",
+      "C4_visual_catalog_role_routing_is_real",
+      "C5_visual_argument_hints_improve_exactness_but_not_executability",
+      "C6_split_selector_wording_is_negative_evidence"
+    ]
+  },
+  "claims": [
+    {
+      "claim_id": "C1_controller_dependence_hidden_by_readiness",
+      "claim": "Top-line readiness parity can hide controller dependence in local MLX Gemma tool-use runs.",
+      "status": "supported_current_packets",
+      "evidence_strength": "strong_internal",
+      "primary_metric": "H1h/H1i no-directive readiness parity with high repair/fallback burden and low raw-clean rate.",
+      "limitation": "Current support is internal to Moonie's knowledge-work harness and local MLX runtime.",
+      "next_test": "Run the same helper-ablation structure on a harder H1 slice selected from raw replay failures.",
+      "source_count": 3
+    },
+    {
+      "claim_id": "C2_final_tool_directive_causal_for_protocol",
+      "claim": "The final tool-turn directive is causal for exact raw tool protocol behavior on the focused replay suite.",
+      "status": "supported_current_packets",
+      "evidence_strength": "strong_internal",
+      "primary_metric": "Contracted exact replay is 7/8 while no-directive exact replay is 0/8 on the same cases.",
+      "limitation": "The replay suite is intentionally focused on eight observed no-directive failures, not a population estimate.",
+      "next_test": "Expand the replay suite with independently authored hard cases and repeated seeds.",
+      "source_count": 4
+    },
+    {
+      "claim_id": "C3_packaged_workflows_can_saturate",
+      "claim": "Packaged workflow completion can wash out raw one-turn tool-protocol failures.",
+      "status": "supported_current_packets",
+      "evidence_strength": "moderate_internal",
+      "primary_metric": "H1j/H1k packaged packets saturated while exact replay still showed no-directive failures.",
+      "limitation": "The packaged workflow scaffolds may make the task easier than the one-turn replay contract.",
+      "next_test": "Build a harder packaged workflow slice that preserves one-turn parallel and visual follow-on pressure.",
+      "source_count": 3
+    },
+    {
+      "claim_id": "C4_visual_catalog_role_routing_is_real",
+      "claim": "Tool-catalog role presentation changes visual routing behavior even without the exact tool-turn directive.",
+      "status": "supported_current_packets",
+      "evidence_strength": "moderate_internal",
+      "primary_metric": "visual_role_catalog_v1 moves latest-filter from wrong/no-call behavior to refine_selection argument mismatch.",
+      "limitation": "The intervention improves routing more than exact literal fidelity.",
+      "next_test": "Test catalog-role profiles across a larger visual follow-on set with fresh UI states.",
+      "source_count": 3
+    },
+    {
+      "claim_id": "C5_visual_argument_hints_improve_exactness_but_not_executability",
+      "claim": "Schema-local visual argument hints improve exact selector fidelity but can hurt executable visual-form recovery.",
+      "status": "supported_current_packets",
+      "evidence_strength": "moderate_internal",
+      "primary_metric": "v2 reaches 2/3 focused visual live exactness but loses executable form-target recovery.",
+      "limitation": "The improvement is focused on three visual replay cases and has a known form-target regression.",
+      "next_test": "Search for a split selector intervention that preserves v2 filter exactness and v1 form-target executability.",
+      "source_count": 3
+    },
+    {
+      "claim_id": "C6_split_selector_wording_is_negative_evidence",
+      "claim": "Adding broader split-selector wording did not recover the missing visual-form behavior and introduced a protocol-shape regression.",
+      "status": "negative_result_current_packets",
+      "evidence_strength": "moderate_internal",
+      "primary_metric": "v3 raw exact falls to 1/8 versus v2 at 2/8 and readback regresses through tool_name/name mismatch.",
+      "limitation": "This is one candidate profile; it does not rule out all field-specific selector interventions.",
+      "next_test": "Try an executor-grounded schema annotation or few-shot-free field contract that does not add broad behavioral prose.",
+      "source_count": 3
+    }
+  ],
+  "evidence_sources": [
+    {
+      "claim_id": "C1_controller_dependence_hidden_by_readiness",
+      "artifact_type": "h1_ablation_packet",
+      "path": "results/knowledge_work_h1_slice/20260507T_h1h_mlx_full_no_directive_v1_knowledge_work_h1h_mlx_full_tool_contract_ablation_v1",
+      "purpose": "Full no-directive replication showing controller burden behind readiness parity.",
+      "exists": true
+    },
+    {
+      "claim_id": "C1_controller_dependence_hidden_by_readiness",
+      "artifact_type": "h1_ablation_packet",
+      "path": "results/knowledge_work_h1_slice/20260507T_h1i_mlx_worst_no_directive_v1_knowledge_work_h1i_mlx_worst_family_tool_contract_v1",
+      "purpose": "Fast worst-family loop preserving the H1h causal ordering.",
+      "exists": true
+    },
+    {
+      "claim_id": "C1_controller_dependence_hidden_by_readiness",
+      "artifact_type": "report_table",
+      "path": "results/reports/mlx_tool_contract_harnessing/tables/packet_summary.csv",
+      "purpose": "Cross-packet readiness, repair, fallback, argument-repair, and raw-clean summary.",
+      "exists": true
+    },
+    {
+      "claim_id": "C2_final_tool_directive_causal_for_protocol",
+      "artifact_type": "probe_replay_comparison",
+      "path": "results/tool_probe_replay_comparisons/20260507T_contracted_vs_no_directive_exact_replay_v1",
+      "purpose": "A/B replay comparison for the exact same failed no-directive probe cases.",
+      "exists": true
+    },
+    {
+      "claim_id": "C2_final_tool_directive_causal_for_protocol",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260507T_canonical_argument_contracted_vs_no_directive_live_v1",
+      "purpose": "Operator-visible live replay of canonical argument failures.",
+      "exists": true
+    },
+    {
+      "claim_id": "C2_final_tool_directive_causal_for_protocol",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260507T_visual_state_contracted_vs_no_directive_live_v1",
+      "purpose": "Operator-visible live replay of visual no-call failures.",
+      "exists": true
+    },
+    {
+      "claim_id": "C2_final_tool_directive_causal_for_protocol",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260507T_parallel_array_contracted_vs_no_directive_live_v1",
+      "purpose": "Operator-visible live replay of the parallel two-call failure.",
+      "exists": true
+    },
+    {
+      "claim_id": "C3_packaged_workflows_can_saturate",
+      "artifact_type": "h1_ablation_packet",
+      "path": "results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_candidates_v1_knowledge_work_ablation_packet",
+      "purpose": "Probe-derived packaged workflows that saturated across candidate rows.",
+      "exists": true
+    },
+    {
+      "claim_id": "C3_packaged_workflows_can_saturate",
+      "artifact_type": "h1_ablation_packet",
+      "path": "results/knowledge_work_h1_slice/20260507T_h1k_parallel_audit_candidates_v1_knowledge_work_ablation_packet",
+      "purpose": "Packaged parallel-audit workflow showing safe scaffold but easier behavior than raw replay.",
+      "exists": true
+    },
+    {
+      "claim_id": "C3_packaged_workflows_can_saturate",
+      "artifact_type": "report_table",
+      "path": "results/reports/mlx_tool_contract_harnessing/tables/live_parallel_replay_case_deltas.csv",
+      "purpose": "Live exact-replay evidence that the raw parallel two-call shape still fails without the directive.",
+      "exists": true
+    },
+    {
+      "claim_id": "C4_visual_catalog_role_routing_is_real",
+      "artifact_type": "diagnostic_packet",
+      "path": "results/tool_probe_replay_live_diagnostics/20260508T_visual_tool_choice_wave3_wave4_catalog_v1",
+      "purpose": "Expected-vs-actual visual tool-choice diagnostic for wave3, wave4, and catalog profile.",
+      "exists": true
+    },
+    {
+      "claim_id": "C4_visual_catalog_role_routing_is_real",
+      "artifact_type": "catalog_probe_packet",
+      "path": "results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_v1_probe",
+      "purpose": "Raw catalog-profile probe showing routing and executable visual-form recovery.",
+      "exists": true
+    },
+    {
+      "claim_id": "C4_visual_catalog_role_routing_is_real",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260508T_visual_role_catalog_vs_visual_state_tool_selection_v1",
+      "purpose": "Focused live comparison showing catalog profile changes wrong-tool/no-call into argument mismatch.",
+      "exists": true
+    },
+    {
+      "claim_id": "C5_visual_argument_hints_improve_exactness_but_not_executability",
+      "artifact_type": "catalog_probe_packet",
+      "path": "results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_argument_hints_v2_probe",
+      "purpose": "Raw v2 catalog probe showing latest-filter exactness and form-target executable regression.",
+      "exists": true
+    },
+    {
+      "claim_id": "C5_visual_argument_hints_improve_exactness_but_not_executability",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_contracted_v1",
+      "purpose": "Focused live comparison showing v2 matches contracted exactness but loses executable recovery.",
+      "exists": true
+    },
+    {
+      "claim_id": "C5_visual_argument_hints_improve_exactness_but_not_executability",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_role_catalog_v1",
+      "purpose": "Focused live comparison showing v2 exact gain versus v1 and executable regression.",
+      "exists": true
+    },
+    {
+      "claim_id": "C6_split_selector_wording_is_negative_evidence",
+      "artifact_type": "catalog_probe_packet",
+      "path": "results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_split_selector_hints_v3_probe",
+      "purpose": "Raw v3 probe packet and case outputs.",
+      "exists": true
+    },
+    {
+      "claim_id": "C6_split_selector_wording_is_negative_evidence",
+      "artifact_type": "catalog_probe_comparison",
+      "path": "results/tool_catalog_profile_probe_comparisons/20260508T_visual_split_selector_hints_vs_argument_hints_v2",
+      "purpose": "Direct v3-vs-v2 comparison showing exact regression.",
+      "exists": true
+    },
+    {
+      "claim_id": "C6_split_selector_wording_is_negative_evidence",
+      "artifact_type": "live_replay_decision",
+      "path": "results/tool_probe_replay_live/20260508T_visual_split_selector_hints_live_replay_skipped_v1",
+      "purpose": "Promotion decision packet explaining why v3 did not spend live replay budget.",
+      "exists": true
+    }
+  ],
+  "missing_sources": []
+}
