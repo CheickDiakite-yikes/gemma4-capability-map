@@ -1,0 +1,64 @@
+[
+  {
+    "case_id": "stress_callout_warning_risk_note_decoy",
+    "family": "visual_argument_copying_stress",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "stress-callout-2702"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-stress-callout-risk",
+          "target_query": "callout"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-stress-callout-risk",
+          "selection_kind": "regions",
+          "count": 3,
+          "executor_mode": "local",
+          "region_ids": [
+            "stress-callout-2701",
+            "stress-callout-2702",
+            "stress-callout-2703"
+          ],
+          "region_id": "stress-callout-2701",
+          "text_preview": "Risk is high for this account"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-stress-callout-risk",
+          "target_query": "slide callout"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-stress-callout-risk",
+          "target_query": "callout"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-stress-callout-risk\", \"target_query\": \"callout\"}}",
+    "prompt_tokens": 997,
+    "completion_tokens": 36,
+    "latency_ms": 4080
+  }
+]

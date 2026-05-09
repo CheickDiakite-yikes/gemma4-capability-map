@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "stress_metric_panel_status_banner_decoy",
+    "family": "visual_argument_copying_stress",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "stress-metric-2401"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-stress-metric-status",
+          "target_query": "dashboard metric"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-stress-metric-status",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "stress-metric-2401"
+          ],
+          "region_id": "stress-metric-2401",
+          "text_preview": "Escalation rate above limit"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-stress-metric-status",
+          "target_query": "dashboard metric"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-stress-metric-status",
+          "target_query": "dashboard metric"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-stress-metric-status\", \"target_query\": \"dashboard metric\"}}",
+    "prompt_tokens": 807,
+    "completion_tokens": 35,
+    "latency_ms": 3738
+  }
+]

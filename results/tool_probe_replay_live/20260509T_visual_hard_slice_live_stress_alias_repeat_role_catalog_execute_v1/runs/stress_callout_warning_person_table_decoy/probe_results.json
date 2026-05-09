@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "stress_callout_warning_person_table_decoy",
+    "family": "visual_argument_copying_stress",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "stress-callout-2602"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-stress-callout-person",
+          "target_query": "slide callout warning"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-stress-callout-person",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "stress-callout-2602"
+          ],
+          "region_id": "stress-callout-2602",
+          "text_preview": "Warning: launch approval is missing"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-stress-callout-person",
+          "target_query": "invoice totals table"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-stress-callout-person",
+          "target_query": "slide callout warning"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-stress-callout-person\", \"target_query\": \"slide callout warning\"}}",
+    "prompt_tokens": 853,
+    "completion_tokens": 38,
+    "latency_ms": 3798
+  }
+]

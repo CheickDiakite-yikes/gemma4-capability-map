@@ -1,0 +1,98 @@
+[
+  {
+    "case_id": "stress_metric_panel_with_chart_table_decoys",
+    "family": "visual_argument_copying_stress",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "executable_paraphrase",
+    "replay_exact_match": false,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260509T_visual_hard_slice_live_stress_alias_repeat_schema_literal_targets_execute_v1/runs/stress_metric_panel_with_chart_table_decoys"
+  },
+  {
+    "case_id": "stress_metric_panel_with_kpi_copy_decoy",
+    "family": "visual_argument_copying_stress",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "executable_paraphrase",
+    "replay_exact_match": false,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260509T_visual_hard_slice_live_stress_alias_repeat_schema_literal_targets_execute_v1/runs/stress_metric_panel_with_kpi_copy_decoy"
+  },
+  {
+    "case_id": "stress_form_error_stale_selection_status_decoy",
+    "family": "visual_tool_routing_stress",
+    "source_failure_mode": "wrong_tool_or_stale_selection_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260509T_visual_hard_slice_live_stress_alias_repeat_schema_literal_targets_execute_v1/runs/stress_form_error_stale_selection_status_decoy"
+  },
+  {
+    "case_id": "stress_form_error_stale_selection_warning_decoy",
+    "family": "visual_tool_routing_stress",
+    "source_failure_mode": "wrong_tool_or_stale_selection_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260509T_visual_hard_slice_live_stress_alias_repeat_schema_literal_targets_execute_v1/runs/stress_form_error_stale_selection_warning_decoy"
+  },
+  {
+    "case_id": "stress_metric_panel_status_banner_decoy",
+    "family": "visual_argument_copying_stress",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "executable_paraphrase",
+    "replay_exact_match": false,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260509T_visual_hard_slice_live_stress_alias_repeat_schema_literal_targets_execute_v1/runs/stress_metric_panel_status_banner_decoy"
+  },
+  {
+    "case_id": "stress_metric_panel_summary_card_decoy",
+    "family": "visual_argument_copying_stress",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "executable_paraphrase",
+    "replay_exact_match": false,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260509T_visual_hard_slice_live_stress_alias_repeat_schema_literal_targets_execute_v1/runs/stress_metric_panel_summary_card_decoy"
+  },
+  {
+    "case_id": "stress_callout_warning_person_table_decoy",
+    "family": "visual_argument_copying_stress",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "executable_paraphrase",
+    "replay_exact_match": false,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260509T_visual_hard_slice_live_stress_alias_repeat_schema_literal_targets_execute_v1/runs/stress_callout_warning_person_table_decoy"
+  },
+  {
+    "case_id": "stress_callout_warning_risk_note_decoy",
+    "family": "visual_argument_copying_stress",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260509T_visual_hard_slice_live_stress_alias_repeat_schema_literal_targets_execute_v1/runs/stress_callout_warning_risk_note_decoy"
+  }
+]

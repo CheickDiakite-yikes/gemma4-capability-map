@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "stress_callout_warning_risk_note_decoy",
+    "family": "visual_argument_copying_stress",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "stress-callout-2702"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-stress-callout-risk",
+          "target_query": "slide callout"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-stress-callout-risk",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "stress-callout-2702"
+          ],
+          "region_id": "stress-callout-2702",
+          "text_preview": "Warning: data freshness check failed"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-stress-callout-risk",
+          "target_query": "slide callout"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-stress-callout-risk",
+          "target_query": "slide callout"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-stress-callout-risk\", \"target_query\": \"slide callout\"}}",
+    "prompt_tokens": 815,
+    "completion_tokens": 37,
+    "latency_ms": 3727
+  }
+]
