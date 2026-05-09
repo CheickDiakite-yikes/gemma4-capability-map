@@ -109,6 +109,9 @@ DEFAULT_TOOL_CATALOG_SCHEMA_FIELD_HINTS_LIVE_DECISION = (
 DEFAULT_PROMPT_CONTRACT_WAVE6_PACKET = (
     ROOT / "results" / "tool_prompt_contract_probe_packets" / "20260508T_visual_catalog_literal_guard_v6_probe"
 )
+DEFAULT_VISUAL_HARD_SLICE_PACKET = (
+    ROOT / "results" / "visual_hard_slice_probe_packets" / "20260509T_visual_hard_slice_execute_v1"
+)
 DEFAULT_H1I_PROMPT_CONTRACT_PACKET = (
     ROOT / "results" / "knowledge_work_h1_slice" / "20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet"
 )
@@ -298,6 +301,7 @@ def build_report(
     | Path = DEFAULT_TOOL_CATALOG_SCHEMA_FIELD_HINTS_VS_ROLE_CATALOG_COMPARISON,
     tool_catalog_schema_field_hints_live_decision: str | Path = DEFAULT_TOOL_CATALOG_SCHEMA_FIELD_HINTS_LIVE_DECISION,
     prompt_contract_wave6_packet: str | Path = DEFAULT_PROMPT_CONTRACT_WAVE6_PACKET,
+    visual_hard_slice_packet: str | Path = DEFAULT_VISUAL_HARD_SLICE_PACKET,
     h1i_prompt_contract_packet: str | Path = DEFAULT_H1I_PROMPT_CONTRACT_PACKET,
     h1i_prompt_contract_repeat_packet: str | Path = DEFAULT_H1I_PROMPT_CONTRACT_REPEAT_PACKET,
     h1j_prompt_contract_packet: str | Path = DEFAULT_H1J_PROMPT_CONTRACT_PACKET,
@@ -428,6 +432,15 @@ def build_report(
     ]
     prompt_contract_wave6_gate_rows = _csv_rows(Path(prompt_contract_wave6_packet) / "candidate_gate_summary.csv")
     prompt_contract_wave6_failure_rows = _csv_rows(Path(prompt_contract_wave6_packet) / "candidate_failure_mode_counts.csv")
+    visual_hard_slice_gate_rows = _label_system_rows(_csv_rows(Path(visual_hard_slice_packet) / "candidate_gate_summary.csv"))
+    visual_hard_slice_failure_rows = _csv_rows(Path(visual_hard_slice_packet) / "candidate_failure_mode_counts.csv")
+    visual_hard_slice_family_rows = _label_system_rows(_csv_rows(Path(visual_hard_slice_packet) / "family_summary.csv"))
+    visual_hard_slice_case_deltas_vs_no_directive_rows = _label_system_rows(
+        _csv_rows(Path(visual_hard_slice_packet) / "case_deltas_vs_no_directive.csv")
+    )
+    visual_hard_slice_case_deltas_vs_contracted_rows = _label_system_rows(
+        _csv_rows(Path(visual_hard_slice_packet) / "case_deltas_vs_contracted.csv")
+    )
     prompt_contract_promotion_rows = _prompt_contract_promotion_rows(
         wave1_rows=prompt_contract_gate_rows,
         wave2_rows=prompt_contract_wave2_gate_rows,
@@ -656,6 +669,17 @@ def build_report(
     )
     _write_csv(tables_dir / "prompt_contract_wave6_probe_gates.csv", prompt_contract_wave6_gate_rows)
     _write_csv(tables_dir / "prompt_contract_wave6_probe_failure_modes.csv", prompt_contract_wave6_failure_rows)
+    _write_csv(tables_dir / "visual_hard_slice_probe_gates.csv", visual_hard_slice_gate_rows)
+    _write_csv(tables_dir / "visual_hard_slice_failure_modes.csv", visual_hard_slice_failure_rows)
+    _write_csv(tables_dir / "visual_hard_slice_family_summary.csv", visual_hard_slice_family_rows)
+    _write_csv(
+        tables_dir / "visual_hard_slice_case_deltas_vs_no_directive.csv",
+        visual_hard_slice_case_deltas_vs_no_directive_rows,
+    )
+    _write_csv(
+        tables_dir / "visual_hard_slice_case_deltas_vs_contracted.csv",
+        visual_hard_slice_case_deltas_vs_contracted_rows,
+    )
     _write_csv(tables_dir / "prompt_contract_promotion_decisions.csv", prompt_contract_promotion_rows)
     _write_csv(tables_dir / "h1i_prompt_contract_candidate_metrics.csv", h1i_prompt_contract_rows)
     _write_csv(tables_dir / "h1i_prompt_contract_repeat3_metrics.csv", h1i_prompt_contract_repeat_rows)
@@ -814,6 +838,17 @@ def build_report(
         title="Prompt contract wave six probe gate",
         rows=prompt_contract_wave6_gate_rows,
         label_field="tool_prompt_contract_id",
+        metrics=[
+            ("exact_match_rate", "exact", "#2563EB"),
+            ("executable_match_rate", "executable", "#059669"),
+            ("delta_exact_vs_no_directive", "delta exact", "#D97706"),
+        ],
+    )
+    _write_grouped_metric_svg(
+        figures_dir / "visual_hard_slice_probe_gate.svg",
+        title="Visual hard-slice probe gate",
+        rows=visual_hard_slice_gate_rows,
+        label_field="label",
         metrics=[
             ("exact_match_rate", "exact", "#2563EB"),
             ("executable_match_rate", "executable", "#059669"),
@@ -1001,6 +1036,7 @@ def build_report(
         ),
         "tool_catalog_schema_field_hints_live_decision": str(Path(tool_catalog_schema_field_hints_live_decision).resolve()),
         "prompt_contract_wave6_packet": str(Path(prompt_contract_wave6_packet).resolve()),
+        "visual_hard_slice_packet": str(Path(visual_hard_slice_packet).resolve()),
         "h1i_prompt_contract_packet": str(Path(h1i_prompt_contract_packet).resolve()),
         "h1i_prompt_contract_repeat_packet": str(Path(h1i_prompt_contract_repeat_packet).resolve()),
         "h1j_prompt_contract_packet": str(Path(h1j_prompt_contract_packet).resolve()),
@@ -1051,8 +1087,8 @@ def build_report(
             Path(argument_hints_live_visual_vs_role_catalog_comparison).resolve()
         ),
         "registry_path": str(Path(registry_path).resolve()),
-        "table_count": 49,
-        "figure_count": 25,
+        "table_count": 54,
+        "figure_count": 26,
     }
     report_payload = {
         "manifest": manifest,
@@ -1087,6 +1123,11 @@ def build_report(
         "tool_catalog_schema_field_hints_live_replay_decision": tool_catalog_schema_field_hints_live_decision_rows,
         "prompt_contract_wave6_probe_gates": prompt_contract_wave6_gate_rows,
         "prompt_contract_wave6_probe_failure_modes": prompt_contract_wave6_failure_rows,
+        "visual_hard_slice_probe_gates": visual_hard_slice_gate_rows,
+        "visual_hard_slice_failure_modes": visual_hard_slice_failure_rows,
+        "visual_hard_slice_family_summary": visual_hard_slice_family_rows,
+        "visual_hard_slice_case_deltas_vs_no_directive": visual_hard_slice_case_deltas_vs_no_directive_rows,
+        "visual_hard_slice_case_deltas_vs_contracted": visual_hard_slice_case_deltas_vs_contracted_rows,
         "prompt_contract_promotion_decisions": prompt_contract_promotion_rows,
         "h1i_prompt_contract_candidate_metrics": h1i_prompt_contract_rows,
         "h1i_prompt_contract_repeat3_metrics": h1i_prompt_contract_repeat_rows,
@@ -1171,6 +1212,7 @@ def parse_args() -> argparse.Namespace:
         default=str(DEFAULT_TOOL_CATALOG_SCHEMA_FIELD_HINTS_LIVE_DECISION),
     )
     parser.add_argument("--prompt-contract-wave6-packet", default=str(DEFAULT_PROMPT_CONTRACT_WAVE6_PACKET))
+    parser.add_argument("--visual-hard-slice-packet", default=str(DEFAULT_VISUAL_HARD_SLICE_PACKET))
     parser.add_argument("--h1i-prompt-contract-packet", default=str(DEFAULT_H1I_PROMPT_CONTRACT_PACKET))
     parser.add_argument("--h1i-prompt-contract-repeat-packet", default=str(DEFAULT_H1I_PROMPT_CONTRACT_REPEAT_PACKET))
     parser.add_argument("--h1j-prompt-contract-packet", default=str(DEFAULT_H1J_PROMPT_CONTRACT_PACKET))
@@ -1266,6 +1308,7 @@ def main() -> None:
         tool_catalog_schema_field_hints_vs_role_catalog_comparison=args.tool_catalog_schema_field_hints_vs_role_catalog_comparison,
         tool_catalog_schema_field_hints_live_decision=args.tool_catalog_schema_field_hints_live_decision,
         prompt_contract_wave6_packet=args.prompt_contract_wave6_packet,
+        visual_hard_slice_packet=args.visual_hard_slice_packet,
         h1i_prompt_contract_packet=args.h1i_prompt_contract_packet,
         h1i_prompt_contract_repeat_packet=args.h1i_prompt_contract_repeat_packet,
         h1j_prompt_contract_packet=args.h1j_prompt_contract_packet,
@@ -1606,6 +1649,9 @@ def _candidate_label(system_id: str) -> str:
         "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_state_tool_selection": "visual state tool",
         "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_refine_selection": "visual refine",
         "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog": "visual role catalog",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints": "catalog arg hints",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints": "catalog split selector",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints": "catalog schema fields",
         "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard": "visual catalog literal",
     }
     return suffixes.get(system_id, system_id)
@@ -1630,6 +1676,9 @@ def _markdown_report(payload: dict[str, Any]) -> str:
     schema_field_hints_vs_split_selector_case_rows = payload["tool_catalog_schema_field_hints_vs_split_selector_case_deltas"]
     schema_field_hints_live_decision_rows = payload["tool_catalog_schema_field_hints_live_replay_decision"]
     wave6_gate_rows = payload["prompt_contract_wave6_probe_gates"]
+    visual_hard_slice_gate_rows = payload["visual_hard_slice_probe_gates"]
+    visual_hard_slice_family_rows = payload["visual_hard_slice_family_summary"]
+    visual_hard_slice_case_deltas_vs_no_directive = payload["visual_hard_slice_case_deltas_vs_no_directive"]
     h1i_prompt_contract_rows = payload["h1i_prompt_contract_candidate_metrics"]
     h1i_prompt_contract_repeat_rows = payload["h1i_prompt_contract_repeat3_metrics"]
     h1j_prompt_contract_rows = payload["h1j_probe_derived_candidate_metrics"]
@@ -1702,6 +1751,8 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "![Tool catalog profile probe gate](figures/tool_catalog_profile_probe_gate.svg)",
         "",
         "![Prompt contract wave six probe gate](figures/prompt_contract_wave6_probe_gate.svg)",
+        "",
+        "![Visual hard-slice probe gate](figures/visual_hard_slice_probe_gate.svg)",
         "",
         "![H1i prompt-contract repeat3 burden](figures/h1i_prompt_contract_repeat3_burden.svg)",
         "",
@@ -1814,6 +1865,22 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         _markdown_table(wave6_gate_rows),
         "",
         "Wave six composes the visual role catalog with `literal_argument_guard_v1`. It keeps the same one-case exact gain but loses the catalog-only executable visual rescue and introduces no-call regressions on CLI/API cases. Treat it as a negative composition result: routing guidance and literal-copy wording interfere in this form.",
+        "",
+        "## Visual Hard-Slice Probe Gate",
+        "",
+        _markdown_table(visual_hard_slice_gate_rows),
+        "",
+        "The fresh visual hard slice breaks the earlier top-line saturation and gives a cleaner read on harness shape. Contracted MLX is the upper bound at `8 / 8` exact and executable. The no-directive row falls to `1 / 8` exact and executable, with no-tool-call as the dominant failure. The strongest no-directive profile is `visual_role_catalog_schema_field_hints_v4`: `6 / 8` exact and `8 / 8` executable. That changes the status of schema-field hints from a negative focused-replay result into a promising hard-slice harness candidate, while still leaving the exact directive as the only full protocol match.",
+        "",
+        "## Visual Hard-Slice Family Summary",
+        "",
+        _markdown_table(visual_hard_slice_family_rows),
+        "",
+        "The family breakdown explains the new signal. Schema-field hints preserve full executable behavior across visible-region targeting, valid selection carryover, and region readback, but exactness still lags on visual argument-copying cases. The next experiment should isolate those two exact misses before spending another packaged H1 slice.",
+        "",
+        "## Visual Hard-Slice Case Deltas vs No Directive",
+        "",
+        _markdown_table(visual_hard_slice_case_deltas_vs_no_directive),
         "",
         "## Prompt-Contract Promotion Decisions",
         "",
@@ -1948,7 +2015,8 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "- H1i is now the best fast loop because it targets the worst H1h no-repair families and makes the repair/fallback gaps larger.",
         "- The no-directive probe explains why: CLI/API calls often keep the right tool but drift on canonical arguments, while visual referent and parallel-tool cases collapse to no tool call.",
         "- The visual catalog path now gives a sharper positive result than the prompt-contract path: argument-hints cataloging reaches `2 / 3` live exact visual replay without the exact directive, but still misses executable form-target recovery.",
-        "- The next experiment should preserve the argument-hints selector win while separately recovering form-target executability before spending H1 budget.",
+        "- The fresh visual hard slice updates that picture: schema-field hints preserve full executable behavior on independently authored visual cases, but still trail contracted exactness.",
+        "- The next experiment should isolate the remaining schema-field exact misses, then decide whether a smaller H1 packaged slice can stay hard enough to discriminate controller dependence.",
         "",
         "## Source Artifacts",
         "",
@@ -1976,6 +2044,7 @@ def _markdown_report(payload: dict[str, Any]) -> str:
             f"- Tool catalog schema-field vs role-catalog comparison: `{payload['manifest']['tool_catalog_schema_field_hints_vs_role_catalog_comparison']}`",
             f"- Tool catalog schema-field live decision: `{payload['manifest']['tool_catalog_schema_field_hints_live_decision']}`",
             f"- Prompt-contract wave six packet: `{payload['manifest']['prompt_contract_wave6_packet']}`",
+            f"- Visual hard-slice packet: `{payload['manifest']['visual_hard_slice_packet']}`",
             f"- H1i prompt-contract packet: `{payload['manifest']['h1i_prompt_contract_packet']}`",
             f"- H1i prompt-contract repeat packet: `{payload['manifest']['h1i_prompt_contract_repeat_packet']}`",
             f"- H1j probe-derived prompt-contract packet: `{payload['manifest']['h1j_prompt_contract_packet']}`",

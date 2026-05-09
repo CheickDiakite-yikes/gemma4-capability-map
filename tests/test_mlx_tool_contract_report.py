@@ -34,8 +34,8 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
 
     assert payload["gemini"]["dry_run"] is True
     assert payload["gemini"]["workflow_count"] == 10
-    assert payload["manifest"]["table_count"] == 49
-    assert payload["manifest"]["figure_count"] == 25
+    assert payload["manifest"]["table_count"] == 54
+    assert payload["manifest"]["figure_count"] == 26
 
     candidate_ids = {row["tool_prompt_contract_id"] for row in payload["prompt_contract_candidates"]}
     assert candidate_ids == {
@@ -113,6 +113,24 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     wave6_gates = {row["tool_catalog_profile_id"]: row for row in payload["prompt_contract_wave6_probe_gates"]}
     assert wave6_gates["visual_role_catalog_v1"]["tool_prompt_contract_id"] == "literal_argument_guard_v1"
     assert wave6_gates["visual_role_catalog_v1"]["executable_match_rate"] == "0.0"
+    hard_slice_gates = {row["system_id"]: row for row in payload["visual_hard_slice_probe_gates"]}
+    assert hard_slice_gates["mlx_gemma4_e2b_reasoner_only"]["exact_match_rate"] == "1.0"
+    assert hard_slice_gates["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive"]["dominant_failure_mode"] == "no_tool_call"
+    schema_hard_slice = hard_slice_gates[
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints"
+    ]
+    assert schema_hard_slice["exact_match_rate"] == "0.75"
+    assert schema_hard_slice["executable_match_rate"] == "1.0"
+    assert schema_hard_slice["label"] == "catalog schema fields"
+    hard_slice_families = {
+        (row["system_id"], row["family"]): row for row in payload["visual_hard_slice_family_summary"]
+    }
+    assert hard_slice_families[
+        (
+            "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints",
+            "visual_argument_copying",
+        )
+    ]["executable_rate"] == "1.0"
     promotion = {row["tool_prompt_contract_id"]: row for row in payload["prompt_contract_promotion_decisions"]}
     assert promotion["schema_anchor_v1"]["promotion_decision"] == "hold_for_exact_probe_replay"
     assert promotion["visual_next_call_state_v2"]["promotion_reason"].startswith("executable recovery exists")
@@ -245,6 +263,11 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert (tmp_path / "tables" / "tool_catalog_schema_field_hints_vs_role_catalog_case_deltas.csv").exists()
     assert (tmp_path / "tables" / "tool_catalog_schema_field_hints_live_replay_decision.csv").exists()
     assert (tmp_path / "tables" / "prompt_contract_wave6_probe_gates.csv").exists()
+    assert (tmp_path / "tables" / "visual_hard_slice_probe_gates.csv").exists()
+    assert (tmp_path / "tables" / "visual_hard_slice_failure_modes.csv").exists()
+    assert (tmp_path / "tables" / "visual_hard_slice_family_summary.csv").exists()
+    assert (tmp_path / "tables" / "visual_hard_slice_case_deltas_vs_no_directive.csv").exists()
+    assert (tmp_path / "tables" / "visual_hard_slice_case_deltas_vs_contracted.csv").exists()
     assert (tmp_path / "tables" / "visual_catalog_live_candidate_replay_summary.csv").exists()
     assert (tmp_path / "tables" / "visual_catalog_live_candidate_case_deltas.csv").exists()
     assert (tmp_path / "tables" / "visual_catalog_argument_hints_live_candidate_replay_summary.csv").exists()
@@ -272,6 +295,7 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert (tmp_path / "figures" / "prompt_contract_wave3_probe_gate.svg").exists()
     assert (tmp_path / "figures" / "tool_catalog_profile_probe_gate.svg").exists()
     assert (tmp_path / "figures" / "prompt_contract_wave6_probe_gate.svg").exists()
+    assert (tmp_path / "figures" / "visual_hard_slice_probe_gate.svg").exists()
     assert (tmp_path / "figures" / "h1i_prompt_contract_repeat3_burden.svg").exists()
     assert (tmp_path / "figures" / "h1j_probe_derived_burden.svg").exists()
     assert (tmp_path / "figures" / "h1j_probe_derived_helper_burden.svg").exists()

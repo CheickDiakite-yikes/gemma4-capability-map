@@ -59,13 +59,13 @@ def audit_publication_readiness(
         _check_bool(
             check_id="tool_contract_report_has_current_tables",
             severity="blocking",
-            passed=int(report_manifest.get("table_count", 0) or 0) >= 42,
+            passed=int(report_manifest.get("table_count", 0) or 0) >= 54,
             detail=f"table_count={report_manifest.get('table_count', '')}",
         ),
         _check_bool(
             check_id="tool_contract_report_has_current_figures",
             severity="blocking",
-            passed=int(report_manifest.get("figure_count", 0) or 0) >= 25,
+            passed=int(report_manifest.get("figure_count", 0) or 0) >= 26,
             detail=f"figure_count={report_manifest.get('figure_count', '')}",
         ),
         _check_path(
@@ -97,6 +97,16 @@ def audit_publication_readiness(
             severity="blocking",
             path=ROOT / "results" / "reports" / "visual_hard_slice_design" / "design.json",
             detail="Fresh visual hard-slice design packet exists before new benchmark execution.",
+        ),
+        _check_path(
+            check_id="visual_hard_slice_execute_packet_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "visual_hard_slice_probe_packets"
+            / "20260509T_visual_hard_slice_execute_v1"
+            / "candidate_gate_summary.md",
+            detail="Executed visual hard-slice packet exists with candidate gate summary.",
         ),
         _check_path(
             check_id="current_state_doc_exists",
@@ -134,6 +144,8 @@ def audit_publication_readiness(
         "build_publication_evidence_ledger.py",
         "audit_publication_readiness.py",
         "run_tool_catalog_profile_probe_packet.py",
+        "run_visual_hard_slice_probe.py",
+        "run_visual_hard_slice_probe_packet.py",
         "compare_tool_directive_probes.py",
         "build_visual_hard_slice_design.py",
     ]:

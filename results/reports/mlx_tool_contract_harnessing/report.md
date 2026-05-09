@@ -1,6 +1,6 @@
 # MLX Tool-Contract Harnessing Report
 
-Generated: `2026-05-09T00:35:45.433862+00:00`
+Generated: `2026-05-09T11:05:35.749003+00:00`
 
 ## Executive Read
 
@@ -37,6 +37,8 @@ The visual catalog branch now includes an explicit negative-result loop. `visual
 ![Tool catalog profile probe gate](figures/tool_catalog_profile_probe_gate.svg)
 
 ![Prompt contract wave six probe gate](figures/prompt_contract_wave6_probe_gate.svg)
+
+![Visual hard-slice probe gate](figures/visual_hard_slice_probe_gate.svg)
 
 ![H1i prompt-contract repeat3 burden](figures/h1i_prompt_contract_repeat3_burden.svg)
 
@@ -248,6 +250,116 @@ The raw answer is mixed but materially informative. Argument hints raise probe e
 | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard | literal_argument_guard_v1 | visual_role_catalog_v1 | 0.125 | 0.0 | -0.75 | 0.125 | probe_improved_vs_no_directive | 1 | 0 | argument_mismatch | argument_mismatch:4;exact:1;no_tool_call:3 | weak_exact_gain |
 
 Wave six composes the visual role catalog with `literal_argument_guard_v1`. It keeps the same one-case exact gain but loses the catalog-only executable visual rescue and introduces no-call regressions on CLI/API cases. Treat it as a negative composition result: routing guidance and literal-copy wording interfere in this form.
+
+## Visual Hard-Slice Probe Gate
+
+| system_id | exact_match_count | exact_match_rate | executable_match_count | executable_match_rate | delta_exact_vs_contracted | delta_exact_vs_no_directive | delta_executable_vs_contracted | delta_executable_vs_no_directive | dominant_failure_mode | hard_slice_gate | output_dir | label |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| mlx_gemma4_e2b_reasoner_only | 8 | 1.0 | 8 | 1.0 | 0.0 | 0.875 | 0.0 | 0.875 | exact | contracted_reference | /Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_execute_v1/mlx_gemma4_e2b_reasoner_only | contracted |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | 1 | 0.125 | 1 | 0.125 | -0.875 | 0.0 | -0.875 | 0.0 | no_tool_call | no_directive_reference | /Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | no directive |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog | 3 | 0.375 | 3 | 0.375 | -0.625 | 0.25 | -0.625 | 0.25 | argument_mismatch | hard_slice_improved_vs_no_directive | /Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog | visual role catalog |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints | 6 | 0.75 | 7 | 0.875 | -0.25 | 0.625 | -0.125 | 0.75 | exact | hard_slice_improved_vs_no_directive | /Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints | catalog arg hints |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints | 5 | 0.625 | 6 | 0.75 | -0.375 | 0.5 | -0.25 | 0.625 | exact | hard_slice_improved_vs_no_directive | /Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints | catalog split selector |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints | 6 | 0.75 | 8 | 1.0 | -0.25 | 0.625 | 0.0 | 0.875 | exact | hard_slice_improved_vs_no_directive | /Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints | catalog schema fields |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard | 3 | 0.375 | 4 | 0.5 | -0.625 | 0.25 | -0.5 | 0.375 | exact | hard_slice_improved_vs_no_directive | /Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_execute_v1/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard | visual catalog literal |
+
+The fresh visual hard slice breaks the earlier top-line saturation and gives a cleaner read on harness shape. Contracted MLX is the upper bound at `8 / 8` exact and executable. The no-directive row falls to `1 / 8` exact and executable, with no-tool-call as the dominant failure. The strongest no-directive profile is `visual_role_catalog_schema_field_hints_v4`: `6 / 8` exact and `8 / 8` executable. That changes the status of schema-field hints from a negative focused-replay result into a promising hard-slice harness candidate, while still leaving the exact directive as the only full protocol match.
+
+## Visual Hard-Slice Family Summary
+
+| system_id | family | case_count | exact_count | exact_rate | executable_case_count | executable_count | executable_rate | label |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| mlx_gemma4_e2b_reasoner_only | visual_argument_copying | 3 | 3 | 1.0 | 3 | 3 | 1.0 | contracted |
+| mlx_gemma4_e2b_reasoner_only | visual_referent_carryover | 3 | 3 | 1.0 | 3 | 3 | 1.0 | contracted |
+| mlx_gemma4_e2b_reasoner_only | visual_region_readback | 1 | 1 | 1.0 | 1 | 1 | 1.0 | contracted |
+| mlx_gemma4_e2b_reasoner_only | visual_tool_routing | 1 | 1 | 1.0 | 1 | 1 | 1.0 | contracted |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | visual_argument_copying | 3 | 1 | 0.3333333333333333 | 3 | 1 | 0.3333333333333333 | no directive |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | visual_referent_carryover | 3 | 0 | 0.0 | 3 | 0 | 0.0 | no directive |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | visual_region_readback | 1 | 0 | 0.0 | 1 | 0 | 0.0 | no directive |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | visual_tool_routing | 1 | 0 | 0.0 | 1 | 0 | 0.0 | no directive |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog | visual_argument_copying | 3 | 1 | 0.3333333333333333 | 3 | 1 | 0.3333333333333333 | visual role catalog |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog | visual_referent_carryover | 3 | 0 | 0.0 | 3 | 0 | 0.0 | visual role catalog |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog | visual_region_readback | 1 | 1 | 1.0 | 1 | 1 | 1.0 | visual role catalog |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog | visual_tool_routing | 1 | 1 | 1.0 | 1 | 1 | 1.0 | visual role catalog |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints | visual_argument_copying | 3 | 1 | 0.3333333333333333 | 3 | 2 | 0.6666666666666666 | catalog arg hints |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints | visual_referent_carryover | 3 | 3 | 1.0 | 3 | 3 | 1.0 | catalog arg hints |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints | visual_region_readback | 1 | 1 | 1.0 | 1 | 1 | 1.0 | catalog arg hints |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints | visual_tool_routing | 1 | 1 | 1.0 | 1 | 1 | 1.0 | catalog arg hints |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints | visual_argument_copying | 3 | 1 | 0.3333333333333333 | 3 | 2 | 0.6666666666666666 | catalog split selector |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints | visual_referent_carryover | 3 | 2 | 0.6666666666666666 | 3 | 2 | 0.6666666666666666 | catalog split selector |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints | visual_region_readback | 1 | 1 | 1.0 | 1 | 1 | 1.0 | catalog split selector |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints | visual_tool_routing | 1 | 1 | 1.0 | 1 | 1 | 1.0 | catalog split selector |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints | visual_argument_copying | 3 | 1 | 0.3333333333333333 | 3 | 3 | 1.0 | catalog schema fields |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints | visual_referent_carryover | 3 | 3 | 1.0 | 3 | 3 | 1.0 | catalog schema fields |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints | visual_region_readback | 1 | 1 | 1.0 | 1 | 1 | 1.0 | catalog schema fields |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints | visual_tool_routing | 1 | 1 | 1.0 | 1 | 1 | 1.0 | catalog schema fields |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard | visual_argument_copying | 3 | 1 | 0.3333333333333333 | 3 | 2 | 0.6666666666666666 | visual catalog literal |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard | visual_referent_carryover | 3 | 0 | 0.0 | 3 | 0 | 0.0 | visual catalog literal |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard | visual_region_readback | 1 | 1 | 1.0 | 1 | 1 | 1.0 | visual catalog literal |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard | visual_tool_routing | 1 | 1 | 1.0 | 1 | 1 | 1.0 | visual catalog literal |
+
+The family breakdown explains the new signal. Schema-field hints preserve full executable behavior across visible-region targeting, valid selection carryover, and region readback, but exactness still lags on visual argument-copying cases. The next experiment should isolate those two exact misses before spending another packaged H1 slice.
+
+## Visual Hard-Slice Case Deltas vs No Directive
+
+| system_id | case_id | family | baseline_exact_match | candidate_exact_match | delta_exact_match | baseline_failure_mode | candidate_failure_mode | baseline_executable_match | candidate_executable_match | delta_executable_match | baseline_actual_call_count | candidate_actual_call_count | delta_actual_call_count | label |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| mlx_gemma4_e2b_reasoner_only | visual_callout_warning_with_user_decoy | visual_argument_copying | False | True | 1 | no_tool_call | exact | False | True | 1 | 0 | 1 | 1 | contracted |
+| mlx_gemma4_e2b_reasoner_only | visual_form_error_vs_message_author | visual_argument_copying | True | True | 0 | exact | exact | True | True | 0 | 1 | 1 | 0 | contracted |
+| mlx_gemma4_e2b_reasoner_only | visual_form_error_with_prior_selection_decoy | visual_tool_routing | False | True | 1 | argument_mismatch | exact | False | True | 1 | 1 | 1 | 0 | contracted |
+| mlx_gemma4_e2b_reasoner_only | visual_latest_filter_existing_selection | visual_referent_carryover | False | True | 1 | no_tool_call | exact | False | True | 1 | 0 | 1 | 1 | contracted |
+| mlx_gemma4_e2b_reasoner_only | visual_metric_panel_vs_table_selector | visual_argument_copying | False | True | 1 | argument_mismatch | exact | False | True | 1 | 1 | 1 | 0 | contracted |
+| mlx_gemma4_e2b_reasoner_only | visual_region_readback_after_layout_result | visual_region_readback | False | True | 1 | no_tool_call | exact | False | True | 1 | 0 | 1 | 1 | contracted |
+| mlx_gemma4_e2b_reasoner_only | visual_remaining_filter_existing_selection | visual_referent_carryover | False | True | 1 | wrong_tool | exact | False | True | 1 | 1 | 1 | 0 | contracted |
+| mlx_gemma4_e2b_reasoner_only | visual_selection_id_opaque_copy_with_filter | visual_referent_carryover | False | True | 1 | no_tool_call | exact | False | True | 1 | 0 | 1 | 1 | contracted |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | visual_callout_warning_with_user_decoy | visual_argument_copying | False | False | 0 | no_tool_call | no_tool_call | False | False | 0 | 0 | 0 | 0 | no directive |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | visual_form_error_vs_message_author | visual_argument_copying | True | True | 0 | exact | exact | True | True | 0 | 1 | 1 | 0 | no directive |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | visual_form_error_with_prior_selection_decoy | visual_tool_routing | False | False | 0 | argument_mismatch | argument_mismatch | False | False | 0 | 1 | 1 | 0 | no directive |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | visual_latest_filter_existing_selection | visual_referent_carryover | False | False | 0 | no_tool_call | no_tool_call | False | False | 0 | 0 | 0 | 0 | no directive |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | visual_metric_panel_vs_table_selector | visual_argument_copying | False | False | 0 | argument_mismatch | argument_mismatch | False | False | 0 | 1 | 1 | 0 | no directive |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | visual_region_readback_after_layout_result | visual_region_readback | False | False | 0 | no_tool_call | no_tool_call | False | False | 0 | 0 | 0 | 0 | no directive |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | visual_remaining_filter_existing_selection | visual_referent_carryover | False | False | 0 | wrong_tool | wrong_tool | False | False | 0 | 1 | 1 | 0 | no directive |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | visual_selection_id_opaque_copy_with_filter | visual_referent_carryover | False | False | 0 | no_tool_call | no_tool_call | False | False | 0 | 0 | 0 | 0 | no directive |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog | visual_callout_warning_with_user_decoy | visual_argument_copying | False | False | 0 | no_tool_call | argument_mismatch | False | False | 0 | 0 | 1 | 1 | visual role catalog |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog | visual_form_error_vs_message_author | visual_argument_copying | True | True | 0 | exact | exact | True | True | 0 | 1 | 1 | 0 | visual role catalog |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog | visual_form_error_with_prior_selection_decoy | visual_tool_routing | False | True | 1 | argument_mismatch | exact | False | True | 1 | 1 | 1 | 0 | visual role catalog |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog | visual_latest_filter_existing_selection | visual_referent_carryover | False | False | 0 | no_tool_call | wrong_tool | False | False | 0 | 0 | 1 | 1 | visual role catalog |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog | visual_metric_panel_vs_table_selector | visual_argument_copying | False | False | 0 | argument_mismatch | argument_mismatch | False | False | 0 | 1 | 1 | 0 | visual role catalog |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog | visual_region_readback_after_layout_result | visual_region_readback | False | True | 1 | no_tool_call | exact | False | True | 1 | 0 | 1 | 1 | visual role catalog |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog | visual_remaining_filter_existing_selection | visual_referent_carryover | False | False | 0 | wrong_tool | wrong_tool | False | False | 0 | 1 | 1 | 0 | visual role catalog |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog | visual_selection_id_opaque_copy_with_filter | visual_referent_carryover | False | False | 0 | no_tool_call | argument_mismatch | False | False | 0 | 0 | 1 | 1 | visual role catalog |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints | visual_callout_warning_with_user_decoy | visual_argument_copying | False | False | 0 | no_tool_call | executable_paraphrase | False | True | 1 | 0 | 1 | 1 | catalog arg hints |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints | visual_form_error_vs_message_author | visual_argument_copying | True | True | 0 | exact | exact | True | True | 0 | 1 | 1 | 0 | catalog arg hints |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints | visual_form_error_with_prior_selection_decoy | visual_tool_routing | False | True | 1 | argument_mismatch | exact | False | True | 1 | 1 | 1 | 0 | catalog arg hints |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints | visual_latest_filter_existing_selection | visual_referent_carryover | False | True | 1 | no_tool_call | exact | False | True | 1 | 0 | 1 | 1 | catalog arg hints |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints | visual_metric_panel_vs_table_selector | visual_argument_copying | False | False | 0 | argument_mismatch | argument_mismatch | False | False | 0 | 1 | 1 | 0 | catalog arg hints |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints | visual_region_readback_after_layout_result | visual_region_readback | False | True | 1 | no_tool_call | exact | False | True | 1 | 0 | 1 | 1 | catalog arg hints |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints | visual_remaining_filter_existing_selection | visual_referent_carryover | False | True | 1 | wrong_tool | exact | False | True | 1 | 1 | 1 | 0 | catalog arg hints |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints | visual_selection_id_opaque_copy_with_filter | visual_referent_carryover | False | True | 1 | no_tool_call | exact | False | True | 1 | 0 | 1 | 1 | catalog arg hints |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard | visual_callout_warning_with_user_decoy | visual_argument_copying | False | False | 0 | no_tool_call | executable_paraphrase | False | True | 1 | 0 | 1 | 1 | visual catalog literal |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard | visual_form_error_vs_message_author | visual_argument_copying | True | True | 0 | exact | exact | True | True | 0 | 1 | 1 | 0 | visual catalog literal |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard | visual_form_error_with_prior_selection_decoy | visual_tool_routing | False | True | 1 | argument_mismatch | exact | False | True | 1 | 1 | 1 | 0 | visual catalog literal |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard | visual_latest_filter_existing_selection | visual_referent_carryover | False | False | 0 | no_tool_call | no_tool_call | False | False | 0 | 0 | 0 | 0 | visual catalog literal |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard | visual_metric_panel_vs_table_selector | visual_argument_copying | False | False | 0 | argument_mismatch | argument_mismatch | False | False | 0 | 1 | 1 | 0 | visual catalog literal |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard | visual_region_readback_after_layout_result | visual_region_readback | False | True | 1 | no_tool_call | exact | False | True | 1 | 0 | 1 | 1 | visual catalog literal |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard | visual_remaining_filter_existing_selection | visual_referent_carryover | False | False | 0 | wrong_tool | wrong_tool | False | False | 0 | 1 | 1 | 0 | visual catalog literal |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard | visual_selection_id_opaque_copy_with_filter | visual_referent_carryover | False | False | 0 | no_tool_call | argument_mismatch | False | False | 0 | 0 | 1 | 1 | visual catalog literal |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints | visual_callout_warning_with_user_decoy | visual_argument_copying | False | False | 0 | no_tool_call | executable_paraphrase | False | True | 1 | 0 | 1 | 1 | catalog schema fields |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints | visual_form_error_vs_message_author | visual_argument_copying | True | True | 0 | exact | exact | True | True | 0 | 1 | 1 | 0 | catalog schema fields |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints | visual_form_error_with_prior_selection_decoy | visual_tool_routing | False | True | 1 | argument_mismatch | exact | False | True | 1 | 1 | 1 | 0 | catalog schema fields |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints | visual_latest_filter_existing_selection | visual_referent_carryover | False | True | 1 | no_tool_call | exact | False | True | 1 | 0 | 1 | 1 | catalog schema fields |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints | visual_metric_panel_vs_table_selector | visual_argument_copying | False | False | 0 | argument_mismatch | executable_paraphrase | False | True | 1 | 1 | 1 | 0 | catalog schema fields |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints | visual_region_readback_after_layout_result | visual_region_readback | False | True | 1 | no_tool_call | exact | False | True | 1 | 0 | 1 | 1 | catalog schema fields |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints | visual_remaining_filter_existing_selection | visual_referent_carryover | False | True | 1 | wrong_tool | exact | False | True | 1 | 1 | 1 | 0 | catalog schema fields |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints | visual_selection_id_opaque_copy_with_filter | visual_referent_carryover | False | True | 1 | no_tool_call | exact | False | True | 1 | 0 | 1 | 1 | catalog schema fields |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints | visual_callout_warning_with_user_decoy | visual_argument_copying | False | False | 0 | no_tool_call | executable_paraphrase | False | True | 1 | 0 | 1 | 1 | catalog split selector |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints | visual_form_error_vs_message_author | visual_argument_copying | True | True | 0 | exact | exact | True | True | 0 | 1 | 1 | 0 | catalog split selector |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints | visual_form_error_with_prior_selection_decoy | visual_tool_routing | False | True | 1 | argument_mismatch | exact | False | True | 1 | 1 | 1 | 0 | catalog split selector |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints | visual_latest_filter_existing_selection | visual_referent_carryover | False | False | 0 | no_tool_call | wrong_tool | False | False | 0 | 0 | 1 | 1 | catalog split selector |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints | visual_metric_panel_vs_table_selector | visual_argument_copying | False | False | 0 | argument_mismatch | argument_mismatch | False | False | 0 | 1 | 1 | 0 | catalog split selector |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints | visual_region_readback_after_layout_result | visual_region_readback | False | True | 1 | no_tool_call | exact | False | True | 1 | 0 | 1 | 1 | catalog split selector |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints | visual_remaining_filter_existing_selection | visual_referent_carryover | False | True | 1 | wrong_tool | exact | False | True | 1 | 1 | 1 | 0 | catalog split selector |
+| mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints | visual_selection_id_opaque_copy_with_filter | visual_referent_carryover | False | True | 1 | no_tool_call | exact | False | True | 1 | 0 | 1 | 1 | catalog split selector |
 
 ## Prompt-Contract Promotion Decisions
 
@@ -518,7 +630,8 @@ This packet is deliberately a dry-run prompt and command manifest. It is an exte
 - H1i is now the best fast loop because it targets the worst H1h no-repair families and makes the repair/fallback gaps larger.
 - The no-directive probe explains why: CLI/API calls often keep the right tool but drift on canonical arguments, while visual referent and parallel-tool cases collapse to no tool call.
 - The visual catalog path now gives a sharper positive result than the prompt-contract path: argument-hints cataloging reaches `2 / 3` live exact visual replay without the exact directive, but still misses executable form-target recovery.
-- The next experiment should preserve the argument-hints selector win while separately recovering form-target executability before spending H1 budget.
+- The fresh visual hard slice updates that picture: schema-field hints preserve full executable behavior on independently authored visual cases, but still trail contracted exactness.
+- The next experiment should isolate the remaining schema-field exact misses, then decide whether a smaller H1 packaged slice can stay hard enough to discriminate controller dependence.
 
 ## Source Artifacts
 
@@ -544,6 +657,7 @@ This packet is deliberately a dry-run prompt and command manifest. It is an exte
 - Tool catalog schema-field vs role-catalog comparison: `/Users/cheickdiakite/Codex/moonie/results/tool_catalog_profile_probe_comparisons/20260509T_visual_schema_field_hints_vs_role_catalog_v1`
 - Tool catalog schema-field live decision: `/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260509T_visual_schema_field_hints_live_replay_skipped_v1`
 - Prompt-contract wave six packet: `/Users/cheickdiakite/Codex/moonie/results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe`
+- Visual hard-slice packet: `/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_execute_v1`
 - H1i prompt-contract packet: `/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_v1_knowledge_work_ablation_packet`
 - H1i prompt-contract repeat packet: `/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1i_prompt_contract_candidates_repeat3_v1_knowledge_work_ablation_packet`
 - H1j probe-derived prompt-contract packet: `/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260507T_h1j_probe_derived_candidates_v1_knowledge_work_ablation_packet`

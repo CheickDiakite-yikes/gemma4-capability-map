@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-09T00:40:57.639143+00:00",
+    "generated_at": "2026-05-09T11:05:44.150380+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
     "claim_count": 8,
-    "evidence_source_count": 24,
+    "evidence_source_count": 25,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -89,13 +89,13 @@
     },
     {
       "claim_id": "C8_visual_hard_slice_targets_remaining_uncertainty",
-      "claim": "The next visual hard slice should separate visible-region targeting, valid selection carryover, compact filter copying, and protocol-shape readback.",
-      "status": "design_packet_current",
-      "evidence_strength": "design_only",
-      "primary_metric": "Eight fresh planned cases across visual argument copying, routing, referent carryover, and region readback.",
-      "limitation": "This packet is an eval design artifact; it is not model-performance evidence until run against candidate rows.",
-      "next_test": "Implement the designed cases as a replayable visual hard-slice packet, then compare contracted, no-directive, v1, v2, and any refine-selection-gated candidate.",
-      "source_count": 2
+      "claim": "A fresh visual hard slice breaks the earlier saturation and shows schema-field catalog hints can recover executable visual behavior without the exact directive.",
+      "status": "supported_current_packets",
+      "evidence_strength": "moderate_internal",
+      "primary_metric": "Contracted MLX reaches 8/8 exact and executable; no-directive falls to 1/8; schema-field hints reach 6/8 exact and 8/8 executable.",
+      "limitation": "The packet is eight independently authored visual cases, so it is stronger than design-only evidence but still not a population estimate.",
+      "next_test": "Inspect the two schema-field exact misses, then repeat or extend the hard slice before promoting to a packaged H1 workflow.",
+      "source_count": 3
     }
   ],
   "evidence_sources": [
@@ -251,6 +251,13 @@
       "artifact_type": "live_replay_decision",
       "path": "results/tool_probe_replay_live/20260509T_visual_schema_field_hints_live_replay_skipped_v1",
       "purpose": "Promotion decision packet explaining why v4 did not spend live replay budget.",
+      "exists": true
+    },
+    {
+      "claim_id": "C8_visual_hard_slice_targets_remaining_uncertainty",
+      "artifact_type": "visual_hard_slice_probe_packet",
+      "path": "results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_execute_v1",
+      "purpose": "Executed fresh visual hard-slice packet across contracted, no-directive, and visual catalog profile rows.",
       "exists": true
     },
     {

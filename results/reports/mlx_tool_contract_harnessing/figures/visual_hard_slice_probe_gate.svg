@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="674" viewBox="0 0 1120 674">
+<rect width="100%" height="100%" fill="#FFFFFF"/>
+<text x="20" y="35" font-size="20" font-family="Inter, Arial, sans-serif" font-weight="700" fill="#0F172A">Visual hard-slice probe gate</text>
+<style>text{font-family:Inter,Arial,sans-serif}</style>
+<line x1="250.0" y1="55" x2="250.0" y2="629" stroke="#E5E7EB" stroke-width="1"/>
+<text x="250.0" y="652" text-anchor="middle" font-size="12" fill="#475569">0</text>
+<line x1="402.0" y1="55" x2="402.0" y2="629" stroke="#E5E7EB" stroke-width="1"/>
+<text x="402.0" y="652" text-anchor="middle" font-size="12" fill="#475569">0.2</text>
+<line x1="554.0" y1="55" x2="554.0" y2="629" stroke="#E5E7EB" stroke-width="1"/>
+<text x="554.0" y="652" text-anchor="middle" font-size="12" fill="#475569">0.4</text>
+<line x1="706.0" y1="55" x2="706.0" y2="629" stroke="#E5E7EB" stroke-width="1"/>
+<text x="706.0" y="652" text-anchor="middle" font-size="12" fill="#475569">0.6</text>
+<line x1="858.0" y1="55" x2="858.0" y2="629" stroke="#E5E7EB" stroke-width="1"/>
+<text x="858.0" y="652" text-anchor="middle" font-size="12" fill="#475569">0.8</text>
+<line x1="1010.0" y1="55" x2="1010.0" y2="629" stroke="#E5E7EB" stroke-width="1"/>
+<text x="1010.0" y="652" text-anchor="middle" font-size="12" fill="#475569">1</text>
+<text x="20" y="103" font-size="13" fill="#111827">contracted</text>
+<rect x="250" y="90" width="760.0" height="12" rx="2" fill="#2563EB"/>
+<text x="1022" y="100" font-size="12" fill="#334155">exact: 1.000</text>
+<rect x="250" y="108" width="760.0" height="12" rx="2" fill="#059669"/>
+<text x="1022" y="118" font-size="12" fill="#334155">executable: 1.000</text>
+<rect x="250" y="126" width="665.0" height="12" rx="2" fill="#D97706"/>
+<text x="1022" y="136" font-size="12" fill="#334155">delta exact: 0.875</text>
+<text x="20" y="175" font-size="13" fill="#111827">no directive</text>
+<rect x="250" y="162" width="95.0" height="12" rx="2" fill="#2563EB"/>
+<text x="1022" y="172" font-size="12" fill="#334155">exact: 0.125</text>
+<rect x="250" y="180" width="95.0" height="12" rx="2" fill="#059669"/>
+<text x="1022" y="190" font-size="12" fill="#334155">executable: 0.125</text>
+<rect x="250" y="198" width="0.0" height="12" rx="2" fill="#D97706"/>
+<text x="1022" y="208" font-size="12" fill="#334155">delta exact: 0.000</text>
+<text x="20" y="247" font-size="13" fill="#111827">visual role catalog</text>
+<rect x="250" y="234" width="285.0" height="12" rx="2" fill="#2563EB"/>
+<text x="1022" y="244" font-size="12" fill="#334155">exact: 0.375</text>
+<rect x="250" y="252" width="285.0" height="12" rx="2" fill="#059669"/>
+<text x="1022" y="262" font-size="12" fill="#334155">executable: 0.375</text>
+<rect x="250" y="270" width="190.0" height="12" rx="2" fill="#D97706"/>
+<text x="1022" y="280" font-size="12" fill="#334155">delta exact: 0.250</text>
+<text x="20" y="319" font-size="13" fill="#111827">catalog arg hints</text>
+<rect x="250" y="306" width="570.0" height="12" rx="2" fill="#2563EB"/>
+<text x="1022" y="316" font-size="12" fill="#334155">exact: 0.750</text>
+<rect x="250" y="324" width="665.0" height="12" rx="2" fill="#059669"/>
+<text x="1022" y="334" font-size="12" fill="#334155">executable: 0.875</text>
+<rect x="250" y="342" width="475.0" height="12" rx="2" fill="#D97706"/>
+<text x="1022" y="352" font-size="12" fill="#334155">delta exact: 0.625</text>
+<text x="20" y="391" font-size="13" fill="#111827">catalog split selector</text>
+<rect x="250" y="378" width="475.0" height="12" rx="2" fill="#2563EB"/>
+<text x="1022" y="388" font-size="12" fill="#334155">exact: 0.625</text>
+<rect x="250" y="396" width="570.0" height="12" rx="2" fill="#059669"/>
+<text x="1022" y="406" font-size="12" fill="#334155">executable: 0.750</text>
+<rect x="250" y="414" width="380.0" height="12" rx="2" fill="#D97706"/>
+<text x="1022" y="424" font-size="12" fill="#334155">delta exact: 0.500</text>
+<text x="20" y="463" font-size="13" fill="#111827">catalog schema fields</text>
+<rect x="250" y="450" width="570.0" height="12" rx="2" fill="#2563EB"/>
+<text x="1022" y="460" font-size="12" fill="#334155">exact: 0.750</text>
+<rect x="250" y="468" width="760.0" height="12" rx="2" fill="#059669"/>
+<text x="1022" y="478" font-size="12" fill="#334155">executable: 1.000</text>
+<rect x="250" y="486" width="475.0" height="12" rx="2" fill="#D97706"/>
+<text x="1022" y="496" font-size="12" fill="#334155">delta exact: 0.625</text>
+<text x="20" y="535" font-size="13" fill="#111827">visual catalog literal</text>
+<rect x="250" y="522" width="285.0" height="12" rx="2" fill="#2563EB"/>
+<text x="1022" y="532" font-size="12" fill="#334155">exact: 0.375</text>
+<rect x="250" y="540" width="380.0" height="12" rx="2" fill="#059669"/>
+<text x="1022" y="550" font-size="12" fill="#334155">executable: 0.500</text>
+<rect x="250" y="558" width="190.0" height="12" rx="2" fill="#D97706"/>
+<text x="1022" y="568" font-size="12" fill="#334155">delta exact: 0.250</text>
+</svg>
