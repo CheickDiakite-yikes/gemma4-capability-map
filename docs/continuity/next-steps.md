@@ -65,7 +65,10 @@ Next implementation moves:
   - diagnostic: [`results/reports/packaged_replay_gap_diagnostic/diagnostic.md`](../../results/reports/packaged_replay_gap_diagnostic/diagnostic.md)
   - result: H1l and H1m both show positive replay gains followed by zero packaged readiness/strict span
   - implication: packaging is part of the benchmark contract; a packaged workflow can be valid live scaffolding while still being too staged for a mechanism-level visual claim
-- next replay-shaped target: repeat the alias-repeat packet, add stochastic/repeat estimates, or build a less staged non-packaged live visual task that preserves the alias/decoy pressure before returning to packaged H1 workflows
+- next replay-shaped target: execute the H1n alias-transfer packet before returning to packaged H1 workflows
+  - brief: [`docs/continuity/h1n-slice.md`](./h1n-slice.md)
+  - packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_dry_run_v1`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_dry_run_v1)
+  - first read: no-directive vs schema-field hints; add contracted/schema-target-literal rows only if that two-row read separates
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1

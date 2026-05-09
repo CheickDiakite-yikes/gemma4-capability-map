@@ -3152,6 +3152,31 @@
   - `uv run python scripts/build_publication_evidence_ledger.py`
   - `uv run python scripts/audit_publication_readiness.py`
 
+## 2026-05-09 - H1n Visual Alias-Transfer Replay Design
+
+- Added a fresh alias-transfer replay suite to test whether the visual alias-repeat signal transfers to new labels and decoys without staging the task into packaged workflows:
+  - script: [`scripts/build_visual_hard_slice_live_stress_packet.py`](../scripts/build_visual_hard_slice_live_stress_packet.py)
+  - suite flag: `--suite alias_transfer_v3`
+  - brief: [`docs/continuity/h1n-slice.md`](continuity/h1n-slice.md)
+  - source packet: [`20260509T_visual_hard_slice_live_stress_alias_transfer_dry_run_v1`](../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_dry_run_v1)
+- New transfer cases:
+  - `transfer_review_tile_notice_table_decoy`
+  - `transfer_status_pill_chart_decoy`
+  - `transfer_error_banner_note_decoy`
+  - `transfer_queue_badge_person_decoy`
+  - `transfer_form_error_old_selection_chip_decoy`
+  - `transfer_signature_warning_checkbox_decoy`
+- Design:
+  - `4` visual argument-transfer cases with fresh tile/pill/banner/badge targets
+  - `2` visual tool-routing transfer cases with stale-selection or wrong-region decoys
+  - replay-live entrypoint only; this is not a packaged workflow and does not add frontend work
+- Interpretation:
+  - H1n is not model evidence yet. It is the next packet to execute because H1l/H1m showed packaged workflows are too staged for the current visual question.
+  - First execute only no-directive and schema-field hints. Add contracted or schema-target-literal rows after that two-row read shows separation or a useful failure.
+- Verification:
+  - `uv run pytest tests/test_visual_hard_slice_live_stress_packet.py -q`
+  - `uv run python scripts/build_visual_hard_slice_live_stress_packet.py --run-group-id 20260509T_visual_hard_slice_live_stress_alias_transfer_dry_run_v1 --suite alias_transfer_v3`
+
 ## 2026-05-09 - Schema Target Literal v5 Negative Hard-Slice Repair
 
 - A narrow hard-slice repair candidate was added after inspecting the two v4 exact misses:

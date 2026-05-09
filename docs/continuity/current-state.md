@@ -234,6 +234,12 @@ Latest MLX tool-contract research:
   - diagnostic: [`results/reports/packaged_replay_gap_diagnostic/diagnostic.md`](../../results/reports/packaged_replay_gap_diagnostic/diagnostic.md)
   - result: `2 / 2` visual promotion surfaces have positive replay gains and zero packaged readiness/strict-interface span
   - interpretation: packaged workflow design is now an experimental variable; current visual packaged workflows are useful as live harness scaffolds but not as discriminators for the visual alias/decoy question
+- H1n visual alias-transfer replay slice:
+  - brief: [`docs/continuity/h1n-slice.md`](./h1n-slice.md)
+  - source packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_dry_run_v1`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_dry_run_v1)
+  - suite: `alias_transfer_v3`
+  - result status: designed and dry-run only; no model evidence until replay-live execution
+  - purpose: test whether the alias-repeat visual signal transfers to fresh labels and decoys without staging the task into packaged workflows
 - Prompt-contract wave 2:
   - contracts: `schema_literal_tool_required_v2`, `visual_next_call_state_v2`, `parallel_array_required_v2`
   - runner flag: `scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v2`

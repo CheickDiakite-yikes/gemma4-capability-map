@@ -74,3 +74,26 @@ def test_visual_hard_slice_live_stress_packet_supports_alias_repeat_suite(tmp_pa
     case_ids = {row["case_id"] for row in packet["rows"]}
     assert "stress_metric_panel_status_banner_decoy" in case_ids
     assert "stress_callout_warning_risk_note_decoy" in case_ids
+
+
+def test_visual_hard_slice_live_stress_packet_supports_alias_transfer_suite(tmp_path: Path) -> None:
+    packet = SCRIPT.build_visual_hard_slice_live_stress_packet(
+        output_root=tmp_path / "replay_packets",
+        run_group_id="visual_stress_alias_transfer",
+        suite="alias_transfer_v3",
+    )
+
+    assert packet["summary"]["suite"] == "alias_transfer_v3"
+    assert packet["summary"]["case_count"] == 6
+    assert packet["summary"]["family_counts"] == {
+        "visual_argument_transfer": 4,
+        "visual_tool_routing_transfer": 2,
+    }
+    assert packet["summary"]["failure_mode_counts"] == {
+        "argument_alias_or_decoy_risk": 4,
+        "wrong_tool_or_stale_selection_risk": 2,
+    }
+    case_ids = {row["case_id"] for row in packet["rows"]}
+    assert "transfer_review_tile_notice_table_decoy" in case_ids
+    assert "transfer_signature_warning_checkbox_decoy" in case_ids
+    assert packet["replay_cases"][0]["live_entrypoint_status"] == "visual_hard_slice_live_stress_packet_v1"

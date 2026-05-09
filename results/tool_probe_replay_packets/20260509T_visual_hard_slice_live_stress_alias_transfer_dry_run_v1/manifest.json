@@ -1,0 +1,32 @@
+{
+  "packet_run_id": "20260509T_visual_hard_slice_live_stress_alias_transfer_dry_run_v1",
+  "packet_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_dry_run_v1",
+  "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+  "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+  "replay_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints",
+  "suite": "alias_transfer_v3",
+  "case_count": 6,
+  "family_counts": {
+    "visual_argument_transfer": 4,
+    "visual_tool_routing_transfer": 2
+  },
+  "failure_mode_counts": {
+    "argument_alias_or_decoy_risk": 4,
+    "wrong_tool_or_stale_selection_risk": 2
+  },
+  "dry_run": true,
+  "executed_count": 0,
+  "created_at": "2026-05-09T23:50:08.745109+00:00",
+  "registry_path": "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+  "case_ids": [
+    "transfer_review_tile_notice_table_decoy",
+    "transfer_status_pill_chart_decoy",
+    "transfer_error_banner_note_decoy",
+    "transfer_queue_badge_person_decoy",
+    "transfer_form_error_old_selection_chip_decoy",
+    "transfer_signature_warning_checkbox_decoy"
+  ],
+  "operator_surface": "rich_cli_visual_hard_slice_live_stress_v1",
+  "entrypoint": "moonie-agent replay-live",
+  "purpose": "Repeat the visual hard-slice executor-alias and stale-selection mechanisms under fresh decoys before spending packaged H1 workflow budget."
+}

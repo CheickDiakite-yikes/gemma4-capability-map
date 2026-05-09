@@ -145,6 +145,11 @@ Current strongest MLX result:
   - diagnostic: [`results/reports/packaged_replay_gap_diagnostic/diagnostic.md`](../../results/reports/packaged_replay_gap_diagnostic/diagnostic.md)
   - result: `2 / 2` visual promotion surfaces have positive replay gains but zero packaged readiness/strict span
   - next: treat packaged workflow design as part of the benchmark contract, not just a neutral execution wrapper
+- H1n alias-transfer replay design:
+  - brief: [`docs/continuity/h1n-slice.md`](./h1n-slice.md)
+  - packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_dry_run_v1`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_dry_run_v1)
+  - suite: `alias_transfer_v3`, `6` fresh transfer cases, dry-run only so far
+  - next: execute no-directive and schema-field hints first; only add contracted/schema-target-literal rows after that two-row read
 - the sixth prompt-contract wave is a negative composition result:
   - dry-run packet: [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run)
   - probe packet: [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe)

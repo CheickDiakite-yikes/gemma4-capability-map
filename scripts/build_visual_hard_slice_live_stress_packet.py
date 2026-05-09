@@ -30,7 +30,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--run-group-id", default=None)
     parser.add_argument("--registry", default=str(DEFAULT_REGISTRY_PATH))
     parser.add_argument("--replay-system-id", default=DEFAULT_REPLAY_SYSTEM_ID)
-    parser.add_argument("--suite", choices=["v1", "alias_repeat_v2"], default="v1")
+    parser.add_argument("--suite", choices=["v1", "alias_repeat_v2", "alias_transfer_v3"], default="v1")
     parser.add_argument("--case-id", action="append", dest="case_ids", default=[])
     return parser.parse_args()
 
@@ -179,6 +179,8 @@ def _stress_cases_for_suite(suite: str) -> list[ToolDirectiveProbeCase]:
         return _stress_cases()
     if suite == "alias_repeat_v2":
         return [*_stress_cases(), *_alias_repeat_cases_v2()]
+    if suite == "alias_transfer_v3":
+        return _alias_transfer_cases_v3()
     raise ValueError(f"Unknown visual live stress suite: {suite}")
 
 
@@ -390,6 +392,160 @@ def _alias_repeat_cases_v2() -> list[ToolDirectiveProbeCase]:
     ]
 
 
+def _alias_transfer_cases_v3() -> list[ToolDirectiveProbeCase]:
+    return [
+        ToolDirectiveProbeCase(
+            case_id="transfer_review_tile_notice_table_decoy",
+            family="visual_argument_transfer",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-transfer-review-tile"),
+                Message(
+                    role="user",
+                    content=(
+                        "The notice and the table both mention renewal risk. Locate the review tile itself first, "
+                        "then read that region."
+                    ),
+                ),
+            ],
+            media=["img-transfer-review-tile"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-transfer-review-tile",
+                [
+                    _region("transfer-tile-3001", "review tile", "Renewal risk review required", area="tile"),
+                    _region("transfer-tile-3002", "notice banner", "Renewal risk owner missing", area="banner"),
+                    _region("transfer-tile-3003", "invoice table", "Renewal invoice exceptions", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["transfer-tile-3001"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="transfer_status_pill_chart_decoy",
+            family="visual_argument_transfer",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-transfer-status-pill"),
+                Message(
+                    role="user",
+                    content=(
+                        "Do not read the chart annotation. Locate the small status pill that marks the customer "
+                        "as blocked."
+                    ),
+                ),
+            ],
+            media=["img-transfer-status-pill"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-transfer-status-pill",
+                [
+                    _region("transfer-pill-3101", "status pill", "Blocked", area="status pill"),
+                    _region("transfer-pill-3102", "chart annotation", "Blocked accounts rising", area="chart"),
+                    _region("transfer-pill-3103", "customer table", "Blocked account owner", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["transfer-pill-3101"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="transfer_error_banner_note_decoy",
+            family="visual_argument_transfer",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-transfer-error-banner"),
+                Message(
+                    role="user",
+                    content=(
+                        "A note repeats the error text, but the target is the visible error banner. Locate the "
+                        "banner before reading anything else."
+                    ),
+                ),
+            ],
+            media=["img-transfer-error-banner"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-transfer-error-banner",
+                [
+                    _region("transfer-banner-3201", "support note", "Export failed for the workbook", area="note"),
+                    _region("transfer-banner-3202", "error banner", "Export failed: missing approver", tone="error"),
+                    _region("transfer-banner-3203", "settings table", "Approver routing", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["transfer-banner-3202"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="transfer_queue_badge_person_decoy",
+            family="visual_argument_transfer",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-transfer-queue-badge"),
+                Message(
+                    role="user",
+                    content=(
+                        "Taylor appears in the assignee note. Locate the queue badge, not Taylor's note, and read "
+                        "the badge region."
+                    ),
+                ),
+            ],
+            media=["img-transfer-queue-badge"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-transfer-queue-badge",
+                [
+                    _region("transfer-queue-3301", "assignee note", "Taylor owns queue triage", person="Taylor"),
+                    _region("transfer-queue-3302", "queue badge", "12 blocked items", area="badge"),
+                    _region("transfer-queue-3303", "queue table", "Blocked item list", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["transfer-queue-3302"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="transfer_form_error_old_selection_chip_decoy",
+            family="visual_tool_routing_transfer",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-transfer-form-chip"),
+                Message(
+                    role="user",
+                    content=(
+                        "Ignore old selection_id sel-prior-chip from the prior screen. On the current form, locate "
+                        "the visible validation error, not the saved status chip."
+                    ),
+                ),
+            ],
+            media=["img-transfer-form-chip"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-transfer-form-chip",
+                [
+                    _region("transfer-form-3401", "status chip", "Saved", state="saved"),
+                    _region("transfer-form-3402", "validation error", "Tax ID has invalid length", field="tax_id"),
+                ],
+            ),
+            expected_execution={"region_ids": ["transfer-form-3402"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="transfer_signature_warning_checkbox_decoy",
+            family="visual_tool_routing_transfer",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-transfer-signature-warning"),
+                Message(
+                    role="user",
+                    content=(
+                        "The checkbox is selected, but the actionable target is the signature warning text. Locate "
+                        "the warning before reading the checkbox."
+                    ),
+                ),
+            ],
+            media=["img-transfer-signature-warning"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-transfer-signature-warning",
+                [
+                    _region("transfer-signature-3501", "checkbox", "I confirm authorization", checked=True),
+                    _region("transfer-signature-3502", "signature warning", "Signature missing for approval", tone="warning"),
+                    _region("transfer-signature-3503", "approval table", "Approver list", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["transfer-signature-3502"]},
+        ),
+    ]
+
+
 def _visual_state(image_id: str, local_layouts: list[dict[str, Any]]) -> dict[str, Any]:
     return {
         "visual_executor_mode": "local",
@@ -413,7 +569,7 @@ def _region(region_id: str, label: str, text: str, **attributes: Any) -> dict[st
 
 
 def _stress_failure_mode(family: str) -> str:
-    if family == "visual_tool_routing_stress":
+    if family in {"visual_tool_routing_stress", "visual_tool_routing_transfer"}:
         return "wrong_tool_or_stale_selection_risk"
     return "argument_alias_or_decoy_risk"
 
