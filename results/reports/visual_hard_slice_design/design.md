@@ -2,7 +2,7 @@
 
 This packet designs the next fresh visual hard slice. It is not model evidence yet.
 
-- generated_at: `2026-05-09T00:39:11.607143+00:00`
+- generated_at: `2026-05-09T10:52:19.404172+00:00`
 - case_count: `8`
 - purpose: Design a fresh visual hard slice after v2/v3/v4 catalog-profile results; this is a design packet, not model evidence.
 

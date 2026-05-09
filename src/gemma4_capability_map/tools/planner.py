@@ -967,6 +967,8 @@ def _infer_arguments(context: dict[str, Any], tool_name: str) -> dict[str, Any]:
             filter_query = "below target"
         elif _contains_any(user_text, ["destructive"]):
             filter_query = "destructive"
+        elif _contains_any(user_text, ["remaining", "what remains", "what's left", "what is left"]):
+            filter_query = "remaining"
         elif _contains_any(user_text, ["blocked", "bloque", "bloquee"]):
             filter_query = "blocked"
         elif _contains_any(user_text, ["empty", "vacant", "vacants"]):
@@ -980,7 +982,9 @@ def _infer_arguments(context: dict[str, Any], tool_name: str) -> dict[str, Any]:
     if tool_name == "extract_layout":
         image_id = image_hint_id or _extract_image_id(" ".join(context["user_messages"])) or (media[0] if media else "img-dashboard")
         image_context = f"{image_id} {' '.join(str(item) for item in media)}".lower()
-        if _contains_any(user_text, ["invoice", "totals", "table"]):
+        if _contains_any(user_text, ["dashboard", "metric panel", "metric"]):
+            query = "dashboard metric"
+        elif _contains_any(user_text, ["invoice", "totals", "table"]):
             query = "invoice totals table"
         elif "form" in image_context or _contains_any(user_text, ["form", "validation", "error", "phone", "work authorization"]):
             query = "validation error"
@@ -1286,6 +1290,7 @@ _VISUAL_FILTER_PATTERNS: tuple[tuple[str, tuple[str, ...]], ...] = (
     ("backlog", ("backlog",)),
     ("enablement ops", ("enablement ops",)),
     ("latest", ("latest issue first", "latest issues first", "latest form issue first", "latest form issues first")),
+    ("remaining", ("remaining items", "remaining item", "what remains", "what's left", "what is left", "remaining")),
     ("latest action", ("latest action", "approval safe action", "approval-safe action")),
     ("email", ("email", "email issue", "email address")),
     ("white", ("white", "blanc", "blanche", "blanches")),
