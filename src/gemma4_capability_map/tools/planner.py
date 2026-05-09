@@ -83,6 +83,7 @@ def tool_catalog_text(tool_specs: list[ToolSpec], *, profile_id: str = "") -> st
 
 def known_tool_catalog_profile_ids() -> list[str]:
     return [
+        "visual_role_catalog_schema_literal_targets_v5",
         "visual_role_catalog_schema_field_hints_v4",
         "visual_role_catalog_split_selector_hints_v3",
         "visual_role_catalog_argument_hints_v2",
@@ -137,22 +138,45 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
                 "- These rules separate region-location selectors from existing-selection filters; do not merge the two selector styles.",
             ]
         )
+    if normalized == "visual_role_catalog_schema_literal_targets_v5":
+        lines.extend(
+            [
+                "Extract-layout target label discipline:",
+                "- For extract_layout.target_query, use a compact visible-region label, not the user's full task phrase.",
+                "- Preserve the stable surface noun plus region class when both are present, such as dashboard metric or slide callout.",
+                "- Drop status or task adjectives such as warning, needs review, stale, latest, customer, author, or source unless that word is the only visible region class.",
+                "- Keep refine_selection.filter_query as a compact literal filter token and keep read_region_text.region_id as an opaque copied id.",
+            ]
+        )
     return "\n".join(lines)
 
 
 def _profiled_tool_spec(tool: ToolSpec, *, profile_id: str = "") -> ToolSpec:
     normalized = profile_id.strip()
-    if normalized != "visual_role_catalog_schema_field_hints_v4":
+    if normalized not in {
+        "visual_role_catalog_schema_field_hints_v4",
+        "visual_role_catalog_schema_literal_targets_v5",
+    }:
         return tool
     if tool.name not in {"extract_layout", "refine_selection", "read_region_text"}:
         return tool
     schema = deepcopy(tool.json_schema)
     properties = schema.setdefault("properties", {})
     if tool.name == "extract_layout":
+        target_description = (
+            "Visible region class or UI state to locate, such as validation error, table, callout, or metric panel. "
+            "Do not use author, customer, data source, or business reason."
+        )
+        if normalized == "visual_role_catalog_schema_literal_targets_v5":
+            target_description = (
+                "Compact visible-region label for the executor. Preserve stable surface/class labels such as "
+                "dashboard metric or slide callout, and drop task/status adjectives such as warning, needs review, "
+                "stale, latest, customer, author, or source."
+            )
         _set_property_description(
             properties,
             "target_query",
-            "Visible region class or UI state to locate, such as validation error, table, callout, or metric panel. Do not use author, customer, data source, or business reason.",
+            target_description,
         )
     elif tool.name == "refine_selection":
         _set_property_description(

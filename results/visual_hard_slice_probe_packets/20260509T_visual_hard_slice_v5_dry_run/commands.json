@@ -1,0 +1,42 @@
+[
+  {
+    "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets",
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_dry_run/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets",
+    "case_ids": [
+      "visual_form_error_vs_message_author",
+      "visual_form_error_with_prior_selection_decoy",
+      "visual_latest_filter_existing_selection",
+      "visual_remaining_filter_existing_selection",
+      "visual_region_readback_after_layout_result",
+      "visual_metric_panel_vs_table_selector",
+      "visual_callout_warning_with_user_decoy",
+      "visual_selection_id_opaque_copy_with_filter"
+    ],
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "/Users/cheickdiakite/Codex/moonie/scripts/run_visual_hard_slice_probe.py",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_v5_dry_run/mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets",
+      "--case-id",
+      "visual_form_error_vs_message_author",
+      "--case-id",
+      "visual_form_error_with_prior_selection_decoy",
+      "--case-id",
+      "visual_latest_filter_existing_selection",
+      "--case-id",
+      "visual_remaining_filter_existing_selection",
+      "--case-id",
+      "visual_region_readback_after_layout_result",
+      "--case-id",
+      "visual_metric_panel_vs_table_selector",
+      "--case-id",
+      "visual_callout_warning_with_user_decoy",
+      "--case-id",
+      "visual_selection_id_opaque_copy_with_filter"
+    ]
+  }
+]

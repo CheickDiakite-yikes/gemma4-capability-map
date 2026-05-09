@@ -163,6 +163,25 @@ def test_visual_role_catalog_schema_field_hints_profile_annotates_visual_schema_
     assert "recruiter note" not in rendered
 
 
+def test_visual_role_catalog_schema_literal_targets_profile_preserves_generic_target_labels() -> None:
+    specs = build_default_registry().specs
+    rendered = tool_catalog_text(
+        [specs["extract_layout"], specs["refine_selection"], specs["read_region_text"]],
+        profile_id="visual_role_catalog_schema_literal_targets_v5",
+    )
+
+    assert "Tool catalog profile: visual_role_catalog_schema_literal_targets_v5" in rendered
+    assert "Extract-layout target label discipline:" in rendered
+    assert "Preserve the stable surface noun plus region class" in rendered
+    assert "drop task/status adjectives" in rendered or "drop status or task adjectives" in rendered
+    assert '"target_query": {"type": "string", "description": "Compact visible-region label' in rendered
+    assert '"filter_query": {"type": "string", "description": "Shortest literal narrowing token' in rendered
+    assert '"region_id": {"type": "string", "description": "Opaque region id copied exactly' in rendered
+    assert "img-hard-callout-decoy" not in rendered
+    assert "sel-opaque-77" not in rendered
+    assert "Dana" not in rendered
+
+
 def test_tool_catalog_profile_renders_inside_catalog_without_exact_directive() -> None:
     specs = build_default_registry().specs
     rendered = tool_catalog_text(

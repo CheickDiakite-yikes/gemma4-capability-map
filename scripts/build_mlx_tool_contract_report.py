@@ -1652,6 +1652,7 @@ def _candidate_label(system_id: str) -> str:
         "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints": "catalog arg hints",
         "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints": "catalog split selector",
         "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints": "catalog schema fields",
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets": "catalog schema target literals",
         "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_literal_guard": "visual catalog literal",
     }
     return suffixes.get(system_id, system_id)
