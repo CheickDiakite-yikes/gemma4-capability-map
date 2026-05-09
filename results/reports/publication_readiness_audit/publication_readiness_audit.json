@@ -1,0 +1,141 @@
+{
+  "summary": {
+    "generated_at": "2026-05-09T00:20:53.584870+00:00",
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
+    "check_count": 18,
+    "blocking_check_count": 16,
+    "blocking_failed_count": 0,
+    "recommended_check_count": 2,
+    "recommended_failed_count": 1,
+    "blocking_passed": true,
+    "readiness_level": "paper_draft_ready"
+  },
+  "checks": [
+    {
+      "check_id": "ledger_manifest_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Publication evidence ledger manifest exists.",
+      "path": "results/reports/publication_evidence_ledger/manifest.json"
+    },
+    {
+      "check_id": "ledger_has_no_missing_sources",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "missing_source_count=0",
+      "path": ""
+    },
+    {
+      "check_id": "ledger_has_claims",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "claim_count=6",
+      "path": ""
+    },
+    {
+      "check_id": "ledger_includes_negative_results",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "At least one claim is explicitly labeled as negative-result evidence.",
+      "path": ""
+    },
+    {
+      "check_id": "tool_contract_report_has_current_tables",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "table_count=42",
+      "path": ""
+    },
+    {
+      "check_id": "tool_contract_report_has_current_figures",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "figure_count=25",
+      "path": ""
+    },
+    {
+      "check_id": "v3_negative_probe_packet_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Negative v3 catalog-profile probe is preserved.",
+      "path": "results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_split_selector_hints_v3_probe"
+    },
+    {
+      "check_id": "v3_skipped_live_decision_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Skipped-live decision is preserved as an auditable packet.",
+      "path": "results/tool_probe_replay_live/20260508T_visual_split_selector_hints_live_replay_skipped_v1/decision.md"
+    },
+    {
+      "check_id": "current_state_doc_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Continuity current-state doc exists.",
+      "path": "docs/continuity/current-state.md"
+    },
+    {
+      "check_id": "next_steps_doc_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Continuity next-steps doc exists.",
+      "path": "docs/continuity/next-steps.md"
+    },
+    {
+      "check_id": "research_log_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Research log exists.",
+      "path": "docs/research-log.md"
+    },
+    {
+      "check_id": "paper_outline_exists",
+      "severity": "recommended",
+      "passed": false,
+      "detail": "Paper outline exists for publication drafting.",
+      "path": "docs/paper/moonies-gemma-harnessing-paper-outline.md"
+    },
+    {
+      "check_id": "methodology_doc_exists",
+      "severity": "recommended",
+      "passed": true,
+      "detail": "Methodology doc exists.",
+      "path": "docs/methodology.md"
+    },
+    {
+      "check_id": "script_build_mlx_tool_contract_report.py_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Reproduction script `build_mlx_tool_contract_report.py` exists.",
+      "path": "scripts/build_mlx_tool_contract_report.py"
+    },
+    {
+      "check_id": "script_build_publication_evidence_ledger.py_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Reproduction script `build_publication_evidence_ledger.py` exists.",
+      "path": "scripts/build_publication_evidence_ledger.py"
+    },
+    {
+      "check_id": "script_audit_publication_readiness.py_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Reproduction script `audit_publication_readiness.py` exists.",
+      "path": "scripts/audit_publication_readiness.py"
+    },
+    {
+      "check_id": "script_run_tool_catalog_profile_probe_packet.py_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Reproduction script `run_tool_catalog_profile_probe_packet.py` exists.",
+      "path": "scripts/run_tool_catalog_profile_probe_packet.py"
+    },
+    {
+      "check_id": "script_compare_tool_directive_probes.py_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Reproduction script `compare_tool_directive_probes.py` exists.",
+      "path": "scripts/compare_tool_directive_probes.py"
+    }
+  ]
+}
