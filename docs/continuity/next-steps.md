@@ -208,7 +208,7 @@ What remains:
   - live replay: [`results/tool_probe_replay_live/20260508T_visual_role_catalog_live_execute_v1`](../../results/tool_probe_replay_live/20260508T_visual_role_catalog_live_execute_v1), exact `1 / 3`, executable visual target recovered
   - comparison vs wave four: [`results/tool_probe_replay_live_comparisons/20260508T_visual_role_catalog_vs_visual_state_tool_selection_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_role_catalog_vs_visual_state_tool_selection_v1)
   - interpretation: the catalog profile fixes the remaining wrong-tool failure class by making `refine_selection` a separable role, but exact literals still drift (`latest` becomes `latest issue`; `validation error` becomes `phone issue`)
-- visual role catalog argument hints are now the best exact visual no-directive candidate:
+- visual role catalog argument hints are now the best focused-replay exact visual no-directive candidate:
   - profile: `visual_role_catalog_argument_hints_v2`
   - isolated probe: [`results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_argument_hints_v2_probe`](../../results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_argument_hints_v2_probe)
   - raw result: exact `0.25`, executable `0.0`, delta exact vs no-directive `+0.25`
@@ -216,26 +216,31 @@ What remains:
   - comparison vs no-directive: [`results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_no_directive_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_no_directive_v1), delta exact `+0.6666666666666666`
   - comparison vs contracted: [`results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_contracted_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_contracted_v1), delta exact `0.0`, delta executable `-1.0`
   - comparison vs v1 catalog: [`results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_role_catalog_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_role_catalog_v1), delta exact `+0.3333333333333333`, delta executable `-1.0`
-  - interpretation: v2 fixes `visual_latest_filter_literal` exactly and preserves readback, but it regresses `visual_form_target_literal` from executable paraphrase to non-executable argument mismatch. The next useful candidate must keep v2's `filter_query` exactness while restoring v1's executable `target_query` behavior.
+  - interpretation: v2 fixes `visual_latest_filter_literal` exactly and preserves readback on the original focused visual replay, but it regresses `visual_form_target_literal` from executable paraphrase to non-executable argument mismatch. The hard slice now shows v4 as the stronger executable candidate, so v2 is a focused-replay reference rather than the sole next target.
 - visual split-selector hints are now negative evidence:
   - profile: `visual_role_catalog_split_selector_hints_v3`
   - isolated probe: [`results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_split_selector_hints_v3_probe`](../../results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_split_selector_hints_v3_probe)
   - comparison vs v2: [`results/tool_catalog_profile_probe_comparisons/20260508T_visual_split_selector_hints_vs_argument_hints_v2`](../../results/tool_catalog_profile_probe_comparisons/20260508T_visual_split_selector_hints_vs_argument_hints_v2), delta exact `-0.125`
   - skipped-live decision: [`results/tool_probe_replay_live/20260508T_visual_split_selector_hints_live_replay_skipped_v1`](../../results/tool_probe_replay_live/20260508T_visual_split_selector_hints_live_replay_skipped_v1)
   - interpretation: adding broader split-selector prose preserved `filter_query="latest"` but broke the readback JSON shape and did not restore form-target executability. It is negative evidence against broad visual selector prose.
-- visual schema-field hints are now the latest negative catalog-profile probe:
+- visual schema-field hints are now split evidence rather than a simple negative:
   - profile: `visual_role_catalog_schema_field_hints_v4`
   - isolated probe: [`results/tool_catalog_profile_probe_packets/20260509T_visual_role_catalog_schema_field_hints_v4_probe`](../../results/tool_catalog_profile_probe_packets/20260509T_visual_role_catalog_schema_field_hints_v4_probe)
   - comparison vs v2: [`results/tool_catalog_profile_probe_comparisons/20260509T_visual_schema_field_hints_vs_argument_hints_v2`](../../results/tool_catalog_profile_probe_comparisons/20260509T_visual_schema_field_hints_vs_argument_hints_v2), delta exact `0.0`
   - comparison vs v3: [`results/tool_catalog_profile_probe_comparisons/20260509T_visual_schema_field_hints_vs_split_selector_v3`](../../results/tool_catalog_profile_probe_comparisons/20260509T_visual_schema_field_hints_vs_split_selector_v3), delta exact `+0.125`
   - comparison vs v1: [`results/tool_catalog_profile_probe_comparisons/20260509T_visual_schema_field_hints_vs_role_catalog_v1`](../../results/tool_catalog_profile_probe_comparisons/20260509T_visual_schema_field_hints_vs_role_catalog_v1), delta exact `+0.125`, executable regression vs v1
   - skipped-live decision: [`results/tool_probe_replay_live/20260509T_visual_schema_field_hints_live_replay_skipped_v1`](../../results/tool_probe_replay_live/20260509T_visual_schema_field_hints_live_replay_skipped_v1)
-  - interpretation: schema-local field hints restored exact readback and tied v2 at `2 / 8`, but they did not recover executable form targeting and over-preferred `refine_selection` when no real `selection_id` existed.
-- visual hard-slice design is now the next planned discriminator:
+  - focused-slice interpretation: schema-local field hints restored exact readback and tied v2 at `2 / 8`, but did not recover the original form-target executable case.
+  - fresh hard-slice result: exact `6 / 8`, executable `8 / 8`; this is the strongest no-directive hard-slice candidate, but still below contracted MLX on exact protocol fidelity.
+- visual hard-slice execution is now the active discriminator:
   - script: [`scripts/build_visual_hard_slice_design.py`](../../scripts/build_visual_hard_slice_design.py)
-  - packet: [`results/reports/visual_hard_slice_design/design.md`](../../results/reports/visual_hard_slice_design/design.md)
-  - shape: `8` fresh planned cases covering visual argument copying, visual tool routing, referent carryover, and readback protocol shape
-  - interpretation: implement this as a replayable packet before another H1/H1h spend; it is meant to test whether the v2/v4 selector wins generalize beyond the original three focused visual cases.
+  - runner: [`scripts/run_visual_hard_slice_probe_packet.py`](../../scripts/run_visual_hard_slice_probe_packet.py)
+  - design packet: [`results/reports/visual_hard_slice_design/design.md`](../../results/reports/visual_hard_slice_design/design.md)
+  - dry-run packet: [`results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_dry_run_v1`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_dry_run_v1)
+  - executed packet: [`results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_execute_v1`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_execute_v1)
+  - gate summary: [`candidate_gate_summary.md`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_execute_v1/candidate_gate_summary.md)
+  - result: contracted MLX `8 / 8` exact and executable; no-directive MLX `1 / 8` exact and executable; schema-field hints `6 / 8` exact and `8 / 8` executable.
+  - next use: inspect the two schema-field exact misses, compare them against argument-hints and contracted deltas, and decide whether a narrow exactness repair deserves a repeat hard-slice packet before any H1/H1h spend.
 - wave six is now executed and should be treated as negative composition evidence:
   - dry-run packet: [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run)
   - executed packet: [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe)
@@ -269,7 +274,7 @@ What remains:
   - canonical-argument no-directive live execution: [`results/tool_probe_replay_live/20260507T_canonical_argument_no_directive_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_canonical_argument_no_directive_live_execute_v1), exact `0 / 4`, all failures `argument_mismatch`
   - canonical-argument contracted live execution: [`results/tool_probe_replay_live/20260507T_canonical_argument_contracted_live_execute_v1`](../../results/tool_probe_replay_live/20260507T_canonical_argument_contracted_live_execute_v1), exact `4 / 4`
   - canonical-argument live comparison: [`results/tool_probe_replay_live_comparisons/20260507T_canonical_argument_contracted_vs_no_directive_live_v1`](../../results/tool_probe_replay_live_comparisons/20260507T_canonical_argument_contracted_vs_no_directive_live_v1), delta exact `-1.0`, actual-call delta `0`
-  - next use: implement the fresh visual hard-slice design as a replayable packet, then compare contracted, no-directive, v1, v2, v3, v4, and any new refine-selection-gated candidate before spending H1 budget
+  - next use: keep exact-probe replay as the controller-dependence anchor, but use the executed visual hard slice as the current visual prompt-contract restart point before spending H1 budget
 - promote a candidate beyond H1i only if it moves raw-clean or controller-burden metrics for the right reason
 - regenerate the MLX tool-contract report after any H1i, H1h, probe, or Gemini baseline packet changes
 - when a real Gemini CLI binary is available, rerun the same packet with `--execute`; keep the dry-run packet as the no-side-effects prompt manifest
@@ -289,6 +294,8 @@ uv run python scripts/run_tool_catalog_profile_probe_packet.py --run-group-id <t
 uv run python scripts/run_tool_catalog_profile_probe_packet.py --candidate-wave v2 --run-group-id <timestamp>_visual_catalog_argument_hints_probe --execute
 uv run python scripts/run_tool_catalog_profile_probe_packet.py --candidate-wave v4 --run-group-id <timestamp>_visual_schema_field_hints_probe --execute
 uv run python scripts/build_visual_hard_slice_design.py
+uv run python scripts/run_visual_hard_slice_probe_packet.py --run-group-id <timestamp>_visual_hard_slice_probe --execute
+uv run moonie-agent packet --kind visual-hard-slice-probe --packet-id <packet_id> --json
 uv run python scripts/build_publication_evidence_ledger.py
 uv run python scripts/audit_publication_readiness.py
 uv run python scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v6 --run-group-id <timestamp>_visual_catalog_literal_guard_probe --execute

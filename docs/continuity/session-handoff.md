@@ -82,7 +82,7 @@ Current strongest MLX result:
   - comparison vs no-directive: [`results/tool_probe_replay_live_comparisons/20260508T_visual_role_catalog_vs_no_directive_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_role_catalog_vs_no_directive_v1)
   - comparison vs wave four: [`results/tool_probe_replay_live_comparisons/20260508T_visual_role_catalog_vs_visual_state_tool_selection_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_role_catalog_vs_visual_state_tool_selection_v1)
   - interpretation: it converts the targeted remaining visual failure from `wrong_tool`/no-call into `argument_mismatch`, so the next visual problem is literal argument preservation after correct tool routing.
-- the visual role catalog argument-hints profile is now the current best exact visual no-directive candidate:
+- the visual role catalog argument-hints profile is now the best focused-replay exact visual no-directive candidate:
   - profile: `visual_role_catalog_argument_hints_v2`
   - isolated probe: [`results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_argument_hints_v2_probe`](../../results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_argument_hints_v2_probe)
   - raw result: exact `0.25`, executable `0.0`, delta exact vs no-directive `+0.25`
@@ -90,29 +90,35 @@ Current strongest MLX result:
   - comparison vs no-directive: [`results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_no_directive_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_no_directive_v1)
   - comparison vs contracted: [`results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_contracted_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_contracted_v1)
   - comparison vs v1 catalog: [`results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_role_catalog_v1`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_role_catalog_v1)
-  - interpretation: it fixes `visual_latest_filter_literal` exactly and preserves exact readback, matching contracted MLX at `2 / 3` exact on the focused visual replay. It is not solved because it loses the v1/contracted executable `visual_form_target_literal` recovery.
+  - interpretation: it fixes `visual_latest_filter_literal` exactly and preserves exact readback, matching contracted MLX at `2 / 3` exact on the focused visual replay. It is not solved because it loses the v1/contracted executable `visual_form_target_literal` recovery, and the fresh hard slice now gives a broader read.
 - the visual split-selector profile is negative evidence:
   - profile: `visual_role_catalog_split_selector_hints_v3`
   - probe packet: [`results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_split_selector_hints_v3_probe`](../../results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_split_selector_hints_v3_probe)
   - comparison vs v2: [`results/tool_catalog_profile_probe_comparisons/20260508T_visual_split_selector_hints_vs_argument_hints_v2`](../../results/tool_catalog_profile_probe_comparisons/20260508T_visual_split_selector_hints_vs_argument_hints_v2)
   - skipped-live decision: [`results/tool_probe_replay_live/20260508T_visual_split_selector_hints_live_replay_skipped_v1`](../../results/tool_probe_replay_live/20260508T_visual_split_selector_hints_live_replay_skipped_v1)
   - interpretation: v3 stayed below v2 on exactness, did not recover executable form targeting, and regressed readback JSON shape
-- the visual schema-field profile is the latest negative catalog-profile probe:
+- the visual schema-field profile is split evidence:
   - profile: `visual_role_catalog_schema_field_hints_v4`
   - probe packet: [`results/tool_catalog_profile_probe_packets/20260509T_visual_role_catalog_schema_field_hints_v4_probe`](../../results/tool_catalog_profile_probe_packets/20260509T_visual_role_catalog_schema_field_hints_v4_probe)
   - comparison vs v2: [`results/tool_catalog_profile_probe_comparisons/20260509T_visual_schema_field_hints_vs_argument_hints_v2`](../../results/tool_catalog_profile_probe_comparisons/20260509T_visual_schema_field_hints_vs_argument_hints_v2)
   - comparison vs v3: [`results/tool_catalog_profile_probe_comparisons/20260509T_visual_schema_field_hints_vs_split_selector_v3`](../../results/tool_catalog_profile_probe_comparisons/20260509T_visual_schema_field_hints_vs_split_selector_v3)
   - comparison vs v1: [`results/tool_catalog_profile_probe_comparisons/20260509T_visual_schema_field_hints_vs_role_catalog_v1`](../../results/tool_catalog_profile_probe_comparisons/20260509T_visual_schema_field_hints_vs_role_catalog_v1)
   - skipped-live decision: [`results/tool_probe_replay_live/20260509T_visual_schema_field_hints_live_replay_skipped_v1`](../../results/tool_probe_replay_live/20260509T_visual_schema_field_hints_live_replay_skipped_v1)
-  - interpretation: v4 ties v2 at raw exact `2 / 8`, restores readback versus v3, but remains `0 / 1` executable and over-prefers `refine_selection` on the form-target case
+  - focused-slice interpretation: v4 ties v2 at raw exact `2 / 8`, restores readback versus v3, but remains `0 / 1` executable and over-prefers `refine_selection` on the original form-target case
+  - fresh hard-slice interpretation: v4 is the strongest no-directive candidate on independently authored visual cases at exact `6 / 8` and executable `8 / 8`, while still trailing contracted MLX exactness
 - paper-facing artifacts now exist:
   - evidence ledger: [`results/reports/publication_evidence_ledger/ledger.md`](../../results/reports/publication_evidence_ledger/ledger.md)
   - publication readiness audit: [`results/reports/publication_readiness_audit/publication_readiness_audit.md`](../../results/reports/publication_readiness_audit/publication_readiness_audit.md)
   - paper outline: [`docs/paper/moonie-gemma-harnessing-paper-outline.md`](../paper/moonie-gemma-harnessing-paper-outline.md)
-- fresh visual hard-slice design now exists:
+- executed visual hard-slice packet now exists:
   - design packet: [`results/reports/visual_hard_slice_design/design.md`](../../results/reports/visual_hard_slice_design/design.md)
+  - runner: [`scripts/run_visual_hard_slice_probe_packet.py`](../../scripts/run_visual_hard_slice_probe_packet.py)
+  - dry-run packet: [`results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_dry_run_v1`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_dry_run_v1)
+  - executed packet: [`results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_execute_v1`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_execute_v1)
+  - gate summary: [`candidate_gate_summary.md`](../../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_execute_v1/candidate_gate_summary.md)
   - case count: `8`
-  - status: design-only artifact, not model-performance evidence
+  - result: contracted MLX `8 / 8` exact and executable; no-directive MLX `1 / 8` exact and executable; schema-field hints `6 / 8` exact and `8 / 8` executable
+  - status: current visual prompt-contract restart point, not a packaged H1 promotion yet
 - the sixth prompt-contract wave is a negative composition result:
   - dry-run packet: [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run)
   - probe packet: [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe)
@@ -148,15 +154,15 @@ Current strongest MLX result:
 Current next loop:
 
 1. Treat H1i, H1j, and H1k packaged packets as saturated or non-discriminating for current prompt-contract validation.
-2. Treat waves one through five as partial-gain or negative evidence, not fixes.
-3. Treat `visual_role_catalog_argument_hints_v2` as the current best exact visual candidate, with the explicit caveat that it lost executable form-target recovery.
-4. Treat `visual_role_catalog_split_selector_hints_v3` as a negative result; do not live-replay it unless a new raw probe changes the decision.
-5. Keep `visual_tool_initiation_v3` and `visual_role_catalog_v1` as the executable/routing baselines for the next visual candidate.
-6. Implement the fresh visual hard-slice design as a replayable packet before another broad H1/H1h spend.
-7. Compare contracted, no-directive, v1, v2, v3, v4, and any new refine-selection-gated candidate on that hard slice.
-8. Use CLI-live exact replay as the active discriminator before promoting another candidate back into H1.
-9. Return to H1h only after replay-live or raw probe evidence shows a mechanism-level change.
-10. Regenerate the report, publication ledger, publication audit, and visual hard-slice design packet after any H1i/H1h/probe/Gemini/live-replay packet change.
+2. Treat waves one through six as partial-gain or negative/composition evidence, not fixes.
+3. Treat `visual_role_catalog_argument_hints_v2` as the best exact candidate on the old focused visual replay, with the explicit caveat that it lost executable form-target recovery.
+4. Treat `visual_role_catalog_schema_field_hints_v4` as the strongest fresh hard-slice no-directive candidate because it reaches `8 / 8` executable, with the explicit caveat that it still misses exact protocol on two cases.
+5. Inspect the two schema-field exact misses against contracted, no-directive, and argument-hints case deltas before writing another candidate.
+6. Repeat or modestly extend the visual hard slice after any new candidate; do not jump straight to broad H1/H1h.
+7. Keep CLI-live exact replay as the controller-dependence anchor before promoting another candidate into packaged workflows.
+8. Return to H1h only after replay-live or raw/hard-slice evidence shows a mechanism-level change.
+9. Keep Gemini CLI as an external baseline/reference, not a replacement for Moonie's local Gemma harness.
+10. Regenerate the report, publication ledger, publication audit, and visual hard-slice packet summaries after any H1i/H1h/probe/Gemini/live-replay packet change.
 
 H1j source:
 

@@ -3077,7 +3077,7 @@
   - packet: [`results/reports/visual_hard_slice_design/design.md`](../results/reports/visual_hard_slice_design/design.md)
   - case count: `8`
   - families: visual argument copying, visual tool routing, visual referent carryover, and visual region readback
-  - status: design-only artifact, not model-performance evidence
+  - status at creation: design-stage artifact, not model-performance evidence; this status is superseded by the executed hard-slice packet recorded below
 - Publication/reporting updates:
   - MLX tool-contract report manifest is now `49` tables and `25` figures
   - evidence ledger is now `8` claims and `24` evidence sources with `0` missing sources
@@ -3087,5 +3087,43 @@
   - `uv run pytest tests/test_visual_hard_slice_design.py -q`
   - `uv run pytest tests/test_publication_evidence_ledger.py tests/test_publication_readiness_audit.py -q`
   - `uv run python scripts/build_visual_hard_slice_design.py`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`
+
+## 2026-05-09 - Executed Visual Hard Slice And Schema-Field Reversal
+
+- The visual hard-slice design was promoted from a design-only packet into a replayable and executed probe packet:
+  - executable cases: [`src/gemma4_capability_map/runtime/visual_hard_slice.py`](../src/gemma4_capability_map/runtime/visual_hard_slice.py)
+  - packet runner: [`scripts/run_visual_hard_slice_probe_packet.py`](../scripts/run_visual_hard_slice_probe_packet.py)
+  - dry-run packet: [`20260509T_visual_hard_slice_dry_run_v1`](../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_dry_run_v1)
+  - executed packet: [`20260509T_visual_hard_slice_execute_v1`](../results/visual_hard_slice_probe_packets/20260509T_visual_hard_slice_execute_v1)
+  - CLI packet inspection: `uv run moonie-agent packet --kind visual-hard-slice-probe --packet-id 20260509T_visual_hard_slice_execute_v1 --json`
+- Hard-slice gate result:
+  - contracted MLX: exact `8 / 8`, executable `8 / 8`
+  - no-directive MLX: exact `1 / 8`, executable `1 / 8`, dominant failure `no_tool_call`
+  - `visual_role_catalog_v1`: exact `3 / 8`, executable `3 / 8`
+  - `visual_role_catalog_argument_hints_v2`: exact `6 / 8`, executable `7 / 8`
+  - `visual_role_catalog_split_selector_hints_v3`: exact `5 / 8`, executable `6 / 8`
+  - `visual_role_catalog_schema_field_hints_v4`: exact `6 / 8`, executable `8 / 8`
+  - `visual_role_catalog_v1 + literal_guard`: exact `3 / 8`, executable `4 / 8`
+- Interpretation:
+  - The fresh hard slice breaks the previous top-line saturation and exposes visual prompt-contract differences that the packaged H1 surfaces were no longer exposing.
+  - Schema-field hints are now split evidence: they remain negative on the original three-case focused replay because they do not recover the original executable form-target case, but they are the strongest no-directive profile on the independently authored hard slice because they preserve full executability.
+  - Contracted MLX remains the protocol upper bound because it is the only row with exact `8 / 8`.
+  - The next useful visual move is not another broad prompt rewrite. It is to inspect the two schema-field exact misses, compare those misses against argument-hints and contracted deltas, and decide whether a narrow exactness repair can preserve the `8 / 8` executable gain.
+- Reporting updates:
+  - generated report: [`results/reports/mlx_tool_contract_harnessing/report.md`](../results/reports/mlx_tool_contract_harnessing/report.md)
+  - visual hard-slice gate table: [`visual_hard_slice_probe_gates.csv`](../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_probe_gates.csv)
+  - visual hard-slice family table: [`visual_hard_slice_family_summary.csv`](../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_family_summary.csv)
+  - visual hard-slice case deltas: [`visual_hard_slice_case_deltas_vs_no_directive.csv`](../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_case_deltas_vs_no_directive.csv) and [`visual_hard_slice_case_deltas_vs_contracted.csv`](../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_case_deltas_vs_contracted.csv)
+  - visual hard-slice figure: [`visual_hard_slice_probe_gate.svg`](../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_probe_gate.svg)
+  - current generated report manifest: `54` tables and `26` figures
+  - evidence ledger: `8` claims, `25` evidence sources, `0` missing sources
+  - publication readiness audit: `25` checks, `23` blocking checks, `0` blocking failures, status `paper_draft_ready`
+- Verification:
+  - `uv run pytest tests/test_visual_hard_slice.py tests/test_visual_hard_slice_probe_packet.py tests/test_runtime_cli.py::test_runtime_cli_packet_json_inspects_visual_hard_slice_probe_packet -q`
+  - `uv run python scripts/run_visual_hard_slice_probe_packet.py --run-group-id 20260509T_visual_hard_slice_dry_run_v1`
+  - `uv run python scripts/run_visual_hard_slice_probe_packet.py --run-group-id 20260509T_visual_hard_slice_execute_v1 --execute`
+  - `uv run python scripts/build_mlx_tool_contract_report.py`
   - `uv run python scripts/build_publication_evidence_ledger.py`
   - `uv run python scripts/audit_publication_readiness.py`
