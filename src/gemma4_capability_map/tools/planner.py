@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import re
+from copy import deepcopy
 from pathlib import Path
 from typing import Any
 
@@ -74,13 +75,15 @@ def tool_catalog_text(tool_specs: list[ToolSpec], *, profile_id: str = "") -> st
         lines.extend(profile_lines.splitlines())
         lines.append("")
     for tool in tool_specs:
-        lines.append(f"- {tool.name}: {tool.description}")
-        lines.append(json.dumps(tool.model_dump(mode="json", by_alias=True), ensure_ascii=False))
+        rendered_tool = _profiled_tool_spec(tool, profile_id=profile_id)
+        lines.append(f"- {rendered_tool.name}: {rendered_tool.description}")
+        lines.append(json.dumps(rendered_tool.model_dump(mode="json", by_alias=True), ensure_ascii=False))
     return "\n".join(lines)
 
 
 def known_tool_catalog_profile_ids() -> list[str]:
     return [
+        "visual_role_catalog_schema_field_hints_v4",
         "visual_role_catalog_split_selector_hints_v3",
         "visual_role_catalog_argument_hints_v2",
         "visual_role_catalog_v1",
@@ -135,6 +138,43 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
             ]
         )
     return "\n".join(lines)
+
+
+def _profiled_tool_spec(tool: ToolSpec, *, profile_id: str = "") -> ToolSpec:
+    normalized = profile_id.strip()
+    if normalized != "visual_role_catalog_schema_field_hints_v4":
+        return tool
+    if tool.name not in {"extract_layout", "refine_selection", "read_region_text"}:
+        return tool
+    schema = deepcopy(tool.json_schema)
+    properties = schema.setdefault("properties", {})
+    if tool.name == "extract_layout":
+        _set_property_description(
+            properties,
+            "target_query",
+            "Visible region class or UI state to locate, such as validation error, table, callout, or metric panel. Do not use author, customer, data source, or business reason.",
+        )
+    elif tool.name == "refine_selection":
+        _set_property_description(
+            properties,
+            "filter_query",
+            "Shortest literal narrowing token from the follow-up request, such as latest, remaining, open, selected, or unread. Do not append a noun when the token is sufficient.",
+        )
+    elif tool.name == "read_region_text":
+        _set_property_description(
+            properties,
+            "region_id",
+            "Opaque region id copied exactly from the latest passing visual tool result.",
+        )
+    return tool.model_copy(update={"json_schema": schema})
+
+
+def _set_property_description(properties: dict[str, Any], field: str, description: str) -> None:
+    value = properties.get(field)
+    if not isinstance(value, dict):
+        value = {}
+    value["description"] = description
+    properties[field] = value
 
 
 def tool_turn_directive(messages: list[Message], media: list[str], tool_specs: list[ToolSpec]) -> str:

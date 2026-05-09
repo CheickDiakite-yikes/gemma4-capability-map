@@ -145,6 +145,24 @@ def test_visual_role_catalog_split_selector_profile_separates_region_and_filter_
     assert "sel-open-items" not in rendered
 
 
+def test_visual_role_catalog_schema_field_hints_profile_annotates_visual_schema_fields() -> None:
+    specs = build_default_registry().specs
+    rendered = tool_catalog_text(
+        [specs["extract_layout"], specs["refine_selection"], specs["read_region_text"]],
+        profile_id="visual_role_catalog_schema_field_hints_v4",
+    )
+
+    assert "Tool catalog profile: visual_role_catalog_schema_field_hints_v4" in rendered
+    assert "Visual argument field semantics:" not in rendered
+    assert "Split selector discipline:" not in rendered
+    assert '"target_query": {"type": "string", "description": "Visible region class or UI state to locate' in rendered
+    assert '"filter_query": {"type": "string", "description": "Shortest literal narrowing token' in rendered
+    assert '"region_id": {"type": "string", "description": "Opaque region id copied exactly' in rendered
+    assert "img-form-live-latest" not in rendered
+    assert "sel-001" not in rendered
+    assert "recruiter note" not in rendered
+
+
 def test_tool_catalog_profile_renders_inside_catalog_without_exact_directive() -> None:
     specs = build_default_registry().specs
     rendered = tool_catalog_text(

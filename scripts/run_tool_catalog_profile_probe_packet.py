@@ -26,11 +26,20 @@ WAVE2_CANDIDATE_SYSTEM_IDS = [
 WAVE3_CANDIDATE_SYSTEM_IDS = [
     "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_split_selector_hints",
 ]
+WAVE4_CANDIDATE_SYSTEM_IDS = [
+    "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints",
+]
 TOOL_CATALOG_PROFILE_WAVES = {
     "v1": DEFAULT_CANDIDATE_SYSTEM_IDS,
     "v2": WAVE2_CANDIDATE_SYSTEM_IDS,
     "v3": WAVE3_CANDIDATE_SYSTEM_IDS,
-    "all": [*DEFAULT_CANDIDATE_SYSTEM_IDS, *WAVE2_CANDIDATE_SYSTEM_IDS, *WAVE3_CANDIDATE_SYSTEM_IDS],
+    "v4": WAVE4_CANDIDATE_SYSTEM_IDS,
+    "all": [
+        *DEFAULT_CANDIDATE_SYSTEM_IDS,
+        *WAVE2_CANDIDATE_SYSTEM_IDS,
+        *WAVE3_CANDIDATE_SYSTEM_IDS,
+        *WAVE4_CANDIDATE_SYSTEM_IDS,
+    ],
 }
 
 
