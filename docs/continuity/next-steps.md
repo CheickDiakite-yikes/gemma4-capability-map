@@ -188,7 +188,8 @@ Next implementation moves:
   - H1p v12 replay: [`results/tool_probe_replay_live/20260510T_h1s_component_residual_guard_on_h1p_component_value_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1s_component_residual_guard_on_h1p_component_value_execute_v1)
   - result: v12 transfer aggregate is `27 / 32` exact and `27 / 32` executor-equivalent; v11 remains `26 / 32` exact and `29 / 32` executor-equivalent
   - interpretation: v12 is a targeted residual patch, not a global default; strict exactness improved, but executor robustness regressed
-  - next execution step: build a conditional-route/prompt-factor slice that uses v11 as default and v12 only for code-label or nonstandard component-class contexts, then test it against H1r/H1n/H1o/H1p
+  - completed scaffold: H1t adds `visual_role_catalog_conditional_residual_route_v13`, using v11 by default and v12-style residual handling only for code-label, nonstandard component-class, or stale-field route conditions
+  - next execution step: live-test v13 against H1r/H1n/H1o/H1p and compare it against both v11 and v12
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1

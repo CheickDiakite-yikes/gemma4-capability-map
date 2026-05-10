@@ -319,6 +319,24 @@ def test_visual_role_catalog_component_residual_guard_profile_targets_h1q_misses
     assert "component_value_status_badge_email_decoy" not in rendered
 
 
+def test_visual_role_catalog_conditional_residual_route_profile_keeps_v11_default() -> None:
+    specs = build_default_registry().specs
+    rendered = tool_catalog_text(
+        [specs["extract_layout"], specs["refine_selection"], specs["read_region_text"]],
+        profile_id="visual_role_catalog_conditional_residual_route_v13",
+    )
+
+    assert "Tool catalog profile: visual_role_catalog_conditional_residual_route_v13" in rendered
+    assert "Narrow component-label guard:" in rendered
+    assert "Conditional residual route guard:" in rendered
+    assert "Default to the narrow component-label guard" in rendered
+    assert "code suffix" in rendered
+    assert "tag, toggle, or switch" in rendered
+    assert "Do not add residual handling for ordinary pill, badge, chip, or tile targets" in rendered
+    assert '"target_query": {"type": "string", "description": "Compact visible-component label requested by the user. Default to role-plus-component labels' in rendered
+    assert "component_value_status_badge_email_decoy" not in rendered
+
+
 def test_tool_catalog_profile_renders_inside_catalog_without_exact_directive() -> None:
     specs = build_default_registry().specs
     rendered = tool_catalog_text(

@@ -1215,6 +1215,23 @@ Interpretation:
 - v12 is not the global default: it introduces enough H1n/H1o executor-equivalence loss to be worse than v11 for robust transfer
 - the next slice should test conditional routing or prompt-factor isolation: v11 general component-label guard by default, v12 residual wording only when code labels or nonstandard component classes are present
 
+## H1t Conditional Residual-Route Scaffold
+
+H1t is now scaffolded but not yet live-executed. It turns the H1s verdict into a testable prompt-factor hypothesis:
+
+- profile: `visual_role_catalog_conditional_residual_route_v13`
+- registry system: `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_conditional_residual_route`
+- default behavior: preserve v11's narrow component-label guard
+- conditional behavior: add v12-style residual handling only when the requested target has a code suffix, a nonstandard component class (`tag`, `toggle`, `switch`), or a field target with stale/old/previous selection text nearby
+- explicit anti-overfit rule: do not add residual handling for ordinary `pill`, `badge`, `chip`, or `tile` targets unless a route condition is present
+- verification: `uv run pytest tests/test_prompt_contracts.py tests/test_knowledge_work_h1.py::test_h1t_conditional_residual_route_registry_row_preserves_catalog_profile -q`
+
+Next execution step:
+
+- run v13 on H1r, H1n, H1o, and H1p
+- compare v13 against v11 and v12
+- promote only if v13 keeps H1r/H1p gains while recovering v11-like H1n/H1o executor-equivalence
+
 ## Latest H1q Component-Label Guard Transfer Finding
 
 H1q is the current sharpest controller-profile transfer result. It was built to resolve the H1p/H1o/H1n tension: broad v9 component-value guidance wins locally on H1p, ties on H1o, and regresses on the older H1n component-value slice. The new `visual_role_catalog_component_label_guard_v11` narrows the wording to copying requested role-plus-component labels instead of selecting displayed values.

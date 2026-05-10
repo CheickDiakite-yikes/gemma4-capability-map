@@ -1,5 +1,21 @@
 # Research Log
 
+## 2026-05-10 - H1t Conditional Residual-Route Scaffold
+
+- Added `visual_role_catalog_conditional_residual_route_v13` as the direct follow-up to H1s:
+  - defaults to v11's narrow component-label guard
+  - activates v12-style residual handling only for code suffixes, nonstandard component classes (`tag`, `toggle`, `switch`), or stale-field contexts
+  - explicitly avoids residual handling for ordinary `pill`, `badge`, `chip`, or `tile` cases unless a route condition is present
+- Added registry system:
+  - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_conditional_residual_route`
+- Research purpose:
+  - test whether conditional prompt routing can keep H1r/H1p gains without the H1n/H1o executor-equivalence loss that blocked v12 global promotion
+- Verification:
+  - `uv run pytest tests/test_prompt_contracts.py tests/test_knowledge_work_h1.py::test_h1t_conditional_residual_route_registry_row_preserves_catalog_profile -q`
+- Next execution:
+  - live replay v13 on H1r, H1n, H1o, and H1p
+  - compare v13 against v11 and v12 before any promotion decision
+
 ## 2026-05-10 - H1s Transfer Gate Rejects v12 as a Global Default
 
 - Transfer-tested `visual_role_catalog_component_residual_guard_v12` back across the active H1n/H1o/H1p surfaces before promotion:
