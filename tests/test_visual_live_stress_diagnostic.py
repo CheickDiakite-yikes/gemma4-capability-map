@@ -273,3 +273,45 @@ def test_visual_alias_transfer_residual_diagnostic_writes_findings(tmp_path: Pat
     assert (tmp_path / "diagnostic.md").exists()
     assert (tmp_path / "diagnostic.json").exists()
     assert (tmp_path / "tables" / "alias_transfer_residual_matrix_case_transitions.csv").exists()
+
+
+def test_visual_component_value_diagnostic_writes_findings(tmp_path: Path) -> None:
+    payload = SCRIPT.analyze_visual_live_stress_matrix(
+        output_dir=tmp_path,
+        comparisons=SCRIPT.DEFAULT_COMPONENT_VALUE_COMPARISONS,
+        matrix_name="component-value",
+        table_prefix="component_value_matrix",
+    )
+
+    assert payload["manifest"]["comparison_count"] == 7
+    assert payload["manifest"]["case_count"] == 8
+    assert payload["manifest"]["matrix_name"] == "component-value"
+    summary = {row["label"]: row for row in payload["summary_rows"]}
+    assert summary["contracted"]["candidate_exact_rate"] == 0.125
+    assert summary["argument_hints_v2"]["candidate_exact_rate"] == 0.75
+    assert summary["argument_hints_v2"]["candidate_executor_equivalence_rate"] == 0.875
+    assert summary["hybrid_label_guard_v8"]["candidate_exact_rate"] == 0.75
+    assert summary["component_value_guard_v9"]["candidate_exact_rate"] == 0.5
+    assert summary["component_value_guard_v9"]["delta_executor_equivalence_rate"] == -0.25
+    assert summary["oblique_code_hints_v6"]["candidate_exact_rate"] == 0.25
+    assert summary["schema_field_hints_v4"]["candidate_executor_equivalence_rate"] == 0.5
+    transitions = {(row["label"], row["case_id"]): row for row in payload["case_rows"]}
+    assert transitions[
+        ("argument_hints_v2", "component_value_owner_field_stale_selection_decoy")
+    ]["transition"] == "strict_gain"
+    assert transitions[
+        ("hybrid_label_guard_v8", "component_value_status_badge_email_decoy")
+    ]["transition"] == "strict_gain"
+    assert transitions[
+        ("component_value_guard_v9", "component_value_state_pill_note_decoy")
+    ]["transition"] == "regression"
+    assert transitions[
+        ("component_value_guard_v9", "component_value_status_badge_email_decoy")
+    ]["transition"] == "strict_gain"
+    findings = {row["finding_id"]: row["finding"] for row in payload["finding_rows"]}
+    assert "argument_hints_v2" in findings["strict_upper_bound"]
+    assert "Executor-equivalent full-success rows: none." in findings["executor_equivalence_set"]
+    assert "component_value_guard_v9:component_value_state_pill_note_decoy" in findings["regressions"]
+    assert (tmp_path / "diagnostic.md").exists()
+    assert (tmp_path / "diagnostic.json").exists()
+    assert (tmp_path / "tables" / "component_value_matrix_case_transitions.csv").exists()

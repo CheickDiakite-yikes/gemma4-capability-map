@@ -1,0 +1,9 @@
+{
+  "generated_at": "2026-05-10T15:53:13.913211+00:00",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/visual_component_value_diagnostic",
+  "comparison_count": 7,
+  "case_count": 8,
+  "finding_count": 4,
+  "matrix_name": "component-value",
+  "purpose": "Diagnose strict-vs-executor behavior in the visual hard-slice component-value live replay matrix."
+}
