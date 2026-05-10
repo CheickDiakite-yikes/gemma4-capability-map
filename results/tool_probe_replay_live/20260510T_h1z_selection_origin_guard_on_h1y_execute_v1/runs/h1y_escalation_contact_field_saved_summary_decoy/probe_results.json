@@ -1,0 +1,51 @@
+[
+  {
+    "case_id": "h1y_escalation_contact_field_saved_summary_decoy",
+    "family": "h1y_route_stale_field",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "h1y-contact-field-9812"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "refine_selection",
+        "arguments": {
+          "selection_id": "sel-h1y-contact-summary",
+          "filter_query": "latest"
+        },
+        "validator_result": "fail",
+        "output": {},
+        "error": "'Selection not found: sel-h1y-contact-summary'"
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1y-escalation-contact",
+          "target_query": "owner field"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "refine_selection",
+        "arguments": {
+          "selection_id": "sel-h1y-contact-summary",
+          "filter_query": "latest"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"refine_selection\", \"arguments\": {\"selection_id\": \"sel-h1y-contact-summary\", \"filter_query\": \"latest\"}}",
+    "prompt_tokens": 1901,
+    "completion_tokens": 37,
+    "latency_ms": 7881
+  }
+]

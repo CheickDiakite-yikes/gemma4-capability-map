@@ -45,6 +45,13 @@ PACKET_SPECS: tuple[PacketSpec, ...] = (
         / "tool_probe_replay_live"
         / "20260510T_h1y_routed_residual_routed_residual_guard_execute_v1",
     ),
+    PacketSpec(
+        "selection_origin_guard_v17",
+        ROOT
+        / "results"
+        / "tool_probe_replay_live"
+        / "20260510T_h1z_selection_origin_guard_on_h1y_execute_v1",
+    ),
 )
 
 COMPARISON_DIRS: tuple[Path, ...] = (
@@ -72,6 +79,22 @@ COMPARISON_DIRS: tuple[Path, ...] = (
     / "results"
     / "tool_probe_replay_live_comparisons"
     / "20260510T_h1y_routed_residual_guard_vs_component_residual_guard_v1",
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260510T_h1z_selection_origin_guard_vs_no_directive_on_h1y_v1",
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260510T_h1z_selection_origin_guard_vs_component_label_guard_on_h1y_v1",
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260510T_h1z_selection_origin_guard_vs_component_residual_guard_on_h1y_v1",
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260510T_h1z_selection_origin_guard_vs_routed_residual_guard_on_h1y_v1",
 )
 
 
@@ -89,6 +112,7 @@ def build_h1y_routed_residual_synthesis(*, output_dir: str | Path = DEFAULT_OUTP
     v11 = _row_by_label(packet_rows, "component_label_guard_v11")
     v12 = _row_by_label(packet_rows, "component_residual_guard_v12")
     v16 = _row_by_label(packet_rows, "routed_residual_guard_v16")
+    v17 = _row_by_label(packet_rows, "selection_origin_guard_v17")
     manifest = {
         "generated_at": datetime.now(UTC).isoformat(),
         "output_dir": str(output.resolve()),
@@ -101,9 +125,11 @@ def build_h1y_routed_residual_synthesis(*, output_dir: str | Path = DEFAULT_OUTP
         "v12_executor_success_count": int(v12["executor_success_count"]),
         "v16_exact_success_count": int(v16["exact_success_count"]),
         "v16_executor_success_count": int(v16["executor_success_count"]),
+        "v17_exact_success_count": int(v17["exact_success_count"]),
+        "v17_executor_success_count": int(v17["executor_success_count"]),
         "comparison_count": len(comparison_rows),
         "finding_count": len(finding_rows),
-        "promotion_decision": "do_not_promote_v16_design_v17_selection_origin_guard",
+        "promotion_decision": "do_not_promote_v16_or_v17_escalate_to_controller_stale_id_gate",
     }
     payload = {
         "manifest": manifest,
@@ -262,13 +288,21 @@ def _finding_rows(
     v11 = _row_by_label(packet_rows, "component_label_guard_v11")
     v12 = _row_by_label(packet_rows, "component_residual_guard_v12")
     v16 = _row_by_label(packet_rows, "routed_residual_guard_v16")
+    v17 = _row_by_label(packet_rows, "selection_origin_guard_v17")
     v12_vs_v11 = _comparison_by_dir(comparison_rows, "component_residual_guard_vs_component_label_guard")
     v16_vs_v11 = _comparison_by_dir(comparison_rows, "routed_residual_guard_vs_component_label_guard")
     v16_vs_v12 = _comparison_by_dir(comparison_rows, "routed_residual_guard_vs_component_residual_guard")
+    v17_vs_v11 = _comparison_by_dir(comparison_rows, "selection_origin_guard_vs_component_label_guard")
+    v17_vs_v12 = _comparison_by_dir(comparison_rows, "selection_origin_guard_vs_component_residual_guard")
     v12_surface = _family_row(family_rows, "component_residual_guard_v12", "h1y_preserve_surface_value")
     v16_surface = _family_row(family_rows, "routed_residual_guard_v16", "h1y_preserve_surface_value")
+    v17_stale = _family_row(family_rows, "selection_origin_guard_v17", "h1y_route_stale_field")
+    v17_surface = _family_row(family_rows, "selection_origin_guard_v17", "h1y_preserve_surface_value")
     v16_failures = ", ".join(
         row["case_id"] for row in non_exact_rows if row["profile_label"] == "routed_residual_guard_v16"
+    )
+    v17_failures = ", ".join(
+        row["case_id"] for row in non_exact_rows if row["profile_label"] == "selection_origin_guard_v17"
     )
     return [
         {
@@ -308,12 +342,23 @@ def _finding_rows(
             ),
         },
         {
+            "finding_id": "v17_selection_origin_text_is_also_insufficient",
+            "finding": (
+                f"Selection-origin guard v17 reaches {v17['exact_success_count']}/10 exact and "
+                f"{v17['executor_success_count']}/10 executor-equivalent, with "
+                f"{v17_vs_v11['delta_exact_rate']:.3f} exact-rate delta over v11 and "
+                f"{v17_vs_v12['delta_exact_rate']:.3f} versus v12. It restores surface holdouts to "
+                f"{v17_surface['exact_success_count']}/2, but remains {v17_stale['exact_success_count']}/3 on "
+                f"stale-field routes; non-exact rows: {v17_failures}."
+            ),
+        },
+        {
             "finding_id": "next_slice",
             "finding": (
-                "Do not promote v16. The next profile should target selection-origin and component-phrase "
-                "precedence directly: forbid refine_selection on user-mentioned stale ids without a prior tool "
-                "result, prefer explicit 'label is/component is' phrases, preserve 'locate X exactly' code labels, "
-                "and drop wrapper words like lifecycle or operation without replacing component labels by values."
+                "Do not promote v16 or v17. H1y/H1z suggests that stale user-mentioned selection_id handling is "
+                "not reliably solved by more catalog prose; the next slice should test a controller/runtime "
+                "candidate that masks or rejects stale user-provided selection ids before model routing, then "
+                "compare that against v11 and v12 on the same packet."
             ),
         },
     ]
@@ -331,8 +376,9 @@ def _markdown(payload: dict[str, Any]) -> str:
         (
             "H1y tests the routed-helper hypothesis directly. The packet mixes stale-field routes, "
             "nonstandard component classes, code labels, ordinary surface-value holdouts, and one activation row. "
-            "No-directive reaches `0 / 10`, v11 reaches `5 / 10`, v12 reaches `7 / 10`, and v16 reaches `5 / 10`. "
-            "The negative v16 result matters: route wording alone did not preserve v11 while capturing v12's gains."
+            "No-directive reaches `0 / 10`, v11 reaches `5 / 10`, v12 reaches `7 / 10`, v16 reaches `5 / 10`, "
+            "and v17 reaches `5 / 10`. The negative v16/v17 results matter: catalog prose alone did not preserve "
+            "v11 while capturing v12's gains, and the stale user-mentioned selection_id problem remains."
         ),
         "",
         "## Packet Rows",

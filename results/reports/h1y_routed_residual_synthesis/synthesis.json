@@ -1,8 +1,8 @@
 {
   "manifest": {
-    "generated_at": "2026-05-10T19:13:51.068139+00:00",
+    "generated_at": "2026-05-10T19:18:42.804051+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h1y_routed_residual_synthesis",
-    "profile_count": 4,
+    "profile_count": 5,
     "case_count": 10,
     "no_directive_exact_success_count": 0,
     "v11_exact_success_count": 5,
@@ -11,9 +11,11 @@
     "v12_executor_success_count": 7,
     "v16_exact_success_count": 5,
     "v16_executor_success_count": 5,
-    "comparison_count": 6,
-    "finding_count": 5,
-    "promotion_decision": "do_not_promote_v16_design_v17_selection_origin_guard"
+    "v17_exact_success_count": 5,
+    "v17_executor_success_count": 5,
+    "comparison_count": 10,
+    "finding_count": 6,
+    "promotion_decision": "do_not_promote_v16_or_v17_escalate_to_controller_stale_id_gate"
   },
   "packet_rows": [
     {
@@ -66,6 +68,19 @@
       "executor_rate": 0.5,
       "argument_mismatch_count": 4,
       "wrong_tool_count": 1,
+      "no_tool_call_count": 0
+    },
+    {
+      "profile_label": "selection_origin_guard_v17",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_selection_origin_guard",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h1z_selection_origin_guard_on_h1y_execute_v1",
+      "case_count": 10,
+      "exact_success_count": 5,
+      "exact_rate": 0.5,
+      "executor_success_count": 5,
+      "executor_rate": 0.5,
+      "argument_mismatch_count": 2,
+      "wrong_tool_count": 3,
       "no_tool_call_count": 0
     }
   ],
@@ -249,6 +264,51 @@
       "exact_rate": 0.6666666666666666,
       "executor_success_count": 2,
       "executor_rate": 0.6666666666666666
+    },
+    {
+      "profile_label": "selection_origin_guard_v17",
+      "family": "h1y_activation_no_call",
+      "case_count": 1,
+      "exact_success_count": 1,
+      "exact_rate": 1.0,
+      "executor_success_count": 1,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "selection_origin_guard_v17",
+      "family": "h1y_preserve_surface_value",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_success_count": 2,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "selection_origin_guard_v17",
+      "family": "h1y_route_code_label",
+      "case_count": 2,
+      "exact_success_count": 1,
+      "exact_rate": 0.5,
+      "executor_success_count": 1,
+      "executor_rate": 0.5
+    },
+    {
+      "profile_label": "selection_origin_guard_v17",
+      "family": "h1y_route_nonstandard_class",
+      "case_count": 2,
+      "exact_success_count": 1,
+      "exact_rate": 0.5,
+      "executor_success_count": 1,
+      "executor_rate": 0.5
+    },
+    {
+      "profile_label": "selection_origin_guard_v17",
+      "family": "h1y_route_stale_field",
+      "case_count": 3,
+      "exact_success_count": 0,
+      "exact_rate": 0.0,
+      "executor_success_count": 0,
+      "executor_rate": 0.0
     }
   ],
   "comparison_rows": [
@@ -323,6 +383,54 @@
       "baseline_executor_equivalence_rate": 0.7,
       "candidate_executor_equivalence_rate": 0.5,
       "delta_executor_equivalence_rate": -0.19999999999999996
+    },
+    {
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h1z_selection_origin_guard_vs_no_directive_on_h1y_v1",
+      "baseline_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_selection_origin_guard",
+      "shared_case_count": 10,
+      "baseline_exact_rate": 0.0,
+      "candidate_exact_rate": 0.5,
+      "delta_exact_rate": 0.5,
+      "baseline_executor_equivalence_rate": 0.0,
+      "candidate_executor_equivalence_rate": 0.5,
+      "delta_executor_equivalence_rate": 0.5
+    },
+    {
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h1z_selection_origin_guard_vs_component_label_guard_on_h1y_v1",
+      "baseline_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_label_guard",
+      "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_selection_origin_guard",
+      "shared_case_count": 10,
+      "baseline_exact_rate": 0.5,
+      "candidate_exact_rate": 0.5,
+      "delta_exact_rate": 0.0,
+      "baseline_executor_equivalence_rate": 0.5,
+      "candidate_executor_equivalence_rate": 0.5,
+      "delta_executor_equivalence_rate": 0.0
+    },
+    {
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h1z_selection_origin_guard_vs_component_residual_guard_on_h1y_v1",
+      "baseline_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard",
+      "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_selection_origin_guard",
+      "shared_case_count": 10,
+      "baseline_exact_rate": 0.7,
+      "candidate_exact_rate": 0.5,
+      "delta_exact_rate": -0.19999999999999996,
+      "baseline_executor_equivalence_rate": 0.7,
+      "candidate_executor_equivalence_rate": 0.5,
+      "delta_executor_equivalence_rate": -0.19999999999999996
+    },
+    {
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h1z_selection_origin_guard_vs_routed_residual_guard_on_h1y_v1",
+      "baseline_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_routed_residual_guard",
+      "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_selection_origin_guard",
+      "shared_case_count": 10,
+      "baseline_exact_rate": 0.5,
+      "candidate_exact_rate": 0.5,
+      "delta_exact_rate": 0.0,
+      "baseline_executor_equivalence_rate": 0.5,
+      "candidate_executor_equivalence_rate": 0.5,
+      "delta_executor_equivalence_rate": 0.0
     }
   ],
   "non_exact_rows": [
@@ -624,6 +732,71 @@
       "actual_arguments": "{\"image_id\": \"img-h1y-result-badge\", \"target_query\": \"Blocked\"}",
       "actual_region_ids": "h1y-result-comment-9881,h1y-result-badge-9882,h1y-result-board-9883",
       "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1y_routed_residual_routed_residual_guard_execute_v1/runs/h1y_result_badge_comment_value_holdout"
+    },
+    {
+      "profile_label": "selection_origin_guard_v17",
+      "case_id": "h1y_responsible_party_field_old_owner_memo_decoy",
+      "family": "h1y_route_stale_field",
+      "failure_mode": "wrong_tool",
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_arguments": "{\"image_id\": \"img-h1y-owner-field\", \"target_query\": \"owner field\"}",
+      "actual_tool": "refine_selection",
+      "actual_arguments": "{\"filter_query\": \"owner field\", \"selection_id\": \"sel-h1y-owner-memo\"}",
+      "actual_region_ids": "",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1z_selection_origin_guard_on_h1y_execute_v1/runs/h1y_responsible_party_field_old_owner_memo_decoy"
+    },
+    {
+      "profile_label": "selection_origin_guard_v17",
+      "case_id": "h1y_escalation_contact_field_saved_summary_decoy",
+      "family": "h1y_route_stale_field",
+      "failure_mode": "wrong_tool",
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_arguments": "{\"image_id\": \"img-h1y-escalation-contact\", \"target_query\": \"owner field\"}",
+      "actual_tool": "refine_selection",
+      "actual_arguments": "{\"filter_query\": \"latest\", \"selection_id\": \"sel-h1y-contact-summary\"}",
+      "actual_region_ids": "",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1z_selection_origin_guard_on_h1y_execute_v1/runs/h1y_escalation_contact_field_saved_summary_decoy"
+    },
+    {
+      "profile_label": "selection_origin_guard_v17",
+      "case_id": "h1y_review_owner_field_previous_table_decoy",
+      "family": "h1y_route_stale_field",
+      "failure_mode": "wrong_tool",
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_arguments": "{\"image_id\": \"img-h1y-review-owner\", \"target_query\": \"owner field\"}",
+      "actual_tool": "refine_selection",
+      "actual_arguments": "{\"filter_query\": \"owner field\", \"selection_id\": \"sel-h1y-review-table\"}",
+      "actual_region_ids": "",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1z_selection_origin_guard_on_h1y_execute_v1/runs/h1y_review_owner_field_previous_table_decoy"
+    },
+    {
+      "profile_label": "selection_origin_guard_v17",
+      "case_id": "h1y_lifecycle_state_tag_audit_value_decoy",
+      "family": "h1y_route_nonstandard_class",
+      "failure_mode": "argument_mismatch",
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_arguments": "{\"image_id\": \"img-h1y-state-tag\", \"target_query\": \"state tag\"}",
+      "actual_tool": "extract_layout",
+      "actual_arguments": "{\"image_id\": \"img-h1y-state-tag\", \"target_query\": \"lifecycle state tag\"}",
+      "actual_region_ids": "",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1z_selection_origin_guard_on_h1y_execute_v1/runs/h1y_lifecycle_state_tag_audit_value_decoy"
+    },
+    {
+      "profile_label": "selection_origin_guard_v17",
+      "case_id": "h1y_alert_s92_negated_toggle_decoy",
+      "family": "h1y_route_code_label",
+      "failure_mode": "argument_mismatch",
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_arguments": "{\"image_id\": \"img-h1y-alert-s92\", \"target_query\": \"alert s92\"}",
+      "actual_tool": "extract_layout",
+      "actual_arguments": "{\"image_id\": \"img-h1y-alert-s92\", \"target_query\": \"override toggle\"}",
+      "actual_region_ids": "h1y-alert-toggle-9851",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1z_selection_origin_guard_on_h1y_execute_v1/runs/h1y_alert_s92_negated_toggle_decoy"
     }
   ],
   "finding_rows": [
@@ -644,8 +817,12 @@
       "finding": "Routed residual guard v16 ties v11 at 5/10 exact and 5/10 executor-equivalent, with 0.000 exact-rate delta over v11 and -0.200 versus v12. It drops to 0/2 on surface-value holdouts; non-exact rows: h1y_responsible_party_field_old_owner_memo_decoy, h1y_lifecycle_state_tag_audit_value_decoy, h1y_alert_s92_negated_toggle_decoy, h1y_status_pill_summary_value_holdout, h1y_result_badge_comment_value_holdout."
     },
     {
+      "finding_id": "v17_selection_origin_text_is_also_insufficient",
+      "finding": "Selection-origin guard v17 reaches 5/10 exact and 5/10 executor-equivalent, with 0.000 exact-rate delta over v11 and -0.200 versus v12. It restores surface holdouts to 2/2, but remains 0/3 on stale-field routes; non-exact rows: h1y_responsible_party_field_old_owner_memo_decoy, h1y_escalation_contact_field_saved_summary_decoy, h1y_review_owner_field_previous_table_decoy, h1y_lifecycle_state_tag_audit_value_decoy, h1y_alert_s92_negated_toggle_decoy."
+    },
+    {
       "finding_id": "next_slice",
-      "finding": "Do not promote v16. The next profile should target selection-origin and component-phrase precedence directly: forbid refine_selection on user-mentioned stale ids without a prior tool result, prefer explicit 'label is/component is' phrases, preserve 'locate X exactly' code labels, and drop wrapper words like lifecycle or operation without replacing component labels by values."
+      "finding": "Do not promote v16 or v17. H1y/H1z suggests that stale user-mentioned selection_id handling is not reliably solved by more catalog prose; the next slice should test a controller/runtime candidate that masks or rejects stale user-provided selection ids before model routing, then compare that against v11 and v12 on the same packet."
     }
   ]
 }

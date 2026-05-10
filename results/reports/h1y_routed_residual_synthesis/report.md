@@ -1,10 +1,10 @@
 # H1y Routed Residual Synthesis
 
-Generated: `2026-05-10T19:13:51.068139+00:00`
+Generated: `2026-05-10T19:18:42.804051+00:00`
 
 ## Summary
 
-H1y tests the routed-helper hypothesis directly. The packet mixes stale-field routes, nonstandard component classes, code labels, ordinary surface-value holdouts, and one activation row. No-directive reaches `0 / 10`, v11 reaches `5 / 10`, v12 reaches `7 / 10`, and v16 reaches `5 / 10`. The negative v16 result matters: route wording alone did not preserve v11 while capturing v12's gains.
+H1y tests the routed-helper hypothesis directly. The packet mixes stale-field routes, nonstandard component classes, code labels, ordinary surface-value holdouts, and one activation row. No-directive reaches `0 / 10`, v11 reaches `5 / 10`, v12 reaches `7 / 10`, v16 reaches `5 / 10`, and v17 reaches `5 / 10`. The negative v16/v17 results matter: catalog prose alone did not preserve v11 while capturing v12's gains, and the stale user-mentioned selection_id problem remains.
 
 ## Packet Rows
 
@@ -14,6 +14,7 @@ H1y tests the routed-helper hypothesis directly. The packet mixes stale-field ro
 | component_label_guard_v11 | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_label_guard | results/tool_probe_replay_live/20260510T_h1y_routed_residual_component_label_guard_execute_v1 | `10` | `5` | `0.50000` | `5` | `0.50000` | `2` | `3` | `0` |
 | component_residual_guard_v12 | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard | results/tool_probe_replay_live/20260510T_h1y_routed_residual_component_residual_guard_execute_v1 | `10` | `7` | `0.70000` | `7` | `0.70000` | `2` | `1` | `0` |
 | routed_residual_guard_v16 | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_routed_residual_guard | results/tool_probe_replay_live/20260510T_h1y_routed_residual_routed_residual_guard_execute_v1 | `10` | `5` | `0.50000` | `5` | `0.50000` | `4` | `1` | `0` |
+| selection_origin_guard_v17 | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_selection_origin_guard | results/tool_probe_replay_live/20260510T_h1z_selection_origin_guard_on_h1y_execute_v1 | `10` | `5` | `0.50000` | `5` | `0.50000` | `2` | `3` | `0` |
 
 ## Family Rows
 
@@ -39,6 +40,11 @@ H1y tests the routed-helper hypothesis directly. The packet mixes stale-field ro
 | routed_residual_guard_v16 | h1y_route_code_label | `2` | `1` | `0.50000` | `1` | `0.50000` |
 | routed_residual_guard_v16 | h1y_route_nonstandard_class | `2` | `1` | `0.50000` | `1` | `0.50000` |
 | routed_residual_guard_v16 | h1y_route_stale_field | `3` | `2` | `0.66667` | `2` | `0.66667` |
+| selection_origin_guard_v17 | h1y_activation_no_call | `1` | `1` | `1.00000` | `1` | `1.00000` |
+| selection_origin_guard_v17 | h1y_preserve_surface_value | `2` | `2` | `1.00000` | `2` | `1.00000` |
+| selection_origin_guard_v17 | h1y_route_code_label | `2` | `1` | `0.50000` | `1` | `0.50000` |
+| selection_origin_guard_v17 | h1y_route_nonstandard_class | `2` | `1` | `0.50000` | `1` | `0.50000` |
+| selection_origin_guard_v17 | h1y_route_stale_field | `3` | `0` | `0.00000` | `0` | `0.00000` |
 
 ## Comparison Rows
 
@@ -50,6 +56,10 @@ H1y tests the routed-helper hypothesis directly. The packet mixes stale-field ro
 | results/tool_probe_replay_live_comparisons/20260510T_h1y_component_residual_guard_vs_component_label_guard_v1 | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_label_guard | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard | `10` | `0.50000` | `0.70000` | `0.20000` | `0.50000` | `0.70000` | `0.20000` |
 | results/tool_probe_replay_live_comparisons/20260510T_h1y_routed_residual_guard_vs_component_label_guard_v1 | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_label_guard | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_routed_residual_guard | `10` | `0.50000` | `0.50000` | `0.00000` | `0.50000` | `0.50000` | `0.00000` |
 | results/tool_probe_replay_live_comparisons/20260510T_h1y_routed_residual_guard_vs_component_residual_guard_v1 | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_routed_residual_guard | `10` | `0.70000` | `0.50000` | `-0.20000` | `0.70000` | `0.50000` | `-0.20000` |
+| results/tool_probe_replay_live_comparisons/20260510T_h1z_selection_origin_guard_vs_no_directive_on_h1y_v1 | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_selection_origin_guard | `10` | `0.00000` | `0.50000` | `0.50000` | `0.00000` | `0.50000` | `0.50000` |
+| results/tool_probe_replay_live_comparisons/20260510T_h1z_selection_origin_guard_vs_component_label_guard_on_h1y_v1 | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_label_guard | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_selection_origin_guard | `10` | `0.50000` | `0.50000` | `0.00000` | `0.50000` | `0.50000` | `0.00000` |
+| results/tool_probe_replay_live_comparisons/20260510T_h1z_selection_origin_guard_vs_component_residual_guard_on_h1y_v1 | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_selection_origin_guard | `10` | `0.70000` | `0.50000` | `-0.20000` | `0.70000` | `0.50000` | `-0.20000` |
+| results/tool_probe_replay_live_comparisons/20260510T_h1z_selection_origin_guard_vs_routed_residual_guard_on_h1y_v1 | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_routed_residual_guard | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_selection_origin_guard | `10` | `0.50000` | `0.50000` | `0.00000` | `0.50000` | `0.50000` | `0.00000` |
 
 ## Non-Exact Rows
 
@@ -78,6 +88,11 @@ H1y tests the routed-helper hypothesis directly. The packet mixes stale-field ro
 | routed_residual_guard_v16 | h1y_alert_s92_negated_toggle_decoy | h1y_route_code_label | argument_mismatch | `false` | extract_layout | {"image_id": "img-h1y-alert-s92", "target_query": "alert s92"} | extract_layout | {"image_id": "img-h1y-alert-s92", "target_query": "override toggle"} | h1y-alert-toggle-9851 | /Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1y_routed_residual_routed_residual_guard_execute_v1/runs/h1y_alert_s92_negated_toggle_decoy |
 | routed_residual_guard_v16 | h1y_status_pill_summary_value_holdout | h1y_preserve_surface_value | argument_mismatch | `false` | extract_layout | {"image_id": "img-h1y-status-pill", "target_query": "status pill"} | extract_layout | {"image_id": "img-h1y-status-pill", "target_query": "Pending"} | h1y-status-summary-9871,h1y-status-pill-9872,h1y-status-table-9873 | /Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1y_routed_residual_routed_residual_guard_execute_v1/runs/h1y_status_pill_summary_value_holdout |
 | routed_residual_guard_v16 | h1y_result_badge_comment_value_holdout | h1y_preserve_surface_value | argument_mismatch | `false` | extract_layout | {"image_id": "img-h1y-result-badge", "target_query": "result badge"} | extract_layout | {"image_id": "img-h1y-result-badge", "target_query": "Blocked"} | h1y-result-comment-9881,h1y-result-badge-9882,h1y-result-board-9883 | /Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1y_routed_residual_routed_residual_guard_execute_v1/runs/h1y_result_badge_comment_value_holdout |
+| selection_origin_guard_v17 | h1y_responsible_party_field_old_owner_memo_decoy | h1y_route_stale_field | wrong_tool | `false` | extract_layout | {"image_id": "img-h1y-owner-field", "target_query": "owner field"} | refine_selection | {"filter_query": "owner field", "selection_id": "sel-h1y-owner-memo"} |  | /Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1z_selection_origin_guard_on_h1y_execute_v1/runs/h1y_responsible_party_field_old_owner_memo_decoy |
+| selection_origin_guard_v17 | h1y_escalation_contact_field_saved_summary_decoy | h1y_route_stale_field | wrong_tool | `false` | extract_layout | {"image_id": "img-h1y-escalation-contact", "target_query": "owner field"} | refine_selection | {"filter_query": "latest", "selection_id": "sel-h1y-contact-summary"} |  | /Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1z_selection_origin_guard_on_h1y_execute_v1/runs/h1y_escalation_contact_field_saved_summary_decoy |
+| selection_origin_guard_v17 | h1y_review_owner_field_previous_table_decoy | h1y_route_stale_field | wrong_tool | `false` | extract_layout | {"image_id": "img-h1y-review-owner", "target_query": "owner field"} | refine_selection | {"filter_query": "owner field", "selection_id": "sel-h1y-review-table"} |  | /Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1z_selection_origin_guard_on_h1y_execute_v1/runs/h1y_review_owner_field_previous_table_decoy |
+| selection_origin_guard_v17 | h1y_lifecycle_state_tag_audit_value_decoy | h1y_route_nonstandard_class | argument_mismatch | `false` | extract_layout | {"image_id": "img-h1y-state-tag", "target_query": "state tag"} | extract_layout | {"image_id": "img-h1y-state-tag", "target_query": "lifecycle state tag"} |  | /Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1z_selection_origin_guard_on_h1y_execute_v1/runs/h1y_lifecycle_state_tag_audit_value_decoy |
+| selection_origin_guard_v17 | h1y_alert_s92_negated_toggle_decoy | h1y_route_code_label | argument_mismatch | `false` | extract_layout | {"image_id": "img-h1y-alert-s92", "target_query": "alert s92"} | extract_layout | {"image_id": "img-h1y-alert-s92", "target_query": "override toggle"} | h1y-alert-toggle-9851 | /Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1z_selection_origin_guard_on_h1y_execute_v1/runs/h1y_alert_s92_negated_toggle_decoy |
 
 ## Findings
 
@@ -87,4 +102,5 @@ H1y tests the routed-helper hypothesis directly. The packet mixes stale-field ro
 | v11_partial_default_remains_useful | Component-label guard v11 reaches 5/10 exact and 5/10 executor-equivalent. It preserves surface-value holdouts and the activation row, but misses all three stale-field route rows. |
 | v12_best_local_but_still_noisy | Component-residual guard v12 is the local H1y winner at 7/10 exact and 7/10 executor-equivalent, a +0.200 exact-rate delta over v11. It still only reaches 1/2 on surface-value holdouts, so broad residual wording keeps the old transfer risk alive. |
 | v16_route_text_is_not_enough | Routed residual guard v16 ties v11 at 5/10 exact and 5/10 executor-equivalent, with 0.000 exact-rate delta over v11 and -0.200 versus v12. It drops to 0/2 on surface-value holdouts; non-exact rows: h1y_responsible_party_field_old_owner_memo_decoy, h1y_lifecycle_state_tag_audit_value_decoy, h1y_alert_s92_negated_toggle_decoy, h1y_status_pill_summary_value_holdout, h1y_result_badge_comment_value_holdout. |
-| next_slice | Do not promote v16. The next profile should target selection-origin and component-phrase precedence directly: forbid refine_selection on user-mentioned stale ids without a prior tool result, prefer explicit 'label is/component is' phrases, preserve 'locate X exactly' code labels, and drop wrapper words like lifecycle or operation without replacing component labels by values. |
+| v17_selection_origin_text_is_also_insufficient | Selection-origin guard v17 reaches 5/10 exact and 5/10 executor-equivalent, with 0.000 exact-rate delta over v11 and -0.200 versus v12. It restores surface holdouts to 2/2, but remains 0/3 on stale-field routes; non-exact rows: h1y_responsible_party_field_old_owner_memo_decoy, h1y_escalation_contact_field_saved_summary_decoy, h1y_review_owner_field_previous_table_decoy, h1y_lifecycle_state_tag_audit_value_decoy, h1y_alert_s92_negated_toggle_decoy. |
+| next_slice | Do not promote v16 or v17. H1y/H1z suggests that stale user-mentioned selection_id handling is not reliably solved by more catalog prose; the next slice should test a controller/runtime candidate that masks or rejects stale user-provided selection ids before model routing, then compare that against v11 and v12 on the same packet. |

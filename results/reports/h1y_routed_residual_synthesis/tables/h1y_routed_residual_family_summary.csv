@@ -19,3 +19,8 @@ routed_residual_guard_v16,h1y_preserve_surface_value,2,0,0.0,0,0.0
 routed_residual_guard_v16,h1y_route_code_label,2,1,0.5,1,0.5
 routed_residual_guard_v16,h1y_route_nonstandard_class,2,1,0.5,1,0.5
 routed_residual_guard_v16,h1y_route_stale_field,3,2,0.6666666666666666,2,0.6666666666666666
+selection_origin_guard_v17,h1y_activation_no_call,1,1,1.0,1,1.0
+selection_origin_guard_v17,h1y_preserve_surface_value,2,2,1.0,2,1.0
+selection_origin_guard_v17,h1y_route_code_label,2,1,0.5,1,0.5
+selection_origin_guard_v17,h1y_route_nonstandard_class,2,1,0.5,1,0.5
+selection_origin_guard_v17,h1y_route_stale_field,3,0,0.0,0,0.0

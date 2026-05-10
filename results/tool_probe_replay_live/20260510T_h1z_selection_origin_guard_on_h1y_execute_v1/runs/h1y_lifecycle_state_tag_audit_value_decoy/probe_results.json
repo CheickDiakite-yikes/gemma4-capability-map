@@ -1,0 +1,58 @@
+[
+  {
+    "case_id": "h1y_lifecycle_state_tag_audit_value_decoy",
+    "family": "h1y_route_nonstandard_class",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "h1y-state-tag-9832"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1y-state-tag",
+          "target_query": "lifecycle state tag"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h1y-state-tag",
+          "selection_kind": "regions",
+          "count": 0,
+          "executor_mode": "local",
+          "region_ids": []
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1y-state-tag",
+          "target_query": "state tag"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1y-state-tag",
+          "target_query": "lifecycle state tag"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h1y-state-tag\", \"target_query\": \"lifecycle state tag\"}}",
+    "prompt_tokens": 1878,
+    "completion_tokens": 38,
+    "latency_ms": 6922
+  }
+]
