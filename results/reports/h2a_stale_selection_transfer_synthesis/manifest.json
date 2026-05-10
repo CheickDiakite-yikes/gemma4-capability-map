@@ -1,0 +1,23 @@
+{
+  "generated_at": "2026-05-10T19:49:25.873904+00:00",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h2a_stale_selection_transfer_synthesis",
+  "local_case_count": 10,
+  "local_h2a_exact_success_count": 8,
+  "local_h2a_executor_success_count": 8,
+  "transfer_case_count": 40,
+  "transfer_no_directive_exact_success_count": 12,
+  "transfer_no_directive_executor_success_count": 14,
+  "transfer_v11_exact_success_count": 33,
+  "transfer_v11_executor_success_count": 36,
+  "transfer_v12_exact_success_count": 35,
+  "transfer_v12_executor_success_count": 35,
+  "transfer_h2a_exact_success_count": 35,
+  "transfer_h2a_executor_success_count": 38,
+  "transfer_h2a_exact_delta_vs_v11_count": 2,
+  "transfer_h2a_executor_delta_vs_v11_count": 2,
+  "transfer_h2a_exact_delta_vs_v12_count": 0,
+  "transfer_h2a_executor_delta_vs_v12_count": 3,
+  "comparison_count": 12,
+  "h2a_transfer_residual_count": 5,
+  "promotion_decision": "promote_h2a_as_scoped_controller_helper_and_target_exact_alias_residuals"
+}
