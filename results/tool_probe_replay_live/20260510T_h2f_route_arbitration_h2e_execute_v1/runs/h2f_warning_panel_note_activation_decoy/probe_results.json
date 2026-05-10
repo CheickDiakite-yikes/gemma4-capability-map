@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "h2f_warning_panel_note_activation_decoy",
+    "family": "h2f_activation_panel_notice",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "h2f-warning-panel-9982"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2f-warning-panel",
+          "target_query": "warning panel"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h2f-warning-panel",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "h2f-warning-panel-9982"
+          ],
+          "region_id": "h2f-warning-panel-9982",
+          "text_preview": "Warning"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2f-warning-panel",
+          "target_query": "warning panel"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2f-warning-panel",
+          "target_query": "warning panel"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h2f-warning-panel\", \"target_query\": \"warning panel\"}}",
+    "prompt_tokens": 1895,
+    "completion_tokens": 37,
+    "latency_ms": 6641
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "h2f_reviewer_field_saved_summary_decoy",
+    "family": "h2f_route_stale_field",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "h2f-reviewer-field-9972"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2f-reviewer-field",
+          "target_query": "reviewer field"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h2f-reviewer-field",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "h2f-reviewer-field-9972"
+          ],
+          "region_id": "h2f-reviewer-field-9972",
+          "text_preview": "Leah"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2f-reviewer-field",
+          "target_query": "reviewer field"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2f-reviewer-field",
+          "target_query": "reviewer field"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h2f-reviewer-field\", \"target_query\": \"reviewer field\"}}",
+    "prompt_tokens": 1904,
+    "completion_tokens": 37,
+    "latency_ms": 6548
+  }
+]
