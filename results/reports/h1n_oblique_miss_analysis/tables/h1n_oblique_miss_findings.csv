@@ -1,0 +1,4 @@
+finding_id,finding
+argument_hints_miss_count,"Argument hints has 2 misses: code_suffix_truncation, negated_or_semantic_decoy_selected."
+schema_field_miss_count,"Schema-field hints has 3 misses: code_suffix_truncation, semantic_broad_selection, tool_entry_failure."
+next_intervention_target,"Next target should preserve short code suffixes and negated visible-target instructions, not revive broad schema-target-literal wording."

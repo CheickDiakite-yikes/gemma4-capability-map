@@ -104,8 +104,9 @@ Next implementation moves:
   - design: six held-out labels use code-like visible target tokens such as `node q17`, `badge m88`, `chip z33`, `field e19`, and `alert p55`, with semantic decoys nearby
   - result: no-directive `0 / 6`; contracted `1 / 6`; role catalog v1 `2 / 6`; argument hints v2 `4 / 6`; schema-field hints v4 `3 / 6`; schema target literals v5 `0 / 6`
   - diagnostic: [`results/reports/visual_alias_transfer_oblique_diagnostic/diagnostic.md`](../../results/reports/visual_alias_transfer_oblique_diagnostic/diagnostic.md)
+  - miss analysis: [`results/reports/h1n_oblique_miss_analysis/diagnostic.md`](../../results/reports/h1n_oblique_miss_analysis/diagnostic.md)
   - interpretation: the oblique packet breaks the argument-hints/schema-literal tie in favor of argument hints, with schema-field hints second; target-literal wording is brittle when visible labels are code-like and decoys repeat the semantic content
-- next replay-shaped target: inspect the two argument-hints misses on oblique labels, then decide whether the next less-staged live visual task should compare argument hints against schema-field hints rather than schema target literals
+- next replay-shaped target: test a narrow code-suffix/negated-decoy repair only if it can preserve the four argument-hints wins; otherwise compare argument hints against schema-field hints in a less-staged live visual task
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1

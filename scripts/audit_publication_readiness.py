@@ -495,6 +495,12 @@ def audit_publication_readiness(
             detail="Held-out H1n oblique-label argument-hints comparison exists.",
         ),
         _check_path(
+            check_id="h1n_oblique_miss_analysis_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "h1n_oblique_miss_analysis" / "diagnostic.md",
+            detail="H1n oblique-label miss analysis exists.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",
@@ -536,6 +542,7 @@ def audit_publication_readiness(
         "analyze_packaged_replay_gap.py",
         "analyze_h1n_alias_transfer_contract_split.py",
         "analyze_h1n_oracle_helper_ablation.py",
+        "analyze_h1n_oblique_misses.py",
         "build_h1n_oracle_transfer_synthesis.py",
         "compare_tool_directive_probes.py",
         "build_visual_hard_slice_design.py",

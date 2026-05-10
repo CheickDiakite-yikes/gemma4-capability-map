@@ -55,6 +55,9 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert claims["C22_h1n_oblique_labels_favor_argument_hints_over_schema_literals"][
         "status"
     ] == "supported_current_packets"
+    assert claims["C23_h1n_oblique_argument_hints_misses_are_code_and_negation_errors"][
+        "status"
+    ] == "supported_current_packets"
     assert "7/8" in claims["C2_final_tool_directive_causal_for_protocol"]["primary_metric"]
     assert "v3 raw exact falls" in claims["C6_split_selector_wording_is_negative_evidence"]["primary_metric"]
     assert "schema-field hints reach 6/8 strict and 8/8 executor-equivalent" in claims[
@@ -132,6 +135,12 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     ]["primary_metric"]
     assert "schema target literals v5 is 0/6" in claims[
         "C22_h1n_oblique_labels_favor_argument_hints_over_schema_literals"
+    ]["primary_metric"]
+    assert "`cell r42` is truncated to `cell`" in claims[
+        "C23_h1n_oblique_argument_hints_misses_are_code_and_negation_errors"
+    ]["primary_metric"]
+    assert "`alert p55` is replaced with the negated decoy `consent toggle`" in claims[
+        "C23_h1n_oblique_argument_hints_misses_are_code_and_negation_errors"
     ]["primary_metric"]
 
     source_types = {row["artifact_type"] for row in payload["evidence_sources"]}

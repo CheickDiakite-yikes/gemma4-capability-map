@@ -256,7 +256,8 @@ Latest MLX tool-contract research:
   - oblique-label packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_oblique_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_oblique_oracle_dry_run_v1)
   - oblique-label result: no-directive `0 / 6`; contracted `1 / 6`; role catalog v1 `2 / 6`; argument hints v2 `4 / 6`; schema-field hints v4 `3 / 6`; schema target literals v5 `0 / 6`
   - oblique-label diagnostic: [`results/reports/visual_alias_transfer_oblique_diagnostic/diagnostic.md`](../../results/reports/visual_alias_transfer_oblique_diagnostic/diagnostic.md)
-  - interpretation: fresh transfer cases favor narrow catalog-profile mechanisms once the expected-call contract is oracle-backed; the code-like oblique packet breaks the repeat tie in favor of argument hints over schema target literals
+  - miss analysis: [`results/reports/h1n_oblique_miss_analysis/diagnostic.md`](../../results/reports/h1n_oblique_miss_analysis/diagnostic.md)
+  - interpretation: fresh transfer cases favor narrow catalog-profile mechanisms once the expected-call contract is oracle-backed; the code-like oblique packet breaks the repeat tie in favor of argument hints over schema target literals, and the remaining argument-hints misses are code-suffix truncation plus negated-decoy selection
 - Prompt-contract wave 2:
   - contracts: `schema_literal_tool_required_v2`, `visual_next_call_state_v2`, `parallel_array_required_v2`
   - runner flag: `scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v2`

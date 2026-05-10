@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-10T01:08:58.545133+00:00",
+    "generated_at": "2026-05-10T01:12:53.807175+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-    "claim_count": 22,
-    "evidence_source_count": 102,
+    "claim_count": 23,
+    "evidence_source_count": 105,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -27,7 +27,8 @@
       "C19_h1n_argument_hints_gain_is_not_controller_helper_artifact",
       "C20_h1n_oracle_repeat_confirms_catalog_transfer_not_contracted_upper_bound",
       "C21_h1n_two_packet_oracle_synthesis_narrows_next_visual_question",
-      "C22_h1n_oblique_labels_favor_argument_hints_over_schema_literals"
+      "C22_h1n_oblique_labels_favor_argument_hints_over_schema_literals",
+      "C23_h1n_oblique_argument_hints_misses_are_code_and_negation_errors"
     ]
   },
   "claims": [
@@ -250,6 +251,16 @@
       "limitation": "The packet intentionally stresses literal code-like target labels, so it should be interpreted as a hard held-out mechanism test rather than a representative visual-work population estimate.",
       "next_test": "Inspect argument-hints misses on the oblique packet, then compare argument hints and schema-field hints on a less replay-shaped live visual task.",
       "source_count": 5
+    },
+    {
+      "claim_id": "C23_h1n_oblique_argument_hints_misses_are_code_and_negation_errors",
+      "claim": "The remaining H1n oblique argument-hints failures are specific literal-code and negated-decoy errors, not generic visual tool-entry collapse.",
+      "status": "supported_current_packets",
+      "evidence_strength": "moderate_internal",
+      "primary_metric": "Argument hints has two oblique misses: `cell r42` is truncated to `cell`, and `alert p55` is replaced with the negated decoy `consent toggle`; schema-field hints has three misses spanning semantic broad selection, code-suffix truncation, and one tool-entry failure.",
+      "limitation": "This diagnostic classifies deterministic replay outputs from one held-out packet; it is a mechanism diagnostic, not a new population-level accuracy estimate.",
+      "next_test": "Try a narrow code-suffix preservation intervention or a negated-decoy guard only if it can be tested without regressing the four oblique argument-hints wins.",
+      "source_count": 3
     }
   ],
   "evidence_sources": [
@@ -965,6 +976,27 @@
       "artifact_type": "live_replay_comparison",
       "path": "results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_oblique_schema_literal_targets_vs_no_directive_v1",
       "purpose": "Comparison showing schema target literals do not improve on the oblique-label packet.",
+      "exists": true
+    },
+    {
+      "claim_id": "C23_h1n_oblique_argument_hints_misses_are_code_and_negation_errors",
+      "artifact_type": "diagnostic_report",
+      "path": "results/reports/h1n_oblique_miss_analysis/diagnostic.md",
+      "purpose": "Miss-analysis report classifying argument-hints and schema-field failures on the oblique packet.",
+      "exists": true
+    },
+    {
+      "claim_id": "C23_h1n_oblique_argument_hints_misses_are_code_and_negation_errors",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260509T_h1n_oracle_oblique_argument_hints_execute_v1",
+      "purpose": "Underlying argument-hints replay packet with actual calls and execution outputs.",
+      "exists": true
+    },
+    {
+      "claim_id": "C23_h1n_oblique_argument_hints_misses_are_code_and_negation_errors",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260509T_h1n_oracle_oblique_schema_field_hints_execute_v1",
+      "purpose": "Underlying schema-field replay packet used as the second-place comparison row.",
       "exists": true
     }
   ],

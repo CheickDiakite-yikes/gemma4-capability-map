@@ -9,7 +9,7 @@
 | --- | --- | ---: | --- | --- |
 | ledger_manifest_exists | blocking | True | Publication evidence ledger manifest exists. | results/reports/publication_evidence_ledger/manifest.json |
 | ledger_has_no_missing_sources | blocking | True | missing_source_count=0 |  |
-| ledger_has_claims | blocking | True | claim_count=21 |  |
+| ledger_has_claims | blocking | True | claim_count=22 |  |
 | ledger_includes_negative_results | blocking | True | At least one claim is explicitly labeled as negative-result evidence. |  |
 | tool_contract_report_has_current_tables | blocking | True | table_count=68 |  |
 | tool_contract_report_has_current_figures | blocking | True | figure_count=33 |  |
@@ -61,6 +61,7 @@
 | h1n_alias_transfer_oblique_packet_exists | blocking | True | Held-out H1n oblique-label oracle packet exists. | results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_oblique_oracle_dry_run_v1/replay_cases.json |
 | h1n_alias_transfer_oblique_diagnostic_exists | blocking | True | Held-out H1n oblique-label diagnostic exists. | results/reports/visual_alias_transfer_oblique_diagnostic/diagnostic.md |
 | h1n_alias_transfer_oblique_argument_hints_comparison_exists | blocking | True | Held-out H1n oblique-label argument-hints comparison exists. | results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_oblique_argument_hints_vs_no_directive_v1/live_replay_comparison.json |
+| h1n_oblique_miss_analysis_exists | blocking | True | H1n oblique-label miss analysis exists. | results/reports/h1n_oblique_miss_analysis/diagnostic.md |
 | current_state_doc_exists | blocking | True | Continuity current-state doc exists. | docs/continuity/current-state.md |
 | next_steps_doc_exists | blocking | True | Continuity next-steps doc exists. | docs/continuity/next-steps.md |
 | research_log_exists | blocking | True | Research log exists. | docs/research-log.md |
@@ -76,6 +77,7 @@
 | script_analyze_packaged_replay_gap.py_exists | blocking | True | Reproduction script `analyze_packaged_replay_gap.py` exists. | scripts/analyze_packaged_replay_gap.py |
 | script_analyze_h1n_alias_transfer_contract_split.py_exists | blocking | True | Reproduction script `analyze_h1n_alias_transfer_contract_split.py` exists. | scripts/analyze_h1n_alias_transfer_contract_split.py |
 | script_analyze_h1n_oracle_helper_ablation.py_exists | blocking | True | Reproduction script `analyze_h1n_oracle_helper_ablation.py` exists. | scripts/analyze_h1n_oracle_helper_ablation.py |
+| script_analyze_h1n_oblique_misses.py_exists | blocking | True | Reproduction script `analyze_h1n_oblique_misses.py` exists. | scripts/analyze_h1n_oblique_misses.py |
 | script_build_h1n_oracle_transfer_synthesis.py_exists | blocking | True | Reproduction script `build_h1n_oracle_transfer_synthesis.py` exists. | scripts/build_h1n_oracle_transfer_synthesis.py |
 | script_compare_tool_directive_probes.py_exists | blocking | True | Reproduction script `compare_tool_directive_probes.py` exists. | scripts/compare_tool_directive_probes.py |
 | script_build_visual_hard_slice_design.py_exists | blocking | True | Reproduction script `build_visual_hard_slice_design.py` exists. | scripts/build_visual_hard_slice_design.py |

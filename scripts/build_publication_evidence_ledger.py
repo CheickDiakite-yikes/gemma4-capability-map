@@ -908,6 +908,45 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C23_h1n_oblique_argument_hints_misses_are_code_and_negation_errors",
+        claim=(
+            "The remaining H1n oblique argument-hints failures are specific literal-code and negated-decoy errors, "
+            "not generic visual tool-entry collapse."
+        ),
+        status="supported_current_packets",
+        evidence_strength="moderate_internal",
+        primary_metric=(
+            "Argument hints has two oblique misses: `cell r42` is truncated to `cell`, and `alert p55` is replaced "
+            "with the negated decoy `consent toggle`; schema-field hints has three misses spanning semantic broad "
+            "selection, code-suffix truncation, and one tool-entry failure."
+        ),
+        limitation=(
+            "This diagnostic classifies deterministic replay outputs from one held-out packet; it is a mechanism "
+            "diagnostic, not a new population-level accuracy estimate."
+        ),
+        next_test=(
+            "Try a narrow code-suffix preservation intervention or a negated-decoy guard only if it can be tested "
+            "without regressing the four oblique argument-hints wins."
+        ),
+        sources=(
+            EvidenceSource(
+                "diagnostic_report",
+                "results/reports/h1n_oblique_miss_analysis/diagnostic.md",
+                "Miss-analysis report classifying argument-hints and schema-field failures on the oblique packet.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260509T_h1n_oracle_oblique_argument_hints_execute_v1",
+                "Underlying argument-hints replay packet with actual calls and execution outputs.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260509T_h1n_oracle_oblique_schema_field_hints_execute_v1",
+                "Underlying schema-field replay packet used as the second-place comparison row.",
+            ),
+        ),
+    ),
 )
 
 

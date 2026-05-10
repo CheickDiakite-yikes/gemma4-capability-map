@@ -1,9 +1,9 @@
 {
   "summary": {
-    "generated_at": "2026-05-10T01:08:58.538207+00:00",
+    "generated_at": "2026-05-10T01:12:53.803025+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 73,
-    "blocking_check_count": 71,
+    "check_count": 75,
+    "blocking_check_count": 73,
     "blocking_failed_count": 0,
     "recommended_check_count": 2,
     "recommended_failed_count": 0,
@@ -29,7 +29,7 @@
       "check_id": "ledger_has_claims",
       "severity": "blocking",
       "passed": true,
-      "detail": "claim_count=21",
+      "detail": "claim_count=22",
       "path": ""
     },
     {
@@ -390,6 +390,13 @@
       "path": "results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_oblique_argument_hints_vs_no_directive_v1/live_replay_comparison.json"
     },
     {
+      "check_id": "h1n_oblique_miss_analysis_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H1n oblique-label miss analysis exists.",
+      "path": "results/reports/h1n_oblique_miss_analysis/diagnostic.md"
+    },
+    {
       "check_id": "current_state_doc_exists",
       "severity": "blocking",
       "passed": true,
@@ -493,6 +500,13 @@
       "passed": true,
       "detail": "Reproduction script `analyze_h1n_oracle_helper_ablation.py` exists.",
       "path": "scripts/analyze_h1n_oracle_helper_ablation.py"
+    },
+    {
+      "check_id": "script_analyze_h1n_oblique_misses.py_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Reproduction script `analyze_h1n_oblique_misses.py` exists.",
+      "path": "scripts/analyze_h1n_oblique_misses.py"
     },
     {
       "check_id": "script_build_h1n_oracle_transfer_synthesis.py_exists",

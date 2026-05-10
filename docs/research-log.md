@@ -3410,6 +3410,23 @@
   - `uv run python scripts/analyze_visual_live_stress_matrix.py --matrix alias-transfer-oblique`
   - `uv run pytest tests/test_visual_live_stress_diagnostic.py -q`
 
+## 2026-05-09 - H1n Oblique Miss Analysis
+
+- Added a miss diagnostic for the two strongest oblique rows:
+  - report: [`results/reports/h1n_oblique_miss_analysis/diagnostic.md`](../results/reports/h1n_oblique_miss_analysis/diagnostic.md)
+  - table: [`results/reports/h1n_oblique_miss_analysis/tables/h1n_oblique_misses.csv`](../results/reports/h1n_oblique_miss_analysis/tables/h1n_oblique_misses.csv)
+- Argument-hints misses:
+  - `transfer_oblique_cell_r42_notice_decoy`: expected `cell r42`, actual `cell`; this broadens the local executor match to the notice, target cell, and approval table
+  - `transfer_oblique_alert_p55_toggle_decoy`: expected `alert p55`, actual `consent toggle`; this selects the explicitly negated decoy
+- Schema-field misses:
+  - one semantic broad-selection miss, one code-suffix truncation miss, and one tool-entry failure
+- Interpretation:
+  - the next intervention should not revive broad schema-target-literal wording
+  - the narrow remaining target is code-suffix preservation plus negated-decoy resistance, tested against preservation of the four argument-hints wins
+- Verification:
+  - `uv run python scripts/analyze_h1n_oblique_misses.py`
+  - `uv run pytest tests/test_h1n_oblique_miss_analysis.py -q`
+
 ## 2026-05-09 - Schema Target Literal v5 Negative Hard-Slice Repair
 
 - A narrow hard-slice repair candidate was added after inspecting the two v4 exact misses:
