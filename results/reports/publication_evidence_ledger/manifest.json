@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-05-10T21:26:23.924512+00:00",
+  "generated_at": "2026-05-10T21:50:08.293535+00:00",
   "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-  "claim_count": 45,
-  "evidence_source_count": 243,
+  "claim_count": 46,
+  "evidence_source_count": 249,
   "missing_source_count": 0,
   "claim_ids": [
     "C1_controller_dependence_hidden_by_readiness",
@@ -49,6 +49,7 @@
     "C42_h2d_class_preserving_route_repairs_h2c_transfer_but_costs_h2b_exactness",
     "C43_h2e_route_arbitration_reconciles_h2c_h2d_tradeoff",
     "C44_h2f_holdout_breaks_h2e_global_promotion",
-    "C45_h2g_component_identity_contract_is_partial_executor_gain"
+    "C45_h2g_component_identity_contract_is_partial_executor_gain",
+    "C46_h2h_negative_examples_repair_h2f_but_fail_global_transfer"
   ]
 }

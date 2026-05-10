@@ -2165,6 +2165,60 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C46_h2h_negative_examples_repair_h2f_but_fail_global_transfer",
+        claim=(
+            "The H2h component-identity negative-example contract strongly repairs the fresh H2f holdout, but "
+            "fails global promotion because it regresses the prior H2b and H1x transfer gates."
+        ),
+        status="supported_scoped_negative_global_promotion",
+        evidence_strength="strong_internal",
+        primary_metric=(
+            "H2h improves H2f from H2e/H2g's 6/10 strict exactness to 9/10 strict and executor-equivalent, "
+            "but falls to 3/5 on H2b versus H2e's 5/5 and 6/8 on H1x versus H2e's 8/8."
+        ),
+        limitation=(
+            "H2h is evidence for a causal prompt-contract repair on one fresh holdout, not a deployable default. "
+            "The transfer regressions show that explicit negative examples can over-constrain nearby component "
+            "classes and code-label rows."
+        ),
+        next_test=(
+            "Build a conditional arbitration profile that keeps H2e as the default and activates H2h-style "
+            "negative examples only when the prompt explicitly asks for a displayed-value component identity."
+        ),
+        sources=(
+            EvidenceSource(
+                "replay_synthesis",
+                "results/reports/h2h_component_identity_tradeoff_synthesis/report.md",
+                "Dedicated H2h synthesis showing the H2f repair and H2b/H1x transfer regressions.",
+            ),
+            EvidenceSource(
+                "replay_synthesis_figure",
+                "results/reports/h2h_component_identity_tradeoff_synthesis/figures/h2h_tradeoff_gate.svg",
+                "Figure summarizing H2h's scoped improvement and transfer regressions.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h2h_component_identity_negative_examples_on_h2f_execute_v1",
+                "H2h live execution reaching 9/10 strict and executor-equivalent on H2f.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260510T_h2h_component_identity_negative_examples_vs_h2e_on_h2f_v1",
+                "Direct H2h-vs-H2e comparison showing +0.3 exact-rate lift on H2f.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260510T_h2h_component_identity_negative_examples_vs_h2e_on_h2b_v1",
+                "Direct H2h-vs-H2e comparison showing -0.4 exact-rate regression on H2b.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260510T_h2h_component_identity_negative_examples_vs_h2e_on_h1x_v1",
+                "Direct H2h-vs-H2e comparison showing -0.25 exact-rate regression on H1x.",
+            ),
+        ),
+    ),
 )
 
 

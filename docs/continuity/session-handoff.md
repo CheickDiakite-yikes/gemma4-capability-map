@@ -27,9 +27,13 @@ Current strongest MLX result:
   - Fresh H2f breaks global H2e promotion: H2e and H2c tie at `6 / 10`, while no-directive is only `1 / 10`.
   - H2e's four H2f misses all call the right tool with the wrong query: component identities collapse into displayed values or aliases.
   - H2g component-identity query contract is partial: strict stays `6 / 10`, executor-equivalence rises to `7 / 10`, and `resolution badge Deferred` is the single executor-valid gain.
+  - H2h component-identity negative examples are the sharpest scoped repair: H2h reaches `9 / 10` strict and executor-equivalent on H2f.
+  - H2h is not a global successor: it regresses to `3 / 5` on H2b and `6 / 8` on H1x, where H2e had saturated `5 / 5` and `8 / 8`.
   - H2f synthesis: [`results/reports/h2f_route_arbitration_holdout_synthesis/report.md`](../../results/reports/h2f_route_arbitration_holdout_synthesis/report.md)
   - H2f figure: [`results/reports/h2f_route_arbitration_holdout_synthesis/figures/h2f_holdout_profile_bars.svg`](../../results/reports/h2f_route_arbitration_holdout_synthesis/figures/h2f_holdout_profile_bars.svg)
-  - next restart move: build H2h stronger component-identity query contract, run H2h on H2f, and only backtest H2b/H1x if strict exactness improves
+  - H2h tradeoff synthesis: [`results/reports/h2h_component_identity_tradeoff_synthesis/report.md`](../../results/reports/h2h_component_identity_tradeoff_synthesis/report.md)
+  - H2h tradeoff figure: [`results/reports/h2h_component_identity_tradeoff_synthesis/figures/h2h_tradeoff_gate.svg`](../../results/reports/h2h_component_identity_tradeoff_synthesis/figures/h2h_tradeoff_gate.svg)
+  - next restart move: build H2i conditional arbitration, keeping H2e default behavior while activating H2h-style negative examples only for explicit displayed-value component-identity prompts
 - H1h proves the no-directive causal ordering across all ten live workflow families.
 - H1i compresses the worst H1h workflow families into the current fast loop.
 - contracted MLX on H1i is clean at readiness `0.97710`, strict/recovered `1.0 / 1.0`, raw clean `1.0`.

@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-10T21:26:23.924512+00:00",
+    "generated_at": "2026-05-10T21:50:08.293535+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-    "claim_count": 45,
-    "evidence_source_count": 243,
+    "claim_count": 46,
+    "evidence_source_count": 249,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -50,7 +50,8 @@
       "C42_h2d_class_preserving_route_repairs_h2c_transfer_but_costs_h2b_exactness",
       "C43_h2e_route_arbitration_reconciles_h2c_h2d_tradeoff",
       "C44_h2f_holdout_breaks_h2e_global_promotion",
-      "C45_h2g_component_identity_contract_is_partial_executor_gain"
+      "C45_h2g_component_identity_contract_is_partial_executor_gain",
+      "C46_h2h_negative_examples_repair_h2f_but_fail_global_transfer"
     ]
   },
   "claims": [
@@ -503,6 +504,16 @@
       "limitation": "H2g has only been executed on H2f. Because it does not improve strict exactness on the acceptance holdout, H2b/H1x backtests are lower priority than designing a stronger exact-query contract.",
       "next_test": "Build H2h with explicit negative examples for value substitution and alias expansion, then rerun on H2f before any H2b/H1x regression backtest.",
       "source_count": 3
+    },
+    {
+      "claim_id": "C46_h2h_negative_examples_repair_h2f_but_fail_global_transfer",
+      "claim": "The H2h component-identity negative-example contract strongly repairs the fresh H2f holdout, but fails global promotion because it regresses the prior H2b and H1x transfer gates.",
+      "status": "supported_scoped_negative_global_promotion",
+      "evidence_strength": "strong_internal",
+      "primary_metric": "H2h improves H2f from H2e/H2g's 6/10 strict exactness to 9/10 strict and executor-equivalent, but falls to 3/5 on H2b versus H2e's 5/5 and 6/8 on H1x versus H2e's 8/8.",
+      "limitation": "H2h is evidence for a causal prompt-contract repair on one fresh holdout, not a deployable default. The transfer regressions show that explicit negative examples can over-constrain nearby component classes and code-label rows.",
+      "next_test": "Build a conditional arbitration profile that keeps H2e as the default and activates H2h-style negative examples only when the prompt explicitly asks for a displayed-value component identity.",
+      "source_count": 6
     }
   ],
   "evidence_sources": [
@@ -2205,6 +2216,48 @@
       "artifact_type": "live_replay_comparison",
       "path": "results/tool_probe_replay_live_comparisons/20260510T_h2g_component_identity_query_contract_vs_h2e_on_h2f_v1",
       "purpose": "Direct H2g-vs-H2e comparison showing zero strict lift and +0.1 executor-equivalence lift.",
+      "exists": true
+    },
+    {
+      "claim_id": "C46_h2h_negative_examples_repair_h2f_but_fail_global_transfer",
+      "artifact_type": "replay_synthesis",
+      "path": "results/reports/h2h_component_identity_tradeoff_synthesis/report.md",
+      "purpose": "Dedicated H2h synthesis showing the H2f repair and H2b/H1x transfer regressions.",
+      "exists": true
+    },
+    {
+      "claim_id": "C46_h2h_negative_examples_repair_h2f_but_fail_global_transfer",
+      "artifact_type": "replay_synthesis_figure",
+      "path": "results/reports/h2h_component_identity_tradeoff_synthesis/figures/h2h_tradeoff_gate.svg",
+      "purpose": "Figure summarizing H2h's scoped improvement and transfer regressions.",
+      "exists": true
+    },
+    {
+      "claim_id": "C46_h2h_negative_examples_repair_h2f_but_fail_global_transfer",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260510T_h2h_component_identity_negative_examples_on_h2f_execute_v1",
+      "purpose": "H2h live execution reaching 9/10 strict and executor-equivalent on H2f.",
+      "exists": true
+    },
+    {
+      "claim_id": "C46_h2h_negative_examples_repair_h2f_but_fail_global_transfer",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260510T_h2h_component_identity_negative_examples_vs_h2e_on_h2f_v1",
+      "purpose": "Direct H2h-vs-H2e comparison showing +0.3 exact-rate lift on H2f.",
+      "exists": true
+    },
+    {
+      "claim_id": "C46_h2h_negative_examples_repair_h2f_but_fail_global_transfer",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260510T_h2h_component_identity_negative_examples_vs_h2e_on_h2b_v1",
+      "purpose": "Direct H2h-vs-H2e comparison showing -0.4 exact-rate regression on H2b.",
+      "exists": true
+    },
+    {
+      "claim_id": "C46_h2h_negative_examples_repair_h2f_but_fail_global_transfer",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260510T_h2h_component_identity_negative_examples_vs_h2e_on_h1x_v1",
+      "purpose": "Direct H2h-vs-H2e comparison showing -0.25 exact-rate regression on H1x.",
       "exists": true
     }
   ],

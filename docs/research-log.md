@@ -2,6 +2,39 @@
 
 # Research Log
 
+## 2026-05-10 - H2h Repairs Fresh H2f but Fails Global Transfer
+
+- Added H2h as an explicit negative-example component-identity contract:
+  - profile: `visual_role_catalog_component_identity_negative_examples_v22`
+  - system: `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_identity_negative_examples_visual_stale_selection_gate`
+  - H2f live packet: [`results/tool_probe_replay_live/20260510T_h2h_component_identity_negative_examples_on_h2f_execute_v1`](../results/tool_probe_replay_live/20260510T_h2h_component_identity_negative_examples_on_h2f_execute_v1)
+  - H2b live packet: [`results/tool_probe_replay_live/20260510T_h2h_component_identity_negative_examples_on_h2b_execute_v1`](../results/tool_probe_replay_live/20260510T_h2h_component_identity_negative_examples_on_h2b_execute_v1)
+  - H1x live packet: [`results/tool_probe_replay_live/20260510T_h2h_component_identity_negative_examples_on_h1x_execute_v1`](../results/tool_probe_replay_live/20260510T_h2h_component_identity_negative_examples_on_h1x_execute_v1)
+  - tradeoff synthesis: [`results/reports/h2h_component_identity_tradeoff_synthesis/report.md`](../results/reports/h2h_component_identity_tradeoff_synthesis/report.md)
+- H2h result:
+  - H2f: `9 / 10` strict and executor-equivalent, a `+0.3` exact-rate lift over H2e/H2g
+  - H2b: `3 / 5`, a `-0.4` exact-rate regression versus H2e/H2c
+  - H1x: `6 / 8`, a `-0.25` exact-rate regression versus H2e/H2d
+- Mechanism read:
+  - explicit negative examples are causal on the fresh H2f displayed-value component-identity failures
+  - the remaining H2f miss is `state marker` -> `lifecycle state marker`
+  - the transfer regressions are component-class and code-label leakage: `result pill` -> `result tile`, `badge c08` -> `badge m31 c08`, `result chip` -> `result tile`, and `error banner` -> `error notice`
+- Research decision:
+  - reject global H2h promotion
+  - keep H2e as the safest route-arbitration default
+  - build H2i as conditional arbitration that activates H2h-style negative examples only for explicit displayed-value component-identity prompts
+- Reporting updates:
+  - publication evidence ledger now has `46` claims, `249` sources, and `0` missing sources
+  - new claim: `C46_h2h_negative_examples_repair_h2f_but_fail_global_transfer`
+- Verification:
+  - `uv run pytest tests/test_prompt_contracts.py::test_visual_role_catalog_component_identity_negative_examples_targets_h2f_residuals tests/test_knowledge_work_h1.py::test_h2h_component_identity_negative_examples_registry_row_preserves_profile_and_controller_flag -q`
+  - `uv run moonie-agent replay-live --packet-dir results/tool_probe_replay_packets/20260510T_h2f_route_arbitration_oracle_dry_run_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_identity_negative_examples_visual_stale_selection_gate --output-dir results/tool_probe_replay_live/20260510T_h2h_component_identity_negative_examples_on_h2f_execute_v1 --execute --json`
+  - `uv run moonie-agent replay-live --packet-dir results/tool_probe_replay_packets/20260510T_h2b_residual_exactness_dry_run_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_identity_negative_examples_visual_stale_selection_gate --output-dir results/tool_probe_replay_live/20260510T_h2h_component_identity_negative_examples_on_h2b_execute_v1 --execute --json`
+  - `uv run moonie-agent replay-live --packet-dir results/tool_probe_replay_packets/20260510T_h1x_v11_breaker_oracle_dry_run_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_identity_negative_examples_visual_stale_selection_gate --output-dir results/tool_probe_replay_live/20260510T_h2h_component_identity_negative_examples_on_h1x_execute_v1 --execute --json`
+  - `uv run python scripts/build_h2f_route_arbitration_holdout_synthesis.py`
+  - `uv run python scripts/build_h2h_component_identity_tradeoff_synthesis.py`
+  - `uv run pytest tests/test_publication_evidence_ledger.py tests/test_publication_readiness_audit.py tests/test_h2f_route_arbitration_holdout_synthesis.py tests/test_h2h_component_identity_tradeoff_synthesis.py -q`
+
 ## 2026-05-10 - H2g Component-Identity Contract Is Partial, Not Strict Repair
 
 - Added H2g as the first component-identity query-contract candidate:
