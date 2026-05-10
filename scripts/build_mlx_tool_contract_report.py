@@ -556,6 +556,30 @@ DEFAULT_VISUAL_HARD_SLICE_H1O_COMPONENT_VALUE_GUARD_LIVE_COMPARISON = (
     / "tool_probe_replay_live_comparisons"
     / "20260510T_h1o_control_factorial_component_value_guard_vs_no_directive_v1"
 )
+DEFAULT_VISUAL_HARD_SLICE_H1P_ARGUMENT_HINTS_LIVE_COMPARISON = (
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260510T_h1p_component_value_argument_hints_vs_no_directive_v1"
+)
+DEFAULT_VISUAL_HARD_SLICE_H1P_HYBRID_LABEL_GUARD_LIVE_COMPARISON = (
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260510T_h1p_component_value_hybrid_label_guard_vs_no_directive_v1"
+)
+DEFAULT_VISUAL_HARD_SLICE_H1P_NO_CALL_CONTROL_RESCUE_LIVE_COMPARISON = (
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260510T_h1p_component_value_no_call_control_rescue_vs_no_directive_v1"
+)
+DEFAULT_VISUAL_HARD_SLICE_H1P_COMPONENT_VALUE_GUARD_LIVE_COMPARISON = (
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260510T_h1p_component_value_component_value_guard_vs_no_directive_v1"
+)
 
 SYSTEM_LABELS = {
     "mlx_gemma4_e2b_reasoner_only": "contracted",
@@ -723,6 +747,14 @@ def build_report(
     | Path = DEFAULT_VISUAL_HARD_SLICE_H1O_OBLIQUE_CODE_GUARD_LIVE_COMPARISON,
     visual_hard_slice_h1o_component_value_guard_live_comparison: str
     | Path = DEFAULT_VISUAL_HARD_SLICE_H1O_COMPONENT_VALUE_GUARD_LIVE_COMPARISON,
+    visual_hard_slice_h1p_argument_hints_live_comparison: str
+    | Path = DEFAULT_VISUAL_HARD_SLICE_H1P_ARGUMENT_HINTS_LIVE_COMPARISON,
+    visual_hard_slice_h1p_hybrid_label_guard_live_comparison: str
+    | Path = DEFAULT_VISUAL_HARD_SLICE_H1P_HYBRID_LABEL_GUARD_LIVE_COMPARISON,
+    visual_hard_slice_h1p_no_call_control_rescue_live_comparison: str
+    | Path = DEFAULT_VISUAL_HARD_SLICE_H1P_NO_CALL_CONTROL_RESCUE_LIVE_COMPARISON,
+    visual_hard_slice_h1p_component_value_guard_live_comparison: str
+    | Path = DEFAULT_VISUAL_HARD_SLICE_H1P_COMPONENT_VALUE_GUARD_LIVE_COMPARISON,
     registry_path: str | Path = DEFAULT_REGISTRY_PATH,
 ) -> dict[str, Any]:
     target = Path(output_dir)
@@ -1504,6 +1536,50 @@ def build_report(
     visual_hard_slice_h1o_live_case_rows = _live_candidate_case_rows(
         visual_hard_slice_h1o_live_comparisons
     )
+    visual_hard_slice_h1p_live_comparisons = [
+        (
+            "h1p argument hints vs no directive",
+            json.loads(
+                (
+                    Path(visual_hard_slice_h1p_argument_hints_live_comparison)
+                    / "live_replay_comparison.json"
+                ).read_text(encoding="utf-8")
+            ),
+        ),
+        (
+            "h1p hybrid label guard vs no directive",
+            json.loads(
+                (
+                    Path(visual_hard_slice_h1p_hybrid_label_guard_live_comparison)
+                    / "live_replay_comparison.json"
+                ).read_text(encoding="utf-8")
+            ),
+        ),
+        (
+            "h1p no-call control rescue vs no directive",
+            json.loads(
+                (
+                    Path(visual_hard_slice_h1p_no_call_control_rescue_live_comparison)
+                    / "live_replay_comparison.json"
+                ).read_text(encoding="utf-8")
+            ),
+        ),
+        (
+            "h1p component-value guard vs no directive",
+            json.loads(
+                (
+                    Path(visual_hard_slice_h1p_component_value_guard_live_comparison)
+                    / "live_replay_comparison.json"
+                ).read_text(encoding="utf-8")
+            ),
+        ),
+    ]
+    visual_hard_slice_h1p_live_summary_rows = _live_candidate_summary_rows(
+        visual_hard_slice_h1p_live_comparisons
+    )
+    visual_hard_slice_h1p_live_case_rows = _live_candidate_case_rows(
+        visual_hard_slice_h1p_live_comparisons
+    )
 
     _write_csv(tables_dir / "packet_summary.csv", packet_rows)
     _write_csv(tables_dir / "h1i_system_metrics.csv", h1i_system_rows)
@@ -1664,6 +1740,14 @@ def build_report(
     _write_csv(
         tables_dir / "visual_hard_slice_h1o_live_replay_case_deltas.csv",
         visual_hard_slice_h1o_live_case_rows,
+    )
+    _write_csv(
+        tables_dir / "visual_hard_slice_h1p_live_replay_summary.csv",
+        visual_hard_slice_h1p_live_summary_rows,
+    )
+    _write_csv(
+        tables_dir / "visual_hard_slice_h1p_live_replay_case_deltas.csv",
+        visual_hard_slice_h1p_live_case_rows,
     )
 
     _write_grouped_metric_svg(
@@ -2078,6 +2162,17 @@ def build_report(
             ("candidate_executor_equivalence_rate", "candidate executor eq", "#059669"),
         ],
     )
+    _write_grouped_metric_svg(
+        figures_dir / "visual_hard_slice_h1p_live_replay_gate.svg",
+        title="Visual hard-slice H1p component-value live replay gate",
+        rows=visual_hard_slice_h1p_live_summary_rows,
+        label_field="comparison",
+        metrics=[
+            ("baseline_exact_rate", "baseline exact", "#2563EB"),
+            ("candidate_exact_rate", "candidate exact", "#DC2626"),
+            ("candidate_executor_equivalence_rate", "candidate executor eq", "#059669"),
+        ],
+    )
 
     manifest = {
         "generated_at": datetime.now(UTC).isoformat(),
@@ -2309,9 +2404,21 @@ def build_report(
         "visual_hard_slice_h1o_component_value_guard_live_comparison": str(
             Path(visual_hard_slice_h1o_component_value_guard_live_comparison).resolve()
         ),
+        "visual_hard_slice_h1p_argument_hints_live_comparison": str(
+            Path(visual_hard_slice_h1p_argument_hints_live_comparison).resolve()
+        ),
+        "visual_hard_slice_h1p_hybrid_label_guard_live_comparison": str(
+            Path(visual_hard_slice_h1p_hybrid_label_guard_live_comparison).resolve()
+        ),
+        "visual_hard_slice_h1p_no_call_control_rescue_live_comparison": str(
+            Path(visual_hard_slice_h1p_no_call_control_rescue_live_comparison).resolve()
+        ),
+        "visual_hard_slice_h1p_component_value_guard_live_comparison": str(
+            Path(visual_hard_slice_h1p_component_value_guard_live_comparison).resolve()
+        ),
         "registry_path": str(Path(registry_path).resolve()),
-        "table_count": 76,
-        "figure_count": 37,
+        "table_count": 78,
+        "figure_count": 38,
     }
     report_payload = {
         "manifest": manifest,
@@ -2436,6 +2543,11 @@ def build_report(
         ],
         "visual_hard_slice_h1o_live_replay_summary": visual_hard_slice_h1o_live_summary_rows,
         "visual_hard_slice_h1o_live_replay_case_deltas": visual_hard_slice_h1o_live_case_rows,
+        "visual_hard_slice_h1p_live_replay_comparisons": [
+            payload for _, payload in visual_hard_slice_h1p_live_comparisons
+        ],
+        "visual_hard_slice_h1p_live_replay_summary": visual_hard_slice_h1p_live_summary_rows,
+        "visual_hard_slice_h1p_live_replay_case_deltas": visual_hard_slice_h1p_live_case_rows,
         "gemini": gemini_manifest,
     }
     (target / "manifest.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
@@ -3180,6 +3292,12 @@ def _markdown_report(payload: dict[str, Any]) -> str:
     visual_hard_slice_h1o_live_case_rows = payload[
         "visual_hard_slice_h1o_live_replay_case_deltas"
     ]
+    visual_hard_slice_h1p_live_summary_rows = payload[
+        "visual_hard_slice_h1p_live_replay_summary"
+    ]
+    visual_hard_slice_h1p_live_case_rows = payload[
+        "visual_hard_slice_h1p_live_replay_case_deltas"
+    ]
     gemini = payload["gemini"]
     lines = [
         "# MLX Tool-Contract Harnessing Report",
@@ -3277,6 +3395,8 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "![Visual hard-slice component-value live replay gate](figures/visual_hard_slice_component_value_live_replay_gate.svg)",
         "",
         "![Visual hard-slice H1o control-factorial live replay gate](figures/visual_hard_slice_h1o_live_replay_gate.svg)",
+        "",
+        "![Visual hard-slice H1p component-value live replay gate](figures/visual_hard_slice_h1p_live_replay_gate.svg)",
         "",
         "## Packet Summary",
         "",
@@ -3455,6 +3575,14 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         _markdown_table(visual_hard_slice_h1o_live_case_rows),
         "",
         "The H1o control-factorial packet makes the mechanism split explicit. No-directive is already `4 / 4` exact on activation/no-call, so no-call rescue is not the bottleneck and v10 actually regresses one activation case. Argument hints v2 and component-value guard v9 tie the strict upper bound at `9 / 12` exact; argument hints, hybrid label guard, and component-value guard tie executor-equivalence at `10 / 12`. Code/negation is repairable, with the best rows at `3 / 4` exact and `4 / 4` executor-equivalent, while component/value remains residual, with the best rows at only `2 / 4` exact and executor-equivalent.",
+        "",
+        "## Visual Hard-Slice H1p Component-Value CLI-Live Replay",
+        "",
+        _markdown_table(visual_hard_slice_h1p_live_summary_rows),
+        "",
+        _markdown_table(visual_hard_slice_h1p_live_case_rows),
+        "",
+        "The H1p component-only holdout retests that H1o residue without activation/no-call wording. This breaks the no-directive baseline completely at `0 / 12`, while argument hints v2 and no-call rescue v10 each reach only `6 / 12` exact and executor-equivalent. Hybrid label guard v8 reaches `9 / 12` exact and `10 / 12` executor-equivalent, and the previously rejected broad component-value guard v9 becomes the local upper bound at `10 / 12` exact and `11 / 12` executor-equivalent. The result is not a global promotion for v9; it is a domain-specific activation signal that now needs transfer testing against the H1n/H1o cases where broad component-value prose had mixed or negative effects.",
         "",
         "## Visual Hard-Slice Case Deltas vs No Directive",
         "",

@@ -1,5 +1,38 @@
 # Research Log
 
+## 2026-05-10 - H1p Component-Only Holdout Identifies a Component-Value Activation Domain
+
+- Built and executed H1p as the fresh component-only holdout motivated by H1o's component/value residue:
+  - packet: [`20260510T_h1p_component_value_holdout_oracle_dry_run_v1`](../results/tool_probe_replay_packets/20260510T_h1p_component_value_holdout_oracle_dry_run_v1)
+  - no-directive baseline: [`20260510T_h1p_component_value_no_directive_execute_v1`](../results/tool_probe_replay_live/20260510T_h1p_component_value_no_directive_execute_v1)
+  - argument-hints row: [`20260510T_h1p_component_value_argument_hints_execute_v1`](../results/tool_probe_replay_live/20260510T_h1p_component_value_argument_hints_execute_v1)
+  - hybrid-label row: [`20260510T_h1p_component_value_hybrid_label_guard_execute_v1`](../results/tool_probe_replay_live/20260510T_h1p_component_value_hybrid_label_guard_execute_v1)
+  - no-call rescue row: [`20260510T_h1p_component_value_no_call_control_rescue_execute_v1`](../results/tool_probe_replay_live/20260510T_h1p_component_value_no_call_control_rescue_execute_v1)
+  - component-value row: [`20260510T_h1p_component_value_component_value_guard_execute_v1`](../results/tool_probe_replay_live/20260510T_h1p_component_value_component_value_guard_execute_v1)
+  - diagnostic: [`visual_h1p_component_value_diagnostic`](../results/reports/visual_h1p_component_value_diagnostic)
+  - report table: [`visual_hard_slice_h1p_live_replay_summary.csv`](../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_h1p_live_replay_summary.csv)
+  - report figure: [`visual_hard_slice_h1p_live_replay_gate.svg`](../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_h1p_live_replay_gate.svg)
+- Live replay matrix:
+  - no-directive MLX: `0 / 12` exact and executor-equivalent
+  - argument hints v2: `6 / 12` exact and executor-equivalent
+  - no-call control rescue v10: `6 / 12` exact and executor-equivalent
+  - hybrid label guard v8: `9 / 12` exact and `10 / 12` executor-equivalent
+  - component-value guard v9: `10 / 12` exact and `11 / 12` executor-equivalent
+- Interpretation:
+  - H1p successfully breaks the saturated top-line surface: when the packet is pure component/value ambiguity, no-directive has no exact or executor-equivalent successes.
+  - Component-value guard v9 is not globally bad; it has a real activation domain on component-only surfaces.
+  - v9 is still not globally promotable because H1n showed broad component-value prose can regress already-passable selector cases, while H1o only tied argument hints on mixed mechanisms.
+  - The next research move is H1q: split component-value guidance into narrower component-only wording and transfer-test it across H1p, H1o, and the H1n component-value cases.
+- Reporting:
+  - publication evidence ledger now has `34` claims and `173` evidence sources with `0` missing sources
+  - publication readiness audit now has `121` checks, `119` blocking checks, `0` blocking failures, and status `paper_draft_ready`
+  - MLX tool-contract report now has `78` tables and `38` figures
+- Verification:
+  - `uv run pytest tests/test_visual_hard_slice_live_stress_packet.py tests/test_visual_live_stress_diagnostic.py -q`
+  - `uv run python scripts/build_mlx_tool_contract_report.py`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`
+
 ## 2026-05-10 - H1o Control-Factorial Slice Identifies Component/Value as the Residue
 
 - Built and executed the H1o control-factorial replay slice to separate the mechanisms that H1n had started to entangle:
@@ -31,10 +64,10 @@
   - publication evidence ledger now has `33` claims and `165` evidence sources with `0` missing sources
   - publication readiness audit now has `115` checks, `113` blocking checks, `0` blocking failures, and status `paper_draft_ready`
   - MLX tool-contract report now has `76` tables and `37` figures
-- Next research move:
-  - build H1p as a component-only holdout with more component/value surface diversity
-  - keep activation/no-call wording out of the default H1p candidates unless the new packet re-exposes no-call failures
-  - test whether a component-specific profile can beat argument hints without losing exact selector copying
+- Completed follow-up:
+  - H1p now expands the component/value residue with more component/value surface diversity
+  - activation/no-call wording stayed out of the default H1p packet
+  - component-value guard v9 beat argument hints on H1p, but only as a local component-domain signal pending transfer tests
 - Verification:
   - `uv run pytest tests/test_publication_evidence_ledger.py tests/test_publication_readiness_audit.py tests/test_mlx_tool_contract_report.py tests/test_h1o_control_factorial_synthesis.py tests/test_visual_live_stress_diagnostic.py -q`
   - `uv run python scripts/build_publication_evidence_ledger.py`

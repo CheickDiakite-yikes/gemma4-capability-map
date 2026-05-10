@@ -34,8 +34,8 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
 
     assert payload["gemini"]["dry_run"] is True
     assert payload["gemini"]["workflow_count"] == 10
-    assert payload["manifest"]["table_count"] == 76
-    assert payload["manifest"]["figure_count"] == 37
+    assert payload["manifest"]["table_count"] == 78
+    assert payload["manifest"]["figure_count"] == 38
 
     candidate_ids = {row["tool_prompt_contract_id"] for row in payload["prompt_contract_candidates"]}
     assert candidate_ids == {
@@ -618,6 +618,75 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
             "h1o_component_phase_tile_value_decoy",
         )
     ]["delta_exact_match"] == 1
+    visual_hard_slice_h1p = {
+        row["comparison"]: row for row in payload["visual_hard_slice_h1p_live_replay_summary"]
+    }
+    assert (
+        visual_hard_slice_h1p["h1p argument hints vs no directive"]["candidate_exact_rate"]
+        == 0.5
+    )
+    assert (
+        visual_hard_slice_h1p["h1p argument hints vs no directive"][
+            "candidate_executor_equivalence_rate"
+        ]
+        == 0.5
+    )
+    assert (
+        visual_hard_slice_h1p["h1p hybrid label guard vs no directive"]["candidate_exact_rate"]
+        == 0.75
+    )
+    assert (
+        visual_hard_slice_h1p["h1p hybrid label guard vs no directive"][
+            "candidate_executor_equivalence_rate"
+        ]
+        == 0.8333333333333334
+    )
+    assert (
+        visual_hard_slice_h1p["h1p no-call control rescue vs no directive"][
+            "candidate_exact_rate"
+        ]
+        == 0.5
+    )
+    assert (
+        visual_hard_slice_h1p["h1p component-value guard vs no directive"][
+            "candidate_exact_rate"
+        ]
+        == 0.8333333333333334
+    )
+    assert (
+        visual_hard_slice_h1p["h1p component-value guard vs no directive"][
+            "candidate_executor_equivalence_rate"
+        ]
+        == 0.9166666666666666
+    )
+    visual_hard_slice_h1p_cases = {
+        (row["comparison"], row["case_id"]): row
+        for row in payload["visual_hard_slice_h1p_live_replay_case_deltas"]
+    }
+    assert visual_hard_slice_h1p_cases[
+        (
+            "h1p component-value guard vs no directive",
+            "h1p_compact_status_pill_summary_value_decoy",
+        )
+    ]["delta_exact_match"] == 1
+    assert visual_hard_slice_h1p_cases[
+        (
+            "h1p component-value guard vs no directive",
+            "h1p_surface_lane_tile_board_value_decoy",
+        )
+    ]["delta_executor_equivalence_match"] == 1
+    assert visual_hard_slice_h1p_cases[
+        (
+            "h1p component-value guard vs no directive",
+            "h1p_surface_lane_tile_board_value_decoy",
+        )
+    ]["delta_exact_match"] == 0
+    assert visual_hard_slice_h1p_cases[
+        (
+            "h1p component-value guard vs no directive",
+            "h1p_stale_phase_tile_archive_decoy",
+        )
+    ]["delta_exact_match"] == 0
     h1i_candidates = {row["system_id"]: row for row in payload["h1i_prompt_contract_candidate_metrics"]}
     assert h1i_candidates["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive"]["tool_turn_directive_enabled"] == "False"
     assert h1i_candidates["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor"]["raw_planning_clean_rate_avg"] == "1.0"
@@ -705,6 +774,8 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert (tmp_path / "tables" / "visual_hard_slice_component_value_live_replay_case_deltas.csv").exists()
     assert (tmp_path / "tables" / "visual_hard_slice_h1o_live_replay_summary.csv").exists()
     assert (tmp_path / "tables" / "visual_hard_slice_h1o_live_replay_case_deltas.csv").exists()
+    assert (tmp_path / "tables" / "visual_hard_slice_h1p_live_replay_summary.csv").exists()
+    assert (tmp_path / "tables" / "visual_hard_slice_h1p_live_replay_case_deltas.csv").exists()
     assert (tmp_path / "tables" / "prompt_contract_promotion_decisions.csv").exists()
     assert (tmp_path / "tables" / "h1i_prompt_contract_candidate_metrics.csv").exists()
     assert (tmp_path / "tables" / "h1i_prompt_contract_repeat3_metrics.csv").exists()
@@ -754,3 +825,4 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert (tmp_path / "figures" / "visual_hard_slice_residual_live_replay_gate.svg").exists()
     assert (tmp_path / "figures" / "visual_hard_slice_component_value_live_replay_gate.svg").exists()
     assert (tmp_path / "figures" / "visual_hard_slice_h1o_live_replay_gate.svg").exists()
+    assert (tmp_path / "figures" / "visual_hard_slice_h1p_live_replay_gate.svg").exists()

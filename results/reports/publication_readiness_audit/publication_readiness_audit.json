@@ -1,9 +1,9 @@
 {
   "summary": {
-    "generated_at": "2026-05-10T16:49:34.259300+00:00",
+    "generated_at": "2026-05-10T17:10:16.515934+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 115,
-    "blocking_check_count": 113,
+    "check_count": 121,
+    "blocking_check_count": 119,
     "blocking_failed_count": 0,
     "recommended_check_count": 2,
     "recommended_failed_count": 0,
@@ -29,7 +29,7 @@
       "check_id": "ledger_has_claims",
       "severity": "blocking",
       "passed": true,
-      "detail": "claim_count=32",
+      "detail": "claim_count=33",
       "path": ""
     },
     {
@@ -43,14 +43,14 @@
       "check_id": "tool_contract_report_has_current_tables",
       "severity": "blocking",
       "passed": true,
-      "detail": "table_count=74",
+      "detail": "table_count=78",
       "path": ""
     },
     {
       "check_id": "tool_contract_report_has_current_figures",
       "severity": "blocking",
       "passed": true,
-      "detail": "figure_count=36",
+      "detail": "figure_count=38",
       "path": ""
     },
     {
@@ -640,6 +640,48 @@
       "passed": true,
       "detail": "H1o mechanism-family synthesis report exists.",
       "path": "results/reports/h1o_control_factorial_synthesis/report.md"
+    },
+    {
+      "check_id": "h1p_component_value_holdout_packet_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H1p component-value holdout oracle packet exists.",
+      "path": "results/tool_probe_replay_packets/20260510T_h1p_component_value_holdout_oracle_dry_run_v1/summary.json"
+    },
+    {
+      "check_id": "h1p_component_value_no_directive_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H1p no-directive live replay exists.",
+      "path": "results/tool_probe_replay_live/20260510T_h1p_component_value_no_directive_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h1p_component_value_component_guard_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H1p component-value-guard live replay exists.",
+      "path": "results/tool_probe_replay_live/20260510T_h1p_component_value_component_value_guard_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h1p_component_value_component_guard_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H1p component-value-guard comparison against no-directive exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260510T_h1p_component_value_component_value_guard_vs_no_directive_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h1p_component_value_diagnostic_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H1p component-value matrix diagnostic exists.",
+      "path": "results/reports/visual_h1p_component_value_diagnostic/diagnostic.md"
+    },
+    {
+      "check_id": "h1p_component_value_report_table_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Paper-facing H1p summary table exists.",
+      "path": "results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_h1p_live_replay_summary.csv"
     },
     {
       "check_id": "current_state_doc_exists",

@@ -490,11 +490,13 @@ Current generated research report:
 - visual hard-slice stress live replay gate figure: [`results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_stress_live_replay_gate.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_stress_live_replay_gate.svg)
 - visual hard-slice H1o control-factorial summary: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_h1o_live_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_h1o_live_replay_summary.csv)
 - visual hard-slice H1o control-factorial gate figure: [`results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_h1o_live_replay_gate.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_h1o_live_replay_gate.svg)
+- visual hard-slice H1p component-value summary: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_h1p_live_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_h1p_live_replay_summary.csv)
+- visual hard-slice H1p component-value gate figure: [`results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_h1p_live_replay_gate.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_h1p_live_replay_gate.svg)
 - publication evidence ledger: [`results/reports/publication_evidence_ledger/ledger.md`](../../results/reports/publication_evidence_ledger/ledger.md)
 - publication readiness audit: [`results/reports/publication_readiness_audit/publication_readiness_audit.md`](../../results/reports/publication_readiness_audit/publication_readiness_audit.md)
 - visual hard-slice design: [`results/reports/visual_hard_slice_design/design.md`](../../results/reports/visual_hard_slice_design/design.md)
 - figures: [`results/reports/mlx_tool_contract_harnessing/figures`](../../results/reports/mlx_tool_contract_harnessing/figures)
-- current manifest count: `76` tables and `37` figures
+- current manifest count: `78` tables and `38` figures
 - regeneration command:
 
 ```bash
@@ -1159,9 +1161,39 @@ The repo still does not support these statements:
 - Gemma beats frontier closed models on the same harness
 - Gemma `31B` runtime posture is already reproduced locally
 
-## Latest H1o Control-Factorial Finding
+## Latest H1p Component-Value Holdout Finding
 
-H1o is the current sharpest replay-shaped visual discriminator. It was built after the H1n component-value/v10 transfer loop to stop asking whether a single profile "wins" and instead separate the active mechanisms:
+H1p is the current sharpest replay-shaped visual discriminator. It was built directly from the H1o conclusion that component label versus displayed value was the remaining residue, but it removes the activation/no-call wording that could confound the mechanism.
+
+Evidence:
+
+- packet: [`results/tool_probe_replay_packets/20260510T_h1p_component_value_holdout_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260510T_h1p_component_value_holdout_oracle_dry_run_v1)
+- no-directive live baseline: [`results/tool_probe_replay_live/20260510T_h1p_component_value_no_directive_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1p_component_value_no_directive_execute_v1)
+- argument-hints live packet: [`results/tool_probe_replay_live/20260510T_h1p_component_value_argument_hints_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1p_component_value_argument_hints_execute_v1)
+- hybrid-label live packet: [`results/tool_probe_replay_live/20260510T_h1p_component_value_hybrid_label_guard_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1p_component_value_hybrid_label_guard_execute_v1)
+- component-value guard live packet: [`results/tool_probe_replay_live/20260510T_h1p_component_value_component_value_guard_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1p_component_value_component_value_guard_execute_v1)
+- diagnostic: [`results/reports/visual_h1p_component_value_diagnostic/diagnostic.md`](../../results/reports/visual_h1p_component_value_diagnostic/diagnostic.md)
+- report table: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_h1p_live_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_h1p_live_replay_summary.csv)
+- report figure: [`results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_h1p_live_replay_gate.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_h1p_live_replay_gate.svg)
+
+Current H1p live replay rates:
+
+- no-directive MLX: `0 / 12` exact and executor-equivalent
+- argument hints v2: `6 / 12` exact and executor-equivalent
+- no-call control rescue v10: `6 / 12` exact and executor-equivalent
+- hybrid label guard v8: `9 / 12` exact and `10 / 12` executor-equivalent
+- component-value guard v9: `10 / 12` exact and `11 / 12` executor-equivalent
+
+Interpretation:
+
+- H1p successfully broke top-line saturation; no-directive collapses when the packet is pure component/value ambiguity
+- v9 is no longer simply "bad"; it has a real activation domain on component-only surfaces
+- v9 is still not globally promoted because H1n showed the same broad prose can regress passable pill/chip targets, and H1o only tied argument hints on a mixed mechanism packet
+- the next research question is transfer and narrowing, not another broad profile: build H1q around component-only guard variants and test them against H1p, H1o, and the earlier H1n component-value cases
+
+## Previous H1o Control-Factorial Finding
+
+H1o was the mechanism-split predecessor to H1p. It was built after the H1n component-value/v10 transfer loop to stop asking whether a single profile "wins" and instead separate the active mechanisms:
 
 - activation/no-call rescue
 - code-like label and negation preservation
@@ -1192,13 +1224,13 @@ Mechanism split:
 - no-call rescue v10 is not a global fix: it regresses `h1o_activation_error_banner_previous_region_decoy`
 - code/negation is repairable: best rows reach `3 / 4` exact and `4 / 4` executor-equivalent
 - component/value remains the hard residue: best rows reach only `2 / 4` exact and executor-equivalent
-- argument hints is still the conservative default, while component-value guard is tied on H1o but needs a fresh component-only holdout before promotion
+- argument hints is still the conservative default on mixed mechanisms, while H1p now shows component-value guard has a local component-only domain
 
 Next research move:
 
-- build H1p as a component-only holdout with more diverse component/value surfaces
-- avoid activation-focused wording unless a fresh component-only packet shows no-call is still active
-- test whether component-value-specific guidance can beat argument hints without losing exact selector copying
+- run H1q as a transfer/narrowing slice over H1p, H1o, and H1n component-value cases
+- avoid global v9 promotion until narrower component-only wording survives the H1n/H1o counterevidence
+- preserve argument hints as the conservative mixed-mechanism default
 
 ## Previous H1n Component-Value Finding
 

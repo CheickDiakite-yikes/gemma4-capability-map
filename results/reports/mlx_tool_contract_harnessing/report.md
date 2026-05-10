@@ -1,6 +1,6 @@
 # MLX Tool-Contract Harnessing Report
 
-Generated: `2026-05-10T16:49:34.387786+00:00`
+Generated: `2026-05-10T17:10:12.651268+00:00`
 
 ## Executive Read
 
@@ -87,6 +87,8 @@ The visual catalog branch now includes an explicit negative-result loop. `visual
 ![Visual hard-slice component-value live replay gate](figures/visual_hard_slice_component_value_live_replay_gate.svg)
 
 ![Visual hard-slice H1o control-factorial live replay gate](figures/visual_hard_slice_h1o_live_replay_gate.svg)
+
+![Visual hard-slice H1p component-value live replay gate](figures/visual_hard_slice_h1p_live_replay_gate.svg)
 
 ## Packet Summary
 
@@ -806,6 +808,68 @@ The component-value micro-slice tests that remaining ambiguity directly. It reje
 | h1o component-value guard vs no directive | h1o_component_state_pill_value_decoy | h1o_component_value_boundary | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | argument_mismatch | argument_mismatch | 1 | 1 | 0 |
 
 The H1o control-factorial packet makes the mechanism split explicit. No-directive is already `4 / 4` exact on activation/no-call, so no-call rescue is not the bottleneck and v10 actually regresses one activation case. Argument hints v2 and component-value guard v9 tie the strict upper bound at `9 / 12` exact; argument hints, hybrid label guard, and component-value guard tie executor-equivalence at `10 / 12`. Code/negation is repairable, with the best rows at `3 / 4` exact and `4 / 4` executor-equivalent, while component/value remains residual, with the best rows at only `2 / 4` exact and executor-equivalent.
+
+## Visual Hard-Slice H1p Component-Value CLI-Live Replay
+
+| comparison | baseline_system_id | candidate_system_id | shared_case_count | baseline_exact_rate | candidate_exact_rate | delta_exact_rate | baseline_executable_rate | candidate_executable_rate | delta_executable_rate | baseline_executor_equivalence_rate | candidate_executor_equivalence_rate | delta_executor_equivalence_rate |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| h1p argument hints vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints | 12 | 0.0 | 0.5 | 0.5 | 0.0 | 0.5 | 0.5 | 0.0 | 0.5 | 0.5 |
+| h1p hybrid label guard vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_hybrid_label_guard | 12 | 0.0 | 0.75 | 0.75 | 0.0 | 0.8333333333333334 | 0.8333333333333334 | 0.0 | 0.8333333333333334 | 0.8333333333333334 |
+| h1p no-call control rescue vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_no_call_control_rescue | 12 | 0.0 | 0.5 | 0.5 | 0.0 | 0.5 | 0.5 | 0.0 | 0.5 | 0.5 |
+| h1p component-value guard vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_value_guard | 12 | 0.0 | 0.8333333333333334 | 0.8333333333333334 | 0.0 | 0.9166666666666666 | 0.9166666666666666 | 0.0 | 0.9166666666666666 | 0.9166666666666666 |
+
+| comparison | case_id | family | source_failure_mode | baseline_replay_exact_match | candidate_replay_exact_match | delta_exact_match | baseline_replay_executable_match | candidate_replay_executable_match | delta_executable_match | baseline_replay_executor_equivalence_match | candidate_replay_executor_equivalence_match | delta_executor_equivalence_match | baseline_replay_failure_mode | candidate_replay_failure_mode | baseline_actual_call_count | candidate_actual_call_count | delta_actual_call_count |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| h1p argument hints vs no directive | h1p_compact_queue_badge_table_value_decoy | h1p_component_value_compact | argument_alias_or_decoy_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| h1p argument hints vs no directive | h1p_compact_stage_chip_email_value_decoy | h1p_component_value_compact | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | argument_mismatch | argument_mismatch | 1 | 1 | 0 |
+| h1p argument hints vs no directive | h1p_compact_state_tag_log_value_decoy | h1p_component_value_compact | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | argument_mismatch | argument_mismatch | 1 | 1 | 0 |
+| h1p argument hints vs no directive | h1p_compact_status_pill_summary_value_decoy | h1p_component_value_compact | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | argument_mismatch | argument_mismatch | 1 | 1 | 0 |
+| h1p argument hints vs no directive | h1p_stale_phase_tile_archive_decoy | h1p_component_value_stale_selection | wrong_tool_or_stale_selection_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| h1p argument hints vs no directive | h1p_stale_priority_chip_old_selection_decoy | h1p_component_value_stale_selection | wrong_tool_or_stale_selection_risk | False | True | 1 | False | True | 1 | False | True | 1 | no_tool_call | exact | 0 | 1 | 1 |
+| h1p argument hints vs no directive | h1p_stale_risk_badge_old_selection_decoy | h1p_component_value_stale_selection | wrong_tool_or_stale_selection_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| h1p argument hints vs no directive | h1p_stale_severity_pill_previous_region_decoy | h1p_component_value_stale_selection | wrong_tool_or_stale_selection_risk | False | True | 1 | False | True | 1 | False | True | 1 | no_tool_call | exact | 0 | 1 | 1 |
+| h1p argument hints vs no directive | h1p_surface_lane_tile_board_value_decoy | h1p_component_value_surface | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | no_tool_call | argument_mismatch | 0 | 1 | 1 |
+| h1p argument hints vs no directive | h1p_surface_mode_toggle_note_value_decoy | h1p_component_value_surface | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | no_tool_call | argument_mismatch | 0 | 1 | 1 |
+| h1p argument hints vs no directive | h1p_surface_owner_field_note_value_decoy | h1p_component_value_surface | argument_alias_or_decoy_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| h1p argument hints vs no directive | h1p_surface_result_badge_comment_value_decoy | h1p_component_value_surface | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | argument_mismatch | argument_mismatch | 1 | 1 | 0 |
+| h1p hybrid label guard vs no directive | h1p_compact_queue_badge_table_value_decoy | h1p_component_value_compact | argument_alias_or_decoy_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| h1p hybrid label guard vs no directive | h1p_compact_stage_chip_email_value_decoy | h1p_component_value_compact | argument_alias_or_decoy_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| h1p hybrid label guard vs no directive | h1p_compact_state_tag_log_value_decoy | h1p_component_value_compact | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | argument_mismatch | argument_mismatch | 1 | 1 | 0 |
+| h1p hybrid label guard vs no directive | h1p_compact_status_pill_summary_value_decoy | h1p_component_value_compact | argument_alias_or_decoy_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| h1p hybrid label guard vs no directive | h1p_stale_phase_tile_archive_decoy | h1p_component_value_stale_selection | wrong_tool_or_stale_selection_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| h1p hybrid label guard vs no directive | h1p_stale_priority_chip_old_selection_decoy | h1p_component_value_stale_selection | wrong_tool_or_stale_selection_risk | False | True | 1 | False | True | 1 | False | True | 1 | no_tool_call | exact | 0 | 1 | 1 |
+| h1p hybrid label guard vs no directive | h1p_stale_risk_badge_old_selection_decoy | h1p_component_value_stale_selection | wrong_tool_or_stale_selection_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| h1p hybrid label guard vs no directive | h1p_stale_severity_pill_previous_region_decoy | h1p_component_value_stale_selection | wrong_tool_or_stale_selection_risk | False | True | 1 | False | True | 1 | False | True | 1 | no_tool_call | exact | 0 | 1 | 1 |
+| h1p hybrid label guard vs no directive | h1p_surface_lane_tile_board_value_decoy | h1p_component_value_surface | argument_alias_or_decoy_risk | False | True | 1 | False | True | 1 | False | True | 1 | no_tool_call | exact | 0 | 1 | 1 |
+| h1p hybrid label guard vs no directive | h1p_surface_mode_toggle_note_value_decoy | h1p_component_value_surface | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | no_tool_call | argument_mismatch | 0 | 1 | 1 |
+| h1p hybrid label guard vs no directive | h1p_surface_owner_field_note_value_decoy | h1p_component_value_surface | argument_alias_or_decoy_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| h1p hybrid label guard vs no directive | h1p_surface_result_badge_comment_value_decoy | h1p_component_value_surface | argument_alias_or_decoy_risk | False | False | 0 | False | True | 1 | False | True | 1 | argument_mismatch | executable_paraphrase | 1 | 1 | 0 |
+| h1p no-call control rescue vs no directive | h1p_compact_queue_badge_table_value_decoy | h1p_component_value_compact | argument_alias_or_decoy_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| h1p no-call control rescue vs no directive | h1p_compact_stage_chip_email_value_decoy | h1p_component_value_compact | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | argument_mismatch | argument_mismatch | 1 | 1 | 0 |
+| h1p no-call control rescue vs no directive | h1p_compact_state_tag_log_value_decoy | h1p_component_value_compact | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | argument_mismatch | argument_mismatch | 1 | 1 | 0 |
+| h1p no-call control rescue vs no directive | h1p_compact_status_pill_summary_value_decoy | h1p_component_value_compact | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | argument_mismatch | argument_mismatch | 1 | 1 | 0 |
+| h1p no-call control rescue vs no directive | h1p_stale_phase_tile_archive_decoy | h1p_component_value_stale_selection | wrong_tool_or_stale_selection_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| h1p no-call control rescue vs no directive | h1p_stale_priority_chip_old_selection_decoy | h1p_component_value_stale_selection | wrong_tool_or_stale_selection_risk | False | True | 1 | False | True | 1 | False | True | 1 | no_tool_call | exact | 0 | 1 | 1 |
+| h1p no-call control rescue vs no directive | h1p_stale_risk_badge_old_selection_decoy | h1p_component_value_stale_selection | wrong_tool_or_stale_selection_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| h1p no-call control rescue vs no directive | h1p_stale_severity_pill_previous_region_decoy | h1p_component_value_stale_selection | wrong_tool_or_stale_selection_risk | False | True | 1 | False | True | 1 | False | True | 1 | no_tool_call | exact | 0 | 1 | 1 |
+| h1p no-call control rescue vs no directive | h1p_surface_lane_tile_board_value_decoy | h1p_component_value_surface | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | no_tool_call | argument_mismatch | 0 | 1 | 1 |
+| h1p no-call control rescue vs no directive | h1p_surface_mode_toggle_note_value_decoy | h1p_component_value_surface | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | no_tool_call | argument_mismatch | 0 | 1 | 1 |
+| h1p no-call control rescue vs no directive | h1p_surface_owner_field_note_value_decoy | h1p_component_value_surface | argument_alias_or_decoy_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| h1p no-call control rescue vs no directive | h1p_surface_result_badge_comment_value_decoy | h1p_component_value_surface | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | argument_mismatch | argument_mismatch | 1 | 1 | 0 |
+| h1p component-value guard vs no directive | h1p_compact_queue_badge_table_value_decoy | h1p_component_value_compact | argument_alias_or_decoy_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| h1p component-value guard vs no directive | h1p_compact_stage_chip_email_value_decoy | h1p_component_value_compact | argument_alias_or_decoy_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| h1p component-value guard vs no directive | h1p_compact_state_tag_log_value_decoy | h1p_component_value_compact | argument_alias_or_decoy_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| h1p component-value guard vs no directive | h1p_compact_status_pill_summary_value_decoy | h1p_component_value_compact | argument_alias_or_decoy_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| h1p component-value guard vs no directive | h1p_stale_phase_tile_archive_decoy | h1p_component_value_stale_selection | wrong_tool_or_stale_selection_risk | False | False | 0 | False | False | 0 | False | False | 0 | argument_mismatch | wrong_tool | 1 | 1 | 0 |
+| h1p component-value guard vs no directive | h1p_stale_priority_chip_old_selection_decoy | h1p_component_value_stale_selection | wrong_tool_or_stale_selection_risk | False | True | 1 | False | True | 1 | False | True | 1 | no_tool_call | exact | 0 | 1 | 1 |
+| h1p component-value guard vs no directive | h1p_stale_risk_badge_old_selection_decoy | h1p_component_value_stale_selection | wrong_tool_or_stale_selection_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| h1p component-value guard vs no directive | h1p_stale_severity_pill_previous_region_decoy | h1p_component_value_stale_selection | wrong_tool_or_stale_selection_risk | False | True | 1 | False | True | 1 | False | True | 1 | no_tool_call | exact | 0 | 1 | 1 |
+| h1p component-value guard vs no directive | h1p_surface_lane_tile_board_value_decoy | h1p_component_value_surface | argument_alias_or_decoy_risk | False | False | 0 | False | True | 1 | False | True | 1 | no_tool_call | executable_paraphrase | 0 | 1 | 1 |
+| h1p component-value guard vs no directive | h1p_surface_mode_toggle_note_value_decoy | h1p_component_value_surface | argument_alias_or_decoy_risk | False | True | 1 | False | True | 1 | False | True | 1 | no_tool_call | exact | 0 | 1 | 1 |
+| h1p component-value guard vs no directive | h1p_surface_owner_field_note_value_decoy | h1p_component_value_surface | argument_alias_or_decoy_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| h1p component-value guard vs no directive | h1p_surface_result_badge_comment_value_decoy | h1p_component_value_surface | argument_alias_or_decoy_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+
+The H1p component-only holdout retests that H1o residue without activation/no-call wording. This breaks the no-directive baseline completely at `0 / 12`, while argument hints v2 and no-call rescue v10 each reach only `6 / 12` exact and executor-equivalent. Hybrid label guard v8 reaches `9 / 12` exact and `10 / 12` executor-equivalent, and the previously rejected broad component-value guard v9 becomes the local upper bound at `10 / 12` exact and `11 / 12` executor-equivalent. The result is not a global promotion for v9; it is a domain-specific activation signal that now needs transfer testing against the H1n/H1o cases where broad component-value prose had mixed or negative effects.
 
 ## Visual Hard-Slice Case Deltas vs No Directive
 

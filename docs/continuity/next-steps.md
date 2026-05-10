@@ -144,13 +144,20 @@ Next implementation moves:
   - report table: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_h1o_live_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_h1o_live_replay_summary.csv)
   - result: no-directive `5 / 12` exact and `6 / 12` executor-equivalent; argument hints v2 and component-value guard v9 tie strict upper bound at `9 / 12`; argument hints, hybrid label guard, and component-value guard tie executor-equivalence at `10 / 12`
   - mechanism split: activation/no-call is already saturated under no-directive at `4 / 4`, code/negation is repairable, and component/value remains the hard residue at only `2 / 4` for the best rows
-  - next: build H1p as a component-only holdout with more diverse component/value surfaces and no activation-focused wording by default
+  - completed follow-up: H1p expands component/value residue into a fresh component-only holdout
+- completed H1p component-only holdout:
+  - packet: [`results/tool_probe_replay_packets/20260510T_h1p_component_value_holdout_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260510T_h1p_component_value_holdout_oracle_dry_run_v1)
+  - diagnostic: [`results/reports/visual_h1p_component_value_diagnostic/diagnostic.md`](../../results/reports/visual_h1p_component_value_diagnostic/diagnostic.md)
+  - report table: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_h1p_live_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_h1p_live_replay_summary.csv)
+  - result: no-directive collapses to `0 / 12`; argument hints v2 and v10 no-call rescue reach `6 / 12`; hybrid v8 reaches `9 / 12` exact and `10 / 12` executor-equivalent; component-value guard v9 reaches `10 / 12` exact and `11 / 12` executor-equivalent
+  - interpretation: component-value-specific guidance has a real component-only domain, but v9 is not globally promoted because H1n showed broad component-value prose can regress passable selector cases
+  - next: build H1q as a transfer/narrowing slice over H1p/H1o/H1n to isolate component-only wording that preserves the H1p win without H1n regressions
 - completed post-repair holdout:
   - packet: [`results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_post_repair_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_post_repair_oracle_dry_run_v1)
   - diagnostic: [`results/reports/visual_alias_transfer_post_repair_diagnostic/diagnostic.md`](../../results/reports/visual_alias_transfer_post_repair_diagnostic/diagnostic.md)
   - result: no-directive `2 / 8`, contracted/default `3 / 8`, argument hints `5 / 8`, v6 code hints `5 / 8`, v7 code guard `6 / 8` exact and executor-equivalent
   - interpretation: code guard now has a fresh positive transfer result, but the profile is not a universal replacement; argument hints still covers some ordinary non-code labels better
-- next replay-shaped target: build H1p as a fresh component-only packet rather than adding broad prompt prose; do not promote v9 as a replacement profile until it beats argument hints on a fresh component/value holdout
+- next replay-shaped target: build H1q as a component-domain transfer/narrowing packet; do not promote v9 as a replacement profile until a narrower variant holds H1p while surviving H1n/H1o counterevidence
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1

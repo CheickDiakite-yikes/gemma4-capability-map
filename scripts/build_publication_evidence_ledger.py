@@ -1487,6 +1487,72 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C34_h1p_component_holdout_supports_component_value_domain",
+        claim=(
+            "The H1p component-only holdout shows that component-value-specific guidance has a real activation "
+            "domain: it can outperform generic argument hints when the remaining ambiguity is specifically component "
+            "label versus displayed value selection."
+        ),
+        status="supported_current_packets",
+        evidence_strength="strong_internal",
+        primary_metric=(
+            "On the 12-case H1p component-only holdout, component-value guard v9 reaches 10/12 exact and 11/12 "
+            "executor-equivalent, versus no-directive at 0/12, argument hints v2 at 6/12, no-call rescue v10 at "
+            "6/12, and hybrid label guard v8 at 9/12 exact and 10/12 executor-equivalent."
+        ),
+        limitation=(
+            "H1p is a replay-shaped synthetic component holdout. Because v9 was negative on the earlier H1n "
+            "component-value slice and only tied argument hints on H1o, this supports domain specificity rather "
+            "than global promotion."
+        ),
+        next_test=(
+            "Split component-value guidance into narrower component-only wording, then transfer-test it against "
+            "H1n and H1o to separate durable component disambiguation from over-broad selector prose."
+        ),
+        sources=(
+            EvidenceSource(
+                "oracle_packet",
+                "results/tool_probe_replay_packets/20260510T_h1p_component_value_holdout_oracle_dry_run_v1",
+                "Fresh 12-case component-only holdout spanning compact components, surface labels, and stale-selection decoys.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h1p_component_value_no_directive_execute_v1",
+                "No-directive H1p baseline collapsing to 0/12 exact and 0/12 executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h1p_component_value_argument_hints_execute_v1",
+                "Argument-hints H1p execution reaching 6/12 exact and 6/12 executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h1p_component_value_hybrid_label_guard_execute_v1",
+                "Hybrid label guard H1p execution reaching 9/12 exact and 10/12 executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h1p_component_value_component_value_guard_execute_v1",
+                "Component-value guard H1p execution reaching 10/12 exact and 11/12 executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260510T_h1p_component_value_component_value_guard_vs_no_directive_v1",
+                "Comparison showing +0.833 exact and +0.917 executor-equivalence deltas over no-directive.",
+            ),
+            EvidenceSource(
+                "diagnostic_report",
+                "results/reports/visual_h1p_component_value_diagnostic/diagnostic.md",
+                "Matrix diagnostic ranking component-value guard above hybrid, argument hints, and no-call rescue on H1p.",
+            ),
+            EvidenceSource(
+                "report_table",
+                "results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_h1p_live_replay_summary.csv",
+                "Paper-facing H1p summary table in the MLX tool-contract report bundle.",
+            ),
+        ),
+    ),
 )
 
 

@@ -102,6 +102,12 @@ def test_publication_readiness_audit_writes_blocking_checks(tmp_path: Path) -> N
     assert checks["h1o_control_factorial_argument_hints_comparison_exists"]["passed"] is True
     assert checks["h1o_control_factorial_diagnostic_exists"]["passed"] is True
     assert checks["h1o_control_factorial_synthesis_exists"]["passed"] is True
+    assert checks["h1p_component_value_holdout_packet_exists"]["passed"] is True
+    assert checks["h1p_component_value_no_directive_live_exists"]["passed"] is True
+    assert checks["h1p_component_value_component_guard_live_exists"]["passed"] is True
+    assert checks["h1p_component_value_component_guard_comparison_exists"]["passed"] is True
+    assert checks["h1p_component_value_diagnostic_exists"]["passed"] is True
+    assert checks["h1p_component_value_report_table_exists"]["passed"] is True
     assert checks["script_analyze_visual_hard_slice_exactness.py_exists"]["passed"] is True
     assert checks["script_analyze_packaged_replay_gap.py_exists"]["passed"] is True
     assert checks["script_analyze_h1n_alias_transfer_contract_split.py_exists"]["passed"] is True

@@ -818,6 +818,63 @@ def audit_publication_readiness(
             detail="H1o mechanism-family synthesis report exists.",
         ),
         _check_path(
+            check_id="h1p_component_value_holdout_packet_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_packets"
+            / "20260510T_h1p_component_value_holdout_oracle_dry_run_v1"
+            / "summary.json",
+            detail="H1p component-value holdout oracle packet exists.",
+        ),
+        _check_path(
+            check_id="h1p_component_value_no_directive_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260510T_h1p_component_value_no_directive_execute_v1"
+            / "summary.json",
+            detail="H1p no-directive live replay exists.",
+        ),
+        _check_path(
+            check_id="h1p_component_value_component_guard_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260510T_h1p_component_value_component_value_guard_execute_v1"
+            / "summary.json",
+            detail="H1p component-value-guard live replay exists.",
+        ),
+        _check_path(
+            check_id="h1p_component_value_component_guard_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260510T_h1p_component_value_component_value_guard_vs_no_directive_v1"
+            / "live_replay_comparison.json",
+            detail="H1p component-value-guard comparison against no-directive exists.",
+        ),
+        _check_path(
+            check_id="h1p_component_value_diagnostic_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "visual_h1p_component_value_diagnostic" / "diagnostic.md",
+            detail="H1p component-value matrix diagnostic exists.",
+        ),
+        _check_path(
+            check_id="h1p_component_value_report_table_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "mlx_tool_contract_harnessing"
+            / "tables"
+            / "visual_hard_slice_h1p_live_replay_summary.csv",
+            detail="Paper-facing H1p summary table exists.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",
