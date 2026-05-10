@@ -9,10 +9,10 @@
 | --- | --- | ---: | --- | --- |
 | ledger_manifest_exists | blocking | True | Publication evidence ledger manifest exists. | results/reports/publication_evidence_ledger/manifest.json |
 | ledger_has_no_missing_sources | blocking | True | missing_source_count=0 |  |
-| ledger_has_claims | blocking | True | claim_count=37 |  |
+| ledger_has_claims | blocking | True | claim_count=38 |  |
 | ledger_includes_negative_results | blocking | True | At least one claim is explicitly labeled as negative-result evidence. |  |
-| tool_contract_report_has_current_tables | blocking | True | table_count=92 |  |
-| tool_contract_report_has_current_figures | blocking | True | figure_count=41 |  |
+| tool_contract_report_has_current_tables | blocking | True | table_count=97 |  |
+| tool_contract_report_has_current_figures | blocking | True | figure_count=42 |  |
 | v3_negative_probe_packet_exists | blocking | True | Negative v3 catalog-profile probe is preserved. | results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_split_selector_hints_v3_probe |
 | v3_skipped_live_decision_exists | blocking | True | Skipped-live decision is preserved as an auditable packet. | results/tool_probe_replay_live/20260508T_visual_split_selector_hints_live_replay_skipped_v1/decision.md |
 | v4_negative_probe_packet_exists | blocking | True | Negative v4 schema-field probe is preserved. | results/tool_catalog_profile_probe_packets/20260509T_visual_role_catalog_schema_field_hints_v4_probe |
@@ -120,6 +120,14 @@
 | h1x_v11_breaker_synthesis_exists | blocking | True | H1x v11-breaker synthesis report exists. | results/reports/h1x_v11_breaker_synthesis/report.md |
 | h1x_v11_breaker_report_table_exists | blocking | True | Paper-facing H1x packet table exists in the main report. | results/reports/mlx_tool_contract_harnessing/tables/h1x_v11_breaker_packet_summary.csv |
 | h1x_v11_breaker_report_figure_exists | recommended | True | Paper-facing H1x replay gate figure exists in the main report. | results/reports/mlx_tool_contract_harnessing/figures/h1x_v11_breaker_gate.svg |
+| h1y_routed_residual_no_directive_live_exists | blocking | True | H1y no-directive live replay exists. | results/tool_probe_replay_live/20260510T_h1y_routed_residual_no_directive_execute_v1/summary.json |
+| h1y_routed_residual_v12_live_exists | blocking | True | H1y v12 component-residual guard live replay exists. | results/tool_probe_replay_live/20260510T_h1y_routed_residual_component_residual_guard_execute_v1/summary.json |
+| h2a_visual_stale_selection_gate_live_exists | blocking | True | H2a controller stale-selection gate live replay exists. | results/tool_probe_replay_live/20260510T_h2a_visual_stale_selection_gate_on_h1y_execute_v1/summary.json |
+| h2a_visual_stale_selection_gate_vs_v11_comparison_exists | blocking | True | H2a-vs-v11 live comparison exists. | results/tool_probe_replay_live_comparisons/20260510T_h2a_visual_stale_selection_gate_vs_component_label_guard_on_h1y_v1/live_replay_comparison.json |
+| h2a_visual_stale_selection_gate_vs_v12_comparison_exists | blocking | True | H2a-vs-v12 live comparison exists. | results/tool_probe_replay_live_comparisons/20260510T_h2a_visual_stale_selection_gate_vs_component_residual_guard_on_h1y_v1/live_replay_comparison.json |
+| h1y_routed_residual_synthesis_exists | blocking | True | H1y/H2a routed-residual synthesis report exists. | results/reports/h1y_routed_residual_synthesis/report.md |
+| h1y_routed_residual_report_table_exists | blocking | True | Paper-facing H1y/H2a packet table exists in the main report. | results/reports/mlx_tool_contract_harnessing/tables/h1y_routed_residual_packet_summary.csv |
+| h1y_routed_residual_report_figure_exists | recommended | True | Paper-facing H1y/H2a replay gate figure exists in the main report. | results/reports/mlx_tool_contract_harnessing/figures/h1y_routed_residual_gate.svg |
 | current_state_doc_exists | blocking | True | Continuity current-state doc exists. | docs/continuity/current-state.md |
 | next_steps_doc_exists | blocking | True | Continuity next-steps doc exists. | docs/continuity/next-steps.md |
 | research_log_exists | blocking | True | Research log exists. | docs/research-log.md |

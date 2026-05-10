@@ -97,6 +97,12 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert claims["C36_h1s_residual_guard_is_targeted_not_global"][
         "status"
     ] == "supported_current_packets"
+    assert claims["C37_h1x_breaks_v11_saturation_but_supports_routing"][
+        "status"
+    ] == "supported_current_packets"
+    assert claims["C38_h2a_controller_stale_selection_gate_is_causal"][
+        "status"
+    ] == "supported_current_packets"
     assert "7/8" in claims["C2_final_tool_directive_causal_for_protocol"]["primary_metric"]
     assert "v3 raw exact falls" in claims["C6_split_selector_wording_is_negative_evidence"]["primary_metric"]
     assert "schema-field hints reach 6/8 strict and 8/8 executor-equivalent" in claims[
@@ -265,6 +271,12 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert "lowers executor-equivalence from v11's 29/32 to 27/32" in claims[
         "C36_h1s_residual_guard_is_targeted_not_global"
     ]["primary_metric"]
+    assert "v12 reaches 8/8" in claims[
+        "C37_h1x_breaks_v11_saturation_but_supports_routing"
+    ]["primary_metric"]
+    assert "H2a reaches 8/10" in claims[
+        "C38_h2a_controller_stale_selection_gate_is_causal"
+    ]["primary_metric"]
     assert any(
         row["claim_id"] == "C28_h1n_post_repair_holdout_favors_code_guard"
         and row["path"]
@@ -323,6 +335,20 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
         row["claim_id"] == "C36_h1s_residual_guard_is_targeted_not_global"
         and row["path"]
         == "results/reports/mlx_tool_contract_harnessing/tables/h1s_component_residual_transfer_aggregate.csv"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C37_h1x_breaks_v11_saturation_but_supports_routing"
+        and row["path"]
+        == "results/reports/mlx_tool_contract_harnessing/tables/h1x_v11_breaker_packet_summary.csv"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C38_h2a_controller_stale_selection_gate_is_causal"
+        and row["path"]
+        == "results/reports/mlx_tool_contract_harnessing/tables/h1y_routed_residual_packet_summary.csv"
         and row["exists"]
         for row in payload["evidence_sources"]
     )

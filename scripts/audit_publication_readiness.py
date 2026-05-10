@@ -1037,6 +1037,84 @@ def audit_publication_readiness(
             detail="Paper-facing H1x replay gate figure exists in the main report.",
         ),
         _check_path(
+            check_id="h1y_routed_residual_no_directive_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260510T_h1y_routed_residual_no_directive_execute_v1"
+            / "summary.json",
+            detail="H1y no-directive live replay exists.",
+        ),
+        _check_path(
+            check_id="h1y_routed_residual_v12_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260510T_h1y_routed_residual_component_residual_guard_execute_v1"
+            / "summary.json",
+            detail="H1y v12 component-residual guard live replay exists.",
+        ),
+        _check_path(
+            check_id="h2a_visual_stale_selection_gate_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260510T_h2a_visual_stale_selection_gate_on_h1y_execute_v1"
+            / "summary.json",
+            detail="H2a controller stale-selection gate live replay exists.",
+        ),
+        _check_path(
+            check_id="h2a_visual_stale_selection_gate_vs_v11_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260510T_h2a_visual_stale_selection_gate_vs_component_label_guard_on_h1y_v1"
+            / "live_replay_comparison.json",
+            detail="H2a-vs-v11 live comparison exists.",
+        ),
+        _check_path(
+            check_id="h2a_visual_stale_selection_gate_vs_v12_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260510T_h2a_visual_stale_selection_gate_vs_component_residual_guard_on_h1y_v1"
+            / "live_replay_comparison.json",
+            detail="H2a-vs-v12 live comparison exists.",
+        ),
+        _check_path(
+            check_id="h1y_routed_residual_synthesis_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "h1y_routed_residual_synthesis" / "report.md",
+            detail="H1y/H2a routed-residual synthesis report exists.",
+        ),
+        _check_path(
+            check_id="h1y_routed_residual_report_table_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "mlx_tool_contract_harnessing"
+            / "tables"
+            / "h1y_routed_residual_packet_summary.csv",
+            detail="Paper-facing H1y/H2a packet table exists in the main report.",
+        ),
+        _check_path(
+            check_id="h1y_routed_residual_report_figure_exists",
+            severity="recommended",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "mlx_tool_contract_harnessing"
+            / "figures"
+            / "h1y_routed_residual_gate.svg",
+            detail="Paper-facing H1y/H2a replay gate figure exists in the main report.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",

@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-10T18:57:26.546350+00:00",
+    "generated_at": "2026-05-10T19:31:14.797685+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-    "claim_count": 37,
-    "evidence_source_count": 191,
+    "claim_count": 38,
+    "evidence_source_count": 197,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -42,7 +42,8 @@
       "C34_h1p_component_holdout_supports_component_value_domain",
       "C35_h1q_component_label_guard_is_strongest_transfer_candidate",
       "C36_h1s_residual_guard_is_targeted_not_global",
-      "C37_h1x_breaks_v11_saturation_but_supports_routing"
+      "C37_h1x_breaks_v11_saturation_but_supports_routing",
+      "C38_h2a_controller_stale_selection_gate_is_causal"
     ]
   },
   "claims": [
@@ -415,6 +416,16 @@
       "limitation": "H1x is a focused replay-shaped synthetic packet and should be interpreted together with H1s, which already shows v12's broader negative transfer when promoted globally.",
       "next_test": "Build H1y as a routed residual-helper test that keeps v11 as the default and activates v12-style residual wording only on oblique stale-field and nonstandard-class contexts.",
       "source_count": 7
+    },
+    {
+      "claim_id": "C38_h2a_controller_stale_selection_gate_is_causal",
+      "claim": "The H1y/H2a replay gate shows stale visual selection handling is better solved as a controller-side runtime mediation than as additional catalog prose.",
+      "status": "supported_current_packets",
+      "evidence_strength": "strong_internal",
+      "primary_metric": "On the same 10-case H1y packet, no-directive reaches 0/10 exact, v11 reaches 5/10, v12 reaches 7/10, v16 and v17 reach 5/10, and H2a reaches 8/10 exact and executor-equivalent.",
+      "limitation": "H2a has only been tested on the H1y packet so far; it needs transfer retesting on H1n/H1o/H1p/H1x before it can be treated as a general runtime default.",
+      "next_test": "Transfer-test the stale-selection gate across earlier visual hard slices, then isolate the remaining argument-alias/code-label misses without leaking expected labels.",
+      "source_count": 6
     }
   ],
   "evidence_sources": [
@@ -1753,6 +1764,48 @@
       "artifact_type": "report_figure",
       "path": "results/reports/mlx_tool_contract_harnessing/figures/h1x_v11_breaker_gate.svg",
       "purpose": "Paper-facing H1x replay gate figure in the generated MLX report.",
+      "exists": true
+    },
+    {
+      "claim_id": "C38_h2a_controller_stale_selection_gate_is_causal",
+      "artifact_type": "replay_synthesis",
+      "path": "results/reports/h1y_routed_residual_synthesis/report.md",
+      "purpose": "H1y/H2a synthesis comparing no-directive, v11, v12, v16, v17, and the controller stale-selection gate.",
+      "exists": true
+    },
+    {
+      "claim_id": "C38_h2a_controller_stale_selection_gate_is_causal",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260510T_h2a_visual_stale_selection_gate_on_h1y_execute_v1",
+      "purpose": "H2a live execution reaching 8/10 exact and executor-equivalent on H1y.",
+      "exists": true
+    },
+    {
+      "claim_id": "C38_h2a_controller_stale_selection_gate_is_causal",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260510T_h2a_visual_stale_selection_gate_vs_component_label_guard_on_h1y_v1",
+      "purpose": "Direct comparison showing H2a gains three exact successes over v11.",
+      "exists": true
+    },
+    {
+      "claim_id": "C38_h2a_controller_stale_selection_gate_is_causal",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260510T_h2a_visual_stale_selection_gate_vs_component_residual_guard_on_h1y_v1",
+      "purpose": "Direct comparison showing H2a gains one exact success over v12.",
+      "exists": true
+    },
+    {
+      "claim_id": "C38_h2a_controller_stale_selection_gate_is_causal",
+      "artifact_type": "report_table",
+      "path": "results/reports/mlx_tool_contract_harnessing/tables/h1y_routed_residual_packet_summary.csv",
+      "purpose": "Paper-facing H1y/H2a packet table in the generated MLX report.",
+      "exists": true
+    },
+    {
+      "claim_id": "C38_h2a_controller_stale_selection_gate_is_causal",
+      "artifact_type": "report_figure",
+      "path": "results/reports/mlx_tool_contract_harnessing/figures/h1y_routed_residual_gate.svg",
+      "purpose": "Paper-facing H1y/H2a replay gate figure in the generated MLX report.",
       "exists": true
     }
   ],

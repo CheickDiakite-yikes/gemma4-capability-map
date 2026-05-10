@@ -4,9 +4,9 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 
 ## Manifest
 
-- generated_at: `2026-05-10T18:57:26.546350+00:00`
-- claim_count: `37`
-- evidence_source_count: `191`
+- generated_at: `2026-05-10T19:31:14.797685+00:00`
+- claim_count: `38`
+- evidence_source_count: `197`
 - missing_source_count: `0`
 
 ## Claims
@@ -50,6 +50,7 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C35_h1q_component_label_guard_is_strongest_transfer_candidate | supported_current_packets | strong_internal | Across 32 live replay cases, component-label guard v11 reaches 26/32 exact and 29/32 executor-equivalent successes, versus component-value guard v9 at 23/32 exact and 25/32 executor-equivalent. | The synthesis spans three replay-shaped MLX packets, not a broad population estimate. v11 is also not a global default because it trails v9 by one executor-equivalent case on H1p and retains owner-field, state-tag, and mode-toggle residual failures. | Build H1r around the remaining v11 miss families, especially owner-field stale selection, compact state tags, mode toggles, and exact paraphrases in H1o code/negation rows. |
 | C36_h1s_residual_guard_is_targeted_not_global | supported_current_packets | strong_internal | Across H1n/H1o/H1p, v12 improves strict exactness from v11's 26/32 to 27/32, but lowers executor-equivalence from v11's 29/32 to 27/32; H1n is the clearest negative transfer at -0.125 exact-rate and -0.250 executor-equivalence rate versus v11. | H1s is still a replay-shaped synthetic transfer gate. It supports conditional routing or prompt-factor testing, not broad claims about real GUI populations or a final global prompt contract. | Build a conditional-route or prompt-factorial slice that keeps v11 as the general component-label profile and applies v12 residual wording only to code-label and nonstandard component-class contexts. |
 | C37_h1x_breaks_v11_saturation_but_supports_routing | supported_current_packets | strong_internal | On H1x, no-directive reaches 2/8 exact and executor-equivalent, v11 reaches 7/8, v12 reaches 8/8, and v15 reaches 6/8 exact with 7/8 executor-equivalent. | H1x is a focused replay-shaped synthetic packet and should be interpreted together with H1s, which already shows v12's broader negative transfer when promoted globally. | Build H1y as a routed residual-helper test that keeps v11 as the default and activates v12-style residual wording only on oblique stale-field and nonstandard-class contexts. |
+| C38_h2a_controller_stale_selection_gate_is_causal | supported_current_packets | strong_internal | On the same 10-case H1y packet, no-directive reaches 0/10 exact, v11 reaches 5/10, v12 reaches 7/10, v16 and v17 reach 5/10, and H2a reaches 8/10 exact and executor-equivalent. | H2a has only been tested on the H1y packet so far; it needs transfer retesting on H1n/H1o/H1p/H1x before it can be treated as a general runtime default. | Transfer-test the stale-selection gate across earlier visual hard slices, then isolate the remaining argument-alias/code-label misses without leaking expected labels. |
 
 ## Evidence Sources
 
@@ -246,3 +247,9 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C37_h1x_breaks_v11_saturation_but_supports_routing | live_replay_packet | True | results/tool_probe_replay_live/20260510T_h1x_v11_breaker_code_label_exact_guard_execute_v1 | V15 H1x replay showing lower strict exactness and partial executor-equivalent rescue. |
 | C37_h1x_breaks_v11_saturation_but_supports_routing | report_table | True | results/reports/mlx_tool_contract_harnessing/tables/h1x_v11_breaker_packet_summary.csv | Paper-facing H1x packet table in the generated MLX report. |
 | C37_h1x_breaks_v11_saturation_but_supports_routing | report_figure | True | results/reports/mlx_tool_contract_harnessing/figures/h1x_v11_breaker_gate.svg | Paper-facing H1x replay gate figure in the generated MLX report. |
+| C38_h2a_controller_stale_selection_gate_is_causal | replay_synthesis | True | results/reports/h1y_routed_residual_synthesis/report.md | H1y/H2a synthesis comparing no-directive, v11, v12, v16, v17, and the controller stale-selection gate. |
+| C38_h2a_controller_stale_selection_gate_is_causal | live_replay_packet | True | results/tool_probe_replay_live/20260510T_h2a_visual_stale_selection_gate_on_h1y_execute_v1 | H2a live execution reaching 8/10 exact and executor-equivalent on H1y. |
+| C38_h2a_controller_stale_selection_gate_is_causal | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260510T_h2a_visual_stale_selection_gate_vs_component_label_guard_on_h1y_v1 | Direct comparison showing H2a gains three exact successes over v11. |
+| C38_h2a_controller_stale_selection_gate_is_causal | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260510T_h2a_visual_stale_selection_gate_vs_component_residual_guard_on_h1y_v1 | Direct comparison showing H2a gains one exact success over v12. |
+| C38_h2a_controller_stale_selection_gate_is_causal | report_table | True | results/reports/mlx_tool_contract_harnessing/tables/h1y_routed_residual_packet_summary.csv | Paper-facing H1y/H2a packet table in the generated MLX report. |
+| C38_h2a_controller_stale_selection_gate_is_causal | report_figure | True | results/reports/mlx_tool_contract_harnessing/figures/h1y_routed_residual_gate.svg | Paper-facing H1y/H2a replay gate figure in the generated MLX report. |

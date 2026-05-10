@@ -1715,6 +1715,59 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C38_h2a_controller_stale_selection_gate_is_causal",
+        claim=(
+            "The H1y/H2a replay gate shows stale visual selection handling is better solved as a controller-side "
+            "runtime mediation than as additional catalog prose."
+        ),
+        status="supported_current_packets",
+        evidence_strength="strong_internal",
+        primary_metric=(
+            "On the same 10-case H1y packet, no-directive reaches 0/10 exact, v11 reaches 5/10, v12 reaches "
+            "7/10, v16 and v17 reach 5/10, and H2a reaches 8/10 exact and executor-equivalent."
+        ),
+        limitation=(
+            "H2a has only been tested on the H1y packet so far; it needs transfer retesting on H1n/H1o/H1p/H1x "
+            "before it can be treated as a general runtime default."
+        ),
+        next_test=(
+            "Transfer-test the stale-selection gate across earlier visual hard slices, then isolate the remaining "
+            "argument-alias/code-label misses without leaking expected labels."
+        ),
+        sources=(
+            EvidenceSource(
+                "replay_synthesis",
+                "results/reports/h1y_routed_residual_synthesis/report.md",
+                "H1y/H2a synthesis comparing no-directive, v11, v12, v16, v17, and the controller stale-selection gate.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h2a_visual_stale_selection_gate_on_h1y_execute_v1",
+                "H2a live execution reaching 8/10 exact and executor-equivalent on H1y.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260510T_h2a_visual_stale_selection_gate_vs_component_label_guard_on_h1y_v1",
+                "Direct comparison showing H2a gains three exact successes over v11.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260510T_h2a_visual_stale_selection_gate_vs_component_residual_guard_on_h1y_v1",
+                "Direct comparison showing H2a gains one exact success over v12.",
+            ),
+            EvidenceSource(
+                "report_table",
+                "results/reports/mlx_tool_contract_harnessing/tables/h1y_routed_residual_packet_summary.csv",
+                "Paper-facing H1y/H2a packet table in the generated MLX report.",
+            ),
+            EvidenceSource(
+                "report_figure",
+                "results/reports/mlx_tool_contract_harnessing/figures/h1y_routed_residual_gate.svg",
+                "Paper-facing H1y/H2a replay gate figure in the generated MLX report.",
+            ),
+        ),
+    ),
 )
 
 

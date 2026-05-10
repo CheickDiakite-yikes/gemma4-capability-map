@@ -1,5 +1,62 @@
 # Research Log
 
+# Research Log
+
+## 2026-05-10 - H2a Controller Stale-Selection Gate Becomes the Current Local Winner
+
+- Executed the controller-side stale-selection gate on the same H1y mixed packet used for the prompt/catalog routed-residual tests.
+- Core artifacts:
+  - H2a live packet: [`results/tool_probe_replay_live/20260510T_h2a_visual_stale_selection_gate_on_h1y_execute_v1`](../results/tool_probe_replay_live/20260510T_h2a_visual_stale_selection_gate_on_h1y_execute_v1)
+  - synthesis: [`results/reports/h1y_routed_residual_synthesis/report.md`](../results/reports/h1y_routed_residual_synthesis/report.md)
+  - main MLX report table: [`results/reports/mlx_tool_contract_harnessing/tables/h1y_routed_residual_packet_summary.csv`](../results/reports/mlx_tool_contract_harnessing/tables/h1y_routed_residual_packet_summary.csv)
+  - main MLX report figure: [`results/reports/mlx_tool_contract_harnessing/figures/h1y_routed_residual_gate.svg`](../results/reports/mlx_tool_contract_harnessing/figures/h1y_routed_residual_gate.svg)
+- Live result on H1y:
+  - no-directive: `0 / 10` exact and executor-equivalent
+  - v11 component-label guard: `5 / 10`
+  - v12 component-residual guard: `7 / 10`
+  - v16 routed-residual guard: `5 / 10`
+  - v17 selection-origin guard: `5 / 10`
+  - H2a v11 + controller stale-selection gate: `8 / 10`
+- Mechanism read:
+  - catalog prose alone did not solve stale user-mentioned `selection_id` hazards
+  - H2a fixed all three stale-field route rows without using expected calls or benchmark answers
+  - H2a preserved both surface-value holdouts, avoiding the v16 regression
+  - the two remaining H2a misses are `h1y_lifecycle_state_tag_audit_value_decoy` and `h1y_alert_s92_negated_toggle_decoy`, both argument-alias/code-label style failures rather than stale-selection failures
+- Research decision:
+  - promote H2a to transfer retest, not to global default yet
+  - stop adding broad catalog prose for this failure family until transfer data says otherwise
+  - next slice should test the stale-selection gate across H1n/H1o/H1p/H1x and then isolate the remaining argument-alias/code-label residue
+- Reporting updates:
+  - H2a is now publication claim `C38_h2a_controller_stale_selection_gate_is_causal`
+  - MLX tool-contract report now has `97` tables and `42` figures
+  - publication evidence ledger now has `38` claims and `197` evidence sources with `0` missing sources
+  - publication readiness audit remains `paper_draft_ready` with `0` blocking failures
+- Verification:
+  - `uv run python -m gemma4_capability_map.runtime.cli replay-live --packet-dir results/tool_probe_replay_packets/20260510T_h1y_routed_residual_oracle_dry_run_v1 --output-dir results/tool_probe_replay_live/20260510T_h2a_visual_stale_selection_gate_on_h1y_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_label_guard_visual_stale_selection_gate --registry configs/model_registry.yaml --execute --json`
+  - `uv run python scripts/build_h1y_routed_residual_synthesis.py`
+  - `uv run python scripts/build_mlx_tool_contract_report.py`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`
+  - `uv run pytest tests/test_mlx_tool_contract_report.py tests/test_publication_evidence_ledger.py tests/test_publication_readiness_audit.py tests/test_h1y_routed_residual_synthesis.py -q`
+
+## 2026-05-10 - H1y/H1z Routed Residual Prompt-Only Negative Result
+
+- Built and executed the H1y mixed routed-residual packet to test whether prompt/catalog wording could keep v11's transfer stability while capturing v12's H1x stale-field gain.
+- Packet: [`results/tool_probe_replay_packets/20260510T_h1y_routed_residual_oracle_dry_run_v1`](../results/tool_probe_replay_packets/20260510T_h1y_routed_residual_oracle_dry_run_v1)
+- Results:
+  - no-directive: `0 / 10`
+  - v11 component-label guard: `5 / 10`
+  - v12 component-residual guard: `7 / 10`
+  - v16 routed-residual guard: `5 / 10`
+  - v17 selection-origin guard: `5 / 10`
+- Interpretation:
+  - v16's routed residual prose regressed surface-value holdouts while failing to beat v11
+  - v17 restored surface-value holdouts but still used stale user-written selection ids on all three stale-field rows
+  - this is negative evidence against solving stale selection-origin errors through more catalog prose alone
+- Decision:
+  - move the stale-selection hypothesis into the runtime/controller layer
+  - keep v11 as the prompt default during the controller-gate test
+
 ## 2026-05-10 - H1x V11-Breaker Live Gate
 
 - Executed the H1x packet after the scaffolded v11-breaker design:

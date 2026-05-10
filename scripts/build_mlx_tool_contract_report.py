@@ -589,6 +589,9 @@ DEFAULT_H1S_COMPONENT_RESIDUAL_TRANSFER_SYNTHESIS = (
 DEFAULT_H1X_V11_BREAKER_SYNTHESIS = (
     ROOT / "results" / "reports" / "h1x_v11_breaker_synthesis"
 )
+DEFAULT_H1Y_ROUTED_RESIDUAL_SYNTHESIS = (
+    ROOT / "results" / "reports" / "h1y_routed_residual_synthesis"
+)
 
 SYSTEM_LABELS = {
     "mlx_gemma4_e2b_reasoner_only": "contracted",
@@ -769,6 +772,7 @@ def build_report(
     h1s_component_residual_transfer_synthesis: str
     | Path = DEFAULT_H1S_COMPONENT_RESIDUAL_TRANSFER_SYNTHESIS,
     h1x_v11_breaker_synthesis: str | Path = DEFAULT_H1X_V11_BREAKER_SYNTHESIS,
+    h1y_routed_residual_synthesis: str | Path = DEFAULT_H1Y_ROUTED_RESIDUAL_SYNTHESIS,
     registry_path: str | Path = DEFAULT_REGISTRY_PATH,
 ) -> dict[str, Any]:
     target = Path(output_dir)
@@ -1617,6 +1621,14 @@ def build_report(
     h1x_comparison_rows = h1x_synthesis_payload["comparison_rows"]
     h1x_non_exact_rows = h1x_synthesis_payload["non_exact_rows"]
     h1x_finding_rows = h1x_synthesis_payload["finding_rows"]
+    h1y_synthesis_payload = json.loads(
+        (Path(h1y_routed_residual_synthesis) / "synthesis.json").read_text(encoding="utf-8")
+    )
+    h1y_packet_rows = h1y_synthesis_payload["packet_rows"]
+    h1y_family_rows = h1y_synthesis_payload["family_rows"]
+    h1y_comparison_rows = h1y_synthesis_payload["comparison_rows"]
+    h1y_non_exact_rows = h1y_synthesis_payload["non_exact_rows"]
+    h1y_finding_rows = h1y_synthesis_payload["finding_rows"]
 
     _write_csv(tables_dir / "packet_summary.csv", packet_rows)
     _write_csv(tables_dir / "h1i_system_metrics.csv", h1i_system_rows)
@@ -1841,6 +1853,26 @@ def build_report(
     _write_csv(
         tables_dir / "h1x_v11_breaker_findings.csv",
         h1x_finding_rows,
+    )
+    _write_csv(
+        tables_dir / "h1y_routed_residual_packet_summary.csv",
+        h1y_packet_rows,
+    )
+    _write_csv(
+        tables_dir / "h1y_routed_residual_family_summary.csv",
+        h1y_family_rows,
+    )
+    _write_csv(
+        tables_dir / "h1y_routed_residual_comparison_summary.csv",
+        h1y_comparison_rows,
+    )
+    _write_csv(
+        tables_dir / "h1y_routed_residual_non_exact_rows.csv",
+        h1y_non_exact_rows,
+    )
+    _write_csv(
+        tables_dir / "h1y_routed_residual_findings.csv",
+        h1y_finding_rows,
     )
 
     _write_grouped_metric_svg(
@@ -2296,6 +2328,16 @@ def build_report(
             ("executor_rate", "executor eq", "#059669"),
         ],
     )
+    _write_grouped_metric_svg(
+        figures_dir / "h1y_routed_residual_gate.svg",
+        title="H1y/H2a routed residual gate",
+        rows=h1y_packet_rows,
+        label_field="profile_label",
+        metrics=[
+            ("exact_rate", "exact", "#DC2626"),
+            ("executor_rate", "executor eq", "#059669"),
+        ],
+    )
 
     manifest = {
         "generated_at": datetime.now(UTC).isoformat(),
@@ -2548,9 +2590,12 @@ def build_report(
         "h1x_v11_breaker_synthesis": str(
             Path(h1x_v11_breaker_synthesis).resolve()
         ),
+        "h1y_routed_residual_synthesis": str(
+            Path(h1y_routed_residual_synthesis).resolve()
+        ),
         "registry_path": str(Path(registry_path).resolve()),
-        "table_count": 92,
-        "figure_count": 41,
+        "table_count": 97,
+        "figure_count": 42,
     }
     report_payload = {
         "manifest": manifest,
@@ -2697,6 +2742,12 @@ def build_report(
         "h1x_v11_breaker_comparison_summary": h1x_comparison_rows,
         "h1x_v11_breaker_non_exact_rows": h1x_non_exact_rows,
         "h1x_v11_breaker_findings": h1x_finding_rows,
+        "h1y_routed_residual_synthesis": h1y_synthesis_payload,
+        "h1y_routed_residual_packet_summary": h1y_packet_rows,
+        "h1y_routed_residual_family_summary": h1y_family_rows,
+        "h1y_routed_residual_comparison_summary": h1y_comparison_rows,
+        "h1y_routed_residual_non_exact_rows": h1y_non_exact_rows,
+        "h1y_routed_residual_findings": h1y_finding_rows,
         "gemini": gemini_manifest,
     }
     (target / "manifest.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
@@ -2933,6 +2984,7 @@ def parse_args() -> argparse.Namespace:
         default=str(DEFAULT_VISUAL_HARD_SLICE_ALIAS_TRANSFER_ORACLE_SCHEMA_LITERAL_TARGETS_LIVE_COMPARISON),
     )
     parser.add_argument("--h1x-v11-breaker-synthesis", default=str(DEFAULT_H1X_V11_BREAKER_SYNTHESIS))
+    parser.add_argument("--h1y-routed-residual-synthesis", default=str(DEFAULT_H1Y_ROUTED_RESIDUAL_SYNTHESIS))
     parser.add_argument("--registry", default=str(DEFAULT_REGISTRY_PATH))
     return parser.parse_args()
 
@@ -3019,6 +3071,7 @@ def main() -> None:
         visual_hard_slice_alias_transfer_oracle_schema_field_hints_live_comparison=args.visual_hard_slice_alias_transfer_oracle_schema_field_hints_live_comparison,
         visual_hard_slice_alias_transfer_oracle_schema_literal_targets_live_comparison=args.visual_hard_slice_alias_transfer_oracle_schema_literal_targets_live_comparison,
         h1x_v11_breaker_synthesis=args.h1x_v11_breaker_synthesis,
+        h1y_routed_residual_synthesis=args.h1y_routed_residual_synthesis,
         registry_path=args.registry,
     )
     print(
@@ -3463,6 +3516,11 @@ def _markdown_report(payload: dict[str, Any]) -> str:
     h1x_comparison_rows = payload["h1x_v11_breaker_comparison_summary"]
     h1x_non_exact_rows = payload["h1x_v11_breaker_non_exact_rows"]
     h1x_finding_rows = payload["h1x_v11_breaker_findings"]
+    h1y_packet_rows = payload["h1y_routed_residual_packet_summary"]
+    h1y_family_rows = payload["h1y_routed_residual_family_summary"]
+    h1y_comparison_rows = payload["h1y_routed_residual_comparison_summary"]
+    h1y_non_exact_rows = payload["h1y_routed_residual_non_exact_rows"]
+    h1y_finding_rows = payload["h1y_routed_residual_findings"]
     gemini = payload["gemini"]
     lines = [
         "# MLX Tool-Contract Harnessing Report",
@@ -3568,6 +3626,8 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "![H1s component-residual transfer gate](figures/h1s_component_residual_transfer_gate.svg)",
         "",
         "![H1x v11-breaker replay gate](figures/h1x_v11_breaker_gate.svg)",
+        "",
+        "![H1y/H2a routed residual replay gate](figures/h1y_routed_residual_gate.svg)",
         "",
         "## Packet Summary",
         "",
@@ -3794,6 +3854,20 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         _markdown_table(h1x_finding_rows),
         "",
         "H1x is the first focused replay packet after H1w that actually breaks v11 saturation. No-directive is `2 / 8` exact and executor-equivalent, v11 drops to `7 / 8`, v12 reaches `8 / 8`, and v15 reaches `6 / 8` exact with `7 / 8` executor-equivalent. The local winner is therefore the component-residual wording, but the earlier H1s transfer gate still blocks global promotion. The publishable conclusion is routed residual help: oblique stale-field language needs more than v11, while code-label exactness alone is too narrow.",
+        "",
+        "## H1y/H2a Routed Residual Replay Gate",
+        "",
+        _markdown_table(h1y_packet_rows),
+        "",
+        _markdown_table(h1y_family_rows),
+        "",
+        _markdown_table(h1y_comparison_rows),
+        "",
+        _markdown_table(h1y_non_exact_rows),
+        "",
+        _markdown_table(h1y_finding_rows),
+        "",
+        "H1y/H2a is the cleanest current controller-versus-prompt result. The mixed H1y packet drives no-directive to `0 / 10`, v11 to `5 / 10`, v12 to `7 / 10`, v16 to `5 / 10`, and v17 to `5 / 10`. Adding a runtime stale-selection gate on top of v11 reaches `8 / 10` exact and executor-equivalent, fixes all three stale-field route rows, and preserves both surface-value holdouts. The remaining misses are argument-alias/code-label rows, so the next research move is transfer retest plus a smaller alias residual rather than more broad catalog prose.",
         "",
         "## Visual Hard-Slice Case Deltas vs No Directive",
         "",

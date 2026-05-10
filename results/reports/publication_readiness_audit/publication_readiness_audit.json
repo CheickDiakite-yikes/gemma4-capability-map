@@ -1,11 +1,11 @@
 {
   "summary": {
-    "generated_at": "2026-05-10T18:57:37.496296+00:00",
+    "generated_at": "2026-05-10T19:31:14.861059+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 140,
-    "blocking_check_count": 137,
+    "check_count": 148,
+    "blocking_check_count": 144,
     "blocking_failed_count": 0,
-    "recommended_check_count": 3,
+    "recommended_check_count": 4,
     "recommended_failed_count": 0,
     "blocking_passed": true,
     "readiness_level": "paper_draft_ready"
@@ -29,7 +29,7 @@
       "check_id": "ledger_has_claims",
       "severity": "blocking",
       "passed": true,
-      "detail": "claim_count=37",
+      "detail": "claim_count=38",
       "path": ""
     },
     {
@@ -43,14 +43,14 @@
       "check_id": "tool_contract_report_has_current_tables",
       "severity": "blocking",
       "passed": true,
-      "detail": "table_count=92",
+      "detail": "table_count=97",
       "path": ""
     },
     {
       "check_id": "tool_contract_report_has_current_figures",
       "severity": "blocking",
       "passed": true,
-      "detail": "figure_count=41",
+      "detail": "figure_count=42",
       "path": ""
     },
     {
@@ -801,6 +801,62 @@
       "passed": true,
       "detail": "Paper-facing H1x replay gate figure exists in the main report.",
       "path": "results/reports/mlx_tool_contract_harnessing/figures/h1x_v11_breaker_gate.svg"
+    },
+    {
+      "check_id": "h1y_routed_residual_no_directive_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H1y no-directive live replay exists.",
+      "path": "results/tool_probe_replay_live/20260510T_h1y_routed_residual_no_directive_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h1y_routed_residual_v12_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H1y v12 component-residual guard live replay exists.",
+      "path": "results/tool_probe_replay_live/20260510T_h1y_routed_residual_component_residual_guard_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h2a_visual_stale_selection_gate_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2a controller stale-selection gate live replay exists.",
+      "path": "results/tool_probe_replay_live/20260510T_h2a_visual_stale_selection_gate_on_h1y_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h2a_visual_stale_selection_gate_vs_v11_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2a-vs-v11 live comparison exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260510T_h2a_visual_stale_selection_gate_vs_component_label_guard_on_h1y_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h2a_visual_stale_selection_gate_vs_v12_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2a-vs-v12 live comparison exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260510T_h2a_visual_stale_selection_gate_vs_component_residual_guard_on_h1y_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h1y_routed_residual_synthesis_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H1y/H2a routed-residual synthesis report exists.",
+      "path": "results/reports/h1y_routed_residual_synthesis/report.md"
+    },
+    {
+      "check_id": "h1y_routed_residual_report_table_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Paper-facing H1y/H2a packet table exists in the main report.",
+      "path": "results/reports/mlx_tool_contract_harnessing/tables/h1y_routed_residual_packet_summary.csv"
+    },
+    {
+      "check_id": "h1y_routed_residual_report_figure_exists",
+      "severity": "recommended",
+      "passed": true,
+      "detail": "Paper-facing H1y/H2a replay gate figure exists in the main report.",
+      "path": "results/reports/mlx_tool_contract_harnessing/figures/h1y_routed_residual_gate.svg"
     },
     {
       "check_id": "current_state_doc_exists",

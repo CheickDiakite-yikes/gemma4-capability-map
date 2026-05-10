@@ -118,6 +118,14 @@ def test_publication_readiness_audit_writes_blocking_checks(tmp_path: Path) -> N
     assert checks["h1s_component_residual_h1p_live_exists"]["passed"] is True
     assert checks["h1s_component_residual_synthesis_exists"]["passed"] is True
     assert checks["h1s_component_residual_report_table_exists"]["passed"] is True
+    assert checks["h1y_routed_residual_no_directive_live_exists"]["passed"] is True
+    assert checks["h1y_routed_residual_v12_live_exists"]["passed"] is True
+    assert checks["h2a_visual_stale_selection_gate_live_exists"]["passed"] is True
+    assert checks["h2a_visual_stale_selection_gate_vs_v11_comparison_exists"]["passed"] is True
+    assert checks["h2a_visual_stale_selection_gate_vs_v12_comparison_exists"]["passed"] is True
+    assert checks["h1y_routed_residual_synthesis_exists"]["passed"] is True
+    assert checks["h1y_routed_residual_report_table_exists"]["passed"] is True
+    assert checks["h1y_routed_residual_report_figure_exists"]["passed"] is True
     assert checks["script_analyze_visual_hard_slice_exactness.py_exists"]["passed"] is True
     assert checks["script_analyze_packaged_replay_gap.py_exists"]["passed"] is True
     assert checks["script_analyze_h1n_alias_transfer_contract_split.py_exists"]["passed"] is True

@@ -1,5 +1,31 @@
 # Next Steps
 
+## Current Best Next Moves
+
+The next move is not another broad prompt-contract paragraph. H1y/H1z showed that prompt/catalog prose alone did not solve stale selection-origin routing. H2a showed that a controller-side stale-selection gate is causal on the same packet.
+
+Execution order:
+
+1. Transfer-test H2a on prior replay-shaped visual packets: H1n component-value, H1o control-factorial, H1p component-only holdout, and H1x v11-breaker.
+2. Build an H2a transfer synthesis covering exactness, executor-equivalence, stale-selection fixes, surface-value preservation, and regressions against v11/v12/incumbents.
+3. If H2a transfers cleanly, promote it as a controller helper candidate, not as a prompt-profile replacement.
+4. If H2a regresses, restrict the gate by family: stale user-mentioned `selection_id` only, current-image labels only, and no expected-answer leakage.
+5. Design the next residual packet around the two H1y misses: `h1y_lifecycle_state_tag_audit_value_decoy` and `h1y_alert_s92_negated_toggle_decoy`.
+6. Keep packaged workflows paused for this line unless they preserve the same replay-shaped pressure; H1l/H1m already showed packaged visual surfaces can wash out the mechanism.
+
+Immediate suggested command:
+
+```bash
+uv run python -m gemma4_capability_map.runtime.cli replay-live \
+  --packet-dir results/tool_probe_replay_packets/20260510T_h1x_v11_breaker_oracle_dry_run_v1 \
+  --output-dir results/tool_probe_replay_live/20260510T_h2a_visual_stale_selection_gate_on_h1x_execute_v1 \
+  --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_label_guard_visual_stale_selection_gate \
+  --registry configs/model_registry.yaml \
+  --execute --json
+```
+
+Then compare against the existing H1x no-directive/v11/v12 live packets and build an H2a transfer synthesis.
+
 ## Immediate
 
 ### 1. Pivot the main live-testing surface to a CLI-first sandboxed operator harness
@@ -209,7 +235,9 @@ Next implementation moves:
   - synthesis: [`results/reports/h1x_v11_breaker_synthesis/report.md`](../../results/reports/h1x_v11_breaker_synthesis/report.md)
   - main report figure: [`results/reports/mlx_tool_contract_harnessing/figures/h1x_v11_breaker_gate.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/h1x_v11_breaker_gate.svg)
   - decision: H1x finally breaks v11 saturation and makes v12 the local winner, but H1s still blocks global v12 promotion
-  - next execution step: build H1y as a routed residual-helper test that preserves v11 by default and activates v12-style residual wording only on oblique stale-field/nonstandard-class contexts
+  - completed follow-up: H1y tests routed residual prompt help and H1z tests selection-origin prompt help; both fail to beat v12 and remain at `5 / 10`
+  - completed H2a controller gate: v11 plus stale-selection controller mediation reaches `8 / 10` on H1y, beating v12's `7 / 10`
+  - next execution step: transfer-test H2a across H1n/H1o/H1p/H1x before any global runtime-default promotion
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1

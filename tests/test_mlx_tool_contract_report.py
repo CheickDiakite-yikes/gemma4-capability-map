@@ -34,8 +34,8 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
 
     assert payload["gemini"]["dry_run"] is True
     assert payload["gemini"]["workflow_count"] == 10
-    assert payload["manifest"]["table_count"] == 92
-    assert payload["manifest"]["figure_count"] == 41
+    assert payload["manifest"]["table_count"] == 97
+    assert payload["manifest"]["figure_count"] == 42
 
     candidate_ids = {row["tool_prompt_contract_id"] for row in payload["prompt_contract_candidates"]}
     assert candidate_ids == {
@@ -763,6 +763,20 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert h1x_failures[
         ("code_label_exact_guard_v15", "h1x_resolution_chip_comment_result_decoy")
     ]["executor_equivalence_match"] is True
+    h1y_packet = {row["profile_label"]: row for row in payload["h1y_routed_residual_packet_summary"]}
+    assert h1y_packet["no_directive"]["exact_success_count"] == 0
+    assert h1y_packet["component_label_guard_v11"]["exact_success_count"] == 5
+    assert h1y_packet["component_residual_guard_v12"]["exact_success_count"] == 7
+    assert h1y_packet["component_label_guard_v11_stale_selection_gate_h2a"]["exact_success_count"] == 8
+    h1y_family = {
+        (row["profile_label"], row["family"]): row for row in payload["h1y_routed_residual_family_summary"]
+    }
+    assert h1y_family[
+        ("component_label_guard_v11_stale_selection_gate_h2a", "h1y_route_stale_field")
+    ]["exact_success_count"] == 3
+    h1y_findings = {row["finding_id"]: row["finding"] for row in payload["h1y_routed_residual_findings"]}
+    assert "8/10" in h1y_findings["h2a_controller_gate_is_causal"]
+    assert "Promote H2a" in h1y_findings["next_slice"]
     h1i_candidates = {row["system_id"]: row for row in payload["h1i_prompt_contract_candidate_metrics"]}
     assert h1i_candidates["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive"]["tool_turn_directive_enabled"] == "False"
     assert h1i_candidates["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor"]["raw_planning_clean_rate_avg"] == "1.0"
@@ -866,6 +880,11 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert (tmp_path / "tables" / "h1x_v11_breaker_comparison_summary.csv").exists()
     assert (tmp_path / "tables" / "h1x_v11_breaker_non_exact_rows.csv").exists()
     assert (tmp_path / "tables" / "h1x_v11_breaker_findings.csv").exists()
+    assert (tmp_path / "tables" / "h1y_routed_residual_packet_summary.csv").exists()
+    assert (tmp_path / "tables" / "h1y_routed_residual_family_summary.csv").exists()
+    assert (tmp_path / "tables" / "h1y_routed_residual_comparison_summary.csv").exists()
+    assert (tmp_path / "tables" / "h1y_routed_residual_non_exact_rows.csv").exists()
+    assert (tmp_path / "tables" / "h1y_routed_residual_findings.csv").exists()
     assert (tmp_path / "tables" / "prompt_contract_promotion_decisions.csv").exists()
     assert (tmp_path / "tables" / "h1i_prompt_contract_candidate_metrics.csv").exists()
     assert (tmp_path / "tables" / "h1i_prompt_contract_repeat3_metrics.csv").exists()
@@ -919,3 +938,4 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert (tmp_path / "figures" / "h1q_component_label_guard_transfer_gate.svg").exists()
     assert (tmp_path / "figures" / "h1s_component_residual_transfer_gate.svg").exists()
     assert (tmp_path / "figures" / "h1x_v11_breaker_gate.svg").exists()
+    assert (tmp_path / "figures" / "h1y_routed_residual_gate.svg").exists()
