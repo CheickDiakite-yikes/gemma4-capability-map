@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "post_repair_review_tile_table_decoy",
+    "family": "visual_argument_transfer_post_repair_noncode",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "post-review-6601"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-post-review-tile",
+          "target_query": "review tile"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-post-review-tile",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "post-review-6601"
+          ],
+          "region_id": "post-review-6601",
+          "text_preview": "Renewal risk review"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-post-review-tile",
+          "target_query": "review tile"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-post-review-tile",
+          "target_query": "review tile"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-post-review-tile\", \"target_query\": \"review tile\"}}",
+    "prompt_tokens": 1360,
+    "completion_tokens": 35,
+    "latency_ms": 5325
+  }
+]
