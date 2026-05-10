@@ -482,6 +482,27 @@ def test_visual_role_catalog_component_identity_query_contract_preserves_h2f_lab
     assert '"filter_query": {"type": "string", "description": "Shortest literal narrowing token for a current selection_id' in rendered
 
 
+def test_visual_role_catalog_component_identity_negative_examples_targets_h2f_residuals() -> None:
+    specs = build_default_registry().specs
+    rendered = tool_catalog_text(
+        [specs["extract_layout"], specs["refine_selection"], specs["read_region_text"]],
+        profile_id="visual_role_catalog_component_identity_negative_examples_v22",
+    )
+
+    assert "Tool catalog profile: visual_role_catalog_component_identity_negative_examples_v22" in rendered
+    assert "Component-identity negative examples:" in rendered
+    assert "result tile for Blocked, target_query is result tile; never use Blocked" in rendered
+    assert "resolution badge for Deferred, target_query is resolution badge" in rendered
+    assert "never use Deferred or resolution badge Deferred" in rendered
+    assert "state marker; never expand it to lifecycle state marker" in rendered
+    assert "mode switch; never rewrite it as mode toggle" in rendered
+    assert "displayed values, status words, copied table values, and nearby alias phrases as decoys" in rendered
+    assert "badge m31, alert t47" in rendered
+    assert '"target_query": {"type": "string", "description": "Compact requested component identity from the prompt' in rendered
+    assert "value-appended phrases like resolution badge Deferred" in rendered
+    assert '"filter_query": {"type": "string", "description": "Shortest literal narrowing token for a current selection_id' in rendered
+
+
 def test_tool_catalog_profile_renders_inside_catalog_without_exact_directive() -> None:
     specs = build_default_registry().specs
     rendered = tool_catalog_text(
