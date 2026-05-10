@@ -258,6 +258,27 @@ def test_visual_role_catalog_component_value_guard_profile_adds_role_value_guard
     assert "residual_state_pill" not in rendered
 
 
+def test_visual_role_catalog_no_call_control_rescue_profile_adds_generic_routing_guard() -> None:
+    specs = build_default_registry().specs
+    rendered = tool_catalog_text(
+        [specs["extract_layout"], specs["refine_selection"], specs["read_region_text"]],
+        profile_id="visual_role_catalog_no_call_control_rescue_v10",
+    )
+
+    assert "Tool catalog profile: visual_role_catalog_no_call_control_rescue_v10" in rendered
+    assert "Visual argument field semantics:" in rendered
+    assert "No-call visual-control activation guard:" in rendered
+    assert "return a visual tool call rather than prose" in rendered
+    assert "start with extract_layout" in rendered
+    assert "business reason, stale id text, or repeated explanatory value" in rendered
+    assert '"target_query": {"type": "string", "description": "Compact selector label for the visible UI control' in rendered
+    assert '"filter_query": {"type": "string", "description": "Shortest literal narrowing token for a current selection_id' in rendered
+    assert "status badge" not in rendered
+    assert "owner field" not in rendered
+    assert "state pill" not in rendered
+    assert "component_value_status_badge_email_decoy" not in rendered
+
+
 def test_tool_catalog_profile_renders_inside_catalog_without_exact_directive() -> None:
     specs = build_default_registry().specs
     rendered = tool_catalog_text(

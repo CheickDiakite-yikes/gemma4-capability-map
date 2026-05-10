@@ -83,6 +83,7 @@ def tool_catalog_text(tool_specs: list[ToolSpec], *, profile_id: str = "") -> st
 
 def known_tool_catalog_profile_ids() -> list[str]:
     return [
+        "visual_role_catalog_no_call_control_rescue_v10",
         "visual_role_catalog_component_value_guard_v9",
         "visual_role_catalog_hybrid_label_guard_v8",
         "visual_role_catalog_oblique_code_guard_v7",
@@ -129,6 +130,7 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
         "visual_role_catalog_oblique_code_guard_v7",
         "visual_role_catalog_hybrid_label_guard_v8",
         "visual_role_catalog_component_value_guard_v9",
+        "visual_role_catalog_no_call_control_rescue_v10",
     }:
         lines.extend(
             [
@@ -137,6 +139,17 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
                 "- filter_query is a compact selector token for an existing selection_id; prefer the shortest literal filter token such as latest, remaining, open, selected, or unread when that token is present.",
                 "- Do not append surrounding nouns to target_query or filter_query when the selector token already identifies the visual operation.",
                 "- Keep image_id, selection_id, and region_id as opaque ids copied from the latest passing visual state.",
+            ]
+        )
+    if normalized == "visual_role_catalog_no_call_control_rescue_v10":
+        lines.extend(
+            [
+                "No-call visual-control activation guard:",
+                "- When the user asks to locate, select, find, inspect, identify, or read a visible UI control, region, or label in the current image, return a visual tool call rather than prose.",
+                "- If no current selection_id or region_id is available from the latest passing visual tool result, start with extract_layout.",
+                "- Stale, old, saved, ignored, or previous ids mentioned by the user are background text; do not use them as current visual state.",
+                "- Keep target_query as a compact selector from the requested visible control or region, not the user's business reason, stale id text, or repeated explanatory value.",
+                "- This guard only decides whether to start a visual lookup; it does not reveal the expected tool call for this turn.",
             ]
         )
     if normalized in {
@@ -158,6 +171,7 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
         "visual_role_catalog_oblique_code_guard_v7",
         "visual_role_catalog_hybrid_label_guard_v8",
         "visual_role_catalog_component_value_guard_v9",
+        "visual_role_catalog_no_call_control_rescue_v10",
     }:
         lines.extend(
             [
@@ -222,6 +236,7 @@ def _profiled_tool_spec(tool: ToolSpec, *, profile_id: str = "") -> ToolSpec:
         "visual_role_catalog_oblique_code_guard_v7",
         "visual_role_catalog_hybrid_label_guard_v8",
         "visual_role_catalog_component_value_guard_v9",
+        "visual_role_catalog_no_call_control_rescue_v10",
     }:
         return tool
     if tool.name not in {"extract_layout", "refine_selection", "read_region_text"}:
@@ -262,6 +277,12 @@ def _profiled_tool_spec(tool: ToolSpec, *, profile_id: str = "") -> ToolSpec:
                 "such as state/status/phase/priority/severity plus pill/tile/badge/chip/field/node/alert, and "
                 "do not replace them with the displayed content value inside the component."
             )
+        if normalized == "visual_role_catalog_no_call_control_rescue_v10":
+            target_description = (
+                "Compact selector label for the visible UI control or region the user asked to locate. "
+                "Use a current image lookup when no current visual id exists; avoid business reasons, stale ids, "
+                "or repeated explanatory values."
+            )
         _set_property_description(
             properties,
             "target_query",
@@ -275,6 +296,7 @@ def _profiled_tool_spec(tool: ToolSpec, *, profile_id: str = "") -> ToolSpec:
             "visual_role_catalog_oblique_code_guard_v7",
             "visual_role_catalog_hybrid_label_guard_v8",
             "visual_role_catalog_component_value_guard_v9",
+            "visual_role_catalog_no_call_control_rescue_v10",
         }:
             filter_description = (
                 "Shortest literal narrowing token for a current selection_id copied from the latest passing visual tool result. "
