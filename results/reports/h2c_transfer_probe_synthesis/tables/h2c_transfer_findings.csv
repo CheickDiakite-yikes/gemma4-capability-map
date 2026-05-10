@@ -1,0 +1,4 @@
+finding_id,finding
+h2c_local_fit_does_not_transfer_cleanly_to_h1x,"H2c is 5/5 on H2b but only 7/8 on H1x, while H2a is 8/8 and v12 is 8/8."
+h2c_regression_is_component_class_swap,"The H1x miss is h1x_resolution_chip_comment_result_decoy: expected {""image_id"": ""img-h1x-resolution-chip"", ""target_query"": ""result chip""}, but H2c produced {""image_id"": ""img-h1x-resolution-chip"", ""target_query"": ""result pill""}. This is a class-swap overfit from `result pill` to `result chip`."
+next_slice,"Build H2d as a class-preserving scoped residual route: keep exact role-plus-component phrases from the prompt, but never substitute a component class learned from the H2b fit packet."

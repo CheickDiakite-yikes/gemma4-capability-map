@@ -1,0 +1,13 @@
+{
+  "generated_at": "2026-05-10T20:33:02.979828+00:00",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h2c_transfer_probe_synthesis",
+  "packet_row_count": 5,
+  "comparison_count": 4,
+  "h2c_h2b_exact_success_count": 5,
+  "h2c_h2b_executor_success_count": 5,
+  "h2c_h1x_exact_success_count": 7,
+  "h2c_h1x_executor_success_count": 7,
+  "h1x_delta_exact_vs_h2a": -0.125,
+  "h1x_delta_executor_vs_h2a": -0.125,
+  "promotion_decision": "reject_global_h2c_build_h2d_class_preserving_route"
+}
