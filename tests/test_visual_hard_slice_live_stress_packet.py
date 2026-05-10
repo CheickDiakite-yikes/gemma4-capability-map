@@ -630,6 +630,69 @@ def test_visual_hard_slice_live_stress_packet_supports_h1x_v11_breaker_suite(
         assert _expected_call_reaches_oracle(case)
 
 
+def test_visual_hard_slice_live_stress_packet_supports_h1y_routed_residual_suite(
+    tmp_path: Path,
+) -> None:
+    packet = SCRIPT.build_visual_hard_slice_live_stress_packet(
+        output_root=tmp_path / "replay_packets",
+        run_group_id="visual_stress_h1y_routed_residual",
+        suite="h1y_routed_residual_v15",
+    )
+
+    assert packet["summary"]["suite"] == "h1y_routed_residual_v15"
+    assert packet["summary"]["case_count"] == 10
+    assert packet["summary"]["family_counts"] == {
+        "h1y_activation_no_call": 1,
+        "h1y_preserve_surface_value": 2,
+        "h1y_route_code_label": 2,
+        "h1y_route_nonstandard_class": 2,
+        "h1y_route_stale_field": 3,
+    }
+    assert packet["summary"]["failure_mode_counts"] == {
+        "argument_alias_or_decoy_risk": 6,
+        "wrong_tool_or_stale_selection_risk": 4,
+    }
+    cases = {case["case_id"]: case for case in packet["replay_cases"]}
+    assert cases["h1y_responsible_party_field_old_owner_memo_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h1y-owner-field",
+                "target_query": "owner field",
+            },
+        }
+    ]
+    assert cases["h1y_alert_s92_negated_toggle_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h1y-alert-s92",
+                "target_query": "alert s92",
+            },
+        }
+    ]
+    assert cases["h1y_status_pill_summary_value_holdout"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h1y-status-pill",
+                "target_query": "status pill",
+            },
+        }
+    ]
+    assert cases["h1y_warning_tile_note_activation_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h1y-warning-tile",
+                "target_query": "warning tile",
+            },
+        }
+    ]
+    for case in packet["replay_cases"]:
+        assert _expected_call_reaches_oracle(case)
+
+
 def _expected_call_reaches_oracle(case: dict[str, object]) -> bool:
     tool_specs = [ToolSpec.model_validate(payload) for payload in case["tool_specs"]]  # type: ignore[index]
     executor = DeterministicExecutor(tool_specs=tool_specs)

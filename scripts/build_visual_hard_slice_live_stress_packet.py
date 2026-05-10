@@ -46,6 +46,7 @@ def parse_args() -> argparse.Namespace:
             "h1r_component_label_residual_v12",
             "h1w_residual_overlap_v13",
             "h1x_v11_breaker_v14",
+            "h1y_routed_residual_v15",
         ],
         default="v1",
     )
@@ -216,6 +217,8 @@ def _stress_cases_for_suite(suite: str) -> list[ToolDirectiveProbeCase]:
         return _h1w_residual_overlap_cases_v13()
     if suite == "h1x_v11_breaker_v14":
         return _h1x_v11_breaker_cases_v14()
+    if suite == "h1y_routed_residual_v15":
+        return _h1y_routed_residual_cases_v15()
     raise ValueError(f"Unknown visual live stress suite: {suite}")
 
 
@@ -237,6 +240,7 @@ def _expected_call_payloads(
         "h1r_component_label_residual_v12",
         "h1w_residual_overlap_v13",
         "h1x_v11_breaker_v14",
+        "h1y_routed_residual_v15",
     }:
         return [_oracle_visual_extract_call(case)]
     return [
@@ -2672,6 +2676,243 @@ def _h1x_v11_breaker_cases_v14() -> list[ToolDirectiveProbeCase]:
     ]
 
 
+def _h1y_routed_residual_cases_v15() -> list[ToolDirectiveProbeCase]:
+    return [
+        ToolDirectiveProbeCase(
+            case_id="h1y_responsible_party_field_old_owner_memo_decoy",
+            family="h1y_route_stale_field",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1y-owner-field"),
+                Message(
+                    role="user",
+                    content=(
+                        "Old selection_id sel-h1y-owner-memo points at the memo. Locate the responsible-party "
+                        "control for Iris; the current visual component is the owner field, not the memo."
+                    ),
+                ),
+            ],
+            media=["img-h1y-owner-field"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1y-owner-field",
+                [
+                    _region("h1y-owner-memo-9801", "owner memo", "Iris owned the prior renewal", area="memo"),
+                    _region("h1y-owner-field-9802", "owner field", "Iris", area="field"),
+                    _region("h1y-owner-table-9803", "responsibility table", "Iris renewal rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1y-owner-field-9802"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1y_escalation_contact_field_saved_summary_decoy",
+            family="h1y_route_stale_field",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1y-escalation-contact"),
+                Message(
+                    role="user",
+                    content=(
+                        "Saved selection_id sel-h1y-contact-summary is obsolete. Find the escalation contact "
+                        "entry for Mina; the layout component is the owner field, not the saved summary."
+                    ),
+                ),
+            ],
+            media=["img-h1y-escalation-contact"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1y-escalation-contact",
+                [
+                    _region("h1y-contact-summary-9811", "contact summary", "Mina handled escalation", area="summary"),
+                    _region("h1y-contact-field-9812", "owner field", "Mina", area="field"),
+                    _region("h1y-contact-table-9813", "contact table", "Mina escalation rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1y-contact-field-9812"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1y_review_owner_field_previous_table_decoy",
+            family="h1y_route_stale_field",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1y-review-owner"),
+                Message(
+                    role="user",
+                    content=(
+                        "Previous selection_id sel-h1y-review-table points at the table. Locate the review owner "
+                        "component itself; the current field label is owner field."
+                    ),
+                ),
+            ],
+            media=["img-h1y-review-owner"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1y-review-owner",
+                [
+                    _region("h1y-review-table-9821", "review table", "Noor review rows", area="table"),
+                    _region("h1y-review-owner-field-9822", "owner field", "Noor", area="field"),
+                    _region("h1y-review-note-9823", "review note", "Noor was copied earlier", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1y-review-owner-field-9822"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1y_lifecycle_state_tag_audit_value_decoy",
+            family="h1y_route_nonstandard_class",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1y-state-tag"),
+                Message(
+                    role="user",
+                    content="Closed appears in the audit row. Locate the lifecycle state tag component itself.",
+                ),
+            ],
+            media=["img-h1y-state-tag"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1y-state-tag",
+                [
+                    _region("h1y-state-audit-9831", "audit row", "Closed by Nia at 16:05", area="audit"),
+                    _region("h1y-state-tag-9832", "state tag", "Closed", area="tag"),
+                    _region("h1y-state-table-9833", "state table", "Closed lifecycle rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1y-state-tag-9832"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1y_operation_mode_toggle_note_value_decoy",
+            family="h1y_route_nonstandard_class",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1y-mode-toggle"),
+                Message(
+                    role="user",
+                    content="Manual is repeated in the note. Locate the operation mode toggle component.",
+                ),
+            ],
+            media=["img-h1y-mode-toggle"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1y-mode-toggle",
+                [
+                    _region("h1y-mode-note-9841", "mode note", "Manual override was approved", area="note"),
+                    _region("h1y-mode-toggle-9842", "mode toggle", "Manual", area="toggle"),
+                    _region("h1y-mode-grid-9843", "mode grid", "Manual exception rows", area="grid"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1y-mode-toggle-9842"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1y_alert_s92_negated_toggle_decoy",
+            family="h1y_route_code_label",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1y-alert-s92"),
+                Message(
+                    role="user",
+                    content=(
+                        "Before reading the override toggle, locate alert s92 exactly. The toggle also repeats "
+                        "Escalated but is not the target."
+                    ),
+                ),
+            ],
+            media=["img-h1y-alert-s92"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1y-alert-s92",
+                [
+                    _region("h1y-alert-toggle-9851", "override toggle", "Escalated", area="toggle"),
+                    _region("h1y-alert-s92-9852", "alert s92", "Escalated", area="alert"),
+                    _region("h1y-alert-log-9853", "alert log", "Escalated issue rows", area="log"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1y-alert-s92-9852"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1y_badge_c08_table_value_decoy",
+            family="h1y_route_code_label",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1y-badge-c08"),
+                Message(
+                    role="user",
+                    content="The table says Approved. Locate badge c08 exactly, not the table or summary text.",
+                ),
+            ],
+            media=["img-h1y-badge-c08"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1y-badge-c08",
+                [
+                    _region("h1y-badge-table-9861", "approval table", "Approved vendor rows", area="table"),
+                    _region("h1y-badge-c08-9862", "badge c08", "Approved", area="badge"),
+                    _region("h1y-badge-summary-9863", "approval summary", "Approved by Luis", area="summary"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1y-badge-c08-9862"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1y_status_pill_summary_value_holdout",
+            family="h1y_preserve_surface_value",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1y-status-pill"),
+                Message(
+                    role="user",
+                    content="Pending is repeated in the summary. Locate the status pill component itself.",
+                ),
+            ],
+            media=["img-h1y-status-pill"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1y-status-pill",
+                [
+                    _region("h1y-status-summary-9871", "status summary", "Pending review package", area="summary"),
+                    _region("h1y-status-pill-9872", "status pill", "Pending", area="pill"),
+                    _region("h1y-status-table-9873", "status table", "Pending renewal rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1y-status-pill-9872"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1y_result_badge_comment_value_holdout",
+            family="h1y_preserve_surface_value",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1y-result-badge"),
+                Message(
+                    role="user",
+                    content="Blocked is written in the comment. Locate the result badge component, not the comment.",
+                ),
+            ],
+            media=["img-h1y-result-badge"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1y-result-badge",
+                [
+                    _region("h1y-result-comment-9881", "result comment", "Blocked until compliance replies", area="comment"),
+                    _region("h1y-result-badge-9882", "result badge", "Blocked", area="badge"),
+                    _region("h1y-result-board-9883", "result board", "Blocked review queue", area="board"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1y-result-badge-9882"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1y_warning_tile_note_activation_decoy",
+            family="h1y_activation_no_call",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1y-warning-tile"),
+                Message(
+                    role="user",
+                    content="Do not summarize the incident note. Locate the warning tile component before reading details.",
+                ),
+            ],
+            media=["img-h1y-warning-tile"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1y-warning-tile",
+                [
+                    _region("h1y-warning-note-9891", "incident note", "Warning acknowledged by Sam", area="note"),
+                    _region("h1y-warning-tile-9892", "warning tile", "Warning", area="tile"),
+                    _region("h1y-warning-table-9893", "warning table", "Warning event rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1y-warning-tile-9892"]},
+        ),
+    ]
+
+
 def _visual_state(image_id: str, local_layouts: list[dict[str, Any]]) -> dict[str, Any]:
     return {
         "visual_executor_mode": "local",
@@ -2710,6 +2951,8 @@ def _stress_failure_mode(family: str) -> str:
         "h1w_activation_no_call",
         "h1x_oblique_stale_field",
         "h1x_oblique_activation_no_call",
+        "h1y_route_stale_field",
+        "h1y_activation_no_call",
     }:
         return "wrong_tool_or_stale_selection_risk"
     return "argument_alias_or_decoy_risk"

@@ -367,6 +367,25 @@ def test_visual_role_catalog_code_label_exact_guard_targets_negated_decoys() -> 
     assert '"target_query": {"type": "string", "description": "Compact literal code label requested by the user' in rendered
 
 
+def test_visual_role_catalog_routed_residual_guard_keeps_route_boundaries() -> None:
+    specs = build_default_registry().specs
+    rendered = tool_catalog_text(
+        [specs["extract_layout"], specs["refine_selection"], specs["read_region_text"]],
+        profile_id="visual_role_catalog_routed_residual_guard_v16",
+    )
+
+    assert "Tool catalog profile: visual_role_catalog_routed_residual_guard_v16" in rendered
+    assert "Narrow component-label guard:" in rendered
+    assert "Routed residual component guard:" in rendered
+    assert "Default to the narrow component-label guard" in rendered
+    assert "explicit route evidence" in rendered
+    assert "field target with stale, old, previous, saved, ignored, memo, table, or summary decoys" in rendered
+    assert "tag/toggle/switch target" in rendered
+    assert "component noun plus code suffix" in rendered
+    assert "do not broaden ordinary pill, badge, chip, or tile targets" in rendered
+    assert '"target_query": {"type": "string", "description": "Compact routed visible-component label requested by the user' in rendered
+
+
 def test_tool_catalog_profile_renders_inside_catalog_without_exact_directive() -> None:
     specs = build_default_registry().specs
     rendered = tool_catalog_text(
