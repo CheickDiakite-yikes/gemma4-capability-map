@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "h1x_operation_mode_control_note_toggle_decoy",
+    "family": "h1x_oblique_nonstandard_class",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "h1x-mode-toggle-9752"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1x-operation-mode",
+          "target_query": "mode toggle"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h1x-operation-mode",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "h1x-mode-toggle-9752"
+          ],
+          "region_id": "h1x-mode-toggle-9752",
+          "text_preview": "Manual"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1x-operation-mode",
+          "target_query": "mode toggle"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1x-operation-mode",
+          "target_query": "mode toggle"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h1x-operation-mode\", \"target_query\": \"mode toggle\"}}",
+    "prompt_tokens": 1848,
+    "completion_tokens": 37,
+    "latency_ms": 7874
+  }
+]

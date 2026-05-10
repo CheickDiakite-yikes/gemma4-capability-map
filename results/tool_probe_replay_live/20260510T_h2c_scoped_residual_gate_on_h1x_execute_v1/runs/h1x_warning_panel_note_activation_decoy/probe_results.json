@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "h1x_warning_panel_note_activation_decoy",
+    "family": "h1x_oblique_activation_no_call",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "h1x-warning-tile-9762"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1x-warning-panel",
+          "target_query": "warning tile"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h1x-warning-panel",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "h1x-warning-tile-9762"
+          ],
+          "region_id": "h1x-warning-tile-9762",
+          "text_preview": "Warning"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1x-warning-panel",
+          "target_query": "warning tile"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1x-warning-panel",
+          "target_query": "warning tile"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h1x-warning-panel\", \"target_query\": \"warning tile\"}}",
+    "prompt_tokens": 1849,
+    "completion_tokens": 37,
+    "latency_ms": 7043
+  }
+]
