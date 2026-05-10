@@ -41,6 +41,7 @@ def parse_args() -> argparse.Namespace:
             "alias_transfer_post_repair_v6",
             "alias_transfer_residual_v7",
             "component_value_v9",
+            "h1o_control_factorial_v10",
         ],
         default="v1",
     )
@@ -201,6 +202,8 @@ def _stress_cases_for_suite(suite: str) -> list[ToolDirectiveProbeCase]:
         return _alias_transfer_residual_cases_v7()
     if suite == "component_value_v9":
         return _component_value_cases_v9()
+    if suite == "h1o_control_factorial_v10":
+        return _h1o_control_factorial_cases_v10()
     raise ValueError(f"Unknown visual live stress suite: {suite}")
 
 
@@ -217,6 +220,7 @@ def _expected_call_payloads(
         "alias_transfer_post_repair_v6",
         "alias_transfer_residual_v7",
         "component_value_v9",
+        "h1o_control_factorial_v10",
     }:
         return [_oracle_visual_extract_call(case)]
     return [
@@ -1526,6 +1530,303 @@ def _component_value_cases_v9() -> list[ToolDirectiveProbeCase]:
     ]
 
 
+def _h1o_control_factorial_cases_v10() -> list[ToolDirectiveProbeCase]:
+    return [
+        ToolDirectiveProbeCase(
+            case_id="h1o_activation_status_badge_email_decoy",
+            family="h1o_activation_no_call",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1o-activation-status-badge"),
+                Message(
+                    role="user",
+                    content=(
+                        "The email repeats review twice, but on the current screenshot locate the status badge "
+                        "itself before reading the email body."
+                    ),
+                ),
+            ],
+            media=["img-h1o-activation-status-badge"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1o-activation-status-badge",
+                [
+                    _region("h1o-email-9001", "email body", "Review requested by ops", area="email"),
+                    _region("h1o-status-badge-9002", "status badge", "Review", area="badge"),
+                    _region("h1o-thread-9003", "thread list", "Review queue", area="list"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1o-status-badge-9002"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1o_activation_owner_field_stale_selection_decoy",
+            family="h1o_activation_no_call",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1o-activation-owner-field"),
+                Message(
+                    role="user",
+                    content=(
+                        "Do not refine stale selection_id sel-owner-note from an older capture. Locate the owner "
+                        "field on the current image."
+                    ),
+                ),
+            ],
+            media=["img-h1o-activation-owner-field"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1o-activation-owner-field",
+                [
+                    _region("h1o-owner-note-9011", "owner note", "Ari owns renewal follow-up", area="note"),
+                    _region("h1o-owner-field-9012", "owner field", "Ari", area="field"),
+                    _region("h1o-owner-table-9013", "owner table", "Ari rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1o-owner-field-9012"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1o_activation_error_banner_previous_region_decoy",
+            family="h1o_activation_no_call",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1o-activation-error-banner"),
+                Message(
+                    role="user",
+                    content=(
+                        "Previous region_id region-export-note is not current. Locate the visible error banner "
+                        "on this image before using any prior region."
+                    ),
+                ),
+            ],
+            media=["img-h1o-activation-error-banner"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1o-activation-error-banner",
+                [
+                    _region("h1o-export-note-9021", "export note", "Export failed in audit log", area="note"),
+                    _region("h1o-error-banner-9022", "error banner", "Export failed: approval missing", area="banner"),
+                    _region("h1o-approver-table-9023", "approver table", "Approval routing", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1o-error-banner-9022"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1o_activation_warning_tile_no_call_decoy",
+            family="h1o_activation_no_call",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1o-activation-warning-tile"),
+                Message(
+                    role="user",
+                    content=(
+                        "The sidebar note says overdue. Locate the warning tile on the current image, not the note."
+                    ),
+                ),
+            ],
+            media=["img-h1o-activation-warning-tile"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1o-activation-warning-tile",
+                [
+                    _region("h1o-warning-note-9031", "sidebar note", "Overdue items require owner", area="note"),
+                    _region("h1o-warning-tile-9032", "warning tile", "Overdue review required", area="tile"),
+                    _region("h1o-warning-table-9033", "review table", "Overdue queue", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1o-warning-tile-9032"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1o_code_node_j44_table_decoy",
+            family="h1o_code_negation_preservation",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1o-code-node-j44"),
+                Message(
+                    role="user",
+                    content=(
+                        "The table references J44 in text, but locate node j44 itself before reading the table."
+                    ),
+                ),
+            ],
+            media=["img-h1o-code-node-j44"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1o-code-node-j44",
+                [
+                    _region("h1o-related-table-9101", "related table", "J44 impacted rows", area="table"),
+                    _region("h1o-node-j44-9102", "node j44", "Retry queue", area="node"),
+                    _region("h1o-node-note-9103", "ops note", "Retry owner pending", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1o-node-j44-9102"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1o_code_field_u17_old_selection_decoy",
+            family="h1o_code_negation_preservation",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1o-code-field-u17"),
+                Message(
+                    role="user",
+                    content=(
+                        "Ignore old selection_id sel-field-u17-archive. On the current image locate field u17, "
+                        "not the archived note."
+                    ),
+                ),
+            ],
+            media=["img-h1o-code-field-u17"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1o-code-field-u17",
+                [
+                    _region("h1o-archive-note-9111", "archived note", "u17 was edited yesterday", area="note"),
+                    _region("h1o-field-u17-9112", "field u17", "Missing checksum", area="field"),
+                    _region("h1o-field-table-9113", "field table", "Validation rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1o-field-u17-9112"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1o_code_alert_s92_negated_toggle_decoy",
+            family="h1o_code_negation_preservation",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1o-code-alert-s92"),
+                Message(
+                    role="user",
+                    content=(
+                        "Before reading the consent toggle, locate alert s92. Do not target the toggle."
+                    ),
+                ),
+            ],
+            media=["img-h1o-code-alert-s92"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1o-code-alert-s92",
+                [
+                    _region("h1o-toggle-9121", "consent toggle", "Enabled", area="toggle"),
+                    _region("h1o-alert-s92-9122", "alert s92", "Consent mismatch", area="alert"),
+                    _region("h1o-retry-log-9123", "retry log", "s92 retry failed", area="log"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1o-alert-s92-9122"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1o_code_badge_c08_note_decoy",
+            family="h1o_code_negation_preservation",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1o-code-badge-c08"),
+                Message(
+                    role="user",
+                    content=(
+                        "The note says C08 was escalated. Locate badge c08 itself before using the note."
+                    ),
+                ),
+            ],
+            media=["img-h1o-code-badge-c08"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1o-code-badge-c08",
+                [
+                    _region("h1o-case-note-9131", "case note", "C08 escalated by Sana", area="note"),
+                    _region("h1o-badge-c08-9132", "badge c08", "Escalated", area="badge"),
+                    _region("h1o-badge-table-9133", "case table", "Escalation rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1o-badge-c08-9132"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1o_component_state_pill_value_decoy",
+            family="h1o_component_value_boundary",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1o-component-state-pill"),
+                Message(
+                    role="user",
+                    content=(
+                        "The note repeats On hold, but locate the state pill component, not the note value."
+                    ),
+                ),
+            ],
+            media=["img-h1o-component-state-pill"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1o-component-state-pill",
+                [
+                    _region("h1o-state-note-9201", "state note", "On hold until QA replies", area="note"),
+                    _region("h1o-state-pill-9202", "state pill", "On hold", area="pill"),
+                    _region("h1o-state-table-9203", "state table", "Hold rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1o-state-pill-9202"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1o_component_priority_chip_value_decoy",
+            family="h1o_component_value_boundary",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1o-component-priority-chip"),
+                Message(
+                    role="user",
+                    content=(
+                        "The table heading says High priority. Locate the priority chip component itself."
+                    ),
+                ),
+            ],
+            media=["img-h1o-component-priority-chip"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1o-component-priority-chip",
+                [
+                    _region("h1o-priority-table-9211", "priority table", "High priority cases", area="table"),
+                    _region("h1o-priority-chip-9212", "priority chip", "High", area="chip"),
+                    _region("h1o-priority-note-9213", "priority note", "Escalation owner listed", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1o-priority-chip-9212"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1o_component_result_badge_value_decoy",
+            family="h1o_component_value_boundary",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1o-component-result-badge"),
+                Message(
+                    role="user",
+                    content=(
+                        "Approved appears in the audit log. Locate the result badge component, not the audit log."
+                    ),
+                ),
+            ],
+            media=["img-h1o-component-result-badge"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1o-component-result-badge",
+                [
+                    _region("h1o-result-log-9221", "audit log", "Approved by Lena", area="log"),
+                    _region("h1o-result-badge-9222", "result badge", "Approved", area="badge"),
+                    _region("h1o-result-table-9223", "result table", "Approval history", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1o-result-badge-9222"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1o_component_phase_tile_value_decoy",
+            family="h1o_component_value_boundary",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1o-component-phase-tile"),
+                Message(
+                    role="user",
+                    content=(
+                        "Review appears in the ticket summary. Locate the phase tile component instead."
+                    ),
+                ),
+            ],
+            media=["img-h1o-component-phase-tile"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1o-component-phase-tile",
+                [
+                    _region("h1o-phase-ticket-9231", "ticket summary", "Review is waiting on data", area="ticket"),
+                    _region("h1o-phase-tile-9232", "phase tile", "Review", area="tile"),
+                    _region("h1o-phase-board-9233", "phase board", "Review lane", area="board"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1o-phase-tile-9232"]},
+        ),
+    ]
+
+
 def _visual_state(image_id: str, local_layouts: list[dict[str, Any]]) -> dict[str, Any]:
     return {
         "visual_executor_mode": "local",
@@ -1557,6 +1858,7 @@ def _stress_failure_mode(family: str) -> str:
         "visual_tool_routing_transfer_post_repair",
         "visual_tool_routing_transfer_residual",
         "visual_tool_routing_component_value",
+        "h1o_activation_no_call",
     }:
         return "wrong_tool_or_stale_selection_risk"
     return "argument_alias_or_decoy_risk"

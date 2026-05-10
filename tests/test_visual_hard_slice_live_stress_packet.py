@@ -340,6 +340,60 @@ def test_visual_hard_slice_live_stress_packet_supports_component_value_suite(tmp
         assert _expected_call_reaches_oracle(case)
 
 
+def test_visual_hard_slice_live_stress_packet_supports_h1o_control_factorial_suite(tmp_path: Path) -> None:
+    packet = SCRIPT.build_visual_hard_slice_live_stress_packet(
+        output_root=tmp_path / "replay_packets",
+        run_group_id="visual_stress_h1o_control_factorial",
+        suite="h1o_control_factorial_v10",
+    )
+
+    assert packet["summary"]["suite"] == "h1o_control_factorial_v10"
+    assert packet["summary"]["case_count"] == 12
+    assert packet["summary"]["family_counts"] == {
+        "h1o_activation_no_call": 4,
+        "h1o_code_negation_preservation": 4,
+        "h1o_component_value_boundary": 4,
+    }
+    assert packet["summary"]["failure_mode_counts"] == {
+        "argument_alias_or_decoy_risk": 8,
+        "wrong_tool_or_stale_selection_risk": 4,
+    }
+    case_ids = {row["case_id"] for row in packet["rows"]}
+    assert "h1o_activation_status_badge_email_decoy" in case_ids
+    assert "h1o_code_alert_s92_negated_toggle_decoy" in case_ids
+    assert "h1o_component_priority_chip_value_decoy" in case_ids
+    cases = {case["case_id"]: case for case in packet["replay_cases"]}
+    assert cases["h1o_activation_status_badge_email_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h1o-activation-status-badge",
+                "target_query": "status badge",
+            },
+        }
+    ]
+    assert cases["h1o_code_alert_s92_negated_toggle_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h1o-code-alert-s92",
+                "target_query": "alert s92",
+            },
+        }
+    ]
+    assert cases["h1o_component_priority_chip_value_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h1o-component-priority-chip",
+                "target_query": "priority chip",
+            },
+        }
+    ]
+    for case in packet["replay_cases"]:
+        assert _expected_call_reaches_oracle(case)
+
+
 def _expected_call_reaches_oracle(case: dict[str, object]) -> bool:
     tool_specs = [ToolSpec.model_validate(payload) for payload in case["tool_specs"]]  # type: ignore[index]
     executor = DeterministicExecutor(tool_specs=tool_specs)
