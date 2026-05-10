@@ -1,0 +1,11 @@
+label,transition,count
+argument_hints_v2,strict_gain,6
+argument_hints_v2,unchanged,6
+component_value_guard_v9,executor_gain_without_strict,1
+component_value_guard_v9,strict_gain,10
+component_value_guard_v9,unchanged,1
+hybrid_label_guard_v8,executor_gain_without_strict,1
+hybrid_label_guard_v8,strict_gain,9
+hybrid_label_guard_v8,unchanged,2
+no_call_control_rescue_v10,strict_gain,6
+no_call_control_rescue_v10,unchanged,6

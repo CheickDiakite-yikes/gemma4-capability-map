@@ -42,6 +42,7 @@ def parse_args() -> argparse.Namespace:
             "alias_transfer_residual_v7",
             "component_value_v9",
             "h1o_control_factorial_v10",
+            "h1p_component_value_holdout_v11",
         ],
         default="v1",
     )
@@ -204,6 +205,8 @@ def _stress_cases_for_suite(suite: str) -> list[ToolDirectiveProbeCase]:
         return _component_value_cases_v9()
     if suite == "h1o_control_factorial_v10":
         return _h1o_control_factorial_cases_v10()
+    if suite == "h1p_component_value_holdout_v11":
+        return _h1p_component_value_holdout_cases_v11()
     raise ValueError(f"Unknown visual live stress suite: {suite}")
 
 
@@ -221,6 +224,7 @@ def _expected_call_payloads(
         "alias_transfer_residual_v7",
         "component_value_v9",
         "h1o_control_factorial_v10",
+        "h1p_component_value_holdout_v11",
     }:
         return [_oracle_visual_extract_call(case)]
     return [
@@ -1827,6 +1831,300 @@ def _h1o_control_factorial_cases_v10() -> list[ToolDirectiveProbeCase]:
     ]
 
 
+def _h1p_component_value_holdout_cases_v11() -> list[ToolDirectiveProbeCase]:
+    return [
+        ToolDirectiveProbeCase(
+            case_id="h1p_compact_status_pill_summary_value_decoy",
+            family="h1p_component_value_compact",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1p-compact-status-pill"),
+                Message(
+                    role="user",
+                    content=(
+                        "The summary repeats Pending approval. Locate the status pill component itself, not "
+                        "the summary text."
+                    ),
+                ),
+            ],
+            media=["img-h1p-compact-status-pill"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1p-compact-status-pill",
+                [
+                    _region("h1p-summary-9301", "approval summary", "Pending approval from legal", area="summary"),
+                    _region("h1p-status-pill-9302", "status pill", "Pending", area="pill"),
+                    _region("h1p-approval-table-9303", "approval table", "Pending requests", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1p-status-pill-9302"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1p_compact_queue_badge_table_value_decoy",
+            family="h1p_component_value_compact",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1p-compact-queue-badge"),
+                Message(
+                    role="user",
+                    content=(
+                        "Escalated appears in the table heading. Locate the queue badge component, not the table."
+                    ),
+                ),
+            ],
+            media=["img-h1p-compact-queue-badge"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1p-compact-queue-badge",
+                [
+                    _region("h1p-queue-table-9311", "queue table", "Escalated vendor tickets", area="table"),
+                    _region("h1p-queue-badge-9312", "queue badge", "Escalated", area="badge"),
+                    _region("h1p-queue-note-9313", "queue note", "Escalation owner pending", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1p-queue-badge-9312"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1p_compact_stage_chip_email_value_decoy",
+            family="h1p_component_value_compact",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1p-compact-stage-chip"),
+                Message(
+                    role="user",
+                    content=(
+                        "The email preview says Review twice. Locate the stage chip component instead of the email."
+                    ),
+                ),
+            ],
+            media=["img-h1p-compact-stage-chip"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1p-compact-stage-chip",
+                [
+                    _region("h1p-email-9321", "email preview", "Review requested by finance", area="email"),
+                    _region("h1p-stage-chip-9322", "stage chip", "Review", area="chip"),
+                    _region("h1p-stage-board-9323", "stage board", "Review lane", area="board"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1p-stage-chip-9322"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1p_compact_state_tag_log_value_decoy",
+            family="h1p_component_value_compact",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1p-compact-state-tag"),
+                Message(
+                    role="user",
+                    content=(
+                        "Closed appears in the audit log. Locate the state tag component, not the log row."
+                    ),
+                ),
+            ],
+            media=["img-h1p-compact-state-tag"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1p-compact-state-tag",
+                [
+                    _region("h1p-state-log-9331", "audit log", "Closed by Omar at 13:20", area="log"),
+                    _region("h1p-state-tag-9332", "state tag", "Closed", area="tag"),
+                    _region("h1p-state-table-9333", "state table", "Closed accounts", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1p-state-tag-9332"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1p_surface_owner_field_note_value_decoy",
+            family="h1p_component_value_surface",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1p-surface-owner-field"),
+                Message(
+                    role="user",
+                    content=(
+                        "Nia appears in the note. Locate the owner field component, not the note."
+                    ),
+                ),
+            ],
+            media=["img-h1p-surface-owner-field"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1p-surface-owner-field",
+                [
+                    _region("h1p-owner-note-9341", "owner note", "Nia owns the renewal handoff", area="note"),
+                    _region("h1p-owner-field-9342", "owner field", "Nia", area="field"),
+                    _region("h1p-owner-table-9343", "handoff table", "Nia renewal rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1p-owner-field-9342"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1p_surface_mode_toggle_note_value_decoy",
+            family="h1p_component_value_surface",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1p-surface-mode-toggle"),
+                Message(
+                    role="user",
+                    content=(
+                        "Manual is written in the note. Locate the mode toggle component itself."
+                    ),
+                ),
+            ],
+            media=["img-h1p-surface-mode-toggle"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1p-surface-mode-toggle",
+                [
+                    _region("h1p-mode-note-9351", "settings note", "Manual override is active", area="note"),
+                    _region("h1p-mode-toggle-9352", "mode toggle", "Manual", area="toggle"),
+                    _region("h1p-mode-table-9353", "settings table", "Manual exception rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1p-mode-toggle-9352"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1p_surface_lane_tile_board_value_decoy",
+            family="h1p_component_value_surface",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1p-surface-lane-tile"),
+                Message(
+                    role="user",
+                    content=(
+                        "Blocked appears on the board header. Locate the lane tile component itself."
+                    ),
+                ),
+            ],
+            media=["img-h1p-surface-lane-tile"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1p-surface-lane-tile",
+                [
+                    _region("h1p-lane-board-9361", "board header", "Blocked renewal lane", area="board"),
+                    _region("h1p-lane-tile-9362", "lane tile", "Blocked", area="tile"),
+                    _region("h1p-lane-table-9363", "blocked table", "Blocked tickets", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1p-lane-tile-9362"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1p_surface_result_badge_comment_value_decoy",
+            family="h1p_component_value_surface",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1p-surface-result-badge"),
+                Message(
+                    role="user",
+                    content=(
+                        "Approved appears in the reviewer comment. Locate the result badge component."
+                    ),
+                ),
+            ],
+            media=["img-h1p-surface-result-badge"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1p-surface-result-badge",
+                [
+                    _region("h1p-result-comment-9371", "reviewer comment", "Approved after policy review", area="comment"),
+                    _region("h1p-result-badge-9372", "result badge", "Approved", area="badge"),
+                    _region("h1p-result-table-9373", "result table", "Approved entries", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1p-result-badge-9372"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1p_stale_priority_chip_old_selection_decoy",
+            family="h1p_component_value_stale_selection",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1p-stale-priority-chip"),
+                Message(
+                    role="user",
+                    content=(
+                        "Ignore stale selection_id sel-priority-row. Locate the priority chip component, not the row."
+                    ),
+                ),
+            ],
+            media=["img-h1p-stale-priority-chip"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1p-stale-priority-chip",
+                [
+                    _region("h1p-priority-row-9381", "priority row", "Urgent accounts", area="row"),
+                    _region("h1p-priority-chip-9382", "priority chip", "Urgent", area="chip"),
+                    _region("h1p-priority-note-9383", "priority note", "Urgent review owner missing", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1p-priority-chip-9382"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1p_stale_severity_pill_previous_region_decoy",
+            family="h1p_component_value_stale_selection",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1p-stale-severity-pill"),
+                Message(
+                    role="user",
+                    content=(
+                        "Previous region_id region-severity-chart is stale. Locate the severity pill component."
+                    ),
+                ),
+            ],
+            media=["img-h1p-stale-severity-pill"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1p-stale-severity-pill",
+                [
+                    _region("h1p-severity-chart-9391", "severity chart", "Critical incidents rising", area="chart"),
+                    _region("h1p-severity-pill-9392", "severity pill", "Critical", area="pill"),
+                    _region("h1p-severity-table-9393", "severity table", "Critical rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1p-severity-pill-9392"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1p_stale_phase_tile_archive_decoy",
+            family="h1p_component_value_stale_selection",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1p-stale-phase-tile"),
+                Message(
+                    role="user",
+                    content=(
+                        "Do not use selection_id sel-phase-archive. Locate the phase tile component, not the archive note."
+                    ),
+                ),
+            ],
+            media=["img-h1p-stale-phase-tile"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1p-stale-phase-tile",
+                [
+                    _region("h1p-phase-archive-9401", "archive note", "Review happened last week", area="note"),
+                    _region("h1p-phase-tile-9402", "phase tile", "Review", area="tile"),
+                    _region("h1p-phase-board-9403", "phase board", "Review queue", area="board"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1p-phase-tile-9402"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1p_stale_risk_badge_old_selection_decoy",
+            family="h1p_component_value_stale_selection",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1p-stale-risk-badge"),
+                Message(
+                    role="user",
+                    content=(
+                        "Ignore old selection_id sel-risk-summary. Locate the risk badge component itself."
+                    ),
+                ),
+            ],
+            media=["img-h1p-stale-risk-badge"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1p-stale-risk-badge",
+                [
+                    _region("h1p-risk-summary-9411", "risk summary", "Overdue vendor checks", area="summary"),
+                    _region("h1p-risk-badge-9412", "risk badge", "Overdue", area="badge"),
+                    _region("h1p-risk-table-9413", "risk table", "Overdue vendor rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1p-risk-badge-9412"]},
+        ),
+    ]
+
+
 def _visual_state(image_id: str, local_layouts: list[dict[str, Any]]) -> dict[str, Any]:
     return {
         "visual_executor_mode": "local",
@@ -1859,6 +2157,7 @@ def _stress_failure_mode(family: str) -> str:
         "visual_tool_routing_transfer_residual",
         "visual_tool_routing_component_value",
         "h1o_activation_no_call",
+        "h1p_component_value_stale_selection",
     }:
         return "wrong_tool_or_stale_selection_risk"
     return "argument_alias_or_decoy_risk"

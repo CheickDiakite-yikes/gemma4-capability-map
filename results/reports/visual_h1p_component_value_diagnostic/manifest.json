@@ -1,0 +1,9 @@
+{
+  "generated_at": "2026-05-10T17:05:27.814723+00:00",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/visual_h1p_component_value_diagnostic",
+  "comparison_count": 4,
+  "case_count": 12,
+  "finding_count": 4,
+  "matrix_name": "h1p-component-value",
+  "purpose": "Diagnose strict-vs-executor behavior in the visual hard-slice h1p-component-value live replay matrix."
+}

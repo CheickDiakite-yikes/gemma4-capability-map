@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "h1p_stale_severity_pill_previous_region_decoy",
+    "family": "h1p_component_value_stale_selection",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "h1p-severity-pill-9392"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1p-stale-severity-pill",
+          "target_query": "severity pill"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h1p-stale-severity-pill",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "h1p-severity-pill-9392"
+          ],
+          "region_id": "h1p-severity-pill-9392",
+          "text_preview": "Critical"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1p-stale-severity-pill",
+          "target_query": "severity pill"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1p-stale-severity-pill",
+          "target_query": "severity pill"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h1p-stale-severity-pill\", \"target_query\": \"severity pill\"}}",
+    "prompt_tokens": 1591,
+    "completion_tokens": 40,
+    "latency_ms": 16588
+  }
+]

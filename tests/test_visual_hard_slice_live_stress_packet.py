@@ -394,6 +394,62 @@ def test_visual_hard_slice_live_stress_packet_supports_h1o_control_factorial_sui
         assert _expected_call_reaches_oracle(case)
 
 
+def test_visual_hard_slice_live_stress_packet_supports_h1p_component_value_holdout_suite(
+    tmp_path: Path,
+) -> None:
+    packet = SCRIPT.build_visual_hard_slice_live_stress_packet(
+        output_root=tmp_path / "replay_packets",
+        run_group_id="visual_stress_h1p_component_value",
+        suite="h1p_component_value_holdout_v11",
+    )
+
+    assert packet["summary"]["suite"] == "h1p_component_value_holdout_v11"
+    assert packet["summary"]["case_count"] == 12
+    assert packet["summary"]["family_counts"] == {
+        "h1p_component_value_compact": 4,
+        "h1p_component_value_stale_selection": 4,
+        "h1p_component_value_surface": 4,
+    }
+    assert packet["summary"]["failure_mode_counts"] == {
+        "argument_alias_or_decoy_risk": 8,
+        "wrong_tool_or_stale_selection_risk": 4,
+    }
+    case_ids = {row["case_id"] for row in packet["rows"]}
+    assert "h1p_compact_status_pill_summary_value_decoy" in case_ids
+    assert "h1p_surface_mode_toggle_note_value_decoy" in case_ids
+    assert "h1p_stale_phase_tile_archive_decoy" in case_ids
+    cases = {case["case_id"]: case for case in packet["replay_cases"]}
+    assert cases["h1p_compact_stage_chip_email_value_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h1p-compact-stage-chip",
+                "target_query": "stage chip",
+            },
+        }
+    ]
+    assert cases["h1p_surface_owner_field_note_value_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h1p-surface-owner-field",
+                "target_query": "owner field",
+            },
+        }
+    ]
+    assert cases["h1p_stale_risk_badge_old_selection_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h1p-stale-risk-badge",
+                "target_query": "risk badge",
+            },
+        }
+    ]
+    for case in packet["replay_cases"]:
+        assert _expected_call_reaches_oracle(case)
+
+
 def _expected_call_reaches_oracle(case: dict[str, object]) -> bool:
     tool_specs = [ToolSpec.model_validate(payload) for payload in case["tool_specs"]]  # type: ignore[index]
     executor = DeterministicExecutor(tool_specs=tool_specs)

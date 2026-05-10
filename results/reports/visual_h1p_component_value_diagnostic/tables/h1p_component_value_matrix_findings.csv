@@ -1,0 +1,5 @@
+finding_id,finding
+strict_upper_bound,component_value_guard_v9 is the strict upper bound at 0.8333333333333334.
+executor_equivalence_set,Executor-equivalent full-success rows: none.
+executor_without_strict,"Rows with executor gain without strict gain: component_value_guard_v9, hybrid_label_guard_v8."
+regressions,Regression cases: none.

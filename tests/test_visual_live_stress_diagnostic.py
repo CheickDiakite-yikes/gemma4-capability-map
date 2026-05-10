@@ -379,3 +379,41 @@ def test_visual_h1o_control_factorial_diagnostic_writes_findings(tmp_path: Path)
     assert (tmp_path / "diagnostic.md").exists()
     assert (tmp_path / "diagnostic.json").exists()
     assert (tmp_path / "tables" / "h1o_control_factorial_matrix_case_transitions.csv").exists()
+
+
+def test_visual_h1p_component_value_diagnostic_writes_findings(tmp_path: Path) -> None:
+    payload = SCRIPT.analyze_visual_live_stress_matrix(
+        output_dir=tmp_path,
+        comparisons=SCRIPT.DEFAULT_H1P_COMPONENT_VALUE_COMPARISONS,
+        matrix_name="h1p-component-value",
+        table_prefix="h1p_component_value_matrix",
+    )
+
+    assert payload["manifest"]["comparison_count"] == 4
+    assert payload["manifest"]["case_count"] == 12
+    assert payload["manifest"]["matrix_name"] == "h1p-component-value"
+    summary = {row["label"]: row for row in payload["summary_rows"]}
+    assert summary["argument_hints_v2"]["candidate_exact_rate"] == 0.5
+    assert summary["argument_hints_v2"]["candidate_executor_equivalence_rate"] == 0.5
+    assert summary["hybrid_label_guard_v8"]["candidate_exact_rate"] == 0.75
+    assert summary["hybrid_label_guard_v8"]["candidate_executor_equivalence_rate"] == 0.8333333333333334
+    assert summary["no_call_control_rescue_v10"]["candidate_exact_rate"] == 0.5
+    assert summary["component_value_guard_v9"]["candidate_exact_rate"] == 0.8333333333333334
+    assert summary["component_value_guard_v9"]["candidate_executor_equivalence_rate"] == 0.9166666666666666
+    transitions = {(row["label"], row["case_id"]): row for row in payload["case_rows"]}
+    assert transitions[
+        ("component_value_guard_v9", "h1p_compact_status_pill_summary_value_decoy")
+    ]["transition"] == "strict_gain"
+    assert transitions[
+        ("component_value_guard_v9", "h1p_surface_lane_tile_board_value_decoy")
+    ]["transition"] == "executor_gain_without_strict"
+    assert transitions[
+        ("component_value_guard_v9", "h1p_stale_phase_tile_archive_decoy")
+    ]["transition"] == "unchanged"
+    findings = {row["finding_id"]: row["finding"] for row in payload["finding_rows"]}
+    assert "component_value_guard_v9" in findings["strict_upper_bound"]
+    assert "Executor-equivalent full-success rows: none." in findings["executor_equivalence_set"]
+    assert "component_value_guard_v9" in findings["executor_without_strict"]
+    assert (tmp_path / "diagnostic.md").exists()
+    assert (tmp_path / "diagnostic.json").exists()
+    assert (tmp_path / "tables" / "h1p_component_value_matrix_case_transitions.csv").exists()

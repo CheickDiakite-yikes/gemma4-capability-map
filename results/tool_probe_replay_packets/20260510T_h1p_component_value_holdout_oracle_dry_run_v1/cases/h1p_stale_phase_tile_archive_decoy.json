@@ -1,0 +1,146 @@
+{
+  "case_id": "h1p_stale_phase_tile_archive_decoy",
+  "family": "h1p_component_value_stale_selection",
+  "messages": [
+    {
+      "role": "system",
+      "content": "visual_image_ids: img-h1p-stale-phase-tile",
+      "image_refs": []
+    },
+    {
+      "role": "user",
+      "content": "Do not use selection_id sel-phase-archive. Locate the phase tile component, not the archive note.",
+      "image_refs": []
+    }
+  ],
+  "media": [
+    "img-h1p-stale-phase-tile"
+  ],
+  "tool_names": [
+    "extract_layout",
+    "refine_selection",
+    "read_region_text"
+  ],
+  "tool_specs": [
+    {
+      "name": "extract_layout",
+      "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "image_id": {
+            "type": "string"
+          },
+          "target_query": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "image_id",
+          "target_query"
+        ]
+      },
+      "tool_family": "function_call",
+      "tool_intent": "inspect"
+    },
+    {
+      "name": "refine_selection",
+      "description": "Refine a prior visual selection using a follow-up filter query.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "selection_id": {
+            "type": "string"
+          },
+          "filter_query": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "selection_id",
+          "filter_query"
+        ]
+      },
+      "tool_family": "function_call",
+      "tool_intent": "revise"
+    },
+    {
+      "name": "read_region_text",
+      "description": "Read the text inside a previously selected region.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "image_id": {
+            "type": "string"
+          },
+          "region_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "image_id",
+          "region_id"
+        ]
+      },
+      "tool_family": "function_call",
+      "tool_intent": "read"
+    }
+  ],
+  "initial_state": {
+    "visual_executor_mode": "local",
+    "images": {
+      "img-h1p-stale-phase-tile": {
+        "entities": [],
+        "layouts": [],
+        "local_layouts": [
+          {
+            "region_id": "h1p-phase-archive-9401",
+            "label": "archive note",
+            "text": "Review happened last week",
+            "attributes": {
+              "area": "note"
+            }
+          },
+          {
+            "region_id": "h1p-phase-tile-9402",
+            "label": "phase tile",
+            "text": "Review",
+            "attributes": {
+              "area": "tile"
+            }
+          },
+          {
+            "region_id": "h1p-phase-board-9403",
+            "label": "phase board",
+            "text": "Review queue",
+            "attributes": {
+              "area": "board"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "expected_execution": {
+    "region_ids": [
+      "h1p-phase-tile-9402"
+    ]
+  },
+  "expected_calls": [
+    {
+      "name": "extract_layout",
+      "arguments": {
+        "image_id": "img-h1p-stale-phase-tile",
+        "target_query": "phase tile"
+      }
+    }
+  ],
+  "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+  "source_failure_mode": "wrong_tool_or_stale_selection_risk",
+  "source_exact_match": false,
+  "source_executable_match": false,
+  "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+  "baseline_exact_match": "",
+  "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+  "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+}

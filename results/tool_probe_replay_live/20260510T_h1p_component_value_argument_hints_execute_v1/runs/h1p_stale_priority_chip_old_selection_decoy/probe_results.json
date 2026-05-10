@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "h1p_stale_priority_chip_old_selection_decoy",
+    "family": "h1p_component_value_stale_selection",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "h1p-priority-chip-9382"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1p-stale-priority-chip",
+          "target_query": "priority chip"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h1p-stale-priority-chip",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "h1p-priority-chip-9382"
+          ],
+          "region_id": "h1p-priority-chip-9382",
+          "text_preview": "Urgent"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1p-stale-priority-chip",
+          "target_query": "priority chip"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1p-stale-priority-chip",
+          "target_query": "priority chip"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h1p-stale-priority-chip\", \"target_query\": \"priority chip\"}}",
+    "prompt_tokens": 995,
+    "completion_tokens": 40,
+    "latency_ms": 16878
+  }
+]
