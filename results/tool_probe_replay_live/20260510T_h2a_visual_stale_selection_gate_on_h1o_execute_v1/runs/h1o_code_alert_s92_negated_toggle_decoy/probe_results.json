@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "h1o_code_alert_s92_negated_toggle_decoy",
+    "family": "h1o_code_negation_preservation",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "h1o-alert-s92-9122"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1o-code-alert-s92",
+          "target_query": "alert"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h1o-code-alert-s92",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "h1o-alert-s92-9122"
+          ],
+          "region_id": "h1o-alert-s92-9122",
+          "text_preview": "Consent mismatch"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1o-code-alert-s92",
+          "target_query": "alert s92"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1o-code-alert-s92",
+          "target_query": "alert"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h1o-code-alert-s92\", \"target_query\": \"alert\"}}",
+    "prompt_tokens": 1508,
+    "completion_tokens": 40,
+    "latency_ms": 6575
+  }
+]
