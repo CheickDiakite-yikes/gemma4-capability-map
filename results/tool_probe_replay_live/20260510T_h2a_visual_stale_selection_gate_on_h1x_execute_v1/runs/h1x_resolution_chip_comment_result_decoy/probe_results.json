@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "h1x_resolution_chip_comment_result_decoy",
+    "family": "h1x_oblique_surface_value",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "h1x-result-chip-9722"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1x-resolution-chip",
+          "target_query": "result chip"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h1x-resolution-chip",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "h1x-result-chip-9722"
+          ],
+          "region_id": "h1x-result-chip-9722",
+          "text_preview": "Blocked"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1x-resolution-chip",
+          "target_query": "result chip"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1x-resolution-chip",
+          "target_query": "result chip"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h1x-resolution-chip\", \"target_query\": \"result chip\"}}",
+    "prompt_tokens": 1514,
+    "completion_tokens": 37,
+    "latency_ms": 6339
+  }
+]
