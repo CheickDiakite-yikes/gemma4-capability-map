@@ -1,0 +1,98 @@
+[
+  {
+    "case_id": "residual_chip_n31_owner_note_decoy",
+    "family": "visual_argument_transfer_residual_code",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1n_residual_no_call_control_rescue_execute_v1/runs/residual_chip_n31_owner_note_decoy"
+  },
+  {
+    "case_id": "residual_chip_v82_chart_decoy",
+    "family": "visual_argument_transfer_residual_code",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "executable_paraphrase",
+    "replay_exact_match": false,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1n_residual_no_call_control_rescue_execute_v1/runs/residual_chip_v82_chart_decoy"
+  },
+  {
+    "case_id": "residual_badge_q14_notice_decoy",
+    "family": "visual_argument_transfer_residual_code",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1n_residual_no_call_control_rescue_execute_v1/runs/residual_badge_q14_notice_decoy"
+  },
+  {
+    "case_id": "residual_state_pill_note_decoy",
+    "family": "visual_argument_transfer_residual_noncode",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "argument_mismatch",
+    "replay_exact_match": false,
+    "replay_executable_match": false,
+    "replay_executor_equivalence_match": false,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1n_residual_no_call_control_rescue_execute_v1/runs/residual_state_pill_note_decoy"
+  },
+  {
+    "case_id": "residual_phase_pill_ticket_decoy",
+    "family": "visual_argument_transfer_residual_noncode",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1n_residual_no_call_control_rescue_execute_v1/runs/residual_phase_pill_ticket_decoy"
+  },
+  {
+    "case_id": "residual_notice_tile_email_decoy",
+    "family": "visual_argument_transfer_residual_noncode",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1n_residual_no_call_control_rescue_execute_v1/runs/residual_notice_tile_email_decoy"
+  },
+  {
+    "case_id": "residual_field_m20_stale_selection_decoy",
+    "family": "visual_tool_routing_transfer_residual",
+    "source_failure_mode": "wrong_tool_or_stale_selection_risk",
+    "replay_failure_mode": "executable_paraphrase",
+    "replay_exact_match": false,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1n_residual_no_call_control_rescue_execute_v1/runs/residual_field_m20_stale_selection_decoy"
+  },
+  {
+    "case_id": "residual_alert_h73_toggle_decoy",
+    "family": "visual_tool_routing_transfer_residual",
+    "source_failure_mode": "wrong_tool_or_stale_selection_risk",
+    "replay_failure_mode": "argument_mismatch",
+    "replay_exact_match": false,
+    "replay_executable_match": false,
+    "replay_executor_equivalence_match": false,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1n_residual_no_call_control_rescue_execute_v1/runs/residual_alert_h73_toggle_decoy"
+  }
+]
