@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-10T01:57:57.223581+00:00",
+    "generated_at": "2026-05-10T02:19:55.117382+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-    "claim_count": 28,
-    "evidence_source_count": 130,
+    "claim_count": 29,
+    "evidence_source_count": 137,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -33,7 +33,8 @@
       "C25_h1n_oblique_code_hints_is_localized_not_general",
       "C26_h1n_oblique_code_guard_fixes_v6_regression",
       "C27_h1n_code_guard_improves_v6_but_not_argument_hints",
-      "C28_h1n_post_repair_holdout_favors_code_guard"
+      "C28_h1n_post_repair_holdout_favors_code_guard",
+      "C29_h1n_residual_holdout_favors_hybrid_label_guard"
     ]
   },
   "claims": [
@@ -315,6 +316,16 @@
       "primary_metric": "On the eight-case post-repair holdout, code guard reaches 6/8 exact and executor-equivalent successes, versus no-directive at 2/8, contracted/default at 3/8, argument hints at 5/8, and v6 code hints at 5/8.",
       "limitation": "The packet is fresh relative to the oblique repair but remains replay-shaped and small; the remaining misses on `chip l90` and `status pill` need a follow-up micro-slice before promotion.",
       "next_test": "Build a focused follow-up around the two residual misses and test whether a hybrid activation profile can preserve argument-hints non-code behavior while keeping the code-guard gains.",
+      "source_count": 7
+    },
+    {
+      "claim_id": "C29_h1n_residual_holdout_favors_hybrid_label_guard",
+      "claim": "A residual H1n holdout favors the hybrid label guard as the current best strict selector profile for local MLX Gemma visual tool use.",
+      "status": "supported_current_packets",
+      "evidence_strength": "moderate_internal",
+      "primary_metric": "On the eight-case residual holdout, v8 hybrid label guard reaches 7/8 exact and executor-equivalent successes, versus contracted/default at 2/8, no-directive at 4/8, argument hints at 5/8 exact and 7/8 executor-equivalent, and v6/v7 code profiles at 6/8 exact.",
+      "limitation": "The improvement is strict-selector fidelity on a small replay-shaped packet, not a broad workflow readiness estimate; `state pill` remains unresolved across the tested profiles.",
+      "next_test": "Build a component-role/value disambiguation micro-slice around pill/tile/state labels and then promote only if the profile survives packaged workflow execution without new regressions.",
       "source_count": 7
     }
   ],
@@ -1227,6 +1238,55 @@
       "artifact_type": "report_table",
       "path": "results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_post_repair_live_replay_summary.csv",
       "purpose": "Paper-facing table summarizing post-repair candidate rates.",
+      "exists": true
+    },
+    {
+      "claim_id": "C29_h1n_residual_holdout_favors_hybrid_label_guard",
+      "artifact_type": "replay_packet",
+      "path": "results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_residual_oracle_dry_run_v1",
+      "purpose": "Fresh eight-case residual holdout targeting the post-repair chip, pill, and stale-selection misses.",
+      "exists": true
+    },
+    {
+      "claim_id": "C29_h1n_residual_holdout_favors_hybrid_label_guard",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260510T_h1n_residual_hybrid_label_guard_execute_v1",
+      "purpose": "Hybrid label guard execution reaching 7/8 strict and executor-equivalent successes.",
+      "exists": true
+    },
+    {
+      "claim_id": "C29_h1n_residual_holdout_favors_hybrid_label_guard",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260510T_h1n_residual_hybrid_label_guard_vs_no_directive_v1",
+      "purpose": "Comparison showing +0.375 exact and executor-equivalence deltas over no-directive.",
+      "exists": true
+    },
+    {
+      "claim_id": "C29_h1n_residual_holdout_favors_hybrid_label_guard",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260510T_h1n_residual_hybrid_label_guard_vs_argument_hints_v1",
+      "purpose": "Comparison showing +0.25 exact delta over argument hints with tied executor-equivalence.",
+      "exists": true
+    },
+    {
+      "claim_id": "C29_h1n_residual_holdout_favors_hybrid_label_guard",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260510T_h1n_residual_hybrid_label_guard_vs_code_guard_v1",
+      "purpose": "Comparison showing +0.125 exact delta over v7 code guard with tied executor-equivalence.",
+      "exists": true
+    },
+    {
+      "claim_id": "C29_h1n_residual_holdout_favors_hybrid_label_guard",
+      "artifact_type": "diagnostic_report",
+      "path": "results/reports/visual_alias_transfer_residual_diagnostic/diagnostic.md",
+      "purpose": "Matrix diagnostic identifying hybrid label guard as the residual strict upper bound and `state pill` as the remaining miss.",
+      "exists": true
+    },
+    {
+      "claim_id": "C29_h1n_residual_holdout_favors_hybrid_label_guard",
+      "artifact_type": "report_table",
+      "path": "results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_residual_live_replay_summary.csv",
+      "purpose": "Paper-facing table summarizing residual candidate rates.",
       "exists": true
     }
   ],

@@ -1,5 +1,28 @@
 # Research Log
 
+## 2026-05-10 - H1n Residual Hybrid Label Guard Becomes the Strict Upper Bound
+
+- Built and executed the residual holdout that followed the post-repair `chip l90` / `status pill` misses:
+  - packet: [`20260510T_visual_hard_slice_live_stress_alias_transfer_residual_oracle_dry_run_v1`](../results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_residual_oracle_dry_run_v1)
+  - hybrid live packet: [`20260510T_h1n_residual_hybrid_label_guard_execute_v1`](../results/tool_probe_replay_live/20260510T_h1n_residual_hybrid_label_guard_execute_v1)
+  - diagnostic: [`visual_alias_transfer_residual_diagnostic`](../results/reports/visual_alias_transfer_residual_diagnostic)
+  - report table: [`visual_hard_slice_residual_live_replay_summary.csv`](../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_residual_live_replay_summary.csv)
+- Result:
+  - contracted/default MLX: `2 / 8`
+  - no-directive MLX: `4 / 8`
+  - argument hints v2: `5 / 8` exact and `7 / 8` executor-equivalent
+  - v6 code hints: `6 / 8`
+  - v7 code guard: `6 / 8` exact and `7 / 8` executor-equivalent
+  - v8 hybrid label guard: `7 / 8` exact and executor-equivalent
+- Interpretation:
+  - v8 is the current residual strict-selector upper bound, but its advantage over argument hints and v7 is mostly exactness rather than executor-equivalent reach.
+  - The persistent miss is now `state pill`, which isolates a component-role/value ambiguity: the model still prefers the visible state/content value over the named component label in that case.
+  - The next research move is a focused component-role/value micro-slice before promoting v8 into packaged workflows.
+- Reporting:
+  - MLX tool-contract report now has `72` tables and `35` figures
+  - publication evidence ledger now has `29` claims, `137` evidence sources, and `0` missing sources
+  - publication readiness audit now has `100` checks, `98` blocking checks, `0` blocking failures, and status `paper_draft_ready`
+
 ## 2026-05-10 - H1n Post-Repair Holdout Favors the Code Guard
 
 - Built a fresh post-repair H1n holdout to test whether the v7 activation-gated oblique-code repair transfers beyond the packet that motivated it:
@@ -3161,6 +3184,48 @@
   - `uv run pytest tests/test_visual_hard_slice.py tests/test_visual_hard_slice_probe_packet.py tests/test_runtime_cli.py::test_runtime_cli_packet_json_inspects_visual_hard_slice_probe_packet -q`
   - `uv run python scripts/run_visual_hard_slice_probe_packet.py --run-group-id 20260509T_visual_hard_slice_dry_run_v1`
   - `uv run python scripts/run_visual_hard_slice_probe_packet.py --run-group-id 20260509T_visual_hard_slice_execute_v1 --execute`
+  - `uv run python scripts/build_mlx_tool_contract_report.py`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`
+
+## 2026-05-09 - H1n Residual Hybrid Label-Guard Holdout
+
+- Built a fresh residual replay-shaped holdout from the post-repair misses and near-misses:
+  - packet: [`20260510T_visual_hard_slice_live_stress_alias_transfer_residual_oracle_dry_run_v1`](../results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_residual_oracle_dry_run_v1)
+  - diagnostic: [`visual_alias_transfer_residual_diagnostic`](../results/reports/visual_alias_transfer_residual_diagnostic)
+  - report table: [`visual_hard_slice_residual_live_replay_summary.csv`](../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_residual_live_replay_summary.csv)
+  - report figure: [`visual_hard_slice_residual_live_replay_gate.svg`](../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_residual_live_replay_gate.svg)
+- Added the `visual_role_catalog_hybrid_label_guard_v8` profile:
+  - keeps argument-hints literal selector behavior
+  - keeps v7 code-suffix and stale-selection activation guards
+  - adds a generic component-label guard so component classes such as pills, tiles, chips, badges, fields, nodes, alerts, and toasts are preferred over state/content values when the user names the component
+  - intentionally avoids leaking the exact residual labels into the prompt contract
+- Live residual matrix:
+  - contracted/default MLX: strict/executor-equivalent `2 / 8`
+  - no-directive MLX: strict/executor-equivalent `4 / 8`
+  - argument hints v2: strict `5 / 8`, executor-equivalent `7 / 8`
+  - oblique code hints v6: strict/executor-equivalent `6 / 8`
+  - oblique code guard v7: strict `6 / 8`, executor-equivalent `7 / 8`
+  - hybrid label guard v8: strict/executor-equivalent `7 / 8`
+- Case-level interpretation:
+  - v8 fixes `residual_chip_v82_chart_decoy`, `residual_alert_h73_toggle_decoy`, and stale-selection `residual_field_m20_stale_selection_decoy` relative to no-directive
+  - v8 improves strict exactness over argument hints by `+0.25` but ties argument hints on executor-equivalence
+  - v8 improves strict exactness over v7 code guard by `+0.125` but ties v7 on executor-equivalence
+  - the persistent miss is `residual_state_pill_note_decoy`, where the model still chooses the state/content value instead of the component label
+- Research interpretation:
+  - We now have a cleaner answer to the post-repair question: code guard was the right direction, but a hybrid component-label activation guard is stronger on strict selector fidelity.
+  - The result is not yet a universal visual-profile promotion. The improvement is on a small replay-shaped holdout, and the unsolved `state pill` case says component-role/value disambiguation remains a real harnessing problem.
+  - The next scientific move is a micro-slice around component-role/value ambiguity, especially pill-like controls whose text value is semantically tempting.
+- Reporting and readiness:
+  - MLX tool-contract report now has `72` tables and `35` figures
+  - publication evidence ledger now has `29` claims, `137` evidence sources, and `0` missing sources
+  - publication readiness audit now has `100` checks, `98` blocking checks, `0` blocking failures, and status `paper_draft_ready`
+- Verification:
+  - `uv run pytest tests/test_prompt_contracts.py tests/test_knowledge_work_h1.py::test_h1n_hybrid_label_guard_registry_row_preserves_catalog_profile tests/test_visual_hard_slice_live_stress_packet.py -q`
+  - `uv run python scripts/build_visual_hard_slice_live_stress_packet.py --run-group-id 20260510T_visual_hard_slice_live_stress_alias_transfer_residual_oracle_dry_run_v1 --suite alias_transfer_residual_v7`
+  - `uv run python -m gemma4_capability_map.runtime.cli replay-live --packet-dir results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_residual_oracle_dry_run_v1 --output-dir results/tool_probe_replay_live/20260510T_h1n_residual_hybrid_label_guard_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_hybrid_label_guard --registry configs/model_registry.yaml --execute --json`
+  - `uv run python scripts/analyze_visual_live_stress_matrix.py --matrix alias-transfer-residual`
+  - `uv run pytest tests/test_mlx_tool_contract_report.py tests/test_publication_evidence_ledger.py tests/test_publication_readiness_audit.py tests/test_visual_live_stress_diagnostic.py -q`
   - `uv run python scripts/build_mlx_tool_contract_report.py`
   - `uv run python scripts/build_publication_evidence_ledger.py`
   - `uv run python scripts/audit_publication_readiness.py`

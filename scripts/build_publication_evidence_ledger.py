@@ -1190,6 +1190,65 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C29_h1n_residual_holdout_favors_hybrid_label_guard",
+        claim=(
+            "A residual H1n holdout favors the hybrid label guard as the current best strict selector profile "
+            "for local MLX Gemma visual tool use."
+        ),
+        status="supported_current_packets",
+        evidence_strength="moderate_internal",
+        primary_metric=(
+            "On the eight-case residual holdout, v8 hybrid label guard reaches 7/8 exact and executor-equivalent "
+            "successes, versus contracted/default at 2/8, no-directive at 4/8, argument hints at 5/8 exact "
+            "and 7/8 executor-equivalent, and v6/v7 code profiles at 6/8 exact."
+        ),
+        limitation=(
+            "The improvement is strict-selector fidelity on a small replay-shaped packet, not a broad workflow "
+            "readiness estimate; `state pill` remains unresolved across the tested profiles."
+        ),
+        next_test=(
+            "Build a component-role/value disambiguation micro-slice around pill/tile/state labels and then "
+            "promote only if the profile survives packaged workflow execution without new regressions."
+        ),
+        sources=(
+            EvidenceSource(
+                "replay_packet",
+                "results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_residual_oracle_dry_run_v1",
+                "Fresh eight-case residual holdout targeting the post-repair chip, pill, and stale-selection misses.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h1n_residual_hybrid_label_guard_execute_v1",
+                "Hybrid label guard execution reaching 7/8 strict and executor-equivalent successes.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260510T_h1n_residual_hybrid_label_guard_vs_no_directive_v1",
+                "Comparison showing +0.375 exact and executor-equivalence deltas over no-directive.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260510T_h1n_residual_hybrid_label_guard_vs_argument_hints_v1",
+                "Comparison showing +0.25 exact delta over argument hints with tied executor-equivalence.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260510T_h1n_residual_hybrid_label_guard_vs_code_guard_v1",
+                "Comparison showing +0.125 exact delta over v7 code guard with tied executor-equivalence.",
+            ),
+            EvidenceSource(
+                "diagnostic_report",
+                "results/reports/visual_alias_transfer_residual_diagnostic/diagnostic.md",
+                "Matrix diagnostic identifying hybrid label guard as the residual strict upper bound and `state pill` as the remaining miss.",
+            ),
+            EvidenceSource(
+                "report_table",
+                "results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_residual_live_replay_summary.csv",
+                "Paper-facing table summarizing residual candidate rates.",
+            ),
+        ),
+    ),
 )
 
 

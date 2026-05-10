@@ -1,9 +1,9 @@
 {
   "summary": {
-    "generated_at": "2026-05-10T01:57:57.228423+00:00",
+    "generated_at": "2026-05-10T02:19:57.796842+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 95,
-    "blocking_check_count": 93,
+    "check_count": 100,
+    "blocking_check_count": 98,
     "blocking_failed_count": 0,
     "recommended_check_count": 2,
     "recommended_failed_count": 0,
@@ -29,7 +29,7 @@
       "check_id": "ledger_has_claims",
       "severity": "blocking",
       "passed": true,
-      "detail": "claim_count=28",
+      "detail": "claim_count=29",
       "path": ""
     },
     {
@@ -43,14 +43,14 @@
       "check_id": "tool_contract_report_has_current_tables",
       "severity": "blocking",
       "passed": true,
-      "detail": "table_count=70",
+      "detail": "table_count=72",
       "path": ""
     },
     {
       "check_id": "tool_contract_report_has_current_figures",
       "severity": "blocking",
       "passed": true,
-      "detail": "figure_count=34",
+      "detail": "figure_count=35",
       "path": ""
     },
     {
@@ -514,6 +514,41 @@
       "passed": true,
       "detail": "Paper-facing post-repair holdout summary table exists.",
       "path": "results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_post_repair_live_replay_summary.csv"
+    },
+    {
+      "check_id": "h1n_residual_holdout_packet_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Fresh H1n residual holdout packet exists.",
+      "path": "results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_residual_oracle_dry_run_v1/summary.json"
+    },
+    {
+      "check_id": "h1n_residual_hybrid_label_guard_packet_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Hybrid label guard execution on the residual holdout exists.",
+      "path": "results/tool_probe_replay_live/20260510T_h1n_residual_hybrid_label_guard_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h1n_residual_hybrid_vs_code_guard_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Residual hybrid label guard comparison against v7 code guard exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260510T_h1n_residual_hybrid_label_guard_vs_code_guard_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h1n_residual_diagnostic_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Residual visual alias-transfer diagnostic exists.",
+      "path": "results/reports/visual_alias_transfer_residual_diagnostic/diagnostic.md"
+    },
+    {
+      "check_id": "h1n_residual_report_table_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Paper-facing residual holdout summary table exists.",
+      "path": "results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_residual_live_replay_summary.csv"
     },
     {
       "check_id": "current_state_doc_exists",

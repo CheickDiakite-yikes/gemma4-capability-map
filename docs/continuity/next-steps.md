@@ -118,20 +118,19 @@ Next implementation moves:
   - regression: loses the previous `field e19` argument-hints win by switching to `refine_selection(selection_id="sel-e19-archive", filter_query="not")`
   - transfer result: on the first oracle packet code hints falls to `3 / 6` exact and executor-equivalent; on the repeat packet it is `3 / 6` exact and `4 / 6` executor-equivalent
   - decision: keep code hints as a localized oblique repair, not a replacement for argument hints
-- next candidate ready to execute:
-  - system: `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_oblique_code_guard`
-  - profile: `visual_role_catalog_oblique_code_guard_v7`
-  - purpose: keep the v6 code-suffix/negated-decoy repair while adding an activation guard against stale `selection_id` routing
-  - oblique result: `6 / 6` exact and executor-equivalent on the oblique packet
-  - comparison: improves over argument hints by `+0.333` and over v6 code hints by `+0.167` on exact and executor-equivalence
-  - transfer synthesis: [`results/reports/h1n_code_guard_transfer_synthesis/report.md`](../../results/reports/h1n_code_guard_transfer_synthesis/report.md)
-  - transfer result: code guard improves over v6 across the three packets, but argument hints still has the better executor-equivalence aggregate at `16 / 18` versus code guard at `15 / 18`
+- completed residual hybrid holdout:
+  - system: `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_hybrid_label_guard`
+  - profile: `visual_role_catalog_hybrid_label_guard_v8`
+  - packet: [`results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_residual_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_residual_oracle_dry_run_v1)
+  - diagnostic: [`results/reports/visual_alias_transfer_residual_diagnostic/diagnostic.md`](../../results/reports/visual_alias_transfer_residual_diagnostic/diagnostic.md)
+  - result: contracted/default `2 / 8`, no-directive `4 / 8`, argument hints `5 / 8` exact and `7 / 8` executor-equivalent, v6/v7 code profiles `6 / 8`, and v8 hybrid label guard `7 / 8`
+  - interpretation: v8 is the current strict-selector upper bound on the residual packet, but it still misses `state pill`
 - completed post-repair holdout:
   - packet: [`results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_post_repair_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_post_repair_oracle_dry_run_v1)
   - diagnostic: [`results/reports/visual_alias_transfer_post_repair_diagnostic/diagnostic.md`](../../results/reports/visual_alias_transfer_post_repair_diagnostic/diagnostic.md)
   - result: no-directive `2 / 8`, contracted/default `3 / 8`, argument hints `5 / 8`, v6 code hints `5 / 8`, v7 code guard `6 / 8` exact and executor-equivalent
   - interpretation: code guard now has a fresh positive transfer result, but the profile is not a universal replacement; argument hints still covers some ordinary non-code labels better
-- next replay-shaped target: build a focused residual-miss micro-slice around `chip l90` and `status pill`, then test a hybrid/activation-gated catalog profile that keeps argument-hints behavior for non-code labels while applying code-guard wording only for code-like suffixes and stale-selection hazards
+- next replay-shaped target: build a component-role/value ambiguity micro-slice around pill-like controls where the visible state value competes with the component label, then decide whether v8 needs a narrower v9 guard before packaged workflow promotion
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1

@@ -1157,26 +1157,27 @@ The repo still does not support these statements:
 - Gemma beats frontier closed models on the same harness
 - Gemma `31B` runtime posture is already reproduced locally
 
-## Latest H1n Post-Repair Finding
+## Latest H1n Residual Finding
 
-The current H1n visual replay frontier is now the fresh post-repair holdout, not the older oblique packet alone.
+The current H1n visual replay frontier is now the residual hybrid-label holdout, not the older post-repair packet alone.
 
-- holdout packet: [`results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_post_repair_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_post_repair_oracle_dry_run_v1)
-- diagnostic: [`results/reports/visual_alias_transfer_post_repair_diagnostic/diagnostic.md`](../../results/reports/visual_alias_transfer_post_repair_diagnostic/diagnostic.md)
-- report table: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_post_repair_live_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_post_repair_live_replay_summary.csv)
+- residual packet: [`results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_residual_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_residual_oracle_dry_run_v1)
+- diagnostic: [`results/reports/visual_alias_transfer_residual_diagnostic/diagnostic.md`](../../results/reports/visual_alias_transfer_residual_diagnostic/diagnostic.md)
+- report table: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_residual_live_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_residual_live_replay_summary.csv)
+- predecessor packet: [`results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_post_repair_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_post_repair_oracle_dry_run_v1)
 
-Current post-repair live replay rates:
+Current residual live replay rates:
 
-- no-directive MLX: `2 / 8` exact and executor-equivalent
-- contracted/default MLX: `3 / 8`
-- argument hints v2: `5 / 8`
-- oblique code hints v6: `5 / 8`
-- oblique code guard v7: `6 / 8`
+- contracted/default MLX: `2 / 8` exact and executor-equivalent
+- no-directive MLX: `4 / 8`
+- argument hints v2: `5 / 8` exact and `7 / 8` executor-equivalent
+- oblique code hints v6: `6 / 8`
+- oblique code guard v7: `6 / 8` exact and `7 / 8` executor-equivalent
+- hybrid label guard v8: `7 / 8` exact and executor-equivalent
 
 Interpretation:
 
-- v7 code guard is now the best row on the fresh post-repair holdout
-- argument hints remains valuable on ordinary non-code labels
-- code guard is valuable on code-like suffix labels and stale-selection hazards
-- remaining misses are `chip l90` and `status pill`
-- next research move should test a hybrid/activation-gated profile before any broad packaged-workflow promotion
+- v8 hybrid label guard is the current strict-selector upper bound on the residual holdout
+- the v8 gain over argument hints and v7 is mostly exactness, not broader executor-equivalence
+- the remaining miss is `state pill`, where the model still confuses the component label with the state/content value
+- next research move should build a component-role/value ambiguity micro-slice before any broad packaged-workflow promotion

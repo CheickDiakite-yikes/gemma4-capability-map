@@ -59,13 +59,13 @@ def audit_publication_readiness(
         _check_bool(
             check_id="tool_contract_report_has_current_tables",
             severity="blocking",
-            passed=int(report_manifest.get("table_count", 0) or 0) >= 66,
+            passed=int(report_manifest.get("table_count", 0) or 0) >= 72,
             detail=f"table_count={report_manifest.get('table_count', '')}",
         ),
         _check_bool(
             check_id="tool_contract_report_has_current_figures",
             severity="blocking",
-            passed=int(report_manifest.get("figure_count", 0) or 0) >= 32,
+            passed=int(report_manifest.get("figure_count", 0) or 0) >= 35,
             detail=f"figure_count={report_manifest.get('figure_count', '')}",
         ),
         _check_path(
@@ -654,6 +654,53 @@ def audit_publication_readiness(
             / "tables"
             / "visual_hard_slice_post_repair_live_replay_summary.csv",
             detail="Paper-facing post-repair holdout summary table exists.",
+        ),
+        _check_path(
+            check_id="h1n_residual_holdout_packet_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_packets"
+            / "20260510T_visual_hard_slice_live_stress_alias_transfer_residual_oracle_dry_run_v1"
+            / "summary.json",
+            detail="Fresh H1n residual holdout packet exists.",
+        ),
+        _check_path(
+            check_id="h1n_residual_hybrid_label_guard_packet_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260510T_h1n_residual_hybrid_label_guard_execute_v1"
+            / "summary.json",
+            detail="Hybrid label guard execution on the residual holdout exists.",
+        ),
+        _check_path(
+            check_id="h1n_residual_hybrid_vs_code_guard_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260510T_h1n_residual_hybrid_label_guard_vs_code_guard_v1"
+            / "live_replay_comparison.json",
+            detail="Residual hybrid label guard comparison against v7 code guard exists.",
+        ),
+        _check_path(
+            check_id="h1n_residual_diagnostic_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "visual_alias_transfer_residual_diagnostic" / "diagnostic.md",
+            detail="Residual visual alias-transfer diagnostic exists.",
+        ),
+        _check_path(
+            check_id="h1n_residual_report_table_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "mlx_tool_contract_harnessing"
+            / "tables"
+            / "visual_hard_slice_residual_live_replay_summary.csv",
+            detail="Paper-facing residual holdout summary table exists.",
         ),
         _check_path(
             check_id="current_state_doc_exists",

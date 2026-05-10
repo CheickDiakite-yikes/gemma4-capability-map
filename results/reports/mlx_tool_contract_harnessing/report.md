@@ -1,6 +1,6 @@
 # MLX Tool-Contract Harnessing Report
 
-Generated: `2026-05-10T01:54:50.904934+00:00`
+Generated: `2026-05-10T02:19:44.821936+00:00`
 
 ## Executive Read
 
@@ -81,6 +81,8 @@ The visual catalog branch now includes an explicit negative-result loop. `visual
 ![Visual hard-slice alias-transfer oracle live replay gate](figures/visual_hard_slice_alias_transfer_oracle_live_replay_gate.svg)
 
 ![Visual hard-slice post-repair live replay gate](figures/visual_hard_slice_post_repair_live_replay_gate.svg)
+
+![Visual hard-slice residual live replay gate](figures/visual_hard_slice_residual_live_replay_gate.svg)
 
 ## Packet Summary
 
@@ -587,7 +589,62 @@ The oracle replay rebuild makes the packet's expected calls execute to the same 
 | post-repair oblique code guard vs no directive | post_repair_status_pill_note_decoy | visual_argument_transfer_post_repair_noncode | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | no_tool_call | argument_mismatch | 0 | 1 | 1 |
 | post-repair oblique code guard vs no directive | post_repair_warning_toast_email_decoy | visual_argument_transfer_post_repair_noncode | argument_alias_or_decoy_risk | False | True | 1 | False | True | 1 | False | True | 1 | no_tool_call | exact | 0 | 1 | 1 |
 
-The fresh post-repair holdout tests whether the v7 oblique code guard transfers beyond the repair packet. No-directive MLX is `2 / 8` strict and executor-equivalent, while contracted/default MLX is only `3 / 8`. Argument hints v2 and v6 code hints both reach `5 / 8`, but by different routes: argument hints is better on non-code labels, while code hints is better on code-like labels and stale-selection routing. The activation-gated v7 code guard is the current upper bound on this fresh packet at `6 / 8`, improving over no-directive by `+0.50`, over contracted/default by `+0.375`, and over both argument hints and v6 by `+0.125`. The remaining misses, `chip l90` and `status pill`, define the next held-out micro-slice.
+The fresh post-repair holdout tests whether the v7 oblique code guard transfers beyond the repair packet. No-directive MLX is `2 / 8` strict and executor-equivalent, while contracted/default MLX is only `3 / 8`. Argument hints v2 and v6 code hints both reach `5 / 8`, but by different routes: argument hints is better on non-code labels, while code hints is better on code-like labels and stale-selection routing. The activation-gated v7 code guard is the upper bound on this fresh packet at `6 / 8`, improving over no-directive by `+0.50`, over contracted/default by `+0.375`, and over both argument hints and v6 by `+0.125`. The remaining misses, `chip l90` and `status pill`, motivated the residual micro-slice reported below.
+
+## Visual Hard-Slice Residual CLI-Live Replay
+
+| comparison | baseline_system_id | candidate_system_id | shared_case_count | baseline_exact_rate | candidate_exact_rate | delta_exact_rate | baseline_executable_rate | candidate_executable_rate | delta_executable_rate | baseline_executor_equivalence_rate | candidate_executor_equivalence_rate | delta_executor_equivalence_rate |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| residual contracted vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only | 8 | 0.5 | 0.25 | -0.25 | 0.5 | 0.25 | -0.25 | 0.5 | 0.25 | -0.25 |
+| residual argument hints vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints | 8 | 0.5 | 0.625 | 0.125 | 0.5 | 0.875 | 0.375 | 0.5 | 0.875 | 0.375 |
+| residual oblique code hints vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_oblique_code_hints | 8 | 0.5 | 0.75 | 0.25 | 0.5 | 0.75 | 0.25 | 0.5 | 0.75 | 0.25 |
+| residual oblique code guard vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_oblique_code_guard | 8 | 0.5 | 0.75 | 0.25 | 0.5 | 0.875 | 0.375 | 0.5 | 0.875 | 0.375 |
+| residual hybrid label guard vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_hybrid_label_guard | 8 | 0.5 | 0.875 | 0.375 | 0.5 | 0.875 | 0.375 | 0.5 | 0.875 | 0.375 |
+
+| comparison | case_id | family | source_failure_mode | baseline_replay_exact_match | candidate_replay_exact_match | delta_exact_match | baseline_replay_executable_match | candidate_replay_executable_match | delta_executable_match | baseline_replay_executor_equivalence_match | candidate_replay_executor_equivalence_match | delta_executor_equivalence_match | baseline_replay_failure_mode | candidate_replay_failure_mode | baseline_actual_call_count | candidate_actual_call_count | delta_actual_call_count |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| residual contracted vs no directive | residual_alert_h73_toggle_decoy | visual_tool_routing_transfer_residual | wrong_tool_or_stale_selection_risk | False | False | 0 | False | False | 0 | False | False | 0 | argument_mismatch | wrong_tool | 1 | 1 | 0 |
+| residual contracted vs no directive | residual_badge_q14_notice_decoy | visual_argument_transfer_residual_code | argument_alias_or_decoy_risk | True | False | -1 | True | False | -1 | True | False | -1 | exact | wrong_tool | 1 | 1 | 0 |
+| residual contracted vs no directive | residual_chip_n31_owner_note_decoy | visual_argument_transfer_residual_code | argument_alias_or_decoy_risk | True | False | -1 | True | False | -1 | True | False | -1 | exact | wrong_tool | 1 | 1 | 0 |
+| residual contracted vs no directive | residual_chip_v82_chart_decoy | visual_argument_transfer_residual_code | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | argument_mismatch | argument_mismatch | 1 | 1 | 0 |
+| residual contracted vs no directive | residual_field_m20_stale_selection_decoy | visual_tool_routing_transfer_residual | wrong_tool_or_stale_selection_risk | False | True | 1 | False | True | 1 | False | True | 1 | no_tool_call | exact | 0 | 1 | 1 |
+| residual contracted vs no directive | residual_notice_tile_email_decoy | visual_argument_transfer_residual_noncode | argument_alias_or_decoy_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| residual contracted vs no directive | residual_phase_pill_ticket_decoy | visual_argument_transfer_residual_noncode | argument_alias_or_decoy_risk | True | False | -1 | True | False | -1 | True | False | -1 | exact | wrong_tool | 1 | 1 | 0 |
+| residual contracted vs no directive | residual_state_pill_note_decoy | visual_argument_transfer_residual_noncode | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | no_tool_call | wrong_tool | 0 | 1 | 1 |
+| residual argument hints vs no directive | residual_alert_h73_toggle_decoy | visual_tool_routing_transfer_residual | wrong_tool_or_stale_selection_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| residual argument hints vs no directive | residual_badge_q14_notice_decoy | visual_argument_transfer_residual_code | argument_alias_or_decoy_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| residual argument hints vs no directive | residual_chip_n31_owner_note_decoy | visual_argument_transfer_residual_code | argument_alias_or_decoy_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| residual argument hints vs no directive | residual_chip_v82_chart_decoy | visual_argument_transfer_residual_code | argument_alias_or_decoy_risk | False | False | 0 | False | True | 1 | False | True | 1 | argument_mismatch | executable_paraphrase | 1 | 1 | 0 |
+| residual argument hints vs no directive | residual_field_m20_stale_selection_decoy | visual_tool_routing_transfer_residual | wrong_tool_or_stale_selection_risk | False | False | 0 | False | True | 1 | False | True | 1 | no_tool_call | executable_paraphrase | 0 | 1 | 1 |
+| residual argument hints vs no directive | residual_notice_tile_email_decoy | visual_argument_transfer_residual_noncode | argument_alias_or_decoy_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| residual argument hints vs no directive | residual_phase_pill_ticket_decoy | visual_argument_transfer_residual_noncode | argument_alias_or_decoy_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| residual argument hints vs no directive | residual_state_pill_note_decoy | visual_argument_transfer_residual_noncode | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | no_tool_call | argument_mismatch | 0 | 1 | 1 |
+| residual oblique code hints vs no directive | residual_alert_h73_toggle_decoy | visual_tool_routing_transfer_residual | wrong_tool_or_stale_selection_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| residual oblique code hints vs no directive | residual_badge_q14_notice_decoy | visual_argument_transfer_residual_code | argument_alias_or_decoy_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| residual oblique code hints vs no directive | residual_chip_n31_owner_note_decoy | visual_argument_transfer_residual_code | argument_alias_or_decoy_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| residual oblique code hints vs no directive | residual_chip_v82_chart_decoy | visual_argument_transfer_residual_code | argument_alias_or_decoy_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| residual oblique code hints vs no directive | residual_field_m20_stale_selection_decoy | visual_tool_routing_transfer_residual | wrong_tool_or_stale_selection_risk | False | False | 0 | False | False | 0 | False | False | 0 | no_tool_call | no_tool_call | 0 | 0 | 0 |
+| residual oblique code hints vs no directive | residual_notice_tile_email_decoy | visual_argument_transfer_residual_noncode | argument_alias_or_decoy_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| residual oblique code hints vs no directive | residual_phase_pill_ticket_decoy | visual_argument_transfer_residual_noncode | argument_alias_or_decoy_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| residual oblique code hints vs no directive | residual_state_pill_note_decoy | visual_argument_transfer_residual_noncode | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | no_tool_call | no_tool_call | 0 | 0 | 0 |
+| residual oblique code guard vs no directive | residual_alert_h73_toggle_decoy | visual_tool_routing_transfer_residual | wrong_tool_or_stale_selection_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| residual oblique code guard vs no directive | residual_badge_q14_notice_decoy | visual_argument_transfer_residual_code | argument_alias_or_decoy_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| residual oblique code guard vs no directive | residual_chip_n31_owner_note_decoy | visual_argument_transfer_residual_code | argument_alias_or_decoy_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| residual oblique code guard vs no directive | residual_chip_v82_chart_decoy | visual_argument_transfer_residual_code | argument_alias_or_decoy_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| residual oblique code guard vs no directive | residual_field_m20_stale_selection_decoy | visual_tool_routing_transfer_residual | wrong_tool_or_stale_selection_risk | False | False | 0 | False | True | 1 | False | True | 1 | no_tool_call | executable_paraphrase | 0 | 1 | 1 |
+| residual oblique code guard vs no directive | residual_notice_tile_email_decoy | visual_argument_transfer_residual_noncode | argument_alias_or_decoy_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| residual oblique code guard vs no directive | residual_phase_pill_ticket_decoy | visual_argument_transfer_residual_noncode | argument_alias_or_decoy_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| residual oblique code guard vs no directive | residual_state_pill_note_decoy | visual_argument_transfer_residual_noncode | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | no_tool_call | argument_mismatch | 0 | 1 | 1 |
+| residual hybrid label guard vs no directive | residual_alert_h73_toggle_decoy | visual_tool_routing_transfer_residual | wrong_tool_or_stale_selection_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| residual hybrid label guard vs no directive | residual_badge_q14_notice_decoy | visual_argument_transfer_residual_code | argument_alias_or_decoy_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| residual hybrid label guard vs no directive | residual_chip_n31_owner_note_decoy | visual_argument_transfer_residual_code | argument_alias_or_decoy_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| residual hybrid label guard vs no directive | residual_chip_v82_chart_decoy | visual_argument_transfer_residual_code | argument_alias_or_decoy_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| residual hybrid label guard vs no directive | residual_field_m20_stale_selection_decoy | visual_tool_routing_transfer_residual | wrong_tool_or_stale_selection_risk | False | True | 1 | False | True | 1 | False | True | 1 | no_tool_call | exact | 0 | 1 | 1 |
+| residual hybrid label guard vs no directive | residual_notice_tile_email_decoy | visual_argument_transfer_residual_noncode | argument_alias_or_decoy_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| residual hybrid label guard vs no directive | residual_phase_pill_ticket_decoy | visual_argument_transfer_residual_noncode | argument_alias_or_decoy_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| residual hybrid label guard vs no directive | residual_state_pill_note_decoy | visual_argument_transfer_residual_noncode | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | no_tool_call | argument_mismatch | 0 | 1 | 1 |
+
+The residual H1n packet targets those remaining post-repair mechanisms with fresh labels and decoys. Contracted/default MLX scores `2 / 8`, no-directive baseline is `4 / 8`, argument hints v2 is `5 / 8` strict and `7 / 8` executor-equivalent, v6/v7 reach `6 / 8`, and the v8 hybrid label guard reaches `7 / 8` strict and executor-equivalent. The gain is mainly strict selector fidelity: v8 fixes `chip v82`, `alert h73`, and stale-selection `field m20` relative to no-directive, while the persistent `state pill` miss shows that component-label-vs-state-value disambiguation is still not solved.
 
 ## Visual Hard-Slice Case Deltas vs No Directive
 

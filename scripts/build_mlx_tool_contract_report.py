@@ -448,6 +448,36 @@ DEFAULT_VISUAL_HARD_SLICE_POST_REPAIR_CODE_GUARD_LIVE_COMPARISON = (
     / "tool_probe_replay_live_comparisons"
     / "20260510T_h1n_post_repair_code_guard_vs_no_directive_v1"
 )
+DEFAULT_VISUAL_HARD_SLICE_RESIDUAL_CONTRACTED_LIVE_COMPARISON = (
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260510T_h1n_residual_contracted_vs_no_directive_v1"
+)
+DEFAULT_VISUAL_HARD_SLICE_RESIDUAL_ARGUMENT_HINTS_LIVE_COMPARISON = (
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260510T_h1n_residual_argument_hints_vs_no_directive_v1"
+)
+DEFAULT_VISUAL_HARD_SLICE_RESIDUAL_CODE_HINTS_LIVE_COMPARISON = (
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260510T_h1n_residual_code_hints_vs_no_directive_v1"
+)
+DEFAULT_VISUAL_HARD_SLICE_RESIDUAL_CODE_GUARD_LIVE_COMPARISON = (
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260510T_h1n_residual_code_guard_vs_no_directive_v1"
+)
+DEFAULT_VISUAL_HARD_SLICE_RESIDUAL_HYBRID_LABEL_GUARD_LIVE_COMPARISON = (
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260510T_h1n_residual_hybrid_label_guard_vs_no_directive_v1"
+)
 
 SYSTEM_LABELS = {
     "mlx_gemma4_e2b_reasoner_only": "contracted",
@@ -579,6 +609,16 @@ def build_report(
     | Path = DEFAULT_VISUAL_HARD_SLICE_POST_REPAIR_CODE_HINTS_LIVE_COMPARISON,
     visual_hard_slice_post_repair_code_guard_live_comparison: str
     | Path = DEFAULT_VISUAL_HARD_SLICE_POST_REPAIR_CODE_GUARD_LIVE_COMPARISON,
+    visual_hard_slice_residual_contracted_live_comparison: str
+    | Path = DEFAULT_VISUAL_HARD_SLICE_RESIDUAL_CONTRACTED_LIVE_COMPARISON,
+    visual_hard_slice_residual_argument_hints_live_comparison: str
+    | Path = DEFAULT_VISUAL_HARD_SLICE_RESIDUAL_ARGUMENT_HINTS_LIVE_COMPARISON,
+    visual_hard_slice_residual_code_hints_live_comparison: str
+    | Path = DEFAULT_VISUAL_HARD_SLICE_RESIDUAL_CODE_HINTS_LIVE_COMPARISON,
+    visual_hard_slice_residual_code_guard_live_comparison: str
+    | Path = DEFAULT_VISUAL_HARD_SLICE_RESIDUAL_CODE_GUARD_LIVE_COMPARISON,
+    visual_hard_slice_residual_hybrid_label_guard_live_comparison: str
+    | Path = DEFAULT_VISUAL_HARD_SLICE_RESIDUAL_HYBRID_LABEL_GUARD_LIVE_COMPARISON,
     registry_path: str | Path = DEFAULT_REGISTRY_PATH,
 ) -> dict[str, Any]:
     target = Path(output_dir)
@@ -1174,6 +1214,59 @@ def build_report(
     visual_hard_slice_post_repair_live_case_rows = _live_candidate_case_rows(
         visual_hard_slice_post_repair_live_comparisons
     )
+    visual_hard_slice_residual_live_comparisons = [
+        (
+            "residual contracted vs no directive",
+            json.loads(
+                (
+                    Path(visual_hard_slice_residual_contracted_live_comparison)
+                    / "live_replay_comparison.json"
+                ).read_text(encoding="utf-8")
+            ),
+        ),
+        (
+            "residual argument hints vs no directive",
+            json.loads(
+                (
+                    Path(visual_hard_slice_residual_argument_hints_live_comparison)
+                    / "live_replay_comparison.json"
+                ).read_text(encoding="utf-8")
+            ),
+        ),
+        (
+            "residual oblique code hints vs no directive",
+            json.loads(
+                (
+                    Path(visual_hard_slice_residual_code_hints_live_comparison)
+                    / "live_replay_comparison.json"
+                ).read_text(encoding="utf-8")
+            ),
+        ),
+        (
+            "residual oblique code guard vs no directive",
+            json.loads(
+                (
+                    Path(visual_hard_slice_residual_code_guard_live_comparison)
+                    / "live_replay_comparison.json"
+                ).read_text(encoding="utf-8")
+            ),
+        ),
+        (
+            "residual hybrid label guard vs no directive",
+            json.loads(
+                (
+                    Path(visual_hard_slice_residual_hybrid_label_guard_live_comparison)
+                    / "live_replay_comparison.json"
+                ).read_text(encoding="utf-8")
+            ),
+        ),
+    ]
+    visual_hard_slice_residual_live_summary_rows = _live_candidate_summary_rows(
+        visual_hard_slice_residual_live_comparisons
+    )
+    visual_hard_slice_residual_live_case_rows = _live_candidate_case_rows(
+        visual_hard_slice_residual_live_comparisons
+    )
 
     _write_csv(tables_dir / "packet_summary.csv", packet_rows)
     _write_csv(tables_dir / "h1i_system_metrics.csv", h1i_system_rows)
@@ -1310,6 +1403,14 @@ def build_report(
     _write_csv(
         tables_dir / "visual_hard_slice_post_repair_live_replay_case_deltas.csv",
         visual_hard_slice_post_repair_live_case_rows,
+    )
+    _write_csv(
+        tables_dir / "visual_hard_slice_residual_live_replay_summary.csv",
+        visual_hard_slice_residual_live_summary_rows,
+    )
+    _write_csv(
+        tables_dir / "visual_hard_slice_residual_live_replay_case_deltas.csv",
+        visual_hard_slice_residual_live_case_rows,
     )
 
     _write_grouped_metric_svg(
@@ -1691,6 +1792,17 @@ def build_report(
             ("candidate_executor_equivalence_rate", "candidate executor eq", "#059669"),
         ],
     )
+    _write_grouped_metric_svg(
+        figures_dir / "visual_hard_slice_residual_live_replay_gate.svg",
+        title="Visual hard-slice residual live replay gate",
+        rows=visual_hard_slice_residual_live_summary_rows,
+        label_field="comparison",
+        metrics=[
+            ("baseline_exact_rate", "baseline exact", "#2563EB"),
+            ("candidate_exact_rate", "candidate exact", "#DC2626"),
+            ("candidate_executor_equivalence_rate", "candidate executor eq", "#059669"),
+        ],
+    )
 
     manifest = {
         "generated_at": datetime.now(UTC).isoformat(),
@@ -1868,9 +1980,24 @@ def build_report(
         "visual_hard_slice_post_repair_code_guard_live_comparison": str(
             Path(visual_hard_slice_post_repair_code_guard_live_comparison).resolve()
         ),
+        "visual_hard_slice_residual_contracted_live_comparison": str(
+            Path(visual_hard_slice_residual_contracted_live_comparison).resolve()
+        ),
+        "visual_hard_slice_residual_argument_hints_live_comparison": str(
+            Path(visual_hard_slice_residual_argument_hints_live_comparison).resolve()
+        ),
+        "visual_hard_slice_residual_code_hints_live_comparison": str(
+            Path(visual_hard_slice_residual_code_hints_live_comparison).resolve()
+        ),
+        "visual_hard_slice_residual_code_guard_live_comparison": str(
+            Path(visual_hard_slice_residual_code_guard_live_comparison).resolve()
+        ),
+        "visual_hard_slice_residual_hybrid_label_guard_live_comparison": str(
+            Path(visual_hard_slice_residual_hybrid_label_guard_live_comparison).resolve()
+        ),
         "registry_path": str(Path(registry_path).resolve()),
-        "table_count": 70,
-        "figure_count": 34,
+        "table_count": 72,
+        "figure_count": 35,
     }
     report_payload = {
         "manifest": manifest,
@@ -1976,6 +2103,11 @@ def build_report(
         "visual_hard_slice_post_repair_live_replay_case_deltas": (
             visual_hard_slice_post_repair_live_case_rows
         ),
+        "visual_hard_slice_residual_live_replay_comparisons": [
+            payload for _, payload in visual_hard_slice_residual_live_comparisons
+        ],
+        "visual_hard_slice_residual_live_replay_summary": visual_hard_slice_residual_live_summary_rows,
+        "visual_hard_slice_residual_live_replay_case_deltas": visual_hard_slice_residual_live_case_rows,
         "gemini": gemini_manifest,
     }
     (target / "manifest.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
@@ -2702,6 +2834,12 @@ def _markdown_report(payload: dict[str, Any]) -> str:
     visual_hard_slice_post_repair_live_case_rows = payload[
         "visual_hard_slice_post_repair_live_replay_case_deltas"
     ]
+    visual_hard_slice_residual_live_summary_rows = payload[
+        "visual_hard_slice_residual_live_replay_summary"
+    ]
+    visual_hard_slice_residual_live_case_rows = payload[
+        "visual_hard_slice_residual_live_replay_case_deltas"
+    ]
     gemini = payload["gemini"]
     lines = [
         "# MLX Tool-Contract Harnessing Report",
@@ -2793,6 +2931,8 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "![Visual hard-slice alias-transfer oracle live replay gate](figures/visual_hard_slice_alias_transfer_oracle_live_replay_gate.svg)",
         "",
         "![Visual hard-slice post-repair live replay gate](figures/visual_hard_slice_post_repair_live_replay_gate.svg)",
+        "",
+        "![Visual hard-slice residual live replay gate](figures/visual_hard_slice_residual_live_replay_gate.svg)",
         "",
         "## Packet Summary",
         "",
@@ -2946,7 +3086,15 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "",
         _markdown_table(visual_hard_slice_post_repair_live_case_rows),
         "",
-        "The fresh post-repair holdout tests whether the v7 oblique code guard transfers beyond the repair packet. No-directive MLX is `2 / 8` strict and executor-equivalent, while contracted/default MLX is only `3 / 8`. Argument hints v2 and v6 code hints both reach `5 / 8`, but by different routes: argument hints is better on non-code labels, while code hints is better on code-like labels and stale-selection routing. The activation-gated v7 code guard is the current upper bound on this fresh packet at `6 / 8`, improving over no-directive by `+0.50`, over contracted/default by `+0.375`, and over both argument hints and v6 by `+0.125`. The remaining misses, `chip l90` and `status pill`, define the next held-out micro-slice.",
+        "The fresh post-repair holdout tests whether the v7 oblique code guard transfers beyond the repair packet. No-directive MLX is `2 / 8` strict and executor-equivalent, while contracted/default MLX is only `3 / 8`. Argument hints v2 and v6 code hints both reach `5 / 8`, but by different routes: argument hints is better on non-code labels, while code hints is better on code-like labels and stale-selection routing. The activation-gated v7 code guard is the upper bound on this fresh packet at `6 / 8`, improving over no-directive by `+0.50`, over contracted/default by `+0.375`, and over both argument hints and v6 by `+0.125`. The remaining misses, `chip l90` and `status pill`, motivated the residual micro-slice reported below.",
+        "",
+        "## Visual Hard-Slice Residual CLI-Live Replay",
+        "",
+        _markdown_table(visual_hard_slice_residual_live_summary_rows),
+        "",
+        _markdown_table(visual_hard_slice_residual_live_case_rows),
+        "",
+        "The residual H1n packet targets those remaining post-repair mechanisms with fresh labels and decoys. Contracted/default MLX scores `2 / 8`, no-directive baseline is `4 / 8`, argument hints v2 is `5 / 8` strict and `7 / 8` executor-equivalent, v6/v7 reach `6 / 8`, and the v8 hybrid label guard reaches `7 / 8` strict and executor-equivalent. The gain is mainly strict selector fidelity: v8 fixes `chip v82`, `alert h73`, and stale-selection `field m20` relative to no-directive, while the persistent `state pill` miss shows that component-label-vs-state-value disambiguation is still not solved.",
         "",
         "## Visual Hard-Slice Case Deltas vs No Directive",
         "",

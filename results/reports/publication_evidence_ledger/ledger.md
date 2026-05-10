@@ -4,9 +4,9 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 
 ## Manifest
 
-- generated_at: `2026-05-10T01:57:57.223581+00:00`
-- claim_count: `28`
-- evidence_source_count: `130`
+- generated_at: `2026-05-10T02:19:55.117382+00:00`
+- claim_count: `29`
+- evidence_source_count: `137`
 - missing_source_count: `0`
 
 ## Claims
@@ -41,6 +41,7 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C26_h1n_oblique_code_guard_fixes_v6_regression | supported_current_packets | moderate_internal | Oblique code guard v7 reaches 6/6 exact and 6/6 executor-equivalent on the oblique packet, improving over argument hints by +0.333 and over v6 code hints by +0.167 on both metrics. | This is a scoped oblique-packet result. The earlier v6 transfer loss shows that this profile must be transfer-tested before promotion beyond code-like oblique labels. | Run the code-guard profile on the earlier oracle and repeat packets, then build a fresh post-repair held-out packet if transfer is not negative. |
 | C27_h1n_code_guard_improves_v6_but_not_argument_hints | supported_current_packets | strong_internal | Across the three H1n oracle packets, code guard reaches 14/18 exact and 15/18 executor-equivalent successes versus v6 at 11/18 and 12/18, while argument hints remains 14/18 exact and 16/18 executor-equivalent. | The comparison is still replay-shaped and packet-conditioned; it should be followed by a fresh post-repair holdout before claiming a general visual catalog profile. | Build a fresh post-repair holdout with code-like labels, stale-selection mentions, and non-code transfer labels, then compare argument hints and code guard. |
 | C28_h1n_post_repair_holdout_favors_code_guard | supported_current_packets | moderate_internal | On the eight-case post-repair holdout, code guard reaches 6/8 exact and executor-equivalent successes, versus no-directive at 2/8, contracted/default at 3/8, argument hints at 5/8, and v6 code hints at 5/8. | The packet is fresh relative to the oblique repair but remains replay-shaped and small; the remaining misses on `chip l90` and `status pill` need a follow-up micro-slice before promotion. | Build a focused follow-up around the two residual misses and test whether a hybrid activation profile can preserve argument-hints non-code behavior while keeping the code-guard gains. |
+| C29_h1n_residual_holdout_favors_hybrid_label_guard | supported_current_packets | moderate_internal | On the eight-case residual holdout, v8 hybrid label guard reaches 7/8 exact and executor-equivalent successes, versus contracted/default at 2/8, no-directive at 4/8, argument hints at 5/8 exact and 7/8 executor-equivalent, and v6/v7 code profiles at 6/8 exact. | The improvement is strict-selector fidelity on a small replay-shaped packet, not a broad workflow readiness estimate; `state pill` remains unresolved across the tested profiles. | Build a component-role/value disambiguation micro-slice around pill/tile/state labels and then promote only if the profile survives packaged workflow execution without new regressions. |
 
 ## Evidence Sources
 
@@ -176,3 +177,10 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C28_h1n_post_repair_holdout_favors_code_guard | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260510T_h1n_post_repair_code_guard_vs_code_hints_v1 | Comparison showing +0.125 exact and executor-equivalence deltas over v6 code hints. |
 | C28_h1n_post_repair_holdout_favors_code_guard | diagnostic_report | True | results/reports/visual_alias_transfer_post_repair_diagnostic/diagnostic.md | Matrix diagnostic identifying code guard as the post-repair strict upper bound and recording regressions. |
 | C28_h1n_post_repair_holdout_favors_code_guard | report_table | True | results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_post_repair_live_replay_summary.csv | Paper-facing table summarizing post-repair candidate rates. |
+| C29_h1n_residual_holdout_favors_hybrid_label_guard | replay_packet | True | results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_residual_oracle_dry_run_v1 | Fresh eight-case residual holdout targeting the post-repair chip, pill, and stale-selection misses. |
+| C29_h1n_residual_holdout_favors_hybrid_label_guard | live_replay_packet | True | results/tool_probe_replay_live/20260510T_h1n_residual_hybrid_label_guard_execute_v1 | Hybrid label guard execution reaching 7/8 strict and executor-equivalent successes. |
+| C29_h1n_residual_holdout_favors_hybrid_label_guard | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260510T_h1n_residual_hybrid_label_guard_vs_no_directive_v1 | Comparison showing +0.375 exact and executor-equivalence deltas over no-directive. |
+| C29_h1n_residual_holdout_favors_hybrid_label_guard | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260510T_h1n_residual_hybrid_label_guard_vs_argument_hints_v1 | Comparison showing +0.25 exact delta over argument hints with tied executor-equivalence. |
+| C29_h1n_residual_holdout_favors_hybrid_label_guard | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260510T_h1n_residual_hybrid_label_guard_vs_code_guard_v1 | Comparison showing +0.125 exact delta over v7 code guard with tied executor-equivalence. |
+| C29_h1n_residual_holdout_favors_hybrid_label_guard | diagnostic_report | True | results/reports/visual_alias_transfer_residual_diagnostic/diagnostic.md | Matrix diagnostic identifying hybrid label guard as the residual strict upper bound and `state pill` as the remaining miss. |
+| C29_h1n_residual_holdout_favors_hybrid_label_guard | report_table | True | results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_residual_live_replay_summary.csv | Paper-facing table summarizing residual candidate rates. |
