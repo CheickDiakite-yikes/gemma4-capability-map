@@ -1,0 +1,17 @@
+{
+  "packet_run_id": "20260510T_h2b_residual_exactness_dry_run_v1",
+  "packet_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260510T_h2b_residual_exactness_dry_run_v1",
+  "case_count": 5,
+  "residual_axis_counts": {
+    "executor_equivalent_alias": 3,
+    "non_executor_argument_mismatch": 2
+  },
+  "h2a_failure_mode_counts": {
+    "argument_mismatch": 2,
+    "executable_paraphrase": 3
+  },
+  "h2a_executor_equivalent_count": 3,
+  "h2a_non_executor_count": 2,
+  "dry_run": true,
+  "executed_count": 0
+}

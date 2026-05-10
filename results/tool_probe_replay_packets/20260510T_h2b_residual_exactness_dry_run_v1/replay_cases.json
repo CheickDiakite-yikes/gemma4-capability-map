@@ -1,0 +1,797 @@
+[
+  {
+    "case_id": "component_value_result_pill_log_decoy",
+    "family": "visual_argument_transfer_component_value_pill",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-component-result-pill",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "The log repeats approved. Locate the result pill itself, not the log entry.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-component-result-pill"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-component-result-pill": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "component-log-8501",
+              "label": "approval log",
+              "text": "Approved by Mina at 09:14",
+              "attributes": {
+                "area": "log"
+              }
+            },
+            {
+              "region_id": "component-result-pill-8502",
+              "label": "result pill",
+              "text": "Approved",
+              "attributes": {
+                "area": "pill"
+              }
+            },
+            {
+              "region_id": "component-review-8503",
+              "label": "approval table",
+              "text": "Approved request rows",
+              "attributes": {
+                "area": "table"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "component-result-pill-8502"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-component-result-pill",
+          "target_query": "result pill"
+        }
+      }
+    ],
+    "source_system_id": "h2a_stale_selection_transfer_residuals_v1",
+    "source_failure_mode": "executable_paraphrase",
+    "source_exact_match": false,
+    "source_executable_match": true,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "h2b_residual_exactness_packet_v1",
+    "live_entrypoint_note": "Composed H2a transfer residual packet for exact alias/code-label testing. This packet must not expose expected calls beyond the normal replay contract.",
+    "h2a_residual_axis": "executor_equivalent_alias",
+    "h2a_residual_class": "result_pill_exact_label",
+    "h2a_actual_tool": "extract_layout",
+    "h2a_actual_arguments": {
+      "image_id": "img-component-result-pill",
+      "target_query": "pill"
+    },
+    "h2a_expected_tool": "extract_layout",
+    "h2a_expected_arguments": {
+      "image_id": "img-component-result-pill",
+      "target_query": "result pill"
+    },
+    "source_packet_dir": "results/tool_probe_replay_packets/20260510T_visual_hard_slice_component_value_oracle_dry_run_v1"
+  },
+  {
+    "case_id": "h1o_code_alert_s92_negated_toggle_decoy",
+    "family": "h1o_code_negation_preservation",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-h1o-code-alert-s92",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "Before reading the consent toggle, locate alert s92. Do not target the toggle.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-h1o-code-alert-s92"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-h1o-code-alert-s92": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "h1o-toggle-9121",
+              "label": "consent toggle",
+              "text": "Enabled",
+              "attributes": {
+                "area": "toggle"
+              }
+            },
+            {
+              "region_id": "h1o-alert-s92-9122",
+              "label": "alert s92",
+              "text": "Consent mismatch",
+              "attributes": {
+                "area": "alert"
+              }
+            },
+            {
+              "region_id": "h1o-retry-log-9123",
+              "label": "retry log",
+              "text": "s92 retry failed",
+              "attributes": {
+                "area": "log"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "h1o-alert-s92-9122"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1o-code-alert-s92",
+          "target_query": "alert s92"
+        }
+      }
+    ],
+    "source_system_id": "h2a_stale_selection_transfer_residuals_v1",
+    "source_failure_mode": "executable_paraphrase",
+    "source_exact_match": false,
+    "source_executable_match": true,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "h2b_residual_exactness_packet_v1",
+    "live_entrypoint_note": "Composed H2a transfer residual packet for exact alias/code-label testing. This packet must not expose expected calls beyond the normal replay contract.",
+    "h2a_residual_axis": "executor_equivalent_alias",
+    "h2a_residual_class": "alert_s92_code_label",
+    "h2a_actual_tool": "extract_layout",
+    "h2a_actual_arguments": {
+      "image_id": "img-h1o-code-alert-s92",
+      "target_query": "alert"
+    },
+    "h2a_expected_tool": "extract_layout",
+    "h2a_expected_arguments": {
+      "image_id": "img-h1o-code-alert-s92",
+      "target_query": "alert s92"
+    },
+    "source_packet_dir": "results/tool_probe_replay_packets/20260510T_h1o_control_factorial_oracle_dry_run_v1"
+  },
+  {
+    "case_id": "h1o_code_badge_c08_note_decoy",
+    "family": "h1o_code_negation_preservation",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-h1o-code-badge-c08",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "The note says C08 was escalated. Locate badge c08 itself before using the note.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-h1o-code-badge-c08"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-h1o-code-badge-c08": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "h1o-case-note-9131",
+              "label": "case note",
+              "text": "C08 escalated by Sana",
+              "attributes": {
+                "area": "note"
+              }
+            },
+            {
+              "region_id": "h1o-badge-c08-9132",
+              "label": "badge c08",
+              "text": "Escalated",
+              "attributes": {
+                "area": "badge"
+              }
+            },
+            {
+              "region_id": "h1o-badge-table-9133",
+              "label": "case table",
+              "text": "Escalation rows",
+              "attributes": {
+                "area": "table"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "h1o-badge-c08-9132"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1o-code-badge-c08",
+          "target_query": "badge c08"
+        }
+      }
+    ],
+    "source_system_id": "h2a_stale_selection_transfer_residuals_v1",
+    "source_failure_mode": "executable_paraphrase",
+    "source_exact_match": false,
+    "source_executable_match": true,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "h2b_residual_exactness_packet_v1",
+    "live_entrypoint_note": "Composed H2a transfer residual packet for exact alias/code-label testing. This packet must not expose expected calls beyond the normal replay contract.",
+    "h2a_residual_axis": "executor_equivalent_alias",
+    "h2a_residual_class": "badge_c08_code_label",
+    "h2a_actual_tool": "extract_layout",
+    "h2a_actual_arguments": {
+      "image_id": "img-h1o-code-badge-c08",
+      "target_query": "escalated badge"
+    },
+    "h2a_expected_tool": "extract_layout",
+    "h2a_expected_arguments": {
+      "image_id": "img-h1o-code-badge-c08",
+      "target_query": "badge c08"
+    },
+    "source_packet_dir": "results/tool_probe_replay_packets/20260510T_h1o_control_factorial_oracle_dry_run_v1"
+  },
+  {
+    "case_id": "h1p_compact_state_tag_log_value_decoy",
+    "family": "h1p_component_value_compact",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-h1p-compact-state-tag",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "Closed appears in the audit log. Locate the state tag component, not the log row.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-h1p-compact-state-tag"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-h1p-compact-state-tag": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "h1p-state-log-9331",
+              "label": "audit log",
+              "text": "Closed by Omar at 13:20",
+              "attributes": {
+                "area": "log"
+              }
+            },
+            {
+              "region_id": "h1p-state-tag-9332",
+              "label": "state tag",
+              "text": "Closed",
+              "attributes": {
+                "area": "tag"
+              }
+            },
+            {
+              "region_id": "h1p-state-table-9333",
+              "label": "state table",
+              "text": "Closed accounts",
+              "attributes": {
+                "area": "table"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "h1p-state-tag-9332"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1p-compact-state-tag",
+          "target_query": "state tag"
+        }
+      }
+    ],
+    "source_system_id": "h2a_stale_selection_transfer_residuals_v1",
+    "source_failure_mode": "argument_mismatch",
+    "source_exact_match": false,
+    "source_executable_match": false,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "h2b_residual_exactness_packet_v1",
+    "live_entrypoint_note": "Composed H2a transfer residual packet for exact alias/code-label testing. This packet must not expose expected calls beyond the normal replay contract.",
+    "h2a_residual_axis": "non_executor_argument_mismatch",
+    "h2a_residual_class": "state_tag_component_class",
+    "h2a_actual_tool": "extract_layout",
+    "h2a_actual_arguments": {
+      "image_id": "img-h1p-compact-state-tag",
+      "target_query": "state pill"
+    },
+    "h2a_expected_tool": "extract_layout",
+    "h2a_expected_arguments": {
+      "image_id": "img-h1p-compact-state-tag",
+      "target_query": "state tag"
+    },
+    "source_packet_dir": "results/tool_probe_replay_packets/20260510T_h1p_component_value_holdout_oracle_dry_run_v1"
+  },
+  {
+    "case_id": "h1p_surface_mode_toggle_note_value_decoy",
+    "family": "h1p_component_value_surface",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-h1p-surface-mode-toggle",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "Manual is written in the note. Locate the mode toggle component itself.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-h1p-surface-mode-toggle"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-h1p-surface-mode-toggle": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "h1p-mode-note-9351",
+              "label": "settings note",
+              "text": "Manual override is active",
+              "attributes": {
+                "area": "note"
+              }
+            },
+            {
+              "region_id": "h1p-mode-toggle-9352",
+              "label": "mode toggle",
+              "text": "Manual",
+              "attributes": {
+                "area": "toggle"
+              }
+            },
+            {
+              "region_id": "h1p-mode-table-9353",
+              "label": "settings table",
+              "text": "Manual exception rows",
+              "attributes": {
+                "area": "table"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "h1p-mode-toggle-9352"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1p-surface-mode-toggle",
+          "target_query": "mode toggle"
+        }
+      }
+    ],
+    "source_system_id": "h2a_stale_selection_transfer_residuals_v1",
+    "source_failure_mode": "argument_mismatch",
+    "source_exact_match": false,
+    "source_executable_match": false,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "h2b_residual_exactness_packet_v1",
+    "live_entrypoint_note": "Composed H2a transfer residual packet for exact alias/code-label testing. This packet must not expose expected calls beyond the normal replay contract.",
+    "h2a_residual_axis": "non_executor_argument_mismatch",
+    "h2a_residual_class": "mode_toggle_component_class",
+    "h2a_actual_tool": "extract_layout",
+    "h2a_actual_arguments": {
+      "image_id": "img-h1p-surface-mode-toggle",
+      "target_query": "Manual"
+    },
+    "h2a_expected_tool": "extract_layout",
+    "h2a_expected_arguments": {
+      "image_id": "img-h1p-surface-mode-toggle",
+      "target_query": "mode toggle"
+    },
+    "source_packet_dir": "results/tool_probe_replay_packets/20260510T_h1p_component_value_holdout_oracle_dry_run_v1"
+  }
+]
