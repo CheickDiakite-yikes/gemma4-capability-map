@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "h1x_error_notice_history_activation_decoy",
+    "family": "h1x_oblique_activation_no_call",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "h1x-error-banner-9772"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1x-error-notice",
+          "target_query": "error banner"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h1x-error-notice",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "h1x-error-banner-9772"
+          ],
+          "region_id": "h1x-error-banner-9772",
+          "text_preview": "Error"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1x-error-notice",
+          "target_query": "error banner"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1x-error-notice",
+          "target_query": "error banner"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h1x-error-notice\", \"target_query\": \"error banner\"}}",
+    "prompt_tokens": 1507,
+    "completion_tokens": 37,
+    "latency_ms": 9625
+  }
+]

@@ -34,8 +34,8 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
 
     assert payload["gemini"]["dry_run"] is True
     assert payload["gemini"]["workflow_count"] == 10
-    assert payload["manifest"]["table_count"] == 87
-    assert payload["manifest"]["figure_count"] == 40
+    assert payload["manifest"]["table_count"] == 92
+    assert payload["manifest"]["figure_count"] == 41
 
     candidate_ids = {row["tool_prompt_contract_id"] for row in payload["prompt_contract_candidates"]}
     assert candidate_ids == {
@@ -736,6 +736,33 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert h1s_failures[
         ("h1p_component_value", "h1p_stale_phase_tile_archive_decoy")
     ]["failure_mode"] == "wrong_tool"
+    h1x_packet = {row["profile_label"]: row for row in payload["h1x_v11_breaker_packet_summary"]}
+    assert h1x_packet["no_directive"]["exact_success_count"] == 2
+    assert h1x_packet["component_label_guard_v11"]["exact_success_count"] == 7
+    assert h1x_packet["component_residual_guard_v12"]["exact_success_count"] == 8
+    assert h1x_packet["code_label_exact_guard_v15"]["exact_success_count"] == 6
+    assert h1x_packet["code_label_exact_guard_v15"]["executor_success_count"] == 7
+    h1x_family = {
+        (row["profile_label"], row["family"]): row for row in payload["h1x_v11_breaker_family_summary"]
+    }
+    assert h1x_family[("component_label_guard_v11", "h1x_oblique_stale_field")][
+        "exact_success_count"
+    ] == 1
+    assert h1x_family[("component_residual_guard_v12", "h1x_oblique_stale_field")][
+        "exact_success_count"
+    ] == 2
+    assert h1x_family[("code_label_exact_guard_v15", "h1x_oblique_surface_value")][
+        "executor_success_count"
+    ] == 2
+    h1x_failures = {
+        (row["profile_label"], row["case_id"]): row for row in payload["h1x_v11_breaker_non_exact_rows"]
+    }
+    assert h1x_failures[
+        ("component_label_guard_v11", "h1x_responsible_party_field_old_owner_memo_decoy")
+    ]["failure_mode"] == "wrong_tool"
+    assert h1x_failures[
+        ("code_label_exact_guard_v15", "h1x_resolution_chip_comment_result_decoy")
+    ]["executor_equivalence_match"] is True
     h1i_candidates = {row["system_id"]: row for row in payload["h1i_prompt_contract_candidate_metrics"]}
     assert h1i_candidates["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive"]["tool_turn_directive_enabled"] == "False"
     assert h1i_candidates["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor"]["raw_planning_clean_rate_avg"] == "1.0"
@@ -834,6 +861,11 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert (tmp_path / "tables" / "h1s_component_residual_comparison_summary.csv").exists()
     assert (tmp_path / "tables" / "h1s_component_residual_v12_failures.csv").exists()
     assert (tmp_path / "tables" / "h1s_component_residual_findings.csv").exists()
+    assert (tmp_path / "tables" / "h1x_v11_breaker_packet_summary.csv").exists()
+    assert (tmp_path / "tables" / "h1x_v11_breaker_family_summary.csv").exists()
+    assert (tmp_path / "tables" / "h1x_v11_breaker_comparison_summary.csv").exists()
+    assert (tmp_path / "tables" / "h1x_v11_breaker_non_exact_rows.csv").exists()
+    assert (tmp_path / "tables" / "h1x_v11_breaker_findings.csv").exists()
     assert (tmp_path / "tables" / "prompt_contract_promotion_decisions.csv").exists()
     assert (tmp_path / "tables" / "h1i_prompt_contract_candidate_metrics.csv").exists()
     assert (tmp_path / "tables" / "h1i_prompt_contract_repeat3_metrics.csv").exists()
@@ -886,3 +918,4 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert (tmp_path / "figures" / "visual_hard_slice_h1p_live_replay_gate.svg").exists()
     assert (tmp_path / "figures" / "h1q_component_label_guard_transfer_gate.svg").exists()
     assert (tmp_path / "figures" / "h1s_component_residual_transfer_gate.svg").exists()
+    assert (tmp_path / "figures" / "h1x_v11_breaker_gate.svg").exists()

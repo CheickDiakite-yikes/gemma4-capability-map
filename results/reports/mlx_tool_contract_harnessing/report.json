@@ -1,6 +1,6 @@
 {
   "manifest": {
-    "generated_at": "2026-05-10T18:00:01.641107+00:00",
+    "generated_at": "2026-05-10T18:53:19.366613+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/mlx_tool_contract_harnessing",
     "source_packets": {
       "H1f compact": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1f_mlx_no_directive_v1_knowledge_work_h1f_mlx_tool_contract_ablation_v1",
@@ -109,9 +109,10 @@
     "visual_hard_slice_h1p_component_value_guard_live_comparison": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260510T_h1p_component_value_component_value_guard_vs_no_directive_v1",
     "h1q_component_label_guard_transfer_synthesis": "/Users/cheickdiakite/Codex/moonie/results/reports/h1q_component_label_guard_transfer_synthesis",
     "h1s_component_residual_transfer_synthesis": "/Users/cheickdiakite/Codex/moonie/results/reports/h1s_component_residual_transfer_synthesis",
+    "h1x_v11_breaker_synthesis": "/Users/cheickdiakite/Codex/moonie/results/reports/h1x_v11_breaker_synthesis",
     "registry_path": "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
-    "table_count": 87,
-    "figure_count": 40
+    "table_count": 92,
+    "figure_count": 41
   },
   "packet_summary": [
     {
@@ -27696,6 +27697,772 @@
     {
       "finding_id": "promotion_decision",
       "finding": "Do not promote v12 as the global visual-role catalog default yet. Treat it as a targeted residual patch or conditional route while v11 remains the more executor-robust general transfer profile."
+    }
+  ],
+  "h1x_v11_breaker_synthesis": {
+    "manifest": {
+      "generated_at": "2026-05-10T18:50:42.692248+00:00",
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h1x_v11_breaker_synthesis",
+      "profile_count": 4,
+      "case_count": 8,
+      "no_directive_exact_success_count": 2,
+      "v11_exact_success_count": 7,
+      "v11_executor_success_count": 7,
+      "v12_exact_success_count": 8,
+      "v12_executor_success_count": 8,
+      "v15_exact_success_count": 6,
+      "v15_executor_success_count": 7,
+      "comparison_count": 6,
+      "finding_count": 5,
+      "promotion_decision": "component_residual_guard_is_h1x_local_winner_keep_transfer_gate"
+    },
+    "packet_rows": [
+      {
+        "profile_label": "no_directive",
+        "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+        "packet_dir": "results/tool_probe_replay_live/20260510T_h1x_v11_breaker_no_directive_execute_v1",
+        "case_count": 8,
+        "exact_success_count": 2,
+        "exact_rate": 0.25,
+        "executor_success_count": 2,
+        "executor_rate": 0.25,
+        "argument_mismatch_count": 2,
+        "executable_paraphrase_count": 0,
+        "wrong_tool_count": 0,
+        "no_tool_call_count": 4
+      },
+      {
+        "profile_label": "component_label_guard_v11",
+        "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_label_guard",
+        "packet_dir": "results/tool_probe_replay_live/20260510T_h1x_v11_breaker_component_label_guard_execute_v1",
+        "case_count": 8,
+        "exact_success_count": 7,
+        "exact_rate": 0.875,
+        "executor_success_count": 7,
+        "executor_rate": 0.875,
+        "argument_mismatch_count": 0,
+        "executable_paraphrase_count": 0,
+        "wrong_tool_count": 1,
+        "no_tool_call_count": 0
+      },
+      {
+        "profile_label": "component_residual_guard_v12",
+        "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard",
+        "packet_dir": "results/tool_probe_replay_live/20260510T_h1x_v11_breaker_component_residual_guard_execute_v1",
+        "case_count": 8,
+        "exact_success_count": 8,
+        "exact_rate": 1.0,
+        "executor_success_count": 8,
+        "executor_rate": 1.0,
+        "argument_mismatch_count": 0,
+        "executable_paraphrase_count": 0,
+        "wrong_tool_count": 0,
+        "no_tool_call_count": 0
+      },
+      {
+        "profile_label": "code_label_exact_guard_v15",
+        "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_code_label_exact_guard",
+        "packet_dir": "results/tool_probe_replay_live/20260510T_h1x_v11_breaker_code_label_exact_guard_execute_v1",
+        "case_count": 8,
+        "exact_success_count": 6,
+        "exact_rate": 0.75,
+        "executor_success_count": 7,
+        "executor_rate": 0.875,
+        "argument_mismatch_count": 0,
+        "executable_paraphrase_count": 1,
+        "wrong_tool_count": 1,
+        "no_tool_call_count": 0
+      }
+    ],
+    "family_rows": [
+      {
+        "profile_label": "no_directive",
+        "family": "h1x_oblique_activation_no_call",
+        "case_count": 2,
+        "exact_success_count": 2,
+        "exact_rate": 1.0,
+        "executor_success_count": 2,
+        "executor_rate": 1.0
+      },
+      {
+        "profile_label": "no_directive",
+        "family": "h1x_oblique_nonstandard_class",
+        "case_count": 2,
+        "exact_success_count": 0,
+        "exact_rate": 0.0,
+        "executor_success_count": 0,
+        "executor_rate": 0.0
+      },
+      {
+        "profile_label": "no_directive",
+        "family": "h1x_oblique_stale_field",
+        "case_count": 2,
+        "exact_success_count": 0,
+        "exact_rate": 0.0,
+        "executor_success_count": 0,
+        "executor_rate": 0.0
+      },
+      {
+        "profile_label": "no_directive",
+        "family": "h1x_oblique_surface_value",
+        "case_count": 2,
+        "exact_success_count": 0,
+        "exact_rate": 0.0,
+        "executor_success_count": 0,
+        "executor_rate": 0.0
+      },
+      {
+        "profile_label": "component_label_guard_v11",
+        "family": "h1x_oblique_activation_no_call",
+        "case_count": 2,
+        "exact_success_count": 2,
+        "exact_rate": 1.0,
+        "executor_success_count": 2,
+        "executor_rate": 1.0
+      },
+      {
+        "profile_label": "component_label_guard_v11",
+        "family": "h1x_oblique_nonstandard_class",
+        "case_count": 2,
+        "exact_success_count": 2,
+        "exact_rate": 1.0,
+        "executor_success_count": 2,
+        "executor_rate": 1.0
+      },
+      {
+        "profile_label": "component_label_guard_v11",
+        "family": "h1x_oblique_stale_field",
+        "case_count": 2,
+        "exact_success_count": 1,
+        "exact_rate": 0.5,
+        "executor_success_count": 1,
+        "executor_rate": 0.5
+      },
+      {
+        "profile_label": "component_label_guard_v11",
+        "family": "h1x_oblique_surface_value",
+        "case_count": 2,
+        "exact_success_count": 2,
+        "exact_rate": 1.0,
+        "executor_success_count": 2,
+        "executor_rate": 1.0
+      },
+      {
+        "profile_label": "component_residual_guard_v12",
+        "family": "h1x_oblique_activation_no_call",
+        "case_count": 2,
+        "exact_success_count": 2,
+        "exact_rate": 1.0,
+        "executor_success_count": 2,
+        "executor_rate": 1.0
+      },
+      {
+        "profile_label": "component_residual_guard_v12",
+        "family": "h1x_oblique_nonstandard_class",
+        "case_count": 2,
+        "exact_success_count": 2,
+        "exact_rate": 1.0,
+        "executor_success_count": 2,
+        "executor_rate": 1.0
+      },
+      {
+        "profile_label": "component_residual_guard_v12",
+        "family": "h1x_oblique_stale_field",
+        "case_count": 2,
+        "exact_success_count": 2,
+        "exact_rate": 1.0,
+        "executor_success_count": 2,
+        "executor_rate": 1.0
+      },
+      {
+        "profile_label": "component_residual_guard_v12",
+        "family": "h1x_oblique_surface_value",
+        "case_count": 2,
+        "exact_success_count": 2,
+        "exact_rate": 1.0,
+        "executor_success_count": 2,
+        "executor_rate": 1.0
+      },
+      {
+        "profile_label": "code_label_exact_guard_v15",
+        "family": "h1x_oblique_activation_no_call",
+        "case_count": 2,
+        "exact_success_count": 2,
+        "exact_rate": 1.0,
+        "executor_success_count": 2,
+        "executor_rate": 1.0
+      },
+      {
+        "profile_label": "code_label_exact_guard_v15",
+        "family": "h1x_oblique_nonstandard_class",
+        "case_count": 2,
+        "exact_success_count": 2,
+        "exact_rate": 1.0,
+        "executor_success_count": 2,
+        "executor_rate": 1.0
+      },
+      {
+        "profile_label": "code_label_exact_guard_v15",
+        "family": "h1x_oblique_stale_field",
+        "case_count": 2,
+        "exact_success_count": 1,
+        "exact_rate": 0.5,
+        "executor_success_count": 1,
+        "executor_rate": 0.5
+      },
+      {
+        "profile_label": "code_label_exact_guard_v15",
+        "family": "h1x_oblique_surface_value",
+        "case_count": 2,
+        "exact_success_count": 1,
+        "exact_rate": 0.5,
+        "executor_success_count": 2,
+        "executor_rate": 1.0
+      }
+    ],
+    "comparison_rows": [
+      {
+        "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h1x_component_label_guard_vs_no_directive_v1",
+        "baseline_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+        "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_label_guard",
+        "shared_case_count": 8,
+        "baseline_exact_rate": 0.25,
+        "candidate_exact_rate": 0.875,
+        "delta_exact_rate": 0.625,
+        "baseline_executor_equivalence_rate": 0.25,
+        "candidate_executor_equivalence_rate": 0.875,
+        "delta_executor_equivalence_rate": 0.625
+      },
+      {
+        "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h1x_component_residual_guard_vs_no_directive_v1",
+        "baseline_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+        "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard",
+        "shared_case_count": 8,
+        "baseline_exact_rate": 0.25,
+        "candidate_exact_rate": 1.0,
+        "delta_exact_rate": 0.75,
+        "baseline_executor_equivalence_rate": 0.25,
+        "candidate_executor_equivalence_rate": 1.0,
+        "delta_executor_equivalence_rate": 0.75
+      },
+      {
+        "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h1x_code_label_exact_guard_vs_no_directive_v1",
+        "baseline_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+        "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_code_label_exact_guard",
+        "shared_case_count": 8,
+        "baseline_exact_rate": 0.25,
+        "candidate_exact_rate": 0.75,
+        "delta_exact_rate": 0.5,
+        "baseline_executor_equivalence_rate": 0.25,
+        "candidate_executor_equivalence_rate": 0.875,
+        "delta_executor_equivalence_rate": 0.625
+      },
+      {
+        "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h1x_component_residual_guard_vs_component_label_guard_v1",
+        "baseline_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_label_guard",
+        "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard",
+        "shared_case_count": 8,
+        "baseline_exact_rate": 0.875,
+        "candidate_exact_rate": 1.0,
+        "delta_exact_rate": 0.125,
+        "baseline_executor_equivalence_rate": 0.875,
+        "candidate_executor_equivalence_rate": 1.0,
+        "delta_executor_equivalence_rate": 0.125
+      },
+      {
+        "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h1x_code_label_exact_guard_vs_component_label_guard_v1",
+        "baseline_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_label_guard",
+        "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_code_label_exact_guard",
+        "shared_case_count": 8,
+        "baseline_exact_rate": 0.875,
+        "candidate_exact_rate": 0.75,
+        "delta_exact_rate": -0.125,
+        "baseline_executor_equivalence_rate": 0.875,
+        "candidate_executor_equivalence_rate": 0.875,
+        "delta_executor_equivalence_rate": 0.0
+      },
+      {
+        "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h1x_code_label_exact_guard_vs_component_residual_guard_v1",
+        "baseline_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard",
+        "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_code_label_exact_guard",
+        "shared_case_count": 8,
+        "baseline_exact_rate": 1.0,
+        "candidate_exact_rate": 0.75,
+        "delta_exact_rate": -0.25,
+        "baseline_executor_equivalence_rate": 1.0,
+        "candidate_executor_equivalence_rate": 0.875,
+        "delta_executor_equivalence_rate": -0.125
+      }
+    ],
+    "non_exact_rows": [
+      {
+        "profile_label": "no_directive",
+        "case_id": "h1x_responsible_party_field_old_owner_memo_decoy",
+        "family": "h1x_oblique_stale_field",
+        "failure_mode": "no_tool_call",
+        "executor_equivalence_match": false,
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1x_v11_breaker_no_directive_execute_v1/runs/h1x_responsible_party_field_old_owner_memo_decoy"
+      },
+      {
+        "profile_label": "no_directive",
+        "case_id": "h1x_workstream_owner_field_previous_summary_decoy",
+        "family": "h1x_oblique_stale_field",
+        "failure_mode": "no_tool_call",
+        "executor_equivalence_match": false,
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1x_v11_breaker_no_directive_execute_v1/runs/h1x_workstream_owner_field_previous_summary_decoy"
+      },
+      {
+        "profile_label": "no_directive",
+        "case_id": "h1x_resolution_chip_comment_result_decoy",
+        "family": "h1x_oblique_surface_value",
+        "failure_mode": "argument_mismatch",
+        "executor_equivalence_match": false,
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1x_v11_breaker_no_directive_execute_v1/runs/h1x_resolution_chip_comment_result_decoy"
+      },
+      {
+        "profile_label": "no_directive",
+        "case_id": "h1x_progress_marker_summary_status_decoy",
+        "family": "h1x_oblique_surface_value",
+        "failure_mode": "argument_mismatch",
+        "executor_equivalence_match": false,
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1x_v11_breaker_no_directive_execute_v1/runs/h1x_progress_marker_summary_status_decoy"
+      },
+      {
+        "profile_label": "no_directive",
+        "case_id": "h1x_lifecycle_marker_log_state_tag_decoy",
+        "family": "h1x_oblique_nonstandard_class",
+        "failure_mode": "no_tool_call",
+        "executor_equivalence_match": false,
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1x_v11_breaker_no_directive_execute_v1/runs/h1x_lifecycle_marker_log_state_tag_decoy"
+      },
+      {
+        "profile_label": "no_directive",
+        "case_id": "h1x_operation_mode_control_note_toggle_decoy",
+        "family": "h1x_oblique_nonstandard_class",
+        "failure_mode": "no_tool_call",
+        "executor_equivalence_match": false,
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1x_v11_breaker_no_directive_execute_v1/runs/h1x_operation_mode_control_note_toggle_decoy"
+      },
+      {
+        "profile_label": "component_label_guard_v11",
+        "case_id": "h1x_responsible_party_field_old_owner_memo_decoy",
+        "family": "h1x_oblique_stale_field",
+        "failure_mode": "wrong_tool",
+        "executor_equivalence_match": false,
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1x_v11_breaker_component_label_guard_execute_v1/runs/h1x_responsible_party_field_old_owner_memo_decoy"
+      },
+      {
+        "profile_label": "code_label_exact_guard_v15",
+        "case_id": "h1x_responsible_party_field_old_owner_memo_decoy",
+        "family": "h1x_oblique_stale_field",
+        "failure_mode": "wrong_tool",
+        "executor_equivalence_match": false,
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1x_v11_breaker_code_label_exact_guard_execute_v1/runs/h1x_responsible_party_field_old_owner_memo_decoy"
+      },
+      {
+        "profile_label": "code_label_exact_guard_v15",
+        "case_id": "h1x_resolution_chip_comment_result_decoy",
+        "family": "h1x_oblique_surface_value",
+        "failure_mode": "executable_paraphrase",
+        "executor_equivalence_match": true,
+        "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1x_v11_breaker_code_label_exact_guard_execute_v1/runs/h1x_resolution_chip_comment_result_decoy"
+      }
+    ],
+    "finding_rows": [
+      {
+        "finding_id": "h1x_breaks_no_directive",
+        "finding": "No-directive reaches 2/8 exact and 2/8 executor-equivalent; it only solves the activation/no-call rows and fails the oblique stale-field, surface-value, and nonstandard-class rows."
+      },
+      {
+        "finding_id": "h1x_breaks_v11_saturation",
+        "finding": "Component-label guard v11 drops to 7/8 exact and 7/8 executor-equivalent; the miss is concentrated in oblique stale-field routing at 1/2."
+      },
+      {
+        "finding_id": "v12_local_winner",
+        "finding": "Component-residual guard v12 reaches 8/8 exact and 8/8 executor-equivalent, a +0.750 exact-rate delta over no-directive and +0.125 over v11 on H1x."
+      },
+      {
+        "finding_id": "v15_over_narrows_again",
+        "finding": "Code-label exact guard v15 reaches 6/8 exact and 7/8 executor-equivalent. It is only 1/2 strict exact on oblique surface-value rows; non-exact rows: h1x_responsible_party_field_old_owner_memo_decoy, h1x_resolution_chip_comment_result_decoy."
+      },
+      {
+        "finding_id": "next_slice",
+        "finding": "Treat H1x as evidence for a routed residual helper, not a global default replacement. The next hard slice should retest v12 against the old transfer packets and a new mixed packet with oblique stale-field plus surface-value rows in the same workflow family."
+      }
+    ]
+  },
+  "h1x_v11_breaker_packet_summary": [
+    {
+      "profile_label": "no_directive",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h1x_v11_breaker_no_directive_execute_v1",
+      "case_count": 8,
+      "exact_success_count": 2,
+      "exact_rate": 0.25,
+      "executor_success_count": 2,
+      "executor_rate": 0.25,
+      "argument_mismatch_count": 2,
+      "executable_paraphrase_count": 0,
+      "wrong_tool_count": 0,
+      "no_tool_call_count": 4
+    },
+    {
+      "profile_label": "component_label_guard_v11",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_label_guard",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h1x_v11_breaker_component_label_guard_execute_v1",
+      "case_count": 8,
+      "exact_success_count": 7,
+      "exact_rate": 0.875,
+      "executor_success_count": 7,
+      "executor_rate": 0.875,
+      "argument_mismatch_count": 0,
+      "executable_paraphrase_count": 0,
+      "wrong_tool_count": 1,
+      "no_tool_call_count": 0
+    },
+    {
+      "profile_label": "component_residual_guard_v12",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h1x_v11_breaker_component_residual_guard_execute_v1",
+      "case_count": 8,
+      "exact_success_count": 8,
+      "exact_rate": 1.0,
+      "executor_success_count": 8,
+      "executor_rate": 1.0,
+      "argument_mismatch_count": 0,
+      "executable_paraphrase_count": 0,
+      "wrong_tool_count": 0,
+      "no_tool_call_count": 0
+    },
+    {
+      "profile_label": "code_label_exact_guard_v15",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_code_label_exact_guard",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h1x_v11_breaker_code_label_exact_guard_execute_v1",
+      "case_count": 8,
+      "exact_success_count": 6,
+      "exact_rate": 0.75,
+      "executor_success_count": 7,
+      "executor_rate": 0.875,
+      "argument_mismatch_count": 0,
+      "executable_paraphrase_count": 1,
+      "wrong_tool_count": 1,
+      "no_tool_call_count": 0
+    }
+  ],
+  "h1x_v11_breaker_family_summary": [
+    {
+      "profile_label": "no_directive",
+      "family": "h1x_oblique_activation_no_call",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_success_count": 2,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "no_directive",
+      "family": "h1x_oblique_nonstandard_class",
+      "case_count": 2,
+      "exact_success_count": 0,
+      "exact_rate": 0.0,
+      "executor_success_count": 0,
+      "executor_rate": 0.0
+    },
+    {
+      "profile_label": "no_directive",
+      "family": "h1x_oblique_stale_field",
+      "case_count": 2,
+      "exact_success_count": 0,
+      "exact_rate": 0.0,
+      "executor_success_count": 0,
+      "executor_rate": 0.0
+    },
+    {
+      "profile_label": "no_directive",
+      "family": "h1x_oblique_surface_value",
+      "case_count": 2,
+      "exact_success_count": 0,
+      "exact_rate": 0.0,
+      "executor_success_count": 0,
+      "executor_rate": 0.0
+    },
+    {
+      "profile_label": "component_label_guard_v11",
+      "family": "h1x_oblique_activation_no_call",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_success_count": 2,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "component_label_guard_v11",
+      "family": "h1x_oblique_nonstandard_class",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_success_count": 2,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "component_label_guard_v11",
+      "family": "h1x_oblique_stale_field",
+      "case_count": 2,
+      "exact_success_count": 1,
+      "exact_rate": 0.5,
+      "executor_success_count": 1,
+      "executor_rate": 0.5
+    },
+    {
+      "profile_label": "component_label_guard_v11",
+      "family": "h1x_oblique_surface_value",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_success_count": 2,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "component_residual_guard_v12",
+      "family": "h1x_oblique_activation_no_call",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_success_count": 2,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "component_residual_guard_v12",
+      "family": "h1x_oblique_nonstandard_class",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_success_count": 2,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "component_residual_guard_v12",
+      "family": "h1x_oblique_stale_field",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_success_count": 2,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "component_residual_guard_v12",
+      "family": "h1x_oblique_surface_value",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_success_count": 2,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "code_label_exact_guard_v15",
+      "family": "h1x_oblique_activation_no_call",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_success_count": 2,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "code_label_exact_guard_v15",
+      "family": "h1x_oblique_nonstandard_class",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_success_count": 2,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "code_label_exact_guard_v15",
+      "family": "h1x_oblique_stale_field",
+      "case_count": 2,
+      "exact_success_count": 1,
+      "exact_rate": 0.5,
+      "executor_success_count": 1,
+      "executor_rate": 0.5
+    },
+    {
+      "profile_label": "code_label_exact_guard_v15",
+      "family": "h1x_oblique_surface_value",
+      "case_count": 2,
+      "exact_success_count": 1,
+      "exact_rate": 0.5,
+      "executor_success_count": 2,
+      "executor_rate": 1.0
+    }
+  ],
+  "h1x_v11_breaker_comparison_summary": [
+    {
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h1x_component_label_guard_vs_no_directive_v1",
+      "baseline_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_label_guard",
+      "shared_case_count": 8,
+      "baseline_exact_rate": 0.25,
+      "candidate_exact_rate": 0.875,
+      "delta_exact_rate": 0.625,
+      "baseline_executor_equivalence_rate": 0.25,
+      "candidate_executor_equivalence_rate": 0.875,
+      "delta_executor_equivalence_rate": 0.625
+    },
+    {
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h1x_component_residual_guard_vs_no_directive_v1",
+      "baseline_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard",
+      "shared_case_count": 8,
+      "baseline_exact_rate": 0.25,
+      "candidate_exact_rate": 1.0,
+      "delta_exact_rate": 0.75,
+      "baseline_executor_equivalence_rate": 0.25,
+      "candidate_executor_equivalence_rate": 1.0,
+      "delta_executor_equivalence_rate": 0.75
+    },
+    {
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h1x_code_label_exact_guard_vs_no_directive_v1",
+      "baseline_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_code_label_exact_guard",
+      "shared_case_count": 8,
+      "baseline_exact_rate": 0.25,
+      "candidate_exact_rate": 0.75,
+      "delta_exact_rate": 0.5,
+      "baseline_executor_equivalence_rate": 0.25,
+      "candidate_executor_equivalence_rate": 0.875,
+      "delta_executor_equivalence_rate": 0.625
+    },
+    {
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h1x_component_residual_guard_vs_component_label_guard_v1",
+      "baseline_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_label_guard",
+      "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard",
+      "shared_case_count": 8,
+      "baseline_exact_rate": 0.875,
+      "candidate_exact_rate": 1.0,
+      "delta_exact_rate": 0.125,
+      "baseline_executor_equivalence_rate": 0.875,
+      "candidate_executor_equivalence_rate": 1.0,
+      "delta_executor_equivalence_rate": 0.125
+    },
+    {
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h1x_code_label_exact_guard_vs_component_label_guard_v1",
+      "baseline_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_label_guard",
+      "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_code_label_exact_guard",
+      "shared_case_count": 8,
+      "baseline_exact_rate": 0.875,
+      "candidate_exact_rate": 0.75,
+      "delta_exact_rate": -0.125,
+      "baseline_executor_equivalence_rate": 0.875,
+      "candidate_executor_equivalence_rate": 0.875,
+      "delta_executor_equivalence_rate": 0.0
+    },
+    {
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h1x_code_label_exact_guard_vs_component_residual_guard_v1",
+      "baseline_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard",
+      "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_code_label_exact_guard",
+      "shared_case_count": 8,
+      "baseline_exact_rate": 1.0,
+      "candidate_exact_rate": 0.75,
+      "delta_exact_rate": -0.25,
+      "baseline_executor_equivalence_rate": 1.0,
+      "candidate_executor_equivalence_rate": 0.875,
+      "delta_executor_equivalence_rate": -0.125
+    }
+  ],
+  "h1x_v11_breaker_non_exact_rows": [
+    {
+      "profile_label": "no_directive",
+      "case_id": "h1x_responsible_party_field_old_owner_memo_decoy",
+      "family": "h1x_oblique_stale_field",
+      "failure_mode": "no_tool_call",
+      "executor_equivalence_match": false,
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1x_v11_breaker_no_directive_execute_v1/runs/h1x_responsible_party_field_old_owner_memo_decoy"
+    },
+    {
+      "profile_label": "no_directive",
+      "case_id": "h1x_workstream_owner_field_previous_summary_decoy",
+      "family": "h1x_oblique_stale_field",
+      "failure_mode": "no_tool_call",
+      "executor_equivalence_match": false,
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1x_v11_breaker_no_directive_execute_v1/runs/h1x_workstream_owner_field_previous_summary_decoy"
+    },
+    {
+      "profile_label": "no_directive",
+      "case_id": "h1x_resolution_chip_comment_result_decoy",
+      "family": "h1x_oblique_surface_value",
+      "failure_mode": "argument_mismatch",
+      "executor_equivalence_match": false,
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1x_v11_breaker_no_directive_execute_v1/runs/h1x_resolution_chip_comment_result_decoy"
+    },
+    {
+      "profile_label": "no_directive",
+      "case_id": "h1x_progress_marker_summary_status_decoy",
+      "family": "h1x_oblique_surface_value",
+      "failure_mode": "argument_mismatch",
+      "executor_equivalence_match": false,
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1x_v11_breaker_no_directive_execute_v1/runs/h1x_progress_marker_summary_status_decoy"
+    },
+    {
+      "profile_label": "no_directive",
+      "case_id": "h1x_lifecycle_marker_log_state_tag_decoy",
+      "family": "h1x_oblique_nonstandard_class",
+      "failure_mode": "no_tool_call",
+      "executor_equivalence_match": false,
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1x_v11_breaker_no_directive_execute_v1/runs/h1x_lifecycle_marker_log_state_tag_decoy"
+    },
+    {
+      "profile_label": "no_directive",
+      "case_id": "h1x_operation_mode_control_note_toggle_decoy",
+      "family": "h1x_oblique_nonstandard_class",
+      "failure_mode": "no_tool_call",
+      "executor_equivalence_match": false,
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1x_v11_breaker_no_directive_execute_v1/runs/h1x_operation_mode_control_note_toggle_decoy"
+    },
+    {
+      "profile_label": "component_label_guard_v11",
+      "case_id": "h1x_responsible_party_field_old_owner_memo_decoy",
+      "family": "h1x_oblique_stale_field",
+      "failure_mode": "wrong_tool",
+      "executor_equivalence_match": false,
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1x_v11_breaker_component_label_guard_execute_v1/runs/h1x_responsible_party_field_old_owner_memo_decoy"
+    },
+    {
+      "profile_label": "code_label_exact_guard_v15",
+      "case_id": "h1x_responsible_party_field_old_owner_memo_decoy",
+      "family": "h1x_oblique_stale_field",
+      "failure_mode": "wrong_tool",
+      "executor_equivalence_match": false,
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1x_v11_breaker_code_label_exact_guard_execute_v1/runs/h1x_responsible_party_field_old_owner_memo_decoy"
+    },
+    {
+      "profile_label": "code_label_exact_guard_v15",
+      "case_id": "h1x_resolution_chip_comment_result_decoy",
+      "family": "h1x_oblique_surface_value",
+      "failure_mode": "executable_paraphrase",
+      "executor_equivalence_match": true,
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1x_v11_breaker_code_label_exact_guard_execute_v1/runs/h1x_resolution_chip_comment_result_decoy"
+    }
+  ],
+  "h1x_v11_breaker_findings": [
+    {
+      "finding_id": "h1x_breaks_no_directive",
+      "finding": "No-directive reaches 2/8 exact and 2/8 executor-equivalent; it only solves the activation/no-call rows and fails the oblique stale-field, surface-value, and nonstandard-class rows."
+    },
+    {
+      "finding_id": "h1x_breaks_v11_saturation",
+      "finding": "Component-label guard v11 drops to 7/8 exact and 7/8 executor-equivalent; the miss is concentrated in oblique stale-field routing at 1/2."
+    },
+    {
+      "finding_id": "v12_local_winner",
+      "finding": "Component-residual guard v12 reaches 8/8 exact and 8/8 executor-equivalent, a +0.750 exact-rate delta over no-directive and +0.125 over v11 on H1x."
+    },
+    {
+      "finding_id": "v15_over_narrows_again",
+      "finding": "Code-label exact guard v15 reaches 6/8 exact and 7/8 executor-equivalent. It is only 1/2 strict exact on oblique surface-value rows; non-exact rows: h1x_responsible_party_field_old_owner_memo_decoy, h1x_resolution_chip_comment_result_decoy."
+    },
+    {
+      "finding_id": "next_slice",
+      "finding": "Treat H1x as evidence for a routed residual helper, not a global default replacement. The next hard slice should retest v12 against the old transfer packets and a new mixed packet with oblique stale-field plus surface-value rows in the same workflow family."
     }
   ],
   "gemini": {

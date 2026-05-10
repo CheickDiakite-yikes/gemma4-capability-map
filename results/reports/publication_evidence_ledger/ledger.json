@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-10T18:00:05.406851+00:00",
+    "generated_at": "2026-05-10T18:57:26.546350+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-    "claim_count": 36,
-    "evidence_source_count": 184,
+    "claim_count": 37,
+    "evidence_source_count": 191,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -41,7 +41,8 @@
       "C33_h1o_factorial_identifies_component_value_residue",
       "C34_h1p_component_holdout_supports_component_value_domain",
       "C35_h1q_component_label_guard_is_strongest_transfer_candidate",
-      "C36_h1s_residual_guard_is_targeted_not_global"
+      "C36_h1s_residual_guard_is_targeted_not_global",
+      "C37_h1x_breaks_v11_saturation_but_supports_routing"
     ]
   },
   "claims": [
@@ -404,6 +405,16 @@
       "limitation": "H1s is still a replay-shaped synthetic transfer gate. It supports conditional routing or prompt-factor testing, not broad claims about real GUI populations or a final global prompt contract.",
       "next_test": "Build a conditional-route or prompt-factorial slice that keeps v11 as the general component-label profile and applies v12 residual wording only to code-label and nonstandard component-class contexts.",
       "source_count": 6
+    },
+    {
+      "claim_id": "C37_h1x_breaks_v11_saturation_but_supports_routing",
+      "claim": "The H1x replay gate breaks v11 saturation on oblique stale-field pressure, but supports routed residual help rather than a global v12 prompt replacement.",
+      "status": "supported_current_packets",
+      "evidence_strength": "strong_internal",
+      "primary_metric": "On H1x, no-directive reaches 2/8 exact and executor-equivalent, v11 reaches 7/8, v12 reaches 8/8, and v15 reaches 6/8 exact with 7/8 executor-equivalent.",
+      "limitation": "H1x is a focused replay-shaped synthetic packet and should be interpreted together with H1s, which already shows v12's broader negative transfer when promoted globally.",
+      "next_test": "Build H1y as a routed residual-helper test that keeps v11 as the default and activates v12-style residual wording only on oblique stale-field and nonstandard-class contexts.",
+      "source_count": 7
     }
   ],
   "evidence_sources": [
@@ -1693,6 +1704,55 @@
       "artifact_type": "report_table",
       "path": "results/reports/mlx_tool_contract_harnessing/tables/h1s_component_residual_transfer_aggregate.csv",
       "purpose": "Paper-facing aggregate table comparing v12 against v11 and no-directive across H1n/H1o/H1p.",
+      "exists": true
+    },
+    {
+      "claim_id": "C37_h1x_breaks_v11_saturation_but_supports_routing",
+      "artifact_type": "replay_synthesis",
+      "path": "results/reports/h1x_v11_breaker_synthesis/report.md",
+      "purpose": "H1x synthesis comparing no-directive, v11, v12, and v15 on the oblique v11-breaker packet.",
+      "exists": true
+    },
+    {
+      "claim_id": "C37_h1x_breaks_v11_saturation_but_supports_routing",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260510T_h1x_v11_breaker_no_directive_execute_v1",
+      "purpose": "No-directive H1x baseline showing only activation/no-call rows solve without catalog help.",
+      "exists": true
+    },
+    {
+      "claim_id": "C37_h1x_breaks_v11_saturation_but_supports_routing",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260510T_h1x_v11_breaker_component_label_guard_execute_v1",
+      "purpose": "V11 H1x replay showing the remaining oblique stale-field wrong-tool miss.",
+      "exists": true
+    },
+    {
+      "claim_id": "C37_h1x_breaks_v11_saturation_but_supports_routing",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260510T_h1x_v11_breaker_component_residual_guard_execute_v1",
+      "purpose": "V12 H1x replay saturating the local packet.",
+      "exists": true
+    },
+    {
+      "claim_id": "C37_h1x_breaks_v11_saturation_but_supports_routing",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260510T_h1x_v11_breaker_code_label_exact_guard_execute_v1",
+      "purpose": "V15 H1x replay showing lower strict exactness and partial executor-equivalent rescue.",
+      "exists": true
+    },
+    {
+      "claim_id": "C37_h1x_breaks_v11_saturation_but_supports_routing",
+      "artifact_type": "report_table",
+      "path": "results/reports/mlx_tool_contract_harnessing/tables/h1x_v11_breaker_packet_summary.csv",
+      "purpose": "Paper-facing H1x packet table in the generated MLX report.",
+      "exists": true
+    },
+    {
+      "claim_id": "C37_h1x_breaks_v11_saturation_but_supports_routing",
+      "artifact_type": "report_figure",
+      "path": "results/reports/mlx_tool_contract_harnessing/figures/h1x_v11_breaker_gate.svg",
+      "purpose": "Paper-facing H1x replay gate figure in the generated MLX report.",
       "exists": true
     }
   ],

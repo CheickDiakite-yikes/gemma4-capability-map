@@ -1268,9 +1268,17 @@ H1w scaffold:
 - synthesis: [`results/reports/h1w_residual_overlap_synthesis/report.md`](../../results/reports/h1w_residual_overlap_synthesis/report.md)
 - result: no-directive is `0 / 8`, v11 is `8 / 8`, v12 is `7 / 8`, and v15 is `6 / 8`
 - interpretation: H1w is a strong controller-dependence probe but not a v11 breaker; the next hard slice must combine oblique labels, stale selections, and repeated values in the same case to stress v11 directly
-- H1x scaffold: [`results/tool_probe_replay_packets/20260510T_h1x_v11_breaker_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260510T_h1x_v11_breaker_oracle_dry_run_v1)
+- H1x packet: [`results/tool_probe_replay_packets/20260510T_h1x_v11_breaker_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260510T_h1x_v11_breaker_oracle_dry_run_v1)
 - H1x shape: `8` oracle-valid oblique-label cases over stale fields, surface values, nonstandard classes, and activation/no-call contexts
-- next execution: live-test H1x with no-directive and v11 first; only run v12/v15 if v11 is not saturated or if the failure families need disambiguation
+- live replays:
+  - no-directive: [`results/tool_probe_replay_live/20260510T_h1x_v11_breaker_no_directive_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1x_v11_breaker_no_directive_execute_v1)
+  - v11 component-label guard: [`results/tool_probe_replay_live/20260510T_h1x_v11_breaker_component_label_guard_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1x_v11_breaker_component_label_guard_execute_v1)
+  - v12 component-residual guard: [`results/tool_probe_replay_live/20260510T_h1x_v11_breaker_component_residual_guard_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1x_v11_breaker_component_residual_guard_execute_v1)
+  - v15 code-label exact guard: [`results/tool_probe_replay_live/20260510T_h1x_v11_breaker_code_label_exact_guard_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1x_v11_breaker_code_label_exact_guard_execute_v1)
+- synthesis: [`results/reports/h1x_v11_breaker_synthesis/report.md`](../../results/reports/h1x_v11_breaker_synthesis/report.md)
+- result: no-directive `2 / 8`, v11 `7 / 8`, v12 `8 / 8`, v15 `6 / 8` exact and `7 / 8` executor-equivalent
+- interpretation: H1x is the first focused post-H1w packet that breaks v11 saturation; v12 is the local winner, but H1s still blocks global v12 promotion because of broader executor-equivalence loss
+- next execution: build H1y as a routed residual-helper test, not another global prompt replacement
 
 ## Latest H1q Component-Label Guard Transfer Finding
 

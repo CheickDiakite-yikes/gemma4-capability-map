@@ -1,0 +1,58 @@
+[
+  {
+    "case_id": "h1x_progress_marker_summary_status_decoy",
+    "family": "h1x_oblique_surface_value",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "h1x-status-pill-9732"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1x-progress-marker",
+          "target_query": "compact progress marker for the row with layout label status pill"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h1x-progress-marker",
+          "selection_kind": "regions",
+          "count": 0,
+          "executor_mode": "local",
+          "region_ids": []
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1x-progress-marker",
+          "target_query": "status pill"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1x-progress-marker",
+          "target_query": "compact progress marker for the row with layout label status pill"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h1x-progress-marker\", \"target_query\": \"compact progress marker for the row with layout label status pill\"}}",
+    "prompt_tokens": 657,
+    "completion_tokens": 46,
+    "latency_ms": 6683
+  }
+]

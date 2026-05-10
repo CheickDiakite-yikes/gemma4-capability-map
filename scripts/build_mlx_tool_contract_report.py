@@ -586,6 +586,9 @@ DEFAULT_H1Q_COMPONENT_LABEL_GUARD_TRANSFER_SYNTHESIS = (
 DEFAULT_H1S_COMPONENT_RESIDUAL_TRANSFER_SYNTHESIS = (
     ROOT / "results" / "reports" / "h1s_component_residual_transfer_synthesis"
 )
+DEFAULT_H1X_V11_BREAKER_SYNTHESIS = (
+    ROOT / "results" / "reports" / "h1x_v11_breaker_synthesis"
+)
 
 SYSTEM_LABELS = {
     "mlx_gemma4_e2b_reasoner_only": "contracted",
@@ -765,6 +768,7 @@ def build_report(
     | Path = DEFAULT_H1Q_COMPONENT_LABEL_GUARD_TRANSFER_SYNTHESIS,
     h1s_component_residual_transfer_synthesis: str
     | Path = DEFAULT_H1S_COMPONENT_RESIDUAL_TRANSFER_SYNTHESIS,
+    h1x_v11_breaker_synthesis: str | Path = DEFAULT_H1X_V11_BREAKER_SYNTHESIS,
     registry_path: str | Path = DEFAULT_REGISTRY_PATH,
 ) -> dict[str, Any]:
     target = Path(output_dir)
@@ -1605,6 +1609,14 @@ def build_report(
     h1s_comparison_rows = h1s_synthesis_payload["comparison_rows"]
     h1s_failure_rows = h1s_synthesis_payload["v12_failure_rows"]
     h1s_finding_rows = h1s_synthesis_payload["finding_rows"]
+    h1x_synthesis_payload = json.loads(
+        (Path(h1x_v11_breaker_synthesis) / "synthesis.json").read_text(encoding="utf-8")
+    )
+    h1x_packet_rows = h1x_synthesis_payload["packet_rows"]
+    h1x_family_rows = h1x_synthesis_payload["family_rows"]
+    h1x_comparison_rows = h1x_synthesis_payload["comparison_rows"]
+    h1x_non_exact_rows = h1x_synthesis_payload["non_exact_rows"]
+    h1x_finding_rows = h1x_synthesis_payload["finding_rows"]
 
     _write_csv(tables_dir / "packet_summary.csv", packet_rows)
     _write_csv(tables_dir / "h1i_system_metrics.csv", h1i_system_rows)
@@ -1809,6 +1821,26 @@ def build_report(
     _write_csv(
         tables_dir / "h1s_component_residual_findings.csv",
         h1s_finding_rows,
+    )
+    _write_csv(
+        tables_dir / "h1x_v11_breaker_packet_summary.csv",
+        h1x_packet_rows,
+    )
+    _write_csv(
+        tables_dir / "h1x_v11_breaker_family_summary.csv",
+        h1x_family_rows,
+    )
+    _write_csv(
+        tables_dir / "h1x_v11_breaker_comparison_summary.csv",
+        h1x_comparison_rows,
+    )
+    _write_csv(
+        tables_dir / "h1x_v11_breaker_non_exact_rows.csv",
+        h1x_non_exact_rows,
+    )
+    _write_csv(
+        tables_dir / "h1x_v11_breaker_findings.csv",
+        h1x_finding_rows,
     )
 
     _write_grouped_metric_svg(
@@ -2254,6 +2286,16 @@ def build_report(
             ("executor_rate", "executor eq", "#059669"),
         ],
     )
+    _write_grouped_metric_svg(
+        figures_dir / "h1x_v11_breaker_gate.svg",
+        title="H1x v11-breaker replay gate",
+        rows=h1x_packet_rows,
+        label_field="profile_label",
+        metrics=[
+            ("exact_rate", "exact", "#DC2626"),
+            ("executor_rate", "executor eq", "#059669"),
+        ],
+    )
 
     manifest = {
         "generated_at": datetime.now(UTC).isoformat(),
@@ -2503,9 +2545,12 @@ def build_report(
         "h1s_component_residual_transfer_synthesis": str(
             Path(h1s_component_residual_transfer_synthesis).resolve()
         ),
+        "h1x_v11_breaker_synthesis": str(
+            Path(h1x_v11_breaker_synthesis).resolve()
+        ),
         "registry_path": str(Path(registry_path).resolve()),
-        "table_count": 87,
-        "figure_count": 40,
+        "table_count": 92,
+        "figure_count": 41,
     }
     report_payload = {
         "manifest": manifest,
@@ -2646,6 +2691,12 @@ def build_report(
         "h1s_component_residual_comparison_summary": h1s_comparison_rows,
         "h1s_component_residual_v12_failures": h1s_failure_rows,
         "h1s_component_residual_findings": h1s_finding_rows,
+        "h1x_v11_breaker_synthesis": h1x_synthesis_payload,
+        "h1x_v11_breaker_packet_summary": h1x_packet_rows,
+        "h1x_v11_breaker_family_summary": h1x_family_rows,
+        "h1x_v11_breaker_comparison_summary": h1x_comparison_rows,
+        "h1x_v11_breaker_non_exact_rows": h1x_non_exact_rows,
+        "h1x_v11_breaker_findings": h1x_finding_rows,
         "gemini": gemini_manifest,
     }
     (target / "manifest.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
@@ -2881,6 +2932,7 @@ def parse_args() -> argparse.Namespace:
         "--visual-hard-slice-alias-transfer-oracle-schema-literal-targets-live-comparison",
         default=str(DEFAULT_VISUAL_HARD_SLICE_ALIAS_TRANSFER_ORACLE_SCHEMA_LITERAL_TARGETS_LIVE_COMPARISON),
     )
+    parser.add_argument("--h1x-v11-breaker-synthesis", default=str(DEFAULT_H1X_V11_BREAKER_SYNTHESIS))
     parser.add_argument("--registry", default=str(DEFAULT_REGISTRY_PATH))
     return parser.parse_args()
 
@@ -2966,6 +3018,7 @@ def main() -> None:
         visual_hard_slice_alias_transfer_oracle_argument_hints_live_comparison=args.visual_hard_slice_alias_transfer_oracle_argument_hints_live_comparison,
         visual_hard_slice_alias_transfer_oracle_schema_field_hints_live_comparison=args.visual_hard_slice_alias_transfer_oracle_schema_field_hints_live_comparison,
         visual_hard_slice_alias_transfer_oracle_schema_literal_targets_live_comparison=args.visual_hard_slice_alias_transfer_oracle_schema_literal_targets_live_comparison,
+        h1x_v11_breaker_synthesis=args.h1x_v11_breaker_synthesis,
         registry_path=args.registry,
     )
     print(
@@ -3405,6 +3458,11 @@ def _markdown_report(payload: dict[str, Any]) -> str:
     h1s_comparison_rows = payload["h1s_component_residual_comparison_summary"]
     h1s_failure_rows = payload["h1s_component_residual_v12_failures"]
     h1s_finding_rows = payload["h1s_component_residual_findings"]
+    h1x_packet_rows = payload["h1x_v11_breaker_packet_summary"]
+    h1x_family_rows = payload["h1x_v11_breaker_family_summary"]
+    h1x_comparison_rows = payload["h1x_v11_breaker_comparison_summary"]
+    h1x_non_exact_rows = payload["h1x_v11_breaker_non_exact_rows"]
+    h1x_finding_rows = payload["h1x_v11_breaker_findings"]
     gemini = payload["gemini"]
     lines = [
         "# MLX Tool-Contract Harnessing Report",
@@ -3508,6 +3566,8 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "![H1q component-label guard transfer gate](figures/h1q_component_label_guard_transfer_gate.svg)",
         "",
         "![H1s component-residual transfer gate](figures/h1s_component_residual_transfer_gate.svg)",
+        "",
+        "![H1x v11-breaker replay gate](figures/h1x_v11_breaker_gate.svg)",
         "",
         "## Packet Summary",
         "",
@@ -3720,6 +3780,20 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         _markdown_table(h1s_finding_rows),
         "",
         "H1s is the transfer gate for the H1r v12 residual patch. It confirms a useful local repair but rejects global promotion. V12 saturates H1r and improves H1p, and it raises strict exactness over v11 on the H1n/H1o/H1p aggregate from `26 / 32` to `27 / 32`. The cost is executor robustness: v12 falls from v11's `29 / 32` executor-equivalent successes to `27 / 32`, with the clearest negative transfer on H1n. The publication-safe conclusion is that v12 should become a targeted residual route or prompt-factor candidate, while v11 remains the more robust general component-label profile.",
+        "",
+        "## H1x V11-Breaker Replay Gate",
+        "",
+        _markdown_table(h1x_packet_rows),
+        "",
+        _markdown_table(h1x_family_rows),
+        "",
+        _markdown_table(h1x_comparison_rows),
+        "",
+        _markdown_table(h1x_non_exact_rows),
+        "",
+        _markdown_table(h1x_finding_rows),
+        "",
+        "H1x is the first focused replay packet after H1w that actually breaks v11 saturation. No-directive is `2 / 8` exact and executor-equivalent, v11 drops to `7 / 8`, v12 reaches `8 / 8`, and v15 reaches `6 / 8` exact with `7 / 8` executor-equivalent. The local winner is therefore the component-residual wording, but the earlier H1s transfer gate still blocks global promotion. The publishable conclusion is routed residual help: oblique stale-field language needs more than v11, while code-label exactness alone is too narrow.",
         "",
         "## Visual Hard-Slice Case Deltas vs No Directive",
         "",

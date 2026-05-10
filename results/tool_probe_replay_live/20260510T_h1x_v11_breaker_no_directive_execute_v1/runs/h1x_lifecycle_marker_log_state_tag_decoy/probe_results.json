@@ -1,0 +1,31 @@
+[
+  {
+    "case_id": "h1x_lifecycle_marker_log_state_tag_decoy",
+    "family": "h1x_oblique_nonstandard_class",
+    "expected_call_count": 1,
+    "actual_call_count": 0,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "h1x-state-tag-9742"
+      ]
+    },
+    "actual_execution": [],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1x-lifecycle-marker",
+          "target_query": "state tag"
+        }
+      }
+    ],
+    "actual_calls": [],
+    "raw_model_output": "",
+    "prompt_tokens": 658,
+    "completion_tokens": 1,
+    "latency_ms": 5513
+  }
+]

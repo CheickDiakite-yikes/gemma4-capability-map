@@ -4,9 +4,9 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 
 ## Manifest
 
-- generated_at: `2026-05-10T18:00:05.406851+00:00`
-- claim_count: `36`
-- evidence_source_count: `184`
+- generated_at: `2026-05-10T18:57:26.546350+00:00`
+- claim_count: `37`
+- evidence_source_count: `191`
 - missing_source_count: `0`
 
 ## Claims
@@ -49,6 +49,7 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C34_h1p_component_holdout_supports_component_value_domain | supported_current_packets | strong_internal | On the 12-case H1p component-only holdout, component-value guard v9 reaches 10/12 exact and 11/12 executor-equivalent, versus no-directive at 0/12, argument hints v2 at 6/12, no-call rescue v10 at 6/12, and hybrid label guard v8 at 9/12 exact and 10/12 executor-equivalent. | H1p is a replay-shaped synthetic component holdout. Because v9 was negative on the earlier H1n component-value slice and only tied argument hints on H1o, this supports domain specificity rather than global promotion. | Split component-value guidance into narrower component-only wording, then transfer-test it against H1n and H1o to separate durable component disambiguation from over-broad selector prose. |
 | C35_h1q_component_label_guard_is_strongest_transfer_candidate | supported_current_packets | strong_internal | Across 32 live replay cases, component-label guard v11 reaches 26/32 exact and 29/32 executor-equivalent successes, versus component-value guard v9 at 23/32 exact and 25/32 executor-equivalent. | The synthesis spans three replay-shaped MLX packets, not a broad population estimate. v11 is also not a global default because it trails v9 by one executor-equivalent case on H1p and retains owner-field, state-tag, and mode-toggle residual failures. | Build H1r around the remaining v11 miss families, especially owner-field stale selection, compact state tags, mode toggles, and exact paraphrases in H1o code/negation rows. |
 | C36_h1s_residual_guard_is_targeted_not_global | supported_current_packets | strong_internal | Across H1n/H1o/H1p, v12 improves strict exactness from v11's 26/32 to 27/32, but lowers executor-equivalence from v11's 29/32 to 27/32; H1n is the clearest negative transfer at -0.125 exact-rate and -0.250 executor-equivalence rate versus v11. | H1s is still a replay-shaped synthetic transfer gate. It supports conditional routing or prompt-factor testing, not broad claims about real GUI populations or a final global prompt contract. | Build a conditional-route or prompt-factorial slice that keeps v11 as the general component-label profile and applies v12 residual wording only to code-label and nonstandard component-class contexts. |
+| C37_h1x_breaks_v11_saturation_but_supports_routing | supported_current_packets | strong_internal | On H1x, no-directive reaches 2/8 exact and executor-equivalent, v11 reaches 7/8, v12 reaches 8/8, and v15 reaches 6/8 exact with 7/8 executor-equivalent. | H1x is a focused replay-shaped synthetic packet and should be interpreted together with H1s, which already shows v12's broader negative transfer when promoted globally. | Build H1y as a routed residual-helper test that keeps v11 as the default and activates v12-style residual wording only on oblique stale-field and nonstandard-class contexts. |
 
 ## Evidence Sources
 
@@ -238,3 +239,10 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C36_h1s_residual_guard_is_targeted_not_global | live_replay_packet | True | results/tool_probe_replay_live/20260510T_h1s_component_residual_guard_on_h1p_component_value_execute_v1 | H1p v12 execution improving over v11 at 11/12 exact and executor-equivalent. |
 | C36_h1s_residual_guard_is_targeted_not_global | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260510T_h1s_component_residual_guard_h1n_vs_component_label_guard_v1 | Pairwise H1n comparison showing the strongest negative transfer versus v11. |
 | C36_h1s_residual_guard_is_targeted_not_global | report_table | True | results/reports/mlx_tool_contract_harnessing/tables/h1s_component_residual_transfer_aggregate.csv | Paper-facing aggregate table comparing v12 against v11 and no-directive across H1n/H1o/H1p. |
+| C37_h1x_breaks_v11_saturation_but_supports_routing | replay_synthesis | True | results/reports/h1x_v11_breaker_synthesis/report.md | H1x synthesis comparing no-directive, v11, v12, and v15 on the oblique v11-breaker packet. |
+| C37_h1x_breaks_v11_saturation_but_supports_routing | live_replay_packet | True | results/tool_probe_replay_live/20260510T_h1x_v11_breaker_no_directive_execute_v1 | No-directive H1x baseline showing only activation/no-call rows solve without catalog help. |
+| C37_h1x_breaks_v11_saturation_but_supports_routing | live_replay_packet | True | results/tool_probe_replay_live/20260510T_h1x_v11_breaker_component_label_guard_execute_v1 | V11 H1x replay showing the remaining oblique stale-field wrong-tool miss. |
+| C37_h1x_breaks_v11_saturation_but_supports_routing | live_replay_packet | True | results/tool_probe_replay_live/20260510T_h1x_v11_breaker_component_residual_guard_execute_v1 | V12 H1x replay saturating the local packet. |
+| C37_h1x_breaks_v11_saturation_but_supports_routing | live_replay_packet | True | results/tool_probe_replay_live/20260510T_h1x_v11_breaker_code_label_exact_guard_execute_v1 | V15 H1x replay showing lower strict exactness and partial executor-equivalent rescue. |
+| C37_h1x_breaks_v11_saturation_but_supports_routing | report_table | True | results/reports/mlx_tool_contract_harnessing/tables/h1x_v11_breaker_packet_summary.csv | Paper-facing H1x packet table in the generated MLX report. |
+| C37_h1x_breaks_v11_saturation_but_supports_routing | report_figure | True | results/reports/mlx_tool_contract_harnessing/figures/h1x_v11_breaker_gate.svg | Paper-facing H1x replay gate figure in the generated MLX report. |

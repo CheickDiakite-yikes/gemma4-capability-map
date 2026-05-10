@@ -1,0 +1,98 @@
+[
+  {
+    "case_id": "h1x_responsible_party_field_old_owner_memo_decoy",
+    "family": "h1x_oblique_stale_field",
+    "source_failure_mode": "wrong_tool_or_stale_selection_risk",
+    "replay_failure_mode": "wrong_tool",
+    "replay_exact_match": false,
+    "replay_executable_match": false,
+    "replay_executor_equivalence_match": false,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1x_v11_breaker_component_label_guard_execute_v1/runs/h1x_responsible_party_field_old_owner_memo_decoy"
+  },
+  {
+    "case_id": "h1x_workstream_owner_field_previous_summary_decoy",
+    "family": "h1x_oblique_stale_field",
+    "source_failure_mode": "wrong_tool_or_stale_selection_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1x_v11_breaker_component_label_guard_execute_v1/runs/h1x_workstream_owner_field_previous_summary_decoy"
+  },
+  {
+    "case_id": "h1x_resolution_chip_comment_result_decoy",
+    "family": "h1x_oblique_surface_value",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1x_v11_breaker_component_label_guard_execute_v1/runs/h1x_resolution_chip_comment_result_decoy"
+  },
+  {
+    "case_id": "h1x_progress_marker_summary_status_decoy",
+    "family": "h1x_oblique_surface_value",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1x_v11_breaker_component_label_guard_execute_v1/runs/h1x_progress_marker_summary_status_decoy"
+  },
+  {
+    "case_id": "h1x_lifecycle_marker_log_state_tag_decoy",
+    "family": "h1x_oblique_nonstandard_class",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1x_v11_breaker_component_label_guard_execute_v1/runs/h1x_lifecycle_marker_log_state_tag_decoy"
+  },
+  {
+    "case_id": "h1x_operation_mode_control_note_toggle_decoy",
+    "family": "h1x_oblique_nonstandard_class",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1x_v11_breaker_component_label_guard_execute_v1/runs/h1x_operation_mode_control_note_toggle_decoy"
+  },
+  {
+    "case_id": "h1x_warning_panel_note_activation_decoy",
+    "family": "h1x_oblique_activation_no_call",
+    "source_failure_mode": "wrong_tool_or_stale_selection_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1x_v11_breaker_component_label_guard_execute_v1/runs/h1x_warning_panel_note_activation_decoy"
+  },
+  {
+    "case_id": "h1x_error_notice_history_activation_decoy",
+    "family": "h1x_oblique_activation_no_call",
+    "source_failure_mode": "wrong_tool_or_stale_selection_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1x_v11_breaker_component_label_guard_execute_v1/runs/h1x_error_notice_history_activation_decoy"
+  }
+]

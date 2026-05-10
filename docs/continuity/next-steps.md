@@ -205,7 +205,11 @@ Next implementation moves:
   - synthesis: [`results/reports/h1w_residual_overlap_synthesis/report.md`](../../results/reports/h1w_residual_overlap_synthesis/report.md)
   - next execution step: design H1x as a v11 breaker, combining oblique component labels, stale/old selection text, and repeated values within the same rows
   - completed scaffold: H1x adds [`results/tool_probe_replay_packets/20260510T_h1x_v11_breaker_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260510T_h1x_v11_breaker_oracle_dry_run_v1), an `8`-case oblique-label packet designed to stress v11 directly
-  - next execution step: live-test H1x no-directive and v11 first, then decide whether v12/v15 are informative follow-up baselines
+  - live result: no-directive `2 / 8`, v11 `7 / 8`, v12 `8 / 8`, v15 `6 / 8` exact and `7 / 8` executor-equivalent
+  - synthesis: [`results/reports/h1x_v11_breaker_synthesis/report.md`](../../results/reports/h1x_v11_breaker_synthesis/report.md)
+  - main report figure: [`results/reports/mlx_tool_contract_harnessing/figures/h1x_v11_breaker_gate.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/h1x_v11_breaker_gate.svg)
+  - decision: H1x finally breaks v11 saturation and makes v12 the local winner, but H1s still blocks global v12 promotion
+  - next execution step: build H1y as a routed residual-helper test that preserves v11 by default and activates v12-style residual wording only on oblique stale-field/nonstandard-class contexts
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1

@@ -1,0 +1,51 @@
+[
+  {
+    "case_id": "h1x_responsible_party_field_old_owner_memo_decoy",
+    "family": "h1x_oblique_stale_field",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "h1x-owner-field-9702"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "refine_selection",
+        "arguments": {
+          "selection_id": "sel-owner-memo",
+          "filter_query": "owner field"
+        },
+        "validator_result": "fail",
+        "output": {},
+        "error": "'Selection not found: sel-owner-memo'"
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1x-owner-field",
+          "target_query": "owner field"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "refine_selection",
+        "arguments": {
+          "selection_id": "sel-owner-memo",
+          "filter_query": "owner field"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"refine_selection\", \"arguments\": {\"selection_id\": \"sel-owner-memo\", \"filter_query\": \"owner field\"}}",
+    "prompt_tokens": 1523,
+    "completion_tokens": 34,
+    "latency_ms": 14609
+  }
+]

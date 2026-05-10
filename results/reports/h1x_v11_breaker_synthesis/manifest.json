@@ -1,0 +1,16 @@
+{
+  "generated_at": "2026-05-10T18:50:42.692248+00:00",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h1x_v11_breaker_synthesis",
+  "profile_count": 4,
+  "case_count": 8,
+  "no_directive_exact_success_count": 2,
+  "v11_exact_success_count": 7,
+  "v11_executor_success_count": 7,
+  "v12_exact_success_count": 8,
+  "v12_executor_success_count": 8,
+  "v15_exact_success_count": 6,
+  "v15_executor_success_count": 7,
+  "comparison_count": 6,
+  "finding_count": 5,
+  "promotion_decision": "component_residual_guard_is_h1x_local_winner_keep_transfer_gate"
+}

@@ -9,10 +9,10 @@
 | --- | --- | ---: | --- | --- |
 | ledger_manifest_exists | blocking | True | Publication evidence ledger manifest exists. | results/reports/publication_evidence_ledger/manifest.json |
 | ledger_has_no_missing_sources | blocking | True | missing_source_count=0 |  |
-| ledger_has_claims | blocking | True | claim_count=36 |  |
+| ledger_has_claims | blocking | True | claim_count=37 |  |
 | ledger_includes_negative_results | blocking | True | At least one claim is explicitly labeled as negative-result evidence. |  |
-| tool_contract_report_has_current_tables | blocking | True | table_count=87 |  |
-| tool_contract_report_has_current_figures | blocking | True | figure_count=40 |  |
+| tool_contract_report_has_current_tables | blocking | True | table_count=92 |  |
+| tool_contract_report_has_current_figures | blocking | True | figure_count=41 |  |
 | v3_negative_probe_packet_exists | blocking | True | Negative v3 catalog-profile probe is preserved. | results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_split_selector_hints_v3_probe |
 | v3_skipped_live_decision_exists | blocking | True | Skipped-live decision is preserved as an auditable packet. | results/tool_probe_replay_live/20260508T_visual_split_selector_hints_live_replay_skipped_v1/decision.md |
 | v4_negative_probe_packet_exists | blocking | True | Negative v4 schema-field probe is preserved. | results/tool_catalog_profile_probe_packets/20260509T_visual_role_catalog_schema_field_hints_v4_probe |
@@ -113,6 +113,13 @@
 | h1s_component_residual_h1p_live_exists | blocking | True | H1s component-residual guard H1p transfer live replay exists. | results/tool_probe_replay_live/20260510T_h1s_component_residual_guard_on_h1p_component_value_execute_v1/summary.json |
 | h1s_component_residual_synthesis_exists | blocking | True | H1s transfer-gate synthesis report exists. | results/reports/h1s_component_residual_transfer_synthesis/report.md |
 | h1s_component_residual_report_table_exists | blocking | True | Paper-facing H1s aggregate table exists in the main report. | results/reports/mlx_tool_contract_harnessing/tables/h1s_component_residual_transfer_aggregate.csv |
+| h1x_v11_breaker_no_directive_live_exists | blocking | True | H1x no-directive live replay exists. | results/tool_probe_replay_live/20260510T_h1x_v11_breaker_no_directive_execute_v1/summary.json |
+| h1x_v11_breaker_v11_live_exists | blocking | True | H1x v11 component-label guard live replay exists. | results/tool_probe_replay_live/20260510T_h1x_v11_breaker_component_label_guard_execute_v1/summary.json |
+| h1x_v11_breaker_v12_live_exists | blocking | True | H1x v12 component-residual guard live replay exists. | results/tool_probe_replay_live/20260510T_h1x_v11_breaker_component_residual_guard_execute_v1/summary.json |
+| h1x_v11_breaker_v15_live_exists | blocking | True | H1x v15 code-label exact guard live replay exists. | results/tool_probe_replay_live/20260510T_h1x_v11_breaker_code_label_exact_guard_execute_v1/summary.json |
+| h1x_v11_breaker_synthesis_exists | blocking | True | H1x v11-breaker synthesis report exists. | results/reports/h1x_v11_breaker_synthesis/report.md |
+| h1x_v11_breaker_report_table_exists | blocking | True | Paper-facing H1x packet table exists in the main report. | results/reports/mlx_tool_contract_harnessing/tables/h1x_v11_breaker_packet_summary.csv |
+| h1x_v11_breaker_report_figure_exists | recommended | True | Paper-facing H1x replay gate figure exists in the main report. | results/reports/mlx_tool_contract_harnessing/figures/h1x_v11_breaker_gate.svg |
 | current_state_doc_exists | blocking | True | Continuity current-state doc exists. | docs/continuity/current-state.md |
 | next_steps_doc_exists | blocking | True | Continuity next-steps doc exists. | docs/continuity/next-steps.md |
 | research_log_exists | blocking | True | Research log exists. | docs/research-log.md |

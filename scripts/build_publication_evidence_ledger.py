@@ -1657,6 +1657,64 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C37_h1x_breaks_v11_saturation_but_supports_routing",
+        claim=(
+            "The H1x replay gate breaks v11 saturation on oblique stale-field pressure, but supports routed "
+            "residual help rather than a global v12 prompt replacement."
+        ),
+        status="supported_current_packets",
+        evidence_strength="strong_internal",
+        primary_metric=(
+            "On H1x, no-directive reaches 2/8 exact and executor-equivalent, v11 reaches 7/8, v12 reaches "
+            "8/8, and v15 reaches 6/8 exact with 7/8 executor-equivalent."
+        ),
+        limitation=(
+            "H1x is a focused replay-shaped synthetic packet and should be interpreted together with H1s, which "
+            "already shows v12's broader negative transfer when promoted globally."
+        ),
+        next_test=(
+            "Build H1y as a routed residual-helper test that keeps v11 as the default and activates v12-style "
+            "residual wording only on oblique stale-field and nonstandard-class contexts."
+        ),
+        sources=(
+            EvidenceSource(
+                "replay_synthesis",
+                "results/reports/h1x_v11_breaker_synthesis/report.md",
+                "H1x synthesis comparing no-directive, v11, v12, and v15 on the oblique v11-breaker packet.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h1x_v11_breaker_no_directive_execute_v1",
+                "No-directive H1x baseline showing only activation/no-call rows solve without catalog help.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h1x_v11_breaker_component_label_guard_execute_v1",
+                "V11 H1x replay showing the remaining oblique stale-field wrong-tool miss.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h1x_v11_breaker_component_residual_guard_execute_v1",
+                "V12 H1x replay saturating the local packet.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h1x_v11_breaker_code_label_exact_guard_execute_v1",
+                "V15 H1x replay showing lower strict exactness and partial executor-equivalent rescue.",
+            ),
+            EvidenceSource(
+                "report_table",
+                "results/reports/mlx_tool_contract_harnessing/tables/h1x_v11_breaker_packet_summary.csv",
+                "Paper-facing H1x packet table in the generated MLX report.",
+            ),
+            EvidenceSource(
+                "report_figure",
+                "results/reports/mlx_tool_contract_harnessing/figures/h1x_v11_breaker_gate.svg",
+                "Paper-facing H1x replay gate figure in the generated MLX report.",
+            ),
+        ),
+    ),
 )
 
 

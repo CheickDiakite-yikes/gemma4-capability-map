@@ -1,5 +1,39 @@
 # Research Log
 
+## 2026-05-10 - H1x V11-Breaker Live Gate
+
+- Executed the H1x packet after the scaffolded v11-breaker design:
+  - packet: [`results/tool_probe_replay_packets/20260510T_h1x_v11_breaker_oracle_dry_run_v1`](../results/tool_probe_replay_packets/20260510T_h1x_v11_breaker_oracle_dry_run_v1)
+  - synthesis: [`results/reports/h1x_v11_breaker_synthesis/report.md`](../results/reports/h1x_v11_breaker_synthesis/report.md)
+  - main MLX report table: [`results/reports/mlx_tool_contract_harnessing/tables/h1x_v11_breaker_packet_summary.csv`](../results/reports/mlx_tool_contract_harnessing/tables/h1x_v11_breaker_packet_summary.csv)
+  - main MLX report figure: [`results/reports/mlx_tool_contract_harnessing/figures/h1x_v11_breaker_gate.svg`](../results/reports/mlx_tool_contract_harnessing/figures/h1x_v11_breaker_gate.svg)
+- Live result:
+  - no-directive: `2 / 8` exact and executor-equivalent
+  - v11 component-label guard: `7 / 8` exact and executor-equivalent
+  - v12 component-residual guard: `8 / 8` exact and executor-equivalent
+  - v15 code-label exact guard: `6 / 8` exact and `7 / 8` executor-equivalent
+- Mechanism read:
+  - H1x is the first focused post-H1w replay packet that breaks v11 saturation.
+  - The v11 miss is concentrated in oblique stale-field routing: `h1x_responsible_party_field_old_owner_memo_decoy` becomes a wrong-tool call.
+  - V12 repairs that stale-field miss and saturates the local packet, so residual wording is still a real local intervention.
+  - V15 over-narrows again: it preserves one executor-equivalent surface-value paraphrase, but strict exactness falls below v11 and v12.
+- Research decision:
+  - do not globally promote v12 from H1x alone, because H1s already showed v12's broader transfer cost
+  - keep v11 as the transfer-stable default
+  - treat v12 as the routed residual-helper candidate for a future conditional or classifier-gated harness
+  - next slice should test whether the H1x v12 win transfers to a mixed H1y packet without reintroducing H1s negative transfer
+- Reporting updates:
+  - H1x is now publication claim `C37_h1x_breaks_v11_saturation_but_supports_routing`
+  - MLX tool-contract report now has `92` tables and `41` figures
+  - publication evidence ledger now has `37` claims and `191` evidence sources with `0` missing sources
+  - publication readiness audit remains `paper_draft_ready` with `0` blocking failures
+- Verification:
+  - `uv run python scripts/build_h1x_v11_breaker_synthesis.py`
+  - `uv run python scripts/build_mlx_tool_contract_report.py`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`
+  - `uv run pytest tests/test_mlx_tool_contract_report.py tests/test_h1x_v11_breaker_synthesis.py -q`
+
 ## 2026-05-10 - H1x V11-Breaker Packet Scaffold
 
 - Added `h1x_v11_breaker_v14` to the visual hard-slice packet builder.
@@ -12,9 +46,8 @@
 - Purpose:
   - follow H1w's v11 saturation with a packet that stresses v11 more directly
   - combine old selections, repeated values, and user-facing paraphrases with canonical layout labels in one case
-- Next execution:
-  - live-test no-directive and v11 first
-  - run v12/v15 only if the v11 failure families need disambiguation
+- Status:
+  - completed by the H1x live gate above
 - Verification:
   - `uv run pytest tests/test_visual_hard_slice_live_stress_packet.py -q`
 

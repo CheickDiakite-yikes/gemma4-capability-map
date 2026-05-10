@@ -1,0 +1,2 @@
+case_id,family,expected_call_count,actual_call_count,exact_match,executable_match,executor_target_match,expected_calls,actual_calls,expected_execution,actual_execution,latency_ms,prompt_tokens,completion_tokens
+h1x_lifecycle_marker_log_state_tag_decoy,h1x_oblique_nonstandard_class,1,0,False,False,False,"[{""name"": ""extract_layout"", ""arguments"": {""image_id"": ""img-h1x-lifecycle-marker"", ""target_query"": ""state tag""}}]",[],"{""region_ids"": [""h1x-state-tag-9742""]}",[],5513,658,1

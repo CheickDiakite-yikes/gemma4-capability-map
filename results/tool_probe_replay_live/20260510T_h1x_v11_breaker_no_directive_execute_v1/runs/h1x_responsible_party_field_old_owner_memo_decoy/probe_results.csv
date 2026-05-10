@@ -1,0 +1,2 @@
+case_id,family,expected_call_count,actual_call_count,exact_match,executable_match,executor_target_match,expected_calls,actual_calls,expected_execution,actual_execution,latency_ms,prompt_tokens,completion_tokens
+h1x_responsible_party_field_old_owner_memo_decoy,h1x_oblique_stale_field,1,0,False,False,False,"[{""name"": ""extract_layout"", ""arguments"": {""image_id"": ""img-h1x-owner-field"", ""target_query"": ""owner field""}}]",[],"{""region_ids"": [""h1x-owner-field-9702""]}",[],11075,671,1

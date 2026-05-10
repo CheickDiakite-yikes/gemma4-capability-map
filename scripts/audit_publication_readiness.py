@@ -969,6 +969,74 @@ def audit_publication_readiness(
             detail="Paper-facing H1s aggregate table exists in the main report.",
         ),
         _check_path(
+            check_id="h1x_v11_breaker_no_directive_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260510T_h1x_v11_breaker_no_directive_execute_v1"
+            / "summary.json",
+            detail="H1x no-directive live replay exists.",
+        ),
+        _check_path(
+            check_id="h1x_v11_breaker_v11_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260510T_h1x_v11_breaker_component_label_guard_execute_v1"
+            / "summary.json",
+            detail="H1x v11 component-label guard live replay exists.",
+        ),
+        _check_path(
+            check_id="h1x_v11_breaker_v12_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260510T_h1x_v11_breaker_component_residual_guard_execute_v1"
+            / "summary.json",
+            detail="H1x v12 component-residual guard live replay exists.",
+        ),
+        _check_path(
+            check_id="h1x_v11_breaker_v15_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260510T_h1x_v11_breaker_code_label_exact_guard_execute_v1"
+            / "summary.json",
+            detail="H1x v15 code-label exact guard live replay exists.",
+        ),
+        _check_path(
+            check_id="h1x_v11_breaker_synthesis_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "h1x_v11_breaker_synthesis" / "report.md",
+            detail="H1x v11-breaker synthesis report exists.",
+        ),
+        _check_path(
+            check_id="h1x_v11_breaker_report_table_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "mlx_tool_contract_harnessing"
+            / "tables"
+            / "h1x_v11_breaker_packet_summary.csv",
+            detail="Paper-facing H1x packet table exists in the main report.",
+        ),
+        _check_path(
+            check_id="h1x_v11_breaker_report_figure_exists",
+            severity="recommended",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "mlx_tool_contract_harnessing"
+            / "figures"
+            / "h1x_v11_breaker_gate.svg",
+            detail="Paper-facing H1x replay gate figure exists in the main report.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",

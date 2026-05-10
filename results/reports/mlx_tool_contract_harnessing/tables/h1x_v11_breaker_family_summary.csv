@@ -1,0 +1,17 @@
+profile_label,family,case_count,exact_success_count,exact_rate,executor_success_count,executor_rate
+no_directive,h1x_oblique_activation_no_call,2,2,1.0,2,1.0
+no_directive,h1x_oblique_nonstandard_class,2,0,0.0,0,0.0
+no_directive,h1x_oblique_stale_field,2,0,0.0,0,0.0
+no_directive,h1x_oblique_surface_value,2,0,0.0,0,0.0
+component_label_guard_v11,h1x_oblique_activation_no_call,2,2,1.0,2,1.0
+component_label_guard_v11,h1x_oblique_nonstandard_class,2,2,1.0,2,1.0
+component_label_guard_v11,h1x_oblique_stale_field,2,1,0.5,1,0.5
+component_label_guard_v11,h1x_oblique_surface_value,2,2,1.0,2,1.0
+component_residual_guard_v12,h1x_oblique_activation_no_call,2,2,1.0,2,1.0
+component_residual_guard_v12,h1x_oblique_nonstandard_class,2,2,1.0,2,1.0
+component_residual_guard_v12,h1x_oblique_stale_field,2,2,1.0,2,1.0
+component_residual_guard_v12,h1x_oblique_surface_value,2,2,1.0,2,1.0
+code_label_exact_guard_v15,h1x_oblique_activation_no_call,2,2,1.0,2,1.0
+code_label_exact_guard_v15,h1x_oblique_nonstandard_class,2,2,1.0,2,1.0
+code_label_exact_guard_v15,h1x_oblique_stale_field,2,1,0.5,1,0.5
+code_label_exact_guard_v15,h1x_oblique_surface_value,2,1,0.5,2,1.0
