@@ -1963,6 +1963,107 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C42_h2d_class_preserving_route_repairs_h2c_transfer_but_costs_h2b_exactness",
+        claim=(
+            "The H2d class-preserving route repairs H2c's held-out H1x component-class transfer miss, but it is "
+            "not a clean global replacement because it gives back one strict H2b exact row."
+        ),
+        status="supported_current_packets",
+        evidence_strength="strong_internal",
+        primary_metric=(
+            "H2d reaches 8/8 strict exact and 8/8 executor-equivalent on H1x versus H2c at 7/8 and 7/8, "
+            "but H2d reaches 4/5 strict exact on H2b versus H2c at 5/5 while preserving 5/5 executor-equivalence."
+        ),
+        limitation=(
+            "H2d was designed after observing H2c's H1x class-swap miss, so it supports a targeted mechanism "
+            "interpretation rather than a broad promotion decision."
+        ),
+        next_test=(
+            "Build route arbitration that preserves H2c's compact code/value exactness while retaining H2d's "
+            "class-preserving behavior on held-out component-class transfer."
+        ),
+        sources=(
+            EvidenceSource(
+                "replay_synthesis",
+                "results/reports/h2d_transfer_tradeoff_synthesis/report.md",
+                "H2d synthesis showing the H2b/H1x tradeoff and the non-equivalent H2c transfer miss.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h2d_class_preserving_route_on_h2b_execute_v1",
+                "H2d live execution reaching 4/5 strict and 5/5 executor-equivalent on H2b.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h2d_class_preserving_route_on_h1x_execute_v1",
+                "H2d live execution reaching 8/8 strict and executor-equivalent on H1x.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260510T_h2d_class_preserving_route_vs_h2c_on_h2b_v1",
+                "Direct H2d-vs-H2c comparison showing the one-row H2b strict exactness cost.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260510T_h2d_class_preserving_route_vs_h2c_on_h1x_v1",
+                "Direct H2d-vs-H2c comparison showing H2d repairs the H1x transfer miss.",
+            ),
+        ),
+    ),
+    Claim(
+        claim_id="C43_h2e_route_arbitration_reconciles_h2c_h2d_tradeoff",
+        claim=(
+            "The H2e route-arbitrated residual profile reconciles the observed H2c/H2d tradeoff on the current "
+            "H2b and H1x gates while preserving executor-equivalence."
+        ),
+        status="supported_current_packets",
+        evidence_strength="strong_internal",
+        primary_metric=(
+            "H2e reaches 5/5 strict exact and 5/5 executor-equivalent on H2b, plus 8/8 strict exact and 8/8 "
+            "executor-equivalent on H1x; it has zero non-exact rows across those two packets."
+        ),
+        limitation=(
+            "H2e was built from the H2c/H2d failure analysis, so the current result is mechanism evidence on "
+            "two gates rather than a fresh-holdout generalization result."
+        ),
+        next_test=(
+            "Promote H2e only into a newly authored H2f route-arbitration holdout with unseen code labels, "
+            "component classes, stale-id decoys, and displayed-value distractors."
+        ),
+        sources=(
+            EvidenceSource(
+                "replay_synthesis",
+                "results/reports/h2e_route_arbitration_synthesis/report.md",
+                "H2e synthesis showing simultaneous H2b and H1x saturation plus counterfactual miss coverage.",
+            ),
+            EvidenceSource(
+                "report_figure",
+                "results/reports/h2e_route_arbitration_synthesis/figures/h2e_route_arbitration_gate.svg",
+                "Paper-facing H2e route-arbitration gate figure.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h2e_route_arbitration_on_h2b_execute_v1",
+                "H2e live execution reaching 5/5 strict and executor-equivalent on H2b.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h2e_route_arbitration_on_h1x_execute_v1",
+                "H2e live execution reaching 8/8 strict and executor-equivalent on H1x.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260510T_h2e_route_arbitration_vs_h2c_on_h1x_v1",
+                "Direct H2e-vs-H2c comparison showing transfer repair over H2c.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260510T_h2e_route_arbitration_vs_h2d_on_h2b_v1",
+                "Direct H2e-vs-H2d comparison showing H2e recovers the H2b exact row H2d missed.",
+            ),
+        ),
+    ),
 )
 
 
