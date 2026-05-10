@@ -1,0 +1,5 @@
+finding_id,finding
+strict_upper_bound,"argument_hints_v2, component_value_guard_v9 are the strict upper bound at 0.75."
+executor_equivalence_set,Executor-equivalent full-success rows: none.
+executor_without_strict,"Rows with executor gain without strict gain: hybrid_label_guard_v8, oblique_code_guard_v7."
+regressions,Regression cases: no_call_control_rescue_v10:h1o_activation_error_banner_previous_region_decoy.

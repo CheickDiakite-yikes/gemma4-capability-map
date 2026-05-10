@@ -1,0 +1,64 @@
+[
+  {
+    "case_id": "h1o_component_phase_tile_value_decoy",
+    "family": "h1o_component_value_boundary",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "h1o-phase-tile-9232"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1o-component-phase-tile",
+          "target_query": "Review"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h1o-component-phase-tile",
+          "selection_kind": "regions",
+          "count": 3,
+          "executor_mode": "local",
+          "region_ids": [
+            "h1o-phase-ticket-9231",
+            "h1o-phase-tile-9232",
+            "h1o-phase-board-9233"
+          ],
+          "region_id": "h1o-phase-ticket-9231",
+          "text_preview": "Review is waiting on data"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1o-component-phase-tile",
+          "target_query": "phase tile"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1o-component-phase-tile",
+          "target_query": "Review"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h1o-component-phase-tile\", \"target_query\": \"Review\"}}",
+    "prompt_tokens": 650,
+    "completion_tokens": 38,
+    "latency_ms": 3665
+  }
+]

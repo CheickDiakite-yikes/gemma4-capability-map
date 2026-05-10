@@ -19,6 +19,7 @@ DEFAULT_ALIAS_TRANSFER_OBLIQUE_OUTPUT_DIR = ROOT / "results" / "reports" / "visu
 DEFAULT_ALIAS_TRANSFER_POST_REPAIR_OUTPUT_DIR = ROOT / "results" / "reports" / "visual_alias_transfer_post_repair_diagnostic"
 DEFAULT_ALIAS_TRANSFER_RESIDUAL_OUTPUT_DIR = ROOT / "results" / "reports" / "visual_alias_transfer_residual_diagnostic"
 DEFAULT_COMPONENT_VALUE_OUTPUT_DIR = ROOT / "results" / "reports" / "visual_component_value_diagnostic"
+DEFAULT_H1O_CONTROL_FACTORIAL_OUTPUT_DIR = ROOT / "results" / "reports" / "visual_h1o_control_factorial_diagnostic"
 DEFAULT_COMPARISONS: tuple[tuple[str, Path], ...] = (
     (
         "contracted",
@@ -401,6 +402,43 @@ DEFAULT_COMPONENT_VALUE_COMPARISONS: tuple[tuple[str, Path], ...] = (
         / "20260510T_h1n_component_value_schema_field_hints_vs_no_directive_v1",
     ),
 )
+DEFAULT_H1O_CONTROL_FACTORIAL_COMPARISONS: tuple[tuple[str, Path], ...] = (
+    (
+        "argument_hints_v2",
+        ROOT
+        / "results"
+        / "tool_probe_replay_live_comparisons"
+        / "20260510T_h1o_control_factorial_argument_hints_vs_no_directive_v1",
+    ),
+    (
+        "hybrid_label_guard_v8",
+        ROOT
+        / "results"
+        / "tool_probe_replay_live_comparisons"
+        / "20260510T_h1o_control_factorial_hybrid_label_guard_vs_no_directive_v1",
+    ),
+    (
+        "no_call_control_rescue_v10",
+        ROOT
+        / "results"
+        / "tool_probe_replay_live_comparisons"
+        / "20260510T_h1o_control_factorial_no_call_control_rescue_vs_no_directive_v1",
+    ),
+    (
+        "oblique_code_guard_v7",
+        ROOT
+        / "results"
+        / "tool_probe_replay_live_comparisons"
+        / "20260510T_h1o_control_factorial_oblique_code_guard_vs_no_directive_v1",
+    ),
+    (
+        "component_value_guard_v9",
+        ROOT
+        / "results"
+        / "tool_probe_replay_live_comparisons"
+        / "20260510T_h1o_control_factorial_component_value_guard_vs_no_directive_v1",
+    ),
+)
 
 
 def parse_args() -> argparse.Namespace:
@@ -417,6 +455,7 @@ def parse_args() -> argparse.Namespace:
             "alias-transfer-post-repair",
             "alias-transfer-residual",
             "component-value",
+            "h1o-control-factorial",
         ],
         default="stress",
     )
@@ -497,6 +536,8 @@ def _default_output_dir(matrix_name: str) -> Path:
         return DEFAULT_ALIAS_TRANSFER_RESIDUAL_OUTPUT_DIR
     if matrix_name == "component-value":
         return DEFAULT_COMPONENT_VALUE_OUTPUT_DIR
+    if matrix_name == "h1o-control-factorial":
+        return DEFAULT_H1O_CONTROL_FACTORIAL_OUTPUT_DIR
     return DEFAULT_OUTPUT_DIR
 
 
@@ -517,6 +558,8 @@ def _default_comparisons(matrix_name: str) -> tuple[tuple[str, Path], ...]:
         return DEFAULT_ALIAS_TRANSFER_RESIDUAL_COMPARISONS
     if matrix_name == "component-value":
         return DEFAULT_COMPONENT_VALUE_COMPARISONS
+    if matrix_name == "h1o-control-factorial":
+        return DEFAULT_H1O_CONTROL_FACTORIAL_COMPARISONS
     return DEFAULT_COMPARISONS
 
 
@@ -537,6 +580,8 @@ def _table_prefix(matrix_name: str) -> str:
         return "alias_transfer_residual_matrix"
     if matrix_name == "component-value":
         return "component_value_matrix"
+    if matrix_name == "h1o-control-factorial":
+        return "h1o_control_factorial_matrix"
     return "stress_matrix"
 
 

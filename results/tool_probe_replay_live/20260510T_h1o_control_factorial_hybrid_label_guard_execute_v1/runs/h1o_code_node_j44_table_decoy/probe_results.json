@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "h1o_code_node_j44_table_decoy",
+    "family": "h1o_code_negation_preservation",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "h1o-node-j44-9102"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1o-code-node-j44",
+          "target_query": "node j44"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h1o-code-node-j44",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "h1o-node-j44-9102"
+          ],
+          "region_id": "h1o-node-j44-9102",
+          "text_preview": "Retry queue"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1o-code-node-j44",
+          "target_query": "node j44"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1o-code-node-j44",
+          "target_query": "node j44"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h1o-code-node-j44\", \"target_query\": \"node j44\"}}",
+    "prompt_tokens": 1481,
+    "completion_tokens": 43,
+    "latency_ms": 4842
+  }
+]

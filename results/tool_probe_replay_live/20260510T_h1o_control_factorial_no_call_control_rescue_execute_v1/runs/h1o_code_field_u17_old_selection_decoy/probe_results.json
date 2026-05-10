@@ -1,0 +1,63 @@
+[
+  {
+    "case_id": "h1o_code_field_u17_old_selection_decoy",
+    "family": "h1o_code_negation_preservation",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "h1o-field-u17-9112"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1o-code-field-u17",
+          "target_query": "u17"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h1o-code-field-u17",
+          "selection_kind": "regions",
+          "count": 2,
+          "executor_mode": "local",
+          "region_ids": [
+            "h1o-archive-note-9111",
+            "h1o-field-u17-9112"
+          ],
+          "region_id": "h1o-archive-note-9111",
+          "text_preview": "u17 was edited yesterday"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1o-code-field-u17",
+          "target_query": "field u17"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1o-code-field-u17",
+          "target_query": "u17"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h1o-code-field-u17\", \"target_query\": \"u17\"}}",
+    "prompt_tokens": 1379,
+    "completion_tokens": 42,
+    "latency_ms": 4920
+  }
+]

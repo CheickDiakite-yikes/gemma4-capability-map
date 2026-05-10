@@ -1,0 +1,14 @@
+label,transition,count
+argument_hints_v2,strict_gain,4
+argument_hints_v2,unchanged,8
+component_value_guard_v9,strict_gain,4
+component_value_guard_v9,unchanged,8
+hybrid_label_guard_v8,executor_gain_without_strict,2
+hybrid_label_guard_v8,strict_gain,3
+hybrid_label_guard_v8,unchanged,7
+no_call_control_rescue_v10,regression,1
+no_call_control_rescue_v10,strict_gain,3
+no_call_control_rescue_v10,unchanged,8
+oblique_code_guard_v7,executor_gain_without_strict,1
+oblique_code_guard_v7,strict_gain,3
+oblique_code_guard_v7,unchanged,8

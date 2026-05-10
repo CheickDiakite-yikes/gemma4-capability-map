@@ -1,0 +1,9 @@
+{
+  "generated_at": "2026-05-10T16:39:43.895297+00:00",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/visual_h1o_control_factorial_diagnostic",
+  "comparison_count": 5,
+  "case_count": 12,
+  "finding_count": 4,
+  "matrix_name": "h1o-control-factorial",
+  "purpose": "Diagnose strict-vs-executor behavior in the visual hard-slice h1o-control-factorial live replay matrix."
+}

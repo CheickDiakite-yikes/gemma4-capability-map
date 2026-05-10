@@ -1,0 +1,2 @@
+case_id,family,expected_call_count,actual_call_count,exact_match,executable_match,executor_target_match,expected_calls,actual_calls,expected_execution,actual_execution,latency_ms,prompt_tokens,completion_tokens
+h1o_component_priority_chip_value_decoy,h1o_component_value_boundary,1,0,False,False,False,"[{""name"": ""extract_layout"", ""arguments"": {""image_id"": ""img-h1o-component-priority-chip"", ""target_query"": ""priority chip""}}]",[],"{""region_ids"": [""h1o-priority-chip-9212""]}",[],4660,650,34

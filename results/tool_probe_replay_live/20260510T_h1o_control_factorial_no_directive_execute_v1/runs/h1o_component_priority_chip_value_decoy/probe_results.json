@@ -1,0 +1,31 @@
+[
+  {
+    "case_id": "h1o_component_priority_chip_value_decoy",
+    "family": "h1o_component_value_boundary",
+    "expected_call_count": 1,
+    "actual_call_count": 0,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "h1o-priority-chip-9212"
+      ]
+    },
+    "actual_execution": [],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1o-component-priority-chip",
+          "target_query": "priority chip"
+        }
+      }
+    ],
+    "actual_calls": [],
+    "raw_model_output": "\"extract_layout\": {\"image_id\": \"img-h1o-component-priority-chip\", \"target_query\": \"priority chip component\"}",
+    "prompt_tokens": 650,
+    "completion_tokens": 34,
+    "latency_ms": 4660
+  }
+]

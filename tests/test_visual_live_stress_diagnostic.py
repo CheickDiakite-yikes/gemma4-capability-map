@@ -337,3 +337,45 @@ def test_visual_component_value_diagnostic_writes_findings(tmp_path: Path) -> No
     assert (tmp_path / "diagnostic.md").exists()
     assert (tmp_path / "diagnostic.json").exists()
     assert (tmp_path / "tables" / "component_value_matrix_case_transitions.csv").exists()
+
+
+def test_visual_h1o_control_factorial_diagnostic_writes_findings(tmp_path: Path) -> None:
+    payload = SCRIPT.analyze_visual_live_stress_matrix(
+        output_dir=tmp_path,
+        comparisons=SCRIPT.DEFAULT_H1O_CONTROL_FACTORIAL_COMPARISONS,
+        matrix_name="h1o-control-factorial",
+        table_prefix="h1o_control_factorial_matrix",
+    )
+
+    assert payload["manifest"]["comparison_count"] == 5
+    assert payload["manifest"]["case_count"] == 12
+    assert payload["manifest"]["matrix_name"] == "h1o-control-factorial"
+    summary = {row["label"]: row for row in payload["summary_rows"]}
+    assert summary["argument_hints_v2"]["candidate_exact_rate"] == 0.75
+    assert summary["argument_hints_v2"]["candidate_executor_equivalence_rate"] == 0.8333333333333334
+    assert summary["hybrid_label_guard_v8"]["candidate_exact_rate"] == 0.6666666666666666
+    assert summary["hybrid_label_guard_v8"]["candidate_executor_equivalence_rate"] == 0.8333333333333334
+    assert summary["no_call_control_rescue_v10"]["candidate_exact_rate"] == 0.5833333333333334
+    assert summary["no_call_control_rescue_v10"]["candidate_executor_equivalence_rate"] == 0.6666666666666666
+    assert summary["oblique_code_guard_v7"]["candidate_exact_rate"] == 0.6666666666666666
+    assert summary["oblique_code_guard_v7"]["candidate_executor_equivalence_rate"] == 0.75
+    assert summary["component_value_guard_v9"]["candidate_exact_rate"] == 0.75
+    assert summary["component_value_guard_v9"]["candidate_executor_equivalence_rate"] == 0.8333333333333334
+    transitions = {(row["label"], row["case_id"]): row for row in payload["case_rows"]}
+    assert transitions[
+        ("argument_hints_v2", "h1o_code_field_u17_old_selection_decoy")
+    ]["transition"] == "strict_gain"
+    assert transitions[
+        ("component_value_guard_v9", "h1o_component_phase_tile_value_decoy")
+    ]["transition"] == "strict_gain"
+    assert transitions[
+        ("no_call_control_rescue_v10", "h1o_activation_error_banner_previous_region_decoy")
+    ]["transition"] == "regression"
+    findings = {row["finding_id"]: row["finding"] for row in payload["finding_rows"]}
+    assert "argument_hints_v2" in findings["strict_upper_bound"]
+    assert "component_value_guard_v9" in findings["strict_upper_bound"]
+    assert "Executor-equivalent full-success rows: none." in findings["executor_equivalence_set"]
+    assert "no_call_control_rescue_v10:h1o_activation_error_banner_previous_region_decoy" in findings["regressions"]
+    assert (tmp_path / "diagnostic.md").exists()
+    assert (tmp_path / "diagnostic.json").exists()
+    assert (tmp_path / "tables" / "h1o_control_factorial_matrix_case_transitions.csv").exists()
