@@ -1,0 +1,5 @@
+finding_id,finding
+v13_fails_h1r_gate,Conditional route v13 reaches only 3/6 exact and 3/6 executor-equivalent on H1r.
+v13_below_v11_and_v12,v13 is below v11 (5/6) and v12 (6/6); delta versus v11 is -0.333 exact-rate and delta versus v12 is -0.500.
+failure_pattern,"v13 failures are h1r_state_tag_log_value_decoy:argument_mismatch, h1r_mode_toggle_note_value_decoy:argument_mismatch, h1r_alert_s92_toggle_negation_decoy:argument_mismatch."
+early_stop_decision,Stop before H1n/H1o/H1p transfer. A conditional route that cannot preserve the H1r local win is not a credible promotion candidate.

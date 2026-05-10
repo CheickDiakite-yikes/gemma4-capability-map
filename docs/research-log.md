@@ -1,6 +1,6 @@
 # Research Log
 
-## 2026-05-10 - H1t Conditional Residual-Route Scaffold
+## 2026-05-10 - H1t Conditional Residual-Route Rejected at H1r Gate
 
 - Added `visual_role_catalog_conditional_residual_route_v13` as the direct follow-up to H1s:
   - defaults to v11's narrow component-label guard
@@ -10,11 +10,20 @@
   - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_conditional_residual_route`
 - Research purpose:
   - test whether conditional prompt routing can keep H1r/H1p gains without the H1n/H1o executor-equivalence loss that blocked v12 global promotion
+- Live result:
+  - v13 H1r replay: [`20260510T_h1t_conditional_residual_route_on_h1r_component_residual_execute_v1`](../results/tool_probe_replay_live/20260510T_h1t_conditional_residual_route_on_h1r_component_residual_execute_v1)
+  - synthesis: [`h1t_conditional_residual_route_synthesis`](../results/reports/h1t_conditional_residual_route_synthesis/report.md)
+  - v13 reaches `3 / 6` exact and executor-equivalent on H1r
+  - v13 is below v11 (`5 / 6`) and v12 (`6 / 6`)
+  - non-exact failures are `h1r_state_tag_log_value_decoy`, `h1r_mode_toggle_note_value_decoy`, and `h1r_alert_s92_toggle_negation_decoy`
+- Decision:
+  - reject v13 before H1n/H1o/H1p transfer
+  - compact conditional wording did not preserve the local residual win, so the next attempt should split route factors more explicitly
 - Verification:
   - `uv run pytest tests/test_prompt_contracts.py tests/test_knowledge_work_h1.py::test_h1t_conditional_residual_route_registry_row_preserves_catalog_profile -q`
-- Next execution:
-  - live replay v13 on H1r, H1n, H1o, and H1p
-  - compare v13 against v11 and v12 before any promotion decision
+  - `uv run python -m gemma4_capability_map.runtime.cli replay-live --packet-dir results/tool_probe_replay_packets/20260510T_h1r_component_label_residual_oracle_dry_run_v1 --output-dir results/tool_probe_replay_live/20260510T_h1t_conditional_residual_route_on_h1r_component_residual_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_conditional_residual_route --registry configs/model_registry.yaml --execute --json`
+  - `uv run python scripts/build_h1t_conditional_residual_route_synthesis.py`
+  - `uv run pytest tests/test_h1t_conditional_residual_route_synthesis.py tests/test_prompt_contracts.py tests/test_knowledge_work_h1.py::test_h1t_conditional_residual_route_registry_row_preserves_catalog_profile tests/test_tool_probe_replay_live_comparison.py -q`
 
 ## 2026-05-10 - H1s Transfer Gate Rejects v12 as a Global Default
 

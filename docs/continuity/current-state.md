@@ -1215,22 +1215,26 @@ Interpretation:
 - v12 is not the global default: it introduces enough H1n/H1o executor-equivalence loss to be worse than v11 for robust transfer
 - the next slice should test conditional routing or prompt-factor isolation: v11 general component-label guard by default, v12 residual wording only when code labels or nonstandard component classes are present
 
-## H1t Conditional Residual-Route Scaffold
+## H1t Conditional Residual-Route Finding
 
-H1t is now scaffolded but not yet live-executed. It turns the H1s verdict into a testable prompt-factor hypothesis:
+H1t is now live-executed and rejected by an early-stop gate. It turned the H1s verdict into a testable prompt-factor hypothesis:
 
 - profile: `visual_role_catalog_conditional_residual_route_v13`
 - registry system: `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_conditional_residual_route`
 - default behavior: preserve v11's narrow component-label guard
 - conditional behavior: add v12-style residual handling only when the requested target has a code suffix, a nonstandard component class (`tag`, `toggle`, `switch`), or a field target with stale/old/previous selection text nearby
 - explicit anti-overfit rule: do not add residual handling for ordinary `pill`, `badge`, `chip`, or `tile` targets unless a route condition is present
+- v13 H1r replay: [`results/tool_probe_replay_live/20260510T_h1t_conditional_residual_route_on_h1r_component_residual_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1t_conditional_residual_route_on_h1r_component_residual_execute_v1)
+- synthesis: [`results/reports/h1t_conditional_residual_route_synthesis/report.md`](../../results/reports/h1t_conditional_residual_route_synthesis/report.md)
+- result: v13 reaches `3 / 6` exact and executor-equivalent on H1r, below v11's `5 / 6` and v12's `6 / 6`
+- failures: `state tag`, `mode toggle`, and `alert s92` all remain argument mismatches
+- decision: reject before broader H1n/H1o/H1p transfer because the conditional route failed to preserve the local H1r win
 - verification: `uv run pytest tests/test_prompt_contracts.py tests/test_knowledge_work_h1.py::test_h1t_conditional_residual_route_registry_row_preserves_catalog_profile -q`
 
 Next execution step:
 
-- run v13 on H1r, H1n, H1o, and H1p
-- compare v13 against v11 and v12
-- promote only if v13 keeps H1r/H1p gains while recovering v11-like H1n/H1o executor-equivalence
+- do not run v13 on H1n/H1o/H1p
+- next prompt-factor attempt should be more explicit and/or split into independent route bits, because compact conditional prose did not trigger the nonstandard class and code-label behavior
 
 ## Latest H1q Component-Label Guard Transfer Finding
 

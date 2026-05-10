@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "h1r_alert_s92_toggle_negation_decoy",
+    "family": "h1r_code_label_exactness",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "h1r-alert-s92-9542"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1r-alert-s92",
+          "target_query": "consent toggle"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h1r-alert-s92",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "h1r-consent-toggle-9541"
+          ],
+          "region_id": "h1r-consent-toggle-9541",
+          "text_preview": "Enabled"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1r-alert-s92",
+          "target_query": "alert s92"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1r-alert-s92",
+          "target_query": "consent toggle"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h1r-alert-s92\", \"target_query\": \"consent toggle\"}}",
+    "prompt_tokens": 1749,
+    "completion_tokens": 39,
+    "latency_ms": 6107
+  }
+]

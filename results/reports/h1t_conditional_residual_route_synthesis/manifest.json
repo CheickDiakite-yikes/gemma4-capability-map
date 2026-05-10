@@ -1,0 +1,13 @@
+{
+  "generated_at": "2026-05-10T18:07:36.287975+00:00",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h1t_conditional_residual_route_synthesis",
+  "profile_count": 4,
+  "case_count": 6,
+  "v13_exact_success_count": 3,
+  "v13_executor_success_count": 3,
+  "comparison_count": 3,
+  "failure_count": 3,
+  "finding_count": 4,
+  "early_stop": true,
+  "promotion_decision": "reject_before_broader_transfer"
+}
