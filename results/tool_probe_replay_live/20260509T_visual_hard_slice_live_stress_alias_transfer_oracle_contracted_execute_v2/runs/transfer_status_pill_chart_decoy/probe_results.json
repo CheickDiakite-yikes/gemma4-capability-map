@@ -1,0 +1,58 @@
+[
+  {
+    "case_id": "transfer_status_pill_chart_decoy",
+    "family": "visual_argument_transfer",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "transfer-pill-3101"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-status-pill",
+          "target_query": "small status pill that marks the customer as blocked"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-transfer-status-pill",
+          "selection_kind": "regions",
+          "count": 0,
+          "executor_mode": "local",
+          "region_ids": []
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-status-pill",
+          "target_query": "status pill"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-status-pill",
+          "target_query": "small status pill that marks the customer as blocked"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-transfer-status-pill\", \"target_query\": \"small status pill that marks the customer as blocked\"}}",
+    "prompt_tokens": 773,
+    "completion_tokens": 42,
+    "latency_ms": 4094
+  }
+]

@@ -394,6 +394,33 @@ def audit_publication_readiness(
             detail="Rebuilt H1n alias-transfer packet exists with oracle expected calls.",
         ),
         _check_path(
+            check_id="h1n_alias_transfer_oracle_argument_hints_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_argument_hints_vs_no_directive_v2"
+            / "live_replay_comparison.json",
+            detail="Oracle H1n argument-hints live replay comparison exists.",
+        ),
+        _check_path(
+            check_id="h1n_alias_transfer_oracle_diagnostic_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "visual_alias_transfer_oracle_diagnostic" / "diagnostic.md",
+            detail="Oracle H1n alias-transfer diagnostic report exists.",
+        ),
+        _check_path(
+            check_id="h1n_alias_transfer_oracle_report_table_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "mlx_tool_contract_harnessing"
+            / "tables"
+            / "visual_hard_slice_alias_transfer_oracle_live_replay_summary.csv",
+            detail="Oracle H1n alias-transfer summary table exists in the main report.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",

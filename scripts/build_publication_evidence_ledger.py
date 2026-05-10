@@ -620,7 +620,7 @@ CLAIMS: tuple[Claim, ...] = (
             "but it does require rebuilding H1n with oracle expected calls before using strict exactness as a headline metric."
         ),
         next_test=(
-            "Run the rebuilt oracle H1n alias-transfer CLI-live matrix before any packaged or helper-ablation promotion."
+            "Use the rebuilt oracle H1n matrix as the reference packet before any packaged or helper-ablation promotion."
         ),
         sources=(
             EvidenceSource(
@@ -642,6 +642,60 @@ CLAIMS: tuple[Claim, ...] = (
                 "tool_probe_replay_packet",
                 "results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_dry_run_v2",
                 "Rebuilt H1n dry-run packet whose expected calls are derived from target region labels and execute to the oracle target.",
+            ),
+        ),
+    ),
+    Claim(
+        claim_id="C18_h1n_oracle_transfer_identifies_argument_hints_as_clean_winner",
+        claim=(
+            "When H1n alias-transfer replay uses oracle executable expected calls, argument-hint cataloging is the clean "
+            "local-Gemma transfer winner and contracted prompting is not a reliable upper bound."
+        ),
+        status="supported_current_packets",
+        evidence_strength="strong_internal",
+        primary_metric=(
+            "Oracle H1n alias-transfer replay-live: no-directive is 2/6 exact and executor-equivalent; contracted is "
+            "1/6; role catalog is 3/6; argument hints v2 is 5/6 exact and 6/6 executor-equivalent; schema-field hints "
+            "is 2/6; schema target literals v5 is 4/6."
+        ),
+        limitation=(
+            "This is still a deterministic six-case transfer packet, so it is causal evidence for this slice rather "
+            "than a broad stochastic estimate of all visual tool grounding."
+        ),
+        next_test=(
+            "Repeat the oracle transfer packet or promote argument hints into a non-packaged helper-ablation/live slice "
+            "to test whether the effect survives fresh visual families."
+        ),
+        sources=(
+            EvidenceSource(
+                "tool_probe_replay_packet",
+                "results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_dry_run_v2",
+                "Oracle H1n transfer packet with serialized expected calls that execute to target region labels.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_argument_hints_execute_v2",
+                "Argument-hints oracle execution reaching 5/6 exact and 6/6 executor-equivalent target success.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_argument_hints_vs_no_directive_v2",
+                "Comparison showing argument hints improves exactness by 0.5 and executor-equivalence by 0.667 over no-directive.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_schema_literal_targets_vs_no_directive_v2",
+                "Comparison showing schema target literals are the second-place oracle transfer mechanism.",
+            ),
+            EvidenceSource(
+                "diagnostic_report",
+                "results/reports/visual_alias_transfer_oracle_diagnostic/diagnostic.md",
+                "Diagnostic report summarizing the oracle matrix winner set, regressions, and strict upper bound.",
+            ),
+            EvidenceSource(
+                "report_table",
+                "results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_transfer_oracle_live_replay_summary.csv",
+                "Generated main-report table for the oracle alias-transfer replay matrix.",
             ),
         ),
     ),

@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-10T00:12:19.332749+00:00",
+    "generated_at": "2026-05-10T00:30:05.095179+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-    "claim_count": 17,
-    "evidence_source_count": 73,
+    "claim_count": 18,
+    "evidence_source_count": 79,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -22,7 +22,8 @@
       "C14_h1m_packaged_alias_repeat_saturates",
       "C15_packaged_visual_surfaces_wash_out_replay_discrimination",
       "C16_visual_alias_transfer_favors_argument_hints_executor_grounding",
-      "C17_h1n_strict_exactness_matches_planner_not_oracle"
+      "C17_h1n_strict_exactness_matches_planner_not_oracle",
+      "C18_h1n_oracle_transfer_identifies_argument_hints_as_clean_winner"
     ]
   },
   "claims": [
@@ -193,8 +194,18 @@
       "evidence_strength": "strong_internal",
       "primary_metric": "The H1n contract-split diagnostic finds 5/6 generated expected-call contracts fail the packet's expected_execution oracle; contracted MLX has 4 exact-but-not-executor rows, while argument hints v2 has 6/6 executor-target successes.",
       "limitation": "This diagnoses the current H1n packet contract; it does not invalidate the executor-equivalence result, but it does require rebuilding H1n with oracle expected calls before using strict exactness as a headline metric.",
-      "next_test": "Run the rebuilt oracle H1n alias-transfer CLI-live matrix before any packaged or helper-ablation promotion.",
+      "next_test": "Use the rebuilt oracle H1n matrix as the reference packet before any packaged or helper-ablation promotion.",
       "source_count": 4
+    },
+    {
+      "claim_id": "C18_h1n_oracle_transfer_identifies_argument_hints_as_clean_winner",
+      "claim": "When H1n alias-transfer replay uses oracle executable expected calls, argument-hint cataloging is the clean local-Gemma transfer winner and contracted prompting is not a reliable upper bound.",
+      "status": "supported_current_packets",
+      "evidence_strength": "strong_internal",
+      "primary_metric": "Oracle H1n alias-transfer replay-live: no-directive is 2/6 exact and executor-equivalent; contracted is 1/6; role catalog is 3/6; argument hints v2 is 5/6 exact and 6/6 executor-equivalent; schema-field hints is 2/6; schema target literals v5 is 4/6.",
+      "limitation": "This is still a deterministic six-case transfer packet, so it is causal evidence for this slice rather than a broad stochastic estimate of all visual tool grounding.",
+      "next_test": "Repeat the oracle transfer packet or promote argument hints into a non-packaged helper-ablation/live slice to test whether the effect survives fresh visual families.",
+      "source_count": 6
     }
   ],
   "evidence_sources": [
@@ -707,6 +718,48 @@
       "artifact_type": "tool_probe_replay_packet",
       "path": "results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_dry_run_v2",
       "purpose": "Rebuilt H1n dry-run packet whose expected calls are derived from target region labels and execute to the oracle target.",
+      "exists": true
+    },
+    {
+      "claim_id": "C18_h1n_oracle_transfer_identifies_argument_hints_as_clean_winner",
+      "artifact_type": "tool_probe_replay_packet",
+      "path": "results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_dry_run_v2",
+      "purpose": "Oracle H1n transfer packet with serialized expected calls that execute to target region labels.",
+      "exists": true
+    },
+    {
+      "claim_id": "C18_h1n_oracle_transfer_identifies_argument_hints_as_clean_winner",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_argument_hints_execute_v2",
+      "purpose": "Argument-hints oracle execution reaching 5/6 exact and 6/6 executor-equivalent target success.",
+      "exists": true
+    },
+    {
+      "claim_id": "C18_h1n_oracle_transfer_identifies_argument_hints_as_clean_winner",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_argument_hints_vs_no_directive_v2",
+      "purpose": "Comparison showing argument hints improves exactness by 0.5 and executor-equivalence by 0.667 over no-directive.",
+      "exists": true
+    },
+    {
+      "claim_id": "C18_h1n_oracle_transfer_identifies_argument_hints_as_clean_winner",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_schema_literal_targets_vs_no_directive_v2",
+      "purpose": "Comparison showing schema target literals are the second-place oracle transfer mechanism.",
+      "exists": true
+    },
+    {
+      "claim_id": "C18_h1n_oracle_transfer_identifies_argument_hints_as_clean_winner",
+      "artifact_type": "diagnostic_report",
+      "path": "results/reports/visual_alias_transfer_oracle_diagnostic/diagnostic.md",
+      "purpose": "Diagnostic report summarizing the oracle matrix winner set, regressions, and strict upper bound.",
+      "exists": true
+    },
+    {
+      "claim_id": "C18_h1n_oracle_transfer_identifies_argument_hints_as_clean_winner",
+      "artifact_type": "report_table",
+      "path": "results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_transfer_oracle_live_replay_summary.csv",
+      "purpose": "Generated main-report table for the oracle alias-transfer replay matrix.",
       "exists": true
     }
   ],

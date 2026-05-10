@@ -3237,8 +3237,43 @@
   - `uv run pytest tests/test_visual_hard_slice_live_stress_packet.py -q`
   - `uv run python scripts/build_visual_hard_slice_live_stress_packet.py --run-group-id 20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_dry_run_v2 --suite alias_transfer_v3`
 - Next:
-  - rerun the H1n replay-live matrix on `20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_dry_run_v2`
+  - use oracle expected calls as the default strict H1n contract
   - compare oracle-v2 strict exactness against executor-equivalence before any packaged or helper-ablation promotion
+
+## 2026-05-09 - H1n Oracle Replay-Live Matrix
+
+- Fixed the live replay runtime so packet-authored expected calls are preserved:
+  - implementation: [`src/gemma4_capability_map/runtime/tool_directive_probe.py`](../src/gemma4_capability_map/runtime/tool_directive_probe.py)
+  - implementation: [`src/gemma4_capability_map/runtime/tool_probe_replay_live.py`](../src/gemma4_capability_map/runtime/tool_probe_replay_live.py)
+  - regression test: [`tests/test_tool_probe_replay_live.py`](../tests/test_tool_probe_replay_live.py)
+  - without this fix, `moonie-agent replay-live` could load an oracle replay packet but silently rescore it against freshly planned expected calls.
+- Executed the oracle H1n matrix across the same six rows:
+  - no-directive: exact `2 / 6`, executor-equivalent `2 / 6`
+  - contracted: exact `1 / 6`, executor-equivalent `1 / 6`
+  - role catalog v1: exact `3 / 6`, executor-equivalent `3 / 6`
+  - argument hints v2: exact `5 / 6`, executor-equivalent `6 / 6`
+  - schema-field hints v4: exact `2 / 6`, executor-equivalent `2 / 6`
+  - schema target literals v5: exact `4 / 6`, executor-equivalent `4 / 6`
+- Generated evidence:
+  - diagnostic: [`results/reports/visual_alias_transfer_oracle_diagnostic/diagnostic.md`](../results/reports/visual_alias_transfer_oracle_diagnostic/diagnostic.md)
+  - report table: [`visual_hard_slice_alias_transfer_oracle_live_replay_summary.csv`](../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_transfer_oracle_live_replay_summary.csv)
+  - report figure: [`visual_hard_slice_alias_transfer_oracle_live_replay_gate.svg`](../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_alias_transfer_oracle_live_replay_gate.svg)
+  - publication evidence claim: `C18_h1n_oracle_transfer_identifies_argument_hints_as_clean_winner`
+- Interpretation:
+  - This is one of the cleanest current Moonie harnessing findings. Once the benchmark contract is executable against the oracle target, narrow argument hints are the strongest local-Gemma transfer mechanism.
+  - Schema target literals remain useful, but they trail argument hints on both exactness and executor-equivalence.
+  - Contracted prompting is not a reliable upper bound here; it regresses below no-directive on the oracle transfer packet.
+  - The result directly strengthens the paper thesis that benchmark contract quality changes what we think the model is good at.
+- Verification:
+  - `uv run pytest tests/test_tool_probe_replay_live.py tests/test_tool_directive_probe.py -q`
+  - `uv run python scripts/analyze_visual_live_stress_matrix.py --matrix alias-transfer-oracle`
+  - `uv run python scripts/build_mlx_tool_contract_report.py`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`
+  - `uv run pytest tests/test_tool_probe_replay_live.py tests/test_tool_directive_probe.py tests/test_visual_hard_slice_live_stress_packet.py tests/test_visual_live_stress_diagnostic.py tests/test_mlx_tool_contract_report.py tests/test_publication_evidence_ledger.py tests/test_publication_readiness_audit.py -q`
+- Next:
+  - repeat the oracle packet or build a non-packaged live helper-ablation slice centered on argument hints
+  - keep strict exactness, executor-equivalence, and controller-helper usage separated in every table
 
 ## 2026-05-09 - Schema Target Literal v5 Negative Hard-Slice Repair
 

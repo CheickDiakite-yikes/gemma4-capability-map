@@ -34,8 +34,8 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
 
     assert payload["gemini"]["dry_run"] is True
     assert payload["gemini"]["workflow_count"] == 10
-    assert payload["manifest"]["table_count"] == 66
-    assert payload["manifest"]["figure_count"] == 32
+    assert payload["manifest"]["table_count"] == 68
+    assert payload["manifest"]["figure_count"] == 33
 
     candidate_ids = {row["tool_prompt_contract_id"] for row in payload["prompt_contract_candidates"]}
     assert candidate_ids == {
@@ -414,6 +414,40 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert visual_hard_slice_alias_transfer_cases[
         ("alias-transfer argument hints vs no directive", "transfer_review_tile_notice_table_decoy")
     ]["delta_executor_equivalence_match"] == 1
+    visual_hard_slice_alias_transfer_oracle = {
+        row["comparison"]: row for row in payload["visual_hard_slice_alias_transfer_oracle_live_replay_summary"]
+    }
+    assert (
+        visual_hard_slice_alias_transfer_oracle["alias-transfer oracle contracted vs no directive"][
+            "delta_exact_rate"
+        ]
+        == -0.16666666666666666
+    )
+    assert (
+        visual_hard_slice_alias_transfer_oracle["alias-transfer oracle argument hints vs no directive"][
+            "candidate_exact_rate"
+        ]
+        == 0.8333333333333334
+    )
+    assert (
+        visual_hard_slice_alias_transfer_oracle["alias-transfer oracle argument hints vs no directive"][
+            "candidate_executor_equivalence_rate"
+        ]
+        == 1.0
+    )
+    assert (
+        visual_hard_slice_alias_transfer_oracle["alias-transfer oracle schema literal targets vs no directive"][
+            "candidate_executor_equivalence_rate"
+        ]
+        == 0.6666666666666666
+    )
+    visual_hard_slice_alias_transfer_oracle_cases = {
+        (row["comparison"], row["case_id"]): row
+        for row in payload["visual_hard_slice_alias_transfer_oracle_live_replay_case_deltas"]
+    }
+    assert visual_hard_slice_alias_transfer_oracle_cases[
+        ("alias-transfer oracle argument hints vs no directive", "transfer_status_pill_chart_decoy")
+    ]["delta_executor_equivalence_match"] == 1
     h1i_candidates = {row["system_id"]: row for row in payload["h1i_prompt_contract_candidate_metrics"]}
     assert h1i_candidates["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive"]["tool_turn_directive_enabled"] == "False"
     assert h1i_candidates["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor"]["raw_planning_clean_rate_avg"] == "1.0"
@@ -491,6 +525,8 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert (tmp_path / "tables" / "visual_hard_slice_alias_repeat_live_replay_case_deltas.csv").exists()
     assert (tmp_path / "tables" / "visual_hard_slice_alias_transfer_live_replay_summary.csv").exists()
     assert (tmp_path / "tables" / "visual_hard_slice_alias_transfer_live_replay_case_deltas.csv").exists()
+    assert (tmp_path / "tables" / "visual_hard_slice_alias_transfer_oracle_live_replay_summary.csv").exists()
+    assert (tmp_path / "tables" / "visual_hard_slice_alias_transfer_oracle_live_replay_case_deltas.csv").exists()
     assert (tmp_path / "tables" / "prompt_contract_promotion_decisions.csv").exists()
     assert (tmp_path / "tables" / "h1i_prompt_contract_candidate_metrics.csv").exists()
     assert (tmp_path / "tables" / "h1i_prompt_contract_repeat3_metrics.csv").exists()
@@ -535,3 +571,4 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert (tmp_path / "figures" / "visual_hard_slice_stress_live_replay_gate.svg").exists()
     assert (tmp_path / "figures" / "visual_hard_slice_alias_repeat_live_replay_gate.svg").exists()
     assert (tmp_path / "figures" / "visual_hard_slice_alias_transfer_live_replay_gate.svg").exists()
+    assert (tmp_path / "figures" / "visual_hard_slice_alias_transfer_oracle_live_replay_gate.svg").exists()

@@ -1,0 +1,64 @@
+[
+  {
+    "case_id": "transfer_status_pill_chart_decoy",
+    "family": "visual_argument_transfer",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "transfer-pill-3101"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-status-pill",
+          "target_query": "blocked"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-transfer-status-pill",
+          "selection_kind": "regions",
+          "count": 3,
+          "executor_mode": "local",
+          "region_ids": [
+            "transfer-pill-3101",
+            "transfer-pill-3102",
+            "transfer-pill-3103"
+          ],
+          "region_id": "transfer-pill-3101",
+          "text_preview": "Blocked"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-status-pill",
+          "target_query": "status pill"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-status-pill",
+          "target_query": "blocked"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-transfer-status-pill\", \"target_query\": \"blocked\"}}",
+    "prompt_tokens": 950,
+    "completion_tokens": 34,
+    "latency_ms": 4317
+  }
+]

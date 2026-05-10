@@ -1,6 +1,6 @@
 # MLX Tool-Contract Harnessing Report
 
-Generated: `2026-05-10T00:09:04.910048+00:00`
+Generated: `2026-05-10T00:30:05.036787+00:00`
 
 ## Executive Read
 
@@ -77,6 +77,8 @@ The visual catalog branch now includes an explicit negative-result loop. `visual
 ![Visual hard-slice alias-repeat live replay gate](figures/visual_hard_slice_alias_repeat_live_replay_gate.svg)
 
 ![Visual hard-slice alias-transfer live replay gate](figures/visual_hard_slice_alias_transfer_live_replay_gate.svg)
+
+![Visual hard-slice alias-transfer oracle live replay gate](figures/visual_hard_slice_alias_transfer_oracle_live_replay_gate.svg)
 
 ## Packet Summary
 
@@ -493,6 +495,51 @@ The eight-case alias-repeat packet makes the stress finding more publication-use
 | alias-transfer schema literal targets vs no directive | transfer_status_pill_chart_decoy | visual_argument_transfer | argument_alias_or_decoy_risk | False | False | 0 | False | True | 1 | False | True | 1 | no_tool_call | executable_paraphrase | 0 | 1 | 1 |
 
 The six-case alias-transfer packet is the first post-packaging-gap discriminator. It uses fresh visual labels and decoys rather than repeating metric-panel/callout wording. No-directive MLX is `0 / 6` strict and `2 / 6` executor-equivalent. Argument hints v2 is the best executor-grounding row at `1 / 6` strict and `6 / 6` executor-equivalent. Schema target literals v5 reaches `1 / 6` strict and `4 / 6` executor-equivalent. Schema-field hints v4 improves strict exactness to `1 / 6` but does not improve executor-equivalence over no-directive. A follow-up contract-split diagnostic found that `5 / 6` generated expected-call contracts do not satisfy the packet's own expected-execution oracle. Contracted MLX's `5 / 6` strict score is therefore planner-call fidelity, not a clean target-success upper bound; it has `4` exact-but-not-executor rows. The publication-safe reading is that argument hints v2 is the H1n executor-target winner, and H1n should be rebuilt with oracle expected calls before strict exactness is used as a headline metric.
+
+## Visual Hard-Slice Alias-Transfer Oracle CLI-Live Replay
+
+| comparison | baseline_system_id | candidate_system_id | shared_case_count | baseline_exact_rate | candidate_exact_rate | delta_exact_rate | baseline_executable_rate | candidate_executable_rate | delta_executable_rate | baseline_executor_equivalence_rate | candidate_executor_equivalence_rate | delta_executor_equivalence_rate |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| alias-transfer oracle contracted vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only | 6 | 0.3333333333333333 | 0.16666666666666666 | -0.16666666666666666 | 0.3333333333333333 | 0.16666666666666666 | -0.16666666666666666 | 0.3333333333333333 | 0.16666666666666666 | -0.16666666666666666 |
+| alias-transfer oracle role catalog vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog | 6 | 0.3333333333333333 | 0.5 | 0.16666666666666669 | 0.3333333333333333 | 0.5 | 0.16666666666666669 | 0.3333333333333333 | 0.5 | 0.16666666666666669 |
+| alias-transfer oracle argument hints vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints | 6 | 0.3333333333333333 | 0.8333333333333334 | 0.5 | 0.3333333333333333 | 1.0 | 0.6666666666666667 | 0.3333333333333333 | 1.0 | 0.6666666666666667 |
+| alias-transfer oracle schema-field hints vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints | 6 | 0.3333333333333333 | 0.3333333333333333 | 0.0 | 0.3333333333333333 | 0.3333333333333333 | 0.0 | 0.3333333333333333 | 0.3333333333333333 | 0.0 |
+| alias-transfer oracle schema literal targets vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets | 6 | 0.3333333333333333 | 0.6666666666666666 | 0.3333333333333333 | 0.3333333333333333 | 0.6666666666666666 | 0.3333333333333333 | 0.3333333333333333 | 0.6666666666666666 | 0.3333333333333333 |
+
+| comparison | case_id | family | source_failure_mode | baseline_replay_exact_match | candidate_replay_exact_match | delta_exact_match | baseline_replay_executable_match | candidate_replay_executable_match | delta_executable_match | baseline_replay_executor_equivalence_match | candidate_replay_executor_equivalence_match | delta_executor_equivalence_match | baseline_replay_failure_mode | candidate_replay_failure_mode | baseline_actual_call_count | candidate_actual_call_count | delta_actual_call_count |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| alias-transfer oracle contracted vs no directive | transfer_error_banner_note_decoy | visual_argument_transfer | argument_alias_or_decoy_risk | True | False | -1 | True | False | -1 | True | False | -1 | exact | argument_mismatch | 1 | 1 | 0 |
+| alias-transfer oracle contracted vs no directive | transfer_form_error_old_selection_chip_decoy | visual_tool_routing_transfer | wrong_tool_or_stale_selection_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| alias-transfer oracle contracted vs no directive | transfer_queue_badge_person_decoy | visual_argument_transfer | argument_alias_or_decoy_risk | True | False | -1 | True | False | -1 | True | False | -1 | exact | wrong_tool | 1 | 1 | 0 |
+| alias-transfer oracle contracted vs no directive | transfer_review_tile_notice_table_decoy | visual_argument_transfer | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | no_tool_call | argument_mismatch | 0 | 1 | 1 |
+| alias-transfer oracle contracted vs no directive | transfer_signature_warning_checkbox_decoy | visual_tool_routing_transfer | wrong_tool_or_stale_selection_risk | False | False | 0 | False | False | 0 | False | False | 0 | argument_mismatch | wrong_tool | 1 | 1 | 0 |
+| alias-transfer oracle contracted vs no directive | transfer_status_pill_chart_decoy | visual_argument_transfer | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | no_tool_call | argument_mismatch | 0 | 1 | 1 |
+| alias-transfer oracle role catalog vs no directive | transfer_error_banner_note_decoy | visual_argument_transfer | argument_alias_or_decoy_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| alias-transfer oracle role catalog vs no directive | transfer_form_error_old_selection_chip_decoy | visual_tool_routing_transfer | wrong_tool_or_stale_selection_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| alias-transfer oracle role catalog vs no directive | transfer_queue_badge_person_decoy | visual_argument_transfer | argument_alias_or_decoy_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| alias-transfer oracle role catalog vs no directive | transfer_review_tile_notice_table_decoy | visual_argument_transfer | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | no_tool_call | argument_mismatch | 0 | 1 | 1 |
+| alias-transfer oracle role catalog vs no directive | transfer_signature_warning_checkbox_decoy | visual_tool_routing_transfer | wrong_tool_or_stale_selection_risk | False | False | 0 | False | False | 0 | False | False | 0 | argument_mismatch | argument_mismatch | 1 | 1 | 0 |
+| alias-transfer oracle role catalog vs no directive | transfer_status_pill_chart_decoy | visual_argument_transfer | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | no_tool_call | no_tool_call | 0 | 0 | 0 |
+| alias-transfer oracle argument hints vs no directive | transfer_error_banner_note_decoy | visual_argument_transfer | argument_alias_or_decoy_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| alias-transfer oracle argument hints vs no directive | transfer_form_error_old_selection_chip_decoy | visual_tool_routing_transfer | wrong_tool_or_stale_selection_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| alias-transfer oracle argument hints vs no directive | transfer_queue_badge_person_decoy | visual_argument_transfer | argument_alias_or_decoy_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| alias-transfer oracle argument hints vs no directive | transfer_review_tile_notice_table_decoy | visual_argument_transfer | argument_alias_or_decoy_risk | False | True | 1 | False | True | 1 | False | True | 1 | no_tool_call | exact | 0 | 1 | 1 |
+| alias-transfer oracle argument hints vs no directive | transfer_signature_warning_checkbox_decoy | visual_tool_routing_transfer | wrong_tool_or_stale_selection_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| alias-transfer oracle argument hints vs no directive | transfer_status_pill_chart_decoy | visual_argument_transfer | argument_alias_or_decoy_risk | False | False | 0 | False | True | 1 | False | True | 1 | no_tool_call | executable_paraphrase | 0 | 1 | 1 |
+| alias-transfer oracle schema-field hints vs no directive | transfer_error_banner_note_decoy | visual_argument_transfer | argument_alias_or_decoy_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| alias-transfer oracle schema-field hints vs no directive | transfer_form_error_old_selection_chip_decoy | visual_tool_routing_transfer | wrong_tool_or_stale_selection_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| alias-transfer oracle schema-field hints vs no directive | transfer_queue_badge_person_decoy | visual_argument_transfer | argument_alias_or_decoy_risk | True | False | -1 | True | False | -1 | True | False | -1 | exact | argument_mismatch | 1 | 1 | 0 |
+| alias-transfer oracle schema-field hints vs no directive | transfer_review_tile_notice_table_decoy | visual_argument_transfer | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | no_tool_call | argument_mismatch | 0 | 1 | 1 |
+| alias-transfer oracle schema-field hints vs no directive | transfer_signature_warning_checkbox_decoy | visual_tool_routing_transfer | wrong_tool_or_stale_selection_risk | False | False | 0 | False | False | 0 | False | False | 0 | argument_mismatch | no_tool_call | 1 | 0 | -1 |
+| alias-transfer oracle schema-field hints vs no directive | transfer_status_pill_chart_decoy | visual_argument_transfer | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | no_tool_call | argument_mismatch | 0 | 1 | 1 |
+| alias-transfer oracle schema literal targets vs no directive | transfer_error_banner_note_decoy | visual_argument_transfer | argument_alias_or_decoy_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| alias-transfer oracle schema literal targets vs no directive | transfer_form_error_old_selection_chip_decoy | visual_tool_routing_transfer | wrong_tool_or_stale_selection_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| alias-transfer oracle schema literal targets vs no directive | transfer_queue_badge_person_decoy | visual_argument_transfer | argument_alias_or_decoy_risk | True | False | -1 | True | False | -1 | True | False | -1 | exact | argument_mismatch | 1 | 1 | 0 |
+| alias-transfer oracle schema literal targets vs no directive | transfer_review_tile_notice_table_decoy | visual_argument_transfer | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | no_tool_call | argument_mismatch | 0 | 1 | 1 |
+| alias-transfer oracle schema literal targets vs no directive | transfer_signature_warning_checkbox_decoy | visual_tool_routing_transfer | wrong_tool_or_stale_selection_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| alias-transfer oracle schema literal targets vs no directive | transfer_status_pill_chart_decoy | visual_argument_transfer | argument_alias_or_decoy_risk | False | True | 1 | False | True | 1 | False | True | 1 | no_tool_call | exact | 0 | 1 | 1 |
+
+The oracle replay rebuild makes the packet's expected calls execute to the same visual targets as the packet's expected-execution oracle, and replay-live now preserves those serialized expected calls instead of recomputing planner-derived calls. That changes the H1n interpretation materially: no-directive MLX is `2 / 6` strict and executor-equivalent, contracted MLX falls to `1 / 6`, role catalog v1 reaches `3 / 6`, argument hints v2 reaches `5 / 6` strict and `6 / 6` executor-equivalent, schema-field hints v4 stays at `2 / 6`, and schema target literals v5 reaches `4 / 6`. The clean H1n winner is therefore argument hints, with schema target literals as the second-place transfer mechanism. Contracted prompting is not a useful upper bound on this oracle transfer slice.
 
 ## Visual Hard-Slice Case Deltas vs No Directive
 

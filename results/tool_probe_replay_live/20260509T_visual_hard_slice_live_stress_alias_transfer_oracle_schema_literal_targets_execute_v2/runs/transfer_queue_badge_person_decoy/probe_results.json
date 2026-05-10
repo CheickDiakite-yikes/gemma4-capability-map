@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "transfer_queue_badge_person_decoy",
+    "family": "visual_argument_transfer",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "transfer-queue-3302"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-queue-badge",
+          "target_query": "assignee note"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-transfer-queue-badge",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "transfer-queue-3301"
+          ],
+          "region_id": "transfer-queue-3301",
+          "text_preview": "Taylor owns queue triage"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-queue-badge",
+          "target_query": "queue badge"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-queue-badge",
+          "target_query": "assignee note"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-transfer-queue-badge\", \"target_query\": \"assignee note\"}}",
+    "prompt_tokens": 1093,
+    "completion_tokens": 36,
+    "latency_ms": 4492
+  }
+]

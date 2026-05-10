@@ -73,6 +73,8 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 
 ![Visual hard-slice alias-transfer live replay gate](../../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_alias_transfer_live_replay_gate.svg)
 
+![Visual hard-slice alias-transfer oracle live replay gate](../../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_alias_transfer_oracle_live_replay_gate.svg)
+
 ![Exact probe replay gap](../../results/reports/mlx_tool_contract_harnessing/figures/exact_probe_replay_gap.svg)
 
 ![Focused exact replay gaps](../../results/reports/mlx_tool_contract_harnessing/figures/exact_probe_replay_focus_gap.svg)
@@ -868,11 +870,15 @@ This is now a research finding about benchmark construction. Packaged workflows 
 H1n is the first post-packaging-gap visual replay result. It keeps the `moonie-agent replay-live` surface but changes the labels and decoys:
 
 - source packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_dry_run_v1`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_dry_run_v1)
+- oracle packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_dry_run_v2`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_dry_run_v2)
 - diagnostic: [`results/reports/visual_alias_transfer_diagnostic/diagnostic.md`](../../results/reports/visual_alias_transfer_diagnostic/diagnostic.md)
+- oracle diagnostic: [`results/reports/visual_alias_transfer_oracle_diagnostic/diagnostic.md`](../../results/reports/visual_alias_transfer_oracle_diagnostic/diagnostic.md)
 - generated table: [`visual_hard_slice_alias_transfer_live_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_transfer_live_replay_summary.csv)
+- oracle table: [`visual_hard_slice_alias_transfer_oracle_live_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_transfer_oracle_live_replay_summary.csv)
 - generated figure: [`visual_hard_slice_alias_transfer_live_replay_gate.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_alias_transfer_live_replay_gate.svg)
+- oracle figure: [`visual_hard_slice_alias_transfer_oracle_live_replay_gate.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_alias_transfer_oracle_live_replay_gate.svg)
 
-Result:
+Legacy v1 result:
 
 | Row | Strict | Executor-equivalent |
 | --- | ---: | ---: |
@@ -883,7 +889,20 @@ Result:
 | schema-field hints v4 | `1 / 6` | `2 / 6` |
 | schema target literals v5 | `1 / 6` | `4 / 6` |
 
-The result changes the visual story again. On fresh transfer cases, argument hints v2 is the strongest executor-grounding intervention, not schema-field hints v4. Contracted MLX remains the strict-fidelity upper bound, but the current executor-target scorer marks only `1 / 6` contracted rows executor-equivalent, so the next analysis should inspect exact-but-not-executor-equivalent rows before turning that into a model-only ranking.
+The v1 result changed the visual story but exposed a benchmark-contract problem: `5 / 6` generated expected-call contracts did not satisfy the packet's own expected-execution oracle. Contracted MLX was strict-best against planner-derived expected calls, but it had `4` exact-but-not-executor rows. That means v1 strict exactness measured planner-call fidelity more than visual target success.
+
+Oracle v2 result:
+
+| Row | Strict | Executor-equivalent |
+| --- | ---: | ---: |
+| no-directive | `2 / 6` | `2 / 6` |
+| contracted | `1 / 6` | `1 / 6` |
+| role catalog v1 | `3 / 6` | `3 / 6` |
+| argument hints v2 | `5 / 6` | `6 / 6` |
+| schema-field hints v4 | `2 / 6` | `2 / 6` |
+| schema target literals v5 | `4 / 6` | `4 / 6` |
+
+The oracle replay fixes that scorer ambiguity by making the serialized expected calls execute to the target visual regions and by preserving those calls during replay-live scoring. Under this cleaner contract, argument hints v2 is the H1n winner, schema target literals v5 is second, and contracted prompting is not an upper bound. This is now one of the strongest evidence points for the paper thesis: benchmark contract quality changes what we think local Gemma is good at.
 
 ## Gemini CLI Baseline Status
 
@@ -927,7 +946,7 @@ Use this order before broad `32 / 26` reruns:
 2. Treat `visual_role_catalog_schema_field_hints_v4` as the best fresh hard-slice no-directive profile because it reaches `8 / 8` executor-equivalent target success, while still missing exact protocol on two cases.
 3. Treat `visual_role_catalog_schema_literal_targets_v5` as negative evidence: it drops to `5 / 8` strict exactness and `7 / 8` executor-equivalent target success while adding a wrong-tool stale-selection regression.
 4. Treat H1l and H1m as negative packaged-workflow results: current packaged visual workflows wash out hard-slice and alias-repeat row separation.
-5. Treat H1n as the current non-packaged visual restart point: argument hints v2 is the executor-equivalence winner on fresh alias-transfer cases, while contracted MLX remains strict-best.
+5. Treat H1n oracle v2 as the current non-packaged visual restart point: argument hints v2 is the clean winner at `5 / 6` strict and `6 / 6` executor-equivalent, with schema target literals v5 second at `4 / 6`.
 6. Treat `visual_role_catalog_v1` as the stable routing baseline, `visual_state_tool_selection_v4` as a failed-to-improve live candidate, `visual_refine_selection_v5` as a raw-gate rejection, and the v6 catalog-plus-literal-guard composition as negative interference.
 7. Stop iterating on standalone visual prompt rules unless the next idea changes tool-catalog role shape or generation-time argument copying without sacrificing protocol entry.
 8. Keep canonical JSON copy and parallel two-call wording out of H1 as currently written; they did not earn live promotion.

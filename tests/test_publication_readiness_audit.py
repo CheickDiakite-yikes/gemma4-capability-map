@@ -54,6 +54,9 @@ def test_publication_readiness_audit_writes_blocking_checks(tmp_path: Path) -> N
     assert checks["visual_alias_transfer_diagnostic_exists"]["passed"] is True
     assert checks["h1n_alias_transfer_contract_split_diagnostic_exists"]["passed"] is True
     assert checks["h1n_alias_transfer_oracle_packet_exists"]["passed"] is True
+    assert checks["h1n_alias_transfer_oracle_argument_hints_comparison_exists"]["passed"] is True
+    assert checks["h1n_alias_transfer_oracle_diagnostic_exists"]["passed"] is True
+    assert checks["h1n_alias_transfer_oracle_report_table_exists"]["passed"] is True
     assert checks["script_analyze_visual_hard_slice_exactness.py_exists"]["passed"] is True
     assert checks["script_analyze_packaged_replay_gap.py_exists"]["passed"] is True
     assert checks["script_analyze_h1n_alias_transfer_contract_split.py_exists"]["passed"] is True

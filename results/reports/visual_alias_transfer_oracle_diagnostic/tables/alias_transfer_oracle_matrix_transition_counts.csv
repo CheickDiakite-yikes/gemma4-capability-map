@@ -1,0 +1,15 @@
+label,transition,count
+argument_hints_v2,executor_gain_without_strict,1
+argument_hints_v2,strict_gain,3
+argument_hints_v2,unchanged,2
+contracted,regression,2
+contracted,strict_gain,1
+contracted,unchanged,3
+role_catalog_v1,strict_gain,1
+role_catalog_v1,unchanged,5
+schema_field_hints_v4,regression,1
+schema_field_hints_v4,strict_gain,1
+schema_field_hints_v4,unchanged,4
+schema_literal_targets_v5,regression,1
+schema_literal_targets_v5,strict_gain,3
+schema_literal_targets_v5,unchanged,2

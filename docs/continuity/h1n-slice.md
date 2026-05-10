@@ -24,7 +24,8 @@ Oracle source packet:
 
 - packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_dry_run_v2`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_dry_run_v2)
 - expected-call rule: derive `extract_layout.target_query` from the target region label in `expected_execution`
-- status: dry-run packet only; use this for the next H1n live matrix
+- runtime contract: `moonie-agent replay-live` now honors serialized packet `expected_calls` instead of recomputing expected calls with `plan_tool_calls(...)`
+- status: executed across the full no-directive, contracted, role-catalog, argument-hints, schema-field, and schema-literal matrix
 
 Build command:
 
@@ -50,9 +51,18 @@ uv run moonie-agent replay-live \
   --execute --json
 ```
 
-## Executed Result
+The same packet was then executed for:
 
-The full matrix has now been executed:
+- `mlx_gemma4_e2b_reasoner_only`
+- `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive`
+- `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog`
+- `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints`
+- `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints`
+- `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets`
+
+## Legacy V1 Result
+
+The first matrix was useful but had a benchmark-contract issue:
 
 - no-directive: strict `0 / 6`, executor-equivalent `2 / 6`
 - contracted: strict `5 / 6`, executor-equivalent `1 / 6`
@@ -61,15 +71,41 @@ The full matrix has now been executed:
 - schema-field hints v4: strict `1 / 6`, executor-equivalent `2 / 6`
 - schema target literals v5: strict `1 / 6`, executor-equivalent `4 / 6`
 
+Contract-split diagnosis:
+
+- `5 / 6` generated expected-call contracts failed the packet's own `expected_execution` oracle.
+- contracted MLX had `4` exact-but-not-executor rows.
+- strict exactness on v1 measured planner-call fidelity more than visual target success.
+
+## Oracle V2 Result
+
+The oracle packet removes that scorer ambiguity by making expected calls execute to the target visual regions:
+
+- no-directive: strict `2 / 6`, executor-equivalent `2 / 6`
+- contracted: strict `1 / 6`, executor-equivalent `1 / 6`
+- role catalog v1: strict `3 / 6`, executor-equivalent `3 / 6`
+- argument hints v2: strict `5 / 6`, executor-equivalent `6 / 6`
+- schema-field hints v4: strict `2 / 6`, executor-equivalent `2 / 6`
+- schema target literals v5: strict `4 / 6`, executor-equivalent `4 / 6`
+
+Clean ranking:
+
+- argument hints v2 is the H1n transfer winner.
+- schema target literals v5 is second.
+- role catalog v1 gives partial lift.
+- contracted prompting is not an oracle-transfer upper bound on this slice.
+
 Generated evidence:
 
 - diagnostic: [`results/reports/visual_alias_transfer_diagnostic/diagnostic.md`](../../results/reports/visual_alias_transfer_diagnostic/diagnostic.md)
+- oracle diagnostic: [`results/reports/visual_alias_transfer_oracle_diagnostic/diagnostic.md`](../../results/reports/visual_alias_transfer_oracle_diagnostic/diagnostic.md)
 - report table: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_transfer_live_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_transfer_live_replay_summary.csv)
+- oracle report table: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_transfer_oracle_live_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_transfer_oracle_live_replay_summary.csv)
 - report figure: [`results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_alias_transfer_live_replay_gate.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_alias_transfer_live_replay_gate.svg)
+- oracle report figure: [`results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_alias_transfer_oracle_live_replay_gate.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_alias_transfer_oracle_live_replay_gate.svg)
 
 Interpretation:
 
-- Argument hints v2 is the strongest current no-directive executor-grounding profile on fresh transfer cases.
-- Schema target literals v5 still help executor-equivalence, but less than argument hints on this packet.
-- Contracted MLX is not a clean strict target-success upper bound on v1 because the strict expected calls are heuristic planner outputs, not oracle calls.
-- The next move is not packaged H1; it is the oracle v2 replay-live matrix, then a repeat or helper-ablation around the non-packaged replay-live surface if the result still separates rows.
+- Benchmark contract quality changed what H1n seemed to show. The v1 strict winner was a planner-contract artifact; the v2 oracle winner is argument hints.
+- The substantive local-Gemma harnessing result is not "more prompt is better." It is narrower: target-query argument hints improve transfer on fresh visual labels/decoys, while broad contracted prompting can regress.
+- The next move is a repeat or helper-ablation around the non-packaged replay-live surface, using oracle expected calls as the default strict target contract.

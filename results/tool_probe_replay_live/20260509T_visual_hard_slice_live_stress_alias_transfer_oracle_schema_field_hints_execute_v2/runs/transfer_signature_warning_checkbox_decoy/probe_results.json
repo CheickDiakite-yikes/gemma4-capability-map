@@ -1,0 +1,31 @@
+[
+  {
+    "case_id": "transfer_signature_warning_checkbox_decoy",
+    "family": "visual_tool_routing_transfer",
+    "expected_call_count": 1,
+    "actual_call_count": 0,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "transfer-signature-3502"
+      ]
+    },
+    "actual_execution": [],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-signature-warning",
+          "target_query": "signature warning"
+        }
+      }
+    ],
+    "actual_calls": [],
+    "raw_model_output": "",
+    "prompt_tokens": 954,
+    "completion_tokens": 1,
+    "latency_ms": 3763
+  }
+]

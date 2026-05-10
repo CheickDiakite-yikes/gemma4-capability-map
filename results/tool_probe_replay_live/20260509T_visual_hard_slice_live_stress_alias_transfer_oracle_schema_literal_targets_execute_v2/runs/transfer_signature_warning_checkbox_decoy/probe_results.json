@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "transfer_signature_warning_checkbox_decoy",
+    "family": "visual_tool_routing_transfer",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "transfer-signature-3502"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-signature-warning",
+          "target_query": "signature warning"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-transfer-signature-warning",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "transfer-signature-3502"
+          ],
+          "region_id": "transfer-signature-3502",
+          "text_preview": "Signature missing for approval"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-signature-warning",
+          "target_query": "signature warning"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-signature-warning",
+          "target_query": "signature warning"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-transfer-signature-warning\", \"target_query\": \"signature warning\"}}",
+    "prompt_tokens": 1092,
+    "completion_tokens": 35,
+    "latency_ms": 4560
+  }
+]

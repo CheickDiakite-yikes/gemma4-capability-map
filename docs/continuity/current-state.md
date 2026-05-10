@@ -241,10 +241,12 @@ Latest MLX tool-contract research:
   - suite: `alias_transfer_v3`
   - diagnostic: [`results/reports/visual_alias_transfer_diagnostic/diagnostic.md`](../../results/reports/visual_alias_transfer_diagnostic/diagnostic.md)
   - contract-split diagnostic: [`results/reports/h1n_alias_transfer_contract_split/diagnostic.md`](../../results/reports/h1n_alias_transfer_contract_split/diagnostic.md)
-  - result: no-directive MLX is strict `0 / 6` and executor-equivalent `2 / 6`; argument hints v2 is strict `1 / 6` and executor-equivalent `6 / 6`; schema target literals v5 is strict `1 / 6` and executor-equivalent `4 / 6`; contracted MLX is strict `5 / 6` but executor-equivalent `1 / 6` under the current executor-target scorer
-  - contract finding: `5 / 6` generated expected-call contracts do not satisfy the packet oracle, so H1n strict exactness currently measures heuristic planner-call fidelity more than visual target success
-  - implementation update: future `alias_transfer_v3` packets now derive expected calls from target region labels; oracle v2 is built and ready for live replay
-  - interpretation: fresh transfer cases favor argument hints for executor-grounding; run oracle v2 before using strict exactness as a headline ranking
+  - oracle diagnostic: [`results/reports/visual_alias_transfer_oracle_diagnostic/diagnostic.md`](../../results/reports/visual_alias_transfer_oracle_diagnostic/diagnostic.md)
+  - legacy v1 result: no-directive MLX is strict `0 / 6` and executor-equivalent `2 / 6`; argument hints v2 is strict `1 / 6` and executor-equivalent `6 / 6`; schema target literals v5 is strict `1 / 6` and executor-equivalent `4 / 6`; contracted MLX is strict `5 / 6` but executor-equivalent `1 / 6`
+  - contract finding: `5 / 6` generated expected-call contracts do not satisfy the packet oracle, so legacy H1n strict exactness measured heuristic planner-call fidelity more than visual target success
+  - runtime update: `moonie-agent replay-live` now honors serialized packet expected calls, so oracle v2 strict scoring uses the packet contract rather than recomputed planner calls
+  - oracle v2 result: no-directive is `2 / 6`; contracted is `1 / 6`; role catalog v1 is `3 / 6`; argument hints v2 is `5 / 6` strict and `6 / 6` executor-equivalent; schema-field hints v4 is `2 / 6`; schema target literals v5 is `4 / 6`
+  - interpretation: fresh transfer cases favor narrow argument hints once the expected-call contract is oracle-backed; schema target literals are second, and contracted prompting is not a clean upper bound on this slice
 - Prompt-contract wave 2:
   - contracts: `schema_literal_tool_required_v2`, `visual_next_call_state_v2`, `parallel_array_required_v2`
   - runner flag: `scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v2`
