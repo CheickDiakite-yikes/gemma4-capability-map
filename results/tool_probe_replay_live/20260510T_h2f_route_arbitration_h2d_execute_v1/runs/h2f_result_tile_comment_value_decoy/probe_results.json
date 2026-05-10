@@ -1,0 +1,64 @@
+[
+  {
+    "case_id": "h2f_result_tile_comment_value_decoy",
+    "family": "h2f_route_component_class_transfer",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "h2f-result-tile-9922"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2f-result-tile",
+          "target_query": "Blocked"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h2f-result-tile",
+          "selection_kind": "regions",
+          "count": 3,
+          "executor_mode": "local",
+          "region_ids": [
+            "h2f-result-comment-9921",
+            "h2f-result-tile-9922",
+            "h2f-result-board-9923"
+          ],
+          "region_id": "h2f-result-comment-9921",
+          "text_preview": "Blocked by legal"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2f-result-tile",
+          "target_query": "result tile"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2f-result-tile",
+          "target_query": "Blocked"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h2f-result-tile\", \"target_query\": \"Blocked\"}}",
+    "prompt_tokens": 1844,
+    "completion_tokens": 36,
+    "latency_ms": 6956
+  }
+]
