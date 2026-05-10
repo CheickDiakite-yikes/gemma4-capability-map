@@ -1,25 +1,32 @@
 {
   "manifest": {
-    "generated_at": "2026-05-10T21:25:27.192950+00:00",
+    "generated_at": "2026-05-10T21:44:52.657720+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h2f_route_arbitration_holdout_synthesis",
-    "packet_row_count": 7,
-    "comparison_count": 8,
+    "packet_row_count": 8,
+    "comparison_count": 12,
     "h2e_exact_success_count": 6,
     "h2e_executor_success_count": 6,
     "h2g_exact_success_count": 6,
     "h2g_executor_success_count": 7,
+    "h2h_exact_success_count": 9,
+    "h2h_executor_success_count": 9,
     "h2c_exact_success_count": 6,
     "no_directive_exact_success_count": 1,
     "h2e_non_exact_count": 4,
     "h2g_non_exact_count": 4,
+    "h2h_non_exact_count": 1,
     "h2e_delta_exact_vs_h2c": 0.0,
     "h2e_delta_executor_vs_h2c": 0.0,
     "h2e_delta_exact_vs_no_directive": 0.5,
     "h2e_delta_executor_vs_no_directive": 0.5,
     "h2g_delta_exact_vs_h2e": 0.0,
     "h2g_delta_executor_vs_h2e": 0.09999999999999998,
+    "h2h_delta_exact_vs_h2e": 0.30000000000000004,
+    "h2h_delta_executor_vs_h2e": 0.30000000000000004,
+    "h2h_delta_exact_vs_h2g": 0.30000000000000004,
+    "h2h_delta_executor_vs_h2g": 0.20000000000000007,
     "h2e_failure_family_count": 2,
-    "promotion_decision": "reject_global_h2e_and_h2g_build_h2h_stronger_component_identity_contract"
+    "promotion_decision": "h2h_repairs_h2f_but_requires_transfer_tradeoff_synthesis"
   },
   "packet_rows": [
     {
@@ -105,6 +112,18 @@
       "executable_rate": 0.7,
       "executor_success_count": 7,
       "executor_rate": 0.7
+    },
+    {
+      "profile_label": "h2h_component_identity_negative_examples",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_identity_negative_examples_visual_stale_selection_gate",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2h_component_identity_negative_examples_on_h2f_execute_v1",
+      "case_count": 10,
+      "exact_success_count": 9,
+      "exact_rate": 0.9,
+      "executable_success_count": 9,
+      "executable_rate": 0.9,
+      "executor_success_count": 9,
+      "executor_rate": 0.9
     }
   ],
   "comparison_rows": [
@@ -219,6 +238,62 @@
       "baseline_executor_equivalence_rate": 0.1,
       "candidate_executor_equivalence_rate": 0.7,
       "delta_executor_equivalence_rate": 0.6
+    },
+    {
+      "comparison_label": "h2f_h2h_vs_h2e",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h2h_component_identity_negative_examples_vs_h2e_on_h2f_v1",
+      "shared_case_count": 10,
+      "baseline_exact_rate": 0.6,
+      "candidate_exact_rate": 0.9,
+      "delta_exact_rate": 0.30000000000000004,
+      "baseline_executable_rate": 0.6,
+      "candidate_executable_rate": 0.9,
+      "delta_executable_rate": 0.30000000000000004,
+      "baseline_executor_equivalence_rate": 0.6,
+      "candidate_executor_equivalence_rate": 0.9,
+      "delta_executor_equivalence_rate": 0.30000000000000004
+    },
+    {
+      "comparison_label": "h2f_h2h_vs_h2g",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h2h_component_identity_negative_examples_vs_h2g_on_h2f_v1",
+      "shared_case_count": 10,
+      "baseline_exact_rate": 0.6,
+      "candidate_exact_rate": 0.9,
+      "delta_exact_rate": 0.30000000000000004,
+      "baseline_executable_rate": 0.7,
+      "candidate_executable_rate": 0.9,
+      "delta_executable_rate": 0.20000000000000007,
+      "baseline_executor_equivalence_rate": 0.7,
+      "candidate_executor_equivalence_rate": 0.9,
+      "delta_executor_equivalence_rate": 0.20000000000000007
+    },
+    {
+      "comparison_label": "h2f_h2h_vs_h2c",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h2h_component_identity_negative_examples_vs_h2c_on_h2f_v1",
+      "shared_case_count": 10,
+      "baseline_exact_rate": 0.6,
+      "candidate_exact_rate": 0.9,
+      "delta_exact_rate": 0.30000000000000004,
+      "baseline_executable_rate": 0.6,
+      "candidate_executable_rate": 0.9,
+      "delta_executable_rate": 0.30000000000000004,
+      "baseline_executor_equivalence_rate": 0.6,
+      "candidate_executor_equivalence_rate": 0.9,
+      "delta_executor_equivalence_rate": 0.30000000000000004
+    },
+    {
+      "comparison_label": "h2f_h2h_vs_no_directive",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h2h_component_identity_negative_examples_vs_no_directive_on_h2f_v1",
+      "shared_case_count": 10,
+      "baseline_exact_rate": 0.1,
+      "candidate_exact_rate": 0.9,
+      "delta_exact_rate": 0.8,
+      "baseline_executable_rate": 0.1,
+      "candidate_executable_rate": 0.9,
+      "delta_executable_rate": 0.8,
+      "baseline_executor_equivalence_rate": 0.1,
+      "candidate_executor_equivalence_rate": 0.9,
+      "delta_executor_equivalence_rate": 0.8
     }
   ],
   "h2e_non_exact_rows": [
@@ -334,6 +409,22 @@
       "expected_target_query": "mode switch",
       "actual_tool": "extract_layout",
       "actual_target_query": "mode toggle",
+      "query_error_class": "value_or_alias_query_substitution"
+    }
+  ],
+  "h2h_non_exact_rows": [
+    {
+      "profile_label": "h2h_component_identity_negative_examples",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2h_component_identity_negative_examples_on_h2f_execute_v1",
+      "case_id": "h2f_state_marker_history_value_decoy",
+      "family": "h2f_route_nonstandard_class",
+      "failure_mode": "argument_mismatch",
+      "executable_match": false,
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "state marker",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "lifecycle state marker",
       "query_error_class": "value_or_alias_query_substitution"
     }
   ],
@@ -855,6 +946,20 @@
       "actual_tool": "extract_layout",
       "actual_target_query": "mode toggle",
       "query_error_class": "value_or_alias_query_substitution"
+    },
+    {
+      "profile_label": "h2h_component_identity_negative_examples",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2h_component_identity_negative_examples_on_h2f_execute_v1",
+      "case_id": "h2f_state_marker_history_value_decoy",
+      "family": "h2f_route_nonstandard_class",
+      "failure_mode": "argument_mismatch",
+      "executable_match": false,
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "state marker",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "lifecycle state marker",
+      "query_error_class": "value_or_alias_query_substitution"
     }
   ],
   "family_rows": [
@@ -1172,6 +1277,51 @@
       "executor_success_count": 2,
       "exact_rate": 1.0,
       "executor_rate": 1.0
+    },
+    {
+      "profile_label": "h2h_component_identity_negative_examples",
+      "family": "h2f_route_code_label",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "executor_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "h2h_component_identity_negative_examples",
+      "family": "h2f_route_component_class_transfer",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "executor_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "h2h_component_identity_negative_examples",
+      "family": "h2f_route_nonstandard_class",
+      "case_count": 2,
+      "exact_success_count": 1,
+      "executor_success_count": 1,
+      "exact_rate": 0.5,
+      "executor_rate": 0.5
+    },
+    {
+      "profile_label": "h2h_component_identity_negative_examples",
+      "family": "h2f_route_stale_field",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "executor_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "h2h_component_identity_negative_examples",
+      "family": "h2f_activation_panel_notice",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "executor_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_rate": 1.0
     }
   ],
   "failure_mode_rows": [
@@ -1264,6 +1414,16 @@
       "profile_label": "h2g_component_identity_query_contract",
       "failure_mode": "executable_paraphrase",
       "count": 1
+    },
+    {
+      "profile_label": "h2h_component_identity_negative_examples",
+      "failure_mode": "argument_mismatch",
+      "count": 1
+    },
+    {
+      "profile_label": "h2h_component_identity_negative_examples",
+      "failure_mode": "exact",
+      "count": 9
     }
   ],
   "finding_rows": [
@@ -1288,8 +1448,16 @@
       "finding": "H2g keeps strict exactness at 6/10 but improves executor-equivalence to 7/10, a 0.09999999999999998 executor lift over H2e. This is partial evidence, not promotion evidence, because the H2g non-exact table still has 4 rows."
     },
     {
+      "finding_id": "h2h_repairs_h2f_component_identity",
+      "finding": "H2h reaches 9/10 exact and 9/10 executor-equivalent on H2f, lifting exactness by 0.30000000000000004 versus H2e and 0.30000000000000004 versus H2g."
+    },
+    {
+      "finding_id": "h2h_residual_state_marker_alias",
+      "finding": "H2h leaves one H2f residual. The remaining target-query substitution is state marker->lifecycle state marker, so the next contract work should isolate marker-prefix alias expansion rather than broad value-substitution prose."
+    },
+    {
       "finding_id": "next_contract",
-      "finding": "Build H2h as a stronger component-identity contract with explicit negative examples for value substitution and alias expansion; H2g shows the contract needs to separate exact query fidelity from executor-valid paraphrase."
+      "finding": "Do not promote H2h globally from H2f alone. Use the H2b/H1x transfer tradeoff packets to test whether the negative examples preserve prior residual-exactness and route-arbitration wins."
     }
   ]
 }

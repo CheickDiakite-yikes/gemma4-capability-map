@@ -17,3 +17,5 @@ h2e_route_arbitration,exact,6
 h2g_component_identity_query_contract,argument_mismatch,3
 h2g_component_identity_query_contract,exact,6
 h2g_component_identity_query_contract,executable_paraphrase,1
+h2h_component_identity_negative_examples,argument_mismatch,1
+h2h_component_identity_negative_examples,exact,9

@@ -60,6 +60,13 @@ PACKET_SPECS: tuple[PacketSpec, ...] = (
         / "tool_probe_replay_live"
         / "20260510T_h2g_component_identity_query_contract_on_h2f_execute_v1",
     ),
+    PacketSpec(
+        "h2h_component_identity_negative_examples",
+        ROOT
+        / "results"
+        / "tool_probe_replay_live"
+        / "20260510T_h2h_component_identity_negative_examples_on_h2f_execute_v1",
+    ),
 )
 
 
@@ -120,6 +127,34 @@ COMPARISON_SPECS: tuple[ComparisonSpec, ...] = (
         / "tool_probe_replay_live_comparisons"
         / "20260510T_h2g_component_identity_query_contract_vs_no_directive_on_h2f_v1",
     ),
+    ComparisonSpec(
+        "h2f_h2h_vs_h2e",
+        ROOT
+        / "results"
+        / "tool_probe_replay_live_comparisons"
+        / "20260510T_h2h_component_identity_negative_examples_vs_h2e_on_h2f_v1",
+    ),
+    ComparisonSpec(
+        "h2f_h2h_vs_h2g",
+        ROOT
+        / "results"
+        / "tool_probe_replay_live_comparisons"
+        / "20260510T_h2h_component_identity_negative_examples_vs_h2g_on_h2f_v1",
+    ),
+    ComparisonSpec(
+        "h2f_h2h_vs_h2c",
+        ROOT
+        / "results"
+        / "tool_probe_replay_live_comparisons"
+        / "20260510T_h2h_component_identity_negative_examples_vs_h2c_on_h2f_v1",
+    ),
+    ComparisonSpec(
+        "h2f_h2h_vs_no_directive",
+        ROOT
+        / "results"
+        / "tool_probe_replay_live_comparisons"
+        / "20260510T_h2h_component_identity_negative_examples_vs_no_directive_on_h2f_v1",
+    ),
 )
 
 
@@ -145,18 +180,34 @@ def build_h2f_route_arbitration_holdout_synthesis(
         / "tool_probe_replay_live"
         / "20260510T_h2g_component_identity_query_contract_on_h2f_execute_v1",
     )
+    h2h_non_exact_rows = _non_exact_rows(
+        "h2h_component_identity_negative_examples",
+        ROOT
+        / "results"
+        / "tool_probe_replay_live"
+        / "20260510T_h2h_component_identity_negative_examples_on_h2f_execute_v1",
+    )
     all_non_exact_rows = _all_non_exact_rows(PACKET_SPECS)
     family_rows = _family_rows(PACKET_SPECS)
     failure_mode_rows = _failure_mode_rows(PACKET_SPECS)
-    finding_rows = _finding_rows(packet_rows, comparison_rows, h2e_non_exact_rows, h2g_non_exact_rows)
+    finding_rows = _finding_rows(
+        packet_rows,
+        comparison_rows,
+        h2e_non_exact_rows,
+        h2g_non_exact_rows,
+        h2h_non_exact_rows,
+    )
 
     h2e = _packet_by_profile(packet_rows, "h2e_route_arbitration")
     h2g = _packet_by_profile(packet_rows, "h2g_component_identity_query_contract")
+    h2h = _packet_by_profile(packet_rows, "h2h_component_identity_negative_examples")
     h2c = _packet_by_profile(packet_rows, "h2c_scoped_residual_gate")
     no_directive = _packet_by_profile(packet_rows, "no_directive")
     h2e_vs_h2c = _comparison_by_label(comparison_rows, "h2f_h2e_vs_h2c")
     h2e_vs_no_directive = _comparison_by_label(comparison_rows, "h2f_h2e_vs_no_directive")
     h2g_vs_h2e = _comparison_by_label(comparison_rows, "h2f_h2g_vs_h2e")
+    h2h_vs_h2e = _comparison_by_label(comparison_rows, "h2f_h2h_vs_h2e")
+    h2h_vs_h2g = _comparison_by_label(comparison_rows, "h2f_h2h_vs_h2g")
     manifest = {
         "generated_at": datetime.now(UTC).isoformat(),
         "output_dir": str(output.resolve()),
@@ -166,18 +217,25 @@ def build_h2f_route_arbitration_holdout_synthesis(
         "h2e_executor_success_count": int(h2e["executor_success_count"]),
         "h2g_exact_success_count": int(h2g["exact_success_count"]),
         "h2g_executor_success_count": int(h2g["executor_success_count"]),
+        "h2h_exact_success_count": int(h2h["exact_success_count"]),
+        "h2h_executor_success_count": int(h2h["executor_success_count"]),
         "h2c_exact_success_count": int(h2c["exact_success_count"]),
         "no_directive_exact_success_count": int(no_directive["exact_success_count"]),
         "h2e_non_exact_count": len(h2e_non_exact_rows),
         "h2g_non_exact_count": len(h2g_non_exact_rows),
+        "h2h_non_exact_count": len(h2h_non_exact_rows),
         "h2e_delta_exact_vs_h2c": h2e_vs_h2c["delta_exact_rate"],
         "h2e_delta_executor_vs_h2c": h2e_vs_h2c["delta_executor_equivalence_rate"],
         "h2e_delta_exact_vs_no_directive": h2e_vs_no_directive["delta_exact_rate"],
         "h2e_delta_executor_vs_no_directive": h2e_vs_no_directive["delta_executor_equivalence_rate"],
         "h2g_delta_exact_vs_h2e": h2g_vs_h2e["delta_exact_rate"],
         "h2g_delta_executor_vs_h2e": h2g_vs_h2e["delta_executor_equivalence_rate"],
+        "h2h_delta_exact_vs_h2e": h2h_vs_h2e["delta_exact_rate"],
+        "h2h_delta_executor_vs_h2e": h2h_vs_h2e["delta_executor_equivalence_rate"],
+        "h2h_delta_exact_vs_h2g": h2h_vs_h2g["delta_exact_rate"],
+        "h2h_delta_executor_vs_h2g": h2h_vs_h2g["delta_executor_equivalence_rate"],
         "h2e_failure_family_count": len({row["family"] for row in h2e_non_exact_rows}),
-        "promotion_decision": "reject_global_h2e_and_h2g_build_h2h_stronger_component_identity_contract",
+        "promotion_decision": "h2h_repairs_h2f_but_requires_transfer_tradeoff_synthesis",
     }
     payload = {
         "manifest": manifest,
@@ -185,6 +243,7 @@ def build_h2f_route_arbitration_holdout_synthesis(
         "comparison_rows": comparison_rows,
         "h2e_non_exact_rows": h2e_non_exact_rows,
         "h2g_non_exact_rows": h2g_non_exact_rows,
+        "h2h_non_exact_rows": h2h_non_exact_rows,
         "all_non_exact_rows": all_non_exact_rows,
         "family_rows": family_rows,
         "failure_mode_rows": failure_mode_rows,
@@ -195,6 +254,7 @@ def build_h2f_route_arbitration_holdout_synthesis(
     _write_csv(tables_dir / "h2f_comparison_summary.csv", comparison_rows)
     _write_csv(tables_dir / "h2f_h2e_non_exact_rows.csv", h2e_non_exact_rows)
     _write_csv(tables_dir / "h2f_h2g_non_exact_rows.csv", h2g_non_exact_rows)
+    _write_csv(tables_dir / "h2f_h2h_non_exact_rows.csv", h2h_non_exact_rows)
     _write_csv(tables_dir / "h2f_all_non_exact_rows.csv", all_non_exact_rows)
     _write_csv(tables_dir / "h2f_family_summary.csv", family_rows)
     _write_csv(tables_dir / "h2f_failure_mode_summary.csv", failure_mode_rows)
@@ -359,9 +419,11 @@ def _finding_rows(
     comparison_rows: list[dict[str, Any]],
     h2e_non_exact_rows: list[dict[str, Any]],
     h2g_non_exact_rows: list[dict[str, Any]],
+    h2h_non_exact_rows: list[dict[str, Any]],
 ) -> list[dict[str, str]]:
     h2e = _packet_by_profile(packet_rows, "h2e_route_arbitration")
     h2g = _packet_by_profile(packet_rows, "h2g_component_identity_query_contract")
+    h2h = _packet_by_profile(packet_rows, "h2h_component_identity_negative_examples")
     h2c = _packet_by_profile(packet_rows, "h2c_scoped_residual_gate")
     h2d = _packet_by_profile(packet_rows, "h2d_class_preserving_route")
     h2a = _packet_by_profile(packet_rows, "h2a_component_label_guard")
@@ -370,9 +432,14 @@ def _finding_rows(
     h2e_vs_h2c = _comparison_by_label(comparison_rows, "h2f_h2e_vs_h2c")
     h2e_vs_no_directive = _comparison_by_label(comparison_rows, "h2f_h2e_vs_no_directive")
     h2g_vs_h2e = _comparison_by_label(comparison_rows, "h2f_h2g_vs_h2e")
+    h2h_vs_h2e = _comparison_by_label(comparison_rows, "h2f_h2h_vs_h2e")
+    h2h_vs_h2g = _comparison_by_label(comparison_rows, "h2f_h2h_vs_h2g")
     failed_families = ", ".join(sorted({row["family"] for row in h2e_non_exact_rows}))
     target_swaps = ", ".join(
         f"{row['expected_target_query']}->{row['actual_target_query']}" for row in h2e_non_exact_rows
+    )
+    h2h_residual = ", ".join(
+        f"{row['expected_target_query']}->{row['actual_target_query']}" for row in h2h_non_exact_rows
     )
     return [
         {
@@ -416,11 +483,26 @@ def _finding_rows(
             ),
         },
         {
+            "finding_id": "h2h_repairs_h2f_component_identity",
+            "finding": (
+                f"H2h reaches {h2h['exact_success_count']}/10 exact and {h2h['executor_success_count']}/10 "
+                f"executor-equivalent on H2f, lifting exactness by {h2h_vs_h2e['delta_exact_rate']} versus H2e "
+                f"and {h2h_vs_h2g['delta_exact_rate']} versus H2g."
+            ),
+        },
+        {
+            "finding_id": "h2h_residual_state_marker_alias",
+            "finding": (
+                "H2h leaves one H2f residual. The remaining target-query substitution is "
+                f"{h2h_residual}, so the next contract work should isolate marker-prefix alias expansion rather "
+                "than broad value-substitution prose."
+            ),
+        },
+        {
             "finding_id": "next_contract",
             "finding": (
-                "Build H2h as a stronger component-identity contract with explicit negative examples for value "
-                "substitution and alias expansion; H2g shows the contract needs to separate exact query fidelity "
-                "from executor-valid paraphrase."
+                "Do not promote H2h globally from H2f alone. Use the H2b/H1x transfer tradeoff packets to test "
+                "whether the negative examples preserve prior residual-exactness and route-arbitration wins."
             ),
         },
     ]
@@ -440,8 +522,9 @@ def _markdown(payload: dict[str, Any]) -> str:
             "the saturated H2b/H1x gates. It does not. H2e keeps a large advantage over the no-directive floor, "
             "but it ties H2c and fails four cases by calling the right tool with the wrong query. The residual "
             "problem is component-identity binding under displayed-value decoys. H2g improves executor-equivalence "
-            "by one row but does not improve strict exactness, so it is a partial negative result rather than a "
-            "promotion candidate."
+            "by one row but does not improve strict exactness. H2h then repairs most of the fresh holdout at "
+            "9/10 strict and executor-equivalent, leaving only the state marker alias. This is strong scoped "
+            "evidence, but still needs transfer tradeoff reporting before any global promotion claim."
         ),
         "",
         "![H2f holdout profile bars](figures/h2f_holdout_profile_bars.svg)",
@@ -462,6 +545,10 @@ def _markdown(payload: dict[str, Any]) -> str:
         "",
         _table(payload["h2g_non_exact_rows"]),
         "",
+        "## H2h Non-Exact Rows",
+        "",
+        _table(payload["h2h_non_exact_rows"]),
+        "",
         "## Family Rows",
         "",
         _table(payload["family_rows"]),
@@ -480,7 +567,7 @@ def _markdown(payload: dict[str, Any]) -> str:
 
 def _write_svg(path: Path, packet_rows: list[dict[str, Any]]) -> None:
     width = 920
-    height = 360
+    height = 112 + len(packet_rows) * 48
     left = 280
     top = 68
     bar_width = 520
@@ -502,7 +589,9 @@ def _write_svg(path: Path, packet_rows: list[dict[str, Any]]) -> None:
         exact_count = row["exact_success_count"]
         executor_count = row["executor_success_count"]
         case_count = row["case_count"]
-        fill = "#0891b2" if label == "h2e_route_arbitration" else "#64748b"
+        fill = "#155e75" if label == "h2h_component_identity_negative_examples" else "#64748b"
+        if label == "h2e_route_arbitration":
+            fill = "#0891b2"
         parts.extend(
             [
                 f'<text x="32" y="{y + 18}" font-family="Arial, sans-serif" font-size="13" fill="#111827">{label}</text>',
