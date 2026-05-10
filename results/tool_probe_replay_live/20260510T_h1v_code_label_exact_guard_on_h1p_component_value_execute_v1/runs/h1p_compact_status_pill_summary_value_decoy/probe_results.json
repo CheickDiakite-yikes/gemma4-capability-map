@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "h1p_compact_status_pill_summary_value_decoy",
+    "family": "h1p_component_value_compact",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "h1p-status-pill-9302"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1p-compact-status-pill",
+          "target_query": "status pill"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h1p-compact-status-pill",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "h1p-status-pill-9302"
+          ],
+          "region_id": "h1p-status-pill-9302",
+          "text_preview": "Pending"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1p-compact-status-pill",
+          "target_query": "status pill"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1p-compact-status-pill",
+          "target_query": "status pill"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h1p-compact-status-pill\", \"target_query\": \"status pill\"}}",
+    "prompt_tokens": 1735,
+    "completion_tokens": 39,
+    "latency_ms": 11291
+  }
+]

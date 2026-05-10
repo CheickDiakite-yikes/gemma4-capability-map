@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "h1o_activation_error_banner_previous_region_decoy",
+    "family": "h1o_activation_no_call",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "h1o-error-banner-9022"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1o-activation-error-banner",
+          "target_query": "error banner"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h1o-activation-error-banner",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "h1o-error-banner-9022"
+          ],
+          "region_id": "h1o-error-banner-9022",
+          "text_preview": "Export failed: approval missing"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1o-activation-error-banner",
+          "target_query": "error banner"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1o-activation-error-banner",
+          "target_query": "error banner"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h1o-activation-error-banner\", \"target_query\": \"error banner\"}}",
+    "prompt_tokens": 1744,
+    "completion_tokens": 39,
+    "latency_ms": 6027
+  }
+]

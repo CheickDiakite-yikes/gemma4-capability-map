@@ -1,0 +1,16 @@
+{
+  "generated_at": "2026-05-10T18:25:59.016733+00:00",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h1v_code_label_exact_transfer_synthesis",
+  "packet_row_count": 12,
+  "transfer_case_count": 32,
+  "v11_transfer_exact_success_count": 26,
+  "v11_transfer_executor_success_count": 29,
+  "v12_transfer_exact_success_count": 27,
+  "v12_transfer_executor_success_count": 27,
+  "v15_transfer_exact_success_count": 25,
+  "v15_transfer_executor_success_count": 25,
+  "v15_failure_count": 7,
+  "comparison_count": 6,
+  "finding_count": 5,
+  "promotion_decision": "reject_global_promotion_target_code_label_only"
+}

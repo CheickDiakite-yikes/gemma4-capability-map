@@ -196,7 +196,10 @@ Next implementation moves:
   - live result: v14 reaches `5 / 6` exact and executor-equivalent, fixing tag/toggle value collapse but still missing the `alert s92` code-label case
   - live result: v15 reaches `6 / 6` exact and executor-equivalent, tying v12 locally with narrower code-label exactness wording
   - synthesis: [`results/reports/h1u_split_factor_synthesis/report.md`](../../results/reports/h1u_split_factor_synthesis/report.md)
-  - next execution step: transfer-test v15 across H1n/H1o/H1p before any promotion; compare aggregate exactness and executor-equivalence directly against v11 and v12
+  - transfer result: v15 reaches `25 / 32` exact and `25 / 32` executor-equivalent across H1n/H1o/H1p, below v11's `26 / 32` exact and `29 / 32` executor-equivalent and below v12's `27 / 32` exact and executor-equivalent
+  - transfer synthesis: [`results/reports/h1v_code_label_exact_transfer_synthesis/report.md`](../../results/reports/h1v_code_label_exact_transfer_synthesis/report.md)
+  - decision: reject v15 as a global promotion; keep it as a local code-label repair candidate
+  - next execution step: build H1w around remaining shared residuals, especially owner-field stale selection, nonstandard `tag`/`toggle` component classes, and surface/result badge value collapse
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1

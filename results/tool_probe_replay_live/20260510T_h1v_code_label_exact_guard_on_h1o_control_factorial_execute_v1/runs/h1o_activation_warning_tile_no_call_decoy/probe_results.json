@@ -1,0 +1,64 @@
+[
+  {
+    "case_id": "h1o_activation_warning_tile_no_call_decoy",
+    "family": "h1o_activation_no_call",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "h1o-warning-tile-9032"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1o-activation-warning-tile",
+          "target_query": "overdue"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h1o-activation-warning-tile",
+          "selection_kind": "regions",
+          "count": 3,
+          "executor_mode": "local",
+          "region_ids": [
+            "h1o-warning-note-9031",
+            "h1o-warning-tile-9032",
+            "h1o-warning-table-9033"
+          ],
+          "region_id": "h1o-warning-note-9031",
+          "text_preview": "Overdue items require owner"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1o-activation-warning-tile",
+          "target_query": "warning tile"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1o-activation-warning-tile",
+          "target_query": "overdue"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h1o-activation-warning-tile\", \"target_query\": \"overdue\"}}",
+    "prompt_tokens": 1736,
+    "completion_tokens": 39,
+    "latency_ms": 5727
+  }
+]

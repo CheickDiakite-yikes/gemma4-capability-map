@@ -1236,7 +1236,7 @@ Next execution step:
 - do not run v13 on H1n/H1o/H1p
 - next prompt-factor attempt should be more explicit and/or split into independent route bits, because compact conditional prose did not trigger the nonstandard class and code-label behavior
 
-H1u scaffold:
+H1u gate:
 
 - `visual_role_catalog_nonstandard_component_class_guard_v14`: targets tag/toggle/switch cases that collapsed into displayed values under v13
 - `visual_role_catalog_code_label_exact_guard_v15`: targets code-label exactness and negated neighboring controls such as the `alert s92` miss
@@ -1247,7 +1247,12 @@ H1u scaffold:
 - H1r v15 replay: [`results/tool_probe_replay_live/20260510T_h1u_code_label_exact_guard_on_h1r_component_residual_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1u_code_label_exact_guard_on_h1r_component_residual_execute_v1)
 - synthesis: [`results/reports/h1u_split_factor_synthesis/report.md`](../../results/reports/h1u_split_factor_synthesis/report.md)
 - result: v14 reaches `5 / 6`, fixing tag/toggle value collapse but still missing `alert s92`; v15 reaches `6 / 6`, tying v12 with narrower code-label exactness wording
-- next execution: transfer-test v15 across H1n/H1o/H1p before any promotion
+- H1v transfer synthesis: [`results/reports/h1v_code_label_exact_transfer_synthesis/report.md`](../../results/reports/h1v_code_label_exact_transfer_synthesis/report.md)
+- H1v H1n v15 replay: [`results/tool_probe_replay_live/20260510T_h1v_code_label_exact_guard_on_h1n_component_value_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1v_code_label_exact_guard_on_h1n_component_value_execute_v1)
+- H1v H1o v15 replay: [`results/tool_probe_replay_live/20260510T_h1v_code_label_exact_guard_on_h1o_control_factorial_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1v_code_label_exact_guard_on_h1o_control_factorial_execute_v1)
+- H1v H1p v15 replay: [`results/tool_probe_replay_live/20260510T_h1v_code_label_exact_guard_on_h1p_component_value_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1v_code_label_exact_guard_on_h1p_component_value_execute_v1)
+- H1v verdict: reject v15 as a global promotion; it transfers at `25 / 32` exact and `25 / 32` executor-equivalent, below v11's `29 / 32` executor-equivalent and v12's `27 / 32` exact totals
+- next execution: keep v11 as the transfer-stable default, treat v15 as a local code-label repair, and build H1w around the remaining v15/v11 shared residuals
 
 ## Latest H1q Component-Label Guard Transfer Finding
 

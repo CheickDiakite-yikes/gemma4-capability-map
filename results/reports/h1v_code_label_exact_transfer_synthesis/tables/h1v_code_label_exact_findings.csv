@@ -1,0 +1,6 @@
+finding_id,finding
+v15_not_global_promotion,"V15 reaches 25/32 exact and 25/32 executor-equivalent transfer successes, below v11's 29/32 executor-equivalent and v12's 27/32 exact totals."
+h1n_negative_transfer_persists,"V15 ties v12 on H1n but remains below v11, with -0.125 exact-rate and -0.250 executor-rate deltas versus v11."
+h1o_code_gain_has_executor_cost,"V15 improves H1o strict exactness versus v11 by 0.083, but loses executor-equivalence by -0.083."
+h1p_component_value_regression,V15 loses the H1p component-value holdout against v12 by -0.167 exact-rate and -0.167 executor-rate.
+next_slice,"Keep v11 as the transfer-stable default. Treat v15 as a local code-label repair and design the next slice around the remaining v15 failures: component_value_state_pill_note_decoy, component_value_status_badge_email_decoy, component_value_owner_field_stale_selection_decoy, h1o_activation_warning_tile_no_call_decoy, h1p_compact_state_tag_log_value_decoy, h1p_surface_mode_toggle_note_value_decoy, h1p_surface_result_badge_comment_value_decoy."

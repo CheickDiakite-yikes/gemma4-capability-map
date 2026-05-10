@@ -1,0 +1,98 @@
+[
+  {
+    "case_id": "component_value_state_pill_note_decoy",
+    "family": "visual_argument_transfer_component_value_pill",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "argument_mismatch",
+    "replay_exact_match": false,
+    "replay_executable_match": false,
+    "replay_executor_equivalence_match": false,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1v_code_label_exact_guard_on_h1n_component_value_execute_v1/runs/component_value_state_pill_note_decoy"
+  },
+  {
+    "case_id": "component_value_status_badge_email_decoy",
+    "family": "visual_argument_transfer_component_value_nonpill",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "argument_mismatch",
+    "replay_exact_match": false,
+    "replay_executable_match": false,
+    "replay_executor_equivalence_match": false,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1v_code_label_exact_guard_on_h1n_component_value_execute_v1/runs/component_value_status_badge_email_decoy"
+  },
+  {
+    "case_id": "component_value_phase_tile_ticket_decoy",
+    "family": "visual_argument_transfer_component_value_nonpill",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1v_code_label_exact_guard_on_h1n_component_value_execute_v1/runs/component_value_phase_tile_ticket_decoy"
+  },
+  {
+    "case_id": "component_value_priority_chip_table_decoy",
+    "family": "visual_argument_transfer_component_value_nonpill",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1v_code_label_exact_guard_on_h1n_component_value_execute_v1/runs/component_value_priority_chip_table_decoy"
+  },
+  {
+    "case_id": "component_value_severity_pill_chart_decoy",
+    "family": "visual_argument_transfer_component_value_pill",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1v_code_label_exact_guard_on_h1n_component_value_execute_v1/runs/component_value_severity_pill_chart_decoy"
+  },
+  {
+    "case_id": "component_value_result_pill_log_decoy",
+    "family": "visual_argument_transfer_component_value_pill",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1v_code_label_exact_guard_on_h1n_component_value_execute_v1/runs/component_value_result_pill_log_decoy"
+  },
+  {
+    "case_id": "component_value_risk_badge_stale_selection_decoy",
+    "family": "visual_tool_routing_component_value",
+    "source_failure_mode": "wrong_tool_or_stale_selection_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1v_code_label_exact_guard_on_h1n_component_value_execute_v1/runs/component_value_risk_badge_stale_selection_decoy"
+  },
+  {
+    "case_id": "component_value_owner_field_stale_selection_decoy",
+    "family": "visual_tool_routing_component_value",
+    "source_failure_mode": "wrong_tool_or_stale_selection_risk",
+    "replay_failure_mode": "wrong_tool",
+    "replay_exact_match": false,
+    "replay_executable_match": false,
+    "replay_executor_equivalence_match": false,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1v_code_label_exact_guard_on_h1n_component_value_execute_v1/runs/component_value_owner_field_stale_selection_decoy"
+  }
+]

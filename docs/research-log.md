@@ -1,5 +1,30 @@
 # Research Log
 
+## 2026-05-10 - H1v Code-Label Exact Transfer Gate
+
+- Transfer-tested `visual_role_catalog_code_label_exact_guard_v15` across H1n/H1o/H1p after its H1r local saturation.
+- Live results:
+  - H1n: `5 / 8` exact and executor-equivalent, matching v12 but below v11 (`6 / 8` exact, `7 / 8` executor-equivalent)
+  - H1o: `11 / 12` exact and executor-equivalent, matching v12 and improving strict exactness over v11 while losing one executor-equivalent case
+  - H1p: `9 / 12` exact and executor-equivalent, below v11 (`10 / 12`) and v12 (`11 / 12`)
+- Aggregate transfer verdict:
+  - v15: `25 / 32` exact and `25 / 32` executor-equivalent
+  - v11: `26 / 32` exact and `29 / 32` executor-equivalent
+  - v12: `27 / 32` exact and `27 / 32` executor-equivalent
+- Interpretation:
+  - v15 is a real local code-label repair, but not a global prompt-contract promotion
+  - the remaining bottleneck is still component/value and stale-selection routing, not code-label exactness alone
+- Artifacts:
+  - synthesis: [`results/reports/h1v_code_label_exact_transfer_synthesis/report.md`](../results/reports/h1v_code_label_exact_transfer_synthesis/report.md)
+  - H1n replay: [`results/tool_probe_replay_live/20260510T_h1v_code_label_exact_guard_on_h1n_component_value_execute_v1`](../results/tool_probe_replay_live/20260510T_h1v_code_label_exact_guard_on_h1n_component_value_execute_v1)
+  - H1o replay: [`results/tool_probe_replay_live/20260510T_h1v_code_label_exact_guard_on_h1o_control_factorial_execute_v1`](../results/tool_probe_replay_live/20260510T_h1v_code_label_exact_guard_on_h1o_control_factorial_execute_v1)
+  - H1p replay: [`results/tool_probe_replay_live/20260510T_h1v_code_label_exact_guard_on_h1p_component_value_execute_v1`](../results/tool_probe_replay_live/20260510T_h1v_code_label_exact_guard_on_h1p_component_value_execute_v1)
+- Next execution:
+  - keep v11 as the transfer-stable default
+  - build H1w around the remaining shared residuals: owner-field stale selection, nonstandard `tag`/`toggle`, and surface/result badge value collapse
+- Verification:
+  - `uv run pytest tests/test_h1v_code_label_exact_transfer_synthesis.py tests/test_h1u_split_factor_synthesis.py tests/test_h1s_component_residual_transfer_synthesis.py tests/test_tool_probe_replay_live_comparison.py -q`
+
 ## 2026-05-10 - H1u Split-Factor Route Gate
 
 - Split the failed H1t compact conditional route into two independent prompt factors:
