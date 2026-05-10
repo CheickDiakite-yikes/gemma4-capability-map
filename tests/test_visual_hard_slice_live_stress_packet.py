@@ -205,6 +205,51 @@ def test_visual_hard_slice_live_stress_packet_supports_alias_transfer_oblique_su
         assert _expected_call_reaches_oracle(case)
 
 
+def test_visual_hard_slice_live_stress_packet_supports_post_repair_suite(tmp_path: Path) -> None:
+    packet = SCRIPT.build_visual_hard_slice_live_stress_packet(
+        output_root=tmp_path / "replay_packets",
+        run_group_id="visual_stress_alias_transfer_post_repair",
+        suite="alias_transfer_post_repair_v6",
+    )
+
+    assert packet["summary"]["suite"] == "alias_transfer_post_repair_v6"
+    assert packet["summary"]["case_count"] == 8
+    assert packet["summary"]["family_counts"] == {
+        "visual_argument_transfer_post_repair_code": 3,
+        "visual_argument_transfer_post_repair_noncode": 3,
+        "visual_tool_routing_transfer_post_repair": 2,
+    }
+    assert packet["summary"]["failure_mode_counts"] == {
+        "argument_alias_or_decoy_risk": 6,
+        "wrong_tool_or_stale_selection_risk": 2,
+    }
+    case_ids = {row["case_id"] for row in packet["rows"]}
+    assert "post_repair_node_k21_chart_decoy" in case_ids
+    assert "post_repair_field_b12_stale_selection_decoy" in case_ids
+    assert "post_repair_warning_toast_email_decoy" in case_ids
+    cases = {case["case_id"]: case for case in packet["replay_cases"]}
+    assert cases["post_repair_node_k21_chart_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-post-node-k21",
+                "target_query": "node k21",
+            },
+        }
+    ]
+    assert cases["post_repair_status_pill_note_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-post-status-pill",
+                "target_query": "status pill",
+            },
+        }
+    ]
+    for case in packet["replay_cases"]:
+        assert _expected_call_reaches_oracle(case)
+
+
 def _expected_call_reaches_oracle(case: dict[str, object]) -> bool:
     tool_specs = [ToolSpec.model_validate(payload) for payload in case["tool_specs"]]  # type: ignore[index]
     executor = DeterministicExecutor(tool_specs=tool_specs)

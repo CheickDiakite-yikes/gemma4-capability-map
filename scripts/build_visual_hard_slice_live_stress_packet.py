@@ -38,6 +38,7 @@ def parse_args() -> argparse.Namespace:
             "alias_transfer_v3",
             "alias_transfer_repeat_v4",
             "alias_transfer_oblique_v5",
+            "alias_transfer_post_repair_v6",
         ],
         default="v1",
     )
@@ -192,6 +193,8 @@ def _stress_cases_for_suite(suite: str) -> list[ToolDirectiveProbeCase]:
         return _alias_transfer_repeat_cases_v4()
     if suite == "alias_transfer_oblique_v5":
         return _alias_transfer_oblique_cases_v5()
+    if suite == "alias_transfer_post_repair_v6":
+        return _alias_transfer_post_repair_cases_v6()
     raise ValueError(f"Unknown visual live stress suite: {suite}")
 
 
@@ -201,7 +204,12 @@ def _expected_call_payloads(
     tool_specs: list[Any],
     suite: str,
 ) -> list[dict[str, Any]]:
-    if suite in {"alias_transfer_v3", "alias_transfer_repeat_v4", "alias_transfer_oblique_v5"}:
+    if suite in {
+        "alias_transfer_v3",
+        "alias_transfer_repeat_v4",
+        "alias_transfer_oblique_v5",
+        "alias_transfer_post_repair_v6",
+    }:
         return [_oracle_visual_extract_call(case)]
     return [
         {"name": call.name, "arguments": call.arguments}
@@ -916,6 +924,203 @@ def _alias_transfer_oblique_cases_v5() -> list[ToolDirectiveProbeCase]:
     ]
 
 
+def _alias_transfer_post_repair_cases_v6() -> list[ToolDirectiveProbeCase]:
+    return [
+        ToolDirectiveProbeCase(
+            case_id="post_repair_node_k21_chart_decoy",
+            family="visual_argument_transfer_post_repair_code",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-post-node-k21"),
+                Message(
+                    role="user",
+                    content=(
+                        "The chart repeats the same escalation words. Locate node k21 itself before reading the chart."
+                    ),
+                ),
+            ],
+            media=["img-post-node-k21"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-post-node-k21",
+                [
+                    _region("post-node-6001", "node k21", "Escalation queue stalled", area="node", state="stalled"),
+                    _region("post-node-6002", "escalation chart", "Queue escalations rising", area="chart"),
+                    _region("post-node-6003", "owner table", "Escalation owners", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["post-node-6001"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="post_repair_badge_t64_notice_decoy",
+            family="visual_argument_transfer_post_repair_code",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-post-badge-t64"),
+                Message(
+                    role="user",
+                    content=(
+                        "The notice banner also says blocked. Locate badge t64, not the notice banner or table."
+                    ),
+                ),
+            ],
+            media=["img-post-badge-t64"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-post-badge-t64",
+                [
+                    _region("post-badge-6101", "notice banner", "Blocked items need review", area="banner"),
+                    _region("post-badge-6102", "badge t64", "Blocked: 7", area="badge"),
+                    _region("post-badge-6103", "blocked table", "Blocked item list", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["post-badge-6102"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="post_repair_chip_l90_person_decoy",
+            family="visual_argument_transfer_post_repair_code",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-post-chip-l90"),
+                Message(
+                    role="user",
+                    content=(
+                        "Avery's note repeats the latency text. Locate chip l90, not Avery's owner note."
+                    ),
+                ),
+            ],
+            media=["img-post-chip-l90"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-post-chip-l90",
+                [
+                    _region("post-chip-6201", "owner note", "Avery owns latency issue", person="Avery"),
+                    _region("post-chip-6202", "chip l90", "Latency breach 24m", area="chip", tone="warning"),
+                    _region("post-chip-6203", "latency table", "Latency incidents", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["post-chip-6202"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="post_repair_field_b12_stale_selection_decoy",
+            family="visual_tool_routing_transfer_post_repair",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-post-field-b12"),
+                Message(
+                    role="user",
+                    content=(
+                        "Ignore old selection_id sel-b12-archive from the last screen. On this form, locate field b12, "
+                        "not the saved owner chip."
+                    ),
+                ),
+            ],
+            media=["img-post-field-b12"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-post-field-b12",
+                [
+                    _region("post-field-6301", "owner chip", "Owner saved", state="saved"),
+                    _region("post-field-6302", "field b12", "Cost center is required", field="cost_center", state="missing"),
+                ],
+            ),
+            expected_execution={"region_ids": ["post-field-6302"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="post_repair_alert_c77_toggle_decoy",
+            family="visual_tool_routing_transfer_post_repair",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-post-alert-c77"),
+                Message(
+                    role="user",
+                    content=(
+                        "The access toggle is enabled, but locate alert c77 before reading the toggle or access table."
+                    ),
+                ),
+            ],
+            media=["img-post-alert-c77"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-post-alert-c77",
+                [
+                    _region("post-alert-6401", "access toggle", "Access enabled", checked=True),
+                    _region("post-alert-6402", "alert c77", "Access review expired", tone="alert"),
+                    _region("post-alert-6403", "access table", "Access review list", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["post-alert-6402"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="post_repair_status_pill_note_decoy",
+            family="visual_argument_transfer_post_repair_noncode",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-post-status-pill"),
+                Message(
+                    role="user",
+                    content=(
+                        "The owner note says blocked too. Locate the status pill itself, not the owner note."
+                    ),
+                ),
+            ],
+            media=["img-post-status-pill"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-post-status-pill",
+                [
+                    _region("post-status-6501", "owner note", "Blocked owner pending", area="note"),
+                    _region("post-status-6502", "status pill", "Blocked", area="pill"),
+                    _region("post-status-6503", "status table", "Blocked accounts", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["post-status-6502"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="post_repair_review_tile_table_decoy",
+            family="visual_argument_transfer_post_repair_noncode",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-post-review-tile"),
+                Message(
+                    role="user",
+                    content=(
+                        "The table repeats the renewal phrase. Locate the review tile first, not the table."
+                    ),
+                ),
+            ],
+            media=["img-post-review-tile"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-post-review-tile",
+                [
+                    _region("post-review-6601", "review tile", "Renewal risk review", area="tile"),
+                    _region("post-review-6602", "renewal table", "Renewal risk items", area="table"),
+                    _region("post-review-6603", "notice banner", "Renewal owner missing", area="banner"),
+                ],
+            ),
+            expected_execution={"region_ids": ["post-review-6601"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="post_repair_warning_toast_email_decoy",
+            family="visual_argument_transfer_post_repair_noncode",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-post-warning-toast"),
+                Message(
+                    role="user",
+                    content=(
+                        "The email preview repeats the warning text. Locate the warning toast itself first."
+                    ),
+                ),
+            ],
+            media=["img-post-warning-toast"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-post-warning-toast",
+                [
+                    _region("post-email-6701", "email preview", "Approval warning sent", area="email"),
+                    _region("post-toast-6702", "warning toast", "Approval missing before submit", tone="warning"),
+                    _region("post-approval-6703", "approval table", "Approver list", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["post-toast-6702"]},
+        ),
+    ]
+
+
 def _visual_state(image_id: str, local_layouts: list[dict[str, Any]]) -> dict[str, Any]:
     return {
         "visual_executor_mode": "local",
@@ -944,6 +1149,7 @@ def _stress_failure_mode(family: str) -> str:
         "visual_tool_routing_transfer",
         "visual_tool_routing_transfer_repeat",
         "visual_tool_routing_transfer_oblique",
+        "visual_tool_routing_transfer_post_repair",
     }:
         return "wrong_tool_or_stale_selection_risk"
     return "argument_alias_or_decoy_risk"
