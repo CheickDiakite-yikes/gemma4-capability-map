@@ -699,6 +699,63 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C19_h1n_argument_hints_gain_is_not_controller_helper_artifact",
+        claim=(
+            "On the H1n oracle transfer packet, the argument-hints gain persists when controller repair, controller "
+            "fallback, or argument repair is disabled one at a time."
+        ),
+        status="supported_current_packets",
+        evidence_strength="moderate_internal",
+        primary_metric=(
+            "Argument hints remains 5/6 exact and 6/6 executor-equivalent with no controller repair, no controller "
+            "fallback, and no argument repair; all three helper-ablation comparisons have 0.0 exact and executor-equivalence deltas."
+        ),
+        limitation=(
+            "This only attributes the six-case oracle replay slice. It does not replace broader controller-helper "
+            "ablations on packaged workflows or future visual families."
+        ),
+        next_test=(
+            "Repeat the helper-ablation result on a fresh oracle transfer packet or on a less staged live visual workflow."
+        ),
+        sources=(
+            EvidenceSource(
+                "diagnostic_report",
+                "results/reports/h1n_oracle_helper_ablation/diagnostic.md",
+                "Helper-ablation diagnostic summarizing no observed helper dependence on the H1n oracle argument-hints row.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260509T_h1n_oracle_argument_hints_no_controller_repair_execute_v1",
+                "Argument-hints oracle replay with controller repair disabled.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260509T_h1n_oracle_argument_hints_no_controller_fallback_execute_v1",
+                "Argument-hints oracle replay with controller fallback disabled.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260509T_h1n_oracle_argument_hints_no_argument_repair_execute_v1",
+                "Argument-hints oracle replay with argument repair disabled.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_argument_hints_no_controller_repair_vs_argument_hints_v1",
+                "Comparison showing no exact or executor-equivalence delta when controller repair is disabled.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_argument_hints_no_controller_fallback_vs_argument_hints_v1",
+                "Comparison showing no exact or executor-equivalence delta when controller fallback is disabled.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_argument_hints_no_argument_repair_vs_argument_hints_v1",
+                "Comparison showing no exact or executor-equivalence delta when argument repair is disabled.",
+            ),
+        ),
+    ),
 )
 
 

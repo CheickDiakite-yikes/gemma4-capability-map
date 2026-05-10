@@ -3275,6 +3275,30 @@
   - repeat the oracle packet or build a non-packaged live helper-ablation slice centered on argument hints
   - keep strict exactness, executor-equivalence, and controller-helper usage separated in every table
 
+## 2026-05-09 - H1n Oracle Argument-Hints Helper Ablation
+
+- Added registry rows for the H1n winner with one helper disabled at a time:
+  - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints_no_controller_repair`
+  - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints_no_controller_fallback`
+  - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints_no_argument_repair`
+- Executed all three rows on the oracle H1n packet:
+  - no controller repair: exact `5 / 6`, executor-equivalent `6 / 6`
+  - no controller fallback: exact `5 / 6`, executor-equivalent `6 / 6`
+  - no argument repair: exact `5 / 6`, executor-equivalent `6 / 6`
+- Generated direct comparisons against the original argument-hints oracle row:
+  - all three comparisons have exact delta `0.0`
+  - all three comparisons have executor-equivalence delta `0.0`
+  - diagnostic: [`results/reports/h1n_oracle_helper_ablation/diagnostic.md`](../results/reports/h1n_oracle_helper_ablation/diagnostic.md)
+- Interpretation:
+  - the argument-hints gain is model/catalog-contract side on this packet, not an artifact of controller repair, controller fallback, or argument repair
+  - this is still slice-local; it does not claim controller helpers are irrelevant broadly
+- Verification:
+  - `uv run moonie-agent replay-live --packet-id 20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_dry_run_v2 --output-dir results/tool_probe_replay_live/20260509T_h1n_oracle_argument_hints_no_controller_repair_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints_no_controller_repair --execute --json`
+  - `uv run moonie-agent replay-live --packet-id 20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_dry_run_v2 --output-dir results/tool_probe_replay_live/20260509T_h1n_oracle_argument_hints_no_controller_fallback_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints_no_controller_fallback --execute --json`
+  - `uv run moonie-agent replay-live --packet-id 20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_dry_run_v2 --output-dir results/tool_probe_replay_live/20260509T_h1n_oracle_argument_hints_no_argument_repair_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints_no_argument_repair --execute --json`
+  - `uv run python scripts/analyze_h1n_oracle_helper_ablation.py`
+  - `uv run pytest tests/test_h1n_oracle_helper_ablation.py tests/test_knowledge_work_h1.py -q`
+
 ## 2026-05-09 - Schema Target Literal v5 Negative Hard-Slice Repair
 
 - A narrow hard-slice repair candidate was added after inspecting the two v4 exact misses:

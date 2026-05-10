@@ -246,7 +246,9 @@ Latest MLX tool-contract research:
   - contract finding: `5 / 6` generated expected-call contracts do not satisfy the packet oracle, so legacy H1n strict exactness measured heuristic planner-call fidelity more than visual target success
   - runtime update: `moonie-agent replay-live` now honors serialized packet expected calls, so oracle v2 strict scoring uses the packet contract rather than recomputed planner calls
   - oracle v2 result: no-directive is `2 / 6`; contracted is `1 / 6`; role catalog v1 is `3 / 6`; argument hints v2 is `5 / 6` strict and `6 / 6` executor-equivalent; schema-field hints v4 is `2 / 6`; schema target literals v5 is `4 / 6`
-  - interpretation: fresh transfer cases favor narrow argument hints once the expected-call contract is oracle-backed; schema target literals are second, and contracted prompting is not a clean upper bound on this slice
+  - helper-ablation diagnostic: [`results/reports/h1n_oracle_helper_ablation/diagnostic.md`](../../results/reports/h1n_oracle_helper_ablation/diagnostic.md)
+  - helper-ablation result: argument hints remains `5 / 6` strict and `6 / 6` executor-equivalent with controller repair disabled, controller fallback disabled, and argument repair disabled one at a time
+  - interpretation: fresh transfer cases favor narrow argument hints once the expected-call contract is oracle-backed; schema target literals are second, contracted prompting is not a clean upper bound on this slice, and the argument-hints gain is not explained by those three controller helpers
 - Prompt-contract wave 2:
   - contracts: `schema_literal_tool_required_v2`, `visual_next_call_state_v2`, `parallel_array_required_v2`
   - runner flag: `scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v2`

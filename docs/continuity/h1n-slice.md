@@ -66,6 +66,13 @@ Helper-ablation registry rows are now available for the winning argument-hints p
 - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints_no_controller_fallback`
 - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints_no_argument_repair`
 
+Executed helper-ablation result:
+
+- no controller repair: strict `5 / 6`, executor-equivalent `6 / 6`
+- no controller fallback: strict `5 / 6`, executor-equivalent `6 / 6`
+- no argument repair: strict `5 / 6`, executor-equivalent `6 / 6`
+- diagnostic: [`results/reports/h1n_oracle_helper_ablation/diagnostic.md`](../../results/reports/h1n_oracle_helper_ablation/diagnostic.md)
+
 ## Legacy V1 Result
 
 The first matrix was useful but had a benchmark-contract issue:
@@ -114,4 +121,5 @@ Interpretation:
 
 - Benchmark contract quality changed what H1n seemed to show. The v1 strict winner was a planner-contract artifact; the v2 oracle winner is argument hints.
 - The substantive local-Gemma harnessing result is not "more prompt is better." It is narrower: target-query argument hints improve transfer on fresh visual labels/decoys, while broad contracted prompting can regress.
+- The argument-hints result is not explained by controller repair, controller fallback, or argument repair on this six-case oracle replay slice.
 - The next move is a repeat or helper-ablation around the non-packaged replay-live surface, using oracle expected calls as the default strict target contract.

@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-10T00:30:05.095179+00:00",
+    "generated_at": "2026-05-10T00:43:01.627756+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-    "claim_count": 18,
-    "evidence_source_count": 79,
+    "claim_count": 19,
+    "evidence_source_count": 86,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -23,7 +23,8 @@
       "C15_packaged_visual_surfaces_wash_out_replay_discrimination",
       "C16_visual_alias_transfer_favors_argument_hints_executor_grounding",
       "C17_h1n_strict_exactness_matches_planner_not_oracle",
-      "C18_h1n_oracle_transfer_identifies_argument_hints_as_clean_winner"
+      "C18_h1n_oracle_transfer_identifies_argument_hints_as_clean_winner",
+      "C19_h1n_argument_hints_gain_is_not_controller_helper_artifact"
     ]
   },
   "claims": [
@@ -206,6 +207,16 @@
       "limitation": "This is still a deterministic six-case transfer packet, so it is causal evidence for this slice rather than a broad stochastic estimate of all visual tool grounding.",
       "next_test": "Repeat the oracle transfer packet or promote argument hints into a non-packaged helper-ablation/live slice to test whether the effect survives fresh visual families.",
       "source_count": 6
+    },
+    {
+      "claim_id": "C19_h1n_argument_hints_gain_is_not_controller_helper_artifact",
+      "claim": "On the H1n oracle transfer packet, the argument-hints gain persists when controller repair, controller fallback, or argument repair is disabled one at a time.",
+      "status": "supported_current_packets",
+      "evidence_strength": "moderate_internal",
+      "primary_metric": "Argument hints remains 5/6 exact and 6/6 executor-equivalent with no controller repair, no controller fallback, and no argument repair; all three helper-ablation comparisons have 0.0 exact and executor-equivalence deltas.",
+      "limitation": "This only attributes the six-case oracle replay slice. It does not replace broader controller-helper ablations on packaged workflows or future visual families.",
+      "next_test": "Repeat the helper-ablation result on a fresh oracle transfer packet or on a less staged live visual workflow.",
+      "source_count": 7
     }
   ],
   "evidence_sources": [
@@ -760,6 +771,55 @@
       "artifact_type": "report_table",
       "path": "results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_transfer_oracle_live_replay_summary.csv",
       "purpose": "Generated main-report table for the oracle alias-transfer replay matrix.",
+      "exists": true
+    },
+    {
+      "claim_id": "C19_h1n_argument_hints_gain_is_not_controller_helper_artifact",
+      "artifact_type": "diagnostic_report",
+      "path": "results/reports/h1n_oracle_helper_ablation/diagnostic.md",
+      "purpose": "Helper-ablation diagnostic summarizing no observed helper dependence on the H1n oracle argument-hints row.",
+      "exists": true
+    },
+    {
+      "claim_id": "C19_h1n_argument_hints_gain_is_not_controller_helper_artifact",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260509T_h1n_oracle_argument_hints_no_controller_repair_execute_v1",
+      "purpose": "Argument-hints oracle replay with controller repair disabled.",
+      "exists": true
+    },
+    {
+      "claim_id": "C19_h1n_argument_hints_gain_is_not_controller_helper_artifact",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260509T_h1n_oracle_argument_hints_no_controller_fallback_execute_v1",
+      "purpose": "Argument-hints oracle replay with controller fallback disabled.",
+      "exists": true
+    },
+    {
+      "claim_id": "C19_h1n_argument_hints_gain_is_not_controller_helper_artifact",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260509T_h1n_oracle_argument_hints_no_argument_repair_execute_v1",
+      "purpose": "Argument-hints oracle replay with argument repair disabled.",
+      "exists": true
+    },
+    {
+      "claim_id": "C19_h1n_argument_hints_gain_is_not_controller_helper_artifact",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_argument_hints_no_controller_repair_vs_argument_hints_v1",
+      "purpose": "Comparison showing no exact or executor-equivalence delta when controller repair is disabled.",
+      "exists": true
+    },
+    {
+      "claim_id": "C19_h1n_argument_hints_gain_is_not_controller_helper_artifact",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_argument_hints_no_controller_fallback_vs_argument_hints_v1",
+      "purpose": "Comparison showing no exact or executor-equivalence delta when controller fallback is disabled.",
+      "exists": true
+    },
+    {
+      "claim_id": "C19_h1n_argument_hints_gain_is_not_controller_helper_artifact",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_argument_hints_no_argument_repair_vs_argument_hints_v1",
+      "purpose": "Comparison showing no exact or executor-equivalence delta when argument repair is disabled.",
       "exists": true
     }
   ],

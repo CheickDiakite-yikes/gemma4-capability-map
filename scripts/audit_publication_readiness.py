@@ -421,6 +421,22 @@ def audit_publication_readiness(
             detail="Oracle H1n alias-transfer summary table exists in the main report.",
         ),
         _check_path(
+            check_id="h1n_oracle_helper_ablation_diagnostic_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "h1n_oracle_helper_ablation" / "diagnostic.md",
+            detail="H1n oracle argument-hints helper-ablation diagnostic exists.",
+        ),
+        _check_path(
+            check_id="h1n_oracle_helper_ablation_no_repair_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260509T_h1n_oracle_argument_hints_no_controller_repair_vs_argument_hints_v1"
+            / "live_replay_comparison.json",
+            detail="H1n oracle argument-hints no-controller-repair comparison exists.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",
@@ -461,6 +477,7 @@ def audit_publication_readiness(
         "analyze_visual_hard_slice_exactness.py",
         "analyze_packaged_replay_gap.py",
         "analyze_h1n_alias_transfer_contract_split.py",
+        "analyze_h1n_oracle_helper_ablation.py",
         "compare_tool_directive_probes.py",
         "build_visual_hard_slice_design.py",
         "build_visual_hard_slice_replay_packet.py",

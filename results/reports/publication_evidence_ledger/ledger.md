@@ -4,9 +4,9 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 
 ## Manifest
 
-- generated_at: `2026-05-10T00:30:05.095179+00:00`
-- claim_count: `18`
-- evidence_source_count: `79`
+- generated_at: `2026-05-10T00:43:01.627756+00:00`
+- claim_count: `19`
+- evidence_source_count: `86`
 - missing_source_count: `0`
 
 ## Claims
@@ -31,6 +31,7 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C16_visual_alias_transfer_favors_argument_hints_executor_grounding | supported_current_packets | moderate_internal | H1n alias-transfer replay: no-directive is 0/6 strict and 2/6 executor-equivalent; argument hints v2 is 1/6 strict and 6/6 executor-equivalent; schema target literals v5 is 1/6 strict and 4/6 executor-equivalent; contracted MLX is 5/6 strict but 1/6 executor-equivalent under the current executor-target scorer. | This is one deterministic six-case transfer packet, and the contracted strict/executor split needs scorer-level inspection before being treated as a model-only ranking. | Inspect the contracted exact-but-not-executor-equivalent rows, then repeat the transfer packet or promote argument hints into a new non-packaged live helper-ablation slice. |
 | C17_h1n_strict_exactness_matches_planner_not_oracle | benchmark_contract_issue_current_packets | strong_internal | The H1n contract-split diagnostic finds 5/6 generated expected-call contracts fail the packet's expected_execution oracle; contracted MLX has 4 exact-but-not-executor rows, while argument hints v2 has 6/6 executor-target successes. | This diagnoses the current H1n packet contract; it does not invalidate the executor-equivalence result, but it does require rebuilding H1n with oracle expected calls before using strict exactness as a headline metric. | Use the rebuilt oracle H1n matrix as the reference packet before any packaged or helper-ablation promotion. |
 | C18_h1n_oracle_transfer_identifies_argument_hints_as_clean_winner | supported_current_packets | strong_internal | Oracle H1n alias-transfer replay-live: no-directive is 2/6 exact and executor-equivalent; contracted is 1/6; role catalog is 3/6; argument hints v2 is 5/6 exact and 6/6 executor-equivalent; schema-field hints is 2/6; schema target literals v5 is 4/6. | This is still a deterministic six-case transfer packet, so it is causal evidence for this slice rather than a broad stochastic estimate of all visual tool grounding. | Repeat the oracle transfer packet or promote argument hints into a non-packaged helper-ablation/live slice to test whether the effect survives fresh visual families. |
+| C19_h1n_argument_hints_gain_is_not_controller_helper_artifact | supported_current_packets | moderate_internal | Argument hints remains 5/6 exact and 6/6 executor-equivalent with no controller repair, no controller fallback, and no argument repair; all three helper-ablation comparisons have 0.0 exact and executor-equivalence deltas. | This only attributes the six-case oracle replay slice. It does not replace broader controller-helper ablations on packaged workflows or future visual families. | Repeat the helper-ablation result on a fresh oracle transfer packet or on a less staged live visual workflow. |
 
 ## Evidence Sources
 
@@ -115,3 +116,10 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C18_h1n_oracle_transfer_identifies_argument_hints_as_clean_winner | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_schema_literal_targets_vs_no_directive_v2 | Comparison showing schema target literals are the second-place oracle transfer mechanism. |
 | C18_h1n_oracle_transfer_identifies_argument_hints_as_clean_winner | diagnostic_report | True | results/reports/visual_alias_transfer_oracle_diagnostic/diagnostic.md | Diagnostic report summarizing the oracle matrix winner set, regressions, and strict upper bound. |
 | C18_h1n_oracle_transfer_identifies_argument_hints_as_clean_winner | report_table | True | results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_transfer_oracle_live_replay_summary.csv | Generated main-report table for the oracle alias-transfer replay matrix. |
+| C19_h1n_argument_hints_gain_is_not_controller_helper_artifact | diagnostic_report | True | results/reports/h1n_oracle_helper_ablation/diagnostic.md | Helper-ablation diagnostic summarizing no observed helper dependence on the H1n oracle argument-hints row. |
+| C19_h1n_argument_hints_gain_is_not_controller_helper_artifact | live_replay_packet | True | results/tool_probe_replay_live/20260509T_h1n_oracle_argument_hints_no_controller_repair_execute_v1 | Argument-hints oracle replay with controller repair disabled. |
+| C19_h1n_argument_hints_gain_is_not_controller_helper_artifact | live_replay_packet | True | results/tool_probe_replay_live/20260509T_h1n_oracle_argument_hints_no_controller_fallback_execute_v1 | Argument-hints oracle replay with controller fallback disabled. |
+| C19_h1n_argument_hints_gain_is_not_controller_helper_artifact | live_replay_packet | True | results/tool_probe_replay_live/20260509T_h1n_oracle_argument_hints_no_argument_repair_execute_v1 | Argument-hints oracle replay with argument repair disabled. |
+| C19_h1n_argument_hints_gain_is_not_controller_helper_artifact | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_argument_hints_no_controller_repair_vs_argument_hints_v1 | Comparison showing no exact or executor-equivalence delta when controller repair is disabled. |
+| C19_h1n_argument_hints_gain_is_not_controller_helper_artifact | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_argument_hints_no_controller_fallback_vs_argument_hints_v1 | Comparison showing no exact or executor-equivalence delta when controller fallback is disabled. |
+| C19_h1n_argument_hints_gain_is_not_controller_helper_artifact | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_argument_hints_no_argument_repair_vs_argument_hints_v1 | Comparison showing no exact or executor-equivalence delta when argument repair is disabled. |

@@ -43,6 +43,9 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert claims["C18_h1n_oracle_transfer_identifies_argument_hints_as_clean_winner"][
         "status"
     ] == "supported_current_packets"
+    assert claims["C19_h1n_argument_hints_gain_is_not_controller_helper_artifact"][
+        "status"
+    ] == "supported_current_packets"
     assert "7/8" in claims["C2_final_tool_directive_causal_for_protocol"]["primary_metric"]
     assert "v3 raw exact falls" in claims["C6_split_selector_wording_is_negative_evidence"]["primary_metric"]
     assert "schema-field hints reach 6/8 strict and 8/8 executor-equivalent" in claims[
@@ -96,6 +99,12 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     ]["primary_metric"]
     assert "contracted is 1/6" in claims[
         "C18_h1n_oracle_transfer_identifies_argument_hints_as_clean_winner"
+    ]["primary_metric"]
+    assert "Argument hints remains 5/6 exact and 6/6 executor-equivalent" in claims[
+        "C19_h1n_argument_hints_gain_is_not_controller_helper_artifact"
+    ]["primary_metric"]
+    assert "0.0 exact and executor-equivalence deltas" in claims[
+        "C19_h1n_argument_hints_gain_is_not_controller_helper_artifact"
     ]["primary_metric"]
 
     source_types = {row["artifact_type"] for row in payload["evidence_sources"]}

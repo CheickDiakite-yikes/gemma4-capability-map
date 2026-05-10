@@ -1,9 +1,9 @@
 {
   "summary": {
-    "generated_at": "2026-05-10T00:30:05.139809+00:00",
+    "generated_at": "2026-05-10T00:43:01.671183+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 62,
-    "blocking_check_count": 60,
+    "check_count": 65,
+    "blocking_check_count": 63,
     "blocking_failed_count": 0,
     "recommended_check_count": 2,
     "recommended_failed_count": 0,
@@ -29,7 +29,7 @@
       "check_id": "ledger_has_claims",
       "severity": "blocking",
       "passed": true,
-      "detail": "claim_count=18",
+      "detail": "claim_count=19",
       "path": ""
     },
     {
@@ -327,6 +327,20 @@
       "path": "results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_transfer_oracle_live_replay_summary.csv"
     },
     {
+      "check_id": "h1n_oracle_helper_ablation_diagnostic_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H1n oracle argument-hints helper-ablation diagnostic exists.",
+      "path": "results/reports/h1n_oracle_helper_ablation/diagnostic.md"
+    },
+    {
+      "check_id": "h1n_oracle_helper_ablation_no_repair_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H1n oracle argument-hints no-controller-repair comparison exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_argument_hints_no_controller_repair_vs_argument_hints_v1/live_replay_comparison.json"
+    },
+    {
       "check_id": "current_state_doc_exists",
       "severity": "blocking",
       "passed": true,
@@ -423,6 +437,13 @@
       "passed": true,
       "detail": "Reproduction script `analyze_h1n_alias_transfer_contract_split.py` exists.",
       "path": "scripts/analyze_h1n_alias_transfer_contract_split.py"
+    },
+    {
+      "check_id": "script_analyze_h1n_oracle_helper_ablation.py_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Reproduction script `analyze_h1n_oracle_helper_ablation.py` exists.",
+      "path": "scripts/analyze_h1n_oracle_helper_ablation.py"
     },
     {
       "check_id": "script_compare_tool_directive_probes.py_exists",

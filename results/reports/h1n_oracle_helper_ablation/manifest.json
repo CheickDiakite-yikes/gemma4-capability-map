@@ -1,0 +1,11 @@
+{
+  "generated_at": "2026-05-10T00:40:56.764360+00:00",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h1n_oracle_helper_ablation",
+  "comparison_dirs": {
+    "no_controller_repair": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_argument_hints_no_controller_repair_vs_argument_hints_v1",
+    "no_controller_fallback": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_argument_hints_no_controller_fallback_vs_argument_hints_v1",
+    "no_argument_repair": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_argument_hints_no_argument_repair_vs_argument_hints_v1"
+  },
+  "summary_row_count": 3,
+  "case_row_count": 18
+}
