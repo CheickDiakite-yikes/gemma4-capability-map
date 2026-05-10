@@ -40,6 +40,7 @@ def parse_args() -> argparse.Namespace:
             "alias_transfer_oblique_v5",
             "alias_transfer_post_repair_v6",
             "alias_transfer_residual_v7",
+            "component_value_v9",
         ],
         default="v1",
     )
@@ -198,6 +199,8 @@ def _stress_cases_for_suite(suite: str) -> list[ToolDirectiveProbeCase]:
         return _alias_transfer_post_repair_cases_v6()
     if suite == "alias_transfer_residual_v7":
         return _alias_transfer_residual_cases_v7()
+    if suite == "component_value_v9":
+        return _component_value_cases_v9()
     raise ValueError(f"Unknown visual live stress suite: {suite}")
 
 
@@ -213,6 +216,7 @@ def _expected_call_payloads(
         "alias_transfer_oblique_v5",
         "alias_transfer_post_repair_v6",
         "alias_transfer_residual_v7",
+        "component_value_v9",
     }:
         return [_oracle_visual_extract_call(case)]
     return [
@@ -1323,6 +1327,205 @@ def _alias_transfer_residual_cases_v7() -> list[ToolDirectiveProbeCase]:
     ]
 
 
+def _component_value_cases_v9() -> list[ToolDirectiveProbeCase]:
+    return [
+        ToolDirectiveProbeCase(
+            case_id="component_value_state_pill_note_decoy",
+            family="visual_argument_transfer_component_value_pill",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-component-state-pill"),
+                Message(
+                    role="user",
+                    content=(
+                        "The note repeats on hold. Locate the state pill itself, not the note."
+                    ),
+                ),
+            ],
+            media=["img-component-state-pill"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-component-state-pill",
+                [
+                    _region("component-note-8001", "review note", "On hold until owner replies", area="note"),
+                    _region("component-state-pill-8002", "state pill", "On hold", area="pill"),
+                    _region("component-work-8003", "work table", "On hold tasks", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["component-state-pill-8002"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="component_value_status_badge_email_decoy",
+            family="visual_argument_transfer_component_value_nonpill",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-component-status-badge"),
+                Message(
+                    role="user",
+                    content=(
+                        "The email preview says blocked too. Locate the status badge itself, not the email."
+                    ),
+                ),
+            ],
+            media=["img-component-status-badge"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-component-status-badge",
+                [
+                    _region("component-email-8101", "email preview", "Blocked account warning sent", area="email"),
+                    _region("component-status-badge-8102", "status badge", "Blocked", area="badge"),
+                    _region("component-account-8103", "account table", "Blocked account rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["component-status-badge-8102"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="component_value_phase_tile_ticket_decoy",
+            family="visual_argument_transfer_component_value_nonpill",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-component-phase-tile"),
+                Message(
+                    role="user",
+                    content=(
+                        "The ticket summary repeats review. Locate the phase tile itself before reading the ticket."
+                    ),
+                ),
+            ],
+            media=["img-component-phase-tile"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-component-phase-tile",
+                [
+                    _region("component-ticket-8201", "ticket summary", "Review requested by support", area="ticket"),
+                    _region("component-phase-tile-8202", "phase tile", "Review", area="tile"),
+                    _region("component-review-8203", "review table", "Review queue", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["component-phase-tile-8202"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="component_value_priority_chip_table_decoy",
+            family="visual_argument_transfer_component_value_nonpill",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-component-priority-chip"),
+                Message(
+                    role="user",
+                    content=(
+                        "The table repeats high priority. Locate the priority chip itself, not the table row."
+                    ),
+                ),
+            ],
+            media=["img-component-priority-chip"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-component-priority-chip",
+                [
+                    _region("component-row-8301", "priority table", "High priority incidents", area="table"),
+                    _region("component-priority-chip-8302", "priority chip", "High", area="chip"),
+                    _region("component-note-8303", "priority note", "High priority owner listed", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["component-priority-chip-8302"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="component_value_severity_pill_chart_decoy",
+            family="visual_argument_transfer_component_value_pill",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-component-severity-pill"),
+                Message(
+                    role="user",
+                    content=(
+                        "The chart repeats critical. Locate the severity pill itself before reading the chart."
+                    ),
+                ),
+            ],
+            media=["img-component-severity-pill"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-component-severity-pill",
+                [
+                    _region("component-chart-8401", "incident chart", "Critical incidents rising", area="chart"),
+                    _region("component-severity-pill-8402", "severity pill", "Critical", area="pill"),
+                    _region("component-incident-8403", "incident table", "Critical incident rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["component-severity-pill-8402"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="component_value_result_pill_log_decoy",
+            family="visual_argument_transfer_component_value_pill",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-component-result-pill"),
+                Message(
+                    role="user",
+                    content=(
+                        "The log repeats approved. Locate the result pill itself, not the log entry."
+                    ),
+                ),
+            ],
+            media=["img-component-result-pill"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-component-result-pill",
+                [
+                    _region("component-log-8501", "approval log", "Approved by Mina at 09:14", area="log"),
+                    _region("component-result-pill-8502", "result pill", "Approved", area="pill"),
+                    _region("component-review-8503", "approval table", "Approved request rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["component-result-pill-8502"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="component_value_risk_badge_stale_selection_decoy",
+            family="visual_tool_routing_component_value",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-component-risk-badge"),
+                Message(
+                    role="user",
+                    content=(
+                        "Ignore old selection_id sel-risk-old from the previous view. On this screen, locate the "
+                        "risk badge itself, not the overdue summary."
+                    ),
+                ),
+            ],
+            media=["img-component-risk-badge"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-component-risk-badge",
+                [
+                    _region("component-summary-8601", "overdue summary", "Overdue vendors listed", area="summary"),
+                    _region("component-risk-badge-8602", "risk badge", "Overdue", area="badge"),
+                    _region("component-vendor-8603", "vendor table", "Overdue vendor rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["component-risk-badge-8602"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="component_value_owner_field_stale_selection_decoy",
+            family="visual_tool_routing_component_value",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-component-owner-field"),
+                Message(
+                    role="user",
+                    content=(
+                        "Ignore old selection_id sel-owner-previous from the prior panel. Locate the owner field "
+                        "itself, not the note that repeats Mina."
+                    ),
+                ),
+            ],
+            media=["img-component-owner-field"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-component-owner-field",
+                [
+                    _region("component-note-8701", "owner note", "Mina owns renewal handoff", area="note"),
+                    _region("component-owner-field-8702", "owner field", "Mina", area="field"),
+                    _region("component-handoff-8703", "handoff table", "Mina handoff rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["component-owner-field-8702"]},
+        ),
+    ]
+
+
 def _visual_state(image_id: str, local_layouts: list[dict[str, Any]]) -> dict[str, Any]:
     return {
         "visual_executor_mode": "local",
@@ -1353,6 +1556,7 @@ def _stress_failure_mode(family: str) -> str:
         "visual_tool_routing_transfer_oblique",
         "visual_tool_routing_transfer_post_repair",
         "visual_tool_routing_transfer_residual",
+        "visual_tool_routing_component_value",
     }:
         return "wrong_tool_or_stale_selection_risk"
     return "argument_alias_or_decoy_risk"

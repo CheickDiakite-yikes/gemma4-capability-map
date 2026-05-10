@@ -295,6 +295,51 @@ def test_visual_hard_slice_live_stress_packet_supports_residual_suite(tmp_path: 
         assert _expected_call_reaches_oracle(case)
 
 
+def test_visual_hard_slice_live_stress_packet_supports_component_value_suite(tmp_path: Path) -> None:
+    packet = SCRIPT.build_visual_hard_slice_live_stress_packet(
+        output_root=tmp_path / "replay_packets",
+        run_group_id="visual_stress_component_value",
+        suite="component_value_v9",
+    )
+
+    assert packet["summary"]["suite"] == "component_value_v9"
+    assert packet["summary"]["case_count"] == 8
+    assert packet["summary"]["family_counts"] == {
+        "visual_argument_transfer_component_value_nonpill": 3,
+        "visual_argument_transfer_component_value_pill": 3,
+        "visual_tool_routing_component_value": 2,
+    }
+    assert packet["summary"]["failure_mode_counts"] == {
+        "argument_alias_or_decoy_risk": 6,
+        "wrong_tool_or_stale_selection_risk": 2,
+    }
+    case_ids = {row["case_id"] for row in packet["rows"]}
+    assert "component_value_state_pill_note_decoy" in case_ids
+    assert "component_value_status_badge_email_decoy" in case_ids
+    assert "component_value_owner_field_stale_selection_decoy" in case_ids
+    cases = {case["case_id"]: case for case in packet["replay_cases"]}
+    assert cases["component_value_state_pill_note_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-component-state-pill",
+                "target_query": "state pill",
+            },
+        }
+    ]
+    assert cases["component_value_owner_field_stale_selection_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-component-owner-field",
+                "target_query": "owner field",
+            },
+        }
+    ]
+    for case in packet["replay_cases"]:
+        assert _expected_call_reaches_oracle(case)
+
+
 def _expected_call_reaches_oracle(case: dict[str, object]) -> bool:
     tool_specs = [ToolSpec.model_validate(payload) for payload in case["tool_specs"]]  # type: ignore[index]
     executor = DeterministicExecutor(tool_specs=tool_specs)

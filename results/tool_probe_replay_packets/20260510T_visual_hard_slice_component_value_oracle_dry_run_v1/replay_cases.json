@@ -1,0 +1,1170 @@
+[
+  {
+    "case_id": "component_value_state_pill_note_decoy",
+    "family": "visual_argument_transfer_component_value_pill",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-component-state-pill",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "The note repeats on hold. Locate the state pill itself, not the note.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-component-state-pill"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-component-state-pill": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "component-note-8001",
+              "label": "review note",
+              "text": "On hold until owner replies",
+              "attributes": {
+                "area": "note"
+              }
+            },
+            {
+              "region_id": "component-state-pill-8002",
+              "label": "state pill",
+              "text": "On hold",
+              "attributes": {
+                "area": "pill"
+              }
+            },
+            {
+              "region_id": "component-work-8003",
+              "label": "work table",
+              "text": "On hold tasks",
+              "attributes": {
+                "area": "table"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "component-state-pill-8002"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-component-state-pill",
+          "target_query": "state pill"
+        }
+      }
+    ],
+    "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "source_exact_match": false,
+    "source_executable_match": false,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+    "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+  },
+  {
+    "case_id": "component_value_status_badge_email_decoy",
+    "family": "visual_argument_transfer_component_value_nonpill",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-component-status-badge",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "The email preview says blocked too. Locate the status badge itself, not the email.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-component-status-badge"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-component-status-badge": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "component-email-8101",
+              "label": "email preview",
+              "text": "Blocked account warning sent",
+              "attributes": {
+                "area": "email"
+              }
+            },
+            {
+              "region_id": "component-status-badge-8102",
+              "label": "status badge",
+              "text": "Blocked",
+              "attributes": {
+                "area": "badge"
+              }
+            },
+            {
+              "region_id": "component-account-8103",
+              "label": "account table",
+              "text": "Blocked account rows",
+              "attributes": {
+                "area": "table"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "component-status-badge-8102"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-component-status-badge",
+          "target_query": "status badge"
+        }
+      }
+    ],
+    "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "source_exact_match": false,
+    "source_executable_match": false,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+    "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+  },
+  {
+    "case_id": "component_value_phase_tile_ticket_decoy",
+    "family": "visual_argument_transfer_component_value_nonpill",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-component-phase-tile",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "The ticket summary repeats review. Locate the phase tile itself before reading the ticket.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-component-phase-tile"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-component-phase-tile": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "component-ticket-8201",
+              "label": "ticket summary",
+              "text": "Review requested by support",
+              "attributes": {
+                "area": "ticket"
+              }
+            },
+            {
+              "region_id": "component-phase-tile-8202",
+              "label": "phase tile",
+              "text": "Review",
+              "attributes": {
+                "area": "tile"
+              }
+            },
+            {
+              "region_id": "component-review-8203",
+              "label": "review table",
+              "text": "Review queue",
+              "attributes": {
+                "area": "table"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "component-phase-tile-8202"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-component-phase-tile",
+          "target_query": "phase tile"
+        }
+      }
+    ],
+    "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "source_exact_match": false,
+    "source_executable_match": false,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+    "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+  },
+  {
+    "case_id": "component_value_priority_chip_table_decoy",
+    "family": "visual_argument_transfer_component_value_nonpill",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-component-priority-chip",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "The table repeats high priority. Locate the priority chip itself, not the table row.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-component-priority-chip"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-component-priority-chip": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "component-row-8301",
+              "label": "priority table",
+              "text": "High priority incidents",
+              "attributes": {
+                "area": "table"
+              }
+            },
+            {
+              "region_id": "component-priority-chip-8302",
+              "label": "priority chip",
+              "text": "High",
+              "attributes": {
+                "area": "chip"
+              }
+            },
+            {
+              "region_id": "component-note-8303",
+              "label": "priority note",
+              "text": "High priority owner listed",
+              "attributes": {
+                "area": "note"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "component-priority-chip-8302"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-component-priority-chip",
+          "target_query": "priority chip"
+        }
+      }
+    ],
+    "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "source_exact_match": false,
+    "source_executable_match": false,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+    "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+  },
+  {
+    "case_id": "component_value_severity_pill_chart_decoy",
+    "family": "visual_argument_transfer_component_value_pill",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-component-severity-pill",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "The chart repeats critical. Locate the severity pill itself before reading the chart.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-component-severity-pill"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-component-severity-pill": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "component-chart-8401",
+              "label": "incident chart",
+              "text": "Critical incidents rising",
+              "attributes": {
+                "area": "chart"
+              }
+            },
+            {
+              "region_id": "component-severity-pill-8402",
+              "label": "severity pill",
+              "text": "Critical",
+              "attributes": {
+                "area": "pill"
+              }
+            },
+            {
+              "region_id": "component-incident-8403",
+              "label": "incident table",
+              "text": "Critical incident rows",
+              "attributes": {
+                "area": "table"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "component-severity-pill-8402"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-component-severity-pill",
+          "target_query": "severity pill"
+        }
+      }
+    ],
+    "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "source_exact_match": false,
+    "source_executable_match": false,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+    "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+  },
+  {
+    "case_id": "component_value_result_pill_log_decoy",
+    "family": "visual_argument_transfer_component_value_pill",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-component-result-pill",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "The log repeats approved. Locate the result pill itself, not the log entry.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-component-result-pill"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-component-result-pill": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "component-log-8501",
+              "label": "approval log",
+              "text": "Approved by Mina at 09:14",
+              "attributes": {
+                "area": "log"
+              }
+            },
+            {
+              "region_id": "component-result-pill-8502",
+              "label": "result pill",
+              "text": "Approved",
+              "attributes": {
+                "area": "pill"
+              }
+            },
+            {
+              "region_id": "component-review-8503",
+              "label": "approval table",
+              "text": "Approved request rows",
+              "attributes": {
+                "area": "table"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "component-result-pill-8502"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-component-result-pill",
+          "target_query": "result pill"
+        }
+      }
+    ],
+    "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "source_exact_match": false,
+    "source_executable_match": false,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+    "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+  },
+  {
+    "case_id": "component_value_risk_badge_stale_selection_decoy",
+    "family": "visual_tool_routing_component_value",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-component-risk-badge",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "Ignore old selection_id sel-risk-old from the previous view. On this screen, locate the risk badge itself, not the overdue summary.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-component-risk-badge"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-component-risk-badge": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "component-summary-8601",
+              "label": "overdue summary",
+              "text": "Overdue vendors listed",
+              "attributes": {
+                "area": "summary"
+              }
+            },
+            {
+              "region_id": "component-risk-badge-8602",
+              "label": "risk badge",
+              "text": "Overdue",
+              "attributes": {
+                "area": "badge"
+              }
+            },
+            {
+              "region_id": "component-vendor-8603",
+              "label": "vendor table",
+              "text": "Overdue vendor rows",
+              "attributes": {
+                "area": "table"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "component-risk-badge-8602"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-component-risk-badge",
+          "target_query": "risk badge"
+        }
+      }
+    ],
+    "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+    "source_failure_mode": "wrong_tool_or_stale_selection_risk",
+    "source_exact_match": false,
+    "source_executable_match": false,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+    "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+  },
+  {
+    "case_id": "component_value_owner_field_stale_selection_decoy",
+    "family": "visual_tool_routing_component_value",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-component-owner-field",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "Ignore old selection_id sel-owner-previous from the prior panel. Locate the owner field itself, not the note that repeats Mina.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-component-owner-field"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-component-owner-field": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "component-note-8701",
+              "label": "owner note",
+              "text": "Mina owns renewal handoff",
+              "attributes": {
+                "area": "note"
+              }
+            },
+            {
+              "region_id": "component-owner-field-8702",
+              "label": "owner field",
+              "text": "Mina",
+              "attributes": {
+                "area": "field"
+              }
+            },
+            {
+              "region_id": "component-handoff-8703",
+              "label": "handoff table",
+              "text": "Mina handoff rows",
+              "attributes": {
+                "area": "table"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "component-owner-field-8702"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-component-owner-field",
+          "target_query": "owner field"
+        }
+      }
+    ],
+    "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+    "source_failure_mode": "wrong_tool_or_stale_selection_risk",
+    "source_exact_match": false,
+    "source_executable_match": false,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+    "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+  }
+]
