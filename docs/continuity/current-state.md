@@ -1163,6 +1163,7 @@ The current H1n visual replay frontier is now the component-role/value holdout t
 
 - component-value packet: [`results/tool_probe_replay_packets/20260510T_visual_hard_slice_component_value_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260510T_visual_hard_slice_component_value_oracle_dry_run_v1)
 - v10 live packet: [`results/tool_probe_replay_live/20260510T_h1n_component_value_no_call_control_rescue_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1n_component_value_no_call_control_rescue_execute_v1)
+- v10 transfer synthesis: [`results/reports/h1n_no_call_rescue_transfer_synthesis/report.md`](../../results/reports/h1n_no_call_rescue_transfer_synthesis/report.md)
 - diagnostic: [`results/reports/visual_component_value_diagnostic/diagnostic.md`](../../results/reports/visual_component_value_diagnostic/diagnostic.md)
 - report table: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_component_value_live_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_component_value_live_replay_summary.csv)
 - predecessor packet: [`results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_residual_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_residual_oracle_dry_run_v1)
@@ -1184,8 +1185,9 @@ Interpretation:
 - v9 component-value guard is negative evidence, not a profile to promote
 - v10 no-call control rescue is the current component-value upper bound
 - the useful gains are no-call rescues on `status badge` and `owner field` without broad component-value prose
+- transfer synthesis says v10 is a scoped activation improvement: `22 / 30` exact and `25 / 30` executor-equivalent across four H1n packets, versus no-directive at `11 / 30` and `12 / 30`, but behind incumbents at `25 / 30` and `26 / 30`
 - the harmful pattern is broad component-value prose causing argument mismatches on already-passable pill/chip targets
-- next research move should test v10 transfer against residual/post-repair/oblique packets and then a fresh H1o control-first slice
+- next research move should build a fresh H1o control-first slice that separates no-call activation, code/negation preservation, and component-label/value disambiguation
 
 ## Previous H1n Residual Finding
 

@@ -760,6 +760,12 @@ def audit_publication_readiness(
             detail="Paper-facing component-value holdout summary table exists.",
         ),
         _check_path(
+            check_id="h1n_no_call_rescue_transfer_synthesis_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "h1n_no_call_rescue_transfer_synthesis" / "report.md",
+            detail="No-call rescue transfer synthesis report exists.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",
@@ -805,6 +811,7 @@ def audit_publication_readiness(
         "analyze_h1n_oblique_code_hints_delta.py",
         "build_h1n_code_hints_transfer_synthesis.py",
         "build_h1n_code_guard_transfer_synthesis.py",
+        "build_h1n_no_call_rescue_transfer_synthesis.py",
         "build_h1n_oracle_transfer_synthesis.py",
         "compare_tool_directive_probes.py",
         "build_visual_hard_slice_design.py",

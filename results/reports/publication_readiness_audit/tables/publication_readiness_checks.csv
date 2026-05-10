@@ -1,7 +1,7 @@
 check_id,severity,passed,detail,path
 ledger_manifest_exists,blocking,True,Publication evidence ledger manifest exists.,results/reports/publication_evidence_ledger/manifest.json
 ledger_has_no_missing_sources,blocking,True,missing_source_count=0,
-ledger_has_claims,blocking,True,claim_count=31,
+ledger_has_claims,blocking,True,claim_count=32,
 ledger_includes_negative_results,blocking,True,At least one claim is explicitly labeled as negative-result evidence.,
 tool_contract_report_has_current_tables,blocking,True,table_count=74,
 tool_contract_report_has_current_figures,blocking,True,figure_count=36,
@@ -82,6 +82,7 @@ h1n_component_value_v10_live_packet_exists,blocking,True,Component-value v10 no-
 h1n_component_value_v10_comparison_exists,blocking,True,Component-value v10 no-call control rescue comparison against no-directive exists.,results/tool_probe_replay_live_comparisons/20260510T_h1n_component_value_no_call_control_rescue_vs_no_directive_v1/live_replay_comparison.json
 h1n_component_value_diagnostic_exists,blocking,True,Component-value visual diagnostic exists.,results/reports/visual_component_value_diagnostic/diagnostic.md
 h1n_component_value_report_table_exists,blocking,True,Paper-facing component-value holdout summary table exists.,results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_component_value_live_replay_summary.csv
+h1n_no_call_rescue_transfer_synthesis_exists,blocking,True,No-call rescue transfer synthesis report exists.,results/reports/h1n_no_call_rescue_transfer_synthesis/report.md
 current_state_doc_exists,blocking,True,Continuity current-state doc exists.,docs/continuity/current-state.md
 next_steps_doc_exists,blocking,True,Continuity next-steps doc exists.,docs/continuity/next-steps.md
 research_log_exists,blocking,True,Research log exists.,docs/research-log.md
@@ -101,6 +102,7 @@ script_analyze_h1n_oblique_misses.py_exists,blocking,True,Reproduction script `a
 script_analyze_h1n_oblique_code_hints_delta.py_exists,blocking,True,Reproduction script `analyze_h1n_oblique_code_hints_delta.py` exists.,scripts/analyze_h1n_oblique_code_hints_delta.py
 script_build_h1n_code_hints_transfer_synthesis.py_exists,blocking,True,Reproduction script `build_h1n_code_hints_transfer_synthesis.py` exists.,scripts/build_h1n_code_hints_transfer_synthesis.py
 script_build_h1n_code_guard_transfer_synthesis.py_exists,blocking,True,Reproduction script `build_h1n_code_guard_transfer_synthesis.py` exists.,scripts/build_h1n_code_guard_transfer_synthesis.py
+script_build_h1n_no_call_rescue_transfer_synthesis.py_exists,blocking,True,Reproduction script `build_h1n_no_call_rescue_transfer_synthesis.py` exists.,scripts/build_h1n_no_call_rescue_transfer_synthesis.py
 script_build_h1n_oracle_transfer_synthesis.py_exists,blocking,True,Reproduction script `build_h1n_oracle_transfer_synthesis.py` exists.,scripts/build_h1n_oracle_transfer_synthesis.py
 script_compare_tool_directive_probes.py_exists,blocking,True,Reproduction script `compare_tool_directive_probes.py` exists.,scripts/compare_tool_directive_probes.py
 script_build_visual_hard_slice_design.py_exists,blocking,True,Reproduction script `build_visual_hard_slice_design.py` exists.,scripts/build_visual_hard_slice_design.py

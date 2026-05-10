@@ -1327,11 +1327,11 @@ CLAIMS: tuple[Claim, ...] = (
             "+0.125 exact/+0.125 executor-equivalence."
         ),
         limitation=(
-            "The gain is currently shown on a replay-shaped micro-slice; transfer to residual packets and packaged live "
-            "workflows remains unproven."
+            "The component-value gain transfers unevenly: it ties or partially transfers on some H1n packets but does "
+            "not replace specialized code/label guards."
         ),
         next_test=(
-            "Replay v10 against residual/post-repair/oblique packets and build a fresh H1o control-first slice that "
+            "Build a fresh H1o control-first slice that "
             "separates activation/no-call rescue from selector-value disambiguation."
         ),
         sources=(
@@ -1369,6 +1369,65 @@ CLAIMS: tuple[Claim, ...] = (
                 "report_table",
                 "results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_component_value_live_replay_summary.csv",
                 "Paper-facing table summarizing v10 against the component-value candidate set.",
+            ),
+            EvidenceSource(
+                "synthesis_report",
+                "results/reports/h1n_no_call_rescue_transfer_synthesis/report.md",
+                "Cross-packet transfer synthesis showing v10's aggregate lift and incumbent boundary.",
+            ),
+        ),
+    ),
+    Claim(
+        claim_id="C32_no_call_rescue_is_scoped_not_general",
+        claim=(
+            "The v10 no-call control rescue is a scoped activation improvement, not a general replacement for "
+            "specialized visual label/code guards."
+        ),
+        status="supported_current_packets",
+        evidence_strength="moderate_internal",
+        primary_metric=(
+            "Across component-value, residual, post-repair, and oblique transfer packets, v10 reaches 22/30 exact "
+            "and 25/30 executor-equivalent successes versus no-directive at 11/30 and 12/30, but trails incumbents "
+            "at 25/30 exact and 26/30 executor-equivalent."
+        ),
+        limitation=(
+            "The aggregate spans replay-shaped H1n micro-slices, not a broad population estimate or packaged workflow "
+            "confirmation."
+        ),
+        next_test=(
+            "Author H1o as a factorial control slice with separate activation/no-call, code-suffix/negation, and "
+            "component-value axes."
+        ),
+        sources=(
+            EvidenceSource(
+                "synthesis_report",
+                "results/reports/h1n_no_call_rescue_transfer_synthesis/report.md",
+                "Aggregate synthesis comparing v10 with no-directive and per-packet incumbent profiles.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h1n_residual_no_call_control_rescue_execute_v1",
+                "Residual transfer packet where v10 gives executor-only gains over no-directive but trails v8.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h1n_post_repair_no_call_control_rescue_execute_v1",
+                "Post-repair transfer packet where v10 ties v7 code guard at 6/8.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h1n_oracle_oblique_no_call_control_rescue_execute_v1",
+                "Oblique transfer packet where v10 reaches 5/6 but trails v7 code guard.",
+            ),
+            EvidenceSource(
+                "diagnostic_report",
+                "results/reports/visual_alias_transfer_residual_diagnostic/diagnostic.md",
+                "Residual diagnostic showing v10 is not the strict upper bound.",
+            ),
+            EvidenceSource(
+                "diagnostic_report",
+                "results/reports/visual_alias_transfer_oblique_diagnostic/diagnostic.md",
+                "Oblique diagnostic showing v10 below v7 code guard.",
             ),
         ),
     ),

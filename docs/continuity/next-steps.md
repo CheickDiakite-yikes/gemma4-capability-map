@@ -132,12 +132,17 @@ Next implementation moves:
   - diagnostic: [`results/reports/visual_component_value_diagnostic/diagnostic.md`](../../results/reports/visual_component_value_diagnostic/diagnostic.md)
   - result: contracted/default `1 / 8`, no-directive `5 / 8` exact and `6 / 8` executor-equivalent, argument hints and hybrid label guard `6 / 8` exact and `7 / 8` executor-equivalent, v9 component-value guard `4 / 8`, and v10 no-call control rescue `7 / 8` exact plus `8 / 8` executor-equivalent
   - interpretation: broad component-role/value prose is harmful, but a narrower current-image no-call activation guard fixes `status badge` and `owner field` while preserving executor correctness
+- completed v10 transfer synthesis:
+  - report: [`results/reports/h1n_no_call_rescue_transfer_synthesis/report.md`](../../results/reports/h1n_no_call_rescue_transfer_synthesis/report.md)
+  - result: v10 `22 / 30` exact and `25 / 30` executor-equivalent across component-value, residual, post-repair, and oblique transfer packets
+  - interpretation: v10 is much stronger than no-directive (`11 / 30`, `12 / 30`) but is not a universal replacement for incumbents (`25 / 30`, `26 / 30`)
+  - next: build H1o as a factorial control slice over activation/no-call rescue, code/negation preservation, and component-label/value disambiguation
 - completed post-repair holdout:
   - packet: [`results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_post_repair_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_post_repair_oracle_dry_run_v1)
   - diagnostic: [`results/reports/visual_alias_transfer_post_repair_diagnostic/diagnostic.md`](../../results/reports/visual_alias_transfer_post_repair_diagnostic/diagnostic.md)
   - result: no-directive `2 / 8`, contracted/default `3 / 8`, argument hints `5 / 8`, v6 code hints `5 / 8`, v7 code guard `6 / 8` exact and executor-equivalent
   - interpretation: code guard now has a fresh positive transfer result, but the profile is not a universal replacement; argument hints still covers some ordinary non-code labels better
-- next replay-shaped target: build a lighter no-call rescue that preserves argument hints and hybrid label behavior while specifically targeting `status badge` / `owner field` no-call failures; do not promote v9
+- next replay-shaped target: build H1o as a fresh control-first packet rather than adding more broad prompt prose; do not promote v9 as a replacement profile
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1

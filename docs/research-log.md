@@ -15,7 +15,8 @@
 - Interpretation:
   - The useful mechanism is narrower than "component-role/value disambiguation." A generic current-image visual activation guard fixed the two no-call cases while preserving the already-passable pill/badge cases.
   - The remaining miss is not a failed execution; it is an exactness miss where the priority-chip selector is executor-equivalent.
-  - Next transfer test: replay v10 against residual, post-repair, and oblique packets before treating it as a durable profile.
+  - Transfer synthesis: [`h1n_no_call_rescue_transfer_synthesis`](../results/reports/h1n_no_call_rescue_transfer_synthesis/report.md) shows v10 at `22 / 30` exact and `25 / 30` executor-equivalent across component-value, residual, post-repair, and oblique packets. That is a large gain over no-directive (`11 / 30`, `12 / 30`) but still behind per-packet incumbents (`25 / 30`, `26 / 30`).
+  - Next transfer test: build H1o as a factorial slice instead of treating v10 as a durable replacement profile.
 - Verification:
   - `uv run pytest tests/test_prompt_contracts.py tests/test_knowledge_work_h1.py::test_h1n_no_call_control_rescue_registry_row_preserves_catalog_profile -q`
   - `uv run python -m gemma4_capability_map.runtime.cli replay-live --packet-dir results/tool_probe_replay_packets/20260510T_visual_hard_slice_component_value_oracle_dry_run_v1 --output-dir results/tool_probe_replay_live/20260510T_h1n_component_value_no_call_control_rescue_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_no_call_control_rescue --registry configs/model_registry.yaml --execute --json`
@@ -46,8 +47,8 @@
   - `uv run pytest tests/test_mlx_tool_contract_report.py -q`
 - Reporting:
   - MLX tool-contract report now has `74` tables and `36` figures
-  - publication evidence ledger now has `31` claims, `152` evidence sources, and `0` missing sources
-  - publication readiness audit now has `106` checks, `104` blocking checks, `0` blocking failures, and status `paper_draft_ready`
+  - publication evidence ledger now has `32` claims, `159` evidence sources, and `0` missing sources
+  - publication readiness audit now has `108` checks, `106` blocking checks, `0` blocking failures, and status `paper_draft_ready`
 
 ## 2026-05-10 - H1n Residual Hybrid Label Guard Becomes the Strict Upper Bound
 
