@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "transfer_repeat_consent_alert_toggle_decoy",
+    "family": "visual_tool_routing_transfer_repeat",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "transfer-repeat-consent-4502"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-repeat-consent-alert",
+          "target_query": "consent alert"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-transfer-repeat-consent-alert",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "transfer-repeat-consent-4502"
+          ],
+          "region_id": "transfer-repeat-consent-4502",
+          "text_preview": "Consent document expired"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-repeat-consent-alert",
+          "target_query": "consent alert"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-repeat-consent-alert",
+          "target_query": "consent alert"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-transfer-repeat-consent-alert\", \"target_query\": \"consent alert\"}}",
+    "prompt_tokens": 956,
+    "completion_tokens": 37,
+    "latency_ms": 3702
+  }
+]

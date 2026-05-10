@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-10T00:43:01.627756+00:00",
+    "generated_at": "2026-05-10T00:53:37.104774+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-    "claim_count": 19,
-    "evidence_source_count": 86,
+    "claim_count": 20,
+    "evidence_source_count": 93,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -24,7 +24,8 @@
       "C16_visual_alias_transfer_favors_argument_hints_executor_grounding",
       "C17_h1n_strict_exactness_matches_planner_not_oracle",
       "C18_h1n_oracle_transfer_identifies_argument_hints_as_clean_winner",
-      "C19_h1n_argument_hints_gain_is_not_controller_helper_artifact"
+      "C19_h1n_argument_hints_gain_is_not_controller_helper_artifact",
+      "C20_h1n_oracle_repeat_confirms_catalog_transfer_not_contracted_upper_bound"
     ]
   },
   "claims": [
@@ -216,6 +217,16 @@
       "primary_metric": "Argument hints remains 5/6 exact and 6/6 executor-equivalent with no controller repair, no controller fallback, and no argument repair; all three helper-ablation comparisons have 0.0 exact and executor-equivalence deltas.",
       "limitation": "This only attributes the six-case oracle replay slice. It does not replace broader controller-helper ablations on packaged workflows or future visual families.",
       "next_test": "Repeat the helper-ablation result on a fresh oracle transfer packet or on a less staged live visual workflow.",
+      "source_count": 7
+    },
+    {
+      "claim_id": "C20_h1n_oracle_repeat_confirms_catalog_transfer_not_contracted_upper_bound",
+      "claim": "A fresh H1n oracle repeat preserves the catalog-profile transfer effect while showing that contracted prompting is not a reliable visual-transfer upper bound.",
+      "status": "supported_current_packets",
+      "evidence_strength": "moderate_internal",
+      "primary_metric": "H1n oracle repeat: no-directive is 2/6 exact and executor-equivalent; contracted is 0/6; role catalog and schema-field hints are 4/6; argument hints v2 and schema target literals v5 are 5/6 exact and 6/6 executor-equivalent.",
+      "limitation": "This repeat is still deterministic and six-case; it strengthens the transfer claim but does not replace larger stochastic repeats or less staged live workflows.",
+      "next_test": "Run a third fresh oracle transfer packet or promote the tied argument-hints/schema-literal profiles into a less staged live visual workflow.",
       "source_count": 7
     }
   ],
@@ -820,6 +831,55 @@
       "artifact_type": "live_replay_comparison",
       "path": "results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_argument_hints_no_argument_repair_vs_argument_hints_v1",
       "purpose": "Comparison showing no exact or executor-equivalence delta when argument repair is disabled.",
+      "exists": true
+    },
+    {
+      "claim_id": "C20_h1n_oracle_repeat_confirms_catalog_transfer_not_contracted_upper_bound",
+      "artifact_type": "tool_probe_replay_packet",
+      "path": "results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_repeat_oracle_dry_run_v1",
+      "purpose": "Fresh H1n repeat packet with six new alias-transfer labels and decoys.",
+      "exists": true
+    },
+    {
+      "claim_id": "C20_h1n_oracle_repeat_confirms_catalog_transfer_not_contracted_upper_bound",
+      "artifact_type": "diagnostic_report",
+      "path": "results/reports/visual_alias_transfer_repeat_diagnostic/diagnostic.md",
+      "purpose": "Diagnostic report summarizing the repeat matrix winner set and contracted regression.",
+      "exists": true
+    },
+    {
+      "claim_id": "C20_h1n_oracle_repeat_confirms_catalog_transfer_not_contracted_upper_bound",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260509T_h1n_oracle_repeat_argument_hints_execute_v1",
+      "purpose": "Argument-hints repeat execution reaching full executor-equivalence.",
+      "exists": true
+    },
+    {
+      "claim_id": "C20_h1n_oracle_repeat_confirms_catalog_transfer_not_contracted_upper_bound",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260509T_h1n_oracle_repeat_schema_literal_targets_execute_v1",
+      "purpose": "Schema-literal repeat execution tying argument hints on exactness and executor-equivalence.",
+      "exists": true
+    },
+    {
+      "claim_id": "C20_h1n_oracle_repeat_confirms_catalog_transfer_not_contracted_upper_bound",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_repeat_argument_hints_vs_no_directive_v1",
+      "purpose": "Comparison showing argument hints improves exactness by 0.5 and executor-equivalence by 0.667 over no-directive.",
+      "exists": true
+    },
+    {
+      "claim_id": "C20_h1n_oracle_repeat_confirms_catalog_transfer_not_contracted_upper_bound",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_repeat_schema_literal_targets_vs_no_directive_v1",
+      "purpose": "Comparison showing schema target literals ties argument hints on the repeat packet.",
+      "exists": true
+    },
+    {
+      "claim_id": "C20_h1n_oracle_repeat_confirms_catalog_transfer_not_contracted_upper_bound",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_repeat_contracted_vs_no_directive_v1",
+      "purpose": "Comparison showing contracted prompting regresses below no-directive on the repeat packet.",
       "exists": true
     }
   ],

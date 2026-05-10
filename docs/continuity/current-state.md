@@ -248,7 +248,10 @@ Latest MLX tool-contract research:
   - oracle v2 result: no-directive is `2 / 6`; contracted is `1 / 6`; role catalog v1 is `3 / 6`; argument hints v2 is `5 / 6` strict and `6 / 6` executor-equivalent; schema-field hints v4 is `2 / 6`; schema target literals v5 is `4 / 6`
   - helper-ablation diagnostic: [`results/reports/h1n_oracle_helper_ablation/diagnostic.md`](../../results/reports/h1n_oracle_helper_ablation/diagnostic.md)
   - helper-ablation result: argument hints remains `5 / 6` strict and `6 / 6` executor-equivalent with controller repair disabled, controller fallback disabled, and argument repair disabled one at a time
-  - interpretation: fresh transfer cases favor narrow argument hints once the expected-call contract is oracle-backed; schema target literals are second, contracted prompting is not a clean upper bound on this slice, and the argument-hints gain is not explained by those three controller helpers
+  - repeat packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_repeat_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_repeat_oracle_dry_run_v1)
+  - repeat diagnostic: [`results/reports/visual_alias_transfer_repeat_diagnostic/diagnostic.md`](../../results/reports/visual_alias_transfer_repeat_diagnostic/diagnostic.md)
+  - repeat result: no-directive is `2 / 6`; contracted is `0 / 6`; role catalog v1 and schema-field hints v4 are `4 / 6`; argument hints v2 and schema target literals v5 are `5 / 6` strict and `6 / 6` executor-equivalent
+  - interpretation: fresh transfer cases favor narrow catalog-profile mechanisms once the expected-call contract is oracle-backed; argument hints repeats, schema target literals ties on the repeat, contracted prompting is not a clean upper bound, and the argument-hints gain is not explained by the three tested controller helpers
 - Prompt-contract wave 2:
   - contracts: `schema_literal_tool_required_v2`, `visual_next_call_state_v2`, `parallel_array_required_v2`
   - runner flag: `scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v2`

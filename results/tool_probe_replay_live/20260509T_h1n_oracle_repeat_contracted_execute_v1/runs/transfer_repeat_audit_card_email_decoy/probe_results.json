@@ -1,0 +1,58 @@
+[
+  {
+    "case_id": "transfer_repeat_audit_card_email_decoy",
+    "family": "visual_argument_transfer_repeat",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "transfer-repeat-a-4001"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-repeat-audit-card",
+          "target_query": "invoice totals table"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-transfer-repeat-audit-card",
+          "selection_kind": "regions",
+          "count": 0,
+          "executor_mode": "local",
+          "region_ids": []
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-repeat-audit-card",
+          "target_query": "audit card"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-repeat-audit-card",
+          "target_query": "invoice totals table"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-transfer-repeat-audit-card\", \"target_query\": \"invoice totals table\"}}",
+    "prompt_tokens": 811,
+    "completion_tokens": 38,
+    "latency_ms": 7752
+  }
+]

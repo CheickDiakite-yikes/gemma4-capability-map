@@ -1,0 +1,51 @@
+[
+  {
+    "case_id": "transfer_repeat_missing_field_old_selection_decoy",
+    "family": "visual_tool_routing_transfer_repeat",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "transfer-repeat-field-4402"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "refine_selection",
+        "arguments": {
+          "selection_id": "sel-stale-owner",
+          "filter_query": "missing-field"
+        },
+        "validator_result": "fail",
+        "output": {},
+        "error": "'Selection not found: sel-stale-owner'"
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-repeat-missing-field",
+          "target_query": "missing field message"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "refine_selection",
+        "arguments": {
+          "selection_id": "sel-stale-owner",
+          "filter_query": "missing-field"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"refine_selection\", \"arguments\": {\"selection_id\": \"sel-stale-owner\", \"filter_query\": \"missing-field\"}}",
+    "prompt_tokens": 962,
+    "completion_tokens": 36,
+    "latency_ms": 4024
+  }
+]

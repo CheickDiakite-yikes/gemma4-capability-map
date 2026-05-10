@@ -33,7 +33,7 @@ Repeat oracle packet:
 - suite: `alias_transfer_repeat_v4`
 - cases: `6`
 - families: `visual_argument_transfer_repeat = 4`, `visual_tool_routing_transfer_repeat = 2`
-- status: dry-run packet built; next live matrix should start with no-directive, argument hints, schema target literals, and contracted
+- status: executed across the full no-directive, contracted, role-catalog, argument-hints, schema-field, and schema-literal matrix
 
 Build command:
 
@@ -116,10 +116,30 @@ Clean ranking:
 - role catalog v1 gives partial lift.
 - contracted prompting is not an oracle-transfer upper bound on this slice.
 
+## Oracle Repeat Result
+
+The repeat packet preserves the main transfer signal and changes the profile ordering:
+
+- no-directive: strict `2 / 6`, executor-equivalent `2 / 6`
+- contracted: strict `0 / 6`, executor-equivalent `0 / 6`
+- role catalog v1: strict `4 / 6`, executor-equivalent `4 / 6`
+- argument hints v2: strict `5 / 6`, executor-equivalent `6 / 6`
+- schema-field hints v4: strict `4 / 6`, executor-equivalent `4 / 6`
+- schema target literals v5: strict `5 / 6`, executor-equivalent `6 / 6`
+
+Repeat interpretation:
+
+- argument hints v2 repeats as a full executor-equivalence row.
+- schema target literals v5 ties argument hints on the repeat packet.
+- role catalog and schema-field hints are partial.
+- no-directive remains weak at `2 / 6`.
+- contracted prompting regresses below no-directive at `0 / 6`.
+
 Generated evidence:
 
 - diagnostic: [`results/reports/visual_alias_transfer_diagnostic/diagnostic.md`](../../results/reports/visual_alias_transfer_diagnostic/diagnostic.md)
 - oracle diagnostic: [`results/reports/visual_alias_transfer_oracle_diagnostic/diagnostic.md`](../../results/reports/visual_alias_transfer_oracle_diagnostic/diagnostic.md)
+- repeat diagnostic: [`results/reports/visual_alias_transfer_repeat_diagnostic/diagnostic.md`](../../results/reports/visual_alias_transfer_repeat_diagnostic/diagnostic.md)
 - report table: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_transfer_live_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_transfer_live_replay_summary.csv)
 - oracle report table: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_transfer_oracle_live_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_transfer_oracle_live_replay_summary.csv)
 - report figure: [`results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_alias_transfer_live_replay_gate.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_alias_transfer_live_replay_gate.svg)
@@ -130,4 +150,4 @@ Interpretation:
 - Benchmark contract quality changed what H1n seemed to show. The v1 strict winner was a planner-contract artifact; the v2 oracle winner is argument hints.
 - The substantive local-Gemma harnessing result is not "more prompt is better." It is narrower: target-query argument hints improve transfer on fresh visual labels/decoys, while broad contracted prompting can regress.
 - The argument-hints result is not explained by controller repair, controller fallback, or argument repair on this six-case oracle replay slice.
-- The next move is to execute the repeat oracle packet before any broader packaged workflow spend.
+- The repeat adds a second strong profile: schema target literals can tie argument hints on fresh labels. The next move is to test the tied profiles on a less staged live visual task or a third fresh oracle repeat.

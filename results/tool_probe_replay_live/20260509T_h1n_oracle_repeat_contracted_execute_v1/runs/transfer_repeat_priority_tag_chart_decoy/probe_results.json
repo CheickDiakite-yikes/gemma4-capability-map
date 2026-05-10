@@ -1,0 +1,58 @@
+[
+  {
+    "case_id": "transfer_repeat_priority_tag_chart_decoy",
+    "family": "visual_argument_transfer_repeat",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "transfer-repeat-priority-4101"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-repeat-priority-tag",
+          "target_query": "compact priority tag"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-transfer-repeat-priority-tag",
+          "selection_kind": "regions",
+          "count": 0,
+          "executor_mode": "local",
+          "region_ids": []
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-repeat-priority-tag",
+          "target_query": "priority tag"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-repeat-priority-tag",
+          "target_query": "compact priority tag"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-transfer-repeat-priority-tag\", \"target_query\": \"compact priority tag\"}}",
+    "prompt_tokens": 781,
+    "completion_tokens": 38,
+    "latency_ms": 3705
+  }
+]

@@ -1,9 +1,9 @@
 {
   "summary": {
-    "generated_at": "2026-05-10T00:43:01.671183+00:00",
+    "generated_at": "2026-05-10T00:53:37.150753+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 65,
-    "blocking_check_count": 63,
+    "check_count": 68,
+    "blocking_check_count": 66,
     "blocking_failed_count": 0,
     "recommended_check_count": 2,
     "recommended_failed_count": 0,
@@ -29,7 +29,7 @@
       "check_id": "ledger_has_claims",
       "severity": "blocking",
       "passed": true,
-      "detail": "claim_count=19",
+      "detail": "claim_count=20",
       "path": ""
     },
     {
@@ -339,6 +339,27 @@
       "passed": true,
       "detail": "H1n oracle argument-hints no-controller-repair comparison exists.",
       "path": "results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_argument_hints_no_controller_repair_vs_argument_hints_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h1n_alias_transfer_repeat_packet_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Fresh H1n oracle alias-transfer repeat packet exists.",
+      "path": "results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_repeat_oracle_dry_run_v1/replay_cases.json"
+    },
+    {
+      "check_id": "h1n_alias_transfer_repeat_diagnostic_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Fresh H1n oracle alias-transfer repeat diagnostic exists.",
+      "path": "results/reports/visual_alias_transfer_repeat_diagnostic/diagnostic.md"
+    },
+    {
+      "check_id": "h1n_alias_transfer_repeat_argument_hints_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Fresh H1n repeat argument-hints comparison exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_repeat_argument_hints_vs_no_directive_v1/live_replay_comparison.json"
     },
     {
       "check_id": "current_state_doc_exists",

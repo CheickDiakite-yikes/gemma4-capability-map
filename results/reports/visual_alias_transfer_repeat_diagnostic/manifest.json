@@ -1,0 +1,9 @@
+{
+  "generated_at": "2026-05-10T00:51:27.981611+00:00",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/visual_alias_transfer_repeat_diagnostic",
+  "comparison_count": 5,
+  "case_count": 6,
+  "finding_count": 4,
+  "matrix_name": "alias-transfer-repeat",
+  "purpose": "Diagnose strict-vs-executor behavior in the visual hard-slice alias-transfer-repeat live replay matrix."
+}

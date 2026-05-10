@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "transfer_repeat_warning_toast_note_decoy",
+    "family": "visual_argument_transfer_repeat",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "transfer-repeat-toast-4202"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-repeat-warning-toast",
+          "target_query": "warning toast"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-transfer-repeat-warning-toast",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "transfer-repeat-toast-4202"
+          ],
+          "region_id": "transfer-repeat-toast-4202",
+          "text_preview": "Approval missing before submit"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-repeat-warning-toast",
+          "target_query": "warning toast"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-repeat-warning-toast",
+          "target_query": "warning toast"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-transfer-repeat-warning-toast\", \"target_query\": \"warning toast\"}}",
+    "prompt_tokens": 1089,
+    "completion_tokens": 37,
+    "latency_ms": 4443
+  }
+]

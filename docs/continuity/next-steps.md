@@ -91,7 +91,9 @@ Next implementation moves:
   - repeat packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_repeat_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_repeat_oracle_dry_run_v1)
   - suite: `alias_transfer_repeat_v4`
   - design: six fresh labels/decoys with oracle expected calls derived from target region labels
-- next replay-shaped target: execute the repeat oracle H1n matrix, starting with no-directive, argument hints, schema target literals, and contracted
+  - executed result: no-directive `2 / 6`; contracted `0 / 6`; role catalog v1 and schema-field hints v4 `4 / 6`; argument hints v2 and schema target literals v5 `5 / 6` strict and `6 / 6` executor-equivalent
+  - diagnostic: [`results/reports/visual_alias_transfer_repeat_diagnostic/diagnostic.md`](../../results/reports/visual_alias_transfer_repeat_diagnostic/diagnostic.md)
+- next replay-shaped target: test the tied argument-hints/schema-literal profiles on a less staged live visual task or build a third fresh oracle repeat with harder non-lexical target labels
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1

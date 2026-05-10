@@ -131,3 +131,35 @@ def test_visual_alias_transfer_oracle_diagnostic_writes_findings(tmp_path: Path)
     assert (tmp_path / "diagnostic.md").exists()
     assert (tmp_path / "diagnostic.json").exists()
     assert (tmp_path / "tables" / "alias_transfer_oracle_matrix_case_transitions.csv").exists()
+
+
+def test_visual_alias_transfer_repeat_diagnostic_writes_findings(tmp_path: Path) -> None:
+    payload = SCRIPT.analyze_visual_live_stress_matrix(
+        output_dir=tmp_path,
+        comparisons=SCRIPT.DEFAULT_ALIAS_TRANSFER_REPEAT_COMPARISONS,
+        matrix_name="alias-transfer-repeat",
+        table_prefix="alias_transfer_repeat_matrix",
+    )
+
+    assert payload["manifest"]["comparison_count"] == 5
+    assert payload["manifest"]["case_count"] == 6
+    assert payload["manifest"]["matrix_name"] == "alias-transfer-repeat"
+    summary = {row["label"]: row for row in payload["summary_rows"]}
+    assert summary["contracted"]["candidate_exact_rate"] == 0.0
+    assert summary["contracted"]["delta_executor_equivalence_rate"] == -0.3333333333333333
+    assert summary["argument_hints_v2"]["candidate_exact_rate"] == 0.8333333333333334
+    assert summary["argument_hints_v2"]["candidate_executor_equivalence_rate"] == 1.0
+    assert summary["schema_literal_targets_v5"]["candidate_executor_equivalence_rate"] == 1.0
+    transitions = {(row["label"], row["case_id"]): row for row in payload["case_rows"]}
+    assert transitions[
+        ("argument_hints_v2", "transfer_repeat_latency_chip_person_decoy")
+    ]["transition"] == "strict_gain"
+    assert transitions[
+        ("contracted", "transfer_repeat_audit_card_email_decoy")
+    ]["transition"] == "regression"
+    findings = {row["finding_id"]: row["finding"] for row in payload["finding_rows"]}
+    assert "argument_hints_v2" in findings["strict_upper_bound"]
+    assert "schema_literal_targets_v5" in findings["executor_equivalence_set"]
+    assert (tmp_path / "diagnostic.md").exists()
+    assert (tmp_path / "diagnostic.json").exists()
+    assert (tmp_path / "tables" / "alias_transfer_repeat_matrix_case_transitions.csv").exists()

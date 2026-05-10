@@ -1,0 +1,450 @@
+{
+  "manifest": {
+    "generated_at": "2026-05-10T00:51:27.981611+00:00",
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/visual_alias_transfer_repeat_diagnostic",
+    "comparison_count": 5,
+    "case_count": 6,
+    "finding_count": 4,
+    "matrix_name": "alias-transfer-repeat",
+    "purpose": "Diagnose strict-vs-executor behavior in the visual hard-slice alias-transfer-repeat live replay matrix."
+  },
+  "summary_rows": [
+    {
+      "label": "contracted",
+      "candidate_system_id": "mlx_gemma4_e2b_reasoner_only",
+      "shared_case_count": 6,
+      "baseline_exact_rate": 0.3333333333333333,
+      "candidate_exact_rate": 0.0,
+      "delta_exact_rate": -0.3333333333333333,
+      "baseline_executor_equivalence_rate": 0.3333333333333333,
+      "candidate_executor_equivalence_rate": 0.0,
+      "delta_executor_equivalence_rate": -0.3333333333333333
+    },
+    {
+      "label": "role_catalog_v1",
+      "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog",
+      "shared_case_count": 6,
+      "baseline_exact_rate": 0.3333333333333333,
+      "candidate_exact_rate": 0.6666666666666666,
+      "delta_exact_rate": 0.3333333333333333,
+      "baseline_executor_equivalence_rate": 0.3333333333333333,
+      "candidate_executor_equivalence_rate": 0.6666666666666666,
+      "delta_executor_equivalence_rate": 0.3333333333333333
+    },
+    {
+      "label": "argument_hints_v2",
+      "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints",
+      "shared_case_count": 6,
+      "baseline_exact_rate": 0.3333333333333333,
+      "candidate_exact_rate": 0.8333333333333334,
+      "delta_exact_rate": 0.5,
+      "baseline_executor_equivalence_rate": 0.3333333333333333,
+      "candidate_executor_equivalence_rate": 1.0,
+      "delta_executor_equivalence_rate": 0.6666666666666667
+    },
+    {
+      "label": "schema_field_hints_v4",
+      "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints",
+      "shared_case_count": 6,
+      "baseline_exact_rate": 0.3333333333333333,
+      "candidate_exact_rate": 0.6666666666666666,
+      "delta_exact_rate": 0.3333333333333333,
+      "baseline_executor_equivalence_rate": 0.3333333333333333,
+      "candidate_executor_equivalence_rate": 0.6666666666666666,
+      "delta_executor_equivalence_rate": 0.3333333333333333
+    },
+    {
+      "label": "schema_literal_targets_v5",
+      "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets",
+      "shared_case_count": 6,
+      "baseline_exact_rate": 0.3333333333333333,
+      "candidate_exact_rate": 0.8333333333333334,
+      "delta_exact_rate": 0.5,
+      "baseline_executor_equivalence_rate": 0.3333333333333333,
+      "candidate_executor_equivalence_rate": 1.0,
+      "delta_executor_equivalence_rate": 0.6666666666666667
+    }
+  ],
+  "case_rows": [
+    {
+      "label": "contracted",
+      "case_id": "transfer_repeat_audit_card_email_decoy",
+      "family": "visual_argument_transfer_repeat",
+      "baseline_failure_mode": "exact",
+      "candidate_failure_mode": "argument_mismatch",
+      "delta_exact_match": -1,
+      "delta_executor_equivalence_match": -1,
+      "transition": "regression"
+    },
+    {
+      "label": "contracted",
+      "case_id": "transfer_repeat_consent_alert_toggle_decoy",
+      "family": "visual_tool_routing_transfer_repeat",
+      "baseline_failure_mode": "exact",
+      "candidate_failure_mode": "wrong_tool",
+      "delta_exact_match": -1,
+      "delta_executor_equivalence_match": -1,
+      "transition": "regression"
+    },
+    {
+      "label": "contracted",
+      "case_id": "transfer_repeat_latency_chip_person_decoy",
+      "family": "visual_argument_transfer_repeat",
+      "baseline_failure_mode": "no_tool_call",
+      "candidate_failure_mode": "argument_mismatch",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "contracted",
+      "case_id": "transfer_repeat_missing_field_old_selection_decoy",
+      "family": "visual_tool_routing_transfer_repeat",
+      "baseline_failure_mode": "wrong_tool",
+      "candidate_failure_mode": "argument_mismatch",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "contracted",
+      "case_id": "transfer_repeat_priority_tag_chart_decoy",
+      "family": "visual_argument_transfer_repeat",
+      "baseline_failure_mode": "no_tool_call",
+      "candidate_failure_mode": "argument_mismatch",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "contracted",
+      "case_id": "transfer_repeat_warning_toast_note_decoy",
+      "family": "visual_argument_transfer_repeat",
+      "baseline_failure_mode": "no_tool_call",
+      "candidate_failure_mode": "wrong_tool",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "role_catalog_v1",
+      "case_id": "transfer_repeat_audit_card_email_decoy",
+      "family": "visual_argument_transfer_repeat",
+      "baseline_failure_mode": "exact",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "role_catalog_v1",
+      "case_id": "transfer_repeat_consent_alert_toggle_decoy",
+      "family": "visual_tool_routing_transfer_repeat",
+      "baseline_failure_mode": "exact",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "role_catalog_v1",
+      "case_id": "transfer_repeat_latency_chip_person_decoy",
+      "family": "visual_argument_transfer_repeat",
+      "baseline_failure_mode": "no_tool_call",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 1,
+      "delta_executor_equivalence_match": 1,
+      "transition": "strict_gain"
+    },
+    {
+      "label": "role_catalog_v1",
+      "case_id": "transfer_repeat_missing_field_old_selection_decoy",
+      "family": "visual_tool_routing_transfer_repeat",
+      "baseline_failure_mode": "wrong_tool",
+      "candidate_failure_mode": "wrong_tool",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "role_catalog_v1",
+      "case_id": "transfer_repeat_priority_tag_chart_decoy",
+      "family": "visual_argument_transfer_repeat",
+      "baseline_failure_mode": "no_tool_call",
+      "candidate_failure_mode": "no_tool_call",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "role_catalog_v1",
+      "case_id": "transfer_repeat_warning_toast_note_decoy",
+      "family": "visual_argument_transfer_repeat",
+      "baseline_failure_mode": "no_tool_call",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 1,
+      "delta_executor_equivalence_match": 1,
+      "transition": "strict_gain"
+    },
+    {
+      "label": "argument_hints_v2",
+      "case_id": "transfer_repeat_audit_card_email_decoy",
+      "family": "visual_argument_transfer_repeat",
+      "baseline_failure_mode": "exact",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "argument_hints_v2",
+      "case_id": "transfer_repeat_consent_alert_toggle_decoy",
+      "family": "visual_tool_routing_transfer_repeat",
+      "baseline_failure_mode": "exact",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "argument_hints_v2",
+      "case_id": "transfer_repeat_latency_chip_person_decoy",
+      "family": "visual_argument_transfer_repeat",
+      "baseline_failure_mode": "no_tool_call",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 1,
+      "delta_executor_equivalence_match": 1,
+      "transition": "strict_gain"
+    },
+    {
+      "label": "argument_hints_v2",
+      "case_id": "transfer_repeat_missing_field_old_selection_decoy",
+      "family": "visual_tool_routing_transfer_repeat",
+      "baseline_failure_mode": "wrong_tool",
+      "candidate_failure_mode": "executable_paraphrase",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 1,
+      "transition": "executor_gain_without_strict"
+    },
+    {
+      "label": "argument_hints_v2",
+      "case_id": "transfer_repeat_priority_tag_chart_decoy",
+      "family": "visual_argument_transfer_repeat",
+      "baseline_failure_mode": "no_tool_call",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 1,
+      "delta_executor_equivalence_match": 1,
+      "transition": "strict_gain"
+    },
+    {
+      "label": "argument_hints_v2",
+      "case_id": "transfer_repeat_warning_toast_note_decoy",
+      "family": "visual_argument_transfer_repeat",
+      "baseline_failure_mode": "no_tool_call",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 1,
+      "delta_executor_equivalence_match": 1,
+      "transition": "strict_gain"
+    },
+    {
+      "label": "schema_field_hints_v4",
+      "case_id": "transfer_repeat_audit_card_email_decoy",
+      "family": "visual_argument_transfer_repeat",
+      "baseline_failure_mode": "exact",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "schema_field_hints_v4",
+      "case_id": "transfer_repeat_consent_alert_toggle_decoy",
+      "family": "visual_tool_routing_transfer_repeat",
+      "baseline_failure_mode": "exact",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "schema_field_hints_v4",
+      "case_id": "transfer_repeat_latency_chip_person_decoy",
+      "family": "visual_argument_transfer_repeat",
+      "baseline_failure_mode": "no_tool_call",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 1,
+      "delta_executor_equivalence_match": 1,
+      "transition": "strict_gain"
+    },
+    {
+      "label": "schema_field_hints_v4",
+      "case_id": "transfer_repeat_missing_field_old_selection_decoy",
+      "family": "visual_tool_routing_transfer_repeat",
+      "baseline_failure_mode": "wrong_tool",
+      "candidate_failure_mode": "wrong_tool",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "schema_field_hints_v4",
+      "case_id": "transfer_repeat_priority_tag_chart_decoy",
+      "family": "visual_argument_transfer_repeat",
+      "baseline_failure_mode": "no_tool_call",
+      "candidate_failure_mode": "argument_mismatch",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "schema_field_hints_v4",
+      "case_id": "transfer_repeat_warning_toast_note_decoy",
+      "family": "visual_argument_transfer_repeat",
+      "baseline_failure_mode": "no_tool_call",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 1,
+      "delta_executor_equivalence_match": 1,
+      "transition": "strict_gain"
+    },
+    {
+      "label": "schema_literal_targets_v5",
+      "case_id": "transfer_repeat_audit_card_email_decoy",
+      "family": "visual_argument_transfer_repeat",
+      "baseline_failure_mode": "exact",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "schema_literal_targets_v5",
+      "case_id": "transfer_repeat_consent_alert_toggle_decoy",
+      "family": "visual_tool_routing_transfer_repeat",
+      "baseline_failure_mode": "exact",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "schema_literal_targets_v5",
+      "case_id": "transfer_repeat_latency_chip_person_decoy",
+      "family": "visual_argument_transfer_repeat",
+      "baseline_failure_mode": "no_tool_call",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 1,
+      "delta_executor_equivalence_match": 1,
+      "transition": "strict_gain"
+    },
+    {
+      "label": "schema_literal_targets_v5",
+      "case_id": "transfer_repeat_missing_field_old_selection_decoy",
+      "family": "visual_tool_routing_transfer_repeat",
+      "baseline_failure_mode": "wrong_tool",
+      "candidate_failure_mode": "executable_paraphrase",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 1,
+      "transition": "executor_gain_without_strict"
+    },
+    {
+      "label": "schema_literal_targets_v5",
+      "case_id": "transfer_repeat_priority_tag_chart_decoy",
+      "family": "visual_argument_transfer_repeat",
+      "baseline_failure_mode": "no_tool_call",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 1,
+      "delta_executor_equivalence_match": 1,
+      "transition": "strict_gain"
+    },
+    {
+      "label": "schema_literal_targets_v5",
+      "case_id": "transfer_repeat_warning_toast_note_decoy",
+      "family": "visual_argument_transfer_repeat",
+      "baseline_failure_mode": "no_tool_call",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 1,
+      "delta_executor_equivalence_match": 1,
+      "transition": "strict_gain"
+    }
+  ],
+  "transition_rows": [
+    {
+      "label": "argument_hints_v2",
+      "transition": "executor_gain_without_strict",
+      "count": 1
+    },
+    {
+      "label": "argument_hints_v2",
+      "transition": "strict_gain",
+      "count": 3
+    },
+    {
+      "label": "argument_hints_v2",
+      "transition": "unchanged",
+      "count": 2
+    },
+    {
+      "label": "contracted",
+      "transition": "regression",
+      "count": 2
+    },
+    {
+      "label": "contracted",
+      "transition": "unchanged",
+      "count": 4
+    },
+    {
+      "label": "role_catalog_v1",
+      "transition": "strict_gain",
+      "count": 2
+    },
+    {
+      "label": "role_catalog_v1",
+      "transition": "unchanged",
+      "count": 4
+    },
+    {
+      "label": "schema_field_hints_v4",
+      "transition": "strict_gain",
+      "count": 2
+    },
+    {
+      "label": "schema_field_hints_v4",
+      "transition": "unchanged",
+      "count": 4
+    },
+    {
+      "label": "schema_literal_targets_v5",
+      "transition": "executor_gain_without_strict",
+      "count": 1
+    },
+    {
+      "label": "schema_literal_targets_v5",
+      "transition": "strict_gain",
+      "count": 3
+    },
+    {
+      "label": "schema_literal_targets_v5",
+      "transition": "unchanged",
+      "count": 2
+    }
+  ],
+  "finding_rows": [
+    {
+      "finding_id": "strict_upper_bound",
+      "finding": "argument_hints_v2 is the strict upper bound at 0.8333333333333334."
+    },
+    {
+      "finding_id": "executor_equivalence_set",
+      "finding": "Executor-equivalent full-success rows: argument_hints_v2, schema_literal_targets_v5."
+    },
+    {
+      "finding_id": "executor_without_strict",
+      "finding": "Rows with executor gain without strict gain: argument_hints_v2, schema_literal_targets_v5."
+    },
+    {
+      "finding_id": "regressions",
+      "finding": "Regression cases: contracted:transfer_repeat_audit_card_email_decoy, contracted:transfer_repeat_consent_alert_toggle_decoy."
+    }
+  ]
+}

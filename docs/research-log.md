@@ -3323,6 +3323,32 @@
   - execute no-directive, argument hints, schema target literals, and contracted rows first
   - only run helper-ablation repeats if the argument-hints row still separates from no-directive
 
+## 2026-05-09 - H1n Oracle Alias-Transfer Repeat Matrix
+
+- Executed the full repeat matrix on `alias_transfer_repeat_v4`:
+  - no-directive: exact `2 / 6`, executor-equivalent `2 / 6`
+  - contracted: exact `0 / 6`, executor-equivalent `0 / 6`
+  - role catalog v1: exact `4 / 6`, executor-equivalent `4 / 6`
+  - argument hints v2: exact `5 / 6`, executor-equivalent `6 / 6`
+  - schema-field hints v4: exact `4 / 6`, executor-equivalent `4 / 6`
+  - schema target literals v5: exact `5 / 6`, executor-equivalent `6 / 6`
+- Generated evidence:
+  - diagnostic: [`results/reports/visual_alias_transfer_repeat_diagnostic/diagnostic.md`](../results/reports/visual_alias_transfer_repeat_diagnostic/diagnostic.md)
+  - argument-hints comparison: [`results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_repeat_argument_hints_vs_no_directive_v1`](../results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_repeat_argument_hints_vs_no_directive_v1)
+  - schema-literal comparison: [`results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_repeat_schema_literal_targets_vs_no_directive_v1`](../results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_repeat_schema_literal_targets_vs_no_directive_v1)
+- Interpretation:
+  - the core H1n result repeats: narrow catalog-profile mechanisms beat no-directive on fresh visual labels and decoys
+  - the winner set is now a tie between argument hints and schema target literals
+  - contracted prompting again fails as an upper bound, now falling below no-directive at `0 / 6`
+  - this shifts the next question from "is argument hints real?" to "which of argument hints vs schema target literals is more robust under less lexical or less staged live visual tasks?"
+- Verification:
+  - `uv run moonie-agent replay-live --packet-id 20260509T_visual_hard_slice_live_stress_alias_transfer_repeat_oracle_dry_run_v1 --output-dir results/tool_probe_replay_live/20260509T_h1n_oracle_repeat_argument_hints_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints --execute --json`
+  - `uv run moonie-agent replay-live --packet-id 20260509T_visual_hard_slice_live_stress_alias_transfer_repeat_oracle_dry_run_v1 --output-dir results/tool_probe_replay_live/20260509T_h1n_oracle_repeat_schema_literal_targets_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets --execute --json`
+  - `uv run python scripts/analyze_visual_live_stress_matrix.py --matrix alias-transfer-repeat`
+  - `uv run pytest tests/test_visual_live_stress_diagnostic.py -q`
+- Next:
+  - do not promote only argument hints anymore; carry both argument hints and schema target literals into the next less-staged live visual slice
+
 ## 2026-05-09 - Schema Target Literal v5 Negative Hard-Slice Repair
 
 - A narrow hard-slice repair candidate was added after inspecting the two v4 exact misses:

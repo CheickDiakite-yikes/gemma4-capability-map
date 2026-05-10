@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-05-10T00:43:01.671183+00:00",
+  "generated_at": "2026-05-10T00:53:37.150753+00:00",
   "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-  "check_count": 65,
-  "blocking_check_count": 63,
+  "check_count": 68,
+  "blocking_check_count": 66,
   "blocking_failed_count": 0,
   "recommended_check_count": 2,
   "recommended_failed_count": 0,

@@ -1,0 +1,5 @@
+finding_id,finding
+strict_upper_bound,argument_hints_v2 is the strict upper bound at 0.8333333333333334.
+executor_equivalence_set,"Executor-equivalent full-success rows: argument_hints_v2, schema_literal_targets_v5."
+executor_without_strict,"Rows with executor gain without strict gain: argument_hints_v2, schema_literal_targets_v5."
+regressions,"Regression cases: contracted:transfer_repeat_audit_card_email_decoy, contracted:transfer_repeat_consent_alert_toggle_decoy."
