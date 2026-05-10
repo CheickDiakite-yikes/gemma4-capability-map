@@ -1,0 +1,5 @@
+finding_id,finding
+strict_upper_bound,hybrid_label_guard_v8 is the strict upper bound at 0.875.
+executor_equivalence_set,Executor-equivalent full-success rows: none.
+executor_without_strict,"Rows with executor gain without strict gain: argument_hints_v2, oblique_code_guard_v7."
+regressions,"Regression cases: contracted:residual_badge_q14_notice_decoy, contracted:residual_chip_n31_owner_note_decoy, contracted:residual_phase_pill_ticket_decoy."

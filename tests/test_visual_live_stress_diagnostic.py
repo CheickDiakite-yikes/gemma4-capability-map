@@ -234,3 +234,42 @@ def test_visual_alias_transfer_post_repair_diagnostic_writes_findings(tmp_path: 
     assert (tmp_path / "diagnostic.md").exists()
     assert (tmp_path / "diagnostic.json").exists()
     assert (tmp_path / "tables" / "alias_transfer_post_repair_matrix_case_transitions.csv").exists()
+
+
+def test_visual_alias_transfer_residual_diagnostic_writes_findings(tmp_path: Path) -> None:
+    payload = SCRIPT.analyze_visual_live_stress_matrix(
+        output_dir=tmp_path,
+        comparisons=SCRIPT.DEFAULT_ALIAS_TRANSFER_RESIDUAL_COMPARISONS,
+        matrix_name="alias-transfer-residual",
+        table_prefix="alias_transfer_residual_matrix",
+    )
+
+    assert payload["manifest"]["comparison_count"] == 5
+    assert payload["manifest"]["case_count"] == 8
+    assert payload["manifest"]["matrix_name"] == "alias-transfer-residual"
+    summary = {row["label"]: row for row in payload["summary_rows"]}
+    assert summary["contracted"]["candidate_exact_rate"] == 0.25
+    assert summary["argument_hints_v2"]["candidate_exact_rate"] == 0.625
+    assert summary["argument_hints_v2"]["candidate_executor_equivalence_rate"] == 0.875
+    assert summary["oblique_code_hints_v6"]["candidate_exact_rate"] == 0.75
+    assert summary["oblique_code_hints_v6"]["candidate_executor_equivalence_rate"] == 0.75
+    assert summary["oblique_code_guard_v7"]["candidate_exact_rate"] == 0.75
+    assert summary["hybrid_label_guard_v8"]["candidate_exact_rate"] == 0.875
+    assert summary["hybrid_label_guard_v8"]["delta_executor_equivalence_rate"] == 0.375
+    transitions = {(row["label"], row["case_id"]): row for row in payload["case_rows"]}
+    assert transitions[
+        ("hybrid_label_guard_v8", "residual_field_m20_stale_selection_decoy")
+    ]["transition"] == "strict_gain"
+    assert transitions[
+        ("hybrid_label_guard_v8", "residual_state_pill_note_decoy")
+    ]["transition"] == "unchanged"
+    assert transitions[
+        ("contracted", "residual_chip_n31_owner_note_decoy")
+    ]["transition"] == "regression"
+    findings = {row["finding_id"]: row["finding"] for row in payload["finding_rows"]}
+    assert "hybrid_label_guard_v8" in findings["strict_upper_bound"]
+    assert "Executor-equivalent full-success rows: none." in findings["executor_equivalence_set"]
+    assert "argument_hints_v2" in findings["executor_without_strict"]
+    assert (tmp_path / "diagnostic.md").exists()
+    assert (tmp_path / "diagnostic.json").exists()
+    assert (tmp_path / "tables" / "alias_transfer_residual_matrix_case_transitions.csv").exists()
