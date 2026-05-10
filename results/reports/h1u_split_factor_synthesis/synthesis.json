@@ -1,0 +1,428 @@
+{
+  "manifest": {
+    "generated_at": "2026-05-10T18:15:33.663610+00:00",
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h1u_split_factor_synthesis",
+    "profile_count": 6,
+    "case_count": 6,
+    "v15_exact_success_count": 6,
+    "v15_executor_success_count": 6,
+    "comparison_count": 6,
+    "finding_count": 4,
+    "promotion_decision": "transfer_test_v15"
+  },
+  "packet_rows": [
+    {
+      "profile_label": "no_directive",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h1r_component_label_residual_no_directive_execute_v1",
+      "case_count": 6,
+      "exact_success_count": 0,
+      "exact_rate": 0.0,
+      "executor_success_count": 1,
+      "executor_rate": 0.16666666666666666,
+      "argument_mismatch_count": 2,
+      "wrong_tool_count": 0,
+      "no_tool_call_count": 3
+    },
+    {
+      "profile_label": "component_label_guard_v11",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_label_guard",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h1r_component_label_residual_component_label_guard_execute_v1",
+      "case_count": 6,
+      "exact_success_count": 5,
+      "exact_rate": 0.8333333333333334,
+      "executor_success_count": 5,
+      "executor_rate": 0.8333333333333334,
+      "argument_mismatch_count": 1,
+      "wrong_tool_count": 0,
+      "no_tool_call_count": 0
+    },
+    {
+      "profile_label": "component_residual_guard_v12",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h1r_component_label_residual_component_residual_guard_execute_v1",
+      "case_count": 6,
+      "exact_success_count": 6,
+      "exact_rate": 1.0,
+      "executor_success_count": 6,
+      "executor_rate": 1.0,
+      "argument_mismatch_count": 0,
+      "wrong_tool_count": 0,
+      "no_tool_call_count": 0
+    },
+    {
+      "profile_label": "conditional_residual_route_v13",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_conditional_residual_route",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h1t_conditional_residual_route_on_h1r_component_residual_execute_v1",
+      "case_count": 6,
+      "exact_success_count": 3,
+      "exact_rate": 0.5,
+      "executor_success_count": 3,
+      "executor_rate": 0.5,
+      "argument_mismatch_count": 3,
+      "wrong_tool_count": 0,
+      "no_tool_call_count": 0
+    },
+    {
+      "profile_label": "nonstandard_component_class_guard_v14",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_nonstandard_component_class_guard",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h1u_nonstandard_component_class_guard_on_h1r_component_residual_execute_v1",
+      "case_count": 6,
+      "exact_success_count": 5,
+      "exact_rate": 0.8333333333333334,
+      "executor_success_count": 5,
+      "executor_rate": 0.8333333333333334,
+      "argument_mismatch_count": 1,
+      "wrong_tool_count": 0,
+      "no_tool_call_count": 0
+    },
+    {
+      "profile_label": "code_label_exact_guard_v15",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_code_label_exact_guard",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h1u_code_label_exact_guard_on_h1r_component_residual_execute_v1",
+      "case_count": 6,
+      "exact_success_count": 6,
+      "exact_rate": 1.0,
+      "executor_success_count": 6,
+      "executor_rate": 1.0,
+      "argument_mismatch_count": 0,
+      "wrong_tool_count": 0,
+      "no_tool_call_count": 0
+    }
+  ],
+  "family_rows": [
+    {
+      "profile_label": "no_directive",
+      "family": "h1r_code_label_exactness",
+      "case_count": 2,
+      "exact_success_count": 0,
+      "exact_rate": 0.0,
+      "executor_success_count": 1,
+      "executor_rate": 0.5
+    },
+    {
+      "profile_label": "no_directive",
+      "family": "h1r_nonstandard_component_class",
+      "case_count": 2,
+      "exact_success_count": 0,
+      "exact_rate": 0.0,
+      "executor_success_count": 0,
+      "executor_rate": 0.0
+    },
+    {
+      "profile_label": "no_directive",
+      "family": "h1r_stale_selection_component_label",
+      "case_count": 2,
+      "exact_success_count": 0,
+      "exact_rate": 0.0,
+      "executor_success_count": 0,
+      "executor_rate": 0.0
+    },
+    {
+      "profile_label": "component_label_guard_v11",
+      "family": "h1r_code_label_exactness",
+      "case_count": 2,
+      "exact_success_count": 1,
+      "exact_rate": 0.5,
+      "executor_success_count": 1,
+      "executor_rate": 0.5
+    },
+    {
+      "profile_label": "component_label_guard_v11",
+      "family": "h1r_nonstandard_component_class",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_success_count": 2,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "component_label_guard_v11",
+      "family": "h1r_stale_selection_component_label",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_success_count": 2,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "component_residual_guard_v12",
+      "family": "h1r_code_label_exactness",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_success_count": 2,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "component_residual_guard_v12",
+      "family": "h1r_nonstandard_component_class",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_success_count": 2,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "component_residual_guard_v12",
+      "family": "h1r_stale_selection_component_label",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_success_count": 2,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "conditional_residual_route_v13",
+      "family": "h1r_code_label_exactness",
+      "case_count": 2,
+      "exact_success_count": 1,
+      "exact_rate": 0.5,
+      "executor_success_count": 1,
+      "executor_rate": 0.5
+    },
+    {
+      "profile_label": "conditional_residual_route_v13",
+      "family": "h1r_nonstandard_component_class",
+      "case_count": 2,
+      "exact_success_count": 0,
+      "exact_rate": 0.0,
+      "executor_success_count": 0,
+      "executor_rate": 0.0
+    },
+    {
+      "profile_label": "conditional_residual_route_v13",
+      "family": "h1r_stale_selection_component_label",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_success_count": 2,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "nonstandard_component_class_guard_v14",
+      "family": "h1r_code_label_exactness",
+      "case_count": 2,
+      "exact_success_count": 1,
+      "exact_rate": 0.5,
+      "executor_success_count": 1,
+      "executor_rate": 0.5
+    },
+    {
+      "profile_label": "nonstandard_component_class_guard_v14",
+      "family": "h1r_nonstandard_component_class",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_success_count": 2,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "nonstandard_component_class_guard_v14",
+      "family": "h1r_stale_selection_component_label",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_success_count": 2,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "code_label_exact_guard_v15",
+      "family": "h1r_code_label_exactness",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_success_count": 2,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "code_label_exact_guard_v15",
+      "family": "h1r_nonstandard_component_class",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_success_count": 2,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "code_label_exact_guard_v15",
+      "family": "h1r_stale_selection_component_label",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_success_count": 2,
+      "executor_rate": 1.0
+    }
+  ],
+  "comparison_rows": [
+    {
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h1u_nonstandard_component_guard_h1r_vs_component_label_guard_v1",
+      "baseline_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_label_guard",
+      "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_nonstandard_component_class_guard",
+      "shared_case_count": 6,
+      "baseline_exact_rate": 0.8333333333333334,
+      "candidate_exact_rate": 0.8333333333333334,
+      "delta_exact_rate": 0.0,
+      "baseline_executor_equivalence_rate": 0.8333333333333334,
+      "candidate_executor_equivalence_rate": 0.8333333333333334,
+      "delta_executor_equivalence_rate": 0.0
+    },
+    {
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h1u_nonstandard_component_guard_h1r_vs_component_residual_guard_v1",
+      "baseline_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard",
+      "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_nonstandard_component_class_guard",
+      "shared_case_count": 6,
+      "baseline_exact_rate": 1.0,
+      "candidate_exact_rate": 0.8333333333333334,
+      "delta_exact_rate": -0.16666666666666663,
+      "baseline_executor_equivalence_rate": 1.0,
+      "candidate_executor_equivalence_rate": 0.8333333333333334,
+      "delta_executor_equivalence_rate": -0.16666666666666663
+    },
+    {
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h1u_nonstandard_component_guard_h1r_vs_conditional_residual_route_v1",
+      "baseline_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_conditional_residual_route",
+      "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_nonstandard_component_class_guard",
+      "shared_case_count": 6,
+      "baseline_exact_rate": 0.5,
+      "candidate_exact_rate": 0.8333333333333334,
+      "delta_exact_rate": 0.33333333333333337,
+      "baseline_executor_equivalence_rate": 0.5,
+      "candidate_executor_equivalence_rate": 0.8333333333333334,
+      "delta_executor_equivalence_rate": 0.33333333333333337
+    },
+    {
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h1u_code_label_exact_guard_h1r_vs_component_label_guard_v1",
+      "baseline_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_label_guard",
+      "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_code_label_exact_guard",
+      "shared_case_count": 6,
+      "baseline_exact_rate": 0.8333333333333334,
+      "candidate_exact_rate": 1.0,
+      "delta_exact_rate": 0.16666666666666663,
+      "baseline_executor_equivalence_rate": 0.8333333333333334,
+      "candidate_executor_equivalence_rate": 1.0,
+      "delta_executor_equivalence_rate": 0.16666666666666663
+    },
+    {
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h1u_code_label_exact_guard_h1r_vs_component_residual_guard_v1",
+      "baseline_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard",
+      "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_code_label_exact_guard",
+      "shared_case_count": 6,
+      "baseline_exact_rate": 1.0,
+      "candidate_exact_rate": 1.0,
+      "delta_exact_rate": 0.0,
+      "baseline_executor_equivalence_rate": 1.0,
+      "candidate_executor_equivalence_rate": 1.0,
+      "delta_executor_equivalence_rate": 0.0
+    },
+    {
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h1u_code_label_exact_guard_h1r_vs_conditional_residual_route_v1",
+      "baseline_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_conditional_residual_route",
+      "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_code_label_exact_guard",
+      "shared_case_count": 6,
+      "baseline_exact_rate": 0.5,
+      "candidate_exact_rate": 1.0,
+      "delta_exact_rate": 0.5,
+      "baseline_executor_equivalence_rate": 0.5,
+      "candidate_executor_equivalence_rate": 1.0,
+      "delta_executor_equivalence_rate": 0.5
+    }
+  ],
+  "non_exact_rows": [
+    {
+      "profile_label": "no_directive",
+      "case_id": "h1r_owner_field_stale_selection_note_decoy",
+      "family": "h1r_stale_selection_component_label",
+      "failure_mode": "no_tool_call",
+      "executor_equivalence_match": false
+    },
+    {
+      "profile_label": "no_directive",
+      "case_id": "h1r_assignee_field_previous_selection_summary_decoy",
+      "family": "h1r_stale_selection_component_label",
+      "failure_mode": "no_tool_call",
+      "executor_equivalence_match": false
+    },
+    {
+      "profile_label": "no_directive",
+      "case_id": "h1r_state_tag_log_value_decoy",
+      "family": "h1r_nonstandard_component_class",
+      "failure_mode": "argument_mismatch",
+      "executor_equivalence_match": false
+    },
+    {
+      "profile_label": "no_directive",
+      "case_id": "h1r_mode_toggle_note_value_decoy",
+      "family": "h1r_nonstandard_component_class",
+      "failure_mode": "argument_mismatch",
+      "executor_equivalence_match": false
+    },
+    {
+      "profile_label": "no_directive",
+      "case_id": "h1r_alert_s92_toggle_negation_decoy",
+      "family": "h1r_code_label_exactness",
+      "failure_mode": "executable_paraphrase",
+      "executor_equivalence_match": true
+    },
+    {
+      "profile_label": "no_directive",
+      "case_id": "h1r_badge_c08_note_decoy",
+      "family": "h1r_code_label_exactness",
+      "failure_mode": "no_tool_call",
+      "executor_equivalence_match": false
+    },
+    {
+      "profile_label": "component_label_guard_v11",
+      "case_id": "h1r_alert_s92_toggle_negation_decoy",
+      "family": "h1r_code_label_exactness",
+      "failure_mode": "argument_mismatch",
+      "executor_equivalence_match": false
+    },
+    {
+      "profile_label": "conditional_residual_route_v13",
+      "case_id": "h1r_state_tag_log_value_decoy",
+      "family": "h1r_nonstandard_component_class",
+      "failure_mode": "argument_mismatch",
+      "executor_equivalence_match": false
+    },
+    {
+      "profile_label": "conditional_residual_route_v13",
+      "case_id": "h1r_mode_toggle_note_value_decoy",
+      "family": "h1r_nonstandard_component_class",
+      "failure_mode": "argument_mismatch",
+      "executor_equivalence_match": false
+    },
+    {
+      "profile_label": "conditional_residual_route_v13",
+      "case_id": "h1r_alert_s92_toggle_negation_decoy",
+      "family": "h1r_code_label_exactness",
+      "failure_mode": "argument_mismatch",
+      "executor_equivalence_match": false
+    },
+    {
+      "profile_label": "nonstandard_component_class_guard_v14",
+      "case_id": "h1r_alert_s92_toggle_negation_decoy",
+      "family": "h1r_code_label_exactness",
+      "failure_mode": "argument_mismatch",
+      "executor_equivalence_match": false
+    }
+  ],
+  "finding_rows": [
+    {
+      "finding_id": "v14_is_factor_positive_but_incomplete",
+      "finding": "Nonstandard component-class guard v14 reaches 5/6 and fixes tag/toggle value-collapse, but still misses h1r_alert_s92_toggle_negation_decoy."
+    },
+    {
+      "finding_id": "v15_saturates_h1r",
+      "finding": "Code-label exact guard v15 reaches 6/6 exact and 6/6 executor-equivalent, matching v12 on H1r."
+    },
+    {
+      "finding_id": "v15_beats_v11_ties_v12",
+      "finding": "v15 improves over v11 by 0.167 exact-rate and ties v12 with delta 0.000."
+    },
+    {
+      "finding_id": "transfer_decision",
+      "finding": "Transfer-test v15 across H1n/H1o/H1p next. It may keep the H1r repair while using less broad component-residual prose than v12."
+    }
+  ]
+}

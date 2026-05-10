@@ -193,7 +193,10 @@ Next implementation moves:
   - synthesis: [`results/reports/h1t_conditional_residual_route_synthesis/report.md`](../../results/reports/h1t_conditional_residual_route_synthesis/report.md)
   - decision: reject v13 before H1n/H1o/H1p transfer; compact conditional routing did not activate the nonstandard component-class and code-label behavior
   - completed scaffold: H1u splits the route hypothesis into `visual_role_catalog_nonstandard_component_class_guard_v14` and `visual_role_catalog_code_label_exact_guard_v15`
-  - next execution step: live-test v14 and v15 on H1r before any broader transfer
+  - live result: v14 reaches `5 / 6` exact and executor-equivalent, fixing tag/toggle value collapse but still missing the `alert s92` code-label case
+  - live result: v15 reaches `6 / 6` exact and executor-equivalent, tying v12 locally with narrower code-label exactness wording
+  - synthesis: [`results/reports/h1u_split_factor_synthesis/report.md`](../../results/reports/h1u_split_factor_synthesis/report.md)
+  - next execution step: transfer-test v15 across H1n/H1o/H1p before any promotion; compare aggregate exactness and executor-equivalence directly against v11 and v12
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1

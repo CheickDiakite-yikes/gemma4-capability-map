@@ -1243,7 +1243,11 @@ H1u scaffold:
 - registry systems:
   - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_nonstandard_component_class_guard`
   - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_code_label_exact_guard`
-- next execution: live replay both on H1r, then compare against v11/v12/v13
+- H1r v14 replay: [`results/tool_probe_replay_live/20260510T_h1u_nonstandard_component_class_guard_on_h1r_component_residual_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1u_nonstandard_component_class_guard_on_h1r_component_residual_execute_v1)
+- H1r v15 replay: [`results/tool_probe_replay_live/20260510T_h1u_code_label_exact_guard_on_h1r_component_residual_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1u_code_label_exact_guard_on_h1r_component_residual_execute_v1)
+- synthesis: [`results/reports/h1u_split_factor_synthesis/report.md`](../../results/reports/h1u_split_factor_synthesis/report.md)
+- result: v14 reaches `5 / 6`, fixing tag/toggle value collapse but still missing `alert s92`; v15 reaches `6 / 6`, tying v12 with narrower code-label exactness wording
+- next execution: transfer-test v15 across H1n/H1o/H1p before any promotion
 
 ## Latest H1q Component-Label Guard Transfer Finding
 

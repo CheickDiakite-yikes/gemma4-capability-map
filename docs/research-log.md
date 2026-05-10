@@ -1,6 +1,6 @@
 # Research Log
 
-## 2026-05-10 - H1u Split-Factor Route Scaffold
+## 2026-05-10 - H1u Split-Factor Route Gate
 
 - Split the failed H1t compact conditional route into two independent prompt factors:
   - `visual_role_catalog_nonstandard_component_class_guard_v14`
@@ -11,11 +11,21 @@
 - Motivation from H1t failures:
   - `state tag` and `mode toggle` collapsed into displayed values (`Closed`, `Manual`)
   - `alert s92` collapsed into a negated neighboring `consent toggle`
+- Live result:
+  - v14 reaches `5 / 6` exact and executor-equivalent on H1r, tying v11 while fixing the nonstandard class value-collapse cases
+  - v15 reaches `6 / 6` exact and executor-equivalent on H1r, tying v12 and beating v11 by one strict/executor case
+- Interpretation:
+  - nonstandard component-class wording is real but incomplete; it does not repair the `alert s92` code-label miss
+  - code-label exactness wording is the stronger local factor and may preserve the H1r repair with less broad component-residual wording than v12
+- Artifacts:
+  - synthesis: [`results/reports/h1u_split_factor_synthesis/report.md`](../results/reports/h1u_split_factor_synthesis/report.md)
+  - v14 replay: [`results/tool_probe_replay_live/20260510T_h1u_nonstandard_component_class_guard_on_h1r_component_residual_execute_v1`](../results/tool_probe_replay_live/20260510T_h1u_nonstandard_component_class_guard_on_h1r_component_residual_execute_v1)
+  - v15 replay: [`results/tool_probe_replay_live/20260510T_h1u_code_label_exact_guard_on_h1r_component_residual_execute_v1`](../results/tool_probe_replay_live/20260510T_h1u_code_label_exact_guard_on_h1r_component_residual_execute_v1)
 - Next execution:
-  - live replay v14 and v15 on H1r before any broader transfer
-  - compare each factor against v11, v12, and v13
+  - transfer-test v15 across H1n/H1o/H1p before any promotion
+  - compare aggregate exactness and executor-equivalence against v11 and v12
 - Verification:
-  - `uv run pytest tests/test_prompt_contracts.py tests/test_knowledge_work_h1.py::test_h1u_split_factor_registry_rows_preserve_catalog_profiles -q`
+  - `uv run pytest tests/test_h1u_split_factor_synthesis.py tests/test_h1t_conditional_residual_route_synthesis.py tests/test_prompt_contracts.py tests/test_knowledge_work_h1.py::test_h1u_split_factor_registry_rows_preserve_catalog_profiles tests/test_tool_probe_replay_live_comparison.py -q`
 
 ## 2026-05-10 - H1t Conditional Residual-Route Rejected at H1r Gate
 

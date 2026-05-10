@@ -1,0 +1,11 @@
+{
+  "generated_at": "2026-05-10T18:15:33.663610+00:00",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h1u_split_factor_synthesis",
+  "profile_count": 6,
+  "case_count": 6,
+  "v15_exact_success_count": 6,
+  "v15_executor_success_count": 6,
+  "comparison_count": 6,
+  "finding_count": 4,
+  "promotion_decision": "transfer_test_v15"
+}

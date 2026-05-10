@@ -1,0 +1,5 @@
+finding_id,finding
+v14_is_factor_positive_but_incomplete,"Nonstandard component-class guard v14 reaches 5/6 and fixes tag/toggle value-collapse, but still misses h1r_alert_s92_toggle_negation_decoy."
+v15_saturates_h1r,"Code-label exact guard v15 reaches 6/6 exact and 6/6 executor-equivalent, matching v12 on H1r."
+v15_beats_v11_ties_v12,v15 improves over v11 by 0.167 exact-rate and ties v12 with delta 0.000.
+transfer_decision,Transfer-test v15 across H1n/H1o/H1p next. It may keep the H1r repair while using less broad component-residual prose than v12.
