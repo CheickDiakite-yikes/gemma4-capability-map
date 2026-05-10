@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="372" viewBox="0 0 880 372" role="img" aria-labelledby="title desc">
+<title id="title">H2h transfer tradeoff gate</title>
+<desc id="desc">H2h improves H2f but regresses H2b and H1x against H2e.</desc>
+<rect width="880" height="372" fill="#ffffff"/>
+<text x="32" y="36" font-family="Arial, sans-serif" font-size="23" font-weight="700" fill="#111827">H2h is scoped, not global</text>
+<text x="32" y="58" font-family="Arial, sans-serif" font-size="13" fill="#4b5563">Strict exact success; executor-equivalence shown as count.</text>
+<text x="32" y="88" font-family="Arial, sans-serif" font-size="13" fill="#111827">h2f / h2e_route_arbitration</text>
+<rect x="290" y="72" width="410" height="22" rx="4" fill="#e5e7eb"/>
+<rect x="290" y="72" width="246" height="22" rx="4" fill="#0891b2"/>
+<text x="718" y="88" font-family="Arial, sans-serif" font-size="13" fill="#111827">6/10 exact, 6/10 exec</text>
+<text x="32" y="130" font-family="Arial, sans-serif" font-size="13" fill="#111827">h2f / h2h_component_identity_negative_examples</text>
+<rect x="290" y="114" width="410" height="22" rx="4" fill="#e5e7eb"/>
+<rect x="290" y="114" width="369" height="22" rx="4" fill="#155e75"/>
+<text x="718" y="130" font-family="Arial, sans-serif" font-size="13" fill="#111827">9/10 exact, 9/10 exec</text>
+<text x="32" y="172" font-family="Arial, sans-serif" font-size="13" fill="#111827">h2b / h2e_route_arbitration</text>
+<rect x="290" y="156" width="410" height="22" rx="4" fill="#e5e7eb"/>
+<rect x="290" y="156" width="410" height="22" rx="4" fill="#0891b2"/>
+<text x="718" y="172" font-family="Arial, sans-serif" font-size="13" fill="#111827">5/5 exact, 5/5 exec</text>
+<text x="32" y="214" font-family="Arial, sans-serif" font-size="13" fill="#111827">h2b / h2h_component_identity_negative_examples</text>
+<rect x="290" y="198" width="410" height="22" rx="4" fill="#e5e7eb"/>
+<rect x="290" y="198" width="246" height="22" rx="4" fill="#155e75"/>
+<text x="718" y="214" font-family="Arial, sans-serif" font-size="13" fill="#111827">3/5 exact, 3/5 exec</text>
+<text x="32" y="256" font-family="Arial, sans-serif" font-size="13" fill="#111827">h1x / h2e_route_arbitration</text>
+<rect x="290" y="240" width="410" height="22" rx="4" fill="#e5e7eb"/>
+<rect x="290" y="240" width="410" height="22" rx="4" fill="#0891b2"/>
+<text x="718" y="256" font-family="Arial, sans-serif" font-size="13" fill="#111827">8/8 exact, 8/8 exec</text>
+<text x="32" y="298" font-family="Arial, sans-serif" font-size="13" fill="#111827">h1x / h2h_component_identity_negative_examples</text>
+<rect x="290" y="282" width="410" height="22" rx="4" fill="#e5e7eb"/>
+<rect x="290" y="282" width="307" height="22" rx="4" fill="#155e75"/>
+<text x="718" y="298" font-family="Arial, sans-serif" font-size="13" fill="#111827">6/8 exact, 6/8 exec</text>
+</svg>

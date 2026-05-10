@@ -1,0 +1,7 @@
+suite,comparison_label,comparison_dir,shared_case_count,baseline_exact_rate,candidate_exact_rate,delta_exact_rate,baseline_executor_equivalence_rate,candidate_executor_equivalence_rate,delta_executor_equivalence_rate
+h2f,h2h_vs_h2e,results/tool_probe_replay_live_comparisons/20260510T_h2h_component_identity_negative_examples_vs_h2e_on_h2f_v1,10,0.6,0.9,0.30000000000000004,0.6,0.9,0.30000000000000004
+h2f,h2h_vs_h2g,results/tool_probe_replay_live_comparisons/20260510T_h2h_component_identity_negative_examples_vs_h2g_on_h2f_v1,10,0.6,0.9,0.30000000000000004,0.7,0.9,0.20000000000000007
+h2b,h2h_vs_h2e,results/tool_probe_replay_live_comparisons/20260510T_h2h_component_identity_negative_examples_vs_h2e_on_h2b_v1,5,1.0,0.6,-0.4,1.0,0.6,-0.4
+h2b,h2h_vs_h2c,results/tool_probe_replay_live_comparisons/20260510T_h2h_component_identity_negative_examples_vs_h2c_on_h2b_v1,5,1.0,0.6,-0.4,1.0,0.6,-0.4
+h1x,h2h_vs_h2e,results/tool_probe_replay_live_comparisons/20260510T_h2h_component_identity_negative_examples_vs_h2e_on_h1x_v1,8,1.0,0.75,-0.25,1.0,0.75,-0.25
+h1x,h2h_vs_h2d,results/tool_probe_replay_live_comparisons/20260510T_h2h_component_identity_negative_examples_vs_h2d_on_h1x_v1,8,1.0,0.75,-0.25,1.0,0.75,-0.25

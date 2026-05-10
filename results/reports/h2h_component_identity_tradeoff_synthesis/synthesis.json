@@ -1,0 +1,269 @@
+{
+  "manifest": {
+    "generated_at": "2026-05-10T21:48:15.577500+00:00",
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h2h_component_identity_tradeoff_synthesis",
+    "packet_row_count": 9,
+    "comparison_count": 6,
+    "h2h_h2f_exact_success_count": 9,
+    "h2h_h2f_executor_success_count": 9,
+    "h2h_h2b_exact_success_count": 3,
+    "h2h_h2b_executor_success_count": 3,
+    "h2h_h1x_exact_success_count": 6,
+    "h2h_h1x_executor_success_count": 6,
+    "h2h_delta_exact_vs_h2e_on_h2f": 0.30000000000000004,
+    "h2h_delta_exact_vs_h2e_on_h2b": -0.4,
+    "h2h_delta_exact_vs_h2e_on_h1x": -0.25,
+    "h2h_non_exact_count": 5,
+    "promotion_decision": "reject_global_h2h_keep_as_h2f_scoped_repair"
+  },
+  "packet_rows": [
+    {
+      "suite": "h2f",
+      "profile_label": "h2e_route_arbitration",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2e_execute_v1",
+      "case_count": 10,
+      "exact_success_count": 6,
+      "exact_rate": 0.6,
+      "executor_success_count": 6,
+      "executor_rate": 0.6
+    },
+    {
+      "suite": "h2f",
+      "profile_label": "h2g_component_identity_query_contract",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_identity_query_contract_visual_stale_selection_gate",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2g_component_identity_query_contract_on_h2f_execute_v1",
+      "case_count": 10,
+      "exact_success_count": 6,
+      "exact_rate": 0.6,
+      "executor_success_count": 7,
+      "executor_rate": 0.7
+    },
+    {
+      "suite": "h2f",
+      "profile_label": "h2h_component_identity_negative_examples",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_identity_negative_examples_visual_stale_selection_gate",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2h_component_identity_negative_examples_on_h2f_execute_v1",
+      "case_count": 10,
+      "exact_success_count": 9,
+      "exact_rate": 0.9,
+      "executor_success_count": 9,
+      "executor_rate": 0.9
+    },
+    {
+      "suite": "h2b",
+      "profile_label": "h2c_scoped_residual_gate",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_scoped_residual_exactness_visual_stale_selection_gate",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2c_scoped_residual_gate_on_h2b_execute_v1",
+      "case_count": 5,
+      "exact_success_count": 5,
+      "exact_rate": 1.0,
+      "executor_success_count": 5,
+      "executor_rate": 1.0
+    },
+    {
+      "suite": "h2b",
+      "profile_label": "h2e_route_arbitration",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2e_route_arbitration_on_h2b_execute_v1",
+      "case_count": 5,
+      "exact_success_count": 5,
+      "exact_rate": 1.0,
+      "executor_success_count": 5,
+      "executor_rate": 1.0
+    },
+    {
+      "suite": "h2b",
+      "profile_label": "h2h_component_identity_negative_examples",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_identity_negative_examples_visual_stale_selection_gate",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2h_component_identity_negative_examples_on_h2b_execute_v1",
+      "case_count": 5,
+      "exact_success_count": 3,
+      "exact_rate": 0.6,
+      "executor_success_count": 3,
+      "executor_rate": 0.6
+    },
+    {
+      "suite": "h1x",
+      "profile_label": "h2d_class_preserving_route",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_class_preserving_residual_route_visual_stale_selection_gate",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2d_class_preserving_route_on_h1x_execute_v1",
+      "case_count": 8,
+      "exact_success_count": 8,
+      "exact_rate": 1.0,
+      "executor_success_count": 8,
+      "executor_rate": 1.0
+    },
+    {
+      "suite": "h1x",
+      "profile_label": "h2e_route_arbitration",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2e_route_arbitration_on_h1x_execute_v1",
+      "case_count": 8,
+      "exact_success_count": 8,
+      "exact_rate": 1.0,
+      "executor_success_count": 8,
+      "executor_rate": 1.0
+    },
+    {
+      "suite": "h1x",
+      "profile_label": "h2h_component_identity_negative_examples",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_identity_negative_examples_visual_stale_selection_gate",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2h_component_identity_negative_examples_on_h1x_execute_v1",
+      "case_count": 8,
+      "exact_success_count": 6,
+      "exact_rate": 0.75,
+      "executor_success_count": 6,
+      "executor_rate": 0.75
+    }
+  ],
+  "comparison_rows": [
+    {
+      "suite": "h2f",
+      "comparison_label": "h2h_vs_h2e",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h2h_component_identity_negative_examples_vs_h2e_on_h2f_v1",
+      "shared_case_count": 10,
+      "baseline_exact_rate": 0.6,
+      "candidate_exact_rate": 0.9,
+      "delta_exact_rate": 0.30000000000000004,
+      "baseline_executor_equivalence_rate": 0.6,
+      "candidate_executor_equivalence_rate": 0.9,
+      "delta_executor_equivalence_rate": 0.30000000000000004
+    },
+    {
+      "suite": "h2f",
+      "comparison_label": "h2h_vs_h2g",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h2h_component_identity_negative_examples_vs_h2g_on_h2f_v1",
+      "shared_case_count": 10,
+      "baseline_exact_rate": 0.6,
+      "candidate_exact_rate": 0.9,
+      "delta_exact_rate": 0.30000000000000004,
+      "baseline_executor_equivalence_rate": 0.7,
+      "candidate_executor_equivalence_rate": 0.9,
+      "delta_executor_equivalence_rate": 0.20000000000000007
+    },
+    {
+      "suite": "h2b",
+      "comparison_label": "h2h_vs_h2e",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h2h_component_identity_negative_examples_vs_h2e_on_h2b_v1",
+      "shared_case_count": 5,
+      "baseline_exact_rate": 1.0,
+      "candidate_exact_rate": 0.6,
+      "delta_exact_rate": -0.4,
+      "baseline_executor_equivalence_rate": 1.0,
+      "candidate_executor_equivalence_rate": 0.6,
+      "delta_executor_equivalence_rate": -0.4
+    },
+    {
+      "suite": "h2b",
+      "comparison_label": "h2h_vs_h2c",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h2h_component_identity_negative_examples_vs_h2c_on_h2b_v1",
+      "shared_case_count": 5,
+      "baseline_exact_rate": 1.0,
+      "candidate_exact_rate": 0.6,
+      "delta_exact_rate": -0.4,
+      "baseline_executor_equivalence_rate": 1.0,
+      "candidate_executor_equivalence_rate": 0.6,
+      "delta_executor_equivalence_rate": -0.4
+    },
+    {
+      "suite": "h1x",
+      "comparison_label": "h2h_vs_h2e",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h2h_component_identity_negative_examples_vs_h2e_on_h1x_v1",
+      "shared_case_count": 8,
+      "baseline_exact_rate": 1.0,
+      "candidate_exact_rate": 0.75,
+      "delta_exact_rate": -0.25,
+      "baseline_executor_equivalence_rate": 1.0,
+      "candidate_executor_equivalence_rate": 0.75,
+      "delta_executor_equivalence_rate": -0.25
+    },
+    {
+      "suite": "h1x",
+      "comparison_label": "h2h_vs_h2d",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h2h_component_identity_negative_examples_vs_h2d_on_h1x_v1",
+      "shared_case_count": 8,
+      "baseline_exact_rate": 1.0,
+      "candidate_exact_rate": 0.75,
+      "delta_exact_rate": -0.25,
+      "baseline_executor_equivalence_rate": 1.0,
+      "candidate_executor_equivalence_rate": 0.75,
+      "delta_executor_equivalence_rate": -0.25
+    }
+  ],
+  "h2h_non_exact_rows": [
+    {
+      "suite": "h2f",
+      "case_id": "h2f_state_marker_history_value_decoy",
+      "family": "h2f_route_nonstandard_class",
+      "failure_mode": "argument_mismatch",
+      "expected_tool": "extract_layout",
+      "expected_target_query": "state marker",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "lifecycle state marker",
+      "query_error_class": "component_class_or_value_substitution"
+    },
+    {
+      "suite": "h2b",
+      "case_id": "component_value_result_pill_log_decoy",
+      "family": "visual_argument_transfer_component_value_pill",
+      "failure_mode": "argument_mismatch",
+      "expected_tool": "extract_layout",
+      "expected_target_query": "result pill",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "result tile",
+      "query_error_class": "component_class_or_value_substitution"
+    },
+    {
+      "suite": "h2b",
+      "case_id": "h1o_code_badge_c08_note_decoy",
+      "family": "h1o_code_negation_preservation",
+      "failure_mode": "argument_mismatch",
+      "expected_tool": "extract_layout",
+      "expected_target_query": "badge c08",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "badge m31 c08",
+      "query_error_class": "component_class_or_value_substitution"
+    },
+    {
+      "suite": "h1x",
+      "case_id": "h1x_resolution_chip_comment_result_decoy",
+      "family": "h1x_oblique_surface_value",
+      "failure_mode": "argument_mismatch",
+      "expected_tool": "extract_layout",
+      "expected_target_query": "result chip",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "result tile",
+      "query_error_class": "component_class_or_value_substitution"
+    },
+    {
+      "suite": "h1x",
+      "case_id": "h1x_error_notice_history_activation_decoy",
+      "family": "h1x_oblique_activation_no_call",
+      "failure_mode": "argument_mismatch",
+      "expected_tool": "extract_layout",
+      "expected_target_query": "error banner",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "error notice",
+      "query_error_class": "component_class_or_value_substitution"
+    }
+  ],
+  "finding_rows": [
+    {
+      "finding_id": "h2h_repairs_fresh_h2f",
+      "finding": "H2h reaches 9/10 strict and 9/10 executor-equivalent on H2f, a 0.30000000000000004 exact-rate lift over H2e."
+    },
+    {
+      "finding_id": "h2h_regresses_prior_transfer_gates",
+      "finding": "H2h falls to 3/5 on H2b (-0.4 versus H2e) and 6/8 on H1x (-0.25 versus H2e)."
+    },
+    {
+      "finding_id": "h2h_failure_boundary",
+      "finding": "The residual substitutions are concentrated in component-class transfer and alias expansion: h2f:state marker->lifecycle state marker; h2b:result pill->result tile; h2b:badge c08->badge m31 c08; h1x:result chip->result tile; h1x:error banner->error notice."
+    },
+    {
+      "finding_id": "next_slice",
+      "finding": "The next hypothesis should be conditional arbitration, not a broader negative-example paragraph: keep H2e's route arbitration as the default and activate H2h-style negative examples only for explicit displayed-value component-identity prompts."
+    }
+  ]
+}

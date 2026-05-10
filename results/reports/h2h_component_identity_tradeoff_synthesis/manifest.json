@@ -1,0 +1,17 @@
+{
+  "generated_at": "2026-05-10T21:48:15.577500+00:00",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h2h_component_identity_tradeoff_synthesis",
+  "packet_row_count": 9,
+  "comparison_count": 6,
+  "h2h_h2f_exact_success_count": 9,
+  "h2h_h2f_executor_success_count": 9,
+  "h2h_h2b_exact_success_count": 3,
+  "h2h_h2b_executor_success_count": 3,
+  "h2h_h1x_exact_success_count": 6,
+  "h2h_h1x_executor_success_count": 6,
+  "h2h_delta_exact_vs_h2e_on_h2f": 0.30000000000000004,
+  "h2h_delta_exact_vs_h2e_on_h2b": -0.4,
+  "h2h_delta_exact_vs_h2e_on_h1x": -0.25,
+  "h2h_non_exact_count": 5,
+  "promotion_decision": "reject_global_h2h_keep_as_h2f_scoped_repair"
+}

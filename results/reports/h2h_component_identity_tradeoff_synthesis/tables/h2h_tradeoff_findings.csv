@@ -1,0 +1,5 @@
+finding_id,finding
+h2h_repairs_fresh_h2f,"H2h reaches 9/10 strict and 9/10 executor-equivalent on H2f, a 0.30000000000000004 exact-rate lift over H2e."
+h2h_regresses_prior_transfer_gates,H2h falls to 3/5 on H2b (-0.4 versus H2e) and 6/8 on H1x (-0.25 versus H2e).
+h2h_failure_boundary,The residual substitutions are concentrated in component-class transfer and alias expansion: h2f:state marker->lifecycle state marker; h2b:result pill->result tile; h2b:badge c08->badge m31 c08; h1x:result chip->result tile; h1x:error banner->error notice.
+next_slice,"The next hypothesis should be conditional arbitration, not a broader negative-example paragraph: keep H2e's route arbitration as the default and activate H2h-style negative examples only for explicit displayed-value component-identity prompts."
