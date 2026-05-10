@@ -848,6 +848,27 @@ def test_h2d_class_preserving_residual_route_registry_row_preserves_profile_and_
     assert spec["enable_visual_stale_selection_gate"] is True
 
 
+def test_h2e_route_arbitration_registry_row_preserves_profile_and_controller_flag() -> None:
+    config = load_h1_slice(H1M_CONFIG_PATH)
+    registry = load_model_registry()
+
+    specs = build_h1_run_specs(
+        config,
+        registry,
+        lanes=["replayable_core"],
+        system_ids=[
+            "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate",
+        ],
+    )
+
+    assert len(specs) == 1
+    spec = specs[0]
+    assert spec["pipeline_name"] == "monolith"
+    assert spec["disable_tool_turn_directive"] is True
+    assert spec["tool_catalog_profile_id"] == "visual_role_catalog_route_arbitration_residual_exactness_v20"
+    assert spec["enable_visual_stale_selection_gate"] is True
+
+
 def test_h1f_ablation_specs_preserve_tool_directive_flags() -> None:
     config = load_h1_slice(H1F_CONFIG_PATH)
     registry = load_model_registry()

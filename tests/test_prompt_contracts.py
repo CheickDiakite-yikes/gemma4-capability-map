@@ -444,6 +444,26 @@ def test_visual_role_catalog_class_preserving_residual_route_blocks_h2c_class_sw
     assert '"filter_query": {"type": "string", "description": "Shortest literal narrowing token for a current selection_id' in rendered
 
 
+def test_visual_role_catalog_route_arbitration_keeps_code_exactness_and_class_transfer() -> None:
+    specs = build_default_registry().specs
+    rendered = tool_catalog_text(
+        [specs["extract_layout"], specs["refine_selection"], specs["read_region_text"]],
+        profile_id="visual_role_catalog_route_arbitration_residual_exactness_v20",
+    )
+
+    assert "Tool catalog profile: visual_role_catalog_route_arbitration_residual_exactness_v20" in rendered
+    assert "Route-arbitrated residual exactness:" in rendered
+    assert "badge c08 stays badge c08" in rendered
+    assert "alert s92 stays alert s92" in rendered
+    assert "escalated badge c08 must become badge c08" in rendered
+    assert "result chip stays result chip" in rendered
+    assert "result pill stays result pill" in rendered
+    assert "Never import a component class from a previous example or fit row" in rendered
+    assert "warning panel, or error notice" in rendered
+    assert '"target_query": {"type": "string", "description": "Compact route-arbitrated residual label from the prompt' in rendered
+    assert '"filter_query": {"type": "string", "description": "Shortest literal narrowing token for a current selection_id' in rendered
+
+
 def test_tool_catalog_profile_renders_inside_catalog_without_exact_directive() -> None:
     specs = build_default_registry().specs
     rendered = tool_catalog_text(

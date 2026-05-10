@@ -83,6 +83,7 @@ def tool_catalog_text(tool_specs: list[ToolSpec], *, profile_id: str = "") -> st
 
 def known_tool_catalog_profile_ids() -> list[str]:
     return [
+        "visual_role_catalog_route_arbitration_residual_exactness_v20",
         "visual_role_catalog_class_preserving_residual_route_v19",
         "visual_role_catalog_scoped_residual_exactness_v18",
         "visual_role_catalog_selection_origin_guard_v17",
@@ -149,6 +150,7 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
         "visual_role_catalog_selection_origin_guard_v17",
         "visual_role_catalog_scoped_residual_exactness_v18",
         "visual_role_catalog_class_preserving_residual_route_v19",
+        "visual_role_catalog_route_arbitration_residual_exactness_v20",
     }:
         lines.extend(
             [
@@ -182,6 +184,7 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
         "visual_role_catalog_selection_origin_guard_v17",
         "visual_role_catalog_scoped_residual_exactness_v18",
         "visual_role_catalog_class_preserving_residual_route_v19",
+        "visual_role_catalog_route_arbitration_residual_exactness_v20",
     }:
         lines.extend(
             [
@@ -206,6 +209,7 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
         "visual_role_catalog_selection_origin_guard_v17",
         "visual_role_catalog_scoped_residual_exactness_v18",
         "visual_role_catalog_class_preserving_residual_route_v19",
+        "visual_role_catalog_route_arbitration_residual_exactness_v20",
     }:
         lines.extend(
             [
@@ -227,6 +231,7 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
         "visual_role_catalog_selection_origin_guard_v17",
         "visual_role_catalog_scoped_residual_exactness_v18",
         "visual_role_catalog_class_preserving_residual_route_v19",
+        "visual_role_catalog_route_arbitration_residual_exactness_v20",
     }:
         lines.extend(
             [
@@ -247,6 +252,7 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
         "visual_role_catalog_selection_origin_guard_v17",
         "visual_role_catalog_scoped_residual_exactness_v18",
         "visual_role_catalog_class_preserving_residual_route_v19",
+        "visual_role_catalog_route_arbitration_residual_exactness_v20",
     }:
         lines.extend(
             [
@@ -343,6 +349,19 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
                 "- Leave stale selection_id repair to the controller gate; never call refine_selection with ids that appear only in the user's text.",
             ]
         )
+    if normalized == "visual_role_catalog_route_arbitration_residual_exactness_v20":
+        lines.extend(
+            [
+                "Route-arbitrated residual exactness:",
+                "- Default to the narrow component-label guard for ordinary visible role-plus-component targets.",
+                "- For code-suffix labels, copy only the component noun plus code suffix: badge c08 stays badge c08, alert s92 stays alert s92.",
+                "- Do not add displayed values or semantic state words to code-suffix labels; escalated badge c08 must become badge c08.",
+                "- For held-out component-class phrases, preserve the role noun plus component class exactly: result chip stays result chip, result pill stays result pill, result badge stays result badge.",
+                "- Never import a component class from a previous example or fit row; chip, pill, badge, tag, toggle, field, panel, and notice are not interchangeable.",
+                "- For tag/toggle/switch/field/panel/notice targets with stale selection text nearby, use the current image and keep the exact named component phrase.",
+                "- Leave stale selection_id repair to the controller gate; never call refine_selection with ids that appear only in the user's text.",
+            ]
+        )
     if normalized == "visual_role_catalog_component_value_guard_v9":
         lines.extend(
             [
@@ -395,6 +414,7 @@ def _profiled_tool_spec(tool: ToolSpec, *, profile_id: str = "") -> ToolSpec:
         "visual_role_catalog_selection_origin_guard_v17",
         "visual_role_catalog_scoped_residual_exactness_v18",
         "visual_role_catalog_class_preserving_residual_route_v19",
+        "visual_role_catalog_route_arbitration_residual_exactness_v20",
     }:
         return tool
     if tool.name not in {"extract_layout", "refine_selection", "read_region_text"}:
@@ -493,6 +513,13 @@ def _profiled_tool_spec(tool: ToolSpec, *, profile_id: str = "") -> ToolSpec:
                 "class the user named, such as result chip, result pill, result badge, state tag, mode toggle, "
                 "alert s92, or badge c08; never substitute a different component class or displayed value."
             )
+        if normalized == "visual_role_catalog_route_arbitration_residual_exactness_v20":
+            target_description = (
+                "Compact route-arbitrated residual label from the prompt. For code suffixes, copy only the "
+                "component noun plus code such as badge c08 or alert s92. For component-class phrases, copy "
+                "the exact role noun plus class such as result chip, result pill, state tag, mode toggle, "
+                "warning panel, or error notice; never add displayed values or swap component classes."
+            )
         _set_property_description(
             properties,
             "target_query",
@@ -516,6 +543,7 @@ def _profiled_tool_spec(tool: ToolSpec, *, profile_id: str = "") -> ToolSpec:
             "visual_role_catalog_selection_origin_guard_v17",
             "visual_role_catalog_scoped_residual_exactness_v18",
             "visual_role_catalog_class_preserving_residual_route_v19",
+            "visual_role_catalog_route_arbitration_residual_exactness_v20",
         }:
             filter_description = (
                 "Shortest literal narrowing token for a current selection_id copied from the latest passing visual tool result. "
