@@ -14,3 +14,6 @@ h2d_class_preserving_route,argument_mismatch,5
 h2d_class_preserving_route,exact,5
 h2e_route_arbitration,argument_mismatch,4
 h2e_route_arbitration,exact,6
+h2g_component_identity_query_contract,argument_mismatch,3
+h2g_component_identity_query_contract,exact,6
+h2g_component_identity_query_contract,executable_paraphrase,1

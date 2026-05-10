@@ -4,3 +4,6 @@ h2f_h2e_vs_h2d,results/tool_probe_replay_live_comparisons/20260510T_h2f_route_ar
 h2f_h2e_vs_h2a,results/tool_probe_replay_live_comparisons/20260510T_h2f_route_arbitration_h2e_vs_h2a_v1,10,0.4,0.6,0.19999999999999996,0.4,0.6,0.19999999999999996,0.4,0.6,0.19999999999999996
 h2f_h2e_vs_component_residual_guard,results/tool_probe_replay_live_comparisons/20260510T_h2f_route_arbitration_h2e_vs_component_residual_guard_v1,10,0.5,0.6,0.09999999999999998,0.6,0.6,0.0,0.6,0.6,0.0
 h2f_h2e_vs_no_directive,results/tool_probe_replay_live_comparisons/20260510T_h2f_route_arbitration_h2e_vs_no_directive_v1,10,0.1,0.6,0.5,0.1,0.6,0.5,0.1,0.6,0.5
+h2f_h2g_vs_h2e,results/tool_probe_replay_live_comparisons/20260510T_h2g_component_identity_query_contract_vs_h2e_on_h2f_v1,10,0.6,0.6,0.0,0.6,0.7,0.09999999999999998,0.6,0.7,0.09999999999999998
+h2f_h2g_vs_h2c,results/tool_probe_replay_live_comparisons/20260510T_h2g_component_identity_query_contract_vs_h2c_on_h2f_v1,10,0.6,0.6,0.0,0.6,0.7,0.09999999999999998,0.6,0.7,0.09999999999999998
+h2f_h2g_vs_no_directive,results/tool_probe_replay_live_comparisons/20260510T_h2g_component_identity_query_contract_vs_no_directive_on_h2f_v1,10,0.1,0.6,0.5,0.1,0.7,0.6,0.1,0.7,0.6
