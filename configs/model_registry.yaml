@@ -1607,6 +1607,33 @@ systems:
     input_cost_per_mtok: 0.0
     output_cost_per_mtok: 0.0
     color: "#0891B2"
+  mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_identity_query_contract_visual_stale_selection_gate:
+    display_name: Gemma 4 E2B (MLX 4-bit, no directive + component-identity query contract + visual stale-selection gate)
+    short_label: Gemma 4 MLX component identity contract
+    provider: mlx-community
+    backend: mlx
+    deployment: local_reasoner_mlx
+    capability_family: reasoner_only_tool_catalog_profile_controller_gate
+    comparison_tier: research
+    publishable_default: false
+    executor_mode: local_reasoner
+    modality: multimodal
+    local: true
+    reasoner: google/gemma-4-E2B-it
+    router: ""
+    retriever: ""
+    reasoner_params_b: 27.0
+    total_params_b: 27.0
+    reasoner_max_new_tokens: 64
+    request_timeout_seconds: 300.0
+    run_timeout_seconds: 1800.0
+    research_controls:
+      disable_tool_turn_directive: true
+      tool_catalog_profile_id: visual_role_catalog_component_identity_query_contract_v21
+      enable_visual_stale_selection_gate: true
+    input_cost_per_mtok: 0.0
+    output_cost_per_mtok: 0.0
+    color: "#0F766E"
   mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints_no_controller_repair:
     display_name: Gemma 4 E2B (MLX 4-bit, no directive + visual argument hints/no controller repair)
     short_label: Gemma 4 MLX visual args+no repair

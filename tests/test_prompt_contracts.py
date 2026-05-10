@@ -464,6 +464,24 @@ def test_visual_role_catalog_route_arbitration_keeps_code_exactness_and_class_tr
     assert '"filter_query": {"type": "string", "description": "Shortest literal narrowing token for a current selection_id' in rendered
 
 
+def test_visual_role_catalog_component_identity_query_contract_preserves_h2f_labels() -> None:
+    specs = build_default_registry().specs
+    rendered = tool_catalog_text(
+        [specs["extract_layout"], specs["refine_selection"], specs["read_region_text"]],
+        profile_id="visual_role_catalog_component_identity_query_contract_v21",
+    )
+
+    assert "Tool catalog profile: visual_role_catalog_component_identity_query_contract_v21" in rendered
+    assert "Component-identity query contract:" in rendered
+    assert "result tile, resolution badge, state marker, or mode switch" in rendered
+    assert "state marker is not lifecycle state marker" in rendered
+    assert "mode switch is not mode toggle" in rendered
+    assert "Blocked, Deferred, Closed, and Manual are displayed values" in rendered
+    assert "badge m31, alert t47" in rendered
+    assert '"target_query": {"type": "string", "description": "Compact requested component identity from the prompt' in rendered
+    assert '"filter_query": {"type": "string", "description": "Shortest literal narrowing token for a current selection_id' in rendered
+
+
 def test_tool_catalog_profile_renders_inside_catalog_without_exact_directive() -> None:
     specs = build_default_registry().specs
     rendered = tool_catalog_text(
