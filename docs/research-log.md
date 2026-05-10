@@ -1,5 +1,23 @@
 # Research Log
 
+## 2026-05-10 - H1w Residual-Overlap Packet Scaffold
+
+- Added `h1w_residual_overlap_v13` to the visual hard-slice packet builder.
+- Generated dry-run packet: [`results/tool_probe_replay_packets/20260510T_h1w_residual_overlap_oracle_dry_run_v1`](../results/tool_probe_replay_packets/20260510T_h1w_residual_overlap_oracle_dry_run_v1)
+- Packet shape:
+  - `2` stale field-routing cases
+  - `2` nonstandard component-class cases
+  - `2` surface component-value cases
+  - `2` activation/no-call cases
+- Purpose:
+  - turn the H1v rejection into a harder residual benchmark, not another broad prompt tweak
+  - test whether v11's transfer stability, v12's residual repair, or v15's code-label exactness helps on the remaining overlap
+- Next execution:
+  - live-test no-directive, v11, v12, and v15 on H1w
+  - synthesize family-level deltas before adding a new prompt contract
+- Verification:
+  - `uv run pytest tests/test_visual_hard_slice_live_stress_packet.py -q`
+
 ## 2026-05-10 - H1v Code-Label Exact Transfer Gate
 
 - Transfer-tested `visual_role_catalog_code_label_exact_guard_v15` across H1n/H1o/H1p after its H1r local saturation.

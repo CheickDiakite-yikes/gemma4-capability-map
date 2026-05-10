@@ -44,6 +44,7 @@ def parse_args() -> argparse.Namespace:
             "h1o_control_factorial_v10",
             "h1p_component_value_holdout_v11",
             "h1r_component_label_residual_v12",
+            "h1w_residual_overlap_v13",
         ],
         default="v1",
     )
@@ -210,6 +211,8 @@ def _stress_cases_for_suite(suite: str) -> list[ToolDirectiveProbeCase]:
         return _h1p_component_value_holdout_cases_v11()
     if suite == "h1r_component_label_residual_v12":
         return _h1r_component_label_residual_cases_v12()
+    if suite == "h1w_residual_overlap_v13":
+        return _h1w_residual_overlap_cases_v13()
     raise ValueError(f"Unknown visual live stress suite: {suite}")
 
 
@@ -229,6 +232,7 @@ def _expected_call_payloads(
         "h1o_control_factorial_v10",
         "h1p_component_value_holdout_v11",
         "h1r_component_label_residual_v12",
+        "h1w_residual_overlap_v13",
     }:
         return [_oracle_visual_extract_call(case)]
     return [
@@ -2274,6 +2278,193 @@ def _h1r_component_label_residual_cases_v12() -> list[ToolDirectiveProbeCase]:
     ]
 
 
+def _h1w_residual_overlap_cases_v13() -> list[ToolDirectiveProbeCase]:
+    return [
+        ToolDirectiveProbeCase(
+            case_id="h1w_owner_field_memo_stale_selection_decoy",
+            family="h1w_stale_field_routing",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1w-owner-field"),
+                Message(
+                    role="user",
+                    content=(
+                        "Ignore stale selection_id sel-owner-memo. Locate the owner field component itself, "
+                        "not the memo that repeats Jae."
+                    ),
+                ),
+            ],
+            media=["img-h1w-owner-field"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1w-owner-field",
+                [
+                    _region("h1w-owner-memo-9601", "owner memo", "Jae owns the vendor review", area="memo"),
+                    _region("h1w-owner-field-9602", "owner field", "Jae", area="field"),
+                    _region("h1w-owner-table-9603", "owner table", "Jae vendor rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1w-owner-field-9602"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1w_assignee_field_archive_summary_decoy",
+            family="h1w_stale_field_routing",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1w-assignee-field"),
+                Message(
+                    role="user",
+                    content=(
+                        "Previous selection_id sel-assignee-archive is stale. Locate the assignee field component, "
+                        "not the archived summary that repeats Noor."
+                    ),
+                ),
+            ],
+            media=["img-h1w-assignee-field"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1w-assignee-field",
+                [
+                    _region("h1w-assignee-archive-9611", "assignee archive summary", "Noor handled the old case", area="summary"),
+                    _region("h1w-assignee-field-9612", "assignee field", "Noor", area="field"),
+                    _region("h1w-assignee-table-9613", "assignee table", "Noor current cases", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1w-assignee-field-9612"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1w_state_tag_audit_log_value_decoy",
+            family="h1w_nonstandard_component_class",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1w-state-tag"),
+                Message(
+                    role="user",
+                    content="Closed appears in the audit log. Locate the state tag component, not the log entry.",
+                ),
+            ],
+            media=["img-h1w-state-tag"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1w-state-tag",
+                [
+                    _region("h1w-state-log-9621", "audit log", "Closed by Luis at 09:14", area="log"),
+                    _region("h1w-state-tag-9622", "state tag", "Closed", area="tag"),
+                    _region("h1w-state-table-9623", "state table", "Closed accounts", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1w-state-tag-9622"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1w_mode_toggle_settings_note_decoy",
+            family="h1w_nonstandard_component_class",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1w-mode-toggle"),
+                Message(
+                    role="user",
+                    content="Manual appears in the settings note. Locate the mode toggle component itself.",
+                ),
+            ],
+            media=["img-h1w-mode-toggle"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1w-mode-toggle",
+                [
+                    _region("h1w-mode-note-9631", "settings note", "Manual override remains active", area="note"),
+                    _region("h1w-mode-toggle-9632", "mode toggle", "Manual", area="toggle"),
+                    _region("h1w-mode-table-9633", "settings table", "Manual exception rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1w-mode-toggle-9632"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1w_result_badge_comment_value_decoy",
+            family="h1w_surface_component_value",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1w-result-badge"),
+                Message(
+                    role="user",
+                    content="Blocked is written in the comment. Locate the result badge component, not the comment.",
+                ),
+            ],
+            media=["img-h1w-result-badge"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1w-result-badge",
+                [
+                    _region("h1w-result-comment-9641", "result comment", "Blocked until compliance replies", area="comment"),
+                    _region("h1w-result-badge-9642", "result badge", "Blocked", area="badge"),
+                    _region("h1w-result-board-9643", "result board", "Blocked review queue", area="board"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1w-result-badge-9642"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1w_status_pill_summary_value_decoy",
+            family="h1w_surface_component_value",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1w-status-pill"),
+                Message(
+                    role="user",
+                    content="Pending appears in the summary. Locate the status pill component itself.",
+                ),
+            ],
+            media=["img-h1w-status-pill"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1w-status-pill",
+                [
+                    _region("h1w-status-summary-9651", "status summary", "Pending renewal package", area="summary"),
+                    _region("h1w-status-pill-9652", "status pill", "Pending", area="pill"),
+                    _region("h1w-status-table-9653", "status table", "Pending renewal rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1w-status-pill-9652"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1w_warning_tile_no_call_note_decoy",
+            family="h1w_activation_no_call",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1w-warning-tile"),
+                Message(
+                    role="user",
+                    content="Do not summarize the incident note. Locate the warning tile component before reading details.",
+                ),
+            ],
+            media=["img-h1w-warning-tile"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1w-warning-tile",
+                [
+                    _region("h1w-warning-note-9661", "incident note", "Warning acknowledged by Sam", area="note"),
+                    _region("h1w-warning-tile-9662", "warning tile", "Warning", area="tile"),
+                    _region("h1w-warning-table-9663", "warning table", "Warning event rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1w-warning-tile-9662"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1w_error_banner_no_call_history_decoy",
+            family="h1w_activation_no_call",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1w-error-banner"),
+                Message(
+                    role="user",
+                    content="Do not open the history row. Locate the error banner component itself.",
+                ),
+            ],
+            media=["img-h1w-error-banner"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1w-error-banner",
+                [
+                    _region("h1w-error-history-9671", "history row", "Error resolved yesterday", area="history"),
+                    _region("h1w-error-banner-9672", "error banner", "Error", area="banner"),
+                    _region("h1w-error-log-9673", "error log", "Error trace rows", area="log"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1w-error-banner-9672"]},
+        ),
+    ]
+
+
 def _visual_state(image_id: str, local_layouts: list[dict[str, Any]]) -> dict[str, Any]:
     return {
         "visual_executor_mode": "local",
@@ -2308,6 +2499,8 @@ def _stress_failure_mode(family: str) -> str:
         "h1o_activation_no_call",
         "h1p_component_value_stale_selection",
         "h1r_stale_selection_component_label",
+        "h1w_stale_field_routing",
+        "h1w_activation_no_call",
     }:
         return "wrong_tool_or_stale_selection_risk"
     return "argument_alias_or_decoy_risk"

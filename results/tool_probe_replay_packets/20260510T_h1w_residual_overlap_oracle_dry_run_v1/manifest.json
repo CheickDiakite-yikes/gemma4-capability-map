@@ -1,0 +1,36 @@
+{
+  "packet_run_id": "20260510T_h1w_residual_overlap_oracle_dry_run_v1",
+  "packet_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260510T_h1w_residual_overlap_oracle_dry_run_v1",
+  "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+  "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+  "replay_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints",
+  "suite": "h1w_residual_overlap_v13",
+  "case_count": 8,
+  "family_counts": {
+    "h1w_activation_no_call": 2,
+    "h1w_nonstandard_component_class": 2,
+    "h1w_stale_field_routing": 2,
+    "h1w_surface_component_value": 2
+  },
+  "failure_mode_counts": {
+    "argument_alias_or_decoy_risk": 4,
+    "wrong_tool_or_stale_selection_risk": 4
+  },
+  "dry_run": true,
+  "executed_count": 0,
+  "created_at": "2026-05-10T18:29:59.862497+00:00",
+  "registry_path": "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+  "case_ids": [
+    "h1w_owner_field_memo_stale_selection_decoy",
+    "h1w_assignee_field_archive_summary_decoy",
+    "h1w_state_tag_audit_log_value_decoy",
+    "h1w_mode_toggle_settings_note_decoy",
+    "h1w_result_badge_comment_value_decoy",
+    "h1w_status_pill_summary_value_decoy",
+    "h1w_warning_tile_no_call_note_decoy",
+    "h1w_error_banner_no_call_history_decoy"
+  ],
+  "operator_surface": "rich_cli_visual_hard_slice_live_stress_v1",
+  "entrypoint": "moonie-agent replay-live",
+  "purpose": "Repeat the visual hard-slice executor-alias and stale-selection mechanisms under fresh decoys before spending packaged H1 workflow budget."
+}

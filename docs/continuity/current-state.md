@@ -1254,6 +1254,14 @@ H1u gate:
 - H1v verdict: reject v15 as a global promotion; it transfers at `25 / 32` exact and `25 / 32` executor-equivalent, below v11's `29 / 32` executor-equivalent and v12's `27 / 32` exact totals
 - next execution: keep v11 as the transfer-stable default, treat v15 as a local code-label repair, and build H1w around the remaining v15/v11 shared residuals
 
+H1w scaffold:
+
+- packet: [`results/tool_probe_replay_packets/20260510T_h1w_residual_overlap_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260510T_h1w_residual_overlap_oracle_dry_run_v1)
+- suite: `h1w_residual_overlap_v13`
+- shape: `8` oracle-valid cases, balanced across stale field-routing, nonstandard component classes, surface component-value collapse, and activation/no-call residuals
+- purpose: break the now-saturated top-line transfer story by concentrating on the residual mechanisms that survive v11/v12/v15
+- next execution: run no-directive, v11, v12, and v15 on this packet; promote nothing until the family-level tradeoffs are visible
+
 ## Latest H1q Component-Label Guard Transfer Finding
 
 H1q is the current sharpest controller-profile transfer result. It was built to resolve the H1p/H1o/H1n tension: broad v9 component-value guidance wins locally on H1p, ties on H1o, and regresses on the older H1n component-value slice. The new `visual_role_catalog_component_label_guard_v11` narrows the wording to copying requested role-plus-component labels instead of selecting displayed values.
