@@ -1,5 +1,5 @@
 finding_id,finding
 strict_upper_bound,oblique_code_guard_v7 is the strict upper bound at 1.0.
 executor_equivalence_set,Executor-equivalent full-success rows: oblique_code_guard_v7.
-executor_without_strict,Rows with executor gain without strict gain: .
+executor_without_strict,Rows with executor gain without strict gain: none.
 regressions,Regression cases: none.

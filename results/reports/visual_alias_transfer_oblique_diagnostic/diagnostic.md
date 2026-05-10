@@ -1,12 +1,12 @@
 # Visual Live Alias Transfer Oblique Diagnostic
 
-Generated: `2026-05-10T01:34:38.058519+00:00`
+Generated: `2026-05-10T16:16:57.871832+00:00`
 
 ## Findings
 
 - `strict_upper_bound`: oblique_code_guard_v7 is the strict upper bound at 1.0.
 - `executor_equivalence_set`: Executor-equivalent full-success rows: oblique_code_guard_v7.
-- `executor_without_strict`: Rows with executor gain without strict gain: .
+- `executor_without_strict`: Rows with executor gain without strict gain: none.
 - `regressions`: Regression cases: none.
 
 ## Summary
@@ -20,6 +20,7 @@ Generated: `2026-05-10T01:34:38.058519+00:00`
 | schema_literal_targets_v5 | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets | 6 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
 | oblique_code_hints_v6 | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_oblique_code_hints | 6 | 0.0 | 0.8333333333333334 | 0.8333333333333334 | 0.0 | 0.8333333333333334 | 0.8333333333333334 |
 | oblique_code_guard_v7 | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_oblique_code_guard | 6 | 0.0 | 1.0 | 1.0 | 0.0 | 1.0 | 1.0 |
+| no_call_control_rescue_v10 | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_no_call_control_rescue | 6 | 0.0 | 0.8333333333333334 | 0.8333333333333334 | 0.0 | 0.8333333333333334 | 0.8333333333333334 |
 
 ## Case Transitions
 
@@ -67,3 +68,9 @@ Generated: `2026-05-10T01:34:38.058519+00:00`
 | oblique_code_guard_v7 | transfer_oblique_chip_z33_person_decoy | visual_argument_transfer_oblique | no_tool_call | exact | 1 | 1 | strict_gain |
 | oblique_code_guard_v7 | transfer_oblique_field_e19_old_selection_decoy | visual_tool_routing_transfer_oblique | no_tool_call | exact | 1 | 1 | strict_gain |
 | oblique_code_guard_v7 | transfer_oblique_node_q17_table_decoy | visual_argument_transfer_oblique | argument_mismatch | exact | 1 | 1 | strict_gain |
+| no_call_control_rescue_v10 | transfer_oblique_alert_p55_toggle_decoy | visual_tool_routing_transfer_oblique | argument_mismatch | argument_mismatch | 0 | 0 | unchanged |
+| no_call_control_rescue_v10 | transfer_oblique_badge_m88_chart_decoy | visual_argument_transfer_oblique | no_tool_call | exact | 1 | 1 | strict_gain |
+| no_call_control_rescue_v10 | transfer_oblique_cell_r42_notice_decoy | visual_argument_transfer_oblique | argument_mismatch | exact | 1 | 1 | strict_gain |
+| no_call_control_rescue_v10 | transfer_oblique_chip_z33_person_decoy | visual_argument_transfer_oblique | no_tool_call | exact | 1 | 1 | strict_gain |
+| no_call_control_rescue_v10 | transfer_oblique_field_e19_old_selection_decoy | visual_tool_routing_transfer_oblique | no_tool_call | exact | 1 | 1 | strict_gain |
+| no_call_control_rescue_v10 | transfer_oblique_node_q17_table_decoy | visual_argument_transfer_oblique | argument_mismatch | exact | 1 | 1 | strict_gain |
