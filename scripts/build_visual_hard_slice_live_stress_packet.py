@@ -32,7 +32,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--replay-system-id", default=DEFAULT_REPLAY_SYSTEM_ID)
     parser.add_argument(
         "--suite",
-        choices=["v1", "alias_repeat_v2", "alias_transfer_v3", "alias_transfer_repeat_v4"],
+        choices=[
+            "v1",
+            "alias_repeat_v2",
+            "alias_transfer_v3",
+            "alias_transfer_repeat_v4",
+            "alias_transfer_oblique_v5",
+        ],
         default="v1",
     )
     parser.add_argument("--case-id", action="append", dest="case_ids", default=[])
@@ -184,6 +190,8 @@ def _stress_cases_for_suite(suite: str) -> list[ToolDirectiveProbeCase]:
         return _alias_transfer_cases_v3()
     if suite == "alias_transfer_repeat_v4":
         return _alias_transfer_repeat_cases_v4()
+    if suite == "alias_transfer_oblique_v5":
+        return _alias_transfer_oblique_cases_v5()
     raise ValueError(f"Unknown visual live stress suite: {suite}")
 
 
@@ -193,7 +201,7 @@ def _expected_call_payloads(
     tool_specs: list[Any],
     suite: str,
 ) -> list[dict[str, Any]]:
-    if suite in {"alias_transfer_v3", "alias_transfer_repeat_v4"}:
+    if suite in {"alias_transfer_v3", "alias_transfer_repeat_v4", "alias_transfer_oblique_v5"}:
         return [_oracle_visual_extract_call(case)]
     return [
         {"name": call.name, "arguments": call.arguments}
@@ -758,6 +766,156 @@ def _alias_transfer_repeat_cases_v4() -> list[ToolDirectiveProbeCase]:
     ]
 
 
+def _alias_transfer_oblique_cases_v5() -> list[ToolDirectiveProbeCase]:
+    return [
+        ToolDirectiveProbeCase(
+            case_id="transfer_oblique_node_q17_table_decoy",
+            family="visual_argument_transfer_oblique",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-transfer-oblique-node-q17"),
+                Message(
+                    role="user",
+                    content=(
+                        "The table mentions owner escalation too, but locate the visible node q17 region itself "
+                        "before reading any table decoy."
+                    ),
+                ),
+            ],
+            media=["img-transfer-oblique-node-q17"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-transfer-oblique-node-q17",
+                [
+                    _region("transfer-oblique-node-5001", "node q17", "Owner escalation unresolved", area="node", state="unresolved"),
+                    _region("transfer-oblique-node-5002", "owner table", "Owner escalation roster", area="table"),
+                    _region("transfer-oblique-node-5003", "review note", "Escalation owner pending", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["transfer-oblique-node-5001"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="transfer_oblique_badge_m88_chart_decoy",
+            family="visual_argument_transfer_oblique",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-transfer-oblique-badge-m88"),
+                Message(
+                    role="user",
+                    content=(
+                        "The chart title says blocked volume. Locate badge m88, not the chart title or the queue table."
+                    ),
+                ),
+            ],
+            media=["img-transfer-oblique-badge-m88"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-transfer-oblique-badge-m88",
+                [
+                    _region("transfer-oblique-badge-5101", "badge m88", "Blocked queue: 12", area="badge", state="blocked"),
+                    _region("transfer-oblique-badge-5102", "chart title", "Blocked volume trend", area="chart"),
+                    _region("transfer-oblique-badge-5103", "queue table", "Blocked item list", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["transfer-oblique-badge-5101"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="transfer_oblique_chip_z33_person_decoy",
+            family="visual_argument_transfer_oblique",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-transfer-oblique-chip-z33"),
+                Message(
+                    role="user",
+                    content=(
+                        "Riley's note repeats the latency warning. Locate chip z33 and read that chip region first."
+                    ),
+                ),
+            ],
+            media=["img-transfer-oblique-chip-z33"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-transfer-oblique-chip-z33",
+                [
+                    _region("transfer-oblique-chip-5201", "owner note", "Riley owns latency warning", person="Riley"),
+                    _region("transfer-oblique-chip-5202", "chip z33", "Latency breach 18m", area="chip", tone="warning"),
+                    _region("transfer-oblique-chip-5203", "latency table", "Incident timing", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["transfer-oblique-chip-5202"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="transfer_oblique_cell_r42_notice_decoy",
+            family="visual_argument_transfer_oblique",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-transfer-oblique-cell-r42"),
+                Message(
+                    role="user",
+                    content=(
+                        "The notice uses the same approval words. Locate cell r42, not the notice banner."
+                    ),
+                ),
+            ],
+            media=["img-transfer-oblique-cell-r42"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-transfer-oblique-cell-r42",
+                [
+                    _region("transfer-oblique-cell-5301", "notice banner", "Approval missing", area="banner"),
+                    _region("transfer-oblique-cell-5302", "cell r42", "Approval owner blank", area="cell", state="missing"),
+                    _region("transfer-oblique-cell-5303", "approval table", "Approver list", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["transfer-oblique-cell-5302"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="transfer_oblique_field_e19_old_selection_decoy",
+            family="visual_tool_routing_transfer_oblique",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-transfer-oblique-field-e19"),
+                Message(
+                    role="user",
+                    content=(
+                        "Ignore old selection_id sel-e19-archive from the last screen. On this form, locate field e19, "
+                        "not the saved owner chip."
+                    ),
+                ),
+            ],
+            media=["img-transfer-oblique-field-e19"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-transfer-oblique-field-e19",
+                [
+                    _region("transfer-oblique-field-5401", "owner chip", "Owner saved", state="saved"),
+                    _region("transfer-oblique-field-5402", "field e19", "Routing code is required", field="routing_code", state="missing"),
+                ],
+            ),
+            expected_execution={"region_ids": ["transfer-oblique-field-5402"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="transfer_oblique_alert_p55_toggle_decoy",
+            family="visual_tool_routing_transfer_oblique",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-transfer-oblique-alert-p55"),
+                Message(
+                    role="user",
+                    content=(
+                        "The consent toggle is enabled, but locate alert p55 before reading the toggle."
+                    ),
+                ),
+            ],
+            media=["img-transfer-oblique-alert-p55"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-transfer-oblique-alert-p55",
+                [
+                    _region("transfer-oblique-alert-5501", "consent toggle", "Consent enabled", checked=True),
+                    _region("transfer-oblique-alert-5502", "alert p55", "Consent document expired", tone="alert"),
+                    _region("transfer-oblique-alert-5503", "document table", "Consent documents", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["transfer-oblique-alert-5502"]},
+        ),
+    ]
+
+
 def _visual_state(image_id: str, local_layouts: list[dict[str, Any]]) -> dict[str, Any]:
     return {
         "visual_executor_mode": "local",
@@ -785,6 +943,7 @@ def _stress_failure_mode(family: str) -> str:
         "visual_tool_routing_stress",
         "visual_tool_routing_transfer",
         "visual_tool_routing_transfer_repeat",
+        "visual_tool_routing_transfer_oblique",
     }:
         return "wrong_tool_or_stale_selection_risk"
     return "argument_alias_or_decoy_risk"

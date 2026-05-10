@@ -98,6 +98,11 @@ Next implementation moves:
   - script: [`scripts/build_h1n_oracle_transfer_synthesis.py`](../../scripts/build_h1n_oracle_transfer_synthesis.py)
   - result: across two oracle packets, argument hints is executor-equivalent in both packets at `6 / 6` and `6 / 6`; schema target literals rises from `4 / 6` to `6 / 6`; contracted is `1 / 6` then `0 / 6`; helper ablation preserves argument hints with zero exact/executor-equivalence deltas
   - interpretation: the next visual question is no longer whether catalog-profile transfer exists. It is whether argument hints or schema target literals is more robust under less staged visual operation.
+- H1n oblique-label oracle packet:
+  - packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_oblique_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_oblique_oracle_dry_run_v1)
+  - suite: `alias_transfer_oblique_v5`
+  - design: six held-out labels use code-like visible target tokens such as `node q17`, `badge m88`, `chip z33`, `field e19`, and `alert p55`, with semantic decoys nearby
+  - purpose: test whether argument hints or schema target literals better preserves literal nonsemantic target labels without falling back to semantic decoys
 - next replay-shaped target: test the tied argument-hints/schema-literal profiles on a less staged live visual task or build a third fresh oracle repeat with harder non-lexical target labels
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions

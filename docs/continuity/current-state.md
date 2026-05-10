@@ -253,7 +253,8 @@ Latest MLX tool-contract research:
   - repeat result: no-directive is `2 / 6`; contracted is `0 / 6`; role catalog v1 and schema-field hints v4 are `4 / 6`; argument hints v2 and schema target literals v5 are `5 / 6` strict and `6 / 6` executor-equivalent
   - synthesis: [`results/reports/h1n_oracle_transfer_synthesis/report.md`](../../results/reports/h1n_oracle_transfer_synthesis/report.md)
   - synthesis result: argument hints is executor-equivalent in both oracle packets, schema target literals catches up on the repeat, contracted prompting is not an upper bound, and the tested controller helpers do not explain the argument-hints gain
-  - interpretation: fresh transfer cases favor narrow catalog-profile mechanisms once the expected-call contract is oracle-backed; the next question is whether argument hints or schema target literals generalizes under less staged visual operation
+  - oblique-label packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_oblique_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_oblique_oracle_dry_run_v1)
+  - interpretation: fresh transfer cases favor narrow catalog-profile mechanisms once the expected-call contract is oracle-backed; the next question is whether argument hints or schema target literals generalizes under less staged visual operation and code-like visible labels
 - Prompt-contract wave 2:
   - contracts: `schema_literal_tool_required_v2`, `visual_next_call_state_v2`, `parallel_array_required_v2`
   - runner flag: `scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v2`

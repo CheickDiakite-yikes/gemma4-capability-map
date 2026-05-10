@@ -1,0 +1,875 @@
+[
+  {
+    "case_id": "transfer_oblique_node_q17_table_decoy",
+    "family": "visual_argument_transfer_oblique",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-transfer-oblique-node-q17",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "The table mentions owner escalation too, but locate the visible node q17 region itself before reading any table decoy.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-transfer-oblique-node-q17"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-transfer-oblique-node-q17": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "transfer-oblique-node-5001",
+              "label": "node q17",
+              "text": "Owner escalation unresolved",
+              "attributes": {
+                "area": "node",
+                "state": "unresolved"
+              }
+            },
+            {
+              "region_id": "transfer-oblique-node-5002",
+              "label": "owner table",
+              "text": "Owner escalation roster",
+              "attributes": {
+                "area": "table"
+              }
+            },
+            {
+              "region_id": "transfer-oblique-node-5003",
+              "label": "review note",
+              "text": "Escalation owner pending",
+              "attributes": {
+                "area": "note"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "transfer-oblique-node-5001"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-oblique-node-q17",
+          "target_query": "node q17"
+        }
+      }
+    ],
+    "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "source_exact_match": false,
+    "source_executable_match": false,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+    "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+  },
+  {
+    "case_id": "transfer_oblique_badge_m88_chart_decoy",
+    "family": "visual_argument_transfer_oblique",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-transfer-oblique-badge-m88",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "The chart title says blocked volume. Locate badge m88, not the chart title or the queue table.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-transfer-oblique-badge-m88"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-transfer-oblique-badge-m88": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "transfer-oblique-badge-5101",
+              "label": "badge m88",
+              "text": "Blocked queue: 12",
+              "attributes": {
+                "area": "badge",
+                "state": "blocked"
+              }
+            },
+            {
+              "region_id": "transfer-oblique-badge-5102",
+              "label": "chart title",
+              "text": "Blocked volume trend",
+              "attributes": {
+                "area": "chart"
+              }
+            },
+            {
+              "region_id": "transfer-oblique-badge-5103",
+              "label": "queue table",
+              "text": "Blocked item list",
+              "attributes": {
+                "area": "table"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "transfer-oblique-badge-5101"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-oblique-badge-m88",
+          "target_query": "badge m88"
+        }
+      }
+    ],
+    "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "source_exact_match": false,
+    "source_executable_match": false,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+    "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+  },
+  {
+    "case_id": "transfer_oblique_chip_z33_person_decoy",
+    "family": "visual_argument_transfer_oblique",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-transfer-oblique-chip-z33",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "Riley's note repeats the latency warning. Locate chip z33 and read that chip region first.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-transfer-oblique-chip-z33"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-transfer-oblique-chip-z33": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "transfer-oblique-chip-5201",
+              "label": "owner note",
+              "text": "Riley owns latency warning",
+              "attributes": {
+                "person": "Riley"
+              }
+            },
+            {
+              "region_id": "transfer-oblique-chip-5202",
+              "label": "chip z33",
+              "text": "Latency breach 18m",
+              "attributes": {
+                "area": "chip",
+                "tone": "warning"
+              }
+            },
+            {
+              "region_id": "transfer-oblique-chip-5203",
+              "label": "latency table",
+              "text": "Incident timing",
+              "attributes": {
+                "area": "table"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "transfer-oblique-chip-5202"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-oblique-chip-z33",
+          "target_query": "chip z33"
+        }
+      }
+    ],
+    "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "source_exact_match": false,
+    "source_executable_match": false,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+    "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+  },
+  {
+    "case_id": "transfer_oblique_cell_r42_notice_decoy",
+    "family": "visual_argument_transfer_oblique",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-transfer-oblique-cell-r42",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "The notice uses the same approval words. Locate cell r42, not the notice banner.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-transfer-oblique-cell-r42"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-transfer-oblique-cell-r42": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "transfer-oblique-cell-5301",
+              "label": "notice banner",
+              "text": "Approval missing",
+              "attributes": {
+                "area": "banner"
+              }
+            },
+            {
+              "region_id": "transfer-oblique-cell-5302",
+              "label": "cell r42",
+              "text": "Approval owner blank",
+              "attributes": {
+                "area": "cell",
+                "state": "missing"
+              }
+            },
+            {
+              "region_id": "transfer-oblique-cell-5303",
+              "label": "approval table",
+              "text": "Approver list",
+              "attributes": {
+                "area": "table"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "transfer-oblique-cell-5302"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-oblique-cell-r42",
+          "target_query": "cell r42"
+        }
+      }
+    ],
+    "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "source_exact_match": false,
+    "source_executable_match": false,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+    "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+  },
+  {
+    "case_id": "transfer_oblique_field_e19_old_selection_decoy",
+    "family": "visual_tool_routing_transfer_oblique",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-transfer-oblique-field-e19",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "Ignore old selection_id sel-e19-archive from the last screen. On this form, locate field e19, not the saved owner chip.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-transfer-oblique-field-e19"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-transfer-oblique-field-e19": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "transfer-oblique-field-5401",
+              "label": "owner chip",
+              "text": "Owner saved",
+              "attributes": {
+                "state": "saved"
+              }
+            },
+            {
+              "region_id": "transfer-oblique-field-5402",
+              "label": "field e19",
+              "text": "Routing code is required",
+              "attributes": {
+                "field": "routing_code",
+                "state": "missing"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "transfer-oblique-field-5402"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-oblique-field-e19",
+          "target_query": "field e19"
+        }
+      }
+    ],
+    "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+    "source_failure_mode": "wrong_tool_or_stale_selection_risk",
+    "source_exact_match": false,
+    "source_executable_match": false,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+    "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+  },
+  {
+    "case_id": "transfer_oblique_alert_p55_toggle_decoy",
+    "family": "visual_tool_routing_transfer_oblique",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-transfer-oblique-alert-p55",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "The consent toggle is enabled, but locate alert p55 before reading the toggle.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-transfer-oblique-alert-p55"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-transfer-oblique-alert-p55": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "transfer-oblique-alert-5501",
+              "label": "consent toggle",
+              "text": "Consent enabled",
+              "attributes": {
+                "checked": true
+              }
+            },
+            {
+              "region_id": "transfer-oblique-alert-5502",
+              "label": "alert p55",
+              "text": "Consent document expired",
+              "attributes": {
+                "tone": "alert"
+              }
+            },
+            {
+              "region_id": "transfer-oblique-alert-5503",
+              "label": "document table",
+              "text": "Consent documents",
+              "attributes": {
+                "area": "table"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "transfer-oblique-alert-5502"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-oblique-alert-p55",
+          "target_query": "alert p55"
+        }
+      }
+    ],
+    "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+    "source_failure_mode": "wrong_tool_or_stale_selection_risk",
+    "source_exact_match": false,
+    "source_executable_match": false,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+    "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+  }
+]

@@ -3370,6 +3370,22 @@
   - `uv run python scripts/audit_publication_readiness.py`
   - `uv run pytest tests/test_h1n_oracle_transfer_synthesis.py tests/test_publication_evidence_ledger.py tests/test_publication_readiness_audit.py -q`
 
+## 2026-05-09 - H1n Oblique-Label Oracle Packet
+
+- Added a third held-out oracle transfer suite, `alias_transfer_oblique_v5`, to test nonsemantic visible target labels under semantic decoys:
+  - packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_oblique_oracle_dry_run_v1`](../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_oblique_oracle_dry_run_v1)
+  - generator: [`scripts/build_visual_hard_slice_live_stress_packet.py`](../scripts/build_visual_hard_slice_live_stress_packet.py)
+- Design:
+  - six cases with visible labels such as `node q17`, `badge m88`, `chip z33`, `cell r42`, `field e19`, and `alert p55`
+  - the exact label is present in the user instruction, so strict exactness is fair
+  - nearby decoys repeat the semantic content, so executor-equivalence can still reveal whether a semantic paraphrase hit the correct visible target
+- Contract note:
+  - an early draft used two-character labels such as `m8`, which the local visual executor tokenizer ignored because it drops tokens shorter than three characters
+  - the committed packet uses at least three-character code tokens where needed, and the tests verify every oracle expected call reaches the intended local region
+- Verification:
+  - `uv run python scripts/build_visual_hard_slice_live_stress_packet.py --run-group-id 20260509T_visual_hard_slice_live_stress_alias_transfer_oblique_oracle_dry_run_v1 --suite alias_transfer_oblique_v5`
+  - `uv run pytest tests/test_visual_hard_slice_live_stress_packet.py -q`
+
 ## 2026-05-09 - Schema Target Literal v5 Negative Hard-Slice Repair
 
 - A narrow hard-slice repair candidate was added after inspecting the two v4 exact misses:

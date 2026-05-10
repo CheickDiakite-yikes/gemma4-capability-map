@@ -162,6 +162,49 @@ def test_visual_hard_slice_live_stress_packet_supports_alias_transfer_repeat_sui
         assert _expected_call_reaches_oracle(case)
 
 
+def test_visual_hard_slice_live_stress_packet_supports_alias_transfer_oblique_suite(tmp_path: Path) -> None:
+    packet = SCRIPT.build_visual_hard_slice_live_stress_packet(
+        output_root=tmp_path / "replay_packets",
+        run_group_id="visual_stress_alias_transfer_oblique",
+        suite="alias_transfer_oblique_v5",
+    )
+
+    assert packet["summary"]["suite"] == "alias_transfer_oblique_v5"
+    assert packet["summary"]["case_count"] == 6
+    assert packet["summary"]["family_counts"] == {
+        "visual_argument_transfer_oblique": 4,
+        "visual_tool_routing_transfer_oblique": 2,
+    }
+    assert packet["summary"]["failure_mode_counts"] == {
+        "argument_alias_or_decoy_risk": 4,
+        "wrong_tool_or_stale_selection_risk": 2,
+    }
+    case_ids = {row["case_id"] for row in packet["rows"]}
+    assert "transfer_oblique_node_q17_table_decoy" in case_ids
+    assert "transfer_oblique_alert_p55_toggle_decoy" in case_ids
+    cases = {case["case_id"]: case for case in packet["replay_cases"]}
+    assert cases["transfer_oblique_node_q17_table_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-transfer-oblique-node-q17",
+                "target_query": "node q17",
+            },
+        }
+    ]
+    assert cases["transfer_oblique_field_e19_old_selection_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-transfer-oblique-field-e19",
+                "target_query": "field e19",
+            },
+        }
+    ]
+    for case in packet["replay_cases"]:
+        assert _expected_call_reaches_oracle(case)
+
+
 def _expected_call_reaches_oracle(case: dict[str, object]) -> bool:
     tool_specs = [ToolSpec.model_validate(payload) for payload in case["tool_specs"]]  # type: ignore[index]
     executor = DeterministicExecutor(tool_specs=tool_specs)
