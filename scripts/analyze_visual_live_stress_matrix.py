@@ -321,6 +321,13 @@ DEFAULT_ALIAS_TRANSFER_RESIDUAL_COMPARISONS: tuple[tuple[str, Path], ...] = (
         / "tool_probe_replay_live_comparisons"
         / "20260510T_h1n_residual_hybrid_label_guard_vs_no_directive_v1",
     ),
+    (
+        "no_call_control_rescue_v10",
+        ROOT
+        / "results"
+        / "tool_probe_replay_live_comparisons"
+        / "20260510T_h1n_residual_no_call_control_rescue_vs_no_directive_v1",
+    ),
 )
 DEFAULT_COMPONENT_VALUE_COMPARISONS: tuple[tuple[str, Path], ...] = (
     (

@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-05-10T02:11:02.436517+00:00",
+  "generated_at": "2026-05-10T16:13:08.847777+00:00",
   "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/visual_alias_transfer_residual_diagnostic",
-  "comparison_count": 5,
+  "comparison_count": 6,
   "case_count": 8,
   "finding_count": 4,
   "matrix_name": "alias-transfer-residual",

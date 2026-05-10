@@ -1,8 +1,8 @@
 {
   "manifest": {
-    "generated_at": "2026-05-10T02:11:02.436517+00:00",
+    "generated_at": "2026-05-10T16:13:08.847777+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/visual_alias_transfer_residual_diagnostic",
-    "comparison_count": 5,
+    "comparison_count": 6,
     "case_count": 8,
     "finding_count": 4,
     "matrix_name": "alias-transfer-residual",
@@ -63,6 +63,17 @@
       "baseline_executor_equivalence_rate": 0.5,
       "candidate_executor_equivalence_rate": 0.875,
       "delta_executor_equivalence_rate": 0.375
+    },
+    {
+      "label": "no_call_control_rescue_v10",
+      "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_no_call_control_rescue",
+      "shared_case_count": 8,
+      "baseline_exact_rate": 0.5,
+      "candidate_exact_rate": 0.5,
+      "delta_exact_rate": 0.0,
+      "baseline_executor_equivalence_rate": 0.5,
+      "candidate_executor_equivalence_rate": 0.75,
+      "delta_executor_equivalence_rate": 0.25
     }
   ],
   "case_rows": [
@@ -465,6 +476,86 @@
       "delta_exact_match": 0,
       "delta_executor_equivalence_match": 0,
       "transition": "unchanged"
+    },
+    {
+      "label": "no_call_control_rescue_v10",
+      "case_id": "residual_alert_h73_toggle_decoy",
+      "family": "visual_tool_routing_transfer_residual",
+      "baseline_failure_mode": "argument_mismatch",
+      "candidate_failure_mode": "argument_mismatch",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "no_call_control_rescue_v10",
+      "case_id": "residual_badge_q14_notice_decoy",
+      "family": "visual_argument_transfer_residual_code",
+      "baseline_failure_mode": "exact",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "no_call_control_rescue_v10",
+      "case_id": "residual_chip_n31_owner_note_decoy",
+      "family": "visual_argument_transfer_residual_code",
+      "baseline_failure_mode": "exact",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "no_call_control_rescue_v10",
+      "case_id": "residual_chip_v82_chart_decoy",
+      "family": "visual_argument_transfer_residual_code",
+      "baseline_failure_mode": "argument_mismatch",
+      "candidate_failure_mode": "executable_paraphrase",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 1,
+      "transition": "executor_gain_without_strict"
+    },
+    {
+      "label": "no_call_control_rescue_v10",
+      "case_id": "residual_field_m20_stale_selection_decoy",
+      "family": "visual_tool_routing_transfer_residual",
+      "baseline_failure_mode": "no_tool_call",
+      "candidate_failure_mode": "executable_paraphrase",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 1,
+      "transition": "executor_gain_without_strict"
+    },
+    {
+      "label": "no_call_control_rescue_v10",
+      "case_id": "residual_notice_tile_email_decoy",
+      "family": "visual_argument_transfer_residual_noncode",
+      "baseline_failure_mode": "exact",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "no_call_control_rescue_v10",
+      "case_id": "residual_phase_pill_ticket_decoy",
+      "family": "visual_argument_transfer_residual_noncode",
+      "baseline_failure_mode": "exact",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
+    },
+    {
+      "label": "no_call_control_rescue_v10",
+      "case_id": "residual_state_pill_note_decoy",
+      "family": "visual_argument_transfer_residual_noncode",
+      "baseline_failure_mode": "no_tool_call",
+      "candidate_failure_mode": "argument_mismatch",
+      "delta_exact_match": 0,
+      "delta_executor_equivalence_match": 0,
+      "transition": "unchanged"
     }
   ],
   "transition_rows": [
@@ -509,6 +600,16 @@
       "count": 5
     },
     {
+      "label": "no_call_control_rescue_v10",
+      "transition": "executor_gain_without_strict",
+      "count": 2
+    },
+    {
+      "label": "no_call_control_rescue_v10",
+      "transition": "unchanged",
+      "count": 6
+    },
+    {
       "label": "oblique_code_guard_v7",
       "transition": "executor_gain_without_strict",
       "count": 1
@@ -545,7 +646,7 @@
     },
     {
       "finding_id": "executor_without_strict",
-      "finding": "Rows with executor gain without strict gain: argument_hints_v2, oblique_code_guard_v7."
+      "finding": "Rows with executor gain without strict gain: argument_hints_v2, no_call_control_rescue_v10, oblique_code_guard_v7."
     },
     {
       "finding_id": "regressions",

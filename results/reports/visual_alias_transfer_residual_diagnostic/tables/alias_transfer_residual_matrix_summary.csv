@@ -4,3 +4,4 @@ argument_hints_v2,mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_rol
 oblique_code_hints_v6,mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_oblique_code_hints,8,0.5,0.75,0.25,0.5,0.75,0.25
 oblique_code_guard_v7,mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_oblique_code_guard,8,0.5,0.75,0.25,0.5,0.875,0.375
 hybrid_label_guard_v8,mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_hybrid_label_guard,8,0.5,0.875,0.375,0.5,0.875,0.375
+no_call_control_rescue_v10,mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_no_call_control_rescue,8,0.5,0.5,0.0,0.5,0.75,0.25
