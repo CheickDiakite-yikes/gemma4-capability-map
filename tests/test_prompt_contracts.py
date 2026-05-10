@@ -405,6 +405,27 @@ def test_visual_role_catalog_selection_origin_guard_targets_h1y_failures() -> No
     assert '"filter_query": {"type": "string", "description": "Shortest literal narrowing token for a selection_id copied from an earlier passing visual tool result only' in rendered
 
 
+def test_visual_role_catalog_scoped_residual_exactness_preserves_h2b_route_boundaries() -> None:
+    specs = build_default_registry().specs
+    rendered = tool_catalog_text(
+        [specs["extract_layout"], specs["refine_selection"], specs["read_region_text"]],
+        profile_id="visual_role_catalog_scoped_residual_exactness_v18",
+    )
+
+    assert "Tool catalog profile: visual_role_catalog_scoped_residual_exactness_v18" in rendered
+    assert "Narrow component-label guard:" in rendered
+    assert "Scoped residual exactness route:" in rendered
+    assert "Default to the narrow component-label guard" in rendered
+    assert "result pill stays result pill" in rendered
+    assert "alert s92 stays alert s92" in rendered
+    assert "badge c08 stays badge c08" in rendered
+    assert "state tag stays state tag" in rendered
+    assert "mode toggle stays mode toggle" in rendered
+    assert "Leave stale selection_id repair to the controller gate" in rendered
+    assert '"target_query": {"type": "string", "description": "Compact scoped residual label from the prompt' in rendered
+    assert '"filter_query": {"type": "string", "description": "Shortest literal narrowing token for a current selection_id' in rendered
+
+
 def test_tool_catalog_profile_renders_inside_catalog_without_exact_directive() -> None:
     specs = build_default_registry().specs
     rendered = tool_catalog_text(
