@@ -1249,6 +1249,70 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C30_component_value_guard_is_negative_evidence",
+        claim=(
+            "A focused component-role/value holdout rejects the broad v9 component-value guard and keeps "
+            "argument hints plus hybrid label guard as the current best local MLX Gemma visual profiles."
+        ),
+        status="negative_result_current_packets",
+        evidence_strength="moderate_internal",
+        primary_metric=(
+            "On the eight-case component-value holdout, argument hints v2 and hybrid label guard v8 both reach "
+            "6/8 exact and 7/8 executor-equivalent successes; no-directive reaches 5/8 exact and 6/8 "
+            "executor-equivalent; the v9 component-value guard falls to 4/8 exact and 4/8 executor-equivalent."
+        ),
+        limitation=(
+            "The packet is intentionally narrow and replay-shaped; the result rejects this broad prompt-contract "
+            "wording, not all possible component-role/value runtime interventions."
+        ),
+        next_test=(
+            "Test a lighter intervention that preserves argument-hints behavior while targeting only no-call "
+            "status-badge/owner-field failures, then replay against residual and component-value packets."
+        ),
+        sources=(
+            EvidenceSource(
+                "replay_packet",
+                "results/tool_probe_replay_packets/20260510T_visual_hard_slice_component_value_oracle_dry_run_v1",
+                "Fresh eight-case component-role/value holdout with pill, badge, chip, field, and stale-selection decoys.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h1n_component_value_component_value_guard_execute_v1",
+                "v9 component-value guard execution reaching only 4/8 exact and executor-equivalent successes.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h1n_component_value_argument_hints_execute_v1",
+                "Argument-hints execution reaching 6/8 exact and 7/8 executor-equivalent successes.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h1n_component_value_hybrid_label_guard_execute_v1",
+                "Hybrid label guard execution matching argument hints at 6/8 exact and 7/8 executor-equivalent successes.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260510T_h1n_component_value_component_value_guard_vs_no_directive_v1",
+                "Comparison showing the v9 component-value guard regresses below no-directive by -0.125 exact and -0.25 executor-equivalence.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260510T_h1n_component_value_argument_hints_vs_no_directive_v1",
+                "Comparison showing +0.125 exact and executor-equivalence deltas for argument hints over no-directive.",
+            ),
+            EvidenceSource(
+                "diagnostic_report",
+                "results/reports/visual_component_value_diagnostic/diagnostic.md",
+                "Matrix diagnostic recording v9 regressions and identifying argument hints as the strict upper bound.",
+            ),
+            EvidenceSource(
+                "report_table",
+                "results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_component_value_live_replay_summary.csv",
+                "Paper-facing table summarizing component-value candidate rates.",
+            ),
+        ),
+    ),
 )
 
 

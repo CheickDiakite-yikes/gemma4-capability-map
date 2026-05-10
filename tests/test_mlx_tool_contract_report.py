@@ -34,8 +34,8 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
 
     assert payload["gemini"]["dry_run"] is True
     assert payload["gemini"]["workflow_count"] == 10
-    assert payload["manifest"]["table_count"] == 72
-    assert payload["manifest"]["figure_count"] == 35
+    assert payload["manifest"]["table_count"] == 74
+    assert payload["manifest"]["figure_count"] == 36
 
     candidate_ids = {row["tool_prompt_contract_id"] for row in payload["prompt_contract_candidates"]}
     assert candidate_ids == {
@@ -514,6 +514,49 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert visual_hard_slice_residual_cases[
         ("residual hybrid label guard vs no directive", "residual_state_pill_note_decoy")
     ]["delta_exact_match"] == 0
+    visual_hard_slice_component_value = {
+        row["comparison"]: row for row in payload["visual_hard_slice_component_value_live_replay_summary"]
+    }
+    assert (
+        visual_hard_slice_component_value["component-value contracted vs no directive"][
+            "candidate_exact_rate"
+        ]
+        == 0.125
+    )
+    assert (
+        visual_hard_slice_component_value["component-value argument hints vs no directive"][
+            "candidate_executor_equivalence_rate"
+        ]
+        == 0.875
+    )
+    assert (
+        visual_hard_slice_component_value["component-value hybrid label guard vs no directive"][
+            "candidate_exact_rate"
+        ]
+        == 0.75
+    )
+    assert (
+        visual_hard_slice_component_value["component-value component value guard vs no directive"][
+            "delta_executor_equivalence_rate"
+        ]
+        == -0.25
+    )
+    visual_hard_slice_component_value_cases = {
+        (row["comparison"], row["case_id"]): row
+        for row in payload["visual_hard_slice_component_value_live_replay_case_deltas"]
+    }
+    assert visual_hard_slice_component_value_cases[
+        (
+            "component-value component value guard vs no directive",
+            "component_value_state_pill_note_decoy",
+        )
+    ]["delta_exact_match"] == -1
+    assert visual_hard_slice_component_value_cases[
+        (
+            "component-value argument hints vs no directive",
+            "component_value_owner_field_stale_selection_decoy",
+        )
+    ]["delta_exact_match"] == 1
     h1i_candidates = {row["system_id"]: row for row in payload["h1i_prompt_contract_candidate_metrics"]}
     assert h1i_candidates["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive"]["tool_turn_directive_enabled"] == "False"
     assert h1i_candidates["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor"]["raw_planning_clean_rate_avg"] == "1.0"
@@ -597,6 +640,8 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert (tmp_path / "tables" / "visual_hard_slice_post_repair_live_replay_case_deltas.csv").exists()
     assert (tmp_path / "tables" / "visual_hard_slice_residual_live_replay_summary.csv").exists()
     assert (tmp_path / "tables" / "visual_hard_slice_residual_live_replay_case_deltas.csv").exists()
+    assert (tmp_path / "tables" / "visual_hard_slice_component_value_live_replay_summary.csv").exists()
+    assert (tmp_path / "tables" / "visual_hard_slice_component_value_live_replay_case_deltas.csv").exists()
     assert (tmp_path / "tables" / "prompt_contract_promotion_decisions.csv").exists()
     assert (tmp_path / "tables" / "h1i_prompt_contract_candidate_metrics.csv").exists()
     assert (tmp_path / "tables" / "h1i_prompt_contract_repeat3_metrics.csv").exists()
@@ -644,3 +689,4 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert (tmp_path / "figures" / "visual_hard_slice_alias_transfer_oracle_live_replay_gate.svg").exists()
     assert (tmp_path / "figures" / "visual_hard_slice_post_repair_live_replay_gate.svg").exists()
     assert (tmp_path / "figures" / "visual_hard_slice_residual_live_replay_gate.svg").exists()
+    assert (tmp_path / "figures" / "visual_hard_slice_component_value_live_replay_gate.svg").exists()

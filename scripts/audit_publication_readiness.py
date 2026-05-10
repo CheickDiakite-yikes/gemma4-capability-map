@@ -59,13 +59,13 @@ def audit_publication_readiness(
         _check_bool(
             check_id="tool_contract_report_has_current_tables",
             severity="blocking",
-            passed=int(report_manifest.get("table_count", 0) or 0) >= 72,
+            passed=int(report_manifest.get("table_count", 0) or 0) >= 74,
             detail=f"table_count={report_manifest.get('table_count', '')}",
         ),
         _check_bool(
             check_id="tool_contract_report_has_current_figures",
             severity="blocking",
-            passed=int(report_manifest.get("figure_count", 0) or 0) >= 35,
+            passed=int(report_manifest.get("figure_count", 0) or 0) >= 36,
             detail=f"figure_count={report_manifest.get('figure_count', '')}",
         ),
         _check_path(
@@ -701,6 +701,43 @@ def audit_publication_readiness(
             / "tables"
             / "visual_hard_slice_residual_live_replay_summary.csv",
             detail="Paper-facing residual holdout summary table exists.",
+        ),
+        _check_path(
+            check_id="h1n_component_value_packet_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_packets"
+            / "20260510T_visual_hard_slice_component_value_oracle_dry_run_v1"
+            / "summary.json",
+            detail="Component-role/value holdout packet exists.",
+        ),
+        _check_path(
+            check_id="h1n_component_value_v9_live_packet_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260510T_h1n_component_value_component_value_guard_execute_v1"
+            / "summary.json",
+            detail="Component-value v9 live replay packet exists.",
+        ),
+        _check_path(
+            check_id="h1n_component_value_diagnostic_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "visual_component_value_diagnostic" / "diagnostic.md",
+            detail="Component-value visual diagnostic exists.",
+        ),
+        _check_path(
+            check_id="h1n_component_value_report_table_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "mlx_tool_contract_harnessing"
+            / "tables"
+            / "visual_hard_slice_component_value_live_replay_summary.csv",
+            detail="Paper-facing component-value holdout summary table exists.",
         ),
         _check_path(
             check_id="current_state_doc_exists",

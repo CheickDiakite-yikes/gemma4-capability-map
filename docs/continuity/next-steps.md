@@ -125,12 +125,18 @@ Next implementation moves:
   - diagnostic: [`results/reports/visual_alias_transfer_residual_diagnostic/diagnostic.md`](../../results/reports/visual_alias_transfer_residual_diagnostic/diagnostic.md)
   - result: contracted/default `2 / 8`, no-directive `4 / 8`, argument hints `5 / 8` exact and `7 / 8` executor-equivalent, v6/v7 code profiles `6 / 8`, and v8 hybrid label guard `7 / 8`
   - interpretation: v8 is the current strict-selector upper bound on the residual packet, but it still misses `state pill`
+- completed component-value holdout:
+  - rejected profile: `visual_role_catalog_component_value_guard_v9`
+  - packet: [`results/tool_probe_replay_packets/20260510T_visual_hard_slice_component_value_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260510T_visual_hard_slice_component_value_oracle_dry_run_v1)
+  - diagnostic: [`results/reports/visual_component_value_diagnostic/diagnostic.md`](../../results/reports/visual_component_value_diagnostic/diagnostic.md)
+  - result: contracted/default `1 / 8`, no-directive `5 / 8` exact and `6 / 8` executor-equivalent, argument hints and hybrid label guard `6 / 8` exact and `7 / 8` executor-equivalent, v9 component-value guard `4 / 8`
+  - interpretation: broad component-role/value prose is harmful; v9 fixes `status badge` but regresses `state pill`, `priority chip`, and `result pill` into argument mismatches
 - completed post-repair holdout:
   - packet: [`results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_post_repair_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_post_repair_oracle_dry_run_v1)
   - diagnostic: [`results/reports/visual_alias_transfer_post_repair_diagnostic/diagnostic.md`](../../results/reports/visual_alias_transfer_post_repair_diagnostic/diagnostic.md)
   - result: no-directive `2 / 8`, contracted/default `3 / 8`, argument hints `5 / 8`, v6 code hints `5 / 8`, v7 code guard `6 / 8` exact and executor-equivalent
   - interpretation: code guard now has a fresh positive transfer result, but the profile is not a universal replacement; argument hints still covers some ordinary non-code labels better
-- next replay-shaped target: build a component-role/value ambiguity micro-slice around pill-like controls where the visible state value competes with the component label, then decide whether v8 needs a narrower v9 guard before packaged workflow promotion
+- next replay-shaped target: build a lighter no-call rescue that preserves argument hints and hybrid label behavior while specifically targeting `status badge` / `owner field` no-call failures; do not promote v9
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1

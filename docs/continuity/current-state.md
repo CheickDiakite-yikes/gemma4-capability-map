@@ -1157,7 +1157,35 @@ The repo still does not support these statements:
 - Gemma beats frontier closed models on the same harness
 - Gemma `31B` runtime posture is already reproduced locally
 
-## Latest H1n Residual Finding
+## Latest H1n Component-Value Finding
+
+The current H1n visual replay frontier is now the component-role/value holdout that followed the residual `state pill` miss.
+
+- component-value packet: [`results/tool_probe_replay_packets/20260510T_visual_hard_slice_component_value_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260510T_visual_hard_slice_component_value_oracle_dry_run_v1)
+- diagnostic: [`results/reports/visual_component_value_diagnostic/diagnostic.md`](../../results/reports/visual_component_value_diagnostic/diagnostic.md)
+- report table: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_component_value_live_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_component_value_live_replay_summary.csv)
+- predecessor packet: [`results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_residual_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_residual_oracle_dry_run_v1)
+
+Current component-value live replay rates:
+
+- contracted/default MLX: `1 / 8` exact and executor-equivalent
+- no-directive MLX: `5 / 8` exact and `6 / 8` executor-equivalent
+- argument hints v2: `6 / 8` exact and `7 / 8` executor-equivalent
+- hybrid label guard v8: `6 / 8` exact and `7 / 8` executor-equivalent
+- oblique code guard v7: `5 / 8` exact and executor-equivalent
+- component-value guard v9: `4 / 8` exact and executor-equivalent
+- schema-field hints v4: `3 / 8` exact and `4 / 8` executor-equivalent
+- oblique code hints v6: `2 / 8` exact and executor-equivalent
+
+Interpretation:
+
+- v9 component-value guard is negative evidence, not a profile to promote
+- argument hints v2 and hybrid label guard v8 are tied as the current component-value upper bound
+- the useful gains are no-call rescues on `status badge` and `owner field`
+- the harmful pattern is broad component-value prose causing argument mismatches on already-passable pill/chip targets
+- next research move should test a lighter no-call rescue while preserving argument-hints behavior
+
+## Previous H1n Residual Finding
 
 The current H1n visual replay frontier is now the residual hybrid-label holdout, not the older post-repair packet alone.
 

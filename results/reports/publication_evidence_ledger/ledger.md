@@ -4,9 +4,9 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 
 ## Manifest
 
-- generated_at: `2026-05-10T02:19:55.117382+00:00`
-- claim_count: `29`
-- evidence_source_count: `137`
+- generated_at: `2026-05-10T15:59:13.436866+00:00`
+- claim_count: `30`
+- evidence_source_count: `145`
 - missing_source_count: `0`
 
 ## Claims
@@ -42,6 +42,7 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C27_h1n_code_guard_improves_v6_but_not_argument_hints | supported_current_packets | strong_internal | Across the three H1n oracle packets, code guard reaches 14/18 exact and 15/18 executor-equivalent successes versus v6 at 11/18 and 12/18, while argument hints remains 14/18 exact and 16/18 executor-equivalent. | The comparison is still replay-shaped and packet-conditioned; it should be followed by a fresh post-repair holdout before claiming a general visual catalog profile. | Build a fresh post-repair holdout with code-like labels, stale-selection mentions, and non-code transfer labels, then compare argument hints and code guard. |
 | C28_h1n_post_repair_holdout_favors_code_guard | supported_current_packets | moderate_internal | On the eight-case post-repair holdout, code guard reaches 6/8 exact and executor-equivalent successes, versus no-directive at 2/8, contracted/default at 3/8, argument hints at 5/8, and v6 code hints at 5/8. | The packet is fresh relative to the oblique repair but remains replay-shaped and small; the remaining misses on `chip l90` and `status pill` need a follow-up micro-slice before promotion. | Build a focused follow-up around the two residual misses and test whether a hybrid activation profile can preserve argument-hints non-code behavior while keeping the code-guard gains. |
 | C29_h1n_residual_holdout_favors_hybrid_label_guard | supported_current_packets | moderate_internal | On the eight-case residual holdout, v8 hybrid label guard reaches 7/8 exact and executor-equivalent successes, versus contracted/default at 2/8, no-directive at 4/8, argument hints at 5/8 exact and 7/8 executor-equivalent, and v6/v7 code profiles at 6/8 exact. | The improvement is strict-selector fidelity on a small replay-shaped packet, not a broad workflow readiness estimate; `state pill` remains unresolved across the tested profiles. | Build a component-role/value disambiguation micro-slice around pill/tile/state labels and then promote only if the profile survives packaged workflow execution without new regressions. |
+| C30_component_value_guard_is_negative_evidence | negative_result_current_packets | moderate_internal | On the eight-case component-value holdout, argument hints v2 and hybrid label guard v8 both reach 6/8 exact and 7/8 executor-equivalent successes; no-directive reaches 5/8 exact and 6/8 executor-equivalent; the v9 component-value guard falls to 4/8 exact and 4/8 executor-equivalent. | The packet is intentionally narrow and replay-shaped; the result rejects this broad prompt-contract wording, not all possible component-role/value runtime interventions. | Test a lighter intervention that preserves argument-hints behavior while targeting only no-call status-badge/owner-field failures, then replay against residual and component-value packets. |
 
 ## Evidence Sources
 
@@ -184,3 +185,11 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C29_h1n_residual_holdout_favors_hybrid_label_guard | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260510T_h1n_residual_hybrid_label_guard_vs_code_guard_v1 | Comparison showing +0.125 exact delta over v7 code guard with tied executor-equivalence. |
 | C29_h1n_residual_holdout_favors_hybrid_label_guard | diagnostic_report | True | results/reports/visual_alias_transfer_residual_diagnostic/diagnostic.md | Matrix diagnostic identifying hybrid label guard as the residual strict upper bound and `state pill` as the remaining miss. |
 | C29_h1n_residual_holdout_favors_hybrid_label_guard | report_table | True | results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_residual_live_replay_summary.csv | Paper-facing table summarizing residual candidate rates. |
+| C30_component_value_guard_is_negative_evidence | replay_packet | True | results/tool_probe_replay_packets/20260510T_visual_hard_slice_component_value_oracle_dry_run_v1 | Fresh eight-case component-role/value holdout with pill, badge, chip, field, and stale-selection decoys. |
+| C30_component_value_guard_is_negative_evidence | live_replay_packet | True | results/tool_probe_replay_live/20260510T_h1n_component_value_component_value_guard_execute_v1 | v9 component-value guard execution reaching only 4/8 exact and executor-equivalent successes. |
+| C30_component_value_guard_is_negative_evidence | live_replay_packet | True | results/tool_probe_replay_live/20260510T_h1n_component_value_argument_hints_execute_v1 | Argument-hints execution reaching 6/8 exact and 7/8 executor-equivalent successes. |
+| C30_component_value_guard_is_negative_evidence | live_replay_packet | True | results/tool_probe_replay_live/20260510T_h1n_component_value_hybrid_label_guard_execute_v1 | Hybrid label guard execution matching argument hints at 6/8 exact and 7/8 executor-equivalent successes. |
+| C30_component_value_guard_is_negative_evidence | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260510T_h1n_component_value_component_value_guard_vs_no_directive_v1 | Comparison showing the v9 component-value guard regresses below no-directive by -0.125 exact and -0.25 executor-equivalence. |
+| C30_component_value_guard_is_negative_evidence | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260510T_h1n_component_value_argument_hints_vs_no_directive_v1 | Comparison showing +0.125 exact and executor-equivalence deltas for argument hints over no-directive. |
+| C30_component_value_guard_is_negative_evidence | diagnostic_report | True | results/reports/visual_component_value_diagnostic/diagnostic.md | Matrix diagnostic recording v9 regressions and identifying argument hints as the strict upper bound. |
+| C30_component_value_guard_is_negative_evidence | report_table | True | results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_component_value_live_replay_summary.csv | Paper-facing table summarizing component-value candidate rates. |

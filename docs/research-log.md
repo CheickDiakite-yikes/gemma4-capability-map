@@ -1,5 +1,34 @@
 # Research Log
 
+## 2026-05-10 - Component-Value Holdout Rejects the Broad v9 Guard
+
+- Built the focused component-role/value micro-slice that was motivated by the residual `state pill` miss:
+  - packet: [`20260510T_visual_hard_slice_component_value_oracle_dry_run_v1`](../results/tool_probe_replay_packets/20260510T_visual_hard_slice_component_value_oracle_dry_run_v1)
+  - diagnostic: [`visual_component_value_diagnostic`](../results/reports/visual_component_value_diagnostic)
+  - report table: [`visual_hard_slice_component_value_live_replay_summary.csv`](../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_component_value_live_replay_summary.csv)
+  - report figure: [`visual_hard_slice_component_value_live_replay_gate.svg`](../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_component_value_live_replay_gate.svg)
+- Live replay matrix:
+  - contracted/default MLX: `1 / 8` exact and executor-equivalent
+  - no-directive MLX: `5 / 8` exact and `6 / 8` executor-equivalent
+  - argument hints v2: `6 / 8` exact and `7 / 8` executor-equivalent
+  - hybrid label guard v8: `6 / 8` exact and `7 / 8` executor-equivalent
+  - oblique code guard v7: `5 / 8` exact and executor-equivalent
+  - oblique code hints v6: `2 / 8` exact and executor-equivalent
+  - schema-field hints v4: `3 / 8` exact and `4 / 8` executor-equivalent
+  - component-value guard v9: `4 / 8` exact and executor-equivalent
+- Interpretation:
+  - v9 is negative evidence, not a promotion candidate. It fixes the `status badge` no-call case but regresses `state pill`, `priority chip`, and `result pill` into argument mismatches.
+  - The current component-value upper bound is a tie between argument hints v2 and hybrid label guard v8. Both fix status-badge and owner-field no-call failures while preserving most previously correct pill/badge cases.
+  - The result narrows the research question: avoid broad component-role/value prose, and test a lighter no-call rescue that does not disturb argument-hints selector behavior.
+- Verification:
+  - `uv run pytest tests/test_visual_hard_slice_live_stress_packet.py tests/test_prompt_contracts.py tests/test_knowledge_work_h1.py::test_h1n_component_value_guard_registry_row_preserves_catalog_profile -q`
+  - `uv run pytest tests/test_visual_live_stress_diagnostic.py -q`
+  - `uv run pytest tests/test_mlx_tool_contract_report.py -q`
+- Reporting:
+  - MLX tool-contract report now has `74` tables and `36` figures
+  - publication evidence ledger now has `30` claims, `145` evidence sources, and `0` missing sources
+  - publication readiness audit now has `104` checks, `102` blocking checks, `0` blocking failures, and status `paper_draft_ready`
+
 ## 2026-05-10 - H1n Residual Hybrid Label Guard Becomes the Strict Upper Bound
 
 - Built and executed the residual holdout that followed the post-repair `chip l90` / `status pill` misses:
@@ -18,10 +47,10 @@
   - v8 is the current residual strict-selector upper bound, but its advantage over argument hints and v7 is mostly exactness rather than executor-equivalent reach.
   - The persistent miss is now `state pill`, which isolates a component-role/value ambiguity: the model still prefers the visible state/content value over the named component label in that case.
   - The next research move is a focused component-role/value micro-slice before promoting v8 into packaged workflows.
-- Reporting:
-  - MLX tool-contract report now has `72` tables and `35` figures
-  - publication evidence ledger now has `29` claims, `137` evidence sources, and `0` missing sources
-  - publication readiness audit now has `100` checks, `98` blocking checks, `0` blocking failures, and status `paper_draft_ready`
+- Reporting snapshot at the time of this residual result:
+  - MLX tool-contract report had `72` tables and `35` figures
+  - publication evidence ledger had `29` claims, `137` evidence sources, and `0` missing sources
+  - publication readiness audit had `100` checks, `98` blocking checks, `0` blocking failures, and status `paper_draft_ready`
 
 ## 2026-05-10 - H1n Post-Repair Holdout Favors the Code Guard
 

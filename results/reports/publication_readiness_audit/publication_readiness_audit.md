@@ -9,10 +9,10 @@
 | --- | --- | ---: | --- | --- |
 | ledger_manifest_exists | blocking | True | Publication evidence ledger manifest exists. | results/reports/publication_evidence_ledger/manifest.json |
 | ledger_has_no_missing_sources | blocking | True | missing_source_count=0 |  |
-| ledger_has_claims | blocking | True | claim_count=29 |  |
+| ledger_has_claims | blocking | True | claim_count=30 |  |
 | ledger_includes_negative_results | blocking | True | At least one claim is explicitly labeled as negative-result evidence. |  |
-| tool_contract_report_has_current_tables | blocking | True | table_count=72 |  |
-| tool_contract_report_has_current_figures | blocking | True | figure_count=35 |  |
+| tool_contract_report_has_current_tables | blocking | True | table_count=74 |  |
+| tool_contract_report_has_current_figures | blocking | True | figure_count=36 |  |
 | v3_negative_probe_packet_exists | blocking | True | Negative v3 catalog-profile probe is preserved. | results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_split_selector_hints_v3_probe |
 | v3_skipped_live_decision_exists | blocking | True | Skipped-live decision is preserved as an auditable packet. | results/tool_probe_replay_live/20260508T_visual_split_selector_hints_live_replay_skipped_v1/decision.md |
 | v4_negative_probe_packet_exists | blocking | True | Negative v4 schema-field probe is preserved. | results/tool_catalog_profile_probe_packets/20260509T_visual_role_catalog_schema_field_hints_v4_probe |
@@ -84,6 +84,10 @@
 | h1n_residual_hybrid_vs_code_guard_comparison_exists | blocking | True | Residual hybrid label guard comparison against v7 code guard exists. | results/tool_probe_replay_live_comparisons/20260510T_h1n_residual_hybrid_label_guard_vs_code_guard_v1/live_replay_comparison.json |
 | h1n_residual_diagnostic_exists | blocking | True | Residual visual alias-transfer diagnostic exists. | results/reports/visual_alias_transfer_residual_diagnostic/diagnostic.md |
 | h1n_residual_report_table_exists | blocking | True | Paper-facing residual holdout summary table exists. | results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_residual_live_replay_summary.csv |
+| h1n_component_value_packet_exists | blocking | True | Component-role/value holdout packet exists. | results/tool_probe_replay_packets/20260510T_visual_hard_slice_component_value_oracle_dry_run_v1/summary.json |
+| h1n_component_value_v9_live_packet_exists | blocking | True | Component-value v9 live replay packet exists. | results/tool_probe_replay_live/20260510T_h1n_component_value_component_value_guard_execute_v1/summary.json |
+| h1n_component_value_diagnostic_exists | blocking | True | Component-value visual diagnostic exists. | results/reports/visual_component_value_diagnostic/diagnostic.md |
+| h1n_component_value_report_table_exists | blocking | True | Paper-facing component-value holdout summary table exists. | results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_component_value_live_replay_summary.csv |
 | current_state_doc_exists | blocking | True | Continuity current-state doc exists. | docs/continuity/current-state.md |
 | next_steps_doc_exists | blocking | True | Continuity next-steps doc exists. | docs/continuity/next-steps.md |
 | research_log_exists | blocking | True | Research log exists. | docs/research-log.md |
