@@ -1,0 +1,7 @@
+finding_id,finding
+h2b_is_a_real_residual_breaker,No-directive reaches 1/5 strict and 2/5 executor-equivalent; v11 reaches 0/5 strict and 3/5 executor-equivalent. The packet preserves pressure instead of washing out the residual mechanism.
+v12_is_strict_winner,"Component-residual guard v12 reaches 4/5 strict and 4/5 executor-equivalent, the best strict score on H2b. Its remaining miss is: component_value_result_pill_log_decoy."
+v9_ties_executor_but_not_exact,"Component-value guard v9 reaches 3/5 strict and 4/5 executor-equivalent, tying v12 on executor-equivalence but missing strict exactness on: component_value_result_pill_log_decoy, h1o_code_alert_s92_negated_toggle_decoy."
+v15_solves_code_not_component_class,"Code-label exact guard v15 reaches 3/5 strict and 3/5 executor-equivalent. It fixes the code-label rows plus result pill, but misses the component-class rows: h1p_compact_state_tag_log_value_decoy, h1p_surface_mode_toggle_note_value_decoy."
+h2a_is_not_residual_exactness_solution,"H2a reaches 0/5 strict and 3/5 executor-equivalent on H2b. It remains useful for stale-selection mediation, but does not solve the alias/code-label residual by itself."
+next_slice,Do not globalize v12 despite the H2b win; H1s already showed transfer cost. The next move is H2c: a scoped residual route/factor that activates v12-like language only for exact alias/code-label contexts while preserving H2a's stale-selection controller gate.

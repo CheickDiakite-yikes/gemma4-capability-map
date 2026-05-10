@@ -1,0 +1,18 @@
+{
+  "generated_at": "2026-05-10T20:08:59.129329+00:00",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h2b_residual_exactness_synthesis",
+  "profile_count": 6,
+  "case_count": 5,
+  "v12_exact_success_count": 4,
+  "v12_executor_success_count": 4,
+  "v9_exact_success_count": 3,
+  "v9_executor_success_count": 4,
+  "h2a_exact_success_count": 0,
+  "h2a_executor_success_count": 3,
+  "strict_winner": "component_residual_guard_v12",
+  "executor_winners": [
+    "component_residual_guard_v12",
+    "component_value_guard_v9"
+  ],
+  "promotion_decision": "do_not_globalize_v12_use_h2c_scoped_residual_route"
+}
