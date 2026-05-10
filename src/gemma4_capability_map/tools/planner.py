@@ -83,6 +83,7 @@ def tool_catalog_text(tool_specs: list[ToolSpec], *, profile_id: str = "") -> st
 
 def known_tool_catalog_profile_ids() -> list[str]:
     return [
+        "visual_role_catalog_component_label_guard_v11",
         "visual_role_catalog_no_call_control_rescue_v10",
         "visual_role_catalog_component_value_guard_v9",
         "visual_role_catalog_hybrid_label_guard_v8",
@@ -131,6 +132,7 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
         "visual_role_catalog_hybrid_label_guard_v8",
         "visual_role_catalog_component_value_guard_v9",
         "visual_role_catalog_no_call_control_rescue_v10",
+        "visual_role_catalog_component_label_guard_v11",
     }:
         lines.extend(
             [
@@ -172,6 +174,7 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
         "visual_role_catalog_hybrid_label_guard_v8",
         "visual_role_catalog_component_value_guard_v9",
         "visual_role_catalog_no_call_control_rescue_v10",
+        "visual_role_catalog_component_label_guard_v11",
     }:
         lines.extend(
             [
@@ -184,6 +187,7 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
     if normalized in {
         "visual_role_catalog_hybrid_label_guard_v8",
         "visual_role_catalog_component_value_guard_v9",
+        "visual_role_catalog_component_label_guard_v11",
     }:
         lines.extend(
             [
@@ -192,6 +196,16 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
                 "- A state or priority value such as open, saved, expired, urgent, low, or done is content/state, not the component label, unless the user asks for that value itself.",
                 "- Code-like suffix tokens can be lowercase or uppercase; preserve the surface noun plus the suffix token as one phrase.",
                 "- Apply code-suffix discipline only when the requested visible label contains such a suffix; otherwise keep the ordinary component label from the request.",
+            ]
+        )
+    if normalized == "visual_role_catalog_component_label_guard_v11":
+        lines.extend(
+            [
+                "Narrow component-label guard:",
+                "- When the user requests a role-plus-component phrase such as state pill, status badge, phase tile, priority chip, severity pill, risk badge, result badge, owner field, mode toggle, lane tile, queue badge, or stage chip, copy that phrase into target_query.",
+                "- If the request adds wrapper words such as component, itself, visible, or current around that phrase, drop the wrapper words and keep only the role-plus-component phrase.",
+                "- Do not replace the requested component label with the displayed value inside it, such as On hold, High, Approved, Review, Pending, Manual, Blocked, Escalated, Nia, or Overdue.",
+                "- This narrow guard applies to extract_layout.target_query only when the requested target is a visible UI component label.",
             ]
         )
     if normalized == "visual_role_catalog_component_value_guard_v9":
@@ -237,6 +251,7 @@ def _profiled_tool_spec(tool: ToolSpec, *, profile_id: str = "") -> ToolSpec:
         "visual_role_catalog_hybrid_label_guard_v8",
         "visual_role_catalog_component_value_guard_v9",
         "visual_role_catalog_no_call_control_rescue_v10",
+        "visual_role_catalog_component_label_guard_v11",
     }:
         return tool
     if tool.name not in {"extract_layout", "refine_selection", "read_region_text"}:
@@ -283,6 +298,12 @@ def _profiled_tool_spec(tool: ToolSpec, *, profile_id: str = "") -> ToolSpec:
                 "Use a current image lookup when no current visual id exists; avoid business reasons, stale ids, "
                 "or repeated explanatory values."
             )
+        if normalized == "visual_role_catalog_component_label_guard_v11":
+            target_description = (
+                "Compact visible-component label requested by the user. If the request names a role plus component "
+                "class such as state pill, status badge, priority chip, owner field, lane tile, queue badge, or "
+                "stage chip, copy that phrase and ignore the displayed value inside it."
+            )
         _set_property_description(
             properties,
             "target_query",
@@ -297,6 +318,7 @@ def _profiled_tool_spec(tool: ToolSpec, *, profile_id: str = "") -> ToolSpec:
             "visual_role_catalog_hybrid_label_guard_v8",
             "visual_role_catalog_component_value_guard_v9",
             "visual_role_catalog_no_call_control_rescue_v10",
+            "visual_role_catalog_component_label_guard_v11",
         }:
             filter_description = (
                 "Shortest literal narrowing token for a current selection_id copied from the latest passing visual tool result. "

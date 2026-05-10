@@ -279,6 +279,26 @@ def test_visual_role_catalog_no_call_control_rescue_profile_adds_generic_routing
     assert "component_value_status_badge_email_decoy" not in rendered
 
 
+def test_visual_role_catalog_component_label_guard_profile_adds_narrow_component_copying_guard() -> None:
+    specs = build_default_registry().specs
+    rendered = tool_catalog_text(
+        [specs["extract_layout"], specs["refine_selection"], specs["read_region_text"]],
+        profile_id="visual_role_catalog_component_label_guard_v11",
+    )
+
+    assert "Tool catalog profile: visual_role_catalog_component_label_guard_v11" in rendered
+    assert "Visual argument field semantics:" in rendered
+    assert "Stale-selection activation guard:" in rendered
+    assert "Hybrid label activation guard:" in rendered
+    assert "Narrow component-label guard:" in rendered
+    assert "role-plus-component phrase" in rendered
+    assert "drop the wrapper words" in rendered
+    assert "displayed value inside it" in rendered
+    assert '"target_query": {"type": "string", "description": "Compact visible-component label requested by the user' in rendered
+    assert '"filter_query": {"type": "string", "description": "Shortest literal narrowing token for a current selection_id' in rendered
+    assert "component_value_status_badge_email_decoy" not in rendered
+
+
 def test_tool_catalog_profile_renders_inside_catalog_without_exact_directive() -> None:
     specs = build_default_registry().specs
     rendered = tool_catalog_text(
