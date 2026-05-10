@@ -1,0 +1,15 @@
+{
+  "generated_at": "2026-05-10T20:41:22.262681+00:00",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h2d_transfer_tradeoff_synthesis",
+  "packet_row_count": 8,
+  "comparison_count": 7,
+  "h2d_h2b_exact_success_count": 4,
+  "h2d_h2b_executor_success_count": 5,
+  "h2d_h1x_exact_success_count": 8,
+  "h2d_h1x_executor_success_count": 8,
+  "h2b_delta_exact_vs_h2c": -0.19999999999999996,
+  "h2b_delta_executor_vs_h2c": 0.0,
+  "h1x_delta_exact_vs_h2c": 0.125,
+  "h1x_delta_executor_vs_h2c": 0.125,
+  "promotion_decision": "reject_global_h2d_build_h2e_route_arbitration"
+}

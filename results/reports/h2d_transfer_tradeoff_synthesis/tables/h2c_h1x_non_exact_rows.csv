@@ -1,0 +1,2 @@
+packet_label,profile_label,case_id,family,failure_mode,executor_equivalence_match,expected_tool,expected_arguments,actual_tool,actual_arguments
+h1x_transfer,h2c_scoped_residual_gate,h1x_resolution_chip_comment_result_decoy,h1x_oblique_surface_value,argument_mismatch,False,extract_layout,"{""image_id"": ""img-h1x-resolution-chip"", ""target_query"": ""result chip""}",extract_layout,"{""image_id"": ""img-h1x-resolution-chip"", ""target_query"": ""result pill""}"

@@ -1,0 +1,8 @@
+comparison_label,comparison_dir,shared_case_count,baseline_exact_rate,candidate_exact_rate,delta_exact_rate,baseline_executor_equivalence_rate,candidate_executor_equivalence_rate,delta_executor_equivalence_rate
+h2b_h2d_vs_h2c,results/tool_probe_replay_live_comparisons/20260510T_h2d_class_preserving_route_vs_h2c_on_h2b_v1,5,1.0,0.8,-0.19999999999999996,1.0,1.0,0.0
+h2b_h2d_vs_v12,results/tool_probe_replay_live_comparisons/20260510T_h2d_class_preserving_route_vs_component_residual_guard_on_h2b_v1,5,0.8,0.8,0.0,0.8,1.0,0.19999999999999996
+h2b_h2d_vs_h2a,results/tool_probe_replay_live_comparisons/20260510T_h2d_class_preserving_route_vs_h2a_on_h2b_v1,5,0.0,0.8,0.8,0.6,1.0,0.4
+h1x_h2d_vs_h2c,results/tool_probe_replay_live_comparisons/20260510T_h2d_class_preserving_route_vs_h2c_on_h1x_v1,8,0.875,1.0,0.125,0.875,1.0,0.125
+h1x_h2d_vs_h2a,results/tool_probe_replay_live_comparisons/20260510T_h2d_class_preserving_route_vs_h2a_on_h1x_v1,8,1.0,1.0,0.0,1.0,1.0,0.0
+h1x_h2d_vs_v12,results/tool_probe_replay_live_comparisons/20260510T_h2d_class_preserving_route_vs_component_residual_guard_on_h1x_v1,8,1.0,1.0,0.0,1.0,1.0,0.0
+h1x_h2d_vs_v11,results/tool_probe_replay_live_comparisons/20260510T_h2d_class_preserving_route_vs_component_label_guard_on_h1x_v1,8,0.875,1.0,0.125,0.875,1.0,0.125

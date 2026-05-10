@@ -1,0 +1,6 @@
+finding_id,finding
+h2d_repairs_h2c_transfer_regression,"H2d is 8/8 on H1x versus H2c at 7/8, a delta of 0.125 exact and executor-equivalence rate."
+h2d_pays_local_h2b_exactness_cost,"H2d is 4/5 on H2b versus H2c at 5/5, a delta of -0.19999999999999996 exact rate while preserving 5/5 executor-equivalence."
+h2d_h2b_miss_is_executor_equivalent_over_specific_query,"The H2d H2b exact miss is h1o_code_badge_c08_note_decoy: expected {""image_id"": ""img-h1o-code-badge-c08"", ""target_query"": ""badge c08""}, but produced {""image_id"": ""img-h1o-code-badge-c08"", ""target_query"": ""escalated badge c08""}; the executor still selected the same region."
+h2c_h1x_miss_is_not_executor_equivalent,"The H2c H1x miss is h1x_resolution_chip_comment_result_decoy: expected {""image_id"": ""img-h1x-resolution-chip"", ""target_query"": ""result chip""}, but produced {""image_id"": ""img-h1x-resolution-chip"", ""target_query"": ""result pill""}; this broke executor-equivalence."
+next_slice,"Build H2e as route arbitration, not a larger generic prompt: preserve H2c's H2b exactness for compact code/value residuals while using H2d's class-preserving rule for held-out component-class transfer."

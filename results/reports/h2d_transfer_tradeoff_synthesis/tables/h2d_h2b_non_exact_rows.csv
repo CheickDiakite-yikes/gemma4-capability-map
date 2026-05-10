@@ -1,0 +1,2 @@
+packet_label,profile_label,case_id,family,failure_mode,executor_equivalence_match,expected_tool,expected_arguments,actual_tool,actual_arguments
+h2b_residual_fit,h2d_class_preserving_route,h1o_code_badge_c08_note_decoy,h1o_code_negation_preservation,executable_paraphrase,True,extract_layout,"{""image_id"": ""img-h1o-code-badge-c08"", ""target_query"": ""badge c08""}",extract_layout,"{""image_id"": ""img-h1o-code-badge-c08"", ""target_query"": ""escalated badge c08""}"
