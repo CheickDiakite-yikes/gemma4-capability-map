@@ -83,6 +83,7 @@ def tool_catalog_text(tool_specs: list[ToolSpec], *, profile_id: str = "") -> st
 
 def known_tool_catalog_profile_ids() -> list[str]:
     return [
+        "visual_role_catalog_conditional_component_identity_arbitration_v23",
         "visual_role_catalog_component_identity_negative_examples_v22",
         "visual_role_catalog_component_identity_query_contract_v21",
         "visual_role_catalog_route_arbitration_residual_exactness_v20",
@@ -155,6 +156,7 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
         "visual_role_catalog_route_arbitration_residual_exactness_v20",
         "visual_role_catalog_component_identity_query_contract_v21",
         "visual_role_catalog_component_identity_negative_examples_v22",
+        "visual_role_catalog_conditional_component_identity_arbitration_v23",
     }:
         lines.extend(
             [
@@ -191,6 +193,7 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
         "visual_role_catalog_route_arbitration_residual_exactness_v20",
         "visual_role_catalog_component_identity_query_contract_v21",
         "visual_role_catalog_component_identity_negative_examples_v22",
+        "visual_role_catalog_conditional_component_identity_arbitration_v23",
     }:
         lines.extend(
             [
@@ -218,6 +221,7 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
         "visual_role_catalog_route_arbitration_residual_exactness_v20",
         "visual_role_catalog_component_identity_query_contract_v21",
         "visual_role_catalog_component_identity_negative_examples_v22",
+        "visual_role_catalog_conditional_component_identity_arbitration_v23",
     }:
         lines.extend(
             [
@@ -242,6 +246,7 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
         "visual_role_catalog_route_arbitration_residual_exactness_v20",
         "visual_role_catalog_component_identity_query_contract_v21",
         "visual_role_catalog_component_identity_negative_examples_v22",
+        "visual_role_catalog_conditional_component_identity_arbitration_v23",
     }:
         lines.extend(
             [
@@ -265,6 +270,7 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
         "visual_role_catalog_route_arbitration_residual_exactness_v20",
         "visual_role_catalog_component_identity_query_contract_v21",
         "visual_role_catalog_component_identity_negative_examples_v22",
+        "visual_role_catalog_conditional_component_identity_arbitration_v23",
     }:
         lines.extend(
             [
@@ -400,6 +406,19 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
                 "- Leave stale selection_id repair to the controller gate; never call refine_selection with ids that appear only in the user's text.",
             ]
         )
+    if normalized == "visual_role_catalog_conditional_component_identity_arbitration_v23":
+        lines.extend(
+            [
+                "Conditional component-identity arbitration:",
+                "- Default to route-arbitrated residual exactness: preserve the exact role noun plus component class the user named, including result pill, result chip, badge c08, error banner, warning panel, and error notice.",
+                "- Activate displayed-value component-identity protection only when the prompt explicitly asks for a component identity next to a displayed value, such as result tile for Blocked or resolution badge for Deferred.",
+                "- In that activated route, target_query is the component phrase, not the displayed value: result tile for Blocked stays result tile, and resolution badge for Deferred stays resolution badge.",
+                "- If the user asks exactly for state marker, use state marker; do not expand it to lifecycle state marker. If the user asks exactly for mode switch, use mode switch; do not rewrite it as mode toggle.",
+                "- Do not import examples across component classes: result tile does not change result pill or result chip, error notice does not change error banner, and badge m31 does not change badge c08.",
+                "- Keep code-label suffixes exact and separate: badge c08 stays badge c08, badge m31 stays badge m31, and never combine them into badge m31 c08.",
+                "- Leave stale selection_id repair to the controller gate; never call refine_selection with ids that appear only in the user's text.",
+            ]
+        )
     if normalized == "visual_role_catalog_component_value_guard_v9":
         lines.extend(
             [
@@ -455,6 +474,7 @@ def _profiled_tool_spec(tool: ToolSpec, *, profile_id: str = "") -> ToolSpec:
         "visual_role_catalog_route_arbitration_residual_exactness_v20",
         "visual_role_catalog_component_identity_query_contract_v21",
         "visual_role_catalog_component_identity_negative_examples_v22",
+        "visual_role_catalog_conditional_component_identity_arbitration_v23",
     }:
         return tool
     if tool.name not in {"extract_layout", "refine_selection", "read_region_text"}:
@@ -575,6 +595,14 @@ def _profiled_tool_spec(tool: ToolSpec, *, profile_id: str = "") -> ToolSpec:
                 "displayed values like Blocked or Deferred, value-appended phrases like resolution badge Deferred, "
                 "or nearby aliases like lifecycle state marker or mode toggle."
             )
+        if normalized == "visual_role_catalog_conditional_component_identity_arbitration_v23":
+            target_description = (
+                "Compact route-arbitrated component label from the prompt. Default to the exact role noun plus "
+                "component class the user named, such as result pill, result chip, badge c08, error banner, "
+                "warning panel, or error notice. Only for explicit displayed-value component-identity prompts, "
+                "preserve the component phrase such as result tile for Blocked, resolution badge for Deferred, "
+                "state marker, or mode switch; never import examples across component classes or code suffixes."
+            )
         _set_property_description(
             properties,
             "target_query",
@@ -601,6 +629,7 @@ def _profiled_tool_spec(tool: ToolSpec, *, profile_id: str = "") -> ToolSpec:
             "visual_role_catalog_route_arbitration_residual_exactness_v20",
             "visual_role_catalog_component_identity_query_contract_v21",
             "visual_role_catalog_component_identity_negative_examples_v22",
+            "visual_role_catalog_conditional_component_identity_arbitration_v23",
         }:
             filter_description = (
                 "Shortest literal narrowing token for a current selection_id copied from the latest passing visual tool result. "

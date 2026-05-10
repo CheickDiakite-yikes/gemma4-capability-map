@@ -503,6 +503,28 @@ def test_visual_role_catalog_component_identity_negative_examples_targets_h2f_re
     assert '"filter_query": {"type": "string", "description": "Shortest literal narrowing token for a current selection_id' in rendered
 
 
+def test_visual_role_catalog_conditional_component_identity_arbitration_guards_h2h_regressions() -> None:
+    specs = build_default_registry().specs
+    rendered = tool_catalog_text(
+        [specs["extract_layout"], specs["refine_selection"], specs["read_region_text"]],
+        profile_id="visual_role_catalog_conditional_component_identity_arbitration_v23",
+    )
+
+    assert "Tool catalog profile: visual_role_catalog_conditional_component_identity_arbitration_v23" in rendered
+    assert "Conditional component-identity arbitration:" in rendered
+    assert "Default to route-arbitrated residual exactness" in rendered
+    assert "result pill, result chip, badge c08, error banner" in rendered
+    assert "result tile for Blocked stays result tile" in rendered
+    assert "resolution badge for Deferred stays resolution badge" in rendered
+    assert "state marker; do not expand it to lifecycle state marker" in rendered
+    assert "mode switch; do not rewrite it as mode toggle" in rendered
+    assert "result tile does not change result pill or result chip" in rendered
+    assert "error notice does not change error banner" in rendered
+    assert "never combine them into badge m31 c08" in rendered
+    assert '"target_query": {"type": "string", "description": "Compact route-arbitrated component label from the prompt' in rendered
+    assert '"filter_query": {"type": "string", "description": "Shortest literal narrowing token for a current selection_id' in rendered
+
+
 def test_tool_catalog_profile_renders_inside_catalog_without_exact_directive() -> None:
     specs = build_default_registry().specs
     rendered = tool_catalog_text(
