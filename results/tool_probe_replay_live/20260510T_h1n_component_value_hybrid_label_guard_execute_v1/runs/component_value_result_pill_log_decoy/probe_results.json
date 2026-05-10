@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "component_value_result_pill_log_decoy",
+    "family": "visual_argument_transfer_component_value_pill",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "component-result-pill-8502"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-component-result-pill",
+          "target_query": "pill"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-component-result-pill",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "component-result-pill-8502"
+          ],
+          "region_id": "component-result-pill-8502",
+          "text_preview": "Approved"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-component-result-pill",
+          "target_query": "result pill"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-component-result-pill",
+          "target_query": "pill"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-component-result-pill\", \"target_query\": \"pill\"}}",
+    "prompt_tokens": 1470,
+    "completion_tokens": 34,
+    "latency_ms": 4762
+  }
+]

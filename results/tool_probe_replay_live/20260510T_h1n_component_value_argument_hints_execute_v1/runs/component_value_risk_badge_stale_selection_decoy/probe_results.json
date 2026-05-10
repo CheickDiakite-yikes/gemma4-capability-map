@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "component_value_risk_badge_stale_selection_decoy",
+    "family": "visual_tool_routing_component_value",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "component-risk-badge-8602"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-component-risk-badge",
+          "target_query": "risk badge"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-component-risk-badge",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "component-risk-badge-8602"
+          ],
+          "region_id": "component-risk-badge-8602",
+          "text_preview": "Overdue"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-component-risk-badge",
+          "target_query": "risk badge"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-component-risk-badge",
+          "target_query": "risk badge"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-component-risk-badge\", \"target_query\": \"risk badge\"}}",
+    "prompt_tokens": 999,
+    "completion_tokens": 35,
+    "latency_ms": 3968
+  }
+]

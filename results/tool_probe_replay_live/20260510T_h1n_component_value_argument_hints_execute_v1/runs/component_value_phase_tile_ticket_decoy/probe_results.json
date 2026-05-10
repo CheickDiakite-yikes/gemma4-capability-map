@@ -1,0 +1,58 @@
+[
+  {
+    "case_id": "component_value_phase_tile_ticket_decoy",
+    "family": "visual_argument_transfer_component_value_nonpill",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "component-phase-tile-8202"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-component-phase-tile",
+          "target_query": "ticket summary repeats review"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-component-phase-tile",
+          "selection_kind": "regions",
+          "count": 0,
+          "executor_mode": "local",
+          "region_ids": []
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-component-phase-tile",
+          "target_query": "phase tile"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-component-phase-tile",
+          "target_query": "ticket summary repeats review"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-component-phase-tile\", \"target_query\": \"ticket summary repeats review\"}}",
+    "prompt_tokens": 985,
+    "completion_tokens": 37,
+    "latency_ms": 4054
+  }
+]

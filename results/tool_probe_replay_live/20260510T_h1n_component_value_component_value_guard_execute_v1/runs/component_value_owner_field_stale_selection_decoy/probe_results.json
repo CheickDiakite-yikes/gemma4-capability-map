@@ -1,0 +1,63 @@
+[
+  {
+    "case_id": "component_value_owner_field_stale_selection_decoy",
+    "family": "visual_tool_routing_component_value",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "component-owner-field-8702"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-component-owner-field",
+          "target_query": "owner"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-component-owner-field",
+          "selection_kind": "regions",
+          "count": 2,
+          "executor_mode": "local",
+          "region_ids": [
+            "component-note-8701",
+            "component-owner-field-8702"
+          ],
+          "region_id": "component-note-8701",
+          "text_preview": "Mina owns renewal handoff"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-component-owner-field",
+          "target_query": "owner field"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-component-owner-field",
+          "target_query": "owner"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-component-owner-field\", \"target_query\": \"owner\"}}",
+    "prompt_tokens": 1596,
+    "completion_tokens": 34,
+    "latency_ms": 4717
+  }
+]

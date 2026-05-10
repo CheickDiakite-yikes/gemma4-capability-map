@@ -1,0 +1,51 @@
+[
+  {
+    "case_id": "component_value_status_badge_email_decoy",
+    "family": "visual_argument_transfer_component_value_nonpill",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "component-status-badge-8102"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "read_region_text",
+        "arguments": {
+          "image_id": "img-component-status-badge",
+          "region_id": ""
+        },
+        "validator_result": "fail",
+        "output": {},
+        "error": "'Region not found: '"
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-component-status-badge",
+          "target_query": "status badge"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "read_region_text",
+        "arguments": {
+          "image_id": "img-component-status-badge",
+          "region_id": ""
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"read_region_text\", \"arguments\": {\"image_id\": \"img-component-status-badge\", \"region_id\": \"\"}}",
+    "prompt_tokens": 771,
+    "completion_tokens": 35,
+    "latency_ms": 4263
+  }
+]
