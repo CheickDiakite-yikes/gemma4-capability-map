@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="280" viewBox="0 0 760 280" role="img" aria-labelledby="title desc">
+  <title id="title">H2e route arbitration gate</title>
+  <desc id="desc">H2e reaches 5 of 5 exact on H2b and 8 of 8 exact on H1x.</desc>
+  <rect width="760" height="280" fill="#ffffff"/>
+  <text x="32" y="42" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#111827">H2e route arbitration gate</text>
+  <text x="32" y="72" font-family="Arial, sans-serif" font-size="14" fill="#374151">Strict exact and executor-equivalent success after route arbitration</text>
+  <g transform="translate(32 110)">
+    <rect width="320" height="112" rx="8" fill="#ecfeff" stroke="#0891b2" stroke-width="2"/>
+    <text x="20" y="34" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#0f172a">H2b residual fit</text>
+    <text x="20" y="68" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#0891b2">5 / 5</text>
+    <text x="20" y="94" font-family="Arial, sans-serif" font-size="14" fill="#374151">exact and executor-equivalent</text>
+  </g>
+  <g transform="translate(408 110)">
+    <rect width="320" height="112" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+    <text x="20" y="34" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#0f172a">H1x transfer</text>
+    <text x="20" y="68" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#16a34a">8 / 8</text>
+    <text x="20" y="94" font-family="Arial, sans-serif" font-size="14" fill="#374151">exact and executor-equivalent</text>
+  </g>
+  <text x="32" y="252" font-family="Arial, sans-serif" font-size="13" fill="#4b5563">Decision: promote only to fresh H2f holdout, not global default.</text>
+</svg>

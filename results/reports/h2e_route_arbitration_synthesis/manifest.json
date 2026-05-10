@@ -1,0 +1,16 @@
+{
+  "generated_at": "2026-05-10T20:49:48.512146+00:00",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h2e_route_arbitration_synthesis",
+  "packet_row_count": 10,
+  "comparison_count": 9,
+  "h2e_h2b_exact_success_count": 5,
+  "h2e_h2b_executor_success_count": 5,
+  "h2e_h1x_exact_success_count": 8,
+  "h2e_h1x_executor_success_count": 8,
+  "h2b_delta_exact_vs_h2c": 0.0,
+  "h2b_delta_executor_vs_h2c": 0.0,
+  "h1x_delta_exact_vs_h2c": 0.125,
+  "h1x_delta_executor_vs_h2c": 0.125,
+  "h2e_non_exact_count": 0,
+  "promotion_decision": "promote_to_fresh_h2f_holdout_not_global_default"
+}

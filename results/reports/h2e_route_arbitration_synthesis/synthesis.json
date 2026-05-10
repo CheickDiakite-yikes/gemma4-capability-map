@@ -1,0 +1,282 @@
+{
+  "manifest": {
+    "generated_at": "2026-05-10T20:49:48.512146+00:00",
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h2e_route_arbitration_synthesis",
+    "packet_row_count": 10,
+    "comparison_count": 9,
+    "h2e_h2b_exact_success_count": 5,
+    "h2e_h2b_executor_success_count": 5,
+    "h2e_h1x_exact_success_count": 8,
+    "h2e_h1x_executor_success_count": 8,
+    "h2b_delta_exact_vs_h2c": 0.0,
+    "h2b_delta_executor_vs_h2c": 0.0,
+    "h1x_delta_exact_vs_h2c": 0.125,
+    "h1x_delta_executor_vs_h2c": 0.125,
+    "h2e_non_exact_count": 0,
+    "promotion_decision": "promote_to_fresh_h2f_holdout_not_global_default"
+  },
+  "packet_rows": [
+    {
+      "packet_label": "h2b_residual_fit",
+      "profile_label": "h2a_stale_selection_gate",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_label_guard_visual_stale_selection_gate",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2b_residual_exactness_h2a_execute_v1",
+      "case_count": 5,
+      "exact_success_count": 0,
+      "exact_rate": 0.0,
+      "executor_success_count": 3,
+      "executor_rate": 0.6
+    },
+    {
+      "packet_label": "h2b_residual_fit",
+      "profile_label": "component_residual_guard_v12",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2b_residual_exactness_component_residual_guard_execute_v1",
+      "case_count": 5,
+      "exact_success_count": 4,
+      "exact_rate": 0.8,
+      "executor_success_count": 4,
+      "executor_rate": 0.8
+    },
+    {
+      "packet_label": "h2b_residual_fit",
+      "profile_label": "h2c_scoped_residual_gate",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_scoped_residual_exactness_visual_stale_selection_gate",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2c_scoped_residual_gate_on_h2b_execute_v1",
+      "case_count": 5,
+      "exact_success_count": 5,
+      "exact_rate": 1.0,
+      "executor_success_count": 5,
+      "executor_rate": 1.0
+    },
+    {
+      "packet_label": "h2b_residual_fit",
+      "profile_label": "h2d_class_preserving_route",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_class_preserving_residual_route_visual_stale_selection_gate",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2d_class_preserving_route_on_h2b_execute_v1",
+      "case_count": 5,
+      "exact_success_count": 4,
+      "exact_rate": 0.8,
+      "executor_success_count": 5,
+      "executor_rate": 1.0
+    },
+    {
+      "packet_label": "h2b_residual_fit",
+      "profile_label": "h2e_route_arbitration",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2e_route_arbitration_on_h2b_execute_v1",
+      "case_count": 5,
+      "exact_success_count": 5,
+      "exact_rate": 1.0,
+      "executor_success_count": 5,
+      "executor_rate": 1.0
+    },
+    {
+      "packet_label": "h1x_transfer",
+      "profile_label": "h2a_stale_selection_gate",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_label_guard_visual_stale_selection_gate",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2a_visual_stale_selection_gate_on_h1x_execute_v1",
+      "case_count": 8,
+      "exact_success_count": 8,
+      "exact_rate": 1.0,
+      "executor_success_count": 8,
+      "executor_rate": 1.0
+    },
+    {
+      "packet_label": "h1x_transfer",
+      "profile_label": "component_residual_guard_v12",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h1x_v11_breaker_component_residual_guard_execute_v1",
+      "case_count": 8,
+      "exact_success_count": 8,
+      "exact_rate": 1.0,
+      "executor_success_count": 8,
+      "executor_rate": 1.0
+    },
+    {
+      "packet_label": "h1x_transfer",
+      "profile_label": "h2c_scoped_residual_gate",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_scoped_residual_exactness_visual_stale_selection_gate",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2c_scoped_residual_gate_on_h1x_execute_v1",
+      "case_count": 8,
+      "exact_success_count": 7,
+      "exact_rate": 0.875,
+      "executor_success_count": 7,
+      "executor_rate": 0.875
+    },
+    {
+      "packet_label": "h1x_transfer",
+      "profile_label": "h2d_class_preserving_route",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_class_preserving_residual_route_visual_stale_selection_gate",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2d_class_preserving_route_on_h1x_execute_v1",
+      "case_count": 8,
+      "exact_success_count": 8,
+      "exact_rate": 1.0,
+      "executor_success_count": 8,
+      "executor_rate": 1.0
+    },
+    {
+      "packet_label": "h1x_transfer",
+      "profile_label": "h2e_route_arbitration",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2e_route_arbitration_on_h1x_execute_v1",
+      "case_count": 8,
+      "exact_success_count": 8,
+      "exact_rate": 1.0,
+      "executor_success_count": 8,
+      "executor_rate": 1.0
+    }
+  ],
+  "comparison_rows": [
+    {
+      "comparison_label": "h2b_h2e_vs_h2c",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h2e_route_arbitration_vs_h2c_on_h2b_v1",
+      "shared_case_count": 5,
+      "baseline_exact_rate": 1.0,
+      "candidate_exact_rate": 1.0,
+      "delta_exact_rate": 0.0,
+      "baseline_executor_equivalence_rate": 1.0,
+      "candidate_executor_equivalence_rate": 1.0,
+      "delta_executor_equivalence_rate": 0.0
+    },
+    {
+      "comparison_label": "h2b_h2e_vs_h2d",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h2e_route_arbitration_vs_h2d_on_h2b_v1",
+      "shared_case_count": 5,
+      "baseline_exact_rate": 0.8,
+      "candidate_exact_rate": 1.0,
+      "delta_exact_rate": 0.19999999999999996,
+      "baseline_executor_equivalence_rate": 1.0,
+      "candidate_executor_equivalence_rate": 1.0,
+      "delta_executor_equivalence_rate": 0.0
+    },
+    {
+      "comparison_label": "h2b_h2e_vs_h2a",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h2e_route_arbitration_vs_h2a_on_h2b_v1",
+      "shared_case_count": 5,
+      "baseline_exact_rate": 0.0,
+      "candidate_exact_rate": 1.0,
+      "delta_exact_rate": 1.0,
+      "baseline_executor_equivalence_rate": 0.6,
+      "candidate_executor_equivalence_rate": 1.0,
+      "delta_executor_equivalence_rate": 0.4
+    },
+    {
+      "comparison_label": "h2b_h2e_vs_v12",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h2e_route_arbitration_vs_component_residual_guard_on_h2b_v1",
+      "shared_case_count": 5,
+      "baseline_exact_rate": 0.8,
+      "candidate_exact_rate": 1.0,
+      "delta_exact_rate": 0.19999999999999996,
+      "baseline_executor_equivalence_rate": 0.8,
+      "candidate_executor_equivalence_rate": 1.0,
+      "delta_executor_equivalence_rate": 0.19999999999999996
+    },
+    {
+      "comparison_label": "h1x_h2e_vs_h2c",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h2e_route_arbitration_vs_h2c_on_h1x_v1",
+      "shared_case_count": 8,
+      "baseline_exact_rate": 0.875,
+      "candidate_exact_rate": 1.0,
+      "delta_exact_rate": 0.125,
+      "baseline_executor_equivalence_rate": 0.875,
+      "candidate_executor_equivalence_rate": 1.0,
+      "delta_executor_equivalence_rate": 0.125
+    },
+    {
+      "comparison_label": "h1x_h2e_vs_h2d",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h2e_route_arbitration_vs_h2d_on_h1x_v1",
+      "shared_case_count": 8,
+      "baseline_exact_rate": 1.0,
+      "candidate_exact_rate": 1.0,
+      "delta_exact_rate": 0.0,
+      "baseline_executor_equivalence_rate": 1.0,
+      "candidate_executor_equivalence_rate": 1.0,
+      "delta_executor_equivalence_rate": 0.0
+    },
+    {
+      "comparison_label": "h1x_h2e_vs_h2a",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h2e_route_arbitration_vs_h2a_on_h1x_v1",
+      "shared_case_count": 8,
+      "baseline_exact_rate": 1.0,
+      "candidate_exact_rate": 1.0,
+      "delta_exact_rate": 0.0,
+      "baseline_executor_equivalence_rate": 1.0,
+      "candidate_executor_equivalence_rate": 1.0,
+      "delta_executor_equivalence_rate": 0.0
+    },
+    {
+      "comparison_label": "h1x_h2e_vs_v12",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h2e_route_arbitration_vs_component_residual_guard_on_h1x_v1",
+      "shared_case_count": 8,
+      "baseline_exact_rate": 1.0,
+      "candidate_exact_rate": 1.0,
+      "delta_exact_rate": 0.0,
+      "baseline_executor_equivalence_rate": 1.0,
+      "candidate_executor_equivalence_rate": 1.0,
+      "delta_executor_equivalence_rate": 0.0
+    },
+    {
+      "comparison_label": "h1x_h2e_vs_v11",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h2e_route_arbitration_vs_component_label_guard_on_h1x_v1",
+      "shared_case_count": 8,
+      "baseline_exact_rate": 0.875,
+      "candidate_exact_rate": 1.0,
+      "delta_exact_rate": 0.125,
+      "baseline_executor_equivalence_rate": 0.875,
+      "candidate_executor_equivalence_rate": 1.0,
+      "delta_executor_equivalence_rate": 0.125
+    }
+  ],
+  "h2e_non_exact_rows": [],
+  "counterfactual_miss_rows": [
+    {
+      "packet_label": "counterfactual",
+      "profile_label": "h2c_h1x_and_h2d_h2b",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2c_scoped_residual_gate_on_h1x_execute_v1",
+      "case_id": "h1x_resolution_chip_comment_result_decoy",
+      "family": "h1x_oblique_surface_value",
+      "failure_mode": "argument_mismatch",
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_arguments": "{\"image_id\": \"img-h1x-resolution-chip\", \"target_query\": \"result chip\"}",
+      "actual_tool": "extract_layout",
+      "actual_arguments": "{\"image_id\": \"img-h1x-resolution-chip\", \"target_query\": \"result pill\"}"
+    },
+    {
+      "packet_label": "counterfactual",
+      "profile_label": "h2c_h1x_and_h2d_h2b",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2d_class_preserving_route_on_h2b_execute_v1",
+      "case_id": "h1o_code_badge_c08_note_decoy",
+      "family": "h1o_code_negation_preservation",
+      "failure_mode": "executable_paraphrase",
+      "executor_equivalence_match": true,
+      "expected_tool": "extract_layout",
+      "expected_arguments": "{\"image_id\": \"img-h1o-code-badge-c08\", \"target_query\": \"badge c08\"}",
+      "actual_tool": "extract_layout",
+      "actual_arguments": "{\"image_id\": \"img-h1o-code-badge-c08\", \"target_query\": \"escalated badge c08\"}"
+    }
+  ],
+  "finding_rows": [
+    {
+      "finding_id": "h2e_saturates_both_h2b_and_h1x",
+      "finding": "H2e reaches 5/5 exact on H2b and 8/8 exact on H1x, with executor-equivalence also saturated."
+    },
+    {
+      "finding_id": "h2e_reconciles_h2c_h2d_tradeoff",
+      "finding": "H2c is 5/5 then 7/8; H2d is 4/5 then 8/8; H2e preserves the max of both at 5/5 and 8/8."
+    },
+    {
+      "finding_id": "h2e_transfer_gain_is_specific",
+      "finding": "H2e improves over H2c on H1x by 0.125 exact and executor-equivalence rate, and improves over H2d on H2b by 0.19999999999999996 strict exact rate."
+    },
+    {
+      "finding_id": "counterfactual_misses_are_covered",
+      "finding": "The counterfactual miss table has 2 rows: H2c's result-chip class swap and H2d's badge-code over-specific query. H2e has zero non-exact rows across the two packets."
+    },
+    {
+      "finding_id": "next_slice",
+      "finding": "Promote H2e only to a fresh H2f holdout gate. The current result is strong mechanism evidence, but the next proof must use newly authored route-arbitration cases rather than H2b/H1x rows."
+    }
+  ]
+}

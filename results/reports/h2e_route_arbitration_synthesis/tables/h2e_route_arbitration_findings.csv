@@ -1,0 +1,6 @@
+finding_id,finding
+h2e_saturates_both_h2b_and_h1x,"H2e reaches 5/5 exact on H2b and 8/8 exact on H1x, with executor-equivalence also saturated."
+h2e_reconciles_h2c_h2d_tradeoff,H2c is 5/5 then 7/8; H2d is 4/5 then 8/8; H2e preserves the max of both at 5/5 and 8/8.
+h2e_transfer_gain_is_specific,"H2e improves over H2c on H1x by 0.125 exact and executor-equivalence rate, and improves over H2d on H2b by 0.19999999999999996 strict exact rate."
+counterfactual_misses_are_covered,The counterfactual miss table has 2 rows: H2c's result-chip class swap and H2d's badge-code over-specific query. H2e has zero non-exact rows across the two packets.
+next_slice,"Promote H2e only to a fresh H2f holdout gate. The current result is strong mechanism evidence, but the next proof must use newly authored route-arbitration cases rather than H2b/H1x rows."
