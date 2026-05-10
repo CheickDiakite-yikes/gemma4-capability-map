@@ -1,0 +1,14 @@
+{
+  "generated_at": "2026-05-10T17:54:44.790608+00:00",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h1s_component_residual_transfer_synthesis",
+  "packet_row_count": 12,
+  "transfer_case_count": 32,
+  "v11_transfer_exact_success_count": 26,
+  "v11_transfer_executor_success_count": 29,
+  "v12_transfer_exact_success_count": 27,
+  "v12_transfer_executor_success_count": 27,
+  "v12_failure_count": 5,
+  "comparison_count": 6,
+  "finding_count": 7,
+  "promotion_decision": "targeted_patch_not_global_default"
+}

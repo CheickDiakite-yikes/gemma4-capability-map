@@ -1185,6 +1185,36 @@ Evidence:
 - result: no-directive `0 / 6` exact and `1 / 6` executor-equivalent; v11 `5 / 6`; v12 `6 / 6`
 - interpretation: v12 fixes the v11 `alert s92` residual on H1r, but it is not yet a global default until transferred back across H1n/H1o/H1p
 
+## Latest H1s Component-Residual Transfer Finding
+
+H1s is now executed. It transfer-tested the H1r v12 residual prompt back across the three active visual transfer surfaces before any promotion decision. This is the current best example of why local prompt wins need transfer gates: v12 improves strict exactness but weakens executor-equivalent completion on the broader transfer surface.
+
+Evidence:
+
+- profile: `visual_role_catalog_component_residual_guard_v12`
+- registry system: `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard`
+- H1n v12 replay: [`results/tool_probe_replay_live/20260510T_h1s_component_residual_guard_on_h1n_component_value_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1s_component_residual_guard_on_h1n_component_value_execute_v1)
+- H1o v12 replay: [`results/tool_probe_replay_live/20260510T_h1s_component_residual_guard_on_h1o_control_factorial_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1s_component_residual_guard_on_h1o_control_factorial_execute_v1)
+- H1p v12 replay: [`results/tool_probe_replay_live/20260510T_h1s_component_residual_guard_on_h1p_component_value_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1s_component_residual_guard_on_h1p_component_value_execute_v1)
+- synthesis: [`results/reports/h1s_component_residual_transfer_synthesis/report.md`](../../results/reports/h1s_component_residual_transfer_synthesis/report.md)
+- comparisons:
+  - H1n v12 versus v11: [`results/tool_probe_replay_live_comparisons/20260510T_h1s_component_residual_guard_h1n_vs_component_label_guard_v1`](../../results/tool_probe_replay_live_comparisons/20260510T_h1s_component_residual_guard_h1n_vs_component_label_guard_v1)
+  - H1o v12 versus v11: [`results/tool_probe_replay_live_comparisons/20260510T_h1s_component_residual_guard_h1o_vs_component_label_guard_v1`](../../results/tool_probe_replay_live_comparisons/20260510T_h1s_component_residual_guard_h1o_vs_component_label_guard_v1)
+  - H1p v12 versus v11: [`results/tool_probe_replay_live_comparisons/20260510T_h1s_component_residual_guard_h1p_vs_component_label_guard_v1`](../../results/tool_probe_replay_live_comparisons/20260510T_h1s_component_residual_guard_h1p_vs_component_label_guard_v1)
+
+Transfer rates:
+
+- H1n component-value: v12 `5 / 8` exact and executor-equivalent, worse than v11's `6 / 8` exact and `7 / 8` executor-equivalent
+- H1o control-factorial: v12 `11 / 12` exact and executor-equivalent, improving strict exactness over v11's `10 / 12` but losing v11's `12 / 12` executor-equivalence ceiling
+- H1p component-value: v12 `11 / 12` exact and executor-equivalent, improving over v11's `10 / 12` exact and executor-equivalent
+- aggregate across H1n/H1o/H1p: v12 `27 / 32` exact and `27 / 32` executor-equivalent, versus v11 at `26 / 32` exact and `29 / 32` executor-equivalent
+
+Interpretation:
+
+- v12 is a real targeted residual patch: it saturates H1r and improves H1p
+- v12 is not the global default: it introduces enough H1n/H1o executor-equivalence loss to be worse than v11 for robust transfer
+- the next slice should test conditional routing or prompt-factor isolation: v11 general component-label guard by default, v12 residual wording only when code labels or nonstandard component classes are present
+
 ## Latest H1q Component-Label Guard Transfer Finding
 
 H1q is the current sharpest controller-profile transfer result. It was built to resolve the H1p/H1o/H1n tension: broad v9 component-value guidance wins locally on H1p, ties on H1o, and regresses on the older H1n component-value slice. The new `visual_role_catalog_component_label_guard_v11` narrows the wording to copying requested role-plus-component labels instead of selecting displayed values.

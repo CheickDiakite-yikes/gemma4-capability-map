@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "h1p_compact_stage_chip_email_value_decoy",
+    "family": "h1p_component_value_compact",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "h1p-stage-chip-9322"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1p-compact-stage-chip",
+          "target_query": "stage chip"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h1p-compact-stage-chip",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "h1p-stage-chip-9322"
+          ],
+          "region_id": "h1p-stage-chip-9322",
+          "text_preview": "Review"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1p-compact-stage-chip",
+          "target_query": "stage chip"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1p-compact-stage-chip",
+          "target_query": "stage chip"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h1p-compact-stage-chip\", \"target_query\": \"stage chip\"}}",
+    "prompt_tokens": 1804,
+    "completion_tokens": 39,
+    "latency_ms": 9791
+  }
+]

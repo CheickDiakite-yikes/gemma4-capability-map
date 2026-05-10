@@ -1,0 +1,382 @@
+{
+  "manifest": {
+    "generated_at": "2026-05-10T17:54:44.790608+00:00",
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h1s_component_residual_transfer_synthesis",
+    "packet_row_count": 12,
+    "transfer_case_count": 32,
+    "v11_transfer_exact_success_count": 26,
+    "v11_transfer_executor_success_count": 29,
+    "v12_transfer_exact_success_count": 27,
+    "v12_transfer_executor_success_count": 27,
+    "v12_failure_count": 5,
+    "comparison_count": 6,
+    "finding_count": 7,
+    "promotion_decision": "targeted_patch_not_global_default"
+  },
+  "packet_rows": [
+    {
+      "packet_label": "h1r_component_residual",
+      "profile_label": "no_directive",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h1r_component_label_residual_no_directive_execute_v1",
+      "case_count": 6,
+      "exact_success_count": 0,
+      "exact_rate": 0.0,
+      "executor_success_count": 1,
+      "executor_rate": 0.16666666666666666,
+      "argument_mismatch_count": 2,
+      "wrong_tool_count": 0,
+      "no_tool_call_count": 3,
+      "executable_paraphrase_count": 1
+    },
+    {
+      "packet_label": "h1r_component_residual",
+      "profile_label": "component_label_guard_v11",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_label_guard",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h1r_component_label_residual_component_label_guard_execute_v1",
+      "case_count": 6,
+      "exact_success_count": 5,
+      "exact_rate": 0.8333333333333334,
+      "executor_success_count": 5,
+      "executor_rate": 0.8333333333333334,
+      "argument_mismatch_count": 1,
+      "wrong_tool_count": 0,
+      "no_tool_call_count": 0,
+      "executable_paraphrase_count": 0
+    },
+    {
+      "packet_label": "h1r_component_residual",
+      "profile_label": "component_residual_guard_v12",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h1r_component_label_residual_component_residual_guard_execute_v1",
+      "case_count": 6,
+      "exact_success_count": 6,
+      "exact_rate": 1.0,
+      "executor_success_count": 6,
+      "executor_rate": 1.0,
+      "argument_mismatch_count": 0,
+      "wrong_tool_count": 0,
+      "no_tool_call_count": 0,
+      "executable_paraphrase_count": 0
+    },
+    {
+      "packet_label": "h1n_component_value",
+      "profile_label": "no_directive",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h1n_component_value_no_directive_execute_v1",
+      "case_count": 8,
+      "exact_success_count": 5,
+      "exact_rate": 0.625,
+      "executor_success_count": 6,
+      "executor_rate": 0.75,
+      "argument_mismatch_count": 0,
+      "wrong_tool_count": 0,
+      "no_tool_call_count": 2,
+      "executable_paraphrase_count": 1
+    },
+    {
+      "packet_label": "h1n_component_value",
+      "profile_label": "component_label_guard_v11",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_label_guard",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h1q_component_label_guard_on_h1n_component_value_execute_v1",
+      "case_count": 8,
+      "exact_success_count": 6,
+      "exact_rate": 0.75,
+      "executor_success_count": 7,
+      "executor_rate": 0.875,
+      "argument_mismatch_count": 0,
+      "wrong_tool_count": 1,
+      "no_tool_call_count": 0,
+      "executable_paraphrase_count": 1
+    },
+    {
+      "packet_label": "h1n_component_value",
+      "profile_label": "component_residual_guard_v12",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h1s_component_residual_guard_on_h1n_component_value_execute_v1",
+      "case_count": 8,
+      "exact_success_count": 5,
+      "exact_rate": 0.625,
+      "executor_success_count": 5,
+      "executor_rate": 0.625,
+      "argument_mismatch_count": 3,
+      "wrong_tool_count": 0,
+      "no_tool_call_count": 0,
+      "executable_paraphrase_count": 0
+    },
+    {
+      "packet_label": "h1o_control_factorial",
+      "profile_label": "no_directive",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h1o_control_factorial_no_directive_execute_v1",
+      "case_count": 12,
+      "exact_success_count": 5,
+      "exact_rate": 0.4166666666666667,
+      "executor_success_count": 6,
+      "executor_rate": 0.5,
+      "argument_mismatch_count": 3,
+      "wrong_tool_count": 0,
+      "no_tool_call_count": 3,
+      "executable_paraphrase_count": 1
+    },
+    {
+      "packet_label": "h1o_control_factorial",
+      "profile_label": "component_label_guard_v11",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_label_guard",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h1q_component_label_guard_on_h1o_control_factorial_execute_v1",
+      "case_count": 12,
+      "exact_success_count": 10,
+      "exact_rate": 0.8333333333333334,
+      "executor_success_count": 12,
+      "executor_rate": 1.0,
+      "argument_mismatch_count": 0,
+      "wrong_tool_count": 0,
+      "no_tool_call_count": 0,
+      "executable_paraphrase_count": 2
+    },
+    {
+      "packet_label": "h1o_control_factorial",
+      "profile_label": "component_residual_guard_v12",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h1s_component_residual_guard_on_h1o_control_factorial_execute_v1",
+      "case_count": 12,
+      "exact_success_count": 11,
+      "exact_rate": 0.9166666666666666,
+      "executor_success_count": 11,
+      "executor_rate": 0.9166666666666666,
+      "argument_mismatch_count": 1,
+      "wrong_tool_count": 0,
+      "no_tool_call_count": 0,
+      "executable_paraphrase_count": 0
+    },
+    {
+      "packet_label": "h1p_component_value",
+      "profile_label": "no_directive",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h1p_component_value_no_directive_execute_v1",
+      "case_count": 12,
+      "exact_success_count": 0,
+      "exact_rate": 0.0,
+      "executor_success_count": 0,
+      "executor_rate": 0.0,
+      "argument_mismatch_count": 8,
+      "wrong_tool_count": 0,
+      "no_tool_call_count": 4,
+      "executable_paraphrase_count": 0
+    },
+    {
+      "packet_label": "h1p_component_value",
+      "profile_label": "component_label_guard_v11",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_label_guard",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h1q_component_label_guard_on_h1p_component_value_execute_v1",
+      "case_count": 12,
+      "exact_success_count": 10,
+      "exact_rate": 0.8333333333333334,
+      "executor_success_count": 10,
+      "executor_rate": 0.8333333333333334,
+      "argument_mismatch_count": 2,
+      "wrong_tool_count": 0,
+      "no_tool_call_count": 0,
+      "executable_paraphrase_count": 0
+    },
+    {
+      "packet_label": "h1p_component_value",
+      "profile_label": "component_residual_guard_v12",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h1s_component_residual_guard_on_h1p_component_value_execute_v1",
+      "case_count": 12,
+      "exact_success_count": 11,
+      "exact_rate": 0.9166666666666666,
+      "executor_success_count": 11,
+      "executor_rate": 0.9166666666666666,
+      "argument_mismatch_count": 0,
+      "wrong_tool_count": 1,
+      "no_tool_call_count": 0,
+      "executable_paraphrase_count": 0
+    }
+  ],
+  "transfer_aggregate_rows": [
+    {
+      "profile_label": "component_label_guard_v11",
+      "case_count": 32,
+      "exact_success_count": 26,
+      "exact_rate": 0.8125,
+      "executor_success_count": 29,
+      "executor_rate": 0.90625,
+      "argument_mismatch_count": 2,
+      "wrong_tool_count": 1,
+      "no_tool_call_count": 0,
+      "executable_paraphrase_count": 3
+    },
+    {
+      "profile_label": "component_residual_guard_v12",
+      "case_count": 32,
+      "exact_success_count": 27,
+      "exact_rate": 0.84375,
+      "executor_success_count": 27,
+      "executor_rate": 0.84375,
+      "argument_mismatch_count": 4,
+      "wrong_tool_count": 1,
+      "no_tool_call_count": 0,
+      "executable_paraphrase_count": 0
+    },
+    {
+      "profile_label": "no_directive",
+      "case_count": 32,
+      "exact_success_count": 10,
+      "exact_rate": 0.3125,
+      "executor_success_count": 12,
+      "executor_rate": 0.375,
+      "argument_mismatch_count": 11,
+      "wrong_tool_count": 0,
+      "no_tool_call_count": 9,
+      "executable_paraphrase_count": 2
+    }
+  ],
+  "comparison_rows": [
+    {
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h1s_component_residual_guard_h1n_vs_component_label_guard_v1",
+      "baseline_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_label_guard",
+      "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard",
+      "shared_case_count": 8,
+      "baseline_exact_rate": 0.75,
+      "candidate_exact_rate": 0.625,
+      "delta_exact_rate": -0.125,
+      "baseline_executor_equivalence_rate": 0.875,
+      "candidate_executor_equivalence_rate": 0.625,
+      "delta_executor_equivalence_rate": -0.25
+    },
+    {
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h1s_component_residual_guard_h1n_vs_no_directive_v1",
+      "baseline_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard",
+      "shared_case_count": 8,
+      "baseline_exact_rate": 0.625,
+      "candidate_exact_rate": 0.625,
+      "delta_exact_rate": 0.0,
+      "baseline_executor_equivalence_rate": 0.75,
+      "candidate_executor_equivalence_rate": 0.625,
+      "delta_executor_equivalence_rate": -0.125
+    },
+    {
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h1s_component_residual_guard_h1o_vs_component_label_guard_v1",
+      "baseline_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_label_guard",
+      "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard",
+      "shared_case_count": 12,
+      "baseline_exact_rate": 0.8333333333333334,
+      "candidate_exact_rate": 0.9166666666666666,
+      "delta_exact_rate": 0.08333333333333326,
+      "baseline_executor_equivalence_rate": 1.0,
+      "candidate_executor_equivalence_rate": 0.9166666666666666,
+      "delta_executor_equivalence_rate": -0.08333333333333337
+    },
+    {
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h1s_component_residual_guard_h1o_vs_no_directive_v1",
+      "baseline_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard",
+      "shared_case_count": 12,
+      "baseline_exact_rate": 0.4166666666666667,
+      "candidate_exact_rate": 0.9166666666666666,
+      "delta_exact_rate": 0.49999999999999994,
+      "baseline_executor_equivalence_rate": 0.5,
+      "candidate_executor_equivalence_rate": 0.9166666666666666,
+      "delta_executor_equivalence_rate": 0.41666666666666663
+    },
+    {
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h1s_component_residual_guard_h1p_vs_component_label_guard_v1",
+      "baseline_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_label_guard",
+      "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard",
+      "shared_case_count": 12,
+      "baseline_exact_rate": 0.8333333333333334,
+      "candidate_exact_rate": 0.9166666666666666,
+      "delta_exact_rate": 0.08333333333333326,
+      "baseline_executor_equivalence_rate": 0.8333333333333334,
+      "candidate_executor_equivalence_rate": 0.9166666666666666,
+      "delta_executor_equivalence_rate": 0.08333333333333326
+    },
+    {
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h1s_component_residual_guard_h1p_vs_no_directive_v1",
+      "baseline_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard",
+      "shared_case_count": 12,
+      "baseline_exact_rate": 0.0,
+      "candidate_exact_rate": 0.9166666666666666,
+      "delta_exact_rate": 0.9166666666666666,
+      "baseline_executor_equivalence_rate": 0.0,
+      "candidate_executor_equivalence_rate": 0.9166666666666666,
+      "delta_executor_equivalence_rate": 0.9166666666666666
+    }
+  ],
+  "v12_failure_rows": [
+    {
+      "packet_label": "h1n_component_value",
+      "case_id": "component_value_state_pill_note_decoy",
+      "family": "visual_argument_transfer_component_value_pill",
+      "failure_mode": "argument_mismatch",
+      "executor_equivalence_match": false,
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1s_component_residual_guard_on_h1n_component_value_execute_v1/runs/component_value_state_pill_note_decoy"
+    },
+    {
+      "packet_label": "h1n_component_value",
+      "case_id": "component_value_status_badge_email_decoy",
+      "family": "visual_argument_transfer_component_value_nonpill",
+      "failure_mode": "argument_mismatch",
+      "executor_equivalence_match": false,
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1s_component_residual_guard_on_h1n_component_value_execute_v1/runs/component_value_status_badge_email_decoy"
+    },
+    {
+      "packet_label": "h1n_component_value",
+      "case_id": "component_value_result_pill_log_decoy",
+      "family": "visual_argument_transfer_component_value_pill",
+      "failure_mode": "argument_mismatch",
+      "executor_equivalence_match": false,
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1s_component_residual_guard_on_h1n_component_value_execute_v1/runs/component_value_result_pill_log_decoy"
+    },
+    {
+      "packet_label": "h1o_control_factorial",
+      "case_id": "h1o_activation_warning_tile_no_call_decoy",
+      "family": "h1o_activation_no_call",
+      "failure_mode": "argument_mismatch",
+      "executor_equivalence_match": false,
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1s_component_residual_guard_on_h1o_control_factorial_execute_v1/runs/h1o_activation_warning_tile_no_call_decoy"
+    },
+    {
+      "packet_label": "h1p_component_value",
+      "case_id": "h1p_stale_phase_tile_archive_decoy",
+      "family": "h1p_component_value_stale_selection",
+      "failure_mode": "wrong_tool",
+      "executor_equivalence_match": false,
+      "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1s_component_residual_guard_on_h1p_component_value_execute_v1/runs/h1p_stale_phase_tile_archive_decoy"
+    }
+  ],
+  "finding_rows": [
+    {
+      "finding_id": "v12_solves_local_h1r_residual",
+      "finding": "Component-residual guard v12 saturates the residual H1r slice at 6/6 exact and 6/6 executor-equivalent."
+    },
+    {
+      "finding_id": "v12_transfers_strict_but_not_executor",
+      "finding": "Across H1n/H1o/H1p, v12 improves strict exactness from 26/32 to 27/32, but lowers executor-equivalence from 29/32 to 27/32."
+    },
+    {
+      "finding_id": "negative_h1n_transfer",
+      "finding": "H1n is the clearest negative-transfer warning: v12 delta versus v11 is -0.125 exact-rate and -0.250 executor-rate."
+    },
+    {
+      "finding_id": "h1o_strict_executor_split",
+      "finding": "On H1o, v12 improves strict exactness but loses executor-equivalence versus v11: delta exact-rate 0.083; delta executor-rate -0.083."
+    },
+    {
+      "finding_id": "h1p_transfer_is_real_but_partial",
+      "finding": "On H1p, v12 improves both exact and executor-equivalence rates versus v11 by 0.083, but still leaves one wrong-tool stale-selection miss."
+    },
+    {
+      "finding_id": "remaining_v12_failures",
+      "finding": "Remaining non-executor v12 failures are h1n_component_value:component_value_state_pill_note_decoy:argument_mismatch, h1n_component_value:component_value_status_badge_email_decoy:argument_mismatch, h1n_component_value:component_value_result_pill_log_decoy:argument_mismatch, h1o_control_factorial:h1o_activation_warning_tile_no_call_decoy:argument_mismatch, h1p_component_value:h1p_stale_phase_tile_archive_decoy:wrong_tool."
+    },
+    {
+      "finding_id": "promotion_decision",
+      "finding": "Do not promote v12 as the global visual-role catalog default yet. Treat it as a targeted residual patch or conditional route while v11 remains the more executor-robust general transfer profile."
+    }
+  ]
+}

@@ -1,5 +1,29 @@
 # Research Log
 
+## 2026-05-10 - H1s Transfer Gate Rejects v12 as a Global Default
+
+- Transfer-tested `visual_role_catalog_component_residual_guard_v12` back across the active H1n/H1o/H1p surfaces before promotion:
+  - H1n v12 replay: [`20260510T_h1s_component_residual_guard_on_h1n_component_value_execute_v1`](../results/tool_probe_replay_live/20260510T_h1s_component_residual_guard_on_h1n_component_value_execute_v1)
+  - H1o v12 replay: [`20260510T_h1s_component_residual_guard_on_h1o_control_factorial_execute_v1`](../results/tool_probe_replay_live/20260510T_h1s_component_residual_guard_on_h1o_control_factorial_execute_v1)
+  - H1p v12 replay: [`20260510T_h1s_component_residual_guard_on_h1p_component_value_execute_v1`](../results/tool_probe_replay_live/20260510T_h1s_component_residual_guard_on_h1p_component_value_execute_v1)
+  - synthesis: [`h1s_component_residual_transfer_synthesis`](../results/reports/h1s_component_residual_transfer_synthesis/report.md)
+- Transfer results:
+  - H1r local residual: v12 remains positive at `6 / 6` exact and executor-equivalent
+  - H1n component-value: v12 falls to `5 / 8` exact and executor-equivalent, below v11 at `6 / 8` exact and `7 / 8` executor-equivalent
+  - H1o control-factorial: v12 reaches `11 / 12` exact and executor-equivalent, improving strict exactness over v11 but losing v11's `12 / 12` executor-equivalence ceiling
+  - H1p component-value: v12 reaches `11 / 12` exact and executor-equivalent, improving over v11's `10 / 12`
+  - aggregate across H1n/H1o/H1p: v12 is `27 / 32` exact and `27 / 32` executor-equivalent; v11 is `26 / 32` exact and `29 / 32` executor-equivalent
+- Interpretation:
+  - v12 is a real targeted patch for the H1r/H1p residuals
+  - v12 is not globally promoted because the H1n/H1o executor-equivalence regression is material
+  - the next prompt-contract move should test conditional routing or factor isolation: v11 as default, v12 wording only when code-label or nonstandard-component evidence is present
+- Verification:
+  - `uv run python -m gemma4_capability_map.runtime.cli replay-live --packet-dir results/tool_probe_replay_packets/20260510T_visual_hard_slice_component_value_oracle_dry_run_v1 --output-dir results/tool_probe_replay_live/20260510T_h1s_component_residual_guard_on_h1n_component_value_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard --registry configs/model_registry.yaml --execute --json`
+  - `uv run python -m gemma4_capability_map.runtime.cli replay-live --packet-dir results/tool_probe_replay_packets/20260510T_h1o_control_factorial_oracle_dry_run_v1 --output-dir results/tool_probe_replay_live/20260510T_h1s_component_residual_guard_on_h1o_control_factorial_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard --registry configs/model_registry.yaml --execute --json`
+  - `uv run python -m gemma4_capability_map.runtime.cli replay-live --packet-dir results/tool_probe_replay_packets/20260510T_h1p_component_value_holdout_oracle_dry_run_v1 --output-dir results/tool_probe_replay_live/20260510T_h1s_component_residual_guard_on_h1p_component_value_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard --registry configs/model_registry.yaml --execute --json`
+  - `uv run python scripts/build_h1s_component_residual_transfer_synthesis.py`
+  - `uv run pytest tests/test_h1s_component_residual_transfer_synthesis.py tests/test_h1r_component_residual_synthesis.py tests/test_h1q_component_label_guard_transfer_synthesis.py tests/test_tool_probe_replay_live_comparison.py -q`
+
 ## 2026-05-10 - H1r Residual Component-Label Packet Saturates Under v12
 
 - Added `visual_role_catalog_component_residual_guard_v12`, a narrow follow-up to v11:

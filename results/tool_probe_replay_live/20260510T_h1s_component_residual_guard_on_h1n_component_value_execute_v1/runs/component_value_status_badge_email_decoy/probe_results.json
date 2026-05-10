@@ -1,0 +1,64 @@
+[
+  {
+    "case_id": "component_value_status_badge_email_decoy",
+    "family": "visual_argument_transfer_component_value_nonpill",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "component-status-badge-8102"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-component-status-badge",
+          "target_query": "blocked"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-component-status-badge",
+          "selection_kind": "regions",
+          "count": 3,
+          "executor_mode": "local",
+          "region_ids": [
+            "component-email-8101",
+            "component-status-badge-8102",
+            "component-account-8103"
+          ],
+          "region_id": "component-email-8101",
+          "text_preview": "Blocked account warning sent"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-component-status-badge",
+          "target_query": "status badge"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-component-status-badge",
+          "target_query": "blocked"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-component-status-badge\", \"target_query\": \"blocked\"}}",
+    "prompt_tokens": 1800,
+    "completion_tokens": 34,
+    "latency_ms": 7853
+  }
+]

@@ -180,7 +180,15 @@ Next implementation moves:
   - synthesis: [`results/reports/h1r_component_residual_synthesis/report.md`](../../results/reports/h1r_component_residual_synthesis/report.md)
   - packet shape: `6` oracle-valid replay cases across stale-selection component labels, nonstandard component classes, and code-label exactness
   - result: no-directive `0 / 6` exact and `1 / 6` executor-equivalent; v11 `5 / 6`; v12 `6 / 6`
-  - next execution step: transfer-test v12 back across H1n/H1o/H1p before promotion or formal report integration
+  - completed follow-up: H1s transfer-tested v12 back across H1n/H1o/H1p before promotion
+- H1s/v12 transfer gate now exists:
+  - synthesis: [`results/reports/h1s_component_residual_transfer_synthesis/report.md`](../../results/reports/h1s_component_residual_transfer_synthesis/report.md)
+  - H1n v12 replay: [`results/tool_probe_replay_live/20260510T_h1s_component_residual_guard_on_h1n_component_value_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1s_component_residual_guard_on_h1n_component_value_execute_v1)
+  - H1o v12 replay: [`results/tool_probe_replay_live/20260510T_h1s_component_residual_guard_on_h1o_control_factorial_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1s_component_residual_guard_on_h1o_control_factorial_execute_v1)
+  - H1p v12 replay: [`results/tool_probe_replay_live/20260510T_h1s_component_residual_guard_on_h1p_component_value_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1s_component_residual_guard_on_h1p_component_value_execute_v1)
+  - result: v12 transfer aggregate is `27 / 32` exact and `27 / 32` executor-equivalent; v11 remains `26 / 32` exact and `29 / 32` executor-equivalent
+  - interpretation: v12 is a targeted residual patch, not a global default; strict exactness improved, but executor robustness regressed
+  - next execution step: build a conditional-route/prompt-factor slice that uses v11 as default and v12 only for code-label or nonstandard component-class contexts, then test it against H1r/H1n/H1o/H1p
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1
