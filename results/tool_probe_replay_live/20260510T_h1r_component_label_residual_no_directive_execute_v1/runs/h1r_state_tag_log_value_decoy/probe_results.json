@@ -1,0 +1,58 @@
+[
+  {
+    "case_id": "h1r_state_tag_log_value_decoy",
+    "family": "h1r_nonstandard_component_class",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "h1r-state-tag-9522"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1r-state-tag",
+          "target_query": "state tag component where 'Closed' appears"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h1r-state-tag",
+          "selection_kind": "regions",
+          "count": 0,
+          "executor_mode": "local",
+          "region_ids": []
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1r-state-tag",
+          "target_query": "state tag"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1r-state-tag",
+          "target_query": "state tag component where 'Closed' appears"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h1r-state-tag\", \"target_query\": \"state tag component where 'Closed' appears\"}}",
+    "prompt_tokens": 652,
+    "completion_tokens": 43,
+    "latency_ms": 4973
+  }
+]

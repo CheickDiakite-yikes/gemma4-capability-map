@@ -1,0 +1,10 @@
+profile_label,family,case_count,exact_success_count,exact_rate,executor_success_count,executor_rate
+no_directive,h1r_code_label_exactness,2,0,0.0,1,0.5
+no_directive,h1r_nonstandard_component_class,2,0,0.0,0,0.0
+no_directive,h1r_stale_selection_component_label,2,0,0.0,0,0.0
+component_label_guard_v11,h1r_code_label_exactness,2,1,0.5,1,0.5
+component_label_guard_v11,h1r_nonstandard_component_class,2,2,1.0,2,1.0
+component_label_guard_v11,h1r_stale_selection_component_label,2,2,1.0,2,1.0
+component_residual_guard_v12,h1r_code_label_exactness,2,2,1.0,2,1.0
+component_residual_guard_v12,h1r_nonstandard_component_class,2,2,1.0,2,1.0
+component_residual_guard_v12,h1r_stale_selection_component_label,2,2,1.0,2,1.0

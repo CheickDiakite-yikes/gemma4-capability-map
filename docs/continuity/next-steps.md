@@ -170,12 +170,17 @@ Next implementation moves:
   - result: no-directive `2 / 8`, contracted/default `3 / 8`, argument hints `5 / 8`, v6 code hints `5 / 8`, v7 code guard `6 / 8` exact and executor-equivalent
   - interpretation: code guard now has a fresh positive transfer result, but the profile is not a universal replacement; argument hints still covers some ordinary non-code labels better
 - next replay-shaped target: build H1r/v12 for v11 residuals (`owner field` stale-selection, `state tag`, `mode toggle`, and H1o code-label exact paraphrases); do not promote v11 globally until this residual packet is resolved
-- H1r/v12 scaffold now exists:
+- H1r/v12 replay now exists:
   - profile: `visual_role_catalog_component_residual_guard_v12`
   - system: `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard`
   - dry-run packet: [`results/tool_probe_replay_packets/20260510T_h1r_component_label_residual_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260510T_h1r_component_label_residual_oracle_dry_run_v1)
+  - no-directive replay: [`results/tool_probe_replay_live/20260510T_h1r_component_label_residual_no_directive_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1r_component_label_residual_no_directive_execute_v1)
+  - v11 replay: [`results/tool_probe_replay_live/20260510T_h1r_component_label_residual_component_label_guard_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1r_component_label_residual_component_label_guard_execute_v1)
+  - v12 replay: [`results/tool_probe_replay_live/20260510T_h1r_component_label_residual_component_residual_guard_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1r_component_label_residual_component_residual_guard_execute_v1)
+  - synthesis: [`results/reports/h1r_component_residual_synthesis/report.md`](../../results/reports/h1r_component_residual_synthesis/report.md)
   - packet shape: `6` oracle-valid replay cases across stale-selection component labels, nonstandard component classes, and code-label exactness
-  - next execution step: run no-directive, v11, and v12 live replays on the same packet, then compare v12 against v11 and no-directive before any report integration
+  - result: no-directive `0 / 6` exact and `1 / 6` executor-equivalent; v11 `5 / 6`; v12 `6 / 6`
+  - next execution step: transfer-test v12 back across H1n/H1o/H1p before promotion or formal report integration
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1

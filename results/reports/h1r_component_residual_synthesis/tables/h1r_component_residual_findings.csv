@@ -1,0 +1,4 @@
+finding_id,finding
+h1r_breaks_no_directive,"No-directive reaches 0/6 exact and 1/6 executor-equivalent, so H1r is a useful residual discriminator."
+v11_is_strong_incumbent,"Component-label guard v11 reaches 5/6 exact and 5/6 executor-equivalent, leaving only the alert-s92 code-label miss."
+v12_saturates_h1r,"Component-residual guard v12 reaches 6/6 exact and 6/6 executor-equivalent, improving over v11 by 0.167 exact-rate."

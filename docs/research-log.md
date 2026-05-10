@@ -1,6 +1,6 @@
 # Research Log
 
-## 2026-05-10 - H1r Residual Component-Label Packet Is Scaffolded
+## 2026-05-10 - H1r Residual Component-Label Packet Saturates Under v12
 
 - Added `visual_role_catalog_component_residual_guard_v12`, a narrow follow-up to v11:
   - keeps v11's role-plus-component copying discipline
@@ -11,12 +11,18 @@
   - families: `2` stale-selection component-label cases, `2` nonstandard component-class cases, and `2` code-label exactness cases
   - all expected calls are oracle `extract_layout` calls that reach the expected executor region
 - Next execution move:
-  - run no-directive, v11, and v12 live replays on H1r
-  - compare v12 against v11 and no-directive
-  - only integrate H1r into the formal report if it adds signal beyond v11 without reintroducing H1p regressions
+  - completed live replay on no-directive, v11, and v12
+  - no-directive reaches `0 / 6` exact and `1 / 6` executor-equivalent
+  - v11 reaches `5 / 6` exact and executor-equivalent; its remaining miss is `h1r_alert_s92_toggle_negation_decoy`
+  - v12 reaches `6 / 6` exact and executor-equivalent
+  - synthesis: [`h1r_component_residual_synthesis`](../results/reports/h1r_component_residual_synthesis/report.md)
+  - next: transfer-test v12 back across H1n/H1o/H1p before promotion or main-report integration
 - Verification:
   - `uv run pytest tests/test_prompt_contracts.py tests/test_knowledge_work_h1.py::test_h1r_component_residual_guard_registry_row_preserves_catalog_profile tests/test_visual_hard_slice_live_stress_packet.py -q`
   - `uv run python scripts/build_visual_hard_slice_live_stress_packet.py --run-group-id 20260510T_h1r_component_label_residual_oracle_dry_run_v1 --suite h1r_component_label_residual_v12 --replay-system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard`
+  - `uv run python -m gemma4_capability_map.runtime.cli replay-live --packet-dir results/tool_probe_replay_packets/20260510T_h1r_component_label_residual_oracle_dry_run_v1 --output-dir results/tool_probe_replay_live/20260510T_h1r_component_label_residual_component_residual_guard_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard --registry configs/model_registry.yaml --execute --json`
+  - `uv run python scripts/build_h1r_component_residual_synthesis.py`
+  - `uv run pytest tests/test_h1r_component_residual_synthesis.py tests/test_tool_probe_replay_live_comparison.py tests/test_prompt_contracts.py tests/test_visual_hard_slice_live_stress_packet.py tests/test_knowledge_work_h1.py::test_h1r_component_residual_guard_registry_row_preserves_catalog_profile -q`
 
 ## 2026-05-10 - H1q Narrow Component-Label Guard Becomes the Best Transfer Candidate
 

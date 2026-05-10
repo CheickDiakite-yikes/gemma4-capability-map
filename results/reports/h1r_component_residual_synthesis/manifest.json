@@ -1,0 +1,10 @@
+{
+  "generated_at": "2026-05-10T17:43:28.308703+00:00",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h1r_component_residual_synthesis",
+  "profile_count": 3,
+  "case_count": 6,
+  "comparison_count": 3,
+  "v12_exact_success_count": 6,
+  "v12_executor_success_count": 6,
+  "finding_count": 3
+}

@@ -1168,17 +1168,22 @@ The repo still does not support these statements:
 - Gemma beats frontier closed models on the same harness
 - Gemma `31B` runtime posture is already reproduced locally
 
-## Latest H1r Residual Scaffold
+## Latest H1r Residual Finding
 
-H1r is now scaffolded but not yet executed. It is the next replay-shaped residual packet after H1q, designed to test whether a narrow v12 wording can fix the remaining v11 miss families without reviving the broad v9 component-value regressions.
+H1r is now executed. It is the replay-shaped residual packet after H1q, designed to test whether a narrow v12 wording can fix the remaining v11 miss families without reviving the broad v9 component-value regressions.
 
 Evidence:
 
 - profile: `visual_role_catalog_component_residual_guard_v12`
 - registry system: `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard`
 - dry-run packet: [`results/tool_probe_replay_packets/20260510T_h1r_component_label_residual_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260510T_h1r_component_label_residual_oracle_dry_run_v1)
+- no-directive replay: [`results/tool_probe_replay_live/20260510T_h1r_component_label_residual_no_directive_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1r_component_label_residual_no_directive_execute_v1)
+- v11 replay: [`results/tool_probe_replay_live/20260510T_h1r_component_label_residual_component_label_guard_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1r_component_label_residual_component_label_guard_execute_v1)
+- v12 replay: [`results/tool_probe_replay_live/20260510T_h1r_component_label_residual_component_residual_guard_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1r_component_label_residual_component_residual_guard_execute_v1)
+- synthesis: [`results/reports/h1r_component_residual_synthesis/report.md`](../../results/reports/h1r_component_residual_synthesis/report.md)
 - packet shape: `6` oracle-valid replay cases across stale-selection component labels, nonstandard component classes (`tag`, `toggle`), and code-label exactness (`alert s92`, `badge c08`)
-- next required execution: no-directive, v11, and v12 live replays on the same packet, then v12-vs-v11 and v12-vs-no-directive comparisons
+- result: no-directive `0 / 6` exact and `1 / 6` executor-equivalent; v11 `5 / 6`; v12 `6 / 6`
+- interpretation: v12 fixes the v11 `alert s92` residual on H1r, but it is not yet a global default until transferred back across H1n/H1o/H1p
 
 ## Latest H1q Component-Label Guard Transfer Finding
 
