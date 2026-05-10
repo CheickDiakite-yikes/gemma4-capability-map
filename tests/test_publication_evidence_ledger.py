@@ -79,6 +79,9 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert claims["C30_component_value_guard_is_negative_evidence"][
         "status"
     ] == "negative_result_current_packets"
+    assert claims["C31_no_call_control_rescue_is_current_component_value_upper_bound"][
+        "status"
+    ] == "supported_current_packets"
     assert "7/8" in claims["C2_final_tool_directive_causal_for_protocol"]["primary_metric"]
     assert "v3 raw exact falls" in claims["C6_split_selector_wording_is_negative_evidence"]["primary_metric"]
     assert "schema-field hints reach 6/8 strict and 8/8 executor-equivalent" in claims[
@@ -211,6 +214,12 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert "v9 component-value guard falls to 4/8 exact" in claims[
         "C30_component_value_guard_is_negative_evidence"
     ]["primary_metric"]
+    assert "v10 reaches 7/8 exact and 8/8 executor-equivalent" in claims[
+        "C31_no_call_control_rescue_is_current_component_value_upper_bound"
+    ]["primary_metric"]
+    assert "+0.125 exact/+0.125 executor-equivalence" in claims[
+        "C31_no_call_control_rescue_is_current_component_value_upper_bound"
+    ]["primary_metric"]
     assert any(
         row["claim_id"] == "C28_h1n_post_repair_holdout_favors_code_guard"
         and row["path"]
@@ -229,6 +238,13 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
         row["claim_id"] == "C30_component_value_guard_is_negative_evidence"
         and row["path"]
         == "results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_component_value_live_replay_summary.csv"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C31_no_call_control_rescue_is_current_component_value_upper_bound"
+        and row["path"]
+        == "results/tool_probe_replay_live/20260510T_h1n_component_value_no_call_control_rescue_execute_v1"
         and row["exists"]
         for row in payload["evidence_sources"]
     )

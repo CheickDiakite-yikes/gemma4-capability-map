@@ -91,6 +91,8 @@ def test_publication_readiness_audit_writes_blocking_checks(tmp_path: Path) -> N
     assert checks["h1n_residual_report_table_exists"]["passed"] is True
     assert checks["h1n_component_value_packet_exists"]["passed"] is True
     assert checks["h1n_component_value_v9_live_packet_exists"]["passed"] is True
+    assert checks["h1n_component_value_v10_live_packet_exists"]["passed"] is True
+    assert checks["h1n_component_value_v10_comparison_exists"]["passed"] is True
     assert checks["h1n_component_value_diagnostic_exists"]["passed"] is True
     assert checks["h1n_component_value_report_table_exists"]["passed"] is True
     assert checks["script_analyze_visual_hard_slice_exactness.py_exists"]["passed"] is True

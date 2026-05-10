@@ -541,6 +541,18 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
         ]
         == -0.25
     )
+    assert (
+        visual_hard_slice_component_value["component-value no-call control rescue vs no directive"][
+            "candidate_exact_rate"
+        ]
+        == 0.875
+    )
+    assert (
+        visual_hard_slice_component_value["component-value no-call control rescue vs no directive"][
+            "candidate_executor_equivalence_rate"
+        ]
+        == 1.0
+    )
     visual_hard_slice_component_value_cases = {
         (row["comparison"], row["case_id"]): row
         for row in payload["visual_hard_slice_component_value_live_replay_case_deltas"]
@@ -557,6 +569,12 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
             "component_value_owner_field_stale_selection_decoy",
         )
     ]["delta_exact_match"] == 1
+    assert visual_hard_slice_component_value_cases[
+        (
+            "component-value no-call control rescue vs no directive",
+            "component_value_status_badge_email_decoy",
+        )
+    ]["delta_executor_equivalence_match"] == 1
     h1i_candidates = {row["system_id"]: row for row in payload["h1i_prompt_contract_candidate_metrics"]}
     assert h1i_candidates["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive"]["tool_turn_directive_enabled"] == "False"
     assert h1i_candidates["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor"]["raw_planning_clean_rate_avg"] == "1.0"

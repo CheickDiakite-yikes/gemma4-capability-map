@@ -127,10 +127,11 @@ Next implementation moves:
   - interpretation: v8 is the current strict-selector upper bound on the residual packet, but it still misses `state pill`
 - completed component-value holdout:
   - rejected profile: `visual_role_catalog_component_value_guard_v9`
+  - new upper-bound profile: `visual_role_catalog_no_call_control_rescue_v10`
   - packet: [`results/tool_probe_replay_packets/20260510T_visual_hard_slice_component_value_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260510T_visual_hard_slice_component_value_oracle_dry_run_v1)
   - diagnostic: [`results/reports/visual_component_value_diagnostic/diagnostic.md`](../../results/reports/visual_component_value_diagnostic/diagnostic.md)
-  - result: contracted/default `1 / 8`, no-directive `5 / 8` exact and `6 / 8` executor-equivalent, argument hints and hybrid label guard `6 / 8` exact and `7 / 8` executor-equivalent, v9 component-value guard `4 / 8`
-  - interpretation: broad component-role/value prose is harmful; v9 fixes `status badge` but regresses `state pill`, `priority chip`, and `result pill` into argument mismatches
+  - result: contracted/default `1 / 8`, no-directive `5 / 8` exact and `6 / 8` executor-equivalent, argument hints and hybrid label guard `6 / 8` exact and `7 / 8` executor-equivalent, v9 component-value guard `4 / 8`, and v10 no-call control rescue `7 / 8` exact plus `8 / 8` executor-equivalent
+  - interpretation: broad component-role/value prose is harmful, but a narrower current-image no-call activation guard fixes `status badge` and `owner field` while preserving executor correctness
 - completed post-repair holdout:
   - packet: [`results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_post_repair_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_post_repair_oracle_dry_run_v1)
   - diagnostic: [`results/reports/visual_alias_transfer_post_repair_diagnostic/diagnostic.md`](../../results/reports/visual_alias_transfer_post_repair_diagnostic/diagnostic.md)

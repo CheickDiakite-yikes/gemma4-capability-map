@@ -514,6 +514,12 @@ DEFAULT_VISUAL_HARD_SLICE_COMPONENT_VALUE_COMPONENT_VALUE_GUARD_LIVE_COMPARISON 
     / "tool_probe_replay_live_comparisons"
     / "20260510T_h1n_component_value_component_value_guard_vs_no_directive_v1"
 )
+DEFAULT_VISUAL_HARD_SLICE_COMPONENT_VALUE_NO_CALL_CONTROL_RESCUE_LIVE_COMPARISON = (
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260510T_h1n_component_value_no_call_control_rescue_vs_no_directive_v1"
+)
 DEFAULT_VISUAL_HARD_SLICE_COMPONENT_VALUE_SCHEMA_FIELD_HINTS_LIVE_COMPARISON = (
     ROOT
     / "results"
@@ -673,6 +679,8 @@ def build_report(
     | Path = DEFAULT_VISUAL_HARD_SLICE_COMPONENT_VALUE_HYBRID_LABEL_GUARD_LIVE_COMPARISON,
     visual_hard_slice_component_value_component_value_guard_live_comparison: str
     | Path = DEFAULT_VISUAL_HARD_SLICE_COMPONENT_VALUE_COMPONENT_VALUE_GUARD_LIVE_COMPARISON,
+    visual_hard_slice_component_value_no_call_control_rescue_live_comparison: str
+    | Path = DEFAULT_VISUAL_HARD_SLICE_COMPONENT_VALUE_NO_CALL_CONTROL_RESCUE_LIVE_COMPARISON,
     visual_hard_slice_component_value_schema_field_hints_live_comparison: str
     | Path = DEFAULT_VISUAL_HARD_SLICE_COMPONENT_VALUE_SCHEMA_FIELD_HINTS_LIVE_COMPARISON,
     registry_path: str | Path = DEFAULT_REGISTRY_PATH,
@@ -1374,6 +1382,15 @@ def build_report(
             json.loads(
                 (
                     Path(visual_hard_slice_component_value_component_value_guard_live_comparison)
+                    / "live_replay_comparison.json"
+                ).read_text(encoding="utf-8")
+            ),
+        ),
+        (
+            "component-value no-call control rescue vs no directive",
+            json.loads(
+                (
+                    Path(visual_hard_slice_component_value_no_call_control_rescue_live_comparison)
                     / "live_replay_comparison.json"
                 ).read_text(encoding="utf-8")
             ),
@@ -2158,6 +2175,9 @@ def build_report(
         ),
         "visual_hard_slice_component_value_component_value_guard_live_comparison": str(
             Path(visual_hard_slice_component_value_component_value_guard_live_comparison).resolve()
+        ),
+        "visual_hard_slice_component_value_no_call_control_rescue_live_comparison": str(
+            Path(visual_hard_slice_component_value_no_call_control_rescue_live_comparison).resolve()
         ),
         "visual_hard_slice_component_value_schema_field_hints_live_comparison": str(
             Path(visual_hard_slice_component_value_schema_field_hints_live_comparison).resolve()
@@ -3286,7 +3306,7 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "",
         _markdown_table(visual_hard_slice_component_value_live_case_rows),
         "",
-        "The component-value micro-slice tests that remaining ambiguity directly. It does not validate the v9 component-value guard: v9 falls to `4 / 8` strict and executor-equivalent, below the no-directive baseline at `5 / 8` strict and `6 / 8` executor-equivalent. Argument hints v2 and v8 hybrid label guard tie for the current upper bound at `6 / 8` strict and `7 / 8` executor-equivalent. The useful positive signal is that both fix the status-badge and owner-field no-call failures; the negative signal is that heavier component-value prose turns several previously passing pill/chip cases into argument mismatches. The next candidate should preserve the lightweight argument-hints behavior and add only a narrow stale-selection/no-call rescue, not a broad component-role/value rule.",
+        "The component-value micro-slice tests that remaining ambiguity directly. It rejects the broad v9 component-value guard: v9 falls to `4 / 8` strict and executor-equivalent, below the no-directive baseline at `5 / 8` strict and `6 / 8` executor-equivalent. The lighter v10 no-call control rescue is the new upper bound at `7 / 8` strict and `8 / 8` executor-equivalent. The useful positive signal is that narrow activation/no-call rescue fixes the status-badge and owner-field no-call failures while preserving the previously passing pill/badge cases; the remaining miss is an executor-equivalent selector paraphrase on the priority-chip case. The negative signal remains that heavier component-value prose turns several passable pill/chip cases into argument mismatches.",
         "",
         "## Visual Hard-Slice Case Deltas vs No Directive",
         "",

@@ -1,5 +1,26 @@
 # Research Log
 
+## 2026-05-10 - v10 No-Call Control Rescue Becomes the Component-Value Upper Bound
+
+- Implemented `visual_role_catalog_no_call_control_rescue_v10` as a lighter follow-up to the failed v9 component-value guard:
+  - system: `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_no_call_control_rescue`
+  - live packet: [`20260510T_h1n_component_value_no_call_control_rescue_execute_v1`](../results/tool_probe_replay_live/20260510T_h1n_component_value_no_call_control_rescue_execute_v1)
+  - no-directive comparison: [`20260510T_h1n_component_value_no_call_control_rescue_vs_no_directive_v1`](../results/tool_probe_replay_live_comparisons/20260510T_h1n_component_value_no_call_control_rescue_vs_no_directive_v1)
+  - diagnostic: [`visual_component_value_diagnostic`](../results/reports/visual_component_value_diagnostic)
+- Live replay result:
+  - v10 no-call control rescue: `7 / 8` exact and `8 / 8` executor-equivalent
+  - argument hints v2 and hybrid label guard v8: `6 / 8` exact and `7 / 8` executor-equivalent
+  - no-directive MLX: `5 / 8` exact and `6 / 8` executor-equivalent
+  - v9 component-value guard: `4 / 8` exact and executor-equivalent
+- Interpretation:
+  - The useful mechanism is narrower than "component-role/value disambiguation." A generic current-image visual activation guard fixed the two no-call cases while preserving the already-passable pill/badge cases.
+  - The remaining miss is not a failed execution; it is an exactness miss where the priority-chip selector is executor-equivalent.
+  - Next transfer test: replay v10 against residual, post-repair, and oblique packets before treating it as a durable profile.
+- Verification:
+  - `uv run pytest tests/test_prompt_contracts.py tests/test_knowledge_work_h1.py::test_h1n_no_call_control_rescue_registry_row_preserves_catalog_profile -q`
+  - `uv run python -m gemma4_capability_map.runtime.cli replay-live --packet-dir results/tool_probe_replay_packets/20260510T_visual_hard_slice_component_value_oracle_dry_run_v1 --output-dir results/tool_probe_replay_live/20260510T_h1n_component_value_no_call_control_rescue_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_no_call_control_rescue --registry configs/model_registry.yaml --execute --json`
+  - `uv run pytest tests/test_visual_live_stress_diagnostic.py -q`
+
 ## 2026-05-10 - Component-Value Holdout Rejects the Broad v9 Guard
 
 - Built the focused component-role/value micro-slice that was motivated by the residual `state pill` miss:
@@ -18,16 +39,15 @@
   - component-value guard v9: `4 / 8` exact and executor-equivalent
 - Interpretation:
   - v9 is negative evidence, not a promotion candidate. It fixes the `status badge` no-call case but regresses `state pill`, `priority chip`, and `result pill` into argument mismatches.
-  - The current component-value upper bound is a tie between argument hints v2 and hybrid label guard v8. Both fix status-badge and owner-field no-call failures while preserving most previously correct pill/badge cases.
-  - The result narrows the research question: avoid broad component-role/value prose, and test a lighter no-call rescue that does not disturb argument-hints selector behavior.
+  - This result narrowed the research question: avoid broad component-role/value prose, and test a lighter no-call rescue that does not disturb argument-hints selector behavior.
 - Verification:
   - `uv run pytest tests/test_visual_hard_slice_live_stress_packet.py tests/test_prompt_contracts.py tests/test_knowledge_work_h1.py::test_h1n_component_value_guard_registry_row_preserves_catalog_profile -q`
   - `uv run pytest tests/test_visual_live_stress_diagnostic.py -q`
   - `uv run pytest tests/test_mlx_tool_contract_report.py -q`
 - Reporting:
   - MLX tool-contract report now has `74` tables and `36` figures
-  - publication evidence ledger now has `30` claims, `145` evidence sources, and `0` missing sources
-  - publication readiness audit now has `104` checks, `102` blocking checks, `0` blocking failures, and status `paper_draft_ready`
+  - publication evidence ledger now has `31` claims, `152` evidence sources, and `0` missing sources
+  - publication readiness audit now has `106` checks, `104` blocking checks, `0` blocking failures, and status `paper_draft_ready`
 
 ## 2026-05-10 - H1n Residual Hybrid Label Guard Becomes the Strict Upper Bound
 

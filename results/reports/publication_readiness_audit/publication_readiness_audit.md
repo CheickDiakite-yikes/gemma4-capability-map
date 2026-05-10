@@ -9,7 +9,7 @@
 | --- | --- | ---: | --- | --- |
 | ledger_manifest_exists | blocking | True | Publication evidence ledger manifest exists. | results/reports/publication_evidence_ledger/manifest.json |
 | ledger_has_no_missing_sources | blocking | True | missing_source_count=0 |  |
-| ledger_has_claims | blocking | True | claim_count=30 |  |
+| ledger_has_claims | blocking | True | claim_count=31 |  |
 | ledger_includes_negative_results | blocking | True | At least one claim is explicitly labeled as negative-result evidence. |  |
 | tool_contract_report_has_current_tables | blocking | True | table_count=74 |  |
 | tool_contract_report_has_current_figures | blocking | True | figure_count=36 |  |
@@ -86,6 +86,8 @@
 | h1n_residual_report_table_exists | blocking | True | Paper-facing residual holdout summary table exists. | results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_residual_live_replay_summary.csv |
 | h1n_component_value_packet_exists | blocking | True | Component-role/value holdout packet exists. | results/tool_probe_replay_packets/20260510T_visual_hard_slice_component_value_oracle_dry_run_v1/summary.json |
 | h1n_component_value_v9_live_packet_exists | blocking | True | Component-value v9 live replay packet exists. | results/tool_probe_replay_live/20260510T_h1n_component_value_component_value_guard_execute_v1/summary.json |
+| h1n_component_value_v10_live_packet_exists | blocking | True | Component-value v10 no-call control rescue live replay packet exists. | results/tool_probe_replay_live/20260510T_h1n_component_value_no_call_control_rescue_execute_v1/summary.json |
+| h1n_component_value_v10_comparison_exists | blocking | True | Component-value v10 no-call control rescue comparison against no-directive exists. | results/tool_probe_replay_live_comparisons/20260510T_h1n_component_value_no_call_control_rescue_vs_no_directive_v1/live_replay_comparison.json |
 | h1n_component_value_diagnostic_exists | blocking | True | Component-value visual diagnostic exists. | results/reports/visual_component_value_diagnostic/diagnostic.md |
 | h1n_component_value_report_table_exists | blocking | True | Paper-facing component-value holdout summary table exists. | results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_component_value_live_replay_summary.csv |
 | current_state_doc_exists | blocking | True | Continuity current-state doc exists. | docs/continuity/current-state.md |

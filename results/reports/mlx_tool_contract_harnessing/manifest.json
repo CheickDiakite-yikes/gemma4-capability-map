@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-10T15:55:56.648735+00:00",
+  "generated_at": "2026-05-10T16:10:06.818337+00:00",
   "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/mlx_tool_contract_harnessing",
   "source_packets": {
     "H1f compact": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1f_mlx_no_directive_v1_knowledge_work_h1f_mlx_tool_contract_ablation_v1",
@@ -95,6 +95,7 @@
   "visual_hard_slice_component_value_code_guard_live_comparison": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260510T_h1n_component_value_code_guard_vs_no_directive_v1",
   "visual_hard_slice_component_value_hybrid_label_guard_live_comparison": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260510T_h1n_component_value_hybrid_label_guard_vs_no_directive_v1",
   "visual_hard_slice_component_value_component_value_guard_live_comparison": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260510T_h1n_component_value_component_value_guard_vs_no_directive_v1",
+  "visual_hard_slice_component_value_no_call_control_rescue_live_comparison": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260510T_h1n_component_value_no_call_control_rescue_vs_no_directive_v1",
   "visual_hard_slice_component_value_schema_field_hints_live_comparison": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260510T_h1n_component_value_schema_field_hints_vs_no_directive_v1",
   "registry_path": "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
   "table_count": 74,

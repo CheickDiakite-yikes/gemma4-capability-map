@@ -1,9 +1,9 @@
 {
   "summary": {
-    "generated_at": "2026-05-10T15:59:13.480776+00:00",
+    "generated_at": "2026-05-10T16:10:06.919118+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 104,
-    "blocking_check_count": 102,
+    "check_count": 106,
+    "blocking_check_count": 104,
     "blocking_failed_count": 0,
     "recommended_check_count": 2,
     "recommended_failed_count": 0,
@@ -29,7 +29,7 @@
       "check_id": "ledger_has_claims",
       "severity": "blocking",
       "passed": true,
-      "detail": "claim_count=30",
+      "detail": "claim_count=31",
       "path": ""
     },
     {
@@ -563,6 +563,20 @@
       "passed": true,
       "detail": "Component-value v9 live replay packet exists.",
       "path": "results/tool_probe_replay_live/20260510T_h1n_component_value_component_value_guard_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h1n_component_value_v10_live_packet_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Component-value v10 no-call control rescue live replay packet exists.",
+      "path": "results/tool_probe_replay_live/20260510T_h1n_component_value_no_call_control_rescue_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h1n_component_value_v10_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Component-value v10 no-call control rescue comparison against no-directive exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260510T_h1n_component_value_no_call_control_rescue_vs_no_directive_v1/live_replay_comparison.json"
     },
     {
       "check_id": "h1n_component_value_diagnostic_exists",

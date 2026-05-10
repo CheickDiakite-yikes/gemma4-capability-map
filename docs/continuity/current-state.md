@@ -1162,6 +1162,7 @@ The repo still does not support these statements:
 The current H1n visual replay frontier is now the component-role/value holdout that followed the residual `state pill` miss.
 
 - component-value packet: [`results/tool_probe_replay_packets/20260510T_visual_hard_slice_component_value_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260510T_visual_hard_slice_component_value_oracle_dry_run_v1)
+- v10 live packet: [`results/tool_probe_replay_live/20260510T_h1n_component_value_no_call_control_rescue_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1n_component_value_no_call_control_rescue_execute_v1)
 - diagnostic: [`results/reports/visual_component_value_diagnostic/diagnostic.md`](../../results/reports/visual_component_value_diagnostic/diagnostic.md)
 - report table: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_component_value_live_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_component_value_live_replay_summary.csv)
 - predecessor packet: [`results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_residual_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_residual_oracle_dry_run_v1)
@@ -1170,6 +1171,7 @@ Current component-value live replay rates:
 
 - contracted/default MLX: `1 / 8` exact and executor-equivalent
 - no-directive MLX: `5 / 8` exact and `6 / 8` executor-equivalent
+- no-call control rescue v10: `7 / 8` exact and `8 / 8` executor-equivalent
 - argument hints v2: `6 / 8` exact and `7 / 8` executor-equivalent
 - hybrid label guard v8: `6 / 8` exact and `7 / 8` executor-equivalent
 - oblique code guard v7: `5 / 8` exact and executor-equivalent
@@ -1180,10 +1182,10 @@ Current component-value live replay rates:
 Interpretation:
 
 - v9 component-value guard is negative evidence, not a profile to promote
-- argument hints v2 and hybrid label guard v8 are tied as the current component-value upper bound
-- the useful gains are no-call rescues on `status badge` and `owner field`
+- v10 no-call control rescue is the current component-value upper bound
+- the useful gains are no-call rescues on `status badge` and `owner field` without broad component-value prose
 - the harmful pattern is broad component-value prose causing argument mismatches on already-passable pill/chip targets
-- next research move should test a lighter no-call rescue while preserving argument-hints behavior
+- next research move should test v10 transfer against residual/post-repair/oblique packets and then a fresh H1o control-first slice
 
 ## Previous H1n Residual Finding
 

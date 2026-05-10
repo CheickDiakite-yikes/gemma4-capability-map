@@ -723,6 +723,26 @@ def audit_publication_readiness(
             detail="Component-value v9 live replay packet exists.",
         ),
         _check_path(
+            check_id="h1n_component_value_v10_live_packet_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260510T_h1n_component_value_no_call_control_rescue_execute_v1"
+            / "summary.json",
+            detail="Component-value v10 no-call control rescue live replay packet exists.",
+        ),
+        _check_path(
+            check_id="h1n_component_value_v10_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260510T_h1n_component_value_no_call_control_rescue_vs_no_directive_v1"
+            / "live_replay_comparison.json",
+            detail="Component-value v10 no-call control rescue comparison against no-directive exists.",
+        ),
+        _check_path(
             check_id="h1n_component_value_diagnostic_exists",
             severity="blocking",
             path=ROOT / "results" / "reports" / "visual_component_value_diagnostic" / "diagnostic.md",

@@ -1252,8 +1252,8 @@ CLAIMS: tuple[Claim, ...] = (
     Claim(
         claim_id="C30_component_value_guard_is_negative_evidence",
         claim=(
-            "A focused component-role/value holdout rejects the broad v9 component-value guard and keeps "
-            "argument hints plus hybrid label guard as the current best local MLX Gemma visual profiles."
+            "A focused component-role/value holdout rejects the broad v9 component-value guard as a local MLX "
+            "Gemma visual prompt intervention."
         ),
         status="negative_result_current_packets",
         evidence_strength="moderate_internal",
@@ -1267,8 +1267,8 @@ CLAIMS: tuple[Claim, ...] = (
             "wording, not all possible component-role/value runtime interventions."
         ),
         next_test=(
-            "Test a lighter intervention that preserves argument-hints behavior while targeting only no-call "
-            "status-badge/owner-field failures, then replay against residual and component-value packets."
+            "Promote only interventions that preserve argument fidelity on the component-value holdout and validate "
+            "their transfer on fresh residual/component packets."
         ),
         sources=(
             EvidenceSource(
@@ -1304,12 +1304,71 @@ CLAIMS: tuple[Claim, ...] = (
             EvidenceSource(
                 "diagnostic_report",
                 "results/reports/visual_component_value_diagnostic/diagnostic.md",
-                "Matrix diagnostic recording v9 regressions and identifying argument hints as the strict upper bound.",
+                "Matrix diagnostic recording v9 regressions and separating v9 from the later v10 no-call rescue.",
             ),
             EvidenceSource(
                 "report_table",
                 "results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_component_value_live_replay_summary.csv",
                 "Paper-facing table summarizing component-value candidate rates.",
+            ),
+        ),
+    ),
+    Claim(
+        claim_id="C31_no_call_control_rescue_is_current_component_value_upper_bound",
+        claim=(
+            "A narrow no-call visual-control rescue profile improves the component-value holdout without the broad "
+            "component-role/value regressions seen in v9."
+        ),
+        status="supported_current_packets",
+        evidence_strength="moderate_internal",
+        primary_metric=(
+            "On the eight-case component-value holdout, v10 reaches 7/8 exact and 8/8 executor-equivalent successes, "
+            "improving over no-directive by +0.25 exact/+0.25 executor-equivalence and over argument hints/hybrid by "
+            "+0.125 exact/+0.125 executor-equivalence."
+        ),
+        limitation=(
+            "The gain is currently shown on a replay-shaped micro-slice; transfer to residual packets and packaged live "
+            "workflows remains unproven."
+        ),
+        next_test=(
+            "Replay v10 against residual/post-repair/oblique packets and build a fresh H1o control-first slice that "
+            "separates activation/no-call rescue from selector-value disambiguation."
+        ),
+        sources=(
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h1n_component_value_no_call_control_rescue_execute_v1",
+                "v10 no-call control rescue execution reaching 7/8 exact and 8/8 executor-equivalent successes.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260510T_h1n_component_value_no_call_control_rescue_vs_no_directive_v1",
+                "Comparison showing +0.25 exact and +0.25 executor-equivalence deltas over no-directive.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260510T_h1n_component_value_no_call_control_rescue_vs_argument_hints_v1",
+                "Comparison showing v10 improves over argument hints by +0.125 exact and executor-equivalence.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260510T_h1n_component_value_no_call_control_rescue_vs_hybrid_label_guard_v1",
+                "Comparison showing v10 improves over hybrid label guard by +0.125 exact and executor-equivalence.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260510T_h1n_component_value_no_call_control_rescue_vs_component_value_guard_v1",
+                "Comparison showing v10 avoids the v9 component-value guard regressions by +0.375 exact and +0.50 executor-equivalence.",
+            ),
+            EvidenceSource(
+                "diagnostic_report",
+                "results/reports/visual_component_value_diagnostic/diagnostic.md",
+                "Component-value matrix diagnostic identifying v10 as the strict upper bound and only executor-equivalent full-success row.",
+            ),
+            EvidenceSource(
+                "report_table",
+                "results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_component_value_live_replay_summary.csv",
+                "Paper-facing table summarizing v10 against the component-value candidate set.",
             ),
         ),
     ),
