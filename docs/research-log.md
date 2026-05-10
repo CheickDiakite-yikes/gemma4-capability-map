@@ -2,6 +2,55 @@
 
 # Research Log
 
+## 2026-05-10 - H2d/H2e Route Arbitration Resolves the First Transfer Tradeoff
+
+- Built and executed the class-preserving H2d profile after H2c's held-out H1x transfer miss:
+  - profile: `visual_role_catalog_class_preserving_residual_route_v19`
+  - system: `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_class_preserving_residual_route_visual_stale_selection_gate`
+  - H2b live packet: [`results/tool_probe_replay_live/20260510T_h2d_class_preserving_route_on_h2b_execute_v1`](../results/tool_probe_replay_live/20260510T_h2d_class_preserving_route_on_h2b_execute_v1)
+  - H1x live packet: [`results/tool_probe_replay_live/20260510T_h2d_class_preserving_route_on_h1x_execute_v1`](../results/tool_probe_replay_live/20260510T_h2d_class_preserving_route_on_h1x_execute_v1)
+  - synthesis: [`results/reports/h2d_transfer_tradeoff_synthesis/report.md`](../results/reports/h2d_transfer_tradeoff_synthesis/report.md)
+- H2d result:
+  - H2b: `4 / 5` strict, `5 / 5` executor-equivalent
+  - H1x: `8 / 8` strict and executor-equivalent
+  - interpretation: H2d fixed H2c's `result chip` -> `result pill` class-swap, but over-specified one H2b code-label row as `escalated badge c08` instead of `badge c08`
+- Built and executed H2e as route arbitration over the H2c/H2d split:
+  - profile: `visual_role_catalog_route_arbitration_residual_exactness_v20`
+  - system: `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate`
+  - H2b live packet: [`results/tool_probe_replay_live/20260510T_h2e_route_arbitration_on_h2b_execute_v1`](../results/tool_probe_replay_live/20260510T_h2e_route_arbitration_on_h2b_execute_v1)
+  - H1x live packet: [`results/tool_probe_replay_live/20260510T_h2e_route_arbitration_on_h1x_execute_v1`](../results/tool_probe_replay_live/20260510T_h2e_route_arbitration_on_h1x_execute_v1)
+  - synthesis: [`results/reports/h2e_route_arbitration_synthesis/report.md`](../results/reports/h2e_route_arbitration_synthesis/report.md)
+  - figure: [`results/reports/h2e_route_arbitration_synthesis/figures/h2e_route_arbitration_gate.svg`](../results/reports/h2e_route_arbitration_synthesis/figures/h2e_route_arbitration_gate.svg)
+- H2e result:
+  - H2b: `5 / 5` strict and executor-equivalent
+  - H1x: `8 / 8` strict and executor-equivalent
+  - zero non-exact rows across the two packets
+  - delta versus H2c on H1x: `+0.125` strict and executor-equivalence
+  - delta versus H2d on H2b: `+0.2` strict, with executor-equivalence tied
+- Scientific read:
+  - controller stale-selection mediation and prompt-level residual exactness are separable mechanisms
+  - local saturation can hide transfer class-swap errors
+  - class-preserving transfer can still lose compact code-label exactness
+  - route arbitration is the first profile to preserve the observed maxima on both gates, but the result is not a population estimate
+- Reporting updates:
+  - publication evidence ledger now has `43` claims, `233` sources, and `0` missing sources
+  - publication readiness audit remains `paper_draft_ready` with `178` checks, `171` blocking checks, and `0` failures
+  - new claims: `C42_h2d_class_preserving_route_repairs_h2c_transfer_but_costs_h2b_exactness`, `C43_h2e_route_arbitration_reconciles_h2c_h2d_tradeoff`
+- Next move:
+  - build H2f as a fresh holdout, not a rerun of H2b/H1x
+  - include unseen code suffixes, component classes, stale-id decoys, neighboring comments/logs/summaries, negated controls, and displayed-value distractors
+  - run H2e against H2a/H2c/H2d/v12/no-directive controls and report strict exactness plus executor-equivalence
+- Verification:
+  - `uv run pytest tests/test_prompt_contracts.py tests/test_knowledge_work_h1.py -q`
+  - `uv run pytest tests/test_h2d_transfer_tradeoff_synthesis.py tests/test_h2e_route_arbitration_synthesis.py -q`
+  - `uv run moonie-agent replay-live --packet-dir results/tool_probe_replay_packets/20260510T_h2b_residual_exactness_dry_run_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate --output-dir results/tool_probe_replay_live/20260510T_h2e_route_arbitration_on_h2b_execute_v1 --execute --json`
+  - `uv run moonie-agent replay-live --packet-dir results/tool_probe_replay_packets/20260510T_h1x_v11_breaker_oracle_dry_run_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate --output-dir results/tool_probe_replay_live/20260510T_h2e_route_arbitration_on_h1x_execute_v1 --execute --json`
+  - `uv run python scripts/build_h2d_transfer_tradeoff_synthesis.py`
+  - `uv run python scripts/build_h2e_route_arbitration_synthesis.py`
+  - `uv run pytest tests/test_publication_evidence_ledger.py tests/test_publication_readiness_audit.py -q`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`
+
 ## 2026-05-10 - H2a Controller Stale-Selection Gate Becomes the Current Local Winner
 
 - Executed the controller-side stale-selection gate on the same H1y mixed packet used for the prompt/catalog routed-residual tests.

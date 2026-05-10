@@ -2,17 +2,18 @@
 
 ## Current Best Next Moves
 
-The next move is not another broad prompt-contract paragraph. H1y/H1z showed that prompt/catalog prose alone did not solve stale selection-origin routing. H2a showed that a controller-side stale-selection gate is causal on the same packet and transfers beyond it. H2b then showed the residual exactness problem is different. H2c now saturates that five-row residual packet, so the next work is transfer validation rather than local fit.
+The next move is not another broad prompt-contract paragraph and not another H2b/H1x rerun. H1y/H1z showed that prompt/catalog prose alone did not solve stale selection-origin routing. H2a showed that a controller-side stale-selection gate is causal and transferable. H2b isolated a separate residual exactness problem. H2c solved H2b locally but failed H1x transfer. H2d fixed transfer but gave back one H2b strict row. H2e now reconciles that tradeoff on the current gates.
 
 Execution order:
 
 1. Treat H2a as a scoped controller helper: repair only stale or missing `selection_id` proposals using live visual state, with no expected-call or benchmark-answer access.
 2. Treat H2b as the residual exactness gate: v12 reaches `4 / 5` strict and `4 / 5` executor-equivalent; v9 ties executor-equivalence at `4 / 5`; H2a drops to `0 / 5` strict and `3 / 5` executor-equivalent.
 3. Treat H2c as a local residual winner: it reaches `5 / 5` strict and `5 / 5` executor-equivalent on H2b, beating v12 and H2a on the residual rows.
-4. Do not promote H2c globally from the fit packet. Build a minimal transfer gate over H1n/H1o/H1p/H1x residual families.
-5. Preserve H2a as the stale-selection controller path; verify whether H2c's scoped residual route keeps H2a's transfer executor profile instead of regressing it.
-6. Score both strict exactness and executor-equivalence; do not collapse executor-valid paraphrases into failures when evaluating live usefulness.
-7. Keep packaged workflows paused for this line unless they preserve the same replay-shaped pressure; H1l/H1m already showed packaged visual surfaces can wash out the mechanism.
+4. Treat H2d as the transfer repair: it reaches `8 / 8` strict and executor-equivalent on H1x, but only `4 / 5` strict on H2b while keeping `5 / 5` executor-equivalence.
+5. Treat H2e as the current mechanism candidate: it reaches `5 / 5` on H2b and `8 / 8` on H1x, with zero non-exact rows across both packets.
+6. Do not promote H2e globally from two observed gates. Build H2f as a fresh route-arbitration holdout with unseen labels and decoys.
+7. Score both strict exactness and executor-equivalence; do not collapse executor-valid paraphrases into failures when evaluating live usefulness.
+8. Keep packaged workflows paused for this line unless they preserve the same replay-shaped pressure; H1l/H1m already showed packaged visual surfaces can wash out the mechanism.
 
 Immediate suggested command:
 
@@ -20,12 +21,21 @@ Immediate suggested command:
 uv run python scripts/build_h2a_stale_selection_transfer_synthesis.py
 uv run python scripts/build_h2b_residual_exactness_synthesis.py
 uv run python scripts/build_h2c_scoped_residual_synthesis.py
+uv run python scripts/build_h2d_transfer_tradeoff_synthesis.py
+uv run python scripts/build_h2e_route_arbitration_synthesis.py
 uv run python scripts/build_mlx_tool_contract_report.py
 uv run python scripts/build_publication_evidence_ledger.py
 uv run python scripts/audit_publication_readiness.py
 ```
 
-Then design the H2c transfer packet from the H2a/H2b residual families, starting with the exact rows already isolated in `results/reports/h2c_scoped_residual_synthesis/tables/h2c_scoped_residual_case_matrix.csv`.
+Then design the H2f holdout packet from the mechanism, not from the solved rows:
+
+- code-suffix labels beyond `alert s92` and `badge c08`
+- component classes beyond `chip`, `pill`, `badge`, `tag`, and `toggle`
+- stale/old/previous `selection_id` text as untrusted prompt content
+- neighboring notes, comments, summaries, logs, and tables that repeat the same value
+- negated controls and before-reading clauses
+- displayed-value distractors such as `Escalated`, `Manual`, `Closed`, `Blocked`, and fresh equivalents
 
 ## Immediate
 

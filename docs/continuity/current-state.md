@@ -2,7 +2,26 @@
 
 ## Latest Restart Point
 
-The active research frontier is now H2c transfer, not H1x, local H2a fit, H2b packet construction, or the first H2c fit gate.
+The active research frontier is now a fresh H2f route-arbitration holdout, not H1x, local H2a fit, H2b packet construction, H2c transfer, or the H2d tradeoff check.
+
+The latest result is H2e: a route-arbitrated residual exactness profile on top of the H2a stale-selection controller gate. H2e was built from the H2c/H2d failure split:
+
+- H2c saturated H2b locally at `5 / 5` strict and executor-equivalent, but transferred to only `7 / 8` on H1x by swapping `result chip` into `result pill`.
+- H2d repaired that held-out H1x transfer miss at `8 / 8`, but gave back one strict H2b exact row by producing `escalated badge c08` instead of `badge c08`; that row remained executor-equivalent.
+- H2e reconciles the split: `5 / 5` strict and executor-equivalent on H2b, plus `8 / 8` strict and executor-equivalent on H1x, with zero non-exact rows across the two packets.
+
+The scientific conclusion is deliberately scoped. H2e is strong mechanism evidence that route arbitration can combine compact code-label exactness with class-preserving component transfer, but it is not yet a global default. The next proof must be a newly authored H2f holdout with unseen code suffixes, component classes, stale-id decoys, and displayed-value distractors.
+
+Latest H2e artifacts:
+
+- H2e profile system: `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate`
+- H2e synthesis: [`results/reports/h2e_route_arbitration_synthesis/report.md`](../../results/reports/h2e_route_arbitration_synthesis/report.md)
+- H2e figure: [`results/reports/h2e_route_arbitration_synthesis/figures/h2e_route_arbitration_gate.svg`](../../results/reports/h2e_route_arbitration_synthesis/figures/h2e_route_arbitration_gate.svg)
+- H2e H2b live packet: [`results/tool_probe_replay_live/20260510T_h2e_route_arbitration_on_h2b_execute_v1`](../../results/tool_probe_replay_live/20260510T_h2e_route_arbitration_on_h2b_execute_v1)
+- H2e H1x live packet: [`results/tool_probe_replay_live/20260510T_h2e_route_arbitration_on_h1x_execute_v1`](../../results/tool_probe_replay_live/20260510T_h2e_route_arbitration_on_h1x_execute_v1)
+- H2e-vs-H2c H1x comparison: [`results/tool_probe_replay_live_comparisons/20260510T_h2e_route_arbitration_vs_h2c_on_h1x_v1`](../../results/tool_probe_replay_live_comparisons/20260510T_h2e_route_arbitration_vs_h2c_on_h1x_v1)
+- H2e-vs-H2d H2b comparison: [`results/tool_probe_replay_live_comparisons/20260510T_h2e_route_arbitration_vs_h2d_on_h2b_v1`](../../results/tool_probe_replay_live_comparisons/20260510T_h2e_route_arbitration_vs_h2d_on_h2b_v1)
+- publication claims: `C42_h2d_class_preserving_route_repairs_h2c_transfer_but_costs_h2b_exactness`, `C43_h2e_route_arbitration_reconciles_h2c_h2d_tradeoff`
 
 H1x broke v11 saturation but could not justify promoting v12 globally because H1s had already shown transfer cost. H1y then tested whether prompt/catalog prose could route the residual cases more selectively. It could not: v16 and v17 both reached only `5 / 10` on the H1y packet, tying v11 and below v12's `7 / 10`.
 
@@ -70,15 +89,16 @@ Primary artifacts:
 Current reporting snapshot:
 
 - MLX tool-contract report: `110` tables / `45` figures
-- publication evidence ledger: `41` claims / `222` evidence sources / `0` missing
+- publication evidence ledger: `43` claims / `233` evidence sources / `0` missing
 - publication readiness audit: `paper_draft_ready`, `0` blocking failures
-- latest publication claims: `C38_h2a_controller_stale_selection_gate_is_causal`, `C39_h2a_stale_selection_gate_transfers_with_better_executor_profile`, `C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a`, `C41_h2c_scoped_residual_gate_saturates_h2b_but_needs_transfer`
+- latest publication claims: `C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a`, `C41_h2c_scoped_residual_gate_saturates_h2b_but_needs_transfer`, `C42_h2d_class_preserving_route_repairs_h2c_transfer_but_costs_h2b_exactness`, `C43_h2e_route_arbitration_reconciles_h2c_h2d_tradeoff`
 
 Next restart move:
 
-- build and run a minimal H2c transfer gate over H1n/H1o/H1p/H1x residual families
-- compare H2c against H2a, v12, and the incumbent profile on strict exactness and executor-equivalence
-- do not let the transfer gate read expected calls or benchmark labels; use only live visual state, tool schema, and generic route/factor wording
+- build a fresh H2f route-arbitration holdout packet rather than reusing H2b/H1x rows
+- include unseen code labels, component-class names, stale-id decoys, negated neighboring controls, comments/logs/summaries, and displayed-value distractors
+- run H2e against H2f plus H2a/H2c/H2d/v12/no-directive controls on strict exactness and executor-equivalence
+- do not let the H2f gate read expected calls or benchmark labels; use only live visual state, tool schema, and generic route/factor wording
 
 ## Benchmark Shape
 

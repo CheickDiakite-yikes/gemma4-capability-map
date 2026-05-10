@@ -22,6 +22,12 @@ Treat the older H1/HF and React notes below as historical context unless they ar
 
 Current strongest MLX result:
 
+- H2e route arbitration is the freshest visual harnessing frontier:
+  - H2c saturated H2b at `5 / 5` but transferred to H1x at only `7 / 8`
+  - H2d repaired H1x to `8 / 8` but fell to `4 / 5` strict on H2b
+  - H2e reaches `5 / 5` strict/executor-equivalent on H2b and `8 / 8` strict/executor-equivalent on H1x
+  - synthesis: [`results/reports/h2e_route_arbitration_synthesis/report.md`](../../results/reports/h2e_route_arbitration_synthesis/report.md)
+  - next restart move: build a fresh H2f holdout; do not promote H2e globally from H2b/H1x alone
 - H1h proves the no-directive causal ordering across all ten live workflow families.
 - H1i compresses the worst H1h workflow families into the current fast loop.
 - contracted MLX on H1i is clean at readiness `0.97710`, strict/recovered `1.0 / 1.0`, raw clean `1.0`.
