@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-10T20:14:26.264282+00:00",
+    "generated_at": "2026-05-10T20:26:40.892269+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-    "claim_count": 40,
-    "evidence_source_count": 214,
+    "claim_count": 41,
+    "evidence_source_count": 222,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -45,7 +45,8 @@
       "C37_h1x_breaks_v11_saturation_but_supports_routing",
       "C38_h2a_controller_stale_selection_gate_is_causal",
       "C39_h2a_stale_selection_gate_transfers_with_better_executor_profile",
-      "C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a"
+      "C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a",
+      "C41_h2c_scoped_residual_gate_saturates_h2b_but_needs_transfer"
     ]
   },
   "claims": [
@@ -448,6 +449,16 @@
       "limitation": "H2b is deliberately selected from the five H2a residual rows, so it supports a scoped H2c routing hypothesis rather than a broad population estimate; H1s still warns against global v12 promotion.",
       "next_test": "Build H2c as a conditional route that applies v12-like residual language only when alias/code-label exactness is the likely failure mechanism, while preserving H2a for stale-selection repair.",
       "source_count": 9
+    },
+    {
+      "claim_id": "C41_h2c_scoped_residual_gate_saturates_h2b_but_needs_transfer",
+      "claim": "The H2c scoped residual gate solves the five-row H2b residual packet locally, but the evidence still requires a held-out transfer gate before any global or default promotion.",
+      "status": "supported_current_packets",
+      "evidence_strength": "strong_internal",
+      "primary_metric": "On H2b, H2c reaches 5/5 strict exact and 5/5 executor-equivalent, versus v12 at 4/5 and 4/5, v9 at 3/5 and 4/5, H2a at 0/5 and 3/5, and no-directive at 1/5 and 2/5.",
+      "limitation": "H2c is fit to the same five residual rows selected from H2a transfer, so it is a local mechanism result. It does not override the earlier H1s warning that residual wording can hurt transfer.",
+      "next_test": "Run a minimal H2c transfer gate over H1n/H1o/H1p/H1x residual families and compare strict exactness, executor-equivalence, and stale-selection behavior against H2a and v12.",
+      "source_count": 8
     }
   ],
   "evidence_sources": [
@@ -1947,6 +1958,62 @@
       "artifact_type": "report_figure",
       "path": "results/reports/mlx_tool_contract_harnessing/figures/h2b_residual_exactness_gate.svg",
       "purpose": "Paper-facing H2b residual exactness gate figure in the generated MLX report.",
+      "exists": true
+    },
+    {
+      "claim_id": "C41_h2c_scoped_residual_gate_saturates_h2b_but_needs_transfer",
+      "artifact_type": "replay_synthesis",
+      "path": "results/reports/h2c_scoped_residual_synthesis/report.md",
+      "purpose": "H2c synthesis showing local saturation on the H2b residual exactness packet.",
+      "exists": true
+    },
+    {
+      "claim_id": "C41_h2c_scoped_residual_gate_saturates_h2b_but_needs_transfer",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260510T_h2c_scoped_residual_gate_on_h2b_execute_v1",
+      "purpose": "H2c live execution reaching 5/5 strict and executor-equivalent on H2b.",
+      "exists": true
+    },
+    {
+      "claim_id": "C41_h2c_scoped_residual_gate_saturates_h2b_but_needs_transfer",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260510T_h2c_scoped_residual_gate_vs_component_residual_guard_on_h2b_v1",
+      "purpose": "H2c comparison against v12 showing a one-case strict/executor gain.",
+      "exists": true
+    },
+    {
+      "claim_id": "C41_h2c_scoped_residual_gate_saturates_h2b_but_needs_transfer",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260510T_h2c_scoped_residual_gate_vs_h2a_on_h2b_v1",
+      "purpose": "H2c comparison against H2a showing residual exactness remains separate from stale-selection mediation.",
+      "exists": true
+    },
+    {
+      "claim_id": "C41_h2c_scoped_residual_gate_saturates_h2b_but_needs_transfer",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260510T_h2c_scoped_residual_gate_vs_component_value_guard_on_h2b_v1",
+      "purpose": "H2c comparison against v9 showing it beats the executor-tie row on strict exactness.",
+      "exists": true
+    },
+    {
+      "claim_id": "C41_h2c_scoped_residual_gate_saturates_h2b_but_needs_transfer",
+      "artifact_type": "report_table",
+      "path": "results/reports/mlx_tool_contract_harnessing/tables/h2c_scoped_residual_packet_summary.csv",
+      "purpose": "Paper-facing H2c packet summary table in the generated MLX report.",
+      "exists": true
+    },
+    {
+      "claim_id": "C41_h2c_scoped_residual_gate_saturates_h2b_but_needs_transfer",
+      "artifact_type": "report_table",
+      "path": "results/reports/mlx_tool_contract_harnessing/tables/h2c_scoped_residual_comparison_summary.csv",
+      "purpose": "Paper-facing H2c comparison summary table in the generated MLX report.",
+      "exists": true
+    },
+    {
+      "claim_id": "C41_h2c_scoped_residual_gate_saturates_h2b_but_needs_transfer",
+      "artifact_type": "report_figure",
+      "path": "results/reports/mlx_tool_contract_harnessing/figures/h2c_scoped_residual_gate.svg",
+      "purpose": "Paper-facing H2c scoped residual gate figure in the generated MLX report.",
       "exists": true
     }
   ],

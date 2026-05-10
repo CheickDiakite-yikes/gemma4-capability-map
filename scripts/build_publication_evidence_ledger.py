@@ -1900,6 +1900,69 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C41_h2c_scoped_residual_gate_saturates_h2b_but_needs_transfer",
+        claim=(
+            "The H2c scoped residual gate solves the five-row H2b residual packet locally, but the evidence still "
+            "requires a held-out transfer gate before any global or default promotion."
+        ),
+        status="supported_current_packets",
+        evidence_strength="strong_internal",
+        primary_metric=(
+            "On H2b, H2c reaches 5/5 strict exact and 5/5 executor-equivalent, versus v12 at 4/5 and 4/5, "
+            "v9 at 3/5 and 4/5, H2a at 0/5 and 3/5, and no-directive at 1/5 and 2/5."
+        ),
+        limitation=(
+            "H2c is fit to the same five residual rows selected from H2a transfer, so it is a local mechanism "
+            "result. It does not override the earlier H1s warning that residual wording can hurt transfer."
+        ),
+        next_test=(
+            "Run a minimal H2c transfer gate over H1n/H1o/H1p/H1x residual families and compare strict exactness, "
+            "executor-equivalence, and stale-selection behavior against H2a and v12."
+        ),
+        sources=(
+            EvidenceSource(
+                "replay_synthesis",
+                "results/reports/h2c_scoped_residual_synthesis/report.md",
+                "H2c synthesis showing local saturation on the H2b residual exactness packet.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h2c_scoped_residual_gate_on_h2b_execute_v1",
+                "H2c live execution reaching 5/5 strict and executor-equivalent on H2b.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260510T_h2c_scoped_residual_gate_vs_component_residual_guard_on_h2b_v1",
+                "H2c comparison against v12 showing a one-case strict/executor gain.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260510T_h2c_scoped_residual_gate_vs_h2a_on_h2b_v1",
+                "H2c comparison against H2a showing residual exactness remains separate from stale-selection mediation.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260510T_h2c_scoped_residual_gate_vs_component_value_guard_on_h2b_v1",
+                "H2c comparison against v9 showing it beats the executor-tie row on strict exactness.",
+            ),
+            EvidenceSource(
+                "report_table",
+                "results/reports/mlx_tool_contract_harnessing/tables/h2c_scoped_residual_packet_summary.csv",
+                "Paper-facing H2c packet summary table in the generated MLX report.",
+            ),
+            EvidenceSource(
+                "report_table",
+                "results/reports/mlx_tool_contract_harnessing/tables/h2c_scoped_residual_comparison_summary.csv",
+                "Paper-facing H2c comparison summary table in the generated MLX report.",
+            ),
+            EvidenceSource(
+                "report_figure",
+                "results/reports/mlx_tool_contract_harnessing/figures/h2c_scoped_residual_gate.svg",
+                "Paper-facing H2c scoped residual gate figure in the generated MLX report.",
+            ),
+        ),
+    ),
 )
 
 

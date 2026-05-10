@@ -2,7 +2,7 @@
 
 ## Latest Restart Point
 
-The active research frontier is now H2c scoped residual routing, not H1x, local H2a fit, or H2b packet construction.
+The active research frontier is now H2c transfer, not H1x, local H2a fit, H2b packet construction, or the first H2c fit gate.
 
 H1x broke v11 saturation but could not justify promoting v12 globally because H1s had already shown transfer cost. H1y then tested whether prompt/catalog prose could route the residual cases more selectively. It could not: v16 and v17 both reached only `5 / 10` on the H1y packet, tying v11 and below v12's `7 / 10`.
 
@@ -35,7 +35,16 @@ H2b then isolated the five H2a transfer residuals: `result pill`, `alert s92`, `
 - H2a stale-selection gate: `0 / 5` strict, `3 / 5` executor-equivalent
 - v9 component-value guard: `3 / 5` strict, `4 / 5` executor-equivalent
 
-The H2b conclusion is equally important: H2a is not an alias/code-label exactness solution, and v12 should not be globalized just because it wins this residual packet. H1s already showed v12 transfer cost. The next publishable move is H2c: a conditional route/factor that applies v12-like residual exactness only when alias/code-label risk is present, while preserving H2a for stale-selection mediation.
+The H2b conclusion is equally important: H2a is not an alias/code-label exactness solution, and v12 should not be globalized just because it wins this residual packet. H1s already showed v12 transfer cost.
+
+H2c then added a scoped residual-exactness route while preserving the H2a stale-selection controller gate. On H2b:
+
+- H2c scoped residual gate: `5 / 5` strict, `5 / 5` executor-equivalent
+- delta versus v12: `+0.2` exact-rate and `+0.2` executor-equivalence-rate
+- delta versus H2a: `+1.0` exact-rate and `+0.4` executor-equivalence-rate
+- delta versus no-directive: `+0.8` exact-rate and `+0.6` executor-equivalence-rate
+
+This is the best local residual result so far, but it is still a fit packet. The next publishable move is not global promotion; it is a minimal H2c transfer gate over the H1n/H1o/H1p/H1x residual families to test whether scoped residual exactness preserves H2a's broader executor profile.
 
 Primary artifacts:
 
@@ -52,19 +61,24 @@ Primary artifacts:
 - H2b packet table: [`results/reports/mlx_tool_contract_harnessing/tables/h2b_residual_exactness_packet_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/h2b_residual_exactness_packet_summary.csv)
 - H2b case matrix: [`results/reports/mlx_tool_contract_harnessing/tables/h2b_residual_exactness_case_matrix.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/h2b_residual_exactness_case_matrix.csv)
 - H2b figure: [`results/reports/mlx_tool_contract_harnessing/figures/h2b_residual_exactness_gate.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/h2b_residual_exactness_gate.svg)
+- H2c scoped residual synthesis: [`results/reports/h2c_scoped_residual_synthesis/report.md`](../../results/reports/h2c_scoped_residual_synthesis/report.md)
+- H2c live packet: [`results/tool_probe_replay_live/20260510T_h2c_scoped_residual_gate_on_h2b_execute_v1`](../../results/tool_probe_replay_live/20260510T_h2c_scoped_residual_gate_on_h2b_execute_v1)
+- H2c-vs-v12 comparison: [`results/tool_probe_replay_live_comparisons/20260510T_h2c_scoped_residual_gate_vs_component_residual_guard_on_h2b_v1`](../../results/tool_probe_replay_live_comparisons/20260510T_h2c_scoped_residual_gate_vs_component_residual_guard_on_h2b_v1)
+- H2c report table: [`results/reports/mlx_tool_contract_harnessing/tables/h2c_scoped_residual_packet_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/h2c_scoped_residual_packet_summary.csv)
+- H2c figure: [`results/reports/mlx_tool_contract_harnessing/figures/h2c_scoped_residual_gate.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/h2c_scoped_residual_gate.svg)
 
 Current reporting snapshot:
 
-- MLX tool-contract report: `106` tables / `44` figures
-- publication evidence ledger: `40` claims / `214` evidence sources / `0` missing
+- MLX tool-contract report: `110` tables / `45` figures
+- publication evidence ledger: `41` claims / `222` evidence sources / `0` missing
 - publication readiness audit: `paper_draft_ready`, `0` blocking failures
-- latest publication claims: `C38_h2a_controller_stale_selection_gate_is_causal`, `C39_h2a_stale_selection_gate_transfers_with_better_executor_profile`, `C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a`
+- latest publication claims: `C38_h2a_controller_stale_selection_gate_is_causal`, `C39_h2a_stale_selection_gate_transfers_with_better_executor_profile`, `C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a`, `C41_h2c_scoped_residual_gate_saturates_h2b_but_needs_transfer`
 
 Next restart move:
 
-- design H2c as a scoped residual route/factor over the H2b rows
-- keep H2a's controller mediation scoped to stale or missing `selection_id` repair from live visual state
-- do not let any H2c helper read expected calls or benchmark labels; use only live visual state, tool schema, and generic route/factor wording
+- build and run a minimal H2c transfer gate over H1n/H1o/H1p/H1x residual families
+- compare H2c against H2a, v12, and the incumbent profile on strict exactness and executor-equivalence
+- do not let the transfer gate read expected calls or benchmark labels; use only live visual state, tool schema, and generic route/factor wording
 
 ## Benchmark Shape
 

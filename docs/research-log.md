@@ -76,6 +76,42 @@
   - `uv run python scripts/build_publication_evidence_ledger.py`
   - `uv run python scripts/audit_publication_readiness.py`
 
+## 2026-05-10 - H2c Scoped Residual Local Gate
+
+- Added the H2c scoped residual profile and controller-gated registry row:
+  - profile id: `visual_role_catalog_scoped_residual_exactness_v18`
+  - system id: `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_scoped_residual_exactness_visual_stale_selection_gate`
+  - mechanism: preserve H2a's stale-selection controller gate while adding scoped exactness for code-label, tag/toggle/switch, stale-field, and easy-to-swap role-plus-component cases
+- Ran H2c live on the H2b residual packet:
+  - live packet: [`results/tool_probe_replay_live/20260510T_h2c_scoped_residual_gate_on_h2b_execute_v1`](../results/tool_probe_replay_live/20260510T_h2c_scoped_residual_gate_on_h2b_execute_v1)
+  - synthesis: [`results/reports/h2c_scoped_residual_synthesis/report.md`](../results/reports/h2c_scoped_residual_synthesis/report.md)
+  - comparison versus v12: [`20260510T_h2c_scoped_residual_gate_vs_component_residual_guard_on_h2b_v1`](../results/tool_probe_replay_live_comparisons/20260510T_h2c_scoped_residual_gate_vs_component_residual_guard_on_h2b_v1)
+  - comparison versus H2a: [`20260510T_h2c_scoped_residual_gate_vs_h2a_on_h2b_v1`](../results/tool_probe_replay_live_comparisons/20260510T_h2c_scoped_residual_gate_vs_h2a_on_h2b_v1)
+- Result:
+  - H2c: `5 / 5` strict, `5 / 5` executor-equivalent
+  - v12: `4 / 5` strict, `4 / 5` executor-equivalent
+  - H2a: `0 / 5` strict, `3 / 5` executor-equivalent
+  - v9: `3 / 5` strict, `4 / 5` executor-equivalent
+  - no-directive: `1 / 5` strict, `2 / 5` executor-equivalent
+- Interpretation:
+  - H2c is the strongest local residual-exactness result so far.
+  - The mechanism split is now clean: H2a handles stale selection-origin mediation; H2c handles alias/code-label/nonstandard-component exactness.
+  - This is not enough for a default promotion because the packet is selected from H2a residuals and H1s already showed residual wording can hurt transfer.
+  - The next publishable test is a minimal H2c transfer gate over H1n/H1o/H1p/H1x residual families.
+- Reporting updates:
+  - generated MLX tool-contract report now has `110` tables and `45` figures
+  - publication evidence ledger now has `41` claims, `222` evidence sources, and `0` missing sources
+  - new claim: `C41_h2c_scoped_residual_gate_saturates_h2b_but_needs_transfer`
+  - publication readiness audit now has `178` checks, `171` blocking checks, `0` blocking failures, and status `paper_draft_ready`
+- Verification:
+  - `uv run pytest tests/test_prompt_contracts.py tests/test_knowledge_work_h1.py -q`
+  - `uv run moonie-agent replay-live --packet-dir results/tool_probe_replay_packets/20260510T_h2b_residual_exactness_dry_run_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_scoped_residual_exactness_visual_stale_selection_gate --output-dir results/tool_probe_replay_live/20260510T_h2c_scoped_residual_gate_on_h2b_execute_v1 --execute --json`
+  - `uv run pytest tests/test_h2c_scoped_residual_synthesis.py -q`
+  - `uv run python scripts/build_h2c_scoped_residual_synthesis.py`
+  - `uv run python scripts/build_mlx_tool_contract_report.py`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`
+
 ## 2026-05-10 - H2a Stale-Selection Transfer Gate
 
 - Completed the H2a transfer test that was queued after the local H1y result.

@@ -1303,6 +1303,75 @@ def audit_publication_readiness(
             detail="Paper-facing H2b residual exactness gate figure exists in the main report.",
         ),
         _check_path(
+            check_id="h2c_scoped_residual_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260510T_h2c_scoped_residual_gate_on_h2b_execute_v1"
+            / "summary.json",
+            detail="H2c scoped residual live replay exists on H2b.",
+        ),
+        _check_path(
+            check_id="h2c_scoped_residual_vs_v12_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260510T_h2c_scoped_residual_gate_vs_component_residual_guard_on_h2b_v1"
+            / "live_replay_comparison.json",
+            detail="H2c-vs-v12 H2b comparison exists.",
+        ),
+        _check_path(
+            check_id="h2c_scoped_residual_vs_h2a_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260510T_h2c_scoped_residual_gate_vs_h2a_on_h2b_v1"
+            / "live_replay_comparison.json",
+            detail="H2c-vs-H2a H2b comparison exists.",
+        ),
+        _check_path(
+            check_id="h2c_scoped_residual_synthesis_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "h2c_scoped_residual_synthesis" / "report.md",
+            detail="H2c scoped residual synthesis report exists.",
+        ),
+        _check_path(
+            check_id="h2c_scoped_residual_report_table_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "mlx_tool_contract_harnessing"
+            / "tables"
+            / "h2c_scoped_residual_packet_summary.csv",
+            detail="Paper-facing H2c packet table exists in the main report.",
+        ),
+        _check_path(
+            check_id="h2c_scoped_residual_comparison_table_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "mlx_tool_contract_harnessing"
+            / "tables"
+            / "h2c_scoped_residual_comparison_summary.csv",
+            detail="Paper-facing H2c comparison table exists in the main report.",
+        ),
+        _check_path(
+            check_id="h2c_scoped_residual_report_figure_exists",
+            severity="recommended",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "mlx_tool_contract_harnessing"
+            / "figures"
+            / "h2c_scoped_residual_gate.svg",
+            detail="Paper-facing H2c scoped residual gate figure exists in the main report.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",
@@ -1355,6 +1424,7 @@ def audit_publication_readiness(
         "build_h2a_stale_selection_transfer_synthesis.py",
         "build_h2b_residual_exactness_packet.py",
         "build_h2b_residual_exactness_synthesis.py",
+        "build_h2c_scoped_residual_synthesis.py",
         "build_h1n_oracle_transfer_synthesis.py",
         "compare_tool_directive_probes.py",
         "build_visual_hard_slice_design.py",

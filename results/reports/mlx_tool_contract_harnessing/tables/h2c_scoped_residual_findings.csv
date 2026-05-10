@@ -1,0 +1,6 @@
+finding_id,finding
+h2c_saturates_h2b_residuals,H2c reaches 5/5 strict and 5/5 executor-equivalent on the H2b residual packet.
+h2c_beats_v12_strict_and_executor,"H2c improves over v12 by 0.2 exact-rate and 0.2 executor-rate, fixing v12's remaining `result pill` miss while preserving its code-label and nonstandard-component wins."
+h2c_separates_residual_exactness_from_h2a,"H2a is still 0/5 strict and 3/5 executor-equivalent on H2b, while H2c gains 1.0 exact-rate. This keeps stale-selection mediation and residual exactness as distinct mechanisms."
+h2c_surpasses_v9_executor_tie,V9 tied v12 on executor-equivalence at 4/5 but only reached 3/5 strict. H2c reaches 5/5 on both metrics.
+next_slice,Do not promote H2c globally from a five-case residual fit. The next gate is a minimal transfer check over H1n/H1o/H1p/H1x residual families to detect whether scoped residual exactness harms the broader H2a executor profile.

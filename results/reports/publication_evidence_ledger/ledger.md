@@ -4,9 +4,9 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 
 ## Manifest
 
-- generated_at: `2026-05-10T20:14:26.264282+00:00`
-- claim_count: `40`
-- evidence_source_count: `214`
+- generated_at: `2026-05-10T20:26:40.892269+00:00`
+- claim_count: `41`
+- evidence_source_count: `222`
 - missing_source_count: `0`
 
 ## Claims
@@ -53,6 +53,7 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C38_h2a_controller_stale_selection_gate_is_causal | supported_current_packets | strong_internal | On the same 10-case H1y packet, no-directive reaches 0/10 exact, v11 reaches 5/10, v12 reaches 7/10, v16 and v17 reach 5/10, and H2a reaches 8/10 exact and executor-equivalent. | This claim is local to the H1y routed-residual packet; the transfer result is tracked separately so local causality and held-out generalization remain distinct. | Use the H2a transfer gate to decide whether the helper should be promoted as a scoped controller mechanism, then isolate the remaining argument-alias/code-label misses without leaking expected labels. |
 | C39_h2a_stale_selection_gate_transfers_with_better_executor_profile | supported_current_packets | strong_internal | Across H1n/H1o/H1p/H1x, H2a reaches 35/40 strict exact and 38/40 executor-equivalent, versus no-directive at 12/40 and 14/40, v11 at 33/40 and 36/40, and v12 at 35/40 and 35/40. | H2a still leaves five transfer residual rows, mostly exact alias/code-label disagreements; two H1p rows are not executor-equivalent and should not be treated as solved. | Build the next residual packet around exact alias/code-label fidelity: result pill, alert s92, badge c08, state tag, and mode toggle, with no expected-call or benchmark-answer access. |
 | C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a | supported_current_packets | strong_internal | On the five-row H2b residual packet, v12 reaches 4/5 strict exact and 4/5 executor-equivalent, v9 reaches 3/5 strict and 4/5 executor-equivalent, v15 reaches 3/5 strict, H2a reaches 0/5 strict and 3/5 executor-equivalent, and no-directive reaches 1/5 strict and 2/5 executor-equivalent. | H2b is deliberately selected from the five H2a residual rows, so it supports a scoped H2c routing hypothesis rather than a broad population estimate; H1s still warns against global v12 promotion. | Build H2c as a conditional route that applies v12-like residual language only when alias/code-label exactness is the likely failure mechanism, while preserving H2a for stale-selection repair. |
+| C41_h2c_scoped_residual_gate_saturates_h2b_but_needs_transfer | supported_current_packets | strong_internal | On H2b, H2c reaches 5/5 strict exact and 5/5 executor-equivalent, versus v12 at 4/5 and 4/5, v9 at 3/5 and 4/5, H2a at 0/5 and 3/5, and no-directive at 1/5 and 2/5. | H2c is fit to the same five residual rows selected from H2a transfer, so it is a local mechanism result. It does not override the earlier H1s warning that residual wording can hurt transfer. | Run a minimal H2c transfer gate over H1n/H1o/H1p/H1x residual families and compare strict exactness, executor-equivalence, and stale-selection behavior against H2a and v12. |
 
 ## Evidence Sources
 
@@ -272,3 +273,11 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a | report_table | True | results/reports/mlx_tool_contract_harnessing/tables/h2b_residual_exactness_packet_summary.csv | Paper-facing H2b packet summary table in the generated MLX report. |
 | C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a | report_table | True | results/reports/mlx_tool_contract_harnessing/tables/h2b_residual_exactness_case_matrix.csv | Paper-facing H2b case matrix separating strict exactness from executor-equivalence. |
 | C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a | report_figure | True | results/reports/mlx_tool_contract_harnessing/figures/h2b_residual_exactness_gate.svg | Paper-facing H2b residual exactness gate figure in the generated MLX report. |
+| C41_h2c_scoped_residual_gate_saturates_h2b_but_needs_transfer | replay_synthesis | True | results/reports/h2c_scoped_residual_synthesis/report.md | H2c synthesis showing local saturation on the H2b residual exactness packet. |
+| C41_h2c_scoped_residual_gate_saturates_h2b_but_needs_transfer | live_replay_packet | True | results/tool_probe_replay_live/20260510T_h2c_scoped_residual_gate_on_h2b_execute_v1 | H2c live execution reaching 5/5 strict and executor-equivalent on H2b. |
+| C41_h2c_scoped_residual_gate_saturates_h2b_but_needs_transfer | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260510T_h2c_scoped_residual_gate_vs_component_residual_guard_on_h2b_v1 | H2c comparison against v12 showing a one-case strict/executor gain. |
+| C41_h2c_scoped_residual_gate_saturates_h2b_but_needs_transfer | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260510T_h2c_scoped_residual_gate_vs_h2a_on_h2b_v1 | H2c comparison against H2a showing residual exactness remains separate from stale-selection mediation. |
+| C41_h2c_scoped_residual_gate_saturates_h2b_but_needs_transfer | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260510T_h2c_scoped_residual_gate_vs_component_value_guard_on_h2b_v1 | H2c comparison against v9 showing it beats the executor-tie row on strict exactness. |
+| C41_h2c_scoped_residual_gate_saturates_h2b_but_needs_transfer | report_table | True | results/reports/mlx_tool_contract_harnessing/tables/h2c_scoped_residual_packet_summary.csv | Paper-facing H2c packet summary table in the generated MLX report. |
+| C41_h2c_scoped_residual_gate_saturates_h2b_but_needs_transfer | report_table | True | results/reports/mlx_tool_contract_harnessing/tables/h2c_scoped_residual_comparison_summary.csv | Paper-facing H2c comparison summary table in the generated MLX report. |
+| C41_h2c_scoped_residual_gate_saturates_h2b_but_needs_transfer | report_figure | True | results/reports/mlx_tool_contract_harnessing/figures/h2c_scoped_residual_gate.svg | Paper-facing H2c scoped residual gate figure in the generated MLX report. |

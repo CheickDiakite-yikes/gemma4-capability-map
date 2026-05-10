@@ -1,11 +1,11 @@
 {
   "summary": {
-    "generated_at": "2026-05-10T20:14:33.122306+00:00",
+    "generated_at": "2026-05-10T20:26:40.959115+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 170,
-    "blocking_check_count": 164,
+    "check_count": 178,
+    "blocking_check_count": 171,
     "blocking_failed_count": 0,
-    "recommended_check_count": 6,
+    "recommended_check_count": 7,
     "recommended_failed_count": 0,
     "blocking_passed": true,
     "readiness_level": "paper_draft_ready"
@@ -29,7 +29,7 @@
       "check_id": "ledger_has_claims",
       "severity": "blocking",
       "passed": true,
-      "detail": "claim_count=40",
+      "detail": "claim_count=41",
       "path": ""
     },
     {
@@ -43,14 +43,14 @@
       "check_id": "tool_contract_report_has_current_tables",
       "severity": "blocking",
       "passed": true,
-      "detail": "table_count=106",
+      "detail": "table_count=110",
       "path": ""
     },
     {
       "check_id": "tool_contract_report_has_current_figures",
       "severity": "blocking",
       "passed": true,
-      "detail": "figure_count=44",
+      "detail": "figure_count=45",
       "path": ""
     },
     {
@@ -992,6 +992,55 @@
       "path": "results/reports/mlx_tool_contract_harnessing/figures/h2b_residual_exactness_gate.svg"
     },
     {
+      "check_id": "h2c_scoped_residual_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2c scoped residual live replay exists on H2b.",
+      "path": "results/tool_probe_replay_live/20260510T_h2c_scoped_residual_gate_on_h2b_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h2c_scoped_residual_vs_v12_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2c-vs-v12 H2b comparison exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260510T_h2c_scoped_residual_gate_vs_component_residual_guard_on_h2b_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h2c_scoped_residual_vs_h2a_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2c-vs-H2a H2b comparison exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260510T_h2c_scoped_residual_gate_vs_h2a_on_h2b_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h2c_scoped_residual_synthesis_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2c scoped residual synthesis report exists.",
+      "path": "results/reports/h2c_scoped_residual_synthesis/report.md"
+    },
+    {
+      "check_id": "h2c_scoped_residual_report_table_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Paper-facing H2c packet table exists in the main report.",
+      "path": "results/reports/mlx_tool_contract_harnessing/tables/h2c_scoped_residual_packet_summary.csv"
+    },
+    {
+      "check_id": "h2c_scoped_residual_comparison_table_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Paper-facing H2c comparison table exists in the main report.",
+      "path": "results/reports/mlx_tool_contract_harnessing/tables/h2c_scoped_residual_comparison_summary.csv"
+    },
+    {
+      "check_id": "h2c_scoped_residual_report_figure_exists",
+      "severity": "recommended",
+      "passed": true,
+      "detail": "Paper-facing H2c scoped residual gate figure exists in the main report.",
+      "path": "results/reports/mlx_tool_contract_harnessing/figures/h2c_scoped_residual_gate.svg"
+    },
+    {
       "check_id": "current_state_doc_exists",
       "severity": "blocking",
       "passed": true,
@@ -1172,6 +1221,13 @@
       "passed": true,
       "detail": "Reproduction script `build_h2b_residual_exactness_synthesis.py` exists.",
       "path": "scripts/build_h2b_residual_exactness_synthesis.py"
+    },
+    {
+      "check_id": "script_build_h2c_scoped_residual_synthesis.py_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Reproduction script `build_h2c_scoped_residual_synthesis.py` exists.",
+      "path": "scripts/build_h2c_scoped_residual_synthesis.py"
     },
     {
       "check_id": "script_build_h1n_oracle_transfer_synthesis.py_exists",

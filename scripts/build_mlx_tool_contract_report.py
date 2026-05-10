@@ -598,6 +598,9 @@ DEFAULT_H2A_STALE_SELECTION_TRANSFER_SYNTHESIS = (
 DEFAULT_H2B_RESIDUAL_EXACTNESS_SYNTHESIS = (
     ROOT / "results" / "reports" / "h2b_residual_exactness_synthesis"
 )
+DEFAULT_H2C_SCOPED_RESIDUAL_SYNTHESIS = (
+    ROOT / "results" / "reports" / "h2c_scoped_residual_synthesis"
+)
 
 SYSTEM_LABELS = {
     "mlx_gemma4_e2b_reasoner_only": "contracted",
@@ -781,6 +784,7 @@ def build_report(
     h1y_routed_residual_synthesis: str | Path = DEFAULT_H1Y_ROUTED_RESIDUAL_SYNTHESIS,
     h2a_stale_selection_transfer_synthesis: str | Path = DEFAULT_H2A_STALE_SELECTION_TRANSFER_SYNTHESIS,
     h2b_residual_exactness_synthesis: str | Path = DEFAULT_H2B_RESIDUAL_EXACTNESS_SYNTHESIS,
+    h2c_scoped_residual_synthesis: str | Path = DEFAULT_H2C_SCOPED_RESIDUAL_SYNTHESIS,
     registry_path: str | Path = DEFAULT_REGISTRY_PATH,
 ) -> dict[str, Any]:
     target = Path(output_dir)
@@ -1657,6 +1661,13 @@ def build_report(
     h2b_case_rows = h2b_synthesis_payload["case_rows"]
     h2b_non_exact_rows = h2b_synthesis_payload["non_exact_rows"]
     h2b_finding_rows = h2b_synthesis_payload["finding_rows"]
+    h2c_synthesis_payload = json.loads(
+        (Path(h2c_scoped_residual_synthesis) / "synthesis.json").read_text(encoding="utf-8")
+    )
+    h2c_packet_rows = h2c_synthesis_payload["packet_rows"]
+    h2c_case_rows = h2c_synthesis_payload["case_rows"]
+    h2c_comparison_rows = h2c_synthesis_payload["comparison_rows"]
+    h2c_finding_rows = h2c_synthesis_payload["finding_rows"]
 
     _write_csv(tables_dir / "packet_summary.csv", packet_rows)
     _write_csv(tables_dir / "h1i_system_metrics.csv", h1i_system_rows)
@@ -1937,6 +1948,22 @@ def build_report(
     _write_csv(
         tables_dir / "h2b_residual_exactness_findings.csv",
         h2b_finding_rows,
+    )
+    _write_csv(
+        tables_dir / "h2c_scoped_residual_packet_summary.csv",
+        h2c_packet_rows,
+    )
+    _write_csv(
+        tables_dir / "h2c_scoped_residual_case_matrix.csv",
+        h2c_case_rows,
+    )
+    _write_csv(
+        tables_dir / "h2c_scoped_residual_comparison_summary.csv",
+        h2c_comparison_rows,
+    )
+    _write_csv(
+        tables_dir / "h2c_scoped_residual_findings.csv",
+        h2c_finding_rows,
     )
 
     _write_grouped_metric_svg(
@@ -2422,6 +2449,16 @@ def build_report(
             ("executor_rate", "executor eq", "#059669"),
         ],
     )
+    _write_grouped_metric_svg(
+        figures_dir / "h2c_scoped_residual_gate.svg",
+        title="H2c scoped residual gate",
+        rows=h2c_packet_rows,
+        label_field="profile_label",
+        metrics=[
+            ("exact_rate", "exact", "#DC2626"),
+            ("executor_rate", "executor eq", "#059669"),
+        ],
+    )
 
     manifest = {
         "generated_at": datetime.now(UTC).isoformat(),
@@ -2683,9 +2720,12 @@ def build_report(
         "h2b_residual_exactness_synthesis": str(
             Path(h2b_residual_exactness_synthesis).resolve()
         ),
+        "h2c_scoped_residual_synthesis": str(
+            Path(h2c_scoped_residual_synthesis).resolve()
+        ),
         "registry_path": str(Path(registry_path).resolve()),
-        "table_count": 106,
-        "figure_count": 44,
+        "table_count": 110,
+        "figure_count": 45,
     }
     report_payload = {
         "manifest": manifest,
@@ -2849,6 +2889,11 @@ def build_report(
         "h2b_residual_exactness_case_matrix": h2b_case_rows,
         "h2b_residual_exactness_non_exact_rows": h2b_non_exact_rows,
         "h2b_residual_exactness_findings": h2b_finding_rows,
+        "h2c_scoped_residual_synthesis": h2c_synthesis_payload,
+        "h2c_scoped_residual_packet_summary": h2c_packet_rows,
+        "h2c_scoped_residual_case_matrix": h2c_case_rows,
+        "h2c_scoped_residual_comparison_summary": h2c_comparison_rows,
+        "h2c_scoped_residual_findings": h2c_finding_rows,
         "gemini": gemini_manifest,
     }
     (target / "manifest.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
@@ -3094,6 +3139,10 @@ def parse_args() -> argparse.Namespace:
         "--h2b-residual-exactness-synthesis",
         default=str(DEFAULT_H2B_RESIDUAL_EXACTNESS_SYNTHESIS),
     )
+    parser.add_argument(
+        "--h2c-scoped-residual-synthesis",
+        default=str(DEFAULT_H2C_SCOPED_RESIDUAL_SYNTHESIS),
+    )
     parser.add_argument("--registry", default=str(DEFAULT_REGISTRY_PATH))
     return parser.parse_args()
 
@@ -3183,6 +3232,7 @@ def main() -> None:
         h1y_routed_residual_synthesis=args.h1y_routed_residual_synthesis,
         h2a_stale_selection_transfer_synthesis=args.h2a_stale_selection_transfer_synthesis,
         h2b_residual_exactness_synthesis=args.h2b_residual_exactness_synthesis,
+        h2c_scoped_residual_synthesis=args.h2c_scoped_residual_synthesis,
         registry_path=args.registry,
     )
     print(
@@ -3641,6 +3691,10 @@ def _markdown_report(payload: dict[str, Any]) -> str:
     h2b_case_rows = payload["h2b_residual_exactness_case_matrix"]
     h2b_non_exact_rows = payload["h2b_residual_exactness_non_exact_rows"]
     h2b_finding_rows = payload["h2b_residual_exactness_findings"]
+    h2c_packet_rows = payload["h2c_scoped_residual_packet_summary"]
+    h2c_case_rows = payload["h2c_scoped_residual_case_matrix"]
+    h2c_comparison_rows = payload["h2c_scoped_residual_comparison_summary"]
+    h2c_finding_rows = payload["h2c_scoped_residual_findings"]
     gemini = payload["gemini"]
     lines = [
         "# MLX Tool-Contract Harnessing Report",
@@ -3752,6 +3806,8 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "![H2a stale-selection transfer gate](figures/h2a_stale_selection_transfer_gate.svg)",
         "",
         "![H2b residual exactness gate](figures/h2b_residual_exactness_gate.svg)",
+        "",
+        "![H2c scoped residual gate](figures/h2c_scoped_residual_gate.svg)",
         "",
         "## Packet Summary",
         "",
@@ -4018,6 +4074,18 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         _markdown_table(h2b_finding_rows),
         "",
         "H2b composes the five exactness residuals left by H2a transfer. The component residual guard v12 is the strict winner at `4 / 5` exact and `4 / 5` executor-equivalent, while the component value guard v9 ties executor-equivalence at `4 / 5` but only reaches `3 / 5` strict exactness. The H2a controller gate drops to `0 / 5` strict and `3 / 5` executor-equivalent on this residual-only packet, which confirms H2a is a stale-selection helper rather than an alias exactness solution. The next publication-safe move is a scoped H2c route that applies v12-like residual language only in exact alias/code-label contexts while preserving H2a for stale-selection mediation.",
+        "",
+        "## H2c Scoped Residual Gate",
+        "",
+        _markdown_table(h2c_packet_rows),
+        "",
+        _markdown_table(h2c_case_rows),
+        "",
+        _markdown_table(h2c_comparison_rows),
+        "",
+        _markdown_table(h2c_finding_rows),
+        "",
+        "H2c is a local residual-fit win, not a default promotion. It combines scoped residual exactness with the existing stale-selection controller gate and reaches `5 / 5` strict exact plus `5 / 5` executor-equivalent on H2b. That beats v12 (`4 / 5`) and H2a (`0 / 5` strict), but H1s already showed broader v12-style residual wording can cost executor-equivalence. The next gate must therefore be a minimal transfer check over the H1n/H1o/H1p/H1x residual families before any default or global claim.",
         "",
         "## Visual Hard-Slice Case Deltas vs No Directive",
         "",

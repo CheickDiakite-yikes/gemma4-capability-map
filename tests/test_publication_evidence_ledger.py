@@ -109,6 +109,9 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert claims["C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a"][
         "status"
     ] == "supported_current_packets"
+    assert claims["C41_h2c_scoped_residual_gate_saturates_h2b_but_needs_transfer"][
+        "status"
+    ] == "supported_current_packets"
     assert "7/8" in claims["C2_final_tool_directive_causal_for_protocol"]["primary_metric"]
     assert "v3 raw exact falls" in claims["C6_split_selector_wording_is_negative_evidence"]["primary_metric"]
     assert "schema-field hints reach 6/8 strict and 8/8 executor-equivalent" in claims[
@@ -292,6 +295,9 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert "H2a reaches 0/5 strict and 3/5 executor-equivalent" in claims[
         "C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a"
     ]["primary_metric"]
+    assert "H2c reaches 5/5 strict exact and 5/5 executor-equivalent" in claims[
+        "C41_h2c_scoped_residual_gate_saturates_h2b_but_needs_transfer"
+    ]["primary_metric"]
     assert any(
         row["claim_id"] == "C28_h1n_post_repair_holdout_favors_code_guard"
         and row["path"]
@@ -392,6 +398,20 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
         row["claim_id"] == "C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a"
         and row["path"]
         == "results/reports/mlx_tool_contract_harnessing/figures/h2b_residual_exactness_gate.svg"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C41_h2c_scoped_residual_gate_saturates_h2b_but_needs_transfer"
+        and row["path"]
+        == "results/reports/mlx_tool_contract_harnessing/tables/h2c_scoped_residual_packet_summary.csv"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C41_h2c_scoped_residual_gate_saturates_h2b_but_needs_transfer"
+        and row["path"]
+        == "results/reports/mlx_tool_contract_harnessing/figures/h2c_scoped_residual_gate.svg"
         and row["exists"]
         for row in payload["evidence_sources"]
     )
