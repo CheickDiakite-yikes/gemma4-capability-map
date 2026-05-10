@@ -250,6 +250,51 @@ def test_visual_hard_slice_live_stress_packet_supports_post_repair_suite(tmp_pat
         assert _expected_call_reaches_oracle(case)
 
 
+def test_visual_hard_slice_live_stress_packet_supports_residual_suite(tmp_path: Path) -> None:
+    packet = SCRIPT.build_visual_hard_slice_live_stress_packet(
+        output_root=tmp_path / "replay_packets",
+        run_group_id="visual_stress_alias_transfer_residual",
+        suite="alias_transfer_residual_v7",
+    )
+
+    assert packet["summary"]["suite"] == "alias_transfer_residual_v7"
+    assert packet["summary"]["case_count"] == 8
+    assert packet["summary"]["family_counts"] == {
+        "visual_argument_transfer_residual_code": 3,
+        "visual_argument_transfer_residual_noncode": 3,
+        "visual_tool_routing_transfer_residual": 2,
+    }
+    assert packet["summary"]["failure_mode_counts"] == {
+        "argument_alias_or_decoy_risk": 6,
+        "wrong_tool_or_stale_selection_risk": 2,
+    }
+    case_ids = {row["case_id"] for row in packet["rows"]}
+    assert "residual_chip_n31_owner_note_decoy" in case_ids
+    assert "residual_state_pill_note_decoy" in case_ids
+    assert "residual_field_m20_stale_selection_decoy" in case_ids
+    cases = {case["case_id"]: case for case in packet["replay_cases"]}
+    assert cases["residual_chip_n31_owner_note_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-residual-chip-n31",
+                "target_query": "chip n31",
+            },
+        }
+    ]
+    assert cases["residual_state_pill_note_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-residual-state-pill",
+                "target_query": "state pill",
+            },
+        }
+    ]
+    for case in packet["replay_cases"]:
+        assert _expected_call_reaches_oracle(case)
+
+
 def _expected_call_reaches_oracle(case: dict[str, object]) -> bool:
     tool_specs = [ToolSpec.model_validate(payload) for payload in case["tool_specs"]]  # type: ignore[index]
     executor = DeterministicExecutor(tool_specs=tool_specs)

@@ -39,6 +39,7 @@ def parse_args() -> argparse.Namespace:
             "alias_transfer_repeat_v4",
             "alias_transfer_oblique_v5",
             "alias_transfer_post_repair_v6",
+            "alias_transfer_residual_v7",
         ],
         default="v1",
     )
@@ -195,6 +196,8 @@ def _stress_cases_for_suite(suite: str) -> list[ToolDirectiveProbeCase]:
         return _alias_transfer_oblique_cases_v5()
     if suite == "alias_transfer_post_repair_v6":
         return _alias_transfer_post_repair_cases_v6()
+    if suite == "alias_transfer_residual_v7":
+        return _alias_transfer_residual_cases_v7()
     raise ValueError(f"Unknown visual live stress suite: {suite}")
 
 
@@ -209,6 +212,7 @@ def _expected_call_payloads(
         "alias_transfer_repeat_v4",
         "alias_transfer_oblique_v5",
         "alias_transfer_post_repair_v6",
+        "alias_transfer_residual_v7",
     }:
         return [_oracle_visual_extract_call(case)]
     return [
@@ -1121,6 +1125,204 @@ def _alias_transfer_post_repair_cases_v6() -> list[ToolDirectiveProbeCase]:
     ]
 
 
+def _alias_transfer_residual_cases_v7() -> list[ToolDirectiveProbeCase]:
+    return [
+        ToolDirectiveProbeCase(
+            case_id="residual_chip_n31_owner_note_decoy",
+            family="visual_argument_transfer_residual_code",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-residual-chip-n31"),
+                Message(
+                    role="user",
+                    content=(
+                        "Jordan's owner note repeats the queue delay. Locate chip n31 itself before reading the note."
+                    ),
+                ),
+            ],
+            media=["img-residual-chip-n31"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-residual-chip-n31",
+                [
+                    _region("residual-note-7001", "owner note", "Jordan owns queue delay", person="Jordan"),
+                    _region("residual-chip-n31-7002", "chip n31", "Queue delay 18m", area="chip", tone="warning"),
+                    _region("residual-queue-7003", "queue table", "Queue delay incidents", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["residual-chip-n31-7002"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="residual_chip_v82_chart_decoy",
+            family="visual_argument_transfer_residual_code",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-residual-chip-v82"),
+                Message(
+                    role="user",
+                    content=(
+                        "The chart repeats the retry language. Locate chip v82, not the chart or retry table."
+                    ),
+                ),
+            ],
+            media=["img-residual-chip-v82"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-residual-chip-v82",
+                [
+                    _region("residual-trend-7101", "retry chart", "Retries climbing", area="chart"),
+                    _region("residual-chip-v82-7102", "chip v82", "Retry budget low", area="chip"),
+                    _region("residual-retry-7103", "retry table", "Retry budget rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["residual-chip-v82-7102"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="residual_badge_q14_notice_decoy",
+            family="visual_argument_transfer_residual_code",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-residual-badge-q14"),
+                Message(
+                    role="user",
+                    content=(
+                        "The notice also says pending. Locate badge q14 directly before looking at the notice."
+                    ),
+                ),
+            ],
+            media=["img-residual-badge-q14"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-residual-badge-q14",
+                [
+                    _region("residual-message-7201", "notice banner", "Pending approvals changed", area="banner"),
+                    _region("residual-badge-q14-7202", "badge q14", "Pending: 3", area="badge"),
+                    _region("residual-approval-7203", "approval table", "Pending approval rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["residual-badge-q14-7202"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="residual_state_pill_note_decoy",
+            family="visual_argument_transfer_residual_noncode",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-residual-state-pill"),
+                Message(
+                    role="user",
+                    content=(
+                        "The note says on hold too. Locate the state pill itself, not the note."
+                    ),
+                ),
+            ],
+            media=["img-residual-state-pill"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-residual-state-pill",
+                [
+                    _region("residual-note-7301", "review note", "On hold until owner replies", area="note"),
+                    _region("residual-state-pill-7302", "state pill", "On hold", area="pill"),
+                    _region("residual-work-7303", "work table", "On hold tasks", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["residual-state-pill-7302"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="residual_phase_pill_ticket_decoy",
+            family="visual_argument_transfer_residual_noncode",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-residual-phase-pill"),
+                Message(
+                    role="user",
+                    content=(
+                        "The ticket summary repeats review. Locate the phase pill before reading the ticket."
+                    ),
+                ),
+            ],
+            media=["img-residual-phase-pill"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-residual-phase-pill",
+                [
+                    _region("residual-ticket-7401", "ticket summary", "Review requested by ops", area="ticket"),
+                    _region("residual-phase-pill-7402", "phase pill", "Review", area="pill"),
+                    _region("residual-board-7403", "review table", "Review queue", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["residual-phase-pill-7402"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="residual_notice_tile_email_decoy",
+            family="visual_argument_transfer_residual_noncode",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-residual-notice-tile"),
+                Message(
+                    role="user",
+                    content=(
+                        "The email preview repeats the renewal warning. Locate the notice tile first."
+                    ),
+                ),
+            ],
+            media=["img-residual-notice-tile"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-residual-notice-tile",
+                [
+                    _region("residual-email-7501", "email preview", "Renewal warning sent", area="email"),
+                    _region("residual-notice-tile-7502", "notice tile", "Renewal warning", area="tile"),
+                    _region("residual-renewal-7503", "renewal table", "Renewal warning rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["residual-notice-tile-7502"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="residual_field_m20_stale_selection_decoy",
+            family="visual_tool_routing_transfer_residual",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-residual-field-m20"),
+                Message(
+                    role="user",
+                    content=(
+                        "Ignore old selection_id sel-m20-old from the previous panel. On this screen, locate field m20, "
+                        "not the saved owner chip."
+                    ),
+                ),
+            ],
+            media=["img-residual-field-m20"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-residual-field-m20",
+                [
+                    _region("residual-owner-7601", "owner chip", "Owner saved", state="saved"),
+                    _region("residual-field-m20-7602", "field m20", "Department is required", field="department"),
+                    _region("residual-form-7603", "form table", "Department mappings", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["residual-field-m20-7602"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="residual_alert_h73_toggle_decoy",
+            family="visual_tool_routing_transfer_residual",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-residual-alert-h73"),
+                Message(
+                    role="user",
+                    content=(
+                        "The compliance toggle is enabled, but locate alert h73 before reading the toggle."
+                    ),
+                ),
+            ],
+            media=["img-residual-alert-h73"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-residual-alert-h73",
+                [
+                    _region("residual-toggle-7701", "compliance toggle", "Compliance enabled", checked=True),
+                    _region("residual-alert-h73-7702", "alert h73", "Compliance review overdue", tone="alert"),
+                    _region("residual-compliance-7703", "compliance table", "Compliance review rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["residual-alert-h73-7702"]},
+        ),
+    ]
+
+
 def _visual_state(image_id: str, local_layouts: list[dict[str, Any]]) -> dict[str, Any]:
     return {
         "visual_executor_mode": "local",
@@ -1150,6 +1352,7 @@ def _stress_failure_mode(family: str) -> str:
         "visual_tool_routing_transfer_repeat",
         "visual_tool_routing_transfer_oblique",
         "visual_tool_routing_transfer_post_repair",
+        "visual_tool_routing_transfer_residual",
     }:
         return "wrong_tool_or_stale_selection_risk"
     return "argument_alias_or_decoy_risk"

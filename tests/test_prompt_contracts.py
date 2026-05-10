@@ -219,6 +219,27 @@ def test_visual_role_catalog_oblique_code_guard_profile_adds_stale_selection_gua
     assert "field e19" not in rendered
 
 
+def test_visual_role_catalog_hybrid_label_guard_profile_adds_component_label_guard() -> None:
+    specs = build_default_registry().specs
+    rendered = tool_catalog_text(
+        [specs["extract_layout"], specs["refine_selection"], specs["read_region_text"]],
+        profile_id="visual_role_catalog_hybrid_label_guard_v8",
+    )
+
+    assert "Tool catalog profile: visual_role_catalog_hybrid_label_guard_v8" in rendered
+    assert "Oblique visible-label discipline:" in rendered
+    assert "Stale-selection activation guard:" in rendered
+    assert "Hybrid label activation guard:" in rendered
+    assert "copy that component label in target_query instead of the text value inside it" in rendered
+    assert "lowercase or uppercase" in rendered
+    assert "pill, tile, toast, chip, badge, field, node, or alert" in rendered
+    assert "open, saved, expired, urgent, low, or done" in rendered
+    assert '"target_query": {"type": "string", "description": "Compact literal visible-component label' in rendered
+    assert '"filter_query": {"type": "string", "description": "Shortest literal narrowing token for a current selection_id' in rendered
+    assert "chip l90" not in rendered
+    assert "sel-b12-archive" not in rendered
+
+
 def test_tool_catalog_profile_renders_inside_catalog_without_exact_directive() -> None:
     specs = build_default_registry().specs
     rendered = tool_catalog_text(

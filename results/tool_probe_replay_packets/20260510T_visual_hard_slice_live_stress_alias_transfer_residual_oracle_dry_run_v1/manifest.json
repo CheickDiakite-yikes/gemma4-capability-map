@@ -1,0 +1,35 @@
+{
+  "packet_run_id": "20260510T_visual_hard_slice_live_stress_alias_transfer_residual_oracle_dry_run_v1",
+  "packet_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_residual_oracle_dry_run_v1",
+  "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+  "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+  "replay_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints",
+  "suite": "alias_transfer_residual_v7",
+  "case_count": 8,
+  "family_counts": {
+    "visual_argument_transfer_residual_code": 3,
+    "visual_argument_transfer_residual_noncode": 3,
+    "visual_tool_routing_transfer_residual": 2
+  },
+  "failure_mode_counts": {
+    "argument_alias_or_decoy_risk": 6,
+    "wrong_tool_or_stale_selection_risk": 2
+  },
+  "dry_run": true,
+  "executed_count": 0,
+  "created_at": "2026-05-10T02:03:26.872382+00:00",
+  "registry_path": "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+  "case_ids": [
+    "residual_chip_n31_owner_note_decoy",
+    "residual_chip_v82_chart_decoy",
+    "residual_badge_q14_notice_decoy",
+    "residual_state_pill_note_decoy",
+    "residual_phase_pill_ticket_decoy",
+    "residual_notice_tile_email_decoy",
+    "residual_field_m20_stale_selection_decoy",
+    "residual_alert_h73_toggle_decoy"
+  ],
+  "operator_surface": "rich_cli_visual_hard_slice_live_stress_v1",
+  "entrypoint": "moonie-agent replay-live",
+  "purpose": "Repeat the visual hard-slice executor-alias and stale-selection mechanisms under fresh decoys before spending packaged H1 workflow budget."
+}
