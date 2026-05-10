@@ -60,6 +60,12 @@ The same packet was then executed for:
 - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints`
 - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_literal_targets`
 
+Helper-ablation registry rows are now available for the winning argument-hints profile:
+
+- `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints_no_controller_repair`
+- `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints_no_controller_fallback`
+- `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints_no_argument_repair`
+
 ## Legacy V1 Result
 
 The first matrix was useful but had a benchmark-contract issue:

@@ -82,6 +82,9 @@ Next implementation moves:
   - replay-live now preserves serialized packet expected calls
   - no-directive is `2 / 6`; contracted is `1 / 6`; role catalog v1 is `3 / 6`; argument hints v2 is `5 / 6` strict and `6 / 6` executor-equivalent; schema-field hints v4 is `2 / 6`; schema target literals v5 is `4 / 6`
   - interpretation: argument hints v2 is the clean H1n winner; schema target literals are second; contracted prompting is not an oracle-transfer upper bound
+- H1n helper-ablation setup:
+  - registry rows now exist for argument hints with controller repair disabled, controller fallback disabled, and argument repair disabled
+  - use these rows for non-packaged replay-live helper attribution before spending another packaged H1 packet
 - next replay-shaped target: repeat the oracle H1n matrix or build a non-packaged helper-ablation slice around argument hints, keeping oracle expected calls as the default strict contract
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
