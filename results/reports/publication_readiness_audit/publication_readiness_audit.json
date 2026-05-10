@@ -1,9 +1,9 @@
 {
   "summary": {
-    "generated_at": "2026-05-10T17:10:16.515934+00:00",
+    "generated_at": "2026-05-10T17:31:53.000598+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 121,
-    "blocking_check_count": 119,
+    "check_count": 127,
+    "blocking_check_count": 125,
     "blocking_failed_count": 0,
     "recommended_check_count": 2,
     "recommended_failed_count": 0,
@@ -29,7 +29,7 @@
       "check_id": "ledger_has_claims",
       "severity": "blocking",
       "passed": true,
-      "detail": "claim_count=33",
+      "detail": "claim_count=35",
       "path": ""
     },
     {
@@ -43,14 +43,14 @@
       "check_id": "tool_contract_report_has_current_tables",
       "severity": "blocking",
       "passed": true,
-      "detail": "table_count=78",
+      "detail": "table_count=82",
       "path": ""
     },
     {
       "check_id": "tool_contract_report_has_current_figures",
       "severity": "blocking",
       "passed": true,
-      "detail": "figure_count=38",
+      "detail": "figure_count=39",
       "path": ""
     },
     {
@@ -684,6 +684,41 @@
       "path": "results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_h1p_live_replay_summary.csv"
     },
     {
+      "check_id": "h1q_component_label_guard_h1n_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H1q component-label guard H1n live replay exists.",
+      "path": "results/tool_probe_replay_live/20260510T_h1q_component_label_guard_on_h1n_component_value_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h1q_component_label_guard_h1o_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H1q component-label guard H1o live replay exists.",
+      "path": "results/tool_probe_replay_live/20260510T_h1q_component_label_guard_on_h1o_control_factorial_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h1q_component_label_guard_h1p_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H1q component-label guard H1p live replay exists.",
+      "path": "results/tool_probe_replay_live/20260510T_h1q_component_label_guard_on_h1p_component_value_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h1q_component_label_guard_synthesis_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H1q transfer synthesis report exists.",
+      "path": "results/reports/h1q_component_label_guard_transfer_synthesis/report.md"
+    },
+    {
+      "check_id": "h1q_component_label_guard_report_table_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Paper-facing H1q aggregate table exists in the main report.",
+      "path": "results/reports/mlx_tool_contract_harnessing/tables/h1q_component_label_guard_aggregate_summary.csv"
+    },
+    {
       "check_id": "current_state_doc_exists",
       "severity": "blocking",
       "passed": true,
@@ -829,6 +864,13 @@
       "passed": true,
       "detail": "Reproduction script `build_h1o_control_factorial_synthesis.py` exists.",
       "path": "scripts/build_h1o_control_factorial_synthesis.py"
+    },
+    {
+      "check_id": "script_build_h1q_component_label_guard_transfer_synthesis.py_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Reproduction script `build_h1q_component_label_guard_transfer_synthesis.py` exists.",
+      "path": "scripts/build_h1q_component_label_guard_transfer_synthesis.py"
     },
     {
       "check_id": "script_build_h1n_oracle_transfer_synthesis.py_exists",

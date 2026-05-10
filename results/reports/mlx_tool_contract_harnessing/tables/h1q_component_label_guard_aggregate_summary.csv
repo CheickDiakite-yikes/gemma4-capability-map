@@ -1,0 +1,7 @@
+profile_label,case_count,exact_success_count,exact_rate,executor_success_count,executor_rate,argument_mismatch_count,wrong_tool_count,executable_paraphrase_count
+argument_hints_v2,32,21,0.65625,23,0.71875,8,0,2
+component_label_guard_v11,32,26,0.8125,29,0.90625,2,1,3
+component_value_guard_v9,32,23,0.71875,25,0.78125,6,1,2
+hybrid_label_guard_v8,32,23,0.71875,27,0.84375,5,0,4
+no_call_control_rescue_v10,32,20,0.625,22,0.6875,9,0,2
+no_directive,32,10,0.3125,12,0.375,11,0,2

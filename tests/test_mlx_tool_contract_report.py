@@ -34,8 +34,8 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
 
     assert payload["gemini"]["dry_run"] is True
     assert payload["gemini"]["workflow_count"] == 10
-    assert payload["manifest"]["table_count"] == 78
-    assert payload["manifest"]["figure_count"] == 38
+    assert payload["manifest"]["table_count"] == 82
+    assert payload["manifest"]["figure_count"] == 39
 
     candidate_ids = {row["tool_prompt_contract_id"] for row in payload["prompt_contract_candidates"]}
     assert candidate_ids == {
@@ -687,6 +687,32 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
             "h1p_stale_phase_tile_archive_decoy",
         )
     ]["delta_exact_match"] == 0
+    h1q_aggregate = {
+        row["profile_label"]: row for row in payload["h1q_component_label_guard_aggregate_summary"]
+    }
+    assert h1q_aggregate["component_label_guard_v11"]["exact_success_count"] == 26
+    assert h1q_aggregate["component_label_guard_v11"]["executor_success_count"] == 29
+    assert h1q_aggregate["component_value_guard_v9"]["exact_success_count"] == 23
+    assert h1q_aggregate["component_value_guard_v9"]["executor_success_count"] == 25
+    h1q_packet = {
+        (row["packet_label"], row["profile_label"]): row
+        for row in payload["h1q_component_label_guard_packet_summary"]
+    }
+    assert h1q_packet[("h1o_control_factorial", "component_label_guard_v11")][
+        "executor_success_count"
+    ] == 12
+    assert h1q_packet[("h1p_component_value", "component_label_guard_v11")][
+        "exact_success_count"
+    ] == 10
+    h1q_failures = {
+        (row["packet_label"], row["case_id"]): row for row in payload["h1q_component_label_guard_v11_failures"]
+    }
+    assert h1q_failures[
+        ("h1n_component_value", "component_value_owner_field_stale_selection_decoy")
+    ]["failure_mode"] == "wrong_tool"
+    assert h1q_failures[
+        ("h1p_component_value", "h1p_surface_mode_toggle_note_value_decoy")
+    ]["executor_equivalence_match"] is False
     h1i_candidates = {row["system_id"]: row for row in payload["h1i_prompt_contract_candidate_metrics"]}
     assert h1i_candidates["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive"]["tool_turn_directive_enabled"] == "False"
     assert h1i_candidates["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor"]["raw_planning_clean_rate_avg"] == "1.0"
@@ -776,6 +802,10 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert (tmp_path / "tables" / "visual_hard_slice_h1o_live_replay_case_deltas.csv").exists()
     assert (tmp_path / "tables" / "visual_hard_slice_h1p_live_replay_summary.csv").exists()
     assert (tmp_path / "tables" / "visual_hard_slice_h1p_live_replay_case_deltas.csv").exists()
+    assert (tmp_path / "tables" / "h1q_component_label_guard_packet_summary.csv").exists()
+    assert (tmp_path / "tables" / "h1q_component_label_guard_aggregate_summary.csv").exists()
+    assert (tmp_path / "tables" / "h1q_component_label_guard_v11_failures.csv").exists()
+    assert (tmp_path / "tables" / "h1q_component_label_guard_findings.csv").exists()
     assert (tmp_path / "tables" / "prompt_contract_promotion_decisions.csv").exists()
     assert (tmp_path / "tables" / "h1i_prompt_contract_candidate_metrics.csv").exists()
     assert (tmp_path / "tables" / "h1i_prompt_contract_repeat3_metrics.csv").exists()
@@ -826,3 +856,4 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert (tmp_path / "figures" / "visual_hard_slice_component_value_live_replay_gate.svg").exists()
     assert (tmp_path / "figures" / "visual_hard_slice_h1o_live_replay_gate.svg").exists()
     assert (tmp_path / "figures" / "visual_hard_slice_h1p_live_replay_gate.svg").exists()
+    assert (tmp_path / "figures" / "h1q_component_label_guard_transfer_gate.svg").exists()

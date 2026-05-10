@@ -580,6 +580,9 @@ DEFAULT_VISUAL_HARD_SLICE_H1P_COMPONENT_VALUE_GUARD_LIVE_COMPARISON = (
     / "tool_probe_replay_live_comparisons"
     / "20260510T_h1p_component_value_component_value_guard_vs_no_directive_v1"
 )
+DEFAULT_H1Q_COMPONENT_LABEL_GUARD_TRANSFER_SYNTHESIS = (
+    ROOT / "results" / "reports" / "h1q_component_label_guard_transfer_synthesis"
+)
 
 SYSTEM_LABELS = {
     "mlx_gemma4_e2b_reasoner_only": "contracted",
@@ -755,6 +758,8 @@ def build_report(
     | Path = DEFAULT_VISUAL_HARD_SLICE_H1P_NO_CALL_CONTROL_RESCUE_LIVE_COMPARISON,
     visual_hard_slice_h1p_component_value_guard_live_comparison: str
     | Path = DEFAULT_VISUAL_HARD_SLICE_H1P_COMPONENT_VALUE_GUARD_LIVE_COMPARISON,
+    h1q_component_label_guard_transfer_synthesis: str
+    | Path = DEFAULT_H1Q_COMPONENT_LABEL_GUARD_TRANSFER_SYNTHESIS,
     registry_path: str | Path = DEFAULT_REGISTRY_PATH,
 ) -> dict[str, Any]:
     target = Path(output_dir)
@@ -1580,6 +1585,13 @@ def build_report(
     visual_hard_slice_h1p_live_case_rows = _live_candidate_case_rows(
         visual_hard_slice_h1p_live_comparisons
     )
+    h1q_synthesis_payload = json.loads(
+        (Path(h1q_component_label_guard_transfer_synthesis) / "synthesis.json").read_text(encoding="utf-8")
+    )
+    h1q_packet_rows = h1q_synthesis_payload["packet_rows"]
+    h1q_aggregate_rows = h1q_synthesis_payload["aggregate_rows"]
+    h1q_failure_rows = h1q_synthesis_payload["v11_failure_rows"]
+    h1q_finding_rows = h1q_synthesis_payload["finding_rows"]
 
     _write_csv(tables_dir / "packet_summary.csv", packet_rows)
     _write_csv(tables_dir / "h1i_system_metrics.csv", h1i_system_rows)
@@ -1748,6 +1760,22 @@ def build_report(
     _write_csv(
         tables_dir / "visual_hard_slice_h1p_live_replay_case_deltas.csv",
         visual_hard_slice_h1p_live_case_rows,
+    )
+    _write_csv(
+        tables_dir / "h1q_component_label_guard_packet_summary.csv",
+        h1q_packet_rows,
+    )
+    _write_csv(
+        tables_dir / "h1q_component_label_guard_aggregate_summary.csv",
+        h1q_aggregate_rows,
+    )
+    _write_csv(
+        tables_dir / "h1q_component_label_guard_v11_failures.csv",
+        h1q_failure_rows,
+    )
+    _write_csv(
+        tables_dir / "h1q_component_label_guard_findings.csv",
+        h1q_finding_rows,
     )
 
     _write_grouped_metric_svg(
@@ -2173,6 +2201,16 @@ def build_report(
             ("candidate_executor_equivalence_rate", "candidate executor eq", "#059669"),
         ],
     )
+    _write_grouped_metric_svg(
+        figures_dir / "h1q_component_label_guard_transfer_gate.svg",
+        title="H1q component-label guard transfer gate",
+        rows=h1q_aggregate_rows,
+        label_field="profile_label",
+        metrics=[
+            ("exact_rate", "exact", "#DC2626"),
+            ("executor_rate", "executor eq", "#059669"),
+        ],
+    )
 
     manifest = {
         "generated_at": datetime.now(UTC).isoformat(),
@@ -2416,9 +2454,12 @@ def build_report(
         "visual_hard_slice_h1p_component_value_guard_live_comparison": str(
             Path(visual_hard_slice_h1p_component_value_guard_live_comparison).resolve()
         ),
+        "h1q_component_label_guard_transfer_synthesis": str(
+            Path(h1q_component_label_guard_transfer_synthesis).resolve()
+        ),
         "registry_path": str(Path(registry_path).resolve()),
-        "table_count": 78,
-        "figure_count": 38,
+        "table_count": 82,
+        "figure_count": 39,
     }
     report_payload = {
         "manifest": manifest,
@@ -2548,6 +2589,11 @@ def build_report(
         ],
         "visual_hard_slice_h1p_live_replay_summary": visual_hard_slice_h1p_live_summary_rows,
         "visual_hard_slice_h1p_live_replay_case_deltas": visual_hard_slice_h1p_live_case_rows,
+        "h1q_component_label_guard_transfer_synthesis": h1q_synthesis_payload,
+        "h1q_component_label_guard_packet_summary": h1q_packet_rows,
+        "h1q_component_label_guard_aggregate_summary": h1q_aggregate_rows,
+        "h1q_component_label_guard_v11_failures": h1q_failure_rows,
+        "h1q_component_label_guard_findings": h1q_finding_rows,
         "gemini": gemini_manifest,
     }
     (target / "manifest.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
@@ -3298,6 +3344,10 @@ def _markdown_report(payload: dict[str, Any]) -> str:
     visual_hard_slice_h1p_live_case_rows = payload[
         "visual_hard_slice_h1p_live_replay_case_deltas"
     ]
+    h1q_packet_rows = payload["h1q_component_label_guard_packet_summary"]
+    h1q_aggregate_rows = payload["h1q_component_label_guard_aggregate_summary"]
+    h1q_failure_rows = payload["h1q_component_label_guard_v11_failures"]
+    h1q_finding_rows = payload["h1q_component_label_guard_findings"]
     gemini = payload["gemini"]
     lines = [
         "# MLX Tool-Contract Harnessing Report",
@@ -3397,6 +3447,8 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "![Visual hard-slice H1o control-factorial live replay gate](figures/visual_hard_slice_h1o_live_replay_gate.svg)",
         "",
         "![Visual hard-slice H1p component-value live replay gate](figures/visual_hard_slice_h1p_live_replay_gate.svg)",
+        "",
+        "![H1q component-label guard transfer gate](figures/h1q_component_label_guard_transfer_gate.svg)",
         "",
         "## Packet Summary",
         "",
@@ -3583,6 +3635,18 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         _markdown_table(visual_hard_slice_h1p_live_case_rows),
         "",
         "The H1p component-only holdout retests that H1o residue without activation/no-call wording. This breaks the no-directive baseline completely at `0 / 12`, while argument hints v2 and no-call rescue v10 each reach only `6 / 12` exact and executor-equivalent. Hybrid label guard v8 reaches `9 / 12` exact and `10 / 12` executor-equivalent, and the previously rejected broad component-value guard v9 becomes the local upper bound at `10 / 12` exact and `11 / 12` executor-equivalent. The result is not a global promotion for v9; it is a domain-specific activation signal that now needs transfer testing against the H1n/H1o cases where broad component-value prose had mixed or negative effects.",
+        "",
+        "## H1q Component-Label Guard Transfer Synthesis",
+        "",
+        _markdown_table(h1q_packet_rows),
+        "",
+        _markdown_table(h1q_aggregate_rows),
+        "",
+        _markdown_table(h1q_failure_rows),
+        "",
+        _markdown_table(h1q_finding_rows),
+        "",
+        "H1q turns the H1p activation signal into a transfer test rather than a local win. The narrow component-label guard v11 is the strongest aggregate profile across H1n/H1o/H1p at `26 / 32` exact and `29 / 32` executor-equivalent, ahead of v9 at `23 / 32` exact and `25 / 32` executor-equivalent. The gain is not a blanket default: v11 trails v9 by one executor-equivalent case on H1p and still misses owner-field stale selection, state-tag, and mode-toggle rows. The publication-safe conclusion is that component labels need narrower contract language than broad component-value prose, and H1r should target the remaining v11 miss families directly.",
         "",
         "## Visual Hard-Slice Case Deltas vs No Directive",
         "",

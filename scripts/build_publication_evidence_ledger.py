@@ -1553,6 +1553,56 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C35_h1q_component_label_guard_is_strongest_transfer_candidate",
+        claim=(
+            "The H1q transfer synthesis shows that narrow component-label guidance is stronger than broad "
+            "component-value prose across the current H1n/H1o/H1p component ambiguity family."
+        ),
+        status="supported_current_packets",
+        evidence_strength="strong_internal",
+        primary_metric=(
+            "Across 32 live replay cases, component-label guard v11 reaches 26/32 exact and 29/32 "
+            "executor-equivalent successes, versus component-value guard v9 at 23/32 exact and 25/32 "
+            "executor-equivalent."
+        ),
+        limitation=(
+            "The synthesis spans three replay-shaped MLX packets, not a broad population estimate. v11 is also "
+            "not a global default because it trails v9 by one executor-equivalent case on H1p and retains "
+            "owner-field, state-tag, and mode-toggle residual failures."
+        ),
+        next_test=(
+            "Build H1r around the remaining v11 miss families, especially owner-field stale selection, compact "
+            "state tags, mode toggles, and exact paraphrases in H1o code/negation rows."
+        ),
+        sources=(
+            EvidenceSource(
+                "transfer_synthesis",
+                "results/reports/h1q_component_label_guard_transfer_synthesis/report.md",
+                "H1q synthesis aggregating H1n, H1o, and H1p component-label guard transfer results.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h1q_component_label_guard_on_h1n_component_value_execute_v1",
+                "H1n execution where v11 reaches 6/8 exact and 7/8 executor-equivalent successes.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h1q_component_label_guard_on_h1o_control_factorial_execute_v1",
+                "H1o execution where v11 reaches 10/12 exact and 12/12 executor-equivalent successes.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h1q_component_label_guard_on_h1p_component_value_execute_v1",
+                "H1p execution where v11 reaches 10/12 exact and 10/12 executor-equivalent successes.",
+            ),
+            EvidenceSource(
+                "report_table",
+                "results/reports/mlx_tool_contract_harnessing/tables/h1q_component_label_guard_aggregate_summary.csv",
+                "Paper-facing aggregate table comparing v11 against no-directive, v2, v8, v9, and v10.",
+            ),
+        ),
+    ),
 )
 
 

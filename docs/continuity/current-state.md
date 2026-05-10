@@ -493,15 +493,21 @@ Current generated research report:
 - visual hard-slice H1p component-value summary: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_h1p_live_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_h1p_live_replay_summary.csv)
 - visual hard-slice H1p component-value gate figure: [`results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_h1p_live_replay_gate.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_h1p_live_replay_gate.svg)
 - H1q component-label guard transfer synthesis: [`results/reports/h1q_component_label_guard_transfer_synthesis/report.md`](../../results/reports/h1q_component_label_guard_transfer_synthesis/report.md)
+- H1q aggregate table in the main MLX report: [`results/reports/mlx_tool_contract_harnessing/tables/h1q_component_label_guard_aggregate_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/h1q_component_label_guard_aggregate_summary.csv)
+- H1q transfer gate figure: [`results/reports/mlx_tool_contract_harnessing/figures/h1q_component_label_guard_transfer_gate.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/h1q_component_label_guard_transfer_gate.svg)
 - publication evidence ledger: [`results/reports/publication_evidence_ledger/ledger.md`](../../results/reports/publication_evidence_ledger/ledger.md)
 - publication readiness audit: [`results/reports/publication_readiness_audit/publication_readiness_audit.md`](../../results/reports/publication_readiness_audit/publication_readiness_audit.md)
 - visual hard-slice design: [`results/reports/visual_hard_slice_design/design.md`](../../results/reports/visual_hard_slice_design/design.md)
 - figures: [`results/reports/mlx_tool_contract_harnessing/figures`](../../results/reports/mlx_tool_contract_harnessing/figures)
-- current manifest count: `78` tables and `38` figures
+- current manifest count: `82` tables and `39` figures
+- publication evidence ledger: `35` claims, `178` evidence sources, `0` missing sources
+- publication readiness audit: `127` checks, `125` blocking checks, `0` blocking failures, status `paper_draft_ready`
 - regeneration command:
 
 ```bash
 uv run python scripts/build_mlx_tool_contract_report.py
+uv run python scripts/build_publication_evidence_ledger.py
+uv run python scripts/audit_publication_readiness.py
 uv run pytest tests/test_mlx_tool_contract_report.py -q
 ```
 

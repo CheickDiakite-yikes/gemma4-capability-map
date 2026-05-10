@@ -22,11 +22,19 @@
   - v11 should not become the global default yet; residual failures remain on `owner field` stale selection, `state tag`, `mode toggle`, and H1o code-label exact paraphrases.
 - Next research move:
   - build H1r/v12 around the v11 residuals, especially nonstandard component classes (`tag`, `toggle`) and stale owner-field routing
-  - integrate H1q into the MLX report, publication evidence ledger, and readiness audit after the synthesis artifact is stable
+- Reporting:
+  - H1q is now integrated into the formal MLX tool-contract report as packet, aggregate, failure, and finding tables plus a transfer-gate SVG
+  - publication evidence ledger now has `35` claims and `178` evidence sources with `0` missing sources
+  - publication readiness audit now has `127` checks, `125` blocking checks, `0` blocking failures, and status `paper_draft_ready`
+  - MLX tool-contract report now has `82` tables and `39` figures
 - Verification:
   - `uv run pytest tests/test_prompt_contracts.py tests/test_knowledge_work_h1.py::test_h1q_component_label_guard_registry_row_preserves_catalog_profile -q`
   - `uv run pytest tests/test_h1q_component_label_guard_transfer_synthesis.py -q`
   - `uv run python scripts/build_h1q_component_label_guard_transfer_synthesis.py`
+  - `uv run python scripts/build_mlx_tool_contract_report.py`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`
+  - `uv run pytest tests/test_mlx_tool_contract_report.py tests/test_publication_evidence_ledger.py tests/test_publication_readiness_audit.py tests/test_h1q_component_label_guard_transfer_synthesis.py tests/test_prompt_contracts.py tests/test_knowledge_work_h1.py::test_h1q_component_label_guard_registry_row_preserves_catalog_profile -q`
 
 ## 2026-05-10 - H1p Component-Only Holdout Identifies a Component-Value Activation Domain
 

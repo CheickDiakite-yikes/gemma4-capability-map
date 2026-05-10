@@ -4,9 +4,9 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 
 ## Manifest
 
-- generated_at: `2026-05-10T17:10:16.521442+00:00`
-- claim_count: `34`
-- evidence_source_count: `173`
+- generated_at: `2026-05-10T17:31:50.543834+00:00`
+- claim_count: `35`
+- evidence_source_count: `178`
 - missing_source_count: `0`
 
 ## Claims
@@ -47,6 +47,7 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C32_no_call_rescue_is_scoped_not_general | supported_current_packets | moderate_internal | Across component-value, residual, post-repair, and oblique transfer packets, v10 reaches 22/30 exact and 25/30 executor-equivalent successes versus no-directive at 11/30 and 12/30, but trails incumbents at 25/30 exact and 26/30 executor-equivalent. | The aggregate spans replay-shaped H1n micro-slices, not a broad population estimate or packaged workflow confirmation. | Author H1o as a factorial control slice with separate activation/no-call, code-suffix/negation, and component-value axes. |
 | C33_h1o_factorial_identifies_component_value_residue | supported_current_packets | strong_internal | On the 12-case H1o packet, argument hints v2 and component-value guard v9 tie the strict upper bound at 9/12 exact; argument hints, hybrid label guard, and component-value guard tie executor-equivalence at 10/12; no-directive is already 4/4 exact on activation/no-call but 1/4 exact on code/negation and 0/4 exact on component/value. | H1o is still a synthetic replay-shaped micro-slice. It is mechanism-discriminative, not a population estimate across real GUIs or packaged workflows. | Build a fresh H1p component-only holdout with more diverse component/value surfaces, then test whether component-value guard can beat argument hints without losing exact selector copying. |
 | C34_h1p_component_holdout_supports_component_value_domain | supported_current_packets | strong_internal | On the 12-case H1p component-only holdout, component-value guard v9 reaches 10/12 exact and 11/12 executor-equivalent, versus no-directive at 0/12, argument hints v2 at 6/12, no-call rescue v10 at 6/12, and hybrid label guard v8 at 9/12 exact and 10/12 executor-equivalent. | H1p is a replay-shaped synthetic component holdout. Because v9 was negative on the earlier H1n component-value slice and only tied argument hints on H1o, this supports domain specificity rather than global promotion. | Split component-value guidance into narrower component-only wording, then transfer-test it against H1n and H1o to separate durable component disambiguation from over-broad selector prose. |
+| C35_h1q_component_label_guard_is_strongest_transfer_candidate | supported_current_packets | strong_internal | Across 32 live replay cases, component-label guard v11 reaches 26/32 exact and 29/32 executor-equivalent successes, versus component-value guard v9 at 23/32 exact and 25/32 executor-equivalent. | The synthesis spans three replay-shaped MLX packets, not a broad population estimate. v11 is also not a global default because it trails v9 by one executor-equivalent case on H1p and retains owner-field, state-tag, and mode-toggle residual failures. | Build H1r around the remaining v11 miss families, especially owner-field stale selection, compact state tags, mode toggles, and exact paraphrases in H1o code/negation rows. |
 
 ## Evidence Sources
 
@@ -225,3 +226,8 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C34_h1p_component_holdout_supports_component_value_domain | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260510T_h1p_component_value_component_value_guard_vs_no_directive_v1 | Comparison showing +0.833 exact and +0.917 executor-equivalence deltas over no-directive. |
 | C34_h1p_component_holdout_supports_component_value_domain | diagnostic_report | True | results/reports/visual_h1p_component_value_diagnostic/diagnostic.md | Matrix diagnostic ranking component-value guard above hybrid, argument hints, and no-call rescue on H1p. |
 | C34_h1p_component_holdout_supports_component_value_domain | report_table | True | results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_h1p_live_replay_summary.csv | Paper-facing H1p summary table in the MLX tool-contract report bundle. |
+| C35_h1q_component_label_guard_is_strongest_transfer_candidate | transfer_synthesis | True | results/reports/h1q_component_label_guard_transfer_synthesis/report.md | H1q synthesis aggregating H1n, H1o, and H1p component-label guard transfer results. |
+| C35_h1q_component_label_guard_is_strongest_transfer_candidate | live_replay_packet | True | results/tool_probe_replay_live/20260510T_h1q_component_label_guard_on_h1n_component_value_execute_v1 | H1n execution where v11 reaches 6/8 exact and 7/8 executor-equivalent successes. |
+| C35_h1q_component_label_guard_is_strongest_transfer_candidate | live_replay_packet | True | results/tool_probe_replay_live/20260510T_h1q_component_label_guard_on_h1o_control_factorial_execute_v1 | H1o execution where v11 reaches 10/12 exact and 12/12 executor-equivalent successes. |
+| C35_h1q_component_label_guard_is_strongest_transfer_candidate | live_replay_packet | True | results/tool_probe_replay_live/20260510T_h1q_component_label_guard_on_h1p_component_value_execute_v1 | H1p execution where v11 reaches 10/12 exact and 10/12 executor-equivalent successes. |
+| C35_h1q_component_label_guard_is_strongest_transfer_candidate | report_table | True | results/reports/mlx_tool_contract_harnessing/tables/h1q_component_label_guard_aggregate_summary.csv | Paper-facing aggregate table comparing v11 against no-directive, v2, v8, v9, and v10. |

@@ -59,13 +59,13 @@ def audit_publication_readiness(
         _check_bool(
             check_id="tool_contract_report_has_current_tables",
             severity="blocking",
-            passed=int(report_manifest.get("table_count", 0) or 0) >= 74,
+            passed=int(report_manifest.get("table_count", 0) or 0) >= 82,
             detail=f"table_count={report_manifest.get('table_count', '')}",
         ),
         _check_bool(
             check_id="tool_contract_report_has_current_figures",
             severity="blocking",
-            passed=int(report_manifest.get("figure_count", 0) or 0) >= 36,
+            passed=int(report_manifest.get("figure_count", 0) or 0) >= 39,
             detail=f"figure_count={report_manifest.get('figure_count', '')}",
         ),
         _check_path(
@@ -875,6 +875,53 @@ def audit_publication_readiness(
             detail="Paper-facing H1p summary table exists.",
         ),
         _check_path(
+            check_id="h1q_component_label_guard_h1n_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260510T_h1q_component_label_guard_on_h1n_component_value_execute_v1"
+            / "summary.json",
+            detail="H1q component-label guard H1n live replay exists.",
+        ),
+        _check_path(
+            check_id="h1q_component_label_guard_h1o_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260510T_h1q_component_label_guard_on_h1o_control_factorial_execute_v1"
+            / "summary.json",
+            detail="H1q component-label guard H1o live replay exists.",
+        ),
+        _check_path(
+            check_id="h1q_component_label_guard_h1p_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260510T_h1q_component_label_guard_on_h1p_component_value_execute_v1"
+            / "summary.json",
+            detail="H1q component-label guard H1p live replay exists.",
+        ),
+        _check_path(
+            check_id="h1q_component_label_guard_synthesis_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "h1q_component_label_guard_transfer_synthesis" / "report.md",
+            detail="H1q transfer synthesis report exists.",
+        ),
+        _check_path(
+            check_id="h1q_component_label_guard_report_table_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "mlx_tool_contract_harnessing"
+            / "tables"
+            / "h1q_component_label_guard_aggregate_summary.csv",
+            detail="Paper-facing H1q aggregate table exists in the main report.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",
@@ -922,6 +969,7 @@ def audit_publication_readiness(
         "build_h1n_code_guard_transfer_synthesis.py",
         "build_h1n_no_call_rescue_transfer_synthesis.py",
         "build_h1o_control_factorial_synthesis.py",
+        "build_h1q_component_label_guard_transfer_synthesis.py",
         "build_h1n_oracle_transfer_synthesis.py",
         "compare_tool_directive_probes.py",
         "build_visual_hard_slice_design.py",

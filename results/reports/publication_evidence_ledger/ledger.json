@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-10T17:10:16.521442+00:00",
+    "generated_at": "2026-05-10T17:31:50.543834+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-    "claim_count": 34,
-    "evidence_source_count": 173,
+    "claim_count": 35,
+    "evidence_source_count": 178,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -39,7 +39,8 @@
       "C31_no_call_control_rescue_is_current_component_value_upper_bound",
       "C32_no_call_rescue_is_scoped_not_general",
       "C33_h1o_factorial_identifies_component_value_residue",
-      "C34_h1p_component_holdout_supports_component_value_domain"
+      "C34_h1p_component_holdout_supports_component_value_domain",
+      "C35_h1q_component_label_guard_is_strongest_transfer_candidate"
     ]
   },
   "claims": [
@@ -382,6 +383,16 @@
       "limitation": "H1p is a replay-shaped synthetic component holdout. Because v9 was negative on the earlier H1n component-value slice and only tied argument hints on H1o, this supports domain specificity rather than global promotion.",
       "next_test": "Split component-value guidance into narrower component-only wording, then transfer-test it against H1n and H1o to separate durable component disambiguation from over-broad selector prose.",
       "source_count": 8
+    },
+    {
+      "claim_id": "C35_h1q_component_label_guard_is_strongest_transfer_candidate",
+      "claim": "The H1q transfer synthesis shows that narrow component-label guidance is stronger than broad component-value prose across the current H1n/H1o/H1p component ambiguity family.",
+      "status": "supported_current_packets",
+      "evidence_strength": "strong_internal",
+      "primary_metric": "Across 32 live replay cases, component-label guard v11 reaches 26/32 exact and 29/32 executor-equivalent successes, versus component-value guard v9 at 23/32 exact and 25/32 executor-equivalent.",
+      "limitation": "The synthesis spans three replay-shaped MLX packets, not a broad population estimate. v11 is also not a global default because it trails v9 by one executor-equivalent case on H1p and retains owner-field, state-tag, and mode-toggle residual failures.",
+      "next_test": "Build H1r around the remaining v11 miss families, especially owner-field stale selection, compact state tags, mode toggles, and exact paraphrases in H1o code/negation rows.",
+      "source_count": 5
     }
   ],
   "evidence_sources": [
@@ -1594,6 +1605,41 @@
       "artifact_type": "report_table",
       "path": "results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_h1p_live_replay_summary.csv",
       "purpose": "Paper-facing H1p summary table in the MLX tool-contract report bundle.",
+      "exists": true
+    },
+    {
+      "claim_id": "C35_h1q_component_label_guard_is_strongest_transfer_candidate",
+      "artifact_type": "transfer_synthesis",
+      "path": "results/reports/h1q_component_label_guard_transfer_synthesis/report.md",
+      "purpose": "H1q synthesis aggregating H1n, H1o, and H1p component-label guard transfer results.",
+      "exists": true
+    },
+    {
+      "claim_id": "C35_h1q_component_label_guard_is_strongest_transfer_candidate",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260510T_h1q_component_label_guard_on_h1n_component_value_execute_v1",
+      "purpose": "H1n execution where v11 reaches 6/8 exact and 7/8 executor-equivalent successes.",
+      "exists": true
+    },
+    {
+      "claim_id": "C35_h1q_component_label_guard_is_strongest_transfer_candidate",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260510T_h1q_component_label_guard_on_h1o_control_factorial_execute_v1",
+      "purpose": "H1o execution where v11 reaches 10/12 exact and 12/12 executor-equivalent successes.",
+      "exists": true
+    },
+    {
+      "claim_id": "C35_h1q_component_label_guard_is_strongest_transfer_candidate",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260510T_h1q_component_label_guard_on_h1p_component_value_execute_v1",
+      "purpose": "H1p execution where v11 reaches 10/12 exact and 10/12 executor-equivalent successes.",
+      "exists": true
+    },
+    {
+      "claim_id": "C35_h1q_component_label_guard_is_strongest_transfer_candidate",
+      "artifact_type": "report_table",
+      "path": "results/reports/mlx_tool_contract_harnessing/tables/h1q_component_label_guard_aggregate_summary.csv",
+      "purpose": "Paper-facing aggregate table comparing v11 against no-directive, v2, v8, v9, and v10.",
       "exists": true
     }
   ],
