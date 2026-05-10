@@ -352,6 +352,13 @@ DEFAULT_COMPONENT_VALUE_COMPARISONS: tuple[tuple[str, Path], ...] = (
         / "20260510T_h1n_component_value_component_value_guard_vs_no_directive_v1",
     ),
     (
+        "no_call_control_rescue_v10",
+        ROOT
+        / "results"
+        / "tool_probe_replay_live_comparisons"
+        / "20260510T_h1n_component_value_no_call_control_rescue_vs_no_directive_v1",
+    ),
+    (
         "oblique_code_guard_v7",
         ROOT
         / "results"

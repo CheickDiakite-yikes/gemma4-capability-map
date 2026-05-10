@@ -11,6 +11,8 @@ contracted,unchanged,2
 hybrid_label_guard_v8,regression,2
 hybrid_label_guard_v8,strict_gain,2
 hybrid_label_guard_v8,unchanged,4
+no_call_control_rescue_v10,strict_gain,2
+no_call_control_rescue_v10,unchanged,6
 oblique_code_guard_v7,regression,2
 oblique_code_guard_v7,strict_gain,1
 oblique_code_guard_v7,unchanged,5

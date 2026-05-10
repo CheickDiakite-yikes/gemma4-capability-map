@@ -283,7 +283,7 @@ def test_visual_component_value_diagnostic_writes_findings(tmp_path: Path) -> No
         table_prefix="component_value_matrix",
     )
 
-    assert payload["manifest"]["comparison_count"] == 7
+    assert payload["manifest"]["comparison_count"] == 8
     assert payload["manifest"]["case_count"] == 8
     assert payload["manifest"]["matrix_name"] == "component-value"
     summary = {row["label"]: row for row in payload["summary_rows"]}
@@ -293,6 +293,8 @@ def test_visual_component_value_diagnostic_writes_findings(tmp_path: Path) -> No
     assert summary["hybrid_label_guard_v8"]["candidate_exact_rate"] == 0.75
     assert summary["component_value_guard_v9"]["candidate_exact_rate"] == 0.5
     assert summary["component_value_guard_v9"]["delta_executor_equivalence_rate"] == -0.25
+    assert summary["no_call_control_rescue_v10"]["candidate_exact_rate"] == 0.875
+    assert summary["no_call_control_rescue_v10"]["candidate_executor_equivalence_rate"] == 1.0
     assert summary["oblique_code_hints_v6"]["candidate_exact_rate"] == 0.25
     assert summary["schema_field_hints_v4"]["candidate_executor_equivalence_rate"] == 0.5
     transitions = {(row["label"], row["case_id"]): row for row in payload["case_rows"]}
@@ -308,9 +310,12 @@ def test_visual_component_value_diagnostic_writes_findings(tmp_path: Path) -> No
     assert transitions[
         ("component_value_guard_v9", "component_value_status_badge_email_decoy")
     ]["transition"] == "strict_gain"
+    assert transitions[
+        ("no_call_control_rescue_v10", "component_value_owner_field_stale_selection_decoy")
+    ]["transition"] == "strict_gain"
     findings = {row["finding_id"]: row["finding"] for row in payload["finding_rows"]}
-    assert "argument_hints_v2" in findings["strict_upper_bound"]
-    assert "Executor-equivalent full-success rows: none." in findings["executor_equivalence_set"]
+    assert "no_call_control_rescue_v10" in findings["strict_upper_bound"]
+    assert "no_call_control_rescue_v10" in findings["executor_equivalence_set"]
     assert "component_value_guard_v9:component_value_state_pill_note_decoy" in findings["regressions"]
     assert (tmp_path / "diagnostic.md").exists()
     assert (tmp_path / "diagnostic.json").exists()

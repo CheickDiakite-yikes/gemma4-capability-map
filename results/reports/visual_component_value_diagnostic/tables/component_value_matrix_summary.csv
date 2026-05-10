@@ -3,6 +3,7 @@ contracted,mlx_gemma4_e2b_reasoner_only,8,0.625,0.125,-0.5,0.75,0.125,-0.625
 argument_hints_v2,mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints,8,0.625,0.75,0.125,0.75,0.875,0.125
 hybrid_label_guard_v8,mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_hybrid_label_guard,8,0.625,0.75,0.125,0.75,0.875,0.125
 component_value_guard_v9,mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_value_guard,8,0.625,0.5,-0.125,0.75,0.5,-0.25
+no_call_control_rescue_v10,mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_no_call_control_rescue,8,0.625,0.875,0.25,0.75,1.0,0.25
 oblique_code_guard_v7,mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_oblique_code_guard,8,0.625,0.625,0.0,0.75,0.625,-0.125
 oblique_code_hints_v6,mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_oblique_code_hints,8,0.625,0.25,-0.375,0.75,0.25,-0.5
 schema_field_hints_v4,mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints,8,0.625,0.375,-0.25,0.75,0.5,-0.25
