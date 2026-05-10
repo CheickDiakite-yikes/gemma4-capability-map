@@ -1,0 +1,2 @@
+case_id,family,expected_call_count,actual_call_count,exact_match,executable_match,executor_target_match,expected_calls,actual_calls,expected_execution,actual_execution,latency_ms,prompt_tokens,completion_tokens
+h1y_result_badge_comment_value_holdout,h1y_preserve_surface_value,1,0,False,False,False,"[{""name"": ""extract_layout"", ""arguments"": {""image_id"": ""img-h1y-result-badge"", ""target_query"": ""result badge""}}]",[],"{""region_ids"": [""h1y-result-badge-9882""]}",[],4518,651,1

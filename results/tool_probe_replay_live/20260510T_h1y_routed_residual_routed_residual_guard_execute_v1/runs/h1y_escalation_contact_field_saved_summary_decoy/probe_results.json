@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "h1y_escalation_contact_field_saved_summary_decoy",
+    "family": "h1y_route_stale_field",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "h1y-contact-field-9812"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1y-escalation-contact",
+          "target_query": "owner field"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h1y-escalation-contact",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "h1y-contact-field-9812"
+          ],
+          "region_id": "h1y-contact-field-9812",
+          "text_preview": "Mina"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1y-escalation-contact",
+          "target_query": "owner field"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1y-escalation-contact",
+          "target_query": "owner field"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h1y-escalation-contact\", \"target_query\": \"owner field\"}}",
+    "prompt_tokens": 1841,
+    "completion_tokens": 38,
+    "latency_ms": 6774
+  }
+]

@@ -1,0 +1,202 @@
+[
+  {
+    "case_id": "h1y_responsible_party_field_old_owner_memo_decoy",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "-m",
+      "gemma4_capability_map.runtime.cli",
+      "replay-live",
+      "--packet-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260510T_h1y_routed_residual_oracle_dry_run_v1",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1y_routed_residual_no_directive_execute_v1",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--case-id",
+      "h1y_responsible_party_field_old_owner_memo_decoy",
+      "--execute"
+    ]
+  },
+  {
+    "case_id": "h1y_escalation_contact_field_saved_summary_decoy",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "-m",
+      "gemma4_capability_map.runtime.cli",
+      "replay-live",
+      "--packet-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260510T_h1y_routed_residual_oracle_dry_run_v1",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1y_routed_residual_no_directive_execute_v1",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--case-id",
+      "h1y_escalation_contact_field_saved_summary_decoy",
+      "--execute"
+    ]
+  },
+  {
+    "case_id": "h1y_review_owner_field_previous_table_decoy",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "-m",
+      "gemma4_capability_map.runtime.cli",
+      "replay-live",
+      "--packet-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260510T_h1y_routed_residual_oracle_dry_run_v1",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1y_routed_residual_no_directive_execute_v1",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--case-id",
+      "h1y_review_owner_field_previous_table_decoy",
+      "--execute"
+    ]
+  },
+  {
+    "case_id": "h1y_lifecycle_state_tag_audit_value_decoy",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "-m",
+      "gemma4_capability_map.runtime.cli",
+      "replay-live",
+      "--packet-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260510T_h1y_routed_residual_oracle_dry_run_v1",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1y_routed_residual_no_directive_execute_v1",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--case-id",
+      "h1y_lifecycle_state_tag_audit_value_decoy",
+      "--execute"
+    ]
+  },
+  {
+    "case_id": "h1y_operation_mode_toggle_note_value_decoy",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "-m",
+      "gemma4_capability_map.runtime.cli",
+      "replay-live",
+      "--packet-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260510T_h1y_routed_residual_oracle_dry_run_v1",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1y_routed_residual_no_directive_execute_v1",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--case-id",
+      "h1y_operation_mode_toggle_note_value_decoy",
+      "--execute"
+    ]
+  },
+  {
+    "case_id": "h1y_alert_s92_negated_toggle_decoy",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "-m",
+      "gemma4_capability_map.runtime.cli",
+      "replay-live",
+      "--packet-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260510T_h1y_routed_residual_oracle_dry_run_v1",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1y_routed_residual_no_directive_execute_v1",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--case-id",
+      "h1y_alert_s92_negated_toggle_decoy",
+      "--execute"
+    ]
+  },
+  {
+    "case_id": "h1y_badge_c08_table_value_decoy",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "-m",
+      "gemma4_capability_map.runtime.cli",
+      "replay-live",
+      "--packet-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260510T_h1y_routed_residual_oracle_dry_run_v1",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1y_routed_residual_no_directive_execute_v1",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--case-id",
+      "h1y_badge_c08_table_value_decoy",
+      "--execute"
+    ]
+  },
+  {
+    "case_id": "h1y_status_pill_summary_value_holdout",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "-m",
+      "gemma4_capability_map.runtime.cli",
+      "replay-live",
+      "--packet-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260510T_h1y_routed_residual_oracle_dry_run_v1",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1y_routed_residual_no_directive_execute_v1",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--case-id",
+      "h1y_status_pill_summary_value_holdout",
+      "--execute"
+    ]
+  },
+  {
+    "case_id": "h1y_result_badge_comment_value_holdout",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "-m",
+      "gemma4_capability_map.runtime.cli",
+      "replay-live",
+      "--packet-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260510T_h1y_routed_residual_oracle_dry_run_v1",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1y_routed_residual_no_directive_execute_v1",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--case-id",
+      "h1y_result_badge_comment_value_holdout",
+      "--execute"
+    ]
+  },
+  {
+    "case_id": "h1y_warning_tile_note_activation_decoy",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "-m",
+      "gemma4_capability_map.runtime.cli",
+      "replay-live",
+      "--packet-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260510T_h1y_routed_residual_oracle_dry_run_v1",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1y_routed_residual_no_directive_execute_v1",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--case-id",
+      "h1y_warning_tile_note_activation_decoy",
+      "--execute"
+    ]
+  }
+]

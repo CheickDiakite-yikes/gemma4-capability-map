@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "h1y_badge_c08_table_value_decoy",
+    "family": "h1y_route_code_label",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "h1y-badge-c08-9862"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1y-badge-c08",
+          "target_query": "badge c08"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h1y-badge-c08",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "h1y-badge-c08-9862"
+          ],
+          "region_id": "h1y-badge-c08-9862",
+          "text_preview": "Approved"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1y-badge-c08",
+          "target_query": "badge c08"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1y-badge-c08",
+          "target_query": "badge c08"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h1y-badge-c08\", \"target_query\": \"badge c08\"}}",
+    "prompt_tokens": 1824,
+    "completion_tokens": 41,
+    "latency_ms": 7324
+  }
+]

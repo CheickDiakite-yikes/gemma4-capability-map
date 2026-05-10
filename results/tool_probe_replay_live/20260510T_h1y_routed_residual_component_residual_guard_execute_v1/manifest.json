@@ -1,0 +1,35 @@
+{
+  "packet_run_id": "20260510T_h1y_routed_residual_component_residual_guard_execute_v1",
+  "packet_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1y_routed_residual_component_residual_guard_execute_v1",
+  "source_packet_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260510T_h1y_routed_residual_oracle_dry_run_v1",
+  "source_packet_run_id": "20260510T_h1y_routed_residual_oracle_dry_run_v1",
+  "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard",
+  "case_count": 10,
+  "execute": true,
+  "executed_count": 10,
+  "exact_count": 7,
+  "exact_rate": 0.7,
+  "executor_equivalence_evaluable_count": 10,
+  "executor_equivalence_count": 7,
+  "executor_equivalence_rate": 0.7,
+  "failure_mode_counts": {
+    "argument_alias_or_decoy_risk": 6,
+    "wrong_tool_or_stale_selection_risk": 4
+  },
+  "created_at": "2026-05-10T19:07:25.176278+00:00",
+  "registry_path": "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+  "case_ids": [
+    "h1y_responsible_party_field_old_owner_memo_decoy",
+    "h1y_escalation_contact_field_saved_summary_decoy",
+    "h1y_review_owner_field_previous_table_decoy",
+    "h1y_lifecycle_state_tag_audit_value_decoy",
+    "h1y_operation_mode_toggle_note_value_decoy",
+    "h1y_alert_s92_negated_toggle_decoy",
+    "h1y_badge_c08_table_value_decoy",
+    "h1y_status_pill_summary_value_holdout",
+    "h1y_result_badge_comment_value_holdout",
+    "h1y_warning_tile_note_activation_decoy"
+  ],
+  "operator_surface": "rich_cli_exact_probe_replay_v1",
+  "entrypoint": "moonie-agent replay-live"
+}

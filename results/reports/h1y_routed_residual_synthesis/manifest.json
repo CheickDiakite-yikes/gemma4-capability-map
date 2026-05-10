@@ -1,0 +1,16 @@
+{
+  "generated_at": "2026-05-10T19:13:51.068139+00:00",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h1y_routed_residual_synthesis",
+  "profile_count": 4,
+  "case_count": 10,
+  "no_directive_exact_success_count": 0,
+  "v11_exact_success_count": 5,
+  "v11_executor_success_count": 5,
+  "v12_exact_success_count": 7,
+  "v12_executor_success_count": 7,
+  "v16_exact_success_count": 5,
+  "v16_executor_success_count": 5,
+  "comparison_count": 6,
+  "finding_count": 5,
+  "promotion_decision": "do_not_promote_v16_design_v17_selection_origin_guard"
+}
