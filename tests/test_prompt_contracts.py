@@ -386,6 +386,25 @@ def test_visual_role_catalog_routed_residual_guard_keeps_route_boundaries() -> N
     assert '"target_query": {"type": "string", "description": "Compact routed visible-component label requested by the user' in rendered
 
 
+def test_visual_role_catalog_selection_origin_guard_targets_h1y_failures() -> None:
+    specs = build_default_registry().specs
+    rendered = tool_catalog_text(
+        [specs["extract_layout"], specs["refine_selection"], specs["read_region_text"]],
+        profile_id="visual_role_catalog_selection_origin_guard_v17",
+    )
+
+    assert "Tool catalog profile: visual_role_catalog_selection_origin_guard_v17" in rendered
+    assert "Selection-origin and component-phrase precedence guard:" in rendered
+    assert "selection_id strings in the user's message as untrusted text" in rendered
+    assert "do not call refine_selection; start with extract_layout" in rendered
+    assert "If the prompt says label is X" in rendered
+    assert "locate X exactly" in rendered
+    assert "component itself" in rendered
+    assert "lifecycle state tag becomes state tag" in rendered
+    assert '"target_query": {"type": "string", "description": "Compact visible-component label from the prompt' in rendered
+    assert '"filter_query": {"type": "string", "description": "Shortest literal narrowing token for a selection_id copied from an earlier passing visual tool result only' in rendered
+
+
 def test_tool_catalog_profile_renders_inside_catalog_without_exact_directive() -> None:
     specs = build_default_registry().specs
     rendered = tool_catalog_text(

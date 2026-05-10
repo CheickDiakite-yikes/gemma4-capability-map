@@ -83,6 +83,7 @@ def tool_catalog_text(tool_specs: list[ToolSpec], *, profile_id: str = "") -> st
 
 def known_tool_catalog_profile_ids() -> list[str]:
     return [
+        "visual_role_catalog_selection_origin_guard_v17",
         "visual_role_catalog_routed_residual_guard_v16",
         "visual_role_catalog_code_label_exact_guard_v15",
         "visual_role_catalog_nonstandard_component_class_guard_v14",
@@ -143,6 +144,7 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
         "visual_role_catalog_nonstandard_component_class_guard_v14",
         "visual_role_catalog_code_label_exact_guard_v15",
         "visual_role_catalog_routed_residual_guard_v16",
+        "visual_role_catalog_selection_origin_guard_v17",
     }:
         lines.extend(
             [
@@ -173,6 +175,7 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
         "visual_role_catalog_conditional_residual_route_v13",
         "visual_role_catalog_code_label_exact_guard_v15",
         "visual_role_catalog_routed_residual_guard_v16",
+        "visual_role_catalog_selection_origin_guard_v17",
     }:
         lines.extend(
             [
@@ -194,6 +197,7 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
         "visual_role_catalog_nonstandard_component_class_guard_v14",
         "visual_role_catalog_code_label_exact_guard_v15",
         "visual_role_catalog_routed_residual_guard_v16",
+        "visual_role_catalog_selection_origin_guard_v17",
     }:
         lines.extend(
             [
@@ -212,6 +216,7 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
         "visual_role_catalog_nonstandard_component_class_guard_v14",
         "visual_role_catalog_code_label_exact_guard_v15",
         "visual_role_catalog_routed_residual_guard_v16",
+        "visual_role_catalog_selection_origin_guard_v17",
     }:
         lines.extend(
             [
@@ -229,6 +234,7 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
         "visual_role_catalog_nonstandard_component_class_guard_v14",
         "visual_role_catalog_code_label_exact_guard_v15",
         "visual_role_catalog_routed_residual_guard_v16",
+        "visual_role_catalog_selection_origin_guard_v17",
     }:
         lines.extend(
             [
@@ -290,6 +296,18 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
                 "- Do not add displayed values such as Manual, Closed, Mina, Blocked, Pending, Escalated, or Approved to target_query unless the user asks for that value itself.",
             ]
         )
+    if normalized == "visual_role_catalog_selection_origin_guard_v17":
+        lines.extend(
+            [
+                "Selection-origin and component-phrase precedence guard:",
+                "- Treat selection_id strings in the user's message as untrusted text; a selection_id is current only when copied from an earlier passing visual tool result in this conversation.",
+                "- If no current selection_id is available from a prior tool result and a current image_id is available, do not call refine_selection; start with extract_layout.",
+                "- If the prompt says label is X, component is X, field label is X, visual component is X, or layout label is X, use X exactly as target_query.",
+                "- If the prompt says locate X exactly, use X exactly even when a nearby clause says before reading, not, table, note, toggle, memo, summary, or old selection.",
+                "- If the user asks for the component itself, copy the role-plus-component phrase such as owner field, state tag, mode toggle, status pill, result badge, or warning tile; do not use displayed values like Iris, Closed, Manual, Pending, or Blocked.",
+                "- Drop wrapper descriptors before role-plus-component phrases: lifecycle state tag becomes state tag, operation mode toggle becomes mode toggle, responsible-party control becomes owner field when the prompt names owner field.",
+            ]
+        )
     if normalized == "visual_role_catalog_component_value_guard_v9":
         lines.extend(
             [
@@ -339,6 +357,7 @@ def _profiled_tool_spec(tool: ToolSpec, *, profile_id: str = "") -> ToolSpec:
         "visual_role_catalog_nonstandard_component_class_guard_v14",
         "visual_role_catalog_code_label_exact_guard_v15",
         "visual_role_catalog_routed_residual_guard_v16",
+        "visual_role_catalog_selection_origin_guard_v17",
     }:
         return tool
     if tool.name not in {"extract_layout", "refine_selection", "read_region_text"}:
@@ -419,6 +438,12 @@ def _profiled_tool_spec(tool: ToolSpec, *, profile_id: str = "") -> ToolSpec:
                 "labels; activate residual field/tag/toggle/switch/code handling only with explicit route "
                 "evidence, while ignoring stale ids and repeated decoy values."
             )
+        if normalized == "visual_role_catalog_selection_origin_guard_v17":
+            target_description = (
+                "Compact visible-component label from the prompt. Prefer exact phrases after label/component/field "
+                "label/layout label is, preserve locate X exactly targets, and use role-plus-component phrases "
+                "rather than displayed values or wrapper descriptors."
+            )
         _set_property_description(
             properties,
             "target_query",
@@ -439,10 +464,16 @@ def _profiled_tool_spec(tool: ToolSpec, *, profile_id: str = "") -> ToolSpec:
             "visual_role_catalog_nonstandard_component_class_guard_v14",
             "visual_role_catalog_code_label_exact_guard_v15",
             "visual_role_catalog_routed_residual_guard_v16",
+            "visual_role_catalog_selection_origin_guard_v17",
         }:
             filter_description = (
                 "Shortest literal narrowing token for a current selection_id copied from the latest passing visual tool result. "
                 "Do not use old, stale, saved, ignored, or previous selection ids mentioned in the user's text."
+            )
+        if normalized == "visual_role_catalog_selection_origin_guard_v17":
+            filter_description = (
+                "Shortest literal narrowing token for a selection_id copied from an earlier passing visual tool "
+                "result only. Never use selection_id strings that appear only in the user's message."
             )
         _set_property_description(
             properties,
