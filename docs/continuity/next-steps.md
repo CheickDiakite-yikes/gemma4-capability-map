@@ -106,7 +106,11 @@ Next implementation moves:
   - diagnostic: [`results/reports/visual_alias_transfer_oblique_diagnostic/diagnostic.md`](../../results/reports/visual_alias_transfer_oblique_diagnostic/diagnostic.md)
   - miss analysis: [`results/reports/h1n_oblique_miss_analysis/diagnostic.md`](../../results/reports/h1n_oblique_miss_analysis/diagnostic.md)
   - interpretation: the oblique packet breaks the argument-hints/schema-literal tie in favor of argument hints, with schema-field hints second; target-literal wording is brittle when visible labels are code-like and decoys repeat the semantic content
-- next replay-shaped target: test a narrow code-suffix/negated-decoy repair only if it can preserve the four argument-hints wins; otherwise compare argument hints against schema-field hints in a less-staged live visual task
+- next candidate ready to execute:
+  - system: `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_oblique_code_hints`
+  - profile: `visual_role_catalog_oblique_code_hints_v6`
+  - purpose: test a narrow code-suffix/negated-decoy repair while preserving the four argument-hints wins
+- next replay-shaped target: execute the oblique-code profile against the oblique packet, compare it to argument hints, and reject it unless it improves the two misses without losing existing wins
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1

@@ -182,6 +182,23 @@ def test_visual_role_catalog_schema_literal_targets_profile_preserves_generic_ta
     assert "Dana" not in rendered
 
 
+def test_visual_role_catalog_oblique_code_hints_profile_preserves_code_suffixes_and_negated_decoys() -> None:
+    specs = build_default_registry().specs
+    rendered = tool_catalog_text(
+        [specs["extract_layout"], specs["refine_selection"], specs["read_region_text"]],
+        profile_id="visual_role_catalog_oblique_code_hints_v6",
+    )
+
+    assert "Tool catalog profile: visual_role_catalog_oblique_code_hints_v6" in rendered
+    assert "Oblique visible-label discipline:" in rendered
+    assert "keep the full visible label in target_query" in rendered
+    assert "not X, not the X, or before reading X" in rendered
+    assert '"target_query": {"type": "string", "description": "Compact literal visible-region label' in rendered
+    assert "cell r42" not in rendered
+    assert "alert p55" not in rendered
+    assert "consent toggle" not in rendered
+
+
 def test_tool_catalog_profile_renders_inside_catalog_without_exact_directive() -> None:
     specs = build_default_registry().specs
     rendered = tool_catalog_text(

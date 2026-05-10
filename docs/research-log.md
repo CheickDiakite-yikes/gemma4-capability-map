@@ -3427,6 +3427,22 @@
   - `uv run python scripts/analyze_h1n_oblique_misses.py`
   - `uv run pytest tests/test_h1n_oblique_miss_analysis.py -q`
 
+## 2026-05-09 - H1n Oblique Code-Hints Candidate
+
+- Added a narrow follow-up catalog profile for the oblique misses:
+  - profile: `visual_role_catalog_oblique_code_hints_v6`
+  - system: `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_oblique_code_hints`
+  - implementation: [`src/gemma4_capability_map/tools/planner.py`](../src/gemma4_capability_map/tools/planner.py)
+  - registry: [`configs/model_registry.yaml`](../configs/model_registry.yaml)
+- Design:
+  - inherits the visual role-catalog argument-field framing
+  - adds only two targeted rules: preserve code-like visible label suffixes and treat `not X` / `before reading X` as decoy language unless X is the requested target
+  - annotates `extract_layout.target_query` with the same narrow code-suffix/negated-decoy contract
+- Guardrail:
+  - do not promote this profile unless it improves the two argument-hints misses without losing the four argument-hints wins on the oblique packet
+- Verification:
+  - `uv run pytest tests/test_prompt_contracts.py tests/test_knowledge_work_h1.py -q`
+
 ## 2026-05-09 - Schema Target Literal v5 Negative Hard-Slice Repair
 
 - A narrow hard-slice repair candidate was added after inspecting the two v4 exact misses:

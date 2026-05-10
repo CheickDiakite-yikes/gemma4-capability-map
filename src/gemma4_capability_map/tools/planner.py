@@ -83,6 +83,7 @@ def tool_catalog_text(tool_specs: list[ToolSpec], *, profile_id: str = "") -> st
 
 def known_tool_catalog_profile_ids() -> list[str]:
     return [
+        "visual_role_catalog_oblique_code_hints_v6",
         "visual_role_catalog_schema_literal_targets_v5",
         "visual_role_catalog_schema_field_hints_v4",
         "visual_role_catalog_split_selector_hints_v3",
@@ -118,7 +119,11 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
         lines.append("- read_region_text: read text from an existing region_id; consume image_id and region_id after the region is already selected.")
     lines.append("When a latest passing visual tool result already contains selection_id, prefer selection refinement over starting a fresh layout extraction for filtering or narrowing.")
     lines.append("When a latest passing visual tool result already contains region_id and the request is readback, prefer region text reading over selection refinement.")
-    if normalized in {"visual_role_catalog_argument_hints_v2", "visual_role_catalog_split_selector_hints_v3"}:
+    if normalized in {
+        "visual_role_catalog_argument_hints_v2",
+        "visual_role_catalog_split_selector_hints_v3",
+        "visual_role_catalog_oblique_code_hints_v6",
+    }:
         lines.extend(
             [
                 "Visual argument field semantics:",
@@ -126,6 +131,16 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
                 "- filter_query is a compact selector token for an existing selection_id; prefer the shortest literal filter token such as latest, remaining, open, selected, or unread when that token is present.",
                 "- Do not append surrounding nouns to target_query or filter_query when the selector token already identifies the visual operation.",
                 "- Keep image_id, selection_id, and region_id as opaque ids copied from the latest passing visual state.",
+            ]
+        )
+    if normalized == "visual_role_catalog_oblique_code_hints_v6":
+        lines.extend(
+            [
+                "Oblique visible-label discipline:",
+                "- If the requested target label includes a code-like suffix such as q17, r42, m88, z33, e19, or p55, keep the full visible label in target_query.",
+                "- Do not drop the suffix and do not replace the requested label with only the surface noun such as cell, node, chip, badge, field, or alert.",
+                "- When the user says not X, not the X, or before reading X, treat X as a decoy unless it is also the requested target label.",
+                "- These are generic literal-copy and negated-decoy rules; they do not reveal the expected call for this turn.",
             ]
         )
     if normalized == "visual_role_catalog_split_selector_hints_v3":
@@ -156,6 +171,7 @@ def _profiled_tool_spec(tool: ToolSpec, *, profile_id: str = "") -> ToolSpec:
     if normalized not in {
         "visual_role_catalog_schema_field_hints_v4",
         "visual_role_catalog_schema_literal_targets_v5",
+        "visual_role_catalog_oblique_code_hints_v6",
     }:
         return tool
     if tool.name not in {"extract_layout", "refine_selection", "read_region_text"}:
@@ -172,6 +188,11 @@ def _profiled_tool_spec(tool: ToolSpec, *, profile_id: str = "") -> ToolSpec:
                 "Compact visible-region label for the executor. Preserve stable surface/class labels such as "
                 "dashboard metric or slide callout, and drop task/status adjectives such as warning, needs review, "
                 "stale, latest, customer, author, or source."
+            )
+        if normalized == "visual_role_catalog_oblique_code_hints_v6":
+            target_description = (
+                "Compact literal visible-region label for the executor. Preserve code-like suffixes such as q17, "
+                "r42, m88, z33, e19, or p55 when present, and do not select a target the user explicitly negated."
             )
         _set_property_description(
             properties,
