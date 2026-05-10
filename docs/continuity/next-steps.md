@@ -192,7 +192,8 @@ Next implementation moves:
   - live result: v13 fails the H1r early-stop gate at `3 / 6` exact and executor-equivalent, below v11 (`5 / 6`) and v12 (`6 / 6`)
   - synthesis: [`results/reports/h1t_conditional_residual_route_synthesis/report.md`](../../results/reports/h1t_conditional_residual_route_synthesis/report.md)
   - decision: reject v13 before H1n/H1o/H1p transfer; compact conditional routing did not activate the nonstandard component-class and code-label behavior
-  - next execution step: split the route hypothesis into independent prompt factors rather than one compact conditional block
+  - completed scaffold: H1u splits the route hypothesis into `visual_role_catalog_nonstandard_component_class_guard_v14` and `visual_role_catalog_code_label_exact_guard_v15`
+  - next execution step: live-test v14 and v15 on H1r before any broader transfer
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1

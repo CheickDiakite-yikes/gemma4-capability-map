@@ -721,6 +721,30 @@ def test_h1t_conditional_residual_route_registry_row_preserves_catalog_profile()
     assert spec["tool_catalog_profile_id"] == "visual_role_catalog_conditional_residual_route_v13"
 
 
+def test_h1u_split_factor_registry_rows_preserve_catalog_profiles() -> None:
+    config = load_h1_slice(H1M_CONFIG_PATH)
+    registry = load_model_registry()
+
+    specs = build_h1_run_specs(
+        config,
+        registry,
+        lanes=["replayable_core"],
+        system_ids=[
+            "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_nonstandard_component_class_guard",
+            "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_code_label_exact_guard",
+        ],
+    )
+
+    by_system = {spec["system_id"]: spec for spec in specs}
+    assert by_system[
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_nonstandard_component_class_guard"
+    ]["tool_catalog_profile_id"] == "visual_role_catalog_nonstandard_component_class_guard_v14"
+    assert by_system[
+        "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_code_label_exact_guard"
+    ]["tool_catalog_profile_id"] == "visual_role_catalog_code_label_exact_guard_v15"
+    assert all(spec["disable_tool_turn_directive"] is True for spec in by_system.values())
+
+
 def test_h1f_ablation_specs_preserve_tool_directive_flags() -> None:
     config = load_h1_slice(H1F_CONFIG_PATH)
     registry = load_model_registry()

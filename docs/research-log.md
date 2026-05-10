@@ -1,5 +1,22 @@
 # Research Log
 
+## 2026-05-10 - H1u Split-Factor Route Scaffold
+
+- Split the failed H1t compact conditional route into two independent prompt factors:
+  - `visual_role_catalog_nonstandard_component_class_guard_v14`
+  - `visual_role_catalog_code_label_exact_guard_v15`
+- Added registry systems:
+  - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_nonstandard_component_class_guard`
+  - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_code_label_exact_guard`
+- Motivation from H1t failures:
+  - `state tag` and `mode toggle` collapsed into displayed values (`Closed`, `Manual`)
+  - `alert s92` collapsed into a negated neighboring `consent toggle`
+- Next execution:
+  - live replay v14 and v15 on H1r before any broader transfer
+  - compare each factor against v11, v12, and v13
+- Verification:
+  - `uv run pytest tests/test_prompt_contracts.py tests/test_knowledge_work_h1.py::test_h1u_split_factor_registry_rows_preserve_catalog_profiles -q`
+
 ## 2026-05-10 - H1t Conditional Residual-Route Rejected at H1r Gate
 
 - Added `visual_role_catalog_conditional_residual_route_v13` as the direct follow-up to H1s:

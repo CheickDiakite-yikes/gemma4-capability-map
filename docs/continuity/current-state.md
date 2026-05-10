@@ -1236,6 +1236,15 @@ Next execution step:
 - do not run v13 on H1n/H1o/H1p
 - next prompt-factor attempt should be more explicit and/or split into independent route bits, because compact conditional prose did not trigger the nonstandard class and code-label behavior
 
+H1u scaffold:
+
+- `visual_role_catalog_nonstandard_component_class_guard_v14`: targets tag/toggle/switch cases that collapsed into displayed values under v13
+- `visual_role_catalog_code_label_exact_guard_v15`: targets code-label exactness and negated neighboring controls such as the `alert s92` miss
+- registry systems:
+  - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_nonstandard_component_class_guard`
+  - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_code_label_exact_guard`
+- next execution: live replay both on H1r, then compare against v11/v12/v13
+
 ## Latest H1q Component-Label Guard Transfer Finding
 
 H1q is the current sharpest controller-profile transfer result. It was built to resolve the H1p/H1o/H1n tension: broad v9 component-value guidance wins locally on H1p, ties on H1o, and regresses on the older H1n component-value slice. The new `visual_role_catalog_component_label_guard_v11` narrows the wording to copying requested role-plus-component labels instead of selecting displayed values.

@@ -337,6 +337,36 @@ def test_visual_role_catalog_conditional_residual_route_profile_keeps_v11_defaul
     assert "component_value_status_badge_email_decoy" not in rendered
 
 
+def test_visual_role_catalog_nonstandard_component_class_guard_targets_tag_toggle_values() -> None:
+    specs = build_default_registry().specs
+    rendered = tool_catalog_text(
+        [specs["extract_layout"], specs["refine_selection"], specs["read_region_text"]],
+        profile_id="visual_role_catalog_nonstandard_component_class_guard_v14",
+    )
+
+    assert "Tool catalog profile: visual_role_catalog_nonstandard_component_class_guard_v14" in rendered
+    assert "Nonstandard component-class guard:" in rendered
+    assert "tag, toggle, and switch" in rendered
+    assert "state tag, mode toggle, consent switch, or status tag" in rendered
+    assert "Closed, Manual, Enabled, Disabled, or Approved" in rendered
+    assert '"target_query": {"type": "string", "description": "Compact visible-component label requested by the user. For tag, toggle, or switch targets' in rendered
+
+
+def test_visual_role_catalog_code_label_exact_guard_targets_negated_decoys() -> None:
+    specs = build_default_registry().specs
+    rendered = tool_catalog_text(
+        [specs["extract_layout"], specs["refine_selection"], specs["read_region_text"]],
+        profile_id="visual_role_catalog_code_label_exact_guard_v15",
+    )
+
+    assert "Tool catalog profile: visual_role_catalog_code_label_exact_guard_v15" in rendered
+    assert "Oblique visible-label discipline:" in rendered
+    assert "Code-label exact guard:" in rendered
+    assert "alert s92 or badge c08" in rendered
+    assert "nearby toggle, note, log, or table is a decoy" in rendered
+    assert '"target_query": {"type": "string", "description": "Compact literal code label requested by the user' in rendered
+
+
 def test_tool_catalog_profile_renders_inside_catalog_without_exact_directive() -> None:
     specs = build_default_registry().specs
     rendered = tool_catalog_text(

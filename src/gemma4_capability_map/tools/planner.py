@@ -83,6 +83,8 @@ def tool_catalog_text(tool_specs: list[ToolSpec], *, profile_id: str = "") -> st
 
 def known_tool_catalog_profile_ids() -> list[str]:
     return [
+        "visual_role_catalog_code_label_exact_guard_v15",
+        "visual_role_catalog_nonstandard_component_class_guard_v14",
         "visual_role_catalog_conditional_residual_route_v13",
         "visual_role_catalog_component_residual_guard_v12",
         "visual_role_catalog_component_label_guard_v11",
@@ -137,6 +139,8 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
         "visual_role_catalog_component_label_guard_v11",
         "visual_role_catalog_component_residual_guard_v12",
         "visual_role_catalog_conditional_residual_route_v13",
+        "visual_role_catalog_nonstandard_component_class_guard_v14",
+        "visual_role_catalog_code_label_exact_guard_v15",
     }:
         lines.extend(
             [
@@ -165,6 +169,7 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
         "visual_role_catalog_component_value_guard_v9",
         "visual_role_catalog_component_residual_guard_v12",
         "visual_role_catalog_conditional_residual_route_v13",
+        "visual_role_catalog_code_label_exact_guard_v15",
     }:
         lines.extend(
             [
@@ -183,6 +188,8 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
         "visual_role_catalog_component_label_guard_v11",
         "visual_role_catalog_component_residual_guard_v12",
         "visual_role_catalog_conditional_residual_route_v13",
+        "visual_role_catalog_nonstandard_component_class_guard_v14",
+        "visual_role_catalog_code_label_exact_guard_v15",
     }:
         lines.extend(
             [
@@ -198,6 +205,8 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
         "visual_role_catalog_component_label_guard_v11",
         "visual_role_catalog_component_residual_guard_v12",
         "visual_role_catalog_conditional_residual_route_v13",
+        "visual_role_catalog_nonstandard_component_class_guard_v14",
+        "visual_role_catalog_code_label_exact_guard_v15",
     }:
         lines.extend(
             [
@@ -212,6 +221,8 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
         "visual_role_catalog_component_label_guard_v11",
         "visual_role_catalog_component_residual_guard_v12",
         "visual_role_catalog_conditional_residual_route_v13",
+        "visual_role_catalog_nonstandard_component_class_guard_v14",
+        "visual_role_catalog_code_label_exact_guard_v15",
     }:
         lines.extend(
             [
@@ -240,6 +251,26 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
                 "- Add residual handling only when the requested target has a code suffix, a nonstandard component class such as tag, toggle, or switch, or a field target with stale/old/previous selection text nearby.",
                 "- Do not add residual handling for ordinary pill, badge, chip, or tile targets unless one of those route conditions is present.",
                 "- This route is designed to keep v11 executor robustness while selectively covering H1r-style residual cases.",
+            ]
+        )
+    if normalized == "visual_role_catalog_nonstandard_component_class_guard_v14":
+        lines.extend(
+            [
+                "Nonstandard component-class guard:",
+                "- Treat tag, toggle, and switch as component classes just like badge, chip, pill, tile, and field.",
+                "- For targets such as state tag, mode toggle, consent switch, or status tag, copy the role-plus-component phrase into target_query.",
+                "- Never replace a requested tag/toggle/switch component with the displayed value inside it, such as Closed, Manual, Enabled, Disabled, or Approved.",
+                "- Nearby notes, logs, tables, or summaries repeating that value are decoys when the user asks for the component class itself.",
+            ]
+        )
+    if normalized == "visual_role_catalog_code_label_exact_guard_v15":
+        lines.extend(
+            [
+                "Code-label exact guard:",
+                "- When the requested visible label combines a component noun with a code suffix, copy both words exactly, such as alert s92 or badge c08.",
+                "- A nearby toggle, note, log, or table is a decoy when the request says not that item or asks before reading that item.",
+                "- Do not replace a code label with the semantic issue, displayed value, or neighboring control even when it appears closer in the prompt.",
+                "- Preserve lowercase and uppercase suffix letters exactly as written in the requested label.",
             ]
         )
     if normalized == "visual_role_catalog_component_value_guard_v9":
@@ -288,6 +319,8 @@ def _profiled_tool_spec(tool: ToolSpec, *, profile_id: str = "") -> ToolSpec:
         "visual_role_catalog_component_label_guard_v11",
         "visual_role_catalog_component_residual_guard_v12",
         "visual_role_catalog_conditional_residual_route_v13",
+        "visual_role_catalog_nonstandard_component_class_guard_v14",
+        "visual_role_catalog_code_label_exact_guard_v15",
     }:
         return tool
     if tool.name not in {"extract_layout", "refine_selection", "read_region_text"}:
@@ -352,6 +385,16 @@ def _profiled_tool_spec(tool: ToolSpec, *, profile_id: str = "") -> ToolSpec:
                 "state pill or status badge; apply residual code/tag/toggle/switch/field handling only when the "
                 "request contains that route condition."
             )
+        if normalized == "visual_role_catalog_nonstandard_component_class_guard_v14":
+            target_description = (
+                "Compact visible-component label requested by the user. For tag, toggle, or switch targets, copy "
+                "the role-plus-component phrase such as state tag or mode toggle rather than the displayed value."
+            )
+        if normalized == "visual_role_catalog_code_label_exact_guard_v15":
+            target_description = (
+                "Compact literal code label requested by the user. Preserve component noun plus suffix exactly, "
+                "such as alert s92 or badge c08, and ignore nearby negated controls or repeated values."
+            )
         _set_property_description(
             properties,
             "target_query",
@@ -369,6 +412,8 @@ def _profiled_tool_spec(tool: ToolSpec, *, profile_id: str = "") -> ToolSpec:
             "visual_role_catalog_component_label_guard_v11",
             "visual_role_catalog_component_residual_guard_v12",
             "visual_role_catalog_conditional_residual_route_v13",
+            "visual_role_catalog_nonstandard_component_class_guard_v14",
+            "visual_role_catalog_code_label_exact_guard_v15",
         }:
             filter_description = (
                 "Shortest literal narrowing token for a current selection_id copied from the latest passing visual tool result. "
