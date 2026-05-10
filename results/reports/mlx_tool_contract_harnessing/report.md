@@ -1,6 +1,6 @@
 # MLX Tool-Contract Harnessing Report
 
-Generated: `2026-05-10T01:34:42.436165+00:00`
+Generated: `2026-05-10T01:54:50.904934+00:00`
 
 ## Executive Read
 
@@ -79,6 +79,8 @@ The visual catalog branch now includes an explicit negative-result loop. `visual
 ![Visual hard-slice alias-transfer live replay gate](figures/visual_hard_slice_alias_transfer_live_replay_gate.svg)
 
 ![Visual hard-slice alias-transfer oracle live replay gate](figures/visual_hard_slice_alias_transfer_oracle_live_replay_gate.svg)
+
+![Visual hard-slice post-repair live replay gate](figures/visual_hard_slice_post_repair_live_replay_gate.svg)
 
 ## Packet Summary
 
@@ -540,6 +542,52 @@ The six-case alias-transfer packet is the first post-packaging-gap discriminator
 | alias-transfer oracle schema literal targets vs no directive | transfer_status_pill_chart_decoy | visual_argument_transfer | argument_alias_or_decoy_risk | False | True | 1 | False | True | 1 | False | True | 1 | no_tool_call | exact | 0 | 1 | 1 |
 
 The oracle replay rebuild makes the packet's expected calls execute to the same visual targets as the packet's expected-execution oracle, and replay-live now preserves those serialized expected calls instead of recomputing planner-derived calls. That changes the H1n interpretation materially: no-directive MLX is `2 / 6` strict and executor-equivalent, contracted MLX falls to `1 / 6`, role catalog v1 reaches `3 / 6`, argument hints v2 reaches `5 / 6` strict and `6 / 6` executor-equivalent, schema-field hints v4 stays at `2 / 6`, and schema target literals v5 reaches `4 / 6`. The clean H1n winner is therefore argument hints, with schema target literals as the second-place transfer mechanism. Contracted prompting is not a useful upper bound on this oracle transfer slice.
+
+## Visual Hard-Slice Post-Repair CLI-Live Replay
+
+| comparison | baseline_system_id | candidate_system_id | shared_case_count | baseline_exact_rate | candidate_exact_rate | delta_exact_rate | baseline_executable_rate | candidate_executable_rate | delta_executable_rate | baseline_executor_equivalence_rate | candidate_executor_equivalence_rate | delta_executor_equivalence_rate |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| post-repair contracted vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only | 8 | 0.25 | 0.375 | 0.125 | 0.25 | 0.375 | 0.125 | 0.25 | 0.375 | 0.125 |
+| post-repair argument hints vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints | 8 | 0.25 | 0.625 | 0.375 | 0.25 | 0.625 | 0.375 | 0.25 | 0.625 | 0.375 |
+| post-repair oblique code hints vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_oblique_code_hints | 8 | 0.25 | 0.625 | 0.375 | 0.25 | 0.625 | 0.375 | 0.25 | 0.625 | 0.375 |
+| post-repair oblique code guard vs no directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_oblique_code_guard | 8 | 0.25 | 0.75 | 0.5 | 0.25 | 0.75 | 0.5 | 0.25 | 0.75 | 0.5 |
+
+| comparison | case_id | family | source_failure_mode | baseline_replay_exact_match | candidate_replay_exact_match | delta_exact_match | baseline_replay_executable_match | candidate_replay_executable_match | delta_executable_match | baseline_replay_executor_equivalence_match | candidate_replay_executor_equivalence_match | delta_executor_equivalence_match | baseline_replay_failure_mode | candidate_replay_failure_mode | baseline_actual_call_count | candidate_actual_call_count | delta_actual_call_count |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| post-repair contracted vs no directive | post_repair_alert_c77_toggle_decoy | visual_tool_routing_transfer_post_repair | wrong_tool_or_stale_selection_risk | False | False | 0 | False | False | 0 | False | False | 0 | argument_mismatch | argument_mismatch | 1 | 1 | 0 |
+| post-repair contracted vs no directive | post_repair_badge_t64_notice_decoy | visual_argument_transfer_post_repair_code | argument_alias_or_decoy_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| post-repair contracted vs no directive | post_repair_chip_l90_person_decoy | visual_argument_transfer_post_repair_code | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | argument_mismatch | wrong_tool | 1 | 1 | 0 |
+| post-repair contracted vs no directive | post_repair_field_b12_stale_selection_decoy | visual_tool_routing_transfer_post_repair | wrong_tool_or_stale_selection_risk | False | True | 1 | False | True | 1 | False | True | 1 | no_tool_call | exact | 0 | 1 | 1 |
+| post-repair contracted vs no directive | post_repair_node_k21_chart_decoy | visual_argument_transfer_post_repair_code | argument_alias_or_decoy_risk | True | False | -1 | True | False | -1 | True | False | -1 | exact | wrong_tool | 1 | 1 | 0 |
+| post-repair contracted vs no directive | post_repair_review_tile_table_decoy | visual_argument_transfer_post_repair_noncode | argument_alias_or_decoy_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| post-repair contracted vs no directive | post_repair_status_pill_note_decoy | visual_argument_transfer_post_repair_noncode | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | no_tool_call | wrong_tool | 0 | 1 | 1 |
+| post-repair contracted vs no directive | post_repair_warning_toast_email_decoy | visual_argument_transfer_post_repair_noncode | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | no_tool_call | wrong_tool | 0 | 1 | 1 |
+| post-repair argument hints vs no directive | post_repair_alert_c77_toggle_decoy | visual_tool_routing_transfer_post_repair | wrong_tool_or_stale_selection_risk | False | False | 0 | False | False | 0 | False | False | 0 | argument_mismatch | argument_mismatch | 1 | 1 | 0 |
+| post-repair argument hints vs no directive | post_repair_badge_t64_notice_decoy | visual_argument_transfer_post_repair_code | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | argument_mismatch | argument_mismatch | 1 | 1 | 0 |
+| post-repair argument hints vs no directive | post_repair_chip_l90_person_decoy | visual_argument_transfer_post_repair_code | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | argument_mismatch | argument_mismatch | 1 | 1 | 0 |
+| post-repair argument hints vs no directive | post_repair_field_b12_stale_selection_decoy | visual_tool_routing_transfer_post_repair | wrong_tool_or_stale_selection_risk | False | True | 1 | False | True | 1 | False | True | 1 | no_tool_call | exact | 0 | 1 | 1 |
+| post-repair argument hints vs no directive | post_repair_node_k21_chart_decoy | visual_argument_transfer_post_repair_code | argument_alias_or_decoy_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| post-repair argument hints vs no directive | post_repair_review_tile_table_decoy | visual_argument_transfer_post_repair_noncode | argument_alias_or_decoy_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| post-repair argument hints vs no directive | post_repair_status_pill_note_decoy | visual_argument_transfer_post_repair_noncode | argument_alias_or_decoy_risk | False | True | 1 | False | True | 1 | False | True | 1 | no_tool_call | exact | 0 | 1 | 1 |
+| post-repair argument hints vs no directive | post_repair_warning_toast_email_decoy | visual_argument_transfer_post_repair_noncode | argument_alias_or_decoy_risk | False | True | 1 | False | True | 1 | False | True | 1 | no_tool_call | exact | 0 | 1 | 1 |
+| post-repair oblique code hints vs no directive | post_repair_alert_c77_toggle_decoy | visual_tool_routing_transfer_post_repair | wrong_tool_or_stale_selection_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| post-repair oblique code hints vs no directive | post_repair_badge_t64_notice_decoy | visual_argument_transfer_post_repair_code | argument_alias_or_decoy_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| post-repair oblique code hints vs no directive | post_repair_chip_l90_person_decoy | visual_argument_transfer_post_repair_code | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | argument_mismatch | argument_mismatch | 1 | 1 | 0 |
+| post-repair oblique code hints vs no directive | post_repair_field_b12_stale_selection_decoy | visual_tool_routing_transfer_post_repair | wrong_tool_or_stale_selection_risk | False | True | 1 | False | True | 1 | False | True | 1 | no_tool_call | exact | 0 | 1 | 1 |
+| post-repair oblique code hints vs no directive | post_repair_node_k21_chart_decoy | visual_argument_transfer_post_repair_code | argument_alias_or_decoy_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| post-repair oblique code hints vs no directive | post_repair_review_tile_table_decoy | visual_argument_transfer_post_repair_noncode | argument_alias_or_decoy_risk | True | False | -1 | True | False | -1 | True | False | -1 | exact | no_tool_call | 1 | 0 | -1 |
+| post-repair oblique code hints vs no directive | post_repair_status_pill_note_decoy | visual_argument_transfer_post_repair_noncode | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | no_tool_call | no_tool_call | 0 | 0 | 0 |
+| post-repair oblique code hints vs no directive | post_repair_warning_toast_email_decoy | visual_argument_transfer_post_repair_noncode | argument_alias_or_decoy_risk | False | True | 1 | False | True | 1 | False | True | 1 | no_tool_call | exact | 0 | 1 | 1 |
+| post-repair oblique code guard vs no directive | post_repair_alert_c77_toggle_decoy | visual_tool_routing_transfer_post_repair | wrong_tool_or_stale_selection_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| post-repair oblique code guard vs no directive | post_repair_badge_t64_notice_decoy | visual_argument_transfer_post_repair_code | argument_alias_or_decoy_risk | False | True | 1 | False | True | 1 | False | True | 1 | argument_mismatch | exact | 1 | 1 | 0 |
+| post-repair oblique code guard vs no directive | post_repair_chip_l90_person_decoy | visual_argument_transfer_post_repair_code | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | argument_mismatch | argument_mismatch | 1 | 1 | 0 |
+| post-repair oblique code guard vs no directive | post_repair_field_b12_stale_selection_decoy | visual_tool_routing_transfer_post_repair | wrong_tool_or_stale_selection_risk | False | True | 1 | False | True | 1 | False | True | 1 | no_tool_call | exact | 0 | 1 | 1 |
+| post-repair oblique code guard vs no directive | post_repair_node_k21_chart_decoy | visual_argument_transfer_post_repair_code | argument_alias_or_decoy_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| post-repair oblique code guard vs no directive | post_repair_review_tile_table_decoy | visual_argument_transfer_post_repair_noncode | argument_alias_or_decoy_risk | True | True | 0 | True | True | 0 | True | True | 0 | exact | exact | 1 | 1 | 0 |
+| post-repair oblique code guard vs no directive | post_repair_status_pill_note_decoy | visual_argument_transfer_post_repair_noncode | argument_alias_or_decoy_risk | False | False | 0 | False | False | 0 | False | False | 0 | no_tool_call | argument_mismatch | 0 | 1 | 1 |
+| post-repair oblique code guard vs no directive | post_repair_warning_toast_email_decoy | visual_argument_transfer_post_repair_noncode | argument_alias_or_decoy_risk | False | True | 1 | False | True | 1 | False | True | 1 | no_tool_call | exact | 0 | 1 | 1 |
+
+The fresh post-repair holdout tests whether the v7 oblique code guard transfers beyond the repair packet. No-directive MLX is `2 / 8` strict and executor-equivalent, while contracted/default MLX is only `3 / 8`. Argument hints v2 and v6 code hints both reach `5 / 8`, but by different routes: argument hints is better on non-code labels, while code hints is better on code-like labels and stale-selection routing. The activation-gated v7 code guard is the current upper bound on this fresh packet at `6 / 8`, improving over no-directive by `+0.50`, over contracted/default by `+0.375`, and over both argument hints and v6 by `+0.125`. The remaining misses, `chip l90` and `status pill`, define the next held-out micro-slice.
 
 ## Visual Hard-Slice Case Deltas vs No Directive
 

@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-05-10T01:41:13.685339+00:00",
+  "generated_at": "2026-05-10T01:57:57.223581+00:00",
   "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-  "claim_count": 27,
-  "evidence_source_count": 123,
+  "claim_count": 28,
+  "evidence_source_count": 130,
   "missing_source_count": 0,
   "claim_ids": [
     "C1_controller_dependence_hidden_by_readiness",
@@ -31,6 +31,7 @@
     "C24_h1n_oblique_code_hints_repair_two_misses_with_one_regression",
     "C25_h1n_oblique_code_hints_is_localized_not_general",
     "C26_h1n_oblique_code_guard_fixes_v6_regression",
-    "C27_h1n_code_guard_improves_v6_but_not_argument_hints"
+    "C27_h1n_code_guard_improves_v6_but_not_argument_hints",
+    "C28_h1n_post_repair_holdout_favors_code_guard"
   ]
 }

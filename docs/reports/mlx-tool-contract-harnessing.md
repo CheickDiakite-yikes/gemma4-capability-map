@@ -20,7 +20,7 @@ The current Moonie frontier is no longer whether `mlx_gemma4_e2b_reasoner_only` 
 
 The newest evidence says the final tool-turn directive is a causal model-side harness intervention. With the directive present, MLX Gemma is controller-clean on the current H1 live workflow packets. When the directive is removed, no-directive MLX can still match top-line readiness only because Moonie's controller repairs arguments, falls back to a planner, or substitutes the correct call. Raw no-directive tool compliance collapses on the focused probe suite.
 
-The sharpest new movement is in the visual catalog line. A catalog-only role profile first moved the remaining visual failure from wrong-tool/no-call into argument mismatch. A narrower `visual_role_catalog_argument_hints_v2` profile then fixed the targeted selector literal in raw and live replay, reaching `2 / 3` live visual exactness without the exact directive. The follow-up `visual_role_catalog_split_selector_hints_v3` is negative evidence: it preserved latest-filter exactness but regressed readback JSON shape and did not earn live replay. The schema-local `visual_role_catalog_schema_field_hints_v4` profile is split evidence: it is still negative on the old focused three-case slice, but it is the strongest fresh visual hard-slice profile at `6 / 8` exact and `8 / 8` executable. A new exactness diagnostic shows both v4 non-exact hard-slice rows still hit the expected local visual regions, so the current gap is benchmark-label fidelity rather than visual target failure.
+The sharpest new movement is in the visual catalog line. A catalog-only role profile first moved the remaining visual failure from wrong-tool/no-call into argument mismatch. A narrower `visual_role_catalog_argument_hints_v2` profile then fixed the targeted selector literal in raw and live replay, reaching `2 / 3` live visual exactness without the exact directive. The follow-up `visual_role_catalog_split_selector_hints_v3` is negative evidence: it preserved latest-filter exactness but regressed readback JSON shape and did not earn live replay. The schema-local `visual_role_catalog_schema_field_hints_v4` profile is split evidence: it is still negative on the old focused three-case slice, but it is the strongest fresh visual hard-slice profile at `6 / 8` exact and `8 / 8` executable. The current H1n post-repair holdout now favors `visual_role_catalog_oblique_code_guard_v7` at `6 / 8`, ahead of argument hints and v6 code hints at `5 / 8`. That makes activation domain the research question: ordinary visible-region labels still benefit from argument hints, while code-like suffixes and stale-selection hazards benefit from the code guard.
 
 That means the next useful work is not broad leaderboard reruns or UI polish. It is a CLI-first, benchmark-backed harness loop around:
 
@@ -74,6 +74,8 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 ![Visual hard-slice alias-transfer live replay gate](../../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_alias_transfer_live_replay_gate.svg)
 
 ![Visual hard-slice alias-transfer oracle live replay gate](../../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_alias_transfer_oracle_live_replay_gate.svg)
+
+![Visual hard-slice post-repair live replay gate](../../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_post_repair_live_replay_gate.svg)
 
 ![Exact probe replay gap](../../results/reports/mlx_tool_contract_harnessing/figures/exact_probe_replay_gap.svg)
 
@@ -133,6 +135,8 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 | [`wave-four visual live candidate comparison`](../../results/tool_probe_replay_live_comparisons/20260508T_visual_state_tool_selection_vs_no_directive_live_v1) | Candidate live replay showing visual state/tool-selection wording preserves one exact visual recovery but does not beat wave three. |
 | [`visual tool-choice diagnostic`](../../results/tool_probe_replay_live_diagnostics/20260508T_visual_tool_choice_wave3_wave4_catalog_v1) | Expected-vs-actual tool-choice diagnostic showing wave three/four choose `extract_layout`, while the catalog profile reaches `refine_selection` but drifts on the selector literal. |
 | [`Gemini CLI dry-run baseline`](../../results/gemini_cli/20260507T_h1h_gemini_cli_dry_run_baseline_v1) | External-reference prompt and command manifest over the H1h workflow families. |
+| [`H1n post-repair holdout`](../../results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_post_repair_oracle_dry_run_v1) | Fresh eight-case replay-shaped holdout testing argument hints, v6 code hints, and v7 code guard on code-like labels, stale-selection hazards, and non-code labels. |
+| [`H1n post-repair diagnostic`](../../results/reports/visual_alias_transfer_post_repair_diagnostic/diagnostic.md) | Matrix diagnostic showing v7 code guard as the current post-repair upper bound and recording the remaining `chip l90` / `status pill` misses. |
 
 ## Packet Summary
 

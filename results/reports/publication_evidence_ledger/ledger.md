@@ -4,9 +4,9 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 
 ## Manifest
 
-- generated_at: `2026-05-10T01:41:13.685339+00:00`
-- claim_count: `27`
-- evidence_source_count: `123`
+- generated_at: `2026-05-10T01:57:57.223581+00:00`
+- claim_count: `28`
+- evidence_source_count: `130`
 - missing_source_count: `0`
 
 ## Claims
@@ -40,6 +40,7 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C25_h1n_oblique_code_hints_is_localized_not_general | negative_result_current_packets | strong_internal | Across three H1n oracle packets, argument hints has 14/18 exact and 16/18 executor-equivalent successes, while oblique code hints has 11/18 exact and 12/18 executor-equivalent successes; code hints improves only the oblique packet. | The result compares one targeted profile against argument hints on three replay-shaped oracle packets; it does not rule out a revised stale-selection guard or a future profile with narrower activation. | Build a stale-selection guard or activation-gated code-suffix profile, then test on a fresh post-repair holdout before broad promotion. |
 | C26_h1n_oblique_code_guard_fixes_v6_regression | supported_current_packets | moderate_internal | Oblique code guard v7 reaches 6/6 exact and 6/6 executor-equivalent on the oblique packet, improving over argument hints by +0.333 and over v6 code hints by +0.167 on both metrics. | This is a scoped oblique-packet result. The earlier v6 transfer loss shows that this profile must be transfer-tested before promotion beyond code-like oblique labels. | Run the code-guard profile on the earlier oracle and repeat packets, then build a fresh post-repair held-out packet if transfer is not negative. |
 | C27_h1n_code_guard_improves_v6_but_not_argument_hints | supported_current_packets | strong_internal | Across the three H1n oracle packets, code guard reaches 14/18 exact and 15/18 executor-equivalent successes versus v6 at 11/18 and 12/18, while argument hints remains 14/18 exact and 16/18 executor-equivalent. | The comparison is still replay-shaped and packet-conditioned; it should be followed by a fresh post-repair holdout before claiming a general visual catalog profile. | Build a fresh post-repair holdout with code-like labels, stale-selection mentions, and non-code transfer labels, then compare argument hints and code guard. |
+| C28_h1n_post_repair_holdout_favors_code_guard | supported_current_packets | moderate_internal | On the eight-case post-repair holdout, code guard reaches 6/8 exact and executor-equivalent successes, versus no-directive at 2/8, contracted/default at 3/8, argument hints at 5/8, and v6 code hints at 5/8. | The packet is fresh relative to the oblique repair but remains replay-shaped and small; the remaining misses on `chip l90` and `status pill` need a follow-up micro-slice before promotion. | Build a focused follow-up around the two residual misses and test whether a hybrid activation profile can preserve argument-hints non-code behavior while keeping the code-guard gains. |
 
 ## Evidence Sources
 
@@ -168,3 +169,10 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C27_h1n_code_guard_improves_v6_but_not_argument_hints | live_replay_packet | True | results/tool_probe_replay_live/20260510T_h1n_oracle_repeat_code_guard_transfer_execute_v1 | Code-guard profile execution on the repeat oracle packet. |
 | C27_h1n_code_guard_improves_v6_but_not_argument_hints | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260510T_h1n_oracle_code_guard_vs_argument_hints_transfer_v1 | Direct comparison against argument hints on the earlier oracle packet. |
 | C27_h1n_code_guard_improves_v6_but_not_argument_hints | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260510T_h1n_oracle_repeat_code_guard_vs_argument_hints_transfer_v1 | Direct comparison against argument hints on the repeat oracle packet. |
+| C28_h1n_post_repair_holdout_favors_code_guard | replay_packet | True | results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_post_repair_oracle_dry_run_v1 | Fresh eight-case post-repair holdout with code-like labels, stale-selection mentions, and non-code labels. |
+| C28_h1n_post_repair_holdout_favors_code_guard | live_replay_packet | True | results/tool_probe_replay_live/20260510T_h1n_post_repair_code_guard_execute_v1 | Code-guard execution reaching 6/8 exact and executor-equivalent successes on the holdout. |
+| C28_h1n_post_repair_holdout_favors_code_guard | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260510T_h1n_post_repair_code_guard_vs_no_directive_v1 | Comparison showing +0.50 exact and executor-equivalence deltas over no-directive. |
+| C28_h1n_post_repair_holdout_favors_code_guard | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260510T_h1n_post_repair_code_guard_vs_argument_hints_v1 | Comparison showing +0.125 exact and executor-equivalence deltas over argument hints. |
+| C28_h1n_post_repair_holdout_favors_code_guard | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260510T_h1n_post_repair_code_guard_vs_code_hints_v1 | Comparison showing +0.125 exact and executor-equivalence deltas over v6 code hints. |
+| C28_h1n_post_repair_holdout_favors_code_guard | diagnostic_report | True | results/reports/visual_alias_transfer_post_repair_diagnostic/diagnostic.md | Matrix diagnostic identifying code guard as the post-repair strict upper bound and recording regressions. |
+| C28_h1n_post_repair_holdout_favors_code_guard | report_table | True | results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_post_repair_live_replay_summary.csv | Paper-facing table summarizing post-repair candidate rates. |

@@ -1131,6 +1131,65 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C28_h1n_post_repair_holdout_favors_code_guard",
+        claim=(
+            "A fresh post-repair H1n holdout favors the activation-gated code guard over no-directive, "
+            "contracted/default MLX, argument hints, and v6 code hints."
+        ),
+        status="supported_current_packets",
+        evidence_strength="moderate_internal",
+        primary_metric=(
+            "On the eight-case post-repair holdout, code guard reaches 6/8 exact and executor-equivalent "
+            "successes, versus no-directive at 2/8, contracted/default at 3/8, argument hints at 5/8, "
+            "and v6 code hints at 5/8."
+        ),
+        limitation=(
+            "The packet is fresh relative to the oblique repair but remains replay-shaped and small; the "
+            "remaining misses on `chip l90` and `status pill` need a follow-up micro-slice before promotion."
+        ),
+        next_test=(
+            "Build a focused follow-up around the two residual misses and test whether a hybrid activation "
+            "profile can preserve argument-hints non-code behavior while keeping the code-guard gains."
+        ),
+        sources=(
+            EvidenceSource(
+                "replay_packet",
+                "results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_post_repair_oracle_dry_run_v1",
+                "Fresh eight-case post-repair holdout with code-like labels, stale-selection mentions, and non-code labels.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h1n_post_repair_code_guard_execute_v1",
+                "Code-guard execution reaching 6/8 exact and executor-equivalent successes on the holdout.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260510T_h1n_post_repair_code_guard_vs_no_directive_v1",
+                "Comparison showing +0.50 exact and executor-equivalence deltas over no-directive.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260510T_h1n_post_repair_code_guard_vs_argument_hints_v1",
+                "Comparison showing +0.125 exact and executor-equivalence deltas over argument hints.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260510T_h1n_post_repair_code_guard_vs_code_hints_v1",
+                "Comparison showing +0.125 exact and executor-equivalence deltas over v6 code hints.",
+            ),
+            EvidenceSource(
+                "diagnostic_report",
+                "results/reports/visual_alias_transfer_post_repair_diagnostic/diagnostic.md",
+                "Matrix diagnostic identifying code guard as the post-repair strict upper bound and recording regressions.",
+            ),
+            EvidenceSource(
+                "report_table",
+                "results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_post_repair_live_replay_summary.csv",
+                "Paper-facing table summarizing post-repair candidate rates.",
+            ),
+        ),
+    ),
 )
 
 

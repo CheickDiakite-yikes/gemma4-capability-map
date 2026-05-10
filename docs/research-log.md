@@ -1,5 +1,42 @@
 # Research Log
 
+## 2026-05-10 - H1n Post-Repair Holdout Favors the Code Guard
+
+- Built a fresh post-repair H1n holdout to test whether the v7 activation-gated oblique-code repair transfers beyond the packet that motivated it:
+  - builder: [`scripts/build_visual_hard_slice_live_stress_packet.py`](../scripts/build_visual_hard_slice_live_stress_packet.py)
+  - suite flag: `--suite alias_transfer_post_repair_v6`
+  - source packet: [`20260510T_visual_hard_slice_live_stress_alias_transfer_post_repair_oracle_dry_run_v1`](../results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_post_repair_oracle_dry_run_v1)
+  - no-directive packet: [`20260510T_h1n_post_repair_no_directive_execute_v1`](../results/tool_probe_replay_live/20260510T_h1n_post_repair_no_directive_execute_v1)
+  - contracted/default packet: [`20260510T_h1n_post_repair_contracted_execute_v1`](../results/tool_probe_replay_live/20260510T_h1n_post_repair_contracted_execute_v1)
+  - argument-hints packet: [`20260510T_h1n_post_repair_argument_hints_execute_v1`](../results/tool_probe_replay_live/20260510T_h1n_post_repair_argument_hints_execute_v1)
+  - v6 code-hints packet: [`20260510T_h1n_post_repair_code_hints_execute_v1`](../results/tool_probe_replay_live/20260510T_h1n_post_repair_code_hints_execute_v1)
+  - v7 code-guard packet: [`20260510T_h1n_post_repair_code_guard_execute_v1`](../results/tool_probe_replay_live/20260510T_h1n_post_repair_code_guard_execute_v1)
+  - diagnostic: [`results/reports/visual_alias_transfer_post_repair_diagnostic`](../results/reports/visual_alias_transfer_post_repair_diagnostic)
+  - report table: [`visual_hard_slice_post_repair_live_replay_summary.csv`](../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_post_repair_live_replay_summary.csv)
+  - report figure: [`visual_hard_slice_post_repair_live_replay_gate.svg`](../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_post_repair_live_replay_gate.svg)
+- Result:
+  - no-directive MLX: strict/executor-equivalent `2 / 8`
+  - contracted/default MLX: strict/executor-equivalent `3 / 8`
+  - argument hints v2: strict/executor-equivalent `5 / 8`
+  - oblique code hints v6: strict/executor-equivalent `5 / 8`
+  - oblique code guard v7: strict/executor-equivalent `6 / 8`
+- Mechanism shape:
+  - argument hints remains better on some non-code labels, especially `status pill`
+  - v6 code hints helps code-like labels and stale-selection routing but regresses `review tile` into no-tool-call
+  - v7 code guard preserves the v6 code/stale gains, recovers `review tile`, and becomes the current strict/executor-equivalence upper bound on this fresh packet
+  - remaining v7 misses are `chip l90` and `status pill`
+- Interpretation:
+  - This reverses the earlier transfer caution in an important but bounded way. Across the first oracle/repeat/oblique packets, argument hints still had the better executor-equivalence aggregate; on a fresh post-repair holdout, the activation-gated code guard is now the best row.
+  - The useful research answer is not "one prompt profile wins forever." It is that visual catalog profiles have activation domains: broad argument hints help ordinary visible-region labels, while the code guard helps code-like suffixes and stale-selection traps.
+  - The next best experiment is a hybrid or activation-gated profile that keeps argument-hints behavior for non-code labels while applying code-guard behavior only when code-like suffixes or stale-selection hazards appear.
+- Verification:
+  - `uv run pytest tests/test_visual_hard_slice_live_stress_packet.py -q`
+  - `uv run python scripts/build_visual_hard_slice_live_stress_packet.py --run-group-id 20260510T_visual_hard_slice_live_stress_alias_transfer_post_repair_oracle_dry_run_v1 --suite alias_transfer_post_repair_v6`
+  - `uv run python -m gemma4_capability_map.runtime.cli replay-live --packet-dir results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_post_repair_oracle_dry_run_v1 --output-dir results/tool_probe_replay_live/20260510T_h1n_post_repair_code_guard_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_oblique_code_guard --registry configs/model_registry.yaml --execute --json`
+  - `uv run pytest tests/test_visual_live_stress_diagnostic.py tests/test_mlx_tool_contract_report.py -q`
+  - `uv run python scripts/analyze_visual_live_stress_matrix.py --matrix alias-transfer-post-repair`
+  - `uv run python scripts/build_mlx_tool_contract_report.py`
+
 # 2026-05-06
 
 ### CLI-first live harness pivot now has a sandboxed runtime scaffold

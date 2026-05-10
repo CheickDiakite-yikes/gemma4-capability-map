@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-10T01:34:42.436165+00:00",
+  "generated_at": "2026-05-10T01:54:50.904934+00:00",
   "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/mlx_tool_contract_harnessing",
   "source_packets": {
     "H1f compact": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1f_mlx_no_directive_v1_knowledge_work_h1f_mlx_tool_contract_ablation_v1",
@@ -80,7 +80,11 @@
   "visual_hard_slice_alias_transfer_oracle_argument_hints_live_comparison": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_argument_hints_vs_no_directive_v2",
   "visual_hard_slice_alias_transfer_oracle_schema_field_hints_live_comparison": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_schema_field_hints_vs_no_directive_v2",
   "visual_hard_slice_alias_transfer_oracle_schema_literal_targets_live_comparison": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_schema_literal_targets_vs_no_directive_v2",
+  "visual_hard_slice_post_repair_contracted_live_comparison": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260510T_h1n_post_repair_contracted_vs_no_directive_v1",
+  "visual_hard_slice_post_repair_argument_hints_live_comparison": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260510T_h1n_post_repair_argument_hints_vs_no_directive_v1",
+  "visual_hard_slice_post_repair_code_hints_live_comparison": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260510T_h1n_post_repair_code_hints_vs_no_directive_v1",
+  "visual_hard_slice_post_repair_code_guard_live_comparison": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260510T_h1n_post_repair_code_guard_vs_no_directive_v1",
   "registry_path": "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
-  "table_count": 68,
-  "figure_count": 33
+  "table_count": 70,
+  "figure_count": 34
 }

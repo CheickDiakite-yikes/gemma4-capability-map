@@ -609,6 +609,53 @@ def audit_publication_readiness(
             detail="Three-packet H1n code-guard transfer synthesis exists.",
         ),
         _check_path(
+            check_id="h1n_post_repair_holdout_packet_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_packets"
+            / "20260510T_visual_hard_slice_live_stress_alias_transfer_post_repair_oracle_dry_run_v1"
+            / "summary.json",
+            detail="Fresh H1n post-repair holdout packet exists.",
+        ),
+        _check_path(
+            check_id="h1n_post_repair_code_guard_packet_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260510T_h1n_post_repair_code_guard_execute_v1"
+            / "summary.json",
+            detail="Code-guard execution on the post-repair holdout exists.",
+        ),
+        _check_path(
+            check_id="h1n_post_repair_code_guard_vs_argument_hints_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260510T_h1n_post_repair_code_guard_vs_argument_hints_v1"
+            / "live_replay_comparison.json",
+            detail="Post-repair code-guard comparison against argument hints exists.",
+        ),
+        _check_path(
+            check_id="h1n_post_repair_diagnostic_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "visual_alias_transfer_post_repair_diagnostic" / "diagnostic.md",
+            detail="Post-repair visual alias-transfer diagnostic exists.",
+        ),
+        _check_path(
+            check_id="h1n_post_repair_report_table_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "mlx_tool_contract_harnessing"
+            / "tables"
+            / "visual_hard_slice_post_repair_live_replay_summary.csv",
+            detail="Paper-facing post-repair holdout summary table exists.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",
