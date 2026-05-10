@@ -240,6 +240,24 @@ def test_visual_role_catalog_hybrid_label_guard_profile_adds_component_label_gua
     assert "sel-b12-archive" not in rendered
 
 
+def test_visual_role_catalog_component_value_guard_profile_adds_role_value_guard() -> None:
+    specs = build_default_registry().specs
+    rendered = tool_catalog_text(
+        [specs["extract_layout"], specs["refine_selection"], specs["read_region_text"]],
+        profile_id="visual_role_catalog_component_value_guard_v9",
+    )
+
+    assert "Tool catalog profile: visual_role_catalog_component_value_guard_v9" in rendered
+    assert "Hybrid label activation guard:" in rendered
+    assert "Component value disambiguation guard:" in rendered
+    assert "role noun plus component class together as the target_query" in rendered
+    assert "state, status, phase, priority, severity, risk, result, and owner" in rendered
+    assert "blocked, review, on hold, pending, failed, approved, or overdue" in rendered
+    assert '"target_query": {"type": "string", "description": "Compact literal visible-component label' in rendered
+    assert "state pill" not in rendered
+    assert "residual_state_pill" not in rendered
+
+
 def test_tool_catalog_profile_renders_inside_catalog_without_exact_directive() -> None:
     specs = build_default_registry().specs
     rendered = tool_catalog_text(

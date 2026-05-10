@@ -621,6 +621,26 @@ def test_h1n_hybrid_label_guard_registry_row_preserves_catalog_profile() -> None
     assert spec["tool_catalog_profile_id"] == "visual_role_catalog_hybrid_label_guard_v8"
 
 
+def test_h1n_component_value_guard_registry_row_preserves_catalog_profile() -> None:
+    config = load_h1_slice(H1M_CONFIG_PATH)
+    registry = load_model_registry()
+
+    specs = build_h1_run_specs(
+        config,
+        registry,
+        lanes=["replayable_core"],
+        system_ids=[
+            "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_value_guard",
+        ],
+    )
+
+    assert len(specs) == 1
+    spec = specs[0]
+    assert spec["pipeline_name"] == "monolith"
+    assert spec["disable_tool_turn_directive"] is True
+    assert spec["tool_catalog_profile_id"] == "visual_role_catalog_component_value_guard_v9"
+
+
 def test_h1f_ablation_specs_preserve_tool_directive_flags() -> None:
     config = load_h1_slice(H1F_CONFIG_PATH)
     registry = load_model_registry()

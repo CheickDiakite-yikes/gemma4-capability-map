@@ -83,6 +83,7 @@ def tool_catalog_text(tool_specs: list[ToolSpec], *, profile_id: str = "") -> st
 
 def known_tool_catalog_profile_ids() -> list[str]:
     return [
+        "visual_role_catalog_component_value_guard_v9",
         "visual_role_catalog_hybrid_label_guard_v8",
         "visual_role_catalog_oblique_code_guard_v7",
         "visual_role_catalog_oblique_code_hints_v6",
@@ -127,6 +128,7 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
         "visual_role_catalog_oblique_code_hints_v6",
         "visual_role_catalog_oblique_code_guard_v7",
         "visual_role_catalog_hybrid_label_guard_v8",
+        "visual_role_catalog_component_value_guard_v9",
     }:
         lines.extend(
             [
@@ -141,6 +143,7 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
         "visual_role_catalog_oblique_code_hints_v6",
         "visual_role_catalog_oblique_code_guard_v7",
         "visual_role_catalog_hybrid_label_guard_v8",
+        "visual_role_catalog_component_value_guard_v9",
     }:
         lines.extend(
             [
@@ -151,7 +154,11 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
                 "- These are generic literal-copy and negated-decoy rules; they do not reveal the expected call for this turn.",
             ]
         )
-    if normalized in {"visual_role_catalog_oblique_code_guard_v7", "visual_role_catalog_hybrid_label_guard_v8"}:
+    if normalized in {
+        "visual_role_catalog_oblique_code_guard_v7",
+        "visual_role_catalog_hybrid_label_guard_v8",
+        "visual_role_catalog_component_value_guard_v9",
+    }:
         lines.extend(
             [
                 "Stale-selection activation guard:",
@@ -160,7 +167,10 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
                 "- If no current selection_id is available and the user asks to locate a visible label on the current image, start with extract_layout.",
             ]
         )
-    if normalized == "visual_role_catalog_hybrid_label_guard_v8":
+    if normalized in {
+        "visual_role_catalog_hybrid_label_guard_v8",
+        "visual_role_catalog_component_value_guard_v9",
+    }:
         lines.extend(
             [
                 "Hybrid label activation guard:",
@@ -168,6 +178,16 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
                 "- A state or priority value such as open, saved, expired, urgent, low, or done is content/state, not the component label, unless the user asks for that value itself.",
                 "- Code-like suffix tokens can be lowercase or uppercase; preserve the surface noun plus the suffix token as one phrase.",
                 "- Apply code-suffix discipline only when the requested visible label contains such a suffix; otherwise keep the ordinary component label from the request.",
+            ]
+        )
+    if normalized == "visual_role_catalog_component_value_guard_v9":
+        lines.extend(
+            [
+                "Component value disambiguation guard:",
+                "- When a role noun modifies a component class, keep the role noun plus component class together as the target_query.",
+                "- Role nouns include state, status, phase, priority, severity, risk, result, and owner.",
+                "- Displayed values such as blocked, review, on hold, pending, failed, approved, or overdue are content values, not selector labels, unless the user asks for that value itself.",
+                "- If a note, email, chart, ticket, or table repeats the displayed value, still locate the named component label rather than the repeated value.",
             ]
         )
     if normalized == "visual_role_catalog_split_selector_hints_v3":
@@ -201,6 +221,7 @@ def _profiled_tool_spec(tool: ToolSpec, *, profile_id: str = "") -> ToolSpec:
         "visual_role_catalog_oblique_code_hints_v6",
         "visual_role_catalog_oblique_code_guard_v7",
         "visual_role_catalog_hybrid_label_guard_v8",
+        "visual_role_catalog_component_value_guard_v9",
     }:
         return tool
     if tool.name not in {"extract_layout", "refine_selection", "read_region_text"}:
@@ -235,6 +256,12 @@ def _profiled_tool_spec(tool: ToolSpec, *, profile_id: str = "") -> ToolSpec:
                 "as a pill, tile, toast, chip, badge, field, node, or alert, "
                 "use that component label instead of the text value inside it."
             )
+        if normalized == "visual_role_catalog_component_value_guard_v9":
+            target_description = (
+                "Compact literal visible-component label for the executor. Preserve role-plus-component labels "
+                "such as state/status/phase/priority/severity plus pill/tile/badge/chip/field/node/alert, and "
+                "do not replace them with the displayed content value inside the component."
+            )
         _set_property_description(
             properties,
             "target_query",
@@ -244,7 +271,11 @@ def _profiled_tool_spec(tool: ToolSpec, *, profile_id: str = "") -> ToolSpec:
         filter_description = (
             "Shortest literal narrowing token from the follow-up request, such as latest, remaining, open, selected, or unread. Do not append a noun when the token is sufficient."
         )
-        if normalized in {"visual_role_catalog_oblique_code_guard_v7", "visual_role_catalog_hybrid_label_guard_v8"}:
+        if normalized in {
+            "visual_role_catalog_oblique_code_guard_v7",
+            "visual_role_catalog_hybrid_label_guard_v8",
+            "visual_role_catalog_component_value_guard_v9",
+        }:
             filter_description = (
                 "Shortest literal narrowing token for a current selection_id copied from the latest passing visual tool result. "
                 "Do not use old, stale, saved, ignored, or previous selection ids mentioned in the user's text."
