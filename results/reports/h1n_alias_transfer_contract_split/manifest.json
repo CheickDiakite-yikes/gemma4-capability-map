@@ -1,0 +1,11 @@
+{
+  "generated_at": "2026-05-10T00:07:11.429761+00:00",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h1n_alias_transfer_contract_split",
+  "packet_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_dry_run_v1",
+  "case_count": 6,
+  "run_count": 6,
+  "expected_call_contract_mismatch_count": 5,
+  "contracted_exact_non_executor_count": 4,
+  "argument_hints_executor_success_count": 6,
+  "purpose": "Separate H1n planner strict-call fidelity from executor-target oracle success."
+}

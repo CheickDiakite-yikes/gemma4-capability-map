@@ -378,6 +378,12 @@ def audit_publication_readiness(
             detail="Visual alias-transfer diagnostic report exists.",
         ),
         _check_path(
+            check_id="h1n_alias_transfer_contract_split_diagnostic_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "h1n_alias_transfer_contract_split" / "diagnostic.md",
+            detail="H1n contract-split diagnostic exists to separate planner exactness from executor-target success.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",
@@ -417,6 +423,7 @@ def audit_publication_readiness(
         "run_visual_hard_slice_probe_packet.py",
         "analyze_visual_hard_slice_exactness.py",
         "analyze_packaged_replay_gap.py",
+        "analyze_h1n_alias_transfer_contract_split.py",
         "compare_tool_directive_probes.py",
         "build_visual_hard_slice_design.py",
         "build_visual_hard_slice_replay_packet.py",

@@ -3183,7 +3183,7 @@
 - Interpretation:
   - H1n is the first post-packaging-gap positive transfer result. Argument hints v2 generalizes best for executor-equivalent target success on fresh labels and decoys.
   - Schema-field hints v4 did not transfer its alias-repeat executor-equivalence advantage; it only added one strict exact win.
-  - Contracted MLX remains the strict-fidelity upper bound, but the exact-vs-executor split needs scorer inspection before being reported as a model-only weakness.
+  - Contracted MLX appeared to be the strict-fidelity upper bound, but the exact-vs-executor split needed scorer inspection before being reported as a model-only weakness.
   - This strengthens the paper claim that strict protocol fidelity and executor target success must be separate endpoints, not one blended score.
 - Reporting updates:
   - generated MLX tool-contract report now has `66` tables and `32` figures
@@ -3198,6 +3198,29 @@
   - `uv run python scripts/build_mlx_tool_contract_report.py`
   - `uv run python scripts/build_publication_evidence_ledger.py`
   - `uv run python scripts/audit_publication_readiness.py`
+
+## 2026-05-09 - H1n Contract-Split Diagnostic
+
+- Added a diagnostic for the H1n alias-transfer strict/executor split:
+  - script: [`scripts/analyze_h1n_alias_transfer_contract_split.py`](../scripts/analyze_h1n_alias_transfer_contract_split.py)
+  - diagnostic: [`results/reports/h1n_alias_transfer_contract_split/diagnostic.md`](../results/reports/h1n_alias_transfer_contract_split/diagnostic.md)
+  - expected-call audit table: [`h1n_expected_call_contract_audit.csv`](../results/reports/h1n_alias_transfer_contract_split/tables/h1n_expected_call_contract_audit.csv)
+  - replay split table: [`h1n_replay_contract_split.csv`](../results/reports/h1n_alias_transfer_contract_split/tables/h1n_replay_contract_split.csv)
+- Result:
+  - `5 / 6` generated H1n expected-call contracts do not satisfy the packet's own `expected_execution` oracle.
+  - Contracted MLX has `4` exact-but-not-executor-equivalent rows.
+  - Argument hints v2 still has `6 / 6` executor-target successes.
+- Interpretation:
+  - H1n strict exactness is not yet an oracle strictness metric. It mostly measures whether a run matched the heuristic planner's generated expected call.
+  - The contracted `5 / 6` strict score should not be used as a clean target-success upper bound in the paper.
+  - The H1n executor-equivalence result remains useful: argument hints v2 is the transfer winner under the target oracle.
+  - The next H1n move is to rebuild the alias-transfer packet with oracle expected calls derived from target region labels, then rerun the same CLI-live matrix.
+- Reporting updates:
+  - publication evidence claim `C17_h1n_strict_exactness_matches_planner_not_oracle` records this as a benchmark-contract issue.
+  - publication readiness audit now requires the contract-split diagnostic and reproduction script.
+- Verification:
+  - `uv run python scripts/analyze_h1n_alias_transfer_contract_split.py`
+  - `uv run pytest tests/test_h1n_alias_transfer_contract_split.py -q`
 
 ## 2026-05-09 - Schema Target Literal v5 Negative Hard-Slice Repair
 

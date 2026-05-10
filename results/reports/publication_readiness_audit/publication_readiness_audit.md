@@ -9,7 +9,7 @@
 | --- | --- | ---: | --- | --- |
 | ledger_manifest_exists | blocking | True | Publication evidence ledger manifest exists. | results/reports/publication_evidence_ledger/manifest.json |
 | ledger_has_no_missing_sources | blocking | True | missing_source_count=0 |  |
-| ledger_has_claims | blocking | True | claim_count=15 |  |
+| ledger_has_claims | blocking | True | claim_count=17 |  |
 | ledger_includes_negative_results | blocking | True | At least one claim is explicitly labeled as negative-result evidence. |  |
 | tool_contract_report_has_current_tables | blocking | True | table_count=66 |  |
 | tool_contract_report_has_current_figures | blocking | True | figure_count=32 |  |
@@ -47,6 +47,7 @@
 | visual_hard_slice_alias_transfer_contracted_comparison_exists | blocking | True | Alias-transfer contracted live replay comparison exists. | results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_transfer_contracted_vs_no_directive_v1/live_replay_comparison.json |
 | visual_hard_slice_alias_transfer_report_table_exists | blocking | True | Alias-transfer live replay summary table exists in the main report. | results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_transfer_live_replay_summary.csv |
 | visual_alias_transfer_diagnostic_exists | blocking | True | Visual alias-transfer diagnostic report exists. | results/reports/visual_alias_transfer_diagnostic/diagnostic.md |
+| h1n_alias_transfer_contract_split_diagnostic_exists | blocking | True | H1n contract-split diagnostic exists to separate planner exactness from executor-target success. | results/reports/h1n_alias_transfer_contract_split/diagnostic.md |
 | current_state_doc_exists | blocking | True | Continuity current-state doc exists. | docs/continuity/current-state.md |
 | next_steps_doc_exists | blocking | True | Continuity next-steps doc exists. | docs/continuity/next-steps.md |
 | research_log_exists | blocking | True | Research log exists. | docs/research-log.md |
@@ -60,6 +61,7 @@
 | script_run_visual_hard_slice_probe_packet.py_exists | blocking | True | Reproduction script `run_visual_hard_slice_probe_packet.py` exists. | scripts/run_visual_hard_slice_probe_packet.py |
 | script_analyze_visual_hard_slice_exactness.py_exists | blocking | True | Reproduction script `analyze_visual_hard_slice_exactness.py` exists. | scripts/analyze_visual_hard_slice_exactness.py |
 | script_analyze_packaged_replay_gap.py_exists | blocking | True | Reproduction script `analyze_packaged_replay_gap.py` exists. | scripts/analyze_packaged_replay_gap.py |
+| script_analyze_h1n_alias_transfer_contract_split.py_exists | blocking | True | Reproduction script `analyze_h1n_alias_transfer_contract_split.py` exists. | scripts/analyze_h1n_alias_transfer_contract_split.py |
 | script_compare_tool_directive_probes.py_exists | blocking | True | Reproduction script `compare_tool_directive_probes.py` exists. | scripts/compare_tool_directive_probes.py |
 | script_build_visual_hard_slice_design.py_exists | blocking | True | Reproduction script `build_visual_hard_slice_design.py` exists. | scripts/build_visual_hard_slice_design.py |
 | script_build_visual_hard_slice_replay_packet.py_exists | blocking | True | Reproduction script `build_visual_hard_slice_replay_packet.py` exists. | scripts/build_visual_hard_slice_replay_packet.py |

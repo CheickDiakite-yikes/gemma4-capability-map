@@ -1,6 +1,6 @@
 # MLX Tool-Contract Harnessing Report
 
-Generated: `2026-05-09T23:58:45.451416+00:00`
+Generated: `2026-05-10T00:09:04.910048+00:00`
 
 ## Executive Read
 
@@ -492,7 +492,7 @@ The eight-case alias-repeat packet makes the stress finding more publication-use
 | alias-transfer schema literal targets vs no directive | transfer_signature_warning_checkbox_decoy | visual_tool_routing_transfer | wrong_tool_or_stale_selection_risk | False | False | 0 | False | True | 1 | False | True | 1 | wrong_tool | executable_paraphrase | 1 | 1 | 0 |
 | alias-transfer schema literal targets vs no directive | transfer_status_pill_chart_decoy | visual_argument_transfer | argument_alias_or_decoy_risk | False | False | 0 | False | True | 1 | False | True | 1 | no_tool_call | executable_paraphrase | 0 | 1 | 1 |
 
-The six-case alias-transfer packet is the first post-packaging-gap discriminator. It uses fresh visual labels and decoys rather than repeating metric-panel/callout wording. No-directive MLX is `0 / 6` strict and `2 / 6` executor-equivalent. Argument hints v2 is the best executor-grounding row at `1 / 6` strict and `6 / 6` executor-equivalent. Schema target literals v5 reaches `1 / 6` strict and `4 / 6` executor-equivalent. Schema-field hints v4 improves strict exactness to `1 / 6` but does not improve executor-equivalence over no-directive. Contracted MLX remains the strict-fidelity upper bound at `5 / 6` exact but falls to `1 / 6` executor-equivalent under the current executor-target scorer, so this packet should be reported as a strict-vs-executor split rather than a single ranking.
+The six-case alias-transfer packet is the first post-packaging-gap discriminator. It uses fresh visual labels and decoys rather than repeating metric-panel/callout wording. No-directive MLX is `0 / 6` strict and `2 / 6` executor-equivalent. Argument hints v2 is the best executor-grounding row at `1 / 6` strict and `6 / 6` executor-equivalent. Schema target literals v5 reaches `1 / 6` strict and `4 / 6` executor-equivalent. Schema-field hints v4 improves strict exactness to `1 / 6` but does not improve executor-equivalence over no-directive. A follow-up contract-split diagnostic found that `5 / 6` generated expected-call contracts do not satisfy the packet's own expected-execution oracle. Contracted MLX's `5 / 6` strict score is therefore planner-call fidelity, not a clean target-success upper bound; it has `4` exact-but-not-executor rows. The publication-safe reading is that argument hints v2 is the H1n executor-target winner, and H1n should be rebuilt with oracle expected calls before strict exactness is used as a headline metric.
 
 ## Visual Hard-Slice Case Deltas vs No Directive
 

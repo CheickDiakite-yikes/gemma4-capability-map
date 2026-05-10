@@ -605,6 +605,42 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C17_h1n_strict_exactness_matches_planner_not_oracle",
+        claim="H1n strict exactness is partly a planner-contract artifact because most generated expected calls do not satisfy the visual execution oracle.",
+        status="benchmark_contract_issue_current_packets",
+        evidence_strength="strong_internal",
+        primary_metric=(
+            "The H1n contract-split diagnostic finds 5/6 generated expected-call contracts fail the packet's "
+            "expected_execution oracle; contracted MLX has 4 exact-but-not-executor rows, while argument hints v2 "
+            "has 6/6 executor-target successes."
+        ),
+        limitation=(
+            "This diagnoses the current H1n packet contract; it does not invalidate the executor-equivalence result, "
+            "but it does require rebuilding H1n with oracle expected calls before using strict exactness as a headline metric."
+        ),
+        next_test=(
+            "Rebuild alias-transfer with oracle expected_calls derived from target region labels, then rerun the H1n "
+            "CLI-live matrix before any packaged or helper-ablation promotion."
+        ),
+        sources=(
+            EvidenceSource(
+                "diagnostic_report",
+                "results/reports/h1n_alias_transfer_contract_split/diagnostic.md",
+                "Contract-split diagnostic separating heuristic planner-call exactness from executor-target oracle success.",
+            ),
+            EvidenceSource(
+                "diagnostic_table",
+                "results/reports/h1n_alias_transfer_contract_split/tables/h1n_expected_call_contract_audit.csv",
+                "Per-case audit showing whether generated expected calls satisfy the visual execution oracle.",
+            ),
+            EvidenceSource(
+                "diagnostic_table",
+                "results/reports/h1n_alias_transfer_contract_split/tables/h1n_replay_contract_split.csv",
+                "Per-run replay table classifying exact/non-exact and executor-target outcomes.",
+            ),
+        ),
+    ),
 )
 
 

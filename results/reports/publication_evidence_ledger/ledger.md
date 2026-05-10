@@ -4,9 +4,9 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 
 ## Manifest
 
-- generated_at: `2026-05-09T23:59:45.755046+00:00`
-- claim_count: `16`
-- evidence_source_count: `69`
+- generated_at: `2026-05-10T00:09:04.795034+00:00`
+- claim_count: `17`
+- evidence_source_count: `72`
 - missing_source_count: `0`
 
 ## Claims
@@ -29,6 +29,7 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C14_h1m_packaged_alias_repeat_saturates | negative_result_current_packets | moderate_internal | H1m candidate rows tie at readiness 0.87783, strict interface 0.75, recovered execution 0.667, raw clean 1.0, and zero controller repair/fallback/argument repair across all six visual contract rows. | H1m rejects this staged packaged-workflow surface; it does not reject the alias-repeat replay result, which still separates strict fidelity from executor-equivalent visual grounding. | Do not run H1m helper ablations until a packaged or non-packaged live visual surface separates; next preserve replay shape through repeated alias packets or less staged live tasks. |
 | C15_packaged_visual_surfaces_wash_out_replay_discrimination | supported_current_packets | moderate_internal | The packaged replay gap diagnostic finds 2/2 visual promotion surfaces with positive replay gains but zero packaged readiness and strict-interface span: H1l max replay executor-equivalence delta 1.0, H1m max replay executor-equivalence delta 0.375, both packaged spans 0.0. | This is a two-surface internal diagnostic over current visual packets, not a general proof that all packaged workflows are too easy. | Design a less staged live visual task or repeated replay packet before returning to packaged helper ablations. |
 | C16_visual_alias_transfer_favors_argument_hints_executor_grounding | supported_current_packets | moderate_internal | H1n alias-transfer replay: no-directive is 0/6 strict and 2/6 executor-equivalent; argument hints v2 is 1/6 strict and 6/6 executor-equivalent; schema target literals v5 is 1/6 strict and 4/6 executor-equivalent; contracted MLX is 5/6 strict but 1/6 executor-equivalent under the current executor-target scorer. | This is one deterministic six-case transfer packet, and the contracted strict/executor split needs scorer-level inspection before being treated as a model-only ranking. | Inspect the contracted exact-but-not-executor-equivalent rows, then repeat the transfer packet or promote argument hints into a new non-packaged live helper-ablation slice. |
+| C17_h1n_strict_exactness_matches_planner_not_oracle | benchmark_contract_issue_current_packets | strong_internal | The H1n contract-split diagnostic finds 5/6 generated expected-call contracts fail the packet's expected_execution oracle; contracted MLX has 4 exact-but-not-executor rows, while argument hints v2 has 6/6 executor-target successes. | This diagnoses the current H1n packet contract; it does not invalidate the executor-equivalence result, but it does require rebuilding H1n with oracle expected calls before using strict exactness as a headline metric. | Rebuild alias-transfer with oracle expected_calls derived from target region labels, then rerun the H1n CLI-live matrix before any packaged or helper-ablation promotion. |
 
 ## Evidence Sources
 
@@ -103,3 +104,6 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C16_visual_alias_transfer_favors_argument_hints_executor_grounding | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_transfer_schema_literal_targets_vs_no_directive_v1 | Comparison showing schema-target literals improve executor-equivalence by 0.333 over no-directive. |
 | C16_visual_alias_transfer_favors_argument_hints_executor_grounding | report_table | True | results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_transfer_live_replay_summary.csv | Generated report summary table for the alias-transfer replay matrix. |
 | C16_visual_alias_transfer_favors_argument_hints_executor_grounding | diagnostic_report | True | results/reports/visual_alias_transfer_diagnostic/diagnostic.md | Diagnostic report classifying strict gains, executor-only gains, and transfer regressions. |
+| C17_h1n_strict_exactness_matches_planner_not_oracle | diagnostic_report | True | results/reports/h1n_alias_transfer_contract_split/diagnostic.md | Contract-split diagnostic separating heuristic planner-call exactness from executor-target oracle success. |
+| C17_h1n_strict_exactness_matches_planner_not_oracle | diagnostic_table | True | results/reports/h1n_alias_transfer_contract_split/tables/h1n_expected_call_contract_audit.csv | Per-case audit showing whether generated expected calls satisfy the visual execution oracle. |
+| C17_h1n_strict_exactness_matches_planner_not_oracle | diagnostic_table | True | results/reports/h1n_alias_transfer_contract_split/tables/h1n_replay_contract_split.csv | Per-run replay table classifying exact/non-exact and executor-target outcomes. |

@@ -1,0 +1,4 @@
+finding_id,finding,implication
+expected_calls_are_not_oracle_calls,5 / 6 generated expected-call contracts do not satisfy the packet's own expected_execution oracle.,"H1n strict exactness partly measures matching the heuristic planner, not reaching the visual target."
+contracted_exactness_is_overstated_for_h1n,Contracted MLX has 4 exact rows that are not executor-equivalent.,The contracted 5/6 strict score should not be treated as a clean model-only upper bound on H1n target success.
+argument_hints_are_executor_oracle_winner,Argument hints v2 reaches 6 / 6 executor-target successes.,"For this transfer slice, executor-equivalence is the more faithful outcome metric than strict planner-call exactness."
