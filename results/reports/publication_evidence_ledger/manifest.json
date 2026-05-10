@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-05-10T17:31:50.543834+00:00",
+  "generated_at": "2026-05-10T18:00:05.406851+00:00",
   "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-  "claim_count": 35,
-  "evidence_source_count": 178,
+  "claim_count": 36,
+  "evidence_source_count": 184,
   "missing_source_count": 0,
   "claim_ids": [
     "C1_controller_dependence_hidden_by_readiness",
@@ -39,6 +39,7 @@
     "C32_no_call_rescue_is_scoped_not_general",
     "C33_h1o_factorial_identifies_component_value_residue",
     "C34_h1p_component_holdout_supports_component_value_domain",
-    "C35_h1q_component_label_guard_is_strongest_transfer_candidate"
+    "C35_h1q_component_label_guard_is_strongest_transfer_candidate",
+    "C36_h1s_residual_guard_is_targeted_not_global"
   ]
 }

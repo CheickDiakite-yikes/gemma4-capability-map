@@ -499,9 +499,9 @@ Current generated research report:
 - publication readiness audit: [`results/reports/publication_readiness_audit/publication_readiness_audit.md`](../../results/reports/publication_readiness_audit/publication_readiness_audit.md)
 - visual hard-slice design: [`results/reports/visual_hard_slice_design/design.md`](../../results/reports/visual_hard_slice_design/design.md)
 - figures: [`results/reports/mlx_tool_contract_harnessing/figures`](../../results/reports/mlx_tool_contract_harnessing/figures)
-- current manifest count: `82` tables and `39` figures
-- publication evidence ledger: `35` claims, `178` evidence sources, `0` missing sources
-- publication readiness audit: `127` checks, `125` blocking checks, `0` blocking failures, status `paper_draft_ready`
+- current manifest count: `87` tables and `40` figures
+- publication evidence ledger: `36` claims, `184` evidence sources, `0` missing sources
+- publication readiness audit: `133` checks, `131` blocking checks, `0` blocking failures, status `paper_draft_ready`
 - regeneration command:
 
 ```bash

@@ -162,7 +162,7 @@ Next implementation moves:
   - H1p replay: [`results/tool_probe_replay_live/20260510T_h1q_component_label_guard_on_h1p_component_value_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1q_component_label_guard_on_h1p_component_value_execute_v1)
   - result: v11 aggregates to `26 / 32` exact and `29 / 32` executor-equivalent across H1n/H1o/H1p, ahead of v9 at `23 / 32` and `25 / 32`
   - interpretation: v11 is the strongest transfer candidate, but not yet a global default because it trails v9 by one executor-equivalent case on H1p and still misses owner-field/tag/toggle residuals
-  - formal reporting: H1q is now publication claim `C35`; the MLX report has `82` tables and `39` figures; the readiness audit is `paper_draft_ready` with `0` blocking failures
+  - formal reporting: H1q is publication claim `C35`; H1s is publication claim `C36`; the MLX report has `87` tables and `40` figures; the readiness audit is `paper_draft_ready` with `0` blocking failures
   - next: isolate the remaining v11 misses with a targeted H1r/v12 residual packet
 - completed post-repair holdout:
   - packet: [`results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_post_repair_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_post_repair_oracle_dry_run_v1)

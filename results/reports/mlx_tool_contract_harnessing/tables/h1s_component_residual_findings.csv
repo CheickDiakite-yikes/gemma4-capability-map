@@ -1,0 +1,8 @@
+finding_id,finding
+v12_solves_local_h1r_residual,Component-residual guard v12 saturates the residual H1r slice at 6/6 exact and 6/6 executor-equivalent.
+v12_transfers_strict_but_not_executor,"Across H1n/H1o/H1p, v12 improves strict exactness from 26/32 to 27/32, but lowers executor-equivalence from 29/32 to 27/32."
+negative_h1n_transfer,H1n is the clearest negative-transfer warning: v12 delta versus v11 is -0.125 exact-rate and -0.250 executor-rate.
+h1o_strict_executor_split,"On H1o, v12 improves strict exactness but loses executor-equivalence versus v11: delta exact-rate 0.083; delta executor-rate -0.083."
+h1p_transfer_is_real_but_partial,"On H1p, v12 improves both exact and executor-equivalence rates versus v11 by 0.083, but still leaves one wrong-tool stale-selection miss."
+remaining_v12_failures,"Remaining non-executor v12 failures are h1n_component_value:component_value_state_pill_note_decoy:argument_mismatch, h1n_component_value:component_value_status_badge_email_decoy:argument_mismatch, h1n_component_value:component_value_result_pill_log_decoy:argument_mismatch, h1o_control_factorial:h1o_activation_warning_tile_no_call_decoy:argument_mismatch, h1p_component_value:h1p_stale_phase_tile_archive_decoy:wrong_tool."
+promotion_decision,Do not promote v12 as the global visual-role catalog default yet. Treat it as a targeted residual patch or conditional route while v11 remains the more executor-robust general transfer profile.

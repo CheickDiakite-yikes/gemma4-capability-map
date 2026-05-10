@@ -94,6 +94,9 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert claims["C35_h1q_component_label_guard_is_strongest_transfer_candidate"][
         "status"
     ] == "supported_current_packets"
+    assert claims["C36_h1s_residual_guard_is_targeted_not_global"][
+        "status"
+    ] == "supported_current_packets"
     assert "7/8" in claims["C2_final_tool_directive_causal_for_protocol"]["primary_metric"]
     assert "v3 raw exact falls" in claims["C6_split_selector_wording_is_negative_evidence"]["primary_metric"]
     assert "schema-field hints reach 6/8 strict and 8/8 executor-equivalent" in claims[
@@ -256,6 +259,12 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert "component-value guard v9 at 23/32 exact and 25/32" in claims[
         "C35_h1q_component_label_guard_is_strongest_transfer_candidate"
     ]["primary_metric"]
+    assert "v12 improves strict exactness from v11's 26/32 to 27/32" in claims[
+        "C36_h1s_residual_guard_is_targeted_not_global"
+    ]["primary_metric"]
+    assert "lowers executor-equivalence from v11's 29/32 to 27/32" in claims[
+        "C36_h1s_residual_guard_is_targeted_not_global"
+    ]["primary_metric"]
     assert any(
         row["claim_id"] == "C28_h1n_post_repair_holdout_favors_code_guard"
         and row["path"]
@@ -307,6 +316,13 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
         row["claim_id"] == "C35_h1q_component_label_guard_is_strongest_transfer_candidate"
         and row["path"]
         == "results/reports/mlx_tool_contract_harnessing/tables/h1q_component_label_guard_aggregate_summary.csv"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C36_h1s_residual_guard_is_targeted_not_global"
+        and row["path"]
+        == "results/reports/mlx_tool_contract_harnessing/tables/h1s_component_residual_transfer_aggregate.csv"
         and row["exists"]
         for row in payload["evidence_sources"]
     )

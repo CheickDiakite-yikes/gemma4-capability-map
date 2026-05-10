@@ -922,6 +922,53 @@ def audit_publication_readiness(
             detail="Paper-facing H1q aggregate table exists in the main report.",
         ),
         _check_path(
+            check_id="h1s_component_residual_h1n_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260510T_h1s_component_residual_guard_on_h1n_component_value_execute_v1"
+            / "summary.json",
+            detail="H1s component-residual guard H1n transfer live replay exists.",
+        ),
+        _check_path(
+            check_id="h1s_component_residual_h1o_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260510T_h1s_component_residual_guard_on_h1o_control_factorial_execute_v1"
+            / "summary.json",
+            detail="H1s component-residual guard H1o transfer live replay exists.",
+        ),
+        _check_path(
+            check_id="h1s_component_residual_h1p_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260510T_h1s_component_residual_guard_on_h1p_component_value_execute_v1"
+            / "summary.json",
+            detail="H1s component-residual guard H1p transfer live replay exists.",
+        ),
+        _check_path(
+            check_id="h1s_component_residual_synthesis_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "h1s_component_residual_transfer_synthesis" / "report.md",
+            detail="H1s transfer-gate synthesis report exists.",
+        ),
+        _check_path(
+            check_id="h1s_component_residual_report_table_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "mlx_tool_contract_harnessing"
+            / "tables"
+            / "h1s_component_residual_transfer_aggregate.csv",
+            detail="Paper-facing H1s aggregate table exists in the main report.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",
@@ -970,6 +1017,7 @@ def audit_publication_readiness(
         "build_h1n_no_call_rescue_transfer_synthesis.py",
         "build_h1o_control_factorial_synthesis.py",
         "build_h1q_component_label_guard_transfer_synthesis.py",
+        "build_h1s_component_residual_transfer_synthesis.py",
         "build_h1n_oracle_transfer_synthesis.py",
         "compare_tool_directive_probes.py",
         "build_visual_hard_slice_design.py",

@@ -22,7 +22,15 @@
   - `uv run python -m gemma4_capability_map.runtime.cli replay-live --packet-dir results/tool_probe_replay_packets/20260510T_h1o_control_factorial_oracle_dry_run_v1 --output-dir results/tool_probe_replay_live/20260510T_h1s_component_residual_guard_on_h1o_control_factorial_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard --registry configs/model_registry.yaml --execute --json`
   - `uv run python -m gemma4_capability_map.runtime.cli replay-live --packet-dir results/tool_probe_replay_packets/20260510T_h1p_component_value_holdout_oracle_dry_run_v1 --output-dir results/tool_probe_replay_live/20260510T_h1s_component_residual_guard_on_h1p_component_value_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard --registry configs/model_registry.yaml --execute --json`
   - `uv run python scripts/build_h1s_component_residual_transfer_synthesis.py`
+  - `uv run python scripts/build_mlx_tool_contract_report.py`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`
   - `uv run pytest tests/test_h1s_component_residual_transfer_synthesis.py tests/test_h1r_component_residual_synthesis.py tests/test_h1q_component_label_guard_transfer_synthesis.py tests/test_tool_probe_replay_live_comparison.py -q`
+- Formal reporting:
+  - H1s is now publication claim `C36`
+  - publication evidence ledger now has `36` claims and `184` evidence sources with `0` missing sources
+  - publication readiness audit now has `133` checks, `131` blocking checks, `0` blocking failures, and status `paper_draft_ready`
+  - MLX tool-contract report now has `87` tables and `40` figures
 
 ## 2026-05-10 - H1r Residual Component-Label Packet Saturates Under v12
 

@@ -1603,6 +1603,60 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C36_h1s_residual_guard_is_targeted_not_global",
+        claim=(
+            "The H1s transfer gate shows that the v12 component-residual guard is a useful targeted patch, "
+            "but not a global replacement for the v11 component-label guard."
+        ),
+        status="supported_current_packets",
+        evidence_strength="strong_internal",
+        primary_metric=(
+            "Across H1n/H1o/H1p, v12 improves strict exactness from v11's 26/32 to 27/32, but lowers "
+            "executor-equivalence from v11's 29/32 to 27/32; H1n is the clearest negative transfer at "
+            "-0.125 exact-rate and -0.250 executor-equivalence rate versus v11."
+        ),
+        limitation=(
+            "H1s is still a replay-shaped synthetic transfer gate. It supports conditional routing or prompt-factor "
+            "testing, not broad claims about real GUI populations or a final global prompt contract."
+        ),
+        next_test=(
+            "Build a conditional-route or prompt-factorial slice that keeps v11 as the general component-label "
+            "profile and applies v12 residual wording only to code-label and nonstandard component-class contexts."
+        ),
+        sources=(
+            EvidenceSource(
+                "transfer_synthesis",
+                "results/reports/h1s_component_residual_transfer_synthesis/report.md",
+                "H1s synthesis aggregating v12 transfer over H1n, H1o, and H1p after the local H1r win.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h1s_component_residual_guard_on_h1n_component_value_execute_v1",
+                "H1n v12 execution showing negative transfer versus v11 at 5/8 exact and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h1s_component_residual_guard_on_h1o_control_factorial_execute_v1",
+                "H1o v12 execution reaching 11/12 exact and executor-equivalent, below v11 executor-equivalence.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h1s_component_residual_guard_on_h1p_component_value_execute_v1",
+                "H1p v12 execution improving over v11 at 11/12 exact and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260510T_h1s_component_residual_guard_h1n_vs_component_label_guard_v1",
+                "Pairwise H1n comparison showing the strongest negative transfer versus v11.",
+            ),
+            EvidenceSource(
+                "report_table",
+                "results/reports/mlx_tool_contract_harnessing/tables/h1s_component_residual_transfer_aggregate.csv",
+                "Paper-facing aggregate table comparing v12 against v11 and no-directive across H1n/H1o/H1p.",
+            ),
+        ),
+    ),
 )
 
 
