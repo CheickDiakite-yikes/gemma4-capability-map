@@ -1,0 +1,5 @@
+label,incumbent_label,case_count,no_directive_exact_rate,v10_exact_rate,delta_exact_vs_no_directive,incumbent_exact_rate,delta_exact_vs_incumbent,no_directive_executor_rate,v10_executor_rate,delta_executor_vs_no_directive,incumbent_executor_rate,delta_executor_vs_incumbent,no_directive_exact_success_count,v10_exact_success_count,incumbent_exact_success_count,no_directive_executor_success_count,v10_executor_success_count,incumbent_executor_success_count
+component_value_v10,hybrid_label_guard_v8,8,0.625,0.875,0.25,0.75,0.125,0.75,1.0,0.25,0.875,0.125,5,7,6,6,8,7
+residual_v8,hybrid_label_guard_v8,8,0.5,0.5,0.0,0.875,-0.375,0.5,0.75,0.25,0.875,-0.125,4,4,7,4,6,7
+post_repair_v7,oblique_code_guard_v7,8,0.25,0.75,0.5,0.75,0.0,0.25,0.75,0.5,0.75,0.0,2,6,6,2,6,6
+oblique_v7,oblique_code_guard_v7,6,0.0,0.8333333333333334,0.8333333333333334,1.0,-0.16666666666666663,0.0,0.8333333333333334,0.8333333333333334,1.0,-0.16666666666666663,0,5,6,0,5,6

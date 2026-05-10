@@ -1,0 +1,5 @@
+finding_id,finding
+large_no_directive_lift,"v10 is a real no-directive harness improvement: 22/30 exact versus 11/30 no-directive, and 25/30 executor-equivalent versus 12/30 no-directive."
+not_universal_replacement,"v10 is not a universal replacement for the best specialized profiles: 22/30 exact versus incumbents at 25/30, and 25/30 executor-equivalent versus incumbents at 26/30."
+transfer_pattern,"Executor-equivalence versus incumbents is positive on component_value_v10, tied on post_repair_v7, and negative on residual_v8, oblique_v7."
+promotion_decision,"Treat v10 as a scoped current-image/no-call activation guard. The next H1o slice should factor activation rescue, code/negation preservation, and component-label/value disambiguation instead of stacking broad prose."

@@ -1,0 +1,13 @@
+{
+  "generated_at": "2026-05-10T16:19:11.102272+00:00",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h1n_no_call_rescue_transfer_synthesis",
+  "comparison_count": 4,
+  "total_case_count": 30,
+  "no_directive_exact_success_count": 11,
+  "v10_exact_success_count": 22,
+  "incumbent_exact_success_count": 25,
+  "no_directive_executor_success_count": 12,
+  "v10_executor_success_count": 25,
+  "incumbent_executor_success_count": 26,
+  "finding_count": 4
+}
