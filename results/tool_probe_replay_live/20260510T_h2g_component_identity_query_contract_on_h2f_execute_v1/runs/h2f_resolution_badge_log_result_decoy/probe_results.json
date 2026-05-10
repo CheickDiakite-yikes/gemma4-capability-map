@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "h2f_resolution_badge_log_result_decoy",
+    "family": "h2f_route_component_class_transfer",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "h2f-resolution-badge-9932"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2f-resolution-badge",
+          "target_query": "resolution badge Deferred"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h2f-resolution-badge",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "h2f-resolution-badge-9932"
+          ],
+          "region_id": "h2f-resolution-badge-9932",
+          "text_preview": "Deferred"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2f-resolution-badge",
+          "target_query": "resolution badge"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2f-resolution-badge",
+          "target_query": "resolution badge Deferred"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h2f-resolution-badge\", \"target_query\": \"resolution badge Deferred\"}}",
+    "prompt_tokens": 1869,
+    "completion_tokens": 38,
+    "latency_ms": 6794
+  }
+]
