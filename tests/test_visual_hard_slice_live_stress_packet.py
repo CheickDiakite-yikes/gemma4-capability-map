@@ -568,6 +568,68 @@ def test_visual_hard_slice_live_stress_packet_supports_h1w_residual_overlap_suit
         assert _expected_call_reaches_oracle(case)
 
 
+def test_visual_hard_slice_live_stress_packet_supports_h1x_v11_breaker_suite(
+    tmp_path: Path,
+) -> None:
+    packet = SCRIPT.build_visual_hard_slice_live_stress_packet(
+        output_root=tmp_path / "replay_packets",
+        run_group_id="visual_stress_h1x_v11_breaker",
+        suite="h1x_v11_breaker_v14",
+    )
+
+    assert packet["summary"]["suite"] == "h1x_v11_breaker_v14"
+    assert packet["summary"]["case_count"] == 8
+    assert packet["summary"]["family_counts"] == {
+        "h1x_oblique_activation_no_call": 2,
+        "h1x_oblique_nonstandard_class": 2,
+        "h1x_oblique_stale_field": 2,
+        "h1x_oblique_surface_value": 2,
+    }
+    assert packet["summary"]["failure_mode_counts"] == {
+        "argument_alias_or_decoy_risk": 4,
+        "wrong_tool_or_stale_selection_risk": 4,
+    }
+    cases = {case["case_id"]: case for case in packet["replay_cases"]}
+    assert cases["h1x_responsible_party_field_old_owner_memo_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h1x-owner-field",
+                "target_query": "owner field",
+            },
+        }
+    ]
+    assert cases["h1x_resolution_chip_comment_result_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h1x-resolution-chip",
+                "target_query": "result chip",
+            },
+        }
+    ]
+    assert cases["h1x_lifecycle_marker_log_state_tag_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h1x-lifecycle-marker",
+                "target_query": "state tag",
+            },
+        }
+    ]
+    assert cases["h1x_warning_panel_note_activation_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h1x-warning-panel",
+                "target_query": "warning tile",
+            },
+        }
+    ]
+    for case in packet["replay_cases"]:
+        assert _expected_call_reaches_oracle(case)
+
+
 def _expected_call_reaches_oracle(case: dict[str, object]) -> bool:
     tool_specs = [ToolSpec.model_validate(payload) for payload in case["tool_specs"]]  # type: ignore[index]
     executor = DeterministicExecutor(tool_specs=tool_specs)

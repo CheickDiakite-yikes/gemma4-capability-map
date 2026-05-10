@@ -45,6 +45,7 @@ def parse_args() -> argparse.Namespace:
             "h1p_component_value_holdout_v11",
             "h1r_component_label_residual_v12",
             "h1w_residual_overlap_v13",
+            "h1x_v11_breaker_v14",
         ],
         default="v1",
     )
@@ -213,6 +214,8 @@ def _stress_cases_for_suite(suite: str) -> list[ToolDirectiveProbeCase]:
         return _h1r_component_label_residual_cases_v12()
     if suite == "h1w_residual_overlap_v13":
         return _h1w_residual_overlap_cases_v13()
+    if suite == "h1x_v11_breaker_v14":
+        return _h1x_v11_breaker_cases_v14()
     raise ValueError(f"Unknown visual live stress suite: {suite}")
 
 
@@ -233,6 +236,7 @@ def _expected_call_payloads(
         "h1p_component_value_holdout_v11",
         "h1r_component_label_residual_v12",
         "h1w_residual_overlap_v13",
+        "h1x_v11_breaker_v14",
     }:
         return [_oracle_visual_extract_call(case)]
     return [
@@ -2465,6 +2469,209 @@ def _h1w_residual_overlap_cases_v13() -> list[ToolDirectiveProbeCase]:
     ]
 
 
+def _h1x_v11_breaker_cases_v14() -> list[ToolDirectiveProbeCase]:
+    return [
+        ToolDirectiveProbeCase(
+            case_id="h1x_responsible_party_field_old_owner_memo_decoy",
+            family="h1x_oblique_stale_field",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1x-owner-field"),
+                Message(
+                    role="user",
+                    content=(
+                        "Old selection_id sel-owner-memo points at the memo. The target is the responsible-party "
+                        "entry showing Iris; locate the owner field component, not the memo or table."
+                    ),
+                ),
+            ],
+            media=["img-h1x-owner-field"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1x-owner-field",
+                [
+                    _region("h1x-owner-memo-9701", "owner memo", "Iris owned the prior renewal", area="memo"),
+                    _region("h1x-owner-field-9702", "owner field", "Iris", area="field"),
+                    _region("h1x-owner-table-9703", "responsibility table", "Iris renewal rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1x-owner-field-9702"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1x_workstream_owner_field_previous_summary_decoy",
+            family="h1x_oblique_stale_field",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1x-workstream-owner"),
+                Message(
+                    role="user",
+                    content=(
+                        "Previous selection_id sel-workstream-summary is stale. Find the accountable workstream "
+                        "person control for Remy; the actual component is the owner field."
+                    ),
+                ),
+            ],
+            media=["img-h1x-workstream-owner"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1x-workstream-owner",
+                [
+                    _region("h1x-workstream-summary-9711", "workstream summary", "Remy handled onboarding", area="summary"),
+                    _region("h1x-workstream-owner-field-9712", "owner field", "Remy", area="field"),
+                    _region("h1x-workstream-grid-9713", "workstream grid", "Remy onboarding rows", area="grid"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1x-workstream-owner-field-9712"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1x_resolution_chip_comment_result_decoy",
+            family="h1x_oblique_surface_value",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1x-resolution-chip"),
+                Message(
+                    role="user",
+                    content=(
+                        "The comment also says Blocked. Select the compact resolution indicator for Blocked; "
+                        "the visible component is the result chip, not the comment."
+                    ),
+                ),
+            ],
+            media=["img-h1x-resolution-chip"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1x-resolution-chip",
+                [
+                    _region("h1x-resolution-comment-9721", "resolution comment", "Blocked by compliance", area="comment"),
+                    _region("h1x-result-chip-9722", "result chip", "Blocked", area="chip"),
+                    _region("h1x-resolution-board-9723", "resolution board", "Blocked queue", area="board"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1x-result-chip-9722"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1x_progress_marker_summary_status_decoy",
+            family="h1x_oblique_surface_value",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1x-progress-marker"),
+                Message(
+                    role="user",
+                    content=(
+                        "Pending is repeated in the summary. Locate the compact progress marker for the row; "
+                        "the layout label is status pill."
+                    ),
+                ),
+            ],
+            media=["img-h1x-progress-marker"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1x-progress-marker",
+                [
+                    _region("h1x-progress-summary-9731", "progress summary", "Pending for legal review", area="summary"),
+                    _region("h1x-status-pill-9732", "status pill", "Pending", area="pill"),
+                    _region("h1x-progress-table-9733", "progress table", "Pending review rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1x-status-pill-9732"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1x_lifecycle_marker_log_state_tag_decoy",
+            family="h1x_oblique_nonstandard_class",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1x-lifecycle-marker"),
+                Message(
+                    role="user",
+                    content=(
+                        "Closed is in the audit trail. Locate the lifecycle marker component; the layout label is "
+                        "state tag, not audit log."
+                    ),
+                ),
+            ],
+            media=["img-h1x-lifecycle-marker"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1x-lifecycle-marker",
+                [
+                    _region("h1x-lifecycle-log-9741", "audit log", "Closed by Nia at 16:05", area="log"),
+                    _region("h1x-state-tag-9742", "state tag", "Closed", area="tag"),
+                    _region("h1x-lifecycle-table-9743", "lifecycle table", "Closed rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1x-state-tag-9742"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1x_operation_mode_control_note_toggle_decoy",
+            family="h1x_oblique_nonstandard_class",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1x-operation-mode"),
+                Message(
+                    role="user",
+                    content=(
+                        "Manual appears in the note. Locate the operation mode control; the layout label is mode toggle."
+                    ),
+                ),
+            ],
+            media=["img-h1x-operation-mode"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1x-operation-mode",
+                [
+                    _region("h1x-mode-note-9751", "mode note", "Manual override was approved", area="note"),
+                    _region("h1x-mode-toggle-9752", "mode toggle", "Manual", area="toggle"),
+                    _region("h1x-mode-table-9753", "mode table", "Manual exception rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1x-mode-toggle-9752"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1x_warning_panel_note_activation_decoy",
+            family="h1x_oblique_activation_no_call",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1x-warning-panel"),
+                Message(
+                    role="user",
+                    content=(
+                        "Do not summarize the note. Locate the warning panel for review; the layout label is warning tile."
+                    ),
+                ),
+            ],
+            media=["img-h1x-warning-panel"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1x-warning-panel",
+                [
+                    _region("h1x-warning-note-9761", "warning note", "Warning acknowledged yesterday", area="note"),
+                    _region("h1x-warning-tile-9762", "warning tile", "Warning", area="tile"),
+                    _region("h1x-warning-table-9763", "warning table", "Warning history rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1x-warning-tile-9762"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1x_error_notice_history_activation_decoy",
+            family="h1x_oblique_activation_no_call",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1x-error-notice"),
+                Message(
+                    role="user",
+                    content=(
+                        "The history row is not the target. Locate the error notice component; the layout label is "
+                        "error banner."
+                    ),
+                ),
+            ],
+            media=["img-h1x-error-notice"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1x-error-notice",
+                [
+                    _region("h1x-error-history-9771", "error history", "Error cleared last week", area="history"),
+                    _region("h1x-error-banner-9772", "error banner", "Error", area="banner"),
+                    _region("h1x-error-log-9773", "error log", "Error trace rows", area="log"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1x-error-banner-9772"]},
+        ),
+    ]
+
+
 def _visual_state(image_id: str, local_layouts: list[dict[str, Any]]) -> dict[str, Any]:
     return {
         "visual_executor_mode": "local",
@@ -2501,6 +2708,8 @@ def _stress_failure_mode(family: str) -> str:
         "h1r_stale_selection_component_label",
         "h1w_stale_field_routing",
         "h1w_activation_no_call",
+        "h1x_oblique_stale_field",
+        "h1x_oblique_activation_no_call",
     }:
         return "wrong_tool_or_stale_selection_risk"
     return "argument_alias_or_decoy_risk"

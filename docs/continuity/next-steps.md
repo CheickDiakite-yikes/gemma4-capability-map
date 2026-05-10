@@ -204,6 +204,8 @@ Next implementation moves:
   - live result: no-directive `0 / 8`, v11 `8 / 8`, v12 `7 / 8`, v15 `6 / 8`
   - synthesis: [`results/reports/h1w_residual_overlap_synthesis/report.md`](../../results/reports/h1w_residual_overlap_synthesis/report.md)
   - next execution step: design H1x as a v11 breaker, combining oblique component labels, stale/old selection text, and repeated values within the same rows
+  - completed scaffold: H1x adds [`results/tool_probe_replay_packets/20260510T_h1x_v11_breaker_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260510T_h1x_v11_breaker_oracle_dry_run_v1), an `8`-case oblique-label packet designed to stress v11 directly
+  - next execution step: live-test H1x no-directive and v11 first, then decide whether v12/v15 are informative follow-up baselines
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1

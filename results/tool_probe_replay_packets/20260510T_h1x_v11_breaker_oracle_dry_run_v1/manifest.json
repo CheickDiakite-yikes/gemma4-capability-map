@@ -1,0 +1,36 @@
+{
+  "packet_run_id": "20260510T_h1x_v11_breaker_oracle_dry_run_v1",
+  "packet_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260510T_h1x_v11_breaker_oracle_dry_run_v1",
+  "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+  "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+  "replay_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints",
+  "suite": "h1x_v11_breaker_v14",
+  "case_count": 8,
+  "family_counts": {
+    "h1x_oblique_activation_no_call": 2,
+    "h1x_oblique_nonstandard_class": 2,
+    "h1x_oblique_stale_field": 2,
+    "h1x_oblique_surface_value": 2
+  },
+  "failure_mode_counts": {
+    "argument_alias_or_decoy_risk": 4,
+    "wrong_tool_or_stale_selection_risk": 4
+  },
+  "dry_run": true,
+  "executed_count": 0,
+  "created_at": "2026-05-10T18:40:57.368375+00:00",
+  "registry_path": "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+  "case_ids": [
+    "h1x_responsible_party_field_old_owner_memo_decoy",
+    "h1x_workstream_owner_field_previous_summary_decoy",
+    "h1x_resolution_chip_comment_result_decoy",
+    "h1x_progress_marker_summary_status_decoy",
+    "h1x_lifecycle_marker_log_state_tag_decoy",
+    "h1x_operation_mode_control_note_toggle_decoy",
+    "h1x_warning_panel_note_activation_decoy",
+    "h1x_error_notice_history_activation_decoy"
+  ],
+  "operator_surface": "rich_cli_visual_hard_slice_live_stress_v1",
+  "entrypoint": "moonie-agent replay-live",
+  "purpose": "Repeat the visual hard-slice executor-alias and stale-selection mechanisms under fresh decoys before spending packaged H1 workflow budget."
+}

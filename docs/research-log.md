@@ -1,5 +1,23 @@
 # Research Log
 
+## 2026-05-10 - H1x V11-Breaker Packet Scaffold
+
+- Added `h1x_v11_breaker_v14` to the visual hard-slice packet builder.
+- Generated dry-run packet: [`results/tool_probe_replay_packets/20260510T_h1x_v11_breaker_oracle_dry_run_v1`](../results/tool_probe_replay_packets/20260510T_h1x_v11_breaker_oracle_dry_run_v1)
+- Packet shape:
+  - `2` oblique stale-field cases
+  - `2` oblique surface-value cases
+  - `2` oblique nonstandard-class cases
+  - `2` oblique activation/no-call cases
+- Purpose:
+  - follow H1w's v11 saturation with a packet that stresses v11 more directly
+  - combine old selections, repeated values, and user-facing paraphrases with canonical layout labels in one case
+- Next execution:
+  - live-test no-directive and v11 first
+  - run v12/v15 only if the v11 failure families need disambiguation
+- Verification:
+  - `uv run pytest tests/test_visual_hard_slice_live_stress_packet.py -q`
+
 ## 2026-05-10 - H1w Residual-Overlap Packet Scaffold
 
 - Added `h1w_residual_overlap_v13` to the visual hard-slice packet builder.
