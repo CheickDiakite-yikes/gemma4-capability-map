@@ -67,6 +67,9 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert claims["C26_h1n_oblique_code_guard_fixes_v6_regression"][
         "status"
     ] == "supported_current_packets"
+    assert claims["C27_h1n_code_guard_improves_v6_but_not_argument_hints"][
+        "status"
+    ] == "supported_current_packets"
     assert "7/8" in claims["C2_final_tool_directive_causal_for_protocol"]["primary_metric"]
     assert "v3 raw exact falls" in claims["C6_split_selector_wording_is_negative_evidence"]["primary_metric"]
     assert "schema-field hints reach 6/8 strict and 8/8 executor-equivalent" in claims[
@@ -174,6 +177,12 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     ]["primary_metric"]
     assert "over v6 code hints by +0.167" in claims[
         "C26_h1n_oblique_code_guard_fixes_v6_regression"
+    ]["primary_metric"]
+    assert "code guard reaches 14/18 exact and 15/18 executor-equivalent" in claims[
+        "C27_h1n_code_guard_improves_v6_but_not_argument_hints"
+    ]["primary_metric"]
+    assert "argument hints remains 14/18 exact and 16/18 executor-equivalent" in claims[
+        "C27_h1n_code_guard_improves_v6_but_not_argument_hints"
     ]["primary_metric"]
 
     source_types = {row["artifact_type"] for row in payload["evidence_sources"]}

@@ -1082,6 +1082,55 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C27_h1n_code_guard_improves_v6_but_not_argument_hints",
+        claim=(
+            "The activation-gated code guard is a better scoped repair than v6 code hints, but still does not "
+            "replace argument hints across the three H1n oracle packets."
+        ),
+        status="supported_current_packets",
+        evidence_strength="strong_internal",
+        primary_metric=(
+            "Across the three H1n oracle packets, code guard reaches 14/18 exact and 15/18 executor-equivalent "
+            "successes versus v6 at 11/18 and 12/18, while argument hints remains 14/18 exact and 16/18 "
+            "executor-equivalent."
+        ),
+        limitation=(
+            "The comparison is still replay-shaped and packet-conditioned; it should be followed by a fresh "
+            "post-repair holdout before claiming a general visual catalog profile."
+        ),
+        next_test=(
+            "Build a fresh post-repair holdout with code-like labels, stale-selection mentions, and non-code "
+            "transfer labels, then compare argument hints and code guard."
+        ),
+        sources=(
+            EvidenceSource(
+                "synthesis_report",
+                "results/reports/h1n_code_guard_transfer_synthesis/report.md",
+                "Three-packet synthesis showing code guard improves over v6 but still trails argument hints on executor-equivalence.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h1n_oracle_code_guard_transfer_execute_v1",
+                "Code-guard profile execution on the earlier oracle packet.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h1n_oracle_repeat_code_guard_transfer_execute_v1",
+                "Code-guard profile execution on the repeat oracle packet.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260510T_h1n_oracle_code_guard_vs_argument_hints_transfer_v1",
+                "Direct comparison against argument hints on the earlier oracle packet.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260510T_h1n_oracle_repeat_code_guard_vs_argument_hints_transfer_v1",
+                "Direct comparison against argument hints on the repeat oracle packet.",
+            ),
+        ),
+    ),
 )
 
 

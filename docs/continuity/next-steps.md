@@ -124,7 +124,9 @@ Next implementation moves:
   - purpose: keep the v6 code-suffix/negated-decoy repair while adding an activation guard against stale `selection_id` routing
   - oblique result: `6 / 6` exact and executor-equivalent on the oblique packet
   - comparison: improves over argument hints by `+0.333` and over v6 code hints by `+0.167` on exact and executor-equivalence
-- next replay-shaped target: run the oblique-code-guard profile on the earlier oracle and repeat packets; promote only if it avoids the v6 transfer losses
+  - transfer synthesis: [`results/reports/h1n_code_guard_transfer_synthesis/report.md`](../../results/reports/h1n_code_guard_transfer_synthesis/report.md)
+  - transfer result: code guard improves over v6 across the three packets, but argument hints still has the better executor-equivalence aggregate at `16 / 18` versus code guard at `15 / 18`
+- next replay-shaped target: build a fresh post-repair holdout with code-like labels, stale-selection mentions, and non-code transfer labels; compare argument hints, v6, and code guard there
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1

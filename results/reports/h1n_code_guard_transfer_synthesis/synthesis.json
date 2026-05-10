@@ -1,0 +1,158 @@
+{
+  "manifest": {
+    "generated_at": "2026-05-10T01:39:35.326804+00:00",
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h1n_code_guard_transfer_synthesis",
+    "argument_hint_comparison_count": 3,
+    "code_hint_comparison_count": 3,
+    "total_case_count": 18,
+    "argument_hints_exact_success_count": 14,
+    "code_guard_exact_success_count": 14,
+    "argument_hints_executor_success_count": 16,
+    "code_guard_executor_success_count": 15,
+    "code_hints_exact_success_count": 11,
+    "code_hints_executor_success_count": 12,
+    "finding_count": 4
+  },
+  "argument_hint_aggregate": {
+    "total_case_count": 18,
+    "baseline_exact_success_count": 14,
+    "candidate_exact_success_count": 14,
+    "delta_exact_success_count": 0,
+    "baseline_executor_success_count": 16,
+    "candidate_executor_success_count": 15,
+    "delta_executor_success_count": -1
+  },
+  "code_hint_aggregate": {
+    "total_case_count": 18,
+    "baseline_exact_success_count": 11,
+    "candidate_exact_success_count": 14,
+    "delta_exact_success_count": 3,
+    "baseline_executor_success_count": 12,
+    "candidate_executor_success_count": 15,
+    "delta_executor_success_count": 3
+  },
+  "argument_hint_rows": [
+    {
+      "label": "oracle_transfer_v2",
+      "profile": "code_guard_v7",
+      "baseline_profile": "argument_hints_v2",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h1n_oracle_code_guard_vs_argument_hints_transfer_v1",
+      "shared_case_count": 6,
+      "baseline_exact_rate": 0.8333333333333334,
+      "candidate_exact_rate": 0.6666666666666666,
+      "delta_exact_rate": -0.16666666666666674,
+      "baseline_executor_equivalence_rate": 1.0,
+      "candidate_executor_equivalence_rate": 0.6666666666666666,
+      "delta_executor_equivalence_rate": -0.33333333333333337,
+      "baseline_exact_success_count": 5,
+      "candidate_exact_success_count": 4,
+      "baseline_executor_success_count": 6,
+      "candidate_executor_success_count": 4
+    },
+    {
+      "label": "oracle_repeat_v1",
+      "profile": "code_guard_v7",
+      "baseline_profile": "argument_hints_v2",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h1n_oracle_repeat_code_guard_vs_argument_hints_transfer_v1",
+      "shared_case_count": 6,
+      "baseline_exact_rate": 0.8333333333333334,
+      "candidate_exact_rate": 0.6666666666666666,
+      "delta_exact_rate": -0.16666666666666674,
+      "baseline_executor_equivalence_rate": 1.0,
+      "candidate_executor_equivalence_rate": 0.8333333333333334,
+      "delta_executor_equivalence_rate": -0.16666666666666663,
+      "baseline_exact_success_count": 5,
+      "candidate_exact_success_count": 4,
+      "baseline_executor_success_count": 6,
+      "candidate_executor_success_count": 5
+    },
+    {
+      "label": "oblique_v5",
+      "profile": "code_guard_v7",
+      "baseline_profile": "argument_hints_v2",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h1n_oracle_oblique_code_guard_vs_argument_hints_v1",
+      "shared_case_count": 6,
+      "baseline_exact_rate": 0.6666666666666666,
+      "candidate_exact_rate": 1.0,
+      "delta_exact_rate": 0.33333333333333337,
+      "baseline_executor_equivalence_rate": 0.6666666666666666,
+      "candidate_executor_equivalence_rate": 1.0,
+      "delta_executor_equivalence_rate": 0.33333333333333337,
+      "baseline_exact_success_count": 4,
+      "candidate_exact_success_count": 6,
+      "baseline_executor_success_count": 4,
+      "candidate_executor_success_count": 6
+    }
+  ],
+  "code_hint_rows": [
+    {
+      "label": "oracle_transfer_v2",
+      "profile": "code_guard_v7",
+      "baseline_profile": "code_hints_v6",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h1n_oracle_code_guard_vs_code_hints_transfer_v1",
+      "shared_case_count": 6,
+      "baseline_exact_rate": 0.5,
+      "candidate_exact_rate": 0.6666666666666666,
+      "delta_exact_rate": 0.16666666666666663,
+      "baseline_executor_equivalence_rate": 0.5,
+      "candidate_executor_equivalence_rate": 0.6666666666666666,
+      "delta_executor_equivalence_rate": 0.16666666666666663,
+      "baseline_exact_success_count": 3,
+      "candidate_exact_success_count": 4,
+      "baseline_executor_success_count": 3,
+      "candidate_executor_success_count": 4
+    },
+    {
+      "label": "oracle_repeat_v1",
+      "profile": "code_guard_v7",
+      "baseline_profile": "code_hints_v6",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h1n_oracle_repeat_code_guard_vs_code_hints_transfer_v1",
+      "shared_case_count": 6,
+      "baseline_exact_rate": 0.5,
+      "candidate_exact_rate": 0.6666666666666666,
+      "delta_exact_rate": 0.16666666666666663,
+      "baseline_executor_equivalence_rate": 0.6666666666666666,
+      "candidate_executor_equivalence_rate": 0.8333333333333334,
+      "delta_executor_equivalence_rate": 0.16666666666666674,
+      "baseline_exact_success_count": 3,
+      "candidate_exact_success_count": 4,
+      "baseline_executor_success_count": 4,
+      "candidate_executor_success_count": 5
+    },
+    {
+      "label": "oblique_v5",
+      "profile": "code_guard_v7",
+      "baseline_profile": "code_hints_v6",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h1n_oracle_oblique_code_guard_vs_code_hints_v1",
+      "shared_case_count": 6,
+      "baseline_exact_rate": 0.8333333333333334,
+      "candidate_exact_rate": 1.0,
+      "delta_exact_rate": 0.16666666666666663,
+      "baseline_executor_equivalence_rate": 0.8333333333333334,
+      "candidate_executor_equivalence_rate": 1.0,
+      "delta_executor_equivalence_rate": 0.16666666666666663,
+      "baseline_exact_success_count": 5,
+      "candidate_exact_success_count": 6,
+      "baseline_executor_success_count": 5,
+      "candidate_executor_success_count": 6
+    }
+  ],
+  "finding_rows": [
+    {
+      "finding_id": "code_guard_beats_v6",
+      "finding": "Code guard improves on v6 across the three-packet aggregate: 14/18 exact and 15/18 executor-equivalent versus v6 at 11/18 exact and 12/18 executor-equivalent."
+    },
+    {
+      "finding_id": "argument_hints_still_best_executor",
+      "finding": "Argument hints remains the stronger executor-equivalence baseline overall: 16/18 versus code guard at 15/18."
+    },
+    {
+      "finding_id": "oblique_only_positive_vs_argument_hints",
+      "finding": "Code guard is positive versus argument hints only on oblique_v5 and negative on oracle_transfer_v2, oracle_repeat_v1."
+    },
+    {
+      "finding_id": "promotion_decision",
+      "finding": "Treat code guard as a better scoped repair than v6, not a broad replacement for argument hints; the next proof point should be a fresh post-repair holdout."
+    }
+  ]
+}

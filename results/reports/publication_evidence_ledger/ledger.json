@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-10T01:36:15.261062+00:00",
+    "generated_at": "2026-05-10T01:41:13.685339+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-    "claim_count": 26,
-    "evidence_source_count": 118,
+    "claim_count": 27,
+    "evidence_source_count": 123,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -31,7 +31,8 @@
       "C23_h1n_oblique_argument_hints_misses_are_code_and_negation_errors",
       "C24_h1n_oblique_code_hints_repair_two_misses_with_one_regression",
       "C25_h1n_oblique_code_hints_is_localized_not_general",
-      "C26_h1n_oblique_code_guard_fixes_v6_regression"
+      "C26_h1n_oblique_code_guard_fixes_v6_regression",
+      "C27_h1n_code_guard_improves_v6_but_not_argument_hints"
     ]
   },
   "claims": [
@@ -294,6 +295,16 @@
       "limitation": "This is a scoped oblique-packet result. The earlier v6 transfer loss shows that this profile must be transfer-tested before promotion beyond code-like oblique labels.",
       "next_test": "Run the code-guard profile on the earlier oracle and repeat packets, then build a fresh post-repair held-out packet if transfer is not negative.",
       "source_count": 4
+    },
+    {
+      "claim_id": "C27_h1n_code_guard_improves_v6_but_not_argument_hints",
+      "claim": "The activation-gated code guard is a better scoped repair than v6 code hints, but still does not replace argument hints across the three H1n oracle packets.",
+      "status": "supported_current_packets",
+      "evidence_strength": "strong_internal",
+      "primary_metric": "Across the three H1n oracle packets, code guard reaches 14/18 exact and 15/18 executor-equivalent successes versus v6 at 11/18 and 12/18, while argument hints remains 14/18 exact and 16/18 executor-equivalent.",
+      "limitation": "The comparison is still replay-shaped and packet-conditioned; it should be followed by a fresh post-repair holdout before claiming a general visual catalog profile.",
+      "next_test": "Build a fresh post-repair holdout with code-like labels, stale-selection mentions, and non-code transfer labels, then compare argument hints and code guard.",
+      "source_count": 5
     }
   ],
   "evidence_sources": [
@@ -1121,6 +1132,41 @@
       "artifact_type": "diagnostic_report",
       "path": "results/reports/visual_alias_transfer_oblique_diagnostic/diagnostic.md",
       "purpose": "Updated oblique matrix diagnostic including code guard as the strict and executor-equivalence upper bound.",
+      "exists": true
+    },
+    {
+      "claim_id": "C27_h1n_code_guard_improves_v6_but_not_argument_hints",
+      "artifact_type": "synthesis_report",
+      "path": "results/reports/h1n_code_guard_transfer_synthesis/report.md",
+      "purpose": "Three-packet synthesis showing code guard improves over v6 but still trails argument hints on executor-equivalence.",
+      "exists": true
+    },
+    {
+      "claim_id": "C27_h1n_code_guard_improves_v6_but_not_argument_hints",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260510T_h1n_oracle_code_guard_transfer_execute_v1",
+      "purpose": "Code-guard profile execution on the earlier oracle packet.",
+      "exists": true
+    },
+    {
+      "claim_id": "C27_h1n_code_guard_improves_v6_but_not_argument_hints",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260510T_h1n_oracle_repeat_code_guard_transfer_execute_v1",
+      "purpose": "Code-guard profile execution on the repeat oracle packet.",
+      "exists": true
+    },
+    {
+      "claim_id": "C27_h1n_code_guard_improves_v6_but_not_argument_hints",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260510T_h1n_oracle_code_guard_vs_argument_hints_transfer_v1",
+      "purpose": "Direct comparison against argument hints on the earlier oracle packet.",
+      "exists": true
+    },
+    {
+      "claim_id": "C27_h1n_code_guard_improves_v6_but_not_argument_hints",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260510T_h1n_oracle_repeat_code_guard_vs_argument_hints_transfer_v1",
+      "purpose": "Direct comparison against argument hints on the repeat oracle packet.",
       "exists": true
     }
   ],

@@ -1,0 +1,14 @@
+{
+  "generated_at": "2026-05-10T01:39:35.326804+00:00",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h1n_code_guard_transfer_synthesis",
+  "argument_hint_comparison_count": 3,
+  "code_hint_comparison_count": 3,
+  "total_case_count": 18,
+  "argument_hints_exact_success_count": 14,
+  "code_guard_exact_success_count": 14,
+  "argument_hints_executor_success_count": 16,
+  "code_guard_executor_success_count": 15,
+  "code_hints_exact_success_count": 11,
+  "code_hints_executor_success_count": 12,
+  "finding_count": 4
+}

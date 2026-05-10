@@ -4,9 +4,9 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 
 ## Manifest
 
-- generated_at: `2026-05-10T01:36:15.261062+00:00`
-- claim_count: `26`
-- evidence_source_count: `118`
+- generated_at: `2026-05-10T01:41:13.685339+00:00`
+- claim_count: `27`
+- evidence_source_count: `123`
 - missing_source_count: `0`
 
 ## Claims
@@ -39,6 +39,7 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C24_h1n_oblique_code_hints_repair_two_misses_with_one_regression | supported_current_packets | moderate_internal | Oblique code hints reaches 5/6 exact and executor-equivalent versus argument hints at 4/6, improving by +0.167 on both metrics; it repairs `cell r42` and `alert p55` but loses `field e19` as a wrong-tool case. | The profile is tuned from observed oblique misses, so this is a successful repair on a held-out packet but still requires a fresh packet or less staged live task before promotion. | Run the oblique-code profile on the earlier oracle and repeat packets, or build a fresh post-repair held-out packet to check whether the `field e19` regression is localized. |
 | C25_h1n_oblique_code_hints_is_localized_not_general | negative_result_current_packets | strong_internal | Across three H1n oracle packets, argument hints has 14/18 exact and 16/18 executor-equivalent successes, while oblique code hints has 11/18 exact and 12/18 executor-equivalent successes; code hints improves only the oblique packet. | The result compares one targeted profile against argument hints on three replay-shaped oracle packets; it does not rule out a revised stale-selection guard or a future profile with narrower activation. | Build a stale-selection guard or activation-gated code-suffix profile, then test on a fresh post-repair holdout before broad promotion. |
 | C26_h1n_oblique_code_guard_fixes_v6_regression | supported_current_packets | moderate_internal | Oblique code guard v7 reaches 6/6 exact and 6/6 executor-equivalent on the oblique packet, improving over argument hints by +0.333 and over v6 code hints by +0.167 on both metrics. | This is a scoped oblique-packet result. The earlier v6 transfer loss shows that this profile must be transfer-tested before promotion beyond code-like oblique labels. | Run the code-guard profile on the earlier oracle and repeat packets, then build a fresh post-repair held-out packet if transfer is not negative. |
+| C27_h1n_code_guard_improves_v6_but_not_argument_hints | supported_current_packets | strong_internal | Across the three H1n oracle packets, code guard reaches 14/18 exact and 15/18 executor-equivalent successes versus v6 at 11/18 and 12/18, while argument hints remains 14/18 exact and 16/18 executor-equivalent. | The comparison is still replay-shaped and packet-conditioned; it should be followed by a fresh post-repair holdout before claiming a general visual catalog profile. | Build a fresh post-repair holdout with code-like labels, stale-selection mentions, and non-code transfer labels, then compare argument hints and code guard. |
 
 ## Evidence Sources
 
@@ -162,3 +163,8 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C26_h1n_oblique_code_guard_fixes_v6_regression | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260510T_h1n_oracle_oblique_code_guard_vs_argument_hints_v1 | Direct comparison showing +0.333 exact and executor-equivalence deltas over argument hints. |
 | C26_h1n_oblique_code_guard_fixes_v6_regression | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260510T_h1n_oracle_oblique_code_guard_vs_code_hints_v1 | Direct comparison showing the code guard repairs the v6 field-e19 regression. |
 | C26_h1n_oblique_code_guard_fixes_v6_regression | diagnostic_report | True | results/reports/visual_alias_transfer_oblique_diagnostic/diagnostic.md | Updated oblique matrix diagnostic including code guard as the strict and executor-equivalence upper bound. |
+| C27_h1n_code_guard_improves_v6_but_not_argument_hints | synthesis_report | True | results/reports/h1n_code_guard_transfer_synthesis/report.md | Three-packet synthesis showing code guard improves over v6 but still trails argument hints on executor-equivalence. |
+| C27_h1n_code_guard_improves_v6_but_not_argument_hints | live_replay_packet | True | results/tool_probe_replay_live/20260510T_h1n_oracle_code_guard_transfer_execute_v1 | Code-guard profile execution on the earlier oracle packet. |
+| C27_h1n_code_guard_improves_v6_but_not_argument_hints | live_replay_packet | True | results/tool_probe_replay_live/20260510T_h1n_oracle_repeat_code_guard_transfer_execute_v1 | Code-guard profile execution on the repeat oracle packet. |
+| C27_h1n_code_guard_improves_v6_but_not_argument_hints | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260510T_h1n_oracle_code_guard_vs_argument_hints_transfer_v1 | Direct comparison against argument hints on the earlier oracle packet. |
+| C27_h1n_code_guard_improves_v6_but_not_argument_hints | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260510T_h1n_oracle_repeat_code_guard_vs_argument_hints_transfer_v1 | Direct comparison against argument hints on the repeat oracle packet. |

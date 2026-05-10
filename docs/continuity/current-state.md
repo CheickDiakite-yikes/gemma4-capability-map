@@ -267,7 +267,9 @@ Latest MLX tool-contract research:
   - code-guard profile: `visual_role_catalog_oblique_code_guard_v7`
   - code-guard live packet: [`results/tool_probe_replay_live/20260510T_h1n_oracle_oblique_code_guard_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1n_oracle_oblique_code_guard_execute_v1)
   - code-guard result: `6 / 6` exact and executor-equivalent on the oblique packet, improving over argument hints by `+0.333` and over v6 code hints by `+0.167`
-  - interpretation: fresh transfer cases favor narrow catalog-profile mechanisms once the expected-call contract is oracle-backed; the code-like oblique packet breaks the repeat tie in favor of argument hints over schema target literals, and the activation-gated code guard now fixes the v6 `field e19` regression. Transfer remains unproven because v6 already failed outside the oblique packet.
+  - code-guard transfer synthesis: [`results/reports/h1n_code_guard_transfer_synthesis/report.md`](../../results/reports/h1n_code_guard_transfer_synthesis/report.md)
+  - code-guard transfer result: across the three oracle packets, code guard reaches `14 / 18` exact and `15 / 18` executor-equivalent successes, improving over v6 code hints at `11 / 18` and `12 / 18`, while argument hints remains `14 / 18` and `16 / 18`
+  - interpretation: fresh transfer cases favor narrow catalog-profile mechanisms once the expected-call contract is oracle-backed; the code-like oblique packet breaks the repeat tie in favor of argument hints over schema target literals, and the activation-gated code guard fixes the v6 `field e19` regression. It is better than v6 but still not a broad replacement for argument hints.
 - Prompt-contract wave 2:
   - contracts: `schema_literal_tool_required_v2`, `visual_next_call_state_v2`, `parallel_array_required_v2`
   - runner flag: `scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v2`

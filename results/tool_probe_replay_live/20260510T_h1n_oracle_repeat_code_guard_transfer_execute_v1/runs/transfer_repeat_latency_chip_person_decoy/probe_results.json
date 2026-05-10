@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "transfer_repeat_latency_chip_person_decoy",
+    "family": "visual_argument_transfer_repeat",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "transfer-repeat-latency-4302"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-repeat-latency-chip",
+          "target_query": "latency chip"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-transfer-repeat-latency-chip",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "transfer-repeat-latency-4302"
+          ],
+          "region_id": "transfer-repeat-latency-4302",
+          "text_preview": "SLA breach 18m"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-repeat-latency-chip",
+          "target_query": "latency chip"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-repeat-latency-chip",
+          "target_query": "latency chip"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-transfer-repeat-latency-chip\", \"target_query\": \"latency chip\"}}",
+    "prompt_tokens": 1325,
+    "completion_tokens": 37,
+    "latency_ms": 4037
+  }
+]

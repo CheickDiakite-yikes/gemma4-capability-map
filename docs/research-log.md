@@ -3554,6 +3554,26 @@
   - `uv run python scripts/analyze_visual_live_stress_matrix.py --matrix alias-transfer-oblique`
   - `uv run pytest tests/test_visual_live_stress_diagnostic.py -q`
 
+## 2026-05-09 - H1n Code-Guard Transfer Synthesis
+
+- Ran the code-guard profile on the same transfer packets where v6 code hints failed:
+  - first oracle packet: [`results/tool_probe_replay_live/20260510T_h1n_oracle_code_guard_transfer_execute_v1`](../results/tool_probe_replay_live/20260510T_h1n_oracle_code_guard_transfer_execute_v1)
+  - repeat packet: [`results/tool_probe_replay_live/20260510T_h1n_oracle_repeat_code_guard_transfer_execute_v1`](../results/tool_probe_replay_live/20260510T_h1n_oracle_repeat_code_guard_transfer_execute_v1)
+  - synthesis: [`results/reports/h1n_code_guard_transfer_synthesis/report.md`](../results/reports/h1n_code_guard_transfer_synthesis/report.md)
+- Result:
+  - code guard versus v6: improves from `11 / 18` to `14 / 18` exact and from `12 / 18` to `15 / 18` executor-equivalent
+  - code guard versus argument hints: ties aggregate exactness at `14 / 18`, but trails executor-equivalence at `15 / 18` versus `16 / 18`
+  - code guard is positive versus argument hints only on the oblique packet; it remains negative on the first oracle and repeat packets
+- Interpretation:
+  - the activation guard is a real improvement over v6 and fixes the known stale-selection failure
+  - argument hints remains the broadest current profile across the three oracle packets
+  - the next useful experiment is a fresh post-repair holdout, not immediate promotion of code guard
+- Verification:
+  - `uv run moonie-agent replay-live --packet-id 20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_dry_run_v2 --output-dir results/tool_probe_replay_live/20260510T_h1n_oracle_code_guard_transfer_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_oblique_code_guard --execute --json`
+  - `uv run moonie-agent replay-live --packet-id 20260509T_visual_hard_slice_live_stress_alias_transfer_repeat_oracle_dry_run_v1 --output-dir results/tool_probe_replay_live/20260510T_h1n_oracle_repeat_code_guard_transfer_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_oblique_code_guard --execute --json`
+  - `uv run python scripts/build_h1n_code_guard_transfer_synthesis.py`
+  - `uv run pytest tests/test_h1n_code_guard_transfer_synthesis.py -q`
+
 ## 2026-05-09 - Schema Target Literal v5 Negative Hard-Slice Repair
 
 - A narrow hard-slice repair candidate was added after inspecting the two v4 exact misses:

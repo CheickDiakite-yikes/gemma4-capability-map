@@ -1,0 +1,5 @@
+finding_id,finding
+code_guard_beats_v6,Code guard improves on v6 across the three-packet aggregate: 14/18 exact and 15/18 executor-equivalent versus v6 at 11/18 exact and 12/18 executor-equivalent.
+argument_hints_still_best_executor,Argument hints remains the stronger executor-equivalence baseline overall: 16/18 versus code guard at 15/18.
+oblique_only_positive_vs_argument_hints,"Code guard is positive versus argument hints only on oblique_v5 and negative on oracle_transfer_v2, oracle_repeat_v1."
+promotion_decision,"Treat code guard as a better scoped repair than v6, not a broad replacement for argument hints; the next proof point should be a fresh post-repair holdout."
