@@ -4,9 +4,9 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 
 ## Manifest
 
-- generated_at: `2026-05-10T20:51:07.662117+00:00`
-- claim_count: `43`
-- evidence_source_count: `233`
+- generated_at: `2026-05-10T21:15:26.406815+00:00`
+- claim_count: `44`
+- evidence_source_count: `240`
 - missing_source_count: `0`
 
 ## Claims
@@ -56,6 +56,7 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C41_h2c_scoped_residual_gate_saturates_h2b_but_needs_transfer | supported_current_packets | strong_internal | On H2b, H2c reaches 5/5 strict exact and 5/5 executor-equivalent, versus v12 at 4/5 and 4/5, v9 at 3/5 and 4/5, H2a at 0/5 and 3/5, and no-directive at 1/5 and 2/5. | H2c is fit to the same five residual rows selected from H2a transfer, so it is a local mechanism result. It does not override the earlier H1s warning that residual wording can hurt transfer. | Run a minimal H2c transfer gate over H1n/H1o/H1p/H1x residual families and compare strict exactness, executor-equivalence, and stale-selection behavior against H2a and v12. |
 | C42_h2d_class_preserving_route_repairs_h2c_transfer_but_costs_h2b_exactness | supported_current_packets | strong_internal | H2d reaches 8/8 strict exact and 8/8 executor-equivalent on H1x versus H2c at 7/8 and 7/8, but H2d reaches 4/5 strict exact on H2b versus H2c at 5/5 while preserving 5/5 executor-equivalence. | H2d was designed after observing H2c's H1x class-swap miss, so it supports a targeted mechanism interpretation rather than a broad promotion decision. | Build route arbitration that preserves H2c's compact code/value exactness while retaining H2d's class-preserving behavior on held-out component-class transfer. |
 | C43_h2e_route_arbitration_reconciles_h2c_h2d_tradeoff | supported_current_packets | strong_internal | H2e reaches 5/5 strict exact and 5/5 executor-equivalent on H2b, plus 8/8 strict exact and 8/8 executor-equivalent on H1x; it has zero non-exact rows across those two packets. | H2e was built from the H2c/H2d failure analysis, so the current result is mechanism evidence on two gates rather than a fresh-holdout generalization result. | Promote H2e only into a newly authored H2f route-arbitration holdout with unseen code labels, component classes, stale-id decoys, and displayed-value distractors. |
+| C44_h2f_holdout_breaks_h2e_global_promotion | negative_result_current_packets | strong_internal | On H2f, H2e reaches 6/10 strict exact and 6/10 executor-equivalent, ties H2c at 6/10, but remains well above the no-directive floor at 1/10. All four H2e non-exact rows call the right tool with a target_query that substitutes a displayed value or alias for the requested component identity. | H2f is a fresh authored holdout with ten cases, so it is stronger than replaying saturated rows but still needs a follow-up H2g mechanism test to show that a component-identity query contract repairs the failure without regressing stale-selection and activation-panel cases. | Build H2g around a component-identity query contract: when the user asks for a component class or visible label, the live target_query must preserve that requested phrase instead of collapsing to the component value or a nearby alias. |
 
 ## Evidence Sources
 
@@ -294,3 +295,10 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C43_h2e_route_arbitration_reconciles_h2c_h2d_tradeoff | live_replay_packet | True | results/tool_probe_replay_live/20260510T_h2e_route_arbitration_on_h1x_execute_v1 | H2e live execution reaching 8/8 strict and executor-equivalent on H1x. |
 | C43_h2e_route_arbitration_reconciles_h2c_h2d_tradeoff | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260510T_h2e_route_arbitration_vs_h2c_on_h1x_v1 | Direct H2e-vs-H2c comparison showing transfer repair over H2c. |
 | C43_h2e_route_arbitration_reconciles_h2c_h2d_tradeoff | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260510T_h2e_route_arbitration_vs_h2d_on_h2b_v1 | Direct H2e-vs-H2d comparison showing H2e recovers the H2b exact row H2d missed. |
+| C44_h2f_holdout_breaks_h2e_global_promotion | replay_synthesis | True | results/reports/h2f_route_arbitration_holdout_synthesis/report.md | H2f synthesis showing the fresh-holdout failure, causal floor, and component-identity diagnosis. |
+| C44_h2f_holdout_breaks_h2e_global_promotion | report_figure | True | results/reports/h2f_route_arbitration_holdout_synthesis/figures/h2f_holdout_profile_bars.svg | Paper-facing H2f profile bar figure. |
+| C44_h2f_holdout_breaks_h2e_global_promotion | live_replay_packet | True | results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2e_execute_v1 | H2e live execution reaching 6/10 strict and executor-equivalent on H2f. |
+| C44_h2f_holdout_breaks_h2e_global_promotion | live_replay_packet | True | results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2c_execute_v1 | H2c live execution tying H2e at 6/10 strict and executor-equivalent on H2f. |
+| C44_h2f_holdout_breaks_h2e_global_promotion | live_replay_packet | True | results/tool_probe_replay_live/20260510T_h2f_route_arbitration_no_directive_execute_v1 | No-directive live execution establishing the 1/10 H2f floor. |
+| C44_h2f_holdout_breaks_h2e_global_promotion | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260510T_h2f_route_arbitration_h2e_vs_h2c_v1 | Direct H2e-vs-H2c comparison showing no H2f lift from route arbitration. |
+| C44_h2f_holdout_breaks_h2e_global_promotion | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260510T_h2f_route_arbitration_h2e_vs_no_directive_v1 | Direct H2e-vs-no-directive comparison showing the controller stack remains causal. |

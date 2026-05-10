@@ -118,6 +118,9 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert claims["C43_h2e_route_arbitration_reconciles_h2c_h2d_tradeoff"][
         "status"
     ] == "supported_current_packets"
+    assert claims["C44_h2f_holdout_breaks_h2e_global_promotion"][
+        "status"
+    ] == "negative_result_current_packets"
     assert "7/8" in claims["C2_final_tool_directive_causal_for_protocol"]["primary_metric"]
     assert "v3 raw exact falls" in claims["C6_split_selector_wording_is_negative_evidence"]["primary_metric"]
     assert "schema-field hints reach 6/8 strict and 8/8 executor-equivalent" in claims[
@@ -316,6 +319,15 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert "zero non-exact rows" in claims[
         "C43_h2e_route_arbitration_reconciles_h2c_h2d_tradeoff"
     ]["primary_metric"]
+    assert "H2e reaches 6/10 strict exact and 6/10 executor-equivalent" in claims[
+        "C44_h2f_holdout_breaks_h2e_global_promotion"
+    ]["primary_metric"]
+    assert "ties H2c at 6/10" in claims[
+        "C44_h2f_holdout_breaks_h2e_global_promotion"
+    ]["primary_metric"]
+    assert "component-identity query contract" in claims[
+        "C44_h2f_holdout_breaks_h2e_global_promotion"
+    ]["next_test"]
     assert any(
         row["claim_id"] == "C28_h1n_post_repair_holdout_favors_code_guard"
         and row["path"]
@@ -455,6 +467,26 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert any(
         row["claim_id"] == "C43_h2e_route_arbitration_reconciles_h2c_h2d_tradeoff"
         and row["path"] == "results/reports/h2e_route_arbitration_synthesis/figures/h2e_route_arbitration_gate.svg"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C44_h2f_holdout_breaks_h2e_global_promotion"
+        and row["path"] == "results/reports/h2f_route_arbitration_holdout_synthesis/report.md"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C44_h2f_holdout_breaks_h2e_global_promotion"
+        and row["path"]
+        == "results/reports/h2f_route_arbitration_holdout_synthesis/figures/h2f_holdout_profile_bars.svg"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C44_h2f_holdout_breaks_h2e_global_promotion"
+        and row["path"]
+        == "results/tool_probe_replay_live_comparisons/20260510T_h2f_route_arbitration_h2e_vs_no_directive_v1"
         and row["exists"]
         for row in payload["evidence_sources"]
     )

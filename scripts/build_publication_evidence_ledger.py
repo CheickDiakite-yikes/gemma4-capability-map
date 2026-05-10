@@ -2064,6 +2064,67 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C44_h2f_holdout_breaks_h2e_global_promotion",
+        claim=(
+            "The fresh H2f route-arbitration holdout breaks H2e's apparent top-line saturation and localizes the "
+            "remaining MLX Gemma failure to component-identity query binding rather than missing tool use."
+        ),
+        status="negative_result_current_packets",
+        evidence_strength="strong_internal",
+        primary_metric=(
+            "On H2f, H2e reaches 6/10 strict exact and 6/10 executor-equivalent, ties H2c at 6/10, but remains "
+            "well above the no-directive floor at 1/10. All four H2e non-exact rows call the right tool with a "
+            "target_query that substitutes a displayed value or alias for the requested component identity."
+        ),
+        limitation=(
+            "H2f is a fresh authored holdout with ten cases, so it is stronger than replaying saturated rows but "
+            "still needs a follow-up H2g mechanism test to show that a component-identity query contract repairs "
+            "the failure without regressing stale-selection and activation-panel cases."
+        ),
+        next_test=(
+            "Build H2g around a component-identity query contract: when the user asks for a component class or "
+            "visible label, the live target_query must preserve that requested phrase instead of collapsing to "
+            "the component value or a nearby alias."
+        ),
+        sources=(
+            EvidenceSource(
+                "replay_synthesis",
+                "results/reports/h2f_route_arbitration_holdout_synthesis/report.md",
+                "H2f synthesis showing the fresh-holdout failure, causal floor, and component-identity diagnosis.",
+            ),
+            EvidenceSource(
+                "report_figure",
+                "results/reports/h2f_route_arbitration_holdout_synthesis/figures/h2f_holdout_profile_bars.svg",
+                "Paper-facing H2f profile bar figure.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2e_execute_v1",
+                "H2e live execution reaching 6/10 strict and executor-equivalent on H2f.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2c_execute_v1",
+                "H2c live execution tying H2e at 6/10 strict and executor-equivalent on H2f.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_no_directive_execute_v1",
+                "No-directive live execution establishing the 1/10 H2f floor.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260510T_h2f_route_arbitration_h2e_vs_h2c_v1",
+                "Direct H2e-vs-H2c comparison showing no H2f lift from route arbitration.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260510T_h2f_route_arbitration_h2e_vs_no_directive_v1",
+                "Direct H2e-vs-no-directive comparison showing the controller stack remains causal.",
+            ),
+        ),
+    ),
 )
 
 
