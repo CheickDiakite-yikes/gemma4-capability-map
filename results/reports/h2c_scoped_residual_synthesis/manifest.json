@@ -1,0 +1,15 @@
+{
+  "generated_at": "2026-05-10T20:24:03.005612+00:00",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h2c_scoped_residual_synthesis",
+  "profile_count": 5,
+  "case_count": 5,
+  "h2c_exact_success_count": 5,
+  "h2c_executor_success_count": 5,
+  "v12_exact_success_count": 4,
+  "v12_executor_success_count": 4,
+  "h2a_exact_success_count": 0,
+  "h2a_executor_success_count": 3,
+  "strict_winner": "h2c_scoped_residual_gate",
+  "executor_winner": "h2c_scoped_residual_gate",
+  "promotion_decision": "transfer_gate_required_before_global_or_default_promotion"
+}

@@ -1,0 +1,372 @@
+{
+  "manifest": {
+    "generated_at": "2026-05-10T20:24:03.005612+00:00",
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h2c_scoped_residual_synthesis",
+    "profile_count": 5,
+    "case_count": 5,
+    "h2c_exact_success_count": 5,
+    "h2c_executor_success_count": 5,
+    "v12_exact_success_count": 4,
+    "v12_executor_success_count": 4,
+    "h2a_exact_success_count": 0,
+    "h2a_executor_success_count": 3,
+    "strict_winner": "h2c_scoped_residual_gate",
+    "executor_winner": "h2c_scoped_residual_gate",
+    "promotion_decision": "transfer_gate_required_before_global_or_default_promotion"
+  },
+  "packet_rows": [
+    {
+      "profile_label": "no_directive",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2b_residual_exactness_no_directive_execute_v1",
+      "case_count": 5,
+      "exact_success_count": 1,
+      "exact_rate": 0.2,
+      "executor_success_count": 2,
+      "executor_rate": 0.4
+    },
+    {
+      "profile_label": "component_value_guard_v9",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_value_guard",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2b_residual_exactness_component_value_guard_execute_v1",
+      "case_count": 5,
+      "exact_success_count": 3,
+      "exact_rate": 0.6,
+      "executor_success_count": 4,
+      "executor_rate": 0.8
+    },
+    {
+      "profile_label": "component_residual_guard_v12",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2b_residual_exactness_component_residual_guard_execute_v1",
+      "case_count": 5,
+      "exact_success_count": 4,
+      "exact_rate": 0.8,
+      "executor_success_count": 4,
+      "executor_rate": 0.8
+    },
+    {
+      "profile_label": "h2a_stale_selection_gate",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_label_guard_visual_stale_selection_gate",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2b_residual_exactness_h2a_execute_v1",
+      "case_count": 5,
+      "exact_success_count": 0,
+      "exact_rate": 0.0,
+      "executor_success_count": 3,
+      "executor_rate": 0.6
+    },
+    {
+      "profile_label": "h2c_scoped_residual_gate",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_scoped_residual_exactness_visual_stale_selection_gate",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2c_scoped_residual_gate_on_h2b_execute_v1",
+      "case_count": 5,
+      "exact_success_count": 5,
+      "exact_rate": 1.0,
+      "executor_success_count": 5,
+      "executor_rate": 1.0
+    }
+  ],
+  "case_rows": [
+    {
+      "profile_label": "no_directive",
+      "case_id": "component_value_result_pill_log_decoy",
+      "family": "visual_argument_transfer_component_value_pill",
+      "source_failure_mode": "executable_paraphrase",
+      "replay_failure_mode": "exact",
+      "exact_match": true,
+      "executor_equivalence_match": true
+    },
+    {
+      "profile_label": "no_directive",
+      "case_id": "h1o_code_alert_s92_negated_toggle_decoy",
+      "family": "h1o_code_negation_preservation",
+      "source_failure_mode": "executable_paraphrase",
+      "replay_failure_mode": "executable_paraphrase",
+      "exact_match": false,
+      "executor_equivalence_match": true
+    },
+    {
+      "profile_label": "no_directive",
+      "case_id": "h1o_code_badge_c08_note_decoy",
+      "family": "h1o_code_negation_preservation",
+      "source_failure_mode": "executable_paraphrase",
+      "replay_failure_mode": "no_tool_call",
+      "exact_match": false,
+      "executor_equivalence_match": false
+    },
+    {
+      "profile_label": "no_directive",
+      "case_id": "h1p_compact_state_tag_log_value_decoy",
+      "family": "h1p_component_value_compact",
+      "source_failure_mode": "argument_mismatch",
+      "replay_failure_mode": "argument_mismatch",
+      "exact_match": false,
+      "executor_equivalence_match": false
+    },
+    {
+      "profile_label": "no_directive",
+      "case_id": "h1p_surface_mode_toggle_note_value_decoy",
+      "family": "h1p_component_value_surface",
+      "source_failure_mode": "argument_mismatch",
+      "replay_failure_mode": "no_tool_call",
+      "exact_match": false,
+      "executor_equivalence_match": false
+    },
+    {
+      "profile_label": "component_value_guard_v9",
+      "case_id": "component_value_result_pill_log_decoy",
+      "family": "visual_argument_transfer_component_value_pill",
+      "source_failure_mode": "executable_paraphrase",
+      "replay_failure_mode": "argument_mismatch",
+      "exact_match": false,
+      "executor_equivalence_match": false
+    },
+    {
+      "profile_label": "component_value_guard_v9",
+      "case_id": "h1o_code_alert_s92_negated_toggle_decoy",
+      "family": "h1o_code_negation_preservation",
+      "source_failure_mode": "executable_paraphrase",
+      "replay_failure_mode": "executable_paraphrase",
+      "exact_match": false,
+      "executor_equivalence_match": true
+    },
+    {
+      "profile_label": "component_value_guard_v9",
+      "case_id": "h1o_code_badge_c08_note_decoy",
+      "family": "h1o_code_negation_preservation",
+      "source_failure_mode": "executable_paraphrase",
+      "replay_failure_mode": "exact",
+      "exact_match": true,
+      "executor_equivalence_match": true
+    },
+    {
+      "profile_label": "component_value_guard_v9",
+      "case_id": "h1p_compact_state_tag_log_value_decoy",
+      "family": "h1p_component_value_compact",
+      "source_failure_mode": "argument_mismatch",
+      "replay_failure_mode": "exact",
+      "exact_match": true,
+      "executor_equivalence_match": true
+    },
+    {
+      "profile_label": "component_value_guard_v9",
+      "case_id": "h1p_surface_mode_toggle_note_value_decoy",
+      "family": "h1p_component_value_surface",
+      "source_failure_mode": "argument_mismatch",
+      "replay_failure_mode": "exact",
+      "exact_match": true,
+      "executor_equivalence_match": true
+    },
+    {
+      "profile_label": "component_residual_guard_v12",
+      "case_id": "component_value_result_pill_log_decoy",
+      "family": "visual_argument_transfer_component_value_pill",
+      "source_failure_mode": "executable_paraphrase",
+      "replay_failure_mode": "argument_mismatch",
+      "exact_match": false,
+      "executor_equivalence_match": false
+    },
+    {
+      "profile_label": "component_residual_guard_v12",
+      "case_id": "h1o_code_alert_s92_negated_toggle_decoy",
+      "family": "h1o_code_negation_preservation",
+      "source_failure_mode": "executable_paraphrase",
+      "replay_failure_mode": "exact",
+      "exact_match": true,
+      "executor_equivalence_match": true
+    },
+    {
+      "profile_label": "component_residual_guard_v12",
+      "case_id": "h1o_code_badge_c08_note_decoy",
+      "family": "h1o_code_negation_preservation",
+      "source_failure_mode": "executable_paraphrase",
+      "replay_failure_mode": "exact",
+      "exact_match": true,
+      "executor_equivalence_match": true
+    },
+    {
+      "profile_label": "component_residual_guard_v12",
+      "case_id": "h1p_compact_state_tag_log_value_decoy",
+      "family": "h1p_component_value_compact",
+      "source_failure_mode": "argument_mismatch",
+      "replay_failure_mode": "exact",
+      "exact_match": true,
+      "executor_equivalence_match": true
+    },
+    {
+      "profile_label": "component_residual_guard_v12",
+      "case_id": "h1p_surface_mode_toggle_note_value_decoy",
+      "family": "h1p_component_value_surface",
+      "source_failure_mode": "argument_mismatch",
+      "replay_failure_mode": "exact",
+      "exact_match": true,
+      "executor_equivalence_match": true
+    },
+    {
+      "profile_label": "h2a_stale_selection_gate",
+      "case_id": "component_value_result_pill_log_decoy",
+      "family": "visual_argument_transfer_component_value_pill",
+      "source_failure_mode": "executable_paraphrase",
+      "replay_failure_mode": "executable_paraphrase",
+      "exact_match": false,
+      "executor_equivalence_match": true
+    },
+    {
+      "profile_label": "h2a_stale_selection_gate",
+      "case_id": "h1o_code_alert_s92_negated_toggle_decoy",
+      "family": "h1o_code_negation_preservation",
+      "source_failure_mode": "executable_paraphrase",
+      "replay_failure_mode": "executable_paraphrase",
+      "exact_match": false,
+      "executor_equivalence_match": true
+    },
+    {
+      "profile_label": "h2a_stale_selection_gate",
+      "case_id": "h1o_code_badge_c08_note_decoy",
+      "family": "h1o_code_negation_preservation",
+      "source_failure_mode": "executable_paraphrase",
+      "replay_failure_mode": "executable_paraphrase",
+      "exact_match": false,
+      "executor_equivalence_match": true
+    },
+    {
+      "profile_label": "h2a_stale_selection_gate",
+      "case_id": "h1p_compact_state_tag_log_value_decoy",
+      "family": "h1p_component_value_compact",
+      "source_failure_mode": "argument_mismatch",
+      "replay_failure_mode": "argument_mismatch",
+      "exact_match": false,
+      "executor_equivalence_match": false
+    },
+    {
+      "profile_label": "h2a_stale_selection_gate",
+      "case_id": "h1p_surface_mode_toggle_note_value_decoy",
+      "family": "h1p_component_value_surface",
+      "source_failure_mode": "argument_mismatch",
+      "replay_failure_mode": "argument_mismatch",
+      "exact_match": false,
+      "executor_equivalence_match": false
+    },
+    {
+      "profile_label": "h2c_scoped_residual_gate",
+      "case_id": "component_value_result_pill_log_decoy",
+      "family": "visual_argument_transfer_component_value_pill",
+      "source_failure_mode": "executable_paraphrase",
+      "replay_failure_mode": "exact",
+      "exact_match": true,
+      "executor_equivalence_match": true
+    },
+    {
+      "profile_label": "h2c_scoped_residual_gate",
+      "case_id": "h1o_code_alert_s92_negated_toggle_decoy",
+      "family": "h1o_code_negation_preservation",
+      "source_failure_mode": "executable_paraphrase",
+      "replay_failure_mode": "exact",
+      "exact_match": true,
+      "executor_equivalence_match": true
+    },
+    {
+      "profile_label": "h2c_scoped_residual_gate",
+      "case_id": "h1o_code_badge_c08_note_decoy",
+      "family": "h1o_code_negation_preservation",
+      "source_failure_mode": "executable_paraphrase",
+      "replay_failure_mode": "exact",
+      "exact_match": true,
+      "executor_equivalence_match": true
+    },
+    {
+      "profile_label": "h2c_scoped_residual_gate",
+      "case_id": "h1p_compact_state_tag_log_value_decoy",
+      "family": "h1p_component_value_compact",
+      "source_failure_mode": "argument_mismatch",
+      "replay_failure_mode": "exact",
+      "exact_match": true,
+      "executor_equivalence_match": true
+    },
+    {
+      "profile_label": "h2c_scoped_residual_gate",
+      "case_id": "h1p_surface_mode_toggle_note_value_decoy",
+      "family": "h1p_component_value_surface",
+      "source_failure_mode": "argument_mismatch",
+      "replay_failure_mode": "exact",
+      "exact_match": true,
+      "executor_equivalence_match": true
+    }
+  ],
+  "comparison_rows": [
+    {
+      "comparison_label": "h2c_vs_no_directive",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h2c_scoped_residual_gate_vs_no_directive_on_h2b_v1",
+      "baseline_packet_run_id": "20260510T_h2b_residual_exactness_no_directive_execute_v1",
+      "candidate_packet_run_id": "20260510T_h2c_scoped_residual_gate_on_h2b_execute_v1",
+      "shared_case_count": 5,
+      "baseline_exact_rate": 0.2,
+      "candidate_exact_rate": 1.0,
+      "delta_exact_rate": 0.8,
+      "baseline_executor_equivalence_rate": 0.4,
+      "candidate_executor_equivalence_rate": 1.0,
+      "delta_executor_equivalence_rate": 0.6
+    },
+    {
+      "comparison_label": "h2c_vs_h2a",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h2c_scoped_residual_gate_vs_h2a_on_h2b_v1",
+      "baseline_packet_run_id": "20260510T_h2b_residual_exactness_h2a_execute_v1",
+      "candidate_packet_run_id": "20260510T_h2c_scoped_residual_gate_on_h2b_execute_v1",
+      "shared_case_count": 5,
+      "baseline_exact_rate": 0.0,
+      "candidate_exact_rate": 1.0,
+      "delta_exact_rate": 1.0,
+      "baseline_executor_equivalence_rate": 0.6,
+      "candidate_executor_equivalence_rate": 1.0,
+      "delta_executor_equivalence_rate": 0.4
+    },
+    {
+      "comparison_label": "h2c_vs_v9",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h2c_scoped_residual_gate_vs_component_value_guard_on_h2b_v1",
+      "baseline_packet_run_id": "20260510T_h2b_residual_exactness_component_value_guard_execute_v1",
+      "candidate_packet_run_id": "20260510T_h2c_scoped_residual_gate_on_h2b_execute_v1",
+      "shared_case_count": 5,
+      "baseline_exact_rate": 0.6,
+      "candidate_exact_rate": 1.0,
+      "delta_exact_rate": 0.4,
+      "baseline_executor_equivalence_rate": 0.8,
+      "candidate_executor_equivalence_rate": 1.0,
+      "delta_executor_equivalence_rate": 0.19999999999999996
+    },
+    {
+      "comparison_label": "h2c_vs_v12",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h2c_scoped_residual_gate_vs_component_residual_guard_on_h2b_v1",
+      "baseline_packet_run_id": "20260510T_h2b_residual_exactness_component_residual_guard_execute_v1",
+      "candidate_packet_run_id": "20260510T_h2c_scoped_residual_gate_on_h2b_execute_v1",
+      "shared_case_count": 5,
+      "baseline_exact_rate": 0.8,
+      "candidate_exact_rate": 1.0,
+      "delta_exact_rate": 0.19999999999999996,
+      "baseline_executor_equivalence_rate": 0.8,
+      "candidate_executor_equivalence_rate": 1.0,
+      "delta_executor_equivalence_rate": 0.19999999999999996
+    }
+  ],
+  "finding_rows": [
+    {
+      "finding_id": "h2c_saturates_h2b_residuals",
+      "finding": "H2c reaches 5/5 strict and 5/5 executor-equivalent on the H2b residual packet."
+    },
+    {
+      "finding_id": "h2c_beats_v12_strict_and_executor",
+      "finding": "H2c improves over v12 by 0.2 exact-rate and 0.2 executor-rate, fixing v12's remaining `result pill` miss while preserving its code-label and nonstandard-component wins."
+    },
+    {
+      "finding_id": "h2c_separates_residual_exactness_from_h2a",
+      "finding": "H2a is still 0/5 strict and 3/5 executor-equivalent on H2b, while H2c gains 1.0 exact-rate. This keeps stale-selection mediation and residual exactness as distinct mechanisms."
+    },
+    {
+      "finding_id": "h2c_surpasses_v9_executor_tie",
+      "finding": "V9 tied v12 on executor-equivalence at 4/5 but only reached 3/5 strict. H2c reaches 5/5 on both metrics."
+    },
+    {
+      "finding_id": "next_slice",
+      "finding": "Do not promote H2c globally from a five-case residual fit. The next gate is a minimal transfer check over H1n/H1o/H1p/H1x residual families to detect whether scoped residual exactness harms the broader H2a executor profile."
+    }
+  ]
+}
