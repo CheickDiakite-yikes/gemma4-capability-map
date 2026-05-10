@@ -1,0 +1,16 @@
+label,family,case_count,delta_exact_success_count,delta_exact_rate,delta_executor_success_count,delta_executor_rate
+argument_hints_v2,h1o_activation_no_call,4,0,0.0,0,0.0
+argument_hints_v2,h1o_code_negation_preservation,4,2,0.5,2,0.5
+argument_hints_v2,h1o_component_value_boundary,4,2,0.5,2,0.5
+hybrid_label_guard_v8,h1o_activation_no_call,4,0,0.0,0,0.0
+hybrid_label_guard_v8,h1o_code_negation_preservation,4,2,0.5,2,0.5
+hybrid_label_guard_v8,h1o_component_value_boundary,4,1,0.25,2,0.5
+no_call_control_rescue_v10,h1o_activation_no_call,4,-1,-0.25,-1,-0.25
+no_call_control_rescue_v10,h1o_code_negation_preservation,4,1,0.25,1,0.25
+no_call_control_rescue_v10,h1o_component_value_boundary,4,2,0.5,2,0.5
+oblique_code_guard_v7,h1o_activation_no_call,4,0,0.0,0,0.0
+oblique_code_guard_v7,h1o_code_negation_preservation,4,2,0.5,2,0.5
+oblique_code_guard_v7,h1o_component_value_boundary,4,1,0.25,1,0.25
+component_value_guard_v9,h1o_activation_no_call,4,0,0.0,0,0.0
+component_value_guard_v9,h1o_code_negation_preservation,4,2,0.5,2,0.5
+component_value_guard_v9,h1o_component_value_boundary,4,2,0.5,2,0.5

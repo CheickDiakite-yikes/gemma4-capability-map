@@ -1,0 +1,7 @@
+finding_id,finding
+strict_upper_bound,"Strict upper bound is argument_hints_v2, component_value_guard_v9 at 9/12."
+executor_upper_bound,"Executor-equivalence upper bound is argument_hints_v2, hybrid_label_guard_v8, component_value_guard_v9 at 10/12; no H1o profile reaches full executor success."
+activation_saturated_without_rescue,"Activation/no-call is not the remaining bottleneck on H1o: no-directive already reaches 4/4 exact, while no-call rescue reaches 3/4 and introduces one regression."
+code_negation_is_repairable,Code/negation failures are controller-sensitive: argument hints reaches 3/4 exact and 4/4 executor-equivalent versus no-directive at 1/4 exact and 2/4 executor-equivalent.
+component_boundary_remains_residual,Component/value boundaries remain the hard residue: component-value guard and argument hints both top out at 2/4 exact and 2/4 executor-equivalent on this family.
+promotion_decision,Promote argument hints as the conservative H1o default; do not promote no-call rescue globally; treat component-value guard as a tied candidate that needs a fresh component-only holdout.

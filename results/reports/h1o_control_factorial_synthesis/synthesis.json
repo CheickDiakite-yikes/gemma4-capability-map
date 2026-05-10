@@ -1,0 +1,474 @@
+{
+  "manifest": {
+    "generated_at": "2026-05-10T16:43:23.940988+00:00",
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h1o_control_factorial_synthesis",
+    "profile_count": 6,
+    "family_row_count": 18,
+    "finding_count": 6,
+    "case_count": 12,
+    "strict_upper_bound": [
+      "argument_hints_v2",
+      "component_value_guard_v9"
+    ],
+    "executor_upper_bound": [
+      "argument_hints_v2",
+      "hybrid_label_guard_v8",
+      "component_value_guard_v9"
+    ]
+  },
+  "profile_rows": [
+    {
+      "label": "no_directive",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h1o_control_factorial_no_directive_execute_v1",
+      "case_count": 12,
+      "exact_success_count": 5,
+      "exact_rate": 0.4166666666666667,
+      "executor_success_count": 6,
+      "executor_rate": 0.5,
+      "no_tool_call_count": 3,
+      "argument_mismatch_count": 3
+    },
+    {
+      "label": "argument_hints_v2",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h1o_control_factorial_argument_hints_execute_v1",
+      "case_count": 12,
+      "exact_success_count": 9,
+      "exact_rate": 0.75,
+      "executor_success_count": 10,
+      "executor_rate": 0.8333333333333334,
+      "no_tool_call_count": 1,
+      "argument_mismatch_count": 1
+    },
+    {
+      "label": "hybrid_label_guard_v8",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_hybrid_label_guard",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h1o_control_factorial_hybrid_label_guard_execute_v1",
+      "case_count": 12,
+      "exact_success_count": 8,
+      "exact_rate": 0.6666666666666666,
+      "executor_success_count": 10,
+      "executor_rate": 0.8333333333333334,
+      "no_tool_call_count": 0,
+      "argument_mismatch_count": 2
+    },
+    {
+      "label": "no_call_control_rescue_v10",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_no_call_control_rescue",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h1o_control_factorial_no_call_control_rescue_execute_v1",
+      "case_count": 12,
+      "exact_success_count": 7,
+      "exact_rate": 0.5833333333333334,
+      "executor_success_count": 8,
+      "executor_rate": 0.6666666666666666,
+      "no_tool_call_count": 1,
+      "argument_mismatch_count": 3
+    },
+    {
+      "label": "oblique_code_guard_v7",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_oblique_code_guard",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h1o_control_factorial_oblique_code_guard_execute_v1",
+      "case_count": 12,
+      "exact_success_count": 8,
+      "exact_rate": 0.6666666666666666,
+      "executor_success_count": 9,
+      "executor_rate": 0.75,
+      "no_tool_call_count": 0,
+      "argument_mismatch_count": 3
+    },
+    {
+      "label": "component_value_guard_v9",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_value_guard",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h1o_control_factorial_component_value_guard_execute_v1",
+      "case_count": 12,
+      "exact_success_count": 9,
+      "exact_rate": 0.75,
+      "executor_success_count": 10,
+      "executor_rate": 0.8333333333333334,
+      "no_tool_call_count": 0,
+      "argument_mismatch_count": 2
+    }
+  ],
+  "family_rows": [
+    {
+      "label": "no_directive",
+      "family": "h1o_activation_no_call",
+      "case_count": 4,
+      "exact_success_count": 4,
+      "exact_rate": 1.0,
+      "executor_success_count": 4,
+      "executor_rate": 1.0,
+      "no_tool_call_count": 0,
+      "argument_mismatch_count": 0,
+      "executable_paraphrase_count": 0
+    },
+    {
+      "label": "no_directive",
+      "family": "h1o_code_negation_preservation",
+      "case_count": 4,
+      "exact_success_count": 1,
+      "exact_rate": 0.25,
+      "executor_success_count": 2,
+      "executor_rate": 0.5,
+      "no_tool_call_count": 2,
+      "argument_mismatch_count": 0,
+      "executable_paraphrase_count": 1
+    },
+    {
+      "label": "no_directive",
+      "family": "h1o_component_value_boundary",
+      "case_count": 4,
+      "exact_success_count": 0,
+      "exact_rate": 0.0,
+      "executor_success_count": 0,
+      "executor_rate": 0.0,
+      "no_tool_call_count": 1,
+      "argument_mismatch_count": 3,
+      "executable_paraphrase_count": 0
+    },
+    {
+      "label": "argument_hints_v2",
+      "family": "h1o_activation_no_call",
+      "case_count": 4,
+      "exact_success_count": 4,
+      "exact_rate": 1.0,
+      "executor_success_count": 4,
+      "executor_rate": 1.0,
+      "no_tool_call_count": 0,
+      "argument_mismatch_count": 0,
+      "executable_paraphrase_count": 0
+    },
+    {
+      "label": "argument_hints_v2",
+      "family": "h1o_code_negation_preservation",
+      "case_count": 4,
+      "exact_success_count": 3,
+      "exact_rate": 0.75,
+      "executor_success_count": 4,
+      "executor_rate": 1.0,
+      "no_tool_call_count": 0,
+      "argument_mismatch_count": 0,
+      "executable_paraphrase_count": 1
+    },
+    {
+      "label": "argument_hints_v2",
+      "family": "h1o_component_value_boundary",
+      "case_count": 4,
+      "exact_success_count": 2,
+      "exact_rate": 0.5,
+      "executor_success_count": 2,
+      "executor_rate": 0.5,
+      "no_tool_call_count": 1,
+      "argument_mismatch_count": 1,
+      "executable_paraphrase_count": 0
+    },
+    {
+      "label": "hybrid_label_guard_v8",
+      "family": "h1o_activation_no_call",
+      "case_count": 4,
+      "exact_success_count": 4,
+      "exact_rate": 1.0,
+      "executor_success_count": 4,
+      "executor_rate": 1.0,
+      "no_tool_call_count": 0,
+      "argument_mismatch_count": 0,
+      "executable_paraphrase_count": 0
+    },
+    {
+      "label": "hybrid_label_guard_v8",
+      "family": "h1o_code_negation_preservation",
+      "case_count": 4,
+      "exact_success_count": 3,
+      "exact_rate": 0.75,
+      "executor_success_count": 4,
+      "executor_rate": 1.0,
+      "no_tool_call_count": 0,
+      "argument_mismatch_count": 0,
+      "executable_paraphrase_count": 1
+    },
+    {
+      "label": "hybrid_label_guard_v8",
+      "family": "h1o_component_value_boundary",
+      "case_count": 4,
+      "exact_success_count": 1,
+      "exact_rate": 0.25,
+      "executor_success_count": 2,
+      "executor_rate": 0.5,
+      "no_tool_call_count": 0,
+      "argument_mismatch_count": 2,
+      "executable_paraphrase_count": 1
+    },
+    {
+      "label": "no_call_control_rescue_v10",
+      "family": "h1o_activation_no_call",
+      "case_count": 4,
+      "exact_success_count": 3,
+      "exact_rate": 0.75,
+      "executor_success_count": 3,
+      "executor_rate": 0.75,
+      "no_tool_call_count": 1,
+      "argument_mismatch_count": 0,
+      "executable_paraphrase_count": 0
+    },
+    {
+      "label": "no_call_control_rescue_v10",
+      "family": "h1o_code_negation_preservation",
+      "case_count": 4,
+      "exact_success_count": 2,
+      "exact_rate": 0.5,
+      "executor_success_count": 3,
+      "executor_rate": 0.75,
+      "no_tool_call_count": 0,
+      "argument_mismatch_count": 1,
+      "executable_paraphrase_count": 1
+    },
+    {
+      "label": "no_call_control_rescue_v10",
+      "family": "h1o_component_value_boundary",
+      "case_count": 4,
+      "exact_success_count": 2,
+      "exact_rate": 0.5,
+      "executor_success_count": 2,
+      "executor_rate": 0.5,
+      "no_tool_call_count": 0,
+      "argument_mismatch_count": 2,
+      "executable_paraphrase_count": 0
+    },
+    {
+      "label": "oblique_code_guard_v7",
+      "family": "h1o_activation_no_call",
+      "case_count": 4,
+      "exact_success_count": 4,
+      "exact_rate": 1.0,
+      "executor_success_count": 4,
+      "executor_rate": 1.0,
+      "no_tool_call_count": 0,
+      "argument_mismatch_count": 0,
+      "executable_paraphrase_count": 0
+    },
+    {
+      "label": "oblique_code_guard_v7",
+      "family": "h1o_code_negation_preservation",
+      "case_count": 4,
+      "exact_success_count": 3,
+      "exact_rate": 0.75,
+      "executor_success_count": 4,
+      "executor_rate": 1.0,
+      "no_tool_call_count": 0,
+      "argument_mismatch_count": 0,
+      "executable_paraphrase_count": 1
+    },
+    {
+      "label": "oblique_code_guard_v7",
+      "family": "h1o_component_value_boundary",
+      "case_count": 4,
+      "exact_success_count": 1,
+      "exact_rate": 0.25,
+      "executor_success_count": 1,
+      "executor_rate": 0.25,
+      "no_tool_call_count": 0,
+      "argument_mismatch_count": 3,
+      "executable_paraphrase_count": 0
+    },
+    {
+      "label": "component_value_guard_v9",
+      "family": "h1o_activation_no_call",
+      "case_count": 4,
+      "exact_success_count": 4,
+      "exact_rate": 1.0,
+      "executor_success_count": 4,
+      "executor_rate": 1.0,
+      "no_tool_call_count": 0,
+      "argument_mismatch_count": 0,
+      "executable_paraphrase_count": 0
+    },
+    {
+      "label": "component_value_guard_v9",
+      "family": "h1o_code_negation_preservation",
+      "case_count": 4,
+      "exact_success_count": 3,
+      "exact_rate": 0.75,
+      "executor_success_count": 4,
+      "executor_rate": 1.0,
+      "no_tool_call_count": 0,
+      "argument_mismatch_count": 0,
+      "executable_paraphrase_count": 1
+    },
+    {
+      "label": "component_value_guard_v9",
+      "family": "h1o_component_value_boundary",
+      "case_count": 4,
+      "exact_success_count": 2,
+      "exact_rate": 0.5,
+      "executor_success_count": 2,
+      "executor_rate": 0.5,
+      "no_tool_call_count": 0,
+      "argument_mismatch_count": 2,
+      "executable_paraphrase_count": 0
+    }
+  ],
+  "family_delta_rows": [
+    {
+      "label": "argument_hints_v2",
+      "family": "h1o_activation_no_call",
+      "case_count": 4,
+      "delta_exact_success_count": 0,
+      "delta_exact_rate": 0.0,
+      "delta_executor_success_count": 0,
+      "delta_executor_rate": 0.0
+    },
+    {
+      "label": "argument_hints_v2",
+      "family": "h1o_code_negation_preservation",
+      "case_count": 4,
+      "delta_exact_success_count": 2,
+      "delta_exact_rate": 0.5,
+      "delta_executor_success_count": 2,
+      "delta_executor_rate": 0.5
+    },
+    {
+      "label": "argument_hints_v2",
+      "family": "h1o_component_value_boundary",
+      "case_count": 4,
+      "delta_exact_success_count": 2,
+      "delta_exact_rate": 0.5,
+      "delta_executor_success_count": 2,
+      "delta_executor_rate": 0.5
+    },
+    {
+      "label": "hybrid_label_guard_v8",
+      "family": "h1o_activation_no_call",
+      "case_count": 4,
+      "delta_exact_success_count": 0,
+      "delta_exact_rate": 0.0,
+      "delta_executor_success_count": 0,
+      "delta_executor_rate": 0.0
+    },
+    {
+      "label": "hybrid_label_guard_v8",
+      "family": "h1o_code_negation_preservation",
+      "case_count": 4,
+      "delta_exact_success_count": 2,
+      "delta_exact_rate": 0.5,
+      "delta_executor_success_count": 2,
+      "delta_executor_rate": 0.5
+    },
+    {
+      "label": "hybrid_label_guard_v8",
+      "family": "h1o_component_value_boundary",
+      "case_count": 4,
+      "delta_exact_success_count": 1,
+      "delta_exact_rate": 0.25,
+      "delta_executor_success_count": 2,
+      "delta_executor_rate": 0.5
+    },
+    {
+      "label": "no_call_control_rescue_v10",
+      "family": "h1o_activation_no_call",
+      "case_count": 4,
+      "delta_exact_success_count": -1,
+      "delta_exact_rate": -0.25,
+      "delta_executor_success_count": -1,
+      "delta_executor_rate": -0.25
+    },
+    {
+      "label": "no_call_control_rescue_v10",
+      "family": "h1o_code_negation_preservation",
+      "case_count": 4,
+      "delta_exact_success_count": 1,
+      "delta_exact_rate": 0.25,
+      "delta_executor_success_count": 1,
+      "delta_executor_rate": 0.25
+    },
+    {
+      "label": "no_call_control_rescue_v10",
+      "family": "h1o_component_value_boundary",
+      "case_count": 4,
+      "delta_exact_success_count": 2,
+      "delta_exact_rate": 0.5,
+      "delta_executor_success_count": 2,
+      "delta_executor_rate": 0.5
+    },
+    {
+      "label": "oblique_code_guard_v7",
+      "family": "h1o_activation_no_call",
+      "case_count": 4,
+      "delta_exact_success_count": 0,
+      "delta_exact_rate": 0.0,
+      "delta_executor_success_count": 0,
+      "delta_executor_rate": 0.0
+    },
+    {
+      "label": "oblique_code_guard_v7",
+      "family": "h1o_code_negation_preservation",
+      "case_count": 4,
+      "delta_exact_success_count": 2,
+      "delta_exact_rate": 0.5,
+      "delta_executor_success_count": 2,
+      "delta_executor_rate": 0.5
+    },
+    {
+      "label": "oblique_code_guard_v7",
+      "family": "h1o_component_value_boundary",
+      "case_count": 4,
+      "delta_exact_success_count": 1,
+      "delta_exact_rate": 0.25,
+      "delta_executor_success_count": 1,
+      "delta_executor_rate": 0.25
+    },
+    {
+      "label": "component_value_guard_v9",
+      "family": "h1o_activation_no_call",
+      "case_count": 4,
+      "delta_exact_success_count": 0,
+      "delta_exact_rate": 0.0,
+      "delta_executor_success_count": 0,
+      "delta_executor_rate": 0.0
+    },
+    {
+      "label": "component_value_guard_v9",
+      "family": "h1o_code_negation_preservation",
+      "case_count": 4,
+      "delta_exact_success_count": 2,
+      "delta_exact_rate": 0.5,
+      "delta_executor_success_count": 2,
+      "delta_executor_rate": 0.5
+    },
+    {
+      "label": "component_value_guard_v9",
+      "family": "h1o_component_value_boundary",
+      "case_count": 4,
+      "delta_exact_success_count": 2,
+      "delta_exact_rate": 0.5,
+      "delta_executor_success_count": 2,
+      "delta_executor_rate": 0.5
+    }
+  ],
+  "finding_rows": [
+    {
+      "finding_id": "strict_upper_bound",
+      "finding": "Strict upper bound is argument_hints_v2, component_value_guard_v9 at 9/12."
+    },
+    {
+      "finding_id": "executor_upper_bound",
+      "finding": "Executor-equivalence upper bound is argument_hints_v2, hybrid_label_guard_v8, component_value_guard_v9 at 10/12; no H1o profile reaches full executor success."
+    },
+    {
+      "finding_id": "activation_saturated_without_rescue",
+      "finding": "Activation/no-call is not the remaining bottleneck on H1o: no-directive already reaches 4/4 exact, while no-call rescue reaches 3/4 and introduces one regression."
+    },
+    {
+      "finding_id": "code_negation_is_repairable",
+      "finding": "Code/negation failures are controller-sensitive: argument hints reaches 3/4 exact and 4/4 executor-equivalent versus no-directive at 1/4 exact and 2/4 executor-equivalent."
+    },
+    {
+      "finding_id": "component_boundary_remains_residual",
+      "finding": "Component/value boundaries remain the hard residue: component-value guard and argument hints both top out at 2/4 exact and 2/4 executor-equivalent on this family."
+    },
+    {
+      "finding_id": "promotion_decision",
+      "finding": "Promote argument hints as the conservative H1o default; do not promote no-call rescue globally; treat component-value guard as a tied candidate that needs a fresh component-only holdout."
+    }
+  ]
+}
