@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "transfer_oblique_node_q17_table_decoy",
+    "family": "visual_argument_transfer_oblique",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "transfer-oblique-node-5001"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-oblique-node-q17",
+          "target_query": "node q17"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-transfer-oblique-node-q17",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "transfer-oblique-node-5001"
+          ],
+          "region_id": "transfer-oblique-node-5001",
+          "text_preview": "Owner escalation unresolved"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-oblique-node-q17",
+          "target_query": "node q17"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-oblique-node-q17",
+          "target_query": "node q17"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-transfer-oblique-node-q17\", \"target_query\": \"node q17\"}}",
+    "prompt_tokens": 1325,
+    "completion_tokens": 42,
+    "latency_ms": 8875
+  }
+]

@@ -122,7 +122,9 @@ Next implementation moves:
   - system: `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_oblique_code_guard`
   - profile: `visual_role_catalog_oblique_code_guard_v7`
   - purpose: keep the v6 code-suffix/negated-decoy repair while adding an activation guard against stale `selection_id` routing
-- next replay-shaped target: run the oblique-code-guard profile on the oblique packet first; promote only if it preserves the `cell r42` and `alert p55` repairs and fixes the `field e19` stale-selection regression
+  - oblique result: `6 / 6` exact and executor-equivalent on the oblique packet
+  - comparison: improves over argument hints by `+0.333` and over v6 code hints by `+0.167` on exact and executor-equivalence
+- next replay-shaped target: run the oblique-code-guard profile on the earlier oracle and repeat packets; promote only if it avoids the v6 transfer losses
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1

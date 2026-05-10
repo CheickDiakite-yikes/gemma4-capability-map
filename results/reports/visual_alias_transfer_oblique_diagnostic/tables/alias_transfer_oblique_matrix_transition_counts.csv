@@ -3,6 +3,7 @@ argument_hints_v2,strict_gain,4
 argument_hints_v2,unchanged,2
 contracted,strict_gain,1
 contracted,unchanged,5
+oblique_code_guard_v7,strict_gain,6
 oblique_code_hints_v6,strict_gain,5
 oblique_code_hints_v6,unchanged,1
 role_catalog_v1,strict_gain,2

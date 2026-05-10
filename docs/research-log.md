@@ -3532,6 +3532,28 @@
 - Verification:
   - `uv run pytest tests/test_prompt_contracts.py tests/test_knowledge_work_h1.py -q`
 
+## 2026-05-09 - H1n Oblique Code-Guard Live Result
+
+- Executed the activation-gated code-guard profile on the oblique oracle packet:
+  - live packet: [`results/tool_probe_replay_live/20260510T_h1n_oracle_oblique_code_guard_execute_v1`](../results/tool_probe_replay_live/20260510T_h1n_oracle_oblique_code_guard_execute_v1)
+  - comparison versus argument hints: [`results/tool_probe_replay_live_comparisons/20260510T_h1n_oracle_oblique_code_guard_vs_argument_hints_v1`](../results/tool_probe_replay_live_comparisons/20260510T_h1n_oracle_oblique_code_guard_vs_argument_hints_v1)
+  - comparison versus code hints v6: [`results/tool_probe_replay_live_comparisons/20260510T_h1n_oracle_oblique_code_guard_vs_code_hints_v1`](../results/tool_probe_replay_live_comparisons/20260510T_h1n_oracle_oblique_code_guard_vs_code_hints_v1)
+  - comparison versus no-directive: [`results/tool_probe_replay_live_comparisons/20260510T_h1n_oracle_oblique_code_guard_vs_no_directive_v1`](../results/tool_probe_replay_live_comparisons/20260510T_h1n_oracle_oblique_code_guard_vs_no_directive_v1)
+  - updated matrix diagnostic: [`results/reports/visual_alias_transfer_oblique_diagnostic/diagnostic.md`](../results/reports/visual_alias_transfer_oblique_diagnostic/diagnostic.md)
+- Result:
+  - code guard v7 reaches `6 / 6` exact and executor-equivalent
+  - delta versus argument hints: `+0.333`
+  - delta versus v6 code hints: `+0.167`
+  - the prior `field e19` stale-selection regression is repaired while preserving the `cell r42` and `alert p55` repairs
+- Interpretation:
+  - the activation guard is positive evidence on the current hardest oblique packet
+  - do not generalize yet: v6 failed transfer on the earlier oracle/repeat packets, so v7 must now run the same transfer check
+- Verification:
+  - `uv run moonie-agent replay-live --packet-id 20260509T_visual_hard_slice_live_stress_alias_transfer_oblique_oracle_dry_run_v1 --output-dir results/tool_probe_replay_live/20260510T_h1n_oracle_oblique_code_guard_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_oblique_code_guard --execute --json`
+  - `uv run python scripts/compare_tool_probe_replay_live_packets.py results/tool_probe_replay_live/20260509T_h1n_oracle_oblique_code_hints_execute_v1 results/tool_probe_replay_live/20260510T_h1n_oracle_oblique_code_guard_execute_v1 --output-dir results/tool_probe_replay_live_comparisons/20260510T_h1n_oracle_oblique_code_guard_vs_code_hints_v1`
+  - `uv run python scripts/analyze_visual_live_stress_matrix.py --matrix alias-transfer-oblique`
+  - `uv run pytest tests/test_visual_live_stress_diagnostic.py -q`
+
 ## 2026-05-09 - Schema Target Literal v5 Negative Hard-Slice Repair
 
 - A narrow hard-slice repair candidate was added after inspecting the two v4 exact misses:

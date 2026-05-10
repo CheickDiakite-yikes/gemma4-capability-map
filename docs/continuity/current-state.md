@@ -264,7 +264,10 @@ Latest MLX tool-contract research:
   - code-hints result: `5 / 6` exact and executor-equivalent, improving over argument hints by `+0.167` on both metrics
   - code-hints transfer synthesis: [`results/reports/h1n_code_hints_transfer_synthesis/report.md`](../../results/reports/h1n_code_hints_transfer_synthesis/report.md)
   - code-hints transfer result: across the first oracle, repeat, and oblique packets, argument hints has `14 / 18` exact and `16 / 18` executor-equivalent successes; code hints has `11 / 18` exact and `12 / 18` executor-equivalent successes
-  - interpretation: fresh transfer cases favor narrow catalog-profile mechanisms once the expected-call contract is oracle-backed; the code-like oblique packet breaks the repeat tie in favor of argument hints over schema target literals, and the targeted code-hints repair fixes `cell r42` and `alert p55` while introducing one new `field e19` wrong-tool regression. It should remain a scoped oblique repair candidate, not a broad replacement for argument hints.
+  - code-guard profile: `visual_role_catalog_oblique_code_guard_v7`
+  - code-guard live packet: [`results/tool_probe_replay_live/20260510T_h1n_oracle_oblique_code_guard_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1n_oracle_oblique_code_guard_execute_v1)
+  - code-guard result: `6 / 6` exact and executor-equivalent on the oblique packet, improving over argument hints by `+0.333` and over v6 code hints by `+0.167`
+  - interpretation: fresh transfer cases favor narrow catalog-profile mechanisms once the expected-call contract is oracle-backed; the code-like oblique packet breaks the repeat tie in favor of argument hints over schema target literals, and the activation-gated code guard now fixes the v6 `field e19` regression. Transfer remains unproven because v6 already failed outside the oblique packet.
 - Prompt-contract wave 2:
   - contracts: `schema_literal_tool_required_v2`, `visual_next_call_state_v2`, `parallel_array_required_v2`
   - runner flag: `scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v2`

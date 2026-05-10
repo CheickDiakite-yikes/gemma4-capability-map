@@ -1,8 +1,8 @@
 {
   "manifest": {
-    "generated_at": "2026-05-10T01:16:15.484731+00:00",
+    "generated_at": "2026-05-10T01:34:38.058519+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/visual_alias_transfer_oblique_diagnostic",
-    "comparison_count": 6,
+    "comparison_count": 7,
     "case_count": 6,
     "finding_count": 4,
     "matrix_name": "alias-transfer-oblique",
@@ -74,6 +74,17 @@
       "baseline_executor_equivalence_rate": 0.0,
       "candidate_executor_equivalence_rate": 0.8333333333333334,
       "delta_executor_equivalence_rate": 0.8333333333333334
+    },
+    {
+      "label": "oblique_code_guard_v7",
+      "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_oblique_code_guard",
+      "shared_case_count": 6,
+      "baseline_exact_rate": 0.0,
+      "candidate_exact_rate": 1.0,
+      "delta_exact_rate": 1.0,
+      "baseline_executor_equivalence_rate": 0.0,
+      "candidate_executor_equivalence_rate": 1.0,
+      "delta_executor_equivalence_rate": 1.0
     }
   ],
   "case_rows": [
@@ -436,6 +447,66 @@
       "delta_exact_match": 1,
       "delta_executor_equivalence_match": 1,
       "transition": "strict_gain"
+    },
+    {
+      "label": "oblique_code_guard_v7",
+      "case_id": "transfer_oblique_alert_p55_toggle_decoy",
+      "family": "visual_tool_routing_transfer_oblique",
+      "baseline_failure_mode": "argument_mismatch",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 1,
+      "delta_executor_equivalence_match": 1,
+      "transition": "strict_gain"
+    },
+    {
+      "label": "oblique_code_guard_v7",
+      "case_id": "transfer_oblique_badge_m88_chart_decoy",
+      "family": "visual_argument_transfer_oblique",
+      "baseline_failure_mode": "no_tool_call",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 1,
+      "delta_executor_equivalence_match": 1,
+      "transition": "strict_gain"
+    },
+    {
+      "label": "oblique_code_guard_v7",
+      "case_id": "transfer_oblique_cell_r42_notice_decoy",
+      "family": "visual_argument_transfer_oblique",
+      "baseline_failure_mode": "argument_mismatch",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 1,
+      "delta_executor_equivalence_match": 1,
+      "transition": "strict_gain"
+    },
+    {
+      "label": "oblique_code_guard_v7",
+      "case_id": "transfer_oblique_chip_z33_person_decoy",
+      "family": "visual_argument_transfer_oblique",
+      "baseline_failure_mode": "no_tool_call",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 1,
+      "delta_executor_equivalence_match": 1,
+      "transition": "strict_gain"
+    },
+    {
+      "label": "oblique_code_guard_v7",
+      "case_id": "transfer_oblique_field_e19_old_selection_decoy",
+      "family": "visual_tool_routing_transfer_oblique",
+      "baseline_failure_mode": "no_tool_call",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 1,
+      "delta_executor_equivalence_match": 1,
+      "transition": "strict_gain"
+    },
+    {
+      "label": "oblique_code_guard_v7",
+      "case_id": "transfer_oblique_node_q17_table_decoy",
+      "family": "visual_argument_transfer_oblique",
+      "baseline_failure_mode": "argument_mismatch",
+      "candidate_failure_mode": "exact",
+      "delta_exact_match": 1,
+      "delta_executor_equivalence_match": 1,
+      "transition": "strict_gain"
     }
   ],
   "transition_rows": [
@@ -458,6 +529,11 @@
       "label": "contracted",
       "transition": "unchanged",
       "count": 5
+    },
+    {
+      "label": "oblique_code_guard_v7",
+      "transition": "strict_gain",
+      "count": 6
     },
     {
       "label": "oblique_code_hints_v6",
@@ -498,11 +574,11 @@
   "finding_rows": [
     {
       "finding_id": "strict_upper_bound",
-      "finding": "oblique_code_hints_v6 is the strict upper bound at 0.8333333333333334."
+      "finding": "oblique_code_guard_v7 is the strict upper bound at 1.0."
     },
     {
       "finding_id": "executor_equivalence_set",
-      "finding": "Executor-equivalent full-success rows: ."
+      "finding": "Executor-equivalent full-success rows: oblique_code_guard_v7."
     },
     {
       "finding_id": "executor_without_strict",

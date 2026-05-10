@@ -1039,6 +1039,49 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C26_h1n_oblique_code_guard_fixes_v6_regression",
+        claim=(
+            "An activation-gated oblique-code profile repairs the v6 stale-selection regression and saturates the "
+            "held-out H1n oblique oracle packet."
+        ),
+        status="supported_current_packets",
+        evidence_strength="moderate_internal",
+        primary_metric=(
+            "Oblique code guard v7 reaches 6/6 exact and 6/6 executor-equivalent on the oblique packet, improving "
+            "over argument hints by +0.333 and over v6 code hints by +0.167 on both metrics."
+        ),
+        limitation=(
+            "This is a scoped oblique-packet result. The earlier v6 transfer loss shows that this profile must be "
+            "transfer-tested before promotion beyond code-like oblique labels."
+        ),
+        next_test=(
+            "Run the code-guard profile on the earlier oracle and repeat packets, then build a fresh post-repair "
+            "held-out packet if transfer is not negative."
+        ),
+        sources=(
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h1n_oracle_oblique_code_guard_execute_v1",
+                "Code-guard execution reaching 6/6 exact and executor-equivalent target success on the oblique packet.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260510T_h1n_oracle_oblique_code_guard_vs_argument_hints_v1",
+                "Direct comparison showing +0.333 exact and executor-equivalence deltas over argument hints.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260510T_h1n_oracle_oblique_code_guard_vs_code_hints_v1",
+                "Direct comparison showing the code guard repairs the v6 field-e19 regression.",
+            ),
+            EvidenceSource(
+                "diagnostic_report",
+                "results/reports/visual_alias_transfer_oblique_diagnostic/diagnostic.md",
+                "Updated oblique matrix diagnostic including code guard as the strict and executor-equivalence upper bound.",
+            ),
+        ),
+    ),
 )
 
 

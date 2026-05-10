@@ -553,6 +553,36 @@ def audit_publication_readiness(
             detail="Three-packet H1n oblique-code transfer synthesis exists.",
         ),
         _check_path(
+            check_id="h1n_oblique_code_guard_packet_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260510T_h1n_oracle_oblique_code_guard_execute_v1"
+            / "summary.json",
+            detail="H1n oblique-code-guard replay packet exists.",
+        ),
+        _check_path(
+            check_id="h1n_oblique_code_guard_vs_argument_hints_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260510T_h1n_oracle_oblique_code_guard_vs_argument_hints_v1"
+            / "live_replay_comparison.json",
+            detail="H1n oblique-code-guard comparison against argument hints exists.",
+        ),
+        _check_path(
+            check_id="h1n_oblique_code_guard_vs_code_hints_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260510T_h1n_oracle_oblique_code_guard_vs_code_hints_v1"
+            / "live_replay_comparison.json",
+            detail="H1n oblique-code-guard comparison against v6 code hints exists.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",

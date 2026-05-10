@@ -244,6 +244,13 @@ DEFAULT_ALIAS_TRANSFER_OBLIQUE_COMPARISONS: tuple[tuple[str, Path], ...] = (
         / "tool_probe_replay_live_comparisons"
         / "20260509T_h1n_oracle_oblique_code_hints_vs_no_directive_v1",
     ),
+    (
+        "oblique_code_guard_v7",
+        ROOT
+        / "results"
+        / "tool_probe_replay_live_comparisons"
+        / "20260510T_h1n_oracle_oblique_code_guard_vs_no_directive_v1",
+    ),
 )
 
 
