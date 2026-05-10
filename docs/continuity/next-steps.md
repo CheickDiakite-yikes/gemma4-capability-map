@@ -111,10 +111,11 @@ Next implementation moves:
   - profile: `visual_role_catalog_oblique_code_hints_v6`
   - live packet: [`results/tool_probe_replay_live/20260509T_h1n_oracle_oblique_code_hints_execute_v1`](../../results/tool_probe_replay_live/20260509T_h1n_oracle_oblique_code_hints_execute_v1)
   - comparison: [`results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_oblique_code_hints_vs_argument_hints_v1`](../../results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_oblique_code_hints_vs_argument_hints_v1)
+  - delta diagnostic: [`results/reports/h1n_oblique_code_hints_delta/diagnostic.md`](../../results/reports/h1n_oblique_code_hints_delta/diagnostic.md)
   - result: `5 / 6` exact and executor-equivalent, versus argument hints at `4 / 6`
   - repair: fixes `cell r42` suffix truncation and `alert p55` negated-decoy selection
-  - regression: loses the previous `field e19` argument-hints win as a wrong-tool case
-- next replay-shaped target: analyze the `field e19` wrong-tool regression, then run the oblique-code profile against the earlier oracle and repeat packets to check whether the repair generalizes outside the oblique slice
+  - regression: loses the previous `field e19` argument-hints win by switching to `refine_selection(selection_id="sel-e19-archive", filter_query="not")`
+- next replay-shaped target: run the oblique-code profile against the earlier oracle and repeat packets to check whether the repair generalizes outside the oblique slice
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1

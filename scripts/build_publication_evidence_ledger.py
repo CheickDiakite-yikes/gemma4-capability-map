@@ -980,6 +980,11 @@ CLAIMS: tuple[Claim, ...] = (
             ),
             EvidenceSource(
                 "diagnostic_report",
+                "results/reports/h1n_oblique_code_hints_delta/diagnostic.md",
+                "Case-level gain/loss diagnostic showing two repairs, one stale-selection regression, and three preserved wins.",
+            ),
+            EvidenceSource(
+                "diagnostic_report",
                 "results/reports/visual_alias_transfer_oblique_diagnostic/diagnostic.md",
                 "Updated oblique diagnostic including the oblique-code profile as the current best row.",
             ),

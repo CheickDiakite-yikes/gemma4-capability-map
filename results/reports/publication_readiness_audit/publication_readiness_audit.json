@@ -1,9 +1,9 @@
 {
   "summary": {
-    "generated_at": "2026-05-10T01:21:06.869699+00:00",
+    "generated_at": "2026-05-10T01:25:11.202395+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 77,
-    "blocking_check_count": 75,
+    "check_count": 79,
+    "blocking_check_count": 77,
     "blocking_failed_count": 0,
     "recommended_check_count": 2,
     "recommended_failed_count": 0,
@@ -411,6 +411,13 @@
       "path": "results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_oblique_code_hints_vs_argument_hints_v1/live_replay_comparison.json"
     },
     {
+      "check_id": "h1n_oblique_code_hints_delta_diagnostic_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H1n oblique-code-hints gain/regression diagnostic exists.",
+      "path": "results/reports/h1n_oblique_code_hints_delta/diagnostic.md"
+    },
+    {
       "check_id": "current_state_doc_exists",
       "severity": "blocking",
       "passed": true,
@@ -521,6 +528,13 @@
       "passed": true,
       "detail": "Reproduction script `analyze_h1n_oblique_misses.py` exists.",
       "path": "scripts/analyze_h1n_oblique_misses.py"
+    },
+    {
+      "check_id": "script_analyze_h1n_oblique_code_hints_delta.py_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Reproduction script `analyze_h1n_oblique_code_hints_delta.py` exists.",
+      "path": "scripts/analyze_h1n_oblique_code_hints_delta.py"
     },
     {
       "check_id": "script_build_h1n_oracle_transfer_synthesis.py_exists",

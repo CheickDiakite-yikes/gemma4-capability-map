@@ -3470,6 +3470,27 @@
   - `uv run python scripts/analyze_visual_live_stress_matrix.py --matrix alias-transfer-oblique`
   - `uv run pytest tests/test_visual_live_stress_diagnostic.py -q`
 
+## 2026-05-09 - H1n Oblique Code-Hints Delta Diagnostic
+
+- Added a gain/loss diagnostic for the oblique-code repair:
+  - script: [`scripts/analyze_h1n_oblique_code_hints_delta.py`](../scripts/analyze_h1n_oblique_code_hints_delta.py)
+  - report: [`results/reports/h1n_oblique_code_hints_delta/diagnostic.md`](../results/reports/h1n_oblique_code_hints_delta/diagnostic.md)
+  - case table: [`results/reports/h1n_oblique_code_hints_delta/tables/h1n_oblique_code_hints_case_deltas.csv`](../results/reports/h1n_oblique_code_hints_delta/tables/h1n_oblique_code_hints_case_deltas.csv)
+- Result:
+  - repairs: `2`
+  - regression: `1`
+  - preserved argument-hints wins: `3`
+  - net executor-equivalence gain: `+1` case
+- Regression detail:
+  - `transfer_oblique_field_e19_old_selection_decoy` regressed from the argument-hints exact `extract_layout(target_query="field e19")` call to `refine_selection(selection_id="sel-e19-archive", filter_query="not")`
+  - the local executor fails this as a stale-selection attraction because `sel-e19-archive` is not present in the current visual state
+- Interpretation:
+  - the code-hints profile is a real oblique repair, but the negation/stale-selection interaction is now the next mechanism to test
+  - the next best transfer check is running the same profile on the earlier oracle and repeat packets before designing another wording patch
+- Verification:
+  - `uv run python scripts/analyze_h1n_oblique_code_hints_delta.py`
+  - `uv run pytest tests/test_h1n_oblique_code_hints_delta.py -q`
+
 ## 2026-05-09 - Schema Target Literal v5 Negative Hard-Slice Repair
 
 - A narrow hard-slice repair candidate was added after inspecting the two v4 exact misses:

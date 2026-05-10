@@ -1,0 +1,13 @@
+{
+  "generated_at": "2026-05-10T01:23:26.943461+00:00",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h1n_oblique_code_hints_delta",
+  "baseline_packet": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260509T_h1n_oracle_oblique_argument_hints_execute_v1",
+  "candidate_packet": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260509T_h1n_oracle_oblique_code_hints_execute_v1",
+  "comparison_packet": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_oblique_code_hints_vs_argument_hints_v1",
+  "case_count": 6,
+  "gain_count": 2,
+  "loss_count": 1,
+  "preserved_success_count": 3,
+  "net_executor_equivalence_gain": 1,
+  "finding_count": 5
+}

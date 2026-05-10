@@ -1,0 +1,147 @@
+{
+  "manifest": {
+    "generated_at": "2026-05-10T01:23:26.943461+00:00",
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h1n_oblique_code_hints_delta",
+    "baseline_packet": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260509T_h1n_oracle_oblique_argument_hints_execute_v1",
+    "candidate_packet": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260509T_h1n_oracle_oblique_code_hints_execute_v1",
+    "comparison_packet": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_oblique_code_hints_vs_argument_hints_v1",
+    "case_count": 6,
+    "gain_count": 2,
+    "loss_count": 1,
+    "preserved_success_count": 3,
+    "net_executor_equivalence_gain": 1,
+    "finding_count": 5
+  },
+  "case_rows": [
+    {
+      "case_id": "transfer_oblique_alert_p55_toggle_decoy",
+      "family": "visual_tool_routing_transfer_oblique",
+      "transition": "repair_gain",
+      "classification": "code_suffix_or_negated_decoy_repaired",
+      "expected_tool": "extract_layout",
+      "baseline_tool": "extract_layout",
+      "candidate_tool": "extract_layout",
+      "expected_target_query": "alert p55",
+      "baseline_target_query": "consent toggle",
+      "candidate_target_query": "alert p55",
+      "candidate_selection_id": "",
+      "candidate_filter_query": "",
+      "baseline_executor_equivalence": false,
+      "candidate_executor_equivalence": true,
+      "delta_executor_equivalence": 1,
+      "candidate_failure_mode": "exact"
+    },
+    {
+      "case_id": "transfer_oblique_badge_m88_chart_decoy",
+      "family": "visual_argument_transfer_oblique",
+      "transition": "preserved_success",
+      "classification": "preserved_argument_hints_win",
+      "expected_tool": "extract_layout",
+      "baseline_tool": "extract_layout",
+      "candidate_tool": "extract_layout",
+      "expected_target_query": "badge m88",
+      "baseline_target_query": "badge m88",
+      "candidate_target_query": "badge m88",
+      "candidate_selection_id": "",
+      "candidate_filter_query": "",
+      "baseline_executor_equivalence": true,
+      "candidate_executor_equivalence": true,
+      "delta_executor_equivalence": 0,
+      "candidate_failure_mode": "exact"
+    },
+    {
+      "case_id": "transfer_oblique_cell_r42_notice_decoy",
+      "family": "visual_argument_transfer_oblique",
+      "transition": "repair_gain",
+      "classification": "code_suffix_or_negated_decoy_repaired",
+      "expected_tool": "extract_layout",
+      "baseline_tool": "extract_layout",
+      "candidate_tool": "extract_layout",
+      "expected_target_query": "cell r42",
+      "baseline_target_query": "cell",
+      "candidate_target_query": "cell r42",
+      "candidate_selection_id": "",
+      "candidate_filter_query": "",
+      "baseline_executor_equivalence": false,
+      "candidate_executor_equivalence": true,
+      "delta_executor_equivalence": 1,
+      "candidate_failure_mode": "exact"
+    },
+    {
+      "case_id": "transfer_oblique_chip_z33_person_decoy",
+      "family": "visual_argument_transfer_oblique",
+      "transition": "preserved_success",
+      "classification": "preserved_argument_hints_win",
+      "expected_tool": "extract_layout",
+      "baseline_tool": "extract_layout",
+      "candidate_tool": "extract_layout",
+      "expected_target_query": "chip z33",
+      "baseline_target_query": "chip z33",
+      "candidate_target_query": "chip z33",
+      "candidate_selection_id": "",
+      "candidate_filter_query": "",
+      "baseline_executor_equivalence": true,
+      "candidate_executor_equivalence": true,
+      "delta_executor_equivalence": 0,
+      "candidate_failure_mode": "exact"
+    },
+    {
+      "case_id": "transfer_oblique_field_e19_old_selection_decoy",
+      "family": "visual_tool_routing_transfer_oblique",
+      "transition": "regression",
+      "classification": "stale_selection_tool_attraction",
+      "expected_tool": "extract_layout",
+      "baseline_tool": "extract_layout",
+      "candidate_tool": "refine_selection",
+      "expected_target_query": "field e19",
+      "baseline_target_query": "field e19",
+      "candidate_target_query": "",
+      "candidate_selection_id": "sel-e19-archive",
+      "candidate_filter_query": "not",
+      "baseline_executor_equivalence": true,
+      "candidate_executor_equivalence": false,
+      "delta_executor_equivalence": -1,
+      "candidate_failure_mode": "wrong_tool"
+    },
+    {
+      "case_id": "transfer_oblique_node_q17_table_decoy",
+      "family": "visual_argument_transfer_oblique",
+      "transition": "preserved_success",
+      "classification": "preserved_argument_hints_win",
+      "expected_tool": "extract_layout",
+      "baseline_tool": "extract_layout",
+      "candidate_tool": "extract_layout",
+      "expected_target_query": "node q17",
+      "baseline_target_query": "node q17",
+      "candidate_target_query": "node q17",
+      "candidate_selection_id": "",
+      "candidate_filter_query": "",
+      "baseline_executor_equivalence": true,
+      "candidate_executor_equivalence": true,
+      "delta_executor_equivalence": 0,
+      "candidate_failure_mode": "exact"
+    }
+  ],
+  "finding_rows": [
+    {
+      "finding_id": "net_gain_with_regression",
+      "finding": "Oblique code hints repairs 2 cases and regresses 1 case for a net executor-equivalence gain of 1 case."
+    },
+    {
+      "finding_id": "repair_cases",
+      "finding": "Repair gains: transfer_oblique_alert_p55_toggle_decoy, transfer_oblique_cell_r42_notice_decoy."
+    },
+    {
+      "finding_id": "regression_case",
+      "finding": "transfer_oblique_field_e19_old_selection_decoy regresses from the argument-hints exact call to refine_selection selection_id=sel-e19-archive filter_query=not."
+    },
+    {
+      "finding_id": "preserved_argument_hints_wins",
+      "finding": "Preserved argument-hints successes: transfer_oblique_badge_m88_chart_decoy, transfer_oblique_chip_z33_person_decoy, transfer_oblique_node_q17_table_decoy."
+    },
+    {
+      "finding_id": "next_test",
+      "finding": "Before broad promotion, run the code-hints profile on earlier oracle/repeat packets and either constrain stale-selection routing or build a fresh post-repair holdout."
+    }
+  ]
+}

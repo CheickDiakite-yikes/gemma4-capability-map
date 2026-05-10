@@ -4,9 +4,9 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 
 ## Manifest
 
-- generated_at: `2026-05-10T01:21:04.496095+00:00`
+- generated_at: `2026-05-10T01:25:11.205807+00:00`
 - claim_count: `24`
-- evidence_source_count: `108`
+- evidence_source_count: `109`
 - missing_source_count: `0`
 
 ## Claims
@@ -149,4 +149,5 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C23_h1n_oblique_argument_hints_misses_are_code_and_negation_errors | live_replay_packet | True | results/tool_probe_replay_live/20260509T_h1n_oracle_oblique_schema_field_hints_execute_v1 | Underlying schema-field replay packet used as the second-place comparison row. |
 | C24_h1n_oblique_code_hints_repair_two_misses_with_one_regression | live_replay_packet | True | results/tool_probe_replay_live/20260509T_h1n_oracle_oblique_code_hints_execute_v1 | Oblique-code profile execution reaching 5/6 exact and executor-equivalent target success. |
 | C24_h1n_oblique_code_hints_repair_two_misses_with_one_regression | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_oblique_code_hints_vs_argument_hints_v1 | Direct comparison showing +0.167 exact and executor-equivalence deltas over argument hints. |
+| C24_h1n_oblique_code_hints_repair_two_misses_with_one_regression | diagnostic_report | True | results/reports/h1n_oblique_code_hints_delta/diagnostic.md | Case-level gain/loss diagnostic showing two repairs, one stale-selection regression, and three preserved wins. |
 | C24_h1n_oblique_code_hints_repair_two_misses_with_one_regression | diagnostic_report | True | results/reports/visual_alias_transfer_oblique_diagnostic/diagnostic.md | Updated oblique diagnostic including the oblique-code profile as the current best row. |

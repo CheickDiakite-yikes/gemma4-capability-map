@@ -260,6 +260,7 @@ Latest MLX tool-contract research:
   - code-hints profile: `visual_role_catalog_oblique_code_hints_v6`
   - code-hints live packet: [`results/tool_probe_replay_live/20260509T_h1n_oracle_oblique_code_hints_execute_v1`](../../results/tool_probe_replay_live/20260509T_h1n_oracle_oblique_code_hints_execute_v1)
   - code-hints comparison: [`results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_oblique_code_hints_vs_argument_hints_v1`](../../results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_oblique_code_hints_vs_argument_hints_v1)
+  - code-hints delta diagnostic: [`results/reports/h1n_oblique_code_hints_delta/diagnostic.md`](../../results/reports/h1n_oblique_code_hints_delta/diagnostic.md)
   - code-hints result: `5 / 6` exact and executor-equivalent, improving over argument hints by `+0.167` on both metrics
   - interpretation: fresh transfer cases favor narrow catalog-profile mechanisms once the expected-call contract is oracle-backed; the code-like oblique packet breaks the repeat tie in favor of argument hints over schema target literals, and the targeted code-hints repair fixes `cell r42` and `alert p55` while introducing one new `field e19` wrong-tool regression
 - Prompt-contract wave 2:

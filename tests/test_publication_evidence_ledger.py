@@ -151,6 +151,12 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert "loses `field e19` as a wrong-tool case" in claims[
         "C24_h1n_oblique_code_hints_repair_two_misses_with_one_regression"
     ]["primary_metric"]
+    assert any(
+        row["claim_id"] == "C24_h1n_oblique_code_hints_repair_two_misses_with_one_regression"
+        and row["path"] == "results/reports/h1n_oblique_code_hints_delta/diagnostic.md"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
 
     source_types = {row["artifact_type"] for row in payload["evidence_sources"]}
     assert "h1_ablation_packet" in source_types
