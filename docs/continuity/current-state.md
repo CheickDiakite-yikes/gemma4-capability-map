@@ -492,6 +492,7 @@ Current generated research report:
 - visual hard-slice H1o control-factorial gate figure: [`results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_h1o_live_replay_gate.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_h1o_live_replay_gate.svg)
 - visual hard-slice H1p component-value summary: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_h1p_live_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_h1p_live_replay_summary.csv)
 - visual hard-slice H1p component-value gate figure: [`results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_h1p_live_replay_gate.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_h1p_live_replay_gate.svg)
+- H1q component-label guard transfer synthesis: [`results/reports/h1q_component_label_guard_transfer_synthesis/report.md`](../../results/reports/h1q_component_label_guard_transfer_synthesis/report.md)
 - publication evidence ledger: [`results/reports/publication_evidence_ledger/ledger.md`](../../results/reports/publication_evidence_ledger/ledger.md)
 - publication readiness audit: [`results/reports/publication_readiness_audit/publication_readiness_audit.md`](../../results/reports/publication_readiness_audit/publication_readiness_audit.md)
 - visual hard-slice design: [`results/reports/visual_hard_slice_design/design.md`](../../results/reports/visual_hard_slice_design/design.md)
@@ -1161,9 +1162,36 @@ The repo still does not support these statements:
 - Gemma beats frontier closed models on the same harness
 - Gemma `31B` runtime posture is already reproduced locally
 
-## Latest H1p Component-Value Holdout Finding
+## Latest H1q Component-Label Guard Transfer Finding
 
-H1p is the current sharpest replay-shaped visual discriminator. It was built directly from the H1o conclusion that component label versus displayed value was the remaining residue, but it removes the activation/no-call wording that could confound the mechanism.
+H1q is the current sharpest controller-profile transfer result. It was built to resolve the H1p/H1o/H1n tension: broad v9 component-value guidance wins locally on H1p, ties on H1o, and regresses on the older H1n component-value slice. The new `visual_role_catalog_component_label_guard_v11` narrows the wording to copying requested role-plus-component labels instead of selecting displayed values.
+
+Evidence:
+
+- profile: `visual_role_catalog_component_label_guard_v11`
+- registry system: `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_label_guard`
+- H1n replay: [`results/tool_probe_replay_live/20260510T_h1q_component_label_guard_on_h1n_component_value_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1q_component_label_guard_on_h1n_component_value_execute_v1)
+- H1o replay: [`results/tool_probe_replay_live/20260510T_h1q_component_label_guard_on_h1o_control_factorial_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1q_component_label_guard_on_h1o_control_factorial_execute_v1)
+- H1p replay: [`results/tool_probe_replay_live/20260510T_h1q_component_label_guard_on_h1p_component_value_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1q_component_label_guard_on_h1p_component_value_execute_v1)
+- synthesis: [`results/reports/h1q_component_label_guard_transfer_synthesis/report.md`](../../results/reports/h1q_component_label_guard_transfer_synthesis/report.md)
+
+Transfer rates:
+
+- H1n component-value: v11 `6 / 8` exact and `7 / 8` executor-equivalent, versus v9 at `4 / 8` and `4 / 8`
+- H1o control-factorial: v11 `10 / 12` exact and `12 / 12` executor-equivalent, a new H1o executor-equivalence ceiling
+- H1p component-value: v11 `10 / 12` exact and `10 / 12` executor-equivalent, tying v9 strict exactness but trailing v9 executor-equivalence (`11 / 12`)
+- aggregate across H1n/H1o/H1p: v11 `26 / 32` exact and `29 / 32` executor-equivalent, above v9 at `23 / 32` and `25 / 32`
+
+Interpretation:
+
+- v11 is the strongest transfer candidate so far, not a global default
+- it repairs the H1n broad-v9 regression pattern while preserving the H1p strict win
+- it still introduces or preserves misses on `component_value_owner_field_stale_selection_decoy`, `h1p_compact_state_tag_log_value_decoy`, and `h1p_surface_mode_toggle_note_value_decoy`
+- the next slice should isolate owner-field stale-selection routing and nonstandard component classes (`tag`, `toggle`) without adding broad prose that harms H1p/H1o
+
+## Previous H1p Component-Value Holdout Finding
+
+H1p was the component-only holdout that exposed v9's local activation domain. It was built directly from the H1o conclusion that component label versus displayed value was the remaining residue, but it removes the activation/no-call wording that could confound the mechanism.
 
 Evidence:
 

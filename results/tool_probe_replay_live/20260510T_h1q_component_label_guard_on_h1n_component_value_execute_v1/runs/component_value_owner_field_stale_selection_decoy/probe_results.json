@@ -1,0 +1,51 @@
+[
+  {
+    "case_id": "component_value_owner_field_stale_selection_decoy",
+    "family": "visual_tool_routing_component_value",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "component-owner-field-8702"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "refine_selection",
+        "arguments": {
+          "selection_id": "sel-owner-previous",
+          "filter_query": "owner"
+        },
+        "validator_result": "fail",
+        "output": {},
+        "error": "'Selection not found: sel-owner-previous'"
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-component-owner-field",
+          "target_query": "owner field"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "refine_selection",
+        "arguments": {
+          "selection_id": "sel-owner-previous",
+          "filter_query": "owner"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"refine_selection\", \"arguments\": {\"selection_id\": \"sel-owner-previous\", \"filter_query\": \"owner\"}}",
+    "prompt_tokens": 1512,
+    "completion_tokens": 33,
+    "latency_ms": 6887
+  }
+]

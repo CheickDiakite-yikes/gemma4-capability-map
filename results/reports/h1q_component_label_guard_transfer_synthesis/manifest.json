@@ -1,0 +1,10 @@
+{
+  "generated_at": "2026-05-10T17:24:54.482531+00:00",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h1q_component_label_guard_transfer_synthesis",
+  "packet_row_count": 18,
+  "profile_count": 6,
+  "total_case_count": 32,
+  "v11_exact_success_count": 26,
+  "v11_executor_success_count": 29,
+  "finding_count": 7
+}

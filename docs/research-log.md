@@ -1,5 +1,33 @@
 # Research Log
 
+## 2026-05-10 - H1q Narrow Component-Label Guard Becomes the Best Transfer Candidate
+
+- Added `visual_role_catalog_component_label_guard_v11`, a narrower profile than v9:
+  - copies requested role-plus-component labels such as `state pill`, `status badge`, `priority chip`, `owner field`, `lane tile`, `queue badge`, or `stage chip`
+  - strips wrapper words like `component` and `itself`
+  - avoids replacing the requested component label with the displayed value inside it
+- Executed v11 across the three active transfer surfaces:
+  - H1n component-value replay: [`20260510T_h1q_component_label_guard_on_h1n_component_value_execute_v1`](../results/tool_probe_replay_live/20260510T_h1q_component_label_guard_on_h1n_component_value_execute_v1)
+  - H1o control-factorial replay: [`20260510T_h1q_component_label_guard_on_h1o_control_factorial_execute_v1`](../results/tool_probe_replay_live/20260510T_h1q_component_label_guard_on_h1o_control_factorial_execute_v1)
+  - H1p component-value replay: [`20260510T_h1q_component_label_guard_on_h1p_component_value_execute_v1`](../results/tool_probe_replay_live/20260510T_h1q_component_label_guard_on_h1p_component_value_execute_v1)
+  - synthesis: [`h1q_component_label_guard_transfer_synthesis`](../results/reports/h1q_component_label_guard_transfer_synthesis/report.md)
+- Transfer results:
+  - H1n component-value: v11 `6 / 8` exact and `7 / 8` executor-equivalent, versus v9 at `4 / 8` and `4 / 8`
+  - H1o control-factorial: v11 `10 / 12` exact and `12 / 12` executor-equivalent, setting a new H1o executor-equivalence ceiling
+  - H1p component-value: v11 `10 / 12` exact and `10 / 12` executor-equivalent, tying v9 strict exactness but trailing v9 executor-equivalence by one case
+  - aggregate: v11 `26 / 32` exact and `29 / 32` executor-equivalent, versus v9 at `23 / 32` and `25 / 32`
+- Interpretation:
+  - v11 is the strongest transfer candidate so far.
+  - H1q validates the hypothesis that v9's H1p win was not purely an artifact, but broad v9 prose was too blunt.
+  - v11 should not become the global default yet; residual failures remain on `owner field` stale selection, `state tag`, `mode toggle`, and H1o code-label exact paraphrases.
+- Next research move:
+  - build H1r/v12 around the v11 residuals, especially nonstandard component classes (`tag`, `toggle`) and stale owner-field routing
+  - integrate H1q into the MLX report, publication evidence ledger, and readiness audit after the synthesis artifact is stable
+- Verification:
+  - `uv run pytest tests/test_prompt_contracts.py tests/test_knowledge_work_h1.py::test_h1q_component_label_guard_registry_row_preserves_catalog_profile -q`
+  - `uv run pytest tests/test_h1q_component_label_guard_transfer_synthesis.py -q`
+  - `uv run python scripts/build_h1q_component_label_guard_transfer_synthesis.py`
+
 ## 2026-05-10 - H1p Component-Only Holdout Identifies a Component-Value Activation Domain
 
 - Built and executed H1p as the fresh component-only holdout motivated by H1o's component/value residue:

@@ -151,13 +151,22 @@ Next implementation moves:
   - report table: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_h1p_live_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_h1p_live_replay_summary.csv)
   - result: no-directive collapses to `0 / 12`; argument hints v2 and v10 no-call rescue reach `6 / 12`; hybrid v8 reaches `9 / 12` exact and `10 / 12` executor-equivalent; component-value guard v9 reaches `10 / 12` exact and `11 / 12` executor-equivalent
   - interpretation: component-value-specific guidance has a real component-only domain, but v9 is not globally promoted because H1n showed broad component-value prose can regress passable selector cases
-  - next: build H1q as a transfer/narrowing slice over H1p/H1o/H1n to isolate component-only wording that preserves the H1p win without H1n regressions
+  - completed follow-up: H1q narrowed the profile and transfer-tested it over H1p/H1o/H1n
+- completed H1q component-label guard transfer slice:
+  - profile: `visual_role_catalog_component_label_guard_v11`
+  - synthesis: [`results/reports/h1q_component_label_guard_transfer_synthesis/report.md`](../../results/reports/h1q_component_label_guard_transfer_synthesis/report.md)
+  - H1n replay: [`results/tool_probe_replay_live/20260510T_h1q_component_label_guard_on_h1n_component_value_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1q_component_label_guard_on_h1n_component_value_execute_v1)
+  - H1o replay: [`results/tool_probe_replay_live/20260510T_h1q_component_label_guard_on_h1o_control_factorial_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1q_component_label_guard_on_h1o_control_factorial_execute_v1)
+  - H1p replay: [`results/tool_probe_replay_live/20260510T_h1q_component_label_guard_on_h1p_component_value_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1q_component_label_guard_on_h1p_component_value_execute_v1)
+  - result: v11 aggregates to `26 / 32` exact and `29 / 32` executor-equivalent across H1n/H1o/H1p, ahead of v9 at `23 / 32` and `25 / 32`
+  - interpretation: v11 is the strongest transfer candidate, but not yet a global default because it trails v9 by one executor-equivalent case on H1p and still misses owner-field/tag/toggle residuals
+  - next: isolate the remaining v11 misses with a targeted H1r/v12 residual packet
 - completed post-repair holdout:
   - packet: [`results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_post_repair_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_post_repair_oracle_dry_run_v1)
   - diagnostic: [`results/reports/visual_alias_transfer_post_repair_diagnostic/diagnostic.md`](../../results/reports/visual_alias_transfer_post_repair_diagnostic/diagnostic.md)
   - result: no-directive `2 / 8`, contracted/default `3 / 8`, argument hints `5 / 8`, v6 code hints `5 / 8`, v7 code guard `6 / 8` exact and executor-equivalent
   - interpretation: code guard now has a fresh positive transfer result, but the profile is not a universal replacement; argument hints still covers some ordinary non-code labels better
-- next replay-shaped target: build H1q as a component-domain transfer/narrowing packet; do not promote v9 as a replacement profile until a narrower variant holds H1p while surviving H1n/H1o counterevidence
+- next replay-shaped target: build H1r/v12 for v11 residuals (`owner field` stale-selection, `state tag`, `mode toggle`, and H1o code-label exact paraphrases); do not promote v11 globally until this residual packet is resolved
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1

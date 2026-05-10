@@ -1,0 +1,8 @@
+finding_id,finding
+aggregate_strict_upper_bound,Aggregate strict upper bound across H1n/H1o/H1p is component_label_guard_v11 at 26/32.
+aggregate_executor_upper_bound,Aggregate executor-equivalence upper bound is component_label_guard_v11 at 29/32.
+v11_repairs_v9_h1n_regressions,v11 repairs the broad v9 regression on H1n component-value: 6/8 exact and 7/8 executor-equivalent versus v9 at 4/8 exact and 4/8 executor-equivalent.
+v11_sets_h1o_executor_ceiling,v11 sets the current H1o transfer ceiling: 10/12 exact and 12/12 executor-equivalent.
+h1p_tradeoff_vs_v9,"On H1p, v11 ties v9 strict exactness but loses one executor-equivalent case: v11 is 10/12 exact and 10/12 executor-equivalent, while v9 is 10/12 exact and 11/12 executor-equivalent."
+remaining_v11_failures,"Remaining non-executor v11 failures are h1n_component_value:component_value_owner_field_stale_selection_decoy, h1p_component_value:h1p_compact_state_tag_log_value_decoy, h1p_component_value:h1p_surface_mode_toggle_note_value_decoy."
+promotion_decision,"Treat v11 as the current best transfer candidate (26/32 exact and 29/32 executor-equivalent versus v9 at 23/32 and 25/32), but do not make it the global default until the remaining owner-field, state-tag, and mode-toggle failures are isolated."
