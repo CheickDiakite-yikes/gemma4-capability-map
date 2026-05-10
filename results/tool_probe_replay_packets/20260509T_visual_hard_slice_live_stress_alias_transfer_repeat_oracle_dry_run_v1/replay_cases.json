@@ -1,0 +1,870 @@
+[
+  {
+    "case_id": "transfer_repeat_audit_card_email_decoy",
+    "family": "visual_argument_transfer_repeat",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-transfer-repeat-audit-card",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "The email preview repeats the audit language. Locate the audit card itself before reading any email or table decoy.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-transfer-repeat-audit-card"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-transfer-repeat-audit-card": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "transfer-repeat-a-4001",
+              "label": "audit card",
+              "text": "Audit review overdue",
+              "attributes": {
+                "area": "card"
+              }
+            },
+            {
+              "region_id": "transfer-repeat-a-4002",
+              "label": "email preview",
+              "text": "Audit review requested",
+              "attributes": {
+                "area": "email"
+              }
+            },
+            {
+              "region_id": "transfer-repeat-a-4003",
+              "label": "audit table",
+              "text": "Review owner list",
+              "attributes": {
+                "area": "table"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "transfer-repeat-a-4001"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-repeat-audit-card",
+          "target_query": "audit card"
+        }
+      }
+    ],
+    "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "source_exact_match": false,
+    "source_executable_match": false,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+    "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+  },
+  {
+    "case_id": "transfer_repeat_priority_tag_chart_decoy",
+    "family": "visual_argument_transfer_repeat",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-transfer-repeat-priority-tag",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "The chart title says urgent, but the target is the compact priority tag. Locate the tag and read that region.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-transfer-repeat-priority-tag"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-transfer-repeat-priority-tag": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "transfer-repeat-priority-4101",
+              "label": "priority tag",
+              "text": "High priority",
+              "attributes": {
+                "area": "tag"
+              }
+            },
+            {
+              "region_id": "transfer-repeat-priority-4102",
+              "label": "chart title",
+              "text": "Urgent cases by week",
+              "attributes": {
+                "area": "chart"
+              }
+            },
+            {
+              "region_id": "transfer-repeat-priority-4103",
+              "label": "case table",
+              "text": "Priority queue",
+              "attributes": {
+                "area": "table"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "transfer-repeat-priority-4101"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-repeat-priority-tag",
+          "target_query": "priority tag"
+        }
+      }
+    ],
+    "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "source_exact_match": false,
+    "source_executable_match": false,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+    "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+  },
+  {
+    "case_id": "transfer_repeat_warning_toast_note_decoy",
+    "family": "visual_argument_transfer_repeat",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-transfer-repeat-warning-toast",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "A note contains similar warning text. Locate the warning toast itself, then read the toast.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-transfer-repeat-warning-toast"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-transfer-repeat-warning-toast": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "transfer-repeat-toast-4201",
+              "label": "operator note",
+              "text": "Missing approval noted",
+              "attributes": {
+                "area": "note"
+              }
+            },
+            {
+              "region_id": "transfer-repeat-toast-4202",
+              "label": "warning toast",
+              "text": "Approval missing before submit",
+              "attributes": {
+                "tone": "warning"
+              }
+            },
+            {
+              "region_id": "transfer-repeat-toast-4203",
+              "label": "approval table",
+              "text": "Pending approvers",
+              "attributes": {
+                "area": "table"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "transfer-repeat-toast-4202"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-repeat-warning-toast",
+          "target_query": "warning toast"
+        }
+      }
+    ],
+    "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "source_exact_match": false,
+    "source_executable_match": false,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+    "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+  },
+  {
+    "case_id": "transfer_repeat_latency_chip_person_decoy",
+    "family": "visual_argument_transfer_repeat",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-transfer-repeat-latency-chip",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "Jordan is listed beside the metric, but the target is the latency chip. Locate the chip, not Jordan's owner note.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-transfer-repeat-latency-chip"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-transfer-repeat-latency-chip": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "transfer-repeat-latency-4301",
+              "label": "owner note",
+              "text": "Jordan owns latency follow-up",
+              "attributes": {
+                "person": "Jordan"
+              }
+            },
+            {
+              "region_id": "transfer-repeat-latency-4302",
+              "label": "latency chip",
+              "text": "SLA breach 18m",
+              "attributes": {
+                "area": "chip"
+              }
+            },
+            {
+              "region_id": "transfer-repeat-latency-4303",
+              "label": "latency table",
+              "text": "Incident timing",
+              "attributes": {
+                "area": "table"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "transfer-repeat-latency-4302"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-repeat-latency-chip",
+          "target_query": "latency chip"
+        }
+      }
+    ],
+    "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "source_exact_match": false,
+    "source_executable_match": false,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+    "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+  },
+  {
+    "case_id": "transfer_repeat_missing_field_old_selection_decoy",
+    "family": "visual_tool_routing_transfer_repeat",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-transfer-repeat-missing-field",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "Ignore old selection_id sel-stale-owner from the last screen. On the current form, locate the visible missing-field message.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-transfer-repeat-missing-field"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-transfer-repeat-missing-field": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "transfer-repeat-field-4401",
+              "label": "owner chip",
+              "text": "Owner saved",
+              "attributes": {
+                "state": "saved"
+              }
+            },
+            {
+              "region_id": "transfer-repeat-field-4402",
+              "label": "missing field message",
+              "text": "Routing code is required",
+              "attributes": {
+                "field": "routing_code"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "transfer-repeat-field-4402"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-repeat-missing-field",
+          "target_query": "missing field message"
+        }
+      }
+    ],
+    "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+    "source_failure_mode": "wrong_tool_or_stale_selection_risk",
+    "source_exact_match": false,
+    "source_executable_match": false,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+    "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+  },
+  {
+    "case_id": "transfer_repeat_consent_alert_toggle_decoy",
+    "family": "visual_tool_routing_transfer_repeat",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-transfer-repeat-consent-alert",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "The consent toggle is on, but the target is the consent alert text. Locate the alert before reading the toggle.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-transfer-repeat-consent-alert"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-transfer-repeat-consent-alert": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "transfer-repeat-consent-4501",
+              "label": "consent toggle",
+              "text": "Consent enabled",
+              "attributes": {
+                "checked": true
+              }
+            },
+            {
+              "region_id": "transfer-repeat-consent-4502",
+              "label": "consent alert",
+              "text": "Consent document expired",
+              "attributes": {
+                "tone": "alert"
+              }
+            },
+            {
+              "region_id": "transfer-repeat-consent-4503",
+              "label": "document table",
+              "text": "Consent document list",
+              "attributes": {
+                "area": "table"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "transfer-repeat-consent-4502"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-repeat-consent-alert",
+          "target_query": "consent alert"
+        }
+      }
+    ],
+    "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+    "source_failure_mode": "wrong_tool_or_stale_selection_risk",
+    "source_exact_match": false,
+    "source_executable_match": false,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+    "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+  }
+]

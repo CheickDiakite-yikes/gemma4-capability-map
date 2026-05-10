@@ -27,6 +27,14 @@ Oracle source packet:
 - runtime contract: `moonie-agent replay-live` now honors serialized packet `expected_calls` instead of recomputing expected calls with `plan_tool_calls(...)`
 - status: executed across the full no-directive, contracted, role-catalog, argument-hints, schema-field, and schema-literal matrix
 
+Repeat oracle packet:
+
+- packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_repeat_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_repeat_oracle_dry_run_v1)
+- suite: `alias_transfer_repeat_v4`
+- cases: `6`
+- families: `visual_argument_transfer_repeat = 4`, `visual_tool_routing_transfer_repeat = 2`
+- status: dry-run packet built; next live matrix should start with no-directive, argument hints, schema target literals, and contracted
+
 Build command:
 
 ```bash
@@ -122,4 +130,4 @@ Interpretation:
 - Benchmark contract quality changed what H1n seemed to show. The v1 strict winner was a planner-contract artifact; the v2 oracle winner is argument hints.
 - The substantive local-Gemma harnessing result is not "more prompt is better." It is narrower: target-query argument hints improve transfer on fresh visual labels/decoys, while broad contracted prompting can regress.
 - The argument-hints result is not explained by controller repair, controller fallback, or argument repair on this six-case oracle replay slice.
-- The next move is a repeat or helper-ablation around the non-packaged replay-live surface, using oracle expected calls as the default strict target contract.
+- The next move is to execute the repeat oracle packet before any broader packaged workflow spend.

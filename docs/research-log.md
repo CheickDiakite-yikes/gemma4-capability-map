@@ -3299,6 +3299,30 @@
   - `uv run python scripts/analyze_h1n_oracle_helper_ablation.py`
   - `uv run pytest tests/test_h1n_oracle_helper_ablation.py tests/test_knowledge_work_h1.py -q`
 
+## 2026-05-09 - H1n Oracle Alias-Transfer Repeat Packet
+
+- Added a fresh H1n repeat suite to avoid overfitting the oracle finding to one six-case label set:
+  - suite: `alias_transfer_repeat_v4`
+  - packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_repeat_oracle_dry_run_v1`](../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_repeat_oracle_dry_run_v1)
+  - implementation: [`scripts/build_visual_hard_slice_live_stress_packet.py`](../scripts/build_visual_hard_slice_live_stress_packet.py)
+- New transfer cases:
+  - `transfer_repeat_audit_card_email_decoy`
+  - `transfer_repeat_priority_tag_chart_decoy`
+  - `transfer_repeat_warning_toast_note_decoy`
+  - `transfer_repeat_latency_chip_person_decoy`
+  - `transfer_repeat_missing_field_old_selection_decoy`
+  - `transfer_repeat_consent_alert_toggle_decoy`
+- Design:
+  - `4` fresh visual argument-transfer cases
+  - `2` fresh visual tool-routing transfer cases
+  - oracle expected calls are again derived from target region labels and verified against the deterministic visual executor
+- Verification:
+  - `uv run pytest tests/test_visual_hard_slice_live_stress_packet.py -q`
+  - `uv run python scripts/build_visual_hard_slice_live_stress_packet.py --run-group-id 20260509T_visual_hard_slice_live_stress_alias_transfer_repeat_oracle_dry_run_v1 --suite alias_transfer_repeat_v4`
+- Next:
+  - execute no-directive, argument hints, schema target literals, and contracted rows first
+  - only run helper-ablation repeats if the argument-hints row still separates from no-directive
+
 ## 2026-05-09 - Schema Target Literal v5 Negative Hard-Slice Repair
 
 - A narrow hard-slice repair candidate was added after inspecting the two v4 exact misses:

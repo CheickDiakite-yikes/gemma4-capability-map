@@ -30,7 +30,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--run-group-id", default=None)
     parser.add_argument("--registry", default=str(DEFAULT_REGISTRY_PATH))
     parser.add_argument("--replay-system-id", default=DEFAULT_REPLAY_SYSTEM_ID)
-    parser.add_argument("--suite", choices=["v1", "alias_repeat_v2", "alias_transfer_v3"], default="v1")
+    parser.add_argument(
+        "--suite",
+        choices=["v1", "alias_repeat_v2", "alias_transfer_v3", "alias_transfer_repeat_v4"],
+        default="v1",
+    )
     parser.add_argument("--case-id", action="append", dest="case_ids", default=[])
     return parser.parse_args()
 
@@ -178,6 +182,8 @@ def _stress_cases_for_suite(suite: str) -> list[ToolDirectiveProbeCase]:
         return [*_stress_cases(), *_alias_repeat_cases_v2()]
     if suite == "alias_transfer_v3":
         return _alias_transfer_cases_v3()
+    if suite == "alias_transfer_repeat_v4":
+        return _alias_transfer_repeat_cases_v4()
     raise ValueError(f"Unknown visual live stress suite: {suite}")
 
 
@@ -187,7 +193,7 @@ def _expected_call_payloads(
     tool_specs: list[Any],
     suite: str,
 ) -> list[dict[str, Any]]:
-    if suite == "alias_transfer_v3":
+    if suite in {"alias_transfer_v3", "alias_transfer_repeat_v4"}:
         return [_oracle_visual_extract_call(case)]
     return [
         {"name": call.name, "arguments": call.arguments}
@@ -599,6 +605,159 @@ def _alias_transfer_cases_v3() -> list[ToolDirectiveProbeCase]:
     ]
 
 
+def _alias_transfer_repeat_cases_v4() -> list[ToolDirectiveProbeCase]:
+    return [
+        ToolDirectiveProbeCase(
+            case_id="transfer_repeat_audit_card_email_decoy",
+            family="visual_argument_transfer_repeat",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-transfer-repeat-audit-card"),
+                Message(
+                    role="user",
+                    content=(
+                        "The email preview repeats the audit language. Locate the audit card itself before reading "
+                        "any email or table decoy."
+                    ),
+                ),
+            ],
+            media=["img-transfer-repeat-audit-card"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-transfer-repeat-audit-card",
+                [
+                    _region("transfer-repeat-a-4001", "audit card", "Audit review overdue", area="card"),
+                    _region("transfer-repeat-a-4002", "email preview", "Audit review requested", area="email"),
+                    _region("transfer-repeat-a-4003", "audit table", "Review owner list", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["transfer-repeat-a-4001"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="transfer_repeat_priority_tag_chart_decoy",
+            family="visual_argument_transfer_repeat",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-transfer-repeat-priority-tag"),
+                Message(
+                    role="user",
+                    content=(
+                        "The chart title says urgent, but the target is the compact priority tag. Locate the tag "
+                        "and read that region."
+                    ),
+                ),
+            ],
+            media=["img-transfer-repeat-priority-tag"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-transfer-repeat-priority-tag",
+                [
+                    _region("transfer-repeat-priority-4101", "priority tag", "High priority", area="tag"),
+                    _region("transfer-repeat-priority-4102", "chart title", "Urgent cases by week", area="chart"),
+                    _region("transfer-repeat-priority-4103", "case table", "Priority queue", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["transfer-repeat-priority-4101"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="transfer_repeat_warning_toast_note_decoy",
+            family="visual_argument_transfer_repeat",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-transfer-repeat-warning-toast"),
+                Message(
+                    role="user",
+                    content=(
+                        "A note contains similar warning text. Locate the warning toast itself, then read the toast."
+                    ),
+                ),
+            ],
+            media=["img-transfer-repeat-warning-toast"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-transfer-repeat-warning-toast",
+                [
+                    _region("transfer-repeat-toast-4201", "operator note", "Missing approval noted", area="note"),
+                    _region("transfer-repeat-toast-4202", "warning toast", "Approval missing before submit", tone="warning"),
+                    _region("transfer-repeat-toast-4203", "approval table", "Pending approvers", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["transfer-repeat-toast-4202"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="transfer_repeat_latency_chip_person_decoy",
+            family="visual_argument_transfer_repeat",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-transfer-repeat-latency-chip"),
+                Message(
+                    role="user",
+                    content=(
+                        "Jordan is listed beside the metric, but the target is the latency chip. Locate the chip, "
+                        "not Jordan's owner note."
+                    ),
+                ),
+            ],
+            media=["img-transfer-repeat-latency-chip"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-transfer-repeat-latency-chip",
+                [
+                    _region("transfer-repeat-latency-4301", "owner note", "Jordan owns latency follow-up", person="Jordan"),
+                    _region("transfer-repeat-latency-4302", "latency chip", "SLA breach 18m", area="chip"),
+                    _region("transfer-repeat-latency-4303", "latency table", "Incident timing", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["transfer-repeat-latency-4302"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="transfer_repeat_missing_field_old_selection_decoy",
+            family="visual_tool_routing_transfer_repeat",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-transfer-repeat-missing-field"),
+                Message(
+                    role="user",
+                    content=(
+                        "Ignore old selection_id sel-stale-owner from the last screen. On the current form, locate "
+                        "the visible missing-field message."
+                    ),
+                ),
+            ],
+            media=["img-transfer-repeat-missing-field"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-transfer-repeat-missing-field",
+                [
+                    _region("transfer-repeat-field-4401", "owner chip", "Owner saved", state="saved"),
+                    _region("transfer-repeat-field-4402", "missing field message", "Routing code is required", field="routing_code"),
+                ],
+            ),
+            expected_execution={"region_ids": ["transfer-repeat-field-4402"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="transfer_repeat_consent_alert_toggle_decoy",
+            family="visual_tool_routing_transfer_repeat",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-transfer-repeat-consent-alert"),
+                Message(
+                    role="user",
+                    content=(
+                        "The consent toggle is on, but the target is the consent alert text. Locate the alert before "
+                        "reading the toggle."
+                    ),
+                ),
+            ],
+            media=["img-transfer-repeat-consent-alert"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-transfer-repeat-consent-alert",
+                [
+                    _region("transfer-repeat-consent-4501", "consent toggle", "Consent enabled", checked=True),
+                    _region("transfer-repeat-consent-4502", "consent alert", "Consent document expired", tone="alert"),
+                    _region("transfer-repeat-consent-4503", "document table", "Consent document list", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["transfer-repeat-consent-4502"]},
+        ),
+    ]
+
+
 def _visual_state(image_id: str, local_layouts: list[dict[str, Any]]) -> dict[str, Any]:
     return {
         "visual_executor_mode": "local",
@@ -622,7 +781,11 @@ def _region(region_id: str, label: str, text: str, **attributes: Any) -> dict[st
 
 
 def _stress_failure_mode(family: str) -> str:
-    if family in {"visual_tool_routing_stress", "visual_tool_routing_transfer"}:
+    if family in {
+        "visual_tool_routing_stress",
+        "visual_tool_routing_transfer",
+        "visual_tool_routing_transfer_repeat",
+    }:
         return "wrong_tool_or_stale_selection_risk"
     return "argument_alias_or_decoy_risk"
 

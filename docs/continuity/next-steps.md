@@ -87,7 +87,11 @@ Next implementation moves:
   - executed result: all three rows preserve argument hints at `5 / 6` strict and `6 / 6` executor-equivalent
   - diagnostic: [`results/reports/h1n_oracle_helper_ablation/diagnostic.md`](../../results/reports/h1n_oracle_helper_ablation/diagnostic.md)
   - interpretation: this H1n argument-hints gain is not explained by controller repair, controller fallback, or argument repair on the oracle replay slice
-- next replay-shaped target: repeat the oracle H1n matrix with fresh labels/decoys or build a less staged live visual task around argument hints, keeping oracle expected calls as the default strict contract
+- H1n repeat setup:
+  - repeat packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_repeat_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_repeat_oracle_dry_run_v1)
+  - suite: `alias_transfer_repeat_v4`
+  - design: six fresh labels/decoys with oracle expected calls derived from target region labels
+- next replay-shaped target: execute the repeat oracle H1n matrix, starting with no-directive, argument hints, schema target literals, and contracted
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1

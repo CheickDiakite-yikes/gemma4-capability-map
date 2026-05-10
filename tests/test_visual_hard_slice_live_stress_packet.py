@@ -123,6 +123,45 @@ def test_visual_hard_slice_live_stress_packet_supports_alias_transfer_suite(tmp_
         assert _expected_call_reaches_oracle(case)
 
 
+def test_visual_hard_slice_live_stress_packet_supports_alias_transfer_repeat_suite(tmp_path: Path) -> None:
+    packet = SCRIPT.build_visual_hard_slice_live_stress_packet(
+        output_root=tmp_path / "replay_packets",
+        run_group_id="visual_stress_alias_transfer_repeat",
+        suite="alias_transfer_repeat_v4",
+    )
+
+    assert packet["summary"]["suite"] == "alias_transfer_repeat_v4"
+    assert packet["summary"]["case_count"] == 6
+    assert packet["summary"]["family_counts"] == {
+        "visual_argument_transfer_repeat": 4,
+        "visual_tool_routing_transfer_repeat": 2,
+    }
+    case_ids = {row["case_id"] for row in packet["rows"]}
+    assert "transfer_repeat_audit_card_email_decoy" in case_ids
+    assert "transfer_repeat_consent_alert_toggle_decoy" in case_ids
+    cases = {case["case_id"]: case for case in packet["replay_cases"]}
+    assert cases["transfer_repeat_audit_card_email_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-transfer-repeat-audit-card",
+                "target_query": "audit card",
+            },
+        }
+    ]
+    assert cases["transfer_repeat_missing_field_old_selection_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-transfer-repeat-missing-field",
+                "target_query": "missing field message",
+            },
+        }
+    ]
+    for case in packet["replay_cases"]:
+        assert _expected_call_reaches_oracle(case)
+
+
 def _expected_call_reaches_oracle(case: dict[str, object]) -> bool:
     tool_specs = [ToolSpec.model_validate(payload) for payload in case["tool_specs"]]  # type: ignore[index]
     executor = DeterministicExecutor(tool_specs=tool_specs)
