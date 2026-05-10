@@ -148,10 +148,12 @@ Current strongest MLX result:
 - H1n alias-transfer replay design:
   - brief: [`docs/continuity/h1n-slice.md`](./h1n-slice.md)
   - packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_dry_run_v1`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_dry_run_v1)
+  - oracle v2 packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_dry_run_v2`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_dry_run_v2)
   - diagnostic: [`results/reports/visual_alias_transfer_diagnostic/diagnostic.md`](../../results/reports/visual_alias_transfer_diagnostic/diagnostic.md)
   - contract-split diagnostic: [`results/reports/h1n_alias_transfer_contract_split/diagnostic.md`](../../results/reports/h1n_alias_transfer_contract_split/diagnostic.md)
   - result: argument hints v2 reaches `1 / 6` strict and `6 / 6` executor-equivalent; schema target literals v5 reaches `1 / 6` strict and `4 / 6` executor-equivalent; no-directive is `0 / 6` strict and `2 / 6` executor-equivalent; contracted is `5 / 6` strict but `1 / 6` executor-equivalent
-  - contract finding: `5 / 6` generated expected-call contracts miss the visual oracle, so strict exactness currently means planner-call fidelity; next rebuild H1n with oracle expected calls before promotion
+  - contract finding: `5 / 6` generated expected-call contracts miss the visual oracle, so strict exactness currently means planner-call fidelity
+  - next: run the oracle v2 H1n live matrix before promotion
 - the sixth prompt-contract wave is a negative composition result:
   - dry-run packet: [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run)
   - probe packet: [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe)

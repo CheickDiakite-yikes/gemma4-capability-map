@@ -48,6 +48,7 @@
 | visual_hard_slice_alias_transfer_report_table_exists | blocking | True | Alias-transfer live replay summary table exists in the main report. | results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_transfer_live_replay_summary.csv |
 | visual_alias_transfer_diagnostic_exists | blocking | True | Visual alias-transfer diagnostic report exists. | results/reports/visual_alias_transfer_diagnostic/diagnostic.md |
 | h1n_alias_transfer_contract_split_diagnostic_exists | blocking | True | H1n contract-split diagnostic exists to separate planner exactness from executor-target success. | results/reports/h1n_alias_transfer_contract_split/diagnostic.md |
+| h1n_alias_transfer_oracle_packet_exists | blocking | True | Rebuilt H1n alias-transfer packet exists with oracle expected calls. | results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_dry_run_v2/replay_cases.json |
 | current_state_doc_exists | blocking | True | Continuity current-state doc exists. | docs/continuity/current-state.md |
 | next_steps_doc_exists | blocking | True | Continuity next-steps doc exists. | docs/continuity/next-steps.md |
 | research_log_exists | blocking | True | Research log exists. | docs/research-log.md |

@@ -3222,6 +3222,24 @@
   - `uv run python scripts/analyze_h1n_alias_transfer_contract_split.py`
   - `uv run pytest tests/test_h1n_alias_transfer_contract_split.py -q`
 
+## 2026-05-09 - H1n Oracle Expected-Call Packet
+
+- Rebuilt the alias-transfer packet generator so future `alias_transfer_v3` packets use oracle expected calls:
+  - implementation: [`scripts/build_visual_hard_slice_live_stress_packet.py`](../scripts/build_visual_hard_slice_live_stress_packet.py)
+  - rebuilt packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_dry_run_v2`](../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_dry_run_v2)
+  - updated brief: [`docs/continuity/h1n-slice.md`](continuity/h1n-slice.md)
+- Contract change:
+  - old H1n v1 expected calls came from `plan_tool_calls(...)`, which replicated heuristic planner mistakes.
+  - oracle v2 derives `extract_layout.target_query` from the target region label named by `expected_execution`.
+  - examples: `review tile`, `status pill`, `error banner`, `queue badge`, `validation error`, `signature warning`.
+- Verification:
+  - every oracle v2 expected call executes through the deterministic local visual executor to the expected region id.
+  - `uv run pytest tests/test_visual_hard_slice_live_stress_packet.py -q`
+  - `uv run python scripts/build_visual_hard_slice_live_stress_packet.py --run-group-id 20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_dry_run_v2 --suite alias_transfer_v3`
+- Next:
+  - rerun the H1n replay-live matrix on `20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_dry_run_v2`
+  - compare oracle-v2 strict exactness against executor-equivalence before any packaged or helper-ablation promotion
+
 ## 2026-05-09 - Schema Target Literal v5 Negative Hard-Slice Repair
 
 - A narrow hard-slice repair candidate was added after inspecting the two v4 exact misses:

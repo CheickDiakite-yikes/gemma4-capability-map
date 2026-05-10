@@ -384,6 +384,16 @@ def audit_publication_readiness(
             detail="H1n contract-split diagnostic exists to separate planner exactness from executor-target success.",
         ),
         _check_path(
+            check_id="h1n_alias_transfer_oracle_packet_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_packets"
+            / "20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_dry_run_v2"
+            / "replay_cases.json",
+            detail="Rebuilt H1n alias-transfer packet exists with oracle expected calls.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",

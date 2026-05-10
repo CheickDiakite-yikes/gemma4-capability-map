@@ -1,9 +1,9 @@
 {
   "summary": {
-    "generated_at": "2026-05-10T00:09:04.893699+00:00",
+    "generated_at": "2026-05-10T00:12:19.424935+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 58,
-    "blocking_check_count": 56,
+    "check_count": 59,
+    "blocking_check_count": 57,
     "blocking_failed_count": 0,
     "recommended_check_count": 2,
     "recommended_failed_count": 0,
@@ -297,6 +297,13 @@
       "passed": true,
       "detail": "H1n contract-split diagnostic exists to separate planner exactness from executor-target success.",
       "path": "results/reports/h1n_alias_transfer_contract_split/diagnostic.md"
+    },
+    {
+      "check_id": "h1n_alias_transfer_oracle_packet_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Rebuilt H1n alias-transfer packet exists with oracle expected calls.",
+      "path": "results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_dry_run_v2/replay_cases.json"
     },
     {
       "check_id": "current_state_doc_exists",

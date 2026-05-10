@@ -77,10 +77,7 @@ def build_visual_hard_slice_live_stress_packet(
     commands: list[dict[str, Any]] = []
     for case in selected_cases:
         tool_specs = [registry[name] for name in case.tool_names]
-        expected_calls = [
-            {"name": call.name, "arguments": call.arguments}
-            for call in plan_tool_calls(case.messages, case.media, tool_specs)
-        ]
+        expected_calls = _expected_call_payloads(case=case, tool_specs=tool_specs, suite=suite)
         replay_case = {
             "case_id": case.case_id,
             "family": case.family,
@@ -182,6 +179,62 @@ def _stress_cases_for_suite(suite: str) -> list[ToolDirectiveProbeCase]:
     if suite == "alias_transfer_v3":
         return _alias_transfer_cases_v3()
     raise ValueError(f"Unknown visual live stress suite: {suite}")
+
+
+def _expected_call_payloads(
+    *,
+    case: ToolDirectiveProbeCase,
+    tool_specs: list[Any],
+    suite: str,
+) -> list[dict[str, Any]]:
+    if suite == "alias_transfer_v3":
+        return [_oracle_visual_extract_call(case)]
+    return [
+        {"name": call.name, "arguments": call.arguments}
+        for call in plan_tool_calls(case.messages, case.media, tool_specs)
+    ]
+
+
+def _oracle_visual_extract_call(case: ToolDirectiveProbeCase) -> dict[str, Any]:
+    target_region_id = _target_region_id(case.expected_execution)
+    if not target_region_id:
+        raise ValueError(f"Alias-transfer case {case.case_id} is missing an expected target region id.")
+    image_id, region = _target_region(case.initial_state, target_region_id)
+    target_query = str(region.get("label", "")).strip()
+    if not target_query:
+        raise ValueError(f"Alias-transfer case {case.case_id} target region {target_region_id} is missing a label.")
+    return {
+        "name": "extract_layout",
+        "arguments": {
+            "image_id": image_id,
+            "target_query": target_query,
+        },
+    }
+
+
+def _target_region_id(expected_execution: dict[str, Any]) -> str:
+    region_ids = expected_execution.get("region_ids")
+    if isinstance(region_ids, list) and region_ids:
+        return str(region_ids[0])
+    region_id = expected_execution.get("region_id")
+    return str(region_id) if region_id is not None else ""
+
+
+def _target_region(initial_state: dict[str, Any], target_region_id: str) -> tuple[str, dict[str, Any]]:
+    images = initial_state.get("images", {})
+    if not isinstance(images, dict):
+        raise ValueError("Alias-transfer initial state is missing images.")
+    for image_id, image in images.items():
+        if not isinstance(image, dict):
+            continue
+        for key in ("local_layouts", "layouts"):
+            layouts = image.get(key, [])
+            if not isinstance(layouts, list):
+                continue
+            for region in layouts:
+                if isinstance(region, dict) and str(region.get("region_id", "")) == target_region_id:
+                    return str(image_id), region
+    raise ValueError(f"Target region {target_region_id} not found in alias-transfer initial state.")
 
 
 def _stress_cases() -> list[ToolDirectiveProbeCase]:

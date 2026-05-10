@@ -68,6 +68,7 @@ Next implementation moves:
 - H1n alias-transfer replay result:
   - brief: [`docs/continuity/h1n-slice.md`](./h1n-slice.md)
   - packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_dry_run_v1`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_dry_run_v1)
+  - oracle v2 packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_dry_run_v2`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_dry_run_v2)
   - report table: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_transfer_live_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_transfer_live_replay_summary.csv)
   - contract-split diagnostic: [`results/reports/h1n_alias_transfer_contract_split/diagnostic.md`](../../results/reports/h1n_alias_transfer_contract_split/diagnostic.md)
   - result: argument hints v2 is the transfer executor-equivalence winner at `6 / 6`; contracted MLX is the strict winner at `5 / 6`; no-directive is `0 / 6` strict and `2 / 6` executor-equivalent
@@ -75,7 +76,10 @@ Next implementation moves:
   - `5 / 6` generated expected calls fail the packet's own expected-execution oracle
   - contracted has `4` exact-but-not-executor rows
   - strict H1n exactness should be treated as heuristic planner-call fidelity until the packet is rebuilt
-- next replay-shaped target: rebuild H1n with oracle expected calls, rerun the CLI-live matrix, then decide whether to build a non-packaged helper-ablation slice around argument hints
+- H1n rebuild status:
+  - builder now derives alias-transfer expected calls from target region labels
+  - oracle v2 dry-run packet is built and deterministic expected calls execute to the target oracle
+- next replay-shaped target: run the oracle v2 CLI-live matrix, then decide whether to build a non-packaged helper-ablation slice around argument hints
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1

@@ -4,6 +4,9 @@ import importlib.util
 import sys
 from pathlib import Path
 
+from gemma4_capability_map.schemas import ToolCall, ToolSpec
+from gemma4_capability_map.tools.executor import DeterministicExecutor
+
 
 MODULE_PATH = Path(__file__).resolve().parents[1] / "scripts" / "build_visual_hard_slice_live_stress_packet.py"
 SPEC = importlib.util.spec_from_file_location("build_visual_hard_slice_live_stress_packet_script", MODULE_PATH)
@@ -97,3 +100,44 @@ def test_visual_hard_slice_live_stress_packet_supports_alias_transfer_suite(tmp_
     assert "transfer_review_tile_notice_table_decoy" in case_ids
     assert "transfer_signature_warning_checkbox_decoy" in case_ids
     assert packet["replay_cases"][0]["live_entrypoint_status"] == "visual_hard_slice_live_stress_packet_v1"
+    cases = {case["case_id"]: case for case in packet["replay_cases"]}
+    assert cases["transfer_review_tile_notice_table_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-transfer-review-tile",
+                "target_query": "review tile",
+            },
+        }
+    ]
+    assert cases["transfer_queue_badge_person_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-transfer-queue-badge",
+                "target_query": "queue badge",
+            },
+        }
+    ]
+    for case in packet["replay_cases"]:
+        assert _expected_call_reaches_oracle(case)
+
+
+def _expected_call_reaches_oracle(case: dict[str, object]) -> bool:
+    tool_specs = [ToolSpec.model_validate(payload) for payload in case["tool_specs"]]  # type: ignore[index]
+    executor = DeterministicExecutor(tool_specs=tool_specs)
+    state = case["initial_state"]  # type: ignore[index]
+    execution = []
+    for step, payload in enumerate(case["expected_calls"], start=1):  # type: ignore[index]
+        call = ToolCall(
+            name=payload["name"],
+            arguments=payload["arguments"],
+            source_format="oracle",
+            raw=str(payload),
+        )
+        result = executor.step(state, call, step=step)
+        state = result.state_after
+        execution.append(result)
+    expected_region_ids = [str(region_id) for region_id in case["expected_execution"]["region_ids"]]  # type: ignore[index]
+    actual_region_ids = execution[-1].output.get("region_ids", [])
+    return execution[-1].validator_result == "pass" and actual_region_ids == expected_region_ids

@@ -237,12 +237,14 @@ Latest MLX tool-contract research:
 - H1n visual alias-transfer replay slice:
   - brief: [`docs/continuity/h1n-slice.md`](./h1n-slice.md)
   - source packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_dry_run_v1`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_dry_run_v1)
+  - oracle v2 packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_dry_run_v2`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_dry_run_v2)
   - suite: `alias_transfer_v3`
   - diagnostic: [`results/reports/visual_alias_transfer_diagnostic/diagnostic.md`](../../results/reports/visual_alias_transfer_diagnostic/diagnostic.md)
   - contract-split diagnostic: [`results/reports/h1n_alias_transfer_contract_split/diagnostic.md`](../../results/reports/h1n_alias_transfer_contract_split/diagnostic.md)
   - result: no-directive MLX is strict `0 / 6` and executor-equivalent `2 / 6`; argument hints v2 is strict `1 / 6` and executor-equivalent `6 / 6`; schema target literals v5 is strict `1 / 6` and executor-equivalent `4 / 6`; contracted MLX is strict `5 / 6` but executor-equivalent `1 / 6` under the current executor-target scorer
   - contract finding: `5 / 6` generated expected-call contracts do not satisfy the packet oracle, so H1n strict exactness currently measures heuristic planner-call fidelity more than visual target success
-  - interpretation: fresh transfer cases favor argument hints for executor-grounding; rebuild H1n with oracle expected calls before using strict exactness as a headline ranking
+  - implementation update: future `alias_transfer_v3` packets now derive expected calls from target region labels; oracle v2 is built and ready for live replay
+  - interpretation: fresh transfer cases favor argument hints for executor-grounding; run oracle v2 before using strict exactness as a headline ranking
 - Prompt-contract wave 2:
   - contracts: `schema_literal_tool_required_v2`, `visual_next_call_state_v2`, `parallel_array_required_v2`
   - runner flag: `scripts/run_tool_prompt_contract_probe_packet.py --candidate-wave v2`

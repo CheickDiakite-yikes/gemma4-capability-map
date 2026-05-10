@@ -620,8 +620,7 @@ CLAIMS: tuple[Claim, ...] = (
             "but it does require rebuilding H1n with oracle expected calls before using strict exactness as a headline metric."
         ),
         next_test=(
-            "Rebuild alias-transfer with oracle expected_calls derived from target region labels, then rerun the H1n "
-            "CLI-live matrix before any packaged or helper-ablation promotion."
+            "Run the rebuilt oracle H1n alias-transfer CLI-live matrix before any packaged or helper-ablation promotion."
         ),
         sources=(
             EvidenceSource(
@@ -638,6 +637,11 @@ CLAIMS: tuple[Claim, ...] = (
                 "diagnostic_table",
                 "results/reports/h1n_alias_transfer_contract_split/tables/h1n_replay_contract_split.csv",
                 "Per-run replay table classifying exact/non-exact and executor-target outcomes.",
+            ),
+            EvidenceSource(
+                "tool_probe_replay_packet",
+                "results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_dry_run_v2",
+                "Rebuilt H1n dry-run packet whose expected calls are derived from target region labels and execute to the oracle target.",
             ),
         ),
     ),
