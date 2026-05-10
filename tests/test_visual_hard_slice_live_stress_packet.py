@@ -693,6 +693,78 @@ def test_visual_hard_slice_live_stress_packet_supports_h1y_routed_residual_suite
         assert _expected_call_reaches_oracle(case)
 
 
+def test_visual_hard_slice_live_stress_packet_supports_h2f_route_arbitration_suite(
+    tmp_path: Path,
+) -> None:
+    packet = SCRIPT.build_visual_hard_slice_live_stress_packet(
+        output_root=tmp_path / "replay_packets",
+        run_group_id="visual_stress_h2f_route_arbitration",
+        suite="h2f_route_arbitration_v16",
+    )
+
+    assert packet["summary"]["suite"] == "h2f_route_arbitration_v16"
+    assert packet["summary"]["case_count"] == 10
+    assert packet["summary"]["family_counts"] == {
+        "h2f_activation_panel_notice": 2,
+        "h2f_route_code_label": 2,
+        "h2f_route_component_class_transfer": 2,
+        "h2f_route_nonstandard_class": 2,
+        "h2f_route_stale_field": 2,
+    }
+    assert packet["summary"]["failure_mode_counts"] == {
+        "argument_alias_or_decoy_risk": 6,
+        "wrong_tool_or_stale_selection_risk": 4,
+    }
+    cases = {case["case_id"]: case for case in packet["replay_cases"]}
+    assert cases["h2f_alert_t47_negated_switch_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h2f-alert-t47",
+                "target_query": "alert t47",
+            },
+        }
+    ]
+    assert cases["h2f_badge_m31_summary_value_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h2f-badge-m31",
+                "target_query": "badge m31",
+            },
+        }
+    ]
+    assert cases["h2f_result_tile_comment_value_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h2f-result-tile",
+                "target_query": "result tile",
+            },
+        }
+    ]
+    assert cases["h2f_owner_field_previous_memo_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h2f-owner-field",
+                "target_query": "owner field",
+            },
+        }
+    ]
+    assert cases["h2f_error_notice_history_activation_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h2f-error-notice",
+                "target_query": "error notice",
+            },
+        }
+    ]
+    for case in packet["replay_cases"]:
+        assert _expected_call_reaches_oracle(case)
+
+
 def _expected_call_reaches_oracle(case: dict[str, object]) -> bool:
     tool_specs = [ToolSpec.model_validate(payload) for payload in case["tool_specs"]]  # type: ignore[index]
     executor = DeterministicExecutor(tool_specs=tool_specs)

@@ -47,6 +47,7 @@ def parse_args() -> argparse.Namespace:
             "h1w_residual_overlap_v13",
             "h1x_v11_breaker_v14",
             "h1y_routed_residual_v15",
+            "h2f_route_arbitration_v16",
         ],
         default="v1",
     )
@@ -219,6 +220,8 @@ def _stress_cases_for_suite(suite: str) -> list[ToolDirectiveProbeCase]:
         return _h1x_v11_breaker_cases_v14()
     if suite == "h1y_routed_residual_v15":
         return _h1y_routed_residual_cases_v15()
+    if suite == "h2f_route_arbitration_v16":
+        return _h2f_route_arbitration_cases_v16()
     raise ValueError(f"Unknown visual live stress suite: {suite}")
 
 
@@ -241,6 +244,7 @@ def _expected_call_payloads(
         "h1w_residual_overlap_v13",
         "h1x_v11_breaker_v14",
         "h1y_routed_residual_v15",
+        "h2f_route_arbitration_v16",
     }:
         return [_oracle_visual_extract_call(case)]
     return [
@@ -2913,6 +2917,258 @@ def _h1y_routed_residual_cases_v15() -> list[ToolDirectiveProbeCase]:
     ]
 
 
+def _h2f_route_arbitration_cases_v16() -> list[ToolDirectiveProbeCase]:
+    return [
+        ToolDirectiveProbeCase(
+            case_id="h2f_alert_t47_negated_switch_decoy",
+            family="h2f_route_code_label",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2f-alert-t47"),
+                Message(
+                    role="user",
+                    content=(
+                        "The switch also shows Escalated, but do not use that switch. Locate the visible alert t47 "
+                        "code label itself before reading the log."
+                    ),
+                ),
+            ],
+            media=["img-h2f-alert-t47"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2f-alert-t47",
+                [
+                    _region("h2f-alert-switch-9901", "override switch", "Escalated", area="switch"),
+                    _region("h2f-alert-t47-9902", "alert t47", "Escalated", area="alert"),
+                    _region("h2f-alert-log-9903", "alert log", "Escalated events", area="log"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2f-alert-t47-9902"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2f_badge_m31_summary_value_decoy",
+            family="h2f_route_code_label",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2f-badge-m31"),
+                Message(
+                    role="user",
+                    content=(
+                        "The summary repeats Approved. Select the approval code badge, badge m31, not the summary "
+                        "or the approval table."
+                    ),
+                ),
+            ],
+            media=["img-h2f-badge-m31"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2f-badge-m31",
+                [
+                    _region("h2f-badge-summary-9911", "approval summary", "Approved by team", area="summary"),
+                    _region("h2f-badge-m31-9912", "badge m31", "Approved", area="badge"),
+                    _region("h2f-badge-table-9913", "approval table", "Approved rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2f-badge-m31-9912"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2f_result_tile_comment_value_decoy",
+            family="h2f_route_component_class_transfer",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2f-result-tile"),
+                Message(
+                    role="user",
+                    content=(
+                        "The comment says Blocked too. Select the visible result tile for Blocked, not the comment "
+                        "and not any result chip."
+                    ),
+                ),
+            ],
+            media=["img-h2f-result-tile"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2f-result-tile",
+                [
+                    _region("h2f-result-comment-9921", "result comment", "Blocked by legal", area="comment"),
+                    _region("h2f-result-tile-9922", "result tile", "Blocked", area="tile"),
+                    _region("h2f-result-board-9923", "result board", "Blocked review queue", area="board"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2f-result-tile-9922"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2f_resolution_badge_log_result_decoy",
+            family="h2f_route_component_class_transfer",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2f-resolution-badge"),
+                Message(
+                    role="user",
+                    content=(
+                        "The log repeats Deferred. Locate the resolution badge component for Deferred; do not use "
+                        "the log and do not turn it into a resolution pill."
+                    ),
+                ),
+            ],
+            media=["img-h2f-resolution-badge"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2f-resolution-badge",
+                [
+                    _region("h2f-resolution-log-9931", "resolution log", "Deferred yesterday", area="log"),
+                    _region("h2f-resolution-badge-9932", "resolution badge", "Deferred", area="badge"),
+                    _region("h2f-resolution-note-9933", "resolution note", "Deferred pending counsel", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2f-resolution-badge-9932"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2f_state_marker_history_value_decoy",
+            family="h2f_route_nonstandard_class",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2f-state-marker"),
+                Message(
+                    role="user",
+                    content=(
+                        "The history row says Closed. Locate the lifecycle state marker itself, not the history "
+                        "row or state table."
+                    ),
+                ),
+            ],
+            media=["img-h2f-state-marker"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2f-state-marker",
+                [
+                    _region("h2f-state-history-9941", "state history", "Closed last Friday", area="history"),
+                    _region("h2f-state-marker-9942", "state marker", "Closed", area="marker"),
+                    _region("h2f-state-table-9943", "state table", "Closed items", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2f-state-marker-9942"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2f_mode_switch_note_value_decoy",
+            family="h2f_route_nonstandard_class",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2f-mode-switch"),
+                Message(
+                    role="user",
+                    content="The note repeats Manual. Find the operation mode switch, not the note or a mode toggle.",
+                ),
+            ],
+            media=["img-h2f-mode-switch"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2f-mode-switch",
+                [
+                    _region("h2f-mode-note-9951", "mode note", "Manual review approved", area="note"),
+                    _region("h2f-mode-switch-9952", "mode switch", "Manual", area="switch"),
+                    _region("h2f-mode-grid-9953", "mode grid", "Manual exceptions", area="grid"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2f-mode-switch-9952"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2f_owner_field_previous_memo_decoy",
+            family="h2f_route_stale_field",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2f-owner-field"),
+                Message(
+                    role="user",
+                    content=(
+                        "Previous selection_id sel-h2f-owner-memo points at the memo. On the current image, locate "
+                        "the owner field itself."
+                    ),
+                ),
+            ],
+            media=["img-h2f-owner-field"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2f-owner-field",
+                [
+                    _region("h2f-owner-memo-9961", "owner memo", "Kai owned the prior request", area="memo"),
+                    _region("h2f-owner-field-9962", "owner field", "Kai", area="field"),
+                    _region("h2f-owner-table-9963", "owner table", "Kai escalation rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2f-owner-field-9962"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2f_reviewer_field_saved_summary_decoy",
+            family="h2f_route_stale_field",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2f-reviewer-field"),
+                Message(
+                    role="user",
+                    content=(
+                        "Saved selection_id sel-h2f-review-summary is obsolete. Locate the reviewer field on the "
+                        "current screen, not the summary."
+                    ),
+                ),
+            ],
+            media=["img-h2f-reviewer-field"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2f-reviewer-field",
+                [
+                    _region("h2f-review-summary-9971", "review summary", "Leah reviewed the old case", area="summary"),
+                    _region("h2f-reviewer-field-9972", "reviewer field", "Leah", area="field"),
+                    _region("h2f-review-table-9973", "review table", "Leah review rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2f-reviewer-field-9972"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2f_warning_panel_note_activation_decoy",
+            family="h2f_activation_panel_notice",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2f-warning-panel"),
+                Message(
+                    role="user",
+                    content=(
+                        "The note says Warning acknowledged. Locate the current warning panel, not the note or the "
+                        "history table."
+                    ),
+                ),
+            ],
+            media=["img-h2f-warning-panel"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2f-warning-panel",
+                [
+                    _region("h2f-warning-note-9981", "warning note", "Warning acknowledged", area="note"),
+                    _region("h2f-warning-panel-9982", "warning panel", "Warning", area="panel"),
+                    _region("h2f-warning-history-9983", "warning history", "Warning events", area="history"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2f-warning-panel-9982"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2f_error_notice_history_activation_decoy",
+            family="h2f_activation_panel_notice",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2f-error-notice"),
+                Message(
+                    role="user",
+                    content=(
+                        "The history repeats Error. Identify the visible error notice itself, not the history row "
+                        "or the error log."
+                    ),
+                ),
+            ],
+            media=["img-h2f-error-notice"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2f-error-notice",
+                [
+                    _region("h2f-error-history-9991", "error history", "Error resolved earlier", area="history"),
+                    _region("h2f-error-notice-9992", "error notice", "Error", area="notice"),
+                    _region("h2f-error-log-9993", "error log", "Error trace rows", area="log"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2f-error-notice-9992"]},
+        ),
+    ]
+
+
 def _visual_state(image_id: str, local_layouts: list[dict[str, Any]]) -> dict[str, Any]:
     return {
         "visual_executor_mode": "local",
@@ -2953,6 +3209,8 @@ def _stress_failure_mode(family: str) -> str:
         "h1x_oblique_activation_no_call",
         "h1y_route_stale_field",
         "h1y_activation_no_call",
+        "h2f_route_stale_field",
+        "h2f_activation_panel_notice",
     }:
         return "wrong_tool_or_stale_selection_risk"
     return "argument_alias_or_decoy_risk"
