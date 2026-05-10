@@ -1,0 +1,51 @@
+[
+  {
+    "case_id": "transfer_oblique_field_e19_old_selection_decoy",
+    "family": "visual_tool_routing_transfer_oblique",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "transfer-oblique-field-5402"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "refine_selection",
+        "arguments": {
+          "selection_id": "sel-e19-archive",
+          "filter_query": "not"
+        },
+        "validator_result": "fail",
+        "output": {},
+        "error": "'Selection not found: sel-e19-archive'"
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-oblique-field-e19",
+          "target_query": "field e19"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "refine_selection",
+        "arguments": {
+          "selection_id": "sel-e19-archive",
+          "filter_query": "not"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"refine_selection\", \"arguments\": {\"selection_id\": \"sel-e19-archive\", \"filter_query\": \"not\"}}",
+    "prompt_tokens": 1278,
+    "completion_tokens": 35,
+    "latency_ms": 4241
+  }
+]

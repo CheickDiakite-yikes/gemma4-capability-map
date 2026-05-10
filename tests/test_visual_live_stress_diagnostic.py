@@ -173,7 +173,7 @@ def test_visual_alias_transfer_oblique_diagnostic_writes_findings(tmp_path: Path
         table_prefix="alias_transfer_oblique_matrix",
     )
 
-    assert payload["manifest"]["comparison_count"] == 5
+    assert payload["manifest"]["comparison_count"] == 6
     assert payload["manifest"]["case_count"] == 6
     assert payload["manifest"]["matrix_name"] == "alias-transfer-oblique"
     summary = {row["label"]: row for row in payload["summary_rows"]}
@@ -182,6 +182,8 @@ def test_visual_alias_transfer_oblique_diagnostic_writes_findings(tmp_path: Path
     assert summary["argument_hints_v2"]["candidate_executor_equivalence_rate"] == 0.6666666666666666
     assert summary["schema_field_hints_v4"]["candidate_exact_rate"] == 0.5
     assert summary["schema_literal_targets_v5"]["candidate_executor_equivalence_rate"] == 0.0
+    assert summary["oblique_code_hints_v6"]["candidate_exact_rate"] == 0.8333333333333334
+    assert summary["oblique_code_hints_v6"]["candidate_executor_equivalence_rate"] == 0.8333333333333334
     transitions = {(row["label"], row["case_id"]): row for row in payload["case_rows"]}
     assert transitions[
         ("argument_hints_v2", "transfer_oblique_badge_m88_chart_decoy")
@@ -190,7 +192,7 @@ def test_visual_alias_transfer_oblique_diagnostic_writes_findings(tmp_path: Path
         ("schema_literal_targets_v5", "transfer_oblique_node_q17_table_decoy")
     ]["transition"] == "unchanged"
     findings = {row["finding_id"]: row["finding"] for row in payload["finding_rows"]}
-    assert "argument_hints_v2" in findings["strict_upper_bound"]
+    assert "oblique_code_hints_v6" in findings["strict_upper_bound"]
     assert "Executor-equivalent full-success rows: ." in findings["executor_equivalence_set"]
     assert (tmp_path / "diagnostic.md").exists()
     assert (tmp_path / "diagnostic.json").exists()

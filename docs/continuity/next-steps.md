@@ -102,15 +102,19 @@ Next implementation moves:
   - packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_oblique_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_oblique_oracle_dry_run_v1)
   - suite: `alias_transfer_oblique_v5`
   - design: six held-out labels use code-like visible target tokens such as `node q17`, `badge m88`, `chip z33`, `field e19`, and `alert p55`, with semantic decoys nearby
-  - result: no-directive `0 / 6`; contracted `1 / 6`; role catalog v1 `2 / 6`; argument hints v2 `4 / 6`; schema-field hints v4 `3 / 6`; schema target literals v5 `0 / 6`
+  - pre-repair result: no-directive `0 / 6`; contracted `1 / 6`; role catalog v1 `2 / 6`; argument hints v2 `4 / 6`; schema-field hints v4 `3 / 6`; schema target literals v5 `0 / 6`
   - diagnostic: [`results/reports/visual_alias_transfer_oblique_diagnostic/diagnostic.md`](../../results/reports/visual_alias_transfer_oblique_diagnostic/diagnostic.md)
   - miss analysis: [`results/reports/h1n_oblique_miss_analysis/diagnostic.md`](../../results/reports/h1n_oblique_miss_analysis/diagnostic.md)
   - interpretation: the oblique packet breaks the argument-hints/schema-literal tie in favor of argument hints, with schema-field hints second; target-literal wording is brittle when visible labels are code-like and decoys repeat the semantic content
-- next candidate ready to execute:
+- oblique-code profile result:
   - system: `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_oblique_code_hints`
   - profile: `visual_role_catalog_oblique_code_hints_v6`
-  - purpose: test a narrow code-suffix/negated-decoy repair while preserving the four argument-hints wins
-- next replay-shaped target: execute the oblique-code profile against the oblique packet, compare it to argument hints, and reject it unless it improves the two misses without losing existing wins
+  - live packet: [`results/tool_probe_replay_live/20260509T_h1n_oracle_oblique_code_hints_execute_v1`](../../results/tool_probe_replay_live/20260509T_h1n_oracle_oblique_code_hints_execute_v1)
+  - comparison: [`results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_oblique_code_hints_vs_argument_hints_v1`](../../results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_oblique_code_hints_vs_argument_hints_v1)
+  - result: `5 / 6` exact and executor-equivalent, versus argument hints at `4 / 6`
+  - repair: fixes `cell r42` suffix truncation and `alert p55` negated-decoy selection
+  - regression: loses the previous `field e19` argument-hints win as a wrong-tool case
+- next replay-shaped target: analyze the `field e19` wrong-tool regression, then run the oblique-code profile against the earlier oracle and repeat packets to check whether the repair generalizes outside the oblique slice
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1

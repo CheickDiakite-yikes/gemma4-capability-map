@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-05-10T01:12:53.807175+00:00",
+  "generated_at": "2026-05-10T01:21:04.496095+00:00",
   "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-  "claim_count": 23,
-  "evidence_source_count": 105,
+  "claim_count": 24,
+  "evidence_source_count": 108,
   "missing_source_count": 0,
   "claim_ids": [
     "C1_controller_dependence_hidden_by_readiness",
@@ -27,6 +27,7 @@
     "C20_h1n_oracle_repeat_confirms_catalog_transfer_not_contracted_upper_bound",
     "C21_h1n_two_packet_oracle_synthesis_narrows_next_visual_question",
     "C22_h1n_oblique_labels_favor_argument_hints_over_schema_literals",
-    "C23_h1n_oblique_argument_hints_misses_are_code_and_negation_errors"
+    "C23_h1n_oblique_argument_hints_misses_are_code_and_negation_errors",
+    "C24_h1n_oblique_code_hints_repair_two_misses_with_one_regression"
   ]
 }

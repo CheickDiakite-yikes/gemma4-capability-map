@@ -3443,6 +3443,33 @@
 - Verification:
   - `uv run pytest tests/test_prompt_contracts.py tests/test_knowledge_work_h1.py -q`
 
+## 2026-05-09 - H1n Oblique Code-Hints Live Repair
+
+- Executed the oblique-code profile on the held-out oblique oracle packet:
+  - source packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_oblique_oracle_dry_run_v1`](../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_oblique_oracle_dry_run_v1)
+  - live packet: [`results/tool_probe_replay_live/20260509T_h1n_oracle_oblique_code_hints_execute_v1`](../results/tool_probe_replay_live/20260509T_h1n_oracle_oblique_code_hints_execute_v1)
+  - comparison versus no-directive: [`results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_oblique_code_hints_vs_no_directive_v1`](../results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_oblique_code_hints_vs_no_directive_v1)
+  - comparison versus argument hints: [`results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_oblique_code_hints_vs_argument_hints_v1`](../results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_oblique_code_hints_vs_argument_hints_v1)
+  - updated diagnostic: [`results/reports/visual_alias_transfer_oblique_diagnostic/diagnostic.md`](../results/reports/visual_alias_transfer_oblique_diagnostic/diagnostic.md)
+- Result:
+  - no-directive MLX: `0 / 6` exact and executor-equivalent
+  - argument hints v2: `4 / 6` exact and executor-equivalent
+  - oblique code hints v6: `5 / 6` exact and executor-equivalent
+  - delta versus argument hints: `+0.167` exact and executor-equivalence
+- Case-level finding:
+  - repaired `transfer_oblique_cell_r42_notice_decoy` by preserving the full `cell r42` visible code label
+  - repaired `transfer_oblique_alert_p55_toggle_decoy` by avoiding the explicitly negated `consent toggle` decoy
+  - regressed `transfer_oblique_field_e19_old_selection_decoy` into a wrong-tool case, losing one argument-hints win
+- Interpretation:
+  - The code-suffix/negated-decoy hypothesis is now supported on the oblique packet, but not clean enough for broad promotion.
+  - The profile improves the current hardest H1n transfer packet while creating a new stale-selection style failure, so the next best move is regression analysis and transfer testing on the earlier oracle/repeat packets.
+  - This strengthens the publication story because it shows a meaningful harnessing improvement and its tradeoff rather than a one-way leaderboard win.
+- Verification:
+  - `uv run moonie-agent replay-live --packet-id 20260509T_visual_hard_slice_live_stress_alias_transfer_oblique_oracle_dry_run_v1 --output-dir results/tool_probe_replay_live/20260509T_h1n_oracle_oblique_code_hints_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_oblique_code_hints --execute --json`
+  - `uv run python scripts/compare_tool_probe_replay_live_packets.py results/tool_probe_replay_live/20260509T_h1n_oracle_oblique_argument_hints_execute_v1 results/tool_probe_replay_live/20260509T_h1n_oracle_oblique_code_hints_execute_v1 --output-dir results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_oblique_code_hints_vs_argument_hints_v1`
+  - `uv run python scripts/analyze_visual_live_stress_matrix.py --matrix alias-transfer-oblique`
+  - `uv run pytest tests/test_visual_live_stress_diagnostic.py -q`
+
 ## 2026-05-09 - Schema Target Literal v5 Negative Hard-Slice Repair
 
 - A narrow hard-slice repair candidate was added after inspecting the two v4 exact misses:

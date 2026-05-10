@@ -9,7 +9,7 @@
 | --- | --- | ---: | --- | --- |
 | ledger_manifest_exists | blocking | True | Publication evidence ledger manifest exists. | results/reports/publication_evidence_ledger/manifest.json |
 | ledger_has_no_missing_sources | blocking | True | missing_source_count=0 |  |
-| ledger_has_claims | blocking | True | claim_count=22 |  |
+| ledger_has_claims | blocking | True | claim_count=24 |  |
 | ledger_includes_negative_results | blocking | True | At least one claim is explicitly labeled as negative-result evidence. |  |
 | tool_contract_report_has_current_tables | blocking | True | table_count=68 |  |
 | tool_contract_report_has_current_figures | blocking | True | figure_count=33 |  |
@@ -62,6 +62,8 @@
 | h1n_alias_transfer_oblique_diagnostic_exists | blocking | True | Held-out H1n oblique-label diagnostic exists. | results/reports/visual_alias_transfer_oblique_diagnostic/diagnostic.md |
 | h1n_alias_transfer_oblique_argument_hints_comparison_exists | blocking | True | Held-out H1n oblique-label argument-hints comparison exists. | results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_oblique_argument_hints_vs_no_directive_v1/live_replay_comparison.json |
 | h1n_oblique_miss_analysis_exists | blocking | True | H1n oblique-label miss analysis exists. | results/reports/h1n_oblique_miss_analysis/diagnostic.md |
+| h1n_oblique_code_hints_packet_exists | blocking | True | H1n oblique-code-hints replay packet exists. | results/tool_probe_replay_live/20260509T_h1n_oracle_oblique_code_hints_execute_v1/summary.json |
+| h1n_oblique_code_hints_vs_argument_hints_comparison_exists | blocking | True | H1n oblique-code-hints comparison against argument hints exists. | results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_oblique_code_hints_vs_argument_hints_v1/live_replay_comparison.json |
 | current_state_doc_exists | blocking | True | Continuity current-state doc exists. | docs/continuity/current-state.md |
 | next_steps_doc_exists | blocking | True | Continuity next-steps doc exists. | docs/continuity/next-steps.md |
 | research_log_exists | blocking | True | Research log exists. | docs/research-log.md |

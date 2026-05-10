@@ -1,9 +1,9 @@
 {
   "summary": {
-    "generated_at": "2026-05-10T01:12:53.803025+00:00",
+    "generated_at": "2026-05-10T01:21:06.869699+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 75,
-    "blocking_check_count": 73,
+    "check_count": 77,
+    "blocking_check_count": 75,
     "blocking_failed_count": 0,
     "recommended_check_count": 2,
     "recommended_failed_count": 0,
@@ -29,7 +29,7 @@
       "check_id": "ledger_has_claims",
       "severity": "blocking",
       "passed": true,
-      "detail": "claim_count=22",
+      "detail": "claim_count=24",
       "path": ""
     },
     {
@@ -395,6 +395,20 @@
       "passed": true,
       "detail": "H1n oblique-label miss analysis exists.",
       "path": "results/reports/h1n_oblique_miss_analysis/diagnostic.md"
+    },
+    {
+      "check_id": "h1n_oblique_code_hints_packet_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H1n oblique-code-hints replay packet exists.",
+      "path": "results/tool_probe_replay_live/20260509T_h1n_oracle_oblique_code_hints_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h1n_oblique_code_hints_vs_argument_hints_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H1n oblique-code-hints comparison against argument hints exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_oblique_code_hints_vs_argument_hints_v1/live_replay_comparison.json"
     },
     {
       "check_id": "current_state_doc_exists",

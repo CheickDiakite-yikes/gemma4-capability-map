@@ -13,7 +13,7 @@ Local-first agent quality is a systems problem. On Moonie's current Gemma-on-MLX
 1. Abstract
    - State the problem: top-line task readiness hides controller dependence in local tool-using agents.
    - State the method: paired contracted/no-directive runs, helper ablations, exact replay, CLI-live replay, and catalog/prompt interventions.
-   - State the main result: the final tool-turn directive is causal for raw protocol behavior; catalog shaping can move visual routing, but exact argument fidelity remains unresolved.
+   - State the main result: the final tool-turn directive is causal for raw protocol behavior; catalog shaping can move visual routing and visual target success, but exact argument fidelity remains slice-dependent and can regress under over-specific repairs.
 
 2. Introduction
    - Why local-first agent evaluation needs more than pass/fail task readiness.
@@ -59,7 +59,8 @@ Local-first agent quality is a systems problem. On Moonie's current Gemma-on-MLX
    - `visual_role_catalog_schema_field_hints_v4` becomes positive evidence on the fresh hard slice for executor-equivalent target success, while still showing that exact protocol labels and executor-visible success are different metrics.
    - `visual_role_catalog_schema_literal_targets_v5` is negative evidence on the original hard slice, but becomes competitive on repeated alias/transfer packets.
    - H1n exposes a benchmark-contract issue: generated expected calls can measure planner-call fidelity rather than target success, so oracle expected calls are needed for strict H1n interpretation.
-   - Two oracle H1n packets now narrow the mechanism question: argument hints v2 is executor-equivalent on both packets, schema target literals v5 ties on the repeat, and contracted prompting is not a reliable visual-transfer upper bound.
+   - Two oracle H1n packets narrow the first mechanism question: argument hints v2 is executor-equivalent on both packets, schema target literals v5 ties on the repeat, and contracted prompting is not a reliable visual-transfer upper bound.
+   - The held-out oblique oracle packet is now the sharper mechanism test: argument hints beats schema target literals, and `visual_role_catalog_oblique_code_hints_v6` improves to `5 / 6` by repairing code-suffix and negated-decoy misses while adding one `field e19` wrong-tool regression.
 
 7. Threats To Validity
    - Internal benchmark and local runtime only.
@@ -95,9 +96,10 @@ uv run pytest tests/test_h1n_oracle_transfer_synthesis.py tests/test_mlx_tool_co
 - `visual_catalog_argument_hints_live_candidate_replay_gate.svg`
 - `visual_hard_slice_alias_transfer_oracle_live_replay_gate.svg`
 - `visual_hard_slice_alias_transfer_repeat_live_replay_gate.svg`
+- `visual_hard_slice_alias_transfer_oblique_live_replay_gate.svg`
 
 ## Next Evidence Needed Before Submission
 
-- Compare argument hints v2 against schema target literals v5 in a less staged visual live task or a third held-out oracle transfer family with less lexical labels.
+- Analyze the `field e19` wrong-tool regression from the oblique-code repair and test whether the profile transfers to the earlier oracle/repeat packets or a fresh post-repair held-out packet.
 - Repeated-seed or repeated-run variance for the strongest exact-replay claims.
 - A clean table separating population-style benchmark claims from failure-conditioned replay claims.

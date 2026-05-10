@@ -947,6 +947,44 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C24_h1n_oblique_code_hints_repair_two_misses_with_one_regression",
+        claim=(
+            "A narrow oblique-code catalog profile improves the held-out H1n oblique packet over argument hints by "
+            "repairing code-suffix and negated-decoy misses, with one new stale-selection routing regression."
+        ),
+        status="supported_current_packets",
+        evidence_strength="moderate_internal",
+        primary_metric=(
+            "Oblique code hints reaches 5/6 exact and executor-equivalent versus argument hints at 4/6, improving "
+            "by +0.167 on both metrics; it repairs `cell r42` and `alert p55` but loses `field e19` as a wrong-tool case."
+        ),
+        limitation=(
+            "The profile is tuned from observed oblique misses, so this is a successful repair on a held-out packet "
+            "but still requires a fresh packet or less staged live task before promotion."
+        ),
+        next_test=(
+            "Run the oblique-code profile on the earlier oracle and repeat packets, or build a fresh post-repair "
+            "held-out packet to check whether the `field e19` regression is localized."
+        ),
+        sources=(
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260509T_h1n_oracle_oblique_code_hints_execute_v1",
+                "Oblique-code profile execution reaching 5/6 exact and executor-equivalent target success.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_oblique_code_hints_vs_argument_hints_v1",
+                "Direct comparison showing +0.167 exact and executor-equivalence deltas over argument hints.",
+            ),
+            EvidenceSource(
+                "diagnostic_report",
+                "results/reports/visual_alias_transfer_oblique_diagnostic/diagnostic.md",
+                "Updated oblique diagnostic including the oblique-code profile as the current best row.",
+            ),
+        ),
+    ),
 )
 
 
