@@ -1,0 +1,2 @@
+case_id,family,expected_call_count,actual_call_count,exact_match,executable_match,executor_target_match,expected_calls,actual_calls,expected_execution,actual_execution,latency_ms,prompt_tokens,completion_tokens
+h2f_alert_t47_negated_switch_decoy,h2f_route_code_label,1,0,False,False,False,"[{""name"": ""extract_layout"", ""arguments"": {""image_id"": ""img-h2f-alert-t47"", ""target_query"": ""alert t47""}}]",[],"{""region_ids"": [""h2f-alert-t47-9902""]}",[],8924,665,1
