@@ -815,6 +815,50 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C21_h1n_two_packet_oracle_synthesis_narrows_next_visual_question",
+        claim=(
+            "The two-packet H1n oracle synthesis narrows the next visual-transfer research question to whether "
+            "argument hints and schema target literals generalize beyond replay-shaped oracle packets."
+        ),
+        status="supported_current_packets",
+        evidence_strength="moderate_internal",
+        primary_metric=(
+            "Across two oracle H1n packets, argument hints is executor-equivalent in both packets at 6/6 and 6/6; "
+            "schema target literals rises from 4/6 to 6/6 executor-equivalent; contracted is 1/6 then 0/6; helper "
+            "ablation preserves argument hints at 5/6 exact and 6/6 executor-equivalent with zero deltas."
+        ),
+        limitation=(
+            "The synthesis combines deterministic replay-shaped oracle packets, so it is a directional finding "
+            "for harness design rather than a final population-level estimate."
+        ),
+        next_test=(
+            "Run a third held-out oracle family or a less staged live visual workflow comparing argument hints "
+            "against schema target literals without relying on packaged workflow saturation."
+        ),
+        sources=(
+            EvidenceSource(
+                "synthesis_report",
+                "results/reports/h1n_oracle_transfer_synthesis/report.md",
+                "Compact two-packet H1n oracle transfer synthesis with helper-ablation interpretation.",
+            ),
+            EvidenceSource(
+                "diagnostic_report",
+                "results/reports/visual_alias_transfer_oracle_diagnostic/diagnostic.md",
+                "First oracle H1n transfer diagnostic showing argument hints as the clean winner.",
+            ),
+            EvidenceSource(
+                "diagnostic_report",
+                "results/reports/visual_alias_transfer_repeat_diagnostic/diagnostic.md",
+                "Fresh repeat diagnostic showing argument hints and schema target literals tie at full executor-equivalence.",
+            ),
+            EvidenceSource(
+                "diagnostic_report",
+                "results/reports/h1n_oracle_helper_ablation/diagnostic.md",
+                "Helper-ablation diagnostic showing the argument-hints gain is not explained by the tested controller helpers.",
+            ),
+        ),
+    ),
 )
 
 

@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-05-10T00:53:37.104774+00:00",
+  "generated_at": "2026-05-10T00:57:07.540462+00:00",
   "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-  "claim_count": 20,
-  "evidence_source_count": 93,
+  "claim_count": 21,
+  "evidence_source_count": 97,
   "missing_source_count": 0,
   "claim_ids": [
     "C1_controller_dependence_hidden_by_readiness",
@@ -24,6 +24,7 @@
     "C17_h1n_strict_exactness_matches_planner_not_oracle",
     "C18_h1n_oracle_transfer_identifies_argument_hints_as_clean_winner",
     "C19_h1n_argument_hints_gain_is_not_controller_helper_artifact",
-    "C20_h1n_oracle_repeat_confirms_catalog_transfer_not_contracted_upper_bound"
+    "C20_h1n_oracle_repeat_confirms_catalog_transfer_not_contracted_upper_bound",
+    "C21_h1n_two_packet_oracle_synthesis_narrows_next_visual_question"
   ]
 }

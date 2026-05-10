@@ -463,6 +463,12 @@ def audit_publication_readiness(
             detail="Fresh H1n repeat argument-hints comparison exists.",
         ),
         _check_path(
+            check_id="h1n_oracle_transfer_synthesis_report_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "h1n_oracle_transfer_synthesis" / "report.md",
+            detail="Two-packet H1n oracle-transfer synthesis report exists.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",
@@ -504,6 +510,7 @@ def audit_publication_readiness(
         "analyze_packaged_replay_gap.py",
         "analyze_h1n_alias_transfer_contract_split.py",
         "analyze_h1n_oracle_helper_ablation.py",
+        "build_h1n_oracle_transfer_synthesis.py",
         "compare_tool_directive_probes.py",
         "build_visual_hard_slice_design.py",
         "build_visual_hard_slice_replay_packet.py",

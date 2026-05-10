@@ -3349,6 +3349,27 @@
 - Next:
   - do not promote only argument hints anymore; carry both argument hints and schema target literals into the next less-staged live visual slice
 
+## 2026-05-09 - H1n Oracle Transfer Synthesis
+
+- Added a compact synthesis report over the two oracle H1n transfer packets and the argument-hints helper ablation:
+  - report: [`results/reports/h1n_oracle_transfer_synthesis/report.md`](../results/reports/h1n_oracle_transfer_synthesis/report.md)
+  - JSON: [`results/reports/h1n_oracle_transfer_synthesis/report.json`](../results/reports/h1n_oracle_transfer_synthesis/report.json)
+  - synthesis table: [`results/reports/h1n_oracle_transfer_synthesis/tables/h1n_oracle_transfer_synthesis.csv`](../results/reports/h1n_oracle_transfer_synthesis/tables/h1n_oracle_transfer_synthesis.csv)
+- Synthesis result:
+  - first oracle packet: argument hints v2 is the clean winner at exact `5 / 6` and executor-equivalent `6 / 6`
+  - repeat oracle packet: argument hints v2 and schema target literals v5 tie at exact `5 / 6` and executor-equivalent `6 / 6`
+  - contracted prompting is not an upper bound on the oracle transfer packets: `1 / 6` on the first oracle packet, `0 / 6` on the repeat
+  - controller repair, controller fallback, and argument repair removals all preserve argument hints at exact `5 / 6` and executor-equivalent `6 / 6` on the first oracle packet
+- Research interpretation:
+  - H1n now answers the first transfer question: narrow catalog-profile interventions can improve local Gemma visual target success when the benchmark contract uses executable oracle expected calls.
+  - H1n does not yet answer the generalization question. The next paper-relevant experiment should compare argument hints against schema target literals in a less staged visual task or a third held-out oracle family with less lexical target labels.
+  - This is now publication claim `C21_h1n_two_packet_oracle_synthesis_narrows_next_visual_question`.
+- Verification:
+  - `uv run python scripts/build_h1n_oracle_transfer_synthesis.py`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`
+  - `uv run pytest tests/test_h1n_oracle_transfer_synthesis.py tests/test_publication_evidence_ledger.py tests/test_publication_readiness_audit.py -q`
+
 ## 2026-05-09 - Schema Target Literal v5 Negative Hard-Slice Repair
 
 - A narrow hard-slice repair candidate was added after inspecting the two v4 exact misses:

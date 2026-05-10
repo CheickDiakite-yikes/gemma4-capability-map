@@ -93,6 +93,11 @@ Next implementation moves:
   - design: six fresh labels/decoys with oracle expected calls derived from target region labels
   - executed result: no-directive `2 / 6`; contracted `0 / 6`; role catalog v1 and schema-field hints v4 `4 / 6`; argument hints v2 and schema target literals v5 `5 / 6` strict and `6 / 6` executor-equivalent
   - diagnostic: [`results/reports/visual_alias_transfer_repeat_diagnostic/diagnostic.md`](../../results/reports/visual_alias_transfer_repeat_diagnostic/diagnostic.md)
+- H1n oracle transfer synthesis:
+  - report: [`results/reports/h1n_oracle_transfer_synthesis/report.md`](../../results/reports/h1n_oracle_transfer_synthesis/report.md)
+  - script: [`scripts/build_h1n_oracle_transfer_synthesis.py`](../../scripts/build_h1n_oracle_transfer_synthesis.py)
+  - result: across two oracle packets, argument hints is executor-equivalent in both packets at `6 / 6` and `6 / 6`; schema target literals rises from `4 / 6` to `6 / 6`; contracted is `1 / 6` then `0 / 6`; helper ablation preserves argument hints with zero exact/executor-equivalence deltas
+  - interpretation: the next visual question is no longer whether catalog-profile transfer exists. It is whether argument hints or schema target literals is more robust under less staged visual operation.
 - next replay-shaped target: test the tied argument-hints/schema-literal profiles on a less staged live visual task or build a third fresh oracle repeat with harder non-lexical target labels
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions

@@ -1,0 +1,5 @@
+finding_id,finding
+oracle_v2_winner,"Oracle v2 winner set: exact=argument_hints_v2, executor=argument_hints_v2."
+repeat_winner_set,"Repeat winner set: exact=argument_hints_v2, schema_literal_targets_v5, executor=argument_hints_v2, schema_literal_targets_v5."
+helper_dependence,Argument-hints helper ablations preserve both metrics: True.
+contracted_not_upper_bound,Contracted repeat candidate exact/executor rates are 0.0 / 0.0.

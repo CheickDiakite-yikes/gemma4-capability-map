@@ -49,6 +49,9 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert claims["C20_h1n_oracle_repeat_confirms_catalog_transfer_not_contracted_upper_bound"][
         "status"
     ] == "supported_current_packets"
+    assert claims["C21_h1n_two_packet_oracle_synthesis_narrows_next_visual_question"][
+        "status"
+    ] == "supported_current_packets"
     assert "7/8" in claims["C2_final_tool_directive_causal_for_protocol"]["primary_metric"]
     assert "v3 raw exact falls" in claims["C6_split_selector_wording_is_negative_evidence"]["primary_metric"]
     assert "schema-field hints reach 6/8 strict and 8/8 executor-equivalent" in claims[
@@ -114,6 +117,12 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     ]["primary_metric"]
     assert "contracted is 0/6" in claims[
         "C20_h1n_oracle_repeat_confirms_catalog_transfer_not_contracted_upper_bound"
+    ]["primary_metric"]
+    assert "argument hints is executor-equivalent in both packets at 6/6 and 6/6" in claims[
+        "C21_h1n_two_packet_oracle_synthesis_narrows_next_visual_question"
+    ]["primary_metric"]
+    assert "schema target literals rises from 4/6 to 6/6" in claims[
+        "C21_h1n_two_packet_oracle_synthesis_narrows_next_visual_question"
     ]["primary_metric"]
 
     source_types = {row["artifact_type"] for row in payload["evidence_sources"]}

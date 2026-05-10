@@ -1,0 +1,166 @@
+{
+  "manifest": {
+    "generated_at": "2026-05-10T00:57:03.305903+00:00",
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h1n_oracle_transfer_synthesis",
+    "oracle_summary": "/Users/cheickdiakite/Codex/moonie/results/reports/visual_alias_transfer_oracle_diagnostic/tables/alias_transfer_oracle_matrix_summary.csv",
+    "repeat_summary": "/Users/cheickdiakite/Codex/moonie/results/reports/visual_alias_transfer_repeat_diagnostic/tables/alias_transfer_repeat_matrix_summary.csv",
+    "helper_summary": "/Users/cheickdiakite/Codex/moonie/results/reports/h1n_oracle_helper_ablation/tables/h1n_oracle_helper_ablation_summary.csv",
+    "surface_row_count": 10,
+    "helper_row_count": 3,
+    "finding_count": 4
+  },
+  "synthesis_rows": [
+    {
+      "surface": "oracle_v2",
+      "label": "contracted",
+      "shared_case_count": 6,
+      "candidate_exact_rate": 0.16666666666666666,
+      "candidate_executor_equivalence_rate": 0.16666666666666666,
+      "delta_exact_rate": -0.16666666666666666,
+      "delta_executor_equivalence_rate": -0.16666666666666666
+    },
+    {
+      "surface": "oracle_v2",
+      "label": "role_catalog_v1",
+      "shared_case_count": 6,
+      "candidate_exact_rate": 0.5,
+      "candidate_executor_equivalence_rate": 0.5,
+      "delta_exact_rate": 0.16666666666666669,
+      "delta_executor_equivalence_rate": 0.16666666666666669
+    },
+    {
+      "surface": "oracle_v2",
+      "label": "argument_hints_v2",
+      "shared_case_count": 6,
+      "candidate_exact_rate": 0.8333333333333334,
+      "candidate_executor_equivalence_rate": 1.0,
+      "delta_exact_rate": 0.5,
+      "delta_executor_equivalence_rate": 0.6666666666666667
+    },
+    {
+      "surface": "oracle_v2",
+      "label": "schema_field_hints_v4",
+      "shared_case_count": 6,
+      "candidate_exact_rate": 0.3333333333333333,
+      "candidate_executor_equivalence_rate": 0.3333333333333333,
+      "delta_exact_rate": 0.0,
+      "delta_executor_equivalence_rate": 0.0
+    },
+    {
+      "surface": "oracle_v2",
+      "label": "schema_literal_targets_v5",
+      "shared_case_count": 6,
+      "candidate_exact_rate": 0.6666666666666666,
+      "candidate_executor_equivalence_rate": 0.6666666666666666,
+      "delta_exact_rate": 0.3333333333333333,
+      "delta_executor_equivalence_rate": 0.3333333333333333
+    },
+    {
+      "surface": "repeat_v1",
+      "label": "contracted",
+      "shared_case_count": 6,
+      "candidate_exact_rate": 0.0,
+      "candidate_executor_equivalence_rate": 0.0,
+      "delta_exact_rate": -0.3333333333333333,
+      "delta_executor_equivalence_rate": -0.3333333333333333
+    },
+    {
+      "surface": "repeat_v1",
+      "label": "role_catalog_v1",
+      "shared_case_count": 6,
+      "candidate_exact_rate": 0.6666666666666666,
+      "candidate_executor_equivalence_rate": 0.6666666666666666,
+      "delta_exact_rate": 0.3333333333333333,
+      "delta_executor_equivalence_rate": 0.3333333333333333
+    },
+    {
+      "surface": "repeat_v1",
+      "label": "argument_hints_v2",
+      "shared_case_count": 6,
+      "candidate_exact_rate": 0.8333333333333334,
+      "candidate_executor_equivalence_rate": 1.0,
+      "delta_exact_rate": 0.5,
+      "delta_executor_equivalence_rate": 0.6666666666666667
+    },
+    {
+      "surface": "repeat_v1",
+      "label": "schema_field_hints_v4",
+      "shared_case_count": 6,
+      "candidate_exact_rate": 0.6666666666666666,
+      "candidate_executor_equivalence_rate": 0.6666666666666666,
+      "delta_exact_rate": 0.3333333333333333,
+      "delta_executor_equivalence_rate": 0.3333333333333333
+    },
+    {
+      "surface": "repeat_v1",
+      "label": "schema_literal_targets_v5",
+      "shared_case_count": 6,
+      "candidate_exact_rate": 0.8333333333333334,
+      "candidate_executor_equivalence_rate": 1.0,
+      "delta_exact_rate": 0.5,
+      "delta_executor_equivalence_rate": 0.6666666666666667
+    }
+  ],
+  "helper_rows": [
+    {
+      "helper_removed": "no_controller_repair",
+      "comparison_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_argument_hints_no_controller_repair_vs_argument_hints_v1",
+      "baseline_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints",
+      "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints_no_controller_repair",
+      "shared_case_count": "6",
+      "baseline_exact_rate": "0.8333333333333334",
+      "candidate_exact_rate": "0.8333333333333334",
+      "delta_exact_rate": "0.0",
+      "baseline_executor_equivalence_rate": "1.0",
+      "candidate_executor_equivalence_rate": "1.0",
+      "delta_executor_equivalence_rate": "0.0",
+      "classification": "no_observed_helper_dependence"
+    },
+    {
+      "helper_removed": "no_controller_fallback",
+      "comparison_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_argument_hints_no_controller_fallback_vs_argument_hints_v1",
+      "baseline_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints",
+      "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints_no_controller_fallback",
+      "shared_case_count": "6",
+      "baseline_exact_rate": "0.8333333333333334",
+      "candidate_exact_rate": "0.8333333333333334",
+      "delta_exact_rate": "0.0",
+      "baseline_executor_equivalence_rate": "1.0",
+      "candidate_executor_equivalence_rate": "1.0",
+      "delta_executor_equivalence_rate": "0.0",
+      "classification": "no_observed_helper_dependence"
+    },
+    {
+      "helper_removed": "no_argument_repair",
+      "comparison_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_argument_hints_no_argument_repair_vs_argument_hints_v1",
+      "baseline_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints",
+      "candidate_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints_no_argument_repair",
+      "shared_case_count": "6",
+      "baseline_exact_rate": "0.8333333333333334",
+      "candidate_exact_rate": "0.8333333333333334",
+      "delta_exact_rate": "0.0",
+      "baseline_executor_equivalence_rate": "1.0",
+      "candidate_executor_equivalence_rate": "1.0",
+      "delta_executor_equivalence_rate": "0.0",
+      "classification": "no_observed_helper_dependence"
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "oracle_v2_winner",
+      "finding": "Oracle v2 winner set: exact=argument_hints_v2, executor=argument_hints_v2."
+    },
+    {
+      "finding_id": "repeat_winner_set",
+      "finding": "Repeat winner set: exact=argument_hints_v2, schema_literal_targets_v5, executor=argument_hints_v2, schema_literal_targets_v5."
+    },
+    {
+      "finding_id": "helper_dependence",
+      "finding": "Argument-hints helper ablations preserve both metrics: True."
+    },
+    {
+      "finding_id": "contracted_not_upper_bound",
+      "finding": "Contracted repeat candidate exact/executor rates are 0.0 / 0.0."
+    }
+  ]
+}

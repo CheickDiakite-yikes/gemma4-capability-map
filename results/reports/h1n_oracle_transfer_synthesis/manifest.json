@@ -1,0 +1,10 @@
+{
+  "generated_at": "2026-05-10T00:57:03.305903+00:00",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h1n_oracle_transfer_synthesis",
+  "oracle_summary": "/Users/cheickdiakite/Codex/moonie/results/reports/visual_alias_transfer_oracle_diagnostic/tables/alias_transfer_oracle_matrix_summary.csv",
+  "repeat_summary": "/Users/cheickdiakite/Codex/moonie/results/reports/visual_alias_transfer_repeat_diagnostic/tables/alias_transfer_repeat_matrix_summary.csv",
+  "helper_summary": "/Users/cheickdiakite/Codex/moonie/results/reports/h1n_oracle_helper_ablation/tables/h1n_oracle_helper_ablation_summary.csv",
+  "surface_row_count": 10,
+  "helper_row_count": 3,
+  "finding_count": 4
+}

@@ -48,6 +48,7 @@ Local-first agent quality is a systems problem. On Moonie's current Gemma-on-MLX
    - The final tool-turn directive is causal on exact replay: contracted `7 / 8`, no-directive `0 / 8`.
    - Packaged workflows can saturate and wash out raw one-turn failures.
    - CLI-live replay keeps the failure shape visible to the operator.
+   - Oracle-backed H1n transfer packets show that narrow catalog profiles can improve local Gemma visual target success without relying on the tested controller helpers.
 
 6. Visual Harnessing Case Study
    - Wave-three visual initiation recovers entry but not the filter case.
@@ -55,8 +56,10 @@ Local-first agent quality is a systems problem. On Moonie's current Gemma-on-MLX
    - `visual_role_catalog_v1` moves routing from wrong-tool/no-call to argument mismatch.
    - `visual_role_catalog_argument_hints_v2` reaches `2 / 3` focused visual live exactness but loses executable form-target recovery.
    - `visual_role_catalog_split_selector_hints_v3` is negative evidence: broader prose preserves latest-filter exactness but regresses readback shape and does not earn live replay.
-   - `visual_role_catalog_schema_field_hints_v4` is negative evidence with a more precise mechanism: schema-local hints restore readback versus v3 and tie v2 exactness, but still fail form-target executability and over-prefer `refine_selection` without a valid selection id.
-   - The next evidence surface is an eight-case visual hard-slice design that separates visible-region targeting, valid selection carryover, compact filter copying, and readback protocol shape.
+   - `visual_role_catalog_schema_field_hints_v4` becomes positive evidence on the fresh hard slice for executor-equivalent target success, while still showing that exact protocol labels and executor-visible success are different metrics.
+   - `visual_role_catalog_schema_literal_targets_v5` is negative evidence on the original hard slice, but becomes competitive on repeated alias/transfer packets.
+   - H1n exposes a benchmark-contract issue: generated expected calls can measure planner-call fidelity rather than target success, so oracle expected calls are needed for strict H1n interpretation.
+   - Two oracle H1n packets now narrow the mechanism question: argument hints v2 is executor-equivalent on both packets, schema target literals v5 ties on the repeat, and contracted prompting is not a reliable visual-transfer upper bound.
 
 7. Threats To Validity
    - Internal benchmark and local runtime only.
@@ -69,15 +72,17 @@ Local-first agent quality is a systems problem. On Moonie's current Gemma-on-MLX
    - Evidence ledger: `results/reports/publication_evidence_ledger/ledger.md`.
    - Readiness audit: `results/reports/publication_readiness_audit/publication_readiness_audit.md`.
    - Visual hard-slice design: `results/reports/visual_hard_slice_design/design.md`.
+   - H1n oracle transfer synthesis: `results/reports/h1n_oracle_transfer_synthesis/report.md`.
    - Main report: `results/reports/mlx_tool_contract_harnessing/report.md`.
    - Regeneration commands:
 
 ```bash
 uv run python scripts/build_visual_hard_slice_design.py
+uv run python scripts/build_h1n_oracle_transfer_synthesis.py
 uv run python scripts/build_mlx_tool_contract_report.py
 uv run python scripts/build_publication_evidence_ledger.py
 uv run python scripts/audit_publication_readiness.py
-uv run pytest tests/test_mlx_tool_contract_report.py tests/test_publication_evidence_ledger.py tests/test_publication_readiness_audit.py tests/test_visual_hard_slice_design.py -q
+uv run pytest tests/test_h1n_oracle_transfer_synthesis.py tests/test_mlx_tool_contract_report.py tests/test_publication_evidence_ledger.py tests/test_publication_readiness_audit.py tests/test_visual_hard_slice_design.py -q
 ```
 
 ## Current Paper-Ready Figures
@@ -88,10 +93,11 @@ uv run pytest tests/test_mlx_tool_contract_report.py tests/test_publication_evid
 - `live_replay_focus_gap.svg`
 - `tool_catalog_profile_probe_gate.svg`
 - `visual_catalog_argument_hints_live_candidate_replay_gate.svg`
+- `visual_hard_slice_alias_transfer_oracle_live_replay_gate.svg`
+- `visual_hard_slice_alias_transfer_repeat_live_replay_gate.svg`
 
 ## Next Evidence Needed Before Submission
 
-- Implement and execute the fresh hard visual slice beyond the three current focused visual replay cases.
-- A refine-selection-gated or executor-grounded selector intervention that does not use broad prose and does not select `refine_selection` without a real `selection_id`.
+- Compare argument hints v2 against schema target literals v5 in a less staged visual live task or a third held-out oracle transfer family with less lexical labels.
 - Repeated-seed or repeated-run variance for the strongest exact-replay claims.
 - A clean table separating population-style benchmark claims from failure-conditioned replay claims.

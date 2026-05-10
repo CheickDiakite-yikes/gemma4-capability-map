@@ -1,9 +1,9 @@
 {
   "summary": {
-    "generated_at": "2026-05-10T00:53:37.150753+00:00",
+    "generated_at": "2026-05-10T00:57:07.536468+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 68,
-    "blocking_check_count": 66,
+    "check_count": 70,
+    "blocking_check_count": 68,
     "blocking_failed_count": 0,
     "recommended_check_count": 2,
     "recommended_failed_count": 0,
@@ -362,6 +362,13 @@
       "path": "results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_repeat_argument_hints_vs_no_directive_v1/live_replay_comparison.json"
     },
     {
+      "check_id": "h1n_oracle_transfer_synthesis_report_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Two-packet H1n oracle-transfer synthesis report exists.",
+      "path": "results/reports/h1n_oracle_transfer_synthesis/report.md"
+    },
+    {
       "check_id": "current_state_doc_exists",
       "severity": "blocking",
       "passed": true,
@@ -465,6 +472,13 @@
       "passed": true,
       "detail": "Reproduction script `analyze_h1n_oracle_helper_ablation.py` exists.",
       "path": "scripts/analyze_h1n_oracle_helper_ablation.py"
+    },
+    {
+      "check_id": "script_build_h1n_oracle_transfer_synthesis.py_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Reproduction script `build_h1n_oracle_transfer_synthesis.py` exists.",
+      "path": "scripts/build_h1n_oracle_transfer_synthesis.py"
     },
     {
       "check_id": "script_compare_tool_directive_probes.py_exists",
