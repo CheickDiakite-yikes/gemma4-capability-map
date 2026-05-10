@@ -488,11 +488,13 @@ Current generated research report:
 - visual hard-slice probe gate figure: [`results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_probe_gate.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_probe_gate.svg)
 - visual hard-slice live replay gate figure: [`results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_live_replay_gate.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_live_replay_gate.svg)
 - visual hard-slice stress live replay gate figure: [`results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_stress_live_replay_gate.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_stress_live_replay_gate.svg)
+- visual hard-slice H1o control-factorial summary: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_h1o_live_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_h1o_live_replay_summary.csv)
+- visual hard-slice H1o control-factorial gate figure: [`results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_h1o_live_replay_gate.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_h1o_live_replay_gate.svg)
 - publication evidence ledger: [`results/reports/publication_evidence_ledger/ledger.md`](../../results/reports/publication_evidence_ledger/ledger.md)
 - publication readiness audit: [`results/reports/publication_readiness_audit/publication_readiness_audit.md`](../../results/reports/publication_readiness_audit/publication_readiness_audit.md)
 - visual hard-slice design: [`results/reports/visual_hard_slice_design/design.md`](../../results/reports/visual_hard_slice_design/design.md)
 - figures: [`results/reports/mlx_tool_contract_harnessing/figures`](../../results/reports/mlx_tool_contract_harnessing/figures)
-- current manifest count: `61` tables and `29` figures
+- current manifest count: `76` tables and `37` figures
 - regeneration command:
 
 ```bash
@@ -1157,7 +1159,48 @@ The repo still does not support these statements:
 - Gemma beats frontier closed models on the same harness
 - Gemma `31B` runtime posture is already reproduced locally
 
-## Latest H1n Component-Value Finding
+## Latest H1o Control-Factorial Finding
+
+H1o is the current sharpest replay-shaped visual discriminator. It was built after the H1n component-value/v10 transfer loop to stop asking whether a single profile "wins" and instead separate the active mechanisms:
+
+- activation/no-call rescue
+- code-like label and negation preservation
+- component label versus component value disambiguation
+
+Evidence:
+
+- packet: [`results/tool_probe_replay_packets/20260510T_h1o_control_factorial_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260510T_h1o_control_factorial_oracle_dry_run_v1)
+- no-directive live baseline: [`results/tool_probe_replay_live/20260510T_h1o_control_factorial_no_directive_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1o_control_factorial_no_directive_execute_v1)
+- argument-hints live packet: [`results/tool_probe_replay_live/20260510T_h1o_control_factorial_argument_hints_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1o_control_factorial_argument_hints_execute_v1)
+- component-value guard live packet: [`results/tool_probe_replay_live/20260510T_h1o_control_factorial_component_value_guard_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1o_control_factorial_component_value_guard_execute_v1)
+- diagnostic: [`results/reports/visual_h1o_control_factorial_diagnostic/diagnostic.md`](../../results/reports/visual_h1o_control_factorial_diagnostic/diagnostic.md)
+- synthesis: [`results/reports/h1o_control_factorial_synthesis/report.md`](../../results/reports/h1o_control_factorial_synthesis/report.md)
+- report table: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_h1o_live_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_h1o_live_replay_summary.csv)
+
+Current H1o live replay rates:
+
+- no-directive MLX: `5 / 12` exact and `6 / 12` executor-equivalent
+- argument hints v2: `9 / 12` exact and `10 / 12` executor-equivalent
+- component-value guard v9: `9 / 12` exact and `10 / 12` executor-equivalent
+- hybrid label guard v8: `8 / 12` exact and `10 / 12` executor-equivalent
+- oblique code guard v7: `8 / 12` exact and `9 / 12` executor-equivalent
+- no-call control rescue v10: `7 / 12` exact and `8 / 12` executor-equivalent
+
+Mechanism split:
+
+- activation/no-call is not the remaining bottleneck: no-directive is already `4 / 4` exact on that family
+- no-call rescue v10 is not a global fix: it regresses `h1o_activation_error_banner_previous_region_decoy`
+- code/negation is repairable: best rows reach `3 / 4` exact and `4 / 4` executor-equivalent
+- component/value remains the hard residue: best rows reach only `2 / 4` exact and executor-equivalent
+- argument hints is still the conservative default, while component-value guard is tied on H1o but needs a fresh component-only holdout before promotion
+
+Next research move:
+
+- build H1p as a component-only holdout with more diverse component/value surfaces
+- avoid activation-focused wording unless a fresh component-only packet shows no-call is still active
+- test whether component-value-specific guidance can beat argument hints without losing exact selector copying
+
+## Previous H1n Component-Value Finding
 
 The current H1n visual replay frontier is now the component-role/value holdout that followed the residual `state pill` miss.
 
@@ -1187,7 +1230,7 @@ Interpretation:
 - the useful gains are no-call rescues on `status badge` and `owner field` without broad component-value prose
 - transfer synthesis says v10 is a scoped activation improvement: `22 / 30` exact and `25 / 30` executor-equivalent across four H1n packets, versus no-directive at `11 / 30` and `12 / 30`, but behind incumbents at `25 / 30` and `26 / 30`
 - the harmful pattern is broad component-value prose causing argument mismatches on already-passable pill/chip targets
-- next research move should build a fresh H1o control-first slice that separates no-call activation, code/negation preservation, and component-label/value disambiguation
+- H1o completed that split and showed component/value, not activation/no-call, is now the residual mechanism to stress
 
 ## Previous H1n Residual Finding
 

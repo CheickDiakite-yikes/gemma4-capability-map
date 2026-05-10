@@ -1,9 +1,9 @@
 {
   "summary": {
-    "generated_at": "2026-05-10T16:22:26.641499+00:00",
+    "generated_at": "2026-05-10T16:49:34.259300+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 108,
-    "blocking_check_count": 106,
+    "check_count": 115,
+    "blocking_check_count": 113,
     "blocking_failed_count": 0,
     "recommended_check_count": 2,
     "recommended_failed_count": 0,
@@ -600,6 +600,48 @@
       "path": "results/reports/h1n_no_call_rescue_transfer_synthesis/report.md"
     },
     {
+      "check_id": "h1o_control_factorial_packet_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H1o control-factorial oracle packet exists.",
+      "path": "results/tool_probe_replay_packets/20260510T_h1o_control_factorial_oracle_dry_run_v1/summary.json"
+    },
+    {
+      "check_id": "h1o_control_factorial_argument_hints_packet_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H1o argument-hints live replay exists.",
+      "path": "results/tool_probe_replay_live/20260510T_h1o_control_factorial_argument_hints_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h1o_control_factorial_component_value_packet_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H1o component-value-guard live replay exists.",
+      "path": "results/tool_probe_replay_live/20260510T_h1o_control_factorial_component_value_guard_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h1o_control_factorial_argument_hints_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H1o argument-hints comparison against no-directive exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260510T_h1o_control_factorial_argument_hints_vs_no_directive_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h1o_control_factorial_diagnostic_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H1o control-factorial matrix diagnostic exists.",
+      "path": "results/reports/visual_h1o_control_factorial_diagnostic/diagnostic.md"
+    },
+    {
+      "check_id": "h1o_control_factorial_synthesis_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H1o mechanism-family synthesis report exists.",
+      "path": "results/reports/h1o_control_factorial_synthesis/report.md"
+    },
+    {
       "check_id": "current_state_doc_exists",
       "severity": "blocking",
       "passed": true,
@@ -738,6 +780,13 @@
       "passed": true,
       "detail": "Reproduction script `build_h1n_no_call_rescue_transfer_synthesis.py` exists.",
       "path": "scripts/build_h1n_no_call_rescue_transfer_synthesis.py"
+    },
+    {
+      "check_id": "script_build_h1o_control_factorial_synthesis.py_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Reproduction script `build_h1o_control_factorial_synthesis.py` exists.",
+      "path": "scripts/build_h1o_control_factorial_synthesis.py"
     },
     {
       "check_id": "script_build_h1n_oracle_transfer_synthesis.py_exists",

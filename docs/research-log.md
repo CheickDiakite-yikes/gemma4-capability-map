@@ -1,5 +1,46 @@
 # Research Log
 
+## 2026-05-10 - H1o Control-Factorial Slice Identifies Component/Value as the Residue
+
+- Built and executed the H1o control-factorial replay slice to separate the mechanisms that H1n had started to entangle:
+  - packet: [`20260510T_h1o_control_factorial_oracle_dry_run_v1`](../results/tool_probe_replay_packets/20260510T_h1o_control_factorial_oracle_dry_run_v1)
+  - no-directive baseline: [`20260510T_h1o_control_factorial_no_directive_execute_v1`](../results/tool_probe_replay_live/20260510T_h1o_control_factorial_no_directive_execute_v1)
+  - argument-hints row: [`20260510T_h1o_control_factorial_argument_hints_execute_v1`](../results/tool_probe_replay_live/20260510T_h1o_control_factorial_argument_hints_execute_v1)
+  - hybrid-label row: [`20260510T_h1o_control_factorial_hybrid_label_guard_execute_v1`](../results/tool_probe_replay_live/20260510T_h1o_control_factorial_hybrid_label_guard_execute_v1)
+  - no-call rescue row: [`20260510T_h1o_control_factorial_no_call_control_rescue_execute_v1`](../results/tool_probe_replay_live/20260510T_h1o_control_factorial_no_call_control_rescue_execute_v1)
+  - oblique-code row: [`20260510T_h1o_control_factorial_oblique_code_guard_execute_v1`](../results/tool_probe_replay_live/20260510T_h1o_control_factorial_oblique_code_guard_execute_v1)
+  - component-value row: [`20260510T_h1o_control_factorial_component_value_guard_execute_v1`](../results/tool_probe_replay_live/20260510T_h1o_control_factorial_component_value_guard_execute_v1)
+  - diagnostic: [`visual_h1o_control_factorial_diagnostic`](../results/reports/visual_h1o_control_factorial_diagnostic)
+  - synthesis: [`h1o_control_factorial_synthesis`](../results/reports/h1o_control_factorial_synthesis/report.md)
+  - report table: [`visual_hard_slice_h1o_live_replay_summary.csv`](../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_h1o_live_replay_summary.csv)
+  - report figure: [`visual_hard_slice_h1o_live_replay_gate.svg`](../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_h1o_live_replay_gate.svg)
+- Live replay matrix:
+  - no-directive MLX: `5 / 12` exact and `6 / 12` executor-equivalent
+  - argument hints v2: `9 / 12` exact and `10 / 12` executor-equivalent
+  - component-value guard v9: `9 / 12` exact and `10 / 12` executor-equivalent
+  - hybrid label guard v8: `8 / 12` exact and `10 / 12` executor-equivalent
+  - oblique code guard v7: `8 / 12` exact and `9 / 12` executor-equivalent
+  - no-call control rescue v10: `7 / 12` exact and `8 / 12` executor-equivalent
+- Mechanism-family finding:
+  - activation/no-call is not the remaining global bottleneck: no-directive is already `4 / 4` exact and executor-equivalent on that family
+  - v10 no-call rescue is scoped and can regress activation cases; it loses `h1o_activation_error_banner_previous_region_decoy`
+  - code/negation preservation is repairable: best rows reach `3 / 4` exact and `4 / 4` executor-equivalent
+  - component/value remains the hard residue: best rows reach only `2 / 4` exact and executor-equivalent
+  - argument hints remains the conservative default; component-value guard ties it on H1o but has not earned promotion because H1n already showed broad component-value wording can regress passable selector cases
+- Reporting:
+  - publication evidence ledger now has `33` claims and `165` evidence sources with `0` missing sources
+  - publication readiness audit now has `115` checks, `113` blocking checks, `0` blocking failures, and status `paper_draft_ready`
+  - MLX tool-contract report now has `76` tables and `37` figures
+- Next research move:
+  - build H1p as a component-only holdout with more component/value surface diversity
+  - keep activation/no-call wording out of the default H1p candidates unless the new packet re-exposes no-call failures
+  - test whether a component-specific profile can beat argument hints without losing exact selector copying
+- Verification:
+  - `uv run pytest tests/test_publication_evidence_ledger.py tests/test_publication_readiness_audit.py tests/test_mlx_tool_contract_report.py tests/test_h1o_control_factorial_synthesis.py tests/test_visual_live_stress_diagnostic.py -q`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`
+  - `uv run python scripts/build_mlx_tool_contract_report.py`
+
 ## 2026-05-10 - v10 No-Call Control Rescue Becomes the Component-Value Upper Bound
 
 - Implemented `visual_role_catalog_no_call_control_rescue_v10` as a lighter follow-up to the failed v9 component-value guard:
@@ -16,7 +57,7 @@
   - The useful mechanism is narrower than "component-role/value disambiguation." A generic current-image visual activation guard fixed the two no-call cases while preserving the already-passable pill/badge cases.
   - The remaining miss is not a failed execution; it is an exactness miss where the priority-chip selector is executor-equivalent.
   - Transfer synthesis: [`h1n_no_call_rescue_transfer_synthesis`](../results/reports/h1n_no_call_rescue_transfer_synthesis/report.md) shows v10 at `22 / 30` exact and `25 / 30` executor-equivalent across component-value, residual, post-repair, and oblique packets. That is a large gain over no-directive (`11 / 30`, `12 / 30`) but still behind per-packet incumbents (`25 / 30`, `26 / 30`).
-  - Next transfer test: build H1o as a factorial slice instead of treating v10 as a durable replacement profile.
+  - This motivated H1o as a factorial slice instead of treating v10 as a durable replacement profile.
 - Verification:
   - `uv run pytest tests/test_prompt_contracts.py tests/test_knowledge_work_h1.py::test_h1n_no_call_control_rescue_registry_row_preserves_catalog_profile -q`
   - `uv run python -m gemma4_capability_map.runtime.cli replay-live --packet-dir results/tool_probe_replay_packets/20260510T_visual_hard_slice_component_value_oracle_dry_run_v1 --output-dir results/tool_probe_replay_live/20260510T_h1n_component_value_no_call_control_rescue_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_no_call_control_rescue --registry configs/model_registry.yaml --execute --json`

@@ -766,6 +766,58 @@ def audit_publication_readiness(
             detail="No-call rescue transfer synthesis report exists.",
         ),
         _check_path(
+            check_id="h1o_control_factorial_packet_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_packets"
+            / "20260510T_h1o_control_factorial_oracle_dry_run_v1"
+            / "summary.json",
+            detail="H1o control-factorial oracle packet exists.",
+        ),
+        _check_path(
+            check_id="h1o_control_factorial_argument_hints_packet_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260510T_h1o_control_factorial_argument_hints_execute_v1"
+            / "summary.json",
+            detail="H1o argument-hints live replay exists.",
+        ),
+        _check_path(
+            check_id="h1o_control_factorial_component_value_packet_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260510T_h1o_control_factorial_component_value_guard_execute_v1"
+            / "summary.json",
+            detail="H1o component-value-guard live replay exists.",
+        ),
+        _check_path(
+            check_id="h1o_control_factorial_argument_hints_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260510T_h1o_control_factorial_argument_hints_vs_no_directive_v1"
+            / "live_replay_comparison.json",
+            detail="H1o argument-hints comparison against no-directive exists.",
+        ),
+        _check_path(
+            check_id="h1o_control_factorial_diagnostic_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "visual_h1o_control_factorial_diagnostic" / "diagnostic.md",
+            detail="H1o control-factorial matrix diagnostic exists.",
+        ),
+        _check_path(
+            check_id="h1o_control_factorial_synthesis_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "h1o_control_factorial_synthesis" / "report.md",
+            detail="H1o mechanism-family synthesis report exists.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",
@@ -812,6 +864,7 @@ def audit_publication_readiness(
         "build_h1n_code_hints_transfer_synthesis.py",
         "build_h1n_code_guard_transfer_synthesis.py",
         "build_h1n_no_call_rescue_transfer_synthesis.py",
+        "build_h1o_control_factorial_synthesis.py",
         "build_h1n_oracle_transfer_synthesis.py",
         "compare_tool_directive_probes.py",
         "build_visual_hard_slice_design.py",

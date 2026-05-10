@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-10T16:22:26.598350+00:00",
+    "generated_at": "2026-05-10T16:49:34.256204+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-    "claim_count": 32,
-    "evidence_source_count": 159,
+    "claim_count": 33,
+    "evidence_source_count": 165,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -37,7 +37,8 @@
       "C29_h1n_residual_holdout_favors_hybrid_label_guard",
       "C30_component_value_guard_is_negative_evidence",
       "C31_no_call_control_rescue_is_current_component_value_upper_bound",
-      "C32_no_call_rescue_is_scoped_not_general"
+      "C32_no_call_rescue_is_scoped_not_general",
+      "C33_h1o_factorial_identifies_component_value_residue"
     ]
   },
   "claims": [
@@ -359,6 +360,16 @@
       "primary_metric": "Across component-value, residual, post-repair, and oblique transfer packets, v10 reaches 22/30 exact and 25/30 executor-equivalent successes versus no-directive at 11/30 and 12/30, but trails incumbents at 25/30 exact and 26/30 executor-equivalent.",
       "limitation": "The aggregate spans replay-shaped H1n micro-slices, not a broad population estimate or packaged workflow confirmation.",
       "next_test": "Author H1o as a factorial control slice with separate activation/no-call, code-suffix/negation, and component-value axes.",
+      "source_count": 6
+    },
+    {
+      "claim_id": "C33_h1o_factorial_identifies_component_value_residue",
+      "claim": "The H1o control-factorial slice separates remaining visual harness mechanisms: activation/no-call is already saturated, code/negation is repairable by controller wording, and component/value boundaries remain the residual hard case.",
+      "status": "supported_current_packets",
+      "evidence_strength": "strong_internal",
+      "primary_metric": "On the 12-case H1o packet, argument hints v2 and component-value guard v9 tie the strict upper bound at 9/12 exact; argument hints, hybrid label guard, and component-value guard tie executor-equivalence at 10/12; no-directive is already 4/4 exact on activation/no-call but 1/4 exact on code/negation and 0/4 exact on component/value.",
+      "limitation": "H1o is still a synthetic replay-shaped micro-slice. It is mechanism-discriminative, not a population estimate across real GUIs or packaged workflows.",
+      "next_test": "Build a fresh H1p component-only holdout with more diverse component/value surfaces, then test whether component-value guard can beat argument hints without losing exact selector copying.",
       "source_count": 6
     }
   ],
@@ -1474,6 +1485,48 @@
       "artifact_type": "diagnostic_report",
       "path": "results/reports/visual_alias_transfer_oblique_diagnostic/diagnostic.md",
       "purpose": "Oblique diagnostic showing v10 below v7 code guard.",
+      "exists": true
+    },
+    {
+      "claim_id": "C33_h1o_factorial_identifies_component_value_residue",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260510T_h1o_control_factorial_no_directive_execute_v1",
+      "purpose": "No-directive H1o baseline reaching 5/12 exact and 6/12 executor-equivalent, with activation already saturated.",
+      "exists": true
+    },
+    {
+      "claim_id": "C33_h1o_factorial_identifies_component_value_residue",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260510T_h1o_control_factorial_argument_hints_execute_v1",
+      "purpose": "Argument-hints H1o execution reaching 9/12 exact and 10/12 executor-equivalent.",
+      "exists": true
+    },
+    {
+      "claim_id": "C33_h1o_factorial_identifies_component_value_residue",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260510T_h1o_control_factorial_component_value_guard_execute_v1",
+      "purpose": "Component-value-guard H1o execution tying argument hints at 9/12 exact and 10/12 executor-equivalent.",
+      "exists": true
+    },
+    {
+      "claim_id": "C33_h1o_factorial_identifies_component_value_residue",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260510T_h1o_control_factorial_argument_hints_vs_no_directive_v1",
+      "purpose": "Comparison showing +0.333 exact and executor-equivalence deltas over no-directive for argument hints.",
+      "exists": true
+    },
+    {
+      "claim_id": "C33_h1o_factorial_identifies_component_value_residue",
+      "artifact_type": "diagnostic_report",
+      "path": "results/reports/visual_h1o_control_factorial_diagnostic/diagnostic.md",
+      "purpose": "Matrix diagnostic identifying strict/equivalence upper bounds and the no-call-rescue regression.",
+      "exists": true
+    },
+    {
+      "claim_id": "C33_h1o_factorial_identifies_component_value_residue",
+      "artifact_type": "synthesis_report",
+      "path": "results/reports/h1o_control_factorial_synthesis/report.md",
+      "purpose": "Mechanism-family synthesis showing activation saturation, code/negation repairability, and component/value residue.",
       "exists": true
     }
   ],

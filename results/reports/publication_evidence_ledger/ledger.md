@@ -4,9 +4,9 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 
 ## Manifest
 
-- generated_at: `2026-05-10T16:22:26.598350+00:00`
-- claim_count: `32`
-- evidence_source_count: `159`
+- generated_at: `2026-05-10T16:49:34.256204+00:00`
+- claim_count: `33`
+- evidence_source_count: `165`
 - missing_source_count: `0`
 
 ## Claims
@@ -45,6 +45,7 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C30_component_value_guard_is_negative_evidence | negative_result_current_packets | moderate_internal | On the eight-case component-value holdout, argument hints v2 and hybrid label guard v8 both reach 6/8 exact and 7/8 executor-equivalent successes; no-directive reaches 5/8 exact and 6/8 executor-equivalent; the v9 component-value guard falls to 4/8 exact and 4/8 executor-equivalent. | The packet is intentionally narrow and replay-shaped; the result rejects this broad prompt-contract wording, not all possible component-role/value runtime interventions. | Promote only interventions that preserve argument fidelity on the component-value holdout and validate their transfer on fresh residual/component packets. |
 | C31_no_call_control_rescue_is_current_component_value_upper_bound | supported_current_packets | moderate_internal | On the eight-case component-value holdout, v10 reaches 7/8 exact and 8/8 executor-equivalent successes, improving over no-directive by +0.25 exact/+0.25 executor-equivalence and over argument hints/hybrid by +0.125 exact/+0.125 executor-equivalence. | The component-value gain transfers unevenly: it ties or partially transfers on some H1n packets but does not replace specialized code/label guards. | Build a fresh H1o control-first slice that separates activation/no-call rescue from selector-value disambiguation. |
 | C32_no_call_rescue_is_scoped_not_general | supported_current_packets | moderate_internal | Across component-value, residual, post-repair, and oblique transfer packets, v10 reaches 22/30 exact and 25/30 executor-equivalent successes versus no-directive at 11/30 and 12/30, but trails incumbents at 25/30 exact and 26/30 executor-equivalent. | The aggregate spans replay-shaped H1n micro-slices, not a broad population estimate or packaged workflow confirmation. | Author H1o as a factorial control slice with separate activation/no-call, code-suffix/negation, and component-value axes. |
+| C33_h1o_factorial_identifies_component_value_residue | supported_current_packets | strong_internal | On the 12-case H1o packet, argument hints v2 and component-value guard v9 tie the strict upper bound at 9/12 exact; argument hints, hybrid label guard, and component-value guard tie executor-equivalence at 10/12; no-directive is already 4/4 exact on activation/no-call but 1/4 exact on code/negation and 0/4 exact on component/value. | H1o is still a synthetic replay-shaped micro-slice. It is mechanism-discriminative, not a population estimate across real GUIs or packaged workflows. | Build a fresh H1p component-only holdout with more diverse component/value surfaces, then test whether component-value guard can beat argument hints without losing exact selector copying. |
 
 ## Evidence Sources
 
@@ -209,3 +210,9 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C32_no_call_rescue_is_scoped_not_general | live_replay_packet | True | results/tool_probe_replay_live/20260510T_h1n_oracle_oblique_no_call_control_rescue_execute_v1 | Oblique transfer packet where v10 reaches 5/6 but trails v7 code guard. |
 | C32_no_call_rescue_is_scoped_not_general | diagnostic_report | True | results/reports/visual_alias_transfer_residual_diagnostic/diagnostic.md | Residual diagnostic showing v10 is not the strict upper bound. |
 | C32_no_call_rescue_is_scoped_not_general | diagnostic_report | True | results/reports/visual_alias_transfer_oblique_diagnostic/diagnostic.md | Oblique diagnostic showing v10 below v7 code guard. |
+| C33_h1o_factorial_identifies_component_value_residue | live_replay_packet | True | results/tool_probe_replay_live/20260510T_h1o_control_factorial_no_directive_execute_v1 | No-directive H1o baseline reaching 5/12 exact and 6/12 executor-equivalent, with activation already saturated. |
+| C33_h1o_factorial_identifies_component_value_residue | live_replay_packet | True | results/tool_probe_replay_live/20260510T_h1o_control_factorial_argument_hints_execute_v1 | Argument-hints H1o execution reaching 9/12 exact and 10/12 executor-equivalent. |
+| C33_h1o_factorial_identifies_component_value_residue | live_replay_packet | True | results/tool_probe_replay_live/20260510T_h1o_control_factorial_component_value_guard_execute_v1 | Component-value-guard H1o execution tying argument hints at 9/12 exact and 10/12 executor-equivalent. |
+| C33_h1o_factorial_identifies_component_value_residue | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260510T_h1o_control_factorial_argument_hints_vs_no_directive_v1 | Comparison showing +0.333 exact and executor-equivalence deltas over no-directive for argument hints. |
+| C33_h1o_factorial_identifies_component_value_residue | diagnostic_report | True | results/reports/visual_h1o_control_factorial_diagnostic/diagnostic.md | Matrix diagnostic identifying strict/equivalence upper bounds and the no-call-rescue regression. |
+| C33_h1o_factorial_identifies_component_value_residue | synthesis_report | True | results/reports/h1o_control_factorial_synthesis/report.md | Mechanism-family synthesis showing activation saturation, code/negation repairability, and component/value residue. |

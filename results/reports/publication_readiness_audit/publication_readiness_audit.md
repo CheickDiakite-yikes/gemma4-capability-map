@@ -91,6 +91,12 @@
 | h1n_component_value_diagnostic_exists | blocking | True | Component-value visual diagnostic exists. | results/reports/visual_component_value_diagnostic/diagnostic.md |
 | h1n_component_value_report_table_exists | blocking | True | Paper-facing component-value holdout summary table exists. | results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_component_value_live_replay_summary.csv |
 | h1n_no_call_rescue_transfer_synthesis_exists | blocking | True | No-call rescue transfer synthesis report exists. | results/reports/h1n_no_call_rescue_transfer_synthesis/report.md |
+| h1o_control_factorial_packet_exists | blocking | True | H1o control-factorial oracle packet exists. | results/tool_probe_replay_packets/20260510T_h1o_control_factorial_oracle_dry_run_v1/summary.json |
+| h1o_control_factorial_argument_hints_packet_exists | blocking | True | H1o argument-hints live replay exists. | results/tool_probe_replay_live/20260510T_h1o_control_factorial_argument_hints_execute_v1/summary.json |
+| h1o_control_factorial_component_value_packet_exists | blocking | True | H1o component-value-guard live replay exists. | results/tool_probe_replay_live/20260510T_h1o_control_factorial_component_value_guard_execute_v1/summary.json |
+| h1o_control_factorial_argument_hints_comparison_exists | blocking | True | H1o argument-hints comparison against no-directive exists. | results/tool_probe_replay_live_comparisons/20260510T_h1o_control_factorial_argument_hints_vs_no_directive_v1/live_replay_comparison.json |
+| h1o_control_factorial_diagnostic_exists | blocking | True | H1o control-factorial matrix diagnostic exists. | results/reports/visual_h1o_control_factorial_diagnostic/diagnostic.md |
+| h1o_control_factorial_synthesis_exists | blocking | True | H1o mechanism-family synthesis report exists. | results/reports/h1o_control_factorial_synthesis/report.md |
 | current_state_doc_exists | blocking | True | Continuity current-state doc exists. | docs/continuity/current-state.md |
 | next_steps_doc_exists | blocking | True | Continuity next-steps doc exists. | docs/continuity/next-steps.md |
 | research_log_exists | blocking | True | Research log exists. | docs/research-log.md |
@@ -111,6 +117,7 @@
 | script_build_h1n_code_hints_transfer_synthesis.py_exists | blocking | True | Reproduction script `build_h1n_code_hints_transfer_synthesis.py` exists. | scripts/build_h1n_code_hints_transfer_synthesis.py |
 | script_build_h1n_code_guard_transfer_synthesis.py_exists | blocking | True | Reproduction script `build_h1n_code_guard_transfer_synthesis.py` exists. | scripts/build_h1n_code_guard_transfer_synthesis.py |
 | script_build_h1n_no_call_rescue_transfer_synthesis.py_exists | blocking | True | Reproduction script `build_h1n_no_call_rescue_transfer_synthesis.py` exists. | scripts/build_h1n_no_call_rescue_transfer_synthesis.py |
+| script_build_h1o_control_factorial_synthesis.py_exists | blocking | True | Reproduction script `build_h1o_control_factorial_synthesis.py` exists. | scripts/build_h1o_control_factorial_synthesis.py |
 | script_build_h1n_oracle_transfer_synthesis.py_exists | blocking | True | Reproduction script `build_h1n_oracle_transfer_synthesis.py` exists. | scripts/build_h1n_oracle_transfer_synthesis.py |
 | script_compare_tool_directive_probes.py_exists | blocking | True | Reproduction script `compare_tool_directive_probes.py` exists. | scripts/compare_tool_directive_probes.py |
 | script_build_visual_hard_slice_design.py_exists | blocking | True | Reproduction script `build_visual_hard_slice_design.py` exists. | scripts/build_visual_hard_slice_design.py |
