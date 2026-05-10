@@ -1115,6 +1115,85 @@ def audit_publication_readiness(
             detail="Paper-facing H1y/H2a replay gate figure exists in the main report.",
         ),
         _check_path(
+            check_id="h2a_transfer_h1n_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260510T_h2a_visual_stale_selection_gate_on_h1n_component_value_execute_v1"
+            / "summary.json",
+            detail="H2a transfer replay exists for H1n component-value residual.",
+        ),
+        _check_path(
+            check_id="h2a_transfer_h1o_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260510T_h2a_visual_stale_selection_gate_on_h1o_execute_v1"
+            / "summary.json",
+            detail="H2a transfer replay exists for H1o control-factorial.",
+        ),
+        _check_path(
+            check_id="h2a_transfer_h1p_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260510T_h2a_visual_stale_selection_gate_on_h1p_execute_v1"
+            / "summary.json",
+            detail="H2a transfer replay exists for H1p component-value holdout.",
+        ),
+        _check_path(
+            check_id="h2a_transfer_h1x_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260510T_h2a_visual_stale_selection_gate_on_h1x_execute_v1"
+            / "summary.json",
+            detail="H2a transfer replay exists for H1x v11-breaker.",
+        ),
+        _check_path(
+            check_id="h2a_stale_selection_transfer_synthesis_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "h2a_stale_selection_transfer_synthesis" / "report.md",
+            detail="H2a stale-selection transfer synthesis report exists.",
+        ),
+        _check_path(
+            check_id="h2a_stale_selection_transfer_report_table_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "mlx_tool_contract_harnessing"
+            / "tables"
+            / "h2a_stale_selection_transfer_aggregate_summary.csv",
+            detail="Paper-facing H2a transfer aggregate table exists in the main report.",
+        ),
+        _check_path(
+            check_id="h2a_stale_selection_transfer_residual_table_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "mlx_tool_contract_harnessing"
+            / "tables"
+            / "h2a_stale_selection_transfer_residual_rows.csv",
+            detail="Paper-facing H2a residual table exists in the main report.",
+        ),
+        _check_path(
+            check_id="h2a_stale_selection_transfer_report_figure_exists",
+            severity="recommended",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "mlx_tool_contract_harnessing"
+            / "figures"
+            / "h2a_stale_selection_transfer_gate.svg",
+            detail="Paper-facing H2a transfer gate figure exists in the main report.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",
@@ -1164,6 +1243,7 @@ def audit_publication_readiness(
         "build_h1o_control_factorial_synthesis.py",
         "build_h1q_component_label_guard_transfer_synthesis.py",
         "build_h1s_component_residual_transfer_synthesis.py",
+        "build_h2a_stale_selection_transfer_synthesis.py",
         "build_h1n_oracle_transfer_synthesis.py",
         "compare_tool_directive_probes.py",
         "build_visual_hard_slice_design.py",

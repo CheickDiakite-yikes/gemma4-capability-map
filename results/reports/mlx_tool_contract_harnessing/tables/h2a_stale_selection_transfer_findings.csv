@@ -1,0 +1,8 @@
+finding_id,finding
+local_h1y_gate_fit_is_not_enough,"H2a was fit on the local H1y routed-residual packet at 8/10 exact and 8/10 executor-equivalent, so the decisive question is whether it transfers to older held-out residual packets."
+h2a_transfers_beyond_h1y,"Across H1n/H1o/H1p/H1x, H2a reaches 35/40 strict exact and 38/40 executor-equivalent, versus no-directive at 12/40 and 14/40."
+h2a_beats_v11_on_transfer,H2a improves over v11 by 2 strict rows and 2 executor-equivalent rows on the same 40-case transfer set.
+h2a_ties_v12_strict_but_beats_executor_equivalence,"H2a ties v12 strict exactness at 35/40 but beats v12 executor-equivalence by 3 rows. That is the cleaner harness profile: no strict loss versus v12, less execution-level fragility."
+h1x_ceiling_confirms_no_obvious_overfit,"On the H1x v11-breaker packet, H2a reaches 8/8 exact and 8/8 executor-equivalent, matching the v12 ceiling while improving over v11."
+remaining_signal_is_exact_alias_not_live_routing,"H2a transfer residuals are now concentrated in exact argument alias/code-label rows, not broad no-call or wrong-tool collapse. Residual cases: component_value_result_pill_log_decoy, h1o_code_alert_s92_negated_toggle_decoy, h1o_code_badge_c08_note_decoy, h1p_compact_state_tag_log_value_decoy, h1p_surface_mode_toggle_note_value_decoy."
+promotion_decision,Promote H2a as a scoped controller helper candidate: only repair a missing or stale selection_id when the model's proposed id is absent from current visual selections and a current component can be inferred from live visual state. The next packet should attack exact aliases without letting the controller read benchmark answers.

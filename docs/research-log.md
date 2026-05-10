@@ -37,6 +37,45 @@
   - `uv run python scripts/build_mlx_tool_contract_report.py`
   - `uv run python scripts/build_publication_evidence_ledger.py`
   - `uv run python scripts/audit_publication_readiness.py`
+
+## 2026-05-10 - H2a Stale-Selection Transfer Gate
+
+- Completed the H2a transfer test that was queued after the local H1y result.
+- H2a profile:
+  - `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_label_guard_visual_stale_selection_gate`
+  - interpretation: keep v11's component-label prompt contract, add only a controller-side stale-selection mediation path
+- Transfer live packets:
+  - H1n component-value residual: [`20260510T_h2a_visual_stale_selection_gate_on_h1n_component_value_execute_v1`](../results/tool_probe_replay_live/20260510T_h2a_visual_stale_selection_gate_on_h1n_component_value_execute_v1)
+  - H1o control-factorial: [`20260510T_h2a_visual_stale_selection_gate_on_h1o_execute_v1`](../results/tool_probe_replay_live/20260510T_h2a_visual_stale_selection_gate_on_h1o_execute_v1)
+  - H1p component-value holdout: [`20260510T_h2a_visual_stale_selection_gate_on_h1p_execute_v1`](../results/tool_probe_replay_live/20260510T_h2a_visual_stale_selection_gate_on_h1p_execute_v1)
+  - H1x v11-breaker: [`20260510T_h2a_visual_stale_selection_gate_on_h1x_execute_v1`](../results/tool_probe_replay_live/20260510T_h2a_visual_stale_selection_gate_on_h1x_execute_v1)
+- Transfer synthesis:
+  - report: [`results/reports/h2a_stale_selection_transfer_synthesis/report.md`](../results/reports/h2a_stale_selection_transfer_synthesis/report.md)
+  - aggregate table: [`h2a_stale_selection_transfer_aggregate_summary.csv`](../results/reports/mlx_tool_contract_harnessing/tables/h2a_stale_selection_transfer_aggregate_summary.csv)
+  - residual table: [`h2a_stale_selection_transfer_residual_rows.csv`](../results/reports/mlx_tool_contract_harnessing/tables/h2a_stale_selection_transfer_residual_rows.csv)
+  - figure: [`h2a_stale_selection_transfer_gate.svg`](../results/reports/mlx_tool_contract_harnessing/figures/h2a_stale_selection_transfer_gate.svg)
+- Result:
+  - no-directive transfer aggregate: `12 / 40` strict, `14 / 40` executor-equivalent
+  - v11 component-label guard: `33 / 40` strict, `36 / 40` executor-equivalent
+  - v12 component-residual guard: `35 / 40` strict, `35 / 40` executor-equivalent
+  - H2a stale-selection gate: `35 / 40` strict, `38 / 40` executor-equivalent
+- Interpretation:
+  - H2a is not only a local H1y fix. It transfers across the older held-out replay-shaped visual packets.
+  - The useful promotion claim is scoped: controller-side stale-selection mediation is causal when the model emits a missing/stale `selection_id` and live visual state can supply the current region. It is not a license for the controller to read expected calls or benchmark labels.
+  - H2a ties v12 strict transfer while improving executor-equivalence by three rows, which makes it the cleanest current visual helper profile.
+  - The residual problem has shifted: remaining failures are exact alias/code-label fidelity, especially `result pill`, `alert s92`, `badge c08`, `state tag`, and `mode toggle`.
+- Reporting updates:
+  - generated MLX report now has `102` tables and `43` figures
+  - publication evidence ledger now has `39` claims, `205` evidence sources, and `0` missing sources
+  - publication readiness audit has `157` checks, `152` blocking checks, `0` blocking failures, and status `paper_draft_ready`
+  - new publication claim: `C39_h2a_stale_selection_gate_transfers_with_better_executor_profile`
+- Verification:
+  - `uv run pytest tests/test_h2a_stale_selection_transfer_synthesis.py tests/test_h1y_routed_residual_synthesis.py -q`
+  - `uv run pytest tests/test_mlx_tool_contract_report.py tests/test_publication_evidence_ledger.py tests/test_publication_readiness_audit.py -q`
+  - `uv run python scripts/build_h2a_stale_selection_transfer_synthesis.py`
+  - `uv run python scripts/build_mlx_tool_contract_report.py`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`
   - `uv run pytest tests/test_mlx_tool_contract_report.py tests/test_publication_evidence_ledger.py tests/test_publication_readiness_audit.py tests/test_h1y_routed_residual_synthesis.py -q`
 
 ## 2026-05-10 - H1y/H1z Routed Residual Prompt-Only Negative Result

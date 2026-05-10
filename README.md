@@ -74,7 +74,8 @@ Latest research restart point:
 - H1y/H1z tested whether more visual catalog prose could solve stale selection-origin failures; it could not
 - H2a adds a controller-side stale visual selection gate on top of the v11 component-label profile
 - on the same H1y packet, H2a reaches `8 / 10` exact and executor-equivalent versus no-directive `0 / 10`, v11 `5 / 10`, v12 `7 / 10`, v16 `5 / 10`, and v17 `5 / 10`
-- the active next move is H2a transfer testing across H1n/H1o/H1p/H1x, followed by a smaller residual packet for the remaining argument-alias/code-label misses
+- H2a now transfers across H1n/H1o/H1p/H1x at `35 / 40` strict exact and `38 / 40` executor-equivalent, beating v11 (`33 / 40`, `36 / 40`) and tying v12 strict while beating v12 executor-equivalence (`35 / 40`)
+- the active next move is a smaller H2b-style residual packet for exact argument-alias/code-label misses: `result pill`, `alert s92`, `badge c08`, `state tag`, and `mode toggle`
 
 The current source-of-truth comparison surface is the aligned exploratory `32 / 26` matrix:
 
@@ -129,13 +130,16 @@ The newest source-of-truth research report is:
 
 That report is now the preferred entrypoint for the H1f/H1h/H1i MLX no-directive tool-contract wave, exact replay, CLI-live replay, prompt-contract waves, and the Gemini CLI dry-run baseline. Its main conclusion is that the final tool-turn directive is a causal harness intervention: removing it preserves top-line readiness only through controller repair, fallback, and argument normalization.
 
-The report now also carries the H1y/H2a controller gate result:
+The report now also carries the H1y/H2a controller gate and H2a transfer results:
 
 - H1y/H2a synthesis: [`results/reports/h1y_routed_residual_synthesis/report.md`](results/reports/h1y_routed_residual_synthesis/report.md)
+- H2a transfer synthesis: [`results/reports/h2a_stale_selection_transfer_synthesis/report.md`](results/reports/h2a_stale_selection_transfer_synthesis/report.md)
 - H2a live packet: [`results/tool_probe_replay_live/20260510T_h2a_visual_stale_selection_gate_on_h1y_execute_v1`](results/tool_probe_replay_live/20260510T_h2a_visual_stale_selection_gate_on_h1y_execute_v1)
 - H1y/H2a report table: [`results/reports/mlx_tool_contract_harnessing/tables/h1y_routed_residual_packet_summary.csv`](results/reports/mlx_tool_contract_harnessing/tables/h1y_routed_residual_packet_summary.csv)
 - H1y/H2a report figure: [`results/reports/mlx_tool_contract_harnessing/figures/h1y_routed_residual_gate.svg`](results/reports/mlx_tool_contract_harnessing/figures/h1y_routed_residual_gate.svg)
-- publication claim: `C38_h2a_controller_stale_selection_gate_is_causal`
+- H2a transfer report table: [`results/reports/mlx_tool_contract_harnessing/tables/h2a_stale_selection_transfer_aggregate_summary.csv`](results/reports/mlx_tool_contract_harnessing/tables/h2a_stale_selection_transfer_aggregate_summary.csv)
+- H2a transfer report figure: [`results/reports/mlx_tool_contract_harnessing/figures/h2a_stale_selection_transfer_gate.svg`](results/reports/mlx_tool_contract_harnessing/figures/h2a_stale_selection_transfer_gate.svg)
+- publication claims: `C38_h2a_controller_stale_selection_gate_is_causal`, `C39_h2a_stale_selection_gate_transfers_with_better_executor_profile`
 
 The active next experiment is now a CLI/research-harness packet, not a UI task:
 
@@ -208,10 +212,12 @@ The active next experiment is now a CLI/research-harness packet, not a UI task:
 - the H1x gate figure is [`results/reports/mlx_tool_contract_harnessing/figures/h1x_v11_breaker_gate.svg`](results/reports/mlx_tool_contract_harnessing/figures/h1x_v11_breaker_gate.svg)
 - the H1y/H2a routed-residual synthesis is [`results/reports/h1y_routed_residual_synthesis/report.md`](results/reports/h1y_routed_residual_synthesis/report.md)
 - the H1y/H2a gate figure is [`results/reports/mlx_tool_contract_harnessing/figures/h1y_routed_residual_gate.svg`](results/reports/mlx_tool_contract_harnessing/figures/h1y_routed_residual_gate.svg)
+- the H2a transfer synthesis is [`results/reports/h2a_stale_selection_transfer_synthesis/report.md`](results/reports/h2a_stale_selection_transfer_synthesis/report.md)
+- the H2a transfer gate figure is [`results/reports/mlx_tool_contract_harnessing/figures/h2a_stale_selection_transfer_gate.svg`](results/reports/mlx_tool_contract_harnessing/figures/h2a_stale_selection_transfer_gate.svg)
 - the H1l visual executor-equivalence packaged-workflow packet is [`results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet`](results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet), with config in [`configs/knowledge_work_h1l_slice.yaml`](configs/knowledge_work_h1l_slice.yaml)
 - the paper-facing evidence ledger is [`results/reports/publication_evidence_ledger/ledger.md`](results/reports/publication_evidence_ledger/ledger.md)
 - the publication readiness audit is [`results/reports/publication_readiness_audit/publication_readiness_audit.md`](results/reports/publication_readiness_audit/publication_readiness_audit.md)
-- current reporting snapshot: MLX report `97` tables / `42` figures; evidence ledger `38` claims / `197` sources / `0` missing; readiness audit `paper_draft_ready` with `0` blocking failures
+- current reporting snapshot: MLX report `102` tables / `43` figures; evidence ledger `39` claims / `205` sources / `0` missing; readiness audit `paper_draft_ready` with `0` blocking failures
 - the visual catalog + literal guard v6 packet is [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe`](results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe)
 - prompt-contract promotion decisions are generated at [`results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_promotion_decisions.csv`](results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_promotion_decisions.csv)
 - the exact-probe replay packet is [`results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1`](results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1)
@@ -226,9 +232,9 @@ The active next experiment is now a CLI/research-harness packet, not a UI task:
 - the visual role catalog argument-hints live comparison is [`results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_no_directive_v1`](results/tool_probe_replay_live_comparisons/20260508T_visual_catalog_argument_hints_vs_no_directive_v1)
 - visual tool-choice diagnostics for wave three/four/catalog are in [`results/tool_probe_replay_live_diagnostics/20260508T_visual_tool_choice_wave3_wave4_catalog_v1`](results/tool_probe_replay_live_diagnostics/20260508T_visual_tool_choice_wave3_wave4_catalog_v1)
 
-The current read is partial-gain plus stable raw replay failure, with a useful visual mechanism split. `visual_role_catalog_v1` moved visual behavior at the tool-catalog layer, and `visual_role_catalog_argument_hints_v2` remains the strongest exact candidate on the old focused visual replay. The fresh hard slice changed the interpretation: `visual_role_catalog_schema_field_hints_v4` is now the strongest no-directive visual hard-slice profile at `6 / 8` strict exactness and `8 / 8` executor-equivalent target success. H1n through H1x then narrowed the visual question from broad catalog roles to component labels, residual labels, code labels, and stale-selection route failures. H1q made v11 the strongest transfer candidate at `26 / 32` exact and `29 / 32` executor-equivalent, H1s blocked global v12 promotion because executor-equivalence fell to `27 / 32`, and H1x finally broke v11 saturation with v12 at `8 / 8`. H1y/H1z then showed routed-residual and selection-origin prompt prose alone were not enough: both prompt-only candidates stayed at `5 / 10` on the mixed H1y packet. H2a changed the layer of intervention and reached `8 / 10` by mediating stale user-mentioned `selection_id` values in the controller while keeping v11's prompt profile. H1i candidate, H1i repeat3, H1j candidates, H1j helper ablation, and H1k parallel-audit packets all saturated. Exact replay of the no-directive failure set stayed at `0 / 8`; contracted replay on the same cases restored `7 / 8`.
+The current read is partial-gain plus stable raw replay failure, with a useful visual mechanism split. `visual_role_catalog_v1` moved visual behavior at the tool-catalog layer, and `visual_role_catalog_argument_hints_v2` remains the strongest exact candidate on the old focused visual replay. The fresh hard slice changed the interpretation: `visual_role_catalog_schema_field_hints_v4` is now the strongest no-directive visual hard-slice profile at `6 / 8` strict exactness and `8 / 8` executor-equivalent target success. H1n through H1x then narrowed the visual question from broad catalog roles to component labels, residual labels, code labels, and stale-selection route failures. H1q made v11 the strongest transfer candidate at `26 / 32` exact and `29 / 32` executor-equivalent, H1s blocked global v12 promotion because executor-equivalence fell to `27 / 32`, and H1x finally broke v11 saturation with v12 at `8 / 8`. H1y/H1z then showed routed-residual and selection-origin prompt prose alone were not enough: both prompt-only candidates stayed at `5 / 10` on the mixed H1y packet. H2a changed the layer of intervention and reached `8 / 10` on H1y by mediating stale user-mentioned `selection_id` values in the controller while keeping v11's prompt profile; it now transfers across H1n/H1o/H1p/H1x at `35 / 40` strict and `38 / 40` executor-equivalent. H1i candidate, H1i repeat3, H1j candidates, H1j helper ablation, and H1k parallel-audit packets all saturated. Exact replay of the no-directive failure set stayed at `0 / 8`; contracted replay on the same cases restored `7 / 8`.
 
-The next research move is H2a transfer: test the stale-selection controller gate across H1n/H1o/H1p/H1x before treating it as a broader runtime default, then isolate the remaining H1y argument-alias/code-label misses. H1l and H1m already tested the current packaged visual workflows and saturated across the visual catalog rows, so broad packaged workflow reruns should stay paused:
+The next research move is H2b residual exactness: isolate the remaining H2a argument-alias/code-label misses without allowing expected-answer leakage. H1l and H1m already tested the current packaged visual workflows and saturated across the visual catalog rows, so broad packaged workflow reruns should stay paused:
 
 ```bash
 uv run python scripts/build_visual_hard_slice_design.py

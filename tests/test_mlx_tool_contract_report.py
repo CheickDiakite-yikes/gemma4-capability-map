@@ -34,8 +34,8 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
 
     assert payload["gemini"]["dry_run"] is True
     assert payload["gemini"]["workflow_count"] == 10
-    assert payload["manifest"]["table_count"] == 97
-    assert payload["manifest"]["figure_count"] == 42
+    assert payload["manifest"]["table_count"] == 102
+    assert payload["manifest"]["figure_count"] == 43
 
     candidate_ids = {row["tool_prompt_contract_id"] for row in payload["prompt_contract_candidates"]}
     assert candidate_ids == {
@@ -777,6 +777,35 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     h1y_findings = {row["finding_id"]: row["finding"] for row in payload["h1y_routed_residual_findings"]}
     assert "8/10" in h1y_findings["h2a_controller_gate_is_causal"]
     assert "Promote H2a" in h1y_findings["next_slice"]
+    h2a_transfer_aggregate = {
+        (row["evaluation_split"], row["profile_label"]): row
+        for row in payload["h2a_stale_selection_transfer_aggregate_summary"]
+    }
+    assert h2a_transfer_aggregate[
+        ("transfer_h1n_h1o_h1p_h1x", "no_directive")
+    ]["exact_success_count"] == 12
+    assert h2a_transfer_aggregate[
+        ("transfer_h1n_h1o_h1p_h1x", "component_label_guard_v11")
+    ]["executor_success_count"] == 36
+    assert h2a_transfer_aggregate[
+        ("transfer_h1n_h1o_h1p_h1x", "component_residual_guard_v12")
+    ]["exact_success_count"] == 35
+    assert h2a_transfer_aggregate[
+        ("transfer_h1n_h1o_h1p_h1x", "h2a_visual_stale_selection_gate")
+    ]["executor_success_count"] == 38
+    h2a_transfer_residuals = {
+        (row["slice_id"], row["case_id"]): row for row in payload["h2a_stale_selection_transfer_residual_rows"]
+    }
+    assert h2a_transfer_residuals[
+        ("h1p_component_value", "h1p_surface_mode_toggle_note_value_decoy")
+    ]["failure_mode"] == "argument_mismatch"
+    h2a_transfer_findings = {
+        row["finding_id"]: row["finding"] for row in payload["h2a_stale_selection_transfer_findings"]
+    }
+    assert "35/40" in h2a_transfer_findings["h2a_transfers_beyond_h1y"]
+    assert "beats v12 executor-equivalence by 3 rows" in h2a_transfer_findings[
+        "h2a_ties_v12_strict_but_beats_executor_equivalence"
+    ]
     h1i_candidates = {row["system_id"]: row for row in payload["h1i_prompt_contract_candidate_metrics"]}
     assert h1i_candidates["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive"]["tool_turn_directive_enabled"] == "False"
     assert h1i_candidates["mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_schema_anchor"]["raw_planning_clean_rate_avg"] == "1.0"
@@ -885,6 +914,11 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert (tmp_path / "tables" / "h1y_routed_residual_comparison_summary.csv").exists()
     assert (tmp_path / "tables" / "h1y_routed_residual_non_exact_rows.csv").exists()
     assert (tmp_path / "tables" / "h1y_routed_residual_findings.csv").exists()
+    assert (tmp_path / "tables" / "h2a_stale_selection_transfer_packet_summary.csv").exists()
+    assert (tmp_path / "tables" / "h2a_stale_selection_transfer_aggregate_summary.csv").exists()
+    assert (tmp_path / "tables" / "h2a_stale_selection_transfer_comparison_summary.csv").exists()
+    assert (tmp_path / "tables" / "h2a_stale_selection_transfer_residual_rows.csv").exists()
+    assert (tmp_path / "tables" / "h2a_stale_selection_transfer_findings.csv").exists()
     assert (tmp_path / "tables" / "prompt_contract_promotion_decisions.csv").exists()
     assert (tmp_path / "tables" / "h1i_prompt_contract_candidate_metrics.csv").exists()
     assert (tmp_path / "tables" / "h1i_prompt_contract_repeat3_metrics.csv").exists()
@@ -939,3 +973,4 @@ def test_build_mlx_tool_contract_report_writes_tables_figures_and_payload(tmp_pa
     assert (tmp_path / "figures" / "h1s_component_residual_transfer_gate.svg").exists()
     assert (tmp_path / "figures" / "h1x_v11_breaker_gate.svg").exists()
     assert (tmp_path / "figures" / "h1y_routed_residual_gate.svg").exists()
+    assert (tmp_path / "figures" / "h2a_stale_selection_transfer_gate.svg").exists()

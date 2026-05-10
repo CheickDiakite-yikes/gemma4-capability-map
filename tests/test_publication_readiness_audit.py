@@ -126,6 +126,14 @@ def test_publication_readiness_audit_writes_blocking_checks(tmp_path: Path) -> N
     assert checks["h1y_routed_residual_synthesis_exists"]["passed"] is True
     assert checks["h1y_routed_residual_report_table_exists"]["passed"] is True
     assert checks["h1y_routed_residual_report_figure_exists"]["passed"] is True
+    assert checks["h2a_transfer_h1n_live_exists"]["passed"] is True
+    assert checks["h2a_transfer_h1o_live_exists"]["passed"] is True
+    assert checks["h2a_transfer_h1p_live_exists"]["passed"] is True
+    assert checks["h2a_transfer_h1x_live_exists"]["passed"] is True
+    assert checks["h2a_stale_selection_transfer_synthesis_exists"]["passed"] is True
+    assert checks["h2a_stale_selection_transfer_report_table_exists"]["passed"] is True
+    assert checks["h2a_stale_selection_transfer_residual_table_exists"]["passed"] is True
+    assert checks["h2a_stale_selection_transfer_report_figure_exists"]["passed"] is True
     assert checks["script_analyze_visual_hard_slice_exactness.py_exists"]["passed"] is True
     assert checks["script_analyze_packaged_replay_gap.py_exists"]["passed"] is True
     assert checks["script_analyze_h1n_alias_transfer_contract_split.py_exists"]["passed"] is True
@@ -138,6 +146,7 @@ def test_publication_readiness_audit_writes_blocking_checks(tmp_path: Path) -> N
     assert checks["script_build_h1o_control_factorial_synthesis.py_exists"]["passed"] is True
     assert checks["script_build_h1q_component_label_guard_transfer_synthesis.py_exists"]["passed"] is True
     assert checks["script_build_h1s_component_residual_transfer_synthesis.py_exists"]["passed"] is True
+    assert checks["script_build_h2a_stale_selection_transfer_synthesis.py_exists"]["passed"] is True
     assert checks["script_build_h1n_oracle_transfer_synthesis.py_exists"]["passed"] is True
     assert checks["script_run_visual_hard_slice_probe_packet.py_exists"]["passed"] is True
     assert checks["script_build_visual_hard_slice_replay_packet.py_exists"]["passed"] is True

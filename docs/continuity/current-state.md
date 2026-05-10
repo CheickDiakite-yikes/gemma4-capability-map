@@ -2,7 +2,7 @@
 
 ## Latest Restart Point
 
-The active research frontier is now H2a, not H1x.
+The active research frontier is now H2b-style residual exactness, not H1x or local H2a fit.
 
 H1x broke v11 saturation but could not justify promoting v12 globally because H1s had already shown transfer cost. H1y then tested whether prompt/catalog prose could route the residual cases more selectively. It could not: v16 and v17 both reached only `5 / 10` on the H1y packet, tying v11 and below v12's `7 / 10`.
 
@@ -15,7 +15,16 @@ The next meaningful result was H2a: keep v11's component-label prompt profile, b
 - v17 selection-origin prompt guard: `5 / 10`
 - H2a v11 + controller stale-selection gate: `8 / 10`
 
-The conclusion is important for the paper: stale selection-origin errors are currently controller-addressable and not reliably solved by more catalog prose. H2a fixed all three stale-field route rows and preserved both surface-value holdouts; the two remaining failures are argument-alias/code-label residuals.
+The conclusion is important for the paper: stale selection-origin errors are currently controller-addressable and not reliably solved by more catalog prose. H2a fixed all three stale-field route rows and preserved both surface-value holdouts; the two remaining H1y failures are argument-alias/code-label residuals.
+
+H2a now has a held-out transfer gate. Across H1n/H1o/H1p/H1x:
+
+- no-directive: `12 / 40` strict, `14 / 40` executor-equivalent
+- v11 component-label guard: `33 / 40` strict, `36 / 40` executor-equivalent
+- v12 component-residual guard: `35 / 40` strict, `35 / 40` executor-equivalent
+- H2a v11 + controller stale-selection gate: `35 / 40` strict, `38 / 40` executor-equivalent
+
+This is the cleanest current visual helper profile: H2a ties v12 strict transfer while beating v12 executor-equivalence by three rows. It should be treated as a scoped controller helper candidate, not a broad visual-tool-use solution. Its residuals are exact alias/code-label fidelity: `result pill`, `alert s92`, `badge c08`, `state tag`, and `mode toggle`.
 
 Primary artifacts:
 
@@ -23,20 +32,23 @@ Primary artifacts:
 - H2a live packet: [`results/tool_probe_replay_live/20260510T_h2a_visual_stale_selection_gate_on_h1y_execute_v1`](../../results/tool_probe_replay_live/20260510T_h2a_visual_stale_selection_gate_on_h1y_execute_v1)
 - H2a-vs-v11 comparison: [`results/tool_probe_replay_live_comparisons/20260510T_h2a_visual_stale_selection_gate_vs_component_label_guard_on_h1y_v1`](../../results/tool_probe_replay_live_comparisons/20260510T_h2a_visual_stale_selection_gate_vs_component_label_guard_on_h1y_v1)
 - H2a-vs-v12 comparison: [`results/tool_probe_replay_live_comparisons/20260510T_h2a_visual_stale_selection_gate_vs_component_residual_guard_on_h1y_v1`](../../results/tool_probe_replay_live_comparisons/20260510T_h2a_visual_stale_selection_gate_vs_component_residual_guard_on_h1y_v1)
+- H2a transfer synthesis: [`results/reports/h2a_stale_selection_transfer_synthesis/report.md`](../../results/reports/h2a_stale_selection_transfer_synthesis/report.md)
 - main report table: [`results/reports/mlx_tool_contract_harnessing/tables/h1y_routed_residual_packet_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/h1y_routed_residual_packet_summary.csv)
 - main report figure: [`results/reports/mlx_tool_contract_harnessing/figures/h1y_routed_residual_gate.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/h1y_routed_residual_gate.svg)
+- H2a transfer table: [`results/reports/mlx_tool_contract_harnessing/tables/h2a_stale_selection_transfer_aggregate_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/h2a_stale_selection_transfer_aggregate_summary.csv)
+- H2a transfer figure: [`results/reports/mlx_tool_contract_harnessing/figures/h2a_stale_selection_transfer_gate.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/h2a_stale_selection_transfer_gate.svg)
 
 Current reporting snapshot:
 
-- MLX tool-contract report: `97` tables / `42` figures
-- publication evidence ledger: `38` claims / `197` evidence sources / `0` missing
+- MLX tool-contract report: `102` tables / `43` figures
+- publication evidence ledger: `39` claims / `205` evidence sources / `0` missing
 - publication readiness audit: `paper_draft_ready`, `0` blocking failures
-- latest publication claim: `C38_h2a_controller_stale_selection_gate_is_causal`
+- latest publication claims: `C38_h2a_controller_stale_selection_gate_is_causal`, `C39_h2a_stale_selection_gate_transfers_with_better_executor_profile`
 
 Next restart move:
 
-- transfer-test H2a across H1n/H1o/H1p/H1x before promoting it as a broader runtime default
-- then isolate the remaining H1y residuals: `state tag`/`alert s92` argument-alias and code-label exactness
+- design and run a residual exactness packet for the five H2a transfer residual classes
+- keep H2a's controller mediation scoped to stale or missing `selection_id` repair from live visual state; do not let the helper read expected calls or benchmark labels
 
 ## Benchmark Shape
 
@@ -1316,8 +1328,8 @@ H1w scaffold:
 - synthesis: [`results/reports/h1x_v11_breaker_synthesis/report.md`](../../results/reports/h1x_v11_breaker_synthesis/report.md)
 - result: no-directive `2 / 8`, v11 `7 / 8`, v12 `8 / 8`, v15 `6 / 8` exact and `7 / 8` executor-equivalent
 - interpretation: H1x is the first focused post-H1w packet that breaks v11 saturation; v12 is the local winner, but H1s still blocks global v12 promotion because of broader executor-equivalence loss
-- completed follow-up: H1y/H1z prompt-only routed residual tests did not beat v12, and H2a controller-side stale-selection mediation is now the current local winner at `8 / 10`
-- next execution: transfer-test H2a across H1n/H1o/H1p/H1x, then isolate the remaining H1y argument-alias/code-label residuals
+- completed follow-up: H1y/H1z prompt-only routed residual tests did not beat v12, H2a controller-side stale-selection mediation is the local H1y winner at `8 / 10`, and the H2a transfer gate reaches `35 / 40` strict plus `38 / 40` executor-equivalent across H1n/H1o/H1p/H1x
+- next execution: build the H2b residual exactness packet around `result pill`, `alert s92`, `badge c08`, `state tag`, and `mode toggle`
 
 ## Latest H1q Component-Label Guard Transfer Finding
 

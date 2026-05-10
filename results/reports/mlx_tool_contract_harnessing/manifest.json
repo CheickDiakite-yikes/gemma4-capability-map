@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-10T19:31:14.707691+00:00",
+  "generated_at": "2026-05-10T19:51:50.289025+00:00",
   "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/mlx_tool_contract_harnessing",
   "source_packets": {
     "H1f compact": "/Users/cheickdiakite/Codex/moonie/results/knowledge_work_h1_slice/20260506T_h1f_mlx_no_directive_v1_knowledge_work_h1f_mlx_tool_contract_ablation_v1",
@@ -110,7 +110,8 @@
   "h1s_component_residual_transfer_synthesis": "/Users/cheickdiakite/Codex/moonie/results/reports/h1s_component_residual_transfer_synthesis",
   "h1x_v11_breaker_synthesis": "/Users/cheickdiakite/Codex/moonie/results/reports/h1x_v11_breaker_synthesis",
   "h1y_routed_residual_synthesis": "/Users/cheickdiakite/Codex/moonie/results/reports/h1y_routed_residual_synthesis",
+  "h2a_stale_selection_transfer_synthesis": "/Users/cheickdiakite/Codex/moonie/results/reports/h2a_stale_selection_transfer_synthesis",
   "registry_path": "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
-  "table_count": 97,
-  "figure_count": 42
+  "table_count": 102,
+  "figure_count": 43
 }

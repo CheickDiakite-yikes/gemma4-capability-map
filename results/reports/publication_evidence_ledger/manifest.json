@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-05-10T19:31:14.797685+00:00",
+  "generated_at": "2026-05-10T19:53:24.348062+00:00",
   "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-  "claim_count": 38,
-  "evidence_source_count": 197,
+  "claim_count": 39,
+  "evidence_source_count": 205,
   "missing_source_count": 0,
   "claim_ids": [
     "C1_controller_dependence_hidden_by_readiness",
@@ -42,6 +42,7 @@
     "C35_h1q_component_label_guard_is_strongest_transfer_candidate",
     "C36_h1s_residual_guard_is_targeted_not_global",
     "C37_h1x_breaks_v11_saturation_but_supports_routing",
-    "C38_h2a_controller_stale_selection_gate_is_causal"
+    "C38_h2a_controller_stale_selection_gate_is_causal",
+    "C39_h2a_stale_selection_gate_transfers_with_better_executor_profile"
   ]
 }

@@ -1,11 +1,11 @@
 {
   "summary": {
-    "generated_at": "2026-05-10T19:31:14.861059+00:00",
+    "generated_at": "2026-05-10T19:53:24.412902+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 148,
-    "blocking_check_count": 144,
+    "check_count": 157,
+    "blocking_check_count": 152,
     "blocking_failed_count": 0,
-    "recommended_check_count": 4,
+    "recommended_check_count": 5,
     "recommended_failed_count": 0,
     "blocking_passed": true,
     "readiness_level": "paper_draft_ready"
@@ -29,7 +29,7 @@
       "check_id": "ledger_has_claims",
       "severity": "blocking",
       "passed": true,
-      "detail": "claim_count=38",
+      "detail": "claim_count=39",
       "path": ""
     },
     {
@@ -43,14 +43,14 @@
       "check_id": "tool_contract_report_has_current_tables",
       "severity": "blocking",
       "passed": true,
-      "detail": "table_count=97",
+      "detail": "table_count=102",
       "path": ""
     },
     {
       "check_id": "tool_contract_report_has_current_figures",
       "severity": "blocking",
       "passed": true,
-      "detail": "figure_count=42",
+      "detail": "figure_count=43",
       "path": ""
     },
     {
@@ -859,6 +859,62 @@
       "path": "results/reports/mlx_tool_contract_harnessing/figures/h1y_routed_residual_gate.svg"
     },
     {
+      "check_id": "h2a_transfer_h1n_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2a transfer replay exists for H1n component-value residual.",
+      "path": "results/tool_probe_replay_live/20260510T_h2a_visual_stale_selection_gate_on_h1n_component_value_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h2a_transfer_h1o_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2a transfer replay exists for H1o control-factorial.",
+      "path": "results/tool_probe_replay_live/20260510T_h2a_visual_stale_selection_gate_on_h1o_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h2a_transfer_h1p_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2a transfer replay exists for H1p component-value holdout.",
+      "path": "results/tool_probe_replay_live/20260510T_h2a_visual_stale_selection_gate_on_h1p_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h2a_transfer_h1x_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2a transfer replay exists for H1x v11-breaker.",
+      "path": "results/tool_probe_replay_live/20260510T_h2a_visual_stale_selection_gate_on_h1x_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h2a_stale_selection_transfer_synthesis_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2a stale-selection transfer synthesis report exists.",
+      "path": "results/reports/h2a_stale_selection_transfer_synthesis/report.md"
+    },
+    {
+      "check_id": "h2a_stale_selection_transfer_report_table_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Paper-facing H2a transfer aggregate table exists in the main report.",
+      "path": "results/reports/mlx_tool_contract_harnessing/tables/h2a_stale_selection_transfer_aggregate_summary.csv"
+    },
+    {
+      "check_id": "h2a_stale_selection_transfer_residual_table_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Paper-facing H2a residual table exists in the main report.",
+      "path": "results/reports/mlx_tool_contract_harnessing/tables/h2a_stale_selection_transfer_residual_rows.csv"
+    },
+    {
+      "check_id": "h2a_stale_selection_transfer_report_figure_exists",
+      "severity": "recommended",
+      "passed": true,
+      "detail": "Paper-facing H2a transfer gate figure exists in the main report.",
+      "path": "results/reports/mlx_tool_contract_harnessing/figures/h2a_stale_selection_transfer_gate.svg"
+    },
+    {
       "check_id": "current_state_doc_exists",
       "severity": "blocking",
       "passed": true,
@@ -1018,6 +1074,13 @@
       "passed": true,
       "detail": "Reproduction script `build_h1s_component_residual_transfer_synthesis.py` exists.",
       "path": "scripts/build_h1s_component_residual_transfer_synthesis.py"
+    },
+    {
+      "check_id": "script_build_h2a_stale_selection_transfer_synthesis.py_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Reproduction script `build_h2a_stale_selection_transfer_synthesis.py` exists.",
+      "path": "scripts/build_h2a_stale_selection_transfer_synthesis.py"
     },
     {
       "check_id": "script_build_h1n_oracle_transfer_synthesis.py_exists",

@@ -103,6 +103,9 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert claims["C38_h2a_controller_stale_selection_gate_is_causal"][
         "status"
     ] == "supported_current_packets"
+    assert claims["C39_h2a_stale_selection_gate_transfers_with_better_executor_profile"][
+        "status"
+    ] == "supported_current_packets"
     assert "7/8" in claims["C2_final_tool_directive_causal_for_protocol"]["primary_metric"]
     assert "v3 raw exact falls" in claims["C6_split_selector_wording_is_negative_evidence"]["primary_metric"]
     assert "schema-field hints reach 6/8 strict and 8/8 executor-equivalent" in claims[
@@ -277,6 +280,9 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert "H2a reaches 8/10" in claims[
         "C38_h2a_controller_stale_selection_gate_is_causal"
     ]["primary_metric"]
+    assert "H2a reaches 35/40 strict exact and 38/40 executor-equivalent" in claims[
+        "C39_h2a_stale_selection_gate_transfers_with_better_executor_profile"
+    ]["primary_metric"]
     assert any(
         row["claim_id"] == "C28_h1n_post_repair_holdout_favors_code_guard"
         and row["path"]
@@ -349,6 +355,20 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
         row["claim_id"] == "C38_h2a_controller_stale_selection_gate_is_causal"
         and row["path"]
         == "results/reports/mlx_tool_contract_harnessing/tables/h1y_routed_residual_packet_summary.csv"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C39_h2a_stale_selection_gate_transfers_with_better_executor_profile"
+        and row["path"]
+        == "results/reports/mlx_tool_contract_harnessing/tables/h2a_stale_selection_transfer_aggregate_summary.csv"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C39_h2a_stale_selection_gate_transfers_with_better_executor_profile"
+        and row["path"]
+        == "results/reports/mlx_tool_contract_harnessing/figures/h2a_stale_selection_transfer_gate.svg"
         and row["exists"]
         for row in payload["evidence_sources"]
     )

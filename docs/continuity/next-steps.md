@@ -2,29 +2,27 @@
 
 ## Current Best Next Moves
 
-The next move is not another broad prompt-contract paragraph. H1y/H1z showed that prompt/catalog prose alone did not solve stale selection-origin routing. H2a showed that a controller-side stale-selection gate is causal on the same packet.
+The next move is not another broad prompt-contract paragraph. H1y/H1z showed that prompt/catalog prose alone did not solve stale selection-origin routing. H2a showed that a controller-side stale-selection gate is causal on the same packet and now transfers beyond it.
 
 Execution order:
 
-1. Transfer-test H2a on prior replay-shaped visual packets: H1n component-value, H1o control-factorial, H1p component-only holdout, and H1x v11-breaker.
-2. Build an H2a transfer synthesis covering exactness, executor-equivalence, stale-selection fixes, surface-value preservation, and regressions against v11/v12/incumbents.
-3. If H2a transfers cleanly, promote it as a controller helper candidate, not as a prompt-profile replacement.
-4. If H2a regresses, restrict the gate by family: stale user-mentioned `selection_id` only, current-image labels only, and no expected-answer leakage.
-5. Design the next residual packet around the two H1y misses: `h1y_lifecycle_state_tag_audit_value_decoy` and `h1y_alert_s92_negated_toggle_decoy`.
+1. Treat H2a as a scoped controller helper candidate: repair only stale or missing `selection_id` proposals using live visual state, with no expected-call or benchmark-answer access.
+2. Build the H2b residual packet around the remaining exact alias/code-label misses: `result pill`, `alert s92`, `badge c08`, `state tag`, and `mode toggle`.
+3. Compare the residual packet against v11, v12, H2a, and a no-helper control so we can distinguish prompt-label fidelity from controller mediation.
+4. Score both strict exactness and executor-equivalence; do not collapse executor-valid paraphrases into failures when evaluating live usefulness.
+5. If H2b is positive, rerun only the minimal transfer set needed to detect regressions; if negative, write it as residual evidence rather than adding broader prose.
 6. Keep packaged workflows paused for this line unless they preserve the same replay-shaped pressure; H1l/H1m already showed packaged visual surfaces can wash out the mechanism.
 
 Immediate suggested command:
 
 ```bash
-uv run python -m gemma4_capability_map.runtime.cli replay-live \
-  --packet-dir results/tool_probe_replay_packets/20260510T_h1x_v11_breaker_oracle_dry_run_v1 \
-  --output-dir results/tool_probe_replay_live/20260510T_h2a_visual_stale_selection_gate_on_h1x_execute_v1 \
-  --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_label_guard_visual_stale_selection_gate \
-  --registry configs/model_registry.yaml \
-  --execute --json
+uv run python scripts/build_h2a_stale_selection_transfer_synthesis.py
+uv run python scripts/build_mlx_tool_contract_report.py
+uv run python scripts/build_publication_evidence_ledger.py
+uv run python scripts/audit_publication_readiness.py
 ```
 
-Then compare against the existing H1x no-directive/v11/v12 live packets and build an H2a transfer synthesis.
+Then design the H2b residual replay packet from `results/reports/h2a_stale_selection_transfer_synthesis/tables/h2a_transfer_residual_rows.csv`.
 
 ## Immediate
 
@@ -237,7 +235,8 @@ Next implementation moves:
   - decision: H1x finally breaks v11 saturation and makes v12 the local winner, but H1s still blocks global v12 promotion
   - completed follow-up: H1y tests routed residual prompt help and H1z tests selection-origin prompt help; both fail to beat v12 and remain at `5 / 10`
   - completed H2a controller gate: v11 plus stale-selection controller mediation reaches `8 / 10` on H1y, beating v12's `7 / 10`
-  - next execution step: transfer-test H2a across H1n/H1o/H1p/H1x before any global runtime-default promotion
+  - completed H2a transfer gate: H2a reaches `35 / 40` strict and `38 / 40` executor-equivalent across H1n/H1o/H1p/H1x, tying v12 strict and beating v12 executor-equivalence
+  - next execution step: build the H2b residual exactness packet around `result pill`, `alert s92`, `badge c08`, `state tag`, and `mode toggle`
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1

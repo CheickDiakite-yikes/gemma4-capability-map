@@ -1728,12 +1728,12 @@ CLAIMS: tuple[Claim, ...] = (
             "7/10, v16 and v17 reach 5/10, and H2a reaches 8/10 exact and executor-equivalent."
         ),
         limitation=(
-            "H2a has only been tested on the H1y packet so far; it needs transfer retesting on H1n/H1o/H1p/H1x "
-            "before it can be treated as a general runtime default."
+            "This claim is local to the H1y routed-residual packet; the transfer result is tracked separately so "
+            "local causality and held-out generalization remain distinct."
         ),
         next_test=(
-            "Transfer-test the stale-selection gate across earlier visual hard slices, then isolate the remaining "
-            "argument-alias/code-label misses without leaking expected labels."
+            "Use the H2a transfer gate to decide whether the helper should be promoted as a scoped controller "
+            "mechanism, then isolate the remaining argument-alias/code-label misses without leaking expected labels."
         ),
         sources=(
             EvidenceSource(
@@ -1765,6 +1765,69 @@ CLAIMS: tuple[Claim, ...] = (
                 "report_figure",
                 "results/reports/mlx_tool_contract_harnessing/figures/h1y_routed_residual_gate.svg",
                 "Paper-facing H1y/H2a replay gate figure in the generated MLX report.",
+            ),
+        ),
+    ),
+    Claim(
+        claim_id="C39_h2a_stale_selection_gate_transfers_with_better_executor_profile",
+        claim=(
+            "The H2a stale-selection controller gate transfers beyond its H1y fit packet and gives the cleanest "
+            "current visual helper profile when strict exactness and executor-equivalence are reported together."
+        ),
+        status="supported_current_packets",
+        evidence_strength="strong_internal",
+        primary_metric=(
+            "Across H1n/H1o/H1p/H1x, H2a reaches 35/40 strict exact and 38/40 executor-equivalent, versus "
+            "no-directive at 12/40 and 14/40, v11 at 33/40 and 36/40, and v12 at 35/40 and 35/40."
+        ),
+        limitation=(
+            "H2a still leaves five transfer residual rows, mostly exact alias/code-label disagreements; two H1p "
+            "rows are not executor-equivalent and should not be treated as solved."
+        ),
+        next_test=(
+            "Build the next residual packet around exact alias/code-label fidelity: result pill, alert s92, badge "
+            "c08, state tag, and mode toggle, with no expected-call or benchmark-answer access."
+        ),
+        sources=(
+            EvidenceSource(
+                "replay_synthesis",
+                "results/reports/h2a_stale_selection_transfer_synthesis/report.md",
+                "H2a transfer synthesis separating local H1y fit from held-out H1n/H1o/H1p/H1x transfer.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h2a_visual_stale_selection_gate_on_h1n_component_value_execute_v1",
+                "H2a live execution reaching 7/8 exact and 8/8 executor-equivalent on H1n component-value residual.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h2a_visual_stale_selection_gate_on_h1o_execute_v1",
+                "H2a live execution reaching 10/12 exact and 12/12 executor-equivalent on H1o control-factorial.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h2a_visual_stale_selection_gate_on_h1p_execute_v1",
+                "H2a live execution reaching 10/12 exact and 10/12 executor-equivalent on H1p component-value holdout.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h2a_visual_stale_selection_gate_on_h1x_execute_v1",
+                "H2a live execution reaching 8/8 exact and 8/8 executor-equivalent on the H1x v11-breaker packet.",
+            ),
+            EvidenceSource(
+                "report_table",
+                "results/reports/mlx_tool_contract_harnessing/tables/h2a_stale_selection_transfer_aggregate_summary.csv",
+                "Paper-facing H2a transfer aggregate table in the generated MLX report.",
+            ),
+            EvidenceSource(
+                "report_table",
+                "results/reports/mlx_tool_contract_harnessing/tables/h2a_stale_selection_transfer_residual_rows.csv",
+                "Paper-facing H2a residual table identifying the remaining exact alias/code-label misses.",
+            ),
+            EvidenceSource(
+                "report_figure",
+                "results/reports/mlx_tool_contract_harnessing/figures/h2a_stale_selection_transfer_gate.svg",
+                "Paper-facing H2a transfer gate figure in the generated MLX report.",
             ),
         ),
     ),
