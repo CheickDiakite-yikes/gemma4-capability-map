@@ -549,6 +549,62 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C16_visual_alias_transfer_favors_argument_hints_executor_grounding",
+        claim="On fresh alias-transfer visual cases, argument-hint cataloging generalizes best for executor-equivalent target success while contracted MLX remains the strict-fidelity upper bound.",
+        status="supported_current_packets",
+        evidence_strength="moderate_internal",
+        primary_metric=(
+            "H1n alias-transfer replay: no-directive is 0/6 strict and 2/6 executor-equivalent; argument hints v2 is "
+            "1/6 strict and 6/6 executor-equivalent; schema target literals v5 is 1/6 strict and 4/6 executor-equivalent; "
+            "contracted MLX is 5/6 strict but 1/6 executor-equivalent under the current executor-target scorer."
+        ),
+        limitation=(
+            "This is one deterministic six-case transfer packet, and the contracted strict/executor split needs scorer-level "
+            "inspection before being treated as a model-only ranking."
+        ),
+        next_test=(
+            "Inspect the contracted exact-but-not-executor-equivalent rows, then repeat the transfer packet or promote "
+            "argument hints into a new non-packaged live helper-ablation slice."
+        ),
+        sources=(
+            EvidenceSource(
+                "tool_probe_replay_packet",
+                "results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_dry_run_v1",
+                "Designed six-case alias-transfer replay packet with fresh labels and decoys.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260509T_visual_hard_slice_live_stress_alias_transfer_argument_hints_execute_v1",
+                "Argument-hints alias-transfer execution reaching full executor-equivalence.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_transfer_argument_hints_vs_no_directive_v1",
+                "Comparison showing argument hints improves executor-equivalence by 0.667 over no-directive.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_transfer_contracted_vs_no_directive_v1",
+                "Comparison showing contracted MLX is the strict-fidelity upper bound but regresses executor-equivalence under the current scorer.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_transfer_schema_literal_targets_vs_no_directive_v1",
+                "Comparison showing schema-target literals improve executor-equivalence by 0.333 over no-directive.",
+            ),
+            EvidenceSource(
+                "report_table",
+                "results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_transfer_live_replay_summary.csv",
+                "Generated report summary table for the alias-transfer replay matrix.",
+            ),
+            EvidenceSource(
+                "diagnostic_report",
+                "results/reports/visual_alias_transfer_diagnostic/diagnostic.md",
+                "Diagnostic report classifying strict gains, executor-only gains, and transfer regressions.",
+            ),
+        ),
+    ),
 )
 
 

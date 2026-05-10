@@ -1,0 +1,31 @@
+[
+  {
+    "case_id": "transfer_status_pill_chart_decoy",
+    "family": "visual_argument_transfer",
+    "expected_call_count": 1,
+    "actual_call_count": 0,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "transfer-pill-3101"
+      ]
+    },
+    "actual_execution": [],
+    "expected_calls": [
+      {
+        "name": "read_region_text",
+        "arguments": {
+          "image_id": "img-transfer-status-pill",
+          "region_id": ""
+        }
+      }
+    ],
+    "actual_calls": [],
+    "raw_model_output": "",
+    "prompt_tokens": 844,
+    "completion_tokens": 1,
+    "latency_ms": 5785
+  }
+]

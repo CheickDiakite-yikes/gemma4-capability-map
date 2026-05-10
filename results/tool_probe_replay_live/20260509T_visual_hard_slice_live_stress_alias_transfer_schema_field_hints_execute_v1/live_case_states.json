@@ -1,0 +1,80 @@
+[
+  {
+    "case_id": "transfer_review_tile_notice_table_decoy",
+    "family": "visual_argument_transfer",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "baseline_exact_match": "",
+    "expected_call_count": "1",
+    "source_actual_call_count": "",
+    "status": "non_exact",
+    "replay_failure_mode": "argument_mismatch",
+    "replay_exact_match": false,
+    "replay_executable_match": false,
+    "replay_executor_equivalence_match": false
+  },
+  {
+    "case_id": "transfer_status_pill_chart_decoy",
+    "family": "visual_argument_transfer",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "baseline_exact_match": "",
+    "expected_call_count": "1",
+    "source_actual_call_count": "",
+    "status": "non_exact",
+    "replay_failure_mode": "wrong_tool",
+    "replay_exact_match": false,
+    "replay_executable_match": false,
+    "replay_executor_equivalence_match": false
+  },
+  {
+    "case_id": "transfer_error_banner_note_decoy",
+    "family": "visual_argument_transfer",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "baseline_exact_match": "",
+    "expected_call_count": "1",
+    "source_actual_call_count": "",
+    "status": "non_exact",
+    "replay_failure_mode": "executable_paraphrase",
+    "replay_exact_match": false,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true
+  },
+  {
+    "case_id": "transfer_queue_badge_person_decoy",
+    "family": "visual_argument_transfer",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "baseline_exact_match": "",
+    "expected_call_count": "1",
+    "source_actual_call_count": "",
+    "status": "non_exact",
+    "replay_failure_mode": "wrong_tool",
+    "replay_exact_match": false,
+    "replay_executable_match": false,
+    "replay_executor_equivalence_match": false
+  },
+  {
+    "case_id": "transfer_form_error_old_selection_chip_decoy",
+    "family": "visual_tool_routing_transfer",
+    "source_failure_mode": "wrong_tool_or_stale_selection_risk",
+    "baseline_exact_match": "",
+    "expected_call_count": "1",
+    "source_actual_call_count": "",
+    "status": "exact",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true
+  },
+  {
+    "case_id": "transfer_signature_warning_checkbox_decoy",
+    "family": "visual_tool_routing_transfer",
+    "source_failure_mode": "wrong_tool_or_stale_selection_risk",
+    "baseline_exact_match": "",
+    "expected_call_count": "1",
+    "source_actual_call_count": "",
+    "status": "non_exact",
+    "replay_failure_mode": "no_tool_call",
+    "replay_exact_match": false,
+    "replay_executable_match": false,
+    "replay_executor_equivalence_match": false
+  }
+]

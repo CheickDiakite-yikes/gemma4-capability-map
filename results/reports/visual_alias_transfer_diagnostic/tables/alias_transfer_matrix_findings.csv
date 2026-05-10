@@ -1,0 +1,5 @@
+finding_id,finding
+strict_upper_bound,contracted is the strict upper bound at 0.8333333333333334.
+executor_equivalence_set,Executor-equivalent full-success rows: argument_hints_v2.
+executor_without_strict,"Rows with executor gain without strict gain: argument_hints_v2, schema_literal_targets_v5."
+regressions,"Regression cases: schema_field_hints_v4:transfer_queue_badge_person_decoy, schema_literal_targets_v5:transfer_queue_badge_person_decoy."

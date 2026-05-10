@@ -364,6 +364,36 @@ DEFAULT_VISUAL_HARD_SLICE_ALIAS_REPEAT_SCHEMA_LITERAL_TARGETS_LIVE_COMPARISON = 
     / "tool_probe_replay_live_comparisons"
     / "20260509T_visual_hard_slice_live_stress_alias_repeat_schema_literal_targets_vs_no_directive_v1"
 )
+DEFAULT_VISUAL_HARD_SLICE_ALIAS_TRANSFER_CONTRACTED_LIVE_COMPARISON = (
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260509T_visual_hard_slice_live_stress_alias_transfer_contracted_vs_no_directive_v1"
+)
+DEFAULT_VISUAL_HARD_SLICE_ALIAS_TRANSFER_ROLE_CATALOG_LIVE_COMPARISON = (
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260509T_visual_hard_slice_live_stress_alias_transfer_role_catalog_vs_no_directive_v1"
+)
+DEFAULT_VISUAL_HARD_SLICE_ALIAS_TRANSFER_ARGUMENT_HINTS_LIVE_COMPARISON = (
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260509T_visual_hard_slice_live_stress_alias_transfer_argument_hints_vs_no_directive_v1"
+)
+DEFAULT_VISUAL_HARD_SLICE_ALIAS_TRANSFER_SCHEMA_FIELD_HINTS_LIVE_COMPARISON = (
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260509T_visual_hard_slice_live_stress_alias_transfer_schema_field_hints_vs_no_directive_v1"
+)
+DEFAULT_VISUAL_HARD_SLICE_ALIAS_TRANSFER_SCHEMA_LITERAL_TARGETS_LIVE_COMPARISON = (
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260509T_visual_hard_slice_live_stress_alias_transfer_schema_literal_targets_vs_no_directive_v1"
+)
 
 SYSTEM_LABELS = {
     "mlx_gemma4_e2b_reasoner_only": "contracted",
@@ -467,6 +497,16 @@ def build_report(
     | Path = DEFAULT_VISUAL_HARD_SLICE_ALIAS_REPEAT_SCHEMA_FIELD_HINTS_LIVE_COMPARISON,
     visual_hard_slice_alias_repeat_schema_literal_targets_live_comparison: str
     | Path = DEFAULT_VISUAL_HARD_SLICE_ALIAS_REPEAT_SCHEMA_LITERAL_TARGETS_LIVE_COMPARISON,
+    visual_hard_slice_alias_transfer_contracted_live_comparison: str
+    | Path = DEFAULT_VISUAL_HARD_SLICE_ALIAS_TRANSFER_CONTRACTED_LIVE_COMPARISON,
+    visual_hard_slice_alias_transfer_role_catalog_live_comparison: str
+    | Path = DEFAULT_VISUAL_HARD_SLICE_ALIAS_TRANSFER_ROLE_CATALOG_LIVE_COMPARISON,
+    visual_hard_slice_alias_transfer_argument_hints_live_comparison: str
+    | Path = DEFAULT_VISUAL_HARD_SLICE_ALIAS_TRANSFER_ARGUMENT_HINTS_LIVE_COMPARISON,
+    visual_hard_slice_alias_transfer_schema_field_hints_live_comparison: str
+    | Path = DEFAULT_VISUAL_HARD_SLICE_ALIAS_TRANSFER_SCHEMA_FIELD_HINTS_LIVE_COMPARISON,
+    visual_hard_slice_alias_transfer_schema_literal_targets_live_comparison: str
+    | Path = DEFAULT_VISUAL_HARD_SLICE_ALIAS_TRANSFER_SCHEMA_LITERAL_TARGETS_LIVE_COMPARISON,
     registry_path: str | Path = DEFAULT_REGISTRY_PATH,
 ) -> dict[str, Any]:
     target = Path(output_dir)
@@ -912,6 +952,59 @@ def build_report(
     visual_hard_slice_alias_repeat_live_case_rows = _live_candidate_case_rows(
         visual_hard_slice_alias_repeat_live_comparisons
     )
+    visual_hard_slice_alias_transfer_live_comparisons = [
+        (
+            "alias-transfer contracted vs no directive",
+            json.loads(
+                (
+                    Path(visual_hard_slice_alias_transfer_contracted_live_comparison)
+                    / "live_replay_comparison.json"
+                ).read_text(encoding="utf-8")
+            ),
+        ),
+        (
+            "alias-transfer role catalog vs no directive",
+            json.loads(
+                (
+                    Path(visual_hard_slice_alias_transfer_role_catalog_live_comparison)
+                    / "live_replay_comparison.json"
+                ).read_text(encoding="utf-8")
+            ),
+        ),
+        (
+            "alias-transfer argument hints vs no directive",
+            json.loads(
+                (
+                    Path(visual_hard_slice_alias_transfer_argument_hints_live_comparison)
+                    / "live_replay_comparison.json"
+                ).read_text(encoding="utf-8")
+            ),
+        ),
+        (
+            "alias-transfer schema-field hints vs no directive",
+            json.loads(
+                (
+                    Path(visual_hard_slice_alias_transfer_schema_field_hints_live_comparison)
+                    / "live_replay_comparison.json"
+                ).read_text(encoding="utf-8")
+            ),
+        ),
+        (
+            "alias-transfer schema literal targets vs no directive",
+            json.loads(
+                (
+                    Path(visual_hard_slice_alias_transfer_schema_literal_targets_live_comparison)
+                    / "live_replay_comparison.json"
+                ).read_text(encoding="utf-8")
+            ),
+        ),
+    ]
+    visual_hard_slice_alias_transfer_live_summary_rows = _live_candidate_summary_rows(
+        visual_hard_slice_alias_transfer_live_comparisons
+    )
+    visual_hard_slice_alias_transfer_live_case_rows = _live_candidate_case_rows(
+        visual_hard_slice_alias_transfer_live_comparisons
+    )
 
     _write_csv(tables_dir / "packet_summary.csv", packet_rows)
     _write_csv(tables_dir / "h1i_system_metrics.csv", h1i_system_rows)
@@ -1024,6 +1117,14 @@ def build_report(
     _write_csv(
         tables_dir / "visual_hard_slice_alias_repeat_live_replay_case_deltas.csv",
         visual_hard_slice_alias_repeat_live_case_rows,
+    )
+    _write_csv(
+        tables_dir / "visual_hard_slice_alias_transfer_live_replay_summary.csv",
+        visual_hard_slice_alias_transfer_live_summary_rows,
+    )
+    _write_csv(
+        tables_dir / "visual_hard_slice_alias_transfer_live_replay_case_deltas.csv",
+        visual_hard_slice_alias_transfer_live_case_rows,
     )
 
     _write_grouped_metric_svg(
@@ -1372,6 +1473,17 @@ def build_report(
             ("candidate_executor_equivalence_rate", "candidate executor eq", "#059669"),
         ],
     )
+    _write_grouped_metric_svg(
+        figures_dir / "visual_hard_slice_alias_transfer_live_replay_gate.svg",
+        title="Visual hard-slice alias-transfer live replay gate",
+        rows=visual_hard_slice_alias_transfer_live_summary_rows,
+        label_field="comparison",
+        metrics=[
+            ("baseline_exact_rate", "baseline exact", "#2563EB"),
+            ("candidate_exact_rate", "candidate exact", "#DC2626"),
+            ("candidate_executor_equivalence_rate", "candidate executor eq", "#059669"),
+        ],
+    )
 
     manifest = {
         "generated_at": datetime.now(UTC).isoformat(),
@@ -1507,9 +1619,24 @@ def build_report(
         "visual_hard_slice_alias_repeat_schema_literal_targets_live_comparison": str(
             Path(visual_hard_slice_alias_repeat_schema_literal_targets_live_comparison).resolve()
         ),
+        "visual_hard_slice_alias_transfer_contracted_live_comparison": str(
+            Path(visual_hard_slice_alias_transfer_contracted_live_comparison).resolve()
+        ),
+        "visual_hard_slice_alias_transfer_role_catalog_live_comparison": str(
+            Path(visual_hard_slice_alias_transfer_role_catalog_live_comparison).resolve()
+        ),
+        "visual_hard_slice_alias_transfer_argument_hints_live_comparison": str(
+            Path(visual_hard_slice_alias_transfer_argument_hints_live_comparison).resolve()
+        ),
+        "visual_hard_slice_alias_transfer_schema_field_hints_live_comparison": str(
+            Path(visual_hard_slice_alias_transfer_schema_field_hints_live_comparison).resolve()
+        ),
+        "visual_hard_slice_alias_transfer_schema_literal_targets_live_comparison": str(
+            Path(visual_hard_slice_alias_transfer_schema_literal_targets_live_comparison).resolve()
+        ),
         "registry_path": str(Path(registry_path).resolve()),
-        "table_count": 64,
-        "figure_count": 31,
+        "table_count": 66,
+        "figure_count": 32,
     }
     report_payload = {
         "manifest": manifest,
@@ -1592,6 +1719,11 @@ def build_report(
         ],
         "visual_hard_slice_alias_repeat_live_replay_summary": visual_hard_slice_alias_repeat_live_summary_rows,
         "visual_hard_slice_alias_repeat_live_replay_case_deltas": visual_hard_slice_alias_repeat_live_case_rows,
+        "visual_hard_slice_alias_transfer_live_replay_comparisons": [
+            payload for _, payload in visual_hard_slice_alias_transfer_live_comparisons
+        ],
+        "visual_hard_slice_alias_transfer_live_replay_summary": visual_hard_slice_alias_transfer_live_summary_rows,
+        "visual_hard_slice_alias_transfer_live_replay_case_deltas": visual_hard_slice_alias_transfer_live_case_rows,
         "gemini": gemini_manifest,
     }
     (target / "manifest.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
@@ -1787,6 +1919,26 @@ def parse_args() -> argparse.Namespace:
         "--visual-hard-slice-alias-repeat-schema-literal-targets-live-comparison",
         default=str(DEFAULT_VISUAL_HARD_SLICE_ALIAS_REPEAT_SCHEMA_LITERAL_TARGETS_LIVE_COMPARISON),
     )
+    parser.add_argument(
+        "--visual-hard-slice-alias-transfer-contracted-live-comparison",
+        default=str(DEFAULT_VISUAL_HARD_SLICE_ALIAS_TRANSFER_CONTRACTED_LIVE_COMPARISON),
+    )
+    parser.add_argument(
+        "--visual-hard-slice-alias-transfer-role-catalog-live-comparison",
+        default=str(DEFAULT_VISUAL_HARD_SLICE_ALIAS_TRANSFER_ROLE_CATALOG_LIVE_COMPARISON),
+    )
+    parser.add_argument(
+        "--visual-hard-slice-alias-transfer-argument-hints-live-comparison",
+        default=str(DEFAULT_VISUAL_HARD_SLICE_ALIAS_TRANSFER_ARGUMENT_HINTS_LIVE_COMPARISON),
+    )
+    parser.add_argument(
+        "--visual-hard-slice-alias-transfer-schema-field-hints-live-comparison",
+        default=str(DEFAULT_VISUAL_HARD_SLICE_ALIAS_TRANSFER_SCHEMA_FIELD_HINTS_LIVE_COMPARISON),
+    )
+    parser.add_argument(
+        "--visual-hard-slice-alias-transfer-schema-literal-targets-live-comparison",
+        default=str(DEFAULT_VISUAL_HARD_SLICE_ALIAS_TRANSFER_SCHEMA_LITERAL_TARGETS_LIVE_COMPARISON),
+    )
     parser.add_argument("--registry", default=str(DEFAULT_REGISTRY_PATH))
     return parser.parse_args()
 
@@ -1862,6 +2014,11 @@ def main() -> None:
         visual_hard_slice_alias_repeat_argument_hints_live_comparison=args.visual_hard_slice_alias_repeat_argument_hints_live_comparison,
         visual_hard_slice_alias_repeat_schema_field_hints_live_comparison=args.visual_hard_slice_alias_repeat_schema_field_hints_live_comparison,
         visual_hard_slice_alias_repeat_schema_literal_targets_live_comparison=args.visual_hard_slice_alias_repeat_schema_literal_targets_live_comparison,
+        visual_hard_slice_alias_transfer_contracted_live_comparison=args.visual_hard_slice_alias_transfer_contracted_live_comparison,
+        visual_hard_slice_alias_transfer_role_catalog_live_comparison=args.visual_hard_slice_alias_transfer_role_catalog_live_comparison,
+        visual_hard_slice_alias_transfer_argument_hints_live_comparison=args.visual_hard_slice_alias_transfer_argument_hints_live_comparison,
+        visual_hard_slice_alias_transfer_schema_field_hints_live_comparison=args.visual_hard_slice_alias_transfer_schema_field_hints_live_comparison,
+        visual_hard_slice_alias_transfer_schema_literal_targets_live_comparison=args.visual_hard_slice_alias_transfer_schema_literal_targets_live_comparison,
         registry_path=args.registry,
     )
     print(
@@ -2250,6 +2407,12 @@ def _markdown_report(payload: dict[str, Any]) -> str:
     visual_hard_slice_alias_repeat_live_case_rows = payload[
         "visual_hard_slice_alias_repeat_live_replay_case_deltas"
     ]
+    visual_hard_slice_alias_transfer_live_summary_rows = payload[
+        "visual_hard_slice_alias_transfer_live_replay_summary"
+    ]
+    visual_hard_slice_alias_transfer_live_case_rows = payload[
+        "visual_hard_slice_alias_transfer_live_replay_case_deltas"
+    ]
     gemini = payload["gemini"]
     lines = [
         "# MLX Tool-Contract Harnessing Report",
@@ -2335,6 +2498,8 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         "![Visual hard-slice stress live replay gate](figures/visual_hard_slice_stress_live_replay_gate.svg)",
         "",
         "![Visual hard-slice alias-repeat live replay gate](figures/visual_hard_slice_alias_repeat_live_replay_gate.svg)",
+        "",
+        "![Visual hard-slice alias-transfer live replay gate](figures/visual_hard_slice_alias_transfer_live_replay_gate.svg)",
         "",
         "## Packet Summary",
         "",
@@ -2465,6 +2630,14 @@ def _markdown_report(payload: dict[str, Any]) -> str:
         _markdown_table(visual_hard_slice_alias_repeat_live_case_rows),
         "",
         "The eight-case alias-repeat packet makes the stress finding more publication-useful. No-directive MLX reaches `2 / 8` strict and `5 / 8` executor-equivalent. Schema-field hints v4 preserves the same strict count but improves executor-equivalence to `7 / 8`, while schema target literals v5 reaches `3 / 8` strict and full `8 / 8` executor-equivalence. Contracted MLX remains the strict upper bound at `7 / 8` and `8 / 8` executor-equivalent. Role catalog v1 and argument hints v2 are partial: they improve executor-equivalence to `6 / 8`, but do not match the schema-local profiles.",
+        "",
+        "## Visual Hard-Slice Alias-Transfer CLI-Live Replay",
+        "",
+        _markdown_table(visual_hard_slice_alias_transfer_live_summary_rows),
+        "",
+        _markdown_table(visual_hard_slice_alias_transfer_live_case_rows),
+        "",
+        "The six-case alias-transfer packet is the first post-packaging-gap discriminator. It uses fresh visual labels and decoys rather than repeating metric-panel/callout wording. No-directive MLX is `0 / 6` strict and `2 / 6` executor-equivalent. Argument hints v2 is the best executor-grounding row at `1 / 6` strict and `6 / 6` executor-equivalent. Schema target literals v5 reaches `1 / 6` strict and `4 / 6` executor-equivalent. Schema-field hints v4 improves strict exactness to `1 / 6` but does not improve executor-equivalence over no-directive. Contracted MLX remains the strict-fidelity upper bound at `5 / 6` exact but falls to `1 / 6` executor-equivalent under the current executor-target scorer, so this packet should be reported as a strict-vs-executor split rather than a single ranking.",
         "",
         "## Visual Hard-Slice Case Deltas vs No Directive",
         "",

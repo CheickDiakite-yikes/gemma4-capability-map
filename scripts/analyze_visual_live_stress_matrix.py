@@ -12,6 +12,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT_DIR = ROOT / "results" / "reports" / "visual_live_stress_diagnostic"
 DEFAULT_ALIAS_REPEAT_OUTPUT_DIR = ROOT / "results" / "reports" / "visual_alias_repeat_diagnostic"
+DEFAULT_ALIAS_TRANSFER_OUTPUT_DIR = ROOT / "results" / "reports" / "visual_alias_transfer_diagnostic"
 DEFAULT_COMPARISONS: tuple[tuple[str, Path], ...] = (
     (
         "contracted",
@@ -86,20 +87,57 @@ DEFAULT_ALIAS_REPEAT_COMPARISONS: tuple[tuple[str, Path], ...] = (
         / "20260509T_visual_hard_slice_live_stress_alias_repeat_schema_literal_targets_vs_no_directive_v1",
     ),
 )
+DEFAULT_ALIAS_TRANSFER_COMPARISONS: tuple[tuple[str, Path], ...] = (
+    (
+        "contracted",
+        ROOT
+        / "results"
+        / "tool_probe_replay_live_comparisons"
+        / "20260509T_visual_hard_slice_live_stress_alias_transfer_contracted_vs_no_directive_v1",
+    ),
+    (
+        "role_catalog_v1",
+        ROOT
+        / "results"
+        / "tool_probe_replay_live_comparisons"
+        / "20260509T_visual_hard_slice_live_stress_alias_transfer_role_catalog_vs_no_directive_v1",
+    ),
+    (
+        "argument_hints_v2",
+        ROOT
+        / "results"
+        / "tool_probe_replay_live_comparisons"
+        / "20260509T_visual_hard_slice_live_stress_alias_transfer_argument_hints_vs_no_directive_v1",
+    ),
+    (
+        "schema_field_hints_v4",
+        ROOT
+        / "results"
+        / "tool_probe_replay_live_comparisons"
+        / "20260509T_visual_hard_slice_live_stress_alias_transfer_schema_field_hints_vs_no_directive_v1",
+    ),
+    (
+        "schema_literal_targets_v5",
+        ROOT
+        / "results"
+        / "tool_probe_replay_live_comparisons"
+        / "20260509T_visual_hard_slice_live_stress_alias_transfer_schema_literal_targets_vs_no_directive_v1",
+    ),
+)
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Analyze visual hard-slice live replay matrices.")
-    parser.add_argument("--matrix", choices=["stress", "alias-repeat"], default="stress")
+    parser.add_argument("--matrix", choices=["stress", "alias-repeat", "alias-transfer"], default="stress")
     parser.add_argument("--output-dir", default="")
     return parser.parse_args()
 
 
 def main() -> None:
     args = parse_args()
-    comparisons = DEFAULT_ALIAS_REPEAT_COMPARISONS if args.matrix == "alias-repeat" else DEFAULT_COMPARISONS
+    comparisons = _default_comparisons(args.matrix)
     output_dir = Path(args.output_dir) if args.output_dir else _default_output_dir(args.matrix)
-    table_prefix = "alias_repeat_matrix" if args.matrix == "alias-repeat" else "stress_matrix"
+    table_prefix = _table_prefix(args.matrix)
     payload = analyze_visual_live_stress_matrix(
         output_dir=output_dir,
         comparisons=comparisons,
@@ -154,7 +192,25 @@ def analyze_visual_live_stress_matrix(
 def _default_output_dir(matrix_name: str) -> Path:
     if matrix_name == "alias-repeat":
         return DEFAULT_ALIAS_REPEAT_OUTPUT_DIR
+    if matrix_name == "alias-transfer":
+        return DEFAULT_ALIAS_TRANSFER_OUTPUT_DIR
     return DEFAULT_OUTPUT_DIR
+
+
+def _default_comparisons(matrix_name: str) -> tuple[tuple[str, Path], ...]:
+    if matrix_name == "alias-repeat":
+        return DEFAULT_ALIAS_REPEAT_COMPARISONS
+    if matrix_name == "alias-transfer":
+        return DEFAULT_ALIAS_TRANSFER_COMPARISONS
+    return DEFAULT_COMPARISONS
+
+
+def _table_prefix(matrix_name: str) -> str:
+    if matrix_name == "alias-repeat":
+        return "alias_repeat_matrix"
+    if matrix_name == "alias-transfer":
+        return "alias_transfer_matrix"
+    return "stress_matrix"
 
 
 def _read_comparison(path: Path) -> dict[str, Any]:

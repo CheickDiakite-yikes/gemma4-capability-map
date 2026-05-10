@@ -1,9 +1,9 @@
 {
   "summary": {
-    "generated_at": "2026-05-09T23:47:08.814191+00:00",
+    "generated_at": "2026-05-09T23:59:45.749985+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 51,
-    "blocking_check_count": 49,
+    "check_count": 56,
+    "blocking_check_count": 54,
     "blocking_failed_count": 0,
     "recommended_check_count": 2,
     "recommended_failed_count": 0,
@@ -29,7 +29,7 @@
       "check_id": "ledger_has_claims",
       "severity": "blocking",
       "passed": true,
-      "detail": "claim_count=14",
+      "detail": "claim_count=15",
       "path": ""
     },
     {
@@ -43,14 +43,14 @@
       "check_id": "tool_contract_report_has_current_tables",
       "severity": "blocking",
       "passed": true,
-      "detail": "table_count=64",
+      "detail": "table_count=66",
       "path": ""
     },
     {
       "check_id": "tool_contract_report_has_current_figures",
       "severity": "blocking",
       "passed": true,
-      "detail": "figure_count=31",
+      "detail": "figure_count=32",
       "path": ""
     },
     {
@@ -255,6 +255,41 @@
       "passed": true,
       "detail": "Packaged replay gap diagnostic exists to compare replay gains with H1l/H1m packaged saturation.",
       "path": "results/reports/packaged_replay_gap_diagnostic/diagnostic.md"
+    },
+    {
+      "check_id": "visual_hard_slice_alias_transfer_packet_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Six-case alias-transfer visual stress replay packet exists.",
+      "path": "results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_dry_run_v1/replay_cases.json"
+    },
+    {
+      "check_id": "visual_hard_slice_alias_transfer_argument_hints_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Alias-transfer argument-hints live replay comparison exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_transfer_argument_hints_vs_no_directive_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "visual_hard_slice_alias_transfer_contracted_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Alias-transfer contracted live replay comparison exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_transfer_contracted_vs_no_directive_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "visual_hard_slice_alias_transfer_report_table_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Alias-transfer live replay summary table exists in the main report.",
+      "path": "results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_transfer_live_replay_summary.csv"
+    },
+    {
+      "check_id": "visual_alias_transfer_diagnostic_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Visual alias-transfer diagnostic report exists.",
+      "path": "results/reports/visual_alias_transfer_diagnostic/diagnostic.md"
     },
     {
       "check_id": "current_state_doc_exists",

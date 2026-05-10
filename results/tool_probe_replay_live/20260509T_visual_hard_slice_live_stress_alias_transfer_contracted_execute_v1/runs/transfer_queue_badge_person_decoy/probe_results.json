@@ -1,0 +1,51 @@
+[
+  {
+    "case_id": "transfer_queue_badge_person_decoy",
+    "family": "visual_argument_transfer",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "transfer-queue-3302"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "read_region_text",
+        "arguments": {
+          "image_id": "img-transfer-queue-badge",
+          "region_id": ""
+        },
+        "validator_result": "fail",
+        "output": {},
+        "error": "'Region not found: '"
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "read_region_text",
+        "arguments": {
+          "image_id": "img-transfer-queue-badge",
+          "region_id": ""
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "read_region_text",
+        "arguments": {
+          "image_id": "img-transfer-queue-badge",
+          "region_id": ""
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"read_region_text\", \"arguments\": {\"image_id\": \"img-transfer-queue-badge\", \"region_id\": \"\"}}",
+    "prompt_tokens": 778,
+    "completion_tokens": 35,
+    "latency_ms": 6796
+  }
+]

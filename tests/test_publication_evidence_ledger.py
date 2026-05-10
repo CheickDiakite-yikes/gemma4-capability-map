@@ -34,6 +34,9 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert claims["C15_packaged_visual_surfaces_wash_out_replay_discrimination"][
         "status"
     ] == "supported_current_packets"
+    assert claims["C16_visual_alias_transfer_favors_argument_hints_executor_grounding"][
+        "status"
+    ] == "supported_current_packets"
     assert "7/8" in claims["C2_final_tool_directive_causal_for_protocol"]["primary_metric"]
     assert "v3 raw exact falls" in claims["C6_split_selector_wording_is_negative_evidence"]["primary_metric"]
     assert "schema-field hints reach 6/8 strict and 8/8 executor-equivalent" in claims[
@@ -69,6 +72,12 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     ]["primary_metric"]
     assert "H1m max replay executor-equivalence delta 0.375" in claims[
         "C15_packaged_visual_surfaces_wash_out_replay_discrimination"
+    ]["primary_metric"]
+    assert "argument hints v2 is 1/6 strict and 6/6 executor-equivalent" in claims[
+        "C16_visual_alias_transfer_favors_argument_hints_executor_grounding"
+    ]["primary_metric"]
+    assert "contracted MLX is 5/6 strict but 1/6 executor-equivalent" in claims[
+        "C16_visual_alias_transfer_favors_argument_hints_executor_grounding"
     ]["primary_metric"]
 
     source_types = {row["artifact_type"] for row in payload["evidence_sources"]}

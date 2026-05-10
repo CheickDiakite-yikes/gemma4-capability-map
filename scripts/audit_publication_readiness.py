@@ -59,13 +59,13 @@ def audit_publication_readiness(
         _check_bool(
             check_id="tool_contract_report_has_current_tables",
             severity="blocking",
-            passed=int(report_manifest.get("table_count", 0) or 0) >= 64,
+            passed=int(report_manifest.get("table_count", 0) or 0) >= 66,
             detail=f"table_count={report_manifest.get('table_count', '')}",
         ),
         _check_bool(
             check_id="tool_contract_report_has_current_figures",
             severity="blocking",
-            passed=int(report_manifest.get("figure_count", 0) or 0) >= 31,
+            passed=int(report_manifest.get("figure_count", 0) or 0) >= 32,
             detail=f"figure_count={report_manifest.get('figure_count', '')}",
         ),
         _check_path(
@@ -329,6 +329,53 @@ def audit_publication_readiness(
             severity="blocking",
             path=ROOT / "results" / "reports" / "packaged_replay_gap_diagnostic" / "diagnostic.md",
             detail="Packaged replay gap diagnostic exists to compare replay gains with H1l/H1m packaged saturation.",
+        ),
+        _check_path(
+            check_id="visual_hard_slice_alias_transfer_packet_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_packets"
+            / "20260509T_visual_hard_slice_live_stress_alias_transfer_dry_run_v1"
+            / "replay_cases.json",
+            detail="Six-case alias-transfer visual stress replay packet exists.",
+        ),
+        _check_path(
+            check_id="visual_hard_slice_alias_transfer_argument_hints_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260509T_visual_hard_slice_live_stress_alias_transfer_argument_hints_vs_no_directive_v1"
+            / "live_replay_comparison.json",
+            detail="Alias-transfer argument-hints live replay comparison exists.",
+        ),
+        _check_path(
+            check_id="visual_hard_slice_alias_transfer_contracted_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260509T_visual_hard_slice_live_stress_alias_transfer_contracted_vs_no_directive_v1"
+            / "live_replay_comparison.json",
+            detail="Alias-transfer contracted live replay comparison exists.",
+        ),
+        _check_path(
+            check_id="visual_hard_slice_alias_transfer_report_table_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "mlx_tool_contract_harnessing"
+            / "tables"
+            / "visual_hard_slice_alias_transfer_live_replay_summary.csv",
+            detail="Alias-transfer live replay summary table exists in the main report.",
+        ),
+        _check_path(
+            check_id="visual_alias_transfer_diagnostic_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "visual_alias_transfer_diagnostic" / "diagnostic.md",
+            detail="Visual alias-transfer diagnostic report exists.",
         ),
         _check_path(
             check_id="current_state_doc_exists",

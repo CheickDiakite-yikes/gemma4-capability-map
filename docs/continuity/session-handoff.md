@@ -148,8 +148,9 @@ Current strongest MLX result:
 - H1n alias-transfer replay design:
   - brief: [`docs/continuity/h1n-slice.md`](./h1n-slice.md)
   - packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_dry_run_v1`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_dry_run_v1)
-  - suite: `alias_transfer_v3`, `6` fresh transfer cases, dry-run only so far
-  - next: execute no-directive and schema-field hints first; only add contracted/schema-target-literal rows after that two-row read
+  - diagnostic: [`results/reports/visual_alias_transfer_diagnostic/diagnostic.md`](../../results/reports/visual_alias_transfer_diagnostic/diagnostic.md)
+  - result: argument hints v2 reaches `1 / 6` strict and `6 / 6` executor-equivalent; schema target literals v5 reaches `1 / 6` strict and `4 / 6` executor-equivalent; no-directive is `0 / 6` strict and `2 / 6` executor-equivalent; contracted is `5 / 6` strict but `1 / 6` executor-equivalent
+  - next: inspect contracted exact-but-not-executor-equivalent rows before deciding whether this is scorer friction or a real executor-target mismatch
 - the sixth prompt-contract wave is a negative composition result:
   - dry-run packet: [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_dry_run)
   - probe packet: [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe`](../../results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe)

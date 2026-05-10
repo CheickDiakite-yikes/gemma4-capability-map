@@ -71,6 +71,8 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 
 ![H1m visual alias-repeat burden](../../results/reports/mlx_tool_contract_harnessing/figures/h1m_visual_alias_repeat_burden.svg)
 
+![Visual hard-slice alias-transfer live replay gate](../../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_alias_transfer_live_replay_gate.svg)
+
 ![Exact probe replay gap](../../results/reports/mlx_tool_contract_harnessing/figures/exact_probe_replay_gap.svg)
 
 ![Focused exact replay gaps](../../results/reports/mlx_tool_contract_harnessing/figures/exact_probe_replay_focus_gap.svg)
@@ -861,6 +863,28 @@ Result:
 
 This is now a research finding about benchmark construction. Packaged workflows are still useful for safe live operation, attribution, and operator observability, but they can become too staged to preserve one-turn visual alias/decoy failures. The paper should report this as contract quality affecting measured capability, not as a Gemma-only behavior.
 
+## H1n Visual Alias-Transfer Replay Matrix
+
+H1n is the first post-packaging-gap visual replay result. It keeps the `moonie-agent replay-live` surface but changes the labels and decoys:
+
+- source packet: [`results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_dry_run_v1`](../../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_dry_run_v1)
+- diagnostic: [`results/reports/visual_alias_transfer_diagnostic/diagnostic.md`](../../results/reports/visual_alias_transfer_diagnostic/diagnostic.md)
+- generated table: [`visual_hard_slice_alias_transfer_live_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_transfer_live_replay_summary.csv)
+- generated figure: [`visual_hard_slice_alias_transfer_live_replay_gate.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_alias_transfer_live_replay_gate.svg)
+
+Result:
+
+| Row | Strict | Executor-equivalent |
+| --- | ---: | ---: |
+| no-directive | `0 / 6` | `2 / 6` |
+| contracted | `5 / 6` | `1 / 6` |
+| role catalog v1 | `1 / 6` | `3 / 6` |
+| argument hints v2 | `1 / 6` | `6 / 6` |
+| schema-field hints v4 | `1 / 6` | `2 / 6` |
+| schema target literals v5 | `1 / 6` | `4 / 6` |
+
+The result changes the visual story again. On fresh transfer cases, argument hints v2 is the strongest executor-grounding intervention, not schema-field hints v4. Contracted MLX remains the strict-fidelity upper bound, but the current executor-target scorer marks only `1 / 6` contracted rows executor-equivalent, so the next analysis should inspect exact-but-not-executor-equivalent rows before turning that into a model-only ranking.
+
 ## Gemini CLI Baseline Status
 
 The Gemini CLI adapter is currently a dry-run external baseline, not a replacement for Moonie. The packet uses the same H1h workflow families and records prompt/command artifacts without external side effects:
@@ -903,12 +927,13 @@ Use this order before broad `32 / 26` reruns:
 2. Treat `visual_role_catalog_schema_field_hints_v4` as the best fresh hard-slice no-directive profile because it reaches `8 / 8` executor-equivalent target success, while still missing exact protocol on two cases.
 3. Treat `visual_role_catalog_schema_literal_targets_v5` as negative evidence: it drops to `5 / 8` strict exactness and `7 / 8` executor-equivalent target success while adding a wrong-tool stale-selection regression.
 4. Treat H1l and H1m as negative packaged-workflow results: current packaged visual workflows wash out hard-slice and alias-repeat row separation.
-5. Treat `visual_role_catalog_v1` as the stable routing baseline, `visual_state_tool_selection_v4` as a failed-to-improve live candidate, `visual_refine_selection_v5` as a raw-gate rejection, and the v6 catalog-plus-literal-guard composition as negative interference.
-6. Stop iterating on standalone visual prompt rules unless the next idea changes tool-catalog role shape or generation-time argument copying without sacrificing protocol entry.
-7. Keep canonical JSON copy and parallel two-call wording out of H1 as currently written; they did not earn live promotion.
-8. H1h only after replay-live, raw probe, hard-slice, or less staged live evidence shows a mechanism-level change.
-9. Gemini CLI real execution only when the binary/run environment is explicitly meant to be part of the comparison.
-10. Runtime live-smoke packets after benchmark movement, to confirm the CLI operator path sees the same repair/fallback pattern.
+5. Treat H1n as the current non-packaged visual restart point: argument hints v2 is the executor-equivalence winner on fresh alias-transfer cases, while contracted MLX remains strict-best.
+6. Treat `visual_role_catalog_v1` as the stable routing baseline, `visual_state_tool_selection_v4` as a failed-to-improve live candidate, `visual_refine_selection_v5` as a raw-gate rejection, and the v6 catalog-plus-literal-guard composition as negative interference.
+7. Stop iterating on standalone visual prompt rules unless the next idea changes tool-catalog role shape or generation-time argument copying without sacrificing protocol entry.
+8. Keep canonical JSON copy and parallel two-call wording out of H1 as currently written; they did not earn live promotion.
+9. H1h only after replay-live, raw probe, hard-slice, or less staged live evidence shows a mechanism-level change.
+10. Gemini CLI real execution only when the binary/run environment is explicitly meant to be part of the comparison.
+11. Runtime live-smoke packets after benchmark movement, to confirm the CLI operator path sees the same repair/fallback pattern.
 
 Acceptance criteria for a useful candidate:
 

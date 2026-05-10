@@ -68,3 +68,34 @@ def test_visual_alias_repeat_diagnostic_writes_findings(tmp_path: Path) -> None:
     assert (tmp_path / "diagnostic.md").exists()
     assert (tmp_path / "diagnostic.json").exists()
     assert (tmp_path / "tables" / "alias_repeat_matrix_case_transitions.csv").exists()
+
+
+def test_visual_alias_transfer_diagnostic_writes_findings(tmp_path: Path) -> None:
+    payload = SCRIPT.analyze_visual_live_stress_matrix(
+        output_dir=tmp_path,
+        comparisons=SCRIPT.DEFAULT_ALIAS_TRANSFER_COMPARISONS,
+        matrix_name="alias-transfer",
+        table_prefix="alias_transfer_matrix",
+    )
+
+    assert payload["manifest"]["comparison_count"] == 5
+    assert payload["manifest"]["case_count"] == 6
+    assert payload["manifest"]["matrix_name"] == "alias-transfer"
+    summary = {row["label"]: row for row in payload["summary_rows"]}
+    assert summary["contracted"]["candidate_exact_rate"] == 0.8333333333333334
+    assert summary["contracted"]["delta_executor_equivalence_rate"] == -0.16666666666666666
+    assert summary["argument_hints_v2"]["candidate_executor_equivalence_rate"] == 1.0
+    assert summary["schema_literal_targets_v5"]["delta_executor_equivalence_rate"] == 0.3333333333333333
+    transitions = {(row["label"], row["case_id"]): row for row in payload["case_rows"]}
+    assert transitions[
+        ("argument_hints_v2", "transfer_review_tile_notice_table_decoy")
+    ]["transition"] == "executor_gain_without_strict"
+    assert transitions[
+        ("contracted", "transfer_status_pill_chart_decoy")
+    ]["transition"] == "unchanged"
+    findings = {row["finding_id"]: row["finding"] for row in payload["finding_rows"]}
+    assert "contracted" in findings["strict_upper_bound"]
+    assert "argument_hints_v2" in findings["executor_equivalence_set"]
+    assert (tmp_path / "diagnostic.md").exists()
+    assert (tmp_path / "diagnostic.json").exists()
+    assert (tmp_path / "tables" / "alias_transfer_matrix_case_transitions.csv").exists()

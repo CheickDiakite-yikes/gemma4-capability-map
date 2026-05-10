@@ -43,8 +43,26 @@ uv run moonie-agent replay-live \
   --execute --json
 ```
 
-Only run broader rows after the two-row read:
+## Executed Result
 
-- if schema-field hints separates from no-directive, add contracted and schema-target-literal rows
-- if both rows saturate, redesign the transfer cases before spending more execution budget
-- if no-directive fails but schema-field also fails, inspect raw traces before adding another prompt contract
+The full matrix has now been executed:
+
+- no-directive: strict `0 / 6`, executor-equivalent `2 / 6`
+- contracted: strict `5 / 6`, executor-equivalent `1 / 6`
+- role catalog v1: strict `1 / 6`, executor-equivalent `3 / 6`
+- argument hints v2: strict `1 / 6`, executor-equivalent `6 / 6`
+- schema-field hints v4: strict `1 / 6`, executor-equivalent `2 / 6`
+- schema target literals v5: strict `1 / 6`, executor-equivalent `4 / 6`
+
+Generated evidence:
+
+- diagnostic: [`results/reports/visual_alias_transfer_diagnostic/diagnostic.md`](../../results/reports/visual_alias_transfer_diagnostic/diagnostic.md)
+- report table: [`results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_transfer_live_replay_summary.csv`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_transfer_live_replay_summary.csv)
+- report figure: [`results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_alias_transfer_live_replay_gate.svg`](../../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_alias_transfer_live_replay_gate.svg)
+
+Interpretation:
+
+- Argument hints v2 is the strongest current no-directive executor-grounding profile on fresh transfer cases.
+- Schema target literals v5 still help executor-equivalence, but less than argument hints on this packet.
+- Contracted MLX is still the strict-fidelity upper bound, but its exact rows need scorer-level inspection because the current executor-target scorer marks only `1 / 6` executor-equivalent.
+- The next move is not packaged H1; it is scorer inspection plus a repeat or helper-ablation around the non-packaged replay-live surface.

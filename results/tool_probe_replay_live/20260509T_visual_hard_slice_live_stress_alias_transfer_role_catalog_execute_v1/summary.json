@@ -1,0 +1,19 @@
+{
+  "packet_run_id": "20260509T_visual_hard_slice_live_stress_alias_transfer_role_catalog_execute_v1",
+  "packet_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260509T_visual_hard_slice_live_stress_alias_transfer_role_catalog_execute_v1",
+  "source_packet_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_dry_run_v1",
+  "source_packet_run_id": "20260509T_visual_hard_slice_live_stress_alias_transfer_dry_run_v1",
+  "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog",
+  "case_count": 6,
+  "execute": true,
+  "executed_count": 6,
+  "exact_count": 1,
+  "exact_rate": 0.16666666666666666,
+  "executor_equivalence_evaluable_count": 6,
+  "executor_equivalence_count": 3,
+  "executor_equivalence_rate": 0.5,
+  "failure_mode_counts": {
+    "argument_alias_or_decoy_risk": 4,
+    "wrong_tool_or_stale_selection_risk": 2
+  }
+}

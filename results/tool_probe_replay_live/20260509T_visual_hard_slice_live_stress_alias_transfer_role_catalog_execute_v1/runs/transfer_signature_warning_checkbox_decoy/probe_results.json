@@ -1,0 +1,58 @@
+[
+  {
+    "case_id": "transfer_signature_warning_checkbox_decoy",
+    "family": "visual_tool_routing_transfer",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "transfer-signature-3502"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-signature-warning",
+          "target_query": "signature warning text"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-transfer-signature-warning",
+          "selection_kind": "regions",
+          "count": 0,
+          "executor_mode": "local",
+          "region_ids": []
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "read_region_text",
+        "arguments": {
+          "image_id": "img-transfer-signature-warning",
+          "region_id": ""
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-signature-warning",
+          "target_query": "signature warning text"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-transfer-signature-warning\", \"target_query\": \"signature warning text\"}}",
+    "prompt_tokens": 848,
+    "completion_tokens": 36,
+    "latency_ms": 6340
+  }
+]

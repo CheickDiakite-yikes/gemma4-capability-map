@@ -9,10 +9,10 @@
 | --- | --- | ---: | --- | --- |
 | ledger_manifest_exists | blocking | True | Publication evidence ledger manifest exists. | results/reports/publication_evidence_ledger/manifest.json |
 | ledger_has_no_missing_sources | blocking | True | missing_source_count=0 |  |
-| ledger_has_claims | blocking | True | claim_count=14 |  |
+| ledger_has_claims | blocking | True | claim_count=15 |  |
 | ledger_includes_negative_results | blocking | True | At least one claim is explicitly labeled as negative-result evidence. |  |
-| tool_contract_report_has_current_tables | blocking | True | table_count=64 |  |
-| tool_contract_report_has_current_figures | blocking | True | figure_count=31 |  |
+| tool_contract_report_has_current_tables | blocking | True | table_count=66 |  |
+| tool_contract_report_has_current_figures | blocking | True | figure_count=32 |  |
 | v3_negative_probe_packet_exists | blocking | True | Negative v3 catalog-profile probe is preserved. | results/tool_catalog_profile_probe_packets/20260508T_visual_role_catalog_split_selector_hints_v3_probe |
 | v3_skipped_live_decision_exists | blocking | True | Skipped-live decision is preserved as an auditable packet. | results/tool_probe_replay_live/20260508T_visual_split_selector_hints_live_replay_skipped_v1/decision.md |
 | v4_negative_probe_packet_exists | blocking | True | Negative v4 schema-field probe is preserved. | results/tool_catalog_profile_probe_packets/20260509T_visual_role_catalog_schema_field_hints_v4_probe |
@@ -42,6 +42,11 @@
 | visual_alias_repeat_diagnostic_exists | blocking | True | Visual alias-repeat diagnostic report exists. | results/reports/visual_alias_repeat_diagnostic/diagnostic.md |
 | h1m_visual_alias_repeat_report_table_exists | blocking | True | H1m visual alias-repeat candidate metrics table exists in the main report. | results/reports/mlx_tool_contract_harnessing/tables/h1m_visual_alias_repeat_candidate_metrics.csv |
 | packaged_replay_gap_diagnostic_exists | blocking | True | Packaged replay gap diagnostic exists to compare replay gains with H1l/H1m packaged saturation. | results/reports/packaged_replay_gap_diagnostic/diagnostic.md |
+| visual_hard_slice_alias_transfer_packet_exists | blocking | True | Six-case alias-transfer visual stress replay packet exists. | results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_dry_run_v1/replay_cases.json |
+| visual_hard_slice_alias_transfer_argument_hints_comparison_exists | blocking | True | Alias-transfer argument-hints live replay comparison exists. | results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_transfer_argument_hints_vs_no_directive_v1/live_replay_comparison.json |
+| visual_hard_slice_alias_transfer_contracted_comparison_exists | blocking | True | Alias-transfer contracted live replay comparison exists. | results/tool_probe_replay_live_comparisons/20260509T_visual_hard_slice_live_stress_alias_transfer_contracted_vs_no_directive_v1/live_replay_comparison.json |
+| visual_hard_slice_alias_transfer_report_table_exists | blocking | True | Alias-transfer live replay summary table exists in the main report. | results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_transfer_live_replay_summary.csv |
+| visual_alias_transfer_diagnostic_exists | blocking | True | Visual alias-transfer diagnostic report exists. | results/reports/visual_alias_transfer_diagnostic/diagnostic.md |
 | current_state_doc_exists | blocking | True | Continuity current-state doc exists. | docs/continuity/current-state.md |
 | next_steps_doc_exists | blocking | True | Continuity next-steps doc exists. | docs/continuity/next-steps.md |
 | research_log_exists | blocking | True | Research log exists. | docs/research-log.md |

@@ -3152,13 +3152,16 @@
   - `uv run python scripts/build_publication_evidence_ledger.py`
   - `uv run python scripts/audit_publication_readiness.py`
 
-## 2026-05-09 - H1n Visual Alias-Transfer Replay Design
+## 2026-05-09 - H1n Visual Alias-Transfer Replay Matrix
 
-- Added a fresh alias-transfer replay suite to test whether the visual alias-repeat signal transfers to new labels and decoys without staging the task into packaged workflows:
+- Added and executed a fresh alias-transfer replay suite to test whether the visual alias-repeat signal transfers to new labels and decoys without staging the task into packaged workflows:
   - script: [`scripts/build_visual_hard_slice_live_stress_packet.py`](../scripts/build_visual_hard_slice_live_stress_packet.py)
   - suite flag: `--suite alias_transfer_v3`
   - brief: [`docs/continuity/h1n-slice.md`](continuity/h1n-slice.md)
   - source packet: [`20260509T_visual_hard_slice_live_stress_alias_transfer_dry_run_v1`](../results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_dry_run_v1)
+  - diagnostic: [`results/reports/visual_alias_transfer_diagnostic`](../results/reports/visual_alias_transfer_diagnostic)
+  - report table: [`visual_hard_slice_alias_transfer_live_replay_summary.csv`](../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_alias_transfer_live_replay_summary.csv)
+  - report figure: [`visual_hard_slice_alias_transfer_live_replay_gate.svg`](../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_alias_transfer_live_replay_gate.svg)
 - New transfer cases:
   - `transfer_review_tile_notice_table_decoy`
   - `transfer_status_pill_chart_decoy`
@@ -3170,12 +3173,31 @@
   - `4` visual argument-transfer cases with fresh tile/pill/banner/badge targets
   - `2` visual tool-routing transfer cases with stale-selection or wrong-region decoys
   - replay-live entrypoint only; this is not a packaged workflow and does not add frontend work
+- Result:
+  - no-directive MLX: strict `0 / 6`, executor-equivalent `2 / 6`
+  - contracted MLX: strict `5 / 6`, executor-equivalent `1 / 6`
+  - role catalog v1: strict `1 / 6`, executor-equivalent `3 / 6`
+  - argument hints v2: strict `1 / 6`, executor-equivalent `6 / 6`
+  - schema-field hints v4: strict `1 / 6`, executor-equivalent `2 / 6`
+  - schema target literals v5: strict `1 / 6`, executor-equivalent `4 / 6`
 - Interpretation:
-  - H1n is not model evidence yet. It is the next packet to execute because H1l/H1m showed packaged workflows are too staged for the current visual question.
-  - First execute only no-directive and schema-field hints. Add contracted or schema-target-literal rows after that two-row read shows separation or a useful failure.
+  - H1n is the first post-packaging-gap positive transfer result. Argument hints v2 generalizes best for executor-equivalent target success on fresh labels and decoys.
+  - Schema-field hints v4 did not transfer its alias-repeat executor-equivalence advantage; it only added one strict exact win.
+  - Contracted MLX remains the strict-fidelity upper bound, but the exact-vs-executor split needs scorer inspection before being reported as a model-only weakness.
+  - This strengthens the paper claim that strict protocol fidelity and executor target success must be separate endpoints, not one blended score.
+- Reporting updates:
+  - generated MLX tool-contract report now has `66` tables and `32` figures
+  - publication evidence claim `C16_visual_alias_transfer_favors_argument_hints_executor_grounding` records the result
+  - readiness audit now has `56` checks, `54` blocking, and `0` blocking failures
 - Verification:
   - `uv run pytest tests/test_visual_hard_slice_live_stress_packet.py -q`
   - `uv run python scripts/build_visual_hard_slice_live_stress_packet.py --run-group-id 20260509T_visual_hard_slice_live_stress_alias_transfer_dry_run_v1 --suite alias_transfer_v3`
+  - `uv run moonie-agent replay-live --packet-id 20260509T_visual_hard_slice_live_stress_alias_transfer_dry_run_v1 --output-dir results/tool_probe_replay_live/20260509T_visual_hard_slice_live_stress_alias_transfer_no_directive_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive --execute --json`
+  - `uv run moonie-agent replay-live --packet-id 20260509T_visual_hard_slice_live_stress_alias_transfer_dry_run_v1 --output-dir results/tool_probe_replay_live/20260509T_visual_hard_slice_live_stress_alias_transfer_argument_hints_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints --execute --json`
+  - `uv run python scripts/analyze_visual_live_stress_matrix.py --matrix alias-transfer`
+  - `uv run python scripts/build_mlx_tool_contract_report.py`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`
 
 ## 2026-05-09 - Schema Target Literal v5 Negative Hard-Slice Repair
 
