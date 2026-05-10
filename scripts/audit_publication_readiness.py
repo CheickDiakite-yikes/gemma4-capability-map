@@ -1194,6 +1194,115 @@ def audit_publication_readiness(
             detail="Paper-facing H2a transfer gate figure exists in the main report.",
         ),
         _check_path(
+            check_id="h2b_residual_exactness_packet_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_packets"
+            / "20260510T_h2b_residual_exactness_dry_run_v1"
+            / "manifest.json",
+            detail="H2b residual exactness dry-run packet exists.",
+        ),
+        _check_path(
+            check_id="h2b_residual_exactness_no_directive_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260510T_h2b_residual_exactness_no_directive_execute_v1"
+            / "summary.json",
+            detail="H2b no-directive live replay exists.",
+        ),
+        _check_path(
+            check_id="h2b_residual_exactness_v11_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260510T_h2b_residual_exactness_component_label_guard_execute_v1"
+            / "summary.json",
+            detail="H2b v11 component-label live replay exists.",
+        ),
+        _check_path(
+            check_id="h2b_residual_exactness_v12_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260510T_h2b_residual_exactness_component_residual_guard_execute_v1"
+            / "summary.json",
+            detail="H2b v12 component-residual live replay exists.",
+        ),
+        _check_path(
+            check_id="h2b_residual_exactness_v15_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260510T_h2b_residual_exactness_code_label_exact_guard_execute_v1"
+            / "summary.json",
+            detail="H2b v15 code-label live replay exists.",
+        ),
+        _check_path(
+            check_id="h2b_residual_exactness_h2a_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260510T_h2b_residual_exactness_h2a_execute_v1"
+            / "summary.json",
+            detail="H2b H2a stale-selection live replay exists.",
+        ),
+        _check_path(
+            check_id="h2b_residual_exactness_v9_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260510T_h2b_residual_exactness_component_value_guard_execute_v1"
+            / "summary.json",
+            detail="H2b v9 component-value live replay exists.",
+        ),
+        _check_path(
+            check_id="h2b_residual_exactness_synthesis_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "h2b_residual_exactness_synthesis" / "report.md",
+            detail="H2b residual exactness synthesis report exists.",
+        ),
+        _check_path(
+            check_id="h2b_residual_exactness_report_table_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "mlx_tool_contract_harnessing"
+            / "tables"
+            / "h2b_residual_exactness_packet_summary.csv",
+            detail="Paper-facing H2b packet table exists in the main report.",
+        ),
+        _check_path(
+            check_id="h2b_residual_exactness_case_table_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "mlx_tool_contract_harnessing"
+            / "tables"
+            / "h2b_residual_exactness_case_matrix.csv",
+            detail="Paper-facing H2b case matrix exists in the main report.",
+        ),
+        _check_path(
+            check_id="h2b_residual_exactness_report_figure_exists",
+            severity="recommended",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "mlx_tool_contract_harnessing"
+            / "figures"
+            / "h2b_residual_exactness_gate.svg",
+            detail="Paper-facing H2b residual exactness gate figure exists in the main report.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",
@@ -1244,6 +1353,8 @@ def audit_publication_readiness(
         "build_h1q_component_label_guard_transfer_synthesis.py",
         "build_h1s_component_residual_transfer_synthesis.py",
         "build_h2a_stale_selection_transfer_synthesis.py",
+        "build_h2b_residual_exactness_packet.py",
+        "build_h2b_residual_exactness_synthesis.py",
         "build_h1n_oracle_transfer_synthesis.py",
         "compare_tool_directive_probes.py",
         "build_visual_hard_slice_design.py",

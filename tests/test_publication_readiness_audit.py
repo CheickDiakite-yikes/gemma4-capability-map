@@ -134,6 +134,17 @@ def test_publication_readiness_audit_writes_blocking_checks(tmp_path: Path) -> N
     assert checks["h2a_stale_selection_transfer_report_table_exists"]["passed"] is True
     assert checks["h2a_stale_selection_transfer_residual_table_exists"]["passed"] is True
     assert checks["h2a_stale_selection_transfer_report_figure_exists"]["passed"] is True
+    assert checks["h2b_residual_exactness_packet_exists"]["passed"] is True
+    assert checks["h2b_residual_exactness_no_directive_live_exists"]["passed"] is True
+    assert checks["h2b_residual_exactness_v11_live_exists"]["passed"] is True
+    assert checks["h2b_residual_exactness_v12_live_exists"]["passed"] is True
+    assert checks["h2b_residual_exactness_v15_live_exists"]["passed"] is True
+    assert checks["h2b_residual_exactness_h2a_live_exists"]["passed"] is True
+    assert checks["h2b_residual_exactness_v9_live_exists"]["passed"] is True
+    assert checks["h2b_residual_exactness_synthesis_exists"]["passed"] is True
+    assert checks["h2b_residual_exactness_report_table_exists"]["passed"] is True
+    assert checks["h2b_residual_exactness_case_table_exists"]["passed"] is True
+    assert checks["h2b_residual_exactness_report_figure_exists"]["passed"] is True
     assert checks["script_analyze_visual_hard_slice_exactness.py_exists"]["passed"] is True
     assert checks["script_analyze_packaged_replay_gap.py_exists"]["passed"] is True
     assert checks["script_analyze_h1n_alias_transfer_contract_split.py_exists"]["passed"] is True
@@ -147,6 +158,8 @@ def test_publication_readiness_audit_writes_blocking_checks(tmp_path: Path) -> N
     assert checks["script_build_h1q_component_label_guard_transfer_synthesis.py_exists"]["passed"] is True
     assert checks["script_build_h1s_component_residual_transfer_synthesis.py_exists"]["passed"] is True
     assert checks["script_build_h2a_stale_selection_transfer_synthesis.py_exists"]["passed"] is True
+    assert checks["script_build_h2b_residual_exactness_packet.py_exists"]["passed"] is True
+    assert checks["script_build_h2b_residual_exactness_synthesis.py_exists"]["passed"] is True
     assert checks["script_build_h1n_oracle_transfer_synthesis.py_exists"]["passed"] is True
     assert checks["script_run_visual_hard_slice_probe_packet.py_exists"]["passed"] is True
     assert checks["script_build_visual_hard_slice_replay_packet.py_exists"]["passed"] is True

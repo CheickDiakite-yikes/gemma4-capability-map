@@ -4,9 +4,9 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 
 ## Manifest
 
-- generated_at: `2026-05-10T19:53:24.348062+00:00`
-- claim_count: `39`
-- evidence_source_count: `205`
+- generated_at: `2026-05-10T20:14:26.264282+00:00`
+- claim_count: `40`
+- evidence_source_count: `214`
 - missing_source_count: `0`
 
 ## Claims
@@ -52,6 +52,7 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C37_h1x_breaks_v11_saturation_but_supports_routing | supported_current_packets | strong_internal | On H1x, no-directive reaches 2/8 exact and executor-equivalent, v11 reaches 7/8, v12 reaches 8/8, and v15 reaches 6/8 exact with 7/8 executor-equivalent. | H1x is a focused replay-shaped synthetic packet and should be interpreted together with H1s, which already shows v12's broader negative transfer when promoted globally. | Build H1y as a routed residual-helper test that keeps v11 as the default and activates v12-style residual wording only on oblique stale-field and nonstandard-class contexts. |
 | C38_h2a_controller_stale_selection_gate_is_causal | supported_current_packets | strong_internal | On the same 10-case H1y packet, no-directive reaches 0/10 exact, v11 reaches 5/10, v12 reaches 7/10, v16 and v17 reach 5/10, and H2a reaches 8/10 exact and executor-equivalent. | This claim is local to the H1y routed-residual packet; the transfer result is tracked separately so local causality and held-out generalization remain distinct. | Use the H2a transfer gate to decide whether the helper should be promoted as a scoped controller mechanism, then isolate the remaining argument-alias/code-label misses without leaking expected labels. |
 | C39_h2a_stale_selection_gate_transfers_with_better_executor_profile | supported_current_packets | strong_internal | Across H1n/H1o/H1p/H1x, H2a reaches 35/40 strict exact and 38/40 executor-equivalent, versus no-directive at 12/40 and 14/40, v11 at 33/40 and 36/40, and v12 at 35/40 and 35/40. | H2a still leaves five transfer residual rows, mostly exact alias/code-label disagreements; two H1p rows are not executor-equivalent and should not be treated as solved. | Build the next residual packet around exact alias/code-label fidelity: result pill, alert s92, badge c08, state tag, and mode toggle, with no expected-call or benchmark-answer access. |
+| C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a | supported_current_packets | strong_internal | On the five-row H2b residual packet, v12 reaches 4/5 strict exact and 4/5 executor-equivalent, v9 reaches 3/5 strict and 4/5 executor-equivalent, v15 reaches 3/5 strict, H2a reaches 0/5 strict and 3/5 executor-equivalent, and no-directive reaches 1/5 strict and 2/5 executor-equivalent. | H2b is deliberately selected from the five H2a residual rows, so it supports a scoped H2c routing hypothesis rather than a broad population estimate; H1s still warns against global v12 promotion. | Build H2c as a conditional route that applies v12-like residual language only when alias/code-label exactness is the likely failure mechanism, while preserving H2a for stale-selection repair. |
 
 ## Evidence Sources
 
@@ -262,3 +263,12 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C39_h2a_stale_selection_gate_transfers_with_better_executor_profile | report_table | True | results/reports/mlx_tool_contract_harnessing/tables/h2a_stale_selection_transfer_aggregate_summary.csv | Paper-facing H2a transfer aggregate table in the generated MLX report. |
 | C39_h2a_stale_selection_gate_transfers_with_better_executor_profile | report_table | True | results/reports/mlx_tool_contract_harnessing/tables/h2a_stale_selection_transfer_residual_rows.csv | Paper-facing H2a residual table identifying the remaining exact alias/code-label misses. |
 | C39_h2a_stale_selection_gate_transfers_with_better_executor_profile | report_figure | True | results/reports/mlx_tool_contract_harnessing/figures/h2a_stale_selection_transfer_gate.svg | Paper-facing H2a transfer gate figure in the generated MLX report. |
+| C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a | replay_synthesis | True | results/reports/h2b_residual_exactness_synthesis/report.md | H2b synthesis comparing residual exactness profiles on the five post-H2a residual cases. |
+| C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a | live_replay_packet | True | results/tool_probe_replay_live/20260510T_h2b_residual_exactness_no_directive_execute_v1 | No-directive H2b execution reaching 1/5 strict and 2/5 executor-equivalent. |
+| C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a | live_replay_packet | True | results/tool_probe_replay_live/20260510T_h2b_residual_exactness_component_label_guard_execute_v1 | v11 component-label guard H2b execution reaching 0/5 strict and 3/5 executor-equivalent. |
+| C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a | live_replay_packet | True | results/tool_probe_replay_live/20260510T_h2b_residual_exactness_component_residual_guard_execute_v1 | v12 component-residual guard H2b execution reaching 4/5 strict and 4/5 executor-equivalent. |
+| C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a | live_replay_packet | True | results/tool_probe_replay_live/20260510T_h2b_residual_exactness_component_value_guard_execute_v1 | v9 component-value guard H2b execution tying v12 on executor-equivalence but missing strict exactness. |
+| C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a | live_replay_packet | True | results/tool_probe_replay_live/20260510T_h2b_residual_exactness_h2a_execute_v1 | H2a controller gate H2b execution showing stale-selection mediation does not solve residual exactness. |
+| C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a | report_table | True | results/reports/mlx_tool_contract_harnessing/tables/h2b_residual_exactness_packet_summary.csv | Paper-facing H2b packet summary table in the generated MLX report. |
+| C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a | report_table | True | results/reports/mlx_tool_contract_harnessing/tables/h2b_residual_exactness_case_matrix.csv | Paper-facing H2b case matrix separating strict exactness from executor-equivalence. |
+| C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a | report_figure | True | results/reports/mlx_tool_contract_harnessing/figures/h2b_residual_exactness_gate.svg | Paper-facing H2b residual exactness gate figure in the generated MLX report. |

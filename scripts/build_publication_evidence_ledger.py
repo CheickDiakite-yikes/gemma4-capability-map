@@ -1831,6 +1831,75 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a",
+        claim=(
+            "The H2b residual-exactness gate shows that the remaining post-H2a visual residuals need a scoped "
+            "alias/code-label route, not a global stale-selection controller default."
+        ),
+        status="supported_current_packets",
+        evidence_strength="strong_internal",
+        primary_metric=(
+            "On the five-row H2b residual packet, v12 reaches 4/5 strict exact and 4/5 executor-equivalent, "
+            "v9 reaches 3/5 strict and 4/5 executor-equivalent, v15 reaches 3/5 strict, H2a reaches 0/5 "
+            "strict and 3/5 executor-equivalent, and no-directive reaches 1/5 strict and 2/5 executor-equivalent."
+        ),
+        limitation=(
+            "H2b is deliberately selected from the five H2a residual rows, so it supports a scoped H2c routing "
+            "hypothesis rather than a broad population estimate; H1s still warns against global v12 promotion."
+        ),
+        next_test=(
+            "Build H2c as a conditional route that applies v12-like residual language only when alias/code-label "
+            "exactness is the likely failure mechanism, while preserving H2a for stale-selection repair."
+        ),
+        sources=(
+            EvidenceSource(
+                "replay_synthesis",
+                "results/reports/h2b_residual_exactness_synthesis/report.md",
+                "H2b synthesis comparing residual exactness profiles on the five post-H2a residual cases.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h2b_residual_exactness_no_directive_execute_v1",
+                "No-directive H2b execution reaching 1/5 strict and 2/5 executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h2b_residual_exactness_component_label_guard_execute_v1",
+                "v11 component-label guard H2b execution reaching 0/5 strict and 3/5 executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h2b_residual_exactness_component_residual_guard_execute_v1",
+                "v12 component-residual guard H2b execution reaching 4/5 strict and 4/5 executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h2b_residual_exactness_component_value_guard_execute_v1",
+                "v9 component-value guard H2b execution tying v12 on executor-equivalence but missing strict exactness.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h2b_residual_exactness_h2a_execute_v1",
+                "H2a controller gate H2b execution showing stale-selection mediation does not solve residual exactness.",
+            ),
+            EvidenceSource(
+                "report_table",
+                "results/reports/mlx_tool_contract_harnessing/tables/h2b_residual_exactness_packet_summary.csv",
+                "Paper-facing H2b packet summary table in the generated MLX report.",
+            ),
+            EvidenceSource(
+                "report_table",
+                "results/reports/mlx_tool_contract_harnessing/tables/h2b_residual_exactness_case_matrix.csv",
+                "Paper-facing H2b case matrix separating strict exactness from executor-equivalence.",
+            ),
+            EvidenceSource(
+                "report_figure",
+                "results/reports/mlx_tool_contract_harnessing/figures/h2b_residual_exactness_gate.svg",
+                "Paper-facing H2b residual exactness gate figure in the generated MLX report.",
+            ),
+        ),
+    ),
 )
 
 

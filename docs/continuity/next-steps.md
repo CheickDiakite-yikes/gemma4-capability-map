@@ -2,27 +2,29 @@
 
 ## Current Best Next Moves
 
-The next move is not another broad prompt-contract paragraph. H1y/H1z showed that prompt/catalog prose alone did not solve stale selection-origin routing. H2a showed that a controller-side stale-selection gate is causal on the same packet and now transfers beyond it.
+The next move is not another broad prompt-contract paragraph. H1y/H1z showed that prompt/catalog prose alone did not solve stale selection-origin routing. H2a showed that a controller-side stale-selection gate is causal on the same packet and transfers beyond it. H2b then showed the residual exactness problem is different: v12 wins the residual-only strict gate, but H2a does not, so the next work is scoped routing rather than global promotion.
 
 Execution order:
 
-1. Treat H2a as a scoped controller helper candidate: repair only stale or missing `selection_id` proposals using live visual state, with no expected-call or benchmark-answer access.
-2. Build the H2b residual packet around the remaining exact alias/code-label misses: `result pill`, `alert s92`, `badge c08`, `state tag`, and `mode toggle`.
-3. Compare the residual packet against v11, v12, H2a, and a no-helper control so we can distinguish prompt-label fidelity from controller mediation.
-4. Score both strict exactness and executor-equivalence; do not collapse executor-valid paraphrases into failures when evaluating live usefulness.
-5. If H2b is positive, rerun only the minimal transfer set needed to detect regressions; if negative, write it as residual evidence rather than adding broader prose.
-6. Keep packaged workflows paused for this line unless they preserve the same replay-shaped pressure; H1l/H1m already showed packaged visual surfaces can wash out the mechanism.
+1. Treat H2a as a scoped controller helper: repair only stale or missing `selection_id` proposals using live visual state, with no expected-call or benchmark-answer access.
+2. Treat H2b as the residual exactness gate: v12 reaches `4 / 5` strict and `4 / 5` executor-equivalent; v9 ties executor-equivalence at `4 / 5`; H2a drops to `0 / 5` strict and `3 / 5` executor-equivalent.
+3. Build H2c as a scoped residual route/factor, not a global v12 promotion. H2c should apply v12-like residual language only when alias/code-label or nonstandard component-class risk is present.
+4. Preserve H2a as the stale-selection controller path; do not make H2c absorb stale-selection mediation unless a live packet proves that route is safer.
+5. Score both strict exactness and executor-equivalence; do not collapse executor-valid paraphrases into failures when evaluating live usefulness.
+6. Rerun only the minimal transfer set needed to detect regressions: H2b residual rows first, then a small held-out check from H1n/H1o/H1p/H1x.
+7. Keep packaged workflows paused for this line unless they preserve the same replay-shaped pressure; H1l/H1m already showed packaged visual surfaces can wash out the mechanism.
 
 Immediate suggested command:
 
 ```bash
 uv run python scripts/build_h2a_stale_selection_transfer_synthesis.py
+uv run python scripts/build_h2b_residual_exactness_synthesis.py
 uv run python scripts/build_mlx_tool_contract_report.py
 uv run python scripts/build_publication_evidence_ledger.py
 uv run python scripts/audit_publication_readiness.py
 ```
 
-Then design the H2b residual replay packet from `results/reports/h2a_stale_selection_transfer_synthesis/tables/h2a_transfer_residual_rows.csv`.
+Then design H2c from `results/reports/h2b_residual_exactness_synthesis/tables/h2b_residual_exactness_non_exact_rows.csv` and `results/reports/h2b_residual_exactness_synthesis/tables/h2b_residual_exactness_case_matrix.csv`.
 
 ## Immediate
 
@@ -236,7 +238,8 @@ Next implementation moves:
   - completed follow-up: H1y tests routed residual prompt help and H1z tests selection-origin prompt help; both fail to beat v12 and remain at `5 / 10`
   - completed H2a controller gate: v11 plus stale-selection controller mediation reaches `8 / 10` on H1y, beating v12's `7 / 10`
   - completed H2a transfer gate: H2a reaches `35 / 40` strict and `38 / 40` executor-equivalent across H1n/H1o/H1p/H1x, tying v12 strict and beating v12 executor-equivalence
-  - next execution step: build the H2b residual exactness packet around `result pill`, `alert s92`, `badge c08`, `state tag`, and `mode toggle`
+  - completed H2b residual exactness gate: v12 reaches `4 / 5` strict and executor-equivalent; v9 reaches `3 / 5` strict and `4 / 5` executor-equivalent; H2a reaches `0 / 5` strict and `3 / 5` executor-equivalent
+  - next execution step: build H2c as a scoped residual route/factor that preserves H2a for stale selection-origin repair and activates v12-like exactness only on alias/code-label risk
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1

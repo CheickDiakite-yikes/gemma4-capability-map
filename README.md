@@ -75,7 +75,9 @@ Latest research restart point:
 - H2a adds a controller-side stale visual selection gate on top of the v11 component-label profile
 - on the same H1y packet, H2a reaches `8 / 10` exact and executor-equivalent versus no-directive `0 / 10`, v11 `5 / 10`, v12 `7 / 10`, v16 `5 / 10`, and v17 `5 / 10`
 - H2a now transfers across H1n/H1o/H1p/H1x at `35 / 40` strict exact and `38 / 40` executor-equivalent, beating v11 (`33 / 40`, `36 / 40`) and tying v12 strict while beating v12 executor-equivalence (`35 / 40`)
-- the active next move is a smaller H2b-style residual packet for exact argument-alias/code-label misses: `result pill`, `alert s92`, `badge c08`, `state tag`, and `mode toggle`
+- H2b composes the five H2a residuals and shows v12 is the strict residual-exactness winner at `4 / 5` exact and `4 / 5` executor-equivalent; v9 ties executor-equivalence at `4 / 5` but only reaches `3 / 5` exact
+- H2a drops to `0 / 5` strict and `3 / 5` executor-equivalent on H2b, confirming it is a stale-selection controller helper rather than an alias/code-label exactness solution
+- the active next move is H2c: a scoped residual route/factor that applies v12-like residual exactness only when alias/code-label risk is present while preserving H2a for stale-selection mediation
 
 The current source-of-truth comparison surface is the aligned exploratory `32 / 26` matrix:
 
@@ -139,7 +141,10 @@ The report now also carries the H1y/H2a controller gate and H2a transfer results
 - H1y/H2a report figure: [`results/reports/mlx_tool_contract_harnessing/figures/h1y_routed_residual_gate.svg`](results/reports/mlx_tool_contract_harnessing/figures/h1y_routed_residual_gate.svg)
 - H2a transfer report table: [`results/reports/mlx_tool_contract_harnessing/tables/h2a_stale_selection_transfer_aggregate_summary.csv`](results/reports/mlx_tool_contract_harnessing/tables/h2a_stale_selection_transfer_aggregate_summary.csv)
 - H2a transfer report figure: [`results/reports/mlx_tool_contract_harnessing/figures/h2a_stale_selection_transfer_gate.svg`](results/reports/mlx_tool_contract_harnessing/figures/h2a_stale_selection_transfer_gate.svg)
-- publication claims: `C38_h2a_controller_stale_selection_gate_is_causal`, `C39_h2a_stale_selection_gate_transfers_with_better_executor_profile`
+- H2b residual synthesis: [`results/reports/h2b_residual_exactness_synthesis/report.md`](results/reports/h2b_residual_exactness_synthesis/report.md)
+- H2b report table: [`results/reports/mlx_tool_contract_harnessing/tables/h2b_residual_exactness_packet_summary.csv`](results/reports/mlx_tool_contract_harnessing/tables/h2b_residual_exactness_packet_summary.csv)
+- H2b report figure: [`results/reports/mlx_tool_contract_harnessing/figures/h2b_residual_exactness_gate.svg`](results/reports/mlx_tool_contract_harnessing/figures/h2b_residual_exactness_gate.svg)
+- publication claims: `C38_h2a_controller_stale_selection_gate_is_causal`, `C39_h2a_stale_selection_gate_transfers_with_better_executor_profile`, `C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a`
 
 The active next experiment is now a CLI/research-harness packet, not a UI task:
 
@@ -217,7 +222,7 @@ The active next experiment is now a CLI/research-harness packet, not a UI task:
 - the H1l visual executor-equivalence packaged-workflow packet is [`results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet`](results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet), with config in [`configs/knowledge_work_h1l_slice.yaml`](configs/knowledge_work_h1l_slice.yaml)
 - the paper-facing evidence ledger is [`results/reports/publication_evidence_ledger/ledger.md`](results/reports/publication_evidence_ledger/ledger.md)
 - the publication readiness audit is [`results/reports/publication_readiness_audit/publication_readiness_audit.md`](results/reports/publication_readiness_audit/publication_readiness_audit.md)
-- current reporting snapshot: MLX report `102` tables / `43` figures; evidence ledger `39` claims / `205` sources / `0` missing; readiness audit `paper_draft_ready` with `0` blocking failures
+- current reporting snapshot: MLX report `106` tables / `44` figures; evidence ledger `40` claims / `214` sources / `0` missing; readiness audit `paper_draft_ready` with `0` blocking failures
 - the visual catalog + literal guard v6 packet is [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe`](results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe)
 - prompt-contract promotion decisions are generated at [`results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_promotion_decisions.csv`](results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_promotion_decisions.csv)
 - the exact-probe replay packet is [`results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1`](results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1)

@@ -38,6 +38,44 @@
   - `uv run python scripts/build_publication_evidence_ledger.py`
   - `uv run python scripts/audit_publication_readiness.py`
 
+## 2026-05-10 - H2b Residual Exactness Gate and H2c Pivot
+
+- Added and reported the H2b residual exactness synthesis:
+  - synthesis script: [`scripts/build_h2b_residual_exactness_synthesis.py`](../scripts/build_h2b_residual_exactness_synthesis.py)
+  - synthesis report: [`results/reports/h2b_residual_exactness_synthesis/report.md`](../results/reports/h2b_residual_exactness_synthesis/report.md)
+  - synthesis payload: [`results/reports/h2b_residual_exactness_synthesis/synthesis.json`](../results/reports/h2b_residual_exactness_synthesis/synthesis.json)
+  - packet summary table: [`results/reports/h2b_residual_exactness_synthesis/tables/h2b_residual_exactness_packet_summary.csv`](../results/reports/h2b_residual_exactness_synthesis/tables/h2b_residual_exactness_packet_summary.csv)
+  - case matrix: [`results/reports/h2b_residual_exactness_synthesis/tables/h2b_residual_exactness_case_matrix.csv`](../results/reports/h2b_residual_exactness_synthesis/tables/h2b_residual_exactness_case_matrix.csv)
+- H2b composes the five exactness residuals left by H2a transfer:
+  - `component_value_result_pill_log_decoy`
+  - `h1o_code_alert_s92_negated_toggle_decoy`
+  - `h1o_code_badge_c08_note_decoy`
+  - `h1p_compact_state_tag_log_value_decoy`
+  - `h1p_surface_mode_toggle_note_value_decoy`
+- Result:
+  - no-directive: `1 / 5` strict, `2 / 5` executor-equivalent
+  - v11 component-label guard: `0 / 5` strict, `3 / 5` executor-equivalent
+  - v12 component-residual guard: `4 / 5` strict, `4 / 5` executor-equivalent
+  - v15 code-label exact guard: `3 / 5` strict, `3 / 5` executor-equivalent
+  - H2a stale-selection gate: `0 / 5` strict, `3 / 5` executor-equivalent
+  - v9 component-value guard: `3 / 5` strict, `4 / 5` executor-equivalent
+- Interpretation:
+  - H2a is causal and transferable for stale-selection mediation, but it is not an alias/code-label exactness solution.
+  - V12 is the strict H2b winner, but H1s still blocks global v12 promotion because v12 reduced executor-equivalence on transfer.
+  - V9 tying v12 on executor-equivalence keeps the distinction between strict canonical-label fidelity and executor-visible usefulness alive.
+  - The next scientific move is H2c: a scoped residual route/factor that chooses v12-like residual exactness only for alias/code-label risk while preserving H2a for stale or missing `selection_id` repair.
+- Reporting updates:
+  - generated MLX tool-contract report now has `106` tables and `44` figures
+  - publication evidence ledger now has `40` claims, `214` evidence sources, and `0` missing sources
+  - new claim: `C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a`
+  - publication readiness audit now has `170` checks, `164` blocking checks, `0` blocking failures, and status `paper_draft_ready`
+- Verification:
+  - `uv run pytest tests/test_h2b_residual_exactness_synthesis.py -q`
+  - `uv run pytest tests/test_mlx_tool_contract_report.py -q`
+  - `uv run python scripts/build_mlx_tool_contract_report.py`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`
+
 ## 2026-05-10 - H2a Stale-Selection Transfer Gate
 
 - Completed the H2a transfer test that was queued after the local H1y result.

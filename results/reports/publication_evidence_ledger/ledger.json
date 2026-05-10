@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-10T19:53:24.348062+00:00",
+    "generated_at": "2026-05-10T20:14:26.264282+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-    "claim_count": 39,
-    "evidence_source_count": 205,
+    "claim_count": 40,
+    "evidence_source_count": 214,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -44,7 +44,8 @@
       "C36_h1s_residual_guard_is_targeted_not_global",
       "C37_h1x_breaks_v11_saturation_but_supports_routing",
       "C38_h2a_controller_stale_selection_gate_is_causal",
-      "C39_h2a_stale_selection_gate_transfers_with_better_executor_profile"
+      "C39_h2a_stale_selection_gate_transfers_with_better_executor_profile",
+      "C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a"
     ]
   },
   "claims": [
@@ -437,6 +438,16 @@
       "limitation": "H2a still leaves five transfer residual rows, mostly exact alias/code-label disagreements; two H1p rows are not executor-equivalent and should not be treated as solved.",
       "next_test": "Build the next residual packet around exact alias/code-label fidelity: result pill, alert s92, badge c08, state tag, and mode toggle, with no expected-call or benchmark-answer access.",
       "source_count": 8
+    },
+    {
+      "claim_id": "C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a",
+      "claim": "The H2b residual-exactness gate shows that the remaining post-H2a visual residuals need a scoped alias/code-label route, not a global stale-selection controller default.",
+      "status": "supported_current_packets",
+      "evidence_strength": "strong_internal",
+      "primary_metric": "On the five-row H2b residual packet, v12 reaches 4/5 strict exact and 4/5 executor-equivalent, v9 reaches 3/5 strict and 4/5 executor-equivalent, v15 reaches 3/5 strict, H2a reaches 0/5 strict and 3/5 executor-equivalent, and no-directive reaches 1/5 strict and 2/5 executor-equivalent.",
+      "limitation": "H2b is deliberately selected from the five H2a residual rows, so it supports a scoped H2c routing hypothesis rather than a broad population estimate; H1s still warns against global v12 promotion.",
+      "next_test": "Build H2c as a conditional route that applies v12-like residual language only when alias/code-label exactness is the likely failure mechanism, while preserving H2a for stale-selection repair.",
+      "source_count": 9
     }
   ],
   "evidence_sources": [
@@ -1873,6 +1884,69 @@
       "artifact_type": "report_figure",
       "path": "results/reports/mlx_tool_contract_harnessing/figures/h2a_stale_selection_transfer_gate.svg",
       "purpose": "Paper-facing H2a transfer gate figure in the generated MLX report.",
+      "exists": true
+    },
+    {
+      "claim_id": "C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a",
+      "artifact_type": "replay_synthesis",
+      "path": "results/reports/h2b_residual_exactness_synthesis/report.md",
+      "purpose": "H2b synthesis comparing residual exactness profiles on the five post-H2a residual cases.",
+      "exists": true
+    },
+    {
+      "claim_id": "C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260510T_h2b_residual_exactness_no_directive_execute_v1",
+      "purpose": "No-directive H2b execution reaching 1/5 strict and 2/5 executor-equivalent.",
+      "exists": true
+    },
+    {
+      "claim_id": "C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260510T_h2b_residual_exactness_component_label_guard_execute_v1",
+      "purpose": "v11 component-label guard H2b execution reaching 0/5 strict and 3/5 executor-equivalent.",
+      "exists": true
+    },
+    {
+      "claim_id": "C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260510T_h2b_residual_exactness_component_residual_guard_execute_v1",
+      "purpose": "v12 component-residual guard H2b execution reaching 4/5 strict and 4/5 executor-equivalent.",
+      "exists": true
+    },
+    {
+      "claim_id": "C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260510T_h2b_residual_exactness_component_value_guard_execute_v1",
+      "purpose": "v9 component-value guard H2b execution tying v12 on executor-equivalence but missing strict exactness.",
+      "exists": true
+    },
+    {
+      "claim_id": "C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260510T_h2b_residual_exactness_h2a_execute_v1",
+      "purpose": "H2a controller gate H2b execution showing stale-selection mediation does not solve residual exactness.",
+      "exists": true
+    },
+    {
+      "claim_id": "C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a",
+      "artifact_type": "report_table",
+      "path": "results/reports/mlx_tool_contract_harnessing/tables/h2b_residual_exactness_packet_summary.csv",
+      "purpose": "Paper-facing H2b packet summary table in the generated MLX report.",
+      "exists": true
+    },
+    {
+      "claim_id": "C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a",
+      "artifact_type": "report_table",
+      "path": "results/reports/mlx_tool_contract_harnessing/tables/h2b_residual_exactness_case_matrix.csv",
+      "purpose": "Paper-facing H2b case matrix separating strict exactness from executor-equivalence.",
+      "exists": true
+    },
+    {
+      "claim_id": "C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a",
+      "artifact_type": "report_figure",
+      "path": "results/reports/mlx_tool_contract_harnessing/figures/h2b_residual_exactness_gate.svg",
+      "purpose": "Paper-facing H2b residual exactness gate figure in the generated MLX report.",
       "exists": true
     }
   ],
