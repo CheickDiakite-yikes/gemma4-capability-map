@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "h2f_alert_t47_negated_switch_decoy",
+    "family": "h2f_route_code_label",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "h2f-alert-t47-9902"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2f-alert-t47",
+          "target_query": "alert t47"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h2f-alert-t47",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "h2f-alert-t47-9902"
+          ],
+          "region_id": "h2f-alert-t47-9902",
+          "text_preview": "Escalated"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2f-alert-t47",
+          "target_query": "alert t47"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2f-alert-t47",
+          "target_query": "alert t47"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h2f-alert-t47\", \"target_query\": \"alert t47\"}}",
+    "prompt_tokens": 1925,
+    "completion_tokens": 41,
+    "latency_ms": 15822
+  }
+]
