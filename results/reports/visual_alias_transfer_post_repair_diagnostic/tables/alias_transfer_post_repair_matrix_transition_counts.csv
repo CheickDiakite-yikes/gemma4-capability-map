@@ -1,0 +1,11 @@
+label,transition,count
+argument_hints_v2,strict_gain,3
+argument_hints_v2,unchanged,5
+contracted,regression,1
+contracted,strict_gain,2
+contracted,unchanged,5
+oblique_code_guard_v7,strict_gain,4
+oblique_code_guard_v7,unchanged,4
+oblique_code_hints_v6,regression,1
+oblique_code_hints_v6,strict_gain,4
+oblique_code_hints_v6,unchanged,3

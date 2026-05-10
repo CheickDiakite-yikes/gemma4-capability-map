@@ -16,6 +16,7 @@ DEFAULT_ALIAS_TRANSFER_OUTPUT_DIR = ROOT / "results" / "reports" / "visual_alias
 DEFAULT_ALIAS_TRANSFER_ORACLE_OUTPUT_DIR = ROOT / "results" / "reports" / "visual_alias_transfer_oracle_diagnostic"
 DEFAULT_ALIAS_TRANSFER_REPEAT_OUTPUT_DIR = ROOT / "results" / "reports" / "visual_alias_transfer_repeat_diagnostic"
 DEFAULT_ALIAS_TRANSFER_OBLIQUE_OUTPUT_DIR = ROOT / "results" / "reports" / "visual_alias_transfer_oblique_diagnostic"
+DEFAULT_ALIAS_TRANSFER_POST_REPAIR_OUTPUT_DIR = ROOT / "results" / "reports" / "visual_alias_transfer_post_repair_diagnostic"
 DEFAULT_COMPARISONS: tuple[tuple[str, Path], ...] = (
     (
         "contracted",
@@ -252,6 +253,36 @@ DEFAULT_ALIAS_TRANSFER_OBLIQUE_COMPARISONS: tuple[tuple[str, Path], ...] = (
         / "20260510T_h1n_oracle_oblique_code_guard_vs_no_directive_v1",
     ),
 )
+DEFAULT_ALIAS_TRANSFER_POST_REPAIR_COMPARISONS: tuple[tuple[str, Path], ...] = (
+    (
+        "contracted",
+        ROOT
+        / "results"
+        / "tool_probe_replay_live_comparisons"
+        / "20260510T_h1n_post_repair_contracted_vs_no_directive_v1",
+    ),
+    (
+        "argument_hints_v2",
+        ROOT
+        / "results"
+        / "tool_probe_replay_live_comparisons"
+        / "20260510T_h1n_post_repair_argument_hints_vs_no_directive_v1",
+    ),
+    (
+        "oblique_code_hints_v6",
+        ROOT
+        / "results"
+        / "tool_probe_replay_live_comparisons"
+        / "20260510T_h1n_post_repair_code_hints_vs_no_directive_v1",
+    ),
+    (
+        "oblique_code_guard_v7",
+        ROOT
+        / "results"
+        / "tool_probe_replay_live_comparisons"
+        / "20260510T_h1n_post_repair_code_guard_vs_no_directive_v1",
+    ),
+)
 
 
 def parse_args() -> argparse.Namespace:
@@ -265,6 +296,7 @@ def parse_args() -> argparse.Namespace:
             "alias-transfer-oracle",
             "alias-transfer-repeat",
             "alias-transfer-oblique",
+            "alias-transfer-post-repair",
         ],
         default="stress",
     )
@@ -339,6 +371,8 @@ def _default_output_dir(matrix_name: str) -> Path:
         return DEFAULT_ALIAS_TRANSFER_REPEAT_OUTPUT_DIR
     if matrix_name == "alias-transfer-oblique":
         return DEFAULT_ALIAS_TRANSFER_OBLIQUE_OUTPUT_DIR
+    if matrix_name == "alias-transfer-post-repair":
+        return DEFAULT_ALIAS_TRANSFER_POST_REPAIR_OUTPUT_DIR
     return DEFAULT_OUTPUT_DIR
 
 
@@ -353,6 +387,8 @@ def _default_comparisons(matrix_name: str) -> tuple[tuple[str, Path], ...]:
         return DEFAULT_ALIAS_TRANSFER_REPEAT_COMPARISONS
     if matrix_name == "alias-transfer-oblique":
         return DEFAULT_ALIAS_TRANSFER_OBLIQUE_COMPARISONS
+    if matrix_name == "alias-transfer-post-repair":
+        return DEFAULT_ALIAS_TRANSFER_POST_REPAIR_COMPARISONS
     return DEFAULT_COMPARISONS
 
 
@@ -367,6 +403,8 @@ def _table_prefix(matrix_name: str) -> str:
         return "alias_transfer_repeat_matrix"
     if matrix_name == "alias-transfer-oblique":
         return "alias_transfer_oblique_matrix"
+    if matrix_name == "alias-transfer-post-repair":
+        return "alias_transfer_post_repair_matrix"
     return "stress_matrix"
 
 
@@ -437,7 +475,11 @@ def _finding_rows(summary_rows: list[dict[str, Any]], case_rows: list[dict[str, 
     findings.append(
         {
             "finding_id": "executor_equivalence_set",
-            "finding": "Executor-equivalent full-success rows: " + ", ".join(row["label"] for row in executor_best) + ".",
+            "finding": (
+                "Executor-equivalent full-success rows: "
+                + (", ".join(row["label"] for row in executor_best) if executor_best else "none")
+                + "."
+            ),
         }
     )
     executor_without_strict = sorted(
@@ -450,7 +492,11 @@ def _finding_rows(summary_rows: list[dict[str, Any]], case_rows: list[dict[str, 
     findings.append(
         {
             "finding_id": "executor_without_strict",
-            "finding": "Rows with executor gain without strict gain: " + ", ".join(executor_without_strict) + ".",
+            "finding": (
+                "Rows with executor gain without strict gain: "
+                + (", ".join(executor_without_strict) if executor_without_strict else "none")
+                + "."
+            ),
         }
     )
     regressions = sorted(
