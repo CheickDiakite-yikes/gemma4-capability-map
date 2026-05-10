@@ -2125,6 +2125,46 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C45_h2g_component_identity_contract_is_partial_executor_gain",
+        claim=(
+            "The H2g component-identity query contract produces a partial executor-equivalence gain on H2f but "
+            "does not repair strict component-identity query fidelity."
+        ),
+        status="negative_result_current_packets",
+        evidence_strength="strong_internal",
+        primary_metric=(
+            "On H2f, H2g stays at 6/10 strict exact versus H2e but improves executor-equivalence from 6/10 to "
+            "7/10. The improvement comes from `resolution badge Deferred` being executor-valid, while the "
+            "remaining non-exact rows still include `result tile` -> `Blocked`, `state marker` -> `lifecycle "
+            "state marker`, and `mode switch` -> `mode toggle`."
+        ),
+        limitation=(
+            "H2g has only been executed on H2f. Because it does not improve strict exactness on the acceptance "
+            "holdout, H2b/H1x backtests are lower priority than designing a stronger exact-query contract."
+        ),
+        next_test=(
+            "Build H2h with explicit negative examples for value substitution and alias expansion, then rerun on "
+            "H2f before any H2b/H1x regression backtest."
+        ),
+        sources=(
+            EvidenceSource(
+                "replay_synthesis",
+                "results/reports/h2f_route_arbitration_holdout_synthesis/report.md",
+                "Updated H2f synthesis including H2g as a partial executor-equivalence gain with zero strict gain.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h2g_component_identity_query_contract_on_h2f_execute_v1",
+                "H2g live execution reaching 6/10 strict and 7/10 executor-equivalent on H2f.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260510T_h2g_component_identity_query_contract_vs_h2e_on_h2f_v1",
+                "Direct H2g-vs-H2e comparison showing zero strict lift and +0.1 executor-equivalence lift.",
+            ),
+        ),
+    ),
 )
 
 

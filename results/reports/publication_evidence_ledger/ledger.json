@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-10T21:15:26.406815+00:00",
+    "generated_at": "2026-05-10T21:26:23.924512+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-    "claim_count": 44,
-    "evidence_source_count": 240,
+    "claim_count": 45,
+    "evidence_source_count": 243,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -49,7 +49,8 @@
       "C41_h2c_scoped_residual_gate_saturates_h2b_but_needs_transfer",
       "C42_h2d_class_preserving_route_repairs_h2c_transfer_but_costs_h2b_exactness",
       "C43_h2e_route_arbitration_reconciles_h2c_h2d_tradeoff",
-      "C44_h2f_holdout_breaks_h2e_global_promotion"
+      "C44_h2f_holdout_breaks_h2e_global_promotion",
+      "C45_h2g_component_identity_contract_is_partial_executor_gain"
     ]
   },
   "claims": [
@@ -492,6 +493,16 @@
       "limitation": "H2f is a fresh authored holdout with ten cases, so it is stronger than replaying saturated rows but still needs a follow-up H2g mechanism test to show that a component-identity query contract repairs the failure without regressing stale-selection and activation-panel cases.",
       "next_test": "Build H2g around a component-identity query contract: when the user asks for a component class or visible label, the live target_query must preserve that requested phrase instead of collapsing to the component value or a nearby alias.",
       "source_count": 7
+    },
+    {
+      "claim_id": "C45_h2g_component_identity_contract_is_partial_executor_gain",
+      "claim": "The H2g component-identity query contract produces a partial executor-equivalence gain on H2f but does not repair strict component-identity query fidelity.",
+      "status": "negative_result_current_packets",
+      "evidence_strength": "strong_internal",
+      "primary_metric": "On H2f, H2g stays at 6/10 strict exact versus H2e but improves executor-equivalence from 6/10 to 7/10. The improvement comes from `resolution badge Deferred` being executor-valid, while the remaining non-exact rows still include `result tile` -> `Blocked`, `state marker` -> `lifecycle state marker`, and `mode switch` -> `mode toggle`.",
+      "limitation": "H2g has only been executed on H2f. Because it does not improve strict exactness on the acceptance holdout, H2b/H1x backtests are lower priority than designing a stronger exact-query contract.",
+      "next_test": "Build H2h with explicit negative examples for value substitution and alias expansion, then rerun on H2f before any H2b/H1x regression backtest.",
+      "source_count": 3
     }
   ],
   "evidence_sources": [
@@ -2173,6 +2184,27 @@
       "artifact_type": "live_replay_comparison",
       "path": "results/tool_probe_replay_live_comparisons/20260510T_h2f_route_arbitration_h2e_vs_no_directive_v1",
       "purpose": "Direct H2e-vs-no-directive comparison showing the controller stack remains causal.",
+      "exists": true
+    },
+    {
+      "claim_id": "C45_h2g_component_identity_contract_is_partial_executor_gain",
+      "artifact_type": "replay_synthesis",
+      "path": "results/reports/h2f_route_arbitration_holdout_synthesis/report.md",
+      "purpose": "Updated H2f synthesis including H2g as a partial executor-equivalence gain with zero strict gain.",
+      "exists": true
+    },
+    {
+      "claim_id": "C45_h2g_component_identity_contract_is_partial_executor_gain",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260510T_h2g_component_identity_query_contract_on_h2f_execute_v1",
+      "purpose": "H2g live execution reaching 6/10 strict and 7/10 executor-equivalent on H2f.",
+      "exists": true
+    },
+    {
+      "claim_id": "C45_h2g_component_identity_contract_is_partial_executor_gain",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260510T_h2g_component_identity_query_contract_vs_h2e_on_h2f_v1",
+      "purpose": "Direct H2g-vs-H2e comparison showing zero strict lift and +0.1 executor-equivalence lift.",
       "exists": true
     }
   ],

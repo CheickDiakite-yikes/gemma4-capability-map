@@ -2,7 +2,7 @@
 
 ## Current Best Next Moves
 
-The next move is not another broad prompt-contract paragraph, not another H2b/H1x rerun, and not another H2e route-arbitration victory lap. H1y/H1z showed that prompt/catalog prose alone did not solve stale selection-origin routing. H2a showed that a controller-side stale-selection gate is causal and transferable. H2b isolated a separate residual exactness problem. H2c solved H2b locally but failed H1x transfer. H2d fixed transfer but gave back one H2b strict row. H2e reconciled that tradeoff on the current gates. H2f then broke global H2e promotion on a fresh holdout.
+The next move is not another broad prompt-contract paragraph, not another H2b/H1x rerun, and not another H2e route-arbitration victory lap. H1y/H1z showed that prompt/catalog prose alone did not solve stale selection-origin routing. H2a showed that a controller-side stale-selection gate is causal and transferable. H2b isolated a separate residual exactness problem. H2c solved H2b locally but failed H1x transfer. H2d fixed transfer but gave back one H2b strict row. H2e reconciled that tradeoff on the current gates. H2f then broke global H2e promotion on a fresh holdout. H2g showed a partial executor-equivalence gain but no strict exactness gain.
 
 Execution order:
 
@@ -12,10 +12,11 @@ Execution order:
 4. Treat H2d as the transfer repair: it reaches `8 / 8` strict and executor-equivalent on H1x, but only `4 / 5` strict on H2b while keeping `5 / 5` executor-equivalence.
 5. Treat H2e as mechanism evidence, not a default: it reaches `5 / 5` on H2b and `8 / 8` on H1x, with zero non-exact rows across both packets.
 6. Treat H2f as the current fresh-holdout verdict: H2e and H2c tie at `6 / 10`; H2e beats no-directive by `+0.5` exact/executor-equivalence rate; H2e still fails four rows through right-tool/wrong-query substitutions.
-7. Build H2g as a component-identity query contract: when the user asks for `result tile`, `resolution badge`, `state marker`, or `mode switch`, the live `target_query` should preserve that phrase instead of using the displayed value or nearby alias.
-8. Rerun H2g on H2f first, then backtest on H2b/H1x so a local H2f repair does not regress the route-arbitration gates.
-9. Score both strict exactness and executor-equivalence; do not collapse executor-valid paraphrases into failures when evaluating live usefulness.
-10. Keep packaged workflows paused for this line unless they preserve the same replay-shaped pressure; H1l/H1m already showed packaged visual surfaces can wash out the mechanism.
+7. Treat H2g as partial negative evidence: it stays at `6 / 10` strict but improves executor-equivalence to `7 / 10` by making `resolution badge Deferred` executor-valid.
+8. Build H2h as a stronger component-identity query contract with explicit negative examples for value substitution and alias expansion.
+9. Rerun H2h on H2f first, then backtest on H2b/H1x only if H2h improves strict exactness on H2f.
+10. Score both strict exactness and executor-equivalence; do not collapse executor-valid paraphrases into failures when evaluating live usefulness.
+11. Keep packaged workflows paused for this line unless they preserve the same replay-shaped pressure; H1l/H1m already showed packaged visual surfaces can wash out the mechanism.
 
 Immediate suggested command:
 
@@ -31,11 +32,12 @@ uv run python scripts/build_publication_evidence_ledger.py
 uv run python scripts/audit_publication_readiness.py
 ```
 
-Then design the H2g contract from the four H2f misses, not from generic wording:
+Then design the H2h contract from the four H2f misses, not from generic wording:
 
 - preserve user-requested component identity in `target_query`
 - distinguish component identity from displayed component value
 - distinguish exact component names from nearby aliases
+- include explicit not-this examples for `Blocked`, `Deferred`, `lifecycle state marker`, and `mode toggle`
 - keep stale-selection and activation-panel behavior unchanged
 - prove the repair on H2f before spending any packaged-workflow budget
 

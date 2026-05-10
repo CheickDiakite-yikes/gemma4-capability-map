@@ -26,9 +26,10 @@ Current strongest MLX result:
   - H2e still reaches `5 / 5` on H2b and `8 / 8` on H1x, so route arbitration remains valid mechanism evidence.
   - Fresh H2f breaks global H2e promotion: H2e and H2c tie at `6 / 10`, while no-directive is only `1 / 10`.
   - H2e's four H2f misses all call the right tool with the wrong query: component identities collapse into displayed values or aliases.
+  - H2g component-identity query contract is partial: strict stays `6 / 10`, executor-equivalence rises to `7 / 10`, and `resolution badge Deferred` is the single executor-valid gain.
   - H2f synthesis: [`results/reports/h2f_route_arbitration_holdout_synthesis/report.md`](../../results/reports/h2f_route_arbitration_holdout_synthesis/report.md)
   - H2f figure: [`results/reports/h2f_route_arbitration_holdout_synthesis/figures/h2f_holdout_profile_bars.svg`](../../results/reports/h2f_route_arbitration_holdout_synthesis/figures/h2f_holdout_profile_bars.svg)
-  - next restart move: build H2g component-identity query contract, then run H2g on H2f before H2b/H1x backtests
+  - next restart move: build H2h stronger component-identity query contract, run H2h on H2f, and only backtest H2b/H1x if strict exactness improves
 - H1h proves the no-directive causal ordering across all ten live workflow families.
 - H1i compresses the worst H1h workflow families into the current fast loop.
 - contracted MLX on H1i is clean at readiness `0.97710`, strict/recovered `1.0 / 1.0`, raw clean `1.0`.

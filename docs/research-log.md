@@ -2,6 +2,35 @@
 
 # Research Log
 
+## 2026-05-10 - H2g Component-Identity Contract Is Partial, Not Strict Repair
+
+- Added H2g as the first component-identity query-contract candidate:
+  - profile: `visual_role_catalog_component_identity_query_contract_v21`
+  - system: `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_identity_query_contract_visual_stale_selection_gate`
+  - H2f live packet: [`results/tool_probe_replay_live/20260510T_h2g_component_identity_query_contract_on_h2f_execute_v1`](../results/tool_probe_replay_live/20260510T_h2g_component_identity_query_contract_on_h2f_execute_v1)
+  - H2g-vs-H2e comparison: [`results/tool_probe_replay_live_comparisons/20260510T_h2g_component_identity_query_contract_vs_h2e_on_h2f_v1`](../results/tool_probe_replay_live_comparisons/20260510T_h2g_component_identity_query_contract_vs_h2e_on_h2f_v1)
+  - updated synthesis: [`results/reports/h2f_route_arbitration_holdout_synthesis/report.md`](../results/reports/h2f_route_arbitration_holdout_synthesis/report.md)
+- H2g result on H2f:
+  - strict exactness: `6 / 10`, tied with H2e and H2c
+  - executor-equivalence: `7 / 10`, improving over H2e by `+0.1`
+  - no-directive remains `1 / 10`, so the controller/profile stack is still causal versus the floor
+- Mechanism read:
+  - H2g did not repair strict component-identity query fidelity
+  - it made `resolution badge Deferred` executor-valid, but still failed exactness
+  - remaining exact misses preserve the H2f pattern: `result tile` -> `Blocked`, `state marker` -> `lifecycle state marker`, and `mode switch` -> `mode toggle`
+- Research decision:
+  - reject H2g as a strict promotion candidate
+  - build H2h with explicit negative examples for value substitution and alias expansion
+  - defer H2b/H1x backtests until strict H2f exactness improves
+- Reporting updates:
+  - publication evidence ledger now has `45` claims, `243` sources, and `0` missing sources
+  - new claim: `C45_h2g_component_identity_contract_is_partial_executor_gain`
+- Verification:
+  - `uv run pytest tests/test_prompt_contracts.py::test_visual_role_catalog_component_identity_query_contract_preserves_h2f_labels tests/test_knowledge_work_h1.py::test_h2g_component_identity_query_contract_registry_row_preserves_profile_and_controller_flag -q`
+  - `uv run moonie-agent replay-live --packet-dir results/tool_probe_replay_packets/20260510T_h2f_route_arbitration_oracle_dry_run_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_identity_query_contract_visual_stale_selection_gate --output-dir results/tool_probe_replay_live/20260510T_h2g_component_identity_query_contract_on_h2f_execute_v1 --execute --json`
+  - `uv run python scripts/build_h2f_route_arbitration_holdout_synthesis.py`
+  - `uv run pytest tests/test_h2f_route_arbitration_holdout_synthesis.py tests/test_publication_evidence_ledger.py tests/test_publication_readiness_audit.py -q`
+
 ## 2026-05-10 - H2f Fresh Holdout Breaks H2e Global Promotion
 
 - Built the fresh H2f route-arbitration holdout after H2e saturated H2b and H1x:

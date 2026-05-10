@@ -121,6 +121,9 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert claims["C44_h2f_holdout_breaks_h2e_global_promotion"][
         "status"
     ] == "negative_result_current_packets"
+    assert claims["C45_h2g_component_identity_contract_is_partial_executor_gain"][
+        "status"
+    ] == "negative_result_current_packets"
     assert "7/8" in claims["C2_final_tool_directive_causal_for_protocol"]["primary_metric"]
     assert "v3 raw exact falls" in claims["C6_split_selector_wording_is_negative_evidence"]["primary_metric"]
     assert "schema-field hints reach 6/8 strict and 8/8 executor-equivalent" in claims[
@@ -328,6 +331,15 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert "component-identity query contract" in claims[
         "C44_h2f_holdout_breaks_h2e_global_promotion"
     ]["next_test"]
+    assert "H2g stays at 6/10 strict exact" in claims[
+        "C45_h2g_component_identity_contract_is_partial_executor_gain"
+    ]["primary_metric"]
+    assert "improves executor-equivalence from 6/10 to 7/10" in claims[
+        "C45_h2g_component_identity_contract_is_partial_executor_gain"
+    ]["primary_metric"]
+    assert "Build H2h with explicit negative examples" in claims[
+        "C45_h2g_component_identity_contract_is_partial_executor_gain"
+    ]["next_test"]
     assert any(
         row["claim_id"] == "C28_h1n_post_repair_holdout_favors_code_guard"
         and row["path"]
@@ -487,6 +499,20 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
         row["claim_id"] == "C44_h2f_holdout_breaks_h2e_global_promotion"
         and row["path"]
         == "results/tool_probe_replay_live_comparisons/20260510T_h2f_route_arbitration_h2e_vs_no_directive_v1"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C45_h2g_component_identity_contract_is_partial_executor_gain"
+        and row["path"]
+        == "results/tool_probe_replay_live/20260510T_h2g_component_identity_query_contract_on_h2f_execute_v1"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C45_h2g_component_identity_contract_is_partial_executor_gain"
+        and row["path"]
+        == "results/tool_probe_replay_live_comparisons/20260510T_h2g_component_identity_query_contract_vs_h2e_on_h2f_v1"
         and row["exists"]
         for row in payload["evidence_sources"]
     )

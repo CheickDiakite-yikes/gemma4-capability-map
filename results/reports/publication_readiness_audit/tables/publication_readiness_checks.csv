@@ -1,7 +1,7 @@
 check_id,severity,passed,detail,path
 ledger_manifest_exists,blocking,True,Publication evidence ledger manifest exists.,results/reports/publication_evidence_ledger/manifest.json
 ledger_has_no_missing_sources,blocking,True,missing_source_count=0,
-ledger_has_claims,blocking,True,claim_count=44,
+ledger_has_claims,blocking,True,claim_count=45,
 ledger_includes_negative_results,blocking,True,At least one claim is explicitly labeled as negative-result evidence.,
 tool_contract_report_has_current_tables,blocking,True,table_count=110,
 tool_contract_report_has_current_figures,blocking,True,figure_count=45,
