@@ -199,6 +199,26 @@ def test_visual_role_catalog_oblique_code_hints_profile_preserves_code_suffixes_
     assert "consent toggle" not in rendered
 
 
+def test_visual_role_catalog_oblique_code_guard_profile_adds_stale_selection_guard() -> None:
+    specs = build_default_registry().specs
+    rendered = tool_catalog_text(
+        [specs["extract_layout"], specs["refine_selection"], specs["read_region_text"]],
+        profile_id="visual_role_catalog_oblique_code_guard_v7",
+    )
+
+    assert "Tool catalog profile: visual_role_catalog_oblique_code_guard_v7" in rendered
+    assert "Oblique visible-label discipline:" in rendered
+    assert "a letter followed by digits" in rendered
+    assert "Stale-selection activation guard:" in rendered
+    assert "old, stale, saved, ignored, or previous selection_id" in rendered
+    assert "latest passing visual tool result provides the current selection_id" in rendered
+    assert "Do not use old, stale, saved, ignored, or previous selection ids" in rendered
+    assert '"target_query": {"type": "string", "description": "Compact literal visible-region label' in rendered
+    assert '"filter_query": {"type": "string", "description": "Shortest literal narrowing token for a current selection_id' in rendered
+    assert "sel-e19-archive" not in rendered
+    assert "field e19" not in rendered
+
+
 def test_tool_catalog_profile_renders_inside_catalog_without_exact_directive() -> None:
     specs = build_default_registry().specs
     rendered = tool_catalog_text(

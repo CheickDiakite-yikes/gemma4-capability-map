@@ -3514,6 +3514,24 @@
   - `uv run python scripts/build_h1n_code_hints_transfer_synthesis.py`
   - `uv run pytest tests/test_h1n_code_hints_transfer_synthesis.py -q`
 
+## 2026-05-09 - H1n Oblique Code-Guard Candidate
+
+- Added a narrower follow-up profile after the code-hints transfer loss:
+  - profile: `visual_role_catalog_oblique_code_guard_v7`
+  - system: `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_oblique_code_guard`
+  - implementation: [`src/gemma4_capability_map/tools/planner.py`](../src/gemma4_capability_map/tools/planner.py)
+  - registry: [`configs/model_registry.yaml`](../configs/model_registry.yaml)
+- Design:
+  - keeps the v6 code-like visible-label rule, but phrases it generically as a letter-plus-digits suffix instead of enumerating packet labels
+  - adds a stale-selection activation guard: do not choose `refine_selection` solely because the user mentions an old, stale, saved, ignored, or previous `selection_id`
+  - tells the model to use `extract_layout` when no current `selection_id` is available and the user asks to locate a visible label on the current image
+- Promotion criterion:
+  - first run it on the oblique packet
+  - keep it only if it preserves the `cell r42` and `alert p55` repairs while fixing the `field e19` stale-selection regression
+  - if it passes that gate, rerun the earlier oracle/repeat transfer checks before any broader promotion
+- Verification:
+  - `uv run pytest tests/test_prompt_contracts.py tests/test_knowledge_work_h1.py -q`
+
 ## 2026-05-09 - Schema Target Literal v5 Negative Hard-Slice Repair
 
 - A narrow hard-slice repair candidate was added after inspecting the two v4 exact misses:

@@ -83,6 +83,7 @@ def tool_catalog_text(tool_specs: list[ToolSpec], *, profile_id: str = "") -> st
 
 def known_tool_catalog_profile_ids() -> list[str]:
     return [
+        "visual_role_catalog_oblique_code_guard_v7",
         "visual_role_catalog_oblique_code_hints_v6",
         "visual_role_catalog_schema_literal_targets_v5",
         "visual_role_catalog_schema_field_hints_v4",
@@ -123,6 +124,7 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
         "visual_role_catalog_argument_hints_v2",
         "visual_role_catalog_split_selector_hints_v3",
         "visual_role_catalog_oblique_code_hints_v6",
+        "visual_role_catalog_oblique_code_guard_v7",
     }:
         lines.extend(
             [
@@ -133,14 +135,26 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
                 "- Keep image_id, selection_id, and region_id as opaque ids copied from the latest passing visual state.",
             ]
         )
-    if normalized == "visual_role_catalog_oblique_code_hints_v6":
+    if normalized in {
+        "visual_role_catalog_oblique_code_hints_v6",
+        "visual_role_catalog_oblique_code_guard_v7",
+    }:
         lines.extend(
             [
                 "Oblique visible-label discipline:",
-                "- If the requested target label includes a code-like suffix such as q17, r42, m88, z33, e19, or p55, keep the full visible label in target_query.",
+                "- If the requested target label includes a code-like suffix such as a letter followed by digits, keep the full visible label in target_query.",
                 "- Do not drop the suffix and do not replace the requested label with only the surface noun such as cell, node, chip, badge, field, or alert.",
                 "- When the user says not X, not the X, or before reading X, treat X as a decoy unless it is also the requested target label.",
                 "- These are generic literal-copy and negated-decoy rules; they do not reveal the expected call for this turn.",
+            ]
+        )
+    if normalized == "visual_role_catalog_oblique_code_guard_v7":
+        lines.extend(
+            [
+                "Stale-selection activation guard:",
+                "- Do not choose refine_selection just because the user mentions an old, stale, saved, ignored, or previous selection_id.",
+                "- Use refine_selection only when the latest passing visual tool result provides the current selection_id to refine.",
+                "- If no current selection_id is available and the user asks to locate a visible label on the current image, start with extract_layout.",
             ]
         )
     if normalized == "visual_role_catalog_split_selector_hints_v3":
@@ -172,6 +186,7 @@ def _profiled_tool_spec(tool: ToolSpec, *, profile_id: str = "") -> ToolSpec:
         "visual_role_catalog_schema_field_hints_v4",
         "visual_role_catalog_schema_literal_targets_v5",
         "visual_role_catalog_oblique_code_hints_v6",
+        "visual_role_catalog_oblique_code_guard_v7",
     }:
         return tool
     if tool.name not in {"extract_layout", "refine_selection", "read_region_text"}:
@@ -194,16 +209,29 @@ def _profiled_tool_spec(tool: ToolSpec, *, profile_id: str = "") -> ToolSpec:
                 "Compact literal visible-region label for the executor. Preserve code-like suffixes such as q17, "
                 "r42, m88, z33, e19, or p55 when present, and do not select a target the user explicitly negated."
             )
+        if normalized == "visual_role_catalog_oblique_code_guard_v7":
+            target_description = (
+                "Compact literal visible-region label for the executor. Preserve code-like suffixes such as a "
+                "letter followed by digits when present, and do not select a target the user explicitly negated."
+            )
         _set_property_description(
             properties,
             "target_query",
             target_description,
         )
     elif tool.name == "refine_selection":
+        filter_description = (
+            "Shortest literal narrowing token from the follow-up request, such as latest, remaining, open, selected, or unread. Do not append a noun when the token is sufficient."
+        )
+        if normalized == "visual_role_catalog_oblique_code_guard_v7":
+            filter_description = (
+                "Shortest literal narrowing token for a current selection_id copied from the latest passing visual tool result. "
+                "Do not use old, stale, saved, ignored, or previous selection ids mentioned in the user's text."
+            )
         _set_property_description(
             properties,
             "filter_query",
-            "Shortest literal narrowing token from the follow-up request, such as latest, remaining, open, selected, or unread. Do not append a noun when the token is sufficient.",
+            filter_description,
         )
     elif tool.name == "read_region_text":
         _set_property_description(
