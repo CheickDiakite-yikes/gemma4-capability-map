@@ -1,0 +1,1058 @@
+{
+  "manifest": {
+    "generated_at": "2026-05-10T21:13:58.874296+00:00",
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h2f_route_arbitration_holdout_synthesis",
+    "packet_row_count": 6,
+    "comparison_count": 5,
+    "h2e_exact_success_count": 6,
+    "h2e_executor_success_count": 6,
+    "h2c_exact_success_count": 6,
+    "no_directive_exact_success_count": 1,
+    "h2e_non_exact_count": 4,
+    "h2e_delta_exact_vs_h2c": 0.0,
+    "h2e_delta_executor_vs_h2c": 0.0,
+    "h2e_delta_exact_vs_no_directive": 0.5,
+    "h2e_delta_executor_vs_no_directive": 0.5,
+    "h2e_failure_family_count": 2,
+    "promotion_decision": "reject_global_h2e_build_h2g_component_identity_query_contract"
+  },
+  "packet_rows": [
+    {
+      "profile_label": "no_directive",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_no_directive_execute_v1",
+      "case_count": 10,
+      "exact_success_count": 1,
+      "exact_rate": 0.1,
+      "executable_success_count": 1,
+      "executable_rate": 0.1,
+      "executor_success_count": 1,
+      "executor_rate": 0.1
+    },
+    {
+      "profile_label": "h2a_component_label_guard",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_label_guard_visual_stale_selection_gate",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2a_execute_v1",
+      "case_count": 10,
+      "exact_success_count": 4,
+      "exact_rate": 0.4,
+      "executable_success_count": 4,
+      "executable_rate": 0.4,
+      "executor_success_count": 4,
+      "executor_rate": 0.4
+    },
+    {
+      "profile_label": "component_residual_guard_v12",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_component_residual_guard_execute_v1",
+      "case_count": 10,
+      "exact_success_count": 5,
+      "exact_rate": 0.5,
+      "executable_success_count": 6,
+      "executable_rate": 0.6,
+      "executor_success_count": 6,
+      "executor_rate": 0.6
+    },
+    {
+      "profile_label": "h2c_scoped_residual_gate",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_scoped_residual_exactness_visual_stale_selection_gate",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2c_execute_v1",
+      "case_count": 10,
+      "exact_success_count": 6,
+      "exact_rate": 0.6,
+      "executable_success_count": 6,
+      "executable_rate": 0.6,
+      "executor_success_count": 6,
+      "executor_rate": 0.6
+    },
+    {
+      "profile_label": "h2d_class_preserving_route",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_class_preserving_residual_route_visual_stale_selection_gate",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2d_execute_v1",
+      "case_count": 10,
+      "exact_success_count": 5,
+      "exact_rate": 0.5,
+      "executable_success_count": 5,
+      "executable_rate": 0.5,
+      "executor_success_count": 5,
+      "executor_rate": 0.5
+    },
+    {
+      "profile_label": "h2e_route_arbitration",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2e_execute_v1",
+      "case_count": 10,
+      "exact_success_count": 6,
+      "exact_rate": 0.6,
+      "executable_success_count": 6,
+      "executable_rate": 0.6,
+      "executor_success_count": 6,
+      "executor_rate": 0.6
+    }
+  ],
+  "comparison_rows": [
+    {
+      "comparison_label": "h2f_h2e_vs_h2c",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h2f_route_arbitration_h2e_vs_h2c_v1",
+      "shared_case_count": 10,
+      "baseline_exact_rate": 0.6,
+      "candidate_exact_rate": 0.6,
+      "delta_exact_rate": 0.0,
+      "baseline_executable_rate": 0.6,
+      "candidate_executable_rate": 0.6,
+      "delta_executable_rate": 0.0,
+      "baseline_executor_equivalence_rate": 0.6,
+      "candidate_executor_equivalence_rate": 0.6,
+      "delta_executor_equivalence_rate": 0.0
+    },
+    {
+      "comparison_label": "h2f_h2e_vs_h2d",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h2f_route_arbitration_h2e_vs_h2d_v1",
+      "shared_case_count": 10,
+      "baseline_exact_rate": 0.5,
+      "candidate_exact_rate": 0.6,
+      "delta_exact_rate": 0.09999999999999998,
+      "baseline_executable_rate": 0.5,
+      "candidate_executable_rate": 0.6,
+      "delta_executable_rate": 0.09999999999999998,
+      "baseline_executor_equivalence_rate": 0.5,
+      "candidate_executor_equivalence_rate": 0.6,
+      "delta_executor_equivalence_rate": 0.09999999999999998
+    },
+    {
+      "comparison_label": "h2f_h2e_vs_h2a",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h2f_route_arbitration_h2e_vs_h2a_v1",
+      "shared_case_count": 10,
+      "baseline_exact_rate": 0.4,
+      "candidate_exact_rate": 0.6,
+      "delta_exact_rate": 0.19999999999999996,
+      "baseline_executable_rate": 0.4,
+      "candidate_executable_rate": 0.6,
+      "delta_executable_rate": 0.19999999999999996,
+      "baseline_executor_equivalence_rate": 0.4,
+      "candidate_executor_equivalence_rate": 0.6,
+      "delta_executor_equivalence_rate": 0.19999999999999996
+    },
+    {
+      "comparison_label": "h2f_h2e_vs_component_residual_guard",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h2f_route_arbitration_h2e_vs_component_residual_guard_v1",
+      "shared_case_count": 10,
+      "baseline_exact_rate": 0.5,
+      "candidate_exact_rate": 0.6,
+      "delta_exact_rate": 0.09999999999999998,
+      "baseline_executable_rate": 0.6,
+      "candidate_executable_rate": 0.6,
+      "delta_executable_rate": 0.0,
+      "baseline_executor_equivalence_rate": 0.6,
+      "candidate_executor_equivalence_rate": 0.6,
+      "delta_executor_equivalence_rate": 0.0
+    },
+    {
+      "comparison_label": "h2f_h2e_vs_no_directive",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260510T_h2f_route_arbitration_h2e_vs_no_directive_v1",
+      "shared_case_count": 10,
+      "baseline_exact_rate": 0.1,
+      "candidate_exact_rate": 0.6,
+      "delta_exact_rate": 0.5,
+      "baseline_executable_rate": 0.1,
+      "candidate_executable_rate": 0.6,
+      "delta_executable_rate": 0.5,
+      "baseline_executor_equivalence_rate": 0.1,
+      "candidate_executor_equivalence_rate": 0.6,
+      "delta_executor_equivalence_rate": 0.5
+    }
+  ],
+  "h2e_non_exact_rows": [
+    {
+      "profile_label": "h2e_route_arbitration",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2e_execute_v1",
+      "case_id": "h2f_result_tile_comment_value_decoy",
+      "family": "h2f_route_component_class_transfer",
+      "failure_mode": "argument_mismatch",
+      "executable_match": false,
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "result tile",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "Blocked",
+      "query_error_class": "value_or_alias_query_substitution"
+    },
+    {
+      "profile_label": "h2e_route_arbitration",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2e_execute_v1",
+      "case_id": "h2f_resolution_badge_log_result_decoy",
+      "family": "h2f_route_component_class_transfer",
+      "failure_mode": "argument_mismatch",
+      "executable_match": false,
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "resolution badge",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "Deferred",
+      "query_error_class": "value_or_alias_query_substitution"
+    },
+    {
+      "profile_label": "h2e_route_arbitration",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2e_execute_v1",
+      "case_id": "h2f_state_marker_history_value_decoy",
+      "family": "h2f_route_nonstandard_class",
+      "failure_mode": "argument_mismatch",
+      "executable_match": false,
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "state marker",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "lifecycle state marker",
+      "query_error_class": "value_or_alias_query_substitution"
+    },
+    {
+      "profile_label": "h2e_route_arbitration",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2e_execute_v1",
+      "case_id": "h2f_mode_switch_note_value_decoy",
+      "family": "h2f_route_nonstandard_class",
+      "failure_mode": "argument_mismatch",
+      "executable_match": false,
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "mode switch",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "mode toggle",
+      "query_error_class": "value_or_alias_query_substitution"
+    }
+  ],
+  "all_non_exact_rows": [
+    {
+      "profile_label": "no_directive",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_no_directive_execute_v1",
+      "case_id": "h2f_alert_t47_negated_switch_decoy",
+      "family": "h2f_route_code_label",
+      "failure_mode": "no_tool_call",
+      "executable_match": false,
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "alert t47",
+      "actual_tool": "",
+      "actual_target_query": "",
+      "query_error_class": "no_tool_call"
+    },
+    {
+      "profile_label": "no_directive",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_no_directive_execute_v1",
+      "case_id": "h2f_badge_m31_summary_value_decoy",
+      "family": "h2f_route_code_label",
+      "failure_mode": "argument_mismatch",
+      "executable_match": false,
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "badge m31",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "approval code badge m31",
+      "query_error_class": "value_or_alias_query_substitution"
+    },
+    {
+      "profile_label": "no_directive",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_no_directive_execute_v1",
+      "case_id": "h2f_result_tile_comment_value_decoy",
+      "family": "h2f_route_component_class_transfer",
+      "failure_mode": "no_tool_call",
+      "executable_match": false,
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "result tile",
+      "actual_tool": "",
+      "actual_target_query": "",
+      "query_error_class": "no_tool_call"
+    },
+    {
+      "profile_label": "no_directive",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_no_directive_execute_v1",
+      "case_id": "h2f_resolution_badge_log_result_decoy",
+      "family": "h2f_route_component_class_transfer",
+      "failure_mode": "no_tool_call",
+      "executable_match": false,
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "resolution badge",
+      "actual_tool": "",
+      "actual_target_query": "",
+      "query_error_class": "no_tool_call"
+    },
+    {
+      "profile_label": "no_directive",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_no_directive_execute_v1",
+      "case_id": "h2f_state_marker_history_value_decoy",
+      "family": "h2f_route_nonstandard_class",
+      "failure_mode": "argument_mismatch",
+      "executable_match": false,
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "state marker",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "lifecycle state marker",
+      "query_error_class": "value_or_alias_query_substitution"
+    },
+    {
+      "profile_label": "no_directive",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_no_directive_execute_v1",
+      "case_id": "h2f_mode_switch_note_value_decoy",
+      "family": "h2f_route_nonstandard_class",
+      "failure_mode": "argument_mismatch",
+      "executable_match": false,
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "mode switch",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "operation mode switch",
+      "query_error_class": "value_or_alias_query_substitution"
+    },
+    {
+      "profile_label": "no_directive",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_no_directive_execute_v1",
+      "case_id": "h2f_owner_field_previous_memo_decoy",
+      "family": "h2f_route_stale_field",
+      "failure_mode": "wrong_tool",
+      "executable_match": false,
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "owner field",
+      "actual_tool": "refine_selection",
+      "actual_target_query": "",
+      "query_error_class": "wrong_tool"
+    },
+    {
+      "profile_label": "no_directive",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_no_directive_execute_v1",
+      "case_id": "h2f_warning_panel_note_activation_decoy",
+      "family": "h2f_activation_panel_notice",
+      "failure_mode": "no_tool_call",
+      "executable_match": false,
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "warning panel",
+      "actual_tool": "",
+      "actual_target_query": "",
+      "query_error_class": "no_tool_call"
+    },
+    {
+      "profile_label": "no_directive",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_no_directive_execute_v1",
+      "case_id": "h2f_error_notice_history_activation_decoy",
+      "family": "h2f_activation_panel_notice",
+      "failure_mode": "no_tool_call",
+      "executable_match": false,
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "error notice",
+      "actual_tool": "",
+      "actual_target_query": "",
+      "query_error_class": "no_tool_call"
+    },
+    {
+      "profile_label": "h2a_component_label_guard",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2a_execute_v1",
+      "case_id": "h2f_alert_t47_negated_switch_decoy",
+      "family": "h2f_route_code_label",
+      "failure_mode": "argument_mismatch",
+      "executable_match": false,
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "alert t47",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "alert t47 code label",
+      "query_error_class": "value_or_alias_query_substitution"
+    },
+    {
+      "profile_label": "h2a_component_label_guard",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2a_execute_v1",
+      "case_id": "h2f_badge_m31_summary_value_decoy",
+      "family": "h2f_route_code_label",
+      "failure_mode": "argument_mismatch",
+      "executable_match": false,
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "badge m31",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "approval code badge",
+      "query_error_class": "value_or_alias_query_substitution"
+    },
+    {
+      "profile_label": "h2a_component_label_guard",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2a_execute_v1",
+      "case_id": "h2f_result_tile_comment_value_decoy",
+      "family": "h2f_route_component_class_transfer",
+      "failure_mode": "argument_mismatch",
+      "executable_match": false,
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "result tile",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "Blocked",
+      "query_error_class": "value_or_alias_query_substitution"
+    },
+    {
+      "profile_label": "h2a_component_label_guard",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2a_execute_v1",
+      "case_id": "h2f_resolution_badge_log_result_decoy",
+      "family": "h2f_route_component_class_transfer",
+      "failure_mode": "argument_mismatch",
+      "executable_match": false,
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "resolution badge",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "Deferred",
+      "query_error_class": "value_or_alias_query_substitution"
+    },
+    {
+      "profile_label": "h2a_component_label_guard",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2a_execute_v1",
+      "case_id": "h2f_state_marker_history_value_decoy",
+      "family": "h2f_route_nonstandard_class",
+      "failure_mode": "argument_mismatch",
+      "executable_match": false,
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "state marker",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "lifecycle state marker",
+      "query_error_class": "value_or_alias_query_substitution"
+    },
+    {
+      "profile_label": "h2a_component_label_guard",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2a_execute_v1",
+      "case_id": "h2f_mode_switch_note_value_decoy",
+      "family": "h2f_route_nonstandard_class",
+      "failure_mode": "argument_mismatch",
+      "executable_match": false,
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "mode switch",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "mode toggle",
+      "query_error_class": "value_or_alias_query_substitution"
+    },
+    {
+      "profile_label": "component_residual_guard_v12",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_component_residual_guard_execute_v1",
+      "case_id": "h2f_result_tile_comment_value_decoy",
+      "family": "h2f_route_component_class_transfer",
+      "failure_mode": "argument_mismatch",
+      "executable_match": false,
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "result tile",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "Blocked",
+      "query_error_class": "value_or_alias_query_substitution"
+    },
+    {
+      "profile_label": "component_residual_guard_v12",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_component_residual_guard_execute_v1",
+      "case_id": "h2f_resolution_badge_log_result_decoy",
+      "family": "h2f_route_component_class_transfer",
+      "failure_mode": "argument_mismatch",
+      "executable_match": false,
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "resolution badge",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "Deferred",
+      "query_error_class": "value_or_alias_query_substitution"
+    },
+    {
+      "profile_label": "component_residual_guard_v12",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_component_residual_guard_execute_v1",
+      "case_id": "h2f_state_marker_history_value_decoy",
+      "family": "h2f_route_nonstandard_class",
+      "failure_mode": "argument_mismatch",
+      "executable_match": false,
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "state marker",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "lifecycle state marker",
+      "query_error_class": "value_or_alias_query_substitution"
+    },
+    {
+      "profile_label": "component_residual_guard_v12",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_component_residual_guard_execute_v1",
+      "case_id": "h2f_mode_switch_note_value_decoy",
+      "family": "h2f_route_nonstandard_class",
+      "failure_mode": "argument_mismatch",
+      "executable_match": false,
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "mode switch",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "mode toggle",
+      "query_error_class": "value_or_alias_query_substitution"
+    },
+    {
+      "profile_label": "component_residual_guard_v12",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_component_residual_guard_execute_v1",
+      "case_id": "h2f_error_notice_history_activation_decoy",
+      "family": "h2f_activation_panel_notice",
+      "failure_mode": "executable_paraphrase",
+      "executable_match": true,
+      "executor_equivalence_match": true,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "error notice",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "Error notice",
+      "query_error_class": "value_or_alias_query_substitution"
+    },
+    {
+      "profile_label": "h2c_scoped_residual_gate",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2c_execute_v1",
+      "case_id": "h2f_result_tile_comment_value_decoy",
+      "family": "h2f_route_component_class_transfer",
+      "failure_mode": "argument_mismatch",
+      "executable_match": false,
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "result tile",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "Blocked",
+      "query_error_class": "value_or_alias_query_substitution"
+    },
+    {
+      "profile_label": "h2c_scoped_residual_gate",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2c_execute_v1",
+      "case_id": "h2f_resolution_badge_log_result_decoy",
+      "family": "h2f_route_component_class_transfer",
+      "failure_mode": "argument_mismatch",
+      "executable_match": false,
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "resolution badge",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "Deferred",
+      "query_error_class": "value_or_alias_query_substitution"
+    },
+    {
+      "profile_label": "h2c_scoped_residual_gate",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2c_execute_v1",
+      "case_id": "h2f_state_marker_history_value_decoy",
+      "family": "h2f_route_nonstandard_class",
+      "failure_mode": "argument_mismatch",
+      "executable_match": false,
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "state marker",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "lifecycle state marker",
+      "query_error_class": "value_or_alias_query_substitution"
+    },
+    {
+      "profile_label": "h2c_scoped_residual_gate",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2c_execute_v1",
+      "case_id": "h2f_mode_switch_note_value_decoy",
+      "family": "h2f_route_nonstandard_class",
+      "failure_mode": "argument_mismatch",
+      "executable_match": false,
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "mode switch",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "mode toggle",
+      "query_error_class": "value_or_alias_query_substitution"
+    },
+    {
+      "profile_label": "h2d_class_preserving_route",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2d_execute_v1",
+      "case_id": "h2f_badge_m31_summary_value_decoy",
+      "family": "h2f_route_code_label",
+      "failure_mode": "argument_mismatch",
+      "executable_match": false,
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "badge m31",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "approval code badge m31",
+      "query_error_class": "value_or_alias_query_substitution"
+    },
+    {
+      "profile_label": "h2d_class_preserving_route",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2d_execute_v1",
+      "case_id": "h2f_result_tile_comment_value_decoy",
+      "family": "h2f_route_component_class_transfer",
+      "failure_mode": "argument_mismatch",
+      "executable_match": false,
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "result tile",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "Blocked",
+      "query_error_class": "value_or_alias_query_substitution"
+    },
+    {
+      "profile_label": "h2d_class_preserving_route",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2d_execute_v1",
+      "case_id": "h2f_resolution_badge_log_result_decoy",
+      "family": "h2f_route_component_class_transfer",
+      "failure_mode": "argument_mismatch",
+      "executable_match": false,
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "resolution badge",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "Deferred",
+      "query_error_class": "value_or_alias_query_substitution"
+    },
+    {
+      "profile_label": "h2d_class_preserving_route",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2d_execute_v1",
+      "case_id": "h2f_state_marker_history_value_decoy",
+      "family": "h2f_route_nonstandard_class",
+      "failure_mode": "argument_mismatch",
+      "executable_match": false,
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "state marker",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "lifecycle state marker",
+      "query_error_class": "value_or_alias_query_substitution"
+    },
+    {
+      "profile_label": "h2d_class_preserving_route",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2d_execute_v1",
+      "case_id": "h2f_mode_switch_note_value_decoy",
+      "family": "h2f_route_nonstandard_class",
+      "failure_mode": "argument_mismatch",
+      "executable_match": false,
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "mode switch",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "mode toggle",
+      "query_error_class": "value_or_alias_query_substitution"
+    },
+    {
+      "profile_label": "h2e_route_arbitration",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2e_execute_v1",
+      "case_id": "h2f_result_tile_comment_value_decoy",
+      "family": "h2f_route_component_class_transfer",
+      "failure_mode": "argument_mismatch",
+      "executable_match": false,
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "result tile",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "Blocked",
+      "query_error_class": "value_or_alias_query_substitution"
+    },
+    {
+      "profile_label": "h2e_route_arbitration",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2e_execute_v1",
+      "case_id": "h2f_resolution_badge_log_result_decoy",
+      "family": "h2f_route_component_class_transfer",
+      "failure_mode": "argument_mismatch",
+      "executable_match": false,
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "resolution badge",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "Deferred",
+      "query_error_class": "value_or_alias_query_substitution"
+    },
+    {
+      "profile_label": "h2e_route_arbitration",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2e_execute_v1",
+      "case_id": "h2f_state_marker_history_value_decoy",
+      "family": "h2f_route_nonstandard_class",
+      "failure_mode": "argument_mismatch",
+      "executable_match": false,
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "state marker",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "lifecycle state marker",
+      "query_error_class": "value_or_alias_query_substitution"
+    },
+    {
+      "profile_label": "h2e_route_arbitration",
+      "packet_dir": "results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2e_execute_v1",
+      "case_id": "h2f_mode_switch_note_value_decoy",
+      "family": "h2f_route_nonstandard_class",
+      "failure_mode": "argument_mismatch",
+      "executable_match": false,
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "mode switch",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "mode toggle",
+      "query_error_class": "value_or_alias_query_substitution"
+    }
+  ],
+  "family_rows": [
+    {
+      "profile_label": "no_directive",
+      "family": "h2f_route_code_label",
+      "case_count": 2,
+      "exact_success_count": 0,
+      "executor_success_count": 0,
+      "exact_rate": 0.0,
+      "executor_rate": 0.0
+    },
+    {
+      "profile_label": "no_directive",
+      "family": "h2f_route_component_class_transfer",
+      "case_count": 2,
+      "exact_success_count": 0,
+      "executor_success_count": 0,
+      "exact_rate": 0.0,
+      "executor_rate": 0.0
+    },
+    {
+      "profile_label": "no_directive",
+      "family": "h2f_route_nonstandard_class",
+      "case_count": 2,
+      "exact_success_count": 0,
+      "executor_success_count": 0,
+      "exact_rate": 0.0,
+      "executor_rate": 0.0
+    },
+    {
+      "profile_label": "no_directive",
+      "family": "h2f_route_stale_field",
+      "case_count": 2,
+      "exact_success_count": 1,
+      "executor_success_count": 1,
+      "exact_rate": 0.5,
+      "executor_rate": 0.5
+    },
+    {
+      "profile_label": "no_directive",
+      "family": "h2f_activation_panel_notice",
+      "case_count": 2,
+      "exact_success_count": 0,
+      "executor_success_count": 0,
+      "exact_rate": 0.0,
+      "executor_rate": 0.0
+    },
+    {
+      "profile_label": "h2a_component_label_guard",
+      "family": "h2f_route_code_label",
+      "case_count": 2,
+      "exact_success_count": 0,
+      "executor_success_count": 0,
+      "exact_rate": 0.0,
+      "executor_rate": 0.0
+    },
+    {
+      "profile_label": "h2a_component_label_guard",
+      "family": "h2f_route_component_class_transfer",
+      "case_count": 2,
+      "exact_success_count": 0,
+      "executor_success_count": 0,
+      "exact_rate": 0.0,
+      "executor_rate": 0.0
+    },
+    {
+      "profile_label": "h2a_component_label_guard",
+      "family": "h2f_route_nonstandard_class",
+      "case_count": 2,
+      "exact_success_count": 0,
+      "executor_success_count": 0,
+      "exact_rate": 0.0,
+      "executor_rate": 0.0
+    },
+    {
+      "profile_label": "h2a_component_label_guard",
+      "family": "h2f_route_stale_field",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "executor_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "h2a_component_label_guard",
+      "family": "h2f_activation_panel_notice",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "executor_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "component_residual_guard_v12",
+      "family": "h2f_route_code_label",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "executor_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "component_residual_guard_v12",
+      "family": "h2f_route_component_class_transfer",
+      "case_count": 2,
+      "exact_success_count": 0,
+      "executor_success_count": 0,
+      "exact_rate": 0.0,
+      "executor_rate": 0.0
+    },
+    {
+      "profile_label": "component_residual_guard_v12",
+      "family": "h2f_route_nonstandard_class",
+      "case_count": 2,
+      "exact_success_count": 0,
+      "executor_success_count": 0,
+      "exact_rate": 0.0,
+      "executor_rate": 0.0
+    },
+    {
+      "profile_label": "component_residual_guard_v12",
+      "family": "h2f_route_stale_field",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "executor_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "component_residual_guard_v12",
+      "family": "h2f_activation_panel_notice",
+      "case_count": 2,
+      "exact_success_count": 1,
+      "executor_success_count": 2,
+      "exact_rate": 0.5,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "h2c_scoped_residual_gate",
+      "family": "h2f_route_code_label",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "executor_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "h2c_scoped_residual_gate",
+      "family": "h2f_route_component_class_transfer",
+      "case_count": 2,
+      "exact_success_count": 0,
+      "executor_success_count": 0,
+      "exact_rate": 0.0,
+      "executor_rate": 0.0
+    },
+    {
+      "profile_label": "h2c_scoped_residual_gate",
+      "family": "h2f_route_nonstandard_class",
+      "case_count": 2,
+      "exact_success_count": 0,
+      "executor_success_count": 0,
+      "exact_rate": 0.0,
+      "executor_rate": 0.0
+    },
+    {
+      "profile_label": "h2c_scoped_residual_gate",
+      "family": "h2f_route_stale_field",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "executor_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "h2c_scoped_residual_gate",
+      "family": "h2f_activation_panel_notice",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "executor_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "h2d_class_preserving_route",
+      "family": "h2f_route_code_label",
+      "case_count": 2,
+      "exact_success_count": 1,
+      "executor_success_count": 1,
+      "exact_rate": 0.5,
+      "executor_rate": 0.5
+    },
+    {
+      "profile_label": "h2d_class_preserving_route",
+      "family": "h2f_route_component_class_transfer",
+      "case_count": 2,
+      "exact_success_count": 0,
+      "executor_success_count": 0,
+      "exact_rate": 0.0,
+      "executor_rate": 0.0
+    },
+    {
+      "profile_label": "h2d_class_preserving_route",
+      "family": "h2f_route_nonstandard_class",
+      "case_count": 2,
+      "exact_success_count": 0,
+      "executor_success_count": 0,
+      "exact_rate": 0.0,
+      "executor_rate": 0.0
+    },
+    {
+      "profile_label": "h2d_class_preserving_route",
+      "family": "h2f_route_stale_field",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "executor_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "h2d_class_preserving_route",
+      "family": "h2f_activation_panel_notice",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "executor_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "h2e_route_arbitration",
+      "family": "h2f_route_code_label",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "executor_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "h2e_route_arbitration",
+      "family": "h2f_route_component_class_transfer",
+      "case_count": 2,
+      "exact_success_count": 0,
+      "executor_success_count": 0,
+      "exact_rate": 0.0,
+      "executor_rate": 0.0
+    },
+    {
+      "profile_label": "h2e_route_arbitration",
+      "family": "h2f_route_nonstandard_class",
+      "case_count": 2,
+      "exact_success_count": 0,
+      "executor_success_count": 0,
+      "exact_rate": 0.0,
+      "executor_rate": 0.0
+    },
+    {
+      "profile_label": "h2e_route_arbitration",
+      "family": "h2f_route_stale_field",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "executor_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "h2e_route_arbitration",
+      "family": "h2f_activation_panel_notice",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "executor_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_rate": 1.0
+    }
+  ],
+  "failure_mode_rows": [
+    {
+      "profile_label": "no_directive",
+      "failure_mode": "argument_mismatch",
+      "count": 3
+    },
+    {
+      "profile_label": "no_directive",
+      "failure_mode": "exact",
+      "count": 1
+    },
+    {
+      "profile_label": "no_directive",
+      "failure_mode": "no_tool_call",
+      "count": 5
+    },
+    {
+      "profile_label": "no_directive",
+      "failure_mode": "wrong_tool",
+      "count": 1
+    },
+    {
+      "profile_label": "h2a_component_label_guard",
+      "failure_mode": "argument_mismatch",
+      "count": 6
+    },
+    {
+      "profile_label": "h2a_component_label_guard",
+      "failure_mode": "exact",
+      "count": 4
+    },
+    {
+      "profile_label": "component_residual_guard_v12",
+      "failure_mode": "argument_mismatch",
+      "count": 4
+    },
+    {
+      "profile_label": "component_residual_guard_v12",
+      "failure_mode": "exact",
+      "count": 5
+    },
+    {
+      "profile_label": "component_residual_guard_v12",
+      "failure_mode": "executable_paraphrase",
+      "count": 1
+    },
+    {
+      "profile_label": "h2c_scoped_residual_gate",
+      "failure_mode": "argument_mismatch",
+      "count": 4
+    },
+    {
+      "profile_label": "h2c_scoped_residual_gate",
+      "failure_mode": "exact",
+      "count": 6
+    },
+    {
+      "profile_label": "h2d_class_preserving_route",
+      "failure_mode": "argument_mismatch",
+      "count": 5
+    },
+    {
+      "profile_label": "h2d_class_preserving_route",
+      "failure_mode": "exact",
+      "count": 5
+    },
+    {
+      "profile_label": "h2e_route_arbitration",
+      "failure_mode": "argument_mismatch",
+      "count": 4
+    },
+    {
+      "profile_label": "h2e_route_arbitration",
+      "failure_mode": "exact",
+      "count": 6
+    }
+  ],
+  "finding_rows": [
+    {
+      "finding_id": "h2f_breaks_h2e_saturation",
+      "finding": "H2e reaches only 6/10 exact and 6/10 executor-equivalent on the fresh H2f holdout, after previously saturating H2b and H1x."
+    },
+    {
+      "finding_id": "route_arbitration_does_not_beat_h2c_on_h2f",
+      "finding": "H2e ties H2c on H2f: delta exact=0.0 and delta executor-equivalence=0.0."
+    },
+    {
+      "finding_id": "controllers_remain_causal_against_floor",
+      "finding": "No-directive reaches 1/10 exact while H2e reaches 6/10, a 0.5 exact-rate lift. Intermediate rows are H2a=4/10, v12=5/10, H2d=5/10, and H2c=6/10."
+    },
+    {
+      "finding_id": "remaining_failure_is_component_identity_binding",
+      "finding": "All H2e non-exact rows are argument mismatches in h2f_route_component_class_transfer, h2f_route_nonstandard_class. The model preserved the right tool but substituted displayed values or aliases for requested component identities: result tile->Blocked, resolution badge->Deferred, state marker->lifecycle state marker, mode switch->mode toggle."
+    },
+    {
+      "finding_id": "next_slice",
+      "finding": "Do not promote H2e globally. Build H2g around a component-identity query contract: when the user asks for a component class or visible label, the target_query should preserve that requested phrase instead of collapsing to the component value."
+    }
+  ]
+}

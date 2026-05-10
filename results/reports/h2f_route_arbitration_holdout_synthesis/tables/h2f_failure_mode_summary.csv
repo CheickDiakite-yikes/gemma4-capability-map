@@ -1,0 +1,16 @@
+profile_label,failure_mode,count
+no_directive,argument_mismatch,3
+no_directive,exact,1
+no_directive,no_tool_call,5
+no_directive,wrong_tool,1
+h2a_component_label_guard,argument_mismatch,6
+h2a_component_label_guard,exact,4
+component_residual_guard_v12,argument_mismatch,4
+component_residual_guard_v12,exact,5
+component_residual_guard_v12,executable_paraphrase,1
+h2c_scoped_residual_gate,argument_mismatch,4
+h2c_scoped_residual_gate,exact,6
+h2d_class_preserving_route,argument_mismatch,5
+h2d_class_preserving_route,exact,5
+h2e_route_arbitration,argument_mismatch,4
+h2e_route_arbitration,exact,6

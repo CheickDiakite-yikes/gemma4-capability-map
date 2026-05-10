@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="360" viewBox="0 0 920 360" role="img" aria-labelledby="title desc">
+<title id="title">H2f holdout profile bars</title>
+<desc id="desc">Exact and executor-equivalent success rates across H2f route-arbitration holdout rows.</desc>
+<rect width="920" height="360" fill="#ffffff"/>
+<text x="32" y="36" font-family="Arial, sans-serif" font-size="23" font-weight="700" fill="#111827">H2f fresh holdout breaks saturation</text>
+<text x="32" y="58" font-family="Arial, sans-serif" font-size="13" fill="#4b5563">Strict exact bars; executor-equivalence shown as right-side count.</text>
+<text x="32" y="86" font-family="Arial, sans-serif" font-size="13" fill="#111827">no_directive</text>
+<rect x="280" y="68" width="520" height="24" rx="4" fill="#e5e7eb"/>
+<rect x="280" y="68" width="52" height="24" rx="4" fill="#64748b"/>
+<text x="818" y="86" font-family="Arial, sans-serif" font-size="13" fill="#111827">1/10 exact, 1/10 exec</text>
+<text x="32" y="134" font-family="Arial, sans-serif" font-size="13" fill="#111827">h2a_component_label_guard</text>
+<rect x="280" y="116" width="520" height="24" rx="4" fill="#e5e7eb"/>
+<rect x="280" y="116" width="208" height="24" rx="4" fill="#64748b"/>
+<text x="818" y="134" font-family="Arial, sans-serif" font-size="13" fill="#111827">4/10 exact, 4/10 exec</text>
+<text x="32" y="182" font-family="Arial, sans-serif" font-size="13" fill="#111827">component_residual_guard_v12</text>
+<rect x="280" y="164" width="520" height="24" rx="4" fill="#e5e7eb"/>
+<rect x="280" y="164" width="260" height="24" rx="4" fill="#64748b"/>
+<text x="818" y="182" font-family="Arial, sans-serif" font-size="13" fill="#111827">5/10 exact, 6/10 exec</text>
+<text x="32" y="230" font-family="Arial, sans-serif" font-size="13" fill="#111827">h2d_class_preserving_route</text>
+<rect x="280" y="212" width="520" height="24" rx="4" fill="#e5e7eb"/>
+<rect x="280" y="212" width="260" height="24" rx="4" fill="#64748b"/>
+<text x="818" y="230" font-family="Arial, sans-serif" font-size="13" fill="#111827">5/10 exact, 5/10 exec</text>
+<text x="32" y="278" font-family="Arial, sans-serif" font-size="13" fill="#111827">h2c_scoped_residual_gate</text>
+<rect x="280" y="260" width="520" height="24" rx="4" fill="#e5e7eb"/>
+<rect x="280" y="260" width="312" height="24" rx="4" fill="#64748b"/>
+<text x="818" y="278" font-family="Arial, sans-serif" font-size="13" fill="#111827">6/10 exact, 6/10 exec</text>
+<text x="32" y="326" font-family="Arial, sans-serif" font-size="13" fill="#111827">h2e_route_arbitration</text>
+<rect x="280" y="308" width="520" height="24" rx="4" fill="#e5e7eb"/>
+<rect x="280" y="308" width="312" height="24" rx="4" fill="#0891b2"/>
+<text x="818" y="326" font-family="Arial, sans-serif" font-size="13" fill="#111827">6/10 exact, 6/10 exec</text>
+</svg>
