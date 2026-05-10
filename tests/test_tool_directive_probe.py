@@ -4,13 +4,15 @@ import json
 from pathlib import Path
 
 from gemma4_capability_map.runtime.tool_directive_probe import (
+    ToolDirectiveProbeCase,
+    _apply_visual_stale_selection_gate,
     _score_probe_case,
     build_tool_directive_probe_cases,
     compare_tool_directive_probe_packets,
     run_tool_directive_probe,
     write_tool_directive_probe_comparison,
 )
-from gemma4_capability_map.schemas import ModelTurn, ToolCall
+from gemma4_capability_map.schemas import Message, ModelTurn, ToolCall
 from gemma4_capability_map.tools.planner import plan_tool_calls
 from gemma4_capability_map.tools.registry import build_default_registry
 
@@ -131,6 +133,131 @@ systems:
     }
     assert result["manifest"]["runtime_info"]["tool_turn_directive_enabled"] is False
     assert result["manifest"]["runtime_info"]["tool_catalog_profile_id"] == "visual_role_catalog_v1"
+
+
+def test_run_tool_directive_probe_records_visual_stale_selection_gate_control(tmp_path: Path) -> None:
+    registry_path = tmp_path / "registry.yaml"
+    registry_path.write_text(
+        """
+systems:
+  heuristic_stale_selection_gate:
+    backend: heuristic
+    reasoner: google/gemma-4-E2B-it
+    reasoner_max_new_tokens: 64
+    request_timeout_seconds: 30.0
+    research_controls:
+      disable_tool_turn_directive: true
+      enable_visual_stale_selection_gate: true
+""".strip()
+        + "\n",
+        encoding="utf-8",
+    )
+    output_dir = tmp_path / "probe"
+    result = run_tool_directive_probe(
+        system_id="heuristic_stale_selection_gate",
+        output_dir=output_dir,
+        registry_path=registry_path,
+        cases=build_tool_directive_probe_cases()[:1],
+    )
+
+    assert result["manifest"]["research_controls"] == {
+        "disable_tool_turn_directive": True,
+        "enable_visual_stale_selection_gate": True,
+    }
+
+
+def test_visual_stale_selection_gate_rewrites_missing_selection_to_layout_lookup() -> None:
+    specs = build_default_registry().specs
+    case = ToolDirectiveProbeCase(
+        case_id="stale-selection",
+        family="visual",
+        messages=[
+            Message(role="system", content="visual_image_ids: img-stale"),
+            Message(
+                role="user",
+                content="Old selection_id sel-owner-memo points at the memo. Locate the owner field component.",
+            ),
+        ],
+        media=["img-stale"],
+        tool_names=["extract_layout", "refine_selection"],
+        initial_state={
+            "visual_executor_mode": "local",
+            "images": {
+                "img-stale": {
+                    "local_layouts": [
+                        {"region_id": "memo-1", "label": "owner memo", "text": "Iris"},
+                        {"region_id": "field-1", "label": "owner field", "text": "Iris"},
+                    ]
+                }
+            },
+        },
+    )
+    turn = ModelTurn(
+        raw_model_output="{}",
+        normalized_tool_call=[
+            ToolCall(
+                name="refine_selection",
+                arguments={"selection_id": "sel-owner-memo", "filter_query": "owner field"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+    )
+
+    patched = _apply_visual_stale_selection_gate(
+        turn=turn,
+        case=case,
+        tool_specs=[specs["extract_layout"], specs["refine_selection"]],
+    )
+
+    assert patched.normalized_tool_call == [
+        ToolCall(
+            name="extract_layout",
+            arguments={"image_id": "img-stale", "target_query": "owner field"},
+            source_format="heuristic",
+            raw=patched.normalized_tool_call[0].raw,
+        )
+    ]
+    assert patched.runtime_metadata["visual_stale_selection_gate"][0]["from_tool"] == "refine_selection"
+
+
+def test_visual_stale_selection_gate_preserves_current_selection_ids() -> None:
+    specs = build_default_registry().specs
+    case = ToolDirectiveProbeCase(
+        case_id="current-selection",
+        family="visual",
+        messages=[Message(role="user", content="Narrow the current selection to latest.")],
+        media=["img-current"],
+        tool_names=["extract_layout", "refine_selection"],
+        initial_state={
+            "visual_selections": {
+                "sel-current": {
+                    "image_id": "img-current",
+                    "selection_kind": "regions",
+                    "items": [],
+                }
+            }
+        },
+    )
+    turn = ModelTurn(
+        raw_model_output="{}",
+        normalized_tool_call=[
+            ToolCall(
+                name="refine_selection",
+                arguments={"selection_id": "sel-current", "filter_query": "latest"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+    )
+
+    patched = _apply_visual_stale_selection_gate(
+        turn=turn,
+        case=case,
+        tool_specs=[specs["extract_layout"], specs["refine_selection"]],
+    )
+
+    assert patched == turn
 
 
 def test_tool_directive_probe_comparison_reports_case_and_family_deltas(tmp_path: Path) -> None:

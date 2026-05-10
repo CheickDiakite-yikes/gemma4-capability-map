@@ -13,6 +13,7 @@ class ResearchControls:
     disable_argument_repair: bool = False
     disable_deterministic_visual_follow_on: bool = False
     disable_tool_turn_directive: bool = False
+    enable_visual_stale_selection_gate: bool = False
     tool_prompt_contract_id: str = ""
     tool_catalog_profile_id: str = ""
 
@@ -27,6 +28,7 @@ class ResearchControls:
             disable_argument_repair=bool(payload.get("disable_argument_repair", False)),
             disable_deterministic_visual_follow_on=bool(payload.get("disable_deterministic_visual_follow_on", False)),
             disable_tool_turn_directive=bool(payload.get("disable_tool_turn_directive", False)),
+            enable_visual_stale_selection_gate=bool(payload.get("enable_visual_stale_selection_gate", False)),
             tool_prompt_contract_id=str(payload.get("tool_prompt_contract_id", "") or ""),
             tool_catalog_profile_id=str(payload.get("tool_catalog_profile_id", "") or ""),
         )

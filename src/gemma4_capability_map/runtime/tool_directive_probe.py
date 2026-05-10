@@ -191,6 +191,8 @@ def run_tool_directive_probe(
             thinking=False,
             max_new_tokens=int(meta.get("reasoner_max_new_tokens", 64) or 64),
         )
+        if controls.enable_visual_stale_selection_gate:
+            turn = _apply_visual_stale_selection_gate(turn=turn, case=case, tool_specs=tool_specs)
         rows.append(_score_probe_case(case, tool_specs, expected_calls, turn))
 
     summary = _summarize_probe(rows)
@@ -395,6 +397,140 @@ def _score_probe_case(
         "completion_tokens": turn.completion_tokens,
         "latency_ms": turn.latency_ms,
     }
+
+
+def _apply_visual_stale_selection_gate(
+    *,
+    turn: ModelTurn,
+    case: ToolDirectiveProbeCase,
+    tool_specs: list[ToolSpec],
+) -> ModelTurn:
+    tool_names = {tool.name for tool in tool_specs}
+    if "extract_layout" not in tool_names or not turn.normalized_tool_call:
+        return turn
+
+    patched_calls: list[ToolCall] = []
+    gate_rows: list[dict[str, Any]] = []
+    for call in turn.normalized_tool_call:
+        replacement = _visual_stale_selection_replacement(call=call, case=case)
+        if replacement is None:
+            patched_calls.append(call)
+            continue
+        patched_calls.append(replacement)
+        gate_rows.append(
+            {
+                "from_tool": call.name,
+                "from_arguments": call.arguments,
+                "to_tool": replacement.name,
+                "to_arguments": replacement.arguments,
+            }
+        )
+
+    if not gate_rows:
+        return turn
+    metadata = dict(turn.runtime_metadata)
+    metadata["visual_stale_selection_gate"] = gate_rows
+    return turn.model_copy(update={"normalized_tool_call": patched_calls, "runtime_metadata": metadata})
+
+
+def _visual_stale_selection_replacement(*, call: ToolCall, case: ToolDirectiveProbeCase) -> ToolCall | None:
+    if call.name != "refine_selection":
+        return None
+    selection_id = str(call.arguments.get("selection_id", "")).strip()
+    if not selection_id:
+        return None
+    if selection_id in _visual_selection_ids(case.initial_state):
+        return None
+    image_id = _visual_image_id(case)
+    target_query = _visual_target_label_from_state(case)
+    if not image_id or not target_query:
+        return None
+    payload = {
+        "name": "extract_layout",
+        "arguments": {
+            "image_id": image_id,
+            "target_query": target_query,
+        },
+        "controller": "visual_stale_selection_gate",
+        "replaced_selection_id": selection_id,
+    }
+    return ToolCall(
+        name="extract_layout",
+        arguments=payload["arguments"],
+        source_format="heuristic",
+        raw=json.dumps(payload, separators=(",", ":"), ensure_ascii=False),
+    )
+
+
+def _visual_selection_ids(initial_state: dict[str, Any]) -> set[str]:
+    selections = initial_state.get("visual_selections", {})
+    if not isinstance(selections, dict):
+        return set()
+    return {str(selection_id) for selection_id in selections}
+
+
+def _visual_image_id(case: ToolDirectiveProbeCase) -> str:
+    if case.media:
+        return str(case.media[0])
+    images = case.initial_state.get("images", {})
+    if isinstance(images, dict) and images:
+        return str(next(iter(images)))
+    for message in case.messages:
+        if message.role == "system" and "visual_image_ids:" in message.content:
+            return message.content.split("visual_image_ids:", 1)[1].strip().split()[0]
+    return ""
+
+
+def _visual_target_label_from_state(case: ToolDirectiveProbeCase) -> str:
+    user_text = " ".join(message.content for message in case.messages if message.role == "user").lower()
+    labels = _visual_layout_labels(case.initial_state)
+    if not labels:
+        return ""
+    component_words = {
+        "alert",
+        "badge",
+        "banner",
+        "chip",
+        "field",
+        "panel",
+        "pill",
+        "tag",
+        "tile",
+        "toggle",
+        "switch",
+    }
+    matching_labels = [label for label in labels if label.lower() in user_text]
+    component_matches = [
+        label
+        for label in matching_labels
+        if any(f" {word}" in f" {label.lower()}" for word in component_words)
+    ]
+    if component_matches:
+        return sorted(component_matches, key=lambda label: (-len(label), labels.index(label)))[0]
+    if matching_labels:
+        return sorted(matching_labels, key=lambda label: (-len(label), labels.index(label)))[0]
+    return ""
+
+
+def _visual_layout_labels(initial_state: dict[str, Any]) -> list[str]:
+    images = initial_state.get("images", {})
+    if not isinstance(images, dict):
+        return []
+    labels: list[str] = []
+    for image in images.values():
+        if not isinstance(image, dict):
+            continue
+        for key in ("local_layouts", "layouts"):
+            rows = image.get(key, [])
+            if not isinstance(rows, list):
+                continue
+            for row in rows:
+                if not isinstance(row, dict):
+                    continue
+                label = str(row.get("label", "")).strip()
+                if label and label not in labels:
+                    labels.append(label)
+    return labels
 
 
 def _summarize_probe(rows: list[dict[str, Any]]) -> dict[str, Any]:
