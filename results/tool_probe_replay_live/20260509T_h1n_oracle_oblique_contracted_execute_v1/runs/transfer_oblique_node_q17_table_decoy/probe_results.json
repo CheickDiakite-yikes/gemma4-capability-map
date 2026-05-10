@@ -1,0 +1,58 @@
+[
+  {
+    "case_id": "transfer_oblique_node_q17_table_decoy",
+    "family": "visual_argument_transfer_oblique",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "transfer-oblique-node-5001"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-oblique-node-q17",
+          "target_query": "invoice totals table"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-transfer-oblique-node-q17",
+          "selection_kind": "regions",
+          "count": 0,
+          "executor_mode": "local",
+          "region_ids": []
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-oblique-node-q17",
+          "target_query": "node q17"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-oblique-node-q17",
+          "target_query": "invoice totals table"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-transfer-oblique-node-q17\", \"target_query\": \"invoice totals table\"}}",
+    "prompt_tokens": 819,
+    "completion_tokens": 41,
+    "latency_ms": 8158
+  }
+]

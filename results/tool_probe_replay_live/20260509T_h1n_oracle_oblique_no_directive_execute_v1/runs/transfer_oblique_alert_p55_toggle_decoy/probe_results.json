@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "transfer_oblique_alert_p55_toggle_decoy",
+    "family": "visual_tool_routing_transfer_oblique",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "transfer-oblique-alert-5502"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-oblique-alert-p55",
+          "target_query": "consent toggle"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-transfer-oblique-alert-p55",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "transfer-oblique-alert-5501"
+          ],
+          "region_id": "transfer-oblique-alert-5501",
+          "text_preview": "Consent enabled"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-oblique-alert-p55",
+          "target_query": "alert p55"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-oblique-alert-p55",
+          "target_query": "consent toggle"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-transfer-oblique-alert-p55\", \"target_query\": \"consent toggle\"}}",
+    "prompt_tokens": 654,
+    "completion_tokens": 40,
+    "latency_ms": 4115
+  }
+]

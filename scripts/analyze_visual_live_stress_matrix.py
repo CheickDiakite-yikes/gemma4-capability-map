@@ -15,6 +15,7 @@ DEFAULT_ALIAS_REPEAT_OUTPUT_DIR = ROOT / "results" / "reports" / "visual_alias_r
 DEFAULT_ALIAS_TRANSFER_OUTPUT_DIR = ROOT / "results" / "reports" / "visual_alias_transfer_diagnostic"
 DEFAULT_ALIAS_TRANSFER_ORACLE_OUTPUT_DIR = ROOT / "results" / "reports" / "visual_alias_transfer_oracle_diagnostic"
 DEFAULT_ALIAS_TRANSFER_REPEAT_OUTPUT_DIR = ROOT / "results" / "reports" / "visual_alias_transfer_repeat_diagnostic"
+DEFAULT_ALIAS_TRANSFER_OBLIQUE_OUTPUT_DIR = ROOT / "results" / "reports" / "visual_alias_transfer_oblique_diagnostic"
 DEFAULT_COMPARISONS: tuple[tuple[str, Path], ...] = (
     (
         "contracted",
@@ -200,13 +201,57 @@ DEFAULT_ALIAS_TRANSFER_REPEAT_COMPARISONS: tuple[tuple[str, Path], ...] = (
         / "20260509T_h1n_oracle_repeat_schema_literal_targets_vs_no_directive_v1",
     ),
 )
+DEFAULT_ALIAS_TRANSFER_OBLIQUE_COMPARISONS: tuple[tuple[str, Path], ...] = (
+    (
+        "contracted",
+        ROOT
+        / "results"
+        / "tool_probe_replay_live_comparisons"
+        / "20260509T_h1n_oracle_oblique_contracted_vs_no_directive_v1",
+    ),
+    (
+        "role_catalog_v1",
+        ROOT
+        / "results"
+        / "tool_probe_replay_live_comparisons"
+        / "20260509T_h1n_oracle_oblique_role_catalog_vs_no_directive_v1",
+    ),
+    (
+        "argument_hints_v2",
+        ROOT
+        / "results"
+        / "tool_probe_replay_live_comparisons"
+        / "20260509T_h1n_oracle_oblique_argument_hints_vs_no_directive_v1",
+    ),
+    (
+        "schema_field_hints_v4",
+        ROOT
+        / "results"
+        / "tool_probe_replay_live_comparisons"
+        / "20260509T_h1n_oracle_oblique_schema_field_hints_vs_no_directive_v1",
+    ),
+    (
+        "schema_literal_targets_v5",
+        ROOT
+        / "results"
+        / "tool_probe_replay_live_comparisons"
+        / "20260509T_h1n_oracle_oblique_schema_literal_targets_vs_no_directive_v1",
+    ),
+)
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Analyze visual hard-slice live replay matrices.")
     parser.add_argument(
         "--matrix",
-        choices=["stress", "alias-repeat", "alias-transfer", "alias-transfer-oracle", "alias-transfer-repeat"],
+        choices=[
+            "stress",
+            "alias-repeat",
+            "alias-transfer",
+            "alias-transfer-oracle",
+            "alias-transfer-repeat",
+            "alias-transfer-oblique",
+        ],
         default="stress",
     )
     parser.add_argument("--output-dir", default="")
@@ -278,6 +323,8 @@ def _default_output_dir(matrix_name: str) -> Path:
         return DEFAULT_ALIAS_TRANSFER_ORACLE_OUTPUT_DIR
     if matrix_name == "alias-transfer-repeat":
         return DEFAULT_ALIAS_TRANSFER_REPEAT_OUTPUT_DIR
+    if matrix_name == "alias-transfer-oblique":
+        return DEFAULT_ALIAS_TRANSFER_OBLIQUE_OUTPUT_DIR
     return DEFAULT_OUTPUT_DIR
 
 
@@ -290,6 +337,8 @@ def _default_comparisons(matrix_name: str) -> tuple[tuple[str, Path], ...]:
         return DEFAULT_ALIAS_TRANSFER_ORACLE_COMPARISONS
     if matrix_name == "alias-transfer-repeat":
         return DEFAULT_ALIAS_TRANSFER_REPEAT_COMPARISONS
+    if matrix_name == "alias-transfer-oblique":
+        return DEFAULT_ALIAS_TRANSFER_OBLIQUE_COMPARISONS
     return DEFAULT_COMPARISONS
 
 
@@ -302,6 +351,8 @@ def _table_prefix(matrix_name: str) -> str:
         return "alias_transfer_oracle_matrix"
     if matrix_name == "alias-transfer-repeat":
         return "alias_transfer_repeat_matrix"
+    if matrix_name == "alias-transfer-oblique":
+        return "alias_transfer_oblique_matrix"
     return "stress_matrix"
 
 

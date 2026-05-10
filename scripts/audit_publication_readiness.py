@@ -469,6 +469,32 @@ def audit_publication_readiness(
             detail="Two-packet H1n oracle-transfer synthesis report exists.",
         ),
         _check_path(
+            check_id="h1n_alias_transfer_oblique_packet_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_packets"
+            / "20260509T_visual_hard_slice_live_stress_alias_transfer_oblique_oracle_dry_run_v1"
+            / "replay_cases.json",
+            detail="Held-out H1n oblique-label oracle packet exists.",
+        ),
+        _check_path(
+            check_id="h1n_alias_transfer_oblique_diagnostic_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "visual_alias_transfer_oblique_diagnostic" / "diagnostic.md",
+            detail="Held-out H1n oblique-label diagnostic exists.",
+        ),
+        _check_path(
+            check_id="h1n_alias_transfer_oblique_argument_hints_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260509T_h1n_oracle_oblique_argument_hints_vs_no_directive_v1"
+            / "live_replay_comparison.json",
+            detail="Held-out H1n oblique-label argument-hints comparison exists.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",

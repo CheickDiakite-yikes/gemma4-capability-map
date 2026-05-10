@@ -1,0 +1,51 @@
+{
+  "created_at": "20260510T010345Z",
+  "system_id": "mlx_gemma4_e2b_reasoner_only",
+  "backend": "mlx",
+  "reasoner": "google/gemma-4-E2B-it",
+  "case_count": 1,
+  "runtime_info": {
+    "backend": "mlx",
+    "runtime_posture": "mlx",
+    "requested_model": "google/gemma-4-E2B-it",
+    "effective_model": "mlx-community/gemma-4-e2b-it-4bit",
+    "model_source": "mlx-community/gemma-4-e2b-it-4bit",
+    "model_format": "mlx",
+    "runtime_device": "mlx",
+    "load_mode": "vision",
+    "configured_device": "auto",
+    "request_timeout_seconds": 300.0,
+    "tool_turn_directive_enabled": true,
+    "tool_prompt_contract_id": "",
+    "tool_catalog_profile_id": "",
+    "service": {},
+    "partial_runtime": false,
+    "llama_cpp_error": null,
+    "llama_cpp_context_window": null
+  },
+  "research_controls": {},
+  "summary": {
+    "case_count": 1,
+    "exact_match_count": 0,
+    "exact_match_rate": 0.0,
+    "executable_evaluable_count": 1,
+    "executable_match_count": 0,
+    "executable_match_rate": 0.0,
+    "executor_equivalence_evaluable_count": 1,
+    "executor_equivalence_match_count": 0,
+    "executor_equivalence_match_rate": 0.0,
+    "family_summary": {
+      "visual_tool_routing_transfer_oblique": {
+        "cases": 1,
+        "exact": 0,
+        "executable_cases": 1,
+        "executable": 0,
+        "executor_equivalence_cases": 1,
+        "executor_equivalence": 0,
+        "exact_rate": 0.0,
+        "executable_rate": 0.0,
+        "executor_equivalence_rate": 0.0
+      }
+    }
+  }
+}

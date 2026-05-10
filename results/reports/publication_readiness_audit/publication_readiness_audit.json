@@ -1,9 +1,9 @@
 {
   "summary": {
-    "generated_at": "2026-05-10T00:57:07.536468+00:00",
+    "generated_at": "2026-05-10T01:08:58.538207+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 70,
-    "blocking_check_count": 68,
+    "check_count": 73,
+    "blocking_check_count": 71,
     "blocking_failed_count": 0,
     "recommended_check_count": 2,
     "recommended_failed_count": 0,
@@ -29,7 +29,7 @@
       "check_id": "ledger_has_claims",
       "severity": "blocking",
       "passed": true,
-      "detail": "claim_count=20",
+      "detail": "claim_count=21",
       "path": ""
     },
     {
@@ -367,6 +367,27 @@
       "passed": true,
       "detail": "Two-packet H1n oracle-transfer synthesis report exists.",
       "path": "results/reports/h1n_oracle_transfer_synthesis/report.md"
+    },
+    {
+      "check_id": "h1n_alias_transfer_oblique_packet_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Held-out H1n oblique-label oracle packet exists.",
+      "path": "results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_oblique_oracle_dry_run_v1/replay_cases.json"
+    },
+    {
+      "check_id": "h1n_alias_transfer_oblique_diagnostic_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Held-out H1n oblique-label diagnostic exists.",
+      "path": "results/reports/visual_alias_transfer_oblique_diagnostic/diagnostic.md"
+    },
+    {
+      "check_id": "h1n_alias_transfer_oblique_argument_hints_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Held-out H1n oblique-label argument-hints comparison exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_oblique_argument_hints_vs_no_directive_v1/live_replay_comparison.json"
     },
     {
       "check_id": "current_state_doc_exists",

@@ -3386,6 +3386,30 @@
   - `uv run python scripts/build_visual_hard_slice_live_stress_packet.py --run-group-id 20260509T_visual_hard_slice_live_stress_alias_transfer_oblique_oracle_dry_run_v1 --suite alias_transfer_oblique_v5`
   - `uv run pytest tests/test_visual_hard_slice_live_stress_packet.py -q`
 
+## 2026-05-09 - H1n Oblique-Label Oracle Matrix
+
+- Executed the full oblique-label matrix:
+  - no-directive: exact `0 / 6`, executor-equivalent `0 / 6`
+  - contracted: exact `1 / 6`, executor-equivalent `1 / 6`
+  - role catalog v1: exact `2 / 6`, executor-equivalent `2 / 6`
+  - argument hints v2: exact `4 / 6`, executor-equivalent `4 / 6`
+  - schema-field hints v4: exact `3 / 6`, executor-equivalent `3 / 6`
+  - schema target literals v5: exact `0 / 6`, executor-equivalent `0 / 6`
+- Generated evidence:
+  - diagnostic: [`results/reports/visual_alias_transfer_oblique_diagnostic/diagnostic.md`](../results/reports/visual_alias_transfer_oblique_diagnostic/diagnostic.md)
+  - argument-hints comparison: [`results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_oblique_argument_hints_vs_no_directive_v1`](../results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_oblique_argument_hints_vs_no_directive_v1)
+  - schema-literal comparison: [`results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_oblique_schema_literal_targets_vs_no_directive_v1`](../results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_oblique_schema_literal_targets_vs_no_directive_v1)
+- Interpretation:
+  - the oblique packet breaks the argument-hints/schema-literal tie from the repeat packet in favor of argument hints
+  - schema-field hints is now the second-place mechanism on code-like labels
+  - schema target literals are brittle here: they do not improve over no-directive when literal code-like labels sit beside semantic decoys
+  - contracted prompting is again not an upper bound
+  - the next useful move is a miss analysis on the two argument-hints failures and a less replay-shaped live visual task carrying argument hints and schema-field hints forward
+- Verification:
+  - `uv run moonie-agent replay-live --packet-id 20260509T_visual_hard_slice_live_stress_alias_transfer_oblique_oracle_dry_run_v1 --output-dir results/tool_probe_replay_live/20260509T_h1n_oracle_oblique_argument_hints_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_argument_hints --execute --json`
+  - `uv run python scripts/analyze_visual_live_stress_matrix.py --matrix alias-transfer-oblique`
+  - `uv run pytest tests/test_visual_live_stress_diagnostic.py -q`
+
 ## 2026-05-09 - Schema Target Literal v5 Negative Hard-Slice Repair
 
 - A narrow hard-slice repair candidate was added after inspecting the two v4 exact misses:

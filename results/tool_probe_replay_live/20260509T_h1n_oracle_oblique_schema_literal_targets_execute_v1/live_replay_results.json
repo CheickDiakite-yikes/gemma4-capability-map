@@ -1,0 +1,74 @@
+[
+  {
+    "case_id": "transfer_oblique_node_q17_table_decoy",
+    "family": "visual_argument_transfer_oblique",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "argument_mismatch",
+    "replay_exact_match": false,
+    "replay_executable_match": false,
+    "replay_executor_equivalence_match": false,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260509T_h1n_oracle_oblique_schema_literal_targets_execute_v1/runs/transfer_oblique_node_q17_table_decoy"
+  },
+  {
+    "case_id": "transfer_oblique_badge_m88_chart_decoy",
+    "family": "visual_argument_transfer_oblique",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "argument_mismatch",
+    "replay_exact_match": false,
+    "replay_executable_match": false,
+    "replay_executor_equivalence_match": false,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260509T_h1n_oracle_oblique_schema_literal_targets_execute_v1/runs/transfer_oblique_badge_m88_chart_decoy"
+  },
+  {
+    "case_id": "transfer_oblique_chip_z33_person_decoy",
+    "family": "visual_argument_transfer_oblique",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "argument_mismatch",
+    "replay_exact_match": false,
+    "replay_executable_match": false,
+    "replay_executor_equivalence_match": false,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260509T_h1n_oracle_oblique_schema_literal_targets_execute_v1/runs/transfer_oblique_chip_z33_person_decoy"
+  },
+  {
+    "case_id": "transfer_oblique_cell_r42_notice_decoy",
+    "family": "visual_argument_transfer_oblique",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "argument_mismatch",
+    "replay_exact_match": false,
+    "replay_executable_match": false,
+    "replay_executor_equivalence_match": false,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260509T_h1n_oracle_oblique_schema_literal_targets_execute_v1/runs/transfer_oblique_cell_r42_notice_decoy"
+  },
+  {
+    "case_id": "transfer_oblique_field_e19_old_selection_decoy",
+    "family": "visual_tool_routing_transfer_oblique",
+    "source_failure_mode": "wrong_tool_or_stale_selection_risk",
+    "replay_failure_mode": "no_tool_call",
+    "replay_exact_match": false,
+    "replay_executable_match": false,
+    "replay_executor_equivalence_match": false,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 0,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260509T_h1n_oracle_oblique_schema_literal_targets_execute_v1/runs/transfer_oblique_field_e19_old_selection_decoy"
+  },
+  {
+    "case_id": "transfer_oblique_alert_p55_toggle_decoy",
+    "family": "visual_tool_routing_transfer_oblique",
+    "source_failure_mode": "wrong_tool_or_stale_selection_risk",
+    "replay_failure_mode": "argument_mismatch",
+    "replay_exact_match": false,
+    "replay_executable_match": false,
+    "replay_executor_equivalence_match": false,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260509T_h1n_oracle_oblique_schema_literal_targets_execute_v1/runs/transfer_oblique_alert_p55_toggle_decoy"
+  }
+]

@@ -4,9 +4,9 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 
 ## Manifest
 
-- generated_at: `2026-05-10T00:57:07.540462+00:00`
-- claim_count: `21`
-- evidence_source_count: `97`
+- generated_at: `2026-05-10T01:08:58.545133+00:00`
+- claim_count: `22`
+- evidence_source_count: `102`
 - missing_source_count: `0`
 
 ## Claims
@@ -34,6 +34,7 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C19_h1n_argument_hints_gain_is_not_controller_helper_artifact | supported_current_packets | moderate_internal | Argument hints remains 5/6 exact and 6/6 executor-equivalent with no controller repair, no controller fallback, and no argument repair; all three helper-ablation comparisons have 0.0 exact and executor-equivalence deltas. | This only attributes the six-case oracle replay slice. It does not replace broader controller-helper ablations on packaged workflows or future visual families. | Repeat the helper-ablation result on a fresh oracle transfer packet or on a less staged live visual workflow. |
 | C20_h1n_oracle_repeat_confirms_catalog_transfer_not_contracted_upper_bound | supported_current_packets | moderate_internal | H1n oracle repeat: no-directive is 2/6 exact and executor-equivalent; contracted is 0/6; role catalog and schema-field hints are 4/6; argument hints v2 and schema target literals v5 are 5/6 exact and 6/6 executor-equivalent. | This repeat is still deterministic and six-case; it strengthens the transfer claim but does not replace larger stochastic repeats or less staged live workflows. | Run a third fresh oracle transfer packet or promote the tied argument-hints/schema-literal profiles into a less staged live visual workflow. |
 | C21_h1n_two_packet_oracle_synthesis_narrows_next_visual_question | supported_current_packets | moderate_internal | Across two oracle H1n packets, argument hints is executor-equivalent in both packets at 6/6 and 6/6; schema target literals rises from 4/6 to 6/6 executor-equivalent; contracted is 1/6 then 0/6; helper ablation preserves argument hints at 5/6 exact and 6/6 executor-equivalent with zero deltas. | The synthesis combines deterministic replay-shaped oracle packets, so it is a directional finding for harness design rather than a final population-level estimate. | Run a third held-out oracle family or a less staged live visual workflow comparing argument hints against schema target literals without relying on packaged workflow saturation. |
+| C22_h1n_oblique_labels_favor_argument_hints_over_schema_literals | supported_current_packets | moderate_internal | H1n oblique-label oracle replay-live: no-directive is 0/6 exact and executor-equivalent; contracted is 1/6; role catalog is 2/6; argument hints v2 is 4/6; schema-field hints v4 is 3/6; schema target literals v5 is 0/6. | The packet intentionally stresses literal code-like target labels, so it should be interpreted as a hard held-out mechanism test rather than a representative visual-work population estimate. | Inspect argument-hints misses on the oblique packet, then compare argument hints and schema-field hints on a less replay-shaped live visual task. |
 
 ## Evidence Sources
 
@@ -136,3 +137,8 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C21_h1n_two_packet_oracle_synthesis_narrows_next_visual_question | diagnostic_report | True | results/reports/visual_alias_transfer_oracle_diagnostic/diagnostic.md | First oracle H1n transfer diagnostic showing argument hints as the clean winner. |
 | C21_h1n_two_packet_oracle_synthesis_narrows_next_visual_question | diagnostic_report | True | results/reports/visual_alias_transfer_repeat_diagnostic/diagnostic.md | Fresh repeat diagnostic showing argument hints and schema target literals tie at full executor-equivalence. |
 | C21_h1n_two_packet_oracle_synthesis_narrows_next_visual_question | diagnostic_report | True | results/reports/h1n_oracle_helper_ablation/diagnostic.md | Helper-ablation diagnostic showing the argument-hints gain is not explained by the tested controller helpers. |
+| C22_h1n_oblique_labels_favor_argument_hints_over_schema_literals | tool_probe_replay_packet | True | results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_oblique_oracle_dry_run_v1 | Held-out oblique-label oracle packet with code-like visible target labels and semantic decoys. |
+| C22_h1n_oblique_labels_favor_argument_hints_over_schema_literals | diagnostic_report | True | results/reports/visual_alias_transfer_oblique_diagnostic/diagnostic.md | Diagnostic report summarizing the oblique-label live replay matrix. |
+| C22_h1n_oblique_labels_favor_argument_hints_over_schema_literals | live_replay_packet | True | results/tool_probe_replay_live/20260509T_h1n_oracle_oblique_argument_hints_execute_v1 | Argument-hints execution reaching 4/6 exact and executor-equivalent target success. |
+| C22_h1n_oblique_labels_favor_argument_hints_over_schema_literals | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_oblique_argument_hints_vs_no_directive_v1 | Comparison showing argument hints improves exactness and executor-equivalence by 0.667 over no-directive. |
+| C22_h1n_oblique_labels_favor_argument_hints_over_schema_literals | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_oblique_schema_literal_targets_vs_no_directive_v1 | Comparison showing schema target literals do not improve on the oblique-label packet. |

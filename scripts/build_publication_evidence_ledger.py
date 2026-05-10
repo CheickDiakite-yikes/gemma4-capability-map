@@ -859,6 +859,55 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C22_h1n_oblique_labels_favor_argument_hints_over_schema_literals",
+        claim=(
+            "On a held-out H1n oracle packet with code-like visible labels, argument hints generalizes better than "
+            "schema target literals and contracted prompting."
+        ),
+        status="supported_current_packets",
+        evidence_strength="moderate_internal",
+        primary_metric=(
+            "H1n oblique-label oracle replay-live: no-directive is 0/6 exact and executor-equivalent; contracted "
+            "is 1/6; role catalog is 2/6; argument hints v2 is 4/6; schema-field hints v4 is 3/6; schema target "
+            "literals v5 is 0/6."
+        ),
+        limitation=(
+            "The packet intentionally stresses literal code-like target labels, so it should be interpreted as a "
+            "hard held-out mechanism test rather than a representative visual-work population estimate."
+        ),
+        next_test=(
+            "Inspect argument-hints misses on the oblique packet, then compare argument hints and schema-field hints "
+            "on a less replay-shaped live visual task."
+        ),
+        sources=(
+            EvidenceSource(
+                "tool_probe_replay_packet",
+                "results/tool_probe_replay_packets/20260509T_visual_hard_slice_live_stress_alias_transfer_oblique_oracle_dry_run_v1",
+                "Held-out oblique-label oracle packet with code-like visible target labels and semantic decoys.",
+            ),
+            EvidenceSource(
+                "diagnostic_report",
+                "results/reports/visual_alias_transfer_oblique_diagnostic/diagnostic.md",
+                "Diagnostic report summarizing the oblique-label live replay matrix.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260509T_h1n_oracle_oblique_argument_hints_execute_v1",
+                "Argument-hints execution reaching 4/6 exact and executor-equivalent target success.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_oblique_argument_hints_vs_no_directive_v1",
+                "Comparison showing argument hints improves exactness and executor-equivalence by 0.667 over no-directive.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_oblique_schema_literal_targets_vs_no_directive_v1",
+                "Comparison showing schema target literals do not improve on the oblique-label packet.",
+            ),
+        ),
+    ),
 )
 
 

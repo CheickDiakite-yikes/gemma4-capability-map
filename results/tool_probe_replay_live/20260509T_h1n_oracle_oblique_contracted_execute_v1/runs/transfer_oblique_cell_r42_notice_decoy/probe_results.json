@@ -1,0 +1,51 @@
+[
+  {
+    "case_id": "transfer_oblique_cell_r42_notice_decoy",
+    "family": "visual_argument_transfer_oblique",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "transfer-oblique-cell-5302"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "read_region_text",
+        "arguments": {
+          "image_id": "img-transfer-oblique-cell-r42",
+          "region_id": "cell r42"
+        },
+        "validator_result": "fail",
+        "output": {},
+        "error": "'Region not found: cell r42'"
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-oblique-cell-r42",
+          "target_query": "cell r42"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "read_region_text",
+        "arguments": {
+          "image_id": "img-transfer-oblique-cell-r42",
+          "region_id": "cell r42"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"read_region_text\", \"arguments\": {\"image_id\": \"img-transfer-oblique-cell-r42\", \"region_id\": \"cell r42\"}}",
+    "prompt_tokens": 783,
+    "completion_tokens": 44,
+    "latency_ms": 3555
+  }
+]

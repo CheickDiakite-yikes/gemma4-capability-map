@@ -1,0 +1,2 @@
+case_id,family,expected_call_count,actual_call_count,exact_match,executable_match,executor_target_match,expected_calls,actual_calls,expected_execution,actual_execution,latency_ms,prompt_tokens,completion_tokens
+transfer_oblique_field_e19_old_selection_decoy,visual_tool_routing_transfer_oblique,1,0,False,False,False,"[{""name"": ""extract_layout"", ""arguments"": {""image_id"": ""img-transfer-oblique-field-e19"", ""target_query"": ""field e19""}}]",[],"{""region_ids"": [""transfer-oblique-field-5402""]}",[],4797,1107,1
