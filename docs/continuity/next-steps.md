@@ -2,7 +2,7 @@
 
 ## Current Best Next Moves
 
-The next move is not another broad prompt-contract paragraph and not another H2b/H1x rerun. H1y/H1z showed that prompt/catalog prose alone did not solve stale selection-origin routing. H2a showed that a controller-side stale-selection gate is causal and transferable. H2b isolated a separate residual exactness problem. H2c solved H2b locally but failed H1x transfer. H2d fixed transfer but gave back one H2b strict row. H2e now reconciles that tradeoff on the current gates.
+The next move is not another broad prompt-contract paragraph, not another H2b/H1x rerun, and not another H2e route-arbitration victory lap. H1y/H1z showed that prompt/catalog prose alone did not solve stale selection-origin routing. H2a showed that a controller-side stale-selection gate is causal and transferable. H2b isolated a separate residual exactness problem. H2c solved H2b locally but failed H1x transfer. H2d fixed transfer but gave back one H2b strict row. H2e reconciled that tradeoff on the current gates. H2f then broke global H2e promotion on a fresh holdout.
 
 Execution order:
 
@@ -10,10 +10,12 @@ Execution order:
 2. Treat H2b as the residual exactness gate: v12 reaches `4 / 5` strict and `4 / 5` executor-equivalent; v9 ties executor-equivalence at `4 / 5`; H2a drops to `0 / 5` strict and `3 / 5` executor-equivalent.
 3. Treat H2c as a local residual winner: it reaches `5 / 5` strict and `5 / 5` executor-equivalent on H2b, beating v12 and H2a on the residual rows.
 4. Treat H2d as the transfer repair: it reaches `8 / 8` strict and executor-equivalent on H1x, but only `4 / 5` strict on H2b while keeping `5 / 5` executor-equivalence.
-5. Treat H2e as the current mechanism candidate: it reaches `5 / 5` on H2b and `8 / 8` on H1x, with zero non-exact rows across both packets.
-6. Do not promote H2e globally from two observed gates. Build H2f as a fresh route-arbitration holdout with unseen labels and decoys.
-7. Score both strict exactness and executor-equivalence; do not collapse executor-valid paraphrases into failures when evaluating live usefulness.
-8. Keep packaged workflows paused for this line unless they preserve the same replay-shaped pressure; H1l/H1m already showed packaged visual surfaces can wash out the mechanism.
+5. Treat H2e as mechanism evidence, not a default: it reaches `5 / 5` on H2b and `8 / 8` on H1x, with zero non-exact rows across both packets.
+6. Treat H2f as the current fresh-holdout verdict: H2e and H2c tie at `6 / 10`; H2e beats no-directive by `+0.5` exact/executor-equivalence rate; H2e still fails four rows through right-tool/wrong-query substitutions.
+7. Build H2g as a component-identity query contract: when the user asks for `result tile`, `resolution badge`, `state marker`, or `mode switch`, the live `target_query` should preserve that phrase instead of using the displayed value or nearby alias.
+8. Rerun H2g on H2f first, then backtest on H2b/H1x so a local H2f repair does not regress the route-arbitration gates.
+9. Score both strict exactness and executor-equivalence; do not collapse executor-valid paraphrases into failures when evaluating live usefulness.
+10. Keep packaged workflows paused for this line unless they preserve the same replay-shaped pressure; H1l/H1m already showed packaged visual surfaces can wash out the mechanism.
 
 Immediate suggested command:
 
@@ -23,19 +25,19 @@ uv run python scripts/build_h2b_residual_exactness_synthesis.py
 uv run python scripts/build_h2c_scoped_residual_synthesis.py
 uv run python scripts/build_h2d_transfer_tradeoff_synthesis.py
 uv run python scripts/build_h2e_route_arbitration_synthesis.py
+uv run python scripts/build_h2f_route_arbitration_holdout_synthesis.py
 uv run python scripts/build_mlx_tool_contract_report.py
 uv run python scripts/build_publication_evidence_ledger.py
 uv run python scripts/audit_publication_readiness.py
 ```
 
-Then design the H2f holdout packet from the mechanism, not from the solved rows:
+Then design the H2g contract from the four H2f misses, not from generic wording:
 
-- code-suffix labels beyond `alert s92` and `badge c08`
-- component classes beyond `chip`, `pill`, `badge`, `tag`, and `toggle`
-- stale/old/previous `selection_id` text as untrusted prompt content
-- neighboring notes, comments, summaries, logs, and tables that repeat the same value
-- negated controls and before-reading clauses
-- displayed-value distractors such as `Escalated`, `Manual`, `Closed`, `Blocked`, and fresh equivalents
+- preserve user-requested component identity in `target_query`
+- distinguish component identity from displayed component value
+- distinguish exact component names from nearby aliases
+- keep stale-selection and activation-panel behavior unchanged
+- prove the repair on H2f before spending any packaged-workflow budget
 
 ## Immediate
 

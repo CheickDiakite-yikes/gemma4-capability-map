@@ -2,6 +2,46 @@
 
 # Research Log
 
+## 2026-05-10 - H2f Fresh Holdout Breaks H2e Global Promotion
+
+- Built the fresh H2f route-arbitration holdout after H2e saturated H2b and H1x:
+  - suite: `h2f_route_arbitration_v16`
+  - packet: [`results/tool_probe_replay_packets/20260510T_h2f_route_arbitration_oracle_dry_run_v1`](../results/tool_probe_replay_packets/20260510T_h2f_route_arbitration_oracle_dry_run_v1)
+  - synthesis: [`results/reports/h2f_route_arbitration_holdout_synthesis/report.md`](../results/reports/h2f_route_arbitration_holdout_synthesis/report.md)
+  - figure: [`results/reports/h2f_route_arbitration_holdout_synthesis/figures/h2f_holdout_profile_bars.svg`](../results/reports/h2f_route_arbitration_holdout_synthesis/figures/h2f_holdout_profile_bars.svg)
+- H2f row results:
+  - no-directive: `1 / 10` strict and executor-equivalent
+  - H2a component-label guard plus stale-selection gate: `4 / 10`
+  - component-residual guard v12: `5 / 10` strict, `6 / 10` executor-equivalent
+  - H2d class-preserving route: `5 / 10`
+  - H2c scoped residual gate: `6 / 10`
+  - H2e route arbitration: `6 / 10`
+- Direct comparison read:
+  - H2e ties H2c on H2f: `0.0` strict and executor-equivalence delta
+  - H2e beats H2d by `+0.1`, H2a by `+0.2`, and no-directive by `+0.5`
+  - H2e ties component-residual v12 on executor-equivalence while beating it by `+0.1` strict exactness
+- Mechanism read:
+  - H2f breaks the previous top-line saturation cleanly
+  - controller/prompt helpers remain causal against the no-directive floor
+  - route arbitration does not generalize beyond H2c on this fresh holdout
+  - H2e's four misses all call the right tool but send the wrong `target_query`
+  - the miss pattern is component-identity binding: `result tile` -> `Blocked`, `resolution badge` -> `Deferred`, `state marker` -> `lifecycle state marker`, and `mode switch` -> `mode toggle`
+- Research decision:
+  - reject global H2e promotion
+  - build H2g around a component-identity query contract, not more broad route-arbitration wording
+  - rerun H2g on H2f first, then backtest against H2b/H1x for regressions
+- Reporting updates:
+  - publication evidence ledger now has `44` claims, `240` sources, and `0` missing sources
+  - new claim: `C44_h2f_holdout_breaks_h2e_global_promotion`
+- Verification:
+  - `uv run pytest tests/test_visual_hard_slice_live_stress_packet.py -q`
+  - `uv run moonie-agent replay-live --packet-dir results/tool_probe_replay_packets/20260510T_h2f_route_arbitration_oracle_dry_run_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate --output-dir results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2e_execute_v1 --execute --json`
+  - `uv run moonie-agent replay-live --packet-dir results/tool_probe_replay_packets/20260510T_h2f_route_arbitration_oracle_dry_run_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_scoped_residual_exactness_visual_stale_selection_gate --output-dir results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2c_execute_v1 --execute --json`
+  - `uv run moonie-agent replay-live --packet-dir results/tool_probe_replay_packets/20260510T_h2f_route_arbitration_oracle_dry_run_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive --output-dir results/tool_probe_replay_live/20260510T_h2f_route_arbitration_no_directive_execute_v1 --execute --json`
+  - `uv run python scripts/build_h2f_route_arbitration_holdout_synthesis.py`
+  - `uv run pytest tests/test_h2f_route_arbitration_holdout_synthesis.py tests/test_publication_evidence_ledger.py -q`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+
 ## 2026-05-10 - H2d/H2e Route Arbitration Resolves the First Transfer Tradeoff
 
 - Built and executed the class-preserving H2d profile after H2c's held-out H1x transfer miss:

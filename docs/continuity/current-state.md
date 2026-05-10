@@ -2,17 +2,40 @@
 
 ## Latest Restart Point
 
-The active research frontier is now a fresh H2f route-arbitration holdout, not H1x, local H2a fit, H2b packet construction, H2c transfer, or the H2d tradeoff check.
+The active research frontier is now H2g component-identity query contracts, not H1x, local H2a fit, H2b packet construction, H2c transfer, H2d tradeoff checks, or the H2e mechanism gate.
 
-The latest result is H2e: a route-arbitrated residual exactness profile on top of the H2a stale-selection controller gate. H2e was built from the H2c/H2d failure split:
+The latest result is H2f: a fresh route-arbitration holdout that tested whether H2e generalized beyond the saturated H2b/H1x gates. It does not support global H2e promotion. H2e remains a useful controller/prompt stack, but H2f localizes the next failure to component-identity query binding under displayed-value and alias decoys.
+
+H2e was built from the H2c/H2d failure split:
 
 - H2c saturated H2b locally at `5 / 5` strict and executor-equivalent, but transferred to only `7 / 8` on H1x by swapping `result chip` into `result pill`.
 - H2d repaired that held-out H1x transfer miss at `8 / 8`, but gave back one strict H2b exact row by producing `escalated badge c08` instead of `badge c08`; that row remained executor-equivalent.
-- H2e reconciles the split: `5 / 5` strict and executor-equivalent on H2b, plus `8 / 8` strict and executor-equivalent on H1x, with zero non-exact rows across the two packets.
+- H2e reconciled the split: `5 / 5` strict and executor-equivalent on H2b, plus `8 / 8` strict and executor-equivalent on H1x, with zero non-exact rows across the two packets.
 
-The scientific conclusion is deliberately scoped. H2e is strong mechanism evidence that route arbitration can combine compact code-label exactness with class-preserving component transfer, but it is not yet a global default. The next proof must be a newly authored H2f holdout with unseen code suffixes, component classes, stale-id decoys, and displayed-value distractors.
+H2f then broke the apparent saturation:
 
-Latest H2e artifacts:
+- no-directive: `1 / 10` strict and executor-equivalent
+- H2a component-label guard plus stale-selection gate: `4 / 10`
+- component-residual guard v12: `5 / 10` strict, `6 / 10` executor-equivalent
+- H2d class-preserving route: `5 / 10`
+- H2c scoped residual gate: `6 / 10`
+- H2e route arbitration: `6 / 10`
+
+The scientific conclusion is now sharper. H2e is still strong mechanism evidence against the no-directive floor, but it ties H2c on fresh H2f and fails four rows by calling the right tool with the wrong `target_query`. Two failures substitute visible values (`Blocked`, `Deferred`) and two substitute nearby aliases (`lifecycle state marker`, `mode toggle`) for requested component identities (`result tile`, `resolution badge`, `state marker`, `mode switch`). The next proof must test a component-identity query contract, not another broad route-arbitration paragraph.
+
+Latest H2f artifacts:
+
+- H2f synthesis: [`results/reports/h2f_route_arbitration_holdout_synthesis/report.md`](../../results/reports/h2f_route_arbitration_holdout_synthesis/report.md)
+- H2f figure: [`results/reports/h2f_route_arbitration_holdout_synthesis/figures/h2f_holdout_profile_bars.svg`](../../results/reports/h2f_route_arbitration_holdout_synthesis/figures/h2f_holdout_profile_bars.svg)
+- H2f dry-run packet: [`results/tool_probe_replay_packets/20260510T_h2f_route_arbitration_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260510T_h2f_route_arbitration_oracle_dry_run_v1)
+- H2e H2f live packet: [`results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2e_execute_v1`](../../results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2e_execute_v1)
+- H2c H2f live packet: [`results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2c_execute_v1`](../../results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2c_execute_v1)
+- no-directive H2f live packet: [`results/tool_probe_replay_live/20260510T_h2f_route_arbitration_no_directive_execute_v1`](../../results/tool_probe_replay_live/20260510T_h2f_route_arbitration_no_directive_execute_v1)
+- H2e-vs-H2c H2f comparison: [`results/tool_probe_replay_live_comparisons/20260510T_h2f_route_arbitration_h2e_vs_h2c_v1`](../../results/tool_probe_replay_live_comparisons/20260510T_h2f_route_arbitration_h2e_vs_h2c_v1)
+- H2e-vs-no-directive H2f comparison: [`results/tool_probe_replay_live_comparisons/20260510T_h2f_route_arbitration_h2e_vs_no_directive_v1`](../../results/tool_probe_replay_live_comparisons/20260510T_h2f_route_arbitration_h2e_vs_no_directive_v1)
+- publication claim: `C44_h2f_holdout_breaks_h2e_global_promotion`
+
+H2e artifacts retained as mechanism evidence:
 
 - H2e profile system: `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate`
 - H2e synthesis: [`results/reports/h2e_route_arbitration_synthesis/report.md`](../../results/reports/h2e_route_arbitration_synthesis/report.md)
@@ -89,16 +112,17 @@ Primary artifacts:
 Current reporting snapshot:
 
 - MLX tool-contract report: `110` tables / `45` figures
-- publication evidence ledger: `43` claims / `233` evidence sources / `0` missing
+- publication evidence ledger: `44` claims / `240` evidence sources / `0` missing
 - publication readiness audit: `paper_draft_ready`, `0` blocking failures
-- latest publication claims: `C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a`, `C41_h2c_scoped_residual_gate_saturates_h2b_but_needs_transfer`, `C42_h2d_class_preserving_route_repairs_h2c_transfer_but_costs_h2b_exactness`, `C43_h2e_route_arbitration_reconciles_h2c_h2d_tradeoff`
+- latest publication claims: `C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a`, `C41_h2c_scoped_residual_gate_saturates_h2b_but_needs_transfer`, `C42_h2d_class_preserving_route_repairs_h2c_transfer_but_costs_h2b_exactness`, `C43_h2e_route_arbitration_reconciles_h2c_h2d_tradeoff`, `C44_h2f_holdout_breaks_h2e_global_promotion`
 
 Next restart move:
 
-- build a fresh H2f route-arbitration holdout packet rather than reusing H2b/H1x rows
-- include unseen code labels, component-class names, stale-id decoys, negated neighboring controls, comments/logs/summaries, and displayed-value distractors
-- run H2e against H2f plus H2a/H2c/H2d/v12/no-directive controls on strict exactness and executor-equivalence
-- do not let the H2f gate read expected calls or benchmark labels; use only live visual state, tool schema, and generic route/factor wording
+- build H2g as a component-identity query contract rather than another route-arbitration holdout
+- target the four H2e H2f misses: `result tile`, `resolution badge`, `state marker`, and `mode switch`
+- preserve the requested component phrase in `target_query` when the prompt names a component class or visible label, even when neighboring content repeats the component value
+- rerun H2g on H2f, then rerun on H2b/H1x to check for regressions against the already saturated gates
+- keep strict exactness and executor-equivalence separate, because v12 on H2f again shows a strict/executable divergence
 
 ## Benchmark Shape
 
