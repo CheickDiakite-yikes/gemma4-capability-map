@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "h1p_surface_mode_toggle_note_value_decoy",
+    "family": "h1p_component_value_surface",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "h1p-mode-toggle-9352"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1p-surface-mode-toggle",
+          "target_query": "mode toggle"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h1p-surface-mode-toggle",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "h1p-mode-toggle-9352"
+          ],
+          "region_id": "h1p-mode-toggle-9352",
+          "text_preview": "Manual"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1p-surface-mode-toggle",
+          "target_query": "mode toggle"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1p-surface-mode-toggle",
+          "target_query": "mode toggle"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h1p-surface-mode-toggle\", \"target_query\": \"mode toggle\"}}",
+    "prompt_tokens": 1910,
+    "completion_tokens": 39,
+    "latency_ms": 9498
+  }
+]

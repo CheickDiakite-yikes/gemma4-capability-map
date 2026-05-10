@@ -1,0 +1,58 @@
+[
+  {
+    "case_id": "h1o_code_badge_c08_note_decoy",
+    "family": "h1o_code_negation_preservation",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "h1o-badge-c08-9132"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1o-code-badge-c08",
+          "target_query": "badge m31 c08"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h1o-code-badge-c08",
+          "selection_kind": "regions",
+          "count": 0,
+          "executor_mode": "local",
+          "region_ids": []
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1o-code-badge-c08",
+          "target_query": "badge c08"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1o-code-badge-c08",
+          "target_query": "badge m31 c08"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h1o-code-badge-c08\", \"target_query\": \"badge m31 c08\"}}",
+    "prompt_tokens": 1918,
+    "completion_tokens": 46,
+    "latency_ms": 9396
+  }
+]
