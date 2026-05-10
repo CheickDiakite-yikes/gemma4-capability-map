@@ -450,6 +450,62 @@ def test_visual_hard_slice_live_stress_packet_supports_h1p_component_value_holdo
         assert _expected_call_reaches_oracle(case)
 
 
+def test_visual_hard_slice_live_stress_packet_supports_h1r_component_label_residual_suite(
+    tmp_path: Path,
+) -> None:
+    packet = SCRIPT.build_visual_hard_slice_live_stress_packet(
+        output_root=tmp_path / "replay_packets",
+        run_group_id="visual_stress_h1r_component_label_residual",
+        suite="h1r_component_label_residual_v12",
+    )
+
+    assert packet["summary"]["suite"] == "h1r_component_label_residual_v12"
+    assert packet["summary"]["case_count"] == 6
+    assert packet["summary"]["family_counts"] == {
+        "h1r_code_label_exactness": 2,
+        "h1r_nonstandard_component_class": 2,
+        "h1r_stale_selection_component_label": 2,
+    }
+    assert packet["summary"]["failure_mode_counts"] == {
+        "argument_alias_or_decoy_risk": 4,
+        "wrong_tool_or_stale_selection_risk": 2,
+    }
+    case_ids = {row["case_id"] for row in packet["rows"]}
+    assert "h1r_owner_field_stale_selection_note_decoy" in case_ids
+    assert "h1r_state_tag_log_value_decoy" in case_ids
+    assert "h1r_alert_s92_toggle_negation_decoy" in case_ids
+    cases = {case["case_id"]: case for case in packet["replay_cases"]}
+    assert cases["h1r_owner_field_stale_selection_note_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h1r-owner-field",
+                "target_query": "owner field",
+            },
+        }
+    ]
+    assert cases["h1r_state_tag_log_value_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h1r-state-tag",
+                "target_query": "state tag",
+            },
+        }
+    ]
+    assert cases["h1r_alert_s92_toggle_negation_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h1r-alert-s92",
+                "target_query": "alert s92",
+            },
+        }
+    ]
+    for case in packet["replay_cases"]:
+        assert _expected_call_reaches_oracle(case)
+
+
 def _expected_call_reaches_oracle(case: dict[str, object]) -> bool:
     tool_specs = [ToolSpec.model_validate(payload) for payload in case["tool_specs"]]  # type: ignore[index]
     executor = DeterministicExecutor(tool_specs=tool_specs)

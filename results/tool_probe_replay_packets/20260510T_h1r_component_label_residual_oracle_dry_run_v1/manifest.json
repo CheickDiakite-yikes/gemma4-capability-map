@@ -1,0 +1,33 @@
+{
+  "packet_run_id": "20260510T_h1r_component_label_residual_oracle_dry_run_v1",
+  "packet_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260510T_h1r_component_label_residual_oracle_dry_run_v1",
+  "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+  "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+  "replay_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard",
+  "suite": "h1r_component_label_residual_v12",
+  "case_count": 6,
+  "family_counts": {
+    "h1r_code_label_exactness": 2,
+    "h1r_nonstandard_component_class": 2,
+    "h1r_stale_selection_component_label": 2
+  },
+  "failure_mode_counts": {
+    "argument_alias_or_decoy_risk": 4,
+    "wrong_tool_or_stale_selection_risk": 2
+  },
+  "dry_run": true,
+  "executed_count": 0,
+  "created_at": "2026-05-10T17:37:44.054130+00:00",
+  "registry_path": "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+  "case_ids": [
+    "h1r_owner_field_stale_selection_note_decoy",
+    "h1r_assignee_field_previous_selection_summary_decoy",
+    "h1r_state_tag_log_value_decoy",
+    "h1r_mode_toggle_note_value_decoy",
+    "h1r_alert_s92_toggle_negation_decoy",
+    "h1r_badge_c08_note_decoy"
+  ],
+  "operator_surface": "rich_cli_visual_hard_slice_live_stress_v1",
+  "entrypoint": "moonie-agent replay-live",
+  "purpose": "Repeat the visual hard-slice executor-alias and stale-selection mechanisms under fresh decoys before spending packaged H1 workflow budget."
+}

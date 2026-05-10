@@ -1168,6 +1168,18 @@ The repo still does not support these statements:
 - Gemma beats frontier closed models on the same harness
 - Gemma `31B` runtime posture is already reproduced locally
 
+## Latest H1r Residual Scaffold
+
+H1r is now scaffolded but not yet executed. It is the next replay-shaped residual packet after H1q, designed to test whether a narrow v12 wording can fix the remaining v11 miss families without reviving the broad v9 component-value regressions.
+
+Evidence:
+
+- profile: `visual_role_catalog_component_residual_guard_v12`
+- registry system: `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_residual_guard`
+- dry-run packet: [`results/tool_probe_replay_packets/20260510T_h1r_component_label_residual_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260510T_h1r_component_label_residual_oracle_dry_run_v1)
+- packet shape: `6` oracle-valid replay cases across stale-selection component labels, nonstandard component classes (`tag`, `toggle`), and code-label exactness (`alert s92`, `badge c08`)
+- next required execution: no-directive, v11, and v12 live replays on the same packet, then v12-vs-v11 and v12-vs-no-directive comparisons
+
 ## Latest H1q Component-Label Guard Transfer Finding
 
 H1q is the current sharpest controller-profile transfer result. It was built to resolve the H1p/H1o/H1n tension: broad v9 component-value guidance wins locally on H1p, ties on H1o, and regresses on the older H1n component-value slice. The new `visual_role_catalog_component_label_guard_v11` narrows the wording to copying requested role-plus-component labels instead of selecting displayed values.

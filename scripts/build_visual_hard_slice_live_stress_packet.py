@@ -43,6 +43,7 @@ def parse_args() -> argparse.Namespace:
             "component_value_v9",
             "h1o_control_factorial_v10",
             "h1p_component_value_holdout_v11",
+            "h1r_component_label_residual_v12",
         ],
         default="v1",
     )
@@ -207,6 +208,8 @@ def _stress_cases_for_suite(suite: str) -> list[ToolDirectiveProbeCase]:
         return _h1o_control_factorial_cases_v10()
     if suite == "h1p_component_value_holdout_v11":
         return _h1p_component_value_holdout_cases_v11()
+    if suite == "h1r_component_label_residual_v12":
+        return _h1r_component_label_residual_cases_v12()
     raise ValueError(f"Unknown visual live stress suite: {suite}")
 
 
@@ -225,6 +228,7 @@ def _expected_call_payloads(
         "component_value_v9",
         "h1o_control_factorial_v10",
         "h1p_component_value_holdout_v11",
+        "h1r_component_label_residual_v12",
     }:
         return [_oracle_visual_extract_call(case)]
     return [
@@ -2125,6 +2129,151 @@ def _h1p_component_value_holdout_cases_v11() -> list[ToolDirectiveProbeCase]:
     ]
 
 
+def _h1r_component_label_residual_cases_v12() -> list[ToolDirectiveProbeCase]:
+    return [
+        ToolDirectiveProbeCase(
+            case_id="h1r_owner_field_stale_selection_note_decoy",
+            family="h1r_stale_selection_component_label",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1r-owner-field"),
+                Message(
+                    role="user",
+                    content=(
+                        "Ignore old selection_id sel-owner-archive. Locate the owner field component itself, "
+                        "not the note that repeats Mina."
+                    ),
+                ),
+            ],
+            media=["img-h1r-owner-field"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1r-owner-field",
+                [
+                    _region("h1r-owner-note-9501", "owner note", "Mina owns renewal handoff", area="note"),
+                    _region("h1r-owner-field-9502", "owner field", "Mina", area="field"),
+                    _region("h1r-handoff-table-9503", "handoff table", "Mina handoff rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1r-owner-field-9502"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1r_assignee_field_previous_selection_summary_decoy",
+            family="h1r_stale_selection_component_label",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1r-assignee-field"),
+                Message(
+                    role="user",
+                    content=(
+                        "Previous selection_id sel-assignee-summary is stale. Locate the assignee field component, "
+                        "not the summary row that repeats Theo."
+                    ),
+                ),
+            ],
+            media=["img-h1r-assignee-field"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1r-assignee-field",
+                [
+                    _region("h1r-assignee-summary-9511", "assignment summary", "Theo owns the exception", area="summary"),
+                    _region("h1r-assignee-field-9512", "assignee field", "Theo", area="field"),
+                    _region("h1r-assignee-table-9513", "assignment table", "Theo exception rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1r-assignee-field-9512"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1r_state_tag_log_value_decoy",
+            family="h1r_nonstandard_component_class",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1r-state-tag"),
+                Message(
+                    role="user",
+                    content="Closed appears in the audit log. Locate the state tag component, not the log row.",
+                ),
+            ],
+            media=["img-h1r-state-tag"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1r-state-tag",
+                [
+                    _region("h1r-state-log-9521", "audit log", "Closed by Omar at 13:20", area="log"),
+                    _region("h1r-state-tag-9522", "state tag", "Closed", area="tag"),
+                    _region("h1r-state-table-9523", "state table", "Closed accounts", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1r-state-tag-9522"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1r_mode_toggle_note_value_decoy",
+            family="h1r_nonstandard_component_class",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1r-mode-toggle"),
+                Message(
+                    role="user",
+                    content="Manual is written in the settings note. Locate the mode toggle component itself.",
+                ),
+            ],
+            media=["img-h1r-mode-toggle"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1r-mode-toggle",
+                [
+                    _region("h1r-mode-note-9531", "settings note", "Manual override is active", area="note"),
+                    _region("h1r-mode-toggle-9532", "mode toggle", "Manual", area="toggle"),
+                    _region("h1r-mode-table-9533", "settings table", "Manual exception rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1r-mode-toggle-9532"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1r_alert_s92_toggle_negation_decoy",
+            family="h1r_code_label_exactness",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1r-alert-s92"),
+                Message(
+                    role="user",
+                    content=(
+                        "The consent toggle is not the target. Locate alert s92 before reading the retry log."
+                    ),
+                ),
+            ],
+            media=["img-h1r-alert-s92"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1r-alert-s92",
+                [
+                    _region("h1r-consent-toggle-9541", "consent toggle", "Enabled", area="toggle"),
+                    _region("h1r-alert-s92-9542", "alert s92", "Consent mismatch", area="alert"),
+                    _region("h1r-retry-log-9543", "retry log", "s92 retry failed", area="log"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1r-alert-s92-9542"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h1r_badge_c08_note_decoy",
+            family="h1r_code_label_exactness",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h1r-badge-c08"),
+                Message(
+                    role="user",
+                    content="The case note repeats C08. Locate badge c08, not the note or case table.",
+                ),
+            ],
+            media=["img-h1r-badge-c08"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h1r-badge-c08",
+                [
+                    _region("h1r-case-note-9551", "case note", "C08 escalated by Sana", area="note"),
+                    _region("h1r-badge-c08-9552", "badge c08", "Escalated", area="badge"),
+                    _region("h1r-case-table-9553", "case table", "Escalation rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h1r-badge-c08-9552"]},
+        ),
+    ]
+
+
 def _visual_state(image_id: str, local_layouts: list[dict[str, Any]]) -> dict[str, Any]:
     return {
         "visual_executor_mode": "local",
@@ -2158,6 +2307,7 @@ def _stress_failure_mode(family: str) -> str:
         "visual_tool_routing_component_value",
         "h1o_activation_no_call",
         "h1p_component_value_stale_selection",
+        "h1r_stale_selection_component_label",
     }:
         return "wrong_tool_or_stale_selection_risk"
     return "argument_alias_or_decoy_risk"

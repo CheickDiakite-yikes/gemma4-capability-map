@@ -299,6 +299,26 @@ def test_visual_role_catalog_component_label_guard_profile_adds_narrow_component
     assert "component_value_status_badge_email_decoy" not in rendered
 
 
+def test_visual_role_catalog_component_residual_guard_profile_targets_h1q_misses() -> None:
+    specs = build_default_registry().specs
+    rendered = tool_catalog_text(
+        [specs["extract_layout"], specs["refine_selection"], specs["read_region_text"]],
+        profile_id="visual_role_catalog_component_residual_guard_v12",
+    )
+
+    assert "Tool catalog profile: visual_role_catalog_component_residual_guard_v12" in rendered
+    assert "Oblique visible-label discipline:" in rendered
+    assert "Stale-selection activation guard:" in rendered
+    assert "Narrow component-label guard:" in rendered
+    assert "Residual component-label guard:" in rendered
+    assert "tag, toggle, switch, field, badge, chip, pill, tile, alert, and node" in rendered
+    assert "owner field, assignee field, reviewer field, or mode field" in rendered
+    assert "alert s92 or badge c08" in rendered
+    assert '"target_query": {"type": "string", "description": "Compact residual visible-component label requested by the user' in rendered
+    assert '"filter_query": {"type": "string", "description": "Shortest literal narrowing token for a current selection_id' in rendered
+    assert "component_value_status_badge_email_decoy" not in rendered
+
+
 def test_tool_catalog_profile_renders_inside_catalog_without_exact_directive() -> None:
     specs = build_default_registry().specs
     rendered = tool_catalog_text(
