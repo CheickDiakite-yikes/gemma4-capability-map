@@ -66,6 +66,71 @@ systems:
     assert (output_dir / "runs" / "cli_invoice_lock_hyphen_query" / "probe_results.json").exists()
 
 
+def test_tool_probe_replay_live_scores_serialized_expected_calls(tmp_path: Path) -> None:
+    case = next(case for case in build_tool_directive_probe_cases() if case.case_id == "cli_invoice_lock_hyphen_query")
+    packet_dir = tmp_path / "source_replay"
+    packet_dir.mkdir(parents=True)
+    replay_case = {
+        "case_id": case.case_id,
+        "family": case.family,
+        "messages": [message.model_dump(mode="json") for message in case.messages],
+        "media": case.media,
+        "tool_names": case.tool_names,
+        "expected_calls": [
+            {
+                "name": "cli_search_logs",
+                "arguments": {
+                    "path": "logs/other.log",
+                    "query": "invoice-lock",
+                },
+            }
+        ],
+    }
+    (packet_dir / "manifest.json").write_text(
+        json.dumps({"packet_run_id": packet_dir.name, "case_ids": [case.case_id]}) + "\n",
+        encoding="utf-8",
+    )
+    (packet_dir / "replay_cases.json").write_text(json.dumps([replay_case], indent=2) + "\n", encoding="utf-8")
+    (packet_dir / "replay_cases.csv").write_text(
+        "\n".join(
+            [
+                "case_id,family,source_failure_mode,source_exact_match,source_executable_match,baseline_exact_match,expected_call_count,source_actual_call_count,case_path",
+                f"{case.case_id},{case.family},argument_mismatch,False,,True,1,0,{packet_dir / 'cases' / f'{case.case_id}.json'}",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    registry_path = tmp_path / "registry.yaml"
+    registry_path.write_text(
+        """
+systems:
+  heuristic_probe:
+    backend: heuristic
+    reasoner: google/gemma-4-E2B-it
+    reasoner_max_new_tokens: 64
+    request_timeout_seconds: 30.0
+""".strip()
+        + "\n",
+        encoding="utf-8",
+    )
+
+    payload = run_tool_probe_replay_live(
+        packet_dir=packet_dir,
+        output_dir=tmp_path / "live_replay",
+        system_id="heuristic_probe",
+        registry_path=registry_path,
+        execute=True,
+        render=False,
+    )
+
+    output_dir = Path(payload["packet_dir"])
+    assert payload["results"][0]["replay_exact_match"] is False
+    probe_rows = json.loads((output_dir / "runs" / case.case_id / "probe_results.json").read_text(encoding="utf-8"))
+    assert probe_rows[0]["expected_calls"] == replay_case["expected_calls"]
+    assert probe_rows[0]["actual_calls"][0]["arguments"]["path"] == "logs/billing.log"
+
+
 def test_tool_probe_replay_live_loads_packet_serialized_custom_cases(tmp_path: Path) -> None:
     case = build_visual_hard_slice_cases()[0]
     packet_dir = tmp_path / "visual_replay"

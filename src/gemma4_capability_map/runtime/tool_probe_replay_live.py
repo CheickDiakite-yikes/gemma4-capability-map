@@ -18,7 +18,7 @@ from gemma4_capability_map.runtime.tool_directive_probe import (
     build_tool_directive_probe_cases,
     run_tool_directive_probe,
 )
-from gemma4_capability_map.schemas import Message
+from gemma4_capability_map.schemas import Message, ToolCall
 
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -363,9 +363,28 @@ def _packet_replay_cases(source_packet: Path) -> list[ToolDirectiveProbeCase]:
                 tool_names=[str(item) for item in row.get("tool_names", [])],
                 initial_state=row.get("initial_state") if isinstance(row.get("initial_state"), dict) else {},
                 expected_execution=row.get("expected_execution") if isinstance(row.get("expected_execution"), dict) else {},
+                expected_calls=_expected_calls(row.get("expected_calls", [])),
             )
         )
     return cases
+
+
+def _expected_calls(payload: Any) -> list[ToolCall]:
+    if not isinstance(payload, list):
+        return []
+    calls: list[ToolCall] = []
+    for item in payload:
+        if not isinstance(item, dict):
+            continue
+        calls.append(
+            ToolCall(
+                name=str(item.get("name", "")),
+                arguments=item.get("arguments") if isinstance(item.get("arguments"), dict) else {},
+                source_format="oracle",
+                raw=json.dumps(item, separators=(",", ":"), ensure_ascii=False),
+            )
+        )
+    return calls
 
 
 def _case_command(

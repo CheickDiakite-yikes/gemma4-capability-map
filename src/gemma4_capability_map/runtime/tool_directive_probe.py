@@ -29,6 +29,7 @@ class ToolDirectiveProbeCase:
     tool_names: list[str]
     initial_state: dict[str, Any] = field(default_factory=dict)
     expected_execution: dict[str, Any] = field(default_factory=dict)
+    expected_calls: list[ToolCall] = field(default_factory=list)
 
 
 def build_tool_directive_probe_cases() -> list[ToolDirectiveProbeCase]:
@@ -182,7 +183,7 @@ def run_tool_directive_probe(
     rows = []
     for case in selected_cases:
         tool_specs = [tool_specs_by_name[name] for name in case.tool_names]
-        expected_calls = plan_tool_calls(case.messages, case.media, tool_specs)
+        expected_calls = case.expected_calls or plan_tool_calls(case.messages, case.media, tool_specs)
         turn = runner.generate(
             messages=case.messages,
             media=case.media,
