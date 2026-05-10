@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "h1p_surface_result_badge_comment_value_decoy",
+    "family": "h1p_component_value_surface",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "h1p-result-badge-9372"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1p-surface-result-badge",
+          "target_query": "result badge"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h1p-surface-result-badge",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "h1p-result-badge-9372"
+          ],
+          "region_id": "h1p-result-badge-9372",
+          "text_preview": "Approved"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1p-surface-result-badge",
+          "target_query": "result badge"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1p-surface-result-badge",
+          "target_query": "result badge"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h1p-surface-result-badge\", \"target_query\": \"result badge\"}}",
+    "prompt_tokens": 1501,
+    "completion_tokens": 39,
+    "latency_ms": 6137
+  }
+]
