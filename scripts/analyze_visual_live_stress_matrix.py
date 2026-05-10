@@ -284,6 +284,13 @@ DEFAULT_ALIAS_TRANSFER_POST_REPAIR_COMPARISONS: tuple[tuple[str, Path], ...] = (
         / "tool_probe_replay_live_comparisons"
         / "20260510T_h1n_post_repair_code_guard_vs_no_directive_v1",
     ),
+    (
+        "no_call_control_rescue_v10",
+        ROOT
+        / "results"
+        / "tool_probe_replay_live_comparisons"
+        / "20260510T_h1n_post_repair_no_call_control_rescue_vs_no_directive_v1",
+    ),
 )
 DEFAULT_ALIAS_TRANSFER_RESIDUAL_COMPARISONS: tuple[tuple[str, Path], ...] = (
     (
@@ -580,14 +587,20 @@ def _transition_rows(case_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 def _finding_rows(summary_rows: list[dict[str, Any]], case_rows: list[dict[str, Any]]) -> list[dict[str, str]]:
     findings: list[dict[str, str]] = []
-    exact_best = max(summary_rows, key=lambda row: float(row["candidate_exact_rate"]))
+    exact_best_rate = max(float(row["candidate_exact_rate"]) for row in summary_rows)
+    exact_best = [
+        row for row in summary_rows if float(row["candidate_exact_rate"]) == exact_best_rate
+    ]
     executor_best = [
         row for row in summary_rows if float(row["candidate_executor_equivalence_rate"]) == 1.0
     ]
     findings.append(
         {
             "finding_id": "strict_upper_bound",
-            "finding": f"{exact_best['label']} is the strict upper bound at {exact_best['candidate_exact_rate']}.",
+            "finding": (
+                f"{', '.join(row['label'] for row in exact_best)} "
+                f"{'is' if len(exact_best) == 1 else 'are'} the strict upper bound at {exact_best_rate}."
+            ),
         }
     )
     findings.append(

@@ -4,6 +4,8 @@ argument_hints_v2,unchanged,5
 contracted,regression,1
 contracted,strict_gain,2
 contracted,unchanged,5
+no_call_control_rescue_v10,strict_gain,4
+no_call_control_rescue_v10,unchanged,4
 oblique_code_guard_v7,strict_gain,4
 oblique_code_guard_v7,unchanged,4
 oblique_code_hints_v6,regression,1

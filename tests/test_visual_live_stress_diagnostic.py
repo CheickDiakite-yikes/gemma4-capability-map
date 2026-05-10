@@ -209,7 +209,7 @@ def test_visual_alias_transfer_post_repair_diagnostic_writes_findings(tmp_path: 
         table_prefix="alias_transfer_post_repair_matrix",
     )
 
-    assert payload["manifest"]["comparison_count"] == 4
+    assert payload["manifest"]["comparison_count"] == 5
     assert payload["manifest"]["case_count"] == 8
     assert payload["manifest"]["matrix_name"] == "alias-transfer-post-repair"
     summary = {row["label"]: row for row in payload["summary_rows"]}
@@ -218,6 +218,8 @@ def test_visual_alias_transfer_post_repair_diagnostic_writes_findings(tmp_path: 
     assert summary["oblique_code_hints_v6"]["candidate_exact_rate"] == 0.625
     assert summary["oblique_code_guard_v7"]["candidate_exact_rate"] == 0.75
     assert summary["oblique_code_guard_v7"]["delta_executor_equivalence_rate"] == 0.5
+    assert summary["no_call_control_rescue_v10"]["candidate_exact_rate"] == 0.75
+    assert summary["no_call_control_rescue_v10"]["candidate_executor_equivalence_rate"] == 0.75
     transitions = {(row["label"], row["case_id"]): row for row in payload["case_rows"]}
     assert transitions[
         ("oblique_code_guard_v7", "post_repair_badge_t64_notice_decoy")
@@ -228,8 +230,12 @@ def test_visual_alias_transfer_post_repair_diagnostic_writes_findings(tmp_path: 
     assert transitions[
         ("oblique_code_hints_v6", "post_repair_review_tile_table_decoy")
     ]["transition"] == "regression"
+    assert transitions[
+        ("no_call_control_rescue_v10", "post_repair_status_pill_note_decoy")
+    ]["transition"] == "strict_gain"
     findings = {row["finding_id"]: row["finding"] for row in payload["finding_rows"]}
     assert "oblique_code_guard_v7" in findings["strict_upper_bound"]
+    assert "no_call_control_rescue_v10" in findings["strict_upper_bound"]
     assert "Executor-equivalent full-success rows: none." in findings["executor_equivalence_set"]
     assert (tmp_path / "diagnostic.md").exists()
     assert (tmp_path / "diagnostic.json").exists()
