@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "residual_notice_tile_email_decoy",
+    "family": "visual_argument_transfer_residual_noncode",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "residual-notice-tile-7502"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-residual-notice-tile",
+          "target_query": "notice tile"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-residual-notice-tile",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "residual-notice-tile-7502"
+          ],
+          "region_id": "residual-notice-tile-7502",
+          "text_preview": "Renewal warning"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-residual-notice-tile",
+          "target_query": "notice tile"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-residual-notice-tile",
+          "target_query": "notice tile"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-residual-notice-tile\", \"target_query\": \"notice tile\"}}",
+    "prompt_tokens": 1468,
+    "completion_tokens": 35,
+    "latency_ms": 4717
+  }
+]

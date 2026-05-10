@@ -1,0 +1,2 @@
+case_id,family,expected_call_count,actual_call_count,exact_match,executable_match,executor_target_match,expected_calls,actual_calls,expected_execution,actual_execution,latency_ms,prompt_tokens,completion_tokens
+residual_state_pill_note_decoy,visual_argument_transfer_residual_noncode,1,0,False,False,False,"[{""name"": ""extract_layout"", ""arguments"": {""image_id"": ""img-residual-state-pill"", ""target_query"": ""state pill""}}]",[],"{""region_ids"": [""residual-state-pill-7302""]}",[],5585,1238,1

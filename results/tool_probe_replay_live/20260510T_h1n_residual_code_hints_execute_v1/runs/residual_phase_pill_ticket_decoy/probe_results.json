@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "residual_phase_pill_ticket_decoy",
+    "family": "visual_argument_transfer_residual_noncode",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "residual-phase-pill-7402"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-residual-phase-pill",
+          "target_query": "phase pill"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-residual-phase-pill",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "residual-phase-pill-7402"
+          ],
+          "region_id": "residual-phase-pill-7402",
+          "text_preview": "Review"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-residual-phase-pill",
+          "target_query": "phase pill"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-residual-phase-pill",
+          "target_query": "phase pill"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-residual-phase-pill\", \"target_query\": \"phase pill\"}}",
+    "prompt_tokens": 1236,
+    "completion_tokens": 35,
+    "latency_ms": 5523
+  }
+]

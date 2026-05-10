@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "residual_chip_n31_owner_note_decoy",
+    "family": "visual_argument_transfer_residual_code",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "residual-chip-n31-7002"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-residual-chip-n31",
+          "target_query": "chip n31"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-residual-chip-n31",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "residual-chip-n31-7002"
+          ],
+          "region_id": "residual-chip-n31-7002",
+          "text_preview": "Queue delay 18m"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-residual-chip-n31",
+          "target_query": "chip n31"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-residual-chip-n31",
+          "target_query": "chip n31"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-residual-chip-n31\", \"target_query\": \"chip n31\"}}",
+    "prompt_tokens": 1244,
+    "completion_tokens": 39,
+    "latency_ms": 9827
+  }
+]

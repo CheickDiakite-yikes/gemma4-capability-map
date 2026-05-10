@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "residual_badge_q14_notice_decoy",
+    "family": "visual_argument_transfer_residual_code",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "residual-badge-q14-7202"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-residual-badge-q14",
+          "target_query": "badge q14"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-residual-badge-q14",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "residual-badge-q14-7202"
+          ],
+          "region_id": "residual-badge-q14-7202",
+          "text_preview": "Pending: 3"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-residual-badge-q14",
+          "target_query": "badge q14"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-residual-badge-q14",
+          "target_query": "badge q14"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-residual-badge-q14\", \"target_query\": \"badge q14\"}}",
+    "prompt_tokens": 1241,
+    "completion_tokens": 39,
+    "latency_ms": 7102
+  }
+]

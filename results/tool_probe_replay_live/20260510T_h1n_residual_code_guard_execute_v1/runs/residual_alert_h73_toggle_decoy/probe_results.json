@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "residual_alert_h73_toggle_decoy",
+    "family": "visual_tool_routing_transfer_residual",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "residual-alert-h73-7702"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-residual-alert-h73",
+          "target_query": "alert h73"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-residual-alert-h73",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "residual-alert-h73-7702"
+          ],
+          "region_id": "residual-alert-h73-7702",
+          "text_preview": "Compliance review overdue"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-residual-alert-h73",
+          "target_query": "alert h73"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-residual-alert-h73",
+          "target_query": "alert h73"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-residual-alert-h73\", \"target_query\": \"alert h73\"}}",
+    "prompt_tokens": 1316,
+    "completion_tokens": 39,
+    "latency_ms": 5745
+  }
+]

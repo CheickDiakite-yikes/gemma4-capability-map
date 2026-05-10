@@ -1,0 +1,58 @@
+[
+  {
+    "case_id": "residual_chip_v82_chart_decoy",
+    "family": "visual_argument_transfer_residual_code",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "residual-chip-v82-7102"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-residual_chip_v82",
+          "target_query": "retry language"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-residual_chip_v82",
+          "selection_kind": "regions",
+          "count": 0,
+          "executor_mode": "local",
+          "region_ids": []
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-residual-chip-v82",
+          "target_query": "chip v82"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-residual_chip_v82",
+          "target_query": "retry language"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-residual_chip_v82\", \"target_query\": \"retry language\"}}",
+    "prompt_tokens": 810,
+    "completion_tokens": 37,
+    "latency_ms": 4072
+  }
+]

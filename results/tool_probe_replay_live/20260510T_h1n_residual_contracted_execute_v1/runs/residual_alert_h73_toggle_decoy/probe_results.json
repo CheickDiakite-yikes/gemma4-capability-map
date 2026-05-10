@@ -1,0 +1,51 @@
+[
+  {
+    "case_id": "residual_alert_h73_toggle_decoy",
+    "family": "visual_tool_routing_transfer_residual",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "residual-alert-h73-7702"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "read_region_text",
+        "arguments": {
+          "image_id": "img-residual-alert-h73",
+          "region_id": ""
+        },
+        "validator_result": "fail",
+        "output": {},
+        "error": "'Region not found: '"
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-residual-alert-h73",
+          "target_query": "alert h73"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "read_region_text",
+        "arguments": {
+          "image_id": "img-residual-alert-h73",
+          "region_id": ""
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"read_region_text\", \"arguments\": {\"image_id\": \"img-residual-alert-h73\", \"region_id\": \"\"}}",
+    "prompt_tokens": 775,
+    "completion_tokens": 37,
+    "latency_ms": 3902
+  }
+]

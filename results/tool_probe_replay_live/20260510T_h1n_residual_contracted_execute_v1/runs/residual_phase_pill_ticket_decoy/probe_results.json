@@ -1,0 +1,51 @@
+[
+  {
+    "case_id": "residual_phase_pill_ticket_decoy",
+    "family": "visual_argument_transfer_residual_noncode",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "residual-phase-pill-7402"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "read_region_text",
+        "arguments": {
+          "image_id": "img-residual-phase-pill",
+          "region_id": ""
+        },
+        "validator_result": "fail",
+        "output": {},
+        "error": "'Region not found: '"
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-residual-phase-pill",
+          "target_query": "phase pill"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "read_region_text",
+        "arguments": {
+          "image_id": "img-residual-phase-pill",
+          "region_id": ""
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"read_region_text\", \"arguments\": {\"image_id\": \"img-residual-phase-pill\", \"region_id\": \"\"}}",
+    "prompt_tokens": 769,
+    "completion_tokens": 35,
+    "latency_ms": 3880
+  }
+]
