@@ -1,10 +1,10 @@
 # H2f Route Arbitration Holdout Synthesis
 
-Generated: `2026-05-10T21:44:52.657720+00:00`
+Generated: `2026-05-10T22:01:38.599299+00:00`
 
 ## Summary
 
-H2f is the fresh holdout that was supposed to test whether H2e route arbitration generalized beyond the saturated H2b/H1x gates. It does not. H2e keeps a large advantage over the no-directive floor, but it ties H2c and fails four cases by calling the right tool with the wrong query. The residual problem is component-identity binding under displayed-value decoys. H2g improves executor-equivalence by one row but does not improve strict exactness. H2h then repairs most of the fresh holdout at 9/10 strict and executor-equivalent, leaving only the state marker alias. This is strong scoped evidence, but still needs transfer tradeoff reporting before any global promotion claim.
+H2f is the fresh holdout that was supposed to test whether H2e route arbitration generalized beyond the saturated H2b/H1x gates. It does not. H2e keeps a large advantage over the no-directive floor, but it ties H2c and fails four cases by calling the right tool with the wrong query. The residual problem is component-identity binding under displayed-value decoys. H2g improves executor-equivalence by one row but does not improve strict exactness. H2h then repairs most of the fresh holdout at 9/10 strict and executor-equivalent, leaving only the state marker alias. H2i conditionalization does not preserve that lift: it returns to 6/10, tying H2e while trailing H2h by three rows. This makes H2h a strong scoped repair and H2i a negative prompt-conditionalization result.
 
 ![H2f holdout profile bars](figures/h2f_holdout_profile_bars.svg)
 
@@ -20,6 +20,7 @@ H2f is the fresh holdout that was supposed to test whether H2e route arbitration
 | h2e_route_arbitration | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate | results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2e_execute_v1 | 10 | 6 | 0.6 | 6 | 0.6 | 6 | 0.6 |
 | h2g_component_identity_query_contract | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_identity_query_contract_visual_stale_selection_gate | results/tool_probe_replay_live/20260510T_h2g_component_identity_query_contract_on_h2f_execute_v1 | 10 | 6 | 0.6 | 7 | 0.7 | 7 | 0.7 |
 | h2h_component_identity_negative_examples | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_identity_negative_examples_visual_stale_selection_gate | results/tool_probe_replay_live/20260510T_h2h_component_identity_negative_examples_on_h2f_execute_v1 | 10 | 9 | 0.9 | 9 | 0.9 | 9 | 0.9 |
+| h2i_conditional_component_arbitration | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_conditional_component_identity_arbitration_visual_stale_selection_gate | results/tool_probe_replay_live/20260510T_h2i_conditional_component_arbitration_on_h2f_execute_v1 | 10 | 6 | 0.6 | 6 | 0.6 | 6 | 0.6 |
 
 ## Comparison Rows
 
@@ -37,6 +38,8 @@ H2f is the fresh holdout that was supposed to test whether H2e route arbitration
 | h2f_h2h_vs_h2g | results/tool_probe_replay_live_comparisons/20260510T_h2h_component_identity_negative_examples_vs_h2g_on_h2f_v1 | 10 | 0.6 | 0.9 | 0.30000000000000004 | 0.7 | 0.9 | 0.20000000000000007 | 0.7 | 0.9 | 0.20000000000000007 |
 | h2f_h2h_vs_h2c | results/tool_probe_replay_live_comparisons/20260510T_h2h_component_identity_negative_examples_vs_h2c_on_h2f_v1 | 10 | 0.6 | 0.9 | 0.30000000000000004 | 0.6 | 0.9 | 0.30000000000000004 | 0.6 | 0.9 | 0.30000000000000004 |
 | h2f_h2h_vs_no_directive | results/tool_probe_replay_live_comparisons/20260510T_h2h_component_identity_negative_examples_vs_no_directive_on_h2f_v1 | 10 | 0.1 | 0.9 | 0.8 | 0.1 | 0.9 | 0.8 | 0.1 | 0.9 | 0.8 |
+| h2f_h2i_vs_h2e | results/tool_probe_replay_live_comparisons/20260510T_h2i_conditional_component_arbitration_vs_h2e_on_h2f_v1 | 10 | 0.6 | 0.6 | 0.0 | 0.6 | 0.6 | 0.0 | 0.6 | 0.6 | 0.0 |
+| h2f_h2i_vs_h2h | results/tool_probe_replay_live_comparisons/20260510T_h2i_conditional_component_arbitration_vs_h2h_on_h2f_v1 | 10 | 0.9 | 0.6 | -0.30000000000000004 | 0.9 | 0.6 | -0.30000000000000004 | 0.9 | 0.6 | -0.30000000000000004 |
 
 ## H2e Non-Exact Rows
 
@@ -61,6 +64,15 @@ H2f is the fresh holdout that was supposed to test whether H2e route arbitration
 | profile_label | packet_dir | case_id | family | failure_mode | executable_match | executor_equivalence_match | expected_tool | expected_target_query | actual_tool | actual_target_query | query_error_class |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | h2h_component_identity_negative_examples | results/tool_probe_replay_live/20260510T_h2h_component_identity_negative_examples_on_h2f_execute_v1 | h2f_state_marker_history_value_decoy | h2f_route_nonstandard_class | argument_mismatch | False | False | extract_layout | state marker | extract_layout | lifecycle state marker | value_or_alias_query_substitution |
+
+## H2i Non-Exact Rows
+
+| profile_label | packet_dir | case_id | family | failure_mode | executable_match | executor_equivalence_match | expected_tool | expected_target_query | actual_tool | actual_target_query | query_error_class |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| h2i_conditional_component_arbitration | results/tool_probe_replay_live/20260510T_h2i_conditional_component_arbitration_on_h2f_execute_v1 | h2f_alert_t47_negated_switch_decoy | h2f_route_code_label | argument_mismatch | False | False | extract_layout | alert t47 | extract_layout | Escalated | value_or_alias_query_substitution |
+| h2i_conditional_component_arbitration | results/tool_probe_replay_live/20260510T_h2i_conditional_component_arbitration_on_h2f_execute_v1 | h2f_result_tile_comment_value_decoy | h2f_route_component_class_transfer | argument_mismatch | False | False | extract_layout | result tile | extract_layout | result tile for Blocked | value_or_alias_query_substitution |
+| h2i_conditional_component_arbitration | results/tool_probe_replay_live/20260510T_h2i_conditional_component_arbitration_on_h2f_execute_v1 | h2f_resolution_badge_log_result_decoy | h2f_route_component_class_transfer | argument_mismatch | False | False | extract_layout | resolution badge | extract_layout | resolution badge for Deferred | value_or_alias_query_substitution |
+| h2i_conditional_component_arbitration | results/tool_probe_replay_live/20260510T_h2i_conditional_component_arbitration_on_h2f_execute_v1 | h2f_state_marker_history_value_decoy | h2f_route_nonstandard_class | argument_mismatch | False | False | extract_layout | state marker | extract_layout | lifecycle state marker | value_or_alias_query_substitution |
 
 ## Family Rows
 
@@ -106,6 +118,11 @@ H2f is the fresh holdout that was supposed to test whether H2e route arbitration
 | h2h_component_identity_negative_examples | h2f_route_nonstandard_class | 2 | 1 | 1 | 0.5 | 0.5 |
 | h2h_component_identity_negative_examples | h2f_route_stale_field | 2 | 2 | 2 | 1.0 | 1.0 |
 | h2h_component_identity_negative_examples | h2f_activation_panel_notice | 2 | 2 | 2 | 1.0 | 1.0 |
+| h2i_conditional_component_arbitration | h2f_route_code_label | 2 | 1 | 1 | 0.5 | 0.5 |
+| h2i_conditional_component_arbitration | h2f_route_component_class_transfer | 2 | 0 | 0 | 0.0 | 0.0 |
+| h2i_conditional_component_arbitration | h2f_route_nonstandard_class | 2 | 1 | 1 | 0.5 | 0.5 |
+| h2i_conditional_component_arbitration | h2f_route_stale_field | 2 | 2 | 2 | 1.0 | 1.0 |
+| h2i_conditional_component_arbitration | h2f_activation_panel_notice | 2 | 2 | 2 | 1.0 | 1.0 |
 
 ## Failure Mode Rows
 
@@ -131,6 +148,8 @@ H2f is the fresh holdout that was supposed to test whether H2e route arbitration
 | h2g_component_identity_query_contract | executable_paraphrase | 1 |
 | h2h_component_identity_negative_examples | argument_mismatch | 1 |
 | h2h_component_identity_negative_examples | exact | 9 |
+| h2i_conditional_component_arbitration | argument_mismatch | 4 |
+| h2i_conditional_component_arbitration | exact | 6 |
 
 ## Findings
 
@@ -144,3 +163,4 @@ H2f is the fresh holdout that was supposed to test whether H2e route arbitration
 | h2h_repairs_h2f_component_identity | H2h reaches 9/10 exact and 9/10 executor-equivalent on H2f, lifting exactness by 0.30000000000000004 versus H2e and 0.30000000000000004 versus H2g. |
 | h2h_residual_state_marker_alias | H2h leaves one H2f residual. The remaining target-query substitution is state marker->lifecycle state marker, so the next contract work should isolate marker-prefix alias expansion rather than broad value-substitution prose. |
 | next_contract | Do not promote H2h globally from H2f alone. Use the H2b/H1x transfer tradeoff packets to test whether the negative examples preserve prior residual-exactness and route-arbitration wins. |
+| h2i_conditionalization_is_negative | H2i conditional arbitration falls back to 6/10 exact on H2f, tying H2e with delta exact=0.0 and trailing H2h by -0.30000000000000004. Its non-exact rows are alert t47->Escalated, result tile->result tile for Blocked, resolution badge->resolution badge for Deferred, state marker->lifecycle state marker. |

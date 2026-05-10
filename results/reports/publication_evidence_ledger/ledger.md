@@ -4,9 +4,9 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 
 ## Manifest
 
-- generated_at: `2026-05-10T21:50:08.293535+00:00`
-- claim_count: `46`
-- evidence_source_count: `249`
+- generated_at: `2026-05-10T22:02:14.202447+00:00`
+- claim_count: `47`
+- evidence_source_count: `253`
 - missing_source_count: `0`
 
 ## Claims
@@ -59,6 +59,7 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C44_h2f_holdout_breaks_h2e_global_promotion | negative_result_current_packets | strong_internal | On H2f, H2e reaches 6/10 strict exact and 6/10 executor-equivalent, ties H2c at 6/10, but remains well above the no-directive floor at 1/10. All four H2e non-exact rows call the right tool with a target_query that substitutes a displayed value or alias for the requested component identity. | H2f is a fresh authored holdout with ten cases, so it is stronger than replaying saturated rows but still needs a follow-up H2g mechanism test to show that a component-identity query contract repairs the failure without regressing stale-selection and activation-panel cases. | Build H2g around a component-identity query contract: when the user asks for a component class or visible label, the live target_query must preserve that requested phrase instead of collapsing to the component value or a nearby alias. |
 | C45_h2g_component_identity_contract_is_partial_executor_gain | negative_result_current_packets | strong_internal | On H2f, H2g stays at 6/10 strict exact versus H2e but improves executor-equivalence from 6/10 to 7/10. The improvement comes from `resolution badge Deferred` being executor-valid, while the remaining non-exact rows still include `result tile` -> `Blocked`, `state marker` -> `lifecycle state marker`, and `mode switch` -> `mode toggle`. | H2g has only been executed on H2f. Because it does not improve strict exactness on the acceptance holdout, H2b/H1x backtests are lower priority than designing a stronger exact-query contract. | Build H2h with explicit negative examples for value substitution and alias expansion, then rerun on H2f before any H2b/H1x regression backtest. |
 | C46_h2h_negative_examples_repair_h2f_but_fail_global_transfer | supported_scoped_negative_global_promotion | strong_internal | H2h improves H2f from H2e/H2g's 6/10 strict exactness to 9/10 strict and executor-equivalent, but falls to 3/5 on H2b versus H2e's 5/5 and 6/8 on H1x versus H2e's 8/8. | H2h is evidence for a causal prompt-contract repair on one fresh holdout, not a deployable default. The transfer regressions show that explicit negative examples can over-constrain nearby component classes and code-label rows. | Build a conditional arbitration profile that keeps H2e as the default and activates H2h-style negative examples only when the prompt explicitly asks for a displayed-value component identity. |
+| C47_h2i_conditional_component_arbitration_does_not_preserve_h2f_repair | negative_result_current_packets | strong_internal | On H2f, H2i reaches 6/10 strict and executor-equivalent, tying H2e and trailing H2h's 9/10 by 0.3 exact-rate. It fails through target-query drift: `alert t47` -> `Escalated`, `result tile` -> `result tile for Blocked`, `resolution badge` -> `resolution badge for Deferred`, and `state marker` -> `lifecycle state marker`. | H2i was intentionally stopped at the H2f gate and not backtested on H2b/H1x, because it did not improve the acceptance holdout. | Design the next candidate around a more structural route gate or controller-visible query-normalization hypothesis, rather than simply adding softer conditional prompt prose. |
 
 ## Evidence Sources
 
@@ -313,3 +314,7 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C46_h2h_negative_examples_repair_h2f_but_fail_global_transfer | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260510T_h2h_component_identity_negative_examples_vs_h2e_on_h2f_v1 | Direct H2h-vs-H2e comparison showing +0.3 exact-rate lift on H2f. |
 | C46_h2h_negative_examples_repair_h2f_but_fail_global_transfer | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260510T_h2h_component_identity_negative_examples_vs_h2e_on_h2b_v1 | Direct H2h-vs-H2e comparison showing -0.4 exact-rate regression on H2b. |
 | C46_h2h_negative_examples_repair_h2f_but_fail_global_transfer | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260510T_h2h_component_identity_negative_examples_vs_h2e_on_h1x_v1 | Direct H2h-vs-H2e comparison showing -0.25 exact-rate regression on H1x. |
+| C47_h2i_conditional_component_arbitration_does_not_preserve_h2f_repair | replay_synthesis | True | results/reports/h2f_route_arbitration_holdout_synthesis/report.md | Updated H2f synthesis including H2i as a negative conditionalization result. |
+| C47_h2i_conditional_component_arbitration_does_not_preserve_h2f_repair | live_replay_packet | True | results/tool_probe_replay_live/20260510T_h2i_conditional_component_arbitration_on_h2f_execute_v1 | H2i live execution tying H2e at 6/10 on H2f. |
+| C47_h2i_conditional_component_arbitration_does_not_preserve_h2f_repair | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260510T_h2i_conditional_component_arbitration_vs_h2h_on_h2f_v1 | Direct H2i-vs-H2h comparison showing -0.3 exact-rate regression on H2f. |
+| C47_h2i_conditional_component_arbitration_does_not_preserve_h2f_repair | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260510T_h2i_conditional_component_arbitration_vs_h2e_on_h2f_v1 | Direct H2i-vs-H2e comparison showing zero exact-rate gain on H2f. |

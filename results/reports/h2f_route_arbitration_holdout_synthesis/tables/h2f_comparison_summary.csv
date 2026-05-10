@@ -11,3 +11,5 @@ h2f_h2h_vs_h2e,results/tool_probe_replay_live_comparisons/20260510T_h2h_componen
 h2f_h2h_vs_h2g,results/tool_probe_replay_live_comparisons/20260510T_h2h_component_identity_negative_examples_vs_h2g_on_h2f_v1,10,0.6,0.9,0.30000000000000004,0.7,0.9,0.20000000000000007,0.7,0.9,0.20000000000000007
 h2f_h2h_vs_h2c,results/tool_probe_replay_live_comparisons/20260510T_h2h_component_identity_negative_examples_vs_h2c_on_h2f_v1,10,0.6,0.9,0.30000000000000004,0.6,0.9,0.30000000000000004,0.6,0.9,0.30000000000000004
 h2f_h2h_vs_no_directive,results/tool_probe_replay_live_comparisons/20260510T_h2h_component_identity_negative_examples_vs_no_directive_on_h2f_v1,10,0.1,0.9,0.8,0.1,0.9,0.8,0.1,0.9,0.8
+h2f_h2i_vs_h2e,results/tool_probe_replay_live_comparisons/20260510T_h2i_conditional_component_arbitration_vs_h2e_on_h2f_v1,10,0.6,0.6,0.0,0.6,0.6,0.0,0.6,0.6,0.0
+h2f_h2i_vs_h2h,results/tool_probe_replay_live_comparisons/20260510T_h2i_conditional_component_arbitration_vs_h2h_on_h2f_v1,10,0.9,0.6,-0.30000000000000004,0.9,0.6,-0.30000000000000004,0.9,0.6,-0.30000000000000004

@@ -17,19 +17,22 @@ def test_h2f_route_arbitration_holdout_synthesis_breaks_h2e_saturation(tmp_path:
     payload = SCRIPT.build_h2f_route_arbitration_holdout_synthesis(output_dir=tmp_path)
     manifest = payload["manifest"]
 
-    assert manifest["packet_row_count"] == 8
-    assert manifest["comparison_count"] == 12
+    assert manifest["packet_row_count"] == 9
+    assert manifest["comparison_count"] == 14
     assert manifest["h2e_exact_success_count"] == 6
     assert manifest["h2e_executor_success_count"] == 6
     assert manifest["h2g_exact_success_count"] == 6
     assert manifest["h2g_executor_success_count"] == 7
     assert manifest["h2h_exact_success_count"] == 9
     assert manifest["h2h_executor_success_count"] == 9
+    assert manifest["h2i_exact_success_count"] == 6
+    assert manifest["h2i_executor_success_count"] == 6
     assert manifest["h2c_exact_success_count"] == 6
     assert manifest["no_directive_exact_success_count"] == 1
     assert manifest["h2e_non_exact_count"] == 4
     assert manifest["h2g_non_exact_count"] == 4
     assert manifest["h2h_non_exact_count"] == 1
+    assert manifest["h2i_non_exact_count"] == 4
     assert manifest["h2e_delta_exact_vs_h2c"] == 0.0
     assert manifest["h2e_delta_executor_vs_h2c"] == 0.0
     assert manifest["h2e_delta_exact_vs_no_directive"] == 0.5
@@ -40,8 +43,12 @@ def test_h2f_route_arbitration_holdout_synthesis_breaks_h2e_saturation(tmp_path:
     assert manifest["h2h_delta_executor_vs_h2e"] == 0.30000000000000004
     assert manifest["h2h_delta_exact_vs_h2g"] == 0.30000000000000004
     assert manifest["h2h_delta_executor_vs_h2g"] == 0.20000000000000007
+    assert manifest["h2i_delta_exact_vs_h2e"] == 0.0
+    assert manifest["h2i_delta_executor_vs_h2e"] == 0.0
+    assert manifest["h2i_delta_exact_vs_h2h"] == -0.30000000000000004
+    assert manifest["h2i_delta_executor_vs_h2h"] == -0.30000000000000004
     assert manifest["h2e_failure_family_count"] == 2
-    assert manifest["promotion_decision"] == "h2h_repairs_h2f_but_requires_transfer_tradeoff_synthesis"
+    assert manifest["promotion_decision"] == "h2h_scoped_repair_h2i_conditionalization_negative"
 
     packet_rows = {row["profile_label"]: row for row in payload["packet_rows"]}
     assert packet_rows["no_directive"]["exact_success_count"] == 1
@@ -55,6 +62,8 @@ def test_h2f_route_arbitration_holdout_synthesis_breaks_h2e_saturation(tmp_path:
     assert packet_rows["h2g_component_identity_query_contract"]["executor_success_count"] == 7
     assert packet_rows["h2h_component_identity_negative_examples"]["exact_success_count"] == 9
     assert packet_rows["h2h_component_identity_negative_examples"]["executor_success_count"] == 9
+    assert packet_rows["h2i_conditional_component_arbitration"]["exact_success_count"] == 6
+    assert packet_rows["h2i_conditional_component_arbitration"]["executor_success_count"] == 6
 
     h2e_non_exact = {row["case_id"]: row for row in payload["h2e_non_exact_rows"]}
     assert set(h2e_non_exact) == {
@@ -86,6 +95,19 @@ def test_h2f_route_arbitration_holdout_synthesis_breaks_h2e_saturation(tmp_path:
         "lifecycle state marker"
     )
 
+    h2i_non_exact = {row["case_id"]: row for row in payload["h2i_non_exact_rows"]}
+    assert set(h2i_non_exact) == {
+        "h2f_alert_t47_negated_switch_decoy",
+        "h2f_result_tile_comment_value_decoy",
+        "h2f_resolution_badge_log_result_decoy",
+        "h2f_state_marker_history_value_decoy",
+    }
+    assert h2i_non_exact["h2f_alert_t47_negated_switch_decoy"]["actual_target_query"] == "Escalated"
+    assert h2i_non_exact["h2f_result_tile_comment_value_decoy"]["actual_target_query"] == "result tile for Blocked"
+    assert h2i_non_exact["h2f_resolution_badge_log_result_decoy"]["actual_target_query"] == (
+        "resolution badge for Deferred"
+    )
+
     findings = {row["finding_id"]: row["finding"] for row in payload["finding_rows"]}
     assert "H2e reaches only 6/10 exact" in findings["h2f_breaks_h2e_saturation"]
     assert "delta exact=0.0" in findings["route_arbitration_does_not_beat_h2c_on_h2f"]
@@ -95,6 +117,9 @@ def test_h2f_route_arbitration_holdout_synthesis_breaks_h2e_saturation(tmp_path:
     assert "H2h reaches 9/10 exact" in findings["h2h_repairs_h2f_component_identity"]
     assert "state marker->lifecycle state marker" in findings["h2h_residual_state_marker_alias"]
     assert "Do not promote H2h globally from H2f alone" in findings["next_contract"]
+    assert "H2i conditional arbitration falls back to 6/10 exact" in findings[
+        "h2i_conditionalization_is_negative"
+    ]
 
     assert (tmp_path / "manifest.json").exists()
     assert (tmp_path / "synthesis.json").exists()
@@ -104,6 +129,7 @@ def test_h2f_route_arbitration_holdout_synthesis_breaks_h2e_saturation(tmp_path:
     assert (tmp_path / "tables" / "h2f_h2e_non_exact_rows.csv").exists()
     assert (tmp_path / "tables" / "h2f_h2g_non_exact_rows.csv").exists()
     assert (tmp_path / "tables" / "h2f_h2h_non_exact_rows.csv").exists()
+    assert (tmp_path / "tables" / "h2f_h2i_non_exact_rows.csv").exists()
     assert (tmp_path / "tables" / "h2f_all_non_exact_rows.csv").exists()
     assert (tmp_path / "tables" / "h2f_family_summary.csv").exists()
     assert (tmp_path / "tables" / "h2f_failure_mode_summary.csv").exists()

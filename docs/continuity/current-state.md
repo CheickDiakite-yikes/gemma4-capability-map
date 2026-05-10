@@ -2,9 +2,9 @@
 
 ## Latest Restart Point
 
-The active research frontier is now H2i conditional component-identity arbitration, not H1x, local H2a fit, H2b packet construction, H2c transfer, H2d tradeoff checks, H2e mechanism gates, the first H2g component-identity attempt, or global H2h promotion.
+The active research frontier is now H2j structural route gating or controller-visible query normalization, not H1x, local H2a fit, H2b packet construction, H2c transfer, H2d tradeoff checks, H2e mechanism gates, the first H2g component-identity attempt, global H2h promotion, or H2i conditional prompt prose.
 
-The latest result is H2h across H2f/H2b/H1x. H2h adds explicit negative examples for displayed-value substitution and alias expansion. It strongly repairs the fresh H2f holdout, moving from H2e/H2g at `6 / 10` strict to `9 / 10` strict and executor-equivalent. It does not support global promotion: H2h regresses H2b from H2e's `5 / 5` to `3 / 5`, and H1x from H2e's `8 / 8` to `6 / 8`. H2e remains the safest global route-arbitration profile; H2h is a scoped proof that negative examples can causally repair one displayed-value component-identity failure family.
+The latest result is H2i on H2f. H2h had shown explicit negative examples can repair the fresh H2f holdout, moving from H2e/H2g at `6 / 10` strict to `9 / 10` strict and executor-equivalent, but it regressed H2b and H1x. H2i tried to conditionalize that repair in prompt/catalog prose. It failed the first gate: H2i ties H2e at `6 / 10` on H2f and trails H2h by `-0.3` exact-rate. H2e remains the safest global route-arbitration profile; H2h remains scoped positive evidence; H2i is negative evidence against soft conditional prompt prose as the transfer-safe solution.
 
 H2e was built from the H2c/H2d failure split:
 
@@ -22,8 +22,9 @@ H2f then broke the apparent saturation:
 - H2e route arbitration: `6 / 10`
 - H2g component-identity query contract: `6 / 10` strict, `7 / 10` executor-equivalent
 - H2h component-identity negative examples: `9 / 10` strict and executor-equivalent
+- H2i conditional component arbitration: `6 / 10` strict and executor-equivalent
 
-The scientific conclusion is now sharper. H2e is still strong mechanism evidence against the no-directive floor, but it ties H2c on fresh H2f and fails four rows by calling the right tool with the wrong `target_query`. H2g only converts `resolution badge` into an executor-valid paraphrase (`resolution badge Deferred`), leaving strict exactness unchanged. H2h then proves explicit negative examples are causal on H2f, fixing `result tile`, `resolution badge`, and `mode switch`; the remaining H2f miss is `state marker` -> `lifecycle state marker`. The transfer tradeoff matters more than the top-line H2f win: the same negative-example prose regresses H2b (`result pill` -> `result tile`, `badge c08` -> `badge m31 c08`) and H1x (`result chip` -> `result tile`, `error banner` -> `error notice`). The next proof should be conditional arbitration: keep H2e's route arbitration default and activate H2h-style negative examples only for explicit displayed-value component-identity prompts.
+The scientific conclusion is now sharper. H2e is still strong mechanism evidence against the no-directive floor, but it ties H2c on fresh H2f and fails four rows by calling the right tool with the wrong `target_query`. H2g only converts `resolution badge` into an executor-valid paraphrase (`resolution badge Deferred`), leaving strict exactness unchanged. H2h then proves explicit negative examples are causal on H2f, fixing `result tile`, `resolution badge`, and `mode switch`; the remaining H2f miss is `state marker` -> `lifecycle state marker`. The transfer tradeoff matters more than the top-line H2f win: the same negative-example prose regresses H2b (`result pill` -> `result tile`, `badge c08` -> `badge m31 c08`) and H1x (`result chip` -> `result tile`, `error banner` -> `error notice`). H2i shows softer conditional prompt prose does not preserve the H2f repair, failing through `alert t47` -> `Escalated`, `result tile` -> `result tile for Blocked`, `resolution badge` -> `resolution badge for Deferred`, and `state marker` -> `lifecycle state marker`. The next proof should be more structural than another paragraph: route gating, explicit query-normalization, or a controller-visible target-query hypothesis.
 
 Latest H2f artifacts:
 
@@ -37,6 +38,7 @@ Latest H2f artifacts:
 - H2h H2f live packet: [`results/tool_probe_replay_live/20260510T_h2h_component_identity_negative_examples_on_h2f_execute_v1`](../../results/tool_probe_replay_live/20260510T_h2h_component_identity_negative_examples_on_h2f_execute_v1)
 - H2h H2b live packet: [`results/tool_probe_replay_live/20260510T_h2h_component_identity_negative_examples_on_h2b_execute_v1`](../../results/tool_probe_replay_live/20260510T_h2h_component_identity_negative_examples_on_h2b_execute_v1)
 - H2h H1x live packet: [`results/tool_probe_replay_live/20260510T_h2h_component_identity_negative_examples_on_h1x_execute_v1`](../../results/tool_probe_replay_live/20260510T_h2h_component_identity_negative_examples_on_h1x_execute_v1)
+- H2i H2f live packet: [`results/tool_probe_replay_live/20260510T_h2i_conditional_component_arbitration_on_h2f_execute_v1`](../../results/tool_probe_replay_live/20260510T_h2i_conditional_component_arbitration_on_h2f_execute_v1)
 - H2c H2f live packet: [`results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2c_execute_v1`](../../results/tool_probe_replay_live/20260510T_h2f_route_arbitration_h2c_execute_v1)
 - no-directive H2f live packet: [`results/tool_probe_replay_live/20260510T_h2f_route_arbitration_no_directive_execute_v1`](../../results/tool_probe_replay_live/20260510T_h2f_route_arbitration_no_directive_execute_v1)
 - H2e-vs-H2c H2f comparison: [`results/tool_probe_replay_live_comparisons/20260510T_h2f_route_arbitration_h2e_vs_h2c_v1`](../../results/tool_probe_replay_live_comparisons/20260510T_h2f_route_arbitration_h2e_vs_h2c_v1)
@@ -44,8 +46,10 @@ Latest H2f artifacts:
 - H2h-vs-H2e H2f comparison: [`results/tool_probe_replay_live_comparisons/20260510T_h2h_component_identity_negative_examples_vs_h2e_on_h2f_v1`](../../results/tool_probe_replay_live_comparisons/20260510T_h2h_component_identity_negative_examples_vs_h2e_on_h2f_v1)
 - H2h-vs-H2e H2b comparison: [`results/tool_probe_replay_live_comparisons/20260510T_h2h_component_identity_negative_examples_vs_h2e_on_h2b_v1`](../../results/tool_probe_replay_live_comparisons/20260510T_h2h_component_identity_negative_examples_vs_h2e_on_h2b_v1)
 - H2h-vs-H2e H1x comparison: [`results/tool_probe_replay_live_comparisons/20260510T_h2h_component_identity_negative_examples_vs_h2e_on_h1x_v1`](../../results/tool_probe_replay_live_comparisons/20260510T_h2h_component_identity_negative_examples_vs_h2e_on_h1x_v1)
+- H2i-vs-H2h H2f comparison: [`results/tool_probe_replay_live_comparisons/20260510T_h2i_conditional_component_arbitration_vs_h2h_on_h2f_v1`](../../results/tool_probe_replay_live_comparisons/20260510T_h2i_conditional_component_arbitration_vs_h2h_on_h2f_v1)
+- H2i-vs-H2e H2f comparison: [`results/tool_probe_replay_live_comparisons/20260510T_h2i_conditional_component_arbitration_vs_h2e_on_h2f_v1`](../../results/tool_probe_replay_live_comparisons/20260510T_h2i_conditional_component_arbitration_vs_h2e_on_h2f_v1)
 - H2e-vs-no-directive H2f comparison: [`results/tool_probe_replay_live_comparisons/20260510T_h2f_route_arbitration_h2e_vs_no_directive_v1`](../../results/tool_probe_replay_live_comparisons/20260510T_h2f_route_arbitration_h2e_vs_no_directive_v1)
-- publication claims: `C44_h2f_holdout_breaks_h2e_global_promotion`, `C45_h2g_component_identity_contract_is_partial_executor_gain`, `C46_h2h_negative_examples_repair_h2f_but_fail_global_transfer`
+- publication claims: `C44_h2f_holdout_breaks_h2e_global_promotion`, `C45_h2g_component_identity_contract_is_partial_executor_gain`, `C46_h2h_negative_examples_repair_h2f_but_fail_global_transfer`, `C47_h2i_conditional_component_arbitration_does_not_preserve_h2f_repair`
 
 H2e artifacts retained as mechanism evidence:
 
@@ -124,17 +128,17 @@ Primary artifacts:
 Current reporting snapshot:
 
 - MLX tool-contract report: `110` tables / `45` figures
-- publication evidence ledger: `46` claims / `249` evidence sources / `0` missing
+- publication evidence ledger: `47` claims / `253` evidence sources / `0` missing
 - publication readiness audit: `paper_draft_ready`, `0` blocking failures
-- latest publication claims: `C41_h2c_scoped_residual_gate_saturates_h2b_but_needs_transfer`, `C42_h2d_class_preserving_route_repairs_h2c_transfer_but_costs_h2b_exactness`, `C43_h2e_route_arbitration_reconciles_h2c_h2d_tradeoff`, `C44_h2f_holdout_breaks_h2e_global_promotion`, `C45_h2g_component_identity_contract_is_partial_executor_gain`, `C46_h2h_negative_examples_repair_h2f_but_fail_global_transfer`
+- latest publication claims: `C42_h2d_class_preserving_route_repairs_h2c_transfer_but_costs_h2b_exactness`, `C43_h2e_route_arbitration_reconciles_h2c_h2d_tradeoff`, `C44_h2f_holdout_breaks_h2e_global_promotion`, `C45_h2g_component_identity_contract_is_partial_executor_gain`, `C46_h2h_negative_examples_repair_h2f_but_fail_global_transfer`, `C47_h2i_conditional_component_arbitration_does_not_preserve_h2f_repair`
 
 Next restart move:
 
-- build H2i as conditional arbitration, not a broader H2h paragraph
-- preserve H2e's route-arbitration default for H2b/H1x-style code-label and class-transfer rows
-- activate H2h-style displayed-value negative examples only when the prompt explicitly asks for a component identity next to a value decoy
-- target H2h's five residual/regression rows: `state marker`, `result pill`, `badge c08`, `result chip`, and `error banner`
-- run H2i on H2f first, then backtest on H2b/H1x only if it preserves the H2f lift without introducing obvious class/code regressions
+- build H2j around a more structural route gate or controller-visible query-normalization hypothesis, not another soft prompt paragraph
+- preserve H2e's route-arbitration default for code-label and class-transfer rows
+- preserve H2h's exact component-identity repair without copying `for VALUE` suffixes into `target_query`
+- target H2i's H2f misses plus H2h's transfer regressions before any H2b/H1x spend
+- run H2j on H2f first; only backtest on H2b/H1x if it beats H2e/H2i and approaches H2h's H2f lift
 - keep strict exactness and executor-equivalence separate, because H2g and earlier v12 rows show that executor-valid paraphrase can hide exact-query drift
 
 ## Benchmark Shape

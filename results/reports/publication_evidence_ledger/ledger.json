@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-10T21:50:08.293535+00:00",
+    "generated_at": "2026-05-10T22:02:14.202447+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-    "claim_count": 46,
-    "evidence_source_count": 249,
+    "claim_count": 47,
+    "evidence_source_count": 253,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -51,7 +51,8 @@
       "C43_h2e_route_arbitration_reconciles_h2c_h2d_tradeoff",
       "C44_h2f_holdout_breaks_h2e_global_promotion",
       "C45_h2g_component_identity_contract_is_partial_executor_gain",
-      "C46_h2h_negative_examples_repair_h2f_but_fail_global_transfer"
+      "C46_h2h_negative_examples_repair_h2f_but_fail_global_transfer",
+      "C47_h2i_conditional_component_arbitration_does_not_preserve_h2f_repair"
     ]
   },
   "claims": [
@@ -514,6 +515,16 @@
       "limitation": "H2h is evidence for a causal prompt-contract repair on one fresh holdout, not a deployable default. The transfer regressions show that explicit negative examples can over-constrain nearby component classes and code-label rows.",
       "next_test": "Build a conditional arbitration profile that keeps H2e as the default and activates H2h-style negative examples only when the prompt explicitly asks for a displayed-value component identity.",
       "source_count": 6
+    },
+    {
+      "claim_id": "C47_h2i_conditional_component_arbitration_does_not_preserve_h2f_repair",
+      "claim": "The H2i conditional component-identity arbitration prompt does not preserve H2h's fresh-H2f repair, showing that the safe conditionalization problem remains unsolved.",
+      "status": "negative_result_current_packets",
+      "evidence_strength": "strong_internal",
+      "primary_metric": "On H2f, H2i reaches 6/10 strict and executor-equivalent, tying H2e and trailing H2h's 9/10 by 0.3 exact-rate. It fails through target-query drift: `alert t47` -> `Escalated`, `result tile` -> `result tile for Blocked`, `resolution badge` -> `resolution badge for Deferred`, and `state marker` -> `lifecycle state marker`.",
+      "limitation": "H2i was intentionally stopped at the H2f gate and not backtested on H2b/H1x, because it did not improve the acceptance holdout.",
+      "next_test": "Design the next candidate around a more structural route gate or controller-visible query-normalization hypothesis, rather than simply adding softer conditional prompt prose.",
+      "source_count": 4
     }
   ],
   "evidence_sources": [
@@ -2258,6 +2269,34 @@
       "artifact_type": "live_replay_comparison",
       "path": "results/tool_probe_replay_live_comparisons/20260510T_h2h_component_identity_negative_examples_vs_h2e_on_h1x_v1",
       "purpose": "Direct H2h-vs-H2e comparison showing -0.25 exact-rate regression on H1x.",
+      "exists": true
+    },
+    {
+      "claim_id": "C47_h2i_conditional_component_arbitration_does_not_preserve_h2f_repair",
+      "artifact_type": "replay_synthesis",
+      "path": "results/reports/h2f_route_arbitration_holdout_synthesis/report.md",
+      "purpose": "Updated H2f synthesis including H2i as a negative conditionalization result.",
+      "exists": true
+    },
+    {
+      "claim_id": "C47_h2i_conditional_component_arbitration_does_not_preserve_h2f_repair",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260510T_h2i_conditional_component_arbitration_on_h2f_execute_v1",
+      "purpose": "H2i live execution tying H2e at 6/10 on H2f.",
+      "exists": true
+    },
+    {
+      "claim_id": "C47_h2i_conditional_component_arbitration_does_not_preserve_h2f_repair",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260510T_h2i_conditional_component_arbitration_vs_h2h_on_h2f_v1",
+      "purpose": "Direct H2i-vs-H2h comparison showing -0.3 exact-rate regression on H2f.",
+      "exists": true
+    },
+    {
+      "claim_id": "C47_h2i_conditional_component_arbitration_does_not_preserve_h2f_repair",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260510T_h2i_conditional_component_arbitration_vs_h2e_on_h2f_v1",
+      "purpose": "Direct H2i-vs-H2e comparison showing zero exact-rate gain on H2f.",
       "exists": true
     }
   ],

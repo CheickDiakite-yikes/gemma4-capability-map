@@ -2219,6 +2219,51 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C47_h2i_conditional_component_arbitration_does_not_preserve_h2f_repair",
+        claim=(
+            "The H2i conditional component-identity arbitration prompt does not preserve H2h's fresh-H2f repair, "
+            "showing that the safe conditionalization problem remains unsolved."
+        ),
+        status="negative_result_current_packets",
+        evidence_strength="strong_internal",
+        primary_metric=(
+            "On H2f, H2i reaches 6/10 strict and executor-equivalent, tying H2e and trailing H2h's 9/10 by "
+            "0.3 exact-rate. It fails through target-query drift: `alert t47` -> `Escalated`, `result tile` -> "
+            "`result tile for Blocked`, `resolution badge` -> `resolution badge for Deferred`, and `state marker` "
+            "-> `lifecycle state marker`."
+        ),
+        limitation=(
+            "H2i was intentionally stopped at the H2f gate and not backtested on H2b/H1x, because it did not "
+            "improve the acceptance holdout."
+        ),
+        next_test=(
+            "Design the next candidate around a more structural route gate or controller-visible query-normalization "
+            "hypothesis, rather than simply adding softer conditional prompt prose."
+        ),
+        sources=(
+            EvidenceSource(
+                "replay_synthesis",
+                "results/reports/h2f_route_arbitration_holdout_synthesis/report.md",
+                "Updated H2f synthesis including H2i as a negative conditionalization result.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h2i_conditional_component_arbitration_on_h2f_execute_v1",
+                "H2i live execution tying H2e at 6/10 on H2f.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260510T_h2i_conditional_component_arbitration_vs_h2h_on_h2f_v1",
+                "Direct H2i-vs-H2h comparison showing -0.3 exact-rate regression on H2f.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260510T_h2i_conditional_component_arbitration_vs_h2e_on_h2f_v1",
+                "Direct H2i-vs-H2e comparison showing zero exact-rate gain on H2f.",
+            ),
+        ),
+    ),
 )
 
 

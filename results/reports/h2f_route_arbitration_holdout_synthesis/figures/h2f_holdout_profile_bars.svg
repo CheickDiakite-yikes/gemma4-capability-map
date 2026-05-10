@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="920" height="496" viewBox="0 0 920 496" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="544" viewBox="0 0 920 544" role="img" aria-labelledby="title desc">
 <title id="title">H2f holdout profile bars</title>
 <desc id="desc">Exact and executor-equivalent success rates across H2f route-arbitration holdout rows.</desc>
-<rect width="920" height="496" fill="#ffffff"/>
+<rect width="920" height="544" fill="#ffffff"/>
 <text x="32" y="36" font-family="Arial, sans-serif" font-size="23" font-weight="700" fill="#111827">H2f fresh holdout breaks saturation</text>
 <text x="32" y="58" font-family="Arial, sans-serif" font-size="13" fill="#4b5563">Strict exact bars; executor-equivalence shown as right-side count.</text>
 <text x="32" y="86" font-family="Arial, sans-serif" font-size="13" fill="#111827">no_directive</text>
@@ -32,8 +32,12 @@
 <rect x="280" y="356" width="520" height="24" rx="4" fill="#e5e7eb"/>
 <rect x="280" y="356" width="312" height="24" rx="4" fill="#64748b"/>
 <text x="818" y="374" font-family="Arial, sans-serif" font-size="13" fill="#111827">6/10 exact, 7/10 exec</text>
-<text x="32" y="422" font-family="Arial, sans-serif" font-size="13" fill="#111827">h2h_component_identity_negative_examples</text>
+<text x="32" y="422" font-family="Arial, sans-serif" font-size="13" fill="#111827">h2i_conditional_component_arbitration</text>
 <rect x="280" y="404" width="520" height="24" rx="4" fill="#e5e7eb"/>
-<rect x="280" y="404" width="468" height="24" rx="4" fill="#155e75"/>
-<text x="818" y="422" font-family="Arial, sans-serif" font-size="13" fill="#111827">9/10 exact, 9/10 exec</text>
+<rect x="280" y="404" width="312" height="24" rx="4" fill="#64748b"/>
+<text x="818" y="422" font-family="Arial, sans-serif" font-size="13" fill="#111827">6/10 exact, 6/10 exec</text>
+<text x="32" y="470" font-family="Arial, sans-serif" font-size="13" fill="#111827">h2h_component_identity_negative_examples</text>
+<rect x="280" y="452" width="520" height="24" rx="4" fill="#e5e7eb"/>
+<rect x="280" y="452" width="468" height="24" rx="4" fill="#155e75"/>
+<text x="818" y="470" font-family="Arial, sans-serif" font-size="13" fill="#111827">9/10 exact, 9/10 exec</text>
 </svg>

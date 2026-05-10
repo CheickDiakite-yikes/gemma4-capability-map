@@ -2,6 +2,36 @@
 
 # Research Log
 
+## 2026-05-10 - H2i Conditional Arbitration Is Negative on H2f
+
+- Added and executed H2i as a conditional component-identity arbitration candidate:
+  - profile: `visual_role_catalog_conditional_component_identity_arbitration_v23`
+  - system: `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_conditional_component_identity_arbitration_visual_stale_selection_gate`
+  - H2f live packet: [`results/tool_probe_replay_live/20260510T_h2i_conditional_component_arbitration_on_h2f_execute_v1`](../results/tool_probe_replay_live/20260510T_h2i_conditional_component_arbitration_on_h2f_execute_v1)
+  - H2i-vs-H2h comparison: [`results/tool_probe_replay_live_comparisons/20260510T_h2i_conditional_component_arbitration_vs_h2h_on_h2f_v1`](../results/tool_probe_replay_live_comparisons/20260510T_h2i_conditional_component_arbitration_vs_h2h_on_h2f_v1)
+  - H2i-vs-H2e comparison: [`results/tool_probe_replay_live_comparisons/20260510T_h2i_conditional_component_arbitration_vs_h2e_on_h2f_v1`](../results/tool_probe_replay_live_comparisons/20260510T_h2i_conditional_component_arbitration_vs_h2e_on_h2f_v1)
+- H2i result:
+  - H2f strict exactness: `6 / 10`, tying H2e and H2g
+  - H2f executor-equivalence: `6 / 10`
+  - delta versus H2h: `-0.3` exact-rate and executor-equivalence-rate
+- Mechanism read:
+  - H2i preserved the less aggressive route default, but did not preserve H2h's H2f repair
+  - misses: `alert t47` -> `Escalated`, `result tile` -> `result tile for Blocked`, `resolution badge` -> `resolution badge for Deferred`, and `state marker` -> `lifecycle state marker`
+  - because H2i failed the H2f gate, no H2b/H1x transfer budget was spent
+- Research decision:
+  - reject H2i as the transfer-safe conditionalization answer
+  - do not write another softer conditional prompt paragraph
+  - next candidate should be structurally different: route gate, query-normalization contract, or controller-visible argument canonicalization
+- Reporting updates:
+  - publication evidence ledger now has `47` claims, `253` sources, and `0` missing sources
+  - new claim: `C47_h2i_conditional_component_arbitration_does_not_preserve_h2f_repair`
+- Verification:
+  - `uv run pytest tests/test_prompt_contracts.py::test_visual_role_catalog_conditional_component_identity_arbitration_guards_h2h_regressions tests/test_knowledge_work_h1.py::test_h2i_conditional_component_identity_arbitration_registry_row_preserves_profile_and_controller_flag -q`
+  - `uv run moonie-agent replay-live --packet-dir results/tool_probe_replay_packets/20260510T_h2f_route_arbitration_oracle_dry_run_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_conditional_component_identity_arbitration_visual_stale_selection_gate --output-dir results/tool_probe_replay_live/20260510T_h2i_conditional_component_arbitration_on_h2f_execute_v1 --execute --json`
+  - `uv run python scripts/build_h2f_route_arbitration_holdout_synthesis.py`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`
+
 ## 2026-05-10 - H2h Repairs Fresh H2f but Fails Global Transfer
 
 - Added H2h as an explicit negative-example component-identity contract:
