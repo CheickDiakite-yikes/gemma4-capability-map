@@ -39,6 +39,10 @@ def test_h2b_residual_exactness_packet_composes_h2a_transfer_residuals(tmp_path:
     assert rows["h1p_compact_state_tag_log_value_decoy"]["residual_class"] == "state_tag_component_class"
     assert rows["h1p_surface_mode_toggle_note_value_decoy"]["residual_class"] == "mode_toggle_component_class"
     assert rows["h1p_surface_mode_toggle_note_value_decoy"]["h2a_failure_mode"] == "argument_mismatch"
+    assert rows["h1p_surface_mode_toggle_note_value_decoy"]["source_failure_mode"] == "argument_mismatch"
+    assert rows["h1p_surface_mode_toggle_note_value_decoy"]["expected_call_count"] == 1
+    assert rows["h1p_surface_mode_toggle_note_value_decoy"]["source_executable_match"] is False
+    assert rows["h1o_code_alert_s92_negated_toggle_decoy"]["source_executable_match"] is True
 
     replay_cases = {case["case_id"]: case for case in packet["replay_cases"]}
     assert replay_cases["component_value_result_pill_log_decoy"]["expected_calls"] == [

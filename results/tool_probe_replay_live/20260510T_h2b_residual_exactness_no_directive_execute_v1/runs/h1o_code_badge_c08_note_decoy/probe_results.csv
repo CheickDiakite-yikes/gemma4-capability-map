@@ -1,0 +1,2 @@
+case_id,family,expected_call_count,actual_call_count,exact_match,executable_match,executor_target_match,expected_calls,actual_calls,expected_execution,actual_execution,latency_ms,prompt_tokens,completion_tokens
+h1o_code_badge_c08_note_decoy,h1o_code_negation_preservation,1,0,False,False,False,"[{""name"": ""extract_layout"", ""arguments"": {""image_id"": ""img-h1o-code-badge-c08"", ""target_query"": ""badge c08""}}]",[],"{""region_ids"": [""h1o-badge-c08-9132""]}",[],4977,658,1

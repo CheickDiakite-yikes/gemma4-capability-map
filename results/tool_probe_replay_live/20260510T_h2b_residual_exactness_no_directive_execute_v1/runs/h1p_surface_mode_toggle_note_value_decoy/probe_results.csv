@@ -1,0 +1,2 @@
+case_id,family,expected_call_count,actual_call_count,exact_match,executable_match,executor_target_match,expected_calls,actual_calls,expected_execution,actual_execution,latency_ms,prompt_tokens,completion_tokens
+h1p_surface_mode_toggle_note_value_decoy,h1p_component_value_surface,1,0,False,False,False,"[{""name"": ""extract_layout"", ""arguments"": {""image_id"": ""img-h1p-surface-mode-toggle"", ""target_query"": ""mode toggle""}}]",[],"{""region_ids"": [""h1p-mode-toggle-9352""]}",[],4817,650,6

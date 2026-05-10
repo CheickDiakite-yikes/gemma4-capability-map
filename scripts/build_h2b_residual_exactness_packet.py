@@ -147,6 +147,12 @@ def build_h2b_residual_exactness_packet(
             {
                 "case_id": spec.case_id,
                 "family": source_case["family"],
+                "source_failure_mode": residual["failure_mode"],
+                "source_exact_match": False,
+                "source_executable_match": residual["executor_equivalence_match"] == "True",
+                "baseline_exact_match": "",
+                "expected_call_count": len(source_case.get("expected_calls") or []),
+                "source_actual_call_count": 1 if residual["actual_tool"] else 0,
                 "residual_axis": spec.residual_axis,
                 "residual_class": spec.residual_class,
                 "h2a_failure_mode": residual["failure_mode"],
