@@ -1,0 +1,31 @@
+[
+  {
+    "case_id": "h1w_warning_tile_no_call_note_decoy",
+    "family": "h1w_activation_no_call",
+    "expected_call_count": 1,
+    "actual_call_count": 0,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "h1w-warning-tile-9662"
+      ]
+    },
+    "actual_execution": [],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1w-warning-tile",
+          "target_query": "warning tile"
+        }
+      }
+    ],
+    "actual_calls": [],
+    "raw_model_output": "\"extract_layout\": {\"image_id\": \"img-h1w-warning-tile\", \"target_query\": \"warning tile component\"}",
+    "prompt_tokens": 650,
+    "completion_tokens": 32,
+    "latency_ms": 4565
+  }
+]

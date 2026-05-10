@@ -1,0 +1,64 @@
+[
+  {
+    "case_id": "h1w_state_tag_audit_log_value_decoy",
+    "family": "h1w_nonstandard_component_class",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "h1w-state-tag-9622"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1w-state-tag",
+          "target_query": "Closed"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h1w-state-tag",
+          "selection_kind": "regions",
+          "count": 3,
+          "executor_mode": "local",
+          "region_ids": [
+            "h1w-state-log-9621",
+            "h1w-state-tag-9622",
+            "h1w-state-table-9623"
+          ],
+          "region_id": "h1w-state-log-9621",
+          "text_preview": "Closed by Luis at 09:14"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1w-state-tag",
+          "target_query": "state tag"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1w-state-tag",
+          "target_query": "Closed"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h1w-state-tag\", \"target_query\": \"Closed\"}}",
+    "prompt_tokens": 652,
+    "completion_tokens": 36,
+    "latency_ms": 4297
+  }
+]

@@ -12,11 +12,24 @@
 - Purpose:
   - turn the H1v rejection into a harder residual benchmark, not another broad prompt tweak
   - test whether v11's transfer stability, v12's residual repair, or v15's code-label exactness helps on the remaining overlap
+- Live result:
+  - no-directive: `0 / 8` exact and executor-equivalent
+  - v11 component-label guard: `8 / 8` exact and executor-equivalent
+  - v12 component-residual guard: `7 / 8` exact and executor-equivalent
+  - v15 code-label exact guard: `6 / 8` exact and executor-equivalent
+- Interpretation:
+  - H1w is a useful controller-dependence probe: raw no-directive collapses completely
+  - it is not a v11 breaker; v11 remains the transfer-stable default
+  - v12 and v15 regress on surface component-value rows, especially status/result badge or pill cases with repeated values nearby
+- Artifacts:
+  - synthesis: [`results/reports/h1w_residual_overlap_synthesis/report.md`](../results/reports/h1w_residual_overlap_synthesis/report.md)
+  - v11 replay: [`results/tool_probe_replay_live/20260510T_h1w_residual_overlap_component_label_guard_execute_v1`](../results/tool_probe_replay_live/20260510T_h1w_residual_overlap_component_label_guard_execute_v1)
+  - v12 replay: [`results/tool_probe_replay_live/20260510T_h1w_residual_overlap_component_residual_guard_execute_v1`](../results/tool_probe_replay_live/20260510T_h1w_residual_overlap_component_residual_guard_execute_v1)
+  - v15 replay: [`results/tool_probe_replay_live/20260510T_h1w_residual_overlap_code_label_exact_guard_execute_v1`](../results/tool_probe_replay_live/20260510T_h1w_residual_overlap_code_label_exact_guard_execute_v1)
 - Next execution:
-  - live-test no-directive, v11, v12, and v15 on H1w
-  - synthesize family-level deltas before adding a new prompt contract
+  - design H1x as a v11 breaker, combining oblique labels, stale selections, and repeated values within single cases
 - Verification:
-  - `uv run pytest tests/test_visual_hard_slice_live_stress_packet.py -q`
+  - `uv run pytest tests/test_h1w_residual_overlap_synthesis.py tests/test_visual_hard_slice_live_stress_packet.py tests/test_tool_probe_replay_live_comparison.py -q`
 
 ## 2026-05-10 - H1v Code-Label Exact Transfer Gate
 

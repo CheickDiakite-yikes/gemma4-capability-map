@@ -201,7 +201,9 @@ Next implementation moves:
   - decision: reject v15 as a global promotion; keep it as a local code-label repair candidate
   - next execution step: build H1w around remaining shared residuals, especially owner-field stale selection, nonstandard `tag`/`toggle` component classes, and surface/result badge value collapse
   - completed scaffold: H1w adds [`results/tool_probe_replay_packets/20260510T_h1w_residual_overlap_oracle_dry_run_v1`](../../results/tool_probe_replay_packets/20260510T_h1w_residual_overlap_oracle_dry_run_v1), an `8`-case oracle packet over stale field-routing, nonstandard class, surface component-value, and activation/no-call residuals
-  - next execution step: live-test H1w with no-directive, v11, v12, and v15, then synthesize family-level deltas before adding any new prompt contract
+  - live result: no-directive `0 / 8`, v11 `8 / 8`, v12 `7 / 8`, v15 `6 / 8`
+  - synthesis: [`results/reports/h1w_residual_overlap_synthesis/report.md`](../../results/reports/h1w_residual_overlap_synthesis/report.md)
+  - next execution step: design H1x as a v11 breaker, combining oblique component labels, stale/old selection text, and repeated values within the same rows
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1

@@ -1,0 +1,64 @@
+[
+  {
+    "case_id": "h1w_status_pill_summary_value_decoy",
+    "family": "h1w_surface_component_value",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "h1w-status-pill-9652"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1w-status-pill",
+          "target_query": "Pending"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h1w-status-pill",
+          "selection_kind": "regions",
+          "count": 3,
+          "executor_mode": "local",
+          "region_ids": [
+            "h1w-status-summary-9651",
+            "h1w-status-pill-9652",
+            "h1w-status-table-9653"
+          ],
+          "region_id": "h1w-status-summary-9651",
+          "text_preview": "Pending renewal package"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1w-status-pill",
+          "target_query": "status pill"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1w-status-pill",
+          "target_query": "Pending"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h1w-status-pill\", \"target_query\": \"Pending\"}}",
+    "prompt_tokens": 1798,
+    "completion_tokens": 36,
+    "latency_ms": 8320
+  }
+]

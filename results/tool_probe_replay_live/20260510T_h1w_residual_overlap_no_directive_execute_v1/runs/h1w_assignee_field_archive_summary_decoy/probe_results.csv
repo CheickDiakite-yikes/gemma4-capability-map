@@ -1,0 +1,2 @@
+case_id,family,expected_call_count,actual_call_count,exact_match,executable_match,executor_target_match,expected_calls,actual_calls,expected_execution,actual_execution,latency_ms,prompt_tokens,completion_tokens
+h1w_assignee_field_archive_summary_decoy,h1w_stale_field_routing,1,0,False,False,False,"[{""name"": ""extract_layout"", ""arguments"": {""image_id"": ""img-h1w-assignee-field"", ""target_query"": ""assignee field""}}]",[],"{""region_ids"": [""h1w-assignee-field-9612""]}",[],4253,662,1

@@ -1260,7 +1260,14 @@ H1w scaffold:
 - suite: `h1w_residual_overlap_v13`
 - shape: `8` oracle-valid cases, balanced across stale field-routing, nonstandard component classes, surface component-value collapse, and activation/no-call residuals
 - purpose: break the now-saturated top-line transfer story by concentrating on the residual mechanisms that survive v11/v12/v15
-- next execution: run no-directive, v11, v12, and v15 on this packet; promote nothing until the family-level tradeoffs are visible
+- live replays:
+  - no-directive: [`results/tool_probe_replay_live/20260510T_h1w_residual_overlap_no_directive_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1w_residual_overlap_no_directive_execute_v1)
+  - v11 component-label guard: [`results/tool_probe_replay_live/20260510T_h1w_residual_overlap_component_label_guard_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1w_residual_overlap_component_label_guard_execute_v1)
+  - v12 component-residual guard: [`results/tool_probe_replay_live/20260510T_h1w_residual_overlap_component_residual_guard_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1w_residual_overlap_component_residual_guard_execute_v1)
+  - v15 code-label exact guard: [`results/tool_probe_replay_live/20260510T_h1w_residual_overlap_code_label_exact_guard_execute_v1`](../../results/tool_probe_replay_live/20260510T_h1w_residual_overlap_code_label_exact_guard_execute_v1)
+- synthesis: [`results/reports/h1w_residual_overlap_synthesis/report.md`](../../results/reports/h1w_residual_overlap_synthesis/report.md)
+- result: no-directive is `0 / 8`, v11 is `8 / 8`, v12 is `7 / 8`, and v15 is `6 / 8`
+- interpretation: H1w is a strong controller-dependence probe but not a v11 breaker; the next hard slice must combine oblique labels, stale selections, and repeated values in the same case to stress v11 directly
 
 ## Latest H1q Component-Label Guard Transfer Finding
 

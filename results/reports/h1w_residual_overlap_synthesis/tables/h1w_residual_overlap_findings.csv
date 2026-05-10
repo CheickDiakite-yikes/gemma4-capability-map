@@ -1,0 +1,6 @@
+finding_id,finding
+h1w_breaks_no_directive,"No-directive reaches 0/8 exact and 0/8 executor-equivalent, so the residual-overlap packet is a real controller-dependence probe."
+v11_saturates_h1w,"Component-label guard v11 reaches 8/8 exact and 8/8 executor-equivalent, with a +1.000 exact-rate delta versus no-directive."
+broader_residual_wording_regresses_surface_value,"V12 reaches 7/8 and v15 reaches 6/8; the remaining non-exact rows are h1w_status_pill_summary_value_decoy, h1w_result_badge_comment_value_decoy, h1w_status_pill_summary_value_decoy."
+v15_surface_value_weakness,"V15's code-label exactness wording transfers cleanly on stale routing, nonstandard class, and activation/no-call rows, but is 0/2 on surface component-value."
+next_slice,"Keep v11 as the default. The next hard slice should break v11 more directly by combining component-label requests with oblique labels, old selections, and repeated values in one case."

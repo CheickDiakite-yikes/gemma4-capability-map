@@ -1,0 +1,31 @@
+[
+  {
+    "case_id": "h1w_mode_toggle_settings_note_decoy",
+    "family": "h1w_nonstandard_component_class",
+    "expected_call_count": 1,
+    "actual_call_count": 0,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "h1w-mode-toggle-9632"
+      ]
+    },
+    "actual_execution": [],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1w-mode-toggle",
+          "target_query": "mode toggle"
+        }
+      }
+    ],
+    "actual_calls": [],
+    "raw_model_output": "\"extract_layout\"",
+    "prompt_tokens": 648,
+    "completion_tokens": 6,
+    "latency_ms": 3893
+  }
+]

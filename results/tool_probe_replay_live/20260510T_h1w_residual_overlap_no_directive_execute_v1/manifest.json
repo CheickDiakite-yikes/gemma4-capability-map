@@ -1,0 +1,33 @@
+{
+  "packet_run_id": "20260510T_h1w_residual_overlap_no_directive_execute_v1",
+  "packet_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1w_residual_overlap_no_directive_execute_v1",
+  "source_packet_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260510T_h1w_residual_overlap_oracle_dry_run_v1",
+  "source_packet_run_id": "20260510T_h1w_residual_overlap_oracle_dry_run_v1",
+  "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive",
+  "case_count": 8,
+  "execute": true,
+  "executed_count": 8,
+  "exact_count": 0,
+  "exact_rate": 0.0,
+  "executor_equivalence_evaluable_count": 8,
+  "executor_equivalence_count": 0,
+  "executor_equivalence_rate": 0.0,
+  "failure_mode_counts": {
+    "argument_alias_or_decoy_risk": 4,
+    "wrong_tool_or_stale_selection_risk": 4
+  },
+  "created_at": "2026-05-10T18:31:44.236982+00:00",
+  "registry_path": "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+  "case_ids": [
+    "h1w_owner_field_memo_stale_selection_decoy",
+    "h1w_assignee_field_archive_summary_decoy",
+    "h1w_state_tag_audit_log_value_decoy",
+    "h1w_mode_toggle_settings_note_decoy",
+    "h1w_result_badge_comment_value_decoy",
+    "h1w_status_pill_summary_value_decoy",
+    "h1w_warning_tile_no_call_note_decoy",
+    "h1w_error_banner_no_call_history_decoy"
+  ],
+  "operator_surface": "rich_cli_exact_probe_replay_v1",
+  "entrypoint": "moonie-agent replay-live"
+}

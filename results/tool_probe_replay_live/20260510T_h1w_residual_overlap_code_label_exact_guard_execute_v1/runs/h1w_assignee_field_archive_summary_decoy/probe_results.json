@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "h1w_assignee_field_archive_summary_decoy",
+    "family": "h1w_stale_field_routing",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "h1w-assignee-field-9612"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1w-assignee-field",
+          "target_query": "assignee field"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h1w-assignee-field",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "h1w-assignee-field-9612"
+          ],
+          "region_id": "h1w-assignee-field-9612",
+          "text_preview": "Noor"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1w-assignee-field",
+          "target_query": "assignee field"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1w-assignee-field",
+          "target_query": "assignee field"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h1w-assignee-field\", \"target_query\": \"assignee field\"}}",
+    "prompt_tokens": 1743,
+    "completion_tokens": 39,
+    "latency_ms": 8942
+  }
+]
