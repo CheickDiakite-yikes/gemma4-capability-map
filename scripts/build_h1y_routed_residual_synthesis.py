@@ -52,6 +52,13 @@ PACKET_SPECS: tuple[PacketSpec, ...] = (
         / "tool_probe_replay_live"
         / "20260510T_h1z_selection_origin_guard_on_h1y_execute_v1",
     ),
+    PacketSpec(
+        "component_label_guard_v11_stale_selection_gate_h2a",
+        ROOT
+        / "results"
+        / "tool_probe_replay_live"
+        / "20260510T_h2a_visual_stale_selection_gate_on_h1y_execute_v1",
+    ),
 )
 
 COMPARISON_DIRS: tuple[Path, ...] = (
@@ -95,6 +102,26 @@ COMPARISON_DIRS: tuple[Path, ...] = (
     / "results"
     / "tool_probe_replay_live_comparisons"
     / "20260510T_h1z_selection_origin_guard_vs_routed_residual_guard_on_h1y_v1",
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260510T_h2a_visual_stale_selection_gate_vs_no_directive_on_h1y_v1",
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260510T_h2a_visual_stale_selection_gate_vs_component_label_guard_on_h1y_v1",
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260510T_h2a_visual_stale_selection_gate_vs_component_residual_guard_on_h1y_v1",
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260510T_h2a_visual_stale_selection_gate_vs_routed_residual_guard_on_h1y_v1",
+    ROOT
+    / "results"
+    / "tool_probe_replay_live_comparisons"
+    / "20260510T_h2a_visual_stale_selection_gate_vs_selection_origin_guard_on_h1y_v1",
 )
 
 
@@ -113,6 +140,7 @@ def build_h1y_routed_residual_synthesis(*, output_dir: str | Path = DEFAULT_OUTP
     v12 = _row_by_label(packet_rows, "component_residual_guard_v12")
     v16 = _row_by_label(packet_rows, "routed_residual_guard_v16")
     v17 = _row_by_label(packet_rows, "selection_origin_guard_v17")
+    h2a = _row_by_label(packet_rows, "component_label_guard_v11_stale_selection_gate_h2a")
     manifest = {
         "generated_at": datetime.now(UTC).isoformat(),
         "output_dir": str(output.resolve()),
@@ -127,9 +155,11 @@ def build_h1y_routed_residual_synthesis(*, output_dir: str | Path = DEFAULT_OUTP
         "v16_executor_success_count": int(v16["executor_success_count"]),
         "v17_exact_success_count": int(v17["exact_success_count"]),
         "v17_executor_success_count": int(v17["executor_success_count"]),
+        "h2a_exact_success_count": int(h2a["exact_success_count"]),
+        "h2a_executor_success_count": int(h2a["executor_success_count"]),
         "comparison_count": len(comparison_rows),
         "finding_count": len(finding_rows),
-        "promotion_decision": "do_not_promote_v16_or_v17_escalate_to_controller_stale_id_gate",
+        "promotion_decision": "promote_h2a_to_transfer_retest_and_target_remaining_argument_aliases",
     }
     payload = {
         "manifest": manifest,
@@ -289,20 +319,38 @@ def _finding_rows(
     v12 = _row_by_label(packet_rows, "component_residual_guard_v12")
     v16 = _row_by_label(packet_rows, "routed_residual_guard_v16")
     v17 = _row_by_label(packet_rows, "selection_origin_guard_v17")
+    h2a = _row_by_label(packet_rows, "component_label_guard_v11_stale_selection_gate_h2a")
     v12_vs_v11 = _comparison_by_dir(comparison_rows, "component_residual_guard_vs_component_label_guard")
     v16_vs_v11 = _comparison_by_dir(comparison_rows, "routed_residual_guard_vs_component_label_guard")
     v16_vs_v12 = _comparison_by_dir(comparison_rows, "routed_residual_guard_vs_component_residual_guard")
     v17_vs_v11 = _comparison_by_dir(comparison_rows, "selection_origin_guard_vs_component_label_guard")
     v17_vs_v12 = _comparison_by_dir(comparison_rows, "selection_origin_guard_vs_component_residual_guard")
+    h2a_vs_v11 = _comparison_by_dir(comparison_rows, "stale_selection_gate_vs_component_label_guard")
+    h2a_vs_v12 = _comparison_by_dir(comparison_rows, "stale_selection_gate_vs_component_residual_guard")
     v12_surface = _family_row(family_rows, "component_residual_guard_v12", "h1y_preserve_surface_value")
     v16_surface = _family_row(family_rows, "routed_residual_guard_v16", "h1y_preserve_surface_value")
     v17_stale = _family_row(family_rows, "selection_origin_guard_v17", "h1y_route_stale_field")
     v17_surface = _family_row(family_rows, "selection_origin_guard_v17", "h1y_preserve_surface_value")
+    h2a_stale = _family_row(
+        family_rows,
+        "component_label_guard_v11_stale_selection_gate_h2a",
+        "h1y_route_stale_field",
+    )
+    h2a_surface = _family_row(
+        family_rows,
+        "component_label_guard_v11_stale_selection_gate_h2a",
+        "h1y_preserve_surface_value",
+    )
     v16_failures = ", ".join(
         row["case_id"] for row in non_exact_rows if row["profile_label"] == "routed_residual_guard_v16"
     )
     v17_failures = ", ".join(
         row["case_id"] for row in non_exact_rows if row["profile_label"] == "selection_origin_guard_v17"
+    )
+    h2a_failures = ", ".join(
+        row["case_id"]
+        for row in non_exact_rows
+        if row["profile_label"] == "component_label_guard_v11_stale_selection_gate_h2a"
     )
     return [
         {
@@ -353,12 +401,22 @@ def _finding_rows(
             ),
         },
         {
+            "finding_id": "h2a_controller_gate_is_causal",
+            "finding": (
+                f"H2a, which keeps v11's component-label wording and adds the controller-side stale-selection gate, "
+                f"reaches {h2a['exact_success_count']}/10 exact and {h2a['executor_success_count']}/10 "
+                f"executor-equivalent. It is +{h2a_vs_v11['delta_exact_rate']:.3f} over v11 and "
+                f"+{h2a_vs_v12['delta_exact_rate']:.3f} over v12 on the same packet, fixes "
+                f"{h2a_stale['exact_success_count']}/3 stale-field route rows, and preserves "
+                f"{h2a_surface['exact_success_count']}/2 surface-value holdouts. Non-exact rows: {h2a_failures}."
+            ),
+        },
+        {
             "finding_id": "next_slice",
             "finding": (
-                "Do not promote v16 or v17. H1y/H1z suggests that stale user-mentioned selection_id handling is "
-                "not reliably solved by more catalog prose; the next slice should test a controller/runtime "
-                "candidate that masks or rejects stale user-provided selection ids before model routing, then "
-                "compare that against v11 and v12 on the same packet."
+                "Promote H2a to transfer retest rather than adding more catalog prose. The remaining H1y misses are "
+                "argument-alias/code-label cases, so the next slice should isolate code labels and nonstandard "
+                "component classes without allowing expected-answer leakage."
             ),
         },
     ]
@@ -377,8 +435,9 @@ def _markdown(payload: dict[str, Any]) -> str:
             "H1y tests the routed-helper hypothesis directly. The packet mixes stale-field routes, "
             "nonstandard component classes, code labels, ordinary surface-value holdouts, and one activation row. "
             "No-directive reaches `0 / 10`, v11 reaches `5 / 10`, v12 reaches `7 / 10`, v16 reaches `5 / 10`, "
-            "and v17 reaches `5 / 10`. The negative v16/v17 results matter: catalog prose alone did not preserve "
-            "v11 while capturing v12's gains, and the stale user-mentioned selection_id problem remains."
+            "v17 reaches `5 / 10`, and H2a reaches `8 / 10`. The negative v16/v17 results matter: catalog prose "
+            "alone did not preserve v11 while capturing v12's gains. H2a shows the stale user-mentioned "
+            "selection_id failure is controller-addressable, leaving a smaller residual alias/code-label problem."
         ),
         "",
         "## Packet Rows",

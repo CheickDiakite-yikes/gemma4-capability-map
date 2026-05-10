@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-05-10T19:18:42.804051+00:00",
+  "generated_at": "2026-05-10T19:27:24.126542+00:00",
   "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h1y_routed_residual_synthesis",
-  "profile_count": 5,
+  "profile_count": 6,
   "case_count": 10,
   "no_directive_exact_success_count": 0,
   "v11_exact_success_count": 5,
@@ -12,7 +12,9 @@
   "v16_executor_success_count": 5,
   "v17_exact_success_count": 5,
   "v17_executor_success_count": 5,
-  "comparison_count": 10,
-  "finding_count": 6,
-  "promotion_decision": "do_not_promote_v16_or_v17_escalate_to_controller_stale_id_gate"
+  "h2a_exact_success_count": 8,
+  "h2a_executor_success_count": 8,
+  "comparison_count": 15,
+  "finding_count": 7,
+  "promotion_decision": "promote_h2a_to_transfer_retest_and_target_remaining_argument_aliases"
 }
