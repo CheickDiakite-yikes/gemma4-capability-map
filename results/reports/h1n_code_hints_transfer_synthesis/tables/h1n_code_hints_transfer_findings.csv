@@ -1,0 +1,6 @@
+finding_id,finding
+localized_oblique_repair,Code hints improves only the oblique code-label packet; positive transfer labels: oblique_v5.
+negative_transfer_elsewhere,"Code hints regresses against argument hints on earlier oracle transfer surfaces; negative transfer labels: oracle_transfer_v2, oracle_repeat_v1."
+aggregate_exactness,"Across the three H1n oracle packets, argument hints has 14/18 exact successes versus code hints at 11/18."
+aggregate_executor_equivalence,"Across the three H1n oracle packets, argument hints has 16/18 executor-equivalent successes versus code hints at 12/18."
+promotion_decision,"Keep oblique code hints as a scoped repair candidate, not a replacement for argument hints, until a stale-selection guard or fresh holdout reverses the transfer loss."

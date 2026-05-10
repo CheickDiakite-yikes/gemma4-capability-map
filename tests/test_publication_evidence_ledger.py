@@ -61,6 +61,9 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert claims["C24_h1n_oblique_code_hints_repair_two_misses_with_one_regression"][
         "status"
     ] == "supported_current_packets"
+    assert claims["C25_h1n_oblique_code_hints_is_localized_not_general"][
+        "status"
+    ] == "negative_result_current_packets"
     assert "7/8" in claims["C2_final_tool_directive_causal_for_protocol"]["primary_metric"]
     assert "v3 raw exact falls" in claims["C6_split_selector_wording_is_negative_evidence"]["primary_metric"]
     assert "schema-field hints reach 6/8 strict and 8/8 executor-equivalent" in claims[
@@ -157,6 +160,12 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
         and row["exists"]
         for row in payload["evidence_sources"]
     )
+    assert "argument hints has 14/18 exact and 16/18 executor-equivalent successes" in claims[
+        "C25_h1n_oblique_code_hints_is_localized_not_general"
+    ]["primary_metric"]
+    assert "code hints improves only the oblique packet" in claims[
+        "C25_h1n_oblique_code_hints_is_localized_not_general"
+    ]["primary_metric"]
 
     source_types = {row["artifact_type"] for row in payload["evidence_sources"]}
     assert "h1_ablation_packet" in source_types

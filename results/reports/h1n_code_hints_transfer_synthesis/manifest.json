@@ -1,0 +1,11 @@
+{
+  "generated_at": "2026-05-10T01:28:30.610687+00:00",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h1n_code_hints_transfer_synthesis",
+  "comparison_count": 3,
+  "total_case_count": 18,
+  "argument_hints_exact_success_count": 14,
+  "code_hints_exact_success_count": 11,
+  "argument_hints_executor_success_count": 16,
+  "code_hints_executor_success_count": 12,
+  "finding_count": 5
+}

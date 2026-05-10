@@ -3491,6 +3491,29 @@
   - `uv run python scripts/analyze_h1n_oblique_code_hints_delta.py`
   - `uv run pytest tests/test_h1n_oblique_code_hints_delta.py -q`
 
+## 2026-05-09 - H1n Code-Hints Transfer Synthesis
+
+- Ran the oblique-code profile on the earlier oracle and repeat packets:
+  - first oracle packet: [`results/tool_probe_replay_live/20260510T_h1n_oracle_code_hints_transfer_execute_v1`](../results/tool_probe_replay_live/20260510T_h1n_oracle_code_hints_transfer_execute_v1)
+  - repeat packet: [`results/tool_probe_replay_live/20260510T_h1n_oracle_repeat_code_hints_transfer_execute_v1`](../results/tool_probe_replay_live/20260510T_h1n_oracle_repeat_code_hints_transfer_execute_v1)
+  - first oracle comparison: [`results/tool_probe_replay_live_comparisons/20260510T_h1n_oracle_code_hints_vs_argument_hints_transfer_v1`](../results/tool_probe_replay_live_comparisons/20260510T_h1n_oracle_code_hints_vs_argument_hints_transfer_v1)
+  - repeat comparison: [`results/tool_probe_replay_live_comparisons/20260510T_h1n_oracle_repeat_code_hints_vs_argument_hints_transfer_v1`](../results/tool_probe_replay_live_comparisons/20260510T_h1n_oracle_repeat_code_hints_vs_argument_hints_transfer_v1)
+  - synthesis: [`results/reports/h1n_code_hints_transfer_synthesis/report.md`](../results/reports/h1n_code_hints_transfer_synthesis/report.md)
+- Result:
+  - first oracle: code hints `3 / 6` exact and executor-equivalent, versus argument hints at `5 / 6` exact and `6 / 6` executor-equivalent
+  - repeat: code hints `3 / 6` exact and `4 / 6` executor-equivalent, versus argument hints at `5 / 6` exact and `6 / 6` executor-equivalent
+  - oblique: code hints `5 / 6`, versus argument hints at `4 / 6`
+  - aggregate over three oracle packets: argument hints `14 / 18` exact and `16 / 18` executor-equivalent; code hints `11 / 18` exact and `12 / 18` executor-equivalent
+- Interpretation:
+  - oblique code hints is a localized repair for code-like labels, not a broad profile promotion
+  - the next profile should be activation-gated or paired with a stale-selection guard before another full transfer run
+  - this is valuable negative evidence: the best scientific answer is not "make prompts longer," but "local repairs can overfit and must be transfer-tested"
+- Verification:
+  - `uv run moonie-agent replay-live --packet-id 20260509T_visual_hard_slice_live_stress_alias_transfer_oracle_dry_run_v2 --output-dir results/tool_probe_replay_live/20260510T_h1n_oracle_code_hints_transfer_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_oblique_code_hints --execute --json`
+  - `uv run moonie-agent replay-live --packet-id 20260509T_visual_hard_slice_live_stress_alias_transfer_repeat_oracle_dry_run_v1 --output-dir results/tool_probe_replay_live/20260510T_h1n_oracle_repeat_code_hints_transfer_execute_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_oblique_code_hints --execute --json`
+  - `uv run python scripts/build_h1n_code_hints_transfer_synthesis.py`
+  - `uv run pytest tests/test_h1n_code_hints_transfer_synthesis.py -q`
+
 ## 2026-05-09 - Schema Target Literal v5 Negative Hard-Slice Repair
 
 - A narrow hard-slice repair candidate was added after inspecting the two v4 exact misses:

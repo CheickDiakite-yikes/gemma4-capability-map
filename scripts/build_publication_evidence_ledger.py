@@ -990,6 +990,55 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C25_h1n_oblique_code_hints_is_localized_not_general",
+        claim=(
+            "The oblique-code profile is a localized repair, not a general replacement for argument hints across "
+            "H1n oracle transfer packets."
+        ),
+        status="negative_result_current_packets",
+        evidence_strength="strong_internal",
+        primary_metric=(
+            "Across three H1n oracle packets, argument hints has 14/18 exact and 16/18 executor-equivalent successes, "
+            "while oblique code hints has 11/18 exact and 12/18 executor-equivalent successes; code hints improves "
+            "only the oblique packet."
+        ),
+        limitation=(
+            "The result compares one targeted profile against argument hints on three replay-shaped oracle packets; "
+            "it does not rule out a revised stale-selection guard or a future profile with narrower activation."
+        ),
+        next_test=(
+            "Build a stale-selection guard or activation-gated code-suffix profile, then test on a fresh post-repair "
+            "holdout before broad promotion."
+        ),
+        sources=(
+            EvidenceSource(
+                "synthesis_report",
+                "results/reports/h1n_code_hints_transfer_synthesis/report.md",
+                "Three-packet synthesis showing oblique-code gains are localized and transfer losses dominate overall.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h1n_oracle_code_hints_transfer_execute_v1",
+                "Oblique-code profile execution on the earlier oracle transfer packet.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260510T_h1n_oracle_repeat_code_hints_transfer_execute_v1",
+                "Oblique-code profile execution on the repeat oracle transfer packet.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260510T_h1n_oracle_code_hints_vs_argument_hints_transfer_v1",
+                "Direct comparison showing negative transfer on the earlier oracle packet.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260510T_h1n_oracle_repeat_code_hints_vs_argument_hints_transfer_v1",
+                "Direct comparison showing negative transfer on the repeat oracle packet.",
+            ),
+        ),
+    ),
 )
 
 

@@ -61,6 +61,7 @@ Local-first agent quality is a systems problem. On Moonie's current Gemma-on-MLX
    - H1n exposes a benchmark-contract issue: generated expected calls can measure planner-call fidelity rather than target success, so oracle expected calls are needed for strict H1n interpretation.
    - Two oracle H1n packets narrow the first mechanism question: argument hints v2 is executor-equivalent on both packets, schema target literals v5 ties on the repeat, and contracted prompting is not a reliable visual-transfer upper bound.
    - The held-out oblique oracle packet is now the sharper mechanism test: argument hints beats schema target literals, and `visual_role_catalog_oblique_code_hints_v6` improves to `5 / 6` by repairing code-suffix and negated-decoy misses while adding one `field e19` wrong-tool regression.
+   - Transfer testing prevents overclaiming: across the three H1n oracle packets, argument hints remains stronger overall at `14 / 18` exact and `16 / 18` executor-equivalent successes, while code hints is a localized oblique repair at `11 / 18` exact and `12 / 18` executor-equivalent.
 
 7. Threats To Validity
    - Internal benchmark and local runtime only.
@@ -100,6 +101,6 @@ uv run pytest tests/test_h1n_oracle_transfer_synthesis.py tests/test_mlx_tool_co
 
 ## Next Evidence Needed Before Submission
 
-- Analyze the `field e19` wrong-tool regression from the oblique-code repair and test whether the profile transfers to the earlier oracle/repeat packets or a fresh post-repair held-out packet.
+- Test an activation-gated code-suffix/stale-selection guard on a fresh post-repair held-out packet.
 - Repeated-seed or repeated-run variance for the strongest exact-replay claims.
 - A clean table separating population-style benchmark claims from failure-conditioned replay claims.

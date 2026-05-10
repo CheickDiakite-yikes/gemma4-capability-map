@@ -1,0 +1,2 @@
+case_id,family,expected_call_count,actual_call_count,exact_match,executable_match,executor_target_match,expected_calls,actual_calls,expected_execution,actual_execution,latency_ms,prompt_tokens,completion_tokens
+transfer_form_error_old_selection_chip_decoy,visual_tool_routing_transfer,1,0,False,False,False,"[{""name"": ""extract_layout"", ""arguments"": {""image_id"": ""img-transfer-form-chip"", ""target_query"": ""validation error""}}]",[],"{""region_ids"": [""transfer-form-3402""]}",[],4546,1272,1

@@ -527,6 +527,32 @@ def audit_publication_readiness(
             detail="H1n oblique-code-hints gain/regression diagnostic exists.",
         ),
         _check_path(
+            check_id="h1n_code_hints_transfer_packet_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260510T_h1n_oracle_code_hints_transfer_execute_v1"
+            / "summary.json",
+            detail="Oblique-code profile replay on the earlier oracle packet exists.",
+        ),
+        _check_path(
+            check_id="h1n_code_hints_repeat_transfer_packet_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260510T_h1n_oracle_repeat_code_hints_transfer_execute_v1"
+            / "summary.json",
+            detail="Oblique-code profile replay on the repeat oracle packet exists.",
+        ),
+        _check_path(
+            check_id="h1n_code_hints_transfer_synthesis_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "h1n_code_hints_transfer_synthesis" / "report.md",
+            detail="Three-packet H1n oblique-code transfer synthesis exists.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",
@@ -570,6 +596,7 @@ def audit_publication_readiness(
         "analyze_h1n_oracle_helper_ablation.py",
         "analyze_h1n_oblique_misses.py",
         "analyze_h1n_oblique_code_hints_delta.py",
+        "build_h1n_code_hints_transfer_synthesis.py",
         "build_h1n_oracle_transfer_synthesis.py",
         "compare_tool_directive_probes.py",
         "build_visual_hard_slice_design.py",

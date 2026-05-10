@@ -1,0 +1,31 @@
+[
+  {
+    "case_id": "transfer_form_error_old_selection_chip_decoy",
+    "family": "visual_tool_routing_transfer",
+    "expected_call_count": 1,
+    "actual_call_count": 0,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "transfer-form-3402"
+      ]
+    },
+    "actual_execution": [],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-transfer-form-chip",
+          "target_query": "validation error"
+        }
+      }
+    ],
+    "actual_calls": [],
+    "raw_model_output": "",
+    "prompt_tokens": 1272,
+    "completion_tokens": 1,
+    "latency_ms": 4546
+  }
+]

@@ -1,9 +1,9 @@
 {
   "summary": {
-    "generated_at": "2026-05-10T01:25:11.202395+00:00",
+    "generated_at": "2026-05-10T01:30:21.211086+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 79,
-    "blocking_check_count": 77,
+    "check_count": 83,
+    "blocking_check_count": 81,
     "blocking_failed_count": 0,
     "recommended_check_count": 2,
     "recommended_failed_count": 0,
@@ -418,6 +418,27 @@
       "path": "results/reports/h1n_oblique_code_hints_delta/diagnostic.md"
     },
     {
+      "check_id": "h1n_code_hints_transfer_packet_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Oblique-code profile replay on the earlier oracle packet exists.",
+      "path": "results/tool_probe_replay_live/20260510T_h1n_oracle_code_hints_transfer_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h1n_code_hints_repeat_transfer_packet_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Oblique-code profile replay on the repeat oracle packet exists.",
+      "path": "results/tool_probe_replay_live/20260510T_h1n_oracle_repeat_code_hints_transfer_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h1n_code_hints_transfer_synthesis_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Three-packet H1n oblique-code transfer synthesis exists.",
+      "path": "results/reports/h1n_code_hints_transfer_synthesis/report.md"
+    },
+    {
       "check_id": "current_state_doc_exists",
       "severity": "blocking",
       "passed": true,
@@ -535,6 +556,13 @@
       "passed": true,
       "detail": "Reproduction script `analyze_h1n_oblique_code_hints_delta.py` exists.",
       "path": "scripts/analyze_h1n_oblique_code_hints_delta.py"
+    },
+    {
+      "check_id": "script_build_h1n_code_hints_transfer_synthesis.py_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Reproduction script `build_h1n_code_hints_transfer_synthesis.py` exists.",
+      "path": "scripts/build_h1n_code_hints_transfer_synthesis.py"
     },
     {
       "check_id": "script_build_h1n_oracle_transfer_synthesis.py_exists",

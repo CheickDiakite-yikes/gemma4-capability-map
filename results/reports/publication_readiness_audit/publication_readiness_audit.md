@@ -65,6 +65,9 @@
 | h1n_oblique_code_hints_packet_exists | blocking | True | H1n oblique-code-hints replay packet exists. | results/tool_probe_replay_live/20260509T_h1n_oracle_oblique_code_hints_execute_v1/summary.json |
 | h1n_oblique_code_hints_vs_argument_hints_comparison_exists | blocking | True | H1n oblique-code-hints comparison against argument hints exists. | results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_oblique_code_hints_vs_argument_hints_v1/live_replay_comparison.json |
 | h1n_oblique_code_hints_delta_diagnostic_exists | blocking | True | H1n oblique-code-hints gain/regression diagnostic exists. | results/reports/h1n_oblique_code_hints_delta/diagnostic.md |
+| h1n_code_hints_transfer_packet_exists | blocking | True | Oblique-code profile replay on the earlier oracle packet exists. | results/tool_probe_replay_live/20260510T_h1n_oracle_code_hints_transfer_execute_v1/summary.json |
+| h1n_code_hints_repeat_transfer_packet_exists | blocking | True | Oblique-code profile replay on the repeat oracle packet exists. | results/tool_probe_replay_live/20260510T_h1n_oracle_repeat_code_hints_transfer_execute_v1/summary.json |
+| h1n_code_hints_transfer_synthesis_exists | blocking | True | Three-packet H1n oblique-code transfer synthesis exists. | results/reports/h1n_code_hints_transfer_synthesis/report.md |
 | current_state_doc_exists | blocking | True | Continuity current-state doc exists. | docs/continuity/current-state.md |
 | next_steps_doc_exists | blocking | True | Continuity next-steps doc exists. | docs/continuity/next-steps.md |
 | research_log_exists | blocking | True | Research log exists. | docs/research-log.md |
@@ -82,6 +85,7 @@
 | script_analyze_h1n_oracle_helper_ablation.py_exists | blocking | True | Reproduction script `analyze_h1n_oracle_helper_ablation.py` exists. | scripts/analyze_h1n_oracle_helper_ablation.py |
 | script_analyze_h1n_oblique_misses.py_exists | blocking | True | Reproduction script `analyze_h1n_oblique_misses.py` exists. | scripts/analyze_h1n_oblique_misses.py |
 | script_analyze_h1n_oblique_code_hints_delta.py_exists | blocking | True | Reproduction script `analyze_h1n_oblique_code_hints_delta.py` exists. | scripts/analyze_h1n_oblique_code_hints_delta.py |
+| script_build_h1n_code_hints_transfer_synthesis.py_exists | blocking | True | Reproduction script `build_h1n_code_hints_transfer_synthesis.py` exists. | scripts/build_h1n_code_hints_transfer_synthesis.py |
 | script_build_h1n_oracle_transfer_synthesis.py_exists | blocking | True | Reproduction script `build_h1n_oracle_transfer_synthesis.py` exists. | scripts/build_h1n_oracle_transfer_synthesis.py |
 | script_compare_tool_directive_probes.py_exists | blocking | True | Reproduction script `compare_tool_directive_probes.py` exists. | scripts/compare_tool_directive_probes.py |
 | script_build_visual_hard_slice_design.py_exists | blocking | True | Reproduction script `build_visual_hard_slice_design.py` exists. | scripts/build_visual_hard_slice_design.py |

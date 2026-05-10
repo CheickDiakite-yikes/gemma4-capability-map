@@ -4,9 +4,9 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 
 ## Manifest
 
-- generated_at: `2026-05-10T01:25:11.205807+00:00`
-- claim_count: `24`
-- evidence_source_count: `109`
+- generated_at: `2026-05-10T01:30:21.214837+00:00`
+- claim_count: `25`
+- evidence_source_count: `114`
 - missing_source_count: `0`
 
 ## Claims
@@ -37,6 +37,7 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C22_h1n_oblique_labels_favor_argument_hints_over_schema_literals | supported_current_packets | moderate_internal | H1n oblique-label oracle replay-live: no-directive is 0/6 exact and executor-equivalent; contracted is 1/6; role catalog is 2/6; argument hints v2 is 4/6; schema-field hints v4 is 3/6; schema target literals v5 is 0/6. | The packet intentionally stresses literal code-like target labels, so it should be interpreted as a hard held-out mechanism test rather than a representative visual-work population estimate. | Inspect argument-hints misses on the oblique packet, then compare argument hints and schema-field hints on a less replay-shaped live visual task. |
 | C23_h1n_oblique_argument_hints_misses_are_code_and_negation_errors | supported_current_packets | moderate_internal | Argument hints has two oblique misses: `cell r42` is truncated to `cell`, and `alert p55` is replaced with the negated decoy `consent toggle`; schema-field hints has three misses spanning semantic broad selection, code-suffix truncation, and one tool-entry failure. | This diagnostic classifies deterministic replay outputs from one held-out packet; it is a mechanism diagnostic, not a new population-level accuracy estimate. | Try a narrow code-suffix preservation intervention or a negated-decoy guard only if it can be tested without regressing the four oblique argument-hints wins. |
 | C24_h1n_oblique_code_hints_repair_two_misses_with_one_regression | supported_current_packets | moderate_internal | Oblique code hints reaches 5/6 exact and executor-equivalent versus argument hints at 4/6, improving by +0.167 on both metrics; it repairs `cell r42` and `alert p55` but loses `field e19` as a wrong-tool case. | The profile is tuned from observed oblique misses, so this is a successful repair on a held-out packet but still requires a fresh packet or less staged live task before promotion. | Run the oblique-code profile on the earlier oracle and repeat packets, or build a fresh post-repair held-out packet to check whether the `field e19` regression is localized. |
+| C25_h1n_oblique_code_hints_is_localized_not_general | negative_result_current_packets | strong_internal | Across three H1n oracle packets, argument hints has 14/18 exact and 16/18 executor-equivalent successes, while oblique code hints has 11/18 exact and 12/18 executor-equivalent successes; code hints improves only the oblique packet. | The result compares one targeted profile against argument hints on three replay-shaped oracle packets; it does not rule out a revised stale-selection guard or a future profile with narrower activation. | Build a stale-selection guard or activation-gated code-suffix profile, then test on a fresh post-repair holdout before broad promotion. |
 
 ## Evidence Sources
 
@@ -151,3 +152,8 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C24_h1n_oblique_code_hints_repair_two_misses_with_one_regression | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_oblique_code_hints_vs_argument_hints_v1 | Direct comparison showing +0.167 exact and executor-equivalence deltas over argument hints. |
 | C24_h1n_oblique_code_hints_repair_two_misses_with_one_regression | diagnostic_report | True | results/reports/h1n_oblique_code_hints_delta/diagnostic.md | Case-level gain/loss diagnostic showing two repairs, one stale-selection regression, and three preserved wins. |
 | C24_h1n_oblique_code_hints_repair_two_misses_with_one_regression | diagnostic_report | True | results/reports/visual_alias_transfer_oblique_diagnostic/diagnostic.md | Updated oblique diagnostic including the oblique-code profile as the current best row. |
+| C25_h1n_oblique_code_hints_is_localized_not_general | synthesis_report | True | results/reports/h1n_code_hints_transfer_synthesis/report.md | Three-packet synthesis showing oblique-code gains are localized and transfer losses dominate overall. |
+| C25_h1n_oblique_code_hints_is_localized_not_general | live_replay_packet | True | results/tool_probe_replay_live/20260510T_h1n_oracle_code_hints_transfer_execute_v1 | Oblique-code profile execution on the earlier oracle transfer packet. |
+| C25_h1n_oblique_code_hints_is_localized_not_general | live_replay_packet | True | results/tool_probe_replay_live/20260510T_h1n_oracle_repeat_code_hints_transfer_execute_v1 | Oblique-code profile execution on the repeat oracle transfer packet. |
+| C25_h1n_oblique_code_hints_is_localized_not_general | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260510T_h1n_oracle_code_hints_vs_argument_hints_transfer_v1 | Direct comparison showing negative transfer on the earlier oracle packet. |
+| C25_h1n_oblique_code_hints_is_localized_not_general | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260510T_h1n_oracle_repeat_code_hints_vs_argument_hints_transfer_v1 | Direct comparison showing negative transfer on the repeat oracle packet. |

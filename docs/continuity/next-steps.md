@@ -112,10 +112,13 @@ Next implementation moves:
   - live packet: [`results/tool_probe_replay_live/20260509T_h1n_oracle_oblique_code_hints_execute_v1`](../../results/tool_probe_replay_live/20260509T_h1n_oracle_oblique_code_hints_execute_v1)
   - comparison: [`results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_oblique_code_hints_vs_argument_hints_v1`](../../results/tool_probe_replay_live_comparisons/20260509T_h1n_oracle_oblique_code_hints_vs_argument_hints_v1)
   - delta diagnostic: [`results/reports/h1n_oblique_code_hints_delta/diagnostic.md`](../../results/reports/h1n_oblique_code_hints_delta/diagnostic.md)
+  - transfer synthesis: [`results/reports/h1n_code_hints_transfer_synthesis/report.md`](../../results/reports/h1n_code_hints_transfer_synthesis/report.md)
   - result: `5 / 6` exact and executor-equivalent, versus argument hints at `4 / 6`
   - repair: fixes `cell r42` suffix truncation and `alert p55` negated-decoy selection
   - regression: loses the previous `field e19` argument-hints win by switching to `refine_selection(selection_id="sel-e19-archive", filter_query="not")`
-- next replay-shaped target: run the oblique-code profile against the earlier oracle and repeat packets to check whether the repair generalizes outside the oblique slice
+  - transfer result: on the first oracle packet code hints falls to `3 / 6` exact and executor-equivalent; on the repeat packet it is `3 / 6` exact and `4 / 6` executor-equivalent
+  - decision: keep code hints as a localized oblique repair, not a replacement for argument hints
+- next replay-shaped target: build either an activation-gated code-suffix profile or a stale-selection guard, then test it on a fresh post-repair holdout before broad promotion
 - later, consider a true keyboard TUI after the command-driven operator loop is useful
 - keep hardening sandbox policies around file writes and external process/network actions
 - keep packaged workflows as the only live entrypoint in v1
