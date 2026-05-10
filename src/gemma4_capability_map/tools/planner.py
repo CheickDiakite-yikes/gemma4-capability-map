@@ -83,6 +83,7 @@ def tool_catalog_text(tool_specs: list[ToolSpec], *, profile_id: str = "") -> st
 
 def known_tool_catalog_profile_ids() -> list[str]:
     return [
+        "visual_role_catalog_class_preserving_residual_route_v19",
         "visual_role_catalog_scoped_residual_exactness_v18",
         "visual_role_catalog_selection_origin_guard_v17",
         "visual_role_catalog_routed_residual_guard_v16",
@@ -147,6 +148,7 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
         "visual_role_catalog_routed_residual_guard_v16",
         "visual_role_catalog_selection_origin_guard_v17",
         "visual_role_catalog_scoped_residual_exactness_v18",
+        "visual_role_catalog_class_preserving_residual_route_v19",
     }:
         lines.extend(
             [
@@ -179,6 +181,7 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
         "visual_role_catalog_routed_residual_guard_v16",
         "visual_role_catalog_selection_origin_guard_v17",
         "visual_role_catalog_scoped_residual_exactness_v18",
+        "visual_role_catalog_class_preserving_residual_route_v19",
     }:
         lines.extend(
             [
@@ -202,6 +205,7 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
         "visual_role_catalog_routed_residual_guard_v16",
         "visual_role_catalog_selection_origin_guard_v17",
         "visual_role_catalog_scoped_residual_exactness_v18",
+        "visual_role_catalog_class_preserving_residual_route_v19",
     }:
         lines.extend(
             [
@@ -222,6 +226,7 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
         "visual_role_catalog_routed_residual_guard_v16",
         "visual_role_catalog_selection_origin_guard_v17",
         "visual_role_catalog_scoped_residual_exactness_v18",
+        "visual_role_catalog_class_preserving_residual_route_v19",
     }:
         lines.extend(
             [
@@ -241,6 +246,7 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
         "visual_role_catalog_routed_residual_guard_v16",
         "visual_role_catalog_selection_origin_guard_v17",
         "visual_role_catalog_scoped_residual_exactness_v18",
+        "visual_role_catalog_class_preserving_residual_route_v19",
     }:
         lines.extend(
             [
@@ -325,6 +331,18 @@ def render_tool_catalog_profile(profile_id: str, tool_specs: list[ToolSpec]) -> 
                 "- Leave stale selection_id repair to the controller gate; never call refine_selection with ids that appear only in the user's text.",
             ]
         )
+    if normalized == "visual_role_catalog_class_preserving_residual_route_v19":
+        lines.extend(
+            [
+                "Class-preserving residual route:",
+                "- Default to the narrow component-label guard for ordinary visible role-plus-component targets.",
+                "- When residual exactness activates, preserve both words the user named: the role noun and the component class.",
+                "- Never substitute one component class for another. If the user says result chip, target_query is result chip; if the user says result pill, target_query is result pill; if the user says result badge, target_query is result badge.",
+                "- The same class-preserving rule applies to state tag, mode toggle, alert s92, badge c08, owner field, warning panel, and error notice.",
+                "- Treat neighboring notes, logs, comments, summaries, and repeated values as decoys unless the user names that class directly.",
+                "- Leave stale selection_id repair to the controller gate; never call refine_selection with ids that appear only in the user's text.",
+            ]
+        )
     if normalized == "visual_role_catalog_component_value_guard_v9":
         lines.extend(
             [
@@ -376,6 +394,7 @@ def _profiled_tool_spec(tool: ToolSpec, *, profile_id: str = "") -> ToolSpec:
         "visual_role_catalog_routed_residual_guard_v16",
         "visual_role_catalog_selection_origin_guard_v17",
         "visual_role_catalog_scoped_residual_exactness_v18",
+        "visual_role_catalog_class_preserving_residual_route_v19",
     }:
         return tool
     if tool.name not in {"extract_layout", "refine_selection", "read_region_text"}:
@@ -468,6 +487,12 @@ def _profiled_tool_spec(tool: ToolSpec, *, profile_id: str = "") -> ToolSpec:
                 "tag, toggle, switch, or field phrases such as result pill, alert s92, badge c08, state tag, "
                 "or mode toggle; do not swap component class or displayed value."
             )
+        if normalized == "visual_role_catalog_class_preserving_residual_route_v19":
+            target_description = (
+                "Compact class-preserving residual label from the prompt. Copy the exact role noun plus component "
+                "class the user named, such as result chip, result pill, result badge, state tag, mode toggle, "
+                "alert s92, or badge c08; never substitute a different component class or displayed value."
+            )
         _set_property_description(
             properties,
             "target_query",
@@ -490,6 +515,7 @@ def _profiled_tool_spec(tool: ToolSpec, *, profile_id: str = "") -> ToolSpec:
             "visual_role_catalog_routed_residual_guard_v16",
             "visual_role_catalog_selection_origin_guard_v17",
             "visual_role_catalog_scoped_residual_exactness_v18",
+            "visual_role_catalog_class_preserving_residual_route_v19",
         }:
             filter_description = (
                 "Shortest literal narrowing token for a current selection_id copied from the latest passing visual tool result. "
