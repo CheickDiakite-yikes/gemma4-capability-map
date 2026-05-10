@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "post_repair_badge_t64_notice_decoy",
+    "family": "visual_argument_transfer_post_repair_code",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "post-badge-6102"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-post-badge-t64",
+          "target_query": "badge t64"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-post-badge-t64",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "post-badge-6102"
+          ],
+          "region_id": "post-badge-6102",
+          "text_preview": "Blocked: 7"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-post-badge-t64",
+          "target_query": "badge t64"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-post-badge-t64",
+          "target_query": "badge t64"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-post-badge-t64\", \"target_query\": \"badge t64\"}}",
+    "prompt_tokens": 1319,
+    "completion_tokens": 39,
+    "latency_ms": 5408
+  }
+]

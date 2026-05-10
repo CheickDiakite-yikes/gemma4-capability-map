@@ -1,0 +1,2 @@
+case_id,family,expected_call_count,actual_call_count,exact_match,executable_match,executor_target_match,expected_calls,actual_calls,expected_execution,actual_execution,latency_ms,prompt_tokens,completion_tokens
+post_repair_warning_toast_email_decoy,visual_argument_transfer_post_repair_noncode,1,0,False,False,False,"[{""name"": ""extract_layout"", ""arguments"": {""image_id"": ""img-post-warning-toast"", ""target_query"": ""warning toast""}}]",[],"{""region_ids"": [""post-toast-6702""]}",[],3965,647,29

@@ -1,0 +1,2 @@
+case_id,family,expected_call_count,actual_call_count,exact_match,executable_match,executor_target_match,expected_calls,actual_calls,expected_execution,actual_execution,latency_ms,prompt_tokens,completion_tokens
+post_repair_field_b12_stale_selection_decoy,visual_tool_routing_transfer_post_repair,1,0,False,False,False,"[{""name"": ""extract_layout"", ""arguments"": {""image_id"": ""img-post-field-b12"", ""target_query"": ""field b12""}}]",[],"{""region_ids"": [""post-field-6302""]}",[],3786,667,1

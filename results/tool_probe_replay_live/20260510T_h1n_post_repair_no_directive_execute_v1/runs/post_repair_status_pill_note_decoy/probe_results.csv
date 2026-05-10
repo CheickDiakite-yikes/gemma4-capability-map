@@ -1,0 +1,2 @@
+case_id,family,expected_call_count,actual_call_count,exact_match,executable_match,executor_target_match,expected_calls,actual_calls,expected_execution,actual_execution,latency_ms,prompt_tokens,completion_tokens
+post_repair_status_pill_note_decoy,visual_argument_transfer_post_repair_noncode,1,0,False,False,False,"[{""name"": ""extract_layout"", ""arguments"": {""image_id"": ""img-post-status-pill"", ""target_query"": ""status pill""}}]",[],"{""region_ids"": [""post-status-6502""]}",[],4263,650,29

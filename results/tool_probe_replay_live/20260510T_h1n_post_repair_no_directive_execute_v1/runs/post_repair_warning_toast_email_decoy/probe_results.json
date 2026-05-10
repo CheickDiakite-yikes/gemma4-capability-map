@@ -1,0 +1,31 @@
+[
+  {
+    "case_id": "post_repair_warning_toast_email_decoy",
+    "family": "visual_argument_transfer_post_repair_noncode",
+    "expected_call_count": 1,
+    "actual_call_count": 0,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "post-toast-6702"
+      ]
+    },
+    "actual_execution": [],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-post-warning-toast",
+          "target_query": "warning toast"
+        }
+      }
+    ],
+    "actual_calls": [],
+    "raw_model_output": "\"extract_layout\"({\"image_id\": \"img-post-warning-toast\", \"target_query\": \"warning toast\"})",
+    "prompt_tokens": 647,
+    "completion_tokens": 29,
+    "latency_ms": 3965
+  }
+]

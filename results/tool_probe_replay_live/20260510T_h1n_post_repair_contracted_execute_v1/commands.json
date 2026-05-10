@@ -1,0 +1,162 @@
+[
+  {
+    "case_id": "post_repair_node_k21_chart_decoy",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "-m",
+      "gemma4_capability_map.runtime.cli",
+      "replay-live",
+      "--packet-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_post_repair_oracle_dry_run_v1",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1n_post_repair_contracted_execute_v1",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--case-id",
+      "post_repair_node_k21_chart_decoy",
+      "--execute"
+    ]
+  },
+  {
+    "case_id": "post_repair_badge_t64_notice_decoy",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "-m",
+      "gemma4_capability_map.runtime.cli",
+      "replay-live",
+      "--packet-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_post_repair_oracle_dry_run_v1",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1n_post_repair_contracted_execute_v1",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--case-id",
+      "post_repair_badge_t64_notice_decoy",
+      "--execute"
+    ]
+  },
+  {
+    "case_id": "post_repair_chip_l90_person_decoy",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "-m",
+      "gemma4_capability_map.runtime.cli",
+      "replay-live",
+      "--packet-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_post_repair_oracle_dry_run_v1",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1n_post_repair_contracted_execute_v1",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--case-id",
+      "post_repair_chip_l90_person_decoy",
+      "--execute"
+    ]
+  },
+  {
+    "case_id": "post_repair_field_b12_stale_selection_decoy",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "-m",
+      "gemma4_capability_map.runtime.cli",
+      "replay-live",
+      "--packet-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_post_repair_oracle_dry_run_v1",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1n_post_repair_contracted_execute_v1",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--case-id",
+      "post_repair_field_b12_stale_selection_decoy",
+      "--execute"
+    ]
+  },
+  {
+    "case_id": "post_repair_alert_c77_toggle_decoy",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "-m",
+      "gemma4_capability_map.runtime.cli",
+      "replay-live",
+      "--packet-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_post_repair_oracle_dry_run_v1",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1n_post_repair_contracted_execute_v1",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--case-id",
+      "post_repair_alert_c77_toggle_decoy",
+      "--execute"
+    ]
+  },
+  {
+    "case_id": "post_repair_status_pill_note_decoy",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "-m",
+      "gemma4_capability_map.runtime.cli",
+      "replay-live",
+      "--packet-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_post_repair_oracle_dry_run_v1",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1n_post_repair_contracted_execute_v1",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--case-id",
+      "post_repair_status_pill_note_decoy",
+      "--execute"
+    ]
+  },
+  {
+    "case_id": "post_repair_review_tile_table_decoy",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "-m",
+      "gemma4_capability_map.runtime.cli",
+      "replay-live",
+      "--packet-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_post_repair_oracle_dry_run_v1",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1n_post_repair_contracted_execute_v1",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--case-id",
+      "post_repair_review_tile_table_decoy",
+      "--execute"
+    ]
+  },
+  {
+    "case_id": "post_repair_warning_toast_email_decoy",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "-m",
+      "gemma4_capability_map.runtime.cli",
+      "replay-live",
+      "--packet-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260510T_visual_hard_slice_live_stress_alias_transfer_post_repair_oracle_dry_run_v1",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260510T_h1n_post_repair_contracted_execute_v1",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--case-id",
+      "post_repair_warning_toast_email_decoy",
+      "--execute"
+    ]
+  }
+]

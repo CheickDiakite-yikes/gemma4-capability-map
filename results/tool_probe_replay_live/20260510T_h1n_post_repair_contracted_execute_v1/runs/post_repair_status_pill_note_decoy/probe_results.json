@@ -1,0 +1,51 @@
+[
+  {
+    "case_id": "post_repair_status_pill_note_decoy",
+    "family": "visual_argument_transfer_post_repair_noncode",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "post-status-6502"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "read_region_text",
+        "arguments": {
+          "image_id": "img-post-status-pill",
+          "region_id": ""
+        },
+        "validator_result": "fail",
+        "output": {},
+        "error": "'Region not found: '"
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-post-status-pill",
+          "target_query": "status pill"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "read_region_text",
+        "arguments": {
+          "image_id": "img-post-status-pill",
+          "region_id": ""
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"read_region_text\", \"arguments\": {\"image_id\": \"img-post-status-pill\", \"region_id\": \"\"}}",
+    "prompt_tokens": 772,
+    "completion_tokens": 35,
+    "latency_ms": 4004
+  }
+]

@@ -1,0 +1,64 @@
+[
+  {
+    "case_id": "post_repair_alert_c77_toggle_decoy",
+    "family": "visual_tool_routing_transfer_post_repair",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "post-alert-6402"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-post-alert-c77",
+          "target_query": "alert"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-post-alert-c77",
+          "selection_kind": "regions",
+          "count": 3,
+          "executor_mode": "local",
+          "region_ids": [
+            "post-alert-6401",
+            "post-alert-6402",
+            "post-alert-6403"
+          ],
+          "region_id": "post-alert-6401",
+          "text_preview": "Access enabled"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-post-alert-c77",
+          "target_query": "alert c77"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-post-alert-c77",
+          "target_query": "alert"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-post-alert-c77\", \"target_query\": \"alert\"}}",
+    "prompt_tokens": 654,
+    "completion_tokens": 37,
+    "latency_ms": 4293
+  }
+]

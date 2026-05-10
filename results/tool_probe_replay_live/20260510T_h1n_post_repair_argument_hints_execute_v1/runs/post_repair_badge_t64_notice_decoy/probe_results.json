@@ -1,0 +1,64 @@
+[
+  {
+    "case_id": "post_repair_badge_t64_notice_decoy",
+    "family": "visual_argument_transfer_post_repair_code",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "post-badge-6102"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-post-badge-t64",
+          "target_query": "badge"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-post-badge-t64",
+          "selection_kind": "regions",
+          "count": 3,
+          "executor_mode": "local",
+          "region_ids": [
+            "post-badge-6101",
+            "post-badge-6102",
+            "post-badge-6103"
+          ],
+          "region_id": "post-badge-6101",
+          "text_preview": "Blocked items need review"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-post-badge-t64",
+          "target_query": "badge t64"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-post-badge-t64",
+          "target_query": "badge"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-post-badge-t64\", \"target_query\": \"badge\"}}",
+    "prompt_tokens": 991,
+    "completion_tokens": 36,
+    "latency_ms": 5371
+  }
+]
