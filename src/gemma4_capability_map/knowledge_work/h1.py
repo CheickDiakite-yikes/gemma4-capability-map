@@ -220,6 +220,9 @@ def _system_run_args(system_id: str, meta: dict[str, Any]) -> dict[str, Any]:
         "enable_visual_value_bearing_target_query_synthesis": (
             controls.enable_visual_value_bearing_target_query_synthesis
         ),
+        "enable_visual_contextual_surface_alias_routing": (
+            controls.enable_visual_contextual_surface_alias_routing
+        ),
         "tool_prompt_contract_id": controls.tool_prompt_contract_id,
         "tool_catalog_profile_id": controls.tool_catalog_profile_id,
     }

@@ -5,6 +5,7 @@ from pathlib import Path
 
 from gemma4_capability_map.runtime.tool_directive_probe import (
     ToolDirectiveProbeCase,
+    _apply_visual_contextual_surface_alias_routing,
     _apply_visual_stale_selection_gate,
     _apply_visual_target_query_normalization,
     _apply_visual_value_bearing_target_query_synthesis,
@@ -258,6 +259,37 @@ systems:
     assert result["manifest"]["research_controls"] == {
         "disable_tool_turn_directive": True,
         "enable_visual_value_bearing_target_query_synthesis": True,
+    }
+
+
+def test_run_tool_directive_probe_records_visual_contextual_surface_alias_routing_control(tmp_path: Path) -> None:
+    registry_path = tmp_path / "registry.yaml"
+    registry_path.write_text(
+        """
+systems:
+  heuristic_contextual_surface_alias_routing:
+    backend: heuristic
+    reasoner: google/gemma-4-E2B-it
+    reasoner_max_new_tokens: 64
+    request_timeout_seconds: 30.0
+    research_controls:
+      disable_tool_turn_directive: true
+      enable_visual_contextual_surface_alias_routing: true
+""".strip()
+        + "\n",
+        encoding="utf-8",
+    )
+    output_dir = tmp_path / "probe"
+    result = run_tool_directive_probe(
+        system_id="heuristic_contextual_surface_alias_routing",
+        output_dir=output_dir,
+        registry_path=registry_path,
+        cases=build_tool_directive_probe_cases()[:1],
+    )
+
+    assert result["manifest"]["research_controls"] == {
+        "disable_tool_turn_directive": True,
+        "enable_visual_contextual_surface_alias_routing": True,
     }
 
 
@@ -852,6 +884,97 @@ def test_value_bearing_target_query_synthesis_ignores_negated_longer_label() -> 
     assert patched.normalized_tool_call[0].arguments["target_query"] == "state tag"
     assert "visual_value_bearing_target_query_synthesis" not in patched.runtime_metadata
     assert patched.runtime_metadata["visual_target_query_normalization"][0]["prompt_state_label"] == "state tag"
+
+
+def test_contextual_surface_alias_routing_rewrites_display_value_to_requested_surface_alias() -> None:
+    specs = build_default_registry().specs
+    case = ToolDirectiveProbeCase(
+        case_id="contextual-surface-alias-routing",
+        family="visual",
+        messages=[
+            Message(
+                role="user",
+                content="Use the tile-style result surface for Blocked; the badge and comment are nearby context.",
+            )
+        ],
+        media=["img-result"],
+        tool_names=["extract_layout", "refine_selection"],
+        initial_state={
+            "images": {
+                "img-result": {
+                    "local_layouts": [
+                        {"region_id": "badge-1", "label": "result badge", "text": "Blocked"},
+                        {"region_id": "tile-1", "label": "result tile", "text": "Blocked"},
+                        {"region_id": "comment-1", "label": "result comment", "text": "Blocked pending counsel"},
+                    ]
+                }
+            },
+        },
+    )
+    turn = ModelTurn(
+        raw_model_output="{}",
+        normalized_tool_call=[
+            ToolCall(
+                name="extract_layout",
+                arguments={"image_id": "img-result", "target_query": "Blocked"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+    )
+
+    patched = _apply_visual_contextual_surface_alias_routing(
+        turn=turn,
+        case=case,
+        tool_specs=[specs["extract_layout"], specs["refine_selection"]],
+    )
+
+    assert patched.normalized_tool_call[0].arguments["target_query"] == "result tile"
+    metadata = patched.runtime_metadata["visual_contextual_surface_alias_routing"][0]
+    assert metadata["display_value"] == "Blocked"
+    assert metadata["surface_label"] == "result tile"
+    assert metadata["surface_region_id"] == "tile-1"
+    assert metadata["reason"] == "contextual_surface_alias_recoverable"
+
+
+def test_contextual_surface_alias_routing_preserves_without_surface_request() -> None:
+    specs = build_default_registry().specs
+    case = ToolDirectiveProbeCase(
+        case_id="contextual-surface-alias-routing-no-request",
+        family="visual",
+        messages=[Message(role="user", content="Use the Blocked result; the badge and comment are nearby context.")],
+        media=["img-result"],
+        tool_names=["extract_layout", "refine_selection"],
+        initial_state={
+            "images": {
+                "img-result": {
+                    "local_layouts": [
+                        {"region_id": "badge-1", "label": "result badge", "text": "Blocked"},
+                        {"region_id": "tile-1", "label": "result tile", "text": "Blocked"},
+                    ]
+                }
+            },
+        },
+    )
+    turn = ModelTurn(
+        raw_model_output="{}",
+        normalized_tool_call=[
+            ToolCall(
+                name="extract_layout",
+                arguments={"image_id": "img-result", "target_query": "Blocked"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+    )
+
+    patched = _apply_visual_contextual_surface_alias_routing(
+        turn=turn,
+        case=case,
+        tool_specs=[specs["extract_layout"], specs["refine_selection"]],
+    )
+
+    assert patched == turn
 
 
 def test_tool_directive_probe_comparison_reports_case_and_family_deltas(tmp_path: Path) -> None:

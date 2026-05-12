@@ -151,7 +151,7 @@ The freshest MLX evidence is now H1h/H1i/H1g:
   - exact JSON copy `7 / 8`
   - visual selector paraphrase executable target `1 / 1`
 
-The freshest replay-shaped visual controller evidence is now H2o:
+The freshest replay-shaped visual controller evidence is now H2p:
 
 - H2j target-query normalization proved the repair can be controller-attributable rather than prompt-prose-attributable:
   - H2f: `10 / 10`
@@ -184,9 +184,19 @@ The freshest replay-shaped visual controller evidence is now H2o:
   - H2l: `8 / 8`
   - H2f: `10 / 10`
   - synthesis: [`results/reports/h2o_value_bearing_target_synthesis/report.md`](../../results/reports/h2o_value_bearing_target_synthesis/report.md)
+- H2p is the contextual surface-alias routing candidate:
+  - H2m: `8 / 8` strict and executor-equivalent
+  - H2m H2p-vs-H2o: `+0.125` strict delta and `+0.125` executor-equivalence delta
+  - H2m H2p-vs-H2n: `+0.625` strict delta and `+0.375` executor-equivalence delta
+  - H2m H2p-vs-H2j: `+0.625` strict delta and `+0.625` executor-equivalence delta
+  - H2m H2p-vs-H2e: `+0.875` strict delta and `+0.625` executor-equivalence delta
+  - H2k: `8 / 8`
+  - H2l: `8 / 8`
+  - H2f: `10 / 10`
+  - synthesis: [`results/reports/h2p_contextual_surface_alias_routing_synthesis/report.md`](../../results/reports/h2p_contextual_surface_alias_routing_synthesis/report.md)
 - next controller question:
-  - H2p contextual surface-type alias routing, gated on prompt evidence that asks for the surface class rather than the displayed value
-  - preserve H2o's transfer and strict H2m gains before considering promotion
+  - build a harder post-H2p composition slice rather than another isolated H2m repair
+  - require value-bearing construction plus surface-alias routing under stale/decoy pressure, with an H2o-only/no-H2p ablation row
 
 ## Direction Reset
 

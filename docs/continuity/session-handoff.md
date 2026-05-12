@@ -22,7 +22,7 @@ Treat the older H1/HF and React notes below as historical context unless they ar
 
 Current strongest MLX result:
 
-- H2o value-bearing target synthesis is the freshest visual harnessing boundary:
+- H2p contextual surface-alias routing is the freshest visual harnessing boundary:
   - H2e still reaches `5 / 5` on H2b and `8 / 8` on H1x, so route arbitration remains valid mechanism evidence.
   - Fresh H2f broke global H2e promotion: H2e and H2c tie at `6 / 10`, while no-directive is only `1 / 10`.
   - H2h component-identity negative examples are scoped positive but globally negative: `9 / 10` on H2f, then `3 / 5` on H2b and `6 / 8` on H1x.
@@ -44,7 +44,10 @@ Current strongest MLX result:
   - H2o improves H2m exact-rate by `+0.50` versus H2n and H2j, and by `+0.75` versus H2e.
   - H2o preserves transfer gates: H2k remains `8 / 8`, H2l remains `8 / 8`, and H2f remains `10 / 10`, each with zero exact-rate delta versus H2j.
   - H2o records `4` value-bearing target-query syntheses and `2` contextual-label rewrites on H2m, with `0` stale-selection interventions.
-  - The remaining H2m strict miss is `h2m_result_tile_contextual_alias`: expected `result tile`, actual `Blocked`; the next boundary is H2p contextual surface-type alias routing.
+  - H2p contextual surface-alias routing is now executed: on H2m it reaches `8 / 8` strict and executor-equivalent by repairing `h2m_result_tile_contextual_alias`.
+  - H2p adds `+0.125` exact-rate and executor-equivalence-rate versus H2o on H2m, `+0.625` exact-rate versus H2n/H2j, and `+0.875` exact-rate versus H2e.
+  - H2p preserves transfer gates: H2k remains `8 / 8`, H2l remains `8 / 8`, and H2f remains `10 / 10`, each with zero exact-rate delta versus H2o.
+  - H2p records `1` contextual surface-alias intervention, `4` value-bearing syntheses, and `2` contextual-label rewrites on H2m, with `0` stale-selection interventions and `0` non-exact H2m rows.
   - H2f synthesis: [`results/reports/h2f_route_arbitration_holdout_synthesis/report.md`](../../results/reports/h2f_route_arbitration_holdout_synthesis/report.md)
   - H2f figure: [`results/reports/h2f_route_arbitration_holdout_synthesis/figures/h2f_holdout_profile_bars.svg`](../../results/reports/h2f_route_arbitration_holdout_synthesis/figures/h2f_holdout_profile_bars.svg)
   - H2h tradeoff synthesis: [`results/reports/h2h_component_identity_tradeoff_synthesis/report.md`](../../results/reports/h2h_component_identity_tradeoff_synthesis/report.md)
@@ -72,7 +75,11 @@ Current strongest MLX result:
   - H2o figure: [`results/reports/h2o_value_bearing_target_synthesis/figures/h2o_value_bearing_target_synthesis_gate.svg`](../../results/reports/h2o_value_bearing_target_synthesis/figures/h2o_value_bearing_target_synthesis_gate.svg)
   - H2o live packets: [`H2m`](../../results/tool_probe_replay_live/20260512T_h2o_value_bearing_target_synthesis_on_h2m_execute_v1), [`H2k`](../../results/tool_probe_replay_live/20260512T_h2o_value_bearing_target_synthesis_on_h2k_execute_v1), [`H2l`](../../results/tool_probe_replay_live/20260512T_h2o_value_bearing_target_synthesis_on_h2l_execute_v1), [`H2f`](../../results/tool_probe_replay_live/20260512T_h2o_value_bearing_target_synthesis_on_h2f_execute_v1)
   - H2o comparisons: [`H2m-vs-H2n`](../../results/tool_probe_replay_live_comparisons/20260512T_h2o_value_bearing_target_synthesis_vs_h2n_on_h2m_v1), [`H2m-vs-H2j`](../../results/tool_probe_replay_live_comparisons/20260512T_h2o_value_bearing_target_synthesis_vs_h2j_on_h2m_v1), [`H2m-vs-H2e`](../../results/tool_probe_replay_live_comparisons/20260512T_h2o_value_bearing_target_synthesis_vs_h2e_on_h2m_v1), [`H2k-vs-H2j`](../../results/tool_probe_replay_live_comparisons/20260512T_h2o_value_bearing_target_synthesis_vs_h2j_on_h2k_v1), [`H2l-vs-H2j`](../../results/tool_probe_replay_live_comparisons/20260512T_h2o_value_bearing_target_synthesis_vs_h2j_on_h2l_v1), [`H2f-vs-H2j`](../../results/tool_probe_replay_live_comparisons/20260512T_h2o_value_bearing_target_synthesis_vs_h2j_on_h2f_v1)
-  - next restart move: implement H2p contextual surface-type alias routing; preserve H2o transfer gains while repairing `h2m_result_tile_contextual_alias` only when prompt evidence asks for the surface class rather than the displayed value
+  - H2p synthesis: [`results/reports/h2p_contextual_surface_alias_routing_synthesis/report.md`](../../results/reports/h2p_contextual_surface_alias_routing_synthesis/report.md)
+  - H2p figure: [`results/reports/h2p_contextual_surface_alias_routing_synthesis/figures/h2p_contextual_surface_alias_routing_gate.svg`](../../results/reports/h2p_contextual_surface_alias_routing_synthesis/figures/h2p_contextual_surface_alias_routing_gate.svg)
+  - H2p live packets: [`H2m`](../../results/tool_probe_replay_live/20260512T_h2p_contextual_surface_alias_routing_on_h2m_execute_v1), [`H2k`](../../results/tool_probe_replay_live/20260512T_h2p_contextual_surface_alias_routing_on_h2k_execute_v1), [`H2l`](../../results/tool_probe_replay_live/20260512T_h2p_contextual_surface_alias_routing_on_h2l_execute_v1), [`H2f`](../../results/tool_probe_replay_live/20260512T_h2p_contextual_surface_alias_routing_on_h2f_execute_v1)
+  - H2p comparisons: [`H2m-vs-H2o`](../../results/tool_probe_replay_live_comparisons/20260512T_h2p_contextual_surface_alias_routing_vs_h2o_on_h2m_v1), [`H2m-vs-H2n`](../../results/tool_probe_replay_live_comparisons/20260512T_h2p_contextual_surface_alias_routing_vs_h2n_on_h2m_v1), [`H2m-vs-H2j`](../../results/tool_probe_replay_live_comparisons/20260512T_h2p_contextual_surface_alias_routing_vs_h2j_on_h2m_v1), [`H2m-vs-H2e`](../../results/tool_probe_replay_live_comparisons/20260512T_h2p_contextual_surface_alias_routing_vs_h2e_on_h2m_v1), [`H2k-vs-H2o`](../../results/tool_probe_replay_live_comparisons/20260512T_h2p_contextual_surface_alias_routing_vs_h2o_on_h2k_v1), [`H2l-vs-H2o`](../../results/tool_probe_replay_live_comparisons/20260512T_h2p_contextual_surface_alias_routing_vs_h2o_on_h2l_v1), [`H2f-vs-H2o`](../../results/tool_probe_replay_live_comparisons/20260512T_h2p_contextual_surface_alias_routing_vs_h2o_on_h2f_v1)
+  - next restart move: define a harder post-H2p H1/H2 composition slice that combines surface aliases, value-bearing labels, stale-selection pressure, and decoy overlap so the current controller stack has to earn promotion again
 - H1h proves the no-directive causal ordering across all ten live workflow families.
 - H1i compresses the worst H1h workflow families into the current fast loop.
 - contracted MLX on H1i is clean at readiness `0.97710`, strict/recovered `1.0 / 1.0`, raw clean `1.0`.
@@ -241,15 +248,15 @@ Current strongest MLX result:
 
 Current next loop:
 
-1. Treat H1i, H1j, and H1k packaged packets as saturated or non-discriminating for current prompt-contract validation.
-2. Treat waves one through six as partial-gain or negative/composition evidence, not fixes.
-3. Treat `visual_role_catalog_argument_hints_v2` as the best exact candidate on the old focused visual replay, with the explicit caveat that it lost executable form-target recovery.
-4. Treat `visual_role_catalog_schema_field_hints_v4` as the strongest fresh hard-slice no-directive candidate because it reaches `8 / 8` executor-equivalent, with the explicit caveat that it still misses exact protocol on two cases.
-5. Treat `visual_role_catalog_schema_literal_targets_v5` as negative evidence: it did not fix the two v4 executable paraphrases and introduced a wrong-tool stale-selection regression.
-6. Treat the two v4 exact misses as benchmark-label artifact candidates under the current local executor, not true executor-targeting failures.
-7. Treat H1l as a negative packaged-workflow result: the current packaged visual workflows saturate and do not preserve v4's hard-slice executor-equivalence discriminator.
-8. Treat the completed alias-repeat matrix as positive but still replay-shaped: schema-field hints improves executor-equivalence by `+0.25`, schema target literals reaches full executor-equivalence with a small strict gain, and contracted MLX remains the strict upper bound.
-9. Return to H1h only after replay-live or raw/hard-slice evidence shows a mechanism-level change.
+1. Treat H2p as the incumbent target-control stack for the current H2m/H2k/H2l/H2f line, not as a default production policy.
+2. Build the next post-H2p slice as a composition test: value-bearing targets, surface aliases, stale-selection pressure, and decoy overlap should appear in the same local states.
+3. Keep a matched no-H2p or H2o-only row so contextual surface-alias routing remains causally attributable.
+4. Treat H1i, H1j, and H1k packaged packets as saturated or non-discriminating for current prompt-contract validation.
+5. Treat waves one through six as partial-gain or negative/composition evidence, not fixes.
+6. Treat `visual_role_catalog_argument_hints_v2` as the best exact candidate on the old focused visual replay, with the explicit caveat that it lost executable form-target recovery.
+7. Treat `visual_role_catalog_schema_field_hints_v4` as the strongest fresh hard-slice no-directive candidate because it reaches `8 / 8` executor-equivalent, with the explicit caveat that it still misses exact protocol on two cases.
+8. Treat `visual_role_catalog_schema_literal_targets_v5` as negative evidence: it did not fix the two v4 executable paraphrases and introduced a wrong-tool stale-selection regression.
+9. Treat H1l/H1m as negative packaged-workflow results for this mechanism line: the current packaged visual workflows saturate and do not preserve hard-slice executor-equivalence discriminators.
 10. Keep Gemini CLI as an external baseline/reference, not a replacement for Moonie's local Gemma harness.
 11. Regenerate the report, publication ledger, publication audit, and visual hard-slice packet summaries after any H1i/H1h/probe/Gemini/live-replay packet change.
 

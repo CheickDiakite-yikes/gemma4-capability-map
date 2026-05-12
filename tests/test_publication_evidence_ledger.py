@@ -145,6 +145,12 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert claims["C52_h2n_scoped_target_normalization_improves_executor_equivalence_without_strict_repair"][
         "status"
     ] == "supported_current_packets_scope_candidate"
+    assert claims["C53_h2o_value_bearing_target_synthesis_repairs_h2m_strict_with_contextual_alias_residue"][
+        "status"
+    ] == "supported_current_packets_scope_candidate"
+    assert claims["C54_h2p_contextual_surface_alias_routing_saturates_h2m_without_transfer_regression"][
+        "status"
+    ] == "supported_current_packets_scope_candidate"
     assert "7/8" in claims["C2_final_tool_directive_causal_for_protocol"]["primary_metric"]
     assert "v3 raw exact falls" in claims["C6_split_selector_wording_is_negative_evidence"]["primary_metric"]
     assert "schema-field hints reach 6/8 strict and 8/8 executor-equivalent" in claims[
@@ -444,6 +450,27 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     ]["limitation"]
     assert "Build H2o as a canonical value-bearing target-query synthesis gate" in claims[
         "C52_h2n_scoped_target_normalization_improves_executor_equivalence_without_strict_repair"
+    ]["next_test"]
+    assert "improves strict exactness from H2n's 3/8 to 7/8" in claims[
+        "C53_h2o_value_bearing_target_synthesis_repairs_h2m_strict_with_contextual_alias_residue"
+    ]["primary_metric"]
+    assert "remaining H2m miss is not a value-bearing label construction miss" in claims[
+        "C53_h2o_value_bearing_target_synthesis_repairs_h2m_strict_with_contextual_alias_residue"
+    ]["limitation"]
+    assert "Build H2p as a contextual surface-type alias routing slice" in claims[
+        "C53_h2o_value_bearing_target_synthesis_repairs_h2m_strict_with_contextual_alias_residue"
+    ]["next_test"]
+    assert "from H2o's 7/8 to 8/8" in claims[
+        "C54_h2p_contextual_surface_alias_routing_saturates_h2m_without_transfer_regression"
+    ]["primary_metric"]
+    assert "preserves H2k at 8/8, H2l at 8/8, and H2f at 10/10" in claims[
+        "C54_h2p_contextual_surface_alias_routing_saturates_h2m_without_transfer_regression"
+    ]["primary_metric"]
+    assert "surface-class aliases" in claims[
+        "C54_h2p_contextual_surface_alias_routing_saturates_h2m_without_transfer_regression"
+    ]["limitation"]
+    assert "Define a harder post-H2p H1/H2 slice" in claims[
+        "C54_h2p_contextual_surface_alias_routing_saturates_h2m_without_transfer_regression"
     ]["next_test"]
     assert any(
         row["claim_id"] == "C28_h1n_post_repair_holdout_favors_code_guard"
@@ -804,6 +831,28 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
         == "C52_h2n_scoped_target_normalization_improves_executor_equivalence_without_strict_repair"
         and row["path"]
         == "results/tool_probe_replay_live_comparisons/20260512T_h2n_scoped_target_normalization_vs_h2j_on_h2f_v1"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"]
+        == "C54_h2p_contextual_surface_alias_routing_saturates_h2m_without_transfer_regression"
+        and row["path"] == "results/reports/h2p_contextual_surface_alias_routing_synthesis/report.md"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"]
+        == "C54_h2p_contextual_surface_alias_routing_saturates_h2m_without_transfer_regression"
+        and row["path"] == "results/tool_probe_replay_live/20260512T_h2p_contextual_surface_alias_routing_on_h2m_execute_v1"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"]
+        == "C54_h2p_contextual_surface_alias_routing_saturates_h2m_without_transfer_regression"
+        and row["path"]
+        == "results/tool_probe_replay_live_comparisons/20260512T_h2p_contextual_surface_alias_routing_vs_h2o_on_h2m_v1"
         and row["exists"]
         for row in payload["evidence_sources"]
     )

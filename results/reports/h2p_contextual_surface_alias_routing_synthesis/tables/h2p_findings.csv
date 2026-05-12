@@ -1,0 +1,6 @@
+finding_id,finding
+h2p_saturates_h2m_surface_alias_boundary,"H2p improves H2m strict exactness from H2o's 7/8 to 8/8, adding 0.125 exact-rate and 0.125 executor-equivalence-rate."
+h2p_adds_large_deltas_over_non_constructive_controls,"Relative to H2n, H2p adds 0.625 exact-rate and 0.375 executor-equivalence-rate on H2m."
+h2p_mechanism_is_single_alias_gate,"H2p records 1 contextual surface-alias intervention on H2m, alongside 4 value-bearing syntheses and 2 ordinary contextual rewrites."
+h2p_preserves_transfer_gates,"H2p ties H2o on H2k at 8/8, H2l at 8/8, and H2f at 10/10 with zero exact-rate deltas."
+h2p_closes_h2m_current_exact_boundary,H2p leaves 0 non-exact H2m rows under the current H2m packet.

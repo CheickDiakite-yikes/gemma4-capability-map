@@ -2722,6 +2722,98 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C54_h2p_contextual_surface_alias_routing_saturates_h2m_without_transfer_regression",
+        claim=(
+            "A narrow contextual surface-alias router closes the remaining H2m target-normalization boundary "
+            "without regressing the H2k, H2l, or H2f transfer gates."
+        ),
+        status="supported_current_packets_scope_candidate",
+        evidence_strength="strong_internal",
+        primary_metric=(
+            "On H2m, H2p improves strict exactness from H2o's 7/8 to 8/8 and executor-equivalence from 7/8 "
+            "to 8/8. It adds +0.125 exact and executor-equivalence deltas versus H2o, +0.625 strict versus "
+            "H2n and H2j, +0.875 strict versus H2e, and preserves H2k at 8/8, H2l at 8/8, and H2f at 10/10 "
+            "with zero exact-rate delta versus H2o on transfer packets."
+        ),
+        limitation=(
+            "H2p is intentionally narrow: it only addresses prompt-evidenced surface-class aliases such as "
+            "tile-style result surface -> result tile. It closes the current H2m packet, but the next research "
+            "question should be a harder H1/H2 slice that tests whether this target-control stack remains useful "
+            "outside replay-shaped visual layout rows."
+        ),
+        next_test=(
+            "Define a harder post-H2p H1/H2 slice that combines surface aliases, value-bearing labels, stale "
+            "selection pressure, and packaged workflow attribution so the current top-line saturation breaks again."
+        ),
+        sources=(
+            EvidenceSource(
+                "replay_synthesis",
+                "results/reports/h2p_contextual_surface_alias_routing_synthesis/report.md",
+                "Dedicated H2p synthesis showing H2m saturation, transfer preservation, and the single alias intervention.",
+            ),
+            EvidenceSource(
+                "replay_synthesis_figure",
+                "results/reports/h2p_contextual_surface_alias_routing_synthesis/figures/h2p_contextual_surface_alias_routing_gate.svg",
+                "Figure summarizing H2p exact-rate gains and transfer gates.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2p_contextual_surface_alias_routing_on_h2m_execute_v1",
+                "H2p live execution on H2m reaching 8/8 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2p_contextual_surface_alias_routing_on_h2k_execute_v1",
+                "H2p live execution on H2k preserving 8/8 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2p_contextual_surface_alias_routing_on_h2l_execute_v1",
+                "H2p live execution on H2l preserving 8/8 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2p_contextual_surface_alias_routing_on_h2f_execute_v1",
+                "H2p live execution on H2f preserving 10/10 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2p_contextual_surface_alias_routing_vs_h2o_on_h2m_v1",
+                "Direct H2p-vs-H2o comparison on H2m showing +0.125 strict and executor-equivalence deltas.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2p_contextual_surface_alias_routing_vs_h2n_on_h2m_v1",
+                "Direct H2p-vs-H2n comparison on H2m showing +0.625 strict and +0.375 executor-equivalence deltas.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2p_contextual_surface_alias_routing_vs_h2j_on_h2m_v1",
+                "Direct H2p-vs-H2j comparison on H2m showing +0.625 strict and executor-equivalence deltas.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2p_contextual_surface_alias_routing_vs_h2e_on_h2m_v1",
+                "Direct H2p-vs-H2e comparison on H2m showing +0.875 strict and +0.625 executor-equivalence deltas.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2p_contextual_surface_alias_routing_vs_h2o_on_h2k_v1",
+                "Transfer comparison showing H2p ties H2o on H2k at 8/8.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2p_contextual_surface_alias_routing_vs_h2o_on_h2l_v1",
+                "Transfer comparison showing H2p ties H2o on H2l at 8/8.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2p_contextual_surface_alias_routing_vs_h2o_on_h2f_v1",
+                "Transfer comparison showing H2p ties H2o on H2f at 10/10.",
+            ),
+        ),
+    ),
 )
 
 

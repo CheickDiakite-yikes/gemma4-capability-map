@@ -497,6 +497,40 @@
   - `uv run python scripts/build_publication_evidence_ledger.py`
   - `uv run python scripts/audit_publication_readiness.py`
 
+## 2026-05-12 - H2p Contextual Surface-Alias Routing Closes H2m
+
+- Added the H2p controller slice for the one remaining H2o miss:
+  - system: `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_value_bearing_target_query_synthesis_visual_contextual_surface_alias_routing`
+  - report: [`results/reports/h2p_contextual_surface_alias_routing_synthesis/report.md`](../results/reports/h2p_contextual_surface_alias_routing_synthesis/report.md)
+  - figure: [`results/reports/h2p_contextual_surface_alias_routing_synthesis/figures/h2p_contextual_surface_alias_routing_gate.svg`](../results/reports/h2p_contextual_surface_alias_routing_synthesis/figures/h2p_contextual_surface_alias_routing_gate.svg)
+  - H2m live packet: [`20260512T_h2p_contextual_surface_alias_routing_on_h2m_execute_v1`](../results/tool_probe_replay_live/20260512T_h2p_contextual_surface_alias_routing_on_h2m_execute_v1)
+  - transfer live packets: [`H2k`](../results/tool_probe_replay_live/20260512T_h2p_contextual_surface_alias_routing_on_h2k_execute_v1), [`H2l`](../results/tool_probe_replay_live/20260512T_h2p_contextual_surface_alias_routing_on_h2l_execute_v1), [`H2f`](../results/tool_probe_replay_live/20260512T_h2p_contextual_surface_alias_routing_on_h2f_execute_v1)
+- Result:
+  - H2m H2p: strict `8 / 8`, executor-equivalent `8 / 8`
+  - H2m H2p-vs-H2o: `+0.125` strict and `+0.125` executor-equivalence
+  - H2m H2p-vs-H2n: `+0.625` strict and `+0.375` executor-equivalence
+  - H2m H2p-vs-H2j: `+0.625` strict and `+0.625` executor-equivalence
+  - H2m H2p-vs-H2e: `+0.875` strict and `+0.625` executor-equivalence
+  - H2k/H2l/H2f transfer: `8 / 8`, `8 / 8`, and `10 / 10`, each with zero exact-rate delta versus H2o
+- Mechanism:
+  - H2p fires once on H2m: `h2m_result_tile_contextual_alias`
+  - it rewrites `target_query="Blocked"` to `target_query="result tile"` only when prompt evidence asks for a surface class (`tile-style result surface`) and marks nearby value-bearing components as context
+  - H2p preserves H2o's four value-bearing syntheses (`result badge Blocked`, `state tag Closed`, `mode toggle Manual`, `priority badge Critical`) and two contextual-label rewrites (`error notice`, `mode field`)
+- Interpretation:
+  - H2m no longer has an unresolved target-control miss under the current packet.
+  - H2o and H2p are distinct mechanisms: one constructs canonical value-bearing labels; the other routes displayed values to requested surface aliases.
+  - The next scientific move is not another H2m repair. It is a harder post-H2p composition slice where value-bearing labels, surface aliases, stale-selection pressure, decoy overlap, and workflow-family attribution occur together.
+- Reporting updates:
+  - publication evidence claim `C54_h2p_contextual_surface_alias_routing_saturates_h2m_without_transfer_regression` added
+  - publication ledger now has `54` claims / `326` evidence sources / `0` missing
+  - readiness audit remains `paper_draft_ready` with `236` checks / `229` blocking checks / `0` blocking failures
+- Verification:
+  - `uv run moonie-agent replay-live --packet-dir results/tool_probe_replay_packets/20260510T_h2f_route_arbitration_oracle_dry_run_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_value_bearing_target_query_synthesis_visual_contextual_surface_alias_routing --output-dir results/tool_probe_replay_live/20260512T_h2p_contextual_surface_alias_routing_on_h2f_execute_v1 --execute --json`
+  - `uv run python scripts/build_h2p_contextual_surface_alias_routing_synthesis.py`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`
+  - `uv run pytest tests/test_h2p_contextual_surface_alias_routing_synthesis.py -q`
+
 ## 2026-05-12 - H2o Value-Bearing Target Synthesis
 
 - Implemented and executed the next controller-side target-query gate after H2n:

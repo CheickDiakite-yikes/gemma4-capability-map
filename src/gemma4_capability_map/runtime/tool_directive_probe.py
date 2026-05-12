@@ -205,6 +205,8 @@ def run_tool_directive_probe(
             )
         if controls.enable_visual_value_bearing_target_query_synthesis:
             turn = _apply_visual_value_bearing_target_query_synthesis(turn=turn, case=case, tool_specs=tool_specs)
+        if controls.enable_visual_contextual_surface_alias_routing:
+            turn = _apply_visual_contextual_surface_alias_routing(turn=turn, case=case, tool_specs=tool_specs)
         rows.append(_score_probe_case(case, tool_specs, expected_calls, turn))
 
     summary = _summarize_probe(rows)
@@ -685,6 +687,124 @@ def _phrase_is_negated_or_deprioritized(user_text: str, phrase: str) -> bool:
     return any(f"{prefix} {article}{phrase}" in user_text for prefix in prefixes for article in articles)
 
 
+def _apply_visual_contextual_surface_alias_routing(
+    *,
+    turn: ModelTurn,
+    case: ToolDirectiveProbeCase,
+    tool_specs: list[ToolSpec],
+) -> ModelTurn:
+    tool_names = {tool.name for tool in tool_specs}
+    if "extract_layout" not in tool_names or not turn.normalized_tool_call:
+        return turn
+
+    patched_calls: list[ToolCall] = []
+    alias_rows: list[dict[str, Any]] = []
+    for call in turn.normalized_tool_call:
+        routed = _visual_contextual_surface_alias_routing_replacement(call=call, case=case)
+        if routed is None:
+            patched_calls.append(call)
+            continue
+        replacement, alias_row = routed
+        patched_calls.append(replacement)
+        alias_rows.append(alias_row)
+
+    if not alias_rows:
+        return turn
+    metadata = dict(turn.runtime_metadata)
+    metadata["visual_contextual_surface_alias_routing"] = alias_rows
+    return turn.model_copy(update={"normalized_tool_call": patched_calls, "runtime_metadata": metadata})
+
+
+def _visual_contextual_surface_alias_routing_replacement(
+    *,
+    call: ToolCall,
+    case: ToolDirectiveProbeCase,
+) -> tuple[ToolCall, dict[str, Any]] | None:
+    if call.name != "extract_layout":
+        return None
+    target_query = str(call.arguments.get("target_query", "")).strip()
+    if not target_query:
+        return None
+
+    user_text = " ".join(message.content for message in case.messages if message.role == "user").lower()
+    target_lower = target_query.lower()
+    candidates: list[tuple[float, dict[str, Any]]] = []
+    for row in _visual_layout_rows(case.initial_state):
+        label = row["label"]
+        label_lower = label.lower()
+        if target_lower == label_lower:
+            continue
+        text_lower = row["text"].lower()
+        if target_lower not in text_lower:
+            continue
+        label_tokens = label_lower.split()
+        if len(label_tokens) < 2:
+            continue
+        component = label_tokens[-1]
+        if not _surface_component_requested(user_text=user_text, component=component):
+            continue
+        base_tokens = label_tokens[:-1]
+        if any(token not in user_text for token in base_tokens):
+            continue
+        if _surface_component_deprioritized(user_text=user_text, component=component):
+            continue
+        score = 1.0 + len(base_tokens) + (2.0 if f"{component}-style" in user_text else 0.0)
+        candidates.append((score, row))
+
+    if not candidates:
+        return None
+    _, best = sorted(candidates, key=lambda item: (-item[0], item[1]["source_index"]))[0]
+    arguments = dict(call.arguments)
+    arguments["target_query"] = best["label"]
+    payload = {
+        "name": "extract_layout",
+        "arguments": arguments,
+    }
+    replacement = ToolCall(
+        name="extract_layout",
+        arguments=arguments,
+        source_format="heuristic",
+        raw=json.dumps(payload, ensure_ascii=False),
+    )
+    return replacement, {
+        "from_tool": call.name,
+        "from_arguments": call.arguments,
+        "to_tool": replacement.name,
+        "to_arguments": replacement.arguments,
+        "display_value": target_query,
+        "surface_label": best["label"],
+        "surface_text": best["text"],
+        "surface_region_id": best["region_id"],
+        "reason": "contextual_surface_alias_recoverable",
+    }
+
+
+def _surface_component_requested(*, user_text: str, component: str) -> bool:
+    requested_fragments = (
+        f"{component}-style",
+        f"{component} style",
+        f"{component} surface",
+        f"{component} region",
+        f"{component} area",
+        f"{component} component",
+        f"{component} control",
+    )
+    return any(fragment in user_text for fragment in requested_fragments)
+
+
+def _surface_component_deprioritized(*, user_text: str, component: str) -> bool:
+    deprioritized_fragments = (
+        f"{component} is nearby context",
+        f"{component} are nearby context",
+        f"{component} and",
+        f"not the {component}",
+        f"not {component}",
+        f"ignore the {component}",
+        f"avoid the {component}",
+    )
+    return any(fragment in user_text for fragment in deprioritized_fragments)
+
+
 def _visual_target_query_normalization_replacement(
     *,
     call: ToolCall,
@@ -858,10 +978,16 @@ def _visual_prompt_label_score(
 
 
 def _visual_layout_labels(initial_state: dict[str, Any]) -> list[str]:
+    return [row["label"] for row in _visual_layout_rows(initial_state) if row["label"]]
+
+
+def _visual_layout_rows(initial_state: dict[str, Any]) -> list[dict[str, Any]]:
     images = initial_state.get("images", {})
     if not isinstance(images, dict):
         return []
-    labels: list[str] = []
+    rows_out: list[dict[str, Any]] = []
+    seen_labels: set[str] = set()
+    source_index = 0
     for image in images.values():
         if not isinstance(image, dict):
             continue
@@ -873,9 +999,19 @@ def _visual_layout_labels(initial_state: dict[str, Any]) -> list[str]:
                 if not isinstance(row, dict):
                     continue
                 label = str(row.get("label", "")).strip()
-                if label and label not in labels:
-                    labels.append(label)
-    return labels
+                if not label or label in seen_labels:
+                    continue
+                seen_labels.add(label)
+                rows_out.append(
+                    {
+                        "label": label,
+                        "text": str(row.get("text", "")).strip(),
+                        "region_id": str(row.get("region_id", "")).strip(),
+                        "source_index": source_index,
+                    }
+                )
+                source_index += 1
+    return rows_out
 
 
 def _summarize_probe(rows: list[dict[str, Any]]) -> dict[str, Any]:
