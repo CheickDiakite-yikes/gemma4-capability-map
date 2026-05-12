@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-12T20:39:57.859650+00:00",
+    "generated_at": "2026-05-12T21:06:31.135433+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-    "claim_count": 52,
-    "evidence_source_count": 301,
+    "claim_count": 53,
+    "evidence_source_count": 313,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -57,7 +57,8 @@
       "C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization",
       "C50_h2l_overreach_holdout_supports_target_normalization_scope",
       "C51_h2m_less_direct_overreach_rejects_current_target_normalization_scope",
-      "C52_h2n_scoped_target_normalization_improves_executor_equivalence_without_strict_repair"
+      "C52_h2n_scoped_target_normalization_improves_executor_equivalence_without_strict_repair",
+      "C53_h2o_value_bearing_target_synthesis_repairs_h2m_strict_with_contextual_alias_residue"
     ]
   },
   "claims": [
@@ -580,6 +581,16 @@
       "limitation": "H2n is a no-op/blocking scope policy, not a canonical target-query construction policy. The remaining H2m strict misses include `result badge Blocked`, `mode toggle Manual`, and `result tile`, so strict repair still needs a targeted value-bearing target synthesis gate.",
       "next_test": "Build H2o as a canonical value-bearing target-query synthesis gate that only fires when a longer visual label is recoverable from the image-state catalog and the prompt evidence asks for that value.",
       "source_count": 11
+    },
+    {
+      "claim_id": "C53_h2o_value_bearing_target_synthesis_repairs_h2m_strict_with_contextual_alias_residue",
+      "claim": "Selective value-bearing target-query synthesis repairs the strict H2m target-normalization boundary without regressing the saturated H2k, H2l, and H2f transfer gates.",
+      "status": "supported_current_packets_scope_candidate",
+      "evidence_strength": "strong_internal",
+      "primary_metric": "On H2m, H2o improves strict exactness from H2n's 3/8 to 7/8 and executor-equivalence from 5/8 to 7/8. It improves strict exactness by +0.50 versus H2j and H2n, by +0.75 versus H2e, and preserves H2k at 8/8, H2l at 8/8, and H2f at 10/10 with zero exact-rate delta versus H2j on transfer packets.",
+      "limitation": "The remaining H2m miss is not a value-bearing label construction miss. It is a contextual surface-type alias row where the model keeps `Blocked` instead of targeting `result tile`, so a distinct H2p alias routing test is still needed before calling target-query control closed.",
+      "next_test": "Build H2p as a contextual surface-type alias routing slice that separates displayed values from surface-class aliases such as tile-style result surface -> result tile.",
+      "source_count": 12
     }
   ],
   "evidence_sources": [
@@ -2688,6 +2699,90 @@
       "artifact_type": "live_replay_comparison",
       "path": "results/tool_probe_replay_live_comparisons/20260512T_h2n_scoped_target_normalization_vs_h2j_on_h2f_v1",
       "purpose": "Transfer comparison showing H2n ties H2j on H2f at 10/10.",
+      "exists": true
+    },
+    {
+      "claim_id": "C53_h2o_value_bearing_target_synthesis_repairs_h2m_strict_with_contextual_alias_residue",
+      "artifact_type": "replay_synthesis",
+      "path": "results/reports/h2o_value_bearing_target_synthesis/report.md",
+      "purpose": "Dedicated H2o synthesis showing H2m strict repair, transfer preservation, and one alias residue.",
+      "exists": true
+    },
+    {
+      "claim_id": "C53_h2o_value_bearing_target_synthesis_repairs_h2m_strict_with_contextual_alias_residue",
+      "artifact_type": "replay_synthesis_figure",
+      "path": "results/reports/h2o_value_bearing_target_synthesis/figures/h2o_value_bearing_target_synthesis_gate.svg",
+      "purpose": "Figure summarizing H2o exact-rate gains and transfer gates.",
+      "exists": true
+    },
+    {
+      "claim_id": "C53_h2o_value_bearing_target_synthesis_repairs_h2m_strict_with_contextual_alias_residue",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260512T_h2o_value_bearing_target_synthesis_on_h2m_execute_v1",
+      "purpose": "H2o live execution on H2m reaching 7/8 strict and executor-equivalent.",
+      "exists": true
+    },
+    {
+      "claim_id": "C53_h2o_value_bearing_target_synthesis_repairs_h2m_strict_with_contextual_alias_residue",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260512T_h2o_value_bearing_target_synthesis_on_h2k_execute_v1",
+      "purpose": "H2o live execution on H2k preserving 8/8 strict and executor-equivalent.",
+      "exists": true
+    },
+    {
+      "claim_id": "C53_h2o_value_bearing_target_synthesis_repairs_h2m_strict_with_contextual_alias_residue",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260512T_h2o_value_bearing_target_synthesis_on_h2l_execute_v1",
+      "purpose": "H2o live execution on H2l preserving 8/8 strict and executor-equivalent.",
+      "exists": true
+    },
+    {
+      "claim_id": "C53_h2o_value_bearing_target_synthesis_repairs_h2m_strict_with_contextual_alias_residue",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260512T_h2o_value_bearing_target_synthesis_on_h2f_execute_v1",
+      "purpose": "H2o live execution on H2f preserving 10/10 strict and executor-equivalent.",
+      "exists": true
+    },
+    {
+      "claim_id": "C53_h2o_value_bearing_target_synthesis_repairs_h2m_strict_with_contextual_alias_residue",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260512T_h2o_value_bearing_target_synthesis_vs_h2n_on_h2m_v1",
+      "purpose": "Direct H2o-vs-H2n comparison on H2m showing +0.50 strict and +0.25 executor-equivalence deltas.",
+      "exists": true
+    },
+    {
+      "claim_id": "C53_h2o_value_bearing_target_synthesis_repairs_h2m_strict_with_contextual_alias_residue",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260512T_h2o_value_bearing_target_synthesis_vs_h2j_on_h2m_v1",
+      "purpose": "Direct H2o-vs-H2j comparison on H2m showing +0.50 strict and executor-equivalence deltas.",
+      "exists": true
+    },
+    {
+      "claim_id": "C53_h2o_value_bearing_target_synthesis_repairs_h2m_strict_with_contextual_alias_residue",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260512T_h2o_value_bearing_target_synthesis_vs_h2e_on_h2m_v1",
+      "purpose": "Direct H2o-vs-H2e comparison on H2m showing +0.75 strict and +0.50 executor-equivalence deltas.",
+      "exists": true
+    },
+    {
+      "claim_id": "C53_h2o_value_bearing_target_synthesis_repairs_h2m_strict_with_contextual_alias_residue",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260512T_h2o_value_bearing_target_synthesis_vs_h2j_on_h2k_v1",
+      "purpose": "Transfer comparison showing H2o ties H2j on H2k at 8/8.",
+      "exists": true
+    },
+    {
+      "claim_id": "C53_h2o_value_bearing_target_synthesis_repairs_h2m_strict_with_contextual_alias_residue",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260512T_h2o_value_bearing_target_synthesis_vs_h2j_on_h2l_v1",
+      "purpose": "Transfer comparison showing H2o ties H2j on H2l at 8/8.",
+      "exists": true
+    },
+    {
+      "claim_id": "C53_h2o_value_bearing_target_synthesis_repairs_h2m_strict_with_contextual_alias_residue",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260512T_h2o_value_bearing_target_synthesis_vs_h2j_on_h2f_v1",
+      "purpose": "Transfer comparison showing H2o ties H2j on H2f at 10/10.",
       "exists": true
     }
   ],

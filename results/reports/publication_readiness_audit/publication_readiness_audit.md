@@ -9,7 +9,7 @@
 | --- | --- | ---: | --- | --- |
 | ledger_manifest_exists | blocking | True | Publication evidence ledger manifest exists. | results/reports/publication_evidence_ledger/manifest.json |
 | ledger_has_no_missing_sources | blocking | True | missing_source_count=0 |  |
-| ledger_has_claims | blocking | True | claim_count=52 |  |
+| ledger_has_claims | blocking | True | claim_count=53 |  |
 | ledger_includes_negative_results | blocking | True | At least one claim is explicitly labeled as negative-result evidence. |  |
 | tool_contract_report_has_current_tables | blocking | True | table_count=110 |  |
 | tool_contract_report_has_current_figures | blocking | True | figure_count=45 |  |
@@ -181,6 +181,18 @@
 | h2n_scoped_target_normalization_vs_h2j_h2f_comparison_exists | blocking | True | H2n versus H2j transfer comparison exists on H2f. | results/tool_probe_replay_live_comparisons/20260512T_h2n_scoped_target_normalization_vs_h2j_on_h2f_v1/live_replay_comparison.json |
 | h2n_scoped_target_normalization_synthesis_exists | blocking | True | H2n scoped target-normalization synthesis report exists. | results/reports/h2n_scoped_target_normalization_synthesis/report.md |
 | h2n_scoped_target_normalization_report_figure_exists | blocking | True | H2n scoped target-normalization figure exists. | results/reports/h2n_scoped_target_normalization_synthesis/figures/h2n_scoped_target_normalization_gate.svg |
+| h2o_value_bearing_target_synthesis_h2m_live_exists | blocking | True | H2o value-bearing target synthesis live replay exists on H2m. | results/tool_probe_replay_live/20260512T_h2o_value_bearing_target_synthesis_on_h2m_execute_v1/summary.json |
+| h2o_value_bearing_target_synthesis_h2k_live_exists | blocking | True | H2o value-bearing target synthesis transfer live replay exists on H2k. | results/tool_probe_replay_live/20260512T_h2o_value_bearing_target_synthesis_on_h2k_execute_v1/summary.json |
+| h2o_value_bearing_target_synthesis_h2l_live_exists | blocking | True | H2o value-bearing target synthesis transfer live replay exists on H2l. | results/tool_probe_replay_live/20260512T_h2o_value_bearing_target_synthesis_on_h2l_execute_v1/summary.json |
+| h2o_value_bearing_target_synthesis_h2f_live_exists | blocking | True | H2o value-bearing target synthesis transfer live replay exists on H2f. | results/tool_probe_replay_live/20260512T_h2o_value_bearing_target_synthesis_on_h2f_execute_v1/summary.json |
+| h2o_value_bearing_target_synthesis_vs_h2n_h2m_comparison_exists | blocking | True | H2o versus H2n comparison exists on H2m. | results/tool_probe_replay_live_comparisons/20260512T_h2o_value_bearing_target_synthesis_vs_h2n_on_h2m_v1/live_replay_comparison.json |
+| h2o_value_bearing_target_synthesis_vs_h2j_h2m_comparison_exists | blocking | True | H2o versus H2j comparison exists on H2m. | results/tool_probe_replay_live_comparisons/20260512T_h2o_value_bearing_target_synthesis_vs_h2j_on_h2m_v1/live_replay_comparison.json |
+| h2o_value_bearing_target_synthesis_vs_h2e_h2m_comparison_exists | blocking | True | H2o versus H2e comparison exists on H2m. | results/tool_probe_replay_live_comparisons/20260512T_h2o_value_bearing_target_synthesis_vs_h2e_on_h2m_v1/live_replay_comparison.json |
+| h2o_value_bearing_target_synthesis_vs_h2j_h2k_comparison_exists | blocking | True | H2o versus H2j transfer comparison exists on H2k. | results/tool_probe_replay_live_comparisons/20260512T_h2o_value_bearing_target_synthesis_vs_h2j_on_h2k_v1/live_replay_comparison.json |
+| h2o_value_bearing_target_synthesis_vs_h2j_h2l_comparison_exists | blocking | True | H2o versus H2j transfer comparison exists on H2l. | results/tool_probe_replay_live_comparisons/20260512T_h2o_value_bearing_target_synthesis_vs_h2j_on_h2l_v1/live_replay_comparison.json |
+| h2o_value_bearing_target_synthesis_vs_h2j_h2f_comparison_exists | blocking | True | H2o versus H2j transfer comparison exists on H2f. | results/tool_probe_replay_live_comparisons/20260512T_h2o_value_bearing_target_synthesis_vs_h2j_on_h2f_v1/live_replay_comparison.json |
+| h2o_value_bearing_target_synthesis_report_exists | blocking | True | H2o value-bearing target synthesis report exists. | results/reports/h2o_value_bearing_target_synthesis/report.md |
+| h2o_value_bearing_target_synthesis_report_figure_exists | blocking | True | H2o value-bearing target synthesis figure exists. | results/reports/h2o_value_bearing_target_synthesis/figures/h2o_value_bearing_target_synthesis_gate.svg |
 | current_state_doc_exists | blocking | True | Continuity current-state doc exists. | docs/continuity/current-state.md |
 | next_steps_doc_exists | blocking | True | Continuity next-steps doc exists. | docs/continuity/next-steps.md |
 | research_log_exists | blocking | True | Research log exists. | docs/research-log.md |
@@ -213,6 +225,7 @@
 | script_build_h2l_target_normalization_overreach_synthesis.py_exists | blocking | True | Reproduction script `build_h2l_target_normalization_overreach_synthesis.py` exists. | scripts/build_h2l_target_normalization_overreach_synthesis.py |
 | script_build_h2m_less_direct_overreach_synthesis.py_exists | blocking | True | Reproduction script `build_h2m_less_direct_overreach_synthesis.py` exists. | scripts/build_h2m_less_direct_overreach_synthesis.py |
 | script_build_h2n_scoped_target_normalization_synthesis.py_exists | blocking | True | Reproduction script `build_h2n_scoped_target_normalization_synthesis.py` exists. | scripts/build_h2n_scoped_target_normalization_synthesis.py |
+| script_build_h2o_value_bearing_target_synthesis.py_exists | blocking | True | Reproduction script `build_h2o_value_bearing_target_synthesis.py` exists. | scripts/build_h2o_value_bearing_target_synthesis.py |
 | script_compare_tool_directive_probes.py_exists | blocking | True | Reproduction script `compare_tool_directive_probes.py` exists. | scripts/compare_tool_directive_probes.py |
 | script_build_visual_hard_slice_design.py_exists | blocking | True | Reproduction script `build_visual_hard_slice_design.py` exists. | scripts/build_visual_hard_slice_design.py |
 | script_build_visual_hard_slice_replay_packet.py_exists | blocking | True | Reproduction script `build_visual_hard_slice_replay_packet.py` exists. | scripts/build_visual_hard_slice_replay_packet.py |

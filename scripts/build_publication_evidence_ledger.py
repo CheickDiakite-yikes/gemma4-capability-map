@@ -2637,6 +2637,91 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C53_h2o_value_bearing_target_synthesis_repairs_h2m_strict_with_contextual_alias_residue",
+        claim=(
+            "Selective value-bearing target-query synthesis repairs the strict H2m target-normalization boundary "
+            "without regressing the saturated H2k, H2l, and H2f transfer gates."
+        ),
+        status="supported_current_packets_scope_candidate",
+        evidence_strength="strong_internal",
+        primary_metric=(
+            "On H2m, H2o improves strict exactness from H2n's 3/8 to 7/8 and executor-equivalence from 5/8 to "
+            "7/8. It improves strict exactness by +0.50 versus H2j and H2n, by +0.75 versus H2e, and preserves "
+            "H2k at 8/8, H2l at 8/8, and H2f at 10/10 with zero exact-rate delta versus H2j on transfer packets."
+        ),
+        limitation=(
+            "The remaining H2m miss is not a value-bearing label construction miss. It is a contextual surface-type "
+            "alias row where the model keeps `Blocked` instead of targeting `result tile`, so a distinct H2p alias "
+            "routing test is still needed before calling target-query control closed."
+        ),
+        next_test=(
+            "Build H2p as a contextual surface-type alias routing slice that separates displayed values from "
+            "surface-class aliases such as tile-style result surface -> result tile."
+        ),
+        sources=(
+            EvidenceSource(
+                "replay_synthesis",
+                "results/reports/h2o_value_bearing_target_synthesis/report.md",
+                "Dedicated H2o synthesis showing H2m strict repair, transfer preservation, and one alias residue.",
+            ),
+            EvidenceSource(
+                "replay_synthesis_figure",
+                "results/reports/h2o_value_bearing_target_synthesis/figures/h2o_value_bearing_target_synthesis_gate.svg",
+                "Figure summarizing H2o exact-rate gains and transfer gates.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2o_value_bearing_target_synthesis_on_h2m_execute_v1",
+                "H2o live execution on H2m reaching 7/8 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2o_value_bearing_target_synthesis_on_h2k_execute_v1",
+                "H2o live execution on H2k preserving 8/8 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2o_value_bearing_target_synthesis_on_h2l_execute_v1",
+                "H2o live execution on H2l preserving 8/8 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2o_value_bearing_target_synthesis_on_h2f_execute_v1",
+                "H2o live execution on H2f preserving 10/10 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2o_value_bearing_target_synthesis_vs_h2n_on_h2m_v1",
+                "Direct H2o-vs-H2n comparison on H2m showing +0.50 strict and +0.25 executor-equivalence deltas.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2o_value_bearing_target_synthesis_vs_h2j_on_h2m_v1",
+                "Direct H2o-vs-H2j comparison on H2m showing +0.50 strict and executor-equivalence deltas.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2o_value_bearing_target_synthesis_vs_h2e_on_h2m_v1",
+                "Direct H2o-vs-H2e comparison on H2m showing +0.75 strict and +0.50 executor-equivalence deltas.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2o_value_bearing_target_synthesis_vs_h2j_on_h2k_v1",
+                "Transfer comparison showing H2o ties H2j on H2k at 8/8.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2o_value_bearing_target_synthesis_vs_h2j_on_h2l_v1",
+                "Transfer comparison showing H2o ties H2j on H2l at 8/8.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2o_value_bearing_target_synthesis_vs_h2j_on_h2f_v1",
+                "Transfer comparison showing H2o ties H2j on H2f at 10/10.",
+            ),
+        ),
+    ),
 )
 
 

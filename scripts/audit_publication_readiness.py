@@ -1633,6 +1633,123 @@ def audit_publication_readiness(
             detail="H2n scoped target-normalization figure exists.",
         ),
         _check_path(
+            check_id="h2o_value_bearing_target_synthesis_h2m_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260512T_h2o_value_bearing_target_synthesis_on_h2m_execute_v1"
+            / "summary.json",
+            detail="H2o value-bearing target synthesis live replay exists on H2m.",
+        ),
+        _check_path(
+            check_id="h2o_value_bearing_target_synthesis_h2k_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260512T_h2o_value_bearing_target_synthesis_on_h2k_execute_v1"
+            / "summary.json",
+            detail="H2o value-bearing target synthesis transfer live replay exists on H2k.",
+        ),
+        _check_path(
+            check_id="h2o_value_bearing_target_synthesis_h2l_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260512T_h2o_value_bearing_target_synthesis_on_h2l_execute_v1"
+            / "summary.json",
+            detail="H2o value-bearing target synthesis transfer live replay exists on H2l.",
+        ),
+        _check_path(
+            check_id="h2o_value_bearing_target_synthesis_h2f_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260512T_h2o_value_bearing_target_synthesis_on_h2f_execute_v1"
+            / "summary.json",
+            detail="H2o value-bearing target synthesis transfer live replay exists on H2f.",
+        ),
+        _check_path(
+            check_id="h2o_value_bearing_target_synthesis_vs_h2n_h2m_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260512T_h2o_value_bearing_target_synthesis_vs_h2n_on_h2m_v1"
+            / "live_replay_comparison.json",
+            detail="H2o versus H2n comparison exists on H2m.",
+        ),
+        _check_path(
+            check_id="h2o_value_bearing_target_synthesis_vs_h2j_h2m_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260512T_h2o_value_bearing_target_synthesis_vs_h2j_on_h2m_v1"
+            / "live_replay_comparison.json",
+            detail="H2o versus H2j comparison exists on H2m.",
+        ),
+        _check_path(
+            check_id="h2o_value_bearing_target_synthesis_vs_h2e_h2m_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260512T_h2o_value_bearing_target_synthesis_vs_h2e_on_h2m_v1"
+            / "live_replay_comparison.json",
+            detail="H2o versus H2e comparison exists on H2m.",
+        ),
+        _check_path(
+            check_id="h2o_value_bearing_target_synthesis_vs_h2j_h2k_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260512T_h2o_value_bearing_target_synthesis_vs_h2j_on_h2k_v1"
+            / "live_replay_comparison.json",
+            detail="H2o versus H2j transfer comparison exists on H2k.",
+        ),
+        _check_path(
+            check_id="h2o_value_bearing_target_synthesis_vs_h2j_h2l_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260512T_h2o_value_bearing_target_synthesis_vs_h2j_on_h2l_v1"
+            / "live_replay_comparison.json",
+            detail="H2o versus H2j transfer comparison exists on H2l.",
+        ),
+        _check_path(
+            check_id="h2o_value_bearing_target_synthesis_vs_h2j_h2f_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260512T_h2o_value_bearing_target_synthesis_vs_h2j_on_h2f_v1"
+            / "live_replay_comparison.json",
+            detail="H2o versus H2j transfer comparison exists on H2f.",
+        ),
+        _check_path(
+            check_id="h2o_value_bearing_target_synthesis_report_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "h2o_value_bearing_target_synthesis" / "report.md",
+            detail="H2o value-bearing target synthesis report exists.",
+        ),
+        _check_path(
+            check_id="h2o_value_bearing_target_synthesis_report_figure_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "h2o_value_bearing_target_synthesis"
+            / "figures"
+            / "h2o_value_bearing_target_synthesis_gate.svg",
+            detail="H2o value-bearing target synthesis figure exists.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",
@@ -1691,6 +1808,7 @@ def audit_publication_readiness(
         "build_h2l_target_normalization_overreach_synthesis.py",
         "build_h2m_less_direct_overreach_synthesis.py",
         "build_h2n_scoped_target_normalization_synthesis.py",
+        "build_h2o_value_bearing_target_synthesis.py",
         "compare_tool_directive_probes.py",
         "build_visual_hard_slice_design.py",
         "build_visual_hard_slice_replay_packet.py",

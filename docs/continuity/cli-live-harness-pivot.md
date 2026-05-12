@@ -151,7 +151,7 @@ The freshest MLX evidence is now H1h/H1i/H1g:
   - exact JSON copy `7 / 8`
   - visual selector paraphrase executable target `1 / 1`
 
-The freshest replay-shaped visual controller evidence is now H2n:
+The freshest replay-shaped visual controller evidence is now H2o:
 
 - H2j target-query normalization proved the repair can be controller-attributable rather than prompt-prose-attributable:
   - H2f: `10 / 10`
@@ -169,16 +169,24 @@ The freshest replay-shaped visual controller evidence is now H2n:
   - H2j and H2j-no-stale: `3 / 8` strict and executor-equivalent
   - H2e: `1 / 8` strict and `3 / 8` executor-equivalent
   - H2j records `3` value-bearing over-strip rows
-- H2n is now the current scoped candidate:
+- H2n is the scoped blocking candidate:
   - H2m: `3 / 8` strict and `5 / 8` executor-equivalent
   - H2m H2n-vs-H2j: `0.0` strict delta and `+0.25` executor-equivalence delta
   - H2k: `8 / 8`
   - H2l: `8 / 8`
   - H2f: `10 / 10`
   - synthesis: [`results/reports/h2n_scoped_target_normalization_synthesis/report.md`](../../results/reports/h2n_scoped_target_normalization_synthesis/report.md)
+- H2o is the strict value-bearing synthesis candidate:
+  - H2m: `7 / 8` strict and executor-equivalent
+  - H2m H2o-vs-H2n: `+0.50` strict delta and `+0.25` executor-equivalence delta
+  - H2m H2o-vs-H2j: `+0.50` strict delta and `+0.50` executor-equivalence delta
+  - H2k: `8 / 8`
+  - H2l: `8 / 8`
+  - H2f: `10 / 10`
+  - synthesis: [`results/reports/h2o_value_bearing_target_synthesis/report.md`](../../results/reports/h2o_value_bearing_target_synthesis/report.md)
 - next controller question:
-  - H2o canonical value-bearing target-query synthesis, gated on recoverable longer labels from the local image-state catalog
-  - preserve H2n's transfer and executor-equivalence gains before considering promotion
+  - H2p contextual surface-type alias routing, gated on prompt evidence that asks for the surface class rather than the displayed value
+  - preserve H2o's transfer and strict H2m gains before considering promotion
 
 ## Direction Reset
 

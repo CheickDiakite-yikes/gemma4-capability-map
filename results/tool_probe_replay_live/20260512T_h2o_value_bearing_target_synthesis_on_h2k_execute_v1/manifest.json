@@ -1,0 +1,32 @@
+{
+  "packet_run_id": "20260512T_h2o_value_bearing_target_synthesis_on_h2k_execute_v1",
+  "packet_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260512T_h2o_value_bearing_target_synthesis_on_h2k_execute_v1",
+  "source_packet_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260512T_h2k_target_decoy_overlap_dry_run_v1",
+  "source_packet_run_id": "20260512T_h2k_target_decoy_overlap_dry_run_v1",
+  "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_value_bearing_target_query_synthesis",
+  "case_count": 8,
+  "execute": true,
+  "executed_count": 8,
+  "exact_count": 8,
+  "exact_rate": 1.0,
+  "executor_equivalence_evaluable_count": 8,
+  "executor_equivalence_count": 8,
+  "executor_equivalence_rate": 1.0,
+  "failure_mode_counts": {
+    "argument_alias_or_decoy_risk": 8
+  },
+  "created_at": "2026-05-12T20:48:20.722286+00:00",
+  "registry_path": "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+  "case_ids": [
+    "h2k_priority_badge_negated_status_badge_decoy",
+    "h2k_mode_toggle_negated_consent_toggle_decoy",
+    "h2k_result_badge_negated_result_tile_decoy",
+    "h2k_error_banner_archived_error_notice_decoy",
+    "h2k_state_tag_before_reading_state_marker_decoy",
+    "h2k_mode_field_before_reading_mode_switch_decoy",
+    "h2k_badge_c18_negated_badge_c08_decoy",
+    "h2k_alert_t47_archived_alert_s92_decoy"
+  ],
+  "operator_surface": "rich_cli_exact_probe_replay_v1",
+  "entrypoint": "moonie-agent replay-live"
+}

@@ -497,6 +497,45 @@
   - `uv run python scripts/build_publication_evidence_ledger.py`
   - `uv run python scripts/audit_publication_readiness.py`
 
+## 2026-05-12 - H2o Value-Bearing Target Synthesis
+
+- Implemented and executed the next controller-side target-query gate after H2n:
+  - system: `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_value_bearing_target_query_synthesis`
+  - control: `enable_visual_value_bearing_target_query_synthesis`
+  - synthesis report: [`results/reports/h2o_value_bearing_target_synthesis/report.md`](../results/reports/h2o_value_bearing_target_synthesis/report.md)
+  - synthesis figure: [`results/reports/h2o_value_bearing_target_synthesis/figures/h2o_value_bearing_target_synthesis_gate.svg`](../results/reports/h2o_value_bearing_target_synthesis/figures/h2o_value_bearing_target_synthesis_gate.svg)
+- Result:
+  - H2m H2o: `7 / 8` strict, `7 / 8` executor-equivalent
+  - H2m delta versus H2n: `+0.50` strict, `+0.25` executor-equivalence
+  - H2m delta versus H2j: `+0.50` strict, `+0.50` executor-equivalence
+  - H2m delta versus H2e: `+0.75` strict, `+0.50` executor-equivalence
+  - H2k transfer: `8 / 8`
+  - H2l transfer: `8 / 8`
+  - H2f transfer: `10 / 10`
+- Mechanism:
+  - H2o records four H2m value-bearing target-query syntheses:
+    - `result badge Blocked`
+    - `state tag Closed`
+    - `mode toggle Manual`
+    - `priority badge Critical`
+  - H2o preserves two ordinary contextual-label rewrites:
+    - `archive panel` -> `error notice`
+    - `mode switch` -> `mode field`
+  - H2o records `0` stale-selection interventions on H2m, so the gain is attributable to target-query synthesis rather than visual stale rescue.
+- Interpretation:
+  - This answers the H2n boundary question: blocking value-bearing over-strips was not enough for strict exactness, but a recoverable-label synthesis gate repairs the strict target strings without regressing transfer gates.
+  - The remaining H2m miss is `h2m_result_tile_contextual_alias`: expected `result tile`, actual `Blocked`.
+  - That remaining row is not value-bearing synthesis. It is contextual surface-type alias routing: when prompt evidence names a tile-style result surface, the controller must target the surface alias instead of the displayed value.
+  - The next publishable slice is H2p, a narrow contextual surface-type alias routing gate with H2m first, then H2k/H2l/H2f backtests.
+- Reporting updates:
+  - publication evidence claim `C53_h2o_value_bearing_target_synthesis_repairs_h2m_strict_with_contextual_alias_residue` records the new supported claim
+  - readiness audit now requires H2o live packets, six comparisons, the H2o report, the H2o figure, and the reproduction script
+- Verification targets:
+  - `uv run pytest tests/test_tool_directive_probe.py tests/test_knowledge_work_h1.py::test_h2o_value_bearing_target_query_synthesis_registry_row_preserves_controller_flags tests/test_h2o_value_bearing_target_synthesis.py tests/test_publication_evidence_ledger.py tests/test_publication_readiness_audit.py -q`
+  - `uv run python scripts/build_h2o_value_bearing_target_synthesis.py`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`
+
 ## 2026-05-10 - H2b Residual Exactness Gate and H2c Pivot
 
 - Added and reported the H2b residual exactness synthesis:

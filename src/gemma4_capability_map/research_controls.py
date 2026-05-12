@@ -16,6 +16,7 @@ class ResearchControls:
     enable_visual_stale_selection_gate: bool = False
     enable_visual_target_query_normalization: bool = False
     enable_visual_scoped_target_query_normalization: bool = False
+    enable_visual_value_bearing_target_query_synthesis: bool = False
     tool_prompt_contract_id: str = ""
     tool_catalog_profile_id: str = ""
 
@@ -36,6 +37,9 @@ class ResearchControls:
             ),
             enable_visual_scoped_target_query_normalization=bool(
                 payload.get("enable_visual_scoped_target_query_normalization", False)
+            ),
+            enable_visual_value_bearing_target_query_synthesis=bool(
+                payload.get("enable_visual_value_bearing_target_query_synthesis", False)
             ),
             tool_prompt_contract_id=str(payload.get("tool_prompt_contract_id", "") or ""),
             tool_catalog_profile_id=str(payload.get("tool_catalog_profile_id", "") or ""),

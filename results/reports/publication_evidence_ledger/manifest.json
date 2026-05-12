@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-05-12T20:39:57.859650+00:00",
+  "generated_at": "2026-05-12T21:06:31.135433+00:00",
   "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-  "claim_count": 52,
-  "evidence_source_count": 301,
+  "claim_count": 53,
+  "evidence_source_count": 313,
   "missing_source_count": 0,
   "claim_ids": [
     "C1_controller_dependence_hidden_by_readiness",
@@ -56,6 +56,7 @@
     "C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization",
     "C50_h2l_overreach_holdout_supports_target_normalization_scope",
     "C51_h2m_less_direct_overreach_rejects_current_target_normalization_scope",
-    "C52_h2n_scoped_target_normalization_improves_executor_equivalence_without_strict_repair"
+    "C52_h2n_scoped_target_normalization_improves_executor_equivalence_without_strict_repair",
+    "C53_h2o_value_bearing_target_synthesis_repairs_h2m_strict_with_contextual_alias_residue"
   ]
 }

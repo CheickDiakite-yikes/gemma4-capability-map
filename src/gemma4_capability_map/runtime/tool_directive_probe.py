@@ -203,6 +203,8 @@ def run_tool_directive_probe(
                 tool_specs=tool_specs,
                 preserve_value_bearing_targets=True,
             )
+        if controls.enable_visual_value_bearing_target_query_synthesis:
+            turn = _apply_visual_value_bearing_target_query_synthesis(turn=turn, case=case, tool_specs=tool_specs)
         rows.append(_score_probe_case(case, tool_specs, expected_calls, turn))
 
     summary = _summarize_probe(rows)
@@ -539,6 +541,148 @@ def _visual_target_query_normalization_scope_block(
                 "reason": "value_bearing_label_requested",
             }
     return None
+
+
+def _apply_visual_value_bearing_target_query_synthesis(
+    *,
+    turn: ModelTurn,
+    case: ToolDirectiveProbeCase,
+    tool_specs: list[ToolSpec],
+) -> ModelTurn:
+    tool_names = {tool.name for tool in tool_specs}
+    if "extract_layout" not in tool_names or not turn.normalized_tool_call:
+        return turn
+
+    prompt_state_label = _visual_target_label_from_state(case)
+    if not prompt_state_label:
+        return turn
+
+    patched_calls: list[ToolCall] = []
+    synthesis_rows: list[dict[str, Any]] = []
+    normalization_rows: list[dict[str, Any]] = []
+    for call in turn.normalized_tool_call:
+        synthesis = _visual_value_bearing_target_query_synthesis_replacement(
+            call=call,
+            case=case,
+            prompt_state_label=prompt_state_label,
+        )
+        if synthesis is not None:
+            replacement, synthesis_row = synthesis
+            patched_calls.append(replacement)
+            synthesis_rows.append(synthesis_row)
+            continue
+        replacement = _visual_target_query_normalization_replacement(
+            call=call,
+            prompt_state_label=prompt_state_label,
+        )
+        if replacement is None:
+            patched_calls.append(call)
+            continue
+        patched_calls.append(replacement)
+        normalization_rows.append(
+            {
+                "from_tool": call.name,
+                "from_arguments": call.arguments,
+                "to_tool": replacement.name,
+                "to_arguments": replacement.arguments,
+                "prompt_state_label": prompt_state_label,
+            }
+        )
+
+    if not synthesis_rows and not normalization_rows:
+        return turn
+    metadata = dict(turn.runtime_metadata)
+    if synthesis_rows:
+        metadata["visual_value_bearing_target_query_synthesis"] = synthesis_rows
+    if normalization_rows:
+        metadata["visual_target_query_normalization"] = normalization_rows
+    return turn.model_copy(update={"normalized_tool_call": patched_calls, "runtime_metadata": metadata})
+
+
+def _visual_value_bearing_target_query_synthesis_replacement(
+    *,
+    call: ToolCall,
+    case: ToolDirectiveProbeCase,
+    prompt_state_label: str,
+) -> tuple[ToolCall, dict[str, Any]] | None:
+    if call.name != "extract_layout":
+        return None
+    target_query = str(call.arguments.get("target_query", "")).strip()
+    if not target_query:
+        return None
+
+    user_text = " ".join(message.content for message in case.messages if message.role == "user").lower()
+    prompt_label = prompt_state_label.lower()
+    for label in _visual_layout_labels(case.initial_state):
+        label_lower = label.lower()
+        prefix = f"{prompt_label} "
+        if not label_lower.startswith(prefix):
+            continue
+        value_suffix = label_lower[len(prefix) :].strip()
+        if not value_suffix:
+            continue
+        matched_phrase = _value_bearing_target_phrase(user_text, prompt_label, value_suffix, label_lower)
+        if not matched_phrase:
+            continue
+        if target_query == label:
+            return None
+        arguments = dict(call.arguments)
+        arguments["target_query"] = label
+        payload = {
+            "name": "extract_layout",
+            "arguments": arguments,
+        }
+        replacement = ToolCall(
+            name="extract_layout",
+            arguments=arguments,
+            source_format="heuristic",
+            raw=json.dumps(payload, ensure_ascii=False),
+        )
+        return replacement, {
+            "from_tool": call.name,
+            "from_arguments": call.arguments,
+            "to_tool": replacement.name,
+            "to_arguments": replacement.arguments,
+            "prompt_state_label": prompt_state_label,
+            "value_bearing_label": label,
+            "value_suffix": value_suffix,
+            "matched_phrase": matched_phrase,
+            "reason": "value_bearing_label_recoverable",
+        }
+    return None
+
+
+def _value_bearing_target_phrase(
+    user_text: str,
+    prompt_label: str,
+    value_suffix: str,
+    label: str,
+) -> str:
+    phrases = (label, f"{value_suffix} {prompt_label}")
+    for phrase in phrases:
+        if phrase not in user_text:
+            continue
+        if _phrase_is_negated_or_deprioritized(user_text, phrase):
+            continue
+        return phrase
+    return ""
+
+
+def _phrase_is_negated_or_deprioritized(user_text: str, phrase: str) -> bool:
+    prefixes = (
+        "not",
+        "not use",
+        "not target",
+        "do not use",
+        "do not target",
+        "ignore",
+        "leave",
+        "leaving",
+        "avoid",
+        "exclude",
+    )
+    articles = ("", "the ")
+    return any(f"{prefix} {article}{phrase}" in user_text for prefix in prefixes for article in articles)
 
 
 def _visual_target_query_normalization_replacement(

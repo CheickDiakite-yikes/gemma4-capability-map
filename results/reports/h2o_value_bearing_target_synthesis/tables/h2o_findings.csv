@@ -1,0 +1,6 @@
+finding_id,finding
+h2o_repairs_h2m_strict_value_bearing_rows,H2o improves H2m strict exactness from H2n's 3/8 to 7/8 and executor-equivalence from 5/8 to 7/8.
+h2o_outperforms_h2j_on_less_direct_h2m,"Against H2j, H2o adds 0.5 exact-rate and 0.5 executor-equivalence-rate on H2m, moving from 3/8 to 7/8 strict."
+h2o_mechanism_is_selective_canonical_synthesis,H2o records 4 value-bearing target-query syntheses and 2 ordinary contextual-label rewrites on H2m.
+h2o_transfers_without_regression,"H2o preserves saturated transfer gates: 8/8 on H2k, 8/8 on H2l, and 10/10 on H2f with zero exact-rate delta versus H2j on each transfer packet."
+h2p_should_target_contextual_surface_aliases,"H2o leaves 1 H2m non-exact row: `h2m_result_tile_contextual_alias`, where the model kept the value `Blocked` instead of the surface-type alias `result tile`."

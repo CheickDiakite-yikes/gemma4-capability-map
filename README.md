@@ -89,8 +89,10 @@ Latest research restart point:
 - H2l did not expose over-stripping on value-bearing or alias-is-target rows, but it used explicit target-is wording
 - H2m is now the less-direct overreach verdict: full H2j and H2j without stale-selection both fall to `3 / 8` strict and executor-equivalent; H2e reaches `1 / 8` strict and `3 / 8` executor-equivalent
 - H2m records `5` target-query-normalization interventions, `0` stale-selection interventions, and `3` value-bearing over-strip rows, so the next structural move was H2n scoped target-normalization rather than more prompt prose
-- H2n is now executed: it ties H2j on H2m strict exactness at `3 / 8`, improves H2m executor-equivalence from `3 / 8` to `5 / 8`, preserves H2k at `8 / 8`, H2l at `8 / 8`, and H2f at `10 / 10`, and records `3` scoped value-bearing blocks plus `2` contextual-label rewrites
-- H2n is a cleaner controller candidate than H2j, but it is not a strict exactness repair; the next structural question is H2o canonical value-bearing target-query synthesis under a recoverable-label gate
+- H2n scoped the controller policy: it ties H2j on H2m strict exactness at `3 / 8`, improves H2m executor-equivalence from `3 / 8` to `5 / 8`, preserves H2k at `8 / 8`, H2l at `8 / 8`, and H2f at `10 / 10`, and records `3` scoped value-bearing blocks plus `2` contextual-label rewrites
+- H2o is now executed: canonical value-bearing target-query synthesis improves H2m to `7 / 8` strict and executor-equivalent, a `+0.50` exact-rate gain versus H2n/H2j and a `+0.75` exact-rate gain versus H2e
+- H2o preserves transfer gates at H2k `8 / 8`, H2l `8 / 8`, and H2f `10 / 10`; its remaining H2m miss is `h2m_result_tile_contextual_alias`, where the model keeps `Blocked` instead of the surface alias `result tile`
+- The next structural question is H2p contextual surface-type alias routing, not broader value-bearing target synthesis
 
 The current source-of-truth comparison surface is the aligned exploratory `32 / 26` matrix:
 
@@ -164,7 +166,9 @@ The report now also carries the H1y/H2a controller gate and H2a transfer results
 - H2m figure: [`results/reports/h2m_less_direct_overreach_synthesis/figures/h2m_less_direct_overreach_gate.svg`](results/reports/h2m_less_direct_overreach_synthesis/figures/h2m_less_direct_overreach_gate.svg)
 - H2n scoped target-normalization synthesis: [`results/reports/h2n_scoped_target_normalization_synthesis/report.md`](results/reports/h2n_scoped_target_normalization_synthesis/report.md)
 - H2n figure: [`results/reports/h2n_scoped_target_normalization_synthesis/figures/h2n_scoped_target_normalization_gate.svg`](results/reports/h2n_scoped_target_normalization_synthesis/figures/h2n_scoped_target_normalization_gate.svg)
-- publication claims: `C38_h2a_controller_stale_selection_gate_is_causal`, `C39_h2a_stale_selection_gate_transfers_with_better_executor_profile`, `C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a`, `C41_h2c_scoped_residual_gate_saturates_h2b_but_needs_transfer`, `C51_h2m_less_direct_overreach_rejects_current_target_normalization_scope`, `C52_h2n_scoped_target_normalization_improves_executor_equivalence_without_strict_repair`
+- H2o value-bearing target synthesis: [`results/reports/h2o_value_bearing_target_synthesis/report.md`](results/reports/h2o_value_bearing_target_synthesis/report.md)
+- H2o figure: [`results/reports/h2o_value_bearing_target_synthesis/figures/h2o_value_bearing_target_synthesis_gate.svg`](results/reports/h2o_value_bearing_target_synthesis/figures/h2o_value_bearing_target_synthesis_gate.svg)
+- publication claims: `C38_h2a_controller_stale_selection_gate_is_causal`, `C39_h2a_stale_selection_gate_transfers_with_better_executor_profile`, `C40_h2b_residual_exactness_favors_scoped_v12_not_global_h2a`, `C41_h2c_scoped_residual_gate_saturates_h2b_but_needs_transfer`, `C51_h2m_less_direct_overreach_rejects_current_target_normalization_scope`, `C52_h2n_scoped_target_normalization_improves_executor_equivalence_without_strict_repair`, `C53_h2o_value_bearing_target_synthesis_repairs_h2m_strict_with_contextual_alias_residue`
 
 The active next experiment is now a CLI/research-harness packet, not a UI task:
 
