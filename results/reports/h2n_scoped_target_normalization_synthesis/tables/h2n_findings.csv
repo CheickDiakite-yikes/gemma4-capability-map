@@ -1,0 +1,6 @@
+finding_id,finding
+h2n_improves_h2m_executor_equivalence_not_strict,"H2n ties H2j strict exactness on H2m at 3/8 but improves executor-equivalence from 3/8 to 5/8, a 0.25 executor-equivalence-rate gain."
+h2n_keeps_h2e_exact_gain,"Against H2e, H2n improves H2m strict exactness from 1/8 to 3/8 and executor-equivalence from 3/8 to 5/8."
+h2n_scoping_blocks_value_bearing_overstrip,H2n records 3 scoped target-query-normalization blocks on H2m value-bearing rows while preserving 2 contextual-label rewrites.
+h2n_transfers_without_regression,"H2n preserves the previous H2j transfer gates: 8/8 on H2k, 8/8 on H2l, and 10/10 on H2f with zero exact-rate delta versus H2j on each packet."
+next_gate_needs_canonical_value_bearing_target_synthesis,"H2n still leaves 5 non-exact H2m rows, so the next H2o question is whether the controller can synthesize canonical value-bearing target queries only when the longer label is recoverable."

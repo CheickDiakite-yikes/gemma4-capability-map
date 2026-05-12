@@ -38,8 +38,8 @@ Current generated corpus on disk:
 
 - atomic tasks: `91`
 - variants: `396`
-- replayable KWA episodes: `32`
-- live KWA episodes: `26`
+- replayable KWA episodes: `33`
+- live KWA episodes: `27`
 
 Current source-of-truth comparison surface:
 
@@ -150,6 +150,35 @@ The freshest MLX evidence is now H1h/H1i/H1g:
 - the latest directive probe separates exact-copy from executable readiness:
   - exact JSON copy `7 / 8`
   - visual selector paraphrase executable target `1 / 1`
+
+The freshest replay-shaped visual controller evidence is now H2n:
+
+- H2j target-query normalization proved the repair can be controller-attributable rather than prompt-prose-attributable:
+  - H2f: `10 / 10`
+  - H2b: `5 / 5`
+  - H1x: `8 / 8`
+- H2k showed the post-H2j target/decoy-overlap win is target-normalization evidence, not stale-selection rescue:
+  - H2j: `8 / 8`
+  - H2j without stale-selection: `8 / 8`
+  - H2e: `3 / 8` strict
+  - both H2j rows record `5` target-query-normalization interventions and `0` stale-selection interventions
+- H2l showed direct target-is wording does not trigger over-stripping:
+  - H2j and H2j-no-stale: `8 / 8`
+  - H2e: `7 / 8`
+- H2m removed that direct wording and exposed H2j's boundary:
+  - H2j and H2j-no-stale: `3 / 8` strict and executor-equivalent
+  - H2e: `1 / 8` strict and `3 / 8` executor-equivalent
+  - H2j records `3` value-bearing over-strip rows
+- H2n is now the current scoped candidate:
+  - H2m: `3 / 8` strict and `5 / 8` executor-equivalent
+  - H2m H2n-vs-H2j: `0.0` strict delta and `+0.25` executor-equivalence delta
+  - H2k: `8 / 8`
+  - H2l: `8 / 8`
+  - H2f: `10 / 10`
+  - synthesis: [`results/reports/h2n_scoped_target_normalization_synthesis/report.md`](../../results/reports/h2n_scoped_target_normalization_synthesis/report.md)
+- next controller question:
+  - H2o canonical value-bearing target-query synthesis, gated on recoverable longer labels from the local image-state catalog
+  - preserve H2n's transfer and executor-equivalence gains before considering promotion
 
 ## Direction Reset
 

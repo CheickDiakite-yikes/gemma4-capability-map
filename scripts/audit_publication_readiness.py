@@ -1526,6 +1526,113 @@ def audit_publication_readiness(
             detail="H2m less-direct target-normalization overreach figure exists.",
         ),
         _check_path(
+            check_id="h2n_scoped_target_normalization_h2m_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260512T_h2n_scoped_target_normalization_on_h2m_execute_v1"
+            / "summary.json",
+            detail="H2n scoped target-normalization live replay exists on H2m.",
+        ),
+        _check_path(
+            check_id="h2n_scoped_target_normalization_h2k_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260512T_h2n_scoped_target_normalization_on_h2k_execute_v1"
+            / "summary.json",
+            detail="H2n scoped target-normalization transfer live replay exists on H2k.",
+        ),
+        _check_path(
+            check_id="h2n_scoped_target_normalization_h2l_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260512T_h2n_scoped_target_normalization_on_h2l_execute_v1"
+            / "summary.json",
+            detail="H2n scoped target-normalization transfer live replay exists on H2l.",
+        ),
+        _check_path(
+            check_id="h2n_scoped_target_normalization_h2f_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260512T_h2n_scoped_target_normalization_on_h2f_execute_v1"
+            / "summary.json",
+            detail="H2n scoped target-normalization transfer live replay exists on H2f.",
+        ),
+        _check_path(
+            check_id="h2n_scoped_target_normalization_vs_h2j_h2m_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260512T_h2n_scoped_target_normalization_vs_h2j_on_h2m_v1"
+            / "live_replay_comparison.json",
+            detail="H2n versus H2j comparison exists on H2m.",
+        ),
+        _check_path(
+            check_id="h2n_scoped_target_normalization_vs_h2e_h2m_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260512T_h2n_scoped_target_normalization_vs_h2e_on_h2m_v1"
+            / "live_replay_comparison.json",
+            detail="H2n versus H2e comparison exists on H2m.",
+        ),
+        _check_path(
+            check_id="h2n_scoped_target_normalization_vs_h2j_h2k_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260512T_h2n_scoped_target_normalization_vs_h2j_on_h2k_v1"
+            / "live_replay_comparison.json",
+            detail="H2n versus H2j transfer comparison exists on H2k.",
+        ),
+        _check_path(
+            check_id="h2n_scoped_target_normalization_vs_h2j_h2l_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260512T_h2n_scoped_target_normalization_vs_h2j_on_h2l_v1"
+            / "live_replay_comparison.json",
+            detail="H2n versus H2j transfer comparison exists on H2l.",
+        ),
+        _check_path(
+            check_id="h2n_scoped_target_normalization_vs_h2j_h2f_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260512T_h2n_scoped_target_normalization_vs_h2j_on_h2f_v1"
+            / "live_replay_comparison.json",
+            detail="H2n versus H2j transfer comparison exists on H2f.",
+        ),
+        _check_path(
+            check_id="h2n_scoped_target_normalization_synthesis_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "h2n_scoped_target_normalization_synthesis" / "report.md",
+            detail="H2n scoped target-normalization synthesis report exists.",
+        ),
+        _check_path(
+            check_id="h2n_scoped_target_normalization_report_figure_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "h2n_scoped_target_normalization_synthesis"
+            / "figures"
+            / "h2n_scoped_target_normalization_gate.svg",
+            detail="H2n scoped target-normalization figure exists.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",
@@ -1583,6 +1690,7 @@ def audit_publication_readiness(
         "build_h2k_target_decoy_overlap_synthesis.py",
         "build_h2l_target_normalization_overreach_synthesis.py",
         "build_h2m_less_direct_overreach_synthesis.py",
+        "build_h2n_scoped_target_normalization_synthesis.py",
         "compare_tool_directive_probes.py",
         "build_visual_hard_slice_design.py",
         "build_visual_hard_slice_replay_packet.py",

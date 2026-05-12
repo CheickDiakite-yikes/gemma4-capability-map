@@ -2556,6 +2556,87 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C52_h2n_scoped_target_normalization_improves_executor_equivalence_without_strict_repair",
+        claim=(
+            "The H2n scoped target-query normalizer is a cleaner controller candidate than H2j on the current "
+            "target-normalization line: it blocks value-bearing over-strips and preserves transfer gates, but it "
+            "does not yet repair strict exactness on the less-direct H2m slice."
+        ),
+        status="supported_current_packets_scope_candidate",
+        evidence_strength="strong_internal",
+        primary_metric=(
+            "On H2m, H2n ties H2j at 3/8 strict exactness but improves executor-equivalence from 3/8 to 5/8. "
+            "Against H2e, H2n improves strict exactness by +0.25 and executor-equivalence by +0.25. It preserves "
+            "H2k at 8/8, H2l at 8/8, and H2f at 10/10 with zero exact-rate delta versus H2j on each transfer gate."
+        ),
+        limitation=(
+            "H2n is a no-op/blocking scope policy, not a canonical target-query construction policy. The remaining "
+            "H2m strict misses include `result badge Blocked`, `mode toggle Manual`, and `result tile`, so strict "
+            "repair still needs a targeted value-bearing target synthesis gate."
+        ),
+        next_test=(
+            "Build H2o as a canonical value-bearing target-query synthesis gate that only fires when a longer "
+            "visual label is recoverable from the image-state catalog and the prompt evidence asks for that value."
+        ),
+        sources=(
+            EvidenceSource(
+                "replay_synthesis",
+                "results/reports/h2n_scoped_target_normalization_synthesis/report.md",
+                "Dedicated H2n synthesis showing H2m executor-equivalence gain, strict tie, and transfer preservation.",
+            ),
+            EvidenceSource(
+                "replay_synthesis_figure",
+                "results/reports/h2n_scoped_target_normalization_synthesis/figures/h2n_scoped_target_normalization_gate.svg",
+                "Figure summarizing H2n exact transfer gates and the H2m strict boundary.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2n_scoped_target_normalization_on_h2m_execute_v1",
+                "H2n live execution on H2m reaching 3/8 strict and 5/8 executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2n_scoped_target_normalization_on_h2k_execute_v1",
+                "H2n live execution on H2k preserving 8/8 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2n_scoped_target_normalization_on_h2l_execute_v1",
+                "H2n live execution on H2l preserving 8/8 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2n_scoped_target_normalization_on_h2f_execute_v1",
+                "H2n live execution on H2f preserving 10/10 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2n_scoped_target_normalization_vs_h2j_on_h2m_v1",
+                "Direct H2n-vs-H2j comparison on H2m showing zero strict delta and +0.25 executor-equivalence delta.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2n_scoped_target_normalization_vs_h2e_on_h2m_v1",
+                "Direct H2n-vs-H2e comparison on H2m showing +0.25 strict and executor-equivalence deltas.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2n_scoped_target_normalization_vs_h2j_on_h2k_v1",
+                "Transfer comparison showing H2n ties H2j on H2k at 8/8.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2n_scoped_target_normalization_vs_h2j_on_h2l_v1",
+                "Transfer comparison showing H2n ties H2j on H2l at 8/8.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2n_scoped_target_normalization_vs_h2j_on_h2f_v1",
+                "Transfer comparison showing H2n ties H2j on H2f at 10/10.",
+            ),
+        ),
+    ),
 )
 
 

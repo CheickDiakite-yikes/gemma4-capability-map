@@ -1,6 +1,43 @@
 # Research Log
 
-# Research Log
+## 2026-05-12 - H2n Scoped Target-Normalization Improves Executor-Equivalence Without Strict Repair
+
+- Added H2n as a scoped controller-side target-query normalizer:
+  - system row: `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_scoped_target_query_normalization`
+  - H2n keeps H2e route arbitration and H2a stale-selection support, but replaces broad H2j shortening with a value-bearing scope block
+  - blocked metadata is recorded as `visual_target_query_normalization_blocked`, separate from ordinary `visual_target_query_normalization` rewrites
+- Executed H2n on the boundary and transfer packets:
+  - H2m live packet: [`results/tool_probe_replay_live/20260512T_h2n_scoped_target_normalization_on_h2m_execute_v1`](../results/tool_probe_replay_live/20260512T_h2n_scoped_target_normalization_on_h2m_execute_v1)
+  - H2k transfer packet: [`results/tool_probe_replay_live/20260512T_h2n_scoped_target_normalization_on_h2k_execute_v1`](../results/tool_probe_replay_live/20260512T_h2n_scoped_target_normalization_on_h2k_execute_v1)
+  - H2l transfer packet: [`results/tool_probe_replay_live/20260512T_h2n_scoped_target_normalization_on_h2l_execute_v1`](../results/tool_probe_replay_live/20260512T_h2n_scoped_target_normalization_on_h2l_execute_v1)
+  - H2f transfer packet: [`results/tool_probe_replay_live/20260512T_h2n_scoped_target_normalization_on_h2f_execute_v1`](../results/tool_probe_replay_live/20260512T_h2n_scoped_target_normalization_on_h2f_execute_v1)
+- Result:
+  - H2n on H2m: `3 / 8` strict and `5 / 8` executor-equivalent
+  - H2m H2n-vs-H2j delta: `0.0` strict exact-rate and `+0.25` executor-equivalence-rate
+  - H2m H2n-vs-H2e delta: `+0.25` strict exact-rate and `+0.25` executor-equivalence-rate
+  - H2n on H2k: `8 / 8` strict and executor-equivalent, zero exact-rate delta versus H2j
+  - H2n on H2l: `8 / 8` strict and executor-equivalent, zero exact-rate delta versus H2j
+  - H2n on H2f: `10 / 10` strict and executor-equivalent, zero exact-rate delta versus H2j
+- Mechanism read:
+  - H2n blocks value-bearing over-strip on `result badge Blocked`, `state tag Closed`, and `priority badge Critical`
+  - H2n preserves contextual-label repairs on `archive panel` -> `error notice` and `mode switch` -> `mode field`
+  - H2n improves executor-equivalence because `Closed state tag` and `priority badge critical` become executor-valid target paraphrases
+  - H2n does not repair strict exactness on H2m because a block/no-op policy cannot create canonical ordering/casing or recover `mode toggle Manual` when the model already emitted the shorter `mode toggle`
+- Reporting updates:
+  - H2n synthesis: [`results/reports/h2n_scoped_target_normalization_synthesis/report.md`](../results/reports/h2n_scoped_target_normalization_synthesis/report.md)
+  - H2n figure: [`results/reports/h2n_scoped_target_normalization_synthesis/figures/h2n_scoped_target_normalization_gate.svg`](../results/reports/h2n_scoped_target_normalization_synthesis/figures/h2n_scoped_target_normalization_gate.svg)
+  - new claim: `C52_h2n_scoped_target_normalization_improves_executor_equivalence_without_strict_repair`
+  - publication evidence ledger now has `52` claims, `301` sources, and `0` missing sources
+  - publication readiness audit now has `209` checks, `202` blocking checks, `0` blocking failures, and status `paper_draft_ready`
+- Research decision:
+  - keep H2n as the current scoped structural candidate, not yet a default policy
+  - build H2o as canonical value-bearing target-query synthesis, gated on recoverable longer labels from the local image-state catalog
+  - preserve H2n's H2k/H2l/H2f transfer gates and H2m executor-equivalence gain while testing whether strict H2m target strings can be repaired
+- Verification:
+  - `uv run pytest tests/test_tool_directive_probe.py tests/test_knowledge_work_h1.py::test_h2n_scoped_target_query_normalization_registry_row_preserves_controller_flags tests/test_h2n_scoped_target_normalization_synthesis.py tests/test_publication_evidence_ledger.py tests/test_publication_readiness_audit.py -q`
+  - `uv run python scripts/build_h2n_scoped_target_normalization_synthesis.py`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`
 
 ## 2026-05-12 - H2m Less-Direct Overreach Rejects Current Target-Normalization Scope
 

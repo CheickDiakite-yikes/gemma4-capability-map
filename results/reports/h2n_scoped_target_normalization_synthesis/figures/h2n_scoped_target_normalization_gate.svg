@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="360" viewBox="0 0 880 360" role="img" aria-labelledby="title desc">
+<title id="title">H2n scoped target-normalization gate</title>
+<desc id="desc">H2n improves H2m executor-equivalence while preserving H2k, H2l, and H2f exact transfer gates.</desc>
+<rect width="880" height="360" fill="#FFFFFF"/>
+<text x="32" y="36" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#111827">H2n scopes target-query normalization</text>
+<line x1="86" y1="260" x2="812" y2="260" stroke="#111827" stroke-width="1"/>
+<line x1="80" y1="260.0" x2="812" y2="260.0" stroke="#E5E7EB" stroke-width="1"/>
+<text x="36" y="264.0" font-family="Arial, sans-serif" font-size="11" fill="#6B7280">0.0</text>
+<line x1="80" y1="220.8" x2="812" y2="220.8" stroke="#E5E7EB" stroke-width="1"/>
+<text x="36" y="224.8" font-family="Arial, sans-serif" font-size="11" fill="#6B7280">0.2</text>
+<line x1="80" y1="181.6" x2="812" y2="181.6" stroke="#E5E7EB" stroke-width="1"/>
+<text x="36" y="185.6" font-family="Arial, sans-serif" font-size="11" fill="#6B7280">0.4</text>
+<line x1="80" y1="142.4" x2="812" y2="142.4" stroke="#E5E7EB" stroke-width="1"/>
+<text x="36" y="146.4" font-family="Arial, sans-serif" font-size="11" fill="#6B7280">0.6</text>
+<line x1="80" y1="103.2" x2="812" y2="103.2" stroke="#E5E7EB" stroke-width="1"/>
+<text x="36" y="107.2" font-family="Arial, sans-serif" font-size="11" fill="#6B7280">0.8</text>
+<line x1="80" y1="64.0" x2="812" y2="64.0" stroke="#E5E7EB" stroke-width="1"/>
+<text x="36" y="68.0" font-family="Arial, sans-serif" font-size="11" fill="#6B7280">1.0</text>
+<rect x="86" y="235.5" width="72" height="24.5" fill="#0891B2"/>
+<text x="102" y="227.5" font-family="Arial, sans-serif" font-size="13" fill="#111827">1/8</text>
+<text x="84" y="288" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#111827">H2m H2e</text>
+<rect x="204" y="186.5" width="72" height="73.5" fill="#1D4ED8"/>
+<text x="220" y="178.5" font-family="Arial, sans-serif" font-size="13" fill="#111827">3/8</text>
+<text x="202" y="288" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#111827">H2m H2j</text>
+<rect x="322" y="186.5" width="72" height="73.5" fill="#0E7490"/>
+<text x="338" y="178.5" font-family="Arial, sans-serif" font-size="13" fill="#111827">3/8</text>
+<text x="320" y="288" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#111827">H2m H2n</text>
+<rect x="440" y="64.0" width="72" height="196.0" fill="#0F766E"/>
+<text x="456" y="56.0" font-family="Arial, sans-serif" font-size="13" fill="#111827">8/8</text>
+<text x="438" y="288" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#111827">H2k H2n</text>
+<rect x="558" y="64.0" width="72" height="196.0" fill="#047857"/>
+<text x="574" y="56.0" font-family="Arial, sans-serif" font-size="13" fill="#111827">8/8</text>
+<text x="556" y="288" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#111827">H2l H2n</text>
+<rect x="676" y="64.0" width="72" height="196.0" fill="#166534"/>
+<text x="692" y="56.0" font-family="Arial, sans-serif" font-size="13" fill="#111827">10/10</text>
+<text x="674" y="288" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#111827">H2f H2n</text>
+<text x="32" y="332" font-family="Arial, sans-serif" font-size="13" fill="#374151">H2n H2m executor-equivalence: 5/8; strict remains 3/8.</text>
+</svg>

@@ -198,6 +198,37 @@ systems:
     }
 
 
+def test_run_tool_directive_probe_records_visual_scoped_target_query_normalization_control(tmp_path: Path) -> None:
+    registry_path = tmp_path / "registry.yaml"
+    registry_path.write_text(
+        """
+systems:
+  heuristic_scoped_target_query_normalization:
+    backend: heuristic
+    reasoner: google/gemma-4-E2B-it
+    reasoner_max_new_tokens: 64
+    request_timeout_seconds: 30.0
+    research_controls:
+      disable_tool_turn_directive: true
+      enable_visual_scoped_target_query_normalization: true
+""".strip()
+        + "\n",
+        encoding="utf-8",
+    )
+    output_dir = tmp_path / "probe"
+    result = run_tool_directive_probe(
+        system_id="heuristic_scoped_target_query_normalization",
+        output_dir=output_dir,
+        registry_path=registry_path,
+        cases=build_tool_directive_probe_cases()[:1],
+    )
+
+    assert result["manifest"]["research_controls"] == {
+        "disable_tool_turn_directive": True,
+        "enable_visual_scoped_target_query_normalization": True,
+    }
+
+
 def test_visual_stale_selection_gate_rewrites_missing_selection_to_layout_lookup() -> None:
     specs = build_default_registry().specs
     case = ToolDirectiveProbeCase(
@@ -430,6 +461,164 @@ def test_visual_target_query_normalization_preserves_located_code_label_over_neg
     )
 
     assert patched == turn
+
+
+def test_scoped_visual_target_query_normalization_blocks_value_bearing_overstrip() -> None:
+    specs = build_default_registry().specs
+    case = ToolDirectiveProbeCase(
+        case_id="target-query-normalization-value-bearing-block",
+        family="visual",
+        messages=[
+            Message(
+                role="user",
+                content=(
+                    "From the status summary, pull the Blocked result badge chip. "
+                    "The plain result badge is just a legend."
+                ),
+            )
+        ],
+        media=["img-result"],
+        tool_names=["extract_layout", "refine_selection"],
+        initial_state={
+            "images": {
+                "img-result": {
+                    "local_layouts": [
+                        {"region_id": "legend-1", "label": "result badge", "text": "Legend"},
+                        {"region_id": "badge-1", "label": "result badge Blocked", "text": "Blocked"},
+                    ]
+                }
+            },
+        },
+    )
+    turn = ModelTurn(
+        raw_model_output="{}",
+        normalized_tool_call=[
+            ToolCall(
+                name="extract_layout",
+                arguments={"image_id": "img-result", "target_query": "result chip"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+    )
+
+    patched = _apply_visual_target_query_normalization(
+        turn=turn,
+        case=case,
+        tool_specs=[specs["extract_layout"], specs["refine_selection"]],
+        preserve_value_bearing_targets=True,
+    )
+
+    assert patched.normalized_tool_call == turn.normalized_tool_call
+    blocked = patched.runtime_metadata["visual_target_query_normalization_blocked"][0]
+    assert blocked["prompt_state_label"] == "result badge"
+    assert blocked["preserved_target_query"] == "result chip"
+    assert blocked["value_bearing_label"] == "result badge Blocked"
+    assert blocked["reason"] == "value_bearing_label_requested"
+    assert "visual_target_query_normalization" not in patched.runtime_metadata
+
+
+def test_scoped_visual_target_query_normalization_preserves_contextual_label_repair() -> None:
+    specs = build_default_registry().specs
+    case = ToolDirectiveProbeCase(
+        case_id="target-query-normalization-contextual-repair",
+        family="visual",
+        messages=[
+            Message(
+                role="user",
+                content="For the archive panel, work from the error notice rather than the live banner or log.",
+            )
+        ],
+        media=["img-error"],
+        tool_names=["extract_layout", "refine_selection"],
+        initial_state={
+            "images": {
+                "img-error": {
+                    "local_layouts": [
+                        {"region_id": "banner-1", "label": "error banner", "text": "Error"},
+                        {"region_id": "notice-1", "label": "error notice", "text": "Error archived"},
+                        {"region_id": "log-1", "label": "error log", "text": "Error trace rows"},
+                    ]
+                }
+            },
+        },
+    )
+    turn = ModelTurn(
+        raw_model_output="{}",
+        normalized_tool_call=[
+            ToolCall(
+                name="extract_layout",
+                arguments={"image_id": "img-error", "target_query": "archive panel"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+    )
+
+    patched = _apply_visual_target_query_normalization(
+        turn=turn,
+        case=case,
+        tool_specs=[specs["extract_layout"], specs["refine_selection"]],
+        preserve_value_bearing_targets=True,
+    )
+
+    assert patched.normalized_tool_call == [
+        ToolCall(
+            name="extract_layout",
+            arguments={"image_id": "img-error", "target_query": "error notice"},
+            source_format="heuristic",
+            raw=patched.normalized_tool_call[0].raw,
+        )
+    ]
+    assert patched.runtime_metadata["visual_target_query_normalization"][0]["prompt_state_label"] == "error notice"
+    assert "visual_target_query_normalization_blocked" not in patched.runtime_metadata
+
+
+def test_scoped_visual_target_query_normalization_blocks_direct_longer_label_overstrip() -> None:
+    specs = build_default_registry().specs
+    case = ToolDirectiveProbeCase(
+        case_id="target-query-normalization-direct-longer-label-block",
+        family="visual",
+        messages=[
+            Message(
+                role="user",
+                content="The target is result badge Blocked, the full value-bearing badge.",
+            )
+        ],
+        media=["img-result"],
+        tool_names=["extract_layout", "refine_selection"],
+        initial_state={
+            "images": {
+                "img-result": {
+                    "local_layouts": [
+                        {"region_id": "legend-1", "label": "result badge", "text": "Summary"},
+                        {"region_id": "badge-1", "label": "result badge Blocked", "text": "Blocked"},
+                    ]
+                }
+            },
+        },
+    )
+    turn = ModelTurn(
+        raw_model_output="{}",
+        normalized_tool_call=[
+            ToolCall(
+                name="extract_layout",
+                arguments={"image_id": "img-result", "target_query": "result badge"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+    )
+
+    patched = _apply_visual_target_query_normalization(
+        turn=turn,
+        case=case,
+        tool_specs=[specs["extract_layout"], specs["refine_selection"]],
+        preserve_value_bearing_targets=True,
+    )
+
+    assert patched.normalized_tool_call == turn.normalized_tool_call
+    assert patched.runtime_metadata == {}
 
 
 def test_tool_directive_probe_comparison_reports_case_and_family_deltas(tmp_path: Path) -> None:

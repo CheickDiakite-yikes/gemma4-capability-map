@@ -196,6 +196,13 @@ def run_tool_directive_probe(
             turn = _apply_visual_stale_selection_gate(turn=turn, case=case, tool_specs=tool_specs)
         if controls.enable_visual_target_query_normalization:
             turn = _apply_visual_target_query_normalization(turn=turn, case=case, tool_specs=tool_specs)
+        if controls.enable_visual_scoped_target_query_normalization:
+            turn = _apply_visual_target_query_normalization(
+                turn=turn,
+                case=case,
+                tool_specs=tool_specs,
+                preserve_value_bearing_targets=True,
+            )
         rows.append(_score_probe_case(case, tool_specs, expected_calls, turn))
 
     summary = _summarize_probe(rows)
@@ -442,6 +449,7 @@ def _apply_visual_target_query_normalization(
     turn: ModelTurn,
     case: ToolDirectiveProbeCase,
     tool_specs: list[ToolSpec],
+    preserve_value_bearing_targets: bool = False,
 ) -> ModelTurn:
     tool_names = {tool.name for tool in tool_specs}
     if "extract_layout" not in tool_names or not turn.normalized_tool_call:
@@ -453,7 +461,21 @@ def _apply_visual_target_query_normalization(
 
     patched_calls: list[ToolCall] = []
     gate_rows: list[dict[str, Any]] = []
+    blocked_rows: list[dict[str, Any]] = []
     for call in turn.normalized_tool_call:
+        scope_block = (
+            _visual_target_query_normalization_scope_block(
+                call=call,
+                case=case,
+                prompt_state_label=prompt_state_label,
+            )
+            if preserve_value_bearing_targets
+            else None
+        )
+        if scope_block is not None:
+            patched_calls.append(call)
+            blocked_rows.append(scope_block)
+            continue
         replacement = _visual_target_query_normalization_replacement(
             call=call,
             prompt_state_label=prompt_state_label,
@@ -472,11 +494,51 @@ def _apply_visual_target_query_normalization(
             }
         )
 
-    if not gate_rows:
+    if not gate_rows and not blocked_rows:
         return turn
     metadata = dict(turn.runtime_metadata)
-    metadata["visual_target_query_normalization"] = gate_rows
+    if gate_rows:
+        metadata["visual_target_query_normalization"] = gate_rows
+    if blocked_rows:
+        metadata["visual_target_query_normalization_blocked"] = blocked_rows
     return turn.model_copy(update={"normalized_tool_call": patched_calls, "runtime_metadata": metadata})
+
+
+def _visual_target_query_normalization_scope_block(
+    *,
+    call: ToolCall,
+    case: ToolDirectiveProbeCase,
+    prompt_state_label: str,
+) -> dict[str, Any] | None:
+    if call.name != "extract_layout":
+        return None
+    target_query = str(call.arguments.get("target_query", "")).strip()
+    if not target_query:
+        return None
+    if target_query == prompt_state_label:
+        return None
+
+    user_text = " ".join(message.content for message in case.messages if message.role == "user").lower()
+    prompt_label = prompt_state_label.lower()
+    for label in _visual_layout_labels(case.initial_state):
+        label_lower = label.lower()
+        prefix = f"{prompt_label} "
+        if not label_lower.startswith(prefix):
+            continue
+        value_suffix = label_lower[len(prefix) :].strip()
+        if not value_suffix:
+            continue
+        if label_lower in user_text or f"{value_suffix} {prompt_label}" in user_text:
+            return {
+                "from_tool": call.name,
+                "from_arguments": call.arguments,
+                "prompt_state_label": prompt_state_label,
+                "preserved_target_query": target_query,
+                "value_bearing_label": label,
+                "value_suffix": value_suffix,
+                "reason": "value_bearing_label_requested",
+            }
+    return None
 
 
 def _visual_target_query_normalization_replacement(

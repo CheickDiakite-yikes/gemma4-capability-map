@@ -22,7 +22,7 @@ Treat the older H1/HF and React notes below as historical context unless they ar
 
 Current strongest MLX result:
 
-- H2m less-direct over-normalization is the freshest visual harnessing boundary:
+- H2n scoped target-normalization is the freshest visual harnessing boundary:
   - H2e still reaches `5 / 5` on H2b and `8 / 8` on H1x, so route arbitration remains valid mechanism evidence.
   - Fresh H2f broke global H2e promotion: H2e and H2c tie at `6 / 10`, while no-directive is only `1 / 10`.
   - H2h component-identity negative examples are scoped positive but globally negative: `9 / 10` on H2f, then `3 / 5` on H2b and `6 / 8` on H1x.
@@ -37,6 +37,9 @@ Current strongest MLX result:
   - H2m removes H2l's direct target-is wording and breaks the saturation: full H2j and H2j without stale-selection both reach only `3 / 8` strict and executor-equivalent.
   - H2m H2e reaches `1 / 8` strict and `3 / 8` executor-equivalent, so H2j gives a `+0.25` exact-rate lift but `0.0` executor-equivalence lift.
   - H2m records `5` target-query-normalization interventions, `0` stale-selection interventions, and `3` value-bearing over-strip rows (`result badge Blocked`, `state tag Closed`, `priority badge Critical`).
+  - H2n scopes the normalizer and is now executed: on H2m it ties H2j at `3 / 8` strict but improves executor-equivalence from `3 / 8` to `5 / 8`.
+  - H2n preserves the prior transfer gates: H2k remains `8 / 8`, H2l remains `8 / 8`, and H2f remains `10 / 10`, each with zero exact-rate delta versus H2j.
+  - H2n records `3` scoped value-bearing blocks and `2` contextual-label rewrites on H2m; the remaining strict misses point to canonical value-bearing target synthesis, not broader shortening.
   - H2f synthesis: [`results/reports/h2f_route_arbitration_holdout_synthesis/report.md`](../../results/reports/h2f_route_arbitration_holdout_synthesis/report.md)
   - H2f figure: [`results/reports/h2f_route_arbitration_holdout_synthesis/figures/h2f_holdout_profile_bars.svg`](../../results/reports/h2f_route_arbitration_holdout_synthesis/figures/h2f_holdout_profile_bars.svg)
   - H2h tradeoff synthesis: [`results/reports/h2h_component_identity_tradeoff_synthesis/report.md`](../../results/reports/h2h_component_identity_tradeoff_synthesis/report.md)
@@ -56,7 +59,11 @@ Current strongest MLX result:
   - H2m figure: [`results/reports/h2m_less_direct_overreach_synthesis/figures/h2m_less_direct_overreach_gate.svg`](../../results/reports/h2m_less_direct_overreach_synthesis/figures/h2m_less_direct_overreach_gate.svg)
   - H2m live packets: [`H2j`](../../results/tool_probe_replay_live/20260512T_h2m_less_direct_target_normalization_overreach_h2j_execute_v1), [`H2j-no-stale`](../../results/tool_probe_replay_live/20260512T_h2m_less_direct_target_normalization_overreach_h2j_no_stale_gate_execute_v1), [`H2e`](../../results/tool_probe_replay_live/20260512T_h2m_less_direct_target_normalization_overreach_h2e_execute_v1)
   - H2m comparisons: [`H2j-vs-H2e`](../../results/tool_probe_replay_live_comparisons/20260512T_h2m_less_direct_target_normalization_overreach_h2j_vs_h2e_v1), [`H2j-vs-no-stale`](../../results/tool_probe_replay_live_comparisons/20260512T_h2m_less_direct_target_normalization_overreach_h2j_vs_no_stale_gate_v1)
-  - next restart move: implement H2n scoped target-normalization; preserve H2k/H2l repairs but stop H2m value-bearing over-strip under less-direct phrasing
+  - H2n synthesis: [`results/reports/h2n_scoped_target_normalization_synthesis/report.md`](../../results/reports/h2n_scoped_target_normalization_synthesis/report.md)
+  - H2n figure: [`results/reports/h2n_scoped_target_normalization_synthesis/figures/h2n_scoped_target_normalization_gate.svg`](../../results/reports/h2n_scoped_target_normalization_synthesis/figures/h2n_scoped_target_normalization_gate.svg)
+  - H2n live packets: [`H2m`](../../results/tool_probe_replay_live/20260512T_h2n_scoped_target_normalization_on_h2m_execute_v1), [`H2k`](../../results/tool_probe_replay_live/20260512T_h2n_scoped_target_normalization_on_h2k_execute_v1), [`H2l`](../../results/tool_probe_replay_live/20260512T_h2n_scoped_target_normalization_on_h2l_execute_v1), [`H2f`](../../results/tool_probe_replay_live/20260512T_h2n_scoped_target_normalization_on_h2f_execute_v1)
+  - H2n comparisons: [`H2m-vs-H2j`](../../results/tool_probe_replay_live_comparisons/20260512T_h2n_scoped_target_normalization_vs_h2j_on_h2m_v1), [`H2m-vs-H2e`](../../results/tool_probe_replay_live_comparisons/20260512T_h2n_scoped_target_normalization_vs_h2e_on_h2m_v1), [`H2k-vs-H2j`](../../results/tool_probe_replay_live_comparisons/20260512T_h2n_scoped_target_normalization_vs_h2j_on_h2k_v1), [`H2l-vs-H2j`](../../results/tool_probe_replay_live_comparisons/20260512T_h2n_scoped_target_normalization_vs_h2j_on_h2l_v1), [`H2f-vs-H2j`](../../results/tool_probe_replay_live_comparisons/20260512T_h2n_scoped_target_normalization_vs_h2j_on_h2f_v1)
+  - next restart move: implement H2o canonical value-bearing target synthesis; preserve H2n transfer and executor-equivalence gains while repairing strict H2m target strings only when the longer label is recoverable
 - H1h proves the no-directive causal ordering across all ten live workflow families.
 - H1i compresses the worst H1h workflow families into the current fast loop.
 - contracted MLX on H1i is clean at readiness `0.97710`, strict/recovered `1.0 / 1.0`, raw clean `1.0`.

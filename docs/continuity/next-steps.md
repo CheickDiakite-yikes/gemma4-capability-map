@@ -2,7 +2,7 @@
 
 ## Current Best Next Moves
 
-The next move is not another broad prompt-contract paragraph, not another blind H2b/H1x rerun, and not another H2e/H2j victory lap. H1y/H1z showed that prompt/catalog prose alone did not solve stale selection-origin routing. H2a showed that a controller-side stale-selection gate is causal and transferable. H2b isolated a separate residual exactness problem. H2c solved H2b locally but failed H1x transfer. H2d fixed transfer but gave back one H2b strict row. H2e reconciled that tradeoff on the current gates. H2f then broke global H2e promotion on a fresh holdout. H2g showed a partial executor-equivalence gain but no strict exactness gain. H2h repaired H2f to `9 / 10` but regressed H2b and H1x. H2i conditional arbitration then failed the H2f gate at `6 / 10`. H2j moved the repair into a controller-visible target-query normalization gate and now reaches `10 / 10` on H2f, `5 / 5` on H2b, and `8 / 8` on H1x. H2k tested the post-H2j target/decoy-overlap risk and the matched stale-gate ablation: full H2j and H2j without stale-selection both reach `8 / 8`, H2h reaches `6 / 8`, and H2e reaches `3 / 8` strict exactness. H2l then tested over-normalization under direct target wording and stayed saturated. H2m removed obvious target-is phrasing and broke that saturation: full H2j and H2j without stale-selection both fall to `3 / 8`, H2e reaches `1 / 8` strict and `3 / 8` executor-equivalent, and H2j records `3` value-bearing over-strip rows. The next move is H2n scoped target-normalization.
+The next move is not another broad prompt-contract paragraph, not another blind H2b/H1x rerun, and not another H2e/H2j victory lap. H1y/H1z showed that prompt/catalog prose alone did not solve stale selection-origin routing. H2a showed that a controller-side stale-selection gate is causal and transferable. H2b isolated a separate residual exactness problem. H2c solved H2b locally but failed H1x transfer. H2d fixed transfer but gave back one H2b strict row. H2e reconciled that tradeoff on the current gates. H2f then broke global H2e promotion on a fresh holdout. H2g showed a partial executor-equivalence gain but no strict exactness gain. H2h repaired H2f to `9 / 10` but regressed H2b and H1x. H2i conditional arbitration then failed the H2f gate at `6 / 10`. H2j moved the repair into a controller-visible target-query normalization gate and now reaches `10 / 10` on H2f, `5 / 5` on H2b, and `8 / 8` on H1x. H2k tested the post-H2j target/decoy-overlap risk and the matched stale-gate ablation: full H2j and H2j without stale-selection both reach `8 / 8`, H2h reaches `6 / 8`, and H2e reaches `3 / 8` strict exactness. H2l then tested over-normalization under direct target wording and stayed saturated. H2m removed obvious target-is phrasing and broke that saturation: full H2j and H2j without stale-selection both fall to `3 / 8`, H2e reaches `1 / 8` strict and `3 / 8` executor-equivalent, and H2j records `3` value-bearing over-strip rows. H2n scoped the controller policy: it ties H2j strict exactness on H2m at `3 / 8`, improves executor-equivalence to `5 / 8`, and preserves H2k/H2l/H2f transfer gates. The next move is H2o canonical value-bearing target synthesis.
 
 Execution order:
 
@@ -21,25 +21,27 @@ Execution order:
 13. Treat H2k as target-normalization evidence, not stale-rescue evidence: both full H2j and stale-gate-off H2j record `5` target-normalization interventions and `0` stale-selection interventions.
 14. Treat H2l as positive scope evidence, not closure: H2j and H2j-no-stale both reach `8 / 8`, H2e reaches `7 / 8`, and H2j records `1` target-query-normalization intervention with `0` stale-selection interventions.
 15. Treat H2m as the current boundary evidence: H2j exactness improves over H2e by `+0.25`, executor-equivalence does not improve, stale-selection is inactive, and the value-bearing over-strip rows are controller-attributable.
-16. Build H2n as a controller policy change: preserve contextual-label repairs, but refuse shortening when the prompt/local state indicates a displayed value token is part of the requested target label.
-17. Score both strict exactness and executor-equivalence; do not collapse executor-valid paraphrases into failures when evaluating live usefulness.
-18. Keep packaged workflows paused for this line unless they preserve the same replay-shaped pressure; H1l/H1m already showed packaged visual surfaces can wash out the mechanism.
+16. Treat H2n as the current scoped controller candidate: it preserves contextual-label repairs, blocks three value-bearing over-strips, improves H2m executor-equivalence from `3 / 8` to `5 / 8`, and keeps H2k/H2l/H2f saturated.
+17. Treat H2n's strict `3 / 8` H2m result as a boundary, not a failure of the whole direction; the remaining rows need canonical target-query construction rather than a wider shortening block.
+18. Build H2o as a recoverable-label value-bearing synthesis gate, then rerun H2m and backtest H2k/H2l/H2f before any promotion.
+19. Score both strict exactness and executor-equivalence; do not collapse executor-valid paraphrases into failures when evaluating live usefulness.
+20. Keep packaged workflows paused for this line unless they preserve the same replay-shaped pressure; H1l/H1m already showed packaged visual surfaces can wash out the mechanism.
 
 Immediate suggested command:
 
 ```bash
-uv run python scripts/build_h2m_less_direct_overreach_synthesis.py
+uv run python scripts/build_h2n_scoped_target_normalization_synthesis.py
 uv run python scripts/build_publication_evidence_ledger.py
 uv run python scripts/audit_publication_readiness.py
-rg -n "visual_target_query_normalization|target_query_normalization" src/gemma4_capability_map configs tests
+rg -n "visual_scoped_target_query_normalization|visual_target_query_normalization_blocked|target_query_normalization" src/gemma4_capability_map configs tests
 ```
 
-Then implement H2n in small slices:
+Then implement H2o in small slices:
 
-- find the existing H2j target-normalizer implementation and system registry row
-- add a scoped H2n profile that preserves H2j behavior unless value-bearing evidence is present
-- test the policy directly with H2m over-strip fixtures before live replay
-- run H2n on H2m first, then backtest H2k/H2l/H2f
+- find the H2n scoped block implementation and system registry row
+- add a narrower synthesis gate that constructs canonical value-bearing target queries only from recoverable longer labels
+- test the policy directly with H2m strict-miss fixtures before live replay
+- run H2o on H2m first, then backtest H2k/H2l/H2f
 - preserve H2a globally for stale-origin packets; H2k/H2l only show stale rescue is irrelevant on these slices, not that it should be removed everywhere
 
 ## Immediate

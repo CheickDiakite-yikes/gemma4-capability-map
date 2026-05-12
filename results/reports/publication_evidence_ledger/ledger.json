@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-12T20:15:33.110806+00:00",
+    "generated_at": "2026-05-12T20:39:57.859650+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-    "claim_count": 51,
-    "evidence_source_count": 290,
+    "claim_count": 52,
+    "evidence_source_count": 301,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -56,7 +56,8 @@
       "C48_h2j_target_query_normalization_repairs_h2f_and_preserves_transfer",
       "C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization",
       "C50_h2l_overreach_holdout_supports_target_normalization_scope",
-      "C51_h2m_less_direct_overreach_rejects_current_target_normalization_scope"
+      "C51_h2m_less_direct_overreach_rejects_current_target_normalization_scope",
+      "C52_h2n_scoped_target_normalization_improves_executor_equivalence_without_strict_repair"
     ]
   },
   "claims": [
@@ -569,6 +570,16 @@
       "limitation": "H2m is an 8-case replay-shaped less-direct packet, not a population estimate. It rejects the current normalization scope under this wording regime, while still preserving evidence that scoped normalization repaired H2k/H2l-style contextual aliases.",
       "next_test": "Build H2n as a scoped target-normalization policy that preserves H2k/H2l contextual-label repairs but refuses to shorten value-bearing requests such as `result badge Blocked`, `state tag Closed`, and `priority badge Critical`.",
       "source_count": 8
+    },
+    {
+      "claim_id": "C52_h2n_scoped_target_normalization_improves_executor_equivalence_without_strict_repair",
+      "claim": "The H2n scoped target-query normalizer is a cleaner controller candidate than H2j on the current target-normalization line: it blocks value-bearing over-strips and preserves transfer gates, but it does not yet repair strict exactness on the less-direct H2m slice.",
+      "status": "supported_current_packets_scope_candidate",
+      "evidence_strength": "strong_internal",
+      "primary_metric": "On H2m, H2n ties H2j at 3/8 strict exactness but improves executor-equivalence from 3/8 to 5/8. Against H2e, H2n improves strict exactness by +0.25 and executor-equivalence by +0.25. It preserves H2k at 8/8, H2l at 8/8, and H2f at 10/10 with zero exact-rate delta versus H2j on each transfer gate.",
+      "limitation": "H2n is a no-op/blocking scope policy, not a canonical target-query construction policy. The remaining H2m strict misses include `result badge Blocked`, `mode toggle Manual`, and `result tile`, so strict repair still needs a targeted value-bearing target synthesis gate.",
+      "next_test": "Build H2o as a canonical value-bearing target-query synthesis gate that only fires when a longer visual label is recoverable from the image-state catalog and the prompt evidence asks for that value.",
+      "source_count": 11
     }
   ],
   "evidence_sources": [
@@ -2600,6 +2611,83 @@
       "artifact_type": "live_replay_comparison",
       "path": "results/tool_probe_replay_live_comparisons/20260512T_h2m_less_direct_target_normalization_overreach_h2j_vs_no_stale_gate_v1",
       "purpose": "Matched full-H2j-vs-no-stale-gate comparison showing zero exact and executor-equivalence deltas.",
+      "exists": true
+    },
+    {
+      "claim_id": "C52_h2n_scoped_target_normalization_improves_executor_equivalence_without_strict_repair",
+      "artifact_type": "replay_synthesis",
+      "path": "results/reports/h2n_scoped_target_normalization_synthesis/report.md",
+      "purpose": "Dedicated H2n synthesis showing H2m executor-equivalence gain, strict tie, and transfer preservation.",
+      "exists": true
+    },
+    {
+      "claim_id": "C52_h2n_scoped_target_normalization_improves_executor_equivalence_without_strict_repair",
+      "artifact_type": "replay_synthesis_figure",
+      "path": "results/reports/h2n_scoped_target_normalization_synthesis/figures/h2n_scoped_target_normalization_gate.svg",
+      "purpose": "Figure summarizing H2n exact transfer gates and the H2m strict boundary.",
+      "exists": true
+    },
+    {
+      "claim_id": "C52_h2n_scoped_target_normalization_improves_executor_equivalence_without_strict_repair",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260512T_h2n_scoped_target_normalization_on_h2m_execute_v1",
+      "purpose": "H2n live execution on H2m reaching 3/8 strict and 5/8 executor-equivalent.",
+      "exists": true
+    },
+    {
+      "claim_id": "C52_h2n_scoped_target_normalization_improves_executor_equivalence_without_strict_repair",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260512T_h2n_scoped_target_normalization_on_h2k_execute_v1",
+      "purpose": "H2n live execution on H2k preserving 8/8 strict and executor-equivalent.",
+      "exists": true
+    },
+    {
+      "claim_id": "C52_h2n_scoped_target_normalization_improves_executor_equivalence_without_strict_repair",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260512T_h2n_scoped_target_normalization_on_h2l_execute_v1",
+      "purpose": "H2n live execution on H2l preserving 8/8 strict and executor-equivalent.",
+      "exists": true
+    },
+    {
+      "claim_id": "C52_h2n_scoped_target_normalization_improves_executor_equivalence_without_strict_repair",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260512T_h2n_scoped_target_normalization_on_h2f_execute_v1",
+      "purpose": "H2n live execution on H2f preserving 10/10 strict and executor-equivalent.",
+      "exists": true
+    },
+    {
+      "claim_id": "C52_h2n_scoped_target_normalization_improves_executor_equivalence_without_strict_repair",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260512T_h2n_scoped_target_normalization_vs_h2j_on_h2m_v1",
+      "purpose": "Direct H2n-vs-H2j comparison on H2m showing zero strict delta and +0.25 executor-equivalence delta.",
+      "exists": true
+    },
+    {
+      "claim_id": "C52_h2n_scoped_target_normalization_improves_executor_equivalence_without_strict_repair",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260512T_h2n_scoped_target_normalization_vs_h2e_on_h2m_v1",
+      "purpose": "Direct H2n-vs-H2e comparison on H2m showing +0.25 strict and executor-equivalence deltas.",
+      "exists": true
+    },
+    {
+      "claim_id": "C52_h2n_scoped_target_normalization_improves_executor_equivalence_without_strict_repair",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260512T_h2n_scoped_target_normalization_vs_h2j_on_h2k_v1",
+      "purpose": "Transfer comparison showing H2n ties H2j on H2k at 8/8.",
+      "exists": true
+    },
+    {
+      "claim_id": "C52_h2n_scoped_target_normalization_improves_executor_equivalence_without_strict_repair",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260512T_h2n_scoped_target_normalization_vs_h2j_on_h2l_v1",
+      "purpose": "Transfer comparison showing H2n ties H2j on H2l at 8/8.",
+      "exists": true
+    },
+    {
+      "claim_id": "C52_h2n_scoped_target_normalization_improves_executor_equivalence_without_strict_repair",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260512T_h2n_scoped_target_normalization_vs_h2j_on_h2f_v1",
+      "purpose": "Transfer comparison showing H2n ties H2j on H2f at 10/10.",
       "exists": true
     }
   ],

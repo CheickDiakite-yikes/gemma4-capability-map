@@ -142,6 +142,9 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert claims["C51_h2m_less_direct_overreach_rejects_current_target_normalization_scope"][
         "status"
     ] == "negative_result_current_packets"
+    assert claims["C52_h2n_scoped_target_normalization_improves_executor_equivalence_without_strict_repair"][
+        "status"
+    ] == "supported_current_packets_scope_candidate"
     assert "7/8" in claims["C2_final_tool_directive_causal_for_protocol"]["primary_metric"]
     assert "v3 raw exact falls" in claims["C6_split_selector_wording_is_negative_evidence"]["primary_metric"]
     assert "schema-field hints reach 6/8 strict and 8/8 executor-equivalent" in claims[
@@ -429,6 +432,18 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     ]["limitation"]
     assert "Build H2n as a scoped target-normalization policy" in claims[
         "C51_h2m_less_direct_overreach_rejects_current_target_normalization_scope"
+    ]["next_test"]
+    assert "ties H2j at 3/8 strict exactness but improves executor-equivalence from 3/8 to 5/8" in claims[
+        "C52_h2n_scoped_target_normalization_improves_executor_equivalence_without_strict_repair"
+    ]["primary_metric"]
+    assert "preserves H2k at 8/8, H2l at 8/8, and H2f at 10/10" in claims[
+        "C52_h2n_scoped_target_normalization_improves_executor_equivalence_without_strict_repair"
+    ]["primary_metric"]
+    assert "not a canonical target-query construction policy" in claims[
+        "C52_h2n_scoped_target_normalization_improves_executor_equivalence_without_strict_repair"
+    ]["limitation"]
+    assert "Build H2o as a canonical value-bearing target-query synthesis gate" in claims[
+        "C52_h2n_scoped_target_normalization_improves_executor_equivalence_without_strict_repair"
     ]["next_test"]
     assert any(
         row["claim_id"] == "C28_h1n_post_repair_holdout_favors_code_guard"
@@ -751,6 +766,44 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
         row["claim_id"] == "C51_h2m_less_direct_overreach_rejects_current_target_normalization_scope"
         and row["path"]
         == "results/tool_probe_replay_live_comparisons/20260512T_h2m_less_direct_target_normalization_overreach_h2j_vs_no_stale_gate_v1"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"]
+        == "C52_h2n_scoped_target_normalization_improves_executor_equivalence_without_strict_repair"
+        and row["path"] == "results/reports/h2n_scoped_target_normalization_synthesis/report.md"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"]
+        == "C52_h2n_scoped_target_normalization_improves_executor_equivalence_without_strict_repair"
+        and row["path"]
+        == "results/reports/h2n_scoped_target_normalization_synthesis/figures/h2n_scoped_target_normalization_gate.svg"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"]
+        == "C52_h2n_scoped_target_normalization_improves_executor_equivalence_without_strict_repair"
+        and row["path"] == "results/tool_probe_replay_live/20260512T_h2n_scoped_target_normalization_on_h2m_execute_v1"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"]
+        == "C52_h2n_scoped_target_normalization_improves_executor_equivalence_without_strict_repair"
+        and row["path"]
+        == "results/tool_probe_replay_live_comparisons/20260512T_h2n_scoped_target_normalization_vs_h2j_on_h2m_v1"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"]
+        == "C52_h2n_scoped_target_normalization_improves_executor_equivalence_without_strict_repair"
+        and row["path"]
+        == "results/tool_probe_replay_live_comparisons/20260512T_h2n_scoped_target_normalization_vs_h2j_on_h2f_v1"
         and row["exists"]
         for row in payload["evidence_sources"]
     )
