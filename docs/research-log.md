@@ -2,6 +2,29 @@
 
 # Research Log
 
+## 2026-05-12 - H2l Target-Normalization Overreach Packet Scaffold
+
+- Added H2l as the next post-H2k replay-shaped holdout:
+  - suite: `h2l_target_normalization_overreach_v18`
+  - builder: [`scripts/build_visual_hard_slice_live_stress_packet.py`](../scripts/build_visual_hard_slice_live_stress_packet.py)
+  - dry-run packet: [`results/tool_probe_replay_packets/20260512T_h2l_target_normalization_overreach_dry_run_v1`](../results/tool_probe_replay_packets/20260512T_h2l_target_normalization_overreach_dry_run_v1)
+- Packet shape:
+  - `8` cases
+  - `4` value-bearing target cases where the expected `target_query` is intentionally longer, such as `result badge Blocked`
+  - `2` alias-is-target cases where the alias that H2k treated as a decoy is now the correct target
+  - `2` H2k regression guards where the shorter component label remains the correct target
+- Research purpose:
+  - H2k showed target-query normalization repairs target/decoy overlap and does not depend on stale-selection rescue
+  - H2l asks the next paper-relevant question: does the normalizer over-strip labels when the longer/value-bearing label is truly canonical?
+  - the packet keeps strict exactness and executor-equivalence separable and preserves replay-shaped pressure rather than returning to packaged workflows
+- Next execution:
+  - run H2j on H2l first
+  - then run H2e and H2j-without-stale-selection on the same packet
+  - compare whether failures, if any, come from target-query normalization overreach or from the underlying route-arbitration profile
+- Verification:
+  - `uv run pytest tests/test_visual_hard_slice_live_stress_packet.py::test_visual_hard_slice_live_stress_packet_supports_h2l_target_normalization_overreach_suite -q`
+  - `uv run python scripts/build_visual_hard_slice_live_stress_packet.py --suite h2l_target_normalization_overreach_v18 --run-group-id 20260512T_h2l_target_normalization_overreach_dry_run_v1`
+
 ## 2026-05-12 - H2k Matched Stale-Gate Ablation Supports Target Normalization
 
 - Added and executed the matched H2j-without-stale-selection-gate registry row:

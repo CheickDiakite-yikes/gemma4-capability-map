@@ -85,6 +85,7 @@ Latest research restart point:
 - H2j controller-visible target-query normalization is the current best structural result: `10 / 10` on H2f, `5 / 5` on H2b, and `8 / 8` on H1x
 - H2k is now the first post-H2j target/decoy-overlap holdout: H2j reaches `8 / 8`, H2h reaches `6 / 8`, and H2e reaches `3 / 8` strict exactness
 - H2k records `5` H2j target-query-normalization interventions and `0` stale-selection interventions; the matched H2j-without-stale-selection ablation also reaches `8 / 8`, so H2k is target-normalization evidence rather than stale-rescue evidence
+- H2l is scaffolded as the next over-normalization holdout, testing whether target-query normalization strips longer/value-bearing labels when those labels are actually the target
 
 The current source-of-truth comparison surface is the aligned exploratory `32 / 26` matrix:
 
@@ -233,6 +234,7 @@ The active next experiment is now a CLI/research-harness packet, not a UI task:
 - the H2j transfer gate figure is [`results/reports/h2j_target_query_normalization_transfer_synthesis/figures/h2j_transfer_gate.svg`](results/reports/h2j_target_query_normalization_transfer_synthesis/figures/h2j_transfer_gate.svg)
 - the H2k target/decoy overlap synthesis is [`results/reports/h2k_target_decoy_overlap_synthesis/report.md`](results/reports/h2k_target_decoy_overlap_synthesis/report.md)
 - the H2k target/decoy overlap figure is [`results/reports/h2k_target_decoy_overlap_synthesis/figures/h2k_target_decoy_overlap_gate.svg`](results/reports/h2k_target_decoy_overlap_synthesis/figures/h2k_target_decoy_overlap_gate.svg)
+- the H2l target-normalization overreach dry-run packet is [`results/tool_probe_replay_packets/20260512T_h2l_target_normalization_overreach_dry_run_v1`](results/tool_probe_replay_packets/20260512T_h2l_target_normalization_overreach_dry_run_v1)
 - the H1l visual executor-equivalence packaged-workflow packet is [`results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet`](results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet), with config in [`configs/knowledge_work_h1l_slice.yaml`](configs/knowledge_work_h1l_slice.yaml)
 - the paper-facing evidence ledger is [`results/reports/publication_evidence_ledger/ledger.md`](results/reports/publication_evidence_ledger/ledger.md)
 - the publication readiness audit is [`results/reports/publication_readiness_audit/publication_readiness_audit.md`](results/reports/publication_readiness_audit/publication_readiness_audit.md)

@@ -42,7 +42,8 @@ Current strongest MLX result:
   - H2k figure: [`results/reports/h2k_target_decoy_overlap_synthesis/figures/h2k_target_decoy_overlap_gate.svg`](../../results/reports/h2k_target_decoy_overlap_synthesis/figures/h2k_target_decoy_overlap_gate.svg)
   - H2k dry-run packet: [`results/tool_probe_replay_packets/20260512T_h2k_target_decoy_overlap_dry_run_v1`](../../results/tool_probe_replay_packets/20260512T_h2k_target_decoy_overlap_dry_run_v1)
   - H2k live packets: [`H2j`](../../results/tool_probe_replay_live/20260512T_h2k_target_decoy_overlap_h2j_execute_v1), [`H2j-no-stale`](../../results/tool_probe_replay_live/20260512T_h2k_target_decoy_overlap_h2j_no_stale_gate_execute_v1), [`H2e`](../../results/tool_probe_replay_live/20260512T_h2k_target_decoy_overlap_h2e_execute_v1), [`H2h`](../../results/tool_probe_replay_live/20260512T_h2k_target_decoy_overlap_h2h_execute_v1)
-  - next restart move: build H2l as a target-query-normalization overreach holdout where stripping displayed values, aliases, or longer labels can become wrong
+  - H2l dry-run packet: [`results/tool_probe_replay_packets/20260512T_h2l_target_normalization_overreach_dry_run_v1`](../../results/tool_probe_replay_packets/20260512T_h2l_target_normalization_overreach_dry_run_v1)
+  - next restart move: execute H2l against H2j, H2e, and H2j-no-stale; the target is over-normalization, not stale rescue
 - H1h proves the no-directive causal ordering across all ten live workflow families.
 - H1i compresses the worst H1h workflow families into the current fast loop.
 - contracted MLX on H1i is clean at readiness `0.97710`, strict/recovered `1.0 / 1.0`, raw clean `1.0`.

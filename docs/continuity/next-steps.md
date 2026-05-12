@@ -19,7 +19,7 @@ Execution order:
 11. Treat H2k as fresh positive structural evidence: full H2j reaches `8 / 8`, H2j without stale-selection reaches `8 / 8`, H2h reaches `6 / 8`, and H2e reaches `3 / 8` strict exactness.
 12. Treat H2e-on-H2k as the no-target-normalizer control because it preserves H2e route arbitration plus the stale-selection gate but lacks target-query normalization.
 13. Treat H2k as target-normalization evidence, not stale-rescue evidence: both full H2j and stale-gate-off H2j record `5` target-normalization interventions and `0` stale-selection interventions.
-14. Build H2l as the next over-normalization holdout: include cases where the correct target is the longer displayed label, the value-bearing label, or the alias that H2k taught the normalizer to strip.
+14. H2l is now scaffolded as the next over-normalization holdout: it includes cases where the correct target is the longer displayed label, the value-bearing label, or the alias that H2k taught the normalizer to strip.
 15. Score both strict exactness and executor-equivalence; do not collapse executor-valid paraphrases into failures when evaluating live usefulness.
 16. Keep packaged workflows paused for this line unless they preserve the same replay-shaped pressure; H1l/H1m already showed packaged visual surfaces can wash out the mechanism.
 
@@ -29,9 +29,10 @@ Immediate suggested command:
 uv run python scripts/build_h2k_target_decoy_overlap_synthesis.py
 uv run python scripts/build_publication_evidence_ledger.py
 uv run python scripts/audit_publication_readiness.py
+uv run moonie-agent replay-live --packet-dir results/tool_probe_replay_packets/20260512T_h2l_target_normalization_overreach_dry_run_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_target_query_normalization --output-dir results/tool_probe_replay_live/20260512T_h2l_target_normalization_overreach_h2j_execute_v1 --execute --json
 ```
 
-Then design H2l from the H2k boundary:
+Then execute H2l from the H2k boundary:
 
 - include value-bearing labels where the expected `target_query` is intentionally longer than the prompt's component noun
 - include alias pairs where normalizing to the shorter component label would select the wrong region

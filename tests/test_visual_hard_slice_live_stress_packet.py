@@ -835,6 +835,66 @@ def test_visual_hard_slice_live_stress_packet_supports_h2k_target_decoy_overlap_
         assert _expected_call_reaches_oracle(case)
 
 
+def test_visual_hard_slice_live_stress_packet_supports_h2l_target_normalization_overreach_suite(
+    tmp_path: Path,
+) -> None:
+    packet = SCRIPT.build_visual_hard_slice_live_stress_packet(
+        output_root=tmp_path / "replay_packets",
+        run_group_id="visual_stress_h2l_target_normalization_overreach",
+        suite="h2l_target_normalization_overreach_v18",
+    )
+
+    assert packet["summary"]["suite"] == "h2l_target_normalization_overreach_v18"
+    assert packet["summary"]["case_count"] == 8
+    assert packet["summary"]["family_counts"] == {
+        "h2l_alias_is_target": 2,
+        "h2l_h2k_regression_guard": 2,
+        "h2l_value_bearing_target": 4,
+    }
+    assert packet["summary"]["failure_mode_counts"] == {
+        "argument_alias_or_decoy_risk": 8,
+    }
+    cases = {case["case_id"]: case for case in packet["replay_cases"]}
+    assert cases["h2l_result_badge_blocked_value_is_target"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h2l-result-badge-blocked",
+                "target_query": "result badge Blocked",
+            },
+        }
+    ]
+    assert cases["h2l_error_notice_alias_is_target"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h2l-error-notice",
+                "target_query": "error notice",
+            },
+        }
+    ]
+    assert cases["h2l_status_badge_short_label_regression_guard"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h2l-status-badge-short",
+                "target_query": "status badge",
+            },
+        }
+    ]
+    assert cases["h2l_mode_field_short_label_regression_guard"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h2l-mode-field-short",
+                "target_query": "mode field",
+            },
+        }
+    ]
+    for case in packet["replay_cases"]:
+        assert _expected_call_reaches_oracle(case)
+
+
 def _expected_call_reaches_oracle(case: dict[str, object]) -> bool:
     tool_specs = [ToolSpec.model_validate(payload) for payload in case["tool_specs"]]  # type: ignore[index]
     executor = DeterministicExecutor(tool_specs=tool_specs)

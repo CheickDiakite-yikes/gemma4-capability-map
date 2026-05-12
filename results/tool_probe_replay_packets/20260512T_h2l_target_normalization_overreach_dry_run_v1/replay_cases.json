@@ -1,0 +1,1170 @@
+[
+  {
+    "case_id": "h2l_result_badge_blocked_value_is_target",
+    "family": "h2l_value_bearing_target",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-h2l-result-badge-blocked",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "The target is result badge Blocked, the full value-bearing badge. Not the result badge by itself, and not the result tile.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-h2l-result-badge-blocked"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-h2l-result-badge-blocked": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "h2l-result-badge-generic-11001",
+              "label": "result badge",
+              "text": "Summary",
+              "attributes": {
+                "area": "badge"
+              }
+            },
+            {
+              "region_id": "h2l-result-badge-blocked-11002",
+              "label": "result badge Blocked",
+              "text": "Blocked",
+              "attributes": {
+                "area": "badge"
+              }
+            },
+            {
+              "region_id": "h2l-result-tile-blocked-11003",
+              "label": "result tile",
+              "text": "Blocked",
+              "attributes": {
+                "area": "tile"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "h2l-result-badge-blocked-11002"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2l-result-badge-blocked",
+          "target_query": "result badge Blocked"
+        }
+      }
+    ],
+    "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "source_exact_match": false,
+    "source_executable_match": false,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+    "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+  },
+  {
+    "case_id": "h2l_state_tag_closed_value_is_target",
+    "family": "h2l_value_bearing_target",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-h2l-state-tag-closed",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "The target is state tag Closed. Not the state tag alone and not the state marker context.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-h2l-state-tag-closed"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-h2l-state-tag-closed": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "h2l-state-tag-generic-11011",
+              "label": "state tag",
+              "text": "Open",
+              "attributes": {
+                "area": "tag"
+              }
+            },
+            {
+              "region_id": "h2l-state-tag-closed-11012",
+              "label": "state tag Closed",
+              "text": "Closed",
+              "attributes": {
+                "area": "tag"
+              }
+            },
+            {
+              "region_id": "h2l-state-marker-11013",
+              "label": "state marker",
+              "text": "Closed marker",
+              "attributes": {
+                "area": "marker"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "h2l-state-tag-closed-11012"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2l-state-tag-closed",
+          "target_query": "state tag Closed"
+        }
+      }
+    ],
+    "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "source_exact_match": false,
+    "source_executable_match": false,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+    "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+  },
+  {
+    "case_id": "h2l_mode_toggle_manual_value_is_target",
+    "family": "h2l_value_bearing_target",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-h2l-mode-toggle-manual",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "The target is mode toggle Manual. Not the mode toggle alone and not the consent toggle.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-h2l-mode-toggle-manual"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-h2l-mode-toggle-manual": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "h2l-mode-toggle-generic-11021",
+              "label": "mode toggle",
+              "text": "Auto",
+              "attributes": {
+                "area": "toggle"
+              }
+            },
+            {
+              "region_id": "h2l-mode-toggle-manual-11022",
+              "label": "mode toggle Manual",
+              "text": "Manual",
+              "attributes": {
+                "area": "toggle"
+              }
+            },
+            {
+              "region_id": "h2l-consent-toggle-manual-11023",
+              "label": "consent toggle",
+              "text": "Manual",
+              "attributes": {
+                "area": "toggle"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "h2l-mode-toggle-manual-11022"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2l-mode-toggle-manual",
+          "target_query": "mode toggle Manual"
+        }
+      }
+    ],
+    "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "source_exact_match": false,
+    "source_executable_match": false,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+    "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+  },
+  {
+    "case_id": "h2l_priority_badge_critical_value_is_target",
+    "family": "h2l_value_bearing_target",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-h2l-priority-badge-critical",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "The target is priority badge Critical. Not the priority badge alone and not the status badge.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-h2l-priority-badge-critical"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-h2l-priority-badge-critical": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "h2l-priority-badge-generic-11031",
+              "label": "priority badge",
+              "text": "Normal",
+              "attributes": {
+                "area": "badge"
+              }
+            },
+            {
+              "region_id": "h2l-priority-badge-critical-11032",
+              "label": "priority badge Critical",
+              "text": "Critical",
+              "attributes": {
+                "area": "badge"
+              }
+            },
+            {
+              "region_id": "h2l-status-badge-critical-11033",
+              "label": "status badge",
+              "text": "Critical",
+              "attributes": {
+                "area": "badge"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "h2l-priority-badge-critical-11032"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2l-priority-badge-critical",
+          "target_query": "priority badge Critical"
+        }
+      }
+    ],
+    "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "source_exact_match": false,
+    "source_executable_match": false,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+    "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+  },
+  {
+    "case_id": "h2l_error_notice_alias_is_target",
+    "family": "h2l_alias_is_target",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-h2l-error-notice",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "The target is error notice. Do not target the error banner on this screen.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-h2l-error-notice"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-h2l-error-notice": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "h2l-error-banner-11041",
+              "label": "error banner",
+              "text": "Error",
+              "attributes": {
+                "area": "banner"
+              }
+            },
+            {
+              "region_id": "h2l-error-notice-11042",
+              "label": "error notice",
+              "text": "Error archived",
+              "attributes": {
+                "area": "notice"
+              }
+            },
+            {
+              "region_id": "h2l-error-log-11043",
+              "label": "error log",
+              "text": "Error trace rows",
+              "attributes": {
+                "area": "log"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "h2l-error-notice-11042"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2l-error-notice",
+          "target_query": "error notice"
+        }
+      }
+    ],
+    "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "source_exact_match": false,
+    "source_executable_match": false,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+    "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+  },
+  {
+    "case_id": "h2l_result_tile_alias_is_target",
+    "family": "h2l_alias_is_target",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-h2l-result-tile",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "The target is result tile. Do not use the result badge or the result comment.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-h2l-result-tile"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-h2l-result-tile": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "h2l-result-badge-11051",
+              "label": "result badge",
+              "text": "Blocked",
+              "attributes": {
+                "area": "badge"
+              }
+            },
+            {
+              "region_id": "h2l-result-tile-11052",
+              "label": "result tile",
+              "text": "Blocked",
+              "attributes": {
+                "area": "tile"
+              }
+            },
+            {
+              "region_id": "h2l-result-comment-11053",
+              "label": "result comment",
+              "text": "Blocked pending counsel",
+              "attributes": {
+                "area": "comment"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "h2l-result-tile-11052"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2l-result-tile",
+          "target_query": "result tile"
+        }
+      }
+    ],
+    "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "source_exact_match": false,
+    "source_executable_match": false,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+    "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+  },
+  {
+    "case_id": "h2l_status_badge_short_label_regression_guard",
+    "family": "h2l_h2k_regression_guard",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-h2l-status-badge-short",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "Do not target the critical chip. Locate the status badge itself, the shorter component label, before reading the priority flag.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-h2l-status-badge-short"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-h2l-status-badge-short": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "h2l-status-badge-short-11062",
+              "label": "status badge",
+              "text": "Critical",
+              "attributes": {
+                "area": "badge"
+              }
+            },
+            {
+              "region_id": "h2l-critical-chip-11061",
+              "label": "critical chip",
+              "text": "High",
+              "attributes": {
+                "area": "chip"
+              }
+            },
+            {
+              "region_id": "h2l-priority-badge-11063",
+              "label": "priority flag",
+              "text": "Queue",
+              "attributes": {
+                "area": "flag"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "h2l-status-badge-short-11062"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2l-status-badge-short",
+          "target_query": "status badge"
+        }
+      }
+    ],
+    "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "source_exact_match": false,
+    "source_executable_match": false,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+    "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+  },
+  {
+    "case_id": "h2l_mode_field_short_label_regression_guard",
+    "family": "h2l_h2k_regression_guard",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-h2l-mode-field-short",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "Before reading the manual control, locate the mode field itself. Do not use the mode switch.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-h2l-mode-field-short"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-h2l-mode-field-short": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "h2l-mode-field-short-11072",
+              "label": "mode field",
+              "text": "Manual",
+              "attributes": {
+                "area": "field"
+              }
+            },
+            {
+              "region_id": "h2l-manual-control-11071",
+              "label": "manual control",
+              "text": "Auto",
+              "attributes": {
+                "area": "control"
+              }
+            },
+            {
+              "region_id": "h2l-mode-switch-11073",
+              "label": "mode switch",
+              "text": "Auto",
+              "attributes": {
+                "area": "switch"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "h2l-mode-field-short-11072"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2l-mode-field-short",
+          "target_query": "mode field"
+        }
+      }
+    ],
+    "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "source_exact_match": false,
+    "source_executable_match": false,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+    "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+  }
+]

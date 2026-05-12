@@ -1,0 +1,146 @@
+{
+  "case_id": "h2l_state_tag_closed_value_is_target",
+  "family": "h2l_value_bearing_target",
+  "messages": [
+    {
+      "role": "system",
+      "content": "visual_image_ids: img-h2l-state-tag-closed",
+      "image_refs": []
+    },
+    {
+      "role": "user",
+      "content": "The target is state tag Closed. Not the state tag alone and not the state marker context.",
+      "image_refs": []
+    }
+  ],
+  "media": [
+    "img-h2l-state-tag-closed"
+  ],
+  "tool_names": [
+    "extract_layout",
+    "refine_selection",
+    "read_region_text"
+  ],
+  "tool_specs": [
+    {
+      "name": "extract_layout",
+      "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "image_id": {
+            "type": "string"
+          },
+          "target_query": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "image_id",
+          "target_query"
+        ]
+      },
+      "tool_family": "function_call",
+      "tool_intent": "inspect"
+    },
+    {
+      "name": "refine_selection",
+      "description": "Refine a prior visual selection using a follow-up filter query.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "selection_id": {
+            "type": "string"
+          },
+          "filter_query": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "selection_id",
+          "filter_query"
+        ]
+      },
+      "tool_family": "function_call",
+      "tool_intent": "revise"
+    },
+    {
+      "name": "read_region_text",
+      "description": "Read the text inside a previously selected region.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "image_id": {
+            "type": "string"
+          },
+          "region_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "image_id",
+          "region_id"
+        ]
+      },
+      "tool_family": "function_call",
+      "tool_intent": "read"
+    }
+  ],
+  "initial_state": {
+    "visual_executor_mode": "local",
+    "images": {
+      "img-h2l-state-tag-closed": {
+        "entities": [],
+        "layouts": [],
+        "local_layouts": [
+          {
+            "region_id": "h2l-state-tag-generic-11011",
+            "label": "state tag",
+            "text": "Open",
+            "attributes": {
+              "area": "tag"
+            }
+          },
+          {
+            "region_id": "h2l-state-tag-closed-11012",
+            "label": "state tag Closed",
+            "text": "Closed",
+            "attributes": {
+              "area": "tag"
+            }
+          },
+          {
+            "region_id": "h2l-state-marker-11013",
+            "label": "state marker",
+            "text": "Closed marker",
+            "attributes": {
+              "area": "marker"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "expected_execution": {
+    "region_ids": [
+      "h2l-state-tag-closed-11012"
+    ]
+  },
+  "expected_calls": [
+    {
+      "name": "extract_layout",
+      "arguments": {
+        "image_id": "img-h2l-state-tag-closed",
+        "target_query": "state tag Closed"
+      }
+    }
+  ],
+  "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+  "source_failure_mode": "argument_alias_or_decoy_risk",
+  "source_exact_match": false,
+  "source_executable_match": false,
+  "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+  "baseline_exact_match": "",
+  "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+  "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+}

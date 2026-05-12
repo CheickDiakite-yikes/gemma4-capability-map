@@ -49,6 +49,7 @@ def parse_args() -> argparse.Namespace:
             "h1y_routed_residual_v15",
             "h2f_route_arbitration_v16",
             "h2k_target_decoy_overlap_v17",
+            "h2l_target_normalization_overreach_v18",
         ],
         default="v1",
     )
@@ -225,6 +226,8 @@ def _stress_cases_for_suite(suite: str) -> list[ToolDirectiveProbeCase]:
         return _h2f_route_arbitration_cases_v16()
     if suite == "h2k_target_decoy_overlap_v17":
         return _h2k_target_decoy_overlap_cases_v17()
+    if suite == "h2l_target_normalization_overreach_v18":
+        return _h2l_target_normalization_overreach_cases_v18()
     raise ValueError(f"Unknown visual live stress suite: {suite}")
 
 
@@ -249,6 +252,7 @@ def _expected_call_payloads(
         "h1y_routed_residual_v15",
         "h2f_route_arbitration_v16",
         "h2k_target_decoy_overlap_v17",
+        "h2l_target_normalization_overreach_v18",
     }:
         return [_oracle_visual_extract_call(case)]
     return [
@@ -3372,6 +3376,201 @@ def _h2k_target_decoy_overlap_cases_v17() -> list[ToolDirectiveProbeCase]:
                 ],
             ),
             expected_execution={"region_ids": ["h2k-alert-t47-10072"]},
+        ),
+    ]
+
+
+def _h2l_target_normalization_overreach_cases_v18() -> list[ToolDirectiveProbeCase]:
+    return [
+        ToolDirectiveProbeCase(
+            case_id="h2l_result_badge_blocked_value_is_target",
+            family="h2l_value_bearing_target",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2l-result-badge-blocked"),
+                Message(
+                    role="user",
+                    content=(
+                        "The target is result badge Blocked, the full value-bearing badge. Not the result badge "
+                        "by itself, and not the result tile."
+                    ),
+                ),
+            ],
+            media=["img-h2l-result-badge-blocked"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2l-result-badge-blocked",
+                [
+                    _region("h2l-result-badge-generic-11001", "result badge", "Summary", area="badge"),
+                    _region("h2l-result-badge-blocked-11002", "result badge Blocked", "Blocked", area="badge"),
+                    _region("h2l-result-tile-blocked-11003", "result tile", "Blocked", area="tile"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2l-result-badge-blocked-11002"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2l_state_tag_closed_value_is_target",
+            family="h2l_value_bearing_target",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2l-state-tag-closed"),
+                Message(
+                    role="user",
+                    content=(
+                        "The target is state tag Closed. Not the state tag alone and not the state marker context."
+                    ),
+                ),
+            ],
+            media=["img-h2l-state-tag-closed"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2l-state-tag-closed",
+                [
+                    _region("h2l-state-tag-generic-11011", "state tag", "Open", area="tag"),
+                    _region("h2l-state-tag-closed-11012", "state tag Closed", "Closed", area="tag"),
+                    _region("h2l-state-marker-11013", "state marker", "Closed marker", area="marker"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2l-state-tag-closed-11012"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2l_mode_toggle_manual_value_is_target",
+            family="h2l_value_bearing_target",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2l-mode-toggle-manual"),
+                Message(
+                    role="user",
+                    content=(
+                        "The target is mode toggle Manual. Not the mode toggle alone and not the consent toggle."
+                    ),
+                ),
+            ],
+            media=["img-h2l-mode-toggle-manual"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2l-mode-toggle-manual",
+                [
+                    _region("h2l-mode-toggle-generic-11021", "mode toggle", "Auto", area="toggle"),
+                    _region("h2l-mode-toggle-manual-11022", "mode toggle Manual", "Manual", area="toggle"),
+                    _region("h2l-consent-toggle-manual-11023", "consent toggle", "Manual", area="toggle"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2l-mode-toggle-manual-11022"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2l_priority_badge_critical_value_is_target",
+            family="h2l_value_bearing_target",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2l-priority-badge-critical"),
+                Message(
+                    role="user",
+                    content=(
+                        "The target is priority badge Critical. Not the priority badge alone and not the status badge."
+                    ),
+                ),
+            ],
+            media=["img-h2l-priority-badge-critical"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2l-priority-badge-critical",
+                [
+                    _region("h2l-priority-badge-generic-11031", "priority badge", "Normal", area="badge"),
+                    _region("h2l-priority-badge-critical-11032", "priority badge Critical", "Critical", area="badge"),
+                    _region("h2l-status-badge-critical-11033", "status badge", "Critical", area="badge"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2l-priority-badge-critical-11032"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2l_error_notice_alias_is_target",
+            family="h2l_alias_is_target",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2l-error-notice"),
+                Message(
+                    role="user",
+                    content="The target is error notice. Do not target the error banner on this screen.",
+                ),
+            ],
+            media=["img-h2l-error-notice"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2l-error-notice",
+                [
+                    _region("h2l-error-banner-11041", "error banner", "Error", area="banner"),
+                    _region("h2l-error-notice-11042", "error notice", "Error archived", area="notice"),
+                    _region("h2l-error-log-11043", "error log", "Error trace rows", area="log"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2l-error-notice-11042"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2l_result_tile_alias_is_target",
+            family="h2l_alias_is_target",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2l-result-tile"),
+                Message(
+                    role="user",
+                    content="The target is result tile. Do not use the result badge or the result comment.",
+                ),
+            ],
+            media=["img-h2l-result-tile"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2l-result-tile",
+                [
+                    _region("h2l-result-badge-11051", "result badge", "Blocked", area="badge"),
+                    _region("h2l-result-tile-11052", "result tile", "Blocked", area="tile"),
+                    _region("h2l-result-comment-11053", "result comment", "Blocked pending counsel", area="comment"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2l-result-tile-11052"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2l_status_badge_short_label_regression_guard",
+            family="h2l_h2k_regression_guard",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2l-status-badge-short"),
+                Message(
+                    role="user",
+                    content=(
+                        "Do not target the critical chip. Locate the status badge itself, the shorter component "
+                        "label, before reading the priority flag."
+                    ),
+                ),
+            ],
+            media=["img-h2l-status-badge-short"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2l-status-badge-short",
+                [
+                    _region("h2l-status-badge-short-11062", "status badge", "Critical", area="badge"),
+                    _region("h2l-critical-chip-11061", "critical chip", "High", area="chip"),
+                    _region("h2l-priority-badge-11063", "priority flag", "Queue", area="flag"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2l-status-badge-short-11062"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2l_mode_field_short_label_regression_guard",
+            family="h2l_h2k_regression_guard",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2l-mode-field-short"),
+                Message(
+                    role="user",
+                    content=(
+                        "Before reading the manual control, locate the mode field itself. Do not use the mode switch."
+                    ),
+                ),
+            ],
+            media=["img-h2l-mode-field-short"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2l-mode-field-short",
+                [
+                    _region("h2l-mode-field-short-11072", "mode field", "Manual", area="field"),
+                    _region("h2l-manual-control-11071", "manual control", "Auto", area="control"),
+                    _region("h2l-mode-switch-11073", "mode switch", "Auto", area="switch"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2l-mode-field-short-11072"]},
         ),
     ]
 
