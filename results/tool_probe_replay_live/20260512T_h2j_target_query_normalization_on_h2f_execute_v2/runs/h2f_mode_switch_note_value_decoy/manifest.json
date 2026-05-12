@@ -1,0 +1,56 @@
+{
+  "created_at": "20260512T174052Z",
+  "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_target_query_normalization",
+  "backend": "mlx",
+  "reasoner": "google/gemma-4-E2B-it",
+  "case_count": 1,
+  "runtime_info": {
+    "backend": "mlx",
+    "runtime_posture": "mlx",
+    "requested_model": "google/gemma-4-E2B-it",
+    "effective_model": "mlx-community/gemma-4-e2b-it-4bit",
+    "model_source": "mlx-community/gemma-4-e2b-it-4bit",
+    "model_format": "mlx",
+    "runtime_device": "mlx",
+    "load_mode": "vision",
+    "configured_device": "auto",
+    "request_timeout_seconds": 300.0,
+    "tool_turn_directive_enabled": false,
+    "tool_prompt_contract_id": "",
+    "tool_catalog_profile_id": "visual_role_catalog_route_arbitration_residual_exactness_v20",
+    "service": {},
+    "partial_runtime": false,
+    "llama_cpp_error": null,
+    "llama_cpp_context_window": null
+  },
+  "research_controls": {
+    "disable_tool_turn_directive": true,
+    "enable_visual_stale_selection_gate": true,
+    "enable_visual_target_query_normalization": true,
+    "tool_catalog_profile_id": "visual_role_catalog_route_arbitration_residual_exactness_v20"
+  },
+  "summary": {
+    "case_count": 1,
+    "exact_match_count": 1,
+    "exact_match_rate": 1.0,
+    "executable_evaluable_count": 1,
+    "executable_match_count": 1,
+    "executable_match_rate": 1.0,
+    "executor_equivalence_evaluable_count": 1,
+    "executor_equivalence_match_count": 1,
+    "executor_equivalence_match_rate": 1.0,
+    "family_summary": {
+      "h2f_route_nonstandard_class": {
+        "cases": 1,
+        "exact": 1,
+        "executable_cases": 1,
+        "executable": 1,
+        "executor_equivalence_cases": 1,
+        "executor_equivalence": 1,
+        "exact_rate": 1.0,
+        "executable_rate": 1.0,
+        "executor_equivalence_rate": 1.0
+      }
+    }
+  }
+}
