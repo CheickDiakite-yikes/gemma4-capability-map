@@ -136,6 +136,9 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert claims["C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization"][
         "status"
     ] == "supported_current_packets_helper_ablation_passed"
+    assert claims["C50_h2l_overreach_holdout_supports_target_normalization_scope"][
+        "status"
+    ] == "supported_current_packets_next_harder_holdout"
     assert "7/8" in claims["C2_final_tool_directive_causal_for_protocol"]["primary_metric"]
     assert "v3 raw exact falls" in claims["C6_split_selector_wording_is_negative_evidence"]["primary_metric"]
     assert "schema-field hints reach 6/8 strict and 8/8 executor-equivalent" in claims[
@@ -399,6 +402,18 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     ]["limitation"]
     assert "target-query-normalization overreach" in claims[
         "C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization"
+    ]["next_test"]
+    assert "full H2j and H2j without the stale-selection gate both reach 8/8" in claims[
+        "C50_h2l_overreach_holdout_supports_target_normalization_scope"
+    ]["primary_metric"]
+    assert "`critical chip` to `status badge`" in claims[
+        "C50_h2l_overreach_holdout_supports_target_normalization_scope"
+    ]["primary_metric"]
+    assert "explicit target-is wording" in claims[
+        "C50_h2l_overreach_holdout_supports_target_normalization_scope"
+    ]["limitation"]
+    assert "Build H2m with less direct target phrasing" in claims[
+        "C50_h2l_overreach_holdout_supports_target_normalization_scope"
     ]["next_test"]
     assert any(
         row["claim_id"] == "C28_h1n_post_repair_holdout_favors_code_guard"
@@ -667,6 +682,33 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
         row["claim_id"] == "C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization"
         and row["path"]
         == "results/tool_probe_replay_live_comparisons/20260512T_h2k_target_decoy_overlap_h2j_vs_no_stale_gate_v1"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C50_h2l_overreach_holdout_supports_target_normalization_scope"
+        and row["path"] == "results/reports/h2l_target_normalization_overreach_synthesis/report.md"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C50_h2l_overreach_holdout_supports_target_normalization_scope"
+        and row["path"]
+        == "results/reports/h2l_target_normalization_overreach_synthesis/figures/h2l_target_normalization_overreach_gate.svg"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C50_h2l_overreach_holdout_supports_target_normalization_scope"
+        and row["path"]
+        == "results/tool_probe_replay_live_comparisons/20260512T_h2l_target_normalization_overreach_h2j_vs_h2e_v1"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C50_h2l_overreach_holdout_supports_target_normalization_scope"
+        and row["path"]
+        == "results/tool_probe_replay_live_comparisons/20260512T_h2l_target_normalization_overreach_h2j_vs_no_stale_gate_v1"
         and row["exists"]
         for row in payload["evidence_sources"]
     )

@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-12T19:03:30.832746+00:00",
+    "generated_at": "2026-05-12T19:48:22.969797+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-    "claim_count": 49,
-    "evidence_source_count": 274,
+    "claim_count": 50,
+    "evidence_source_count": 282,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -54,7 +54,8 @@
       "C46_h2h_negative_examples_repair_h2f_but_fail_global_transfer",
       "C47_h2i_conditional_component_arbitration_does_not_preserve_h2f_repair",
       "C48_h2j_target_query_normalization_repairs_h2f_and_preserves_transfer",
-      "C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization"
+      "C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization",
+      "C50_h2l_overreach_holdout_supports_target_normalization_scope"
     ]
   },
   "claims": [
@@ -547,6 +548,16 @@
       "limitation": "H2k v1 is an 8-case replay-shaped holdout designed around target/decoy overlap, not a packaged workflow population. H2e is the no-target-normalizer control on this slice, so the remaining limitation is broader transfer and over-normalization pressure, not stale-selection causality on H2k.",
       "next_test": "Build the next fresh holdout around target-query-normalization overreach and then backtest the no-stale ablation on H2f/H2b/H1x only if considering removing the stale-selection gate globally.",
       "source_count": 10
+    },
+    {
+      "claim_id": "C50_h2l_overreach_holdout_supports_target_normalization_scope",
+      "claim": "The H2l target-normalization overreach holdout did not expose over-stripping in the current H2j controller, and instead shows a scoped target-query-normalization repair on one H2e regression guard.",
+      "status": "supported_current_packets_next_harder_holdout",
+      "evidence_strength": "moderate_internal",
+      "primary_metric": "On H2l, full H2j and H2j without the stale-selection gate both reach 8/8 strict and executor-equivalent, while H2e reaches 7/8. H2j improves exact-rate and executor-equivalence-rate by +0.125 versus H2e, ties the no-stale ablation with 0.0 deltas, and records 1 target-query-normalization intervention (`critical chip` to `status badge`) with 0 stale-selection interventions.",
+      "limitation": "H2l v1 is an 8-case replay-shaped overreach holdout with explicit target-is wording and deterministic cases; it is positive control evidence for scope, not a population estimate or proof that all over-normalization risks are closed.",
+      "next_test": "Build H2m with less direct target phrasing, ambiguous local context, or repeated seed variants before treating target-normalization overreach as resolved.",
+      "source_count": 8
     }
   ],
   "evidence_sources": [
@@ -2465,6 +2476,62 @@
       "claim_id": "C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization",
       "artifact_type": "live_replay_comparison",
       "path": "results/tool_probe_replay_live_comparisons/20260512T_h2k_target_decoy_overlap_h2j_vs_no_stale_gate_v1",
+      "purpose": "Matched full-H2j-vs-no-stale-gate comparison showing zero exact and executor-equivalence deltas.",
+      "exists": true
+    },
+    {
+      "claim_id": "C50_h2l_overreach_holdout_supports_target_normalization_scope",
+      "artifact_type": "replay_synthesis",
+      "path": "results/reports/h2l_target_normalization_overreach_synthesis/report.md",
+      "purpose": "Dedicated H2l synthesis comparing H2e, H2j, and H2j without stale-selection on overreach pressure.",
+      "exists": true
+    },
+    {
+      "claim_id": "C50_h2l_overreach_holdout_supports_target_normalization_scope",
+      "artifact_type": "replay_synthesis_figure",
+      "path": "results/reports/h2l_target_normalization_overreach_synthesis/figures/h2l_target_normalization_overreach_gate.svg",
+      "purpose": "Figure summarizing H2l exact-rate separation and no-stale tie.",
+      "exists": true
+    },
+    {
+      "claim_id": "C50_h2l_overreach_holdout_supports_target_normalization_scope",
+      "artifact_type": "tool_probe_replay_packet",
+      "path": "results/tool_probe_replay_packets/20260512T_h2l_target_normalization_overreach_dry_run_v1",
+      "purpose": "The 8-case H2l dry-run packet defining value-bearing target and alias-is-target overreach cases.",
+      "exists": true
+    },
+    {
+      "claim_id": "C50_h2l_overreach_holdout_supports_target_normalization_scope",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260512T_h2l_target_normalization_overreach_h2j_execute_v1",
+      "purpose": "Full H2j live execution reaching 8/8 strict and executor-equivalent on H2l.",
+      "exists": true
+    },
+    {
+      "claim_id": "C50_h2l_overreach_holdout_supports_target_normalization_scope",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260512T_h2l_target_normalization_overreach_h2j_no_stale_gate_execute_v1",
+      "purpose": "Matched stale-selection-gate-off H2j execution reaching 8/8 strict and executor-equivalent on H2l.",
+      "exists": true
+    },
+    {
+      "claim_id": "C50_h2l_overreach_holdout_supports_target_normalization_scope",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260512T_h2l_target_normalization_overreach_h2e_execute_v1",
+      "purpose": "H2e live execution reaching 7/8 strict and executor-equivalent on H2l.",
+      "exists": true
+    },
+    {
+      "claim_id": "C50_h2l_overreach_holdout_supports_target_normalization_scope",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260512T_h2l_target_normalization_overreach_h2j_vs_h2e_v1",
+      "purpose": "Direct H2j-vs-H2e comparison showing +0.125 exact and executor-equivalence-rate gains.",
+      "exists": true
+    },
+    {
+      "claim_id": "C50_h2l_overreach_holdout_supports_target_normalization_scope",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260512T_h2l_target_normalization_overreach_h2j_vs_no_stale_gate_v1",
       "purpose": "Matched full-H2j-vs-no-stale-gate comparison showing zero exact and executor-equivalence deltas.",
       "exists": true
     }

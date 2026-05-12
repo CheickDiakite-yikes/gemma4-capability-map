@@ -1,0 +1,4 @@
+family,case_count,expected_target_queries
+h2l_alias_is_target,2,error notice; result tile
+h2l_h2k_regression_guard,2,status badge; mode field
+h2l_value_bearing_target,4,result badge Blocked; state tag Closed; mode toggle Manual; priority badge Critical

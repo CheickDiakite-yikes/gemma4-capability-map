@@ -2,6 +2,40 @@
 
 # Research Log
 
+## 2026-05-12 - H2l Overreach Holdout Supports Target-Normalization Scope
+
+- Executed the H2l target-normalization overreach holdout across the three relevant profiles:
+  - H2j target-query normalization: [`results/tool_probe_replay_live/20260512T_h2l_target_normalization_overreach_h2j_execute_v1`](../results/tool_probe_replay_live/20260512T_h2l_target_normalization_overreach_h2j_execute_v1)
+  - H2j without stale-selection gate: [`results/tool_probe_replay_live/20260512T_h2l_target_normalization_overreach_h2j_no_stale_gate_execute_v1`](../results/tool_probe_replay_live/20260512T_h2l_target_normalization_overreach_h2j_no_stale_gate_execute_v1)
+  - H2e route arbitration plus stale-selection gate: [`results/tool_probe_replay_live/20260512T_h2l_target_normalization_overreach_h2e_execute_v1`](../results/tool_probe_replay_live/20260512T_h2l_target_normalization_overreach_h2e_execute_v1)
+- Result:
+  - full H2j: `8 / 8` strict and `8 / 8` executor-equivalent
+  - H2j without stale-selection: `8 / 8` strict and `8 / 8` executor-equivalent
+  - H2e: `7 / 8` strict and `7 / 8` executor-equivalent
+  - H2j-vs-H2e delta: `+0.125` strict exact-rate and `+0.125` executor-equivalence-rate
+  - H2j-vs-no-stale delta: `0.0` strict exact-rate and `0.0` executor-equivalence-rate
+- Mechanism read:
+  - H2l did not expose over-stripping on value-bearing targets such as `result badge Blocked`, `state tag Closed`, `mode toggle Manual`, or `priority badge Critical`
+  - H2l did not expose over-stripping on alias-is-target rows (`error notice`, `result tile`)
+  - the only H2e miss is the regression guard `h2l_status_badge_short_label_regression_guard`, where H2e produced `critical chip` instead of `status badge`
+  - full H2j and no-stale H2j both record one `visual_target_query_normalization` intervention on that case: `critical chip` -> `status badge`
+  - both rows record `0` stale-selection interventions, so H2l continues the H2k finding that this slice is target-normalization evidence rather than stale rescue
+- Reporting updates:
+  - H2l synthesis: [`results/reports/h2l_target_normalization_overreach_synthesis/report.md`](../results/reports/h2l_target_normalization_overreach_synthesis/report.md)
+  - H2l figure: [`results/reports/h2l_target_normalization_overreach_synthesis/figures/h2l_target_normalization_overreach_gate.svg`](../results/reports/h2l_target_normalization_overreach_synthesis/figures/h2l_target_normalization_overreach_gate.svg)
+  - new claim: `C50_h2l_overreach_holdout_supports_target_normalization_scope`
+  - publication evidence ledger now has `50` claims, `282` sources, and `0` missing sources
+  - publication readiness audit now has `188` checks, `181` blocking checks, `0` blocking failures, and status `paper_draft_ready`
+- Research decision:
+  - treat H2l as positive scope evidence, not closure
+  - build H2m with less direct target phrasing, ambiguous local context, and repeated variants before declaring over-normalization solved
+  - keep H2a stale-selection globally for stale-origin packets; H2k/H2l only show it is not the active mechanism on these target-normalization slices
+- Verification:
+  - `uv run pytest tests/test_h2l_target_normalization_overreach_synthesis.py -q`
+  - `uv run python scripts/build_h2l_target_normalization_overreach_synthesis.py`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`
+
 ## 2026-05-12 - H2l Target-Normalization Overreach Packet Scaffold
 
 - Added H2l as the next post-H2k replay-shaped holdout:

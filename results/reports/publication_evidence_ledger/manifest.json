@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-05-12T19:03:30.832746+00:00",
+  "generated_at": "2026-05-12T19:48:22.969797+00:00",
   "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-  "claim_count": 49,
-  "evidence_source_count": 274,
+  "claim_count": 50,
+  "evidence_source_count": 282,
   "missing_source_count": 0,
   "claim_ids": [
     "C1_controller_dependence_hidden_by_readiness",
@@ -53,6 +53,7 @@
     "C46_h2h_negative_examples_repair_h2f_but_fail_global_transfer",
     "C47_h2i_conditional_component_arbitration_does_not_preserve_h2f_repair",
     "C48_h2j_target_query_normalization_repairs_h2f_and_preserves_transfer",
-    "C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization"
+    "C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization",
+    "C50_h2l_overreach_holdout_supports_target_normalization_scope"
   ]
 }

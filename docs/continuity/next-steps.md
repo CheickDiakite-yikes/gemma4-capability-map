@@ -2,7 +2,7 @@
 
 ## Current Best Next Moves
 
-The next move is not another broad prompt-contract paragraph, not another blind H2b/H1x rerun, and not another H2e/H2j victory lap. H1y/H1z showed that prompt/catalog prose alone did not solve stale selection-origin routing. H2a showed that a controller-side stale-selection gate is causal and transferable. H2b isolated a separate residual exactness problem. H2c solved H2b locally but failed H1x transfer. H2d fixed transfer but gave back one H2b strict row. H2e reconciled that tradeoff on the current gates. H2f then broke global H2e promotion on a fresh holdout. H2g showed a partial executor-equivalence gain but no strict exactness gain. H2h repaired H2f to `9 / 10` but regressed H2b and H1x. H2i conditional arbitration then failed the H2f gate at `6 / 10`. H2j moved the repair into a controller-visible target-query normalization gate and now reaches `10 / 10` on H2f, `5 / 5` on H2b, and `8 / 8` on H1x. H2k tested the post-H2j target/decoy-overlap risk and the matched stale-gate ablation: full H2j and H2j without stale-selection both reach `8 / 8`, H2h reaches `6 / 8`, and H2e reaches `3 / 8` strict exactness. The next move is H2l: a fresh over-normalization holdout where the correct target sometimes really is the displayed value, alias, or longer label that H2j might be tempted to normalize away.
+The next move is not another broad prompt-contract paragraph, not another blind H2b/H1x rerun, and not another H2e/H2j victory lap. H1y/H1z showed that prompt/catalog prose alone did not solve stale selection-origin routing. H2a showed that a controller-side stale-selection gate is causal and transferable. H2b isolated a separate residual exactness problem. H2c solved H2b locally but failed H1x transfer. H2d fixed transfer but gave back one H2b strict row. H2e reconciled that tradeoff on the current gates. H2f then broke global H2e promotion on a fresh holdout. H2g showed a partial executor-equivalence gain but no strict exactness gain. H2h repaired H2f to `9 / 10` but regressed H2b and H1x. H2i conditional arbitration then failed the H2f gate at `6 / 10`. H2j moved the repair into a controller-visible target-query normalization gate and now reaches `10 / 10` on H2f, `5 / 5` on H2b, and `8 / 8` on H1x. H2k tested the post-H2j target/decoy-overlap risk and the matched stale-gate ablation: full H2j and H2j without stale-selection both reach `8 / 8`, H2h reaches `6 / 8`, and H2e reaches `3 / 8` strict exactness. H2l then tested the over-normalization risk: full H2j and H2j without stale-selection both reach `8 / 8`, H2e reaches `7 / 8`, and no over-stripping appears on value-bearing or alias-is-target rows. The next move is H2m: a less-direct over-normalization holdout that removes obvious target-is phrasing and adds ambiguity/repeats before we treat the risk as closed.
 
 Execution order:
 
@@ -19,26 +19,27 @@ Execution order:
 11. Treat H2k as fresh positive structural evidence: full H2j reaches `8 / 8`, H2j without stale-selection reaches `8 / 8`, H2h reaches `6 / 8`, and H2e reaches `3 / 8` strict exactness.
 12. Treat H2e-on-H2k as the no-target-normalizer control because it preserves H2e route arbitration plus the stale-selection gate but lacks target-query normalization.
 13. Treat H2k as target-normalization evidence, not stale-rescue evidence: both full H2j and stale-gate-off H2j record `5` target-normalization interventions and `0` stale-selection interventions.
-14. H2l is now scaffolded as the next over-normalization holdout: it includes cases where the correct target is the longer displayed label, the value-bearing label, or the alias that H2k taught the normalizer to strip.
-15. Score both strict exactness and executor-equivalence; do not collapse executor-valid paraphrases into failures when evaluating live usefulness.
-16. Keep packaged workflows paused for this line unless they preserve the same replay-shaped pressure; H1l/H1m already showed packaged visual surfaces can wash out the mechanism.
+14. Treat H2l as positive scope evidence, not closure: H2j and H2j-no-stale both reach `8 / 8`, H2e reaches `7 / 8`, and H2j records `1` target-query-normalization intervention with `0` stale-selection interventions.
+15. Build H2m by making the overreach pressure less explicit, adding ambiguous local context, and repeating variants so the result is less dependent on one deterministic wording.
+16. Score both strict exactness and executor-equivalence; do not collapse executor-valid paraphrases into failures when evaluating live usefulness.
+17. Keep packaged workflows paused for this line unless they preserve the same replay-shaped pressure; H1l/H1m already showed packaged visual surfaces can wash out the mechanism.
 
 Immediate suggested command:
 
 ```bash
-uv run python scripts/build_h2k_target_decoy_overlap_synthesis.py
+uv run python scripts/build_h2l_target_normalization_overreach_synthesis.py
 uv run python scripts/build_publication_evidence_ledger.py
 uv run python scripts/audit_publication_readiness.py
-uv run moonie-agent replay-live --packet-dir results/tool_probe_replay_packets/20260512T_h2l_target_normalization_overreach_dry_run_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_target_query_normalization --output-dir results/tool_probe_replay_live/20260512T_h2l_target_normalization_overreach_h2j_execute_v1 --execute --json
 ```
 
-Then execute H2l from the H2k boundary:
+Then design H2m from the H2l boundary:
 
-- include value-bearing labels where the expected `target_query` is intentionally longer than the prompt's component noun
-- include alias pairs where normalizing to the shorter component label would select the wrong region
+- preserve value-bearing labels where the expected `target_query` is intentionally longer than the prompt's component noun
+- preserve alias pairs where normalizing to the shorter component label would select the wrong region
+- reduce explicit target-is wording so the normalizer has to infer target identity from the task rather than from a didactic sentence
 - include at least two H2k-style decoy rows as regression guards so the normalizer still proves its intended use
 - run H2e, H2j, and H2j-without-stale-selection first; only add new prompt profiles if all target-normalization rows fail in the same direction
-- preserve H2a globally for stale-origin packets; H2k only showed stale rescue is irrelevant on this slice, not that it should be removed everywhere
+- preserve H2a globally for stale-origin packets; H2k/H2l only show stale rescue is irrelevant on these slices, not that it should be removed everywhere
 
 ## Immediate
 

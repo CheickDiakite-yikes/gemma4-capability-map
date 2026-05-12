@@ -1,0 +1,155 @@
+{
+  "manifest": {
+    "generated_at": "2026-05-12T19:37:01.426061+00:00",
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h2l_target_normalization_overreach_synthesis",
+    "packet_row_count": 3,
+    "comparison_count": 2,
+    "family_row_count": 3,
+    "h2e_exact_success_count": 7,
+    "h2e_executor_success_count": 7,
+    "h2j_no_stale_exact_success_count": 8,
+    "h2j_no_stale_executor_success_count": 8,
+    "h2j_exact_success_count": 8,
+    "h2j_executor_success_count": 8,
+    "h2j_delta_exact_vs_h2e": 0.125,
+    "h2j_delta_executor_vs_h2e": 0.125,
+    "h2j_delta_exact_vs_no_stale_gate": 0.0,
+    "h2j_delta_executor_vs_no_stale_gate": 0.0,
+    "h2e_non_exact_count": 1,
+    "h2j_no_stale_non_exact_count": 0,
+    "h2j_non_exact_count": 0,
+    "target_query_normalization_count": 1,
+    "visual_stale_selection_gate_count": 0,
+    "h2j_no_stale_target_query_normalization_count": 1,
+    "h2j_no_stale_visual_stale_selection_gate_count": 0,
+    "promotion_decision": "h2l_overreach_holdout_passes_target_normalization"
+  },
+  "packet_rows": [
+    {
+      "profile_label": "h2e_route_arbitration",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate",
+      "packet_dir": "results/tool_probe_replay_live/20260512T_h2l_target_normalization_overreach_h2e_execute_v1",
+      "case_count": 8,
+      "exact_success_count": 7,
+      "exact_rate": 0.875,
+      "executor_success_count": 7,
+      "executor_rate": 0.875
+    },
+    {
+      "profile_label": "h2j_target_query_normalization_no_stale_gate",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_target_query_normalization_no_stale_selection_gate",
+      "packet_dir": "results/tool_probe_replay_live/20260512T_h2l_target_normalization_overreach_h2j_no_stale_gate_execute_v1",
+      "case_count": 8,
+      "exact_success_count": 8,
+      "exact_rate": 1.0,
+      "executor_success_count": 8,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "h2j_target_query_normalization",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_target_query_normalization",
+      "packet_dir": "results/tool_probe_replay_live/20260512T_h2l_target_normalization_overreach_h2j_execute_v1",
+      "case_count": 8,
+      "exact_success_count": 8,
+      "exact_rate": 1.0,
+      "executor_success_count": 8,
+      "executor_rate": 1.0
+    }
+  ],
+  "comparison_rows": [
+    {
+      "comparison_label": "h2j_vs_h2e",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260512T_h2l_target_normalization_overreach_h2j_vs_h2e_v1",
+      "shared_case_count": 8,
+      "baseline_exact_rate": 0.875,
+      "candidate_exact_rate": 1.0,
+      "delta_exact_rate": 0.125,
+      "baseline_executor_equivalence_rate": 0.875,
+      "candidate_executor_equivalence_rate": 1.0,
+      "delta_executor_equivalence_rate": 0.125
+    },
+    {
+      "comparison_label": "h2j_vs_no_stale_gate",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260512T_h2l_target_normalization_overreach_h2j_vs_no_stale_gate_v1",
+      "shared_case_count": 8,
+      "baseline_exact_rate": 1.0,
+      "candidate_exact_rate": 1.0,
+      "delta_exact_rate": 0.0,
+      "baseline_executor_equivalence_rate": 1.0,
+      "candidate_executor_equivalence_rate": 1.0,
+      "delta_executor_equivalence_rate": 0.0
+    }
+  ],
+  "family_rows": [
+    {
+      "family": "h2l_alias_is_target",
+      "case_count": 2,
+      "expected_target_queries": "error notice; result tile"
+    },
+    {
+      "family": "h2l_h2k_regression_guard",
+      "case_count": 2,
+      "expected_target_queries": "status badge; mode field"
+    },
+    {
+      "family": "h2l_value_bearing_target",
+      "case_count": 4,
+      "expected_target_queries": "result badge Blocked; state tag Closed; mode toggle Manual; priority badge Critical"
+    }
+  ],
+  "non_exact_rows": [
+    {
+      "profile_label": "h2e_route_arbitration",
+      "case_id": "h2l_status_badge_short_label_regression_guard",
+      "family": "h2l_h2k_regression_guard",
+      "failure_mode": "argument_mismatch",
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "status badge",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "critical chip"
+    }
+  ],
+  "intervention_rows": [
+    {
+      "profile_label": "h2j_target_query_normalization_no_stale_gate",
+      "case_id": "h2l_status_badge_short_label_regression_guard",
+      "family": "h2l_h2k_regression_guard",
+      "intervention_kind": "visual_target_query_normalization",
+      "from_tool": "extract_layout",
+      "from_arguments": "{\"image_id\":\"img-h2l-status-badge-short\",\"target_query\":\"critical chip\"}",
+      "to_tool": "extract_layout",
+      "to_arguments": "{\"image_id\":\"img-h2l-status-badge-short\",\"target_query\":\"status badge\"}",
+      "prompt_state_label": "status badge"
+    },
+    {
+      "profile_label": "h2j_target_query_normalization",
+      "case_id": "h2l_status_badge_short_label_regression_guard",
+      "family": "h2l_h2k_regression_guard",
+      "intervention_kind": "visual_target_query_normalization",
+      "from_tool": "extract_layout",
+      "from_arguments": "{\"image_id\":\"img-h2l-status-badge-short\",\"target_query\":\"critical chip\"}",
+      "to_tool": "extract_layout",
+      "to_arguments": "{\"image_id\":\"img-h2l-status-badge-short\",\"target_query\":\"status badge\"}",
+      "prompt_state_label": "status badge"
+    }
+  ],
+  "finding_rows": [
+    {
+      "finding_id": "h2l_overreach_holdout_passed",
+      "finding": "H2l does not expose target-query over-normalization in this replay-shaped holdout: H2j reaches 8/8 exact and executor-equivalent while preserving value-bearing and alias-is-target rows."
+    },
+    {
+      "finding_id": "h2l_repairs_h2e_regression_guard",
+      "finding": "H2e reaches 7/8 exact and has 1 non-exact row, while H2j improves exact-rate by 0.125 and executor-equivalence by 0.125."
+    },
+    {
+      "finding_id": "h2l_mechanism_is_target_normalization_not_stale_gate",
+      "finding": "Full H2j records 1 target-query-normalization intervention and 0 stale-selection interventions; the stale-gate-off ablation records 1 target-query-normalization intervention and 0 stale-selection interventions, tying full H2j with a 0.0 exact-rate delta."
+    },
+    {
+      "finding_id": "next_holdout_should_reduce_prompt_directness",
+      "finding": "H2l is useful positive control evidence, but the next holdout should reduce direct target-is wording or add repeated seed variants before treating over-normalization as closed."
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+finding_id,finding
+h2l_overreach_holdout_passed,H2l does not expose target-query over-normalization in this replay-shaped holdout: H2j reaches 8/8 exact and executor-equivalent while preserving value-bearing and alias-is-target rows.
+h2l_repairs_h2e_regression_guard,"H2e reaches 7/8 exact and has 1 non-exact row, while H2j improves exact-rate by 0.125 and executor-equivalence by 0.125."
+h2l_mechanism_is_target_normalization_not_stale_gate,"Full H2j records 1 target-query-normalization intervention and 0 stale-selection interventions; the stale-gate-off ablation records 1 target-query-normalization intervention and 0 stale-selection interventions, tying full H2j with a 0.0 exact-rate delta."
+next_holdout_should_reduce_prompt_directness,"H2l is useful positive control evidence, but the next holdout should reduce direct target-is wording or add repeated seed variants before treating over-normalization as closed."
