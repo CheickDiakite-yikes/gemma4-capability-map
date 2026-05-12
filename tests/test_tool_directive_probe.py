@@ -450,6 +450,7 @@ def test_tool_directive_probe_scores_visual_paraphrase_execution() -> None:
                 raw='{"name":"extract_layout","arguments":{"image_id":"img-form-live-latest","target_query":"phone issue"}}',
             )
         ],
+        runtime_metadata={"visual_target_query_normalization": [{"from_tool": "extract_layout"}]},
     )
 
     row = _score_probe_case(case, tool_specs, expected_calls, turn)
@@ -458,3 +459,4 @@ def test_tool_directive_probe_scores_visual_paraphrase_execution() -> None:
     assert row["executable_match"] is True
     assert row["executor_target_match"] is True
     assert row["actual_execution"][0]["output"]["region_ids"] == ["form-err-202"]
+    assert row["runtime_metadata"] == {"visual_target_query_normalization": [{"from_tool": "extract_layout"}]}

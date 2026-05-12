@@ -395,6 +395,7 @@ def _score_probe_case(
         "expected_calls": expected_payload,
         "actual_calls": actual_payload,
         "raw_model_output": turn.raw_model_output,
+        "runtime_metadata": turn.runtime_metadata,
         "prompt_tokens": turn.prompt_tokens,
         "completion_tokens": turn.completion_tokens,
         "latency_ms": turn.latency_ms,
