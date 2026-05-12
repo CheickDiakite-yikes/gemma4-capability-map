@@ -218,6 +218,10 @@ def test_publication_readiness_audit_writes_blocking_checks(tmp_path: Path) -> N
     assert checks["h2r_composed_route_gating_vs_h2p_h2q_comparison_exists"]["passed"] is True
     assert checks["h2r_composed_route_gating_report_exists"]["passed"] is True
     assert checks["h2r_composed_route_gating_report_figure_exists"]["passed"] is True
+    assert checks["h2r_transfer_backtest_report_exists"]["passed"] is True
+    assert checks["h2r_transfer_backtest_report_figure_exists"]["passed"] is True
+    assert checks["h2r_transfer_h2b_regression_gate_exists"]["passed"] is True
+    assert checks["h2r_transfer_h1x_regression_gate_exists"]["passed"] is True
     assert checks["script_analyze_visual_hard_slice_exactness.py_exists"]["passed"] is True
     assert checks["script_analyze_packaged_replay_gap.py_exists"]["passed"] is True
     assert checks["script_analyze_h1n_alias_transfer_contract_split.py_exists"]["passed"] is True

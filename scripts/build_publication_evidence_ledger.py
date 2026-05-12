@@ -2897,7 +2897,7 @@ CLAIMS: tuple[Claim, ...] = (
             "A narrow composed route-gating controller repairs the H2q post-H2p composition boundary by combining "
             "stale-selection rejection with requested-surface prioritization over same-value decoys."
         ),
-        status="supported_current_packets_requires_transfer",
+        status="supported_current_packets_transfer_backtested",
         evidence_strength="strong_internal_scoped",
         primary_metric=(
             "On H2q, H2r reaches 8/8 strict and 8/8 executor-equivalent versus H2p at 3/8 and 3/8, "
@@ -2906,12 +2906,13 @@ CLAIMS: tuple[Claim, ...] = (
             "restorations."
         ),
         limitation=(
-            "This is a local 8-case H2q repair, not yet a global promotion. The helper was designed after seeing "
-            "H2q's failure structure and must be transfer-tested on H2m/H2k/H2l/H2f plus older H2b/H1x gates."
+            "This remains a local 8-case H2q mechanism claim. Transfer is now positive on the current packet set, "
+            "but the helper was still designed after seeing H2q's failure structure and needs a fresh H2s holdout "
+            "before global-policy language."
         ),
         next_test=(
-            "Backtest H2r on H2m, H2k, H2l, H2f, H2b, and H1x; if it preserves those gates, define a fresh H2s "
-            "composition holdout with unseen stale-selection and same-value surface decoys."
+            "Use the positive transfer backtest to define a fresh H2s composition holdout with unseen stale-selection "
+            "and same-value surface decoys."
         ),
         sources=(
             EvidenceSource(
@@ -2938,6 +2939,101 @@ CLAIMS: tuple[Claim, ...] = (
                 "live_replay_packet",
                 "results/tool_probe_replay_live/20260512T_h2q_composed_surface_value_stale_h2p_execute_v1",
                 "H2p incumbent live execution on H2q reaching 3/8 strict and executor-equivalent.",
+            ),
+        ),
+    ),
+    Claim(
+        claim_id="C57_h2r_transfer_backtest_preserves_current_gates",
+        claim=(
+            "H2r transfers across the current post-H2p/H2j packets and avoids the H2h-style H2b/H1x regression "
+            "while also closing older unsaturated H1y/H1o/H1p slices."
+        ),
+        status="supported_current_packets_transfer_positive_requires_fresh_holdout",
+        evidence_strength="strong_internal_transfer",
+        primary_metric=(
+            "Across nine transfer packets, H2r reaches 81/81 strict and 81/81 executor-equivalent; including the "
+            "H2q origin packet it reaches 89/89 strict. It ties H2j/H2e on H2b and H1x, beats H2h by +0.40 "
+            "exact-rate on H2b and +0.25 on H1x, improves H1y by +0.20 versus H2a, and improves H1o/H1p by "
+            "+0.0833 exact-rate versus H1s."
+        ),
+        limitation=(
+            "This is still an existing-packet transfer backtest, not a fresh independent population estimate. The "
+            "next claim needs a new H2s holdout rather than more tuning on H2q/H2m/H2k/H2l/H2f/H2b/H1x/H1y/H1o/H1p."
+        ),
+        next_test=(
+            "Build H2s with unseen composed stale-selection, value-bearing, contextual surface-alias, and same-value "
+            "decoy cases; then run H2r and at least H2p/H2o/H2j controls without modifying H2r first."
+        ),
+        sources=(
+            EvidenceSource(
+                "replay_synthesis",
+                "results/reports/h2r_transfer_backtest_synthesis/report.md",
+                "Dedicated H2r transfer synthesis showing 81/81 transfer strict/executor-equivalent and 89/89 including H2q.",
+            ),
+            EvidenceSource(
+                "replay_synthesis_figure",
+                "results/reports/h2r_transfer_backtest_synthesis/figures/h2r_transfer_backtest_gate.svg",
+                "Figure summarizing H2r exactness across the origin, transfer, regression, and older unsaturated packets.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2m_execute_v1",
+                "H2r transfer execution on H2m reaching 8/8 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2k_execute_v2",
+                "H2r transfer execution on H2k reaching 8/8 strict and executor-equivalent after the negated-label guard.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2l_execute_v2",
+                "H2r transfer execution on H2l reaching 8/8 strict and executor-equivalent after preserving negated decoys.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2f_execute_v1",
+                "H2r transfer execution on H2f reaching 10/10 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2b_execute_v1",
+                "H2r H2b regression-gate execution reaching 5/5 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2r_composed_route_gating_vs_h2h_on_h2b_v1",
+                "H2r versus H2h on H2b showing +0.40 exact and executor-equivalence deltas.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h1x_execute_v1",
+                "H2r H1x regression-gate execution reaching 8/8 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2r_composed_route_gating_vs_h2h_on_h1x_v1",
+                "H2r versus H2h on H1x showing +0.25 exact and executor-equivalence deltas.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h1y_execute_v1",
+                "H2r older-slice execution on H1y reaching 10/10 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2r_composed_route_gating_vs_h2a_on_h1y_v1",
+                "H2r versus H2a on H1y showing +0.20 exact and executor-equivalence deltas.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h1o_execute_v1",
+                "H2r older-slice execution on H1o reaching 12/12 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h1p_execute_v1",
+                "H2r older-slice execution on H1p reaching 12/12 strict and executor-equivalent.",
             ),
         ),
     ),

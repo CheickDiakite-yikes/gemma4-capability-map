@@ -2,4 +2,4 @@ finding_id,finding
 h2r_solves_h2q_local_boundary,"H2r reaches 8/8 strict and 8/8 executor-equivalent on H2q, improving over H2p by 0.625 exact-rate and executor-equivalence."
 h2r_matches_h2q_failure_cardinality,H2p left 5 non-exact rows; H2r records 5 composed-route interventions and leaves 0 non-exact rows.
 h2r_mechanism_splits_stale_selection_and_decoy_surface_routes,"Composed route gating fires on 2 stale-selection rows and 3 same-value decoy surface rows, showing the boundary was a route-selection problem rather than only label spelling."
-h2r_needs_transfer_before_promotion,"H2r is a local H2q repair, not yet a global row: it must be backtested on H2m/H2k/H2l/H2f and the earlier H2b/H1x gates before any promotion language."
+h2r_transfer_backtested_but_needs_fresh_h2s,"H2r is now transfer-positive on the current packet set, but it remains a local H2q-derived repair until a fresh H2s composed holdout confirms the policy without further tuning."

@@ -497,6 +497,49 @@
   - `uv run python scripts/build_publication_evidence_ledger.py`
   - `uv run python scripts/audit_publication_readiness.py`
 
+## 2026-05-12 - H2r Transfer Backtest Preserves Current Gates
+
+- Executed the H2r transfer/regression backtest after the local H2q repair:
+  - transfer synthesis: [`results/reports/h2r_transfer_backtest_synthesis/report.md`](../results/reports/h2r_transfer_backtest_synthesis/report.md)
+  - transfer figure: [`results/reports/h2r_transfer_backtest_synthesis/figures/h2r_transfer_backtest_gate.svg`](../results/reports/h2r_transfer_backtest_synthesis/figures/h2r_transfer_backtest_gate.svg)
+  - H2m: [`results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2m_execute_v1`](../results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2m_execute_v1), strict `8 / 8`, executor-equivalent `8 / 8`
+  - H2k: [`results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2k_execute_v2`](../results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2k_execute_v2), strict `8 / 8`, executor-equivalent `8 / 8`
+  - H2l: [`results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2l_execute_v2`](../results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2l_execute_v2), strict `8 / 8`, executor-equivalent `8 / 8`
+  - H2f: [`results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2f_execute_v1`](../results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2f_execute_v1), strict `10 / 10`, executor-equivalent `10 / 10`
+  - H2b regression gate: [`results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2b_execute_v1`](../results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2b_execute_v1), strict `5 / 5`, executor-equivalent `5 / 5`
+  - H1x regression gate: [`results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h1x_execute_v1`](../results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h1x_execute_v1), strict `8 / 8`, executor-equivalent `8 / 8`
+  - older unsaturated packets: H1y `10 / 10`, H1o `12 / 12`, H1p `12 / 12`
+- Result:
+  - transfer packets only: strict `81 / 81`, executor-equivalent `81 / 81`
+  - H2q origin plus transfer packets: strict `89 / 89`
+  - non-exact rows across the synthesis: `0`
+- Comparisons:
+  - H2r ties H2j/H2e on H2b and H1x, avoiding the H2h transfer regression
+  - H2r beats H2h by `+0.40` exact-rate on H2b and `+0.25` on H1x
+  - H2r improves H1y by `+0.20` exact-rate versus H2a
+  - H2r improves H1o and H1p by `+0.0833` exact-rate versus H1s
+- Mechanism read:
+  - H2r's transfer success is not just composed-route rewriting everywhere.
+  - Aggregate intervention counts across H2q plus transfer packets are `5` composed-route gates, `18` target-query normalizations, `6` value-bearing syntheses, `2` contextual surface-alias routes, and `7` stale-selection gates.
+  - H1p saturates with no visual-controller metadata, suggesting the newer route-arbitration/residual-exactness contract and catalog posture sometimes solve the row before helper repair fires.
+  - H2l initially exposed a false-positive composed gate overreach (`result tile` -> `result badge`, `mode field` -> `mode switch`). The fix was to treat explicit `do not use/select/locate/find <label>` fragments as negative label evidence, then rerun H2l as v2 at `8 / 8`.
+- Research decision:
+  - promote H2r from "local H2q repair awaiting transfer" to "transfer-positive on current packets."
+  - do not call H2r globally solved yet; the next publishable test is H2s, a fresh composed holdout with unseen stale-selection, value-bearing, surface-alias, and same-value decoy cases.
+  - preserve strict exactness and executor-equivalence as separate claims; several prior helpers were executor-valid without strict exactness.
+- Reporting:
+  - publication evidence ledger now has `57` claims, `355` evidence sources, and `0` missing sources.
+  - publication readiness audit remains `paper_draft_ready` with `256` checks / `249` blocking checks / `0` blocking failures.
+  - C56 is now explicitly scoped as local H2q evidence that has been transfer-backtested but still requires H2s; C57 records the transfer-positive current-packet backtest.
+- Verification:
+  - `uv run pytest tests/test_h2r_transfer_backtest_synthesis.py -q`
+  - `uv run python scripts/build_h2r_transfer_backtest_synthesis.py`
+  - `uv run pytest tests/test_h2r_composed_route_gating_synthesis.py tests/test_h2r_transfer_backtest_synthesis.py tests/test_publication_evidence_ledger.py tests/test_publication_readiness_audit.py -q`
+  - `uv run python scripts/build_h2r_composed_route_gating_synthesis.py`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`
+  - `uv run pytest tests/test_tool_directive_probe.py::test_visual_composed_route_gating_preserves_negated_explicit_surface_label tests/test_tool_directive_probe.py::test_visual_composed_route_gating_preserves_exact_target_when_decoys_are_negated tests/test_tool_directive_probe.py::test_visual_composed_route_gating_preserves_field_target_when_switch_is_negated -q`
+
 ## 2026-05-12 - H2r Composed Route Gating Locally Solves H2q
 
 - Added and executed the H2r composed route-gating controller slice:
@@ -519,9 +562,8 @@
   - publication ledger now has `56` claims / `341` evidence sources / `0` missing
   - readiness audit remains `paper_draft_ready` with `252` checks / `245` blocking checks / `0` blocking failures
 - Next execution:
-  - backtest H2r on H2m/H2k/H2l/H2f before any promotion language
-  - then run the older H2b/H1x gates to check for H2h-style regressions
-  - if transfer passes, author H2s as a fresh unseen composed route-gating holdout
+  - transfer backtesting is now positive on current packets
+  - author H2s as a fresh unseen composed route-gating holdout before global promotion language
 - Verification:
   - `uv run moonie-agent replay-live --packet-dir results/tool_probe_replay_packets/20260512T_h2q_composed_surface_value_stale_dry_run_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_value_bearing_target_query_synthesis_visual_contextual_surface_alias_routing_visual_composed_route_gating --output-dir results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2q_execute_v2 --execute --json`
   - `uv run python scripts/compare_tool_probe_replay_live_packets.py results/tool_probe_replay_live/20260512T_h2q_composed_surface_value_stale_h2p_execute_v1 results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2q_execute_v2 --output-dir results/tool_probe_replay_live_comparisons/20260512T_h2r_composed_route_gating_vs_h2p_on_h2q_v2`

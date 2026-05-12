@@ -1,0 +1,6 @@
+finding_id,finding
+h2r_transfer_preserves_current_gates,"H2r reaches 81/81 strict and 81/81 executor-equivalent across transfer packets, and 89/89 strict when the H2q origin packet is included."
+h2r_avoids_h2h_regression_pattern,The explicit H2h regression guards are clean: H2r ties H2j/H2e on H2b and H1x while beating H2h by 0.4 exact-rate on H2b and 0.25 exact-rate on H1x.
+h2r_closes_older_unsaturated_packets,"Beyond preserving transfer gates, H2r closes older unsaturated packets: H1y improves by 0.19999999999999996 exact-rate versus H2a, H1o by 0.08333333333333337 versus H1s, and H1p by 0.08333333333333337 versus H1s."
+h2r_controller_burden_is_sparse_on_transfer,"Transfer success is not just composed-route rewriting everywhere. Aggregate intervention counts are {""visual_composed_route_gating"": 5, ""visual_contextual_surface_alias_routing"": 2, ""visual_stale_selection_gate"": 7, ""visual_target_query_normalization"": 18, ""visual_value_bearing_target_query_synthesis"": 6}; several transfer packets saturate with zero new H2r-specific composed-route interventions."
+h2r_next_requires_fresh_h2s,"The current evidence supports H2r as transfer-positive on existing packets, but publication language should still require a fresh H2s composition holdout with unseen stale-selection and same-value surface decoys before calling the policy globally solved."

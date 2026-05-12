@@ -49,7 +49,7 @@ def test_h2r_composed_route_gating_synthesis_marks_local_h2q_repair(tmp_path: Pa
     assert manifest["h2q_h2r_contextual_surface_alias_routing_count"] == 1
     assert manifest["h2q_h2r_value_bearing_synthesis_count"] == 2
     assert manifest["h2q_h2r_stale_selection_gate_count"] == 1
-    assert manifest["promotion_decision"] == "h2r_solves_h2q_locally_requires_transfer_backtest"
+    assert manifest["promotion_decision"] == "h2r_solves_h2q_locally_transfer_backtested_requires_h2s"
 
     h2r_family_rows = {
         row["family"]: row for row in payload["family_rows"] if row["profile_label"] == "h2q_h2r_composed_route_gating"
@@ -79,7 +79,7 @@ def test_h2r_composed_route_gating_synthesis_marks_local_h2q_repair(tmp_path: Pa
     assert "8/8 strict" in findings["h2r_solves_h2q_local_boundary"]
     assert "5 composed-route interventions" in findings["h2r_matches_h2q_failure_cardinality"]
     assert "route-selection problem" in findings["h2r_mechanism_splits_stale_selection_and_decoy_surface_routes"]
-    assert "backtested on H2m/H2k/H2l/H2f" in findings["h2r_needs_transfer_before_promotion"]
+    assert "fresh H2s composed holdout" in findings["h2r_transfer_backtested_but_needs_fresh_h2s"]
 
     assert (tmp_path / "manifest.json").exists()
     assert (tmp_path / "synthesis.json").exists()

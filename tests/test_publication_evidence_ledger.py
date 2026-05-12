@@ -156,10 +156,16 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     ] == "supported_current_packets_boundary"
     assert claims["C56_h2r_composed_route_gating_solves_h2q_locally"][
         "status"
-    ] == "supported_current_packets_requires_transfer"
+    ] == "supported_current_packets_transfer_backtested"
+    assert claims["C57_h2r_transfer_backtest_preserves_current_gates"][
+        "status"
+    ] == "supported_current_packets_transfer_positive_requires_fresh_holdout"
     assert "7/8" in claims["C2_final_tool_directive_causal_for_protocol"]["primary_metric"]
     assert "8/8 strict and 8/8 executor-equivalent versus H2p at 3/8" in claims[
         "C56_h2r_composed_route_gating_solves_h2q_locally"
+    ]["primary_metric"]
+    assert "81/81 strict and 81/81 executor-equivalent" in claims[
+        "C57_h2r_transfer_backtest_preserves_current_gates"
     ]["primary_metric"]
     assert "v3 raw exact falls" in claims["C6_split_selector_wording_is_negative_evidence"]["primary_metric"]
     assert "schema-field hints reach 6/8 strict and 8/8 executor-equivalent" in claims[

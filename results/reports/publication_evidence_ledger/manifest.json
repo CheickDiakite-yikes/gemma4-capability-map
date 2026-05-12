@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-05-12T22:33:41.764345+00:00",
+  "generated_at": "2026-05-12T23:11:47.456875+00:00",
   "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-  "claim_count": 56,
-  "evidence_source_count": 341,
+  "claim_count": 57,
+  "evidence_source_count": 355,
   "missing_source_count": 0,
   "claim_ids": [
     "C1_controller_dependence_hidden_by_readiness",
@@ -60,6 +60,7 @@
     "C53_h2o_value_bearing_target_synthesis_repairs_h2m_strict_with_contextual_alias_residue",
     "C54_h2p_contextual_surface_alias_routing_saturates_h2m_without_transfer_regression",
     "C55_h2q_composed_surface_value_stale_breaks_h2p_saturation",
-    "C56_h2r_composed_route_gating_solves_h2q_locally"
+    "C56_h2r_composed_route_gating_solves_h2q_locally",
+    "C57_h2r_transfer_backtest_preserves_current_gates"
   ]
 }

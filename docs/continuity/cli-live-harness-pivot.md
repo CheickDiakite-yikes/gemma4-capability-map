@@ -206,17 +206,20 @@ The freshest replay-shaped visual controller evidence is now H2r:
   - H2p-vs-H2o: `+0.125` strict and executor-equivalence delta
   - H2p-vs-H2n: `+0.375` strict and `+0.25` executor-equivalence delta
   - H2p-vs-H2e: `+0.25` strict and `+0.125` executor-equivalence delta
-- H2r is the local composed route-gating repair:
+- H2r is the transfer-positive composed route-gating repair on current packets:
   - live packet: [`results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2q_execute_v2`](../../results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2q_execute_v2)
   - comparison: [`results/tool_probe_replay_live_comparisons/20260512T_h2r_composed_route_gating_vs_h2p_on_h2q_v2`](../../results/tool_probe_replay_live_comparisons/20260512T_h2r_composed_route_gating_vs_h2p_on_h2q_v2)
   - synthesis: [`results/reports/h2r_composed_route_gating_synthesis/report.md`](../../results/reports/h2r_composed_route_gating_synthesis/report.md)
+  - transfer synthesis: [`results/reports/h2r_transfer_backtest_synthesis/report.md`](../../results/reports/h2r_transfer_backtest_synthesis/report.md)
   - H2r: `8 / 8` strict and executor-equivalent
   - H2r-vs-H2p: `+0.625` strict and executor-equivalence delta
   - mechanism: `5` composed-route interventions, split into `2` stale-selection rewrites and `3` requested-surface restorations
+  - transfer: `81 / 81` strict and executor-equivalent across H2m/H2k/H2l/H2f/H2b/H1x/H1y/H1o/H1p, `89 / 89` strict including H2q
+  - regression gates: H2r ties H2j/H2e on H2b and H1x while beating H2h by `+0.40` and `+0.25` exact-rate
 - next controller question:
-  - backtest H2r against H2m/H2k/H2l/H2f before promotion
-  - then run older H2b/H1x gates to catch H2h-style transfer regressions
-  - if transfer passes, build H2s as a fresh unseen composition holdout
+  - build H2s as a fresh unseen composition holdout with H2r frozen
+  - include new stale-selection, value-bearing target, contextual surface-alias, same-value decoy, and negated-label controls
+  - treat any H2s miss as new evidence before changing H2r
 
 ## Direction Reset
 

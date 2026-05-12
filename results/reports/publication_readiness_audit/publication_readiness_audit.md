@@ -9,7 +9,7 @@
 | --- | --- | ---: | --- | --- |
 | ledger_manifest_exists | blocking | True | Publication evidence ledger manifest exists. | results/reports/publication_evidence_ledger/manifest.json |
 | ledger_has_no_missing_sources | blocking | True | missing_source_count=0 |  |
-| ledger_has_claims | blocking | True | claim_count=55 |  |
+| ledger_has_claims | blocking | True | claim_count=57 |  |
 | ledger_includes_negative_results | blocking | True | At least one claim is explicitly labeled as negative-result evidence. |  |
 | tool_contract_report_has_current_tables | blocking | True | table_count=110 |  |
 | tool_contract_report_has_current_figures | blocking | True | figure_count=45 |  |
@@ -220,6 +220,10 @@
 | h2r_composed_route_gating_vs_h2p_h2q_comparison_exists | blocking | True | H2r versus H2p comparison on H2q exists. | results/tool_probe_replay_live_comparisons/20260512T_h2r_composed_route_gating_vs_h2p_on_h2q_v2/live_replay_comparison.json |
 | h2r_composed_route_gating_report_exists | blocking | True | H2r composed route-gating synthesis report exists. | results/reports/h2r_composed_route_gating_synthesis/report.md |
 | h2r_composed_route_gating_report_figure_exists | blocking | True | H2r composed route-gating synthesis figure exists. | results/reports/h2r_composed_route_gating_synthesis/figures/h2r_composed_route_gating_gate.svg |
+| h2r_transfer_backtest_report_exists | blocking | True | H2r transfer backtest synthesis report exists. | results/reports/h2r_transfer_backtest_synthesis/report.md |
+| h2r_transfer_backtest_report_figure_exists | blocking | True | H2r transfer backtest synthesis figure exists. | results/reports/h2r_transfer_backtest_synthesis/figures/h2r_transfer_backtest_gate.svg |
+| h2r_transfer_h2b_regression_gate_exists | blocking | True | H2r H2b regression-gate live replay exists. | results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2b_execute_v1/summary.json |
+| h2r_transfer_h1x_regression_gate_exists | blocking | True | H2r H1x regression-gate live replay exists. | results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h1x_execute_v1/summary.json |
 | current_state_doc_exists | blocking | True | Continuity current-state doc exists. | docs/continuity/current-state.md |
 | next_steps_doc_exists | blocking | True | Continuity next-steps doc exists. | docs/continuity/next-steps.md |
 | research_log_exists | blocking | True | Research log exists. | docs/research-log.md |

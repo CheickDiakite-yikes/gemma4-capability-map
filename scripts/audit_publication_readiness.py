@@ -2011,6 +2011,43 @@ def audit_publication_readiness(
             detail="H2r composed route-gating synthesis figure exists.",
         ),
         _check_path(
+            check_id="h2r_transfer_backtest_report_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "h2r_transfer_backtest_synthesis" / "report.md",
+            detail="H2r transfer backtest synthesis report exists.",
+        ),
+        _check_path(
+            check_id="h2r_transfer_backtest_report_figure_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "h2r_transfer_backtest_synthesis"
+            / "figures"
+            / "h2r_transfer_backtest_gate.svg",
+            detail="H2r transfer backtest synthesis figure exists.",
+        ),
+        _check_path(
+            check_id="h2r_transfer_h2b_regression_gate_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260512T_h2r_composed_route_gating_on_h2b_execute_v1"
+            / "summary.json",
+            detail="H2r H2b regression-gate live replay exists.",
+        ),
+        _check_path(
+            check_id="h2r_transfer_h1x_regression_gate_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260512T_h2r_composed_route_gating_on_h1x_execute_v1"
+            / "summary.json",
+            detail="H2r H1x regression-gate live replay exists.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",

@@ -135,7 +135,7 @@ def build_h2r_composed_route_gating_synthesis(*, output_dir: str | Path = DEFAUL
         "h2q_h2r_stale_selection_gate_count": h2r_intervention_counts.get(
             "visual_stale_selection_gate", 0
         ),
-        "promotion_decision": "h2r_solves_h2q_locally_requires_transfer_backtest",
+        "promotion_decision": "h2r_solves_h2q_locally_transfer_backtested_requires_h2s",
     }
     payload = {
         "manifest": manifest,
@@ -262,10 +262,10 @@ def _finding_rows(
             ),
         },
         {
-            "finding_id": "h2r_needs_transfer_before_promotion",
+            "finding_id": "h2r_transfer_backtested_but_needs_fresh_h2s",
             "finding": (
-                "H2r is a local H2q repair, not yet a global row: it must be backtested on H2m/H2k/H2l/H2f and "
-                "the earlier H2b/H1x gates before any promotion language."
+                "H2r is now transfer-positive on the current packet set, but it remains a local H2q-derived repair "
+                "until a fresh H2s composed holdout confirms the policy without further tuning."
             ),
         },
     ]
@@ -289,7 +289,8 @@ def _markdown(payload: dict[str, Any]) -> str:
         "",
         (
             "On H2q, H2r reaches `8 / 8` strict and executor-equivalent while H2p was `3 / 8`. This is strong "
-            "local mechanism evidence, but it is not yet a promotion result because transfer backtests remain open."
+            "local mechanism evidence. Transfer backtests are now positive on the current packet set, so the next "
+            "promotion gate is a fresh H2s composed holdout."
         ),
         "",
         "![H2r composed route-gating gate](figures/h2r_composed_route_gating_gate.svg)",

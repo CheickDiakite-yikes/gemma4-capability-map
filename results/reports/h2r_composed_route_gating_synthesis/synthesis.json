@@ -1,6 +1,6 @@
 {
   "manifest": {
-    "generated_at": "2026-05-12T22:19:43.573220+00:00",
+    "generated_at": "2026-05-12T23:11:47.280773+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h2r_composed_route_gating_synthesis",
     "packet_row_count": 5,
     "comparison_count": 1,
@@ -18,7 +18,7 @@
     "h2q_h2r_contextual_surface_alias_routing_count": 1,
     "h2q_h2r_value_bearing_synthesis_count": 2,
     "h2q_h2r_stale_selection_gate_count": 1,
-    "promotion_decision": "h2r_solves_h2q_locally_requires_transfer_backtest"
+    "promotion_decision": "h2r_solves_h2q_locally_transfer_backtested_requires_h2s"
   },
   "packet_rows": [
     {
@@ -1081,8 +1081,8 @@
       "finding": "Composed route gating fires on 2 stale-selection rows and 3 same-value decoy surface rows, showing the boundary was a route-selection problem rather than only label spelling."
     },
     {
-      "finding_id": "h2r_needs_transfer_before_promotion",
-      "finding": "H2r is a local H2q repair, not yet a global row: it must be backtested on H2m/H2k/H2l/H2f and the earlier H2b/H1x gates before any promotion language."
+      "finding_id": "h2r_transfer_backtested_but_needs_fresh_h2s",
+      "finding": "H2r is now transfer-positive on the current packet set, but it remains a local H2q-derived repair until a fresh H2s composed holdout confirms the policy without further tuning."
     }
   ]
 }
