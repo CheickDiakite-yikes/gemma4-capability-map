@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-12T18:15:59.944748+00:00",
+    "generated_at": "2026-05-12T18:43:51.608622+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-    "claim_count": 48,
-    "evidence_source_count": 264,
+    "claim_count": 49,
+    "evidence_source_count": 272,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -53,7 +53,8 @@
       "C45_h2g_component_identity_contract_is_partial_executor_gain",
       "C46_h2h_negative_examples_repair_h2f_but_fail_global_transfer",
       "C47_h2i_conditional_component_arbitration_does_not_preserve_h2f_repair",
-      "C48_h2j_target_query_normalization_repairs_h2f_and_preserves_transfer"
+      "C48_h2j_target_query_normalization_repairs_h2f_and_preserves_transfer",
+      "C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization"
     ]
   },
   "claims": [
@@ -536,6 +537,16 @@
       "limitation": "H2j is validated on H2f plus the existing H2b/H1x transfer gates, not on a new post-H2j holdout. The normalizer's next risk is prompts where the same visual label appears as both a requested target and a negated or before-reading decoy.",
       "next_test": "Build an H2k harder holdout with adversarial prompt/state label overlap, then ablate the target-query normalizer and stale-selection gate separately to quantify controller dependence.",
       "source_count": 11
+    },
+    {
+      "claim_id": "C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization",
+      "claim": "The H2k target/decoy overlap gate gives fresh support for H2j's controller-visible target-query normalization mechanism, separating it from both H2e route arbitration and H2h prompt-side negative examples on adversarial label-overlap cases.",
+      "status": "supported_current_packets_needs_helper_ablation",
+      "evidence_strength": "strong_internal",
+      "primary_metric": "On H2k, H2j reaches 8/8 strict and executor-equivalent, H2h reaches 6/8 strict and executor-equivalent, and H2e reaches 3/8 strict with 6/8 executor-equivalent. H2j improves exact-rate by +0.625 versus H2e and +0.25 versus H2h, with 5 target-query-normalization interventions and 0 stale-selection interventions.",
+      "limitation": "H2k v1 is an 8-case replay-shaped holdout designed around target/decoy overlap, not a packaged workflow population. The helper mechanism still needs a direct ablation that disables target-query normalization while preserving the rest of H2j.",
+      "next_test": "Run H2j on H2k with target-query normalization disabled, then run the matched stale-selection-gate ablation to verify that the observed H2k gain is caused by the target normalizer rather than another controller path.",
+      "source_count": 8
     }
   ],
   "evidence_sources": [
@@ -2385,6 +2396,62 @@
       "artifact_type": "live_replay_comparison",
       "path": "results/tool_probe_replay_live_comparisons/20260512T_h2j_target_query_normalization_vs_h2h_on_h1x_v1",
       "purpose": "Direct H2j-vs-H2h comparison showing +0.25 exact-rate lift on H1x.",
+      "exists": true
+    },
+    {
+      "claim_id": "C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization",
+      "artifact_type": "replay_synthesis",
+      "path": "results/reports/h2k_target_decoy_overlap_synthesis/report.md",
+      "purpose": "Dedicated H2k synthesis comparing H2e, H2h, and H2j on target/decoy overlap pressure.",
+      "exists": true
+    },
+    {
+      "claim_id": "C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization",
+      "artifact_type": "replay_synthesis_figure",
+      "path": "results/reports/h2k_target_decoy_overlap_synthesis/figures/h2k_target_decoy_overlap_gate.svg",
+      "purpose": "Figure summarizing H2k exact-rate separation across H2e, H2h, and H2j.",
+      "exists": true
+    },
+    {
+      "claim_id": "C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization",
+      "artifact_type": "tool_probe_replay_packet",
+      "path": "results/tool_probe_replay_packets/20260512T_h2k_target_decoy_overlap_dry_run_v1",
+      "purpose": "The 8-case H2k dry-run packet defining adversarial target/decoy overlap prompts and expected calls.",
+      "exists": true
+    },
+    {
+      "claim_id": "C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260512T_h2k_target_decoy_overlap_h2j_execute_v1",
+      "purpose": "H2j live execution reaching 8/8 strict and executor-equivalent on H2k.",
+      "exists": true
+    },
+    {
+      "claim_id": "C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260512T_h2k_target_decoy_overlap_h2e_execute_v1",
+      "purpose": "H2e live execution reaching 3/8 strict and 6/8 executor-equivalent on H2k.",
+      "exists": true
+    },
+    {
+      "claim_id": "C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260512T_h2k_target_decoy_overlap_h2h_execute_v1",
+      "purpose": "H2h live execution reaching 6/8 strict and executor-equivalent on H2k.",
+      "exists": true
+    },
+    {
+      "claim_id": "C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260512T_h2k_target_decoy_overlap_h2j_vs_h2e_v1",
+      "purpose": "Direct H2j-vs-H2e comparison showing +0.625 exact-rate and +0.25 executor-equivalence-rate gains.",
+      "exists": true
+    },
+    {
+      "claim_id": "C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260512T_h2k_target_decoy_overlap_h2j_vs_h2h_v1",
+      "purpose": "Direct H2j-vs-H2h comparison showing +0.25 exact-rate and executor-equivalence-rate gains.",
       "exists": true
     }
   ],

@@ -1,0 +1,5 @@
+finding_id,finding
+h2k_is_discriminative,"H2k separates H2j from the prior candidates: H2e reaches 3/8 exact, H2h reaches 6/8, and H2j reaches 8/8."
+h2j_passes_target_decoy_overlap,"H2j improves over H2e by 0.625 exact-rate and over H2h by 0.25 on H2k, with 0 H2j non-exact rows."
+h2j_mechanism_is_target_normalization,"H2j records 5 target-query-normalization interventions and 0 stale-selection interventions on H2k, so this holdout isolates the target-normalizer mechanism rather than stale rescue."
+next_ablation_required,The next step is not another prompt-profile candidate. Run H2j without target-query normalization and H2j without stale-selection rescue on H2k to quantify the exact controller contribution.

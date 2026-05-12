@@ -2,6 +2,39 @@
 
 # Research Log
 
+## 2026-05-12 - H2k Target/Decoy Overlap Gate Separates H2j
+
+- Executed the H2k target/decoy-overlap holdout across the three relevant profiles:
+  - H2j target-query normalization: [`results/tool_probe_replay_live/20260512T_h2k_target_decoy_overlap_h2j_execute_v1`](../results/tool_probe_replay_live/20260512T_h2k_target_decoy_overlap_h2j_execute_v1)
+  - H2e route arbitration plus stale-selection gate: [`results/tool_probe_replay_live/20260512T_h2k_target_decoy_overlap_h2e_execute_v1`](../results/tool_probe_replay_live/20260512T_h2k_target_decoy_overlap_h2e_execute_v1)
+  - H2h component-identity negative examples plus stale-selection gate: [`results/tool_probe_replay_live/20260512T_h2k_target_decoy_overlap_h2h_execute_v1`](../results/tool_probe_replay_live/20260512T_h2k_target_decoy_overlap_h2h_execute_v1)
+- Result:
+  - H2j: `8 / 8` strict and `8 / 8` executor-equivalent
+  - H2h: `6 / 8` strict and `6 / 8` executor-equivalent
+  - H2e: `3 / 8` strict and `6 / 8` executor-equivalent
+  - H2j-vs-H2e delta: `+0.625` strict exact-rate and `+0.25` executor-equivalence-rate
+  - H2j-vs-H2h delta: `+0.25` strict exact-rate and `+0.25` executor-equivalence-rate
+- Mechanism read:
+  - H2j records `5` target-query-normalization interventions on H2k
+  - H2j records `0` stale-selection interventions on H2k
+  - the remaining H2e/H2h failures are target-query drift, not missing-tool or stale-selection-origin failures
+  - this supports H2j as a structural controller-normalization result on a fresh post-H2j holdout
+- Reporting updates:
+  - H2k synthesis: [`results/reports/h2k_target_decoy_overlap_synthesis/report.md`](../results/reports/h2k_target_decoy_overlap_synthesis/report.md)
+  - H2k figure: [`results/reports/h2k_target_decoy_overlap_synthesis/figures/h2k_target_decoy_overlap_gate.svg`](../results/reports/h2k_target_decoy_overlap_synthesis/figures/h2k_target_decoy_overlap_gate.svg)
+  - publication evidence ledger now has `49` claims, `272` sources, and `0` missing sources
+  - new claim: `C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization`
+- Research decision:
+  - do not write another prompt-profile candidate yet
+  - treat H2e-on-H2k as the already-run target-normalizer-disabled ablation
+  - add and run the matched H2j-without-stale-selection-gate row next
+  - promote C49 only after helper ablation shows the H2k gain is actually target-query-normalization causal
+- Verification:
+  - `uv run pytest tests/test_h2k_target_decoy_overlap_synthesis.py -q`
+  - `uv run python scripts/build_h2k_target_decoy_overlap_synthesis.py`
+  - `uv run pytest tests/test_publication_evidence_ledger.py -q`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+
 ## 2026-05-12 - H2k Target/Decoy Overlap Holdout Scaffold
 
 - Added H2k as the next harder replay-shaped holdout for the H2j boundary:

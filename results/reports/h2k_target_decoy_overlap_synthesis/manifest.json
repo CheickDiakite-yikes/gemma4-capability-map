@@ -1,0 +1,22 @@
+{
+  "generated_at": "2026-05-12T18:42:09.373093+00:00",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h2k_target_decoy_overlap_synthesis",
+  "packet_row_count": 3,
+  "comparison_count": 2,
+  "h2e_exact_success_count": 3,
+  "h2e_executor_success_count": 6,
+  "h2h_exact_success_count": 6,
+  "h2h_executor_success_count": 6,
+  "h2j_exact_success_count": 8,
+  "h2j_executor_success_count": 8,
+  "h2j_delta_exact_vs_h2e": 0.625,
+  "h2j_delta_executor_vs_h2e": 0.25,
+  "h2j_delta_exact_vs_h2h": 0.25,
+  "h2j_delta_executor_vs_h2h": 0.25,
+  "h2e_non_exact_count": 5,
+  "h2h_non_exact_count": 2,
+  "h2j_non_exact_count": 0,
+  "target_query_normalization_count": 5,
+  "visual_stale_selection_gate_count": 0,
+  "promotion_decision": "h2j_passes_h2k_target_decoy_overlap_requires_helper_ablation"
+}

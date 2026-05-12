@@ -2344,6 +2344,72 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization",
+        claim=(
+            "The H2k target/decoy overlap gate gives fresh support for H2j's controller-visible target-query "
+            "normalization mechanism, separating it from both H2e route arbitration and H2h prompt-side negative "
+            "examples on adversarial label-overlap cases."
+        ),
+        status="supported_current_packets_needs_helper_ablation",
+        evidence_strength="strong_internal",
+        primary_metric=(
+            "On H2k, H2j reaches 8/8 strict and executor-equivalent, H2h reaches 6/8 strict and executor-equivalent, "
+            "and H2e reaches 3/8 strict with 6/8 executor-equivalent. H2j improves exact-rate by +0.625 versus H2e "
+            "and +0.25 versus H2h, with 5 target-query-normalization interventions and 0 stale-selection interventions."
+        ),
+        limitation=(
+            "H2k v1 is an 8-case replay-shaped holdout designed around target/decoy overlap, not a packaged workflow "
+            "population. The helper mechanism still needs a direct ablation that disables target-query normalization "
+            "while preserving the rest of H2j."
+        ),
+        next_test=(
+            "Run H2j on H2k with target-query normalization disabled, then run the matched stale-selection-gate ablation "
+            "to verify that the observed H2k gain is caused by the target normalizer rather than another controller path."
+        ),
+        sources=(
+            EvidenceSource(
+                "replay_synthesis",
+                "results/reports/h2k_target_decoy_overlap_synthesis/report.md",
+                "Dedicated H2k synthesis comparing H2e, H2h, and H2j on target/decoy overlap pressure.",
+            ),
+            EvidenceSource(
+                "replay_synthesis_figure",
+                "results/reports/h2k_target_decoy_overlap_synthesis/figures/h2k_target_decoy_overlap_gate.svg",
+                "Figure summarizing H2k exact-rate separation across H2e, H2h, and H2j.",
+            ),
+            EvidenceSource(
+                "tool_probe_replay_packet",
+                "results/tool_probe_replay_packets/20260512T_h2k_target_decoy_overlap_dry_run_v1",
+                "The 8-case H2k dry-run packet defining adversarial target/decoy overlap prompts and expected calls.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2k_target_decoy_overlap_h2j_execute_v1",
+                "H2j live execution reaching 8/8 strict and executor-equivalent on H2k.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2k_target_decoy_overlap_h2e_execute_v1",
+                "H2e live execution reaching 3/8 strict and 6/8 executor-equivalent on H2k.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2k_target_decoy_overlap_h2h_execute_v1",
+                "H2h live execution reaching 6/8 strict and executor-equivalent on H2k.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2k_target_decoy_overlap_h2j_vs_h2e_v1",
+                "Direct H2j-vs-H2e comparison showing +0.625 exact-rate and +0.25 executor-equivalence-rate gains.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2k_target_decoy_overlap_h2j_vs_h2h_v1",
+                "Direct H2j-vs-H2h comparison showing +0.25 exact-rate and executor-equivalence-rate gains.",
+            ),
+        ),
+    ),
 )
 
 

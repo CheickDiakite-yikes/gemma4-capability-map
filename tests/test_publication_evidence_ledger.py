@@ -133,6 +133,9 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert claims["C48_h2j_target_query_normalization_repairs_h2f_and_preserves_transfer"][
         "status"
     ] == "supported_current_packets_next_harder_holdout"
+    assert claims["C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization"][
+        "status"
+    ] == "supported_current_packets_needs_helper_ablation"
     assert "7/8" in claims["C2_final_tool_directive_causal_for_protocol"]["primary_metric"]
     assert "v3 raw exact falls" in claims["C6_split_selector_wording_is_negative_evidence"]["primary_metric"]
     assert "schema-field hints reach 6/8 strict and 8/8 executor-equivalent" in claims[
@@ -379,6 +382,21 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert "Build an H2k harder holdout" in claims[
         "C48_h2j_target_query_normalization_repairs_h2f_and_preserves_transfer"
     ]["next_test"]
+    assert "H2j reaches 8/8 strict and executor-equivalent" in claims[
+        "C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization"
+    ]["primary_metric"]
+    assert "H2e reaches 3/8 strict with 6/8 executor-equivalent" in claims[
+        "C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization"
+    ]["primary_metric"]
+    assert "5 target-query-normalization interventions and 0 stale-selection" in claims[
+        "C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization"
+    ]["primary_metric"]
+    assert "direct ablation that disables target-query normalization" in claims[
+        "C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization"
+    ]["limitation"]
+    assert "matched stale-selection-gate ablation" in claims[
+        "C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization"
+    ]["next_test"]
     assert any(
         row["claim_id"] == "C28_h1n_post_repair_holdout_favors_code_guard"
         and row["path"]
@@ -612,6 +630,26 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
         row["claim_id"] == "C48_h2j_target_query_normalization_repairs_h2f_and_preserves_transfer"
         and row["path"]
         == "results/tool_probe_replay_live_comparisons/20260512T_h2j_target_query_normalization_vs_h2h_on_h1x_v1"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization"
+        and row["path"] == "results/reports/h2k_target_decoy_overlap_synthesis/report.md"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization"
+        and row["path"]
+        == "results/reports/h2k_target_decoy_overlap_synthesis/figures/h2k_target_decoy_overlap_gate.svg"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization"
+        and row["path"]
+        == "results/tool_probe_replay_live_comparisons/20260512T_h2k_target_decoy_overlap_h2j_vs_h2h_v1"
         and row["exists"]
         for row in payload["evidence_sources"]
     )
