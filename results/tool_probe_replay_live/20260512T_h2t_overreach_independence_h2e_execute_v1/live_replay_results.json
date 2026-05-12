@@ -1,0 +1,122 @@
+[
+  {
+    "case_id": "h2t_current_selection_review_tile_refine_guard",
+    "family": "h2t_current_selection_guard",
+    "source_failure_mode": "wrong_tool_or_stale_selection_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260512T_h2t_overreach_independence_h2e_execute_v1/runs/h2t_current_selection_review_tile_refine_guard"
+  },
+  {
+    "case_id": "h2t_current_selection_status_panel_refine_guard",
+    "family": "h2t_current_selection_guard",
+    "source_failure_mode": "wrong_tool_or_stale_selection_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260512T_h2t_overreach_independence_h2e_execute_v1/runs/h2t_current_selection_status_panel_refine_guard"
+  },
+  {
+    "case_id": "h2t_result_drawer_low_score_badge_decoy",
+    "family": "h2t_low_score_surface_request",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "argument_mismatch",
+    "replay_exact_match": false,
+    "replay_executable_match": false,
+    "replay_executor_equivalence_match": false,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260512T_h2t_overreach_independence_h2e_execute_v1/runs/h2t_result_drawer_low_score_badge_decoy"
+  },
+  {
+    "case_id": "h2t_risk_lane_high_chip_decoy",
+    "family": "h2t_low_score_surface_request",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "executable_paraphrase",
+    "replay_exact_match": false,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260512T_h2t_overreach_independence_h2e_execute_v1/runs/h2t_risk_lane_high_chip_decoy"
+  },
+  {
+    "case_id": "h2t_stage_column_review_tag_decoy",
+    "family": "h2t_low_score_surface_request",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "executable_paraphrase",
+    "replay_exact_match": false,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260512T_h2t_overreach_independence_h2e_execute_v1/runs/h2t_stage_column_review_tag_decoy"
+  },
+  {
+    "case_id": "h2t_metric_panel_negation_scope_note",
+    "family": "h2t_negation_scope_guard",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260512T_h2t_overreach_independence_h2e_execute_v1/runs/h2t_metric_panel_negation_scope_note"
+  },
+  {
+    "case_id": "h2t_summary_tile_negation_scope_caption",
+    "family": "h2t_negation_scope_guard",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260512T_h2t_overreach_independence_h2e_execute_v1/runs/h2t_summary_tile_negation_scope_caption"
+  },
+  {
+    "case_id": "h2t_escalated_value_not_badge_component",
+    "family": "h2t_value_is_target_guard",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "executable_paraphrase",
+    "replay_exact_match": false,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260512T_h2t_overreach_independence_h2e_execute_v1/runs/h2t_escalated_value_not_badge_component"
+  },
+  {
+    "case_id": "h2t_result_badge_live_clean_control",
+    "family": "h2t_clean_route_control",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260512T_h2t_overreach_independence_h2e_execute_v1/runs/h2t_result_badge_live_clean_control"
+  },
+  {
+    "case_id": "h2t_owner_field_clean_control",
+    "family": "h2t_clean_route_control",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260512T_h2t_overreach_independence_h2e_execute_v1/runs/h2t_owner_field_clean_control"
+  }
+]
