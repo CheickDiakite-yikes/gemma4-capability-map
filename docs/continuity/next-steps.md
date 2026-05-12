@@ -2,7 +2,7 @@
 
 ## Current Best Next Moves
 
-The next move is not another broad prompt-contract paragraph, not another blind H2b/H1x rerun, and not another H2e/H2j victory lap. H1y/H1z showed that prompt/catalog prose alone did not solve stale selection-origin routing. H2a showed that a controller-side stale-selection gate is causal and transferable. H2b isolated a separate residual exactness problem. H2c solved H2b locally but failed H1x transfer. H2d fixed transfer but gave back one H2b strict row. H2e reconciled that tradeoff on the current gates. H2f then broke global H2e promotion on a fresh holdout. H2g showed a partial executor-equivalence gain but no strict exactness gain. H2h repaired H2f to `9 / 10` but regressed H2b and H1x. H2i conditional arbitration then failed the H2f gate at `6 / 10`. H2j moved the repair into a controller-visible target-query normalization gate and now reaches `10 / 10` on H2f, `5 / 5` on H2b, and `8 / 8` on H1x. H2k has now tested the post-H2j target/decoy-overlap risk: H2j reaches `8 / 8`, H2h reaches `6 / 8`, and H2e reaches `3 / 8` strict exactness. The next move is the H2k helper ablation: show whether that fresh win disappears when target-query normalization is disabled, and whether stale-selection rescue is irrelevant on this slice.
+The next move is not another broad prompt-contract paragraph, not another blind H2b/H1x rerun, and not another H2e/H2j victory lap. H1y/H1z showed that prompt/catalog prose alone did not solve stale selection-origin routing. H2a showed that a controller-side stale-selection gate is causal and transferable. H2b isolated a separate residual exactness problem. H2c solved H2b locally but failed H1x transfer. H2d fixed transfer but gave back one H2b strict row. H2e reconciled that tradeoff on the current gates. H2f then broke global H2e promotion on a fresh holdout. H2g showed a partial executor-equivalence gain but no strict exactness gain. H2h repaired H2f to `9 / 10` but regressed H2b and H1x. H2i conditional arbitration then failed the H2f gate at `6 / 10`. H2j moved the repair into a controller-visible target-query normalization gate and now reaches `10 / 10` on H2f, `5 / 5` on H2b, and `8 / 8` on H1x. H2k tested the post-H2j target/decoy-overlap risk and the matched stale-gate ablation: full H2j and H2j without stale-selection both reach `8 / 8`, H2h reaches `6 / 8`, and H2e reaches `3 / 8` strict exactness. The next move is H2l: a fresh over-normalization holdout where the correct target sometimes really is the displayed value, alias, or longer label that H2j might be tempted to normalize away.
 
 Execution order:
 
@@ -16,38 +16,28 @@ Execution order:
 8. Treat H2h as scoped positive and global negative evidence: H2h reaches `9 / 10` on H2f, but only `3 / 5` on H2b and `6 / 8` on H1x.
 9. Treat H2i as negative conditional prompt evidence: it ties H2e at `6 / 10` on H2f and trails H2h by `-0.3`.
 10. Treat H2j as current positive structural evidence: it reaches `10 / 10` on H2f, `5 / 5` on H2b, and `8 / 8` on H1x.
-11. Treat H2k as fresh positive structural evidence: H2j reaches `8 / 8`, H2h reaches `6 / 8`, and H2e reaches `3 / 8` strict exactness.
-12. Treat H2k as not yet a final promotion claim: it is an `8`-case replay-shaped holdout, and it still needs matched helper ablation.
-13. Treat H2e-on-H2k as the already-run target-normalizer-disabled ablation because it preserves H2e route arbitration plus the stale-selection gate but lacks target-query normalization.
-14. Add and run a matched H2j-without-stale-selection ablation so H2k can separate target normalization from stale rescue instead of relying on runtime metadata alone.
+11. Treat H2k as fresh positive structural evidence: full H2j reaches `8 / 8`, H2j without stale-selection reaches `8 / 8`, H2h reaches `6 / 8`, and H2e reaches `3 / 8` strict exactness.
+12. Treat H2e-on-H2k as the no-target-normalizer control because it preserves H2e route arbitration plus the stale-selection gate but lacks target-query normalization.
+13. Treat H2k as target-normalization evidence, not stale-rescue evidence: both full H2j and stale-gate-off H2j record `5` target-normalization interventions and `0` stale-selection interventions.
+14. Build H2l as the next over-normalization holdout: include cases where the correct target is the longer displayed label, the value-bearing label, or the alias that H2k taught the normalizer to strip.
 15. Score both strict exactness and executor-equivalence; do not collapse executor-valid paraphrases into failures when evaluating live usefulness.
 16. Keep packaged workflows paused for this line unless they preserve the same replay-shaped pressure; H1l/H1m already showed packaged visual surfaces can wash out the mechanism.
 
 Immediate suggested command:
 
 ```bash
-uv run moonie-agent replay-live --packet-dir results/tool_probe_replay_packets/20260512T_h2k_target_decoy_overlap_dry_run_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_target_query_normalization_no_stale_selection_gate --output-dir results/tool_probe_replay_live/20260512T_h2k_target_decoy_overlap_h2j_no_stale_gate_execute_v1 --execute --json
-uv run python scripts/compare_tool_probe_replay_live_packets.py --baseline-dir results/tool_probe_replay_live/20260512T_h2k_target_decoy_overlap_h2j_no_stale_gate_execute_v1 --candidate-dir results/tool_probe_replay_live/20260512T_h2k_target_decoy_overlap_h2j_execute_v1 --output-dir results/tool_probe_replay_live_comparisons/20260512T_h2k_target_decoy_overlap_h2j_vs_no_stale_gate_v1
 uv run python scripts/build_h2k_target_decoy_overlap_synthesis.py
-uv run python scripts/build_h2a_stale_selection_transfer_synthesis.py
-uv run python scripts/build_h2b_residual_exactness_synthesis.py
-uv run python scripts/build_h2c_scoped_residual_synthesis.py
-uv run python scripts/build_h2d_transfer_tradeoff_synthesis.py
-uv run python scripts/build_h2e_route_arbitration_synthesis.py
-uv run python scripts/build_h2f_route_arbitration_holdout_synthesis.py
-uv run python scripts/build_h2h_component_identity_tradeoff_synthesis.py
-uv run python scripts/build_mlx_tool_contract_report.py
 uv run python scripts/build_publication_evidence_ledger.py
 uv run python scripts/audit_publication_readiness.py
 ```
 
-Then turn H2k into a matched helper-ablation result:
+Then design H2l from the H2k boundary:
 
-- target-normalizer disabled: use the already-run H2e-on-H2k row (`3 / 8` strict, `6 / 8` executor-equivalent)
-- stale-selection disabled: add the explicit H2j-minus-stale-gate registry row and run it on H2k
-- expected interpretation if the mechanism is clean: H2j-minus-stale should stay near H2j on H2k, while H2e/no-target-normalizer remains far lower
-- if H2j-minus-stale regresses, inspect whether any H2k case accidentally depends on stale-selection rescue despite the current `0` stale-intervention metadata count
-- update the H2k synthesis into an ablation synthesis, then promote C49 from "needs helper ablation" to a stronger causal-controller claim only if the matched ablation supports it
+- include value-bearing labels where the expected `target_query` is intentionally longer than the prompt's component noun
+- include alias pairs where normalizing to the shorter component label would select the wrong region
+- include at least two H2k-style decoy rows as regression guards so the normalizer still proves its intended use
+- run H2e, H2j, and H2j-without-stale-selection first; only add new prompt profiles if all target-normalization rows fail in the same direction
+- preserve H2a globally for stale-origin packets; H2k only showed stale rescue is irrelevant on this slice, not that it should be removed everywhere
 
 ## Immediate
 

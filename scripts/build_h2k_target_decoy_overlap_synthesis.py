@@ -35,6 +35,10 @@ PACKET_SPECS: tuple[PacketSpec, ...] = (
         ROOT / "results" / "tool_probe_replay_live" / "20260512T_h2k_target_decoy_overlap_h2h_execute_v1",
     ),
     PacketSpec(
+        "h2j_target_query_normalization_no_stale_gate",
+        ROOT / "results" / "tool_probe_replay_live" / "20260512T_h2k_target_decoy_overlap_h2j_no_stale_gate_execute_v1",
+    ),
+    PacketSpec(
         "h2j_target_query_normalization",
         ROOT / "results" / "tool_probe_replay_live" / "20260512T_h2k_target_decoy_overlap_h2j_execute_v1",
     ),
@@ -56,6 +60,13 @@ COMPARISON_SPECS: tuple[ComparisonSpec, ...] = (
         / "tool_probe_replay_live_comparisons"
         / "20260512T_h2k_target_decoy_overlap_h2j_vs_h2h_v1",
     ),
+    ComparisonSpec(
+        "h2j_vs_no_stale_gate",
+        ROOT
+        / "results"
+        / "tool_probe_replay_live_comparisons"
+        / "20260512T_h2k_target_decoy_overlap_h2j_vs_no_stale_gate_v1",
+    ),
 )
 
 
@@ -74,14 +85,34 @@ def build_h2k_target_decoy_overlap_synthesis(*, output_dir: str | Path = DEFAULT
 
     h2e = _packet_by_profile(packet_rows, "h2e_route_arbitration")
     h2h = _packet_by_profile(packet_rows, "h2h_component_identity_negative_examples")
+    h2j_no_stale = _packet_by_profile(packet_rows, "h2j_target_query_normalization_no_stale_gate")
     h2j = _packet_by_profile(packet_rows, "h2j_target_query_normalization")
     h2j_vs_h2e = _comparison_by_label(comparison_rows, "h2j_vs_h2e")
     h2j_vs_h2h = _comparison_by_label(comparison_rows, "h2j_vs_h2h")
+    h2j_vs_no_stale = _comparison_by_label(comparison_rows, "h2j_vs_no_stale_gate")
     target_interventions = [
-        row for row in intervention_rows if row["intervention_kind"] == "visual_target_query_normalization"
+        row
+        for row in intervention_rows
+        if row["profile_label"] == "h2j_target_query_normalization"
+        and row["intervention_kind"] == "visual_target_query_normalization"
     ]
     stale_interventions = [
-        row for row in intervention_rows if row["intervention_kind"] == "visual_stale_selection_gate"
+        row
+        for row in intervention_rows
+        if row["profile_label"] == "h2j_target_query_normalization"
+        and row["intervention_kind"] == "visual_stale_selection_gate"
+    ]
+    no_stale_target_interventions = [
+        row
+        for row in intervention_rows
+        if row["profile_label"] == "h2j_target_query_normalization_no_stale_gate"
+        and row["intervention_kind"] == "visual_target_query_normalization"
+    ]
+    no_stale_stale_interventions = [
+        row
+        for row in intervention_rows
+        if row["profile_label"] == "h2j_target_query_normalization_no_stale_gate"
+        and row["intervention_kind"] == "visual_stale_selection_gate"
     ]
     manifest = {
         "generated_at": datetime.now(UTC).isoformat(),
@@ -92,22 +123,33 @@ def build_h2k_target_decoy_overlap_synthesis(*, output_dir: str | Path = DEFAULT
         "h2e_executor_success_count": h2e["executor_success_count"],
         "h2h_exact_success_count": h2h["exact_success_count"],
         "h2h_executor_success_count": h2h["executor_success_count"],
+        "h2j_no_stale_exact_success_count": h2j_no_stale["exact_success_count"],
+        "h2j_no_stale_executor_success_count": h2j_no_stale["executor_success_count"],
         "h2j_exact_success_count": h2j["exact_success_count"],
         "h2j_executor_success_count": h2j["executor_success_count"],
         "h2j_delta_exact_vs_h2e": h2j_vs_h2e["delta_exact_rate"],
         "h2j_delta_executor_vs_h2e": h2j_vs_h2e["delta_executor_equivalence_rate"],
         "h2j_delta_exact_vs_h2h": h2j_vs_h2h["delta_exact_rate"],
         "h2j_delta_executor_vs_h2h": h2j_vs_h2h["delta_executor_equivalence_rate"],
+        "h2j_delta_exact_vs_no_stale_gate": h2j_vs_no_stale["delta_exact_rate"],
+        "h2j_delta_executor_vs_no_stale_gate": h2j_vs_no_stale["delta_executor_equivalence_rate"],
         "h2e_non_exact_count": sum(1 for row in non_exact_rows if row["profile_label"] == "h2e_route_arbitration"),
         "h2h_non_exact_count": sum(
             1 for row in non_exact_rows if row["profile_label"] == "h2h_component_identity_negative_examples"
+        ),
+        "h2j_no_stale_non_exact_count": sum(
+            1
+            for row in non_exact_rows
+            if row["profile_label"] == "h2j_target_query_normalization_no_stale_gate"
         ),
         "h2j_non_exact_count": sum(
             1 for row in non_exact_rows if row["profile_label"] == "h2j_target_query_normalization"
         ),
         "target_query_normalization_count": len(target_interventions),
         "visual_stale_selection_gate_count": len(stale_interventions),
-        "promotion_decision": "h2j_passes_h2k_target_decoy_overlap_requires_helper_ablation",
+        "h2j_no_stale_target_query_normalization_count": len(no_stale_target_interventions),
+        "h2j_no_stale_visual_stale_selection_gate_count": len(no_stale_stale_interventions),
+        "promotion_decision": "h2k_supports_target_query_normalization_not_stale_selection_gate",
     }
     payload = {
         "manifest": manifest,
@@ -190,7 +232,10 @@ def _non_exact_rows(specs: tuple[PacketSpec, ...]) -> list[dict[str, Any]]:
 def _h2j_intervention_rows(specs: tuple[PacketSpec, ...]) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for spec in specs:
-        if spec.profile_label != "h2j_target_query_normalization":
+        if spec.profile_label not in {
+            "h2j_target_query_normalization",
+            "h2j_target_query_normalization_no_stale_gate",
+        }:
             continue
         for result in _read_json(spec.packet_dir / "live_replay_results.json"):
             probe = _read_json(Path(result["output_dir"]) / "probe_results.json")[0]
@@ -206,6 +251,7 @@ def _h2j_intervention_rows(specs: tuple[PacketSpec, ...]) -> list[dict[str, Any]
                         continue
                     rows.append(
                         {
+                            "profile_label": spec.profile_label,
                             "case_id": result["case_id"],
                             "family": result.get("family", ""),
                             "intervention_kind": kind,
@@ -241,39 +287,69 @@ def _finding_rows(
 ) -> list[dict[str, str]]:
     h2e = _packet_by_profile(packet_rows, "h2e_route_arbitration")
     h2h = _packet_by_profile(packet_rows, "h2h_component_identity_negative_examples")
+    h2j_no_stale = _packet_by_profile(packet_rows, "h2j_target_query_normalization_no_stale_gate")
     h2j = _packet_by_profile(packet_rows, "h2j_target_query_normalization")
     h2j_vs_h2e = _comparison_by_label(comparison_rows, "h2j_vs_h2e")
     h2j_vs_h2h = _comparison_by_label(comparison_rows, "h2j_vs_h2h")
+    h2j_vs_no_stale = _comparison_by_label(comparison_rows, "h2j_vs_no_stale_gate")
     h2j_non_exact = [row for row in non_exact_rows if row["profile_label"] == "h2j_target_query_normalization"]
-    target_count = sum(1 for row in intervention_rows if row["intervention_kind"] == "visual_target_query_normalization")
-    stale_count = sum(1 for row in intervention_rows if row["intervention_kind"] == "visual_stale_selection_gate")
+    full_target_count = sum(
+        1
+        for row in intervention_rows
+        if row["profile_label"] == "h2j_target_query_normalization"
+        and row["intervention_kind"] == "visual_target_query_normalization"
+    )
+    full_stale_count = sum(
+        1
+        for row in intervention_rows
+        if row["profile_label"] == "h2j_target_query_normalization"
+        and row["intervention_kind"] == "visual_stale_selection_gate"
+    )
+    no_stale_target_count = sum(
+        1
+        for row in intervention_rows
+        if row["profile_label"] == "h2j_target_query_normalization_no_stale_gate"
+        and row["intervention_kind"] == "visual_target_query_normalization"
+    )
+    no_stale_stale_count = sum(
+        1
+        for row in intervention_rows
+        if row["profile_label"] == "h2j_target_query_normalization_no_stale_gate"
+        and row["intervention_kind"] == "visual_stale_selection_gate"
+    )
     return [
         {
             "finding_id": "h2k_is_discriminative",
             "finding": (
                 f"H2k separates H2j from the prior candidates: H2e reaches {h2e['exact_success_count']}/8 exact, "
-                f"H2h reaches {h2h['exact_success_count']}/8, and H2j reaches {h2j['exact_success_count']}/8."
+                f"H2h reaches {h2h['exact_success_count']}/8, H2j without stale-selection reaches "
+                f"{h2j_no_stale['exact_success_count']}/8, and full H2j reaches {h2j['exact_success_count']}/8."
             ),
         },
         {
             "finding_id": "h2j_passes_target_decoy_overlap",
             "finding": (
                 f"H2j improves over H2e by {h2j_vs_h2e['delta_exact_rate']} exact-rate and over H2h by "
-                f"{h2j_vs_h2h['delta_exact_rate']} on H2k, with {len(h2j_non_exact)} H2j non-exact rows."
+                f"{h2j_vs_h2h['delta_exact_rate']} on H2k, ties the no-stale ablation with "
+                f"{h2j_vs_no_stale['delta_exact_rate']} exact-rate delta, and has {len(h2j_non_exact)} "
+                "H2j non-exact rows."
             ),
         },
         {
             "finding_id": "h2j_mechanism_is_target_normalization",
             "finding": (
-                f"H2j records {target_count} target-query-normalization interventions and {stale_count} stale-selection "
-                "interventions on H2k, so this holdout isolates the target-normalizer mechanism rather than stale rescue."
+                f"Full H2j records {full_target_count} target-query-normalization interventions and "
+                f"{full_stale_count} stale-selection interventions on H2k; the stale-gate-off ablation records "
+                f"{no_stale_target_count} target-query-normalization interventions and {no_stale_stale_count} "
+                "stale-selection interventions, so this holdout isolates target normalization rather than stale rescue."
             ),
         },
         {
-            "finding_id": "next_ablation_required",
+            "finding_id": "next_transfer_required",
             "finding": (
-                "The next step is not another prompt-profile candidate. Run H2j without target-query normalization and "
-                "H2j without stale-selection rescue on H2k to quantify the exact controller contribution."
+                "The next step is not another prompt-profile candidate. Treat H2e as the no-target-normalizer ablation "
+                "on H2k, preserve the stale-selection gate globally for stale-origin packets, and build the next "
+                "fresh holdout around target-query normalization overreach rather than stale rescue."
             ),
         },
     ]
@@ -292,7 +368,8 @@ def _markdown(payload: dict[str, Any]) -> str:
             "H2k is a post-H2j holdout that stresses prompts where the true visual target and a decoy share role, "
             "component class, displayed value, or code-label structure. H2j passes the packet at 8/8 while H2e and "
             "H2h remain below it, which supports the target-query normalization mechanism on a fresh overlap gate. "
-            "The next claim requires helper ablation, not another prompt-only profile."
+            "The matched stale-gate-off ablation also passes at 8/8, while H2e remains the no-target-normalizer "
+            "control at 3/8 strict exactness, so the current H2k mechanism is target normalization rather than stale rescue."
         ),
         "",
         "![H2k target/decoy overlap gate](figures/h2k_target_decoy_overlap_gate.svg)",
@@ -325,27 +402,28 @@ def _write_svg(path: Path, packet_rows: list[dict[str, Any]]) -> None:
     profiles = [
         ("h2e_route_arbitration", "H2e", "#0891B2"),
         ("h2h_component_identity_negative_examples", "H2h", "#155E75"),
+        ("h2j_target_query_normalization_no_stale_gate", "H2j-no-stale", "#2563EB"),
         ("h2j_target_query_normalization", "H2j", "#1D4ED8"),
     ]
     by_profile = {row["profile_label"]: row for row in packet_rows}
-    width = 680
+    width = 780
     height = 340
     chart_left = 96
     chart_top = 58
     chart_height = 200
     bar_width = 82
-    gap = 54
+    gap = 38
     lines = [
-        '<svg xmlns="http://www.w3.org/2000/svg" width="680" height="340" viewBox="0 0 680 340" role="img" aria-labelledby="title desc">',
+        '<svg xmlns="http://www.w3.org/2000/svg" width="780" height="340" viewBox="0 0 780 340" role="img" aria-labelledby="title desc">',
         '<title id="title">H2k target/decoy overlap gate</title>',
-        '<desc id="desc">H2j passes H2k while H2e and H2h remain lower.</desc>',
-        '<rect width="680" height="340" fill="#FFFFFF"/>',
+        '<desc id="desc">H2j and H2j without stale-selection gate pass H2k while H2e and H2h remain lower.</desc>',
+        '<rect width="780" height="340" fill="#FFFFFF"/>',
         '<text x="32" y="34" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#111827">H2k separates target normalization from prompt repair</text>',
-        '<line x1="96" y1="258" x2="560" y2="258" stroke="#111827" stroke-width="1"/>',
+        '<line x1="96" y1="258" x2="660" y2="258" stroke="#111827" stroke-width="1"/>',
     ]
     for tick in range(0, 6):
         y = chart_top + chart_height - tick * (chart_height / 5)
-        lines.append(f'<line x1="90" y1="{y:.1f}" x2="560" y2="{y:.1f}" stroke="#E5E7EB" stroke-width="1"/>')
+        lines.append(f'<line x1="90" y1="{y:.1f}" x2="660" y2="{y:.1f}" stroke="#E5E7EB" stroke-width="1"/>')
         lines.append(
             f'<text x="42" y="{y + 4:.1f}" font-family="Arial, sans-serif" font-size="11" fill="#6B7280">{tick / 5:.1f}</text>'
         )
@@ -360,7 +438,7 @@ def _write_svg(path: Path, packet_rows: list[dict[str, Any]]) -> None:
             f'<text x="{x + 14}" y="{y - 8:.1f}" font-family="Arial, sans-serif" font-size="13" fill="#111827">{int(row["exact_success_count"])}/{int(row["case_count"])}</text>'
         )
         lines.append(
-            f'<text x="{x + 21}" y="286" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">{label}</text>'
+            f'<text x="{x + 6}" y="286" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">{label}</text>'
         )
     lines.append("</svg>")
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")

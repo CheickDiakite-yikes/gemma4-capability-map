@@ -1,25 +1,32 @@
 {
   "manifest": {
-    "generated_at": "2026-05-12T18:42:09.373093+00:00",
+    "generated_at": "2026-05-12T19:02:06.416700+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h2k_target_decoy_overlap_synthesis",
-    "packet_row_count": 3,
-    "comparison_count": 2,
+    "packet_row_count": 4,
+    "comparison_count": 3,
     "h2e_exact_success_count": 3,
     "h2e_executor_success_count": 6,
     "h2h_exact_success_count": 6,
     "h2h_executor_success_count": 6,
+    "h2j_no_stale_exact_success_count": 8,
+    "h2j_no_stale_executor_success_count": 8,
     "h2j_exact_success_count": 8,
     "h2j_executor_success_count": 8,
     "h2j_delta_exact_vs_h2e": 0.625,
     "h2j_delta_executor_vs_h2e": 0.25,
     "h2j_delta_exact_vs_h2h": 0.25,
     "h2j_delta_executor_vs_h2h": 0.25,
+    "h2j_delta_exact_vs_no_stale_gate": 0.0,
+    "h2j_delta_executor_vs_no_stale_gate": 0.0,
     "h2e_non_exact_count": 5,
     "h2h_non_exact_count": 2,
+    "h2j_no_stale_non_exact_count": 0,
     "h2j_non_exact_count": 0,
     "target_query_normalization_count": 5,
     "visual_stale_selection_gate_count": 0,
-    "promotion_decision": "h2j_passes_h2k_target_decoy_overlap_requires_helper_ablation"
+    "h2j_no_stale_target_query_normalization_count": 5,
+    "h2j_no_stale_visual_stale_selection_gate_count": 0,
+    "promotion_decision": "h2k_supports_target_query_normalization_not_stale_selection_gate"
   },
   "packet_rows": [
     {
@@ -41,6 +48,16 @@
       "exact_rate": 0.75,
       "executor_success_count": 6,
       "executor_rate": 0.75
+    },
+    {
+      "profile_label": "h2j_target_query_normalization_no_stale_gate",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_target_query_normalization_no_stale_selection_gate",
+      "packet_dir": "results/tool_probe_replay_live/20260512T_h2k_target_decoy_overlap_h2j_no_stale_gate_execute_v1",
+      "case_count": 8,
+      "exact_success_count": 8,
+      "exact_rate": 1.0,
+      "executor_success_count": 8,
+      "executor_rate": 1.0
     },
     {
       "profile_label": "h2j_target_query_normalization",
@@ -75,6 +92,17 @@
       "baseline_executor_equivalence_rate": 0.75,
       "candidate_executor_equivalence_rate": 1.0,
       "delta_executor_equivalence_rate": 0.25
+    },
+    {
+      "comparison_label": "h2j_vs_no_stale_gate",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260512T_h2k_target_decoy_overlap_h2j_vs_no_stale_gate_v1",
+      "shared_case_count": 8,
+      "baseline_exact_rate": 1.0,
+      "candidate_exact_rate": 1.0,
+      "delta_exact_rate": 0.0,
+      "baseline_executor_equivalence_rate": 1.0,
+      "candidate_executor_equivalence_rate": 1.0,
+      "delta_executor_equivalence_rate": 0.0
     }
   ],
   "non_exact_rows": [
@@ -158,6 +186,7 @@
   ],
   "intervention_rows": [
     {
+      "profile_label": "h2j_target_query_normalization_no_stale_gate",
       "case_id": "h2k_mode_toggle_negated_consent_toggle_decoy",
       "family": "h2k_negated_same_component_decoy",
       "intervention_kind": "visual_target_query_normalization",
@@ -168,6 +197,7 @@
       "prompt_state_label": "mode toggle"
     },
     {
+      "profile_label": "h2j_target_query_normalization_no_stale_gate",
       "case_id": "h2k_result_badge_negated_result_tile_decoy",
       "family": "h2k_negated_same_component_decoy",
       "intervention_kind": "visual_target_query_normalization",
@@ -178,6 +208,7 @@
       "prompt_state_label": "result badge"
     },
     {
+      "profile_label": "h2j_target_query_normalization_no_stale_gate",
       "case_id": "h2k_error_banner_archived_error_notice_decoy",
       "family": "h2k_transfer_regression_guard",
       "intervention_kind": "visual_target_query_normalization",
@@ -188,6 +219,7 @@
       "prompt_state_label": "error banner"
     },
     {
+      "profile_label": "h2j_target_query_normalization_no_stale_gate",
       "case_id": "h2k_state_tag_before_reading_state_marker_decoy",
       "family": "h2k_before_reading_decoy",
       "intervention_kind": "visual_target_query_normalization",
@@ -198,6 +230,62 @@
       "prompt_state_label": "state tag"
     },
     {
+      "profile_label": "h2j_target_query_normalization_no_stale_gate",
+      "case_id": "h2k_mode_field_before_reading_mode_switch_decoy",
+      "family": "h2k_before_reading_decoy",
+      "intervention_kind": "visual_target_query_normalization",
+      "from_tool": "extract_layout",
+      "from_arguments": "{\"image_id\":\"img-h2k-mode-field\",\"target_query\":\"mode toggle\"}",
+      "to_tool": "extract_layout",
+      "to_arguments": "{\"image_id\":\"img-h2k-mode-field\",\"target_query\":\"mode field\"}",
+      "prompt_state_label": "mode field"
+    },
+    {
+      "profile_label": "h2j_target_query_normalization",
+      "case_id": "h2k_mode_toggle_negated_consent_toggle_decoy",
+      "family": "h2k_negated_same_component_decoy",
+      "intervention_kind": "visual_target_query_normalization",
+      "from_tool": "extract_layout",
+      "from_arguments": "{\"image_id\":\"img-h2k-mode-toggle\",\"target_query\":\"mode toggle Manual\"}",
+      "to_tool": "extract_layout",
+      "to_arguments": "{\"image_id\":\"img-h2k-mode-toggle\",\"target_query\":\"mode toggle\"}",
+      "prompt_state_label": "mode toggle"
+    },
+    {
+      "profile_label": "h2j_target_query_normalization",
+      "case_id": "h2k_result_badge_negated_result_tile_decoy",
+      "family": "h2k_negated_same_component_decoy",
+      "intervention_kind": "visual_target_query_normalization",
+      "from_tool": "extract_layout",
+      "from_arguments": "{\"image_id\":\"img-h2k-result-badge\",\"target_query\":\"result badge Blocked\"}",
+      "to_tool": "extract_layout",
+      "to_arguments": "{\"image_id\":\"img-h2k-result-badge\",\"target_query\":\"result badge\"}",
+      "prompt_state_label": "result badge"
+    },
+    {
+      "profile_label": "h2j_target_query_normalization",
+      "case_id": "h2k_error_banner_archived_error_notice_decoy",
+      "family": "h2k_transfer_regression_guard",
+      "intervention_kind": "visual_target_query_normalization",
+      "from_tool": "extract_layout",
+      "from_arguments": "{\"image_id\":\"img-h2k-error-banner\",\"target_query\":\"error notice\"}",
+      "to_tool": "extract_layout",
+      "to_arguments": "{\"image_id\":\"img-h2k-error-banner\",\"target_query\":\"error banner\"}",
+      "prompt_state_label": "error banner"
+    },
+    {
+      "profile_label": "h2j_target_query_normalization",
+      "case_id": "h2k_state_tag_before_reading_state_marker_decoy",
+      "family": "h2k_before_reading_decoy",
+      "intervention_kind": "visual_target_query_normalization",
+      "from_tool": "extract_layout",
+      "from_arguments": "{\"image_id\":\"img-h2k-state-tag\",\"target_query\":\"state tag Closed\"}",
+      "to_tool": "extract_layout",
+      "to_arguments": "{\"image_id\":\"img-h2k-state-tag\",\"target_query\":\"state tag\"}",
+      "prompt_state_label": "state tag"
+    },
+    {
+      "profile_label": "h2j_target_query_normalization",
       "case_id": "h2k_mode_field_before_reading_mode_switch_decoy",
       "family": "h2k_before_reading_decoy",
       "intervention_kind": "visual_target_query_normalization",
@@ -211,19 +299,19 @@
   "finding_rows": [
     {
       "finding_id": "h2k_is_discriminative",
-      "finding": "H2k separates H2j from the prior candidates: H2e reaches 3/8 exact, H2h reaches 6/8, and H2j reaches 8/8."
+      "finding": "H2k separates H2j from the prior candidates: H2e reaches 3/8 exact, H2h reaches 6/8, H2j without stale-selection reaches 8/8, and full H2j reaches 8/8."
     },
     {
       "finding_id": "h2j_passes_target_decoy_overlap",
-      "finding": "H2j improves over H2e by 0.625 exact-rate and over H2h by 0.25 on H2k, with 0 H2j non-exact rows."
+      "finding": "H2j improves over H2e by 0.625 exact-rate and over H2h by 0.25 on H2k, ties the no-stale ablation with 0.0 exact-rate delta, and has 0 H2j non-exact rows."
     },
     {
       "finding_id": "h2j_mechanism_is_target_normalization",
-      "finding": "H2j records 5 target-query-normalization interventions and 0 stale-selection interventions on H2k, so this holdout isolates the target-normalizer mechanism rather than stale rescue."
+      "finding": "Full H2j records 5 target-query-normalization interventions and 0 stale-selection interventions on H2k; the stale-gate-off ablation records 5 target-query-normalization interventions and 0 stale-selection interventions, so this holdout isolates target normalization rather than stale rescue."
     },
     {
-      "finding_id": "next_ablation_required",
-      "finding": "The next step is not another prompt-profile candidate. Run H2j without target-query normalization and H2j without stale-selection rescue on H2k to quantify the exact controller contribution."
+      "finding_id": "next_transfer_required",
+      "finding": "The next step is not another prompt-profile candidate. Treat H2e as the no-target-normalizer ablation on H2k, preserve the stale-selection gate globally for stale-origin packets, and build the next fresh holdout around target-query normalization overreach rather than stale rescue."
     }
   ]
 }

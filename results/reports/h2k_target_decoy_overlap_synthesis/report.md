@@ -1,10 +1,10 @@
 # H2k Target/Decoy Overlap Synthesis
 
-Generated: `2026-05-12T18:42:09.373093+00:00`
+Generated: `2026-05-12T19:02:06.416700+00:00`
 
 ## Summary
 
-H2k is a post-H2j holdout that stresses prompts where the true visual target and a decoy share role, component class, displayed value, or code-label structure. H2j passes the packet at 8/8 while H2e and H2h remain below it, which supports the target-query normalization mechanism on a fresh overlap gate. The next claim requires helper ablation, not another prompt-only profile.
+H2k is a post-H2j holdout that stresses prompts where the true visual target and a decoy share role, component class, displayed value, or code-label structure. H2j passes the packet at 8/8 while H2e and H2h remain below it, which supports the target-query normalization mechanism on a fresh overlap gate. The matched stale-gate-off ablation also passes at 8/8, while H2e remains the no-target-normalizer control at 3/8 strict exactness, so the current H2k mechanism is target normalization rather than stale rescue.
 
 ![H2k target/decoy overlap gate](figures/h2k_target_decoy_overlap_gate.svg)
 
@@ -14,6 +14,7 @@ H2k is a post-H2j holdout that stresses prompts where the true visual target and
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | h2e_route_arbitration | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate | results/tool_probe_replay_live/20260512T_h2k_target_decoy_overlap_h2e_execute_v1 | 8 | 3 | 0.375 | 6 | 0.75 |
 | h2h_component_identity_negative_examples | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_component_identity_negative_examples_visual_stale_selection_gate | results/tool_probe_replay_live/20260512T_h2k_target_decoy_overlap_h2h_execute_v1 | 8 | 6 | 0.75 | 6 | 0.75 |
+| h2j_target_query_normalization_no_stale_gate | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_target_query_normalization_no_stale_selection_gate | results/tool_probe_replay_live/20260512T_h2k_target_decoy_overlap_h2j_no_stale_gate_execute_v1 | 8 | 8 | 1.0 | 8 | 1.0 |
 | h2j_target_query_normalization | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_target_query_normalization | results/tool_probe_replay_live/20260512T_h2k_target_decoy_overlap_h2j_execute_v1 | 8 | 8 | 1.0 | 8 | 1.0 |
 
 ## Comparison Rows
@@ -22,6 +23,7 @@ H2k is a post-H2j holdout that stresses prompts where the true visual target and
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | h2j_vs_h2e | results/tool_probe_replay_live_comparisons/20260512T_h2k_target_decoy_overlap_h2j_vs_h2e_v1 | 8 | 0.375 | 1.0 | 0.625 | 0.75 | 1.0 | 0.25 |
 | h2j_vs_h2h | results/tool_probe_replay_live_comparisons/20260512T_h2k_target_decoy_overlap_h2j_vs_h2h_v1 | 8 | 0.75 | 1.0 | 0.25 | 0.75 | 1.0 | 0.25 |
+| h2j_vs_no_stale_gate | results/tool_probe_replay_live_comparisons/20260512T_h2k_target_decoy_overlap_h2j_vs_no_stale_gate_v1 | 8 | 1.0 | 1.0 | 0.0 | 1.0 | 1.0 | 0.0 |
 
 ## Non-Exact Rows
 
@@ -37,19 +39,24 @@ H2k is a post-H2j holdout that stresses prompts where the true visual target and
 
 ## H2j Controller Intervention Rows
 
-| case_id | family | intervention_kind | from_tool | from_arguments | to_tool | to_arguments | prompt_state_label |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| h2k_mode_toggle_negated_consent_toggle_decoy | h2k_negated_same_component_decoy | visual_target_query_normalization | extract_layout | {"image_id":"img-h2k-mode-toggle","target_query":"mode toggle Manual"} | extract_layout | {"image_id":"img-h2k-mode-toggle","target_query":"mode toggle"} | mode toggle |
-| h2k_result_badge_negated_result_tile_decoy | h2k_negated_same_component_decoy | visual_target_query_normalization | extract_layout | {"image_id":"img-h2k-result-badge","target_query":"result badge Blocked"} | extract_layout | {"image_id":"img-h2k-result-badge","target_query":"result badge"} | result badge |
-| h2k_error_banner_archived_error_notice_decoy | h2k_transfer_regression_guard | visual_target_query_normalization | extract_layout | {"image_id":"img-h2k-error-banner","target_query":"error notice"} | extract_layout | {"image_id":"img-h2k-error-banner","target_query":"error banner"} | error banner |
-| h2k_state_tag_before_reading_state_marker_decoy | h2k_before_reading_decoy | visual_target_query_normalization | extract_layout | {"image_id":"img-h2k-state-tag","target_query":"state tag Closed"} | extract_layout | {"image_id":"img-h2k-state-tag","target_query":"state tag"} | state tag |
-| h2k_mode_field_before_reading_mode_switch_decoy | h2k_before_reading_decoy | visual_target_query_normalization | extract_layout | {"image_id":"img-h2k-mode-field","target_query":"mode toggle"} | extract_layout | {"image_id":"img-h2k-mode-field","target_query":"mode field"} | mode field |
+| profile_label | case_id | family | intervention_kind | from_tool | from_arguments | to_tool | to_arguments | prompt_state_label |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| h2j_target_query_normalization_no_stale_gate | h2k_mode_toggle_negated_consent_toggle_decoy | h2k_negated_same_component_decoy | visual_target_query_normalization | extract_layout | {"image_id":"img-h2k-mode-toggle","target_query":"mode toggle Manual"} | extract_layout | {"image_id":"img-h2k-mode-toggle","target_query":"mode toggle"} | mode toggle |
+| h2j_target_query_normalization_no_stale_gate | h2k_result_badge_negated_result_tile_decoy | h2k_negated_same_component_decoy | visual_target_query_normalization | extract_layout | {"image_id":"img-h2k-result-badge","target_query":"result badge Blocked"} | extract_layout | {"image_id":"img-h2k-result-badge","target_query":"result badge"} | result badge |
+| h2j_target_query_normalization_no_stale_gate | h2k_error_banner_archived_error_notice_decoy | h2k_transfer_regression_guard | visual_target_query_normalization | extract_layout | {"image_id":"img-h2k-error-banner","target_query":"error notice"} | extract_layout | {"image_id":"img-h2k-error-banner","target_query":"error banner"} | error banner |
+| h2j_target_query_normalization_no_stale_gate | h2k_state_tag_before_reading_state_marker_decoy | h2k_before_reading_decoy | visual_target_query_normalization | extract_layout | {"image_id":"img-h2k-state-tag","target_query":"state tag Closed"} | extract_layout | {"image_id":"img-h2k-state-tag","target_query":"state tag"} | state tag |
+| h2j_target_query_normalization_no_stale_gate | h2k_mode_field_before_reading_mode_switch_decoy | h2k_before_reading_decoy | visual_target_query_normalization | extract_layout | {"image_id":"img-h2k-mode-field","target_query":"mode toggle"} | extract_layout | {"image_id":"img-h2k-mode-field","target_query":"mode field"} | mode field |
+| h2j_target_query_normalization | h2k_mode_toggle_negated_consent_toggle_decoy | h2k_negated_same_component_decoy | visual_target_query_normalization | extract_layout | {"image_id":"img-h2k-mode-toggle","target_query":"mode toggle Manual"} | extract_layout | {"image_id":"img-h2k-mode-toggle","target_query":"mode toggle"} | mode toggle |
+| h2j_target_query_normalization | h2k_result_badge_negated_result_tile_decoy | h2k_negated_same_component_decoy | visual_target_query_normalization | extract_layout | {"image_id":"img-h2k-result-badge","target_query":"result badge Blocked"} | extract_layout | {"image_id":"img-h2k-result-badge","target_query":"result badge"} | result badge |
+| h2j_target_query_normalization | h2k_error_banner_archived_error_notice_decoy | h2k_transfer_regression_guard | visual_target_query_normalization | extract_layout | {"image_id":"img-h2k-error-banner","target_query":"error notice"} | extract_layout | {"image_id":"img-h2k-error-banner","target_query":"error banner"} | error banner |
+| h2j_target_query_normalization | h2k_state_tag_before_reading_state_marker_decoy | h2k_before_reading_decoy | visual_target_query_normalization | extract_layout | {"image_id":"img-h2k-state-tag","target_query":"state tag Closed"} | extract_layout | {"image_id":"img-h2k-state-tag","target_query":"state tag"} | state tag |
+| h2j_target_query_normalization | h2k_mode_field_before_reading_mode_switch_decoy | h2k_before_reading_decoy | visual_target_query_normalization | extract_layout | {"image_id":"img-h2k-mode-field","target_query":"mode toggle"} | extract_layout | {"image_id":"img-h2k-mode-field","target_query":"mode field"} | mode field |
 
 ## Findings
 
 | finding_id | finding |
 | --- | --- |
-| h2k_is_discriminative | H2k separates H2j from the prior candidates: H2e reaches 3/8 exact, H2h reaches 6/8, and H2j reaches 8/8. |
-| h2j_passes_target_decoy_overlap | H2j improves over H2e by 0.625 exact-rate and over H2h by 0.25 on H2k, with 0 H2j non-exact rows. |
-| h2j_mechanism_is_target_normalization | H2j records 5 target-query-normalization interventions and 0 stale-selection interventions on H2k, so this holdout isolates the target-normalizer mechanism rather than stale rescue. |
-| next_ablation_required | The next step is not another prompt-profile candidate. Run H2j without target-query normalization and H2j without stale-selection rescue on H2k to quantify the exact controller contribution. |
+| h2k_is_discriminative | H2k separates H2j from the prior candidates: H2e reaches 3/8 exact, H2h reaches 6/8, H2j without stale-selection reaches 8/8, and full H2j reaches 8/8. |
+| h2j_passes_target_decoy_overlap | H2j improves over H2e by 0.625 exact-rate and over H2h by 0.25 on H2k, ties the no-stale ablation with 0.0 exact-rate delta, and has 0 H2j non-exact rows. |
+| h2j_mechanism_is_target_normalization | Full H2j records 5 target-query-normalization interventions and 0 stale-selection interventions on H2k; the stale-gate-off ablation records 5 target-query-normalization interventions and 0 stale-selection interventions, so this holdout isolates target normalization rather than stale rescue. |
+| next_transfer_required | The next step is not another prompt-profile candidate. Treat H2e as the no-target-normalizer ablation on H2k, preserve the stale-selection gate globally for stale-origin packets, and build the next fresh holdout around target-query normalization overreach rather than stale rescue. |

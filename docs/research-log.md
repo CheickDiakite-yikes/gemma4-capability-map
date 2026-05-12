@@ -2,6 +2,35 @@
 
 # Research Log
 
+## 2026-05-12 - H2k Matched Stale-Gate Ablation Supports Target Normalization
+
+- Added and executed the matched H2j-without-stale-selection-gate registry row:
+  - system: `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_target_query_normalization_no_stale_selection_gate`
+  - live packet: [`results/tool_probe_replay_live/20260512T_h2k_target_decoy_overlap_h2j_no_stale_gate_execute_v1`](../results/tool_probe_replay_live/20260512T_h2k_target_decoy_overlap_h2j_no_stale_gate_execute_v1)
+  - comparison against full H2j: [`results/tool_probe_replay_live_comparisons/20260512T_h2k_target_decoy_overlap_h2j_vs_no_stale_gate_v1`](../results/tool_probe_replay_live_comparisons/20260512T_h2k_target_decoy_overlap_h2j_vs_no_stale_gate_v1)
+- Result:
+  - H2j without stale-selection gate: `8 / 8` strict and `8 / 8` executor-equivalent
+  - full H2j versus no-stale ablation: `0.0` strict exact-rate delta and `0.0` executor-equivalence-rate delta
+  - no-stale ablation metadata: `5` target-query-normalization interventions and `0` stale-selection interventions
+- Mechanism read:
+  - H2e-on-H2k remains the no-target-normalizer control at `3 / 8` strict and `6 / 8` executor-equivalent
+  - H2j-no-stale ties full H2j at `8 / 8`
+  - therefore H2k supports target-query normalization as the active mechanism and rejects stale-selection rescue as the explanation for this slice
+- Reporting updates:
+  - H2k synthesis now includes `4` packet rows and `3` comparisons
+  - H2k figure now includes H2e, H2h, H2j-no-stale, and full H2j
+  - publication evidence ledger keeps `49` claims, now with `274` sources and `0` missing
+  - claim `C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization` is upgraded to `supported_current_packets_helper_ablation_passed`
+- Research decision:
+  - keep the stale-selection gate globally, because H2a/H2j still need it on stale-origin packets
+  - do not write another prompt-profile candidate yet
+  - build H2l around target-normalization overreach, where the correct target is sometimes the displayed value, alias, or longer label that H2j might strip away
+- Verification:
+  - `uv run pytest tests/test_knowledge_work_h1.py::test_h2k_target_query_normalization_without_stale_gate_registry_row_preserves_ablation_flags -q`
+  - `uv run moonie-agent replay-live --packet-dir results/tool_probe_replay_packets/20260512T_h2k_target_decoy_overlap_dry_run_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_target_query_normalization_no_stale_selection_gate --output-dir results/tool_probe_replay_live/20260512T_h2k_target_decoy_overlap_h2j_no_stale_gate_execute_v1 --execute --json`
+  - `uv run python scripts/compare_tool_probe_replay_live_packets.py results/tool_probe_replay_live/20260512T_h2k_target_decoy_overlap_h2j_no_stale_gate_execute_v1 results/tool_probe_replay_live/20260512T_h2k_target_decoy_overlap_h2j_execute_v1 --output-dir results/tool_probe_replay_live_comparisons/20260512T_h2k_target_decoy_overlap_h2j_vs_no_stale_gate_v1`
+  - `uv run pytest tests/test_h2k_target_decoy_overlap_synthesis.py tests/test_publication_evidence_ledger.py -q`
+
 ## 2026-05-12 - H2k Target/Decoy Overlap Gate Separates H2j
 
 - Executed the H2k target/decoy-overlap holdout across the three relevant profiles:

@@ -84,7 +84,7 @@ Latest research restart point:
 - H2i conditional prompt prose is negative: it ties H2e at `6 / 10` on H2f
 - H2j controller-visible target-query normalization is the current best structural result: `10 / 10` on H2f, `5 / 5` on H2b, and `8 / 8` on H1x
 - H2k is now the first post-H2j target/decoy-overlap holdout: H2j reaches `8 / 8`, H2h reaches `6 / 8`, and H2e reaches `3 / 8` strict exactness
-- H2k records `5` H2j target-query-normalization interventions and `0` stale-selection interventions, making the next move a direct helper ablation rather than another prompt profile
+- H2k records `5` H2j target-query-normalization interventions and `0` stale-selection interventions; the matched H2j-without-stale-selection ablation also reaches `8 / 8`, so H2k is target-normalization evidence rather than stale-rescue evidence
 
 The current source-of-truth comparison surface is the aligned exploratory `32 / 26` matrix:
 
@@ -236,7 +236,7 @@ The active next experiment is now a CLI/research-harness packet, not a UI task:
 - the H1l visual executor-equivalence packaged-workflow packet is [`results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet`](results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet), with config in [`configs/knowledge_work_h1l_slice.yaml`](configs/knowledge_work_h1l_slice.yaml)
 - the paper-facing evidence ledger is [`results/reports/publication_evidence_ledger/ledger.md`](results/reports/publication_evidence_ledger/ledger.md)
 - the publication readiness audit is [`results/reports/publication_readiness_audit/publication_readiness_audit.md`](results/reports/publication_readiness_audit/publication_readiness_audit.md)
-- current reporting snapshot: MLX report `110` tables / `45` figures; H2j transfer synthesis `9` packet rows / `7` comparisons; H2k synthesis `3` packet rows / `2` comparisons; evidence ledger `49` claims / `272` sources / `0` missing; readiness audit `paper_draft_ready` with `0` blocking failures
+- current reporting snapshot: MLX report `110` tables / `45` figures; H2j transfer synthesis `9` packet rows / `7` comparisons; H2k synthesis `4` packet rows / `3` comparisons; evidence ledger `49` claims / `274` sources / `0` missing; readiness audit `paper_draft_ready` with `0` blocking failures
 - the visual catalog + literal guard v6 packet is [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe`](results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe)
 - prompt-contract promotion decisions are generated at [`results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_promotion_decisions.csv`](results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_promotion_decisions.csv)
 - the exact-probe replay packet is [`results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1`](results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1)

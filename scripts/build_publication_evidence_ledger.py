@@ -2351,21 +2351,23 @@ CLAIMS: tuple[Claim, ...] = (
             "normalization mechanism, separating it from both H2e route arbitration and H2h prompt-side negative "
             "examples on adversarial label-overlap cases."
         ),
-        status="supported_current_packets_needs_helper_ablation",
+        status="supported_current_packets_helper_ablation_passed",
         evidence_strength="strong_internal",
         primary_metric=(
             "On H2k, H2j reaches 8/8 strict and executor-equivalent, H2h reaches 6/8 strict and executor-equivalent, "
             "and H2e reaches 3/8 strict with 6/8 executor-equivalent. H2j improves exact-rate by +0.625 versus H2e "
-            "and +0.25 versus H2h, with 5 target-query-normalization interventions and 0 stale-selection interventions."
+            "and +0.25 versus H2h, with 5 target-query-normalization interventions and 0 stale-selection interventions. "
+            "The matched H2j-without-stale-selection ablation also reaches 8/8, with 0.0 exact and executor-equivalence "
+            "deltas versus full H2j."
         ),
         limitation=(
             "H2k v1 is an 8-case replay-shaped holdout designed around target/decoy overlap, not a packaged workflow "
-            "population. The helper mechanism still needs a direct ablation that disables target-query normalization "
-            "while preserving the rest of H2j."
+            "population. H2e is the no-target-normalizer control on this slice, so the remaining limitation is broader "
+            "transfer and over-normalization pressure, not stale-selection causality on H2k."
         ),
         next_test=(
-            "Run H2j on H2k with target-query normalization disabled, then run the matched stale-selection-gate ablation "
-            "to verify that the observed H2k gain is caused by the target normalizer rather than another controller path."
+            "Build the next fresh holdout around target-query-normalization overreach and then backtest the no-stale "
+            "ablation on H2f/H2b/H1x only if considering removing the stale-selection gate globally."
         ),
         sources=(
             EvidenceSource(
@@ -2390,6 +2392,11 @@ CLAIMS: tuple[Claim, ...] = (
             ),
             EvidenceSource(
                 "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2k_target_decoy_overlap_h2j_no_stale_gate_execute_v1",
+                "Matched stale-selection-gate-off H2j ablation reaching 8/8 strict and executor-equivalent on H2k.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
                 "results/tool_probe_replay_live/20260512T_h2k_target_decoy_overlap_h2e_execute_v1",
                 "H2e live execution reaching 3/8 strict and 6/8 executor-equivalent on H2k.",
             ),
@@ -2407,6 +2414,11 @@ CLAIMS: tuple[Claim, ...] = (
                 "live_replay_comparison",
                 "results/tool_probe_replay_live_comparisons/20260512T_h2k_target_decoy_overlap_h2j_vs_h2h_v1",
                 "Direct H2j-vs-H2h comparison showing +0.25 exact-rate and executor-equivalence-rate gains.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2k_target_decoy_overlap_h2j_vs_no_stale_gate_v1",
+                "Matched full-H2j-vs-no-stale-gate comparison showing zero exact and executor-equivalence deltas.",
             ),
         ),
     ),

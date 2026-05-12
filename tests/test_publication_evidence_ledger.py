@@ -135,7 +135,7 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     ] == "supported_current_packets_next_harder_holdout"
     assert claims["C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization"][
         "status"
-    ] == "supported_current_packets_needs_helper_ablation"
+    ] == "supported_current_packets_helper_ablation_passed"
     assert "7/8" in claims["C2_final_tool_directive_causal_for_protocol"]["primary_metric"]
     assert "v3 raw exact falls" in claims["C6_split_selector_wording_is_negative_evidence"]["primary_metric"]
     assert "schema-field hints reach 6/8 strict and 8/8 executor-equivalent" in claims[
@@ -391,10 +391,13 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert "5 target-query-normalization interventions and 0 stale-selection" in claims[
         "C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization"
     ]["primary_metric"]
-    assert "direct ablation that disables target-query normalization" in claims[
+    assert "matched H2j-without-stale-selection ablation also reaches 8/8" in claims[
+        "C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization"
+    ]["primary_metric"]
+    assert "remaining limitation is broader transfer and over-normalization pressure" in claims[
         "C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization"
     ]["limitation"]
-    assert "matched stale-selection-gate ablation" in claims[
+    assert "target-query-normalization overreach" in claims[
         "C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization"
     ]["next_test"]
     assert any(
@@ -650,6 +653,20 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
         row["claim_id"] == "C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization"
         and row["path"]
         == "results/tool_probe_replay_live_comparisons/20260512T_h2k_target_decoy_overlap_h2j_vs_h2h_v1"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization"
+        and row["path"]
+        == "results/tool_probe_replay_live/20260512T_h2k_target_decoy_overlap_h2j_no_stale_gate_execute_v1"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization"
+        and row["path"]
+        == "results/tool_probe_replay_live_comparisons/20260512T_h2k_target_decoy_overlap_h2j_vs_no_stale_gate_v1"
         and row["exists"]
         for row in payload["evidence_sources"]
     )
