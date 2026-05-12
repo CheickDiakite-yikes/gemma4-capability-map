@@ -213,6 +213,7 @@ def _system_run_args(system_id: str, meta: dict[str, Any]) -> dict[str, Any]:
         "disable_deterministic_visual_follow_on": controls.disable_deterministic_visual_follow_on,
         "disable_tool_turn_directive": controls.disable_tool_turn_directive,
         "enable_visual_stale_selection_gate": controls.enable_visual_stale_selection_gate,
+        "enable_visual_target_query_normalization": controls.enable_visual_target_query_normalization,
         "tool_prompt_contract_id": controls.tool_prompt_contract_id,
         "tool_catalog_profile_id": controls.tool_catalog_profile_id,
     }

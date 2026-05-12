@@ -193,6 +193,8 @@ def run_tool_directive_probe(
         )
         if controls.enable_visual_stale_selection_gate:
             turn = _apply_visual_stale_selection_gate(turn=turn, case=case, tool_specs=tool_specs)
+        if controls.enable_visual_target_query_normalization:
+            turn = _apply_visual_target_query_normalization(turn=turn, case=case, tool_specs=tool_specs)
         rows.append(_score_probe_case(case, tool_specs, expected_calls, turn))
 
     summary = _summarize_probe(rows)
@@ -433,6 +435,77 @@ def _apply_visual_stale_selection_gate(
     return turn.model_copy(update={"normalized_tool_call": patched_calls, "runtime_metadata": metadata})
 
 
+def _apply_visual_target_query_normalization(
+    *,
+    turn: ModelTurn,
+    case: ToolDirectiveProbeCase,
+    tool_specs: list[ToolSpec],
+) -> ModelTurn:
+    tool_names = {tool.name for tool in tool_specs}
+    if "extract_layout" not in tool_names or not turn.normalized_tool_call:
+        return turn
+
+    prompt_state_label = _visual_target_label_from_state(case)
+    if not prompt_state_label:
+        return turn
+
+    patched_calls: list[ToolCall] = []
+    gate_rows: list[dict[str, Any]] = []
+    for call in turn.normalized_tool_call:
+        replacement = _visual_target_query_normalization_replacement(
+            call=call,
+            prompt_state_label=prompt_state_label,
+        )
+        if replacement is None:
+            patched_calls.append(call)
+            continue
+        patched_calls.append(replacement)
+        gate_rows.append(
+            {
+                "from_tool": call.name,
+                "from_arguments": call.arguments,
+                "to_tool": replacement.name,
+                "to_arguments": replacement.arguments,
+                "prompt_state_label": prompt_state_label,
+            }
+        )
+
+    if not gate_rows:
+        return turn
+    metadata = dict(turn.runtime_metadata)
+    metadata["visual_target_query_normalization"] = gate_rows
+    return turn.model_copy(update={"normalized_tool_call": patched_calls, "runtime_metadata": metadata})
+
+
+def _visual_target_query_normalization_replacement(
+    *,
+    call: ToolCall,
+    prompt_state_label: str,
+) -> ToolCall | None:
+    if call.name != "extract_layout":
+        return None
+    target_query = str(call.arguments.get("target_query", "")).strip()
+    if not target_query:
+        return None
+    if target_query == prompt_state_label:
+        return None
+
+    arguments = dict(call.arguments)
+    arguments["target_query"] = prompt_state_label
+    payload = {
+        "name": "extract_layout",
+        "arguments": arguments,
+        "controller": "visual_target_query_normalization",
+        "from_target_query": target_query,
+    }
+    return ToolCall(
+        name="extract_layout",
+        arguments=arguments,
+        source_format="heuristic",
+        raw=json.dumps(payload, separators=(",", ":"), ensure_ascii=False),
+    )
+
+
 def _visual_stale_selection_replacement(*, call: ToolCall, case: ToolDirectiveProbeCase) -> ToolCall | None:
     if call.name != "refine_selection":
         return None
@@ -492,6 +565,8 @@ def _visual_target_label_from_state(case: ToolDirectiveProbeCase) -> str:
         "banner",
         "chip",
         "field",
+        "marker",
+        "notice",
         "panel",
         "pill",
         "tag",

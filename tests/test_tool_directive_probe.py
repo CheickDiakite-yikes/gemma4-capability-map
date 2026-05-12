@@ -6,6 +6,7 @@ from pathlib import Path
 from gemma4_capability_map.runtime.tool_directive_probe import (
     ToolDirectiveProbeCase,
     _apply_visual_stale_selection_gate,
+    _apply_visual_target_query_normalization,
     _score_probe_case,
     build_tool_directive_probe_cases,
     compare_tool_directive_probe_packets,
@@ -166,6 +167,37 @@ systems:
     }
 
 
+def test_run_tool_directive_probe_records_visual_target_query_normalization_control(tmp_path: Path) -> None:
+    registry_path = tmp_path / "registry.yaml"
+    registry_path.write_text(
+        """
+systems:
+  heuristic_target_query_normalization:
+    backend: heuristic
+    reasoner: google/gemma-4-E2B-it
+    reasoner_max_new_tokens: 64
+    request_timeout_seconds: 30.0
+    research_controls:
+      disable_tool_turn_directive: true
+      enable_visual_target_query_normalization: true
+""".strip()
+        + "\n",
+        encoding="utf-8",
+    )
+    output_dir = tmp_path / "probe"
+    result = run_tool_directive_probe(
+        system_id="heuristic_target_query_normalization",
+        output_dir=output_dir,
+        registry_path=registry_path,
+        cases=build_tool_directive_probe_cases()[:1],
+    )
+
+    assert result["manifest"]["research_controls"] == {
+        "disable_tool_turn_directive": True,
+        "enable_visual_target_query_normalization": True,
+    }
+
+
 def test_visual_stale_selection_gate_rewrites_missing_selection_to_layout_lookup() -> None:
     specs = build_default_registry().specs
     case = ToolDirectiveProbeCase(
@@ -252,6 +284,101 @@ def test_visual_stale_selection_gate_preserves_current_selection_ids() -> None:
     )
 
     patched = _apply_visual_stale_selection_gate(
+        turn=turn,
+        case=case,
+        tool_specs=[specs["extract_layout"], specs["refine_selection"]],
+    )
+
+    assert patched == turn
+
+
+def test_visual_target_query_normalization_rewrites_value_to_prompt_state_label() -> None:
+    specs = build_default_registry().specs
+    case = ToolDirectiveProbeCase(
+        case_id="target-query-normalization",
+        family="visual",
+        messages=[
+            Message(role="system", content="visual_image_ids: img-result"),
+            Message(
+                role="user",
+                content="The comment says Blocked too. Select the visible result tile for Blocked, not the comment.",
+            ),
+        ],
+        media=["img-result"],
+        tool_names=["extract_layout", "refine_selection"],
+        initial_state={
+            "visual_executor_mode": "local",
+            "images": {
+                "img-result": {
+                    "local_layouts": [
+                        {"region_id": "comment-1", "label": "result comment", "text": "Blocked by legal"},
+                        {"region_id": "tile-1", "label": "result tile", "text": "Blocked"},
+                    ]
+                }
+            },
+        },
+    )
+    turn = ModelTurn(
+        raw_model_output="{}",
+        normalized_tool_call=[
+            ToolCall(
+                name="extract_layout",
+                arguments={"image_id": "img-result", "target_query": "Blocked"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+    )
+
+    patched = _apply_visual_target_query_normalization(
+        turn=turn,
+        case=case,
+        tool_specs=[specs["extract_layout"], specs["refine_selection"]],
+    )
+
+    assert patched.normalized_tool_call == [
+        ToolCall(
+            name="extract_layout",
+            arguments={"image_id": "img-result", "target_query": "result tile"},
+            source_format="heuristic",
+            raw=patched.normalized_tool_call[0].raw,
+        )
+    ]
+    assert patched.runtime_metadata["visual_target_query_normalization"][0]["from_tool"] == "extract_layout"
+    assert patched.runtime_metadata["visual_target_query_normalization"][0]["prompt_state_label"] == "result tile"
+
+
+def test_visual_target_query_normalization_preserves_when_prompt_has_no_state_label() -> None:
+    specs = build_default_registry().specs
+    case = ToolDirectiveProbeCase(
+        case_id="target-query-normalization-no-match",
+        family="visual",
+        messages=[Message(role="user", content="Locate the visible blocked result component.")],
+        media=["img-result"],
+        tool_names=["extract_layout", "refine_selection"],
+        initial_state={
+            "images": {
+                "img-result": {
+                    "local_layouts": [
+                        {"region_id": "tile-1", "label": "result tile", "text": "Blocked"},
+                    ]
+                }
+            },
+        },
+    )
+    turn = ModelTurn(
+        raw_model_output="{}",
+        normalized_tool_call=[
+            ToolCall(
+                name="extract_layout",
+                arguments={"image_id": "img-result", "target_query": "blocked result"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+    )
+
+    patched = _apply_visual_target_query_normalization(
         turn=turn,
         case=case,
         tool_specs=[specs["extract_layout"], specs["refine_selection"]],
