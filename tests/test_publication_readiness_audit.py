@@ -214,6 +214,10 @@ def test_publication_readiness_audit_writes_blocking_checks(tmp_path: Path) -> N
     assert checks["h2q_composed_surface_value_stale_vs_h2e_comparison_exists"]["passed"] is True
     assert checks["h2q_composed_surface_value_stale_report_exists"]["passed"] is True
     assert checks["h2q_composed_surface_value_stale_report_figure_exists"]["passed"] is True
+    assert checks["h2r_composed_route_gating_h2q_live_exists"]["passed"] is True
+    assert checks["h2r_composed_route_gating_vs_h2p_h2q_comparison_exists"]["passed"] is True
+    assert checks["h2r_composed_route_gating_report_exists"]["passed"] is True
+    assert checks["h2r_composed_route_gating_report_figure_exists"]["passed"] is True
     assert checks["script_analyze_visual_hard_slice_exactness.py_exists"]["passed"] is True
     assert checks["script_analyze_packaged_replay_gap.py_exists"]["passed"] is True
     assert checks["script_analyze_h1n_alias_transfer_contract_split.py_exists"]["passed"] is True
@@ -238,6 +242,7 @@ def test_publication_readiness_audit_writes_blocking_checks(tmp_path: Path) -> N
     assert checks["script_build_h2o_value_bearing_target_synthesis.py_exists"]["passed"] is True
     assert checks["script_build_h2p_contextual_surface_alias_routing_synthesis.py_exists"]["passed"] is True
     assert checks["script_build_h2q_composed_surface_value_stale_synthesis.py_exists"]["passed"] is True
+    assert checks["script_build_h2r_composed_route_gating_synthesis.py_exists"]["passed"] is True
     assert checks["script_run_visual_hard_slice_probe_packet.py_exists"]["passed"] is True
     assert checks["script_build_visual_hard_slice_replay_packet.py_exists"]["passed"] is True
     assert checks["v3_skipped_live_decision_exists"]["passed"] is True

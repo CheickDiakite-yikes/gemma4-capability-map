@@ -497,6 +497,39 @@
   - `uv run python scripts/build_publication_evidence_ledger.py`
   - `uv run python scripts/audit_publication_readiness.py`
 
+## 2026-05-12 - H2r Composed Route Gating Locally Solves H2q
+
+- Added and executed the H2r composed route-gating controller slice:
+  - system: `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_value_bearing_target_query_synthesis_visual_contextual_surface_alias_routing_visual_composed_route_gating`
+  - live packet: [`results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2q_execute_v2`](../results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2q_execute_v2)
+  - comparison: [`results/tool_probe_replay_live_comparisons/20260512T_h2r_composed_route_gating_vs_h2p_on_h2q_v2`](../results/tool_probe_replay_live_comparisons/20260512T_h2r_composed_route_gating_vs_h2p_on_h2q_v2)
+  - synthesis: [`results/reports/h2r_composed_route_gating_synthesis/report.md`](../results/reports/h2r_composed_route_gating_synthesis/report.md)
+  - figure: [`results/reports/h2r_composed_route_gating_synthesis/figures/h2r_composed_route_gating_gate.svg`](../results/reports/h2r_composed_route_gating_synthesis/figures/h2r_composed_route_gating_gate.svg)
+- Result:
+  - H2r: strict `8 / 8`, executor-equivalent `8 / 8`
+  - H2p incumbent on H2q: strict `3 / 8`, executor-equivalent `3 / 8`
+  - H2r-vs-H2p: `+0.625` strict and executor-equivalence rate
+- Mechanism:
+  - H2r records `5` composed-route interventions, matching the five H2p misses on H2q.
+  - `2` interventions rewrite stale `refine_selection` calls after the prompt says to ignore old selection IDs.
+  - `3` interventions restore requested surfaces over nearby same-value decoys: `result tile` over `result comment`, `error notice` over `error banner`, and `mode field` over `mode switch`.
+  - The `mode field` row exposed a useful interaction bug: the older target-query normalizer overrode Gemma's correct raw `mode field` output to `mode switch`; H2r then restored the explicitly requested field because the prompt's "not the field" phrase referred to adjacent controls, not the requested label.
+- Reporting updates:
+  - publication evidence claim `C56_h2r_composed_route_gating_solves_h2q_locally` records the scoped positive claim
+  - publication ledger now has `56` claims / `341` evidence sources / `0` missing
+  - readiness audit remains `paper_draft_ready` with `252` checks / `245` blocking checks / `0` blocking failures
+- Next execution:
+  - backtest H2r on H2m/H2k/H2l/H2f before any promotion language
+  - then run the older H2b/H1x gates to check for H2h-style regressions
+  - if transfer passes, author H2s as a fresh unseen composed route-gating holdout
+- Verification:
+  - `uv run moonie-agent replay-live --packet-dir results/tool_probe_replay_packets/20260512T_h2q_composed_surface_value_stale_dry_run_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_value_bearing_target_query_synthesis_visual_contextual_surface_alias_routing_visual_composed_route_gating --output-dir results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2q_execute_v2 --execute --json`
+  - `uv run python scripts/compare_tool_probe_replay_live_packets.py results/tool_probe_replay_live/20260512T_h2q_composed_surface_value_stale_h2p_execute_v1 results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2q_execute_v2 --output-dir results/tool_probe_replay_live_comparisons/20260512T_h2r_composed_route_gating_vs_h2p_on_h2q_v2`
+  - `uv run python scripts/build_h2r_composed_route_gating_synthesis.py`
+  - `uv run pytest tests/test_h2r_composed_route_gating_synthesis.py -q`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`
+
 ## 2026-05-12 - H2q Composed Surface/Value/Stale Breaks H2p Saturation
 
 - Added and executed the first post-H2p composition packet:

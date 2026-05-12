@@ -22,7 +22,7 @@ Treat the older H1/HF and React notes below as historical context unless they ar
 
 Current strongest MLX result:
 
-- H2q composed surface/value/stale is the freshest visual harnessing boundary:
+- H2r composed route gating is the freshest visual harnessing result:
   - H2e still reaches `5 / 5` on H2b and `8 / 8` on H1x, so route arbitration remains valid mechanism evidence.
   - Fresh H2f broke global H2e promotion: H2e and H2c tie at `6 / 10`, while no-directive is only `1 / 10`.
   - H2h component-identity negative examples are scoped positive but globally negative: `9 / 10` on H2f, then `3 / 5` on H2b and `6 / 8` on H1x.
@@ -50,6 +50,8 @@ Current strongest MLX result:
   - H2p records `1` contextual surface-alias intervention, `4` value-bearing syntheses, and `2` contextual-label rewrites on H2m, with `0` stale-selection interventions and `0` non-exact H2m rows.
   - H2q breaks that saturation under composed pressure: H2p reaches `3 / 8` strict and executor-equivalent, H2o reaches `2 / 8`, H2n reaches `0 / 8` strict and `1 / 8` executor-equivalent, and H2e reaches `1 / 8` strict and `2 / 8` executor-equivalent.
   - H2q shows H2p is still directionally strongest (`+0.125` strict over H2o, `+0.375` over H2n, `+0.25` over H2e), but it leaves `5` non-exact rows: `3` argument mismatches and `2` wrong-tool stale-selection rows.
+  - H2r locally solves that H2q boundary: strict `8 / 8`, executor-equivalent `8 / 8`, `+0.625` exact-rate and executor-equivalence-rate versus H2p.
+  - H2r records `5` composed-route interventions matching the five H2p misses: `2` stale-selection rewrites plus `3` requested-surface restorations. It still needs transfer gates before promotion.
   - H2f synthesis: [`results/reports/h2f_route_arbitration_holdout_synthesis/report.md`](../../results/reports/h2f_route_arbitration_holdout_synthesis/report.md)
   - H2f figure: [`results/reports/h2f_route_arbitration_holdout_synthesis/figures/h2f_holdout_profile_bars.svg`](../../results/reports/h2f_route_arbitration_holdout_synthesis/figures/h2f_holdout_profile_bars.svg)
   - H2h tradeoff synthesis: [`results/reports/h2h_component_identity_tradeoff_synthesis/report.md`](../../results/reports/h2h_component_identity_tradeoff_synthesis/report.md)
@@ -86,7 +88,11 @@ Current strongest MLX result:
   - H2q figure: [`results/reports/h2q_composed_surface_value_stale_synthesis/figures/h2q_composed_surface_value_stale_gate.svg`](../../results/reports/h2q_composed_surface_value_stale_synthesis/figures/h2q_composed_surface_value_stale_gate.svg)
   - H2q live packets: [`H2p`](../../results/tool_probe_replay_live/20260512T_h2q_composed_surface_value_stale_h2p_execute_v1), [`H2o`](../../results/tool_probe_replay_live/20260512T_h2q_composed_surface_value_stale_h2o_execute_v1), [`H2n`](../../results/tool_probe_replay_live/20260512T_h2q_composed_surface_value_stale_h2n_execute_v1), [`H2e`](../../results/tool_probe_replay_live/20260512T_h2q_composed_surface_value_stale_h2e_execute_v1)
   - H2q comparisons: [`H2p-vs-H2o`](../../results/tool_probe_replay_live_comparisons/20260512T_h2q_composed_surface_value_stale_h2p_vs_h2o_v1), [`H2p-vs-H2n`](../../results/tool_probe_replay_live_comparisons/20260512T_h2q_composed_surface_value_stale_h2p_vs_h2n_v1), [`H2p-vs-H2e`](../../results/tool_probe_replay_live_comparisons/20260512T_h2q_composed_surface_value_stale_h2p_vs_h2e_v1)
-  - next restart move: build H2r around composed route gating, starting from H2q's five H2p misses.
+  - H2r synthesis: [`results/reports/h2r_composed_route_gating_synthesis/report.md`](../../results/reports/h2r_composed_route_gating_synthesis/report.md)
+  - H2r figure: [`results/reports/h2r_composed_route_gating_synthesis/figures/h2r_composed_route_gating_gate.svg`](../../results/reports/h2r_composed_route_gating_synthesis/figures/h2r_composed_route_gating_gate.svg)
+  - H2r H2q live packet: [`results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2q_execute_v2`](../../results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2q_execute_v2)
+  - H2r comparison: [`H2r-vs-H2p`](../../results/tool_probe_replay_live_comparisons/20260512T_h2r_composed_route_gating_vs_h2p_on_h2q_v2)
+  - next restart move: backtest H2r on H2m/H2k/H2l/H2f, then H2b/H1x, before any promotion language.
 - H1h proves the no-directive causal ordering across all ten live workflow families.
 - H1i compresses the worst H1h workflow families into the current fast loop.
 - contracted MLX on H1i is clean at readiness `0.97710`, strict/recovered `1.0 / 1.0`, raw clean `1.0`.
@@ -255,9 +261,9 @@ Current strongest MLX result:
 
 Current next loop:
 
-1. Treat H2p as the incumbent target-control stack for the current H2m/H2k/H2l/H2f line, not as a default production policy.
-2. Treat H2q as the current post-H2p boundary: H2p is best but only `3 / 8` on composed surface/value/stale pressure.
-3. Build H2r around composed route gating while keeping matched H2p, H2o-only, H2n, and H2e controls.
+1. Treat H2r as a local H2q repair, not as a default production policy.
+2. Backtest H2r on H2m/H2k/H2l/H2f, then H2b/H1x, before any promotion language.
+3. Keep H2q as the post-H2p boundary packet and preserve the matched H2p/H2o/H2n/H2e controls.
 4. Treat H1i, H1j, and H1k packaged packets as saturated or non-discriminating for current prompt-contract validation.
 5. Treat waves one through six as partial-gain or negative/composition evidence, not fixes.
 6. Treat `visual_role_catalog_argument_hints_v2` as the best exact candidate on the old focused visual replay, with the explicit caveat that it lost executable form-target recovery.

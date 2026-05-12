@@ -1,9 +1,9 @@
 {
   "summary": {
-    "generated_at": "2026-05-12T21:53:14.522321+00:00",
+    "generated_at": "2026-05-12T22:33:41.765187+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 247,
-    "blocking_check_count": 240,
+    "check_count": 252,
+    "blocking_check_count": 245,
     "blocking_failed_count": 0,
     "recommended_check_count": 7,
     "recommended_failed_count": 0,
@@ -29,7 +29,7 @@
       "check_id": "ledger_has_claims",
       "severity": "blocking",
       "passed": true,
-      "detail": "claim_count=54",
+      "detail": "claim_count=55",
       "path": ""
     },
     {
@@ -1475,6 +1475,34 @@
       "path": "results/reports/h2q_composed_surface_value_stale_synthesis/figures/h2q_composed_surface_value_stale_gate.svg"
     },
     {
+      "check_id": "h2r_composed_route_gating_h2q_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2r composed route-gating live replay on H2q exists.",
+      "path": "results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2q_execute_v2/summary.json"
+    },
+    {
+      "check_id": "h2r_composed_route_gating_vs_h2p_h2q_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2r versus H2p comparison on H2q exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260512T_h2r_composed_route_gating_vs_h2p_on_h2q_v2/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h2r_composed_route_gating_report_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2r composed route-gating synthesis report exists.",
+      "path": "results/reports/h2r_composed_route_gating_synthesis/report.md"
+    },
+    {
+      "check_id": "h2r_composed_route_gating_report_figure_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2r composed route-gating synthesis figure exists.",
+      "path": "results/reports/h2r_composed_route_gating_synthesis/figures/h2r_composed_route_gating_gate.svg"
+    },
+    {
       "check_id": "current_state_doc_exists",
       "severity": "blocking",
       "passed": true,
@@ -1718,6 +1746,13 @@
       "passed": true,
       "detail": "Reproduction script `build_h2q_composed_surface_value_stale_synthesis.py` exists.",
       "path": "scripts/build_h2q_composed_surface_value_stale_synthesis.py"
+    },
+    {
+      "check_id": "script_build_h2r_composed_route_gating_synthesis.py_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Reproduction script `build_h2r_composed_route_gating_synthesis.py` exists.",
+      "path": "scripts/build_h2r_composed_route_gating_synthesis.py"
     },
     {
       "check_id": "script_compare_tool_directive_probes.py_exists",

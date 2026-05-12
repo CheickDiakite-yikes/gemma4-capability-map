@@ -2891,6 +2891,56 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C56_h2r_composed_route_gating_solves_h2q_locally",
+        claim=(
+            "A narrow composed route-gating controller repairs the H2q post-H2p composition boundary by combining "
+            "stale-selection rejection with requested-surface prioritization over same-value decoys."
+        ),
+        status="supported_current_packets_requires_transfer",
+        evidence_strength="strong_internal_scoped",
+        primary_metric=(
+            "On H2q, H2r reaches 8/8 strict and 8/8 executor-equivalent versus H2p at 3/8 and 3/8, "
+            "a +0.625 exact-rate and executor-equivalence-rate improvement. H2r records 5 composed-route "
+            "interventions matching H2p's five H2q misses: 2 stale-selection rewrites and 3 requested-surface "
+            "restorations."
+        ),
+        limitation=(
+            "This is a local 8-case H2q repair, not yet a global promotion. The helper was designed after seeing "
+            "H2q's failure structure and must be transfer-tested on H2m/H2k/H2l/H2f plus older H2b/H1x gates."
+        ),
+        next_test=(
+            "Backtest H2r on H2m, H2k, H2l, H2f, H2b, and H1x; if it preserves those gates, define a fresh H2s "
+            "composition holdout with unseen stale-selection and same-value surface decoys."
+        ),
+        sources=(
+            EvidenceSource(
+                "replay_synthesis",
+                "results/reports/h2r_composed_route_gating_synthesis/report.md",
+                "Dedicated H2r synthesis showing the local H2q repair, mechanism split, and transfer caution.",
+            ),
+            EvidenceSource(
+                "replay_synthesis_figure",
+                "results/reports/h2r_composed_route_gating_synthesis/figures/h2r_composed_route_gating_gate.svg",
+                "Figure summarizing H2r exact-rate improvement over H2p on H2q.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2q_execute_v2",
+                "H2r live execution on H2q reaching 8/8 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2r_composed_route_gating_vs_h2p_on_h2q_v2",
+                "Direct H2r-vs-H2p comparison on H2q showing +0.625 strict and executor-equivalence deltas.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2q_composed_surface_value_stale_h2p_execute_v1",
+                "H2p incumbent live execution on H2q reaching 3/8 strict and executor-equivalent.",
+            ),
+        ),
+    ),
 )
 
 

@@ -151,7 +151,7 @@ The freshest MLX evidence is now H1h/H1i/H1g:
   - exact JSON copy `7 / 8`
   - visual selector paraphrase executable target `1 / 1`
 
-The freshest replay-shaped visual controller evidence is now H2q:
+The freshest replay-shaped visual controller evidence is now H2r:
 
 - H2j target-query normalization proved the repair can be controller-attributable rather than prompt-prose-attributable:
   - H2f: `10 / 10`
@@ -206,10 +206,17 @@ The freshest replay-shaped visual controller evidence is now H2q:
   - H2p-vs-H2o: `+0.125` strict and executor-equivalence delta
   - H2p-vs-H2n: `+0.375` strict and `+0.25` executor-equivalence delta
   - H2p-vs-H2e: `+0.25` strict and `+0.125` executor-equivalence delta
+- H2r is the local composed route-gating repair:
+  - live packet: [`results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2q_execute_v2`](../../results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2q_execute_v2)
+  - comparison: [`results/tool_probe_replay_live_comparisons/20260512T_h2r_composed_route_gating_vs_h2p_on_h2q_v2`](../../results/tool_probe_replay_live_comparisons/20260512T_h2r_composed_route_gating_vs_h2p_on_h2q_v2)
+  - synthesis: [`results/reports/h2r_composed_route_gating_synthesis/report.md`](../../results/reports/h2r_composed_route_gating_synthesis/report.md)
+  - H2r: `8 / 8` strict and executor-equivalent
+  - H2r-vs-H2p: `+0.625` strict and executor-equivalence delta
+  - mechanism: `5` composed-route interventions, split into `2` stale-selection rewrites and `3` requested-surface restorations
 - next controller question:
-  - build H2r around composed route gating rather than another isolated H2m repair
-  - reject stale `refine_selection` calls when the prompt says to ignore old selections
-  - prefer requested surface classes over nearby same-value comments, banners, controls, and history context
+  - backtest H2r against H2m/H2k/H2l/H2f before promotion
+  - then run older H2b/H1x gates to catch H2h-style transfer regressions
+  - if transfer passes, build H2s as a fresh unseen composition holdout
 
 ## Direction Reset
 

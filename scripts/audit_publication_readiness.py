@@ -1974,6 +1974,43 @@ def audit_publication_readiness(
             detail="H2q composed surface/value/stale synthesis figure exists.",
         ),
         _check_path(
+            check_id="h2r_composed_route_gating_h2q_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260512T_h2r_composed_route_gating_on_h2q_execute_v2"
+            / "summary.json",
+            detail="H2r composed route-gating live replay on H2q exists.",
+        ),
+        _check_path(
+            check_id="h2r_composed_route_gating_vs_h2p_h2q_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260512T_h2r_composed_route_gating_vs_h2p_on_h2q_v2"
+            / "live_replay_comparison.json",
+            detail="H2r versus H2p comparison on H2q exists.",
+        ),
+        _check_path(
+            check_id="h2r_composed_route_gating_report_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "h2r_composed_route_gating_synthesis" / "report.md",
+            detail="H2r composed route-gating synthesis report exists.",
+        ),
+        _check_path(
+            check_id="h2r_composed_route_gating_report_figure_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "h2r_composed_route_gating_synthesis"
+            / "figures"
+            / "h2r_composed_route_gating_gate.svg",
+            detail="H2r composed route-gating synthesis figure exists.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",
@@ -2035,6 +2072,7 @@ def audit_publication_readiness(
         "build_h2o_value_bearing_target_synthesis.py",
         "build_h2p_contextual_surface_alias_routing_synthesis.py",
         "build_h2q_composed_surface_value_stale_synthesis.py",
+        "build_h2r_composed_route_gating_synthesis.py",
         "compare_tool_directive_probes.py",
         "build_visual_hard_slice_design.py",
         "build_visual_hard_slice_replay_packet.py",

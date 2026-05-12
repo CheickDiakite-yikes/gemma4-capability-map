@@ -1,0 +1,21 @@
+{
+  "generated_at": "2026-05-12T22:19:43.573220+00:00",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h2r_composed_route_gating_synthesis",
+  "packet_row_count": 5,
+  "comparison_count": 1,
+  "family_row_count": 20,
+  "h2q_h2p_exact_success_count": 3,
+  "h2q_h2p_executor_success_count": 3,
+  "h2q_h2r_exact_success_count": 8,
+  "h2q_h2r_executor_success_count": 8,
+  "h2q_h2r_delta_exact_vs_h2p": 0.625,
+  "h2q_h2r_delta_executor_vs_h2p": 0.625,
+  "h2q_h2p_non_exact_count": 5,
+  "h2q_h2r_non_exact_count": 0,
+  "h2q_h2r_composed_route_gating_count": 5,
+  "h2q_h2r_target_query_normalization_count": 3,
+  "h2q_h2r_contextual_surface_alias_routing_count": 1,
+  "h2q_h2r_value_bearing_synthesis_count": 2,
+  "h2q_h2r_stale_selection_gate_count": 1,
+  "promotion_decision": "h2r_solves_h2q_locally_requires_transfer_backtest"
+}

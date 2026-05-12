@@ -154,7 +154,13 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert claims["C55_h2q_composed_surface_value_stale_breaks_h2p_saturation"][
         "status"
     ] == "supported_current_packets_boundary"
+    assert claims["C56_h2r_composed_route_gating_solves_h2q_locally"][
+        "status"
+    ] == "supported_current_packets_requires_transfer"
     assert "7/8" in claims["C2_final_tool_directive_causal_for_protocol"]["primary_metric"]
+    assert "8/8 strict and 8/8 executor-equivalent versus H2p at 3/8" in claims[
+        "C56_h2r_composed_route_gating_solves_h2q_locally"
+    ]["primary_metric"]
     assert "v3 raw exact falls" in claims["C6_split_selector_wording_is_negative_evidence"]["primary_metric"]
     assert "schema-field hints reach 6/8 strict and 8/8 executor-equivalent" in claims[
         "C8_visual_hard_slice_targets_remaining_uncertainty"

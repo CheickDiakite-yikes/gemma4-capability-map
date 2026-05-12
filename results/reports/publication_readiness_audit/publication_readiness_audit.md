@@ -9,7 +9,7 @@
 | --- | --- | ---: | --- | --- |
 | ledger_manifest_exists | blocking | True | Publication evidence ledger manifest exists. | results/reports/publication_evidence_ledger/manifest.json |
 | ledger_has_no_missing_sources | blocking | True | missing_source_count=0 |  |
-| ledger_has_claims | blocking | True | claim_count=54 |  |
+| ledger_has_claims | blocking | True | claim_count=55 |  |
 | ledger_includes_negative_results | blocking | True | At least one claim is explicitly labeled as negative-result evidence. |  |
 | tool_contract_report_has_current_tables | blocking | True | table_count=110 |  |
 | tool_contract_report_has_current_figures | blocking | True | figure_count=45 |  |
@@ -216,6 +216,10 @@
 | h2q_composed_surface_value_stale_vs_h2e_comparison_exists | blocking | True | H2q H2p versus H2e comparison exists. | results/tool_probe_replay_live_comparisons/20260512T_h2q_composed_surface_value_stale_h2p_vs_h2e_v1/live_replay_comparison.json |
 | h2q_composed_surface_value_stale_report_exists | blocking | True | H2q composed surface/value/stale synthesis report exists. | results/reports/h2q_composed_surface_value_stale_synthesis/report.md |
 | h2q_composed_surface_value_stale_report_figure_exists | blocking | True | H2q composed surface/value/stale synthesis figure exists. | results/reports/h2q_composed_surface_value_stale_synthesis/figures/h2q_composed_surface_value_stale_gate.svg |
+| h2r_composed_route_gating_h2q_live_exists | blocking | True | H2r composed route-gating live replay on H2q exists. | results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2q_execute_v2/summary.json |
+| h2r_composed_route_gating_vs_h2p_h2q_comparison_exists | blocking | True | H2r versus H2p comparison on H2q exists. | results/tool_probe_replay_live_comparisons/20260512T_h2r_composed_route_gating_vs_h2p_on_h2q_v2/live_replay_comparison.json |
+| h2r_composed_route_gating_report_exists | blocking | True | H2r composed route-gating synthesis report exists. | results/reports/h2r_composed_route_gating_synthesis/report.md |
+| h2r_composed_route_gating_report_figure_exists | blocking | True | H2r composed route-gating synthesis figure exists. | results/reports/h2r_composed_route_gating_synthesis/figures/h2r_composed_route_gating_gate.svg |
 | current_state_doc_exists | blocking | True | Continuity current-state doc exists. | docs/continuity/current-state.md |
 | next_steps_doc_exists | blocking | True | Continuity next-steps doc exists. | docs/continuity/next-steps.md |
 | research_log_exists | blocking | True | Research log exists. | docs/research-log.md |
@@ -251,6 +255,7 @@
 | script_build_h2o_value_bearing_target_synthesis.py_exists | blocking | True | Reproduction script `build_h2o_value_bearing_target_synthesis.py` exists. | scripts/build_h2o_value_bearing_target_synthesis.py |
 | script_build_h2p_contextual_surface_alias_routing_synthesis.py_exists | blocking | True | Reproduction script `build_h2p_contextual_surface_alias_routing_synthesis.py` exists. | scripts/build_h2p_contextual_surface_alias_routing_synthesis.py |
 | script_build_h2q_composed_surface_value_stale_synthesis.py_exists | blocking | True | Reproduction script `build_h2q_composed_surface_value_stale_synthesis.py` exists. | scripts/build_h2q_composed_surface_value_stale_synthesis.py |
+| script_build_h2r_composed_route_gating_synthesis.py_exists | blocking | True | Reproduction script `build_h2r_composed_route_gating_synthesis.py` exists. | scripts/build_h2r_composed_route_gating_synthesis.py |
 | script_compare_tool_directive_probes.py_exists | blocking | True | Reproduction script `compare_tool_directive_probes.py` exists. | scripts/compare_tool_directive_probes.py |
 | script_build_visual_hard_slice_design.py_exists | blocking | True | Reproduction script `build_visual_hard_slice_design.py` exists. | scripts/build_visual_hard_slice_design.py |
 | script_build_visual_hard_slice_replay_packet.py_exists | blocking | True | Reproduction script `build_visual_hard_slice_replay_packet.py` exists. | scripts/build_visual_hard_slice_replay_packet.py |
