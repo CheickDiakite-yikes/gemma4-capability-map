@@ -765,6 +765,76 @@ def test_visual_hard_slice_live_stress_packet_supports_h2f_route_arbitration_sui
         assert _expected_call_reaches_oracle(case)
 
 
+def test_visual_hard_slice_live_stress_packet_supports_h2k_target_decoy_overlap_suite(
+    tmp_path: Path,
+) -> None:
+    packet = SCRIPT.build_visual_hard_slice_live_stress_packet(
+        output_root=tmp_path / "replay_packets",
+        run_group_id="visual_stress_h2k_target_decoy_overlap",
+        suite="h2k_target_decoy_overlap_v17",
+    )
+
+    assert packet["summary"]["suite"] == "h2k_target_decoy_overlap_v17"
+    assert packet["summary"]["case_count"] == 8
+    assert packet["summary"]["family_counts"] == {
+        "h2k_before_reading_decoy": 2,
+        "h2k_code_label_overlap": 2,
+        "h2k_negated_same_component_decoy": 3,
+        "h2k_transfer_regression_guard": 1,
+    }
+    assert packet["summary"]["failure_mode_counts"] == {
+        "argument_alias_or_decoy_risk": 8,
+    }
+    cases = {case["case_id"]: case for case in packet["replay_cases"]}
+    assert cases["h2k_priority_badge_negated_status_badge_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h2k-priority-badge",
+                "target_query": "priority badge",
+            },
+        }
+    ]
+    assert cases["h2k_result_badge_negated_result_tile_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h2k-result-badge",
+                "target_query": "result badge",
+            },
+        }
+    ]
+    assert cases["h2k_state_tag_before_reading_state_marker_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h2k-state-tag",
+                "target_query": "state tag",
+            },
+        }
+    ]
+    assert cases["h2k_badge_c18_negated_badge_c08_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h2k-badge-c18",
+                "target_query": "badge c18",
+            },
+        }
+    ]
+    assert cases["h2k_alert_t47_archived_alert_s92_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h2k-alert-t47",
+                "target_query": "alert t47",
+            },
+        }
+    ]
+    for case in packet["replay_cases"]:
+        assert _expected_call_reaches_oracle(case)
+
+
 def _expected_call_reaches_oracle(case: dict[str, object]) -> bool:
     tool_specs = [ToolSpec.model_validate(payload) for payload in case["tool_specs"]]  # type: ignore[index]
     executor = DeterministicExecutor(tool_specs=tool_specs)

@@ -1,0 +1,146 @@
+{
+  "case_id": "h2k_error_banner_archived_error_notice_decoy",
+  "family": "h2k_transfer_regression_guard",
+  "messages": [
+    {
+      "role": "system",
+      "content": "visual_image_ids: img-h2k-error-banner",
+      "image_refs": []
+    },
+    {
+      "role": "user",
+      "content": "Ignore the archived error notice. Identify the visible error banner itself on the current screen.",
+      "image_refs": []
+    }
+  ],
+  "media": [
+    "img-h2k-error-banner"
+  ],
+  "tool_names": [
+    "extract_layout",
+    "refine_selection",
+    "read_region_text"
+  ],
+  "tool_specs": [
+    {
+      "name": "extract_layout",
+      "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "image_id": {
+            "type": "string"
+          },
+          "target_query": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "image_id",
+          "target_query"
+        ]
+      },
+      "tool_family": "function_call",
+      "tool_intent": "inspect"
+    },
+    {
+      "name": "refine_selection",
+      "description": "Refine a prior visual selection using a follow-up filter query.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "selection_id": {
+            "type": "string"
+          },
+          "filter_query": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "selection_id",
+          "filter_query"
+        ]
+      },
+      "tool_family": "function_call",
+      "tool_intent": "revise"
+    },
+    {
+      "name": "read_region_text",
+      "description": "Read the text inside a previously selected region.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "image_id": {
+            "type": "string"
+          },
+          "region_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "image_id",
+          "region_id"
+        ]
+      },
+      "tool_family": "function_call",
+      "tool_intent": "read"
+    }
+  ],
+  "initial_state": {
+    "visual_executor_mode": "local",
+    "images": {
+      "img-h2k-error-banner": {
+        "entities": [],
+        "layouts": [],
+        "local_layouts": [
+          {
+            "region_id": "h2k-error-notice-10031",
+            "label": "error notice",
+            "text": "Error archived",
+            "attributes": {
+              "area": "notice"
+            }
+          },
+          {
+            "region_id": "h2k-error-banner-10032",
+            "label": "error banner",
+            "text": "Error",
+            "attributes": {
+              "area": "banner"
+            }
+          },
+          {
+            "region_id": "h2k-error-log-10033",
+            "label": "error log",
+            "text": "Error trace rows",
+            "attributes": {
+              "area": "log"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "expected_execution": {
+    "region_ids": [
+      "h2k-error-banner-10032"
+    ]
+  },
+  "expected_calls": [
+    {
+      "name": "extract_layout",
+      "arguments": {
+        "image_id": "img-h2k-error-banner",
+        "target_query": "error banner"
+      }
+    }
+  ],
+  "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+  "source_failure_mode": "argument_alias_or_decoy_risk",
+  "source_exact_match": false,
+  "source_executable_match": false,
+  "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+  "baseline_exact_match": "",
+  "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+  "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+}

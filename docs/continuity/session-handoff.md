@@ -36,7 +36,8 @@ Current strongest MLX result:
   - H2h tradeoff figure: [`results/reports/h2h_component_identity_tradeoff_synthesis/figures/h2h_tradeoff_gate.svg`](../../results/reports/h2h_component_identity_tradeoff_synthesis/figures/h2h_tradeoff_gate.svg)
   - H2j transfer synthesis: [`results/reports/h2j_target_query_normalization_transfer_synthesis/report.md`](../../results/reports/h2j_target_query_normalization_transfer_synthesis/report.md)
   - H2j transfer figure: [`results/reports/h2j_target_query_normalization_transfer_synthesis/figures/h2j_transfer_gate.svg`](../../results/reports/h2j_target_query_normalization_transfer_synthesis/figures/h2j_transfer_gate.svg)
-  - next restart move: build H2k as a harder post-H2j holdout with adversarial target/decoy label overlap, then ablate target-query normalization and stale-selection rescue separately
+  - H2k dry-run packet: [`results/tool_probe_replay_packets/20260512T_h2k_target_decoy_overlap_dry_run_v1`](../../results/tool_probe_replay_packets/20260512T_h2k_target_decoy_overlap_dry_run_v1)
+  - next restart move: execute H2j on H2k, compare against H2e/H2h, then ablate target-query normalization and stale-selection rescue separately
 - H1h proves the no-directive causal ordering across all ten live workflow families.
 - H1i compresses the worst H1h workflow families into the current fast loop.
 - contracted MLX on H1i is clean at readiness `0.97710`, strict/recovered `1.0 / 1.0`, raw clean `1.0`.

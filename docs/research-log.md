@@ -2,6 +2,30 @@
 
 # Research Log
 
+## 2026-05-12 - H2k Target/Decoy Overlap Holdout Scaffold
+
+- Added H2k as the next harder replay-shaped holdout for the H2j boundary:
+  - suite: `h2k_target_decoy_overlap_v17`
+  - builder: [`scripts/build_visual_hard_slice_live_stress_packet.py`](../scripts/build_visual_hard_slice_live_stress_packet.py)
+  - dry-run packet: [`results/tool_probe_replay_packets/20260512T_h2k_target_decoy_overlap_dry_run_v1`](../results/tool_probe_replay_packets/20260512T_h2k_target_decoy_overlap_dry_run_v1)
+- Packet shape:
+  - `8` cases
+  - `3` negated same-component decoys
+  - `2` before-reading decoys
+  - `2` code-label overlap cases
+  - `1` H2h transfer-regression guard
+- Research purpose:
+  - stress the exact risk left by H2j: labels that appear both as requested targets and as decoys
+  - keep the executor oracle strict by giving each expected `extract_layout.target_query` a unique local visual region
+  - create a stable packet for H2j/H2e/H2h comparison before any new global promotion claim
+- Next execution:
+  - run H2j on H2k first
+  - then compare H2j against H2e and H2h
+  - then run helper ablations only if H2j remains meaningfully above the H2e/H2h boundary
+- Verification:
+  - `uv run pytest tests/test_visual_hard_slice_live_stress_packet.py -q`
+  - `uv run python scripts/build_visual_hard_slice_live_stress_packet.py --suite h2k_target_decoy_overlap_v17 --run-group-id 20260512T_h2k_target_decoy_overlap_dry_run_v1`
+
 ## 2026-05-12 - H2j Target-Query Normalization Repairs H2f and Preserves Transfer
 
 - Added H2j as a controller-visible target-query normalization candidate layered on the H2e route-arbitration profile and the H2a stale-selection gate:

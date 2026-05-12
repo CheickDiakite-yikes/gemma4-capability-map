@@ -147,7 +147,8 @@ Current reporting snapshot:
 
 Next restart move:
 
-- build H2k as a harder post-H2j holdout, not another prompt paragraph and not a victory-lap rerun
+- use the H2k dry-run packet: [`results/tool_probe_replay_packets/20260512T_h2k_target_decoy_overlap_dry_run_v1`](../../results/tool_probe_replay_packets/20260512T_h2k_target_decoy_overlap_dry_run_v1)
+- treat H2k as a harder post-H2j holdout, not another prompt paragraph and not a victory-lap rerun
 - stress labels that appear both as requested targets and negated or before-reading decoys
 - preserve H2e/H2j exactness on code-label and class-transfer rows such as `alert s92`, `badge c08`, `result pill`, `result chip`, and `error banner`
 - separately ablate the H2j target-query normalizer and the stale-selection gate so controller dependence is measured, not inferred

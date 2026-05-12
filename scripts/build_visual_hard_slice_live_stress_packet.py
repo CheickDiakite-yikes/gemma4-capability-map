@@ -48,6 +48,7 @@ def parse_args() -> argparse.Namespace:
             "h1x_v11_breaker_v14",
             "h1y_routed_residual_v15",
             "h2f_route_arbitration_v16",
+            "h2k_target_decoy_overlap_v17",
         ],
         default="v1",
     )
@@ -222,6 +223,8 @@ def _stress_cases_for_suite(suite: str) -> list[ToolDirectiveProbeCase]:
         return _h1y_routed_residual_cases_v15()
     if suite == "h2f_route_arbitration_v16":
         return _h2f_route_arbitration_cases_v16()
+    if suite == "h2k_target_decoy_overlap_v17":
+        return _h2k_target_decoy_overlap_cases_v17()
     raise ValueError(f"Unknown visual live stress suite: {suite}")
 
 
@@ -245,6 +248,7 @@ def _expected_call_payloads(
         "h1x_v11_breaker_v14",
         "h1y_routed_residual_v15",
         "h2f_route_arbitration_v16",
+        "h2k_target_decoy_overlap_v17",
     }:
         return [_oracle_visual_extract_call(case)]
     return [
@@ -3165,6 +3169,209 @@ def _h2f_route_arbitration_cases_v16() -> list[ToolDirectiveProbeCase]:
                 ],
             ),
             expected_execution={"region_ids": ["h2f-error-notice-9992"]},
+        ),
+    ]
+
+
+def _h2k_target_decoy_overlap_cases_v17() -> list[ToolDirectiveProbeCase]:
+    return [
+        ToolDirectiveProbeCase(
+            case_id="h2k_priority_badge_negated_status_badge_decoy",
+            family="h2k_negated_same_component_decoy",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2k-priority-badge"),
+                Message(
+                    role="user",
+                    content=(
+                        "Do not target the status badge, even though it also says Critical. Locate the priority "
+                        "badge itself before reading any table."
+                    ),
+                ),
+            ],
+            media=["img-h2k-priority-badge"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2k-priority-badge",
+                [
+                    _region("h2k-status-badge-10001", "status badge", "Critical", area="badge"),
+                    _region("h2k-priority-badge-10002", "priority badge", "Critical", area="badge"),
+                    _region("h2k-priority-table-10003", "priority table", "Critical queue rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2k-priority-badge-10002"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2k_mode_toggle_negated_consent_toggle_decoy",
+            family="h2k_negated_same_component_decoy",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2k-mode-toggle"),
+                Message(
+                    role="user",
+                    content=(
+                        "The consent toggle is not the target. Find the mode toggle for Manual and ignore the "
+                        "consent control."
+                    ),
+                ),
+            ],
+            media=["img-h2k-mode-toggle"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2k-mode-toggle",
+                [
+                    _region("h2k-consent-toggle-10011", "consent toggle", "Manual", area="toggle"),
+                    _region("h2k-mode-toggle-10012", "mode toggle", "Manual", area="toggle"),
+                    _region("h2k-mode-note-10013", "mode note", "Manual override", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2k-mode-toggle-10012"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2k_result_badge_negated_result_tile_decoy",
+            family="h2k_negated_same_component_decoy",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2k-result-badge"),
+                Message(
+                    role="user",
+                    content=(
+                        "Do not use the result tile. Select the result badge for Blocked, not the tile or the "
+                        "comment."
+                    ),
+                ),
+            ],
+            media=["img-h2k-result-badge"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2k-result-badge",
+                [
+                    _region("h2k-result-tile-10021", "result tile", "Blocked", area="tile"),
+                    _region("h2k-result-badge-10022", "result badge", "Blocked", area="badge"),
+                    _region("h2k-result-comment-10023", "result comment", "Blocked pending counsel", area="comment"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2k-result-badge-10022"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2k_error_banner_archived_error_notice_decoy",
+            family="h2k_transfer_regression_guard",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2k-error-banner"),
+                Message(
+                    role="user",
+                    content=(
+                        "Ignore the archived error notice. Identify the visible error banner itself on the current "
+                        "screen."
+                    ),
+                ),
+            ],
+            media=["img-h2k-error-banner"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2k-error-banner",
+                [
+                    _region("h2k-error-notice-10031", "error notice", "Error archived", area="notice"),
+                    _region("h2k-error-banner-10032", "error banner", "Error", area="banner"),
+                    _region("h2k-error-log-10033", "error log", "Error trace rows", area="log"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2k-error-banner-10032"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2k_state_tag_before_reading_state_marker_decoy",
+            family="h2k_before_reading_decoy",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2k-state-tag"),
+                Message(
+                    role="user",
+                    content=(
+                        "Before reading the state marker, locate the state tag for Closed. The state marker is only "
+                        "context."
+                    ),
+                ),
+            ],
+            media=["img-h2k-state-tag"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2k-state-tag",
+                [
+                    _region("h2k-state-marker-10041", "state marker", "Closed context", area="marker"),
+                    _region("h2k-state-tag-10042", "state tag", "Closed", area="tag"),
+                    _region("h2k-state-history-10043", "state history", "Closed last week", area="history"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2k-state-tag-10042"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2k_mode_field_before_reading_mode_switch_decoy",
+            family="h2k_before_reading_decoy",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2k-mode-field"),
+                Message(
+                    role="user",
+                    content=(
+                        "Before reading the mode switch, locate the mode field itself. Do not use the switch as "
+                        "the target."
+                    ),
+                ),
+            ],
+            media=["img-h2k-mode-field"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2k-mode-field",
+                [
+                    _region("h2k-mode-switch-10051", "mode switch", "Manual", area="switch"),
+                    _region("h2k-mode-field-10052", "mode field", "Manual", area="field"),
+                    _region("h2k-mode-table-10053", "mode table", "Manual routing rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2k-mode-field-10052"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2k_badge_c18_negated_badge_c08_decoy",
+            family="h2k_code_label_overlap",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2k-badge-c18"),
+                Message(
+                    role="user",
+                    content=(
+                        "Do not use badge c08 from the old lane. Locate badge c18, the current approval code badge."
+                    ),
+                ),
+            ],
+            media=["img-h2k-badge-c18"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2k-badge-c18",
+                [
+                    _region("h2k-badge-c08-10061", "badge c08", "Approved old lane", area="badge"),
+                    _region("h2k-badge-c18-10062", "badge c18", "Approved current lane", area="badge"),
+                    _region("h2k-badge-summary-10063", "badge summary", "Approved queue", area="summary"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2k-badge-c18-10062"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2k_alert_t47_archived_alert_s92_decoy",
+            family="h2k_code_label_overlap",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2k-alert-t47"),
+                Message(
+                    role="user",
+                    content=(
+                        "Alert s92 is in the archived note, not the target. Select alert t47 on the current panel."
+                    ),
+                ),
+            ],
+            media=["img-h2k-alert-t47"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2k-alert-t47",
+                [
+                    _region("h2k-alert-s92-10071", "alert s92", "Escalated archived", area="alert"),
+                    _region("h2k-alert-t47-10072", "alert t47", "Escalated current", area="alert"),
+                    _region("h2k-alert-note-10073", "alert note", "Escalated review", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2k-alert-t47-10072"]},
         ),
     ]
 
