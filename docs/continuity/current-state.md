@@ -2,7 +2,7 @@
 
 ## Latest Restart Point
 
-The active research frontier is now H2m design, after H2l completed as the first post-H2k target-normalization overreach holdout. H2l stressed whether H2j's target-query normalizer would erase legitimate longer labels, value-bearing labels, or aliases. Full H2j and H2j without stale-selection both reached `8 / 8`; H2e reached `7 / 8`. H2l is not a final overreach proof because its prompts use explicit target-is wording, so the next frontier is a less-direct H2m holdout with ambiguous/repeated variants.
+The active research frontier is now executing H2m, after H2l completed as the first post-H2k target-normalization overreach holdout. H2l stressed whether H2j's target-query normalizer would erase legitimate longer labels, value-bearing labels, or aliases. Full H2j and H2j without stale-selection both reached `8 / 8`; H2e reached `7 / 8`. H2l is not a final overreach proof because its prompts use explicit target-is wording. H2m is now scaffolded as the less-direct holdout: it keeps the same value-bearing, alias, and regression-guard families, but removes target-is phrasing from the user prompts.
 
 The latest result is H2l across H2e/H2j/H2j-no-stale. H2h had shown explicit negative examples can repair the fresh H2f holdout, moving from H2e/H2g at `6 / 10` strict to `9 / 10` strict and executor-equivalent, but it regressed H2b and H1x. H2i tried to conditionalize that repair in prompt/catalog prose and failed, tying H2e at `6 / 10` on H2f. H2j moved the useful part of that repair into a controller-visible target-query normalization gate layered on H2e's route arbitration and the H2a stale-selection gate. H2j then reached `10 / 10` strict and executor-equivalent on H2f, `5 / 5` on H2b, and `8 / 8` on H1x. H2k is the harder post-H2j overlap holdout: on eight adversarial target/decoy cases, full H2j and H2j without the stale-selection gate both reach `8 / 8` strict and executor-equivalent, H2h reaches `6 / 8`, and H2e reaches `3 / 8` strict with `6 / 8` executor-equivalent. H2l then flips the risk: cases where the longer value-bearing label or alias really is the expected target. H2j still reaches `8 / 8`, the no-stale ablation ties it, and H2e has one regression-guard miss (`critical chip` instead of `status badge`).
 
@@ -79,6 +79,7 @@ Latest H2f artifacts:
 - H2l H2e live packet: [`results/tool_probe_replay_live/20260512T_h2l_target_normalization_overreach_h2e_execute_v1`](../../results/tool_probe_replay_live/20260512T_h2l_target_normalization_overreach_h2e_execute_v1)
 - H2l H2j-vs-H2e comparison: [`results/tool_probe_replay_live_comparisons/20260512T_h2l_target_normalization_overreach_h2j_vs_h2e_v1`](../../results/tool_probe_replay_live_comparisons/20260512T_h2l_target_normalization_overreach_h2j_vs_h2e_v1)
 - H2l H2j-vs-no-stale comparison: [`results/tool_probe_replay_live_comparisons/20260512T_h2l_target_normalization_overreach_h2j_vs_no_stale_gate_v1`](../../results/tool_probe_replay_live_comparisons/20260512T_h2l_target_normalization_overreach_h2j_vs_no_stale_gate_v1)
+- H2m dry-run packet: [`results/tool_probe_replay_packets/20260512T_h2m_less_direct_target_normalization_overreach_dry_run_v1`](../../results/tool_probe_replay_packets/20260512T_h2m_less_direct_target_normalization_overreach_dry_run_v1)
 - publication claims: `C44_h2f_holdout_breaks_h2e_global_promotion`, `C45_h2g_component_identity_contract_is_partial_executor_gain`, `C46_h2h_negative_examples_repair_h2f_but_fail_global_transfer`, `C47_h2i_conditional_component_arbitration_does_not_preserve_h2f_repair`, `C48_h2j_target_query_normalization_repairs_h2f_and_preserves_transfer`, `C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization`, `C50_h2l_overreach_holdout_supports_target_normalization_scope`
 
 H2e artifacts retained as mechanism evidence:
@@ -167,10 +168,10 @@ Current reporting snapshot:
 
 Next restart move:
 
-- build H2m as a less-direct target-normalization overreach holdout
-- keep the H2l family mix, but remove obvious target-is phrasing and add repeated/ambiguous local variants
+- execute the H2m dry-run packet against H2j, H2j-no-stale, and H2e
+- treat H2m as the less-direct target-normalization overreach holdout, not as a new prompt-profile candidate
 - preserve H2k-style regression guards so the normalizer still proves its intended use
-- score H2j, H2j-no-stale, and H2e first; add a target-normalizer-off ablation only if H2m creates new ambiguity
+- add a target-normalizer-off ablation only if H2m creates new ambiguity beyond the H2e control
 - keep strict exactness and executor-equivalence separate, because H2g and earlier v12 rows show that executor-valid paraphrase can hide exact-query drift
 - keep H2j as a structural candidate under continued hardening, not yet a default production policy
 

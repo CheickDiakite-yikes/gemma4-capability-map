@@ -2,6 +2,30 @@
 
 # Research Log
 
+## 2026-05-12 - H2m Less-Direct Overreach Packet Scaffold
+
+- Added H2m as the less-direct follow-up to H2l:
+  - suite: `h2m_less_direct_target_normalization_overreach_v19`
+  - builder: [`scripts/build_visual_hard_slice_live_stress_packet.py`](../scripts/build_visual_hard_slice_live_stress_packet.py)
+  - dry-run packet: [`results/tool_probe_replay_packets/20260512T_h2m_less_direct_target_normalization_overreach_dry_run_v1`](../results/tool_probe_replay_packets/20260512T_h2m_less_direct_target_normalization_overreach_dry_run_v1)
+- Packet shape:
+  - `8` cases
+  - `4` less-direct value-bearing target cases, preserving longer labels such as `result badge Blocked`
+  - `2` contextual alias-is-target cases (`error notice`, `result tile`)
+  - `2` less-direct H2k regression guards (`status badge`, `mode field`)
+- Research purpose:
+  - H2l did not show over-normalization, but its prompts directly said "The target is ..."
+  - H2m removes that phrasing and asks whether H2j can still preserve legitimate longer labels and aliases while retaining H2k-style short-label repair
+  - this keeps the next work replay-shaped and controller-attributable instead of returning to broad prompt prose
+- Next execution:
+  - run H2j on H2m first
+  - run H2j-without-stale-selection second
+  - run H2e third as the no-target-normalizer control
+  - compare H2j against H2e and no-stale H2j before adding any new profile
+- Verification:
+  - `uv run pytest tests/test_visual_hard_slice_live_stress_packet.py::test_visual_hard_slice_live_stress_packet_supports_h2m_less_direct_overreach_suite -q`
+  - `uv run python scripts/build_visual_hard_slice_live_stress_packet.py --suite h2m_less_direct_target_normalization_overreach_v19 --run-group-id 20260512T_h2m_less_direct_target_normalization_overreach_dry_run_v1`
+
 ## 2026-05-12 - H2l Overreach Holdout Supports Target-Normalization Scope
 
 - Executed the H2l target-normalization overreach holdout across the three relevant profiles:

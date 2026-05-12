@@ -86,7 +86,8 @@ Latest research restart point:
 - H2k is now the first post-H2j target/decoy-overlap holdout: H2j reaches `8 / 8`, H2h reaches `6 / 8`, and H2e reaches `3 / 8` strict exactness
 - H2k records `5` H2j target-query-normalization interventions and `0` stale-selection interventions; the matched H2j-without-stale-selection ablation also reaches `8 / 8`, so H2k is target-normalization evidence rather than stale-rescue evidence
 - H2l is the first target-normalization overreach holdout: full H2j and H2j without stale-selection both reach `8 / 8`, H2e reaches `7 / 8`, and the single H2j intervention repairs `critical chip` into `status badge`
-- H2l did not expose over-stripping on value-bearing or alias-is-target rows, but it used explicit target-is wording; the next hardening frontier is H2m with less direct phrasing and repeated/ambiguous variants
+- H2l did not expose over-stripping on value-bearing or alias-is-target rows, but it used explicit target-is wording
+- H2m is now scaffolded as the less-direct overreach packet: it keeps the same `4 / 2 / 2` value-bearing, alias, and regression-guard shape while removing target-is phrasing from the user prompts
 
 The current source-of-truth comparison surface is the aligned exploratory `32 / 26` matrix:
 
@@ -238,6 +239,7 @@ The active next experiment is now a CLI/research-harness packet, not a UI task:
 - the H2l target-normalization overreach synthesis is [`results/reports/h2l_target_normalization_overreach_synthesis/report.md`](results/reports/h2l_target_normalization_overreach_synthesis/report.md)
 - the H2l target-normalization overreach figure is [`results/reports/h2l_target_normalization_overreach_synthesis/figures/h2l_target_normalization_overreach_gate.svg`](results/reports/h2l_target_normalization_overreach_synthesis/figures/h2l_target_normalization_overreach_gate.svg)
 - the H2l target-normalization overreach dry-run packet is [`results/tool_probe_replay_packets/20260512T_h2l_target_normalization_overreach_dry_run_v1`](results/tool_probe_replay_packets/20260512T_h2l_target_normalization_overreach_dry_run_v1)
+- the H2m less-direct overreach dry-run packet is [`results/tool_probe_replay_packets/20260512T_h2m_less_direct_target_normalization_overreach_dry_run_v1`](results/tool_probe_replay_packets/20260512T_h2m_less_direct_target_normalization_overreach_dry_run_v1)
 - the H1l visual executor-equivalence packaged-workflow packet is [`results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet`](results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet), with config in [`configs/knowledge_work_h1l_slice.yaml`](configs/knowledge_work_h1l_slice.yaml)
 - the paper-facing evidence ledger is [`results/reports/publication_evidence_ledger/ledger.md`](results/reports/publication_evidence_ledger/ledger.md)
 - the publication readiness audit is [`results/reports/publication_readiness_audit/publication_readiness_audit.md`](results/reports/publication_readiness_audit/publication_readiness_audit.md)

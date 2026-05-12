@@ -48,7 +48,8 @@ Current strongest MLX result:
   - H2l figure: [`results/reports/h2l_target_normalization_overreach_synthesis/figures/h2l_target_normalization_overreach_gate.svg`](../../results/reports/h2l_target_normalization_overreach_synthesis/figures/h2l_target_normalization_overreach_gate.svg)
   - H2l dry-run packet: [`results/tool_probe_replay_packets/20260512T_h2l_target_normalization_overreach_dry_run_v1`](../../results/tool_probe_replay_packets/20260512T_h2l_target_normalization_overreach_dry_run_v1)
   - H2l live packets: [`H2j`](../../results/tool_probe_replay_live/20260512T_h2l_target_normalization_overreach_h2j_execute_v1), [`H2j-no-stale`](../../results/tool_probe_replay_live/20260512T_h2l_target_normalization_overreach_h2j_no_stale_gate_execute_v1), [`H2e`](../../results/tool_probe_replay_live/20260512T_h2l_target_normalization_overreach_h2e_execute_v1)
-  - next restart move: design H2m with less-direct target-normalization overreach pressure; the target is over-normalization under ambiguity, not stale rescue
+  - H2m dry-run packet: [`results/tool_probe_replay_packets/20260512T_h2m_less_direct_target_normalization_overreach_dry_run_v1`](../../results/tool_probe_replay_packets/20260512T_h2m_less_direct_target_normalization_overreach_dry_run_v1)
+  - next restart move: execute H2m against H2j, H2j-no-stale, and H2e; the target is over-normalization under less direct phrasing, not stale rescue
 - H1h proves the no-directive causal ordering across all ten live workflow families.
 - H1i compresses the worst H1h workflow families into the current fast loop.
 - contracted MLX on H1i is clean at readiness `0.97710`, strict/recovered `1.0 / 1.0`, raw clean `1.0`.

@@ -50,6 +50,7 @@ def parse_args() -> argparse.Namespace:
             "h2f_route_arbitration_v16",
             "h2k_target_decoy_overlap_v17",
             "h2l_target_normalization_overreach_v18",
+            "h2m_less_direct_target_normalization_overreach_v19",
         ],
         default="v1",
     )
@@ -228,6 +229,8 @@ def _stress_cases_for_suite(suite: str) -> list[ToolDirectiveProbeCase]:
         return _h2k_target_decoy_overlap_cases_v17()
     if suite == "h2l_target_normalization_overreach_v18":
         return _h2l_target_normalization_overreach_cases_v18()
+    if suite == "h2m_less_direct_target_normalization_overreach_v19":
+        return _h2m_less_direct_target_normalization_overreach_cases_v19()
     raise ValueError(f"Unknown visual live stress suite: {suite}")
 
 
@@ -253,6 +256,7 @@ def _expected_call_payloads(
         "h2f_route_arbitration_v16",
         "h2k_target_decoy_overlap_v17",
         "h2l_target_normalization_overreach_v18",
+        "h2m_less_direct_target_normalization_overreach_v19",
     }:
         return [_oracle_visual_extract_call(case)]
     return [
@@ -3571,6 +3575,205 @@ def _h2l_target_normalization_overreach_cases_v18() -> list[ToolDirectiveProbeCa
                 ],
             ),
             expected_execution={"region_ids": ["h2l-mode-field-short-11072"]},
+        ),
+    ]
+
+
+def _h2m_less_direct_target_normalization_overreach_cases_v19() -> list[ToolDirectiveProbeCase]:
+    return [
+        ToolDirectiveProbeCase(
+            case_id="h2m_result_badge_blocked_contextual_value",
+            family="h2m_less_direct_value_bearing_target",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2m-result-badge-blocked"),
+                Message(
+                    role="user",
+                    content=(
+                        "From the status summary, pull the Blocked result badge chip. The plain result badge is "
+                        "just a legend and the result tile is a separate card."
+                    ),
+                ),
+            ],
+            media=["img-h2m-result-badge-blocked"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2m-result-badge-blocked",
+                [
+                    _region("h2m-result-badge-generic-12001", "result badge", "Legend", area="badge"),
+                    _region("h2m-result-badge-blocked-12002", "result badge Blocked", "Blocked", area="badge"),
+                    _region("h2m-result-tile-blocked-12003", "result tile", "Blocked", area="tile"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2m-result-badge-blocked-12002"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2m_state_tag_closed_contextual_value",
+            family="h2m_less_direct_value_bearing_target",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2m-state-tag-closed"),
+                Message(
+                    role="user",
+                    content=(
+                        "Use the Closed state tag from the audit strip. The plain state tag is the draft lane and "
+                        "the marker only explains history."
+                    ),
+                ),
+            ],
+            media=["img-h2m-state-tag-closed"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2m-state-tag-closed",
+                [
+                    _region("h2m-state-tag-generic-12011", "state tag", "Draft", area="tag"),
+                    _region("h2m-state-tag-closed-12012", "state tag Closed", "Closed", area="tag"),
+                    _region("h2m-state-marker-12013", "state marker", "Closed marker", area="marker"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2m-state-tag-closed-12012"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2m_mode_toggle_manual_contextual_value",
+            family="h2m_less_direct_value_bearing_target",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2m-mode-toggle-manual"),
+                Message(
+                    role="user",
+                    content=(
+                        "Use the Manual mode toggle in the settings strip. Leave the generic mode toggle and "
+                        "consent control alone."
+                    ),
+                ),
+            ],
+            media=["img-h2m-mode-toggle-manual"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2m-mode-toggle-manual",
+                [
+                    _region("h2m-mode-toggle-generic-12021", "mode toggle", "Auto", area="toggle"),
+                    _region("h2m-mode-toggle-manual-12022", "mode toggle Manual", "Manual", area="toggle"),
+                    _region("h2m-consent-toggle-manual-12023", "consent toggle", "Manual", area="toggle"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2m-mode-toggle-manual-12022"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2m_priority_badge_critical_contextual_value",
+            family="h2m_less_direct_value_bearing_target",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2m-priority-badge-critical"),
+                Message(
+                    role="user",
+                    content=(
+                        "Use the Critical priority badge in the risk strip. The status badge also says Critical "
+                        "but belongs to the status column."
+                    ),
+                ),
+            ],
+            media=["img-h2m-priority-badge-critical"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2m-priority-badge-critical",
+                [
+                    _region("h2m-priority-badge-generic-12031", "priority badge", "Normal", area="badge"),
+                    _region("h2m-priority-badge-critical-12032", "priority badge Critical", "Critical", area="badge"),
+                    _region("h2m-status-badge-critical-12033", "status badge", "Critical", area="badge"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2m-priority-badge-critical-12032"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2m_error_notice_contextual_alias",
+            family="h2m_contextual_alias_is_target",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2m-error-notice"),
+                Message(
+                    role="user",
+                    content="For the archive panel, work from the error notice rather than the live banner or log.",
+                ),
+            ],
+            media=["img-h2m-error-notice"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2m-error-notice",
+                [
+                    _region("h2m-error-banner-12041", "error banner", "Error", area="banner"),
+                    _region("h2m-error-notice-12042", "error notice", "Error archived", area="notice"),
+                    _region("h2m-error-log-12043", "error log", "Error trace rows", area="log"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2m-error-notice-12042"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2m_result_tile_contextual_alias",
+            family="h2m_contextual_alias_is_target",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2m-result-tile"),
+                Message(
+                    role="user",
+                    content="Use the tile-style result surface for Blocked; the badge and comment are nearby context.",
+                ),
+            ],
+            media=["img-h2m-result-tile"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2m-result-tile",
+                [
+                    _region("h2m-result-badge-12051", "result badge", "Blocked", area="badge"),
+                    _region("h2m-result-tile-12052", "result tile", "Blocked", area="tile"),
+                    _region("h2m-result-comment-12053", "result comment", "Blocked pending counsel", area="comment"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2m-result-tile-12052"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2m_status_badge_contextual_regression_guard",
+            family="h2m_h2k_regression_guard_less_direct",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2m-status-badge-short"),
+                Message(
+                    role="user",
+                    content=(
+                        "Start with the status badge in the queue strip before reading the critical chip or "
+                        "priority flag."
+                    ),
+                ),
+            ],
+            media=["img-h2m-status-badge-short"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2m-status-badge-short",
+                [
+                    _region("h2m-status-badge-short-12062", "status badge", "Critical", area="badge"),
+                    _region("h2m-critical-chip-12061", "critical chip", "High", area="chip"),
+                    _region("h2m-priority-flag-12063", "priority flag", "Queue", area="flag"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2m-status-badge-short-12062"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2m_mode_field_contextual_regression_guard",
+            family="h2m_h2k_regression_guard_less_direct",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2m-mode-field-short"),
+                Message(
+                    role="user",
+                    content=(
+                        "Read from the mode field in the settings summary; manual control and mode switch are "
+                        "surrounding controls."
+                    ),
+                ),
+            ],
+            media=["img-h2m-mode-field-short"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2m-mode-field-short",
+                [
+                    _region("h2m-mode-field-short-12072", "mode field", "Manual", area="field"),
+                    _region("h2m-manual-control-12071", "manual control", "Auto", area="control"),
+                    _region("h2m-mode-switch-12073", "mode switch", "Auto", area="switch"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2m-mode-field-short-12072"]},
         ),
     ]
 
