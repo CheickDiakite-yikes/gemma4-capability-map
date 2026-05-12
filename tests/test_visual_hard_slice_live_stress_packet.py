@@ -1015,6 +1015,78 @@ def test_visual_hard_slice_live_stress_packet_supports_h2q_composed_suite(
         assert _expected_call_reaches_oracle(case)
 
 
+def test_visual_hard_slice_live_stress_packet_supports_h2s_fresh_composed_holdout_suite(
+    tmp_path: Path,
+) -> None:
+    packet = SCRIPT.build_visual_hard_slice_live_stress_packet(
+        output_root=tmp_path / "replay_packets",
+        run_group_id="visual_stress_h2s_fresh_composed_holdout",
+        suite="h2s_fresh_composed_holdout_v21",
+    )
+
+    assert packet["summary"]["suite"] == "h2s_fresh_composed_holdout_v21"
+    assert packet["summary"]["case_count"] == 10
+    assert packet["summary"]["family_counts"] == {
+        "h2s_clean_route_control": 1,
+        "h2s_contextual_alias_decoy_overlap": 2,
+        "h2s_negated_decoy_guard": 1,
+        "h2s_stale_surface_alias": 2,
+        "h2s_surface_alias_same_value_decoy": 2,
+        "h2s_value_bearing_stale_decoy": 2,
+    }
+    assert packet["summary"]["failure_mode_counts"] == {
+        "argument_alias_or_decoy_risk": 8,
+        "wrong_tool_or_stale_selection_risk": 2,
+    }
+    cases = {case["case_id"]: case for case in packet["replay_cases"]}
+    assert cases["h2s_review_tile_waiting_chip_note_decoys"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h2s-review-tile-waiting",
+                "target_query": "review tile",
+            },
+        }
+    ]
+    assert cases["h2s_severity_pill_critical_archived_badge_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h2s-severity-pill-critical",
+                "target_query": "severity pill Critical",
+            },
+        }
+    ]
+    assert cases["h2s_result_panel_waiting_stale_selection_hint"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h2s-result-panel-stale-selection",
+                "target_query": "result panel",
+            },
+        }
+    ]
+    assert cases["h2s_status_badge_live_clean_control"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h2s-status-badge-live",
+                "target_query": "status badge",
+            },
+        }
+    ]
+    prompt_text = "\n".join(
+        message["content"]
+        for case in packet["replay_cases"]
+        for message in case["messages"]
+        if message["role"] == "user"
+    )
+    assert "The target is" not in prompt_text
+    assert "target is" not in prompt_text
+    for case in packet["replay_cases"]:
+        assert _expected_call_reaches_oracle(case)
+
+
 def _expected_call_reaches_oracle(case: dict[str, object]) -> bool:
     tool_specs = [ToolSpec.model_validate(payload) for payload in case["tool_specs"]]  # type: ignore[index]
     executor = DeterministicExecutor(tool_specs=tool_specs)

@@ -52,6 +52,7 @@ def parse_args() -> argparse.Namespace:
             "h2l_target_normalization_overreach_v18",
             "h2m_less_direct_target_normalization_overreach_v19",
             "h2q_composed_surface_value_stale_v20",
+            "h2s_fresh_composed_holdout_v21",
         ],
         default="v1",
     )
@@ -234,6 +235,8 @@ def _stress_cases_for_suite(suite: str) -> list[ToolDirectiveProbeCase]:
         return _h2m_less_direct_target_normalization_overreach_cases_v19()
     if suite == "h2q_composed_surface_value_stale_v20":
         return _h2q_composed_surface_value_stale_cases_v20()
+    if suite == "h2s_fresh_composed_holdout_v21":
+        return _h2s_fresh_composed_holdout_cases_v21()
     raise ValueError(f"Unknown visual live stress suite: {suite}")
 
 
@@ -261,6 +264,7 @@ def _expected_call_payloads(
         "h2l_target_normalization_overreach_v18",
         "h2m_less_direct_target_normalization_overreach_v19",
         "h2q_composed_surface_value_stale_v20",
+        "h2s_fresh_composed_holdout_v21",
     }:
         return [_oracle_visual_extract_call(case)]
     return [
@@ -3997,6 +4001,262 @@ def _h2q_composed_surface_value_stale_cases_v20() -> list[ToolDirectiveProbeCase
     ]
 
 
+def _h2s_fresh_composed_holdout_cases_v21() -> list[ToolDirectiveProbeCase]:
+    return [
+        ToolDirectiveProbeCase(
+            case_id="h2s_review_tile_waiting_chip_note_decoys",
+            family="h2s_surface_alias_same_value_decoy",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2s-review-tile-waiting"),
+                Message(
+                    role="user",
+                    content=(
+                        "Use the tile-style review surface for Waiting in the current card. The Waiting review "
+                        "chip and review note are context around the tile."
+                    ),
+                ),
+            ],
+            media=["img-h2s-review-tile-waiting"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2s-review-tile-waiting",
+                [
+                    _region("h2s-review-chip-waiting-14001", "review chip Waiting", "Waiting", area="chip"),
+                    _region("h2s-review-tile-waiting-14002", "review tile", "Waiting", area="tile"),
+                    _region("h2s-review-note-waiting-14003", "review note", "Waiting on owner", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2s-review-tile-waiting-14002"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2s_signal_panel_green_tag_marker_decoys",
+            family="h2s_surface_alias_same_value_decoy",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2s-signal-panel-green"),
+                Message(
+                    role="user",
+                    content=(
+                        "Use the panel-style signal surface for Green. The Green signal tag and status marker are "
+                        "nearby context, not the panel."
+                    ),
+                ),
+            ],
+            media=["img-h2s-signal-panel-green"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2s-signal-panel-green",
+                [
+                    _region("h2s-signal-tag-green-14011", "signal tag Green", "Green", area="tag"),
+                    _region("h2s-signal-panel-green-14012", "signal panel", "Green", area="panel"),
+                    _region("h2s-signal-marker-green-14013", "signal marker", "Green observed", area="marker"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2s-signal-panel-green-14012"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2s_severity_pill_critical_archived_badge_decoy",
+            family="h2s_value_bearing_stale_decoy",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2s-severity-pill-critical"),
+                Message(
+                    role="user",
+                    content=(
+                        "From the current exception rail, use the Critical severity pill. The archived priority "
+                        "badge also says Critical, but it belongs to the prior summary."
+                    ),
+                ),
+            ],
+            media=["img-h2s-severity-pill-critical"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2s-severity-pill-critical",
+                [
+                    _region("h2s-severity-pill-generic-14021", "severity pill", "Normal", area="pill"),
+                    _region("h2s-severity-pill-critical-14022", "severity pill Critical", "Critical", area="pill"),
+                    _region("h2s-archived-priority-badge-14023", "priority badge", "Critical", area="archived"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2s-severity-pill-critical-14022"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2s_reviewer_field_malik_old_owner_decoy",
+            family="h2s_value_bearing_stale_decoy",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2s-reviewer-field-malik"),
+                Message(
+                    role="user",
+                    content=(
+                        "Use the Malik reviewer field in the current handoff strip. The old owner chip and audit "
+                        "line are stale context."
+                    ),
+                ),
+            ],
+            media=["img-h2s-reviewer-field-malik"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2s-reviewer-field-malik",
+                [
+                    _region("h2s-reviewer-field-generic-14031", "reviewer field", "Unassigned", area="field"),
+                    _region("h2s-reviewer-field-malik-14032", "reviewer field Malik", "Malik", area="field"),
+                    _region("h2s-old-owner-chip-14033", "owner chip", "Malik", area="archived"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2s-reviewer-field-malik-14032"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2s_timeout_exception_notice_banner_log_decoys",
+            family="h2s_contextual_alias_decoy_overlap",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2s-timeout-exception-notice"),
+                Message(
+                    role="user",
+                    content=(
+                        "For the archived runbook card, work from the timeout exception notice. The live timeout "
+                        "banner and event log are not the archived notice."
+                    ),
+                ),
+            ],
+            media=["img-h2s-timeout-exception-notice"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2s-timeout-exception-notice",
+                [
+                    _region("h2s-timeout-banner-14041", "timeout banner", "Timeout", area="banner"),
+                    _region(
+                        "h2s-timeout-exception-notice-14042",
+                        "timeout exception notice",
+                        "Timeout archived",
+                        area="notice",
+                    ),
+                    _region("h2s-timeout-event-log-14043", "timeout event log", "Timeout trace", area="log"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2s-timeout-exception-notice-14042"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2s_delivery_field_paused_toggle_switch_decoys",
+            family="h2s_contextual_alias_decoy_overlap",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2s-delivery-field-paused"),
+                Message(
+                    role="user",
+                    content=(
+                        "Use the delivery field in the current deploy summary. The paused toggle and manual switch "
+                        "are adjacent controls, not the field."
+                    ),
+                ),
+            ],
+            media=["img-h2s-delivery-field-paused"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2s-delivery-field-paused",
+                [
+                    _region("h2s-paused-toggle-14051", "paused toggle", "Paused", area="toggle"),
+                    _region("h2s-delivery-field-14052", "delivery field", "Paused", area="field"),
+                    _region("h2s-manual-switch-14053", "manual switch", "Paused", area="switch"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2s-delivery-field-14052"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2s_result_panel_waiting_stale_selection_hint",
+            family="h2s_stale_surface_alias",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2s-result-panel-stale-selection"),
+                Message(
+                    role="user",
+                    content=(
+                        "Ignore old selection sel-archive-result-chip. Use the panel-style result surface for "
+                        "Waiting in the current visual state."
+                    ),
+                ),
+            ],
+            media=["img-h2s-result-panel-stale-selection"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2s-result-panel-stale-selection",
+                [
+                    _region("h2s-archived-result-chip-14061", "result chip", "Waiting", area="archived"),
+                    _region("h2s-current-result-panel-14062", "result panel", "Waiting", area="panel"),
+                    _region("h2s-current-result-memo-14063", "result memo", "Waiting current memo", area="memo"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2s-current-result-panel-14062"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2s_status_tile_ready_stale_selection_hint",
+            family="h2s_stale_surface_alias",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2s-status-tile-stale-selection"),
+                Message(
+                    role="user",
+                    content=(
+                        "Ignore old selection sel-old-status-tag. Use the tile-style status surface for Ready in "
+                        "the current visual state."
+                    ),
+                ),
+            ],
+            media=["img-h2s-status-tile-stale-selection"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2s-status-tile-stale-selection",
+                [
+                    _region("h2s-old-status-tag-14071", "status tag", "Ready", area="archived"),
+                    _region("h2s-current-status-tile-14072", "status tile", "Ready", area="tile"),
+                    _region("h2s-current-status-note-14073", "status note", "Ready current note", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2s-current-status-tile-14072"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2s_approval_panel_pending_negated_badge_note",
+            family="h2s_negated_decoy_guard",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2s-approval-panel-pending"),
+                Message(
+                    role="user",
+                    content=(
+                        "Use the panel-style approval surface for Pending. Do not use the Pending approval badge "
+                        "or the approval note."
+                    ),
+                ),
+            ],
+            media=["img-h2s-approval-panel-pending"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2s-approval-panel-pending",
+                [
+                    _region("h2s-approval-badge-pending-14081", "approval badge Pending", "Pending", area="badge"),
+                    _region("h2s-approval-panel-pending-14082", "approval panel", "Pending", area="panel"),
+                    _region("h2s-approval-note-pending-14083", "approval note", "Pending review", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2s-approval-panel-pending-14082"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2s_status_badge_live_clean_control",
+            family="h2s_clean_route_control",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2s-status-badge-live"),
+                Message(
+                    role="user",
+                    content="Use the status badge in the compact header. The nearby status note is supporting text.",
+                ),
+            ],
+            media=["img-h2s-status-badge-live"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2s-status-badge-live",
+                [
+                    _region("h2s-status-badge-live-14091", "status badge", "Live", area="badge"),
+                    _region("h2s-status-note-live-14092", "status note", "Live since 09:30", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2s-status-badge-live-14091"]},
+        ),
+    ]
+
+
 def _visual_state(image_id: str, local_layouts: list[dict[str, Any]]) -> dict[str, Any]:
     return {
         "visual_executor_mode": "local",
@@ -4040,6 +4300,7 @@ def _stress_failure_mode(family: str) -> str:
         "h2f_route_stale_field",
         "h2f_activation_panel_notice",
         "h2q_stale_surface_alias",
+        "h2s_stale_surface_alias",
     }:
         return "wrong_tool_or_stale_selection_risk"
     return "argument_alias_or_decoy_risk"

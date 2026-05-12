@@ -1,0 +1,23 @@
+{
+  "packet_run_id": "20260512T_h2s_fresh_composed_holdout_dry_run_v1",
+  "packet_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260512T_h2s_fresh_composed_holdout_dry_run_v1",
+  "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+  "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+  "replay_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_value_bearing_target_query_synthesis_visual_contextual_surface_alias_routing_visual_composed_route_gating",
+  "suite": "h2s_fresh_composed_holdout_v21",
+  "case_count": 10,
+  "family_counts": {
+    "h2s_clean_route_control": 1,
+    "h2s_contextual_alias_decoy_overlap": 2,
+    "h2s_negated_decoy_guard": 1,
+    "h2s_stale_surface_alias": 2,
+    "h2s_surface_alias_same_value_decoy": 2,
+    "h2s_value_bearing_stale_decoy": 2
+  },
+  "failure_mode_counts": {
+    "argument_alias_or_decoy_risk": 8,
+    "wrong_tool_or_stale_selection_risk": 2
+  },
+  "dry_run": true,
+  "executed_count": 0
+}
