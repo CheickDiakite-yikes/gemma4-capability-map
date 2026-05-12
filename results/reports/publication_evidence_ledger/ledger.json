@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-12T21:26:59.859353+00:00",
+    "generated_at": "2026-05-12T21:53:14.539471+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-    "claim_count": 54,
-    "evidence_source_count": 326,
+    "claim_count": 55,
+    "evidence_source_count": 336,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -59,7 +59,8 @@
       "C51_h2m_less_direct_overreach_rejects_current_target_normalization_scope",
       "C52_h2n_scoped_target_normalization_improves_executor_equivalence_without_strict_repair",
       "C53_h2o_value_bearing_target_synthesis_repairs_h2m_strict_with_contextual_alias_residue",
-      "C54_h2p_contextual_surface_alias_routing_saturates_h2m_without_transfer_regression"
+      "C54_h2p_contextual_surface_alias_routing_saturates_h2m_without_transfer_regression",
+      "C55_h2q_composed_surface_value_stale_breaks_h2p_saturation"
     ]
   },
   "claims": [
@@ -602,6 +603,16 @@
       "limitation": "H2p is intentionally narrow: it only addresses prompt-evidenced surface-class aliases such as tile-style result surface -> result tile. It closes the current H2m packet, but the next research question should be a harder H1/H2 slice that tests whether this target-control stack remains useful outside replay-shaped visual layout rows.",
       "next_test": "Define a harder post-H2p H1/H2 slice that combines surface aliases, value-bearing labels, stale selection pressure, and packaged workflow attribution so the current top-line saturation breaks again.",
       "source_count": 13
+    },
+    {
+      "claim_id": "C55_h2q_composed_surface_value_stale_breaks_h2p_saturation",
+      "claim": "A composed H2q packet breaks the post-H2p saturation by mixing surface aliases, value-bearing labels, stale-selection hints, and decoy overlap in the same replay-shaped visual states.",
+      "status": "supported_current_packets_boundary",
+      "evidence_strength": "strong_internal",
+      "primary_metric": "On H2q, H2p remains the strongest current row but reaches only 3/8 strict and 3/8 executor-equivalent. H2o reaches 2/8, H2n reaches 0/8 strict and 1/8 executor-equivalent, and H2e reaches 1/8 strict and 2/8 executor-equivalent. H2p adds +0.125 strict over H2o, +0.375 over H2n, and +0.25 over H2e, but still leaves five non-exact rows.",
+      "limitation": "H2q is an 8-case replay-shaped synthetic packet, not a broad GUI population estimate. It supports a new boundary claim and a next mechanistic target, not a production promotion or a solved live operator policy.",
+      "next_test": "Build H2r around composed route gating: reject stale refine_selection calls when the latest prompt says to ignore old selections, and prefer requested surface classes over nearby same-value comments, banners, controls, and history context.",
+      "source_count": 10
     }
   ],
   "evidence_sources": [
@@ -2885,6 +2896,76 @@
       "artifact_type": "live_replay_comparison",
       "path": "results/tool_probe_replay_live_comparisons/20260512T_h2p_contextual_surface_alias_routing_vs_h2o_on_h2f_v1",
       "purpose": "Transfer comparison showing H2p ties H2o on H2f at 10/10.",
+      "exists": true
+    },
+    {
+      "claim_id": "C55_h2q_composed_surface_value_stale_breaks_h2p_saturation",
+      "artifact_type": "replay_synthesis",
+      "path": "results/reports/h2q_composed_surface_value_stale_synthesis/report.md",
+      "purpose": "Dedicated H2q synthesis showing the post-H2p boundary and case-family failure structure.",
+      "exists": true
+    },
+    {
+      "claim_id": "C55_h2q_composed_surface_value_stale_breaks_h2p_saturation",
+      "artifact_type": "replay_synthesis_figure",
+      "path": "results/reports/h2q_composed_surface_value_stale_synthesis/figures/h2q_composed_surface_value_stale_gate.svg",
+      "purpose": "Figure summarizing H2q exact-rate results across H2e, H2n, H2o, and H2p.",
+      "exists": true
+    },
+    {
+      "claim_id": "C55_h2q_composed_surface_value_stale_breaks_h2p_saturation",
+      "artifact_type": "design_packet",
+      "path": "results/tool_probe_replay_packets/20260512T_h2q_composed_surface_value_stale_dry_run_v1",
+      "purpose": "H2q dry-run packet defining composed surface/value/stale/decoy pressure.",
+      "exists": true
+    },
+    {
+      "claim_id": "C55_h2q_composed_surface_value_stale_breaks_h2p_saturation",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260512T_h2q_composed_surface_value_stale_h2p_execute_v1",
+      "purpose": "H2p live execution on H2q reaching 3/8 strict and executor-equivalent.",
+      "exists": true
+    },
+    {
+      "claim_id": "C55_h2q_composed_surface_value_stale_breaks_h2p_saturation",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260512T_h2q_composed_surface_value_stale_h2o_execute_v1",
+      "purpose": "H2o live execution on H2q reaching 2/8 strict and executor-equivalent.",
+      "exists": true
+    },
+    {
+      "claim_id": "C55_h2q_composed_surface_value_stale_breaks_h2p_saturation",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260512T_h2q_composed_surface_value_stale_h2n_execute_v1",
+      "purpose": "H2n live execution on H2q reaching 0/8 strict and 1/8 executor-equivalent.",
+      "exists": true
+    },
+    {
+      "claim_id": "C55_h2q_composed_surface_value_stale_breaks_h2p_saturation",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260512T_h2q_composed_surface_value_stale_h2e_execute_v1",
+      "purpose": "H2e live execution on H2q reaching 1/8 strict and 2/8 executor-equivalent.",
+      "exists": true
+    },
+    {
+      "claim_id": "C55_h2q_composed_surface_value_stale_breaks_h2p_saturation",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260512T_h2q_composed_surface_value_stale_h2p_vs_h2o_v1",
+      "purpose": "Direct H2p-vs-H2o comparison on H2q showing +0.125 strict and executor-equivalence deltas.",
+      "exists": true
+    },
+    {
+      "claim_id": "C55_h2q_composed_surface_value_stale_breaks_h2p_saturation",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260512T_h2q_composed_surface_value_stale_h2p_vs_h2n_v1",
+      "purpose": "Direct H2p-vs-H2n comparison on H2q showing +0.375 strict and +0.25 executor-equivalence deltas.",
+      "exists": true
+    },
+    {
+      "claim_id": "C55_h2q_composed_surface_value_stale_breaks_h2p_saturation",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260512T_h2q_composed_surface_value_stale_h2p_vs_h2e_v1",
+      "purpose": "Direct H2p-vs-H2e comparison on H2q showing +0.25 strict and +0.125 executor-equivalence deltas.",
       "exists": true
     }
   ],

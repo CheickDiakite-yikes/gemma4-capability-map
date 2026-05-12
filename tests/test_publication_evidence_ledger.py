@@ -151,6 +151,9 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert claims["C54_h2p_contextual_surface_alias_routing_saturates_h2m_without_transfer_regression"][
         "status"
     ] == "supported_current_packets_scope_candidate"
+    assert claims["C55_h2q_composed_surface_value_stale_breaks_h2p_saturation"][
+        "status"
+    ] == "supported_current_packets_boundary"
     assert "7/8" in claims["C2_final_tool_directive_causal_for_protocol"]["primary_metric"]
     assert "v3 raw exact falls" in claims["C6_split_selector_wording_is_negative_evidence"]["primary_metric"]
     assert "schema-field hints reach 6/8 strict and 8/8 executor-equivalent" in claims[
@@ -471,6 +474,15 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     ]["limitation"]
     assert "Define a harder post-H2p H1/H2 slice" in claims[
         "C54_h2p_contextual_surface_alias_routing_saturates_h2m_without_transfer_regression"
+    ]["next_test"]
+    assert "3/8 strict and 3/8 executor-equivalent" in claims[
+        "C55_h2q_composed_surface_value_stale_breaks_h2p_saturation"
+    ]["primary_metric"]
+    assert "H2o reaches 2/8" in claims[
+        "C55_h2q_composed_surface_value_stale_breaks_h2p_saturation"
+    ]["primary_metric"]
+    assert "H2r around composed route gating" in claims[
+        "C55_h2q_composed_surface_value_stale_breaks_h2p_saturation"
     ]["next_test"]
     assert any(
         row["claim_id"] == "C28_h1n_post_repair_holdout_favors_code_guard"
@@ -853,6 +865,25 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
         == "C54_h2p_contextual_surface_alias_routing_saturates_h2m_without_transfer_regression"
         and row["path"]
         == "results/tool_probe_replay_live_comparisons/20260512T_h2p_contextual_surface_alias_routing_vs_h2o_on_h2m_v1"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C55_h2q_composed_surface_value_stale_breaks_h2p_saturation"
+        and row["path"] == "results/reports/h2q_composed_surface_value_stale_synthesis/report.md"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C55_h2q_composed_surface_value_stale_breaks_h2p_saturation"
+        and row["path"] == "results/tool_probe_replay_live/20260512T_h2q_composed_surface_value_stale_h2p_execute_v1"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C55_h2q_composed_surface_value_stale_breaks_h2p_saturation"
+        and row["path"]
+        == "results/tool_probe_replay_live_comparisons/20260512T_h2q_composed_surface_value_stale_h2p_vs_h2o_v1"
         and row["exists"]
         for row in payload["evidence_sources"]
     )

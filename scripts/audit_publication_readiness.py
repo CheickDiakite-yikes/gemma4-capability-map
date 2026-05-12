@@ -1877,6 +1877,103 @@ def audit_publication_readiness(
             detail="H2p contextual surface-alias routing figure exists.",
         ),
         _check_path(
+            check_id="h2q_composed_surface_value_stale_packet_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_packets"
+            / "20260512T_h2q_composed_surface_value_stale_dry_run_v1"
+            / "summary.json",
+            detail="H2q composed surface/value/stale dry-run packet exists.",
+        ),
+        _check_path(
+            check_id="h2q_composed_surface_value_stale_h2p_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260512T_h2q_composed_surface_value_stale_h2p_execute_v1"
+            / "summary.json",
+            detail="H2q H2p live replay exists.",
+        ),
+        _check_path(
+            check_id="h2q_composed_surface_value_stale_h2o_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260512T_h2q_composed_surface_value_stale_h2o_execute_v1"
+            / "summary.json",
+            detail="H2q H2o live replay exists.",
+        ),
+        _check_path(
+            check_id="h2q_composed_surface_value_stale_h2n_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260512T_h2q_composed_surface_value_stale_h2n_execute_v1"
+            / "summary.json",
+            detail="H2q H2n live replay exists.",
+        ),
+        _check_path(
+            check_id="h2q_composed_surface_value_stale_h2e_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260512T_h2q_composed_surface_value_stale_h2e_execute_v1"
+            / "summary.json",
+            detail="H2q H2e live replay exists.",
+        ),
+        _check_path(
+            check_id="h2q_composed_surface_value_stale_vs_h2o_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260512T_h2q_composed_surface_value_stale_h2p_vs_h2o_v1"
+            / "live_replay_comparison.json",
+            detail="H2q H2p versus H2o comparison exists.",
+        ),
+        _check_path(
+            check_id="h2q_composed_surface_value_stale_vs_h2n_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260512T_h2q_composed_surface_value_stale_h2p_vs_h2n_v1"
+            / "live_replay_comparison.json",
+            detail="H2q H2p versus H2n comparison exists.",
+        ),
+        _check_path(
+            check_id="h2q_composed_surface_value_stale_vs_h2e_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260512T_h2q_composed_surface_value_stale_h2p_vs_h2e_v1"
+            / "live_replay_comparison.json",
+            detail="H2q H2p versus H2e comparison exists.",
+        ),
+        _check_path(
+            check_id="h2q_composed_surface_value_stale_report_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "h2q_composed_surface_value_stale_synthesis" / "report.md",
+            detail="H2q composed surface/value/stale synthesis report exists.",
+        ),
+        _check_path(
+            check_id="h2q_composed_surface_value_stale_report_figure_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "h2q_composed_surface_value_stale_synthesis"
+            / "figures"
+            / "h2q_composed_surface_value_stale_gate.svg",
+            detail="H2q composed surface/value/stale synthesis figure exists.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",
@@ -1937,6 +2034,7 @@ def audit_publication_readiness(
         "build_h2n_scoped_target_normalization_synthesis.py",
         "build_h2o_value_bearing_target_synthesis.py",
         "build_h2p_contextual_surface_alias_routing_synthesis.py",
+        "build_h2q_composed_surface_value_stale_synthesis.py",
         "compare_tool_directive_probes.py",
         "build_visual_hard_slice_design.py",
         "build_visual_hard_slice_replay_packet.py",

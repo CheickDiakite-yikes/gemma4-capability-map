@@ -151,7 +151,7 @@ The freshest MLX evidence is now H1h/H1i/H1g:
   - exact JSON copy `7 / 8`
   - visual selector paraphrase executable target `1 / 1`
 
-The freshest replay-shaped visual controller evidence is now H2p:
+The freshest replay-shaped visual controller evidence is now H2q:
 
 - H2j target-query normalization proved the repair can be controller-attributable rather than prompt-prose-attributable:
   - H2f: `10 / 10`
@@ -194,14 +194,22 @@ The freshest replay-shaped visual controller evidence is now H2p:
   - H2l: `8 / 8`
   - H2f: `10 / 10`
   - synthesis: [`results/reports/h2p_contextual_surface_alias_routing_synthesis/report.md`](../../results/reports/h2p_contextual_surface_alias_routing_synthesis/report.md)
-- H2q is the next composed dry-run packet, not yet a live result:
+- H2q is the first post-H2p composed saturation breaker:
   - packet: [`results/tool_probe_replay_packets/20260512T_h2q_composed_surface_value_stale_dry_run_v1`](../../results/tool_probe_replay_packets/20260512T_h2q_composed_surface_value_stale_dry_run_v1)
+  - synthesis: [`results/reports/h2q_composed_surface_value_stale_synthesis/report.md`](../../results/reports/h2q_composed_surface_value_stale_synthesis/report.md)
   - suite: `h2q_composed_surface_value_stale_v20`
   - shape: `8` cases mixing surface aliases, value-bearing labels, stale-selection hints, and decoy overlap
-  - control plan: execute H2q on H2p, H2o-without-H2p, H2n, and H2e before adding another helper
+  - H2p: `3 / 8` strict and executor-equivalent
+  - H2o: `2 / 8` strict and executor-equivalent
+  - H2n: `0 / 8` strict and `1 / 8` executor-equivalent
+  - H2e: `1 / 8` strict and `2 / 8` executor-equivalent
+  - H2p-vs-H2o: `+0.125` strict and executor-equivalence delta
+  - H2p-vs-H2n: `+0.375` strict and `+0.25` executor-equivalence delta
+  - H2p-vs-H2e: `+0.25` strict and `+0.125` executor-equivalence delta
 - next controller question:
-  - test whether H2p survives H2q's composed pressure rather than another isolated H2m repair
-  - require value-bearing construction plus surface-alias routing under stale/decoy pressure, with H2o-only/H2n/H2e ablation rows
+  - build H2r around composed route gating rather than another isolated H2m repair
+  - reject stale `refine_selection` calls when the prompt says to ignore old selections
+  - prefer requested surface classes over nearby same-value comments, banners, controls, and history context
 
 ## Direction Reset
 

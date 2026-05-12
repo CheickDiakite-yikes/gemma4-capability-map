@@ -1,0 +1,4 @@
+comparison_label,comparison_dir,shared_case_count,baseline_exact_rate,candidate_exact_rate,delta_exact_rate,baseline_executor_equivalence_rate,candidate_executor_equivalence_rate,delta_executor_equivalence_rate
+h2q_h2p_vs_h2o,results/tool_probe_replay_live_comparisons/20260512T_h2q_composed_surface_value_stale_h2p_vs_h2o_v1,8,0.25,0.375,0.125,0.25,0.375,0.125
+h2q_h2p_vs_h2n,results/tool_probe_replay_live_comparisons/20260512T_h2q_composed_surface_value_stale_h2p_vs_h2n_v1,8,0.0,0.375,0.375,0.125,0.375,0.25
+h2q_h2p_vs_h2e,results/tool_probe_replay_live_comparisons/20260512T_h2q_composed_surface_value_stale_h2p_vs_h2e_v1,8,0.125,0.375,0.25,0.25,0.375,0.125

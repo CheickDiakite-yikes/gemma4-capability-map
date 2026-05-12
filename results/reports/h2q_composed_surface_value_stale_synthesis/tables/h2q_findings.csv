@@ -1,0 +1,6 @@
+finding_id,finding
+h2q_breaks_h2p_saturation,H2q breaks the post-H2p H2m saturation: H2p reaches only 3/8 strict and 3/8 executor-equivalent on the composed surface/value/stale packet.
+h2q_h2p_remains_directionally_best,"H2p is still the best current row: H2o is 2/8, H2n is 0/8, and H2e is 1/8 strict. H2p adds 0.125 strict over H2o, 0.375 over H2n, and 0.25 over H2e."
+h2q_failures_are_tool_route_and_decoy_selection_failures,"H2p leaves 5 non-exact rows: 3 argument mismatches and 2 wrong-tool rows, so remaining error is not merely strict spelling drift."
+h2q_composition_exposes_incomplete_helper_interaction,"H2p records 1 contextual surface-alias, 2 value-bearing, 3 target-normalization, and 1 stale-selection interventions, but still fails five rows under composed pressure."
+next_slice_should_target_composed_route_gating,"The next slice should target composed route gating: refuse stale refine_selection calls when the prompt says ignore old selection IDs, and prioritize requested surface classes over nearby same-value comments, banners, controls, and history context."

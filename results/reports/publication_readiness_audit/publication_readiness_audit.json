@@ -1,9 +1,9 @@
 {
   "summary": {
-    "generated_at": "2026-05-12T21:26:59.860978+00:00",
+    "generated_at": "2026-05-12T21:53:14.522321+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 236,
-    "blocking_check_count": 229,
+    "check_count": 247,
+    "blocking_check_count": 240,
     "blocking_failed_count": 0,
     "recommended_check_count": 7,
     "recommended_failed_count": 0,
@@ -29,7 +29,7 @@
       "check_id": "ledger_has_claims",
       "severity": "blocking",
       "passed": true,
-      "detail": "claim_count=53",
+      "detail": "claim_count=54",
       "path": ""
     },
     {
@@ -1405,6 +1405,76 @@
       "path": "results/reports/h2p_contextual_surface_alias_routing_synthesis/figures/h2p_contextual_surface_alias_routing_gate.svg"
     },
     {
+      "check_id": "h2q_composed_surface_value_stale_packet_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2q composed surface/value/stale dry-run packet exists.",
+      "path": "results/tool_probe_replay_packets/20260512T_h2q_composed_surface_value_stale_dry_run_v1/summary.json"
+    },
+    {
+      "check_id": "h2q_composed_surface_value_stale_h2p_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2q H2p live replay exists.",
+      "path": "results/tool_probe_replay_live/20260512T_h2q_composed_surface_value_stale_h2p_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h2q_composed_surface_value_stale_h2o_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2q H2o live replay exists.",
+      "path": "results/tool_probe_replay_live/20260512T_h2q_composed_surface_value_stale_h2o_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h2q_composed_surface_value_stale_h2n_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2q H2n live replay exists.",
+      "path": "results/tool_probe_replay_live/20260512T_h2q_composed_surface_value_stale_h2n_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h2q_composed_surface_value_stale_h2e_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2q H2e live replay exists.",
+      "path": "results/tool_probe_replay_live/20260512T_h2q_composed_surface_value_stale_h2e_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h2q_composed_surface_value_stale_vs_h2o_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2q H2p versus H2o comparison exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260512T_h2q_composed_surface_value_stale_h2p_vs_h2o_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h2q_composed_surface_value_stale_vs_h2n_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2q H2p versus H2n comparison exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260512T_h2q_composed_surface_value_stale_h2p_vs_h2n_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h2q_composed_surface_value_stale_vs_h2e_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2q H2p versus H2e comparison exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260512T_h2q_composed_surface_value_stale_h2p_vs_h2e_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h2q_composed_surface_value_stale_report_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2q composed surface/value/stale synthesis report exists.",
+      "path": "results/reports/h2q_composed_surface_value_stale_synthesis/report.md"
+    },
+    {
+      "check_id": "h2q_composed_surface_value_stale_report_figure_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2q composed surface/value/stale synthesis figure exists.",
+      "path": "results/reports/h2q_composed_surface_value_stale_synthesis/figures/h2q_composed_surface_value_stale_gate.svg"
+    },
+    {
       "check_id": "current_state_doc_exists",
       "severity": "blocking",
       "passed": true,
@@ -1641,6 +1711,13 @@
       "passed": true,
       "detail": "Reproduction script `build_h2p_contextual_surface_alias_routing_synthesis.py` exists.",
       "path": "scripts/build_h2p_contextual_surface_alias_routing_synthesis.py"
+    },
+    {
+      "check_id": "script_build_h2q_composed_surface_value_stale_synthesis.py_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Reproduction script `build_h2q_composed_surface_value_stale_synthesis.py` exists.",
+      "path": "scripts/build_h2q_composed_surface_value_stale_synthesis.py"
     },
     {
       "check_id": "script_compare_tool_directive_probes.py_exists",

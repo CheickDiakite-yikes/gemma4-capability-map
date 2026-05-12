@@ -2814,6 +2814,83 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C55_h2q_composed_surface_value_stale_breaks_h2p_saturation",
+        claim=(
+            "A composed H2q packet breaks the post-H2p saturation by mixing surface aliases, value-bearing labels, "
+            "stale-selection hints, and decoy overlap in the same replay-shaped visual states."
+        ),
+        status="supported_current_packets_boundary",
+        evidence_strength="strong_internal",
+        primary_metric=(
+            "On H2q, H2p remains the strongest current row but reaches only 3/8 strict and 3/8 "
+            "executor-equivalent. H2o reaches 2/8, H2n reaches 0/8 strict and 1/8 executor-equivalent, "
+            "and H2e reaches 1/8 strict and 2/8 executor-equivalent. H2p adds +0.125 strict over H2o, "
+            "+0.375 over H2n, and +0.25 over H2e, but still leaves five non-exact rows."
+        ),
+        limitation=(
+            "H2q is an 8-case replay-shaped synthetic packet, not a broad GUI population estimate. It supports a "
+            "new boundary claim and a next mechanistic target, not a production promotion or a solved live operator "
+            "policy."
+        ),
+        next_test=(
+            "Build H2r around composed route gating: reject stale refine_selection calls when the latest prompt says "
+            "to ignore old selections, and prefer requested surface classes over nearby same-value comments, banners, "
+            "controls, and history context."
+        ),
+        sources=(
+            EvidenceSource(
+                "replay_synthesis",
+                "results/reports/h2q_composed_surface_value_stale_synthesis/report.md",
+                "Dedicated H2q synthesis showing the post-H2p boundary and case-family failure structure.",
+            ),
+            EvidenceSource(
+                "replay_synthesis_figure",
+                "results/reports/h2q_composed_surface_value_stale_synthesis/figures/h2q_composed_surface_value_stale_gate.svg",
+                "Figure summarizing H2q exact-rate results across H2e, H2n, H2o, and H2p.",
+            ),
+            EvidenceSource(
+                "design_packet",
+                "results/tool_probe_replay_packets/20260512T_h2q_composed_surface_value_stale_dry_run_v1",
+                "H2q dry-run packet defining composed surface/value/stale/decoy pressure.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2q_composed_surface_value_stale_h2p_execute_v1",
+                "H2p live execution on H2q reaching 3/8 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2q_composed_surface_value_stale_h2o_execute_v1",
+                "H2o live execution on H2q reaching 2/8 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2q_composed_surface_value_stale_h2n_execute_v1",
+                "H2n live execution on H2q reaching 0/8 strict and 1/8 executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2q_composed_surface_value_stale_h2e_execute_v1",
+                "H2e live execution on H2q reaching 1/8 strict and 2/8 executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2q_composed_surface_value_stale_h2p_vs_h2o_v1",
+                "Direct H2p-vs-H2o comparison on H2q showing +0.125 strict and executor-equivalence deltas.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2q_composed_surface_value_stale_h2p_vs_h2n_v1",
+                "Direct H2p-vs-H2n comparison on H2q showing +0.375 strict and +0.25 executor-equivalence deltas.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2q_composed_surface_value_stale_h2p_vs_h2e_v1",
+                "Direct H2p-vs-H2e comparison on H2q showing +0.25 strict and +0.125 executor-equivalence deltas.",
+            ),
+        ),
+    ),
 )
 
 

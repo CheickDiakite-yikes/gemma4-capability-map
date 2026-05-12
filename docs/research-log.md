@@ -497,29 +497,47 @@
   - `uv run python scripts/build_publication_evidence_ledger.py`
   - `uv run python scripts/audit_publication_readiness.py`
 
-## 2026-05-12 - H2q Composed Surface/Value/Stale Packet
+## 2026-05-12 - H2q Composed Surface/Value/Stale Breaks H2p Saturation
 
-- Added the next post-H2p dry-run packet:
+- Added and executed the first post-H2p composition packet:
   - suite: `h2q_composed_surface_value_stale_v20`
   - packet: [`results/tool_probe_replay_packets/20260512T_h2q_composed_surface_value_stale_dry_run_v1`](../results/tool_probe_replay_packets/20260512T_h2q_composed_surface_value_stale_dry_run_v1)
   - builder: [`scripts/build_visual_hard_slice_live_stress_packet.py`](../scripts/build_visual_hard_slice_live_stress_packet.py)
+  - synthesis: [`results/reports/h2q_composed_surface_value_stale_synthesis/report.md`](../results/reports/h2q_composed_surface_value_stale_synthesis/report.md)
+  - figure: [`results/reports/h2q_composed_surface_value_stale_synthesis/figures/h2q_composed_surface_value_stale_gate.svg`](../results/reports/h2q_composed_surface_value_stale_synthesis/figures/h2q_composed_surface_value_stale_gate.svg)
 - Packet shape:
   - `8` cases total
   - `2` surface-alias/value-decoy rows
   - `2` value-bearing/stale-decoy rows
   - `2` contextual-alias/decoy-overlap rows
   - `2` stale-surface-alias rows
-- Scientific intent:
-  - H2m is now saturated under H2p, so the next useful question is composition rather than another isolated repair.
-  - H2q requires the current controller stack to combine H2o-style value-bearing target synthesis with H2p-style surface routing while stale hints and same-value decoys are present.
-  - The packet is intentionally dry-run evidence only. It should become a claim only after matched live rows exist for H2p, H2o-without-H2p, H2n, and H2e.
+- Result:
+  - H2p: strict `3 / 8`, executor-equivalent `3 / 8`
+  - H2o: strict `2 / 8`, executor-equivalent `2 / 8`
+  - H2n: strict `0 / 8`, executor-equivalent `1 / 8`
+  - H2e: strict `1 / 8`, executor-equivalent `2 / 8`
+  - H2p-vs-H2o: `+0.125` strict and executor-equivalence
+  - H2p-vs-H2n: `+0.375` strict and `+0.25` executor-equivalence
+  - H2p-vs-H2e: `+0.25` strict and `+0.125` executor-equivalence
+- Mechanism:
+  - H2p remains directionally best, but it leaves `5` non-exact rows: `3` argument mismatches and `2` wrong-tool rows.
+  - The wrong-tool rows are stale `refine_selection` calls on `sel-archived-result-badge` and `sel-archived-state-tag`, despite prompts saying to ignore old selections.
+  - The argument mismatches select nearby same-value or adjacent context (`result comment`, `error banner`, `mode switch`) instead of requested surface classes (`result tile`, `error notice`, `mode field`).
+  - H2p records `1` contextual surface-alias intervention, `2` value-bearing syntheses, `3` target-normalization interventions, and `1` stale-selection intervention on H2q, but those helpers still do not compose into a solved policy.
+- Reporting updates:
+  - publication evidence claim `C55_h2q_composed_surface_value_stale_breaks_h2p_saturation` records the boundary claim
+  - publication ledger now has `55` claims / `336` evidence sources / `0` missing
+  - readiness audit remains `paper_draft_ready` with `247` checks / `240` blocking checks / `0` blocking failures
 - Next execution:
-  - run H2q on the incumbent H2p row first
-  - run matched controls for H2o-only, H2n, and H2e
-  - compare case-level exactness, executor-equivalence, contextual-alias metadata, value-bearing synthesis metadata, and stale-selection metadata before adding any new helper
+  - build H2r around composed route gating, starting from H2q's five H2p misses
+  - keep H2p/H2o/H2n/H2e controls so strict and executor-equivalent deltas remain attributable
 - Verification:
   - `uv run pytest tests/test_visual_hard_slice_live_stress_packet.py::test_visual_hard_slice_live_stress_packet_supports_h2q_composed_suite -q`
   - `uv run python scripts/build_visual_hard_slice_live_stress_packet.py --suite h2q_composed_surface_value_stale_v20 --run-group-id 20260512T_h2q_composed_surface_value_stale_dry_run_v1`
+  - `uv run moonie-agent replay-live --packet-dir results/tool_probe_replay_packets/20260512T_h2q_composed_surface_value_stale_dry_run_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_value_bearing_target_query_synthesis_visual_contextual_surface_alias_routing --output-dir results/tool_probe_replay_live/20260512T_h2q_composed_surface_value_stale_h2p_execute_v1 --execute --json`
+  - `uv run python scripts/build_h2q_composed_surface_value_stale_synthesis.py`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`
 
 ## 2026-05-12 - H2p Contextual Surface-Alias Routing Closes H2m
 
