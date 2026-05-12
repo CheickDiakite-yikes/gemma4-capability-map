@@ -22,7 +22,7 @@ Treat the older H1/HF and React notes below as historical context unless they ar
 
 Current strongest MLX result:
 
-- H2m less-direct over-normalization design is the freshest visual harnessing frontier:
+- H2m less-direct over-normalization is the freshest visual harnessing boundary:
   - H2e still reaches `5 / 5` on H2b and `8 / 8` on H1x, so route arbitration remains valid mechanism evidence.
   - Fresh H2f broke global H2e promotion: H2e and H2c tie at `6 / 10`, while no-directive is only `1 / 10`.
   - H2h component-identity negative examples are scoped positive but globally negative: `9 / 10` on H2f, then `3 / 5` on H2b and `6 / 8` on H1x.
@@ -34,6 +34,9 @@ Current strongest MLX result:
   - H2k full-H2j and stale-gate-off metadata both record `5` target-query-normalization interventions and `0` stale-selection interventions, so the H2k win is target-normalization evidence rather than stale-rescue evidence.
   - H2l then stress-tests target-normalization overreach: full H2j and H2j without stale-selection reach `8 / 8`, H2e reaches `7 / 8`, and H2j records `1` target-query-normalization intervention with `0` stale-selection interventions.
   - H2l's single repair is `critical chip` -> `status badge`; the value-bearing and alias-is-target rows do not show over-stripping in this deterministic packet.
+  - H2m removes H2l's direct target-is wording and breaks the saturation: full H2j and H2j without stale-selection both reach only `3 / 8` strict and executor-equivalent.
+  - H2m H2e reaches `1 / 8` strict and `3 / 8` executor-equivalent, so H2j gives a `+0.25` exact-rate lift but `0.0` executor-equivalence lift.
+  - H2m records `5` target-query-normalization interventions, `0` stale-selection interventions, and `3` value-bearing over-strip rows (`result badge Blocked`, `state tag Closed`, `priority badge Critical`).
   - H2f synthesis: [`results/reports/h2f_route_arbitration_holdout_synthesis/report.md`](../../results/reports/h2f_route_arbitration_holdout_synthesis/report.md)
   - H2f figure: [`results/reports/h2f_route_arbitration_holdout_synthesis/figures/h2f_holdout_profile_bars.svg`](../../results/reports/h2f_route_arbitration_holdout_synthesis/figures/h2f_holdout_profile_bars.svg)
   - H2h tradeoff synthesis: [`results/reports/h2h_component_identity_tradeoff_synthesis/report.md`](../../results/reports/h2h_component_identity_tradeoff_synthesis/report.md)
@@ -49,7 +52,11 @@ Current strongest MLX result:
   - H2l dry-run packet: [`results/tool_probe_replay_packets/20260512T_h2l_target_normalization_overreach_dry_run_v1`](../../results/tool_probe_replay_packets/20260512T_h2l_target_normalization_overreach_dry_run_v1)
   - H2l live packets: [`H2j`](../../results/tool_probe_replay_live/20260512T_h2l_target_normalization_overreach_h2j_execute_v1), [`H2j-no-stale`](../../results/tool_probe_replay_live/20260512T_h2l_target_normalization_overreach_h2j_no_stale_gate_execute_v1), [`H2e`](../../results/tool_probe_replay_live/20260512T_h2l_target_normalization_overreach_h2e_execute_v1)
   - H2m dry-run packet: [`results/tool_probe_replay_packets/20260512T_h2m_less_direct_target_normalization_overreach_dry_run_v1`](../../results/tool_probe_replay_packets/20260512T_h2m_less_direct_target_normalization_overreach_dry_run_v1)
-  - next restart move: execute H2m against H2j, H2j-no-stale, and H2e; the target is over-normalization under less direct phrasing, not stale rescue
+  - H2m synthesis: [`results/reports/h2m_less_direct_overreach_synthesis/report.md`](../../results/reports/h2m_less_direct_overreach_synthesis/report.md)
+  - H2m figure: [`results/reports/h2m_less_direct_overreach_synthesis/figures/h2m_less_direct_overreach_gate.svg`](../../results/reports/h2m_less_direct_overreach_synthesis/figures/h2m_less_direct_overreach_gate.svg)
+  - H2m live packets: [`H2j`](../../results/tool_probe_replay_live/20260512T_h2m_less_direct_target_normalization_overreach_h2j_execute_v1), [`H2j-no-stale`](../../results/tool_probe_replay_live/20260512T_h2m_less_direct_target_normalization_overreach_h2j_no_stale_gate_execute_v1), [`H2e`](../../results/tool_probe_replay_live/20260512T_h2m_less_direct_target_normalization_overreach_h2e_execute_v1)
+  - H2m comparisons: [`H2j-vs-H2e`](../../results/tool_probe_replay_live_comparisons/20260512T_h2m_less_direct_target_normalization_overreach_h2j_vs_h2e_v1), [`H2j-vs-no-stale`](../../results/tool_probe_replay_live_comparisons/20260512T_h2m_less_direct_target_normalization_overreach_h2j_vs_no_stale_gate_v1)
+  - next restart move: implement H2n scoped target-normalization; preserve H2k/H2l repairs but stop H2m value-bearing over-strip under less-direct phrasing
 - H1h proves the no-directive causal ordering across all ten live workflow families.
 - H1i compresses the worst H1h workflow families into the current fast loop.
 - contracted MLX on H1i is clean at readiness `0.97710`, strict/recovered `1.0 / 1.0`, raw clean `1.0`.

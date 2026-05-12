@@ -1,0 +1,450 @@
+{
+  "manifest": {
+    "generated_at": "2026-05-12T20:15:33.038410+00:00",
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h2m_less_direct_overreach_synthesis",
+    "packet_row_count": 3,
+    "comparison_count": 2,
+    "family_row_count": 3,
+    "h2e_exact_success_count": 1,
+    "h2e_executor_success_count": 3,
+    "h2j_no_stale_exact_success_count": 3,
+    "h2j_no_stale_executor_success_count": 3,
+    "h2j_exact_success_count": 3,
+    "h2j_executor_success_count": 3,
+    "h2j_delta_exact_vs_h2e": 0.25,
+    "h2j_delta_executor_vs_h2e": 0.0,
+    "h2j_delta_exact_vs_no_stale_gate": 0.0,
+    "h2j_delta_executor_vs_no_stale_gate": 0.0,
+    "h2e_non_exact_count": 7,
+    "h2j_no_stale_non_exact_count": 5,
+    "h2j_non_exact_count": 5,
+    "target_query_normalization_count": 5,
+    "visual_stale_selection_gate_count": 0,
+    "h2j_no_stale_target_query_normalization_count": 5,
+    "h2j_no_stale_visual_stale_selection_gate_count": 0,
+    "h2j_helpful_target_query_normalization_count": 2,
+    "h2j_value_bearing_overstrip_count": 3,
+    "promotion_decision": "h2m_rejects_current_target_normalization_scope_under_less_direct_wording"
+  },
+  "packet_rows": [
+    {
+      "profile_label": "h2e_route_arbitration",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate",
+      "packet_dir": "results/tool_probe_replay_live/20260512T_h2m_less_direct_target_normalization_overreach_h2e_execute_v1",
+      "case_count": 8,
+      "exact_success_count": 1,
+      "exact_rate": 0.125,
+      "executor_success_count": 3,
+      "executor_rate": 0.375
+    },
+    {
+      "profile_label": "h2j_target_query_normalization_no_stale_gate",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_target_query_normalization_no_stale_selection_gate",
+      "packet_dir": "results/tool_probe_replay_live/20260512T_h2m_less_direct_target_normalization_overreach_h2j_no_stale_gate_execute_v1",
+      "case_count": 8,
+      "exact_success_count": 3,
+      "exact_rate": 0.375,
+      "executor_success_count": 3,
+      "executor_rate": 0.375
+    },
+    {
+      "profile_label": "h2j_target_query_normalization",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_target_query_normalization",
+      "packet_dir": "results/tool_probe_replay_live/20260512T_h2m_less_direct_target_normalization_overreach_h2j_execute_v1",
+      "case_count": 8,
+      "exact_success_count": 3,
+      "exact_rate": 0.375,
+      "executor_success_count": 3,
+      "executor_rate": 0.375
+    }
+  ],
+  "comparison_rows": [
+    {
+      "comparison_label": "h2j_vs_h2e",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260512T_h2m_less_direct_target_normalization_overreach_h2j_vs_h2e_v1",
+      "shared_case_count": 8,
+      "baseline_exact_rate": 0.125,
+      "candidate_exact_rate": 0.375,
+      "delta_exact_rate": 0.25,
+      "baseline_executor_equivalence_rate": 0.375,
+      "candidate_executor_equivalence_rate": 0.375,
+      "delta_executor_equivalence_rate": 0.0
+    },
+    {
+      "comparison_label": "h2j_vs_no_stale_gate",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260512T_h2m_less_direct_target_normalization_overreach_h2j_vs_no_stale_gate_v1",
+      "shared_case_count": 8,
+      "baseline_exact_rate": 0.375,
+      "candidate_exact_rate": 0.375,
+      "delta_exact_rate": 0.0,
+      "baseline_executor_equivalence_rate": 0.375,
+      "candidate_executor_equivalence_rate": 0.375,
+      "delta_executor_equivalence_rate": 0.0
+    }
+  ],
+  "family_rows": [
+    {
+      "family": "h2m_contextual_alias_is_target",
+      "case_count": 2,
+      "expected_target_queries": "error notice; result tile"
+    },
+    {
+      "family": "h2m_h2k_regression_guard_less_direct",
+      "case_count": 2,
+      "expected_target_queries": "status badge; mode field"
+    },
+    {
+      "family": "h2m_less_direct_value_bearing_target",
+      "case_count": 4,
+      "expected_target_queries": "result badge Blocked; state tag Closed; mode toggle Manual; priority badge Critical"
+    }
+  ],
+  "non_exact_rows": [
+    {
+      "profile_label": "h2e_route_arbitration",
+      "case_id": "h2m_result_badge_blocked_contextual_value",
+      "family": "h2m_less_direct_value_bearing_target",
+      "failure_mode": "argument_mismatch",
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "result badge Blocked",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "result chip"
+    },
+    {
+      "profile_label": "h2e_route_arbitration",
+      "case_id": "h2m_state_tag_closed_contextual_value",
+      "family": "h2m_less_direct_value_bearing_target",
+      "failure_mode": "executable_paraphrase",
+      "executor_equivalence_match": true,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "state tag Closed",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "Closed state tag"
+    },
+    {
+      "profile_label": "h2e_route_arbitration",
+      "case_id": "h2m_mode_toggle_manual_contextual_value",
+      "family": "h2m_less_direct_value_bearing_target",
+      "failure_mode": "argument_mismatch",
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "mode toggle Manual",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "mode toggle"
+    },
+    {
+      "profile_label": "h2e_route_arbitration",
+      "case_id": "h2m_priority_badge_critical_contextual_value",
+      "family": "h2m_less_direct_value_bearing_target",
+      "failure_mode": "executable_paraphrase",
+      "executor_equivalence_match": true,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "priority badge Critical",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "priority badge critical"
+    },
+    {
+      "profile_label": "h2e_route_arbitration",
+      "case_id": "h2m_error_notice_contextual_alias",
+      "family": "h2m_contextual_alias_is_target",
+      "failure_mode": "argument_mismatch",
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "error notice",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "archive panel"
+    },
+    {
+      "profile_label": "h2e_route_arbitration",
+      "case_id": "h2m_result_tile_contextual_alias",
+      "family": "h2m_contextual_alias_is_target",
+      "failure_mode": "argument_mismatch",
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "result tile",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "Blocked"
+    },
+    {
+      "profile_label": "h2e_route_arbitration",
+      "case_id": "h2m_mode_field_contextual_regression_guard",
+      "family": "h2m_h2k_regression_guard_less_direct",
+      "failure_mode": "argument_mismatch",
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "mode field",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "mode switch"
+    },
+    {
+      "profile_label": "h2j_target_query_normalization_no_stale_gate",
+      "case_id": "h2m_result_badge_blocked_contextual_value",
+      "family": "h2m_less_direct_value_bearing_target",
+      "failure_mode": "argument_mismatch",
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "result badge Blocked",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "result badge"
+    },
+    {
+      "profile_label": "h2j_target_query_normalization_no_stale_gate",
+      "case_id": "h2m_state_tag_closed_contextual_value",
+      "family": "h2m_less_direct_value_bearing_target",
+      "failure_mode": "argument_mismatch",
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "state tag Closed",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "state tag"
+    },
+    {
+      "profile_label": "h2j_target_query_normalization_no_stale_gate",
+      "case_id": "h2m_mode_toggle_manual_contextual_value",
+      "family": "h2m_less_direct_value_bearing_target",
+      "failure_mode": "argument_mismatch",
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "mode toggle Manual",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "mode toggle"
+    },
+    {
+      "profile_label": "h2j_target_query_normalization_no_stale_gate",
+      "case_id": "h2m_priority_badge_critical_contextual_value",
+      "family": "h2m_less_direct_value_bearing_target",
+      "failure_mode": "argument_mismatch",
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "priority badge Critical",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "priority badge"
+    },
+    {
+      "profile_label": "h2j_target_query_normalization_no_stale_gate",
+      "case_id": "h2m_result_tile_contextual_alias",
+      "family": "h2m_contextual_alias_is_target",
+      "failure_mode": "argument_mismatch",
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "result tile",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "Blocked"
+    },
+    {
+      "profile_label": "h2j_target_query_normalization",
+      "case_id": "h2m_result_badge_blocked_contextual_value",
+      "family": "h2m_less_direct_value_bearing_target",
+      "failure_mode": "argument_mismatch",
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "result badge Blocked",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "result badge"
+    },
+    {
+      "profile_label": "h2j_target_query_normalization",
+      "case_id": "h2m_state_tag_closed_contextual_value",
+      "family": "h2m_less_direct_value_bearing_target",
+      "failure_mode": "argument_mismatch",
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "state tag Closed",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "state tag"
+    },
+    {
+      "profile_label": "h2j_target_query_normalization",
+      "case_id": "h2m_mode_toggle_manual_contextual_value",
+      "family": "h2m_less_direct_value_bearing_target",
+      "failure_mode": "argument_mismatch",
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "mode toggle Manual",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "mode toggle"
+    },
+    {
+      "profile_label": "h2j_target_query_normalization",
+      "case_id": "h2m_priority_badge_critical_contextual_value",
+      "family": "h2m_less_direct_value_bearing_target",
+      "failure_mode": "argument_mismatch",
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "priority badge Critical",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "priority badge"
+    },
+    {
+      "profile_label": "h2j_target_query_normalization",
+      "case_id": "h2m_result_tile_contextual_alias",
+      "family": "h2m_contextual_alias_is_target",
+      "failure_mode": "argument_mismatch",
+      "executor_equivalence_match": false,
+      "expected_tool": "extract_layout",
+      "expected_target_query": "result tile",
+      "actual_tool": "extract_layout",
+      "actual_target_query": "Blocked"
+    }
+  ],
+  "intervention_rows": [
+    {
+      "profile_label": "h2j_target_query_normalization_no_stale_gate",
+      "case_id": "h2m_result_badge_blocked_contextual_value",
+      "family": "h2m_less_direct_value_bearing_target",
+      "intervention_kind": "visual_target_query_normalization",
+      "from_tool": "extract_layout",
+      "from_arguments": "{\"image_id\":\"img-h2m-result-badge-blocked\",\"target_query\":\"result chip\"}",
+      "to_tool": "extract_layout",
+      "to_arguments": "{\"image_id\":\"img-h2m-result-badge-blocked\",\"target_query\":\"result badge\"}",
+      "prompt_state_label": "result badge"
+    },
+    {
+      "profile_label": "h2j_target_query_normalization_no_stale_gate",
+      "case_id": "h2m_state_tag_closed_contextual_value",
+      "family": "h2m_less_direct_value_bearing_target",
+      "intervention_kind": "visual_target_query_normalization",
+      "from_tool": "extract_layout",
+      "from_arguments": "{\"image_id\":\"img-h2m-state-tag-closed\",\"target_query\":\"Closed state tag\"}",
+      "to_tool": "extract_layout",
+      "to_arguments": "{\"image_id\":\"img-h2m-state-tag-closed\",\"target_query\":\"state tag\"}",
+      "prompt_state_label": "state tag"
+    },
+    {
+      "profile_label": "h2j_target_query_normalization_no_stale_gate",
+      "case_id": "h2m_priority_badge_critical_contextual_value",
+      "family": "h2m_less_direct_value_bearing_target",
+      "intervention_kind": "visual_target_query_normalization",
+      "from_tool": "extract_layout",
+      "from_arguments": "{\"image_id\":\"img-h2m-priority-badge-critical\",\"target_query\":\"priority badge critical\"}",
+      "to_tool": "extract_layout",
+      "to_arguments": "{\"image_id\":\"img-h2m-priority-badge-critical\",\"target_query\":\"priority badge\"}",
+      "prompt_state_label": "priority badge"
+    },
+    {
+      "profile_label": "h2j_target_query_normalization_no_stale_gate",
+      "case_id": "h2m_error_notice_contextual_alias",
+      "family": "h2m_contextual_alias_is_target",
+      "intervention_kind": "visual_target_query_normalization",
+      "from_tool": "extract_layout",
+      "from_arguments": "{\"image_id\":\"img-h2m-error-notice\",\"target_query\":\"archive panel\"}",
+      "to_tool": "extract_layout",
+      "to_arguments": "{\"image_id\":\"img-h2m-error-notice\",\"target_query\":\"error notice\"}",
+      "prompt_state_label": "error notice"
+    },
+    {
+      "profile_label": "h2j_target_query_normalization_no_stale_gate",
+      "case_id": "h2m_mode_field_contextual_regression_guard",
+      "family": "h2m_h2k_regression_guard_less_direct",
+      "intervention_kind": "visual_target_query_normalization",
+      "from_tool": "extract_layout",
+      "from_arguments": "{\"image_id\":\"img-h2m-mode-field-short\",\"target_query\":\"mode switch\"}",
+      "to_tool": "extract_layout",
+      "to_arguments": "{\"image_id\":\"img-h2m-mode-field-short\",\"target_query\":\"mode field\"}",
+      "prompt_state_label": "mode field"
+    },
+    {
+      "profile_label": "h2j_target_query_normalization",
+      "case_id": "h2m_result_badge_blocked_contextual_value",
+      "family": "h2m_less_direct_value_bearing_target",
+      "intervention_kind": "visual_target_query_normalization",
+      "from_tool": "extract_layout",
+      "from_arguments": "{\"image_id\":\"img-h2m-result-badge-blocked\",\"target_query\":\"result chip\"}",
+      "to_tool": "extract_layout",
+      "to_arguments": "{\"image_id\":\"img-h2m-result-badge-blocked\",\"target_query\":\"result badge\"}",
+      "prompt_state_label": "result badge"
+    },
+    {
+      "profile_label": "h2j_target_query_normalization",
+      "case_id": "h2m_state_tag_closed_contextual_value",
+      "family": "h2m_less_direct_value_bearing_target",
+      "intervention_kind": "visual_target_query_normalization",
+      "from_tool": "extract_layout",
+      "from_arguments": "{\"image_id\":\"img-h2m-state-tag-closed\",\"target_query\":\"Closed state tag\"}",
+      "to_tool": "extract_layout",
+      "to_arguments": "{\"image_id\":\"img-h2m-state-tag-closed\",\"target_query\":\"state tag\"}",
+      "prompt_state_label": "state tag"
+    },
+    {
+      "profile_label": "h2j_target_query_normalization",
+      "case_id": "h2m_priority_badge_critical_contextual_value",
+      "family": "h2m_less_direct_value_bearing_target",
+      "intervention_kind": "visual_target_query_normalization",
+      "from_tool": "extract_layout",
+      "from_arguments": "{\"image_id\":\"img-h2m-priority-badge-critical\",\"target_query\":\"priority badge critical\"}",
+      "to_tool": "extract_layout",
+      "to_arguments": "{\"image_id\":\"img-h2m-priority-badge-critical\",\"target_query\":\"priority badge\"}",
+      "prompt_state_label": "priority badge"
+    },
+    {
+      "profile_label": "h2j_target_query_normalization",
+      "case_id": "h2m_error_notice_contextual_alias",
+      "family": "h2m_contextual_alias_is_target",
+      "intervention_kind": "visual_target_query_normalization",
+      "from_tool": "extract_layout",
+      "from_arguments": "{\"image_id\":\"img-h2m-error-notice\",\"target_query\":\"archive panel\"}",
+      "to_tool": "extract_layout",
+      "to_arguments": "{\"image_id\":\"img-h2m-error-notice\",\"target_query\":\"error notice\"}",
+      "prompt_state_label": "error notice"
+    },
+    {
+      "profile_label": "h2j_target_query_normalization",
+      "case_id": "h2m_mode_field_contextual_regression_guard",
+      "family": "h2m_h2k_regression_guard_less_direct",
+      "intervention_kind": "visual_target_query_normalization",
+      "from_tool": "extract_layout",
+      "from_arguments": "{\"image_id\":\"img-h2m-mode-field-short\",\"target_query\":\"mode switch\"}",
+      "to_tool": "extract_layout",
+      "to_arguments": "{\"image_id\":\"img-h2m-mode-field-short\",\"target_query\":\"mode field\"}",
+      "prompt_state_label": "mode field"
+    }
+  ],
+  "overstrip_rows": [
+    {
+      "case_id": "h2m_result_badge_blocked_contextual_value",
+      "family": "h2m_less_direct_value_bearing_target",
+      "expected_target_query": "result badge Blocked",
+      "actual_target_query": "result badge",
+      "from_arguments": "{\"image_id\":\"img-h2m-result-badge-blocked\",\"target_query\":\"result chip\"}",
+      "to_arguments": "{\"image_id\":\"img-h2m-result-badge-blocked\",\"target_query\":\"result badge\"}",
+      "prompt_state_label": "result badge"
+    },
+    {
+      "case_id": "h2m_state_tag_closed_contextual_value",
+      "family": "h2m_less_direct_value_bearing_target",
+      "expected_target_query": "state tag Closed",
+      "actual_target_query": "state tag",
+      "from_arguments": "{\"image_id\":\"img-h2m-state-tag-closed\",\"target_query\":\"Closed state tag\"}",
+      "to_arguments": "{\"image_id\":\"img-h2m-state-tag-closed\",\"target_query\":\"state tag\"}",
+      "prompt_state_label": "state tag"
+    },
+    {
+      "case_id": "h2m_priority_badge_critical_contextual_value",
+      "family": "h2m_less_direct_value_bearing_target",
+      "expected_target_query": "priority badge Critical",
+      "actual_target_query": "priority badge",
+      "from_arguments": "{\"image_id\":\"img-h2m-priority-badge-critical\",\"target_query\":\"priority badge critical\"}",
+      "to_arguments": "{\"image_id\":\"img-h2m-priority-badge-critical\",\"target_query\":\"priority badge\"}",
+      "prompt_state_label": "priority badge"
+    }
+  ],
+  "finding_rows": [
+    {
+      "finding_id": "h2m_breaks_h2l_saturation",
+      "finding": "H2m breaks the H2l saturation: H2j reaches 3/8 exact and executor-equivalent, H2j-no-stale also reaches 3/8, and H2e reaches 1/8 exact."
+    },
+    {
+      "finding_id": "h2m_target_normalization_is_mixed",
+      "finding": "H2j improves exact-rate over H2e by 0.25 but does not improve executor-equivalence over H2e (0.0); it ties the no-stale ablation with 0.0 exact-rate delta."
+    },
+    {
+      "finding_id": "h2m_exposes_overstrip",
+      "finding": "H2j records 5 target-query-normalization interventions, but 3 of them over-strip less-direct value-bearing targets to shorter component labels."
+    },
+    {
+      "finding_id": "next_gate_should_scope_normalization",
+      "finding": "The next H2n move should make target-query normalization conditional on evidence that the shorter component label is explicitly requested, while preserving the H2k/H2l regression-guard repairs."
+    }
+  ]
+}

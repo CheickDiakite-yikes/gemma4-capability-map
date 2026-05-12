@@ -2488,6 +2488,74 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C51_h2m_less_direct_overreach_rejects_current_target_normalization_scope",
+        claim=(
+            "The H2m less-direct overreach holdout rejects treating the current H2j target-query normalizer as "
+            "globally safe: it helps some contextual labels but over-strips value-bearing labels when the prompt "
+            "does not use direct target-is wording."
+        ),
+        status="negative_result_current_packets",
+        evidence_strength="strong_internal",
+        primary_metric=(
+            "On H2m, full H2j and H2j without stale-selection both reach 3/8 strict and 3/8 executor-equivalent. "
+            "H2e reaches 1/8 strict and 3/8 executor-equivalent, so H2j improves exact-rate by +0.25 but has "
+            "0.0 executor-equivalence-rate delta. Full H2j records 5 target-query-normalization interventions, "
+            "0 stale-selection interventions, and 3 value-bearing over-strip rows."
+        ),
+        limitation=(
+            "H2m is an 8-case replay-shaped less-direct packet, not a population estimate. It rejects the current "
+            "normalization scope under this wording regime, while still preserving evidence that scoped "
+            "normalization repaired H2k/H2l-style contextual aliases."
+        ),
+        next_test=(
+            "Build H2n as a scoped target-normalization policy that preserves H2k/H2l contextual-label repairs "
+            "but refuses to shorten value-bearing requests such as `result badge Blocked`, `state tag Closed`, "
+            "and `priority badge Critical`."
+        ),
+        sources=(
+            EvidenceSource(
+                "replay_synthesis",
+                "results/reports/h2m_less_direct_overreach_synthesis/report.md",
+                "Dedicated H2m synthesis showing exact-rate gain, executor-equivalence tie, and over-strip rows.",
+            ),
+            EvidenceSource(
+                "replay_synthesis_figure",
+                "results/reports/h2m_less_direct_overreach_synthesis/figures/h2m_less_direct_overreach_gate.svg",
+                "Figure summarizing the H2m exact-rate collapse relative to H2l saturation.",
+            ),
+            EvidenceSource(
+                "tool_probe_replay_packet",
+                "results/tool_probe_replay_packets/20260512T_h2m_less_direct_target_normalization_overreach_dry_run_v1",
+                "The 8-case H2m dry-run packet with less-direct value-bearing, alias, and regression-guard prompts.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2m_less_direct_target_normalization_overreach_h2j_execute_v1",
+                "Full H2j live execution reaching 3/8 strict and executor-equivalent on H2m.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2m_less_direct_target_normalization_overreach_h2j_no_stale_gate_execute_v1",
+                "Matched stale-selection-gate-off H2j execution tying full H2j on H2m.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2m_less_direct_target_normalization_overreach_h2e_execute_v1",
+                "H2e live execution reaching 1/8 strict and 3/8 executor-equivalent on H2m.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2m_less_direct_target_normalization_overreach_h2j_vs_h2e_v1",
+                "Direct H2j-vs-H2e comparison showing +0.25 exact-rate and 0.0 executor-equivalence-rate deltas.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2m_less_direct_target_normalization_overreach_h2j_vs_no_stale_gate_v1",
+                "Matched full-H2j-vs-no-stale-gate comparison showing zero exact and executor-equivalence deltas.",
+            ),
+        ),
+    ),
 )
 
 

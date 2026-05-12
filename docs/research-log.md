@@ -2,6 +2,40 @@
 
 # Research Log
 
+## 2026-05-12 - H2m Less-Direct Overreach Rejects Current Target-Normalization Scope
+
+- Executed the H2m less-direct target-normalization overreach holdout across the three relevant profiles:
+  - H2j target-query normalization: [`results/tool_probe_replay_live/20260512T_h2m_less_direct_target_normalization_overreach_h2j_execute_v1`](../results/tool_probe_replay_live/20260512T_h2m_less_direct_target_normalization_overreach_h2j_execute_v1)
+  - H2j without stale-selection gate: [`results/tool_probe_replay_live/20260512T_h2m_less_direct_target_normalization_overreach_h2j_no_stale_gate_execute_v1`](../results/tool_probe_replay_live/20260512T_h2m_less_direct_target_normalization_overreach_h2j_no_stale_gate_execute_v1)
+  - H2e route arbitration plus stale-selection gate: [`results/tool_probe_replay_live/20260512T_h2m_less_direct_target_normalization_overreach_h2e_execute_v1`](../results/tool_probe_replay_live/20260512T_h2m_less_direct_target_normalization_overreach_h2e_execute_v1)
+- Result:
+  - full H2j: `3 / 8` strict and `3 / 8` executor-equivalent
+  - H2j without stale-selection: `3 / 8` strict and `3 / 8` executor-equivalent
+  - H2e: `1 / 8` strict and `3 / 8` executor-equivalent
+  - H2j-vs-H2e delta: `+0.25` strict exact-rate and `0.0` executor-equivalence-rate
+  - H2j-vs-no-stale delta: `0.0` strict exact-rate and `0.0` executor-equivalence-rate
+- Mechanism read:
+  - H2m breaks the H2l saturation by removing direct target-is wording while preserving the same value-bearing, alias, and regression-guard family structure
+  - full H2j and no-stale H2j both record `5` target-query-normalization interventions and `0` stale-selection interventions, so stale rescue is not the causal explanation
+  - target normalization helps two strict cases: `archive panel` -> `error notice` and `mode switch` -> `mode field`
+  - target normalization over-strips three value-bearing cases: `result badge Blocked` -> `result badge`, `state tag Closed` -> `state tag`, and `priority badge Critical` -> `priority badge`
+  - `mode toggle Manual` also collapses to `mode toggle`, but that miss is not recorded as a normalizer intervention in the current metadata
+- Reporting updates:
+  - H2m synthesis: [`results/reports/h2m_less_direct_overreach_synthesis/report.md`](../results/reports/h2m_less_direct_overreach_synthesis/report.md)
+  - H2m figure: [`results/reports/h2m_less_direct_overreach_synthesis/figures/h2m_less_direct_overreach_gate.svg`](../results/reports/h2m_less_direct_overreach_synthesis/figures/h2m_less_direct_overreach_gate.svg)
+  - new claim: `C51_h2m_less_direct_overreach_rejects_current_target_normalization_scope`
+  - publication evidence ledger now has `51` claims, `290` sources, and `0` missing sources
+  - publication readiness audit now has `197` checks, `190` blocking checks, `0` blocking failures, and status `paper_draft_ready`
+- Research decision:
+  - keep H2j as positive structural evidence on H2f/H2b/H1x/H2k/H2l, but do not promote its current normalizer scope globally
+  - build H2n as a controller-side scope policy, not another prompt/catalog prose patch
+  - H2n should preserve contextual-label repairs while refusing to shorten value-bearing target labels under less-direct phrasing
+- Verification:
+  - `uv run pytest tests/test_h2m_less_direct_overreach_synthesis.py tests/test_publication_evidence_ledger.py tests/test_publication_readiness_audit.py -q`
+  - `uv run python scripts/build_h2m_less_direct_overreach_synthesis.py`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`
+
 ## 2026-05-12 - H2m Less-Direct Overreach Packet Scaffold
 
 - Added H2m as the less-direct follow-up to H2l:

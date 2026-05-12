@@ -1,0 +1,4 @@
+family,case_count,expected_target_queries
+h2m_contextual_alias_is_target,2,error notice; result tile
+h2m_h2k_regression_guard_less_direct,2,status badge; mode field
+h2m_less_direct_value_bearing_target,4,result badge Blocked; state tag Closed; mode toggle Manual; priority badge Critical

@@ -160,6 +160,14 @@ def test_publication_readiness_audit_writes_blocking_checks(tmp_path: Path) -> N
     assert checks["h2l_target_normalization_overreach_h2j_vs_no_stale_comparison_exists"]["passed"] is True
     assert checks["h2l_target_normalization_overreach_synthesis_exists"]["passed"] is True
     assert checks["h2l_target_normalization_overreach_report_figure_exists"]["passed"] is True
+    assert checks["h2m_less_direct_overreach_packet_exists"]["passed"] is True
+    assert checks["h2m_less_direct_overreach_h2e_live_exists"]["passed"] is True
+    assert checks["h2m_less_direct_overreach_h2j_live_exists"]["passed"] is True
+    assert checks["h2m_less_direct_overreach_no_stale_live_exists"]["passed"] is True
+    assert checks["h2m_less_direct_overreach_h2j_vs_h2e_comparison_exists"]["passed"] is True
+    assert checks["h2m_less_direct_overreach_h2j_vs_no_stale_comparison_exists"]["passed"] is True
+    assert checks["h2m_less_direct_overreach_synthesis_exists"]["passed"] is True
+    assert checks["h2m_less_direct_overreach_report_figure_exists"]["passed"] is True
     assert checks["script_analyze_visual_hard_slice_exactness.py_exists"]["passed"] is True
     assert checks["script_analyze_packaged_replay_gap.py_exists"]["passed"] is True
     assert checks["script_analyze_h1n_alias_transfer_contract_split.py_exists"]["passed"] is True
@@ -179,6 +187,7 @@ def test_publication_readiness_audit_writes_blocking_checks(tmp_path: Path) -> N
     assert checks["script_build_h1n_oracle_transfer_synthesis.py_exists"]["passed"] is True
     assert checks["script_build_h2k_target_decoy_overlap_synthesis.py_exists"]["passed"] is True
     assert checks["script_build_h2l_target_normalization_overreach_synthesis.py_exists"]["passed"] is True
+    assert checks["script_build_h2m_less_direct_overreach_synthesis.py_exists"]["passed"] is True
     assert checks["script_run_visual_hard_slice_probe_packet.py_exists"]["passed"] is True
     assert checks["script_build_visual_hard_slice_replay_packet.py_exists"]["passed"] is True
     assert checks["v3_skipped_live_decision_exists"]["passed"] is True

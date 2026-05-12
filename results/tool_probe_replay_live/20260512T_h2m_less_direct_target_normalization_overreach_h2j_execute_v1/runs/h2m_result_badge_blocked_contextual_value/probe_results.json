@@ -1,0 +1,100 @@
+[
+  {
+    "case_id": "h2m_result_badge_blocked_contextual_value",
+    "family": "h2m_less_direct_value_bearing_target",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "h2m-result-badge-blocked-12002"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2m-result-badge-blocked",
+          "target_query": "result badge"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h2m-result-badge-blocked",
+          "selection_kind": "regions",
+          "count": 2,
+          "executor_mode": "local",
+          "region_ids": [
+            "h2m-result-badge-generic-12001",
+            "h2m-result-badge-blocked-12002"
+          ],
+          "region_id": "h2m-result-badge-generic-12001",
+          "text_preview": "Legend"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2m-result-badge-blocked",
+          "target_query": "result badge Blocked"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2m-result-badge-blocked",
+          "target_query": "result badge"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h2m-result-badge-blocked\", \"target_query\": \"result chip\"}}",
+    "runtime_metadata": {
+      "backend": "mlx",
+      "runtime_info": {
+        "backend": "mlx",
+        "runtime_posture": "mlx",
+        "requested_model": "google/gemma-4-E2B-it",
+        "effective_model": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_source": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_format": "mlx",
+        "runtime_device": "mlx",
+        "load_mode": "vision",
+        "configured_device": "auto",
+        "request_timeout_seconds": 300.0,
+        "tool_turn_directive_enabled": false,
+        "tool_prompt_contract_id": "",
+        "tool_catalog_profile_id": "visual_role_catalog_route_arbitration_residual_exactness_v20",
+        "service": {},
+        "partial_runtime": false,
+        "llama_cpp_error": null,
+        "llama_cpp_context_window": null
+      },
+      "visual_target_query_normalization": [
+        {
+          "from_tool": "extract_layout",
+          "from_arguments": {
+            "image_id": "img-h2m-result-badge-blocked",
+            "target_query": "result chip"
+          },
+          "to_tool": "extract_layout",
+          "to_arguments": {
+            "image_id": "img-h2m-result-badge-blocked",
+            "target_query": "result badge"
+          },
+          "prompt_state_label": "result badge"
+        }
+      ]
+    },
+    "prompt_tokens": 1907,
+    "completion_tokens": 39,
+    "latency_ms": 27113
+  }
+]

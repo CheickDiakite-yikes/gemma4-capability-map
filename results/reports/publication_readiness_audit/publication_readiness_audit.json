@@ -1,9 +1,9 @@
 {
   "summary": {
-    "generated_at": "2026-05-12T19:49:57.545320+00:00",
+    "generated_at": "2026-05-12T20:15:33.177840+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 188,
-    "blocking_check_count": 181,
+    "check_count": 197,
+    "blocking_check_count": 190,
     "blocking_failed_count": 0,
     "recommended_check_count": 7,
     "recommended_failed_count": 0,
@@ -29,7 +29,7 @@
       "check_id": "ledger_has_claims",
       "severity": "blocking",
       "passed": true,
-      "detail": "claim_count=50",
+      "detail": "claim_count=51",
       "path": ""
     },
     {
@@ -1097,6 +1097,62 @@
       "path": "results/reports/h2l_target_normalization_overreach_synthesis/figures/h2l_target_normalization_overreach_gate.svg"
     },
     {
+      "check_id": "h2m_less_direct_overreach_packet_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2m less-direct target-normalization overreach dry-run packet exists.",
+      "path": "results/tool_probe_replay_packets/20260512T_h2m_less_direct_target_normalization_overreach_dry_run_v1/replay_cases.json"
+    },
+    {
+      "check_id": "h2m_less_direct_overreach_h2e_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2m H2e live replay exists.",
+      "path": "results/tool_probe_replay_live/20260512T_h2m_less_direct_target_normalization_overreach_h2e_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h2m_less_direct_overreach_h2j_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2m full-H2j live replay exists.",
+      "path": "results/tool_probe_replay_live/20260512T_h2m_less_direct_target_normalization_overreach_h2j_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h2m_less_direct_overreach_no_stale_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2m H2j without stale-selection gate live replay exists.",
+      "path": "results/tool_probe_replay_live/20260512T_h2m_less_direct_target_normalization_overreach_h2j_no_stale_gate_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h2m_less_direct_overreach_h2j_vs_h2e_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2m full-H2j versus H2e comparison exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260512T_h2m_less_direct_target_normalization_overreach_h2j_vs_h2e_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h2m_less_direct_overreach_h2j_vs_no_stale_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2m full-H2j versus no-stale-gate comparison exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260512T_h2m_less_direct_target_normalization_overreach_h2j_vs_no_stale_gate_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h2m_less_direct_overreach_synthesis_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2m less-direct target-normalization overreach synthesis report exists.",
+      "path": "results/reports/h2m_less_direct_overreach_synthesis/report.md"
+    },
+    {
+      "check_id": "h2m_less_direct_overreach_report_figure_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2m less-direct target-normalization overreach figure exists.",
+      "path": "results/reports/h2m_less_direct_overreach_synthesis/figures/h2m_less_direct_overreach_gate.svg"
+    },
+    {
       "check_id": "current_state_doc_exists",
       "severity": "blocking",
       "passed": true,
@@ -1305,6 +1361,13 @@
       "passed": true,
       "detail": "Reproduction script `build_h2l_target_normalization_overreach_synthesis.py` exists.",
       "path": "scripts/build_h2l_target_normalization_overreach_synthesis.py"
+    },
+    {
+      "check_id": "script_build_h2m_less_direct_overreach_synthesis.py_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Reproduction script `build_h2m_less_direct_overreach_synthesis.py` exists.",
+      "path": "scripts/build_h2m_less_direct_overreach_synthesis.py"
     },
     {
       "check_id": "script_compare_tool_directive_probes.py_exists",

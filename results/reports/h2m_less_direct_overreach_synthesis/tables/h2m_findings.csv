@@ -1,0 +1,5 @@
+finding_id,finding
+h2m_breaks_h2l_saturation,"H2m breaks the H2l saturation: H2j reaches 3/8 exact and executor-equivalent, H2j-no-stale also reaches 3/8, and H2e reaches 1/8 exact."
+h2m_target_normalization_is_mixed,H2j improves exact-rate over H2e by 0.25 but does not improve executor-equivalence over H2e (0.0); it ties the no-stale ablation with 0.0 exact-rate delta.
+h2m_exposes_overstrip,"H2j records 5 target-query-normalization interventions, but 3 of them over-strip less-direct value-bearing targets to shorter component labels."
+next_gate_should_scope_normalization,"The next H2n move should make target-query normalization conditional on evidence that the shorter component label is explicitly requested, while preserving the H2k/H2l regression-guard repairs."

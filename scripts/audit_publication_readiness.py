@@ -1449,6 +1449,83 @@ def audit_publication_readiness(
             detail="H2l target-normalization overreach figure exists.",
         ),
         _check_path(
+            check_id="h2m_less_direct_overreach_packet_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_packets"
+            / "20260512T_h2m_less_direct_target_normalization_overreach_dry_run_v1"
+            / "replay_cases.json",
+            detail="H2m less-direct target-normalization overreach dry-run packet exists.",
+        ),
+        _check_path(
+            check_id="h2m_less_direct_overreach_h2e_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260512T_h2m_less_direct_target_normalization_overreach_h2e_execute_v1"
+            / "summary.json",
+            detail="H2m H2e live replay exists.",
+        ),
+        _check_path(
+            check_id="h2m_less_direct_overreach_h2j_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260512T_h2m_less_direct_target_normalization_overreach_h2j_execute_v1"
+            / "summary.json",
+            detail="H2m full-H2j live replay exists.",
+        ),
+        _check_path(
+            check_id="h2m_less_direct_overreach_no_stale_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260512T_h2m_less_direct_target_normalization_overreach_h2j_no_stale_gate_execute_v1"
+            / "summary.json",
+            detail="H2m H2j without stale-selection gate live replay exists.",
+        ),
+        _check_path(
+            check_id="h2m_less_direct_overreach_h2j_vs_h2e_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260512T_h2m_less_direct_target_normalization_overreach_h2j_vs_h2e_v1"
+            / "live_replay_comparison.json",
+            detail="H2m full-H2j versus H2e comparison exists.",
+        ),
+        _check_path(
+            check_id="h2m_less_direct_overreach_h2j_vs_no_stale_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260512T_h2m_less_direct_target_normalization_overreach_h2j_vs_no_stale_gate_v1"
+            / "live_replay_comparison.json",
+            detail="H2m full-H2j versus no-stale-gate comparison exists.",
+        ),
+        _check_path(
+            check_id="h2m_less_direct_overreach_synthesis_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "h2m_less_direct_overreach_synthesis" / "report.md",
+            detail="H2m less-direct target-normalization overreach synthesis report exists.",
+        ),
+        _check_path(
+            check_id="h2m_less_direct_overreach_report_figure_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "h2m_less_direct_overreach_synthesis"
+            / "figures"
+            / "h2m_less_direct_overreach_gate.svg",
+            detail="H2m less-direct target-normalization overreach figure exists.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",
@@ -1505,6 +1582,7 @@ def audit_publication_readiness(
         "build_h1n_oracle_transfer_synthesis.py",
         "build_h2k_target_decoy_overlap_synthesis.py",
         "build_h2l_target_normalization_overreach_synthesis.py",
+        "build_h2m_less_direct_overreach_synthesis.py",
         "compare_tool_directive_probes.py",
         "build_visual_hard_slice_design.py",
         "build_visual_hard_slice_replay_packet.py",

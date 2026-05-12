@@ -2,9 +2,9 @@
 
 ## Latest Restart Point
 
-The active research frontier is now executing H2m, after H2l completed as the first post-H2k target-normalization overreach holdout. H2l stressed whether H2j's target-query normalizer would erase legitimate longer labels, value-bearing labels, or aliases. Full H2j and H2j without stale-selection both reached `8 / 8`; H2e reached `7 / 8`. H2l is not a final overreach proof because its prompts use explicit target-is wording. H2m is now scaffolded as the less-direct holdout: it keeps the same value-bearing, alias, and regression-guard families, but removes target-is phrasing from the user prompts.
+The active research frontier is now H2n scoped target-normalization, after H2m converted the H2l overreach check into a real negative/mixed result. H2l stressed whether H2j's target-query normalizer would erase legitimate longer labels, value-bearing labels, or aliases under explicit target-is wording. Full H2j and H2j without stale-selection both reached `8 / 8`; H2e reached `7 / 8`. H2m removed that direct wording while preserving the same value-bearing, alias, and regression-guard families. On H2m, full H2j and H2j without stale-selection both fall to `3 / 8` strict and executor-equivalent; H2e reaches `1 / 8` strict and `3 / 8` executor-equivalent.
 
-The latest result is H2l across H2e/H2j/H2j-no-stale. H2h had shown explicit negative examples can repair the fresh H2f holdout, moving from H2e/H2g at `6 / 10` strict to `9 / 10` strict and executor-equivalent, but it regressed H2b and H1x. H2i tried to conditionalize that repair in prompt/catalog prose and failed, tying H2e at `6 / 10` on H2f. H2j moved the useful part of that repair into a controller-visible target-query normalization gate layered on H2e's route arbitration and the H2a stale-selection gate. H2j then reached `10 / 10` strict and executor-equivalent on H2f, `5 / 5` on H2b, and `8 / 8` on H1x. H2k is the harder post-H2j overlap holdout: on eight adversarial target/decoy cases, full H2j and H2j without the stale-selection gate both reach `8 / 8` strict and executor-equivalent, H2h reaches `6 / 8`, and H2e reaches `3 / 8` strict with `6 / 8` executor-equivalent. H2l then flips the risk: cases where the longer value-bearing label or alias really is the expected target. H2j still reaches `8 / 8`, the no-stale ablation ties it, and H2e has one regression-guard miss (`critical chip` instead of `status badge`).
+The latest result is H2m across H2e/H2j/H2j-no-stale. H2h had shown explicit negative examples can repair the fresh H2f holdout, moving from H2e/H2g at `6 / 10` strict to `9 / 10` strict and executor-equivalent, but it regressed H2b and H1x. H2i tried to conditionalize that repair in prompt/catalog prose and failed, tying H2e at `6 / 10` on H2f. H2j moved the useful part of that repair into a controller-visible target-query normalization gate layered on H2e's route arbitration and the H2a stale-selection gate. H2j then reached `10 / 10` strict and executor-equivalent on H2f, `5 / 5` on H2b, and `8 / 8` on H1x. H2k is the harder post-H2j overlap holdout: on eight adversarial target/decoy cases, full H2j and H2j without the stale-selection gate both reach `8 / 8` strict and executor-equivalent, H2h reaches `6 / 8`, and H2e reaches `3 / 8` strict with `6 / 8` executor-equivalent. H2l then flips the risk and stays saturated under direct target wording. H2m shows the boundary: target-query normalization remains helpful for `archive panel` -> `error notice` and `mode switch` -> `mode field`, but over-strips value-bearing targets such as `result badge Blocked`, `state tag Closed`, and `priority badge Critical`.
 
 H2e was built from the H2c/H2d failure split:
 
@@ -25,7 +25,7 @@ H2f then broke the apparent saturation:
 - H2i conditional component arbitration: `6 / 10` strict and executor-equivalent
 - H2j target-query normalization: `10 / 10` strict and executor-equivalent
 
-The scientific conclusion is now sharper. H2e is still strong mechanism evidence against the no-directive floor, but it ties H2c on fresh H2f and fails four rows by calling the right tool with the wrong `target_query`. H2g only converts `resolution badge` into an executor-valid paraphrase (`resolution badge Deferred`), leaving strict exactness unchanged. H2h then proves explicit negative examples are causal on H2f, but the same negative-example prose regresses H2b (`result pill` -> `result tile`, `badge c08` -> `badge m31 c08`) and H1x (`result chip` -> `result tile`, `error banner` -> `error notice`). H2i shows softer conditional prompt prose does not preserve the H2f repair. H2j shows the stronger lesson: component-identity repair can be made controller-attributable instead of prompt-prose-attributable. On H2f/H2b/H1x, the target-query normalizer fires on four current cases and the stale-selection gate fires on four current cases, with every intervention recorded in replay metadata. On H2k, full H2j records `5` target-query-normalization interventions and `0` stale-selection interventions; stale-gate-off H2j records the same `5 / 0` intervention split and ties full H2j with `0.0` exact/executor-equivalence deltas. On H2l, full H2j and no-stale H2j each record `1` target-query-normalization intervention and `0` stale-selection interventions, repairing the H2e regression guard while preserving the four value-bearing and two alias-is-target rows. That makes H2l positive scope evidence, while H2m should now test less explicit target phrasing before the overreach risk is closed.
+The scientific conclusion is now sharper. H2e is still strong mechanism evidence against the no-directive floor, but it ties H2c on fresh H2f and fails four rows by calling the right tool with the wrong `target_query`. H2g only converts `resolution badge` into an executor-valid paraphrase (`resolution badge Deferred`), leaving strict exactness unchanged. H2h then proves explicit negative examples are causal on H2f, but the same negative-example prose regresses H2b (`result pill` -> `result tile`, `badge c08` -> `badge m31 c08`) and H1x (`result chip` -> `result tile`, `error banner` -> `error notice`). H2i shows softer conditional prompt prose does not preserve the H2f repair. H2j shows the stronger lesson: component-identity repair can be made controller-attributable instead of prompt-prose-attributable. H2k and H2l show that target normalization can repair contextual aliases without stale-selection dependence. H2m shows the current normalizer is too broad under less-direct wording: it records `5` target-query-normalization interventions, `0` stale-selection interventions, and `3` value-bearing over-strip rows. H2n should therefore narrow the policy rather than add another prompt paragraph.
 
 Latest H2f artifacts:
 
@@ -80,7 +80,14 @@ Latest H2f artifacts:
 - H2l H2j-vs-H2e comparison: [`results/tool_probe_replay_live_comparisons/20260512T_h2l_target_normalization_overreach_h2j_vs_h2e_v1`](../../results/tool_probe_replay_live_comparisons/20260512T_h2l_target_normalization_overreach_h2j_vs_h2e_v1)
 - H2l H2j-vs-no-stale comparison: [`results/tool_probe_replay_live_comparisons/20260512T_h2l_target_normalization_overreach_h2j_vs_no_stale_gate_v1`](../../results/tool_probe_replay_live_comparisons/20260512T_h2l_target_normalization_overreach_h2j_vs_no_stale_gate_v1)
 - H2m dry-run packet: [`results/tool_probe_replay_packets/20260512T_h2m_less_direct_target_normalization_overreach_dry_run_v1`](../../results/tool_probe_replay_packets/20260512T_h2m_less_direct_target_normalization_overreach_dry_run_v1)
-- publication claims: `C44_h2f_holdout_breaks_h2e_global_promotion`, `C45_h2g_component_identity_contract_is_partial_executor_gain`, `C46_h2h_negative_examples_repair_h2f_but_fail_global_transfer`, `C47_h2i_conditional_component_arbitration_does_not_preserve_h2f_repair`, `C48_h2j_target_query_normalization_repairs_h2f_and_preserves_transfer`, `C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization`, `C50_h2l_overreach_holdout_supports_target_normalization_scope`
+- H2m synthesis: [`results/reports/h2m_less_direct_overreach_synthesis/report.md`](../../results/reports/h2m_less_direct_overreach_synthesis/report.md)
+- H2m figure: [`results/reports/h2m_less_direct_overreach_synthesis/figures/h2m_less_direct_overreach_gate.svg`](../../results/reports/h2m_less_direct_overreach_synthesis/figures/h2m_less_direct_overreach_gate.svg)
+- H2m H2j live packet: [`results/tool_probe_replay_live/20260512T_h2m_less_direct_target_normalization_overreach_h2j_execute_v1`](../../results/tool_probe_replay_live/20260512T_h2m_less_direct_target_normalization_overreach_h2j_execute_v1)
+- H2m H2j no-stale live packet: [`results/tool_probe_replay_live/20260512T_h2m_less_direct_target_normalization_overreach_h2j_no_stale_gate_execute_v1`](../../results/tool_probe_replay_live/20260512T_h2m_less_direct_target_normalization_overreach_h2j_no_stale_gate_execute_v1)
+- H2m H2e live packet: [`results/tool_probe_replay_live/20260512T_h2m_less_direct_target_normalization_overreach_h2e_execute_v1`](../../results/tool_probe_replay_live/20260512T_h2m_less_direct_target_normalization_overreach_h2e_execute_v1)
+- H2m H2j-vs-H2e comparison: [`results/tool_probe_replay_live_comparisons/20260512T_h2m_less_direct_target_normalization_overreach_h2j_vs_h2e_v1`](../../results/tool_probe_replay_live_comparisons/20260512T_h2m_less_direct_target_normalization_overreach_h2j_vs_h2e_v1)
+- H2m H2j-vs-no-stale comparison: [`results/tool_probe_replay_live_comparisons/20260512T_h2m_less_direct_target_normalization_overreach_h2j_vs_no_stale_gate_v1`](../../results/tool_probe_replay_live_comparisons/20260512T_h2m_less_direct_target_normalization_overreach_h2j_vs_no_stale_gate_v1)
+- publication claims: `C44_h2f_holdout_breaks_h2e_global_promotion`, `C45_h2g_component_identity_contract_is_partial_executor_gain`, `C46_h2h_negative_examples_repair_h2f_but_fail_global_transfer`, `C47_h2i_conditional_component_arbitration_does_not_preserve_h2f_repair`, `C48_h2j_target_query_normalization_repairs_h2f_and_preserves_transfer`, `C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization`, `C50_h2l_overreach_holdout_supports_target_normalization_scope`, `C51_h2m_less_direct_overreach_rejects_current_target_normalization_scope`
 
 H2e artifacts retained as mechanism evidence:
 
@@ -162,16 +169,17 @@ Current reporting snapshot:
 - H2j transfer synthesis: `9` packet rows / `7` comparisons / `0` H2j non-exact rows
 - H2k synthesis: `4` packet rows / `3` comparisons
 - H2l synthesis: `3` packet rows / `2` comparisons / `0` H2j non-exact rows
-- publication evidence ledger: `50` claims / `282` evidence sources / `0` missing
-- publication readiness audit: `paper_draft_ready` with `0` blocking failures
-- latest publication claims: `C44_h2f_holdout_breaks_h2e_global_promotion`, `C45_h2g_component_identity_contract_is_partial_executor_gain`, `C46_h2h_negative_examples_repair_h2f_but_fail_global_transfer`, `C47_h2i_conditional_component_arbitration_does_not_preserve_h2f_repair`, `C48_h2j_target_query_normalization_repairs_h2f_and_preserves_transfer`, `C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization`, `C50_h2l_overreach_holdout_supports_target_normalization_scope`
+- H2m synthesis: `3` packet rows / `2` comparisons / `5` H2j non-exact rows / `3` value-bearing over-strip rows
+- publication evidence ledger: `51` claims / `290` evidence sources / `0` missing
+- publication readiness audit: `paper_draft_ready` with `197` checks / `190` blocking checks / `0` blocking failures
+- latest publication claims: `C44_h2f_holdout_breaks_h2e_global_promotion`, `C45_h2g_component_identity_contract_is_partial_executor_gain`, `C46_h2h_negative_examples_repair_h2f_but_fail_global_transfer`, `C47_h2i_conditional_component_arbitration_does_not_preserve_h2f_repair`, `C48_h2j_target_query_normalization_repairs_h2f_and_preserves_transfer`, `C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization`, `C50_h2l_overreach_holdout_supports_target_normalization_scope`, `C51_h2m_less_direct_overreach_rejects_current_target_normalization_scope`
 
 Next restart move:
 
-- execute the H2m dry-run packet against H2j, H2j-no-stale, and H2e
-- treat H2m as the less-direct target-normalization overreach holdout, not as a new prompt-profile candidate
-- preserve H2k-style regression guards so the normalizer still proves its intended use
-- add a target-normalizer-off ablation only if H2m creates new ambiguity beyond the H2e control
+- implement H2n as a scoped target-normalization policy, not as prompt/catalog prose
+- preserve H2k/H2l contextual-label repairs (`archive panel` -> `error notice`, `mode switch` -> `mode field`, `critical chip` -> `status badge`)
+- block H2m value-bearing over-strip cases where the requested label includes a visible value token (`Blocked`, `Closed`, `Critical`, and likely `Manual`)
+- rerun H2n on H2m, then backtest H2k/H2l/H2f before considering promotion
 - keep strict exactness and executor-equivalence separate, because H2g and earlier v12 rows show that executor-valid paraphrase can hide exact-query drift
 - keep H2j as a structural candidate under continued hardening, not yet a default production policy
 
@@ -675,8 +683,8 @@ Current generated research report:
 - visual hard-slice design: [`results/reports/visual_hard_slice_design/design.md`](../../results/reports/visual_hard_slice_design/design.md)
 - figures: [`results/reports/mlx_tool_contract_harnessing/figures`](../../results/reports/mlx_tool_contract_harnessing/figures)
 - current manifest count: `110` tables and `45` figures
-- publication evidence ledger: `50` claims, `282` evidence sources, `0` missing sources
-- publication readiness audit: `188` checks, `181` blocking checks, `0` blocking failures, status `paper_draft_ready`
+- publication evidence ledger: `51` claims, `290` evidence sources, `0` missing sources
+- publication readiness audit: `197` checks, `190` blocking checks, `0` blocking failures, status `paper_draft_ready`
 - regeneration command:
 
 ```bash

@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-12T19:48:22.969797+00:00",
+    "generated_at": "2026-05-12T20:15:33.110806+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-    "claim_count": 50,
-    "evidence_source_count": 282,
+    "claim_count": 51,
+    "evidence_source_count": 290,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -55,7 +55,8 @@
       "C47_h2i_conditional_component_arbitration_does_not_preserve_h2f_repair",
       "C48_h2j_target_query_normalization_repairs_h2f_and_preserves_transfer",
       "C49_h2k_target_decoy_overlap_supports_h2j_structural_normalization",
-      "C50_h2l_overreach_holdout_supports_target_normalization_scope"
+      "C50_h2l_overreach_holdout_supports_target_normalization_scope",
+      "C51_h2m_less_direct_overreach_rejects_current_target_normalization_scope"
     ]
   },
   "claims": [
@@ -557,6 +558,16 @@
       "primary_metric": "On H2l, full H2j and H2j without the stale-selection gate both reach 8/8 strict and executor-equivalent, while H2e reaches 7/8. H2j improves exact-rate and executor-equivalence-rate by +0.125 versus H2e, ties the no-stale ablation with 0.0 deltas, and records 1 target-query-normalization intervention (`critical chip` to `status badge`) with 0 stale-selection interventions.",
       "limitation": "H2l v1 is an 8-case replay-shaped overreach holdout with explicit target-is wording and deterministic cases; it is positive control evidence for scope, not a population estimate or proof that all over-normalization risks are closed.",
       "next_test": "Build H2m with less direct target phrasing, ambiguous local context, or repeated seed variants before treating target-normalization overreach as resolved.",
+      "source_count": 8
+    },
+    {
+      "claim_id": "C51_h2m_less_direct_overreach_rejects_current_target_normalization_scope",
+      "claim": "The H2m less-direct overreach holdout rejects treating the current H2j target-query normalizer as globally safe: it helps some contextual labels but over-strips value-bearing labels when the prompt does not use direct target-is wording.",
+      "status": "negative_result_current_packets",
+      "evidence_strength": "strong_internal",
+      "primary_metric": "On H2m, full H2j and H2j without stale-selection both reach 3/8 strict and 3/8 executor-equivalent. H2e reaches 1/8 strict and 3/8 executor-equivalent, so H2j improves exact-rate by +0.25 but has 0.0 executor-equivalence-rate delta. Full H2j records 5 target-query-normalization interventions, 0 stale-selection interventions, and 3 value-bearing over-strip rows.",
+      "limitation": "H2m is an 8-case replay-shaped less-direct packet, not a population estimate. It rejects the current normalization scope under this wording regime, while still preserving evidence that scoped normalization repaired H2k/H2l-style contextual aliases.",
+      "next_test": "Build H2n as a scoped target-normalization policy that preserves H2k/H2l contextual-label repairs but refuses to shorten value-bearing requests such as `result badge Blocked`, `state tag Closed`, and `priority badge Critical`.",
       "source_count": 8
     }
   ],
@@ -2532,6 +2543,62 @@
       "claim_id": "C50_h2l_overreach_holdout_supports_target_normalization_scope",
       "artifact_type": "live_replay_comparison",
       "path": "results/tool_probe_replay_live_comparisons/20260512T_h2l_target_normalization_overreach_h2j_vs_no_stale_gate_v1",
+      "purpose": "Matched full-H2j-vs-no-stale-gate comparison showing zero exact and executor-equivalence deltas.",
+      "exists": true
+    },
+    {
+      "claim_id": "C51_h2m_less_direct_overreach_rejects_current_target_normalization_scope",
+      "artifact_type": "replay_synthesis",
+      "path": "results/reports/h2m_less_direct_overreach_synthesis/report.md",
+      "purpose": "Dedicated H2m synthesis showing exact-rate gain, executor-equivalence tie, and over-strip rows.",
+      "exists": true
+    },
+    {
+      "claim_id": "C51_h2m_less_direct_overreach_rejects_current_target_normalization_scope",
+      "artifact_type": "replay_synthesis_figure",
+      "path": "results/reports/h2m_less_direct_overreach_synthesis/figures/h2m_less_direct_overreach_gate.svg",
+      "purpose": "Figure summarizing the H2m exact-rate collapse relative to H2l saturation.",
+      "exists": true
+    },
+    {
+      "claim_id": "C51_h2m_less_direct_overreach_rejects_current_target_normalization_scope",
+      "artifact_type": "tool_probe_replay_packet",
+      "path": "results/tool_probe_replay_packets/20260512T_h2m_less_direct_target_normalization_overreach_dry_run_v1",
+      "purpose": "The 8-case H2m dry-run packet with less-direct value-bearing, alias, and regression-guard prompts.",
+      "exists": true
+    },
+    {
+      "claim_id": "C51_h2m_less_direct_overreach_rejects_current_target_normalization_scope",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260512T_h2m_less_direct_target_normalization_overreach_h2j_execute_v1",
+      "purpose": "Full H2j live execution reaching 3/8 strict and executor-equivalent on H2m.",
+      "exists": true
+    },
+    {
+      "claim_id": "C51_h2m_less_direct_overreach_rejects_current_target_normalization_scope",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260512T_h2m_less_direct_target_normalization_overreach_h2j_no_stale_gate_execute_v1",
+      "purpose": "Matched stale-selection-gate-off H2j execution tying full H2j on H2m.",
+      "exists": true
+    },
+    {
+      "claim_id": "C51_h2m_less_direct_overreach_rejects_current_target_normalization_scope",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260512T_h2m_less_direct_target_normalization_overreach_h2e_execute_v1",
+      "purpose": "H2e live execution reaching 1/8 strict and 3/8 executor-equivalent on H2m.",
+      "exists": true
+    },
+    {
+      "claim_id": "C51_h2m_less_direct_overreach_rejects_current_target_normalization_scope",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260512T_h2m_less_direct_target_normalization_overreach_h2j_vs_h2e_v1",
+      "purpose": "Direct H2j-vs-H2e comparison showing +0.25 exact-rate and 0.0 executor-equivalence-rate deltas.",
+      "exists": true
+    },
+    {
+      "claim_id": "C51_h2m_less_direct_overreach_rejects_current_target_normalization_scope",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260512T_h2m_less_direct_target_normalization_overreach_h2j_vs_no_stale_gate_v1",
       "purpose": "Matched full-H2j-vs-no-stale-gate comparison showing zero exact and executor-equivalence deltas.",
       "exists": true
     }
