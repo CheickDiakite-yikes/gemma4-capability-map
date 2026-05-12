@@ -1,0 +1,98 @@
+[
+  {
+    "case_id": "h2q_result_tile_blocked_value_badge_decoy",
+    "family": "h2q_surface_alias_value_decoy",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2q_execute_v2/runs/h2q_result_tile_blocked_value_badge_decoy"
+  },
+  {
+    "case_id": "h2q_state_panel_closed_value_tag_decoy",
+    "family": "h2q_surface_alias_value_decoy",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2q_execute_v2/runs/h2q_state_panel_closed_value_tag_decoy"
+  },
+  {
+    "case_id": "h2q_priority_badge_critical_stale_status_decoy",
+    "family": "h2q_value_bearing_stale_decoy",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2q_execute_v2/runs/h2q_priority_badge_critical_stale_status_decoy"
+  },
+  {
+    "case_id": "h2q_owner_field_amina_archived_owner_decoy",
+    "family": "h2q_value_bearing_stale_decoy",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2q_execute_v2/runs/h2q_owner_field_amina_archived_owner_decoy"
+  },
+  {
+    "case_id": "h2q_archive_panel_error_notice_banner_decoy",
+    "family": "h2q_contextual_alias_decoy_overlap",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2q_execute_v2/runs/h2q_archive_panel_error_notice_banner_decoy"
+  },
+  {
+    "case_id": "h2q_mode_field_manual_switch_decoy",
+    "family": "h2q_contextual_alias_decoy_overlap",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2q_execute_v2/runs/h2q_mode_field_manual_switch_decoy"
+  },
+  {
+    "case_id": "h2q_result_tile_stale_selection_hint",
+    "family": "h2q_stale_surface_alias",
+    "source_failure_mode": "wrong_tool_or_stale_selection_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2q_execute_v2/runs/h2q_result_tile_stale_selection_hint"
+  },
+  {
+    "case_id": "h2q_state_panel_stale_selection_hint",
+    "family": "h2q_stale_surface_alias",
+    "source_failure_mode": "wrong_tool_or_stale_selection_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2q_execute_v2/runs/h2q_state_panel_stale_selection_hint"
+  }
+]

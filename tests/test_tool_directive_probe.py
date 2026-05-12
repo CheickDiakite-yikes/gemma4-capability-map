@@ -5,6 +5,7 @@ from pathlib import Path
 
 from gemma4_capability_map.runtime.tool_directive_probe import (
     ToolDirectiveProbeCase,
+    _apply_visual_composed_route_gating,
     _apply_visual_contextual_surface_alias_routing,
     _apply_visual_stale_selection_gate,
     _apply_visual_target_query_normalization,
@@ -290,6 +291,37 @@ systems:
     assert result["manifest"]["research_controls"] == {
         "disable_tool_turn_directive": True,
         "enable_visual_contextual_surface_alias_routing": True,
+    }
+
+
+def test_run_tool_directive_probe_records_visual_composed_route_gating_control(tmp_path: Path) -> None:
+    registry_path = tmp_path / "registry.yaml"
+    registry_path.write_text(
+        """
+systems:
+  heuristic_composed_route_gating:
+    backend: heuristic
+    reasoner: google/gemma-4-E2B-it
+    reasoner_max_new_tokens: 64
+    request_timeout_seconds: 30.0
+    research_controls:
+      disable_tool_turn_directive: true
+      enable_visual_composed_route_gating: true
+""".strip()
+        + "\n",
+        encoding="utf-8",
+    )
+    output_dir = tmp_path / "probe"
+    result = run_tool_directive_probe(
+        system_id="heuristic_composed_route_gating",
+        output_dir=output_dir,
+        registry_path=registry_path,
+        cases=build_tool_directive_probe_cases()[:1],
+    )
+
+    assert result["manifest"]["research_controls"] == {
+        "disable_tool_turn_directive": True,
+        "enable_visual_composed_route_gating": True,
     }
 
 
@@ -975,6 +1007,201 @@ def test_contextual_surface_alias_routing_preserves_without_surface_request() ->
     )
 
     assert patched == turn
+
+
+def test_visual_composed_route_gating_prioritizes_requested_surface_over_deprioritized_context() -> None:
+    specs = build_default_registry().specs
+    case = ToolDirectiveProbeCase(
+        case_id="composed-surface-decoy",
+        family="visual",
+        messages=[
+            Message(role="system", content="visual_image_ids: img-composed"),
+            Message(
+                role="user",
+                content=(
+                    "Use the tile-style result surface for Blocked in the current card. The Blocked result "
+                    "badge and result comment are nearby context, not the surface to use."
+                ),
+            ),
+        ],
+        media=["img-composed"],
+        tool_names=["extract_layout", "refine_selection"],
+        initial_state={
+            "visual_executor_mode": "local",
+            "images": {
+                "img-composed": {
+                    "local_layouts": [
+                        {"region_id": "badge-1", "label": "result badge", "text": "Blocked"},
+                        {"region_id": "tile-1", "label": "result tile", "text": "Blocked"},
+                        {"region_id": "comment-1", "label": "result comment", "text": "Blocked pending counsel"},
+                    ]
+                }
+            },
+        },
+    )
+    turn = ModelTurn(
+        raw_model_output="{}",
+        normalized_tool_call=[
+            ToolCall(
+                name="extract_layout",
+                arguments={"image_id": "img-composed", "target_query": "result comment"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+    )
+
+    patched = _apply_visual_composed_route_gating(
+        turn=turn,
+        case=case,
+        tool_specs=[specs["extract_layout"], specs["refine_selection"]],
+    )
+
+    assert patched.normalized_tool_call == [
+        ToolCall(
+            name="extract_layout",
+            arguments={"image_id": "img-composed", "target_query": "result tile"},
+            source_format="heuristic",
+            raw=patched.normalized_tool_call[0].raw,
+        )
+    ]
+    metadata = patched.runtime_metadata["visual_composed_route_gating"][0]
+    assert metadata["from_arguments"] == {"image_id": "img-composed", "target_query": "result comment"}
+    assert metadata["requested_label"] == "result tile"
+    assert metadata["reason"] == "requested_surface_over_deprioritized_decoy"
+
+
+def test_visual_composed_route_gating_rewrites_ignored_stale_selection_to_requested_surface() -> None:
+    specs = build_default_registry().specs
+    case = ToolDirectiveProbeCase(
+        case_id="composed-stale-selection",
+        family="visual",
+        messages=[
+            Message(role="system", content="visual_image_ids: img-stale-composed"),
+            Message(
+                role="user",
+                content=(
+                    "Ignore old selection sel-archived-result-badge. Use the tile-style result surface for "
+                    "Blocked in the current visual state."
+                ),
+            ),
+        ],
+        media=["img-stale-composed"],
+        tool_names=["extract_layout", "refine_selection"],
+        initial_state={
+            "visual_executor_mode": "local",
+            "images": {
+                "img-stale-composed": {
+                    "local_layouts": [
+                        {"region_id": "archived-1", "label": "result badge", "text": "Blocked"},
+                        {"region_id": "tile-1", "label": "result tile", "text": "Blocked"},
+                    ]
+                }
+            },
+        },
+    )
+    turn = ModelTurn(
+        raw_model_output="{}",
+        normalized_tool_call=[
+            ToolCall(
+                name="refine_selection",
+                arguments={"selection_id": "sel-archived-result-badge", "filter_query": "Blocked"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+    )
+
+    patched = _apply_visual_composed_route_gating(
+        turn=turn,
+        case=case,
+        tool_specs=[specs["extract_layout"], specs["refine_selection"]],
+    )
+
+    assert patched.normalized_tool_call == [
+        ToolCall(
+            name="extract_layout",
+            arguments={"image_id": "img-stale-composed", "target_query": "result tile"},
+            source_format="heuristic",
+            raw=patched.normalized_tool_call[0].raw,
+        )
+    ]
+    metadata = patched.runtime_metadata["visual_composed_route_gating"][0]
+    assert metadata["from_tool"] == "refine_selection"
+    assert metadata["requested_region_id"] == "tile-1"
+    assert metadata["reason"] == "stale_selection_to_requested_surface"
+
+
+def test_visual_composed_route_gating_restores_explicit_field_after_component_negation() -> None:
+    specs = build_default_registry().specs
+    case = ToolDirectiveProbeCase(
+        case_id="composed-field-switch-decoy",
+        family="visual",
+        messages=[
+            Message(role="system", content="visual_image_ids: img-mode"),
+            Message(
+                role="user",
+                content=(
+                    "Use the mode field in the current settings summary. The manual control and mode switch "
+                    "are adjacent controls, not the field."
+                ),
+            ),
+        ],
+        media=["img-mode"],
+        tool_names=["extract_layout", "refine_selection"],
+        initial_state={
+            "visual_executor_mode": "local",
+            "images": {
+                "img-mode": {
+                    "local_layouts": [
+                        {"region_id": "manual-1", "label": "manual control", "text": "Manual"},
+                        {"region_id": "field-1", "label": "mode field", "text": "Manual"},
+                        {"region_id": "switch-1", "label": "mode switch", "text": "Manual"},
+                    ]
+                }
+            },
+        },
+    )
+    turn = ModelTurn(
+        raw_model_output="{}",
+        normalized_tool_call=[
+            ToolCall(
+                name="extract_layout",
+                arguments={"image_id": "img-mode", "target_query": "mode switch"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+        runtime_metadata={
+            "visual_target_query_normalization": [
+                {
+                    "from_tool": "extract_layout",
+                    "from_arguments": {"image_id": "img-mode", "target_query": "mode field"},
+                    "to_tool": "extract_layout",
+                    "to_arguments": {"image_id": "img-mode", "target_query": "mode switch"},
+                    "prompt_state_label": "mode switch",
+                }
+            ]
+        },
+    )
+
+    patched = _apply_visual_composed_route_gating(
+        turn=turn,
+        case=case,
+        tool_specs=[specs["extract_layout"], specs["refine_selection"]],
+    )
+
+    assert patched.normalized_tool_call == [
+        ToolCall(
+            name="extract_layout",
+            arguments={"image_id": "img-mode", "target_query": "mode field"},
+            source_format="heuristic",
+            raw=patched.normalized_tool_call[0].raw,
+        )
+    ]
+    metadata = patched.runtime_metadata["visual_composed_route_gating"][0]
+    assert metadata["requested_region_id"] == "field-1"
+    assert metadata["reason"] == "requested_surface_over_deprioritized_decoy"
 
 
 def test_tool_directive_probe_comparison_reports_case_and_family_deltas(tmp_path: Path) -> None:

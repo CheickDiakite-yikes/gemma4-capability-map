@@ -207,6 +207,8 @@ def run_tool_directive_probe(
             turn = _apply_visual_value_bearing_target_query_synthesis(turn=turn, case=case, tool_specs=tool_specs)
         if controls.enable_visual_contextual_surface_alias_routing:
             turn = _apply_visual_contextual_surface_alias_routing(turn=turn, case=case, tool_specs=tool_specs)
+        if controls.enable_visual_composed_route_gating:
+            turn = _apply_visual_composed_route_gating(turn=turn, case=case, tool_specs=tool_specs)
         rows.append(_score_probe_case(case, tool_specs, expected_calls, turn))
 
     summary = _summarize_probe(rows)
@@ -713,6 +715,219 @@ def _apply_visual_contextual_surface_alias_routing(
     metadata = dict(turn.runtime_metadata)
     metadata["visual_contextual_surface_alias_routing"] = alias_rows
     return turn.model_copy(update={"normalized_tool_call": patched_calls, "runtime_metadata": metadata})
+
+
+def _apply_visual_composed_route_gating(
+    *,
+    turn: ModelTurn,
+    case: ToolDirectiveProbeCase,
+    tool_specs: list[ToolSpec],
+) -> ModelTurn:
+    tool_names = {tool.name for tool in tool_specs}
+    if "extract_layout" not in tool_names or not turn.normalized_tool_call:
+        return turn
+
+    patched_calls: list[ToolCall] = []
+    route_rows: list[dict[str, Any]] = []
+    for call in turn.normalized_tool_call:
+        routed = _visual_composed_route_gating_replacement(call=call, case=case)
+        if routed is None:
+            patched_calls.append(call)
+            continue
+        replacement, route_row = routed
+        patched_calls.append(replacement)
+        route_rows.append(route_row)
+
+    if not route_rows:
+        return turn
+    metadata = dict(turn.runtime_metadata)
+    metadata["visual_composed_route_gating"] = route_rows
+    return turn.model_copy(update={"normalized_tool_call": patched_calls, "runtime_metadata": metadata})
+
+
+def _visual_composed_route_gating_replacement(
+    *,
+    call: ToolCall,
+    case: ToolDirectiveProbeCase,
+) -> tuple[ToolCall, dict[str, Any]] | None:
+    requested = _visual_composed_requested_layout(case)
+    if requested is None:
+        return None
+
+    user_text = " ".join(message.content for message in case.messages if message.role == "user").lower()
+    image_id = _visual_image_id(case)
+    if call.name == "refine_selection":
+        selection_id = str(call.arguments.get("selection_id", "")).strip()
+        if not selection_id:
+            return None
+        if selection_id in _visual_selection_ids(case.initial_state) and not _selection_id_deprioritized(
+            user_text=user_text, selection_id=selection_id
+        ):
+            return None
+        return _visual_composed_route_replacement(
+            call=call,
+            image_id=image_id,
+            target_query=requested["label"],
+            reason="stale_selection_to_requested_surface",
+            requested_row=requested,
+        )
+
+    if call.name != "extract_layout":
+        return None
+    target_query = str(call.arguments.get("target_query", "")).strip()
+    if not target_query or target_query == requested["label"]:
+        return None
+    target_row = _visual_layout_row_by_label(case.initial_state, target_query)
+    target_is_deprioritized = _visual_label_deprioritized(user_text=user_text, label=target_query)
+    if target_row is not None:
+        target_is_deprioritized = target_is_deprioritized or _visual_label_deprioritized(
+            user_text=user_text, label=target_row["label"]
+        )
+    if not target_is_deprioritized and requested["score"] < 5.0:
+        return None
+    return _visual_composed_route_replacement(
+        call=call,
+        image_id=str(call.arguments.get("image_id") or image_id),
+        target_query=requested["label"],
+        reason="requested_surface_over_deprioritized_decoy",
+        requested_row=requested,
+    )
+
+
+def _visual_composed_route_replacement(
+    *,
+    call: ToolCall,
+    image_id: str,
+    target_query: str,
+    reason: str,
+    requested_row: dict[str, Any],
+) -> tuple[ToolCall, dict[str, Any]] | None:
+    if not image_id or not target_query:
+        return None
+    arguments = {"image_id": image_id, "target_query": target_query}
+    payload = {
+        "name": "extract_layout",
+        "arguments": arguments,
+        "controller": "visual_composed_route_gating",
+        "reason": reason,
+    }
+    replacement = ToolCall(
+        name="extract_layout",
+        arguments=arguments,
+        source_format="heuristic",
+        raw=json.dumps(payload, separators=(",", ":"), ensure_ascii=False),
+    )
+    return replacement, {
+        "from_tool": call.name,
+        "from_arguments": call.arguments,
+        "to_tool": replacement.name,
+        "to_arguments": replacement.arguments,
+        "requested_label": requested_row["label"],
+        "requested_region_id": requested_row["region_id"],
+        "reason": reason,
+    }
+
+
+def _visual_composed_requested_layout(case: ToolDirectiveProbeCase) -> dict[str, Any] | None:
+    user_text = " ".join(message.content for message in case.messages if message.role == "user").lower()
+    candidates: list[dict[str, Any]] = []
+    for row in _visual_layout_rows(case.initial_state):
+        label = row["label"]
+        label_lower = label.lower()
+        component = label_lower.split()[-1]
+        base_tokens = label_lower.split()[:-1]
+        score = 0.0
+        if label_lower in user_text:
+            score += 2.0 + len(base_tokens) * 0.25
+        for phrase in (f"use the {label_lower}", f"work from the {label_lower}", f"from the {label_lower}"):
+            if phrase in user_text:
+                score += 4.0
+        if _surface_component_requested(user_text=user_text, component=component) and all(
+            token in user_text for token in base_tokens
+        ):
+            score += 5.0
+        if _visual_label_deprioritized(user_text=user_text, label=label):
+            score -= 8.0
+        if score <= 0:
+            continue
+        candidate = dict(row)
+        candidate["score"] = score
+        candidates.append(candidate)
+    if not candidates:
+        return None
+    return sorted(candidates, key=lambda item: (-float(item["score"]), item["source_index"]))[0]
+
+
+def _visual_layout_row_by_label(initial_state: dict[str, Any], label: str) -> dict[str, Any] | None:
+    label_lower = label.lower()
+    for row in _visual_layout_rows(initial_state):
+        if row["label"].lower() == label_lower:
+            return row
+    return None
+
+
+def _selection_id_deprioritized(*, user_text: str, selection_id: str) -> bool:
+    selection = selection_id.lower()
+    return any(
+        fragment in user_text
+        for fragment in (
+            f"ignore old selection {selection}",
+            f"ignore the old selection {selection}",
+            f"ignore selection {selection}",
+            f"old selection {selection}",
+        )
+    )
+
+
+def _visual_label_deprioritized(*, user_text: str, label: str) -> bool:
+    label_lower = label.lower()
+    component = label_lower.split()[-1]
+    positive_fragments = (
+        f"use the {label_lower}",
+        f"use {label_lower}",
+        f"select the {label_lower}",
+        f"select {label_lower}",
+        f"locate the {label_lower}",
+        f"locate {label_lower}",
+        f"find the {label_lower}",
+        f"find {label_lower}",
+    )
+    exact_negative_fragments = (
+        f"not the {label_lower}",
+        f"not {label_lower}",
+        f"ignore the {label_lower}",
+        f"avoid the {label_lower}",
+    )
+    if any(fragment in user_text for fragment in positive_fragments) and not any(
+        fragment in user_text for fragment in exact_negative_fragments
+    ):
+        return False
+    direct_fragments = (
+        f"{label_lower} is nearby context",
+        f"{label_lower} are nearby context",
+        f"not the {label_lower}",
+        f"not {label_lower}",
+        f"ignore the {label_lower}",
+        f"avoid the {label_lower}",
+        f"{label_lower} are adjacent",
+        f"{label_lower} is adjacent",
+        f"{label_lower} are not",
+        f"{label_lower} is not",
+    )
+    if any(fragment in user_text for fragment in direct_fragments):
+        return True
+    component_fragments = (
+        f"not the {component}",
+        f"not {component}",
+        f"not the surface to use",
+        "nearby context",
+        "adjacent controls",
+    )
+    for match in re.finditer(re.escape(label_lower), user_text):
+        window = user_text[match.start() : match.end() + 96]
+        if any(fragment in window for fragment in component_fragments):
+            return True
+    return False
 
 
 def _visual_contextual_surface_alias_routing_replacement(
