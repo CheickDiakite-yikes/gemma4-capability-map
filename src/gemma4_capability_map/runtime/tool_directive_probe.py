@@ -893,6 +893,14 @@ def _visual_label_deprioritized(*, user_text: str, label: str) -> bool:
         f"find {label_lower}",
     )
     exact_negative_fragments = (
+        f"do not use the {label_lower}",
+        f"do not use {label_lower}",
+        f"do not select the {label_lower}",
+        f"do not select {label_lower}",
+        f"do not locate the {label_lower}",
+        f"do not locate {label_lower}",
+        f"do not find the {label_lower}",
+        f"do not find {label_lower}",
         f"not the {label_lower}",
         f"not {label_lower}",
         f"ignore the {label_lower}",
