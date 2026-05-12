@@ -130,6 +130,9 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert claims["C47_h2i_conditional_component_arbitration_does_not_preserve_h2f_repair"][
         "status"
     ] == "negative_result_current_packets"
+    assert claims["C48_h2j_target_query_normalization_repairs_h2f_and_preserves_transfer"][
+        "status"
+    ] == "supported_current_packets_next_harder_holdout"
     assert "7/8" in claims["C2_final_tool_directive_causal_for_protocol"]["primary_metric"]
     assert "v3 raw exact falls" in claims["C6_split_selector_wording_is_negative_evidence"]["primary_metric"]
     assert "schema-field hints reach 6/8 strict and 8/8 executor-equivalent" in claims[
@@ -364,6 +367,18 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert "stopped at the H2f gate" in claims[
         "C47_h2i_conditional_component_arbitration_does_not_preserve_h2f_repair"
     ]["limitation"]
+    assert "H2j reaches 10/10 strict and executor-equivalent on H2f" in claims[
+        "C48_h2j_target_query_normalization_repairs_h2f_and_preserves_transfer"
+    ]["primary_metric"]
+    assert "5/5 on H2b and 8/8 on H1x" in claims[
+        "C48_h2j_target_query_normalization_repairs_h2f_and_preserves_transfer"
+    ]["primary_metric"]
+    assert "same visual label appears as both a requested target" in claims[
+        "C48_h2j_target_query_normalization_repairs_h2f_and_preserves_transfer"
+    ]["limitation"]
+    assert "Build an H2k harder holdout" in claims[
+        "C48_h2j_target_query_normalization_repairs_h2f_and_preserves_transfer"
+    ]["next_test"]
     assert any(
         row["claim_id"] == "C28_h1n_post_repair_holdout_favors_code_guard"
         and row["path"]
@@ -570,6 +585,33 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert any(
         row["claim_id"] == "C47_h2i_conditional_component_arbitration_does_not_preserve_h2f_repair"
         and row["path"] == "results/tool_probe_replay_live/20260510T_h2i_conditional_component_arbitration_on_h2f_execute_v1"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C48_h2j_target_query_normalization_repairs_h2f_and_preserves_transfer"
+        and row["path"] == "results/reports/h2j_target_query_normalization_transfer_synthesis/report.md"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C48_h2j_target_query_normalization_repairs_h2f_and_preserves_transfer"
+        and row["path"]
+        == "results/reports/h2j_target_query_normalization_transfer_synthesis/figures/h2j_transfer_gate.svg"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C48_h2j_target_query_normalization_repairs_h2f_and_preserves_transfer"
+        and row["path"]
+        == "results/tool_probe_replay_live_comparisons/20260512T_h2j_target_query_normalization_vs_h2e_on_h2f_v2"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C48_h2j_target_query_normalization_repairs_h2f_and_preserves_transfer"
+        and row["path"]
+        == "results/tool_probe_replay_live_comparisons/20260512T_h2j_target_query_normalization_vs_h2h_on_h1x_v1"
         and row["exists"]
         for row in payload["evidence_sources"]
     )

@@ -2,6 +2,46 @@
 
 # Research Log
 
+## 2026-05-12 - H2j Target-Query Normalization Repairs H2f and Preserves Transfer
+
+- Added H2j as a controller-visible target-query normalization candidate layered on the H2e route-arbitration profile and the H2a stale-selection gate:
+  - system: `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_target_query_normalization`
+  - H2j transfer synthesis: [`results/reports/h2j_target_query_normalization_transfer_synthesis/report.md`](../results/reports/h2j_target_query_normalization_transfer_synthesis/report.md)
+  - H2j transfer figure: [`results/reports/h2j_target_query_normalization_transfer_synthesis/figures/h2j_transfer_gate.svg`](../results/reports/h2j_target_query_normalization_transfer_synthesis/figures/h2j_transfer_gate.svg)
+  - H2f live packet: [`results/tool_probe_replay_live/20260512T_h2j_target_query_normalization_on_h2f_execute_v2`](../results/tool_probe_replay_live/20260512T_h2j_target_query_normalization_on_h2f_execute_v2)
+  - H2b live packet: [`results/tool_probe_replay_live/20260512T_h2j_target_query_normalization_on_h2b_execute_v2`](../results/tool_probe_replay_live/20260512T_h2j_target_query_normalization_on_h2b_execute_v2)
+  - H1x live packet: [`results/tool_probe_replay_live/20260512T_h2j_target_query_normalization_on_h1x_execute_v1`](../results/tool_probe_replay_live/20260512T_h2j_target_query_normalization_on_h1x_execute_v1)
+- H2j result:
+  - H2f: `10 / 10` strict and executor-equivalent
+  - H2b: `5 / 5` strict and executor-equivalent
+  - H1x: `8 / 8` strict and executor-equivalent
+  - H2f deltas: `+0.4` exact-rate versus H2e, `+0.1` versus H2h, and `+0.4` versus H2i
+  - transfer deltas: ties H2e on H2b/H1x while beating H2h by `+0.4` on H2b and `+0.25` on H1x
+- Mechanism read:
+  - H2j is the first candidate in this line to repair H2f while preserving the prior H2b and H1x transfer gates
+  - target-query normalization fired on `4` rows and stale-selection rescue fired on `4` rows across H2f/H2b/H1x
+  - the repair is now recorded in per-case `runtime_metadata`, so controller dependence is attributable rather than inferred from top-line score
+  - an initial H2b backtest exposed a transfer bug where `alert s92` could be lost to a negated `consent toggle` decoy; the label scorer was tightened to preserve action-verb target labels and penalize negated/before-reading decoys before the final H2b v2 run
+- Research decision:
+  - promote H2j to a harder post-H2j holdout, not to global default status yet
+  - build H2k around labels that appear both as requested targets and as negated or before-reading decoys
+  - run separate ablations for target-query normalization and stale-selection rescue after H2k, so the next claim measures controller dependence directly
+- Reporting updates:
+  - H2f synthesis now includes H2j and reports `10 / 10` H2j with `0` H2j non-exact rows
+  - publication evidence ledger now has `48` claims, `264` sources, and `0` missing sources
+  - new claim: `C48_h2j_target_query_normalization_repairs_h2f_and_preserves_transfer`
+  - publication readiness audit remains `paper_draft_ready` with `178` checks, `171` blocking checks, and `0` blocking failures
+- Verification:
+  - `uv run pytest tests/test_tool_directive_probe.py tests/test_knowledge_work_h1.py::test_h2j_target_query_normalization_registry_row_preserves_profile_and_controller_flags -q`
+  - `uv run moonie-agent replay-live --packet-dir results/tool_probe_replay_packets/20260510T_h2f_route_arbitration_oracle_dry_run_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_target_query_normalization --output-dir results/tool_probe_replay_live/20260512T_h2j_target_query_normalization_on_h2f_execute_v2 --execute --json`
+  - `uv run moonie-agent replay-live --packet-dir results/tool_probe_replay_packets/20260510T_h2b_residual_exactness_dry_run_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_target_query_normalization --output-dir results/tool_probe_replay_live/20260512T_h2j_target_query_normalization_on_h2b_execute_v2 --execute --json`
+  - `uv run moonie-agent replay-live --packet-dir results/tool_probe_replay_packets/20260510T_h1x_v11_breaker_oracle_dry_run_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_target_query_normalization --output-dir results/tool_probe_replay_live/20260512T_h2j_target_query_normalization_on_h1x_execute_v1 --execute --json`
+  - `uv run pytest tests/test_h2f_route_arbitration_holdout_synthesis.py tests/test_h2j_target_query_normalization_transfer_synthesis.py tests/test_publication_evidence_ledger.py tests/test_publication_readiness_audit.py -q`
+  - `uv run python scripts/build_h2f_route_arbitration_holdout_synthesis.py`
+  - `uv run python scripts/build_h2j_target_query_normalization_transfer_synthesis.py`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`
+
 ## 2026-05-10 - H2i Conditional Arbitration Is Negative on H2f
 
 - Added and executed H2i as a conditional component-identity arbitration candidate:

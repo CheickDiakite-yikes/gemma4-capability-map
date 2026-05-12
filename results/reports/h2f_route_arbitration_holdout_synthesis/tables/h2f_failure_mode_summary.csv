@@ -21,3 +21,4 @@ h2h_component_identity_negative_examples,argument_mismatch,1
 h2h_component_identity_negative_examples,exact,9
 h2i_conditional_component_arbitration,argument_mismatch,4
 h2i_conditional_component_arbitration,exact,6
+h2j_target_query_normalization,exact,10

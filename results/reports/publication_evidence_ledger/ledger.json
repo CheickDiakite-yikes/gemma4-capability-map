@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-10T22:02:14.202447+00:00",
+    "generated_at": "2026-05-12T18:15:59.944748+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-    "claim_count": 47,
-    "evidence_source_count": 253,
+    "claim_count": 48,
+    "evidence_source_count": 264,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -52,7 +52,8 @@
       "C44_h2f_holdout_breaks_h2e_global_promotion",
       "C45_h2g_component_identity_contract_is_partial_executor_gain",
       "C46_h2h_negative_examples_repair_h2f_but_fail_global_transfer",
-      "C47_h2i_conditional_component_arbitration_does_not_preserve_h2f_repair"
+      "C47_h2i_conditional_component_arbitration_does_not_preserve_h2f_repair",
+      "C48_h2j_target_query_normalization_repairs_h2f_and_preserves_transfer"
     ]
   },
   "claims": [
@@ -525,6 +526,16 @@
       "limitation": "H2i was intentionally stopped at the H2f gate and not backtested on H2b/H1x, because it did not improve the acceptance holdout.",
       "next_test": "Design the next candidate around a more structural route gate or controller-visible query-normalization hypothesis, rather than simply adding softer conditional prompt prose.",
       "source_count": 4
+    },
+    {
+      "claim_id": "C48_h2j_target_query_normalization_repairs_h2f_and_preserves_transfer",
+      "claim": "The H2j controller-visible target-query normalization gate repairs the fresh H2f component-identity holdout while preserving the H2b and H1x transfer gates that rejected global H2h promotion.",
+      "status": "supported_current_packets_next_harder_holdout",
+      "evidence_strength": "strong_internal",
+      "primary_metric": "H2j reaches 10/10 strict and executor-equivalent on H2f, improving by +0.4 exact-rate versus H2e and +0.1 versus H2h. It also reaches 5/5 on H2b and 8/8 on H1x, tying H2e on both transfer gates while beating H2h by +0.4 on H2b and +0.25 on H1x.",
+      "limitation": "H2j is validated on H2f plus the existing H2b/H1x transfer gates, not on a new post-H2j holdout. The normalizer's next risk is prompts where the same visual label appears as both a requested target and a negated or before-reading decoy.",
+      "next_test": "Build an H2k harder holdout with adversarial prompt/state label overlap, then ablate the target-query normalizer and stale-selection gate separately to quantify controller dependence.",
+      "source_count": 11
     }
   ],
   "evidence_sources": [
@@ -2297,6 +2308,83 @@
       "artifact_type": "live_replay_comparison",
       "path": "results/tool_probe_replay_live_comparisons/20260510T_h2i_conditional_component_arbitration_vs_h2e_on_h2f_v1",
       "purpose": "Direct H2i-vs-H2e comparison showing zero exact-rate gain on H2f.",
+      "exists": true
+    },
+    {
+      "claim_id": "C48_h2j_target_query_normalization_repairs_h2f_and_preserves_transfer",
+      "artifact_type": "replay_synthesis",
+      "path": "results/reports/h2j_target_query_normalization_transfer_synthesis/report.md",
+      "purpose": "Dedicated H2j synthesis showing H2f repair, H2b/H1x transfer preservation, and controller interventions.",
+      "exists": true
+    },
+    {
+      "claim_id": "C48_h2j_target_query_normalization_repairs_h2f_and_preserves_transfer",
+      "artifact_type": "replay_synthesis_figure",
+      "path": "results/reports/h2j_target_query_normalization_transfer_synthesis/figures/h2j_transfer_gate.svg",
+      "purpose": "Figure summarizing H2j closure of H2f and preservation of H2b/H1x.",
+      "exists": true
+    },
+    {
+      "claim_id": "C48_h2j_target_query_normalization_repairs_h2f_and_preserves_transfer",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260512T_h2j_target_query_normalization_on_h2f_execute_v2",
+      "purpose": "H2j live execution reaching 10/10 strict and executor-equivalent on H2f.",
+      "exists": true
+    },
+    {
+      "claim_id": "C48_h2j_target_query_normalization_repairs_h2f_and_preserves_transfer",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260512T_h2j_target_query_normalization_on_h2b_execute_v2",
+      "purpose": "H2j live execution preserving H2b at 5/5 strict and executor-equivalent.",
+      "exists": true
+    },
+    {
+      "claim_id": "C48_h2j_target_query_normalization_repairs_h2f_and_preserves_transfer",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260512T_h2j_target_query_normalization_on_h1x_execute_v1",
+      "purpose": "H2j live execution preserving H1x at 8/8 strict and executor-equivalent.",
+      "exists": true
+    },
+    {
+      "claim_id": "C48_h2j_target_query_normalization_repairs_h2f_and_preserves_transfer",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260512T_h2j_target_query_normalization_vs_h2e_on_h2f_v2",
+      "purpose": "Direct H2j-vs-H2e comparison showing +0.4 exact-rate lift on H2f.",
+      "exists": true
+    },
+    {
+      "claim_id": "C48_h2j_target_query_normalization_repairs_h2f_and_preserves_transfer",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260512T_h2j_target_query_normalization_vs_h2h_on_h2f_v2",
+      "purpose": "Direct H2j-vs-H2h comparison showing +0.1 exact-rate lift on H2f.",
+      "exists": true
+    },
+    {
+      "claim_id": "C48_h2j_target_query_normalization_repairs_h2f_and_preserves_transfer",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260512T_h2j_target_query_normalization_vs_h2e_on_h2b_v2",
+      "purpose": "Direct H2j-vs-H2e comparison showing transfer preservation on H2b.",
+      "exists": true
+    },
+    {
+      "claim_id": "C48_h2j_target_query_normalization_repairs_h2f_and_preserves_transfer",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260512T_h2j_target_query_normalization_vs_h2h_on_h2b_v2",
+      "purpose": "Direct H2j-vs-H2h comparison showing +0.4 exact-rate lift on H2b.",
+      "exists": true
+    },
+    {
+      "claim_id": "C48_h2j_target_query_normalization_repairs_h2f_and_preserves_transfer",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260512T_h2j_target_query_normalization_vs_h2e_on_h1x_v1",
+      "purpose": "Direct H2j-vs-H2e comparison showing transfer preservation on H1x.",
+      "exists": true
+    },
+    {
+      "claim_id": "C48_h2j_target_query_normalization_repairs_h2f_and_preserves_transfer",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260512T_h2j_target_query_normalization_vs_h2h_on_h1x_v1",
+      "purpose": "Direct H2j-vs-H2h comparison showing +0.25 exact-rate lift on H1x.",
       "exists": true
     }
   ],

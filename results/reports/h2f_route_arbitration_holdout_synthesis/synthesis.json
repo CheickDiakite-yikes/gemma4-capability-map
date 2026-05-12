@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-10T22:01:38.599299+00:00",
+    "generated_at": "2026-05-12T18:15:51.870743+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h2f_route_arbitration_holdout_synthesis",
-    "packet_row_count": 9,
-    "comparison_count": 14,
+    "packet_row_count": 10,
+    "comparison_count": 17,
     "h2e_exact_success_count": 6,
     "h2e_executor_success_count": 6,
     "h2g_exact_success_count": 6,
@@ -12,12 +12,15 @@
     "h2h_executor_success_count": 9,
     "h2i_exact_success_count": 6,
     "h2i_executor_success_count": 6,
+    "h2j_exact_success_count": 10,
+    "h2j_executor_success_count": 10,
     "h2c_exact_success_count": 6,
     "no_directive_exact_success_count": 1,
     "h2e_non_exact_count": 4,
     "h2g_non_exact_count": 4,
     "h2h_non_exact_count": 1,
     "h2i_non_exact_count": 4,
+    "h2j_non_exact_count": 0,
     "h2e_delta_exact_vs_h2c": 0.0,
     "h2e_delta_executor_vs_h2c": 0.0,
     "h2e_delta_exact_vs_no_directive": 0.5,
@@ -32,8 +35,14 @@
     "h2i_delta_executor_vs_h2e": 0.0,
     "h2i_delta_exact_vs_h2h": -0.30000000000000004,
     "h2i_delta_executor_vs_h2h": -0.30000000000000004,
+    "h2j_delta_exact_vs_h2e": 0.4,
+    "h2j_delta_executor_vs_h2e": 0.4,
+    "h2j_delta_exact_vs_h2h": 0.09999999999999998,
+    "h2j_delta_executor_vs_h2h": 0.09999999999999998,
+    "h2j_delta_exact_vs_h2i": 0.4,
+    "h2j_delta_executor_vs_h2i": 0.4,
     "h2e_failure_family_count": 2,
-    "promotion_decision": "h2h_scoped_repair_h2i_conditionalization_negative"
+    "promotion_decision": "h2j_target_query_normalization_repairs_h2f_requires_transfer_context"
   },
   "packet_rows": [
     {
@@ -143,6 +152,18 @@
       "executable_rate": 0.6,
       "executor_success_count": 6,
       "executor_rate": 0.6
+    },
+    {
+      "profile_label": "h2j_target_query_normalization",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_target_query_normalization",
+      "packet_dir": "results/tool_probe_replay_live/20260512T_h2j_target_query_normalization_on_h2f_execute_v2",
+      "case_count": 10,
+      "exact_success_count": 10,
+      "exact_rate": 1.0,
+      "executable_success_count": 10,
+      "executable_rate": 1.0,
+      "executor_success_count": 10,
+      "executor_rate": 1.0
     }
   ],
   "comparison_rows": [
@@ -341,6 +362,48 @@
       "baseline_executor_equivalence_rate": 0.9,
       "candidate_executor_equivalence_rate": 0.6,
       "delta_executor_equivalence_rate": -0.30000000000000004
+    },
+    {
+      "comparison_label": "h2f_h2j_vs_h2e",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260512T_h2j_target_query_normalization_vs_h2e_on_h2f_v2",
+      "shared_case_count": 10,
+      "baseline_exact_rate": 0.6,
+      "candidate_exact_rate": 1.0,
+      "delta_exact_rate": 0.4,
+      "baseline_executable_rate": 0.6,
+      "candidate_executable_rate": 1.0,
+      "delta_executable_rate": 0.4,
+      "baseline_executor_equivalence_rate": 0.6,
+      "candidate_executor_equivalence_rate": 1.0,
+      "delta_executor_equivalence_rate": 0.4
+    },
+    {
+      "comparison_label": "h2f_h2j_vs_h2h",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260512T_h2j_target_query_normalization_vs_h2h_on_h2f_v2",
+      "shared_case_count": 10,
+      "baseline_exact_rate": 0.9,
+      "candidate_exact_rate": 1.0,
+      "delta_exact_rate": 0.09999999999999998,
+      "baseline_executable_rate": 0.9,
+      "candidate_executable_rate": 1.0,
+      "delta_executable_rate": 0.09999999999999998,
+      "baseline_executor_equivalence_rate": 0.9,
+      "candidate_executor_equivalence_rate": 1.0,
+      "delta_executor_equivalence_rate": 0.09999999999999998
+    },
+    {
+      "comparison_label": "h2f_h2j_vs_h2i",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260512T_h2j_target_query_normalization_vs_h2i_on_h2f_v2",
+      "shared_case_count": 10,
+      "baseline_exact_rate": 0.6,
+      "candidate_exact_rate": 1.0,
+      "delta_exact_rate": 0.4,
+      "baseline_executable_rate": 0.6,
+      "candidate_executable_rate": 1.0,
+      "delta_executable_rate": 0.4,
+      "baseline_executor_equivalence_rate": 0.6,
+      "candidate_executor_equivalence_rate": 1.0,
+      "delta_executor_equivalence_rate": 0.4
     }
   ],
   "h2e_non_exact_rows": [
@@ -533,6 +596,7 @@
       "query_error_class": "value_or_alias_query_substitution"
     }
   ],
+  "h2j_non_exact_rows": [],
   "all_non_exact_rows": [
     {
       "profile_label": "no_directive",
@@ -1528,6 +1592,51 @@
       "executor_success_count": 2,
       "exact_rate": 1.0,
       "executor_rate": 1.0
+    },
+    {
+      "profile_label": "h2j_target_query_normalization",
+      "family": "h2f_route_code_label",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "executor_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "h2j_target_query_normalization",
+      "family": "h2f_route_component_class_transfer",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "executor_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "h2j_target_query_normalization",
+      "family": "h2f_route_nonstandard_class",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "executor_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "h2j_target_query_normalization",
+      "family": "h2f_route_stale_field",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "executor_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "h2j_target_query_normalization",
+      "family": "h2f_activation_panel_notice",
+      "case_count": 2,
+      "exact_success_count": 2,
+      "executor_success_count": 2,
+      "exact_rate": 1.0,
+      "executor_rate": 1.0
     }
   ],
   "failure_mode_rows": [
@@ -1640,6 +1749,11 @@
       "profile_label": "h2i_conditional_component_arbitration",
       "failure_mode": "exact",
       "count": 6
+    },
+    {
+      "profile_label": "h2j_target_query_normalization",
+      "failure_mode": "exact",
+      "count": 10
     }
   ],
   "finding_rows": [
@@ -1678,6 +1792,10 @@
     {
       "finding_id": "h2i_conditionalization_is_negative",
       "finding": "H2i conditional arbitration falls back to 6/10 exact on H2f, tying H2e with delta exact=0.0 and trailing H2h by -0.30000000000000004. Its non-exact rows are alert t47->Escalated, result tile->result tile for Blocked, resolution badge->resolution badge for Deferred, state marker->lifecycle state marker."
+    },
+    {
+      "finding_id": "h2j_target_query_normalization_closes_h2f",
+      "finding": "H2j target-query normalization reaches 10/10 exact and 10/10 executor-equivalent on H2f. It lifts exactness by 0.4 versus H2e, 0.09999999999999998 versus H2h, and 0.4 versus H2i, with 0 non-exact rows."
     }
   ]
 }

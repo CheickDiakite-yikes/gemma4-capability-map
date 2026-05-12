@@ -2,7 +2,7 @@
 
 ## Current Best Next Moves
 
-The next move is not another broad prompt-contract paragraph, not another blind H2b/H1x rerun, and not another H2e route-arbitration victory lap. H1y/H1z showed that prompt/catalog prose alone did not solve stale selection-origin routing. H2a showed that a controller-side stale-selection gate is causal and transferable. H2b isolated a separate residual exactness problem. H2c solved H2b locally but failed H1x transfer. H2d fixed transfer but gave back one H2b strict row. H2e reconciled that tradeoff on the current gates. H2f then broke global H2e promotion on a fresh holdout. H2g showed a partial executor-equivalence gain but no strict exactness gain. H2h repaired H2f to `9 / 10` but regressed H2b and H1x. H2i conditional arbitration then failed the H2f gate at `6 / 10`, so the next move is H2j structural route gating or controller-visible query normalization.
+The next move is not another broad prompt-contract paragraph, not another blind H2b/H1x rerun, and not another H2e/H2j victory lap. H1y/H1z showed that prompt/catalog prose alone did not solve stale selection-origin routing. H2a showed that a controller-side stale-selection gate is causal and transferable. H2b isolated a separate residual exactness problem. H2c solved H2b locally but failed H1x transfer. H2d fixed transfer but gave back one H2b strict row. H2e reconciled that tradeoff on the current gates. H2f then broke global H2e promotion on a fresh holdout. H2g showed a partial executor-equivalence gain but no strict exactness gain. H2h repaired H2f to `9 / 10` but regressed H2b and H1x. H2i conditional arbitration then failed the H2f gate at `6 / 10`. H2j moved the repair into a controller-visible target-query normalization gate and now reaches `10 / 10` on H2f, `5 / 5` on H2b, and `8 / 8` on H1x. The next move is H2k: a harder post-H2j holdout that tests target/decoy label overlap and then ablates the controller helpers separately.
 
 Execution order:
 
@@ -15,10 +15,12 @@ Execution order:
 7. Treat H2g as partial negative evidence: it stays at `6 / 10` strict but improves executor-equivalence to `7 / 10` by making `resolution badge Deferred` executor-valid.
 8. Treat H2h as scoped positive and global negative evidence: H2h reaches `9 / 10` on H2f, but only `3 / 5` on H2b and `6 / 8` on H1x.
 9. Treat H2i as negative conditional prompt evidence: it ties H2e at `6 / 10` on H2f and trails H2h by `-0.3`.
-10. Target the H2i H2f misses: `alert t47` -> `Escalated`, `result tile` -> `result tile for Blocked`, `resolution badge` -> `resolution badge for Deferred`, and `state marker` -> `lifecycle state marker`.
-11. Build H2j only if the design is structurally different from H2i: route gate, query-normalization contract, or controller-visible argument canonicalization. Do not write another softer conditional paragraph.
-12. Score both strict exactness and executor-equivalence; do not collapse executor-valid paraphrases into failures when evaluating live usefulness.
-13. Keep packaged workflows paused for this line unless they preserve the same replay-shaped pressure; H1l/H1m already showed packaged visual surfaces can wash out the mechanism.
+10. Treat H2j as current positive structural evidence: it reaches `10 / 10` on H2f, `5 / 5` on H2b, and `8 / 8` on H1x.
+11. Treat H2j as earned-but-not-promoted: it has `0` non-exact rows on current gates, but those gates do not yet stress the normalizer's hardest ambiguity.
+12. Build H2k around adversarial target/decoy overlap: the same visible label should appear as a requested target in some cases and as a negated or before-reading decoy in others.
+13. Run H2k first against H2e, H2h, and H2j, then run separate H2j helper ablations only if H2j remains meaningfully above the H2e/H2h boundary.
+14. Score both strict exactness and executor-equivalence; do not collapse executor-valid paraphrases into failures when evaluating live usefulness.
+15. Keep packaged workflows paused for this line unless they preserve the same replay-shaped pressure; H1l/H1m already showed packaged visual surfaces can wash out the mechanism.
 
 Immediate suggested command:
 
@@ -35,15 +37,16 @@ uv run python scripts/build_publication_evidence_ledger.py
 uv run python scripts/audit_publication_readiness.py
 ```
 
-Then design the H2j hypothesis from the H2h/H2i boundary, not from generic wording:
+Then design H2k from the H2j boundary, not from generic wording:
 
-- preserve H2e route arbitration as the default behavior for code-label and class-transfer rows
-- preserve H2h's exact component-identity wins without copying `for VALUE` suffixes into `target_query`
-- keep `alert t47` code-label exactness while repairing displayed-value component identity
-- keep code-label exactness for `badge c08` without importing `badge m31`
-- repair marker-prefix aliasing without over-expanding ordinary marker targets
-- keep stale-selection and activation-panel behavior unchanged
-- prove H2j on H2f before spending any packaged-workflow budget, then backtest on H2b/H1x only if H2f improves over H2e/H2i and approaches H2h without obvious class/code regression
+- preserve H2j's H2f component-identity wins: `result tile`, `resolution badge`, `state marker`, and `mode switch`
+- preserve H2e/H2j exactness on code-label and class-transfer rows: `alert s92`, `badge c08`, `result pill`, `result chip`, and `error banner`
+- construct cases where prompt wording contains the correct label, a displayed value, a same-class alias, and a negated decoy in the same turn
+- include at least one case where the decoy has a stronger lexical overlap than the true target
+- include at least one case where the correct target appears only after an action verb like `locate`, `select`, or `identify`
+- keep stale-selection and activation-panel behavior unchanged so target normalization is not credited for stale-origin rescue
+- after H2k, run two ablations: H2j without target-query normalization and H2j without stale-selection gate
+- publish H2j only as a scoped controller-helper result unless it passes H2k and the helper ablations show the intended mechanism
 
 ## Immediate
 

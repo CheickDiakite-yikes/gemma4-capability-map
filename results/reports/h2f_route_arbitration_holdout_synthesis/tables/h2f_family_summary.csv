@@ -44,3 +44,8 @@ h2i_conditional_component_arbitration,h2f_route_component_class_transfer,2,0,0,0
 h2i_conditional_component_arbitration,h2f_route_nonstandard_class,2,1,1,0.5,0.5
 h2i_conditional_component_arbitration,h2f_route_stale_field,2,2,2,1.0,1.0
 h2i_conditional_component_arbitration,h2f_activation_panel_notice,2,2,2,1.0,1.0
+h2j_target_query_normalization,h2f_route_code_label,2,2,2,1.0,1.0
+h2j_target_query_normalization,h2f_route_component_class_transfer,2,2,2,1.0,1.0
+h2j_target_query_normalization,h2f_route_nonstandard_class,2,2,2,1.0,1.0
+h2j_target_query_normalization,h2f_route_stale_field,2,2,2,1.0,1.0
+h2j_target_query_normalization,h2f_activation_panel_notice,2,2,2,1.0,1.0

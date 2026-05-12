@@ -17,8 +17,8 @@ def test_h2f_route_arbitration_holdout_synthesis_breaks_h2e_saturation(tmp_path:
     payload = SCRIPT.build_h2f_route_arbitration_holdout_synthesis(output_dir=tmp_path)
     manifest = payload["manifest"]
 
-    assert manifest["packet_row_count"] == 9
-    assert manifest["comparison_count"] == 14
+    assert manifest["packet_row_count"] == 10
+    assert manifest["comparison_count"] == 17
     assert manifest["h2e_exact_success_count"] == 6
     assert manifest["h2e_executor_success_count"] == 6
     assert manifest["h2g_exact_success_count"] == 6
@@ -27,12 +27,15 @@ def test_h2f_route_arbitration_holdout_synthesis_breaks_h2e_saturation(tmp_path:
     assert manifest["h2h_executor_success_count"] == 9
     assert manifest["h2i_exact_success_count"] == 6
     assert manifest["h2i_executor_success_count"] == 6
+    assert manifest["h2j_exact_success_count"] == 10
+    assert manifest["h2j_executor_success_count"] == 10
     assert manifest["h2c_exact_success_count"] == 6
     assert manifest["no_directive_exact_success_count"] == 1
     assert manifest["h2e_non_exact_count"] == 4
     assert manifest["h2g_non_exact_count"] == 4
     assert manifest["h2h_non_exact_count"] == 1
     assert manifest["h2i_non_exact_count"] == 4
+    assert manifest["h2j_non_exact_count"] == 0
     assert manifest["h2e_delta_exact_vs_h2c"] == 0.0
     assert manifest["h2e_delta_executor_vs_h2c"] == 0.0
     assert manifest["h2e_delta_exact_vs_no_directive"] == 0.5
@@ -47,8 +50,14 @@ def test_h2f_route_arbitration_holdout_synthesis_breaks_h2e_saturation(tmp_path:
     assert manifest["h2i_delta_executor_vs_h2e"] == 0.0
     assert manifest["h2i_delta_exact_vs_h2h"] == -0.30000000000000004
     assert manifest["h2i_delta_executor_vs_h2h"] == -0.30000000000000004
+    assert manifest["h2j_delta_exact_vs_h2e"] == 0.4
+    assert manifest["h2j_delta_executor_vs_h2e"] == 0.4
+    assert manifest["h2j_delta_exact_vs_h2h"] == 0.09999999999999998
+    assert manifest["h2j_delta_executor_vs_h2h"] == 0.09999999999999998
+    assert manifest["h2j_delta_exact_vs_h2i"] == 0.4
+    assert manifest["h2j_delta_executor_vs_h2i"] == 0.4
     assert manifest["h2e_failure_family_count"] == 2
-    assert manifest["promotion_decision"] == "h2h_scoped_repair_h2i_conditionalization_negative"
+    assert manifest["promotion_decision"] == "h2j_target_query_normalization_repairs_h2f_requires_transfer_context"
 
     packet_rows = {row["profile_label"]: row for row in payload["packet_rows"]}
     assert packet_rows["no_directive"]["exact_success_count"] == 1
@@ -64,6 +73,8 @@ def test_h2f_route_arbitration_holdout_synthesis_breaks_h2e_saturation(tmp_path:
     assert packet_rows["h2h_component_identity_negative_examples"]["executor_success_count"] == 9
     assert packet_rows["h2i_conditional_component_arbitration"]["exact_success_count"] == 6
     assert packet_rows["h2i_conditional_component_arbitration"]["executor_success_count"] == 6
+    assert packet_rows["h2j_target_query_normalization"]["exact_success_count"] == 10
+    assert packet_rows["h2j_target_query_normalization"]["executor_success_count"] == 10
 
     h2e_non_exact = {row["case_id"]: row for row in payload["h2e_non_exact_rows"]}
     assert set(h2e_non_exact) == {
@@ -107,6 +118,7 @@ def test_h2f_route_arbitration_holdout_synthesis_breaks_h2e_saturation(tmp_path:
     assert h2i_non_exact["h2f_resolution_badge_log_result_decoy"]["actual_target_query"] == (
         "resolution badge for Deferred"
     )
+    assert payload["h2j_non_exact_rows"] == []
 
     findings = {row["finding_id"]: row["finding"] for row in payload["finding_rows"]}
     assert "H2e reaches only 6/10 exact" in findings["h2f_breaks_h2e_saturation"]
@@ -120,6 +132,9 @@ def test_h2f_route_arbitration_holdout_synthesis_breaks_h2e_saturation(tmp_path:
     assert "H2i conditional arbitration falls back to 6/10 exact" in findings[
         "h2i_conditionalization_is_negative"
     ]
+    assert "H2j target-query normalization reaches 10/10 exact" in findings[
+        "h2j_target_query_normalization_closes_h2f"
+    ]
 
     assert (tmp_path / "manifest.json").exists()
     assert (tmp_path / "synthesis.json").exists()
@@ -130,6 +145,7 @@ def test_h2f_route_arbitration_holdout_synthesis_breaks_h2e_saturation(tmp_path:
     assert (tmp_path / "tables" / "h2f_h2g_non_exact_rows.csv").exists()
     assert (tmp_path / "tables" / "h2f_h2h_non_exact_rows.csv").exists()
     assert (tmp_path / "tables" / "h2f_h2i_non_exact_rows.csv").exists()
+    assert (tmp_path / "tables" / "h2f_h2j_non_exact_rows.csv").exists()
     assert (tmp_path / "tables" / "h2f_all_non_exact_rows.csv").exists()
     assert (tmp_path / "tables" / "h2f_family_summary.csv").exists()
     assert (tmp_path / "tables" / "h2f_failure_mode_summary.csv").exists()

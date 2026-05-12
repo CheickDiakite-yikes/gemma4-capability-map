@@ -74,11 +74,16 @@ Latest research restart point:
 - H1y/H1z tested whether more visual catalog prose could solve stale selection-origin failures; it could not
 - H2a adds a controller-side stale visual selection gate on top of the v11 component-label profile
 - on the same H1y packet, H2a reaches `8 / 10` exact and executor-equivalent versus no-directive `0 / 10`, v11 `5 / 10`, v12 `7 / 10`, v16 `5 / 10`, and v17 `5 / 10`
-- H2a now transfers across H1n/H1o/H1p/H1x at `35 / 40` strict exact and `38 / 40` executor-equivalent, beating v11 (`33 / 40`, `36 / 40`) and tying v12 strict while beating v12 executor-equivalence (`35 / 40`)
+- H2a transfers across H1n/H1o/H1p/H1x at `35 / 40` strict exact and `38 / 40` executor-equivalent, beating v11 (`33 / 40`, `36 / 40`) and tying v12 strict while beating v12 executor-equivalence (`35 / 40`)
 - H2b composes the five H2a residuals and shows v12 is the strict residual-exactness winner at `4 / 5` exact and `4 / 5` executor-equivalent; v9 ties executor-equivalence at `4 / 5` but only reaches `3 / 5` exact
 - H2a drops to `0 / 5` strict and `3 / 5` executor-equivalent on H2b, confirming it is a stale-selection controller helper rather than an alias/code-label exactness solution
 - H2c adds a scoped residual-exactness route while preserving the stale-selection controller gate and reaches `5 / 5` exact plus `5 / 5` executor-equivalent on H2b
-- the active next move is an H2c transfer gate over the minimal H1n/H1o/H1p/H1x residual families; do not promote H2c globally from the five-row fit packet alone
+- H2e reconciles the H2c/H2d tradeoff at `5 / 5` on H2b and `8 / 8` on H1x
+- H2f breaks global H2e promotion: H2e ties H2c at `6 / 10`, while no-directive is `1 / 10`
+- H2h repairs H2f to `9 / 10`, but regresses to `3 / 5` on H2b and `6 / 8` on H1x
+- H2i conditional prompt prose is negative: it ties H2e at `6 / 10` on H2f
+- H2j controller-visible target-query normalization is the current best structural result: `10 / 10` on H2f, `5 / 5` on H2b, and `8 / 8` on H1x
+- the active next move is H2k: a harder post-H2j holdout with adversarial target/decoy label overlap, followed by separate ablations of target-query normalization and stale-selection rescue
 
 The current source-of-truth comparison surface is the aligned exploratory `32 / 26` matrix:
 
@@ -223,10 +228,12 @@ The active next experiment is now a CLI/research-harness packet, not a UI task:
 - the H1y/H2a gate figure is [`results/reports/mlx_tool_contract_harnessing/figures/h1y_routed_residual_gate.svg`](results/reports/mlx_tool_contract_harnessing/figures/h1y_routed_residual_gate.svg)
 - the H2a transfer synthesis is [`results/reports/h2a_stale_selection_transfer_synthesis/report.md`](results/reports/h2a_stale_selection_transfer_synthesis/report.md)
 - the H2a transfer gate figure is [`results/reports/mlx_tool_contract_harnessing/figures/h2a_stale_selection_transfer_gate.svg`](results/reports/mlx_tool_contract_harnessing/figures/h2a_stale_selection_transfer_gate.svg)
+- the H2j target-query normalization transfer synthesis is [`results/reports/h2j_target_query_normalization_transfer_synthesis/report.md`](results/reports/h2j_target_query_normalization_transfer_synthesis/report.md)
+- the H2j transfer gate figure is [`results/reports/h2j_target_query_normalization_transfer_synthesis/figures/h2j_transfer_gate.svg`](results/reports/h2j_target_query_normalization_transfer_synthesis/figures/h2j_transfer_gate.svg)
 - the H1l visual executor-equivalence packaged-workflow packet is [`results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet`](results/knowledge_work_h1_slice/20260509T_h1l_visual_executor_equivalence_candidates_v1_knowledge_work_ablation_packet), with config in [`configs/knowledge_work_h1l_slice.yaml`](configs/knowledge_work_h1l_slice.yaml)
 - the paper-facing evidence ledger is [`results/reports/publication_evidence_ledger/ledger.md`](results/reports/publication_evidence_ledger/ledger.md)
 - the publication readiness audit is [`results/reports/publication_readiness_audit/publication_readiness_audit.md`](results/reports/publication_readiness_audit/publication_readiness_audit.md)
-- current reporting snapshot: MLX report `110` tables / `45` figures; evidence ledger `41` claims / `222` sources / `0` missing; readiness audit `paper_draft_ready` with `0` blocking failures
+- current reporting snapshot: MLX report `110` tables / `45` figures; H2j transfer synthesis `9` packet rows / `7` comparisons; evidence ledger `48` claims / `264` sources / `0` missing; readiness audit `paper_draft_ready` with `0` blocking failures
 - the visual catalog + literal guard v6 packet is [`results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe`](results/tool_prompt_contract_probe_packets/20260508T_visual_catalog_literal_guard_v6_probe)
 - prompt-contract promotion decisions are generated at [`results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_promotion_decisions.csv`](results/reports/mlx_tool_contract_harnessing/tables/prompt_contract_promotion_decisions.csv)
 - the exact-probe replay packet is [`results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1`](results/tool_probe_replay_packets/20260507T_no_directive_exact_probe_replay_v1)

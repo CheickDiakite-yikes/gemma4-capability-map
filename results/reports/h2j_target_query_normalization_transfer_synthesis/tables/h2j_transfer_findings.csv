@@ -1,0 +1,5 @@
+finding_id,finding
+h2j_closes_h2f,"H2j reaches 10/10 strict and executor-equivalent on H2f, with exact-rate lift 0.4 versus H2e, 0.09999999999999998 versus H2h, and 0.4 versus H2i."
+h2j_preserves_transfer_gates,"H2j preserves the prior transfer gates: 5/5 on H2b and 8/8 on H1x. It ties H2e on both (0.0 H2b, 0.0 H1x) while beating H2h (0.4 H2b, 0.25 H1x)."
+h2j_controller_mechanism,"H2j has 4 target-query-normalization interventions and 4 stale/missing selection interventions across H2f/H2b/H1x. The interventions are recorded per case in the replay artifacts, making the repair attributable to controller-visible state rather than hidden expected calls."
+h2j_remaining_risk,"H2j has 0 non-exact rows on the current H2f/H2b/H1x packet set. This supports promotion to a harder holdout, not global default status; the next test should target labels that appear both as requested targets and negated decoys."

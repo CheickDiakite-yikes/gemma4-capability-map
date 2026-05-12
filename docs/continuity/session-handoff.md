@@ -22,19 +22,21 @@ Treat the older H1/HF and React notes below as historical context unless they ar
 
 Current strongest MLX result:
 
-- H2f is the freshest visual harnessing frontier:
+- H2j is the freshest visual harnessing frontier:
   - H2e still reaches `5 / 5` on H2b and `8 / 8` on H1x, so route arbitration remains valid mechanism evidence.
-  - Fresh H2f breaks global H2e promotion: H2e and H2c tie at `6 / 10`, while no-directive is only `1 / 10`.
-  - H2e's four H2f misses all call the right tool with the wrong query: component identities collapse into displayed values or aliases.
-  - H2g component-identity query contract is partial: strict stays `6 / 10`, executor-equivalence rises to `7 / 10`, and `resolution badge Deferred` is the single executor-valid gain.
-  - H2h component-identity negative examples are the sharpest scoped repair: H2h reaches `9 / 10` strict and executor-equivalent on H2f.
-  - H2h is not a global successor: it regresses to `3 / 5` on H2b and `6 / 8` on H1x, where H2e had saturated `5 / 5` and `8 / 8`.
-  - H2i conditional component arbitration is negative: it ties H2e at `6 / 10` on H2f and trails H2h by `-0.3`, so it did not earn H2b/H1x backtests.
+  - Fresh H2f broke global H2e promotion: H2e and H2c tie at `6 / 10`, while no-directive is only `1 / 10`.
+  - H2h component-identity negative examples are scoped positive but globally negative: `9 / 10` on H2f, then `3 / 5` on H2b and `6 / 8` on H1x.
+  - H2i conditional component arbitration is negative: it ties H2e at `6 / 10` on H2f and trails H2h by `-0.3`.
+  - H2j target-query normalization is the current structural win: `10 / 10` on H2f, `5 / 5` on H2b, and `8 / 8` on H1x.
+  - H2j beats H2e by `+0.4` exact-rate on H2f, beats H2h by `+0.1` on H2f, ties H2e on H2b/H1x, and beats H2h by `+0.4` on H2b and `+0.25` on H1x.
+  - H2j's replay metadata records `4` target-query-normalization interventions and `4` stale-selection interventions across the current transfer synthesis.
   - H2f synthesis: [`results/reports/h2f_route_arbitration_holdout_synthesis/report.md`](../../results/reports/h2f_route_arbitration_holdout_synthesis/report.md)
   - H2f figure: [`results/reports/h2f_route_arbitration_holdout_synthesis/figures/h2f_holdout_profile_bars.svg`](../../results/reports/h2f_route_arbitration_holdout_synthesis/figures/h2f_holdout_profile_bars.svg)
   - H2h tradeoff synthesis: [`results/reports/h2h_component_identity_tradeoff_synthesis/report.md`](../../results/reports/h2h_component_identity_tradeoff_synthesis/report.md)
   - H2h tradeoff figure: [`results/reports/h2h_component_identity_tradeoff_synthesis/figures/h2h_tradeoff_gate.svg`](../../results/reports/h2h_component_identity_tradeoff_synthesis/figures/h2h_tradeoff_gate.svg)
-  - next restart move: build H2j only if the design is structurally different from H2i, such as a route gate, query-normalization contract, or controller-visible target-query canonicalization hypothesis
+  - H2j transfer synthesis: [`results/reports/h2j_target_query_normalization_transfer_synthesis/report.md`](../../results/reports/h2j_target_query_normalization_transfer_synthesis/report.md)
+  - H2j transfer figure: [`results/reports/h2j_target_query_normalization_transfer_synthesis/figures/h2j_transfer_gate.svg`](../../results/reports/h2j_target_query_normalization_transfer_synthesis/figures/h2j_transfer_gate.svg)
+  - next restart move: build H2k as a harder post-H2j holdout with adversarial target/decoy label overlap, then ablate target-query normalization and stale-selection rescue separately
 - H1h proves the no-directive causal ordering across all ten live workflow families.
 - H1i compresses the worst H1h workflow families into the current fast loop.
 - contracted MLX on H1i is clean at readiness `0.97710`, strict/recovered `1.0 / 1.0`, raw clean `1.0`.

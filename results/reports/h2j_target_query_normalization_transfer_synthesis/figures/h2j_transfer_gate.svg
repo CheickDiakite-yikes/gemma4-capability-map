@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="360" viewBox="0 0 760 360" role="img" aria-labelledby="title desc">
+<title id="title">H2j transfer gate</title>
+<desc id="desc">H2j closes H2f and preserves H2b and H1x transfer gates.</desc>
+<rect width="760" height="360" fill="#FFFFFF"/>
+<text x="32" y="34" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#111827">H2j closes H2f without the H2h transfer regression</text>
+<line x1="84" y1="264" x2="690" y2="264" stroke="#111827" stroke-width="1"/>
+<line x1="78" y1="264.0" x2="690" y2="264.0" stroke="#E5E7EB" stroke-width="1"/>
+<text x="34" y="268.0" font-family="Arial, sans-serif" font-size="11" fill="#6B7280">0.0</text>
+<line x1="78" y1="222.0" x2="690" y2="222.0" stroke="#E5E7EB" stroke-width="1"/>
+<text x="34" y="226.0" font-family="Arial, sans-serif" font-size="11" fill="#6B7280">0.2</text>
+<line x1="78" y1="180.0" x2="690" y2="180.0" stroke="#E5E7EB" stroke-width="1"/>
+<text x="34" y="184.0" font-family="Arial, sans-serif" font-size="11" fill="#6B7280">0.4</text>
+<line x1="78" y1="138.0" x2="690" y2="138.0" stroke="#E5E7EB" stroke-width="1"/>
+<text x="34" y="142.0" font-family="Arial, sans-serif" font-size="11" fill="#6B7280">0.6</text>
+<line x1="78" y1="96.0" x2="690" y2="96.0" stroke="#E5E7EB" stroke-width="1"/>
+<text x="34" y="100.0" font-family="Arial, sans-serif" font-size="11" fill="#6B7280">0.8</text>
+<line x1="78" y1="54.0" x2="690" y2="54.0" stroke="#E5E7EB" stroke-width="1"/>
+<text x="34" y="58.0" font-family="Arial, sans-serif" font-size="11" fill="#6B7280">1.0</text>
+<text x="132" y="292" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">H2F</text>
+<rect x="84" y="138.0" width="38" height="126.0" fill="#0891B2"/>
+<text x="87" y="132.0" font-family="Arial, sans-serif" font-size="11" fill="#111827">6/10</text>
+<rect x="132" y="75.0" width="38" height="189.0" fill="#155E75"/>
+<text x="135" y="69.0" font-family="Arial, sans-serif" font-size="11" fill="#111827">9/10</text>
+<rect x="180" y="54.0" width="38" height="210.0" fill="#1D4ED8"/>
+<text x="183" y="48.0" font-family="Arial, sans-serif" font-size="11" fill="#111827">10/10</text>
+<text x="322" y="292" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">H2B</text>
+<rect x="274" y="54.0" width="38" height="210.0" fill="#0891B2"/>
+<text x="277" y="48.0" font-family="Arial, sans-serif" font-size="11" fill="#111827">5/5</text>
+<rect x="322" y="138.0" width="38" height="126.0" fill="#155E75"/>
+<text x="325" y="132.0" font-family="Arial, sans-serif" font-size="11" fill="#111827">3/5</text>
+<rect x="370" y="54.0" width="38" height="210.0" fill="#1D4ED8"/>
+<text x="373" y="48.0" font-family="Arial, sans-serif" font-size="11" fill="#111827">5/5</text>
+<text x="512" y="292" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">H1X</text>
+<rect x="464" y="54.0" width="38" height="210.0" fill="#0891B2"/>
+<text x="467" y="48.0" font-family="Arial, sans-serif" font-size="11" fill="#111827">8/8</text>
+<rect x="512" y="106.5" width="38" height="157.5" fill="#155E75"/>
+<text x="515" y="100.5" font-family="Arial, sans-serif" font-size="11" fill="#111827">6/8</text>
+<rect x="560" y="54.0" width="38" height="210.0" fill="#1D4ED8"/>
+<text x="563" y="48.0" font-family="Arial, sans-serif" font-size="11" fill="#111827">8/8</text>
+<rect x="500" y="300" width="12" height="12" fill="#0891B2"/>
+<text x="518" y="310" font-family="Arial, sans-serif" font-size="12" fill="#374151">H2e</text>
+<rect x="500" y="318" width="12" height="12" fill="#155E75"/>
+<text x="518" y="328" font-family="Arial, sans-serif" font-size="12" fill="#374151">H2h</text>
+<rect x="500" y="336" width="12" height="12" fill="#1D4ED8"/>
+<text x="518" y="346" font-family="Arial, sans-serif" font-size="12" fill="#374151">H2j</text>
+</svg>

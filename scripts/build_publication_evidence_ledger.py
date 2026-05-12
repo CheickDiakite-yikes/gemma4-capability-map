@@ -2264,6 +2264,86 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C48_h2j_target_query_normalization_repairs_h2f_and_preserves_transfer",
+        claim=(
+            "The H2j controller-visible target-query normalization gate repairs the fresh H2f component-identity "
+            "holdout while preserving the H2b and H1x transfer gates that rejected global H2h promotion."
+        ),
+        status="supported_current_packets_next_harder_holdout",
+        evidence_strength="strong_internal",
+        primary_metric=(
+            "H2j reaches 10/10 strict and executor-equivalent on H2f, improving by +0.4 exact-rate versus H2e "
+            "and +0.1 versus H2h. It also reaches 5/5 on H2b and 8/8 on H1x, tying H2e on both transfer gates "
+            "while beating H2h by +0.4 on H2b and +0.25 on H1x."
+        ),
+        limitation=(
+            "H2j is validated on H2f plus the existing H2b/H1x transfer gates, not on a new post-H2j holdout. "
+            "The normalizer's next risk is prompts where the same visual label appears as both a requested target "
+            "and a negated or before-reading decoy."
+        ),
+        next_test=(
+            "Build an H2k harder holdout with adversarial prompt/state label overlap, then ablate the target-query "
+            "normalizer and stale-selection gate separately to quantify controller dependence."
+        ),
+        sources=(
+            EvidenceSource(
+                "replay_synthesis",
+                "results/reports/h2j_target_query_normalization_transfer_synthesis/report.md",
+                "Dedicated H2j synthesis showing H2f repair, H2b/H1x transfer preservation, and controller interventions.",
+            ),
+            EvidenceSource(
+                "replay_synthesis_figure",
+                "results/reports/h2j_target_query_normalization_transfer_synthesis/figures/h2j_transfer_gate.svg",
+                "Figure summarizing H2j closure of H2f and preservation of H2b/H1x.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2j_target_query_normalization_on_h2f_execute_v2",
+                "H2j live execution reaching 10/10 strict and executor-equivalent on H2f.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2j_target_query_normalization_on_h2b_execute_v2",
+                "H2j live execution preserving H2b at 5/5 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2j_target_query_normalization_on_h1x_execute_v1",
+                "H2j live execution preserving H1x at 8/8 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2j_target_query_normalization_vs_h2e_on_h2f_v2",
+                "Direct H2j-vs-H2e comparison showing +0.4 exact-rate lift on H2f.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2j_target_query_normalization_vs_h2h_on_h2f_v2",
+                "Direct H2j-vs-H2h comparison showing +0.1 exact-rate lift on H2f.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2j_target_query_normalization_vs_h2e_on_h2b_v2",
+                "Direct H2j-vs-H2e comparison showing transfer preservation on H2b.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2j_target_query_normalization_vs_h2h_on_h2b_v2",
+                "Direct H2j-vs-H2h comparison showing +0.4 exact-rate lift on H2b.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2j_target_query_normalization_vs_h2e_on_h1x_v1",
+                "Direct H2j-vs-H2e comparison showing transfer preservation on H1x.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2j_target_query_normalization_vs_h2h_on_h1x_v1",
+                "Direct H2j-vs-H2h comparison showing +0.25 exact-rate lift on H1x.",
+            ),
+        ),
+    ),
 )
 
 

@@ -1,6 +1,6 @@
 {
   "summary": {
-    "generated_at": "2026-05-10T22:02:14.202349+00:00",
+    "generated_at": "2026-05-12T18:16:04.103479+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
     "check_count": 178,
     "blocking_check_count": 171,
@@ -29,7 +29,7 @@
       "check_id": "ledger_has_claims",
       "severity": "blocking",
       "passed": true,
-      "detail": "claim_count=46",
+      "detail": "claim_count=48",
       "path": ""
     },
     {

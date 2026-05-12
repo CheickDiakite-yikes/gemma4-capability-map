@@ -1,0 +1,22 @@
+{
+  "generated_at": "2026-05-12T18:15:51.866187+00:00",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h2j_target_query_normalization_transfer_synthesis",
+  "packet_row_count": 9,
+  "comparison_count": 7,
+  "h2j_h2f_exact_success_count": 10,
+  "h2j_h2f_executor_success_count": 10,
+  "h2j_h2b_exact_success_count": 5,
+  "h2j_h2b_executor_success_count": 5,
+  "h2j_h1x_exact_success_count": 8,
+  "h2j_h1x_executor_success_count": 8,
+  "h2j_delta_exact_vs_h2e_on_h2f": 0.4,
+  "h2j_delta_exact_vs_h2h_on_h2f": 0.09999999999999998,
+  "h2j_delta_exact_vs_h2e_on_h2b": 0.0,
+  "h2j_delta_exact_vs_h2h_on_h2b": 0.4,
+  "h2j_delta_exact_vs_h2e_on_h1x": 0.0,
+  "h2j_delta_exact_vs_h2h_on_h1x": 0.25,
+  "h2j_non_exact_count": 0,
+  "target_query_normalization_count": 4,
+  "visual_stale_selection_gate_count": 4,
+  "promotion_decision": "promote_h2j_to_next_harder_holdout_not_global_default"
+}
