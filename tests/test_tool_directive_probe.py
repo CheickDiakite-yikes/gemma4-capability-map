@@ -1252,6 +1252,96 @@ def test_visual_composed_route_gating_preserves_negated_explicit_surface_label()
     assert patched == turn
 
 
+def test_visual_composed_route_gating_preserves_exact_target_when_decoys_are_negated() -> None:
+    specs = build_default_registry().specs
+    case = ToolDirectiveProbeCase(
+        case_id="composed-negated-decoys",
+        family="visual",
+        messages=[
+            Message(role="system", content="visual_image_ids: img-result"),
+            Message(role="user", content="The target is result tile. Do not use the result badge or the result comment."),
+        ],
+        media=["img-result"],
+        tool_names=["extract_layout", "refine_selection"],
+        initial_state={
+            "visual_executor_mode": "local",
+            "images": {
+                "img-result": {
+                    "local_layouts": [
+                        {"region_id": "badge-1", "label": "result badge", "text": "Blocked"},
+                        {"region_id": "tile-1", "label": "result tile", "text": "Blocked"},
+                        {"region_id": "comment-1", "label": "result comment", "text": "Blocked pending counsel"},
+                    ]
+                }
+            },
+        },
+    )
+    turn = ModelTurn(
+        raw_model_output="{}",
+        normalized_tool_call=[
+            ToolCall(
+                name="extract_layout",
+                arguments={"image_id": "img-result", "target_query": "result tile"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+    )
+
+    patched = _apply_visual_composed_route_gating(
+        turn=turn,
+        case=case,
+        tool_specs=[specs["extract_layout"], specs["refine_selection"]],
+    )
+
+    assert patched == turn
+
+
+def test_visual_composed_route_gating_preserves_field_target_when_switch_is_negated() -> None:
+    specs = build_default_registry().specs
+    case = ToolDirectiveProbeCase(
+        case_id="composed-negated-switch",
+        family="visual",
+        messages=[
+            Message(role="system", content="visual_image_ids: img-mode"),
+            Message(role="user", content="Before reading the manual control, locate the mode field itself. Do not use the mode switch."),
+        ],
+        media=["img-mode"],
+        tool_names=["extract_layout", "refine_selection"],
+        initial_state={
+            "visual_executor_mode": "local",
+            "images": {
+                "img-mode": {
+                    "local_layouts": [
+                        {"region_id": "manual-1", "label": "manual control", "text": "Manual"},
+                        {"region_id": "field-1", "label": "mode field", "text": "Manual"},
+                        {"region_id": "switch-1", "label": "mode switch", "text": "Auto"},
+                    ]
+                }
+            },
+        },
+    )
+    turn = ModelTurn(
+        raw_model_output="{}",
+        normalized_tool_call=[
+            ToolCall(
+                name="extract_layout",
+                arguments={"image_id": "img-mode", "target_query": "mode field"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+    )
+
+    patched = _apply_visual_composed_route_gating(
+        turn=turn,
+        case=case,
+        tool_specs=[specs["extract_layout"], specs["refine_selection"]],
+    )
+
+    assert patched == turn
+
+
 def test_tool_directive_probe_comparison_reports_case_and_family_deltas(tmp_path: Path) -> None:
     registry_path = tmp_path / "registry.yaml"
     registry_path.write_text(

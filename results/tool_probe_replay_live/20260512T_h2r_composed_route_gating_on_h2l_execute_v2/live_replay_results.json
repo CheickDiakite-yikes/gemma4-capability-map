@@ -1,0 +1,98 @@
+[
+  {
+    "case_id": "h2l_result_badge_blocked_value_is_target",
+    "family": "h2l_value_bearing_target",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2l_execute_v2/runs/h2l_result_badge_blocked_value_is_target"
+  },
+  {
+    "case_id": "h2l_state_tag_closed_value_is_target",
+    "family": "h2l_value_bearing_target",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2l_execute_v2/runs/h2l_state_tag_closed_value_is_target"
+  },
+  {
+    "case_id": "h2l_mode_toggle_manual_value_is_target",
+    "family": "h2l_value_bearing_target",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2l_execute_v2/runs/h2l_mode_toggle_manual_value_is_target"
+  },
+  {
+    "case_id": "h2l_priority_badge_critical_value_is_target",
+    "family": "h2l_value_bearing_target",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2l_execute_v2/runs/h2l_priority_badge_critical_value_is_target"
+  },
+  {
+    "case_id": "h2l_error_notice_alias_is_target",
+    "family": "h2l_alias_is_target",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2l_execute_v2/runs/h2l_error_notice_alias_is_target"
+  },
+  {
+    "case_id": "h2l_result_tile_alias_is_target",
+    "family": "h2l_alias_is_target",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2l_execute_v2/runs/h2l_result_tile_alias_is_target"
+  },
+  {
+    "case_id": "h2l_status_badge_short_label_regression_guard",
+    "family": "h2l_h2k_regression_guard",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2l_execute_v2/runs/h2l_status_badge_short_label_regression_guard"
+  },
+  {
+    "case_id": "h2l_mode_field_short_label_regression_guard",
+    "family": "h2l_h2k_regression_guard",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2l_execute_v2/runs/h2l_mode_field_short_label_regression_guard"
+  }
+]

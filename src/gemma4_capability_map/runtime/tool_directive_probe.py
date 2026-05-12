@@ -910,6 +910,8 @@ def _visual_label_deprioritized(*, user_text: str, label: str) -> bool:
         fragment in user_text for fragment in exact_negative_fragments
     ):
         return False
+    if any(fragment in user_text for fragment in exact_negative_fragments):
+        return True
     direct_fragments = (
         f"{label_lower} is nearby context",
         f"{label_lower} are nearby context",
