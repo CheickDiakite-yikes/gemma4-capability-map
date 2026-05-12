@@ -10,7 +10,7 @@ from typing import Any
 
 from gemma4_capability_map.reporting.knowledge_work_board import DEFAULT_REGISTRY_PATH
 from gemma4_capability_map.runtime.tool_directive_probe import ToolDirectiveProbeCase
-from gemma4_capability_map.schemas import Message
+from gemma4_capability_map.schemas import Message, ToolCall
 from gemma4_capability_map.tools.planner import plan_tool_calls
 from gemma4_capability_map.tools.registry import build_default_registry
 
@@ -53,6 +53,7 @@ def parse_args() -> argparse.Namespace:
             "h2m_less_direct_target_normalization_overreach_v19",
             "h2q_composed_surface_value_stale_v20",
             "h2s_fresh_composed_holdout_v21",
+            "h2t_overreach_independence_v22",
         ],
         default="v1",
     )
@@ -237,6 +238,8 @@ def _stress_cases_for_suite(suite: str) -> list[ToolDirectiveProbeCase]:
         return _h2q_composed_surface_value_stale_cases_v20()
     if suite == "h2s_fresh_composed_holdout_v21":
         return _h2s_fresh_composed_holdout_cases_v21()
+    if suite == "h2t_overreach_independence_v22":
+        return _h2t_overreach_independence_cases_v22()
     raise ValueError(f"Unknown visual live stress suite: {suite}")
 
 
@@ -246,6 +249,8 @@ def _expected_call_payloads(
     tool_specs: list[Any],
     suite: str,
 ) -> list[dict[str, Any]]:
+    if case.expected_calls:
+        return [{"name": call.name, "arguments": call.arguments} for call in case.expected_calls]
     if suite in {
         "alias_transfer_v3",
         "alias_transfer_repeat_v4",
@@ -265,6 +270,7 @@ def _expected_call_payloads(
         "h2m_less_direct_target_normalization_overreach_v19",
         "h2q_composed_surface_value_stale_v20",
         "h2s_fresh_composed_holdout_v21",
+        "h2t_overreach_independence_v22",
     }:
         return [_oracle_visual_extract_call(case)]
     return [
@@ -4257,6 +4263,292 @@ def _h2s_fresh_composed_holdout_cases_v21() -> list[ToolDirectiveProbeCase]:
     ]
 
 
+def _h2t_overreach_independence_cases_v22() -> list[ToolDirectiveProbeCase]:
+    return [
+        ToolDirectiveProbeCase(
+            case_id="h2t_current_selection_review_tile_refine_guard",
+            family="h2t_current_selection_guard",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2t-current-review-selection"),
+                Message(
+                    role="tool",
+                    content=(
+                        '{"tool_name":"extract_layout","status":"pass","arguments":{"image_id":"img-h2t-current-review-selection",'
+                        '"target_query":"review surfaces"},"output":{"selection_id":"sel-h2t-review-current",'
+                        '"image_id":"img-h2t-current-review-selection","selection_kind":"regions","count":3,'
+                        '"region_ids":["h2t-review-chip-waiting-15001","h2t-review-tile-waiting-15002",'
+                        '"h2t-review-note-waiting-15003"]}}'
+                    ),
+                ),
+                Message(
+                    role="user",
+                    content=(
+                        "From the current selection_id sel-h2t-review-current, narrow to the review tile. "
+                        "Do not restart layout extraction; that selection is the current visual result."
+                    ),
+                ),
+            ],
+            media=["img-h2t-current-review-selection"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state_with_selection(
+                "img-h2t-current-review-selection",
+                [
+                    _region("h2t-review-chip-waiting-15001", "review chip Waiting", "Waiting", area="chip"),
+                    _region("h2t-review-tile-waiting-15002", "review tile", "Waiting", area="tile"),
+                    _region("h2t-review-note-waiting-15003", "review note", "Waiting on owner", area="note"),
+                ],
+                selection_id="sel-h2t-review-current",
+                selected_region_ids=[
+                    "h2t-review-chip-waiting-15001",
+                    "h2t-review-tile-waiting-15002",
+                    "h2t-review-note-waiting-15003",
+                ],
+                query="review surfaces",
+            ),
+            expected_execution={"region_ids": ["h2t-review-tile-waiting-15002"]},
+            expected_calls=[
+                _oracle_tool_call("refine_selection", {"selection_id": "sel-h2t-review-current", "filter_query": "tile"})
+            ],
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2t_current_selection_status_panel_refine_guard",
+            family="h2t_current_selection_guard",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2t-current-status-selection"),
+                Message(
+                    role="tool",
+                    content=(
+                        '{"tool_name":"extract_layout","status":"pass","arguments":{"image_id":"img-h2t-current-status-selection",'
+                        '"target_query":"status surfaces"},"output":{"selection_id":"sel-h2t-status-current",'
+                        '"image_id":"img-h2t-current-status-selection","selection_kind":"regions","count":3,'
+                        '"region_ids":["h2t-status-tag-ready-15011","h2t-status-panel-ready-15012",'
+                        '"h2t-status-note-ready-15013"]}}'
+                    ),
+                ),
+                Message(
+                    role="user",
+                    content=(
+                        "Use current selection_id sel-h2t-status-current and narrow it to the status panel. "
+                        "This is not an old saved selection."
+                    ),
+                ),
+            ],
+            media=["img-h2t-current-status-selection"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state_with_selection(
+                "img-h2t-current-status-selection",
+                [
+                    _region("h2t-status-tag-ready-15011", "status tag Ready", "Ready", area="tag"),
+                    _region("h2t-status-panel-ready-15012", "status panel", "Ready", area="panel"),
+                    _region("h2t-status-note-ready-15013", "status note", "Ready current note", area="note"),
+                ],
+                selection_id="sel-h2t-status-current",
+                selected_region_ids=[
+                    "h2t-status-tag-ready-15011",
+                    "h2t-status-panel-ready-15012",
+                    "h2t-status-note-ready-15013",
+                ],
+                query="status surfaces",
+            ),
+            expected_execution={"region_ids": ["h2t-status-panel-ready-15012"]},
+            expected_calls=[
+                _oracle_tool_call("refine_selection", {"selection_id": "sel-h2t-status-current", "filter_query": "panel"})
+            ],
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2t_result_drawer_low_score_badge_decoy",
+            family="h2t_low_score_surface_request",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2t-result-drawer-blocked"),
+                Message(
+                    role="user",
+                    content=(
+                        "In this current image, the target is result drawer for Blocked. The badge and note show "
+                        "the same value."
+                    ),
+                ),
+            ],
+            media=["img-h2t-result-drawer-blocked"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2t-result-drawer-blocked",
+                [
+                    _region("h2t-result-badge-blocked-15021", "result badge Blocked", "Blocked", area="badge"),
+                    _region("h2t-result-drawer-blocked-15022", "result drawer", "Blocked", area="drawer"),
+                    _region("h2t-result-note-blocked-15023", "result note", "Blocked current note", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2t-result-drawer-blocked-15022"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2t_risk_lane_high_chip_decoy",
+            family="h2t_low_score_surface_request",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2t-risk-lane-high"),
+                Message(
+                    role="user",
+                    content=(
+                        "In this image, the target is risk lane for High. A chip nearby repeats High for the "
+                        "same work item."
+                    ),
+                ),
+            ],
+            media=["img-h2t-risk-lane-high"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2t-risk-lane-high",
+                [
+                    _region("h2t-risk-chip-high-15031", "risk chip High", "High", area="chip"),
+                    _region("h2t-risk-lane-high-15032", "risk lane", "High", area="lane"),
+                    _region("h2t-risk-memo-high-15033", "risk memo", "High risk reason", area="memo"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2t-risk-lane-high-15032"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2t_stage_column_review_tag_decoy",
+            family="h2t_low_score_surface_request",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2t-stage-column-review"),
+                Message(
+                    role="user",
+                    content=(
+                        "The target is stage column for Review in this board. The stage tag and review memo are "
+                        "not enough to identify the column."
+                    ),
+                ),
+            ],
+            media=["img-h2t-stage-column-review"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2t-stage-column-review",
+                [
+                    _region("h2t-stage-tag-review-15041", "stage tag Review", "Review", area="tag"),
+                    _region("h2t-stage-column-review-15042", "stage column", "Review", area="column"),
+                    _region("h2t-review-memo-15043", "review memo", "Review queue", area="memo"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2t-stage-column-review-15042"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2t_metric_panel_negation_scope_note",
+            family="h2t_negation_scope_guard",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2t-metric-panel-negation-scope"),
+                Message(
+                    role="user",
+                    content=(
+                        "Use the metric panel at the top. The annotation saying 'not the metric panel' is a "
+                        "training note about a prior screenshot, not the current target."
+                    ),
+                ),
+            ],
+            media=["img-h2t-metric-panel-negation-scope"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2t-metric-panel-negation-scope",
+                [
+                    _region("h2t-metric-panel-15051", "metric panel", "Escalations above target", area="panel"),
+                    _region("h2t-training-note-15052", "training note", "old negative example", area="note"),
+                    _region("h2t-metric-table-15053", "metric table", "Escalation rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2t-metric-panel-15051"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2t_summary_tile_negation_scope_caption",
+            family="h2t_negation_scope_guard",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2t-summary-tile-negation-scope"),
+                Message(
+                    role="user",
+                    content=(
+                        "Use the summary tile in the current image. The caption includes the phrase not the "
+                        "summary tile, but it is describing an old example."
+                    ),
+                ),
+            ],
+            media=["img-h2t-summary-tile-negation-scope"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2t-summary-tile-negation-scope",
+                [
+                    _region("h2t-summary-tile-15061", "summary tile", "Ready for review", area="tile"),
+                    _region("h2t-caption-15062", "caption", "old negative example", area="caption"),
+                    _region("h2t-summary-note-15063", "summary note", "Ready for review details", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2t-summary-tile-15061"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2t_escalated_value_not_badge_component",
+            family="h2t_value_is_target_guard",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2t-escalated-value"),
+                Message(
+                    role="user",
+                    content=(
+                        "Use the Escalated value cell itself, not the status badge component around it."
+                    ),
+                ),
+            ],
+            media=["img-h2t-escalated-value"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2t-escalated-value",
+                [
+                    _region("h2t-status-badge-escalated-15071", "status badge", "Escalated", area="badge"),
+                    _region("h2t-escalated-value-cell-15072", "Escalated value cell", "Escalated", area="cell"),
+                    _region("h2t-status-note-escalated-15073", "status note", "Escalated details", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2t-escalated-value-cell-15072"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2t_result_badge_live_clean_control",
+            family="h2t_clean_route_control",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2t-result-badge-live"),
+                Message(
+                    role="user",
+                    content="Use the result badge in the compact rail. The nearby note is supporting text.",
+                ),
+            ],
+            media=["img-h2t-result-badge-live"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2t-result-badge-live",
+                [
+                    _region("h2t-result-badge-live-15081", "result badge", "Live", area="badge"),
+                    _region("h2t-result-note-live-15082", "result note", "Live since handoff", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2t-result-badge-live-15081"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2t_owner_field_clean_control",
+            family="h2t_clean_route_control",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2t-owner-field-clean"),
+                Message(
+                    role="user",
+                    content="Use the owner field in the header. Ignore the owner note below it.",
+                ),
+            ],
+            media=["img-h2t-owner-field-clean"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2t-owner-field-clean",
+                [
+                    _region("h2t-owner-field-clean-15091", "owner field", "Nia", area="field"),
+                    _region("h2t-owner-note-clean-15092", "owner note", "Nia owns next step", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2t-owner-field-clean-15091"]},
+        ),
+    ]
+
+
 def _visual_state(image_id: str, local_layouts: list[dict[str, Any]]) -> dict[str, Any]:
     return {
         "visual_executor_mode": "local",
@@ -4268,6 +4560,39 @@ def _visual_state(image_id: str, local_layouts: list[dict[str, Any]]) -> dict[st
             }
         },
     }
+
+
+def _visual_state_with_selection(
+    image_id: str,
+    local_layouts: list[dict[str, Any]],
+    *,
+    selection_id: str,
+    selected_region_ids: list[str],
+    query: str,
+) -> dict[str, Any]:
+    state = _visual_state(image_id, local_layouts)
+    rows_by_id = {str(row.get("region_id", "")): row for row in local_layouts}
+    state["visual_selections"] = {
+        selection_id: {
+            "image_id": image_id,
+            "selection_kind": "regions",
+            "items": [rows_by_id[region_id] for region_id in selected_region_ids],
+            "query": query,
+            "parent_selection_id": None,
+        }
+    }
+    state["visual_last_selection_id"] = selection_id
+    state["visual_selection_counter"] = 1
+    return state
+
+
+def _oracle_tool_call(name: str, arguments: dict[str, Any]) -> ToolCall:
+    return ToolCall(
+        name=name,
+        arguments=arguments,
+        source_format="oracle",
+        raw=json.dumps({"name": name, "arguments": arguments}, separators=(",", ":"), ensure_ascii=False),
+    )
 
 
 def _region(region_id: str, label: str, text: str, **attributes: Any) -> dict[str, Any]:
@@ -4301,6 +4626,7 @@ def _stress_failure_mode(family: str) -> str:
         "h2f_activation_panel_notice",
         "h2q_stale_surface_alias",
         "h2s_stale_surface_alias",
+        "h2t_current_selection_guard",
     }:
         return "wrong_tool_or_stale_selection_risk"
     return "argument_alias_or_decoy_risk"

@@ -1087,6 +1087,60 @@ def test_visual_hard_slice_live_stress_packet_supports_h2s_fresh_composed_holdou
         assert _expected_call_reaches_oracle(case)
 
 
+def test_visual_hard_slice_live_stress_packet_supports_h2t_overreach_independence_suite(
+    tmp_path: Path,
+) -> None:
+    packet = SCRIPT.build_visual_hard_slice_live_stress_packet(
+        output_root=tmp_path / "replay_packets",
+        run_group_id="visual_stress_h2t_overreach_independence",
+        suite="h2t_overreach_independence_v22",
+    )
+
+    assert packet["summary"]["suite"] == "h2t_overreach_independence_v22"
+    assert packet["summary"]["case_count"] == 10
+    assert packet["summary"]["family_counts"] == {
+        "h2t_clean_route_control": 2,
+        "h2t_current_selection_guard": 2,
+        "h2t_low_score_surface_request": 3,
+        "h2t_negation_scope_guard": 2,
+        "h2t_value_is_target_guard": 1,
+    }
+    assert packet["summary"]["failure_mode_counts"] == {
+        "argument_alias_or_decoy_risk": 8,
+        "wrong_tool_or_stale_selection_risk": 2,
+    }
+    cases = {case["case_id"]: case for case in packet["replay_cases"]}
+    assert cases["h2t_current_selection_review_tile_refine_guard"]["expected_calls"] == [
+        {
+            "name": "refine_selection",
+            "arguments": {
+                "selection_id": "sel-h2t-review-current",
+                "filter_query": "tile",
+            },
+        }
+    ]
+    assert cases["h2t_result_drawer_low_score_badge_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h2t-result-drawer-blocked",
+                "target_query": "result drawer",
+            },
+        }
+    ]
+    assert cases["h2t_metric_panel_negation_scope_note"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h2t-metric-panel-negation-scope",
+                "target_query": "metric panel",
+            },
+        }
+    ]
+    for case in packet["replay_cases"]:
+        assert _expected_call_reaches_oracle(case)
+
+
 def _expected_call_reaches_oracle(case: dict[str, object]) -> bool:
     tool_specs = [ToolSpec.model_validate(payload) for payload in case["tool_specs"]]  # type: ignore[index]
     executor = DeterministicExecutor(tool_specs=tool_specs)
