@@ -26,7 +26,7 @@ Execution order:
 Immediate suggested command:
 
 ```bash
-uv run moonie-agent replay-live --packet-dir results/tool_probe_replay_packets/20260512T_h2k_target_decoy_overlap_dry_run_v1 --system-id <h2j_without_stale_selection_gate_system_id> --output-dir results/tool_probe_replay_live/20260512T_h2k_target_decoy_overlap_h2j_no_stale_gate_execute_v1 --execute --json
+uv run moonie-agent replay-live --packet-dir results/tool_probe_replay_packets/20260512T_h2k_target_decoy_overlap_dry_run_v1 --system-id mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_target_query_normalization_no_stale_selection_gate --output-dir results/tool_probe_replay_live/20260512T_h2k_target_decoy_overlap_h2j_no_stale_gate_execute_v1 --execute --json
 uv run python scripts/compare_tool_probe_replay_live_packets.py --baseline-dir results/tool_probe_replay_live/20260512T_h2k_target_decoy_overlap_h2j_no_stale_gate_execute_v1 --candidate-dir results/tool_probe_replay_live/20260512T_h2k_target_decoy_overlap_h2j_execute_v1 --output-dir results/tool_probe_replay_live_comparisons/20260512T_h2k_target_decoy_overlap_h2j_vs_no_stale_gate_v1
 uv run python scripts/build_h2k_target_decoy_overlap_synthesis.py
 uv run python scripts/build_h2a_stale_selection_transfer_synthesis.py
