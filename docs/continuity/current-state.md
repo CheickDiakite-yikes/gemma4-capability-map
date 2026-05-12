@@ -194,10 +194,10 @@ Current reporting snapshot:
 
 Next restart move:
 
-- define a harder post-H2p H1/H2 slice that combines value-bearing target construction, surface aliases, stale-selection pressure, decoy overlap, and workflow-family attribution
+- execute the new H2q dry-run packet: [`results/tool_probe_replay_packets/20260512T_h2q_composed_surface_value_stale_dry_run_v1`](../../results/tool_probe_replay_packets/20260512T_h2q_composed_surface_value_stale_dry_run_v1)
 - preserve H2p's value-bearing target synthesis, contextual surface-alias routing, H2m strict gain, and H2k/H2l/H2f transfer gates as the incumbent control stack
-- make at least one row require both displayed-value reasoning and surface-class reasoning so single-helper saturation is less likely
-- include a no-H2p ablation row to show whether surface-alias routing is still causal in the composed slice
+- run matched H2p, H2o-without-H2p, H2n, and H2e rows so surface-alias routing remains causally attributable
+- inspect whether the two stale-surface-alias rows activate stale-selection or surface-alias metadata, rather than assuming H2a/H2p composition works
 - keep strict exactness and executor-equivalence separate, because H2g and earlier v12 rows show that executor-valid paraphrase can hide exact-query drift
 - keep H2p as a structural candidate under continued hardening, not yet a default production policy
 

@@ -954,6 +954,67 @@ def test_visual_hard_slice_live_stress_packet_supports_h2m_less_direct_overreach
         assert _expected_call_reaches_oracle(case)
 
 
+def test_visual_hard_slice_live_stress_packet_supports_h2q_composed_suite(
+    tmp_path: Path,
+) -> None:
+    packet = SCRIPT.build_visual_hard_slice_live_stress_packet(
+        output_root=tmp_path / "replay_packets",
+        run_group_id="visual_stress_h2q_composed_surface_value_stale",
+        suite="h2q_composed_surface_value_stale_v20",
+    )
+
+    assert packet["summary"]["suite"] == "h2q_composed_surface_value_stale_v20"
+    assert packet["summary"]["case_count"] == 8
+    assert packet["summary"]["family_counts"] == {
+        "h2q_contextual_alias_decoy_overlap": 2,
+        "h2q_stale_surface_alias": 2,
+        "h2q_surface_alias_value_decoy": 2,
+        "h2q_value_bearing_stale_decoy": 2,
+    }
+    assert packet["summary"]["failure_mode_counts"] == {
+        "argument_alias_or_decoy_risk": 6,
+        "wrong_tool_or_stale_selection_risk": 2,
+    }
+    cases = {case["case_id"]: case for case in packet["replay_cases"]}
+    assert cases["h2q_result_tile_blocked_value_badge_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h2q-result-tile-blocked",
+                "target_query": "result tile",
+            },
+        }
+    ]
+    assert cases["h2q_priority_badge_critical_stale_status_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h2q-priority-badge-critical",
+                "target_query": "priority badge Critical",
+            },
+        }
+    ]
+    assert cases["h2q_result_tile_stale_selection_hint"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h2q-result-tile-stale-selection",
+                "target_query": "result tile",
+            },
+        }
+    ]
+    prompt_text = "\n".join(
+        message["content"]
+        for case in packet["replay_cases"]
+        for message in case["messages"]
+        if message["role"] == "user"
+    )
+    assert "The target is" not in prompt_text
+    assert "target is" not in prompt_text
+    for case in packet["replay_cases"]:
+        assert _expected_call_reaches_oracle(case)
+
+
 def _expected_call_reaches_oracle(case: dict[str, object]) -> bool:
     tool_specs = [ToolSpec.model_validate(payload) for payload in case["tool_specs"]]  # type: ignore[index]
     executor = DeterministicExecutor(tool_specs=tool_specs)

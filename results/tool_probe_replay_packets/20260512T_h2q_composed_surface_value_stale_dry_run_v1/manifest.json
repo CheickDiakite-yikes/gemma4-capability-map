@@ -1,0 +1,36 @@
+{
+  "packet_run_id": "20260512T_h2q_composed_surface_value_stale_dry_run_v1",
+  "packet_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260512T_h2q_composed_surface_value_stale_dry_run_v1",
+  "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+  "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+  "replay_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints",
+  "suite": "h2q_composed_surface_value_stale_v20",
+  "case_count": 8,
+  "family_counts": {
+    "h2q_contextual_alias_decoy_overlap": 2,
+    "h2q_stale_surface_alias": 2,
+    "h2q_surface_alias_value_decoy": 2,
+    "h2q_value_bearing_stale_decoy": 2
+  },
+  "failure_mode_counts": {
+    "argument_alias_or_decoy_risk": 6,
+    "wrong_tool_or_stale_selection_risk": 2
+  },
+  "dry_run": true,
+  "executed_count": 0,
+  "created_at": "2026-05-12T21:37:04.150211+00:00",
+  "registry_path": "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+  "case_ids": [
+    "h2q_result_tile_blocked_value_badge_decoy",
+    "h2q_state_panel_closed_value_tag_decoy",
+    "h2q_priority_badge_critical_stale_status_decoy",
+    "h2q_owner_field_amina_archived_owner_decoy",
+    "h2q_archive_panel_error_notice_banner_decoy",
+    "h2q_mode_field_manual_switch_decoy",
+    "h2q_result_tile_stale_selection_hint",
+    "h2q_state_panel_stale_selection_hint"
+  ],
+  "operator_surface": "rich_cli_visual_hard_slice_live_stress_v1",
+  "entrypoint": "moonie-agent replay-live",
+  "purpose": "Repeat the visual hard-slice executor-alias and stale-selection mechanisms under fresh decoys before spending packaged H1 workflow budget."
+}

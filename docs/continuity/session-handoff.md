@@ -79,7 +79,8 @@ Current strongest MLX result:
   - H2p figure: [`results/reports/h2p_contextual_surface_alias_routing_synthesis/figures/h2p_contextual_surface_alias_routing_gate.svg`](../../results/reports/h2p_contextual_surface_alias_routing_synthesis/figures/h2p_contextual_surface_alias_routing_gate.svg)
   - H2p live packets: [`H2m`](../../results/tool_probe_replay_live/20260512T_h2p_contextual_surface_alias_routing_on_h2m_execute_v1), [`H2k`](../../results/tool_probe_replay_live/20260512T_h2p_contextual_surface_alias_routing_on_h2k_execute_v1), [`H2l`](../../results/tool_probe_replay_live/20260512T_h2p_contextual_surface_alias_routing_on_h2l_execute_v1), [`H2f`](../../results/tool_probe_replay_live/20260512T_h2p_contextual_surface_alias_routing_on_h2f_execute_v1)
   - H2p comparisons: [`H2m-vs-H2o`](../../results/tool_probe_replay_live_comparisons/20260512T_h2p_contextual_surface_alias_routing_vs_h2o_on_h2m_v1), [`H2m-vs-H2n`](../../results/tool_probe_replay_live_comparisons/20260512T_h2p_contextual_surface_alias_routing_vs_h2n_on_h2m_v1), [`H2m-vs-H2j`](../../results/tool_probe_replay_live_comparisons/20260512T_h2p_contextual_surface_alias_routing_vs_h2j_on_h2m_v1), [`H2m-vs-H2e`](../../results/tool_probe_replay_live_comparisons/20260512T_h2p_contextual_surface_alias_routing_vs_h2e_on_h2m_v1), [`H2k-vs-H2o`](../../results/tool_probe_replay_live_comparisons/20260512T_h2p_contextual_surface_alias_routing_vs_h2o_on_h2k_v1), [`H2l-vs-H2o`](../../results/tool_probe_replay_live_comparisons/20260512T_h2p_contextual_surface_alias_routing_vs_h2o_on_h2l_v1), [`H2f-vs-H2o`](../../results/tool_probe_replay_live_comparisons/20260512T_h2p_contextual_surface_alias_routing_vs_h2o_on_h2f_v1)
-  - next restart move: define a harder post-H2p H1/H2 composition slice that combines surface aliases, value-bearing labels, stale-selection pressure, and decoy overlap so the current controller stack has to earn promotion again
+  - H2q composition dry-run packet: [`results/tool_probe_replay_packets/20260512T_h2q_composed_surface_value_stale_dry_run_v1`](../../results/tool_probe_replay_packets/20260512T_h2q_composed_surface_value_stale_dry_run_v1)
+  - next restart move: execute H2q against H2p, H2o-without-H2p, H2n, and H2e so the current controller stack has to earn promotion again under composed surface/value/stale/decoy pressure
 - H1h proves the no-directive causal ordering across all ten live workflow families.
 - H1i compresses the worst H1h workflow families into the current fast loop.
 - contracted MLX on H1i is clean at readiness `0.97710`, strict/recovered `1.0 / 1.0`, raw clean `1.0`.
@@ -249,8 +250,8 @@ Current strongest MLX result:
 Current next loop:
 
 1. Treat H2p as the incumbent target-control stack for the current H2m/H2k/H2l/H2f line, not as a default production policy.
-2. Build the next post-H2p slice as a composition test: value-bearing targets, surface aliases, stale-selection pressure, and decoy overlap should appear in the same local states.
-3. Keep a matched no-H2p or H2o-only row so contextual surface-alias routing remains causally attributable.
+2. Treat H2q as the next post-H2p composition test: value-bearing targets, surface aliases, stale-selection pressure, and decoy overlap appear in the same local states.
+3. Keep matched H2p, H2o-only, H2n, and H2e rows so contextual surface-alias routing remains causally attributable.
 4. Treat H1i, H1j, and H1k packaged packets as saturated or non-discriminating for current prompt-contract validation.
 5. Treat waves one through six as partial-gain or negative/composition evidence, not fixes.
 6. Treat `visual_role_catalog_argument_hints_v2` as the best exact candidate on the old focused visual replay, with the explicit caveat that it lost executable form-target recovery.

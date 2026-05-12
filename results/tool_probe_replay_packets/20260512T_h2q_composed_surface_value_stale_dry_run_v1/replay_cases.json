@@ -1,0 +1,1170 @@
+[
+  {
+    "case_id": "h2q_result_tile_blocked_value_badge_decoy",
+    "family": "h2q_surface_alias_value_decoy",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-h2q-result-tile-blocked",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "Use the tile-style result surface for Blocked in the current card. The Blocked result badge and result comment are nearby context, not the surface to use.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-h2q-result-tile-blocked"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-h2q-result-tile-blocked": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "h2q-result-badge-blocked-13001",
+              "label": "result badge Blocked",
+              "text": "Blocked",
+              "attributes": {
+                "area": "badge"
+              }
+            },
+            {
+              "region_id": "h2q-result-tile-blocked-13002",
+              "label": "result tile",
+              "text": "Blocked",
+              "attributes": {
+                "area": "tile"
+              }
+            },
+            {
+              "region_id": "h2q-result-comment-blocked-13003",
+              "label": "result comment",
+              "text": "Blocked pending counsel",
+              "attributes": {
+                "area": "comment"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "h2q-result-tile-blocked-13002"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2q-result-tile-blocked",
+          "target_query": "result tile"
+        }
+      }
+    ],
+    "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "source_exact_match": false,
+    "source_executable_match": false,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+    "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+  },
+  {
+    "case_id": "h2q_state_panel_closed_value_tag_decoy",
+    "family": "h2q_surface_alias_value_decoy",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-h2q-state-panel-closed",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "Use the panel-style state surface for Closed. The Closed state tag and history marker are context around the panel.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-h2q-state-panel-closed"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-h2q-state-panel-closed": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "h2q-state-tag-closed-13011",
+              "label": "state tag Closed",
+              "text": "Closed",
+              "attributes": {
+                "area": "tag"
+              }
+            },
+            {
+              "region_id": "h2q-state-panel-closed-13012",
+              "label": "state panel",
+              "text": "Closed",
+              "attributes": {
+                "area": "panel"
+              }
+            },
+            {
+              "region_id": "h2q-state-marker-closed-13013",
+              "label": "state marker",
+              "text": "Closed history",
+              "attributes": {
+                "area": "marker"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "h2q-state-panel-closed-13012"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2q-state-panel-closed",
+          "target_query": "state panel"
+        }
+      }
+    ],
+    "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "source_exact_match": false,
+    "source_executable_match": false,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+    "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+  },
+  {
+    "case_id": "h2q_priority_badge_critical_stale_status_decoy",
+    "family": "h2q_value_bearing_stale_decoy",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-h2q-priority-badge-critical",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "From the current risk strip, use the Critical priority badge. The archived status badge also says Critical, but it is from the prior summary.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-h2q-priority-badge-critical"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-h2q-priority-badge-critical": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "h2q-priority-badge-generic-13021",
+              "label": "priority badge",
+              "text": "Normal",
+              "attributes": {
+                "area": "badge"
+              }
+            },
+            {
+              "region_id": "h2q-priority-badge-critical-13022",
+              "label": "priority badge Critical",
+              "text": "Critical",
+              "attributes": {
+                "area": "badge"
+              }
+            },
+            {
+              "region_id": "h2q-archived-status-badge-13023",
+              "label": "status badge",
+              "text": "Critical",
+              "attributes": {
+                "area": "archived"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "h2q-priority-badge-critical-13022"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2q-priority-badge-critical",
+          "target_query": "priority badge Critical"
+        }
+      }
+    ],
+    "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "source_exact_match": false,
+    "source_executable_match": false,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+    "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+  },
+  {
+    "case_id": "h2q_owner_field_amina_archived_owner_decoy",
+    "family": "h2q_value_bearing_stale_decoy",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-h2q-owner-field-amina",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "Use the Amina owner field in the current assignment strip. The previous owner chip and activity note are stale context.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-h2q-owner-field-amina"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-h2q-owner-field-amina": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "h2q-owner-field-generic-13031",
+              "label": "owner field",
+              "text": "Unassigned",
+              "attributes": {
+                "area": "field"
+              }
+            },
+            {
+              "region_id": "h2q-owner-field-amina-13032",
+              "label": "owner field Amina",
+              "text": "Amina",
+              "attributes": {
+                "area": "field"
+              }
+            },
+            {
+              "region_id": "h2q-previous-owner-chip-13033",
+              "label": "owner chip",
+              "text": "Amina",
+              "attributes": {
+                "area": "archived"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "h2q-owner-field-amina-13032"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2q-owner-field-amina",
+          "target_query": "owner field Amina"
+        }
+      }
+    ],
+    "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "source_exact_match": false,
+    "source_executable_match": false,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+    "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+  },
+  {
+    "case_id": "h2q_archive_panel_error_notice_banner_decoy",
+    "family": "h2q_contextual_alias_decoy_overlap",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-h2q-error-notice",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "For the archived exception panel, work from the error notice. The live error banner and trace log are not the archived notice.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-h2q-error-notice"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-h2q-error-notice": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "h2q-error-banner-13041",
+              "label": "error banner",
+              "text": "Error",
+              "attributes": {
+                "area": "banner"
+              }
+            },
+            {
+              "region_id": "h2q-error-notice-13042",
+              "label": "error notice",
+              "text": "Error archived",
+              "attributes": {
+                "area": "notice"
+              }
+            },
+            {
+              "region_id": "h2q-error-log-13043",
+              "label": "error log",
+              "text": "Error trace rows",
+              "attributes": {
+                "area": "log"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "h2q-error-notice-13042"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2q-error-notice",
+          "target_query": "error notice"
+        }
+      }
+    ],
+    "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "source_exact_match": false,
+    "source_executable_match": false,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+    "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+  },
+  {
+    "case_id": "h2q_mode_field_manual_switch_decoy",
+    "family": "h2q_contextual_alias_decoy_overlap",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-h2q-mode-field",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "Use the mode field in the current settings summary. The manual control and mode switch are adjacent controls, not the field.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-h2q-mode-field"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-h2q-mode-field": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "h2q-manual-control-13051",
+              "label": "manual control",
+              "text": "Manual",
+              "attributes": {
+                "area": "control"
+              }
+            },
+            {
+              "region_id": "h2q-mode-field-13052",
+              "label": "mode field",
+              "text": "Manual",
+              "attributes": {
+                "area": "field"
+              }
+            },
+            {
+              "region_id": "h2q-mode-switch-13053",
+              "label": "mode switch",
+              "text": "Manual",
+              "attributes": {
+                "area": "switch"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "h2q-mode-field-13052"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2q-mode-field",
+          "target_query": "mode field"
+        }
+      }
+    ],
+    "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "source_exact_match": false,
+    "source_executable_match": false,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+    "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+  },
+  {
+    "case_id": "h2q_result_tile_stale_selection_hint",
+    "family": "h2q_stale_surface_alias",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-h2q-result-tile-stale-selection",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "Ignore old selection sel-archived-result-badge. Use the tile-style result surface for Blocked in the current visual state.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-h2q-result-tile-stale-selection"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-h2q-result-tile-stale-selection": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "h2q-archived-result-badge-13061",
+              "label": "result badge",
+              "text": "Blocked",
+              "attributes": {
+                "area": "archived"
+              }
+            },
+            {
+              "region_id": "h2q-current-result-tile-13062",
+              "label": "result tile",
+              "text": "Blocked",
+              "attributes": {
+                "area": "tile"
+              }
+            },
+            {
+              "region_id": "h2q-current-result-note-13063",
+              "label": "result note",
+              "text": "Blocked current note",
+              "attributes": {
+                "area": "note"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "h2q-current-result-tile-13062"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2q-result-tile-stale-selection",
+          "target_query": "result tile"
+        }
+      }
+    ],
+    "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+    "source_failure_mode": "wrong_tool_or_stale_selection_risk",
+    "source_exact_match": false,
+    "source_executable_match": false,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+    "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+  },
+  {
+    "case_id": "h2q_state_panel_stale_selection_hint",
+    "family": "h2q_stale_surface_alias",
+    "messages": [
+      {
+        "role": "system",
+        "content": "visual_image_ids: img-h2q-state-panel-stale-selection",
+        "image_refs": []
+      },
+      {
+        "role": "user",
+        "content": "Ignore old selection sel-archived-state-tag. Use the panel-style state surface for Closed in the current visual state.",
+        "image_refs": []
+      }
+    ],
+    "media": [
+      "img-h2q-state-panel-stale-selection"
+    ],
+    "tool_names": [
+      "extract_layout",
+      "refine_selection",
+      "read_region_text"
+    ],
+    "tool_specs": [
+      {
+        "name": "extract_layout",
+        "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "target_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "target_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "inspect"
+      },
+      {
+        "name": "refine_selection",
+        "description": "Refine a prior visual selection using a follow-up filter query.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selection_id": {
+              "type": "string"
+            },
+            "filter_query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "selection_id",
+            "filter_query"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "revise"
+      },
+      {
+        "name": "read_region_text",
+        "description": "Read the text inside a previously selected region.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_id": {
+              "type": "string"
+            },
+            "region_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_id",
+            "region_id"
+          ]
+        },
+        "tool_family": "function_call",
+        "tool_intent": "read"
+      }
+    ],
+    "initial_state": {
+      "visual_executor_mode": "local",
+      "images": {
+        "img-h2q-state-panel-stale-selection": {
+          "entities": [],
+          "layouts": [],
+          "local_layouts": [
+            {
+              "region_id": "h2q-archived-state-tag-13071",
+              "label": "state tag",
+              "text": "Closed",
+              "attributes": {
+                "area": "archived"
+              }
+            },
+            {
+              "region_id": "h2q-current-state-panel-13072",
+              "label": "state panel",
+              "text": "Closed",
+              "attributes": {
+                "area": "panel"
+              }
+            },
+            {
+              "region_id": "h2q-current-state-note-13073",
+              "label": "state note",
+              "text": "Closed current note",
+              "attributes": {
+                "area": "note"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expected_execution": {
+      "region_ids": [
+        "h2q-current-state-panel-13072"
+      ]
+    },
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2q-state-panel-stale-selection",
+          "target_query": "state panel"
+        }
+      }
+    ],
+    "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+    "source_failure_mode": "wrong_tool_or_stale_selection_risk",
+    "source_exact_match": false,
+    "source_executable_match": false,
+    "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+    "baseline_exact_match": "",
+    "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+    "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+  }
+]

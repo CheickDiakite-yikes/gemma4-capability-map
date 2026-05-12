@@ -194,9 +194,14 @@ The freshest replay-shaped visual controller evidence is now H2p:
   - H2l: `8 / 8`
   - H2f: `10 / 10`
   - synthesis: [`results/reports/h2p_contextual_surface_alias_routing_synthesis/report.md`](../../results/reports/h2p_contextual_surface_alias_routing_synthesis/report.md)
+- H2q is the next composed dry-run packet, not yet a live result:
+  - packet: [`results/tool_probe_replay_packets/20260512T_h2q_composed_surface_value_stale_dry_run_v1`](../../results/tool_probe_replay_packets/20260512T_h2q_composed_surface_value_stale_dry_run_v1)
+  - suite: `h2q_composed_surface_value_stale_v20`
+  - shape: `8` cases mixing surface aliases, value-bearing labels, stale-selection hints, and decoy overlap
+  - control plan: execute H2q on H2p, H2o-without-H2p, H2n, and H2e before adding another helper
 - next controller question:
-  - build a harder post-H2p composition slice rather than another isolated H2m repair
-  - require value-bearing construction plus surface-alias routing under stale/decoy pressure, with an H2o-only/no-H2p ablation row
+  - test whether H2p survives H2q's composed pressure rather than another isolated H2m repair
+  - require value-bearing construction plus surface-alias routing under stale/decoy pressure, with H2o-only/H2n/H2e ablation rows
 
 ## Direction Reset
 

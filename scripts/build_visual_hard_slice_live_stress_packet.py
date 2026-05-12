@@ -51,6 +51,7 @@ def parse_args() -> argparse.Namespace:
             "h2k_target_decoy_overlap_v17",
             "h2l_target_normalization_overreach_v18",
             "h2m_less_direct_target_normalization_overreach_v19",
+            "h2q_composed_surface_value_stale_v20",
         ],
         default="v1",
     )
@@ -231,6 +232,8 @@ def _stress_cases_for_suite(suite: str) -> list[ToolDirectiveProbeCase]:
         return _h2l_target_normalization_overreach_cases_v18()
     if suite == "h2m_less_direct_target_normalization_overreach_v19":
         return _h2m_less_direct_target_normalization_overreach_cases_v19()
+    if suite == "h2q_composed_surface_value_stale_v20":
+        return _h2q_composed_surface_value_stale_cases_v20()
     raise ValueError(f"Unknown visual live stress suite: {suite}")
 
 
@@ -257,6 +260,7 @@ def _expected_call_payloads(
         "h2k_target_decoy_overlap_v17",
         "h2l_target_normalization_overreach_v18",
         "h2m_less_direct_target_normalization_overreach_v19",
+        "h2q_composed_surface_value_stale_v20",
     }:
         return [_oracle_visual_extract_call(case)]
     return [
@@ -3778,6 +3782,221 @@ def _h2m_less_direct_target_normalization_overreach_cases_v19() -> list[ToolDire
     ]
 
 
+def _h2q_composed_surface_value_stale_cases_v20() -> list[ToolDirectiveProbeCase]:
+    return [
+        ToolDirectiveProbeCase(
+            case_id="h2q_result_tile_blocked_value_badge_decoy",
+            family="h2q_surface_alias_value_decoy",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2q-result-tile-blocked"),
+                Message(
+                    role="user",
+                    content=(
+                        "Use the tile-style result surface for Blocked in the current card. The Blocked result "
+                        "badge and result comment are nearby context, not the surface to use."
+                    ),
+                ),
+            ],
+            media=["img-h2q-result-tile-blocked"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2q-result-tile-blocked",
+                [
+                    _region("h2q-result-badge-blocked-13001", "result badge Blocked", "Blocked", area="badge"),
+                    _region("h2q-result-tile-blocked-13002", "result tile", "Blocked", area="tile"),
+                    _region(
+                        "h2q-result-comment-blocked-13003",
+                        "result comment",
+                        "Blocked pending counsel",
+                        area="comment",
+                    ),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2q-result-tile-blocked-13002"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2q_state_panel_closed_value_tag_decoy",
+            family="h2q_surface_alias_value_decoy",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2q-state-panel-closed"),
+                Message(
+                    role="user",
+                    content=(
+                        "Use the panel-style state surface for Closed. The Closed state tag and history marker "
+                        "are context around the panel."
+                    ),
+                ),
+            ],
+            media=["img-h2q-state-panel-closed"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2q-state-panel-closed",
+                [
+                    _region("h2q-state-tag-closed-13011", "state tag Closed", "Closed", area="tag"),
+                    _region("h2q-state-panel-closed-13012", "state panel", "Closed", area="panel"),
+                    _region("h2q-state-marker-closed-13013", "state marker", "Closed history", area="marker"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2q-state-panel-closed-13012"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2q_priority_badge_critical_stale_status_decoy",
+            family="h2q_value_bearing_stale_decoy",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2q-priority-badge-critical"),
+                Message(
+                    role="user",
+                    content=(
+                        "From the current risk strip, use the Critical priority badge. The archived status badge "
+                        "also says Critical, but it is from the prior summary."
+                    ),
+                ),
+            ],
+            media=["img-h2q-priority-badge-critical"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2q-priority-badge-critical",
+                [
+                    _region("h2q-priority-badge-generic-13021", "priority badge", "Normal", area="badge"),
+                    _region(
+                        "h2q-priority-badge-critical-13022",
+                        "priority badge Critical",
+                        "Critical",
+                        area="badge",
+                    ),
+                    _region("h2q-archived-status-badge-13023", "status badge", "Critical", area="archived"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2q-priority-badge-critical-13022"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2q_owner_field_amina_archived_owner_decoy",
+            family="h2q_value_bearing_stale_decoy",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2q-owner-field-amina"),
+                Message(
+                    role="user",
+                    content=(
+                        "Use the Amina owner field in the current assignment strip. The previous owner chip and "
+                        "activity note are stale context."
+                    ),
+                ),
+            ],
+            media=["img-h2q-owner-field-amina"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2q-owner-field-amina",
+                [
+                    _region("h2q-owner-field-generic-13031", "owner field", "Unassigned", area="field"),
+                    _region("h2q-owner-field-amina-13032", "owner field Amina", "Amina", area="field"),
+                    _region("h2q-previous-owner-chip-13033", "owner chip", "Amina", area="archived"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2q-owner-field-amina-13032"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2q_archive_panel_error_notice_banner_decoy",
+            family="h2q_contextual_alias_decoy_overlap",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2q-error-notice"),
+                Message(
+                    role="user",
+                    content=(
+                        "For the archived exception panel, work from the error notice. The live error banner and "
+                        "trace log are not the archived notice."
+                    ),
+                ),
+            ],
+            media=["img-h2q-error-notice"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2q-error-notice",
+                [
+                    _region("h2q-error-banner-13041", "error banner", "Error", area="banner"),
+                    _region("h2q-error-notice-13042", "error notice", "Error archived", area="notice"),
+                    _region("h2q-error-log-13043", "error log", "Error trace rows", area="log"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2q-error-notice-13042"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2q_mode_field_manual_switch_decoy",
+            family="h2q_contextual_alias_decoy_overlap",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2q-mode-field"),
+                Message(
+                    role="user",
+                    content=(
+                        "Use the mode field in the current settings summary. The manual control and mode switch "
+                        "are adjacent controls, not the field."
+                    ),
+                ),
+            ],
+            media=["img-h2q-mode-field"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2q-mode-field",
+                [
+                    _region("h2q-manual-control-13051", "manual control", "Manual", area="control"),
+                    _region("h2q-mode-field-13052", "mode field", "Manual", area="field"),
+                    _region("h2q-mode-switch-13053", "mode switch", "Manual", area="switch"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2q-mode-field-13052"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2q_result_tile_stale_selection_hint",
+            family="h2q_stale_surface_alias",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2q-result-tile-stale-selection"),
+                Message(
+                    role="user",
+                    content=(
+                        "Ignore old selection sel-archived-result-badge. Use the tile-style result surface for "
+                        "Blocked in the current visual state."
+                    ),
+                ),
+            ],
+            media=["img-h2q-result-tile-stale-selection"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2q-result-tile-stale-selection",
+                [
+                    _region("h2q-archived-result-badge-13061", "result badge", "Blocked", area="archived"),
+                    _region("h2q-current-result-tile-13062", "result tile", "Blocked", area="tile"),
+                    _region("h2q-current-result-note-13063", "result note", "Blocked current note", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2q-current-result-tile-13062"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2q_state_panel_stale_selection_hint",
+            family="h2q_stale_surface_alias",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2q-state-panel-stale-selection"),
+                Message(
+                    role="user",
+                    content=(
+                        "Ignore old selection sel-archived-state-tag. Use the panel-style state surface for "
+                        "Closed in the current visual state."
+                    ),
+                ),
+            ],
+            media=["img-h2q-state-panel-stale-selection"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2q-state-panel-stale-selection",
+                [
+                    _region("h2q-archived-state-tag-13071", "state tag", "Closed", area="archived"),
+                    _region("h2q-current-state-panel-13072", "state panel", "Closed", area="panel"),
+                    _region("h2q-current-state-note-13073", "state note", "Closed current note", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2q-current-state-panel-13072"]},
+        ),
+    ]
+
+
 def _visual_state(image_id: str, local_layouts: list[dict[str, Any]]) -> dict[str, Any]:
     return {
         "visual_executor_mode": "local",
@@ -3820,6 +4039,7 @@ def _stress_failure_mode(family: str) -> str:
         "h1y_activation_no_call",
         "h2f_route_stale_field",
         "h2f_activation_panel_notice",
+        "h2q_stale_surface_alias",
     }:
         return "wrong_tool_or_stale_selection_risk"
     return "argument_alias_or_decoy_risk"

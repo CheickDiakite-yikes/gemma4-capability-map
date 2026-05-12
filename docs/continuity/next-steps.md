@@ -2,7 +2,7 @@
 
 ## Current Best Next Moves
 
-The next move is not another broad prompt-contract paragraph, not another blind H2b/H1x rerun, and not another H2e/H2j victory lap. H1y/H1z showed that prompt/catalog prose alone did not solve stale selection-origin routing. H2a showed that a controller-side stale-selection gate is causal and transferable. H2b isolated a separate residual exactness problem. H2c solved H2b locally but failed H1x transfer. H2d fixed transfer but gave back one H2b strict row. H2e reconciled that tradeoff on the current gates. H2f then broke global H2e promotion on a fresh holdout. H2g showed a partial executor-equivalence gain but no strict exactness gain. H2h repaired H2f to `9 / 10` but regressed H2b and H1x. H2i conditional arbitration then failed the H2f gate at `6 / 10`. H2j moved the repair into a controller-visible target-query normalization gate and now reaches `10 / 10` on H2f, `5 / 5` on H2b, and `8 / 8` on H1x. H2k tested the post-H2j target/decoy-overlap risk and the matched stale-gate ablation: full H2j and H2j without stale-selection both reach `8 / 8`, H2h reaches `6 / 8`, and H2e reaches `3 / 8` strict exactness. H2l then tested over-normalization under direct target wording and stayed saturated. H2m removed obvious target-is phrasing and broke that saturation: full H2j and H2j without stale-selection both fall to `3 / 8`, H2e reaches `1 / 8` strict and `3 / 8` executor-equivalent, and H2j records `3` value-bearing over-strip rows. H2n scoped the controller policy: it ties H2j strict exactness on H2m at `3 / 8`, improves executor-equivalence to `5 / 8`, and preserves H2k/H2l/H2f transfer gates. H2o repairs strict H2m value-bearing target construction to `7 / 8` while preserving H2k/H2l/H2f. H2p then closes the remaining H2m contextual surface-alias row at `8 / 8` while preserving H2k/H2l/H2f. The next move is a harder post-H2p H1/H2 composition slice that breaks the current isolated-mechanism saturation.
+The next move is not another broad prompt-contract paragraph, not another blind H2b/H1x rerun, and not another H2e/H2j victory lap. H1y/H1z showed that prompt/catalog prose alone did not solve stale selection-origin routing. H2a showed that a controller-side stale-selection gate is causal and transferable. H2b isolated a separate residual exactness problem. H2c solved H2b locally but failed H1x transfer. H2d fixed transfer but gave back one H2b strict row. H2e reconciled that tradeoff on the current gates. H2f then broke global H2e promotion on a fresh holdout. H2g showed a partial executor-equivalence gain but no strict exactness gain. H2h repaired H2f to `9 / 10` but regressed H2b and H1x. H2i conditional arbitration then failed the H2f gate at `6 / 10`. H2j moved the repair into a controller-visible target-query normalization gate and now reaches `10 / 10` on H2f, `5 / 5` on H2b, and `8 / 8` on H1x. H2k tested the post-H2j target/decoy-overlap risk and the matched stale-gate ablation: full H2j and H2j without stale-selection both reach `8 / 8`, H2h reaches `6 / 8`, and H2e reaches `3 / 8` strict exactness. H2l then tested over-normalization under direct target wording and stayed saturated. H2m removed obvious target-is phrasing and broke that saturation: full H2j and H2j without stale-selection both fall to `3 / 8`, H2e reaches `1 / 8` strict and `3 / 8` executor-equivalent, and H2j records `3` value-bearing over-strip rows. H2n scoped the controller policy: it ties H2j strict exactness on H2m at `3 / 8`, improves executor-equivalence to `5 / 8`, and preserves H2k/H2l/H2f transfer gates. H2o repairs strict H2m value-bearing target construction to `7 / 8` while preserving H2k/H2l/H2f. H2p then closes the remaining H2m contextual surface-alias row at `8 / 8` while preserving H2k/H2l/H2f. H2q now exists as the harder post-H2p dry-run composition slice: `8` cases mixing surface aliases, value-bearing labels, stale-selection hints, and decoy overlap.
 
 Execution order:
 
@@ -25,7 +25,7 @@ Execution order:
 17. Treat H2o as the strict value-bearing synthesis candidate: it records four H2m value-bearing syntheses, two contextual-label rewrites, reaches `7 / 8` strict and executor-equivalent on H2m, and keeps H2k/H2l/H2f saturated.
 18. Treat H2o's one remaining H2m miss as a different mechanism: `h2m_result_tile_contextual_alias` expects `result tile`, but the model keeps the displayed value `Blocked`.
 19. Treat H2p as the contextual surface-alias repair: it records one H2m alias intervention, reaches `8 / 8` strict and executor-equivalent on H2m, and keeps H2k/H2l/H2f saturated.
-20. Build the next slice to compose mechanisms rather than isolate them: surface aliases, value-bearing labels, stale-selection pressure, decoy overlap, and workflow-family attribution should appear together.
+20. Treat H2q as the next dry-run composition packet: `h2q_composed_surface_value_stale_v20` has two surface-alias/value-decoy rows, two value-bearing/stale-decoy rows, two contextual-alias/decoy-overlap rows, and two stale-surface-alias rows.
 21. Score both strict exactness and executor-equivalence; do not collapse executor-valid paraphrases into failures when evaluating live usefulness.
 22. Keep packaged workflows paused for this line unless they preserve the same replay-shaped pressure; H1l/H1m already showed packaged visual surfaces can wash out the mechanism.
 
@@ -41,10 +41,10 @@ rg -n "visual_contextual_surface_alias_routing|visual_value_bearing_target_query
 
 Then define the post-H2p slice in small slices:
 
-- mine H2m/H2k/H2l/H2f plus H1y/H1x for rows where value-bearing, surface alias, stale-selection, and decoy overlap can be composed in the same local state
-- build an `H2q` dry-run packet that has at least one row requiring both H2o and H2p behavior
-- add matched rows for incumbent H2p, H2o-without-H2p, H2n, and H2e so deltas remain attributable
-- run H2q on H2m-style local visual states first, then backtest H2k/H2l/H2f-like transfer families
+- execute H2q first on the incumbent H2p row
+- add matched live rows for H2o-without-H2p, H2n, and H2e so deltas remain attributable
+- compare H2q case deltas before designing any new controller helper
+- if H2q saturates too, make the next slice less replay-shaped or attach it to workflow-family attribution rather than adding more isolated visual rows
 - preserve H2a globally for stale-origin packets; H2k/H2l/H2m/H2p only show stale rescue is irrelevant on these slices, not that it should be removed everywhere
 
 ## Immediate

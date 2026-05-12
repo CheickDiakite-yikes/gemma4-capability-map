@@ -497,6 +497,30 @@
   - `uv run python scripts/build_publication_evidence_ledger.py`
   - `uv run python scripts/audit_publication_readiness.py`
 
+## 2026-05-12 - H2q Composed Surface/Value/Stale Packet
+
+- Added the next post-H2p dry-run packet:
+  - suite: `h2q_composed_surface_value_stale_v20`
+  - packet: [`results/tool_probe_replay_packets/20260512T_h2q_composed_surface_value_stale_dry_run_v1`](../results/tool_probe_replay_packets/20260512T_h2q_composed_surface_value_stale_dry_run_v1)
+  - builder: [`scripts/build_visual_hard_slice_live_stress_packet.py`](../scripts/build_visual_hard_slice_live_stress_packet.py)
+- Packet shape:
+  - `8` cases total
+  - `2` surface-alias/value-decoy rows
+  - `2` value-bearing/stale-decoy rows
+  - `2` contextual-alias/decoy-overlap rows
+  - `2` stale-surface-alias rows
+- Scientific intent:
+  - H2m is now saturated under H2p, so the next useful question is composition rather than another isolated repair.
+  - H2q requires the current controller stack to combine H2o-style value-bearing target synthesis with H2p-style surface routing while stale hints and same-value decoys are present.
+  - The packet is intentionally dry-run evidence only. It should become a claim only after matched live rows exist for H2p, H2o-without-H2p, H2n, and H2e.
+- Next execution:
+  - run H2q on the incumbent H2p row first
+  - run matched controls for H2o-only, H2n, and H2e
+  - compare case-level exactness, executor-equivalence, contextual-alias metadata, value-bearing synthesis metadata, and stale-selection metadata before adding any new helper
+- Verification:
+  - `uv run pytest tests/test_visual_hard_slice_live_stress_packet.py::test_visual_hard_slice_live_stress_packet_supports_h2q_composed_suite -q`
+  - `uv run python scripts/build_visual_hard_slice_live_stress_packet.py --suite h2q_composed_surface_value_stale_v20 --run-group-id 20260512T_h2q_composed_surface_value_stale_dry_run_v1`
+
 ## 2026-05-12 - H2p Contextual Surface-Alias Routing Closes H2m
 
 - Added the H2p controller slice for the one remaining H2o miss:
