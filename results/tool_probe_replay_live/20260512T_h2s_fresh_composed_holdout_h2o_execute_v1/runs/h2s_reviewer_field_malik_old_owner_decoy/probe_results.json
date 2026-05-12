@@ -1,0 +1,103 @@
+[
+  {
+    "case_id": "h2s_reviewer_field_malik_old_owner_decoy",
+    "family": "h2s_value_bearing_stale_decoy",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "h2s-reviewer-field-malik-14032"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2s-reviewer-field-malik",
+          "target_query": "reviewer field Malik"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h2s-reviewer-field-malik",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "h2s-reviewer-field-malik-14032"
+          ],
+          "region_id": "h2s-reviewer-field-malik-14032",
+          "text_preview": "Malik"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2s-reviewer-field-malik",
+          "target_query": "reviewer field Malik"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2s-reviewer-field-malik",
+          "target_query": "reviewer field Malik"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h2s-reviewer-field-malik\", \"target_query\": \"Malik reviewer field\"}}",
+    "runtime_metadata": {
+      "backend": "mlx",
+      "runtime_info": {
+        "backend": "mlx",
+        "runtime_posture": "mlx",
+        "requested_model": "google/gemma-4-E2B-it",
+        "effective_model": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_source": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_format": "mlx",
+        "runtime_device": "mlx",
+        "load_mode": "vision",
+        "configured_device": "auto",
+        "request_timeout_seconds": 300.0,
+        "tool_turn_directive_enabled": false,
+        "tool_prompt_contract_id": "",
+        "tool_catalog_profile_id": "visual_role_catalog_route_arbitration_residual_exactness_v20",
+        "service": {},
+        "partial_runtime": false,
+        "llama_cpp_error": null,
+        "llama_cpp_context_window": null
+      },
+      "visual_value_bearing_target_query_synthesis": [
+        {
+          "from_tool": "extract_layout",
+          "from_arguments": {
+            "image_id": "img-h2s-reviewer-field-malik",
+            "target_query": "Malik reviewer field"
+          },
+          "to_tool": "extract_layout",
+          "to_arguments": {
+            "image_id": "img-h2s-reviewer-field-malik",
+            "target_query": "reviewer field Malik"
+          },
+          "prompt_state_label": "reviewer field",
+          "value_bearing_label": "reviewer field Malik",
+          "value_suffix": "malik",
+          "matched_phrase": "malik reviewer field",
+          "reason": "value_bearing_label_recoverable"
+        }
+      ]
+    },
+    "prompt_tokens": 1901,
+    "completion_tokens": 42,
+    "latency_ms": 7502
+  }
+]

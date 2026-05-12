@@ -1,5 +1,45 @@
 # Research Log
 
+## 2026-05-12 - H2s Fresh Composed Holdout Confirms Frozen H2r
+
+- Executed H2s as the first fresh unseen composed holdout after the H2r transfer backtest:
+  - dry-run packet: [`results/tool_probe_replay_packets/20260512T_h2s_fresh_composed_holdout_dry_run_v1`](../results/tool_probe_replay_packets/20260512T_h2s_fresh_composed_holdout_dry_run_v1)
+  - H2r live packet: [`results/tool_probe_replay_live/20260512T_h2s_fresh_composed_holdout_h2r_execute_v1`](../results/tool_probe_replay_live/20260512T_h2s_fresh_composed_holdout_h2r_execute_v1)
+  - H2p live packet: [`results/tool_probe_replay_live/20260512T_h2s_fresh_composed_holdout_h2p_execute_v1`](../results/tool_probe_replay_live/20260512T_h2s_fresh_composed_holdout_h2p_execute_v1)
+  - H2o live packet: [`results/tool_probe_replay_live/20260512T_h2s_fresh_composed_holdout_h2o_execute_v1`](../results/tool_probe_replay_live/20260512T_h2s_fresh_composed_holdout_h2o_execute_v1)
+  - H2j live packet: [`results/tool_probe_replay_live/20260512T_h2s_fresh_composed_holdout_h2j_execute_v1`](../results/tool_probe_replay_live/20260512T_h2s_fresh_composed_holdout_h2j_execute_v1)
+- Result:
+  - H2r: `10 / 10` strict and executor-equivalent
+  - H2p: `3 / 10` strict and executor-equivalent
+  - H2o: `3 / 10` strict and executor-equivalent
+  - H2j: `1 / 10` strict and executor-equivalent
+  - H2r-vs-H2p delta: `+0.70` strict and executor-equivalence rate
+  - H2r-vs-H2o delta: `+0.70` strict and executor-equivalence rate
+  - H2r-vs-H2j delta: `+0.90` strict and executor-equivalence rate
+- Mechanism read:
+  - H2r records `7` composed route gates on the fresh holdout.
+  - H2r also records `2` value-bearing target syntheses and `4` target-query normalizations.
+  - The clean H2j control records no helper metadata on this packet, which keeps the mechanism attribution visible.
+  - The result confirms that H2r is not merely memorizing the H2q row texts, but it is still not a universal production policy until overreach and packaged-transfer gates are tested.
+- Reporting updates:
+  - H2s synthesis: [`results/reports/h2s_fresh_composed_holdout_synthesis/report.md`](../results/reports/h2s_fresh_composed_holdout_synthesis/report.md)
+  - H2s figure: [`results/reports/h2s_fresh_composed_holdout_synthesis/figures/h2s_fresh_composed_holdout_gate.svg`](../results/reports/h2s_fresh_composed_holdout_synthesis/figures/h2s_fresh_composed_holdout_gate.svg)
+  - H2r-vs-H2p comparison: [`results/tool_probe_replay_live_comparisons/20260512T_h2s_fresh_composed_holdout_h2r_vs_h2p_v1`](../results/tool_probe_replay_live_comparisons/20260512T_h2s_fresh_composed_holdout_h2r_vs_h2p_v1)
+  - H2r-vs-H2o comparison: [`results/tool_probe_replay_live_comparisons/20260512T_h2s_fresh_composed_holdout_h2r_vs_h2o_v1`](../results/tool_probe_replay_live_comparisons/20260512T_h2s_fresh_composed_holdout_h2r_vs_h2o_v1)
+  - H2r-vs-H2j comparison: [`results/tool_probe_replay_live_comparisons/20260512T_h2s_fresh_composed_holdout_h2r_vs_h2j_v1`](../results/tool_probe_replay_live_comparisons/20260512T_h2s_fresh_composed_holdout_h2r_vs_h2j_v1)
+  - new claim: `C58_h2s_fresh_holdout_confirms_h2r_composed_route_gating`
+  - publication evidence ledger now has `58` claims, `365` sources, and `0` missing sources
+  - publication readiness audit now has `267` checks, `260` blocking checks, `0` blocking failures, and status `paper_draft_ready`
+- Research decision:
+  - promote H2r from current-packet transfer-positive to fresh-holdout-positive.
+  - do not patch H2r after H2s saturation.
+  - next test should be H2t overreach/independence or packaged visual transfer into attributable workflow families.
+- Verification:
+  - `uv run pytest tests/test_h2s_fresh_composed_holdout_synthesis.py tests/test_publication_evidence_ledger.py tests/test_publication_readiness_audit.py -q`
+  - `uv run python scripts/build_h2s_fresh_composed_holdout_synthesis.py`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`
+
 ## 2026-05-12 - H2n Scoped Target-Normalization Improves Executor-Equivalence Without Strict Repair
 
 - Added H2n as a scoped controller-side target-query normalizer:

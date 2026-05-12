@@ -1,0 +1,22 @@
+{
+  "generated_at": "2026-05-12T23:36:50.694894+00:00",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h2s_fresh_composed_holdout_synthesis",
+  "packet_row_count": 4,
+  "comparison_count": 3,
+  "family_row_count": 24,
+  "h2s_case_count": 10,
+  "h2s_h2j_exact_success_count": 1,
+  "h2s_h2o_exact_success_count": 3,
+  "h2s_h2p_exact_success_count": 3,
+  "h2s_h2r_exact_success_count": 10,
+  "h2s_h2r_executor_success_count": 10,
+  "h2s_h2r_delta_exact_vs_h2p": 0.7,
+  "h2s_h2r_delta_executor_vs_h2p": 0.7,
+  "h2s_h2r_delta_exact_vs_h2o": 0.7,
+  "h2s_h2r_delta_exact_vs_h2j": 0.9,
+  "h2s_h2r_non_exact_count": 0,
+  "h2s_h2r_composed_route_gating_count": 7,
+  "h2s_h2r_value_bearing_synthesis_count": 2,
+  "h2s_h2r_target_query_normalization_count": 4,
+  "promotion_decision": "h2r_passes_fresh_h2s_holdout_requires_h2t_or_packaged_transfer"
+}

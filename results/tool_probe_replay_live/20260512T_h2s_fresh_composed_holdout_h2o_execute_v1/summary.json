@@ -1,0 +1,19 @@
+{
+  "packet_run_id": "20260512T_h2s_fresh_composed_holdout_h2o_execute_v1",
+  "packet_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260512T_h2s_fresh_composed_holdout_h2o_execute_v1",
+  "source_packet_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260512T_h2s_fresh_composed_holdout_dry_run_v1",
+  "source_packet_run_id": "20260512T_h2s_fresh_composed_holdout_dry_run_v1",
+  "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_value_bearing_target_query_synthesis",
+  "case_count": 10,
+  "execute": true,
+  "executed_count": 10,
+  "exact_count": 3,
+  "exact_rate": 0.3,
+  "executor_equivalence_evaluable_count": 10,
+  "executor_equivalence_count": 3,
+  "executor_equivalence_rate": 0.3,
+  "failure_mode_counts": {
+    "argument_alias_or_decoy_risk": 8,
+    "wrong_tool_or_stale_selection_risk": 2
+  }
+}

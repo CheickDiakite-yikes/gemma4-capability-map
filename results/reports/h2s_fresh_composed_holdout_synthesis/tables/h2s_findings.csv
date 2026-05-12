@@ -1,0 +1,6 @@
+finding_id,finding
+h2s_fresh_holdout_confirms_h2r_transfer,"H2r reaches 10/10 strict and 10/10 executor-equivalent on fresh H2s, while H2p reaches 3/10, H2o reaches 3/10, and H2j reaches 1/10."
+h2s_composed_route_gate_is_causal,"H2r improves over H2p by 0.7 exact-rate and executor-equivalence rate, and over H2j by 0.9 exact-rate, on an unseen composed packet."
+h2s_h2r_mechanism_is_mixed_not_single_helper,"H2r uses a mixed controller path on H2s: 7 composed route gates, 2 value-bearing syntheses, and 4 target normalizations."
+h2s_clean_control_does_not_need_visual_helper,"The clean status-badge control remains exact without H2r-specific metadata, with 0 recorded helper rows for that control."
+h2s_next_requires_h2t_or_packaged_transfer,H2r leaves 0 non-exact rows on H2s. The next research move is no longer patching H2r on this slice; it is either a harder H2t holdout or a packaged workflow transfer that preserves the same composed-route pressure.

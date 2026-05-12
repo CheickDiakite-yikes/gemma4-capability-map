@@ -222,6 +222,16 @@ def test_publication_readiness_audit_writes_blocking_checks(tmp_path: Path) -> N
     assert checks["h2r_transfer_backtest_report_figure_exists"]["passed"] is True
     assert checks["h2r_transfer_h2b_regression_gate_exists"]["passed"] is True
     assert checks["h2r_transfer_h1x_regression_gate_exists"]["passed"] is True
+    assert checks["h2s_fresh_composed_holdout_packet_exists"]["passed"] is True
+    assert checks["h2s_fresh_composed_holdout_h2r_live_exists"]["passed"] is True
+    assert checks["h2s_fresh_composed_holdout_h2p_live_exists"]["passed"] is True
+    assert checks["h2s_fresh_composed_holdout_h2o_live_exists"]["passed"] is True
+    assert checks["h2s_fresh_composed_holdout_h2j_live_exists"]["passed"] is True
+    assert checks["h2s_fresh_composed_holdout_h2r_vs_h2p_comparison_exists"]["passed"] is True
+    assert checks["h2s_fresh_composed_holdout_h2r_vs_h2o_comparison_exists"]["passed"] is True
+    assert checks["h2s_fresh_composed_holdout_h2r_vs_h2j_comparison_exists"]["passed"] is True
+    assert checks["h2s_fresh_composed_holdout_synthesis_exists"]["passed"] is True
+    assert checks["h2s_fresh_composed_holdout_report_figure_exists"]["passed"] is True
     assert checks["script_analyze_visual_hard_slice_exactness.py_exists"]["passed"] is True
     assert checks["script_analyze_packaged_replay_gap.py_exists"]["passed"] is True
     assert checks["script_analyze_h1n_alias_transfer_contract_split.py_exists"]["passed"] is True
@@ -247,6 +257,7 @@ def test_publication_readiness_audit_writes_blocking_checks(tmp_path: Path) -> N
     assert checks["script_build_h2p_contextual_surface_alias_routing_synthesis.py_exists"]["passed"] is True
     assert checks["script_build_h2q_composed_surface_value_stale_synthesis.py_exists"]["passed"] is True
     assert checks["script_build_h2r_composed_route_gating_synthesis.py_exists"]["passed"] is True
+    assert checks["script_build_h2s_fresh_composed_holdout_synthesis.py_exists"]["passed"] is True
     assert checks["script_run_visual_hard_slice_probe_packet.py_exists"]["passed"] is True
     assert checks["script_build_visual_hard_slice_replay_packet.py_exists"]["passed"] is True
     assert checks["v3_skipped_live_decision_exists"]["passed"] is True

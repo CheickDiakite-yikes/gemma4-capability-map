@@ -3037,6 +3037,80 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C58_h2s_fresh_holdout_confirms_h2r_composed_route_gating",
+        claim=(
+            "A fresh H2s composed holdout confirms that H2r's composed route-gating policy transfers beyond the "
+            "H2q-derived repair rows when the policy is frozen before the first run."
+        ),
+        status="supported_fresh_holdout_requires_h2t_or_packaged_transfer",
+        evidence_strength="strong_internal_fresh_holdout",
+        primary_metric=(
+            "On H2s, H2r reaches 10/10 strict and 10/10 executor-equivalent; H2p and H2o each reach 3/10, "
+            "and H2j reaches 1/10. H2r improves by +0.70 exact-rate and executor-equivalence-rate versus H2p "
+            "and H2o, and +0.90 exact-rate versus H2j."
+        ),
+        limitation=(
+            "H2s is still a replay-shaped synthetic visual holdout, not a broad packaged workflow or human GUI "
+            "population. The clean result supports the mechanism but should next face H2t or packaged workflow transfer."
+        ),
+        next_test=(
+            "Build H2t with harder wording and overreach controls, or promote the same composed-route pressure into "
+            "packaged visual workflows without losing attribution."
+        ),
+        sources=(
+            EvidenceSource(
+                "replay_packet",
+                "results/tool_probe_replay_packets/20260512T_h2s_fresh_composed_holdout_dry_run_v1",
+                "Fresh H2s dry-run packet with 10 unseen composed surface/value/stale/decoy cases.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2s_fresh_composed_holdout_h2r_execute_v1",
+                "Frozen H2r live replay on H2s reaching 10/10 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2s_fresh_composed_holdout_h2p_execute_v1",
+                "H2p incumbent live replay on H2s reaching 3/10 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2s_fresh_composed_holdout_h2o_execute_v1",
+                "H2o value-bearing synthesis control on H2s reaching 3/10 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2s_fresh_composed_holdout_h2j_execute_v1",
+                "H2j target-normalization control on H2s reaching 1/10 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2s_fresh_composed_holdout_h2r_vs_h2p_v1",
+                "H2r versus H2p comparison on H2s showing +0.70 exact and executor-equivalence deltas.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2s_fresh_composed_holdout_h2r_vs_h2o_v1",
+                "H2r versus H2o comparison on H2s showing +0.70 exact and executor-equivalence deltas.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2s_fresh_composed_holdout_h2r_vs_h2j_v1",
+                "H2r versus H2j comparison on H2s showing +0.90 exact and executor-equivalence deltas.",
+            ),
+            EvidenceSource(
+                "replay_synthesis",
+                "results/reports/h2s_fresh_composed_holdout_synthesis/report.md",
+                "Dedicated H2s synthesis summarizing frozen H2r, controls, non-exact rows, and intervention counts.",
+            ),
+            EvidenceSource(
+                "replay_synthesis_figure",
+                "results/reports/h2s_fresh_composed_holdout_synthesis/figures/h2s_fresh_composed_holdout_gate.svg",
+                "Figure summarizing H2s exact-rate separation across H2j/H2o/H2p/H2r.",
+            ),
+        ),
+    ),
 )
 
 

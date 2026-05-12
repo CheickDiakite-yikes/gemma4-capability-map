@@ -2,7 +2,7 @@
 
 ## Current Best Next Moves
 
-The next move is not another broad prompt-contract paragraph, not another H2e/H2j victory lap, and not more tuning on the H2q rows. H1y/H1z showed that prompt/catalog prose alone did not solve stale selection-origin routing. H2a showed that a controller-side stale-selection gate is causal and transferable. H2b isolated residual exactness; H2c/H2d exposed the transfer tradeoff; H2e reconciled it. H2f then broke global H2e promotion, H2h repaired H2f but regressed H2b/H1x, and H2i showed conditional prompt prose did not preserve the H2f repair. H2j moved the useful repair into controller-visible target-query normalization. H2k/H2l/H2m then separated target-normalization benefit from value-bearing over-strip risk. H2n scoped the normalizer, H2o constructed value-bearing target queries, H2p routed contextual surface aliases, and H2q broke that stack under composed surface/value/stale pressure. H2r locally repaired H2q at `8 / 8` and then passed transfer: `81 / 81` strict and executor-equivalent across nine transfer packets, `89 / 89` strict when H2q is included, and zero non-exact rows in the transfer synthesis. The next move is H2s, a fresh unseen composed holdout with H2r frozen for the first run.
+The next move is not another broad prompt-contract paragraph, not another H2e/H2j victory lap, and not more tuning on the H2q rows. H1y/H1z showed that prompt/catalog prose alone did not solve stale selection-origin routing. H2a showed that a controller-side stale-selection gate is causal and transferable. H2b isolated residual exactness; H2c/H2d exposed the transfer tradeoff; H2e reconciled it. H2f then broke global H2e promotion, H2h repaired H2f but regressed H2b/H1x, and H2i showed conditional prompt prose did not preserve the H2f repair. H2j moved the useful repair into controller-visible target-query normalization. H2k/H2l/H2m then separated target-normalization benefit from value-bearing over-strip risk. H2n scoped the normalizer, H2o constructed value-bearing target queries, H2p routed contextual surface aliases, and H2q broke that stack under composed surface/value/stale pressure. H2r locally repaired H2q at `8 / 8`, passed transfer at `81 / 81` strict and executor-equivalent across nine transfer packets, and then passed fresh H2s at `10 / 10` strict and executor-equivalent with H2p/H2o at `3 / 10` and H2j at `1 / 10`. The next move is H2t or packaged visual transfer: either break H2r with a harder unseen composition holdout, or test whether the same pressure survives inside attributable workflow families.
 
 Execution order:
 
@@ -27,25 +27,29 @@ Execution order:
 19. Treat H2p as the contextual surface-alias repair: it records one H2m alias intervention, reaches `8 / 8` strict and executor-equivalent on H2m, and keeps H2k/H2l/H2f saturated.
 20. Treat H2q as the current boundary packet: `h2q_composed_surface_value_stale_v20` has two surface-alias/value-decoy rows, two value-bearing/stale-decoy rows, two contextual-alias/decoy-overlap rows, and two stale-surface-alias rows; H2p remains best but fails five rows.
 21. Treat H2r as a local H2q repair plus current-packet transfer-positive candidate: it rewrites two stale-selection rows and restores three requested surface-class rows on H2q, preserves H2m/H2k/H2l/H2f/H2b/H1x, and closes H1y/H1o/H1p.
-22. Treat H2r's current transfer as necessary but not sufficient: H2r was designed after seeing H2q, so publication-grade promotion requires a frozen-policy H2s holdout.
-23. Score both strict exactness and executor-equivalence; do not collapse executor-valid paraphrases into failures when evaluating live usefulness.
-24. Keep packaged workflows paused for this line unless they preserve the same replay-shaped pressure; H1l/H1m already showed packaged visual surfaces can wash out the mechanism.
+22. Treat H2r's current transfer as necessary but not sufficient: H2r was designed after seeing H2q, so publication-grade promotion required a frozen-policy H2s holdout.
+23. Treat H2s as fresh positive holdout evidence: frozen H2r reaches `10 / 10` strict and executor-equivalent, H2p and H2o each reach `3 / 10`, H2j reaches `1 / 10`, and H2r records `7` composed route gates, `2` value-bearing syntheses, and `4` target normalizations.
+24. Treat H2s as promotion pressure, not closure: the next publishable discriminator is H2t or packaged visual transfer, not changing H2r after a saturated fresh packet.
+25. Score both strict exactness and executor-equivalence; do not collapse executor-valid paraphrases into failures when evaluating live usefulness.
+26. Keep packaged workflows paused for this line unless they preserve the same replay-shaped pressure; H1l/H1m already showed packaged visual surfaces can wash out the mechanism.
 
 Immediate suggested command:
 
 ```bash
 uv run python scripts/build_h2r_composed_route_gating_synthesis.py
 uv run python scripts/build_h2r_transfer_backtest_synthesis.py
+uv run python scripts/build_h2s_fresh_composed_holdout_synthesis.py
 uv run python scripts/build_publication_evidence_ledger.py
 uv run python scripts/audit_publication_readiness.py
 rg -n "visual_composed_route_gating|visual_contextual_surface_alias_routing|visual_value_bearing_target_query_synthesis|visual_stale_selection_gate|refine_selection|target_query_normalization" src/gemma4_capability_map configs tests
 ```
 
-Then build H2s in small slices:
+Then build H2t or packaged visual transfer in small slices:
 
-- define a fresh H2s packet with unseen stale-selection, value-bearing, contextual surface-alias, and same-value decoy combinations
-- run H2r frozen on H2s first, then H2p/H2o/H2j controls, before modifying H2r
-- include at least one row where H2r should not fire, to keep overreach visible
+- define a harder H2t packet with current-but-wrong selection IDs, negative phrasing near the requested surface, and value-bearing labels where composed route gating should not fire
+- if packaged transfer is chosen first, port H2q/H2s pressure into attributable workflow families without letting workflow scaffolding resolve the case before the model/controller sees it
+- run H2r frozen first, then H2p/H2o/H2j controls, before modifying any policy
+- include multiple rows where H2r should not fire, to keep overreach visible
 - use H2r transfer synthesis as the current incumbent transfer gate
 - preserve H2a globally for stale-origin packets; H2k/H2l/H2m/H2p only show stale rescue is irrelevant on these slices, not that it should be removed everywhere
 
