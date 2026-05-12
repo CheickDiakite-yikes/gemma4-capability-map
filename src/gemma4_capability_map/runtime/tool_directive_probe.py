@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 from copy import deepcopy
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
@@ -576,16 +577,78 @@ def _visual_target_label_from_state(case: ToolDirectiveProbeCase) -> str:
         "switch",
     }
     matching_labels = [label for label in labels if label.lower() in user_text]
-    component_matches = [
-        label
+    scored_matches = [
+        (
+            _visual_prompt_label_score(
+                label=label,
+                user_text=user_text,
+                component_words=component_words,
+                source_index=labels.index(label),
+            ),
+            label,
+        )
         for label in matching_labels
-        if any(f" {word}" in f" {label.lower()}" for word in component_words)
     ]
-    if component_matches:
-        return sorted(component_matches, key=lambda label: (-len(label), labels.index(label)))[0]
+    scored_matches = [item for item in scored_matches if item[0] > 0]
+    if scored_matches:
+        return sorted(scored_matches, key=lambda item: (-item[0], labels.index(item[1])))[0][1]
     if matching_labels:
         return sorted(matching_labels, key=lambda label: (-len(label), labels.index(label)))[0]
     return ""
+
+
+def _visual_prompt_label_score(
+    *,
+    label: str,
+    user_text: str,
+    component_words: set[str],
+    source_index: int,
+) -> float:
+    label_lower = label.lower()
+    if label_lower not in user_text:
+        return 0.0
+
+    component = label_lower.split()[-1]
+    score = 1.0 + (0.5 if component in component_words else 0.0)
+    if re.search(r"\b[a-z]\d+\b", label_lower):
+        score += 2.0
+
+    for phrase in (
+        "locate",
+        "select",
+        "find",
+        "identify",
+        "target is",
+        "actual component is",
+        "visible component is",
+        "layout label is",
+        "field label is",
+    ):
+        start = user_text.find(phrase)
+        while start != -1:
+            window = user_text[start : start + 140]
+            offset = window.find(label_lower)
+            if offset != -1:
+                score += max(3.0, 10.0 - (offset / 20.0))
+            start = user_text.find(phrase, start + 1)
+
+    negative_fragments = (
+        f"do not target {label_lower}",
+        f"do not target the {label_lower}",
+        f"do not target the {component}",
+        f"do not use {label_lower}",
+        f"do not use that {component}",
+        f"not the {label_lower}",
+        f"not any {label_lower}",
+        f"not the {component}",
+        f"before reading {label_lower}",
+        f"before reading the {label_lower}",
+        f"before reading the {component}",
+    )
+    if any(fragment in user_text for fragment in negative_fragments):
+        score -= 8.0
+
+    return score - (source_index * 0.001)
 
 
 def _visual_layout_labels(initial_state: dict[str, Any]) -> list[str]:

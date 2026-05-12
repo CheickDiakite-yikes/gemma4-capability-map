@@ -387,6 +387,51 @@ def test_visual_target_query_normalization_preserves_when_prompt_has_no_state_la
     assert patched == turn
 
 
+def test_visual_target_query_normalization_preserves_located_code_label_over_negated_decoy() -> None:
+    specs = build_default_registry().specs
+    case = ToolDirectiveProbeCase(
+        case_id="target-query-normalization-negated-code-label",
+        family="visual",
+        messages=[
+            Message(
+                role="user",
+                content="Before reading the consent toggle, locate alert s92. Do not target the toggle.",
+            )
+        ],
+        media=["img-alert"],
+        tool_names=["extract_layout", "refine_selection"],
+        initial_state={
+            "images": {
+                "img-alert": {
+                    "local_layouts": [
+                        {"region_id": "toggle-1", "label": "consent toggle", "text": "Enabled"},
+                        {"region_id": "alert-1", "label": "alert s92", "text": "Escalated"},
+                    ]
+                }
+            },
+        },
+    )
+    turn = ModelTurn(
+        raw_model_output="{}",
+        normalized_tool_call=[
+            ToolCall(
+                name="extract_layout",
+                arguments={"image_id": "img-alert", "target_query": "alert s92"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+    )
+
+    patched = _apply_visual_target_query_normalization(
+        turn=turn,
+        case=case,
+        tool_specs=[specs["extract_layout"], specs["refine_selection"]],
+    )
+
+    assert patched == turn
+
+
 def test_tool_directive_probe_comparison_reports_case_and_family_deltas(tmp_path: Path) -> None:
     registry_path = tmp_path / "registry.yaml"
     registry_path.write_text(
