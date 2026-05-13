@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-13T00:49:26.444167+00:00",
+    "generated_at": "2026-05-13T01:02:36.139762+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h2u_negation_guard_synthesis",
-    "packet_row_count": 8,
-    "comparison_count": 4,
+    "packet_row_count": 18,
+    "comparison_count": 9,
     "h2t_case_count": 10,
     "h2t_h2r_exact_success_count": 8,
     "h2t_h2u_exact_success_count": 10,
@@ -14,14 +14,25 @@
     "h2s_h2u_exact_success_count": 10,
     "h2q_h2u_exact_success_count": 8,
     "h2m_h2u_exact_success_count": 8,
+    "h2k_h2u_exact_success_count": 8,
+    "h2l_h2u_exact_success_count": 8,
+    "h2f_h2u_exact_success_count": 10,
+    "h2b_h2u_exact_success_count": 5,
+    "h1x_h2u_exact_success_count": 8,
     "transfer_case_count": 26,
     "transfer_exact_success_count": 26,
     "transfer_delta_exact_sum_vs_h2r": 0.0,
-    "blocked_guard_count": 6,
+    "first_pass_transfer_case_count": 39,
+    "first_pass_transfer_exact_success_count": 39,
+    "first_pass_transfer_delta_exact_sum_vs_h2r": 0.0,
+    "broad_transfer_case_count": 65,
+    "broad_transfer_exact_success_count": 65,
+    "broad_transfer_delta_exact_sum_vs_h2r": 0.0,
+    "blocked_guard_count": 7,
     "h2t_blocked_guard_count": 4,
-    "transfer_blocked_guard_count": 2,
+    "transfer_blocked_guard_count": 3,
     "target_normalization_blocked_count": 4,
-    "composed_route_gating_blocked_count": 2,
+    "composed_route_gating_blocked_count": 3,
     "h2u_non_exact_count": 0,
     "promotion_decision": "h2u_promotes_to_broader_transfer_backtest"
   },
@@ -105,6 +116,106 @@
       "exact_rate": 1.0,
       "executor_success_count": 8,
       "executor_rate": 1.0
+    },
+    {
+      "profile_label": "h2k_h2r_composed_route_gating",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_value_bearing_target_query_synthesis_visual_contextual_surface_alias_routing_visual_composed_route_gating",
+      "packet_dir": "results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2k_execute_v2",
+      "case_count": 8,
+      "exact_success_count": 8,
+      "exact_rate": 1.0,
+      "executor_success_count": 8,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "h2k_h2u_negation_guard",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_value_bearing_target_query_synthesis_visual_contextual_surface_alias_routing_visual_composed_route_gating_visual_negation_guard",
+      "packet_dir": "results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h2k_execute_v1",
+      "case_count": 8,
+      "exact_success_count": 8,
+      "exact_rate": 1.0,
+      "executor_success_count": 8,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "h2l_h2r_composed_route_gating",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_value_bearing_target_query_synthesis_visual_contextual_surface_alias_routing_visual_composed_route_gating",
+      "packet_dir": "results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2l_execute_v2",
+      "case_count": 8,
+      "exact_success_count": 8,
+      "exact_rate": 1.0,
+      "executor_success_count": 8,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "h2l_h2u_negation_guard",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_value_bearing_target_query_synthesis_visual_contextual_surface_alias_routing_visual_composed_route_gating_visual_negation_guard",
+      "packet_dir": "results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h2l_execute_v1",
+      "case_count": 8,
+      "exact_success_count": 8,
+      "exact_rate": 1.0,
+      "executor_success_count": 8,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "h2f_h2r_composed_route_gating",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_value_bearing_target_query_synthesis_visual_contextual_surface_alias_routing_visual_composed_route_gating",
+      "packet_dir": "results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2f_execute_v1",
+      "case_count": 10,
+      "exact_success_count": 10,
+      "exact_rate": 1.0,
+      "executor_success_count": 10,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "h2f_h2u_negation_guard",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_value_bearing_target_query_synthesis_visual_contextual_surface_alias_routing_visual_composed_route_gating_visual_negation_guard",
+      "packet_dir": "results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h2f_execute_v1",
+      "case_count": 10,
+      "exact_success_count": 10,
+      "exact_rate": 1.0,
+      "executor_success_count": 10,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "h2b_h2r_composed_route_gating",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_value_bearing_target_query_synthesis_visual_contextual_surface_alias_routing_visual_composed_route_gating",
+      "packet_dir": "results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2b_execute_v1",
+      "case_count": 5,
+      "exact_success_count": 5,
+      "exact_rate": 1.0,
+      "executor_success_count": 5,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "h2b_h2u_negation_guard",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_value_bearing_target_query_synthesis_visual_contextual_surface_alias_routing_visual_composed_route_gating_visual_negation_guard",
+      "packet_dir": "results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h2b_execute_v1",
+      "case_count": 5,
+      "exact_success_count": 5,
+      "exact_rate": 1.0,
+      "executor_success_count": 5,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "h1x_h2r_composed_route_gating",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_value_bearing_target_query_synthesis_visual_contextual_surface_alias_routing_visual_composed_route_gating",
+      "packet_dir": "results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h1x_execute_v1",
+      "case_count": 8,
+      "exact_success_count": 8,
+      "exact_rate": 1.0,
+      "executor_success_count": 8,
+      "executor_rate": 1.0
+    },
+    {
+      "profile_label": "h1x_h2u_negation_guard",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_value_bearing_target_query_synthesis_visual_contextual_surface_alias_routing_visual_composed_route_gating_visual_negation_guard",
+      "packet_dir": "results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h1x_execute_v1",
+      "case_count": 8,
+      "exact_success_count": 8,
+      "exact_rate": 1.0,
+      "executor_success_count": 8,
+      "executor_rate": 1.0
     }
   ],
   "comparison_rows": [
@@ -144,6 +255,61 @@
     {
       "comparison_label": "h2m_h2u_vs_h2r",
       "comparison_dir": "results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h2m_v1",
+      "shared_case_count": 8,
+      "baseline_exact_rate": 1.0,
+      "candidate_exact_rate": 1.0,
+      "delta_exact_rate": 0.0,
+      "baseline_executor_equivalence_rate": 1.0,
+      "candidate_executor_equivalence_rate": 1.0,
+      "delta_executor_equivalence_rate": 0.0
+    },
+    {
+      "comparison_label": "h2k_h2u_vs_h2r",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h2k_v1",
+      "shared_case_count": 8,
+      "baseline_exact_rate": 1.0,
+      "candidate_exact_rate": 1.0,
+      "delta_exact_rate": 0.0,
+      "baseline_executor_equivalence_rate": 1.0,
+      "candidate_executor_equivalence_rate": 1.0,
+      "delta_executor_equivalence_rate": 0.0
+    },
+    {
+      "comparison_label": "h2l_h2u_vs_h2r",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h2l_v1",
+      "shared_case_count": 8,
+      "baseline_exact_rate": 1.0,
+      "candidate_exact_rate": 1.0,
+      "delta_exact_rate": 0.0,
+      "baseline_executor_equivalence_rate": 1.0,
+      "candidate_executor_equivalence_rate": 1.0,
+      "delta_executor_equivalence_rate": 0.0
+    },
+    {
+      "comparison_label": "h2f_h2u_vs_h2r",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h2f_v1",
+      "shared_case_count": 10,
+      "baseline_exact_rate": 1.0,
+      "candidate_exact_rate": 1.0,
+      "delta_exact_rate": 0.0,
+      "baseline_executor_equivalence_rate": 1.0,
+      "candidate_executor_equivalence_rate": 1.0,
+      "delta_executor_equivalence_rate": 0.0
+    },
+    {
+      "comparison_label": "h2b_h2u_vs_h2r",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h2b_v1",
+      "shared_case_count": 5,
+      "baseline_exact_rate": 1.0,
+      "candidate_exact_rate": 1.0,
+      "delta_exact_rate": 0.0,
+      "baseline_executor_equivalence_rate": 1.0,
+      "candidate_executor_equivalence_rate": 1.0,
+      "delta_executor_equivalence_rate": 0.0
+    },
+    {
+      "comparison_label": "h1x_h2u_vs_h2r",
+      "comparison_dir": "results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h1x_v1",
       "shared_case_count": 8,
       "baseline_exact_rate": 1.0,
       "candidate_exact_rate": 1.0,
@@ -287,6 +453,21 @@
       "blocked_region_id": "h2q-mode-switch-13053",
       "prompt_state_label": "mode switch",
       "reason": "negation_scope_exact_layout_label"
+    },
+    {
+      "profile_label": "h2k_h2u_negation_guard",
+      "slice": "h2k",
+      "case_id": "h2k_alert_t47_archived_alert_s92_decoy",
+      "family": "h2k_code_label_overlap",
+      "intervention_kind": "visual_composed_route_gating_blocked",
+      "from_tool": "extract_layout",
+      "from_arguments": "{\"image_id\":\"img-h2k-alert-t47\",\"target_query\":\"alert t47\"}",
+      "preserved_target_query": "alert t47",
+      "preserved_region_id": "h2k-alert-t47-10072",
+      "blocked_label": "alert s92",
+      "blocked_region_id": "h2k-alert-s92-10071",
+      "prompt_state_label": "",
+      "reason": "negation_scope_exact_layout_label"
     }
   ],
   "finding_rows": [
@@ -300,11 +481,15 @@
     },
     {
       "finding_id": "h2u_transfer_preserves_h2r",
-      "finding": "H2u preserves 26/26 strict exactness across H2s, H2q, and H2m, with zero exact-rate and executor-equivalence-rate deltas versus H2r on all three transfer checks."
+      "finding": "H2u preserves 26/26 strict exactness across H2s, H2q, and H2m, with zero exact-rate and executor-equivalence-rate deltas versus H2r on all three initial transfer checks."
+    },
+    {
+      "finding_id": "h2u_first_pass_transfer_preserves_h2r",
+      "finding": "H2u also preserves 39/39 strict exactness across H2k, H2l, H2f, H2b, and H1x, bringing the current broad transfer subtotal to 65/65 exact with zero aggregate exact-rate delta versus H2r."
     },
     {
       "finding_id": "h2u_guard_fires_without_transfer_cost",
-      "finding": "H2u records 2 blocked transfer interventions outside H2t, but those rows remain exact. This suggests the guard is not merely inactive on transfer; it can fire conservatively without breaking prior wins."
+      "finding": "H2u records 3 blocked transfer interventions outside H2t, but those rows remain exact. This suggests the guard is not merely inactive on transfer; it can fire conservatively without breaking prior wins."
     },
     {
       "finding_id": "h2u_no_remaining_non_exact_rows",

@@ -252,6 +252,16 @@ def test_publication_readiness_audit_writes_blocking_checks(tmp_path: Path) -> N
     assert checks["h2u_negation_guard_transfer_comparisons_exist"]["passed"] is True
     assert checks["h2u_negation_guard_h2q_comparison_exists"]["passed"] is True
     assert checks["h2u_negation_guard_h2m_comparison_exists"]["passed"] is True
+    assert checks["h2u_negation_guard_h2k_transfer_exists"]["passed"] is True
+    assert checks["h2u_negation_guard_h2k_comparison_exists"]["passed"] is True
+    assert checks["h2u_negation_guard_h2l_transfer_exists"]["passed"] is True
+    assert checks["h2u_negation_guard_h2l_comparison_exists"]["passed"] is True
+    assert checks["h2u_negation_guard_h2f_transfer_exists"]["passed"] is True
+    assert checks["h2u_negation_guard_h2f_comparison_exists"]["passed"] is True
+    assert checks["h2u_negation_guard_h2b_transfer_exists"]["passed"] is True
+    assert checks["h2u_negation_guard_h2b_comparison_exists"]["passed"] is True
+    assert checks["h2u_negation_guard_h1x_transfer_exists"]["passed"] is True
+    assert checks["h2u_negation_guard_h1x_comparison_exists"]["passed"] is True
     assert checks["h2u_negation_guard_synthesis_exists"]["passed"] is True
     assert checks["h2u_negation_guard_report_figure_exists"]["passed"] is True
     assert checks["script_analyze_visual_hard_slice_exactness.py_exists"]["passed"] is True

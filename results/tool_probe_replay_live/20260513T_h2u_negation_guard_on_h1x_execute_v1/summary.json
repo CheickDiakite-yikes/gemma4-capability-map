@@ -1,0 +1,19 @@
+{
+  "packet_run_id": "20260513T_h2u_negation_guard_on_h1x_execute_v1",
+  "packet_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h1x_execute_v1",
+  "source_packet_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260510T_h1x_v11_breaker_oracle_dry_run_v1",
+  "source_packet_run_id": "20260510T_h1x_v11_breaker_oracle_dry_run_v1",
+  "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_value_bearing_target_query_synthesis_visual_contextual_surface_alias_routing_visual_composed_route_gating_visual_negation_guard",
+  "case_count": 8,
+  "execute": true,
+  "executed_count": 8,
+  "exact_count": 8,
+  "exact_rate": 1.0,
+  "executor_equivalence_evaluable_count": 8,
+  "executor_equivalence_count": 8,
+  "executor_equivalence_rate": 1.0,
+  "failure_mode_counts": {
+    "argument_alias_or_decoy_risk": 4,
+    "wrong_tool_or_stale_selection_risk": 4
+  }
+}

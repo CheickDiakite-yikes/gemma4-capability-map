@@ -2342,6 +2342,106 @@ def audit_publication_readiness(
             detail="H2u transfer comparison on H2m exists.",
         ),
         _check_path(
+            check_id="h2u_negation_guard_h2k_transfer_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260513T_h2u_negation_guard_on_h2k_execute_v1"
+            / "summary.json",
+            detail="H2u transfer replay on H2k exists.",
+        ),
+        _check_path(
+            check_id="h2u_negation_guard_h2k_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260513T_h2u_negation_guard_vs_h2r_on_h2k_v1"
+            / "live_replay_comparison.json",
+            detail="H2u transfer comparison on H2k exists.",
+        ),
+        _check_path(
+            check_id="h2u_negation_guard_h2l_transfer_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260513T_h2u_negation_guard_on_h2l_execute_v1"
+            / "summary.json",
+            detail="H2u transfer replay on H2l exists.",
+        ),
+        _check_path(
+            check_id="h2u_negation_guard_h2l_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260513T_h2u_negation_guard_vs_h2r_on_h2l_v1"
+            / "live_replay_comparison.json",
+            detail="H2u transfer comparison on H2l exists.",
+        ),
+        _check_path(
+            check_id="h2u_negation_guard_h2f_transfer_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260513T_h2u_negation_guard_on_h2f_execute_v1"
+            / "summary.json",
+            detail="H2u transfer replay on H2f exists.",
+        ),
+        _check_path(
+            check_id="h2u_negation_guard_h2f_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260513T_h2u_negation_guard_vs_h2r_on_h2f_v1"
+            / "live_replay_comparison.json",
+            detail="H2u transfer comparison on H2f exists.",
+        ),
+        _check_path(
+            check_id="h2u_negation_guard_h2b_transfer_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260513T_h2u_negation_guard_on_h2b_execute_v1"
+            / "summary.json",
+            detail="H2u transfer replay on H2b exists.",
+        ),
+        _check_path(
+            check_id="h2u_negation_guard_h2b_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260513T_h2u_negation_guard_vs_h2r_on_h2b_v1"
+            / "live_replay_comparison.json",
+            detail="H2u transfer comparison on H2b exists.",
+        ),
+        _check_path(
+            check_id="h2u_negation_guard_h1x_transfer_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260513T_h2u_negation_guard_on_h1x_execute_v1"
+            / "summary.json",
+            detail="H2u transfer replay on H1x exists.",
+        ),
+        _check_path(
+            check_id="h2u_negation_guard_h1x_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260513T_h2u_negation_guard_vs_h2r_on_h1x_v1"
+            / "live_replay_comparison.json",
+            detail="H2u transfer comparison on H1x exists.",
+        ),
+        _check_path(
             check_id="h2u_negation_guard_synthesis_exists",
             severity="blocking",
             path=ROOT / "results" / "reports" / "h2u_negation_guard_synthesis" / "report.md",

@@ -1,0 +1,98 @@
+[
+  {
+    "case_id": "h1x_workstream_owner_field_previous_summary_decoy",
+    "family": "h1x_oblique_stale_field",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "h1x-workstream-owner-field-9712"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1x-workstream-owner",
+          "target_query": "owner field"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h1x-workstream-owner",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "h1x-workstream-owner-field-9712"
+          ],
+          "region_id": "h1x-workstream-owner-field-9712",
+          "text_preview": "Remy"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1x-workstream-owner",
+          "target_query": "owner field"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1x-workstream-owner",
+          "target_query": "owner field"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"refine_selection\", \"arguments\": {\"selection_id\": \"sel-workstream-summary\", \"filter_query\": \"owner\"}}",
+    "runtime_metadata": {
+      "backend": "mlx",
+      "runtime_info": {
+        "backend": "mlx",
+        "runtime_posture": "mlx",
+        "requested_model": "google/gemma-4-E2B-it",
+        "effective_model": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_source": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_format": "mlx",
+        "runtime_device": "mlx",
+        "load_mode": "vision",
+        "configured_device": "auto",
+        "request_timeout_seconds": 300.0,
+        "tool_turn_directive_enabled": false,
+        "tool_prompt_contract_id": "",
+        "tool_catalog_profile_id": "visual_role_catalog_route_arbitration_residual_exactness_v20",
+        "service": {},
+        "partial_runtime": false,
+        "llama_cpp_error": null,
+        "llama_cpp_context_window": null
+      },
+      "visual_stale_selection_gate": [
+        {
+          "from_tool": "refine_selection",
+          "from_arguments": {
+            "selection_id": "sel-workstream-summary",
+            "filter_query": "owner"
+          },
+          "to_tool": "extract_layout",
+          "to_arguments": {
+            "image_id": "img-h1x-workstream-owner",
+            "target_query": "owner field"
+          }
+        }
+      ]
+    },
+    "prompt_tokens": 1907,
+    "completion_tokens": 34,
+    "latency_ms": 4204
+  }
+]

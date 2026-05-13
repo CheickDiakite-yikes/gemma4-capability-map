@@ -5237,14 +5237,39 @@
   - This sharpens the research claim from "target normalization can overreach" to "pipeline-order controller repairs need matched guard semantics across later routing helpers."
 - Reporting updates:
   - publication evidence claim `C60_h2u_negation_guard_repairs_h2t_without_h2s_h2q_h2m_regression` records the current support level and remaining transfer-backtest caveat
-  - publication evidence ledger now has `60` claims and `387` sources with `0` missing sources
-  - publication readiness audit now has `291` checks, `284` blocking checks, `0` blocking failures, and status `paper_draft_ready`
+  - publication evidence ledger now has `60` claims and `397` sources with `0` missing sources
+  - publication readiness audit now has `301` checks, `294` blocking checks, `0` blocking failures, and status `paper_draft_ready`
 - Interpretation:
   - H2u answers the immediate H2t regression question: a structural guard can preserve H2r's composed-route gains while preventing the negation-scope overreach.
-  - It does not yet prove global safety. The next transfer pass should cover H2k/H2l/H2f/H2b/H1x and then the older H1y/H1o/H1p family if the first pass stays clean.
+  - It does not yet prove global safety. After the first broader transfer pass, the remaining transfer gap is the older H1y/H1o/H1p family plus harder semantic negation cases.
   - The next fresh hard slice should be H2v/H3, with separate rows for quoted negation, instructional negation, stale example captions, and genuine target negation.
 - Verification:
   - `uv run pytest tests/test_h2u_negation_guard_synthesis.py tests/test_publication_evidence_ledger.py tests/test_publication_readiness_audit.py -q`
   - `uv run python scripts/build_h2u_negation_guard_synthesis.py`
   - `uv run python scripts/build_publication_evidence_ledger.py`
   - `uv run python scripts/audit_publication_readiness.py`
+
+## 2026-05-13 - H2u First-Pass Broader Transfer Stays Clean
+
+- Ran H2u over the first broader transfer set that was explicitly called out after the H2t repair:
+  - H2k: [`results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h2k_execute_v1`](../results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h2k_execute_v1)
+  - H2l: [`results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h2l_execute_v1`](../results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h2l_execute_v1)
+  - H2f: [`results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h2f_execute_v1`](../results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h2f_execute_v1)
+  - H2b: [`results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h2b_execute_v1`](../results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h2b_execute_v1)
+  - H1x: [`results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h1x_execute_v1`](../results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h1x_execute_v1)
+- Result:
+  - H2k `8 / 8`, H2l `8 / 8`, H2f `10 / 10`, H2b `5 / 5`, and H1x `8 / 8` strict and executor-equivalent.
+  - This adds `39 / 39` strict/executor-equivalent on top of the earlier H2s/H2q/H2m `26 / 26`, for a current H2u broad transfer subtotal of `65 / 65`.
+  - All five new H2u-vs-H2r comparisons have `0.0` exact-rate and executor-equivalence-rate deltas.
+- Mechanism:
+  - The guard fired once on the new transfer set: H2k blocked a composed-route rewrite from `alert t47` to archived/negated `alert s92`.
+  - That row remained exact, so the new evidence strengthens the claim that the guard can be active without being destructive.
+  - Current H2u synthesis now records `7` blocked guard interventions: `4` on H2t and `3` transfer blocks.
+- Reporting updates:
+  - H2u synthesis now covers `18` packet rows and `9` comparisons.
+  - Publication claim `C60_h2u_negation_guard_repairs_h2t_without_h2s_h2q_h2m_regression` now records the `65 / 65` subtotal and narrows the remaining caveat to H1y/H1o/H1p plus harder H2v/H3 semantics.
+  - Publication evidence ledger now has `60` claims and `397` sources with `0` missing sources.
+  - Publication readiness audit now has `301` checks, `294` blocking checks, `0` blocking failures, and status `paper_draft_ready`.
+- Next:
+  - Run H2u on H1y/H1o/H1p.
+  - Then design H2v/H3 to separate quoted negation, instructional negation, stale example captions, and genuine target negation.
