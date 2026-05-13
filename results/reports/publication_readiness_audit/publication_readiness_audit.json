@@ -1,9 +1,9 @@
 {
   "summary": {
-    "generated_at": "2026-05-13T01:40:12.076151+00:00",
+    "generated_at": "2026-05-13T02:06:30.464425+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 317,
-    "blocking_check_count": 310,
+    "check_count": 324,
+    "blocking_check_count": 317,
     "blocking_failed_count": 0,
     "recommended_check_count": 7,
     "recommended_failed_count": 0,
@@ -29,7 +29,7 @@
       "check_id": "ledger_has_claims",
       "severity": "blocking",
       "passed": true,
-      "detail": "claim_count=61",
+      "detail": "claim_count=62",
       "path": ""
     },
     {
@@ -1930,6 +1930,48 @@
       "path": "results/reports/h2v_semantic_negation_synthesis/figures/h2v_semantic_negation_gate.svg"
     },
     {
+      "check_id": "h2w_semantic_target_preservation_h2v_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2w semantic-target-preservation live replay on H2v exists.",
+      "path": "results/tool_probe_replay_live/20260513T_h2v_semantic_negation_h2w_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h2w_semantic_target_preservation_vs_h2u_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2w versus H2u comparison on H2v exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2w_vs_h2u_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h2w_semantic_target_preservation_vs_h2r_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2w versus H2r comparison on H2v exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2w_vs_h2r_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h2w_semantic_target_preservation_vs_h2j_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2w versus H2j comparison on H2v exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2w_vs_h2j_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h2w_semantic_target_preservation_synthesis_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2w semantic-target-preservation synthesis report exists.",
+      "path": "results/reports/h2w_semantic_target_preservation_synthesis/report.md"
+    },
+    {
+      "check_id": "h2w_semantic_target_preservation_report_figure_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2w semantic-target-preservation synthesis figure exists.",
+      "path": "results/reports/h2w_semantic_target_preservation_synthesis/figures/h2w_semantic_target_preservation_gate.svg"
+    },
+    {
       "check_id": "current_state_doc_exists",
       "severity": "blocking",
       "passed": true,
@@ -2208,6 +2250,13 @@
       "passed": true,
       "detail": "Reproduction script `build_h2v_semantic_negation_synthesis.py` exists.",
       "path": "scripts/build_h2v_semantic_negation_synthesis.py"
+    },
+    {
+      "check_id": "script_build_h2w_semantic_target_preservation_synthesis.py_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Reproduction script `build_h2w_semantic_target_preservation_synthesis.py` exists.",
+      "path": "scripts/build_h2w_semantic_target_preservation_synthesis.py"
     },
     {
       "check_id": "script_compare_tool_directive_probes.py_exists",

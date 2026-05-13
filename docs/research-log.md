@@ -5363,3 +5363,39 @@
   - `uv run python scripts/build_h2v_semantic_negation_synthesis.py`
   - `uv run python scripts/build_publication_evidence_ledger.py`
   - `uv run python scripts/audit_publication_readiness.py`
+
+## 2026-05-13 - H2w Semantic Target Preservation Repairs H2v
+
+- Implemented and executed the H2w controller profile on the H2v semantic-negation packet:
+  - profile: `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_value_bearing_target_query_synthesis_visual_contextual_surface_alias_routing_visual_composed_route_gating_visual_negation_guard_visual_semantic_target_preservation`
+  - live packet: [`results/tool_probe_replay_live/20260513T_h2v_semantic_negation_h2w_execute_v1`](../results/tool_probe_replay_live/20260513T_h2v_semantic_negation_h2w_execute_v1)
+  - synthesis: [`results/reports/h2w_semantic_target_preservation_synthesis/report.md`](../results/reports/h2w_semantic_target_preservation_synthesis/report.md)
+  - figure: [`results/reports/h2w_semantic_target_preservation_synthesis/figures/h2w_semantic_target_preservation_gate.svg`](../results/reports/h2w_semantic_target_preservation_synthesis/figures/h2w_semantic_target_preservation_gate.svg)
+- Result:
+  - H2w reaches `10 / 10` strict and `10 / 10` executor-equivalent on H2v.
+  - H2w improves over H2u by `+0.60` exact-rate and `+0.50` executor-equivalence-rate.
+  - H2w improves over H2r and H2j by `+0.70` exact-rate and `+0.60` executor-equivalence-rate.
+  - H2w fixes `6` H2u strict misses and leaves `0` H2w non-exact rows.
+- Mechanism:
+  - `4` semantic-preservation interventions keep current layout targets when stale/quoted context mentions tempting note/caption/example labels.
+  - `3` target-query normalizations canonicalize genuine negated values into component-qualified labels: `status badge Not ready`, `reason chip Not applicable`, and `approval toggle Not approved`.
+  - `1` stale-selection gate remains active on the stale risk-lane row.
+  - `1` composed-route block remains active on the quoted metric-panel row.
+  - H2w includes a bounded no-call visual fallback, but the final stored H2v H2w artifact did not need to exercise it.
+- Comparisons:
+  - H2w vs H2u: [`results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2w_vs_h2u_v1`](../results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2w_vs_h2u_v1)
+  - H2w vs H2r: [`results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2w_vs_h2r_v1`](../results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2w_vs_h2r_v1)
+  - H2w vs H2j: [`results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2w_vs_h2j_v1`](../results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2w_vs_h2j_v1)
+- Reporting updates:
+  - publication evidence claim `C62_h2w_semantic_target_preservation_repairs_h2v` records the local repair result
+  - publication evidence ledger now has `62` claims and `418` sources with `0` missing sources
+  - publication readiness audit now has `324` checks, `317` blocking checks, `0` blocking failures, and status `paper_draft_ready`
+- Interpretation:
+  - H2w is a strong local repair, but not a global promotion yet.
+  - The next proper slice is an H2w transfer backtest over H2s/H2t/H2m/H2k/H2l/H2f/H2b/H1x/H1y/H1o/H1p.
+  - Packaged workflow porting should remain paused until the semantic selector and bounded no-call fallback pass those overreach checks.
+- Verification:
+  - `uv run pytest tests/test_h2w_semantic_target_preservation_synthesis.py tests/test_tool_directive_probe.py tests/test_publication_evidence_ledger.py tests/test_publication_readiness_audit.py -q`
+  - `uv run python scripts/build_h2w_semantic_target_preservation_synthesis.py`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`

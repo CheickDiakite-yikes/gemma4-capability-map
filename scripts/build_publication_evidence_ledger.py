@@ -3426,6 +3426,62 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C62_h2w_semantic_target_preservation_repairs_h2v",
+        claim=(
+            "H2w semantic target preservation repairs the H2v holdout by preserving current requested targets across "
+            "stale negation context and canonicalizing genuine negated target values into component-qualified layout "
+            "queries."
+        ),
+        status="supported_h2v_repair_requires_transfer_backtest",
+        evidence_strength="strong_internal_fresh_repair",
+        primary_metric=(
+            "On H2v, H2w reaches 10/10 strict and 10/10 executor-equivalent, versus H2u at 4/10 strict and "
+            "5/10 executor-equivalent. H2w gains +0.60 exact-rate and +0.50 executor-equivalence-rate over H2u, "
+            "with 6 strict H2u misses fixed."
+        ),
+        limitation=(
+            "The repair is currently proven on H2v only. The helper includes a bounded no-call visual fallback and "
+            "a broader semantic label selector, so older transfer packets must be rerun before packaged-workflow "
+            "promotion."
+        ),
+        next_test=(
+            "Run an H2w transfer backtest on H2s/H2t/H2m/H2k/H2l/H2f/H2b/H1x/H1y/H1o/H1p, then decide whether "
+            "to port the control into packaged live CLI workflows."
+        ),
+        sources=(
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260513T_h2v_semantic_negation_h2w_execute_v1",
+                "H2w semantic-target-preservation live replay on H2v reaching 10/10 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2w_vs_h2u_v1",
+                "H2w versus H2u comparison showing +0.60 exact-rate and +0.50 executor-equivalence-rate deltas.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2w_vs_h2r_v1",
+                "H2w versus H2r comparison showing +0.70 exact-rate and +0.60 executor-equivalence-rate deltas.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2w_vs_h2j_v1",
+                "H2w versus H2j comparison showing +0.70 exact-rate and +0.60 executor-equivalence-rate deltas.",
+            ),
+            EvidenceSource(
+                "replay_synthesis",
+                "results/reports/h2w_semantic_target_preservation_synthesis/report.md",
+                "Dedicated H2w synthesis summarizing fixed rows, family saturation, and controller-intervention attribution.",
+            ),
+            EvidenceSource(
+                "replay_synthesis_figure",
+                "results/reports/h2w_semantic_target_preservation_synthesis/figures/h2w_semantic_target_preservation_gate.svg",
+                "Figure summarizing H2j/H2r/H2u/H2w strict and executor-equivalent performance on H2v.",
+            ),
+        ),
+    ),
 )
 
 

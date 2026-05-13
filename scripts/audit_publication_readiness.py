@@ -2606,6 +2606,63 @@ def audit_publication_readiness(
             detail="H2v semantic-negation synthesis figure exists.",
         ),
         _check_path(
+            check_id="h2w_semantic_target_preservation_h2v_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260513T_h2v_semantic_negation_h2w_execute_v1"
+            / "summary.json",
+            detail="H2w semantic-target-preservation live replay on H2v exists.",
+        ),
+        _check_path(
+            check_id="h2w_semantic_target_preservation_vs_h2u_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260513T_h2v_semantic_negation_h2w_vs_h2u_v1"
+            / "live_replay_comparison.json",
+            detail="H2w versus H2u comparison on H2v exists.",
+        ),
+        _check_path(
+            check_id="h2w_semantic_target_preservation_vs_h2r_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260513T_h2v_semantic_negation_h2w_vs_h2r_v1"
+            / "live_replay_comparison.json",
+            detail="H2w versus H2r comparison on H2v exists.",
+        ),
+        _check_path(
+            check_id="h2w_semantic_target_preservation_vs_h2j_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260513T_h2v_semantic_negation_h2w_vs_h2j_v1"
+            / "live_replay_comparison.json",
+            detail="H2w versus H2j comparison on H2v exists.",
+        ),
+        _check_path(
+            check_id="h2w_semantic_target_preservation_synthesis_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "h2w_semantic_target_preservation_synthesis" / "report.md",
+            detail="H2w semantic-target-preservation synthesis report exists.",
+        ),
+        _check_path(
+            check_id="h2w_semantic_target_preservation_report_figure_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "h2w_semantic_target_preservation_synthesis"
+            / "figures"
+            / "h2w_semantic_target_preservation_gate.svg",
+            detail="H2w semantic-target-preservation synthesis figure exists.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",
@@ -2672,6 +2729,7 @@ def audit_publication_readiness(
         "build_h2t_overreach_independence_synthesis.py",
         "build_h2u_negation_guard_synthesis.py",
         "build_h2v_semantic_negation_synthesis.py",
+        "build_h2w_semantic_target_preservation_synthesis.py",
         "compare_tool_directive_probes.py",
         "build_visual_hard_slice_design.py",
         "build_visual_hard_slice_replay_packet.py",

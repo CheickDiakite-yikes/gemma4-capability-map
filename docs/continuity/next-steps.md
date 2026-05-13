@@ -2,7 +2,7 @@
 
 ## Current Best Next Moves
 
-The next move is not another broad prompt-contract paragraph, not another H2e/H2j victory lap, and not more tuning on the H2q rows. H1y/H1z showed that prompt/catalog prose alone did not solve stale selection-origin routing. H2a showed that a controller-side stale-selection gate is causal and transferable. H2b isolated residual exactness; H2c/H2d exposed the transfer tradeoff; H2e reconciled it. H2f then broke global H2e promotion, H2h repaired H2f but regressed H2b/H1x, and H2i showed conditional prompt prose did not preserve the H2f repair. H2j moved the useful repair into controller-visible target-query normalization. H2k/H2l/H2m then separated target-normalization benefit from value-bearing over-strip risk. H2n scoped the normalizer, H2o constructed value-bearing target queries, H2p routed contextual surface aliases, and H2q broke that stack under composed surface/value/stale pressure. H2r locally repaired H2q at `8 / 8`, passed transfer at `81 / 81` strict and executor-equivalent across nine transfer packets, and then passed fresh H2s at `10 / 10` strict and executor-equivalent with H2p/H2o at `3 / 10` and H2j at `1 / 10`. H2t broke H2r's apparent saturation: H2r/H2p/H2o/H2j tied at `8 / 10`, H2e reached `6 / 10` strict but `9 / 10` executor-equivalent, and the two H2r misses were raw-exact MLX calls overwritten by controller target-query normalization and then by composed-route gating. H2u fixed that pipeline-order failure: it reaches `10 / 10` on H2t, preserves `26 / 26` strict/executor-equivalent across H2s/H2q/H2m, preserves another `39 / 39` across H2k/H2l/H2f/H2b/H1x, and closes older H1y/H1o/H1p at `34 / 34`, for a current broad transfer subtotal of `99 / 99`. H2v then breaks the apparent H2u saturation: H2u is `4 / 10` strict and `5 / 10` executor-equivalent, H2r and H2j are both `3 / 10` strict and `4 / 10` executor-equivalent. The next move is H2w semantic target preservation, then a packaged workflow transfer gate only after the replay-shaped semantics are explicit.
+The next move is not another broad prompt-contract paragraph, not another H2e/H2j victory lap, and not more tuning on the H2q rows. H1y/H1z showed that prompt/catalog prose alone did not solve stale selection-origin routing. H2a showed that a controller-side stale-selection gate is causal and transferable. H2b isolated residual exactness; H2c/H2d exposed the transfer tradeoff; H2e reconciled it. H2f then broke global H2e promotion, H2h repaired H2f but regressed H2b/H1x, and H2i showed conditional prompt prose did not preserve the H2f repair. H2j moved the useful repair into controller-visible target-query normalization. H2k/H2l/H2m then separated target-normalization benefit from value-bearing over-strip risk. H2n scoped the normalizer, H2o constructed value-bearing target queries, H2p routed contextual surface aliases, and H2q broke that stack under composed surface/value/stale pressure. H2r locally repaired H2q at `8 / 8`, passed transfer at `81 / 81` strict and executor-equivalent across nine transfer packets, and then passed fresh H2s at `10 / 10` strict and executor-equivalent with H2p/H2o at `3 / 10` and H2j at `1 / 10`. H2t broke H2r's apparent saturation: H2r/H2p/H2o/H2j tied at `8 / 10`, H2e reached `6 / 10` strict but `9 / 10` executor-equivalent, and the two H2r misses were raw-exact MLX calls overwritten by controller target-query normalization and then by composed-route gating. H2u fixed that pipeline-order failure: it reaches `10 / 10` on H2t, preserves `26 / 26` strict/executor-equivalent across H2s/H2q/H2m, preserves another `39 / 39` across H2k/H2l/H2f/H2b/H1x, and closes older H1y/H1o/H1p at `34 / 34`, for a current broad transfer subtotal of `99 / 99`. H2v then broke the apparent H2u saturation: H2u is `4 / 10` strict and `5 / 10` executor-equivalent, H2r and H2j are both `3 / 10` strict and `4 / 10` executor-equivalent. H2w repairs that H2v boundary locally at `10 / 10` strict and executor-equivalent, with `+0.60` exact-rate and `+0.50` executor-equivalence-rate gains over H2u. The next move is an H2w transfer backtest, then a packaged workflow transfer gate only if the replay-shaped semantics survive older packets.
 
 Execution order:
 
@@ -34,7 +34,7 @@ Execution order:
 26. Treat H2u as the current narrow repair: it adds a negation-aware guard across target-query normalization and composed-route gating, reaches `10 / 10` on H2t, and fixes the two H2t negation-scope rows.
 27. Treat H2u transfer as current-transfer-positive but not semantically complete: it preserves H2s/H2q/H2m at `26 / 26`, H2k/H2l/H2f/H2b/H1x at `39 / 39`, and H1y/H1o/H1p at `34 / 34`, for `99 / 99` total, but H2v breaks global promotion.
 28. Treat H2v as the current boundary packet: it separates quoted negation, instructional negation, stale-example captions, genuine negated targets, and a clean control; H2u improves by only one strict/executor case over H2r/H2j.
-29. Treat H2w as the next repair design: preserve genuine negated target values with component qualifiers while still ignoring negated quote/note/caption/example context.
+29. Treat H2w as local positive evidence, not global promotion: it reaches `10 / 10` strict and executor-equivalent on H2v, fixes `6` H2u strict misses, records `4` semantic-preservation interventions and `3` component-qualified value canonicalizations, and still needs transfer backtests because it adds a more permissive semantic selector plus bounded no-call fallback.
 30. Score both strict exactness and executor-equivalence; do not collapse executor-valid paraphrases into failures when evaluating live usefulness.
 31. Keep packaged workflows paused for this line unless they preserve the same replay-shaped pressure; H1l/H1m already showed packaged visual surfaces can wash out the mechanism.
 
@@ -48,15 +48,16 @@ uv run python scripts/build_h2t_overreach_independence_synthesis.py
 uv run python scripts/build_h2u_negation_guard_synthesis.py
 uv run python scripts/build_visual_hard_slice_live_stress_packet.py --suite h2v_semantic_negation_v23 --run-group-id 20260513T_h2v_semantic_negation_dry_run_v1
 uv run python scripts/build_h2v_semantic_negation_synthesis.py
+uv run python scripts/build_h2w_semantic_target_preservation_synthesis.py
 uv run python scripts/build_publication_evidence_ledger.py
 uv run python scripts/audit_publication_readiness.py
 rg -n "visual_composed_route_gating|visual_contextual_surface_alias_routing|visual_value_bearing_target_query_synthesis|visual_stale_selection_gate|refine_selection|target_query_normalization" src/gemma4_capability_map configs tests
 ```
 
-Then validate H2u's remaining risk in small slices:
+Then validate H2w's remaining risk in small slices:
 
-- design H2w from H2v's exact failure split: stale-example rows need context-oldness protection, while genuine negated target rows need component-qualified value preservation
-- rerun H2w against H2v and compare against H2u, H2r, and H2j
+- run H2w on H2s/H2t/H2m/H2k/H2l/H2f/H2b/H1x/H1y/H1o/H1p as an explicit transfer backtest
+- compare H2w against H2u and H2r on each transfer packet before any packaged workflow port
 - keep H2e as an executor-equivalence tradeoff control only if H2w changes lower-level routing enough to need that baseline again
 - if packaged transfer is chosen next, port H2q/H2s/H2t pressure into attributable workflow families without letting workflow scaffolding resolve the case before the model/controller sees it
 - use H2r transfer synthesis as the current incumbent transfer gate

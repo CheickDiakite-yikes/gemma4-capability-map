@@ -151,7 +151,7 @@ The freshest MLX evidence is now H1h/H1i/H1g:
   - exact JSON copy `7 / 8`
   - visual selector paraphrase executable target `1 / 1`
 
-The freshest replay-shaped visual controller evidence is now H2v:
+The freshest replay-shaped visual controller evidence is now H2w:
 
 - H2j target-query normalization proved the repair can be controller-attributable rather than prompt-prose-attributable:
   - H2f: `10 / 10`
@@ -253,11 +253,19 @@ The freshest replay-shaped visual controller evidence is now H2v:
   - H2v comparisons: [`H2u-vs-H2r`](../../results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2u_vs_h2r_v1), [`H2u-vs-H2j`](../../results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2u_vs_h2j_v1), [`H2r-vs-H2j`](../../results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2r_vs_h2j_v1)
   - H2u reaches `4 / 10` strict and `5 / 10` executor-equivalent; H2r and H2j each reach `3 / 10` strict and `4 / 10` executor-equivalent.
   - H2u solves the instructional-negation rows and one quoted-context row, but misses stale-example context and all genuine negated-target rows under strict exactness.
+- H2w is the local semantic target-preservation repair:
+  - synthesis: [`results/reports/h2w_semantic_target_preservation_synthesis/report.md`](../../results/reports/h2w_semantic_target_preservation_synthesis/report.md)
+  - figure: [`results/reports/h2w_semantic_target_preservation_synthesis/figures/h2w_semantic_target_preservation_gate.svg`](../../results/reports/h2w_semantic_target_preservation_synthesis/figures/h2w_semantic_target_preservation_gate.svg)
+  - H2w live packet: [`results/tool_probe_replay_live/20260513T_h2v_semantic_negation_h2w_execute_v1`](../../results/tool_probe_replay_live/20260513T_h2v_semantic_negation_h2w_execute_v1)
+  - H2w comparisons: [`H2w-vs-H2u`](../../results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2w_vs_h2u_v1), [`H2w-vs-H2r`](../../results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2w_vs_h2r_v1), [`H2w-vs-H2j`](../../results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2w_vs_h2j_v1)
+  - H2w reaches `10 / 10` strict and executor-equivalent, improving over H2u by `+0.60` strict exact-rate and `+0.50` executor-equivalence-rate.
+  - mechanism: `4` semantic-preservation interventions, `3` component-qualified value canonicalizations, `1` stale-selection gate, and `1` composed-route block.
+  - final H2v H2w evidence does not exercise the bounded no-call visual fallback; the fallback remains a transfer-risk to backtest.
 - next controller question:
-  - build H2w semantic target preservation from H2v's stale-example and genuine-negated-target failures
-  - compare H2w against H2u, H2r, and H2j on the same H2v packet before adding packaged workflow pressure
-  - port the same pressure into packaged workflow transfer so the CLI harness remains attributable to workflow families
-  - keep packaged transfer paused only until the replay-shaped H2w guard semantics are explicit enough to avoid workflow scaffolding solving the case first
+  - run H2w transfer backtests over H2s/H2t/H2m/H2k/H2l/H2f/H2b/H1x/H1y/H1o/H1p
+  - compare H2w against H2u and H2r on each transfer packet before adding packaged workflow pressure
+  - port the same pressure into packaged workflow transfer only after replay-shaped H2w semantics are explicit enough to avoid workflow scaffolding solving the case first
+  - keep packaged transfer paused until the semantic selector and bounded no-call fallback pass overreach checks
 
 ## Direction Reset
 

@@ -1109,7 +1109,11 @@ def test_semantic_target_preservation_ignores_stale_example_negation() -> None:
         preserve_semantic_targets=True,
     )
 
-    assert patched == turn
+    assert patched.normalized_tool_call == turn.normalized_tool_call
+    metadata = patched.runtime_metadata["visual_semantic_target_preservation"][0]
+    assert metadata["preserved_target_query"] == "review tile"
+    assert metadata["blocked_label"] == "stale caption"
+    assert metadata["reason"] == "semantic_label_preserved_over_stale_context"
 
 
 def test_semantic_target_preservation_routes_invalid_selection_to_current_target() -> None:

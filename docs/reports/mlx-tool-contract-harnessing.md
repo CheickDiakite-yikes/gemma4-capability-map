@@ -24,6 +24,8 @@ The sharpest new movement is in the visual catalog line. A catalog-only role pro
 
 H2t updates that conclusion: H2r is transfer-positive and H2s-positive, but not yet globally safe. On H2t, H2r/H2p/H2o/H2j tie at `8 / 10`, H2e reaches `6 / 10` strict and `9 / 10` executor-equivalent, and the two H2r misses are raw-exact MLX calls rewritten by target-query normalization from `metric panel` and `summary tile` to `training note` and `caption`. H2u is the first tested answer: it makes both target-query normalization and composed-route gating negation-aware, repairs H2t to `10 / 10`, and preserves `99 / 99` strict and executor-equivalent across the current H2s/H2q/H2m/H2k/H2l/H2f/H2b/H1x/H1y/H1o/H1p transfer subtotal. H2v then breaks the apparent saturation: H2u reaches `4 / 10` strict and `5 / 10` executor-equivalent, while H2r and H2j each reach `3 / 10` strict and `4 / 10` executor-equivalent. H2u helps by one quoted-negation row, but stale-example context and genuine negated targets remain unsolved under strict exactness.
 
+H2w is the local semantic repair for H2v. It adds semantic target preservation on top of H2u and reaches `10 / 10` strict and executor-equivalent on the same H2v packet. Relative to H2u, H2w fixes `6` strict misses with `+0.60` exact-rate and `+0.50` executor-equivalence-rate gains. The mechanism is mixed and attributable: `4` semantic-preservation interventions prevent stale/quoted context from hijacking the requested layout target, `3` target-query normalizations canonicalize genuine negated values into component-qualified labels, `1` stale-selection gate repairs the stale risk-lane row, and `1` composed-route block remains active. H2w is not yet a global promotion because the semantic selector and bounded no-call visual fallback need transfer backtesting across the older H2 and H1 packets.
+
 That means the next useful work is not broad leaderboard reruns or UI polish. It is a CLI-first, benchmark-backed harness loop around:
 
 - tool-call contract prompts
@@ -94,6 +96,8 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 ![H2u negation guard transfer gate](../../results/reports/h2u_negation_guard_synthesis/figures/h2u_negation_guard_transfer_gate.svg)
 
 ![H2v semantic negation gate](../../results/reports/h2v_semantic_negation_synthesis/figures/h2v_semantic_negation_gate.svg)
+
+![H2w semantic target preservation gate](../../results/reports/h2w_semantic_target_preservation_synthesis/figures/h2w_semantic_target_preservation_gate.svg)
 
 ![H1m visual alias-repeat burden](../../results/reports/mlx_tool_contract_harnessing/figures/h1m_visual_alias_repeat_burden.svg)
 
@@ -1105,8 +1109,8 @@ Use this order before broad `32 / 26` reruns:
 8. Keep canonical JSON copy and parallel two-call wording out of H1 as currently written; they did not earn live promotion.
 9. H1h only after replay-live, raw probe, hard-slice, or less staged live evidence shows a mechanism-level change.
 10. Gemini CLI real execution only when the binary/run environment is explicitly meant to be part of the comparison.
-11. Treat H2v as the current semantic boundary: H2u is transfer-positive but not globally promoted because genuine negated values and stale-example context still fail.
-12. Build H2w before packaged workflow transfer: preserve component-qualified genuine negated targets (`status badge Not ready`, `reason chip Not applicable`) while still ignoring negated note/caption/example context.
+11. Treat H2v as the semantic boundary that broke H2u: H2u is transfer-positive but not semantic-complete because genuine negated values and stale-example context still fail.
+12. Treat H2w as local positive evidence, not global promotion: it repairs H2v to `10 / 10`, but its semantic selector and bounded no-call visual fallback need transfer backtesting before packaged workflow transfer.
 13. Runtime live-smoke packets after benchmark movement, to confirm the CLI operator path sees the same repair/fallback pattern.
 
 Acceptance criteria for a useful candidate:
@@ -1132,6 +1136,7 @@ When a new H1i/H1h/probe wave runs, update the report by rerunning:
 uv run python scripts/build_visual_hard_slice_design.py
 uv run python scripts/run_visual_hard_slice_probe_packet.py --run-group-id <timestamp>_visual_hard_slice_probe --execute
 uv run python scripts/build_h2v_semantic_negation_synthesis.py
+uv run python scripts/build_h2w_semantic_target_preservation_synthesis.py
 uv run python scripts/build_mlx_tool_contract_report.py
 uv run python scripts/build_publication_evidence_ledger.py
 uv run python scripts/audit_publication_readiness.py

@@ -710,6 +710,7 @@ def _apply_visual_value_bearing_target_query_synthesis(
     synthesis_rows: list[dict[str, Any]] = []
     normalization_rows: list[dict[str, Any]] = []
     blocked_rows: list[dict[str, Any]] = []
+    semantic_rows: list[dict[str, Any]] = []
     for call in turn.normalized_tool_call:
         synthesis = _visual_value_bearing_target_query_synthesis_replacement(
             call=call,
@@ -734,6 +735,19 @@ def _apply_visual_value_bearing_target_query_synthesis(
             patched_calls.append(call)
             blocked_rows.append(negation_scope_block)
             continue
+        semantic_preservation = (
+            _visual_semantic_target_preservation_row(
+                call=call,
+                case=case,
+                prompt_state_label=prompt_state_label,
+            )
+            if preserve_semantic_targets
+            else None
+        )
+        if semantic_preservation is not None:
+            patched_calls.append(call)
+            semantic_rows.append(semantic_preservation)
+            continue
         replacement = _visual_target_query_normalization_replacement(
             call=call,
             prompt_state_label=prompt_state_label,
@@ -752,7 +766,7 @@ def _apply_visual_value_bearing_target_query_synthesis(
             }
         )
 
-    if not synthesis_rows and not normalization_rows and not blocked_rows:
+    if not synthesis_rows and not normalization_rows and not blocked_rows and not semantic_rows:
         return turn
     metadata = dict(turn.runtime_metadata)
     if synthesis_rows:
@@ -761,6 +775,8 @@ def _apply_visual_value_bearing_target_query_synthesis(
         metadata["visual_target_query_normalization"] = normalization_rows
     if blocked_rows:
         metadata["visual_target_query_normalization_blocked"] = blocked_rows
+    if semantic_rows:
+        metadata["visual_semantic_target_preservation"] = semantic_rows
     return turn.model_copy(update={"normalized_tool_call": patched_calls, "runtime_metadata": metadata})
 
 
@@ -1401,6 +1417,35 @@ def _visual_semantic_target_label_from_state(case: ToolDirectiveProbeCase) -> st
     if not candidates:
         return ""
     return sorted(candidates, key=lambda item: (-item[0], item[1]["source_index"]))[0][1]["label"]
+
+
+def _visual_semantic_target_preservation_row(
+    *,
+    call: ToolCall,
+    case: ToolDirectiveProbeCase,
+    prompt_state_label: str,
+) -> dict[str, Any] | None:
+    if call.name != "extract_layout":
+        return None
+    target_query = str(call.arguments.get("target_query", "")).strip()
+    if not target_query or target_query != prompt_state_label:
+        return None
+
+    legacy_label = _visual_target_label_from_state(case, preserve_semantic_targets=False)
+    semantic_label = _visual_semantic_target_label_from_state(case)
+    if not semantic_label or legacy_label == semantic_label:
+        return None
+
+    return {
+        "from_tool": call.name,
+        "from_arguments": call.arguments,
+        "to_tool": call.name,
+        "to_arguments": call.arguments,
+        "prompt_state_label": semantic_label,
+        "preserved_target_query": target_query,
+        "blocked_label": legacy_label,
+        "reason": "semantic_label_preserved_over_stale_context",
+    }
 
 
 def _visual_semantic_label_phrases(label: str) -> tuple[str, ...]:

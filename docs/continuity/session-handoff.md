@@ -22,7 +22,7 @@ Treat the older H1/HF and React notes below as historical context unless they ar
 
 Current strongest MLX result:
 
-- H2v semantic negation is the freshest visual harnessing result:
+- H2w semantic target preservation is the freshest visual harnessing result:
   - H2e still reaches `5 / 5` on H2b and `8 / 8` on H1x, so route arbitration remains valid mechanism evidence.
   - Fresh H2f broke global H2e promotion: H2e and H2c tie at `6 / 10`, while no-directive is only `1 / 10`.
   - H2h component-identity negative examples are scoped positive but globally negative: `9 / 10` on H2f, then `3 / 5` on H2b and `6 / 8` on H1x.
@@ -65,6 +65,11 @@ Current strongest MLX result:
   - H2v breaks the apparent H2u saturation: H2u reaches `4 / 10` strict and `5 / 10` executor-equivalent, while H2r and H2j each reach `3 / 10` strict and `4 / 10` executor-equivalent.
   - H2u's only strict H2v gain over H2r/H2j is `h2v_metric_panel_quoted_not_label_note`.
   - H2v leaves both stale-example rows and all three genuine negated-target rows non-exact under H2u, so the next repair is semantic target preservation rather than more same-family transfer.
+  - H2w semantic target preservation repairs H2v locally: `10 / 10` strict and `10 / 10` executor-equivalent.
+  - H2w improves over H2u by `+0.60` exact-rate and `+0.50` executor-equivalence-rate, and over H2r/H2j by `+0.70` exact-rate and `+0.60` executor-equivalence-rate.
+  - H2w fixes `6` H2u strict misses and reaches exactness in all H2v families: quoted negation, instructional negation, stale-example negation, genuine negated target, and clean control.
+  - H2w records `4` semantic-preservation interventions, `3` target-query normalizations for component-qualified genuine negated values, `1` stale-selection gate, and `1` composed-route block.
+  - H2w is not globally promoted yet: the next move is transfer backtesting across H2s/H2t/H2m/H2k/H2l/H2f/H2b/H1x/H1y/H1o/H1p before packaged workflow porting.
   - H2f synthesis: [`results/reports/h2f_route_arbitration_holdout_synthesis/report.md`](../../results/reports/h2f_route_arbitration_holdout_synthesis/report.md)
   - H2f figure: [`results/reports/h2f_route_arbitration_holdout_synthesis/figures/h2f_holdout_profile_bars.svg`](../../results/reports/h2f_route_arbitration_holdout_synthesis/figures/h2f_holdout_profile_bars.svg)
   - H2h tradeoff synthesis: [`results/reports/h2h_component_identity_tradeoff_synthesis/report.md`](../../results/reports/h2h_component_identity_tradeoff_synthesis/report.md)
@@ -125,9 +130,13 @@ Current strongest MLX result:
   - H2v semantic-negation dry-run packet: [`results/tool_probe_replay_packets/20260513T_h2v_semantic_negation_dry_run_v1`](../../results/tool_probe_replay_packets/20260513T_h2v_semantic_negation_dry_run_v1)
   - H2v live packets: [`H2j`](../../results/tool_probe_replay_live/20260513T_h2v_semantic_negation_h2j_execute_v1), [`H2r`](../../results/tool_probe_replay_live/20260513T_h2v_semantic_negation_h2r_execute_v1), [`H2u`](../../results/tool_probe_replay_live/20260513T_h2v_semantic_negation_h2u_execute_v1)
   - H2v comparisons: [`H2u-vs-H2r`](../../results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2u_vs_h2r_v1), [`H2u-vs-H2j`](../../results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2u_vs_h2j_v1), [`H2r-vs-H2j`](../../results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2r_vs_h2j_v1)
+  - H2w synthesis: [`results/reports/h2w_semantic_target_preservation_synthesis/report.md`](../../results/reports/h2w_semantic_target_preservation_synthesis/report.md)
+  - H2w figure: [`results/reports/h2w_semantic_target_preservation_synthesis/figures/h2w_semantic_target_preservation_gate.svg`](../../results/reports/h2w_semantic_target_preservation_synthesis/figures/h2w_semantic_target_preservation_gate.svg)
+  - H2w H2v live packet: [`results/tool_probe_replay_live/20260513T_h2v_semantic_negation_h2w_execute_v1`](../../results/tool_probe_replay_live/20260513T_h2v_semantic_negation_h2w_execute_v1)
+  - H2w comparisons: [`H2w-vs-H2u`](../../results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2w_vs_h2u_v1), [`H2w-vs-H2r`](../../results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2w_vs_h2r_v1), [`H2w-vs-H2j`](../../results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2w_vs_h2j_v1)
   - H2r H2q live packet: [`results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2q_execute_v2`](../../results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2q_execute_v2)
   - H2r comparison: [`H2r-vs-H2p`](../../results/tool_probe_replay_live_comparisons/20260512T_h2r_composed_route_gating_vs_h2p_on_h2q_v2)
-  - next restart move: design H2w semantic target preservation from H2v's stale-example and genuine-negated-target failures, then rerun H2v before any packaged workflow port.
+  - next restart move: run the H2w transfer backtest, then decide whether to port the same semantic pressure into packaged workflows.
 - H1h proves the no-directive causal ordering across all ten live workflow families.
 - H1i compresses the worst H1h workflow families into the current fast loop.
 - contracted MLX on H1i is clean at readiness `0.97710`, strict/recovered `1.0 / 1.0`, raw clean `1.0`.
@@ -297,17 +306,17 @@ Current strongest MLX result:
 Current next loop:
 
 1. Treat H2u as the current tested negation-scope repair, not just a proposed follow-up: it fixes H2t and preserves H2s/H2q/H2m/H2k/H2l/H2f/H2b/H1x/H1y/H1o/H1p.
-2. Treat same-family transfer as closed at `99 / 99`, but global promotion as blocked by H2v.
-3. Treat H2v as the current harder negation semantics gate: quoted negation, instructional negation, stale example captions, and genuine target negation are separated rather than collapsed into one guard.
-4. Build H2w next around semantic target preservation, not another broad prose rule.
-4. Treat H1i, H1j, and H1k packaged packets as saturated or non-discriminating for current prompt-contract validation.
-5. Treat waves one through six as partial-gain or negative/composition evidence, not fixes.
-6. Treat `visual_role_catalog_argument_hints_v2` as the best exact candidate on the old focused visual replay, with the explicit caveat that it lost executable form-target recovery.
-7. Treat `visual_role_catalog_schema_field_hints_v4` as the strongest fresh hard-slice no-directive candidate because it reaches `8 / 8` executor-equivalent, with the explicit caveat that it still misses exact protocol on two cases.
-8. Treat `visual_role_catalog_schema_literal_targets_v5` as negative evidence: it did not fix the two v4 executable paraphrases and introduced a wrong-tool stale-selection regression.
-9. Treat H1l/H1m as negative packaged-workflow results for this mechanism line: the current packaged visual workflows saturate and do not preserve hard-slice executor-equivalence discriminators.
-10. Keep Gemini CLI as an external baseline/reference, not a replacement for Moonie's local Gemma harness.
-11. Regenerate the report, publication ledger, publication audit, and visual hard-slice packet summaries after any H1i/H1h/probe/Gemini/live-replay packet change.
+2. Treat same-family H2u transfer as closed at `99 / 99`, but global H2w promotion as blocked until transfer backtesting.
+3. Treat H2v as the current harder negation semantics gate and H2w as the local repair: quoted negation, instructional negation, stale example captions, and genuine target negation are separated rather than collapsed into one guard.
+4. Backtest H2w next around transfer safety, not another broad prose rule.
+5. Treat H1i, H1j, and H1k packaged packets as saturated or non-discriminating for current prompt-contract validation.
+6. Treat waves one through six as partial-gain or negative/composition evidence, not fixes.
+7. Treat `visual_role_catalog_argument_hints_v2` as the best exact candidate on the old focused visual replay, with the explicit caveat that it lost executable form-target recovery.
+8. Treat `visual_role_catalog_schema_field_hints_v4` as the strongest fresh hard-slice no-directive candidate because it reaches `8 / 8` executor-equivalent, with the explicit caveat that it still misses exact protocol on two cases.
+9. Treat `visual_role_catalog_schema_literal_targets_v5` as negative evidence: it did not fix the two v4 executable paraphrases and introduced a wrong-tool stale-selection regression.
+10. Treat H1l/H1m as negative packaged-workflow results for this mechanism line: the current packaged visual workflows saturate and do not preserve hard-slice executor-equivalence discriminators.
+11. Keep Gemini CLI as an external baseline/reference, not a replacement for Moonie's local Gemma harness.
+12. Regenerate the report, publication ledger, publication audit, and visual hard-slice packet summaries after any H1i/H1h/probe/Gemini/live-replay packet change.
 
 H1l source:
 
