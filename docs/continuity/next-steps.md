@@ -2,7 +2,7 @@
 
 ## Current Best Next Moves
 
-The next move is not another broad prompt-contract paragraph, not another H2e/H2j victory lap, and not more tuning on the H2q rows. H1y/H1z showed that prompt/catalog prose alone did not solve stale selection-origin routing. H2a showed that a controller-side stale-selection gate is causal and transferable. H2b isolated residual exactness; H2c/H2d exposed the transfer tradeoff; H2e reconciled it. H2f then broke global H2e promotion, H2h repaired H2f but regressed H2b/H1x, and H2i showed conditional prompt prose did not preserve the H2f repair. H2j moved the useful repair into controller-visible target-query normalization. H2k/H2l/H2m then separated target-normalization benefit from value-bearing over-strip risk. H2n scoped the normalizer, H2o constructed value-bearing target queries, H2p routed contextual surface aliases, and H2q broke that stack under composed surface/value/stale pressure. H2r locally repaired H2q at `8 / 8`, passed transfer at `81 / 81` strict and executor-equivalent across nine transfer packets, and then passed fresh H2s at `10 / 10` strict and executor-equivalent with H2p/H2o at `3 / 10` and H2j at `1 / 10`. H2t has now broken H2r's apparent saturation: H2r/H2p/H2o/H2j tie at `8 / 10`, H2e reaches `6 / 10` strict but `9 / 10` executor-equivalent, and the two H2r misses are raw-exact MLX calls overwritten by controller target-query normalization. The next move is H2u: a negation-aware target-query normalization guard, followed by transfer gates back over H2t, H2s, H2q, H2m, H2k, H2l, H2f, H2b, and H1x.
+The next move is not another broad prompt-contract paragraph, not another H2e/H2j victory lap, and not more tuning on the H2q rows. H1y/H1z showed that prompt/catalog prose alone did not solve stale selection-origin routing. H2a showed that a controller-side stale-selection gate is causal and transferable. H2b isolated residual exactness; H2c/H2d exposed the transfer tradeoff; H2e reconciled it. H2f then broke global H2e promotion, H2h repaired H2f but regressed H2b/H1x, and H2i showed conditional prompt prose did not preserve the H2f repair. H2j moved the useful repair into controller-visible target-query normalization. H2k/H2l/H2m then separated target-normalization benefit from value-bearing over-strip risk. H2n scoped the normalizer, H2o constructed value-bearing target queries, H2p routed contextual surface aliases, and H2q broke that stack under composed surface/value/stale pressure. H2r locally repaired H2q at `8 / 8`, passed transfer at `81 / 81` strict and executor-equivalent across nine transfer packets, and then passed fresh H2s at `10 / 10` strict and executor-equivalent with H2p/H2o at `3 / 10` and H2j at `1 / 10`. H2t broke H2r's apparent saturation: H2r/H2p/H2o/H2j tied at `8 / 10`, H2e reached `6 / 10` strict but `9 / 10` executor-equivalent, and the two H2r misses were raw-exact MLX calls overwritten by controller target-query normalization and then by composed-route gating. H2u now fixes that pipeline-order failure: it reaches `10 / 10` on H2t and preserves `26 / 26` strict/executor-equivalent across H2s/H2q/H2m. The next move is broader H2u transfer plus a harder H2v/H3 negation packet.
 
 Execution order:
 
@@ -30,10 +30,11 @@ Execution order:
 22. Treat H2r's current transfer as necessary but not sufficient: H2r was designed after seeing H2q, so publication-grade promotion required a frozen-policy H2s holdout.
 23. Treat H2s as fresh positive holdout evidence: frozen H2r reaches `10 / 10` strict and executor-equivalent, H2p and H2o each reach `3 / 10`, H2j reaches `1 / 10`, and H2r records `7` composed route gates, `2` value-bearing syntheses, and `4` target normalizations.
 24. Treat H2t as the first real H2r independence breaker: H2r/H2p/H2o/H2j all reach `8 / 10`, while H2e reaches `6 / 10` strict and `9 / 10` executor-equivalent.
-25. Treat the two H2t H2r misses as controller-induced, not model-induced: raw MLX emitted `metric panel` and `summary tile`, then target-query normalization rewrote them to `training note` and `caption`.
-26. Build H2u as a negation-aware target-query normalization guard before any packaged transfer claim.
-27. Score both strict exactness and executor-equivalence; do not collapse executor-valid paraphrases into failures when evaluating live usefulness.
-28. Keep packaged workflows paused for this line unless they preserve the same replay-shaped pressure; H1l/H1m already showed packaged visual surfaces can wash out the mechanism.
+25. Treat the two H2t H2r misses as controller-induced, not model-induced: raw MLX emitted `metric panel` and `summary tile`, then target-query normalization and composed-route gating rewrote them to `training note` and `caption`.
+26. Treat H2u as the current narrow repair: it adds a negation-aware guard across target-query normalization and composed-route gating, reaches `10 / 10` on H2t, and fixes the two H2t negation-scope rows.
+27. Treat H2u transfer as promising but incomplete: it preserves H2s/H2q/H2m at `26 / 26`, but still needs the full H2r transfer backtest plus H2b/H2f/H2k/H2l/H1x before global promotion.
+28. Score both strict exactness and executor-equivalence; do not collapse executor-valid paraphrases into failures when evaluating live usefulness.
+29. Keep packaged workflows paused for this line unless they preserve the same replay-shaped pressure; H1l/H1m already showed packaged visual surfaces can wash out the mechanism.
 
 Immediate suggested command:
 
@@ -42,15 +43,16 @@ uv run python scripts/build_h2r_composed_route_gating_synthesis.py
 uv run python scripts/build_h2r_transfer_backtest_synthesis.py
 uv run python scripts/build_h2s_fresh_composed_holdout_synthesis.py
 uv run python scripts/build_h2t_overreach_independence_synthesis.py
+uv run python scripts/build_h2u_negation_guard_synthesis.py
 uv run python scripts/build_publication_evidence_ledger.py
 uv run python scripts/audit_publication_readiness.py
 rg -n "visual_composed_route_gating|visual_contextual_surface_alias_routing|visual_value_bearing_target_query_synthesis|visual_stale_selection_gate|refine_selection|target_query_normalization" src/gemma4_capability_map configs tests
 ```
 
-Then build H2u in small slices:
+Then validate H2u in small slices:
 
-- add a guard so target-query normalization does not rewrite an exact current layout label to a note/caption label introduced only by negation or explanatory context
-- run H2u first on H2t, then immediately back over H2s/H2q/H2m/H2k/H2l/H2f/H2b/H1x
+- run H2u over H2k/H2l/H2f/H2b/H1x and the remaining H2r transfer-backtest packets
+- design H2v/H3 cases that separate quoted negation, instructional negation, old-example captions, and genuinely negated current targets
 - keep H2e as the executor-equivalence tradeoff control while testing H2u
 - if packaged transfer is chosen next, port H2q/H2s/H2t pressure into attributable workflow families without letting workflow scaffolding resolve the case before the model/controller sees it
 - use H2r transfer synthesis as the current incumbent transfer gate

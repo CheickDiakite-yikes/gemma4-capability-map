@@ -2262,6 +2262,103 @@ def audit_publication_readiness(
             detail="H2t overreach-independence synthesis figure exists.",
         ),
         _check_path(
+            check_id="h2u_negation_guard_h2t_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260513T_h2t_overreach_independence_h2u_execute_v2"
+            / "summary.json",
+            detail="H2u negation guard live replay on H2t exists.",
+        ),
+        _check_path(
+            check_id="h2u_negation_guard_h2t_vs_h2r_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260513T_h2u_negation_guard_vs_h2r_on_h2t_v1"
+            / "live_replay_comparison.json",
+            detail="H2u versus H2r comparison on H2t exists.",
+        ),
+        _check_path(
+            check_id="h2u_negation_guard_h2s_transfer_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260513T_h2u_negation_guard_on_h2s_execute_v1"
+            / "summary.json",
+            detail="H2u transfer replay on H2s exists.",
+        ),
+        _check_path(
+            check_id="h2u_negation_guard_h2q_transfer_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260513T_h2u_negation_guard_on_h2q_execute_v1"
+            / "summary.json",
+            detail="H2u transfer replay on H2q exists.",
+        ),
+        _check_path(
+            check_id="h2u_negation_guard_h2m_transfer_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260513T_h2u_negation_guard_on_h2m_execute_v1"
+            / "summary.json",
+            detail="H2u transfer replay on H2m exists.",
+        ),
+        _check_path(
+            check_id="h2u_negation_guard_transfer_comparisons_exist",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260513T_h2u_negation_guard_vs_h2r_on_h2s_v1"
+            / "live_replay_comparison.json",
+            detail="H2u transfer comparison on H2s exists; H2q/H2m are covered by neighboring checks.",
+        ),
+        _check_path(
+            check_id="h2u_negation_guard_h2q_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260513T_h2u_negation_guard_vs_h2r_on_h2q_v1"
+            / "live_replay_comparison.json",
+            detail="H2u transfer comparison on H2q exists.",
+        ),
+        _check_path(
+            check_id="h2u_negation_guard_h2m_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260513T_h2u_negation_guard_vs_h2r_on_h2m_v1"
+            / "live_replay_comparison.json",
+            detail="H2u transfer comparison on H2m exists.",
+        ),
+        _check_path(
+            check_id="h2u_negation_guard_synthesis_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "h2u_negation_guard_synthesis" / "report.md",
+            detail="H2u negation guard synthesis report exists.",
+        ),
+        _check_path(
+            check_id="h2u_negation_guard_report_figure_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "h2u_negation_guard_synthesis"
+            / "figures"
+            / "h2u_negation_guard_transfer_gate.svg",
+            detail="H2u negation guard synthesis figure exists.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",
@@ -2326,6 +2423,7 @@ def audit_publication_readiness(
         "build_h2r_composed_route_gating_synthesis.py",
         "build_h2s_fresh_composed_holdout_synthesis.py",
         "build_h2t_overreach_independence_synthesis.py",
+        "build_h2u_negation_guard_synthesis.py",
         "compare_tool_directive_probes.py",
         "build_visual_hard_slice_design.py",
         "build_visual_hard_slice_replay_packet.py",

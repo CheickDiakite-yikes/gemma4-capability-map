@@ -1,0 +1,6 @@
+finding_id,finding
+h2u_repairs_h2t_negation_scope,"H2u raises H2t from H2r's 8/10 strict to 10/10 strict, with delta 0.20 exact-rate and 0.20 executor-equivalence-rate."
+h2u_fix_is_pipeline_ordered,"The repaired H2t rows are h2t_metric_panel_negation_scope_note, h2t_summary_tile_negation_scope_caption. H2u records 4 H2t blocked-guard interventions, covering both target normalization and composed-route gating."
+h2u_transfer_preserves_h2r,"H2u preserves 26/26 strict exactness across H2s, H2q, and H2m, with zero exact-rate and executor-equivalence-rate deltas versus H2r on all three transfer checks."
+h2u_guard_fires_without_transfer_cost,"H2u records 2 blocked transfer interventions outside H2t, but those rows remain exact. This suggests the guard is not merely inactive on transfer; it can fire conservatively without breaking prior wins."
+h2u_no_remaining_non_exact_rows,"Across the H2u packets summarized here, H2u has 0 non-exact rows. The next risk is broader transfer coverage rather than this local H2t/H2s/H2q/H2m slice."

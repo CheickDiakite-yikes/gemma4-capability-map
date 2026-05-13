@@ -22,7 +22,7 @@ Treat the older H1/HF and React notes below as historical context unless they ar
 
 Current strongest MLX result:
 
-- H2t overreach-independence is the freshest visual harnessing result:
+- H2u negation guard is the freshest visual harnessing result:
   - H2e still reaches `5 / 5` on H2b and `8 / 8` on H1x, so route arbitration remains valid mechanism evidence.
   - Fresh H2f broke global H2e promotion: H2e and H2c tie at `6 / 10`, while no-directive is only `1 / 10`.
   - H2h component-identity negative examples are scoped positive but globally negative: `9 / 10` on H2f, then `3 / 5` on H2b and `6 / 8` on H1x.
@@ -57,6 +57,10 @@ Current strongest MLX result:
   - H2s records `7` composed route gates, `2` value-bearing syntheses, and `4` target-query normalizations on the H2r row, while the clean H2j control records no helper metadata.
   - H2t then breaks H2r saturation with an overreach-independence holdout: H2r/H2p/H2o/H2j all reach `8 / 10` strict and executor-equivalent, while H2e reaches `6 / 10` strict but `9 / 10` executor-equivalent.
   - H2t isolates a controller-induced regression: raw MLX emits the expected `metric panel` and `summary tile` calls, then target-query normalization rewrites them to `training note` and `caption`.
+  - H2u repairs that H2t regression by preserving negated exact layout targets across both target-query normalization and composed-route gating.
+  - H2u reaches `10 / 10` strict and executor-equivalent on H2t, a `+0.20` exact-rate and executor-equivalence-rate gain over H2r.
+  - H2u preserves the first transfer gates across H2s/H2q/H2m at `26 / 26` strict and executor-equivalent, with `0.0` aggregate exact-rate delta versus H2r.
+  - H2u records `6` blocked guard interventions across the current synthesis: `4` on H2t and `2` harmless transfer blocks.
   - H2f synthesis: [`results/reports/h2f_route_arbitration_holdout_synthesis/report.md`](../../results/reports/h2f_route_arbitration_holdout_synthesis/report.md)
   - H2f figure: [`results/reports/h2f_route_arbitration_holdout_synthesis/figures/h2f_holdout_profile_bars.svg`](../../results/reports/h2f_route_arbitration_holdout_synthesis/figures/h2f_holdout_profile_bars.svg)
   - H2h tradeoff synthesis: [`results/reports/h2h_component_identity_tradeoff_synthesis/report.md`](../../results/reports/h2h_component_identity_tradeoff_synthesis/report.md)
@@ -107,9 +111,14 @@ Current strongest MLX result:
   - H2t dry-run packet: [`results/tool_probe_replay_packets/20260512T_h2t_overreach_independence_dry_run_v1`](../../results/tool_probe_replay_packets/20260512T_h2t_overreach_independence_dry_run_v1)
   - H2t live packets: [`H2r`](../../results/tool_probe_replay_live/20260512T_h2t_overreach_independence_h2r_execute_v1), [`H2p`](../../results/tool_probe_replay_live/20260512T_h2t_overreach_independence_h2p_execute_v1), [`H2o`](../../results/tool_probe_replay_live/20260512T_h2t_overreach_independence_h2o_execute_v1), [`H2j`](../../results/tool_probe_replay_live/20260512T_h2t_overreach_independence_h2j_execute_v1), [`H2e`](../../results/tool_probe_replay_live/20260512T_h2t_overreach_independence_h2e_execute_v1)
   - H2t comparisons: [`H2r-vs-H2e`](../../results/tool_probe_replay_live_comparisons/20260512T_h2t_overreach_independence_h2r_vs_h2e_v1), [`H2r-vs-H2p`](../../results/tool_probe_replay_live_comparisons/20260512T_h2t_overreach_independence_h2r_vs_h2p_v1), [`H2r-vs-H2o`](../../results/tool_probe_replay_live_comparisons/20260512T_h2t_overreach_independence_h2r_vs_h2o_v1), [`H2r-vs-H2j`](../../results/tool_probe_replay_live_comparisons/20260512T_h2t_overreach_independence_h2r_vs_h2j_v1)
+  - H2u synthesis: [`results/reports/h2u_negation_guard_synthesis/report.md`](../../results/reports/h2u_negation_guard_synthesis/report.md)
+  - H2u figure: [`results/reports/h2u_negation_guard_synthesis/figures/h2u_negation_guard_transfer_gate.svg`](../../results/reports/h2u_negation_guard_synthesis/figures/h2u_negation_guard_transfer_gate.svg)
+  - H2u H2t live packet: [`results/tool_probe_replay_live/20260513T_h2t_overreach_independence_h2u_execute_v2`](../../results/tool_probe_replay_live/20260513T_h2t_overreach_independence_h2u_execute_v2)
+  - H2u transfer live packets: [`H2s`](../../results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h2s_execute_v1), [`H2q`](../../results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h2q_execute_v1), [`H2m`](../../results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h2m_execute_v1)
+  - H2u comparisons: [`H2t-vs-H2r`](../../results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h2t_v1), [`H2s-vs-H2r`](../../results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h2s_v1), [`H2q-vs-H2r`](../../results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h2q_v1), [`H2m-vs-H2r`](../../results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h2m_v1)
   - H2r H2q live packet: [`results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2q_execute_v2`](../../results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2q_execute_v2)
   - H2r comparison: [`H2r-vs-H2p`](../../results/tool_probe_replay_live_comparisons/20260512T_h2r_composed_route_gating_vs_h2p_on_h2q_v2)
-  - next restart move: build H2u as negation-aware target-query normalization, then run transfer gates across H2t/H2s/H2q/H2m/H2k/H2l/H2f/H2b/H1x.
+  - next restart move: run the broader H2u transfer backtest across H2k/H2l/H2f/H2b/H1x and design H2v/H3 cases that separate quoted negation, instructional negation, stale example captions, and genuine target negation.
 - H1h proves the no-directive causal ordering across all ten live workflow families.
 - H1i compresses the worst H1h workflow families into the current fast loop.
 - contracted MLX on H1i is clean at readiness `0.97710`, strict/recovered `1.0 / 1.0`, raw clean `1.0`.
@@ -278,9 +287,9 @@ Current strongest MLX result:
 
 Current next loop:
 
-1. Treat H2r as transfer-positive on current packets and fresh-positive on H2s, but H2t-negative until the negation-scope controller regression is fixed.
-2. Build H2u as negation-aware target-query normalization, with H2e retained as the executor-equivalence tradeoff control.
-3. Keep H2q, H2s, and H2t as the post-H2p boundary packets and preserve the matched H2p/H2o/H2j/H2e controls plus the H2r transfer synthesis.
+1. Treat H2u as the current tested negation-scope repair, not just a proposed follow-up: it fixes H2t and preserves H2s/H2q/H2m.
+2. Run the broader H2u transfer backtest across H2k/H2l/H2f/H2b/H1x before promoting it as globally safe.
+3. Design H2v/H3 as harder negation semantics: quoted negation, instructional negation, stale example captions, and genuine target negation should be separated rather than collapsed into one guard.
 4. Treat H1i, H1j, and H1k packaged packets as saturated or non-discriminating for current prompt-contract validation.
 5. Treat waves one through six as partial-gain or negative/composition evidence, not fixes.
 6. Treat `visual_role_catalog_argument_hints_v2` as the best exact candidate on the old focused visual replay, with the explicit caveat that it lost executable form-target recovery.

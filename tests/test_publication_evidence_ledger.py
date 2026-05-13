@@ -166,6 +166,9 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert claims["C59_h2t_overreach_independence_breaks_h2r_via_negation_scope_normalization"][
         "status"
     ] == "supported_fresh_holdout_requires_h2u_negation_aware_normalization"
+    assert claims["C60_h2u_negation_guard_repairs_h2t_without_h2s_h2q_h2m_regression"][
+        "status"
+    ] == "supported_current_packets_needs_broader_transfer_backtest"
     assert "7/8" in claims["C2_final_tool_directive_causal_for_protocol"]["primary_metric"]
     assert "8/8 strict and 8/8 executor-equivalent versus H2p at 3/8" in claims[
         "C56_h2r_composed_route_gating_solves_h2q_locally"
@@ -181,6 +184,12 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     ]["primary_metric"]
     assert "2 H2r misses are raw-exact outputs rewritten" in claims[
         "C59_h2t_overreach_independence_breaks_h2r_via_negation_scope_normalization"
+    ]["primary_metric"]
+    assert "improves H2t from H2r's 8/10 strict" in claims[
+        "C60_h2u_negation_guard_repairs_h2t_without_h2s_h2q_h2m_regression"
+    ]["primary_metric"]
+    assert "preserves 26/26 strict exactness" in claims[
+        "C60_h2u_negation_guard_repairs_h2t_without_h2s_h2q_h2m_regression"
     ]["primary_metric"]
     assert "v3 raw exact falls" in claims["C6_split_selector_wording_is_negative_evidence"]["primary_metric"]
     assert "schema-field hints reach 6/8 strict and 8/8 executor-equivalent" in claims[
@@ -949,6 +958,25 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
         row["claim_id"] == "C59_h2t_overreach_independence_breaks_h2r_via_negation_scope_normalization"
         and row["path"]
         == "results/tool_probe_replay_live_comparisons/20260512T_h2t_overreach_independence_h2r_vs_h2e_v1"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C60_h2u_negation_guard_repairs_h2t_without_h2s_h2q_h2m_regression"
+        and row["path"] == "results/reports/h2u_negation_guard_synthesis/report.md"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C60_h2u_negation_guard_repairs_h2t_without_h2s_h2q_h2m_regression"
+        and row["path"] == "results/tool_probe_replay_live/20260513T_h2t_overreach_independence_h2u_execute_v2"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C60_h2u_negation_guard_repairs_h2t_without_h2s_h2q_h2m_regression"
+        and row["path"]
+        == "results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h2t_v1"
         and row["exists"]
         for row in payload["evidence_sources"]
     )

@@ -1,9 +1,9 @@
 {
   "summary": {
-    "generated_at": "2026-05-13T00:11:50.636386+00:00",
+    "generated_at": "2026-05-13T00:49:34.191414+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 280,
-    "blocking_check_count": 273,
+    "check_count": 291,
+    "blocking_check_count": 284,
     "blocking_failed_count": 0,
     "recommended_check_count": 7,
     "recommended_failed_count": 0,
@@ -29,7 +29,7 @@
       "check_id": "ledger_has_claims",
       "severity": "blocking",
       "passed": true,
-      "detail": "claim_count=59",
+      "detail": "claim_count=60",
       "path": ""
     },
     {
@@ -1685,6 +1685,76 @@
       "path": "results/reports/h2t_overreach_independence_synthesis/figures/h2t_overreach_independence_gate.svg"
     },
     {
+      "check_id": "h2u_negation_guard_h2t_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2u negation guard live replay on H2t exists.",
+      "path": "results/tool_probe_replay_live/20260513T_h2t_overreach_independence_h2u_execute_v2/summary.json"
+    },
+    {
+      "check_id": "h2u_negation_guard_h2t_vs_h2r_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2u versus H2r comparison on H2t exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h2t_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h2u_negation_guard_h2s_transfer_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2u transfer replay on H2s exists.",
+      "path": "results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h2s_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h2u_negation_guard_h2q_transfer_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2u transfer replay on H2q exists.",
+      "path": "results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h2q_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h2u_negation_guard_h2m_transfer_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2u transfer replay on H2m exists.",
+      "path": "results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h2m_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h2u_negation_guard_transfer_comparisons_exist",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2u transfer comparison on H2s exists; H2q/H2m are covered by neighboring checks.",
+      "path": "results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h2s_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h2u_negation_guard_h2q_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2u transfer comparison on H2q exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h2q_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h2u_negation_guard_h2m_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2u transfer comparison on H2m exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h2m_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h2u_negation_guard_synthesis_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2u negation guard synthesis report exists.",
+      "path": "results/reports/h2u_negation_guard_synthesis/report.md"
+    },
+    {
+      "check_id": "h2u_negation_guard_report_figure_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2u negation guard synthesis figure exists.",
+      "path": "results/reports/h2u_negation_guard_synthesis/figures/h2u_negation_guard_transfer_gate.svg"
+    },
+    {
       "check_id": "current_state_doc_exists",
       "severity": "blocking",
       "passed": true,
@@ -1949,6 +2019,13 @@
       "passed": true,
       "detail": "Reproduction script `build_h2t_overreach_independence_synthesis.py` exists.",
       "path": "scripts/build_h2t_overreach_independence_synthesis.py"
+    },
+    {
+      "check_id": "script_build_h2u_negation_guard_synthesis.py_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Reproduction script `build_h2u_negation_guard_synthesis.py` exists.",
+      "path": "scripts/build_h2u_negation_guard_synthesis.py"
     },
     {
       "check_id": "script_compare_tool_directive_probes.py_exists",

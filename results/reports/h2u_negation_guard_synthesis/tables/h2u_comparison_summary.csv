@@ -1,0 +1,5 @@
+comparison_label,comparison_dir,shared_case_count,baseline_exact_rate,candidate_exact_rate,delta_exact_rate,baseline_executor_equivalence_rate,candidate_executor_equivalence_rate,delta_executor_equivalence_rate
+h2t_h2u_vs_h2r,results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h2t_v1,10,0.8,1.0,0.19999999999999996,0.8,1.0,0.19999999999999996
+h2s_h2u_vs_h2r,results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h2s_v1,10,1.0,1.0,0.0,1.0,1.0,0.0
+h2q_h2u_vs_h2r,results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h2q_v1,8,1.0,1.0,0.0,1.0,1.0,0.0
+h2m_h2u_vs_h2r,results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h2m_v1,8,1.0,1.0,0.0,1.0,1.0,0.0

@@ -3197,6 +3197,82 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C60_h2u_negation_guard_repairs_h2t_without_h2s_h2q_h2m_regression",
+        claim=(
+            "The H2u negation-aware guard repairs the H2t controller-induced note/caption overreach by guarding both "
+            "target-query normalization and composed-route gating, while preserving H2r performance on H2s, H2q, and H2m."
+        ),
+        status="supported_current_packets_needs_broader_transfer_backtest",
+        evidence_strength="strong_internal_transfer_wave",
+        primary_metric=(
+            "H2u improves H2t from H2r's 8/10 strict and 8/10 executor-equivalent to 10/10 strict and 10/10 "
+            "executor-equivalent (+0.20 exact-rate and +0.20 executor-equivalence-rate), fixes the two H2t "
+            "negation-scope rows, and preserves 26/26 strict exactness across H2s/H2q/H2m with zero exact-rate "
+            "and executor-equivalence-rate deltas versus H2r."
+        ),
+        limitation=(
+            "The transfer wave covers H2s, H2q, and H2m but not yet the broader H2r backtest set, H1x, H2b/H2f/H2k/H2l, "
+            "or packaged workflow execution. The guard is structural, but broader transfer is still required before "
+            "global promotion."
+        ),
+        next_test=(
+            "Run H2u over the full H2r transfer backtest matrix and then build a harder H2v/H3 packet that separates "
+            "quoted negation, instructional negation, and genuine target negation."
+        ),
+        sources=(
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260513T_h2t_overreach_independence_h2u_execute_v2",
+                "H2u live replay on H2t reaching 10/10 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h2t_v1",
+                "H2u versus H2r comparison on H2t showing +0.20 exact and executor-equivalence deltas.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h2s_execute_v1",
+                "H2u transfer replay on H2s preserving 10/10 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h2s_v1",
+                "H2u versus H2r comparison on H2s showing zero exact and executor-equivalence deltas.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h2q_execute_v1",
+                "H2u transfer replay on H2q preserving 8/8 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h2q_v1",
+                "H2u versus H2r comparison on H2q showing zero exact and executor-equivalence deltas.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h2m_execute_v1",
+                "H2u transfer replay on H2m preserving 8/8 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h2m_v1",
+                "H2u versus H2r comparison on H2m showing zero exact and executor-equivalence deltas.",
+            ),
+            EvidenceSource(
+                "replay_synthesis",
+                "results/reports/h2u_negation_guard_synthesis/report.md",
+                "Dedicated H2u synthesis summarizing H2t repair, transfer gates, fixed rows, and blocked guard rows.",
+            ),
+            EvidenceSource(
+                "replay_synthesis_figure",
+                "results/reports/h2u_negation_guard_synthesis/figures/h2u_negation_guard_transfer_gate.svg",
+                "Figure summarizing H2u versus H2r exactness across H2t/H2s/H2q/H2m.",
+            ),
+        ),
+    ),
 )
 
 

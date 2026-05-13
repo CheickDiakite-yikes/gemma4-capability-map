@@ -5217,3 +5217,34 @@
   - `uv run python scripts/build_mlx_tool_contract_report.py`
   - `uv run python scripts/build_publication_evidence_ledger.py`
   - `uv run python scripts/audit_publication_readiness.py`
+
+## 2026-05-13 - H2u Negation Guard Repairs H2t Without H2s/H2q/H2m Regression
+
+- Implemented and reported the H2u negation-aware controller repair:
+  - candidate: `mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_value_bearing_target_query_synthesis_visual_contextual_surface_alias_routing_visual_composed_route_gating_visual_negation_guard`
+  - synthesis: [`results/reports/h2u_negation_guard_synthesis/report.md`](../results/reports/h2u_negation_guard_synthesis/report.md)
+  - figure: [`results/reports/h2u_negation_guard_synthesis/figures/h2u_negation_guard_transfer_gate.svg`](../results/reports/h2u_negation_guard_synthesis/figures/h2u_negation_guard_transfer_gate.svg)
+- Result:
+  - H2t H2u reaches `10 / 10` strict and `10 / 10` executor-equivalent.
+  - H2u improves H2t over H2r by `+0.20` exact-rate and `+0.20` executor-equivalence-rate.
+  - H2u fixes the two H2r failures: `h2t_metric_panel_negation_scope_note` and `h2t_summary_tile_negation_scope_caption`.
+  - H2u preserves the first transfer gates: H2s `10 / 10`, H2q `8 / 8`, and H2m `8 / 8` strict/executor-equivalent, for `26 / 26` total transfer exactness.
+  - Aggregate H2s/H2q/H2m exact-rate delta versus H2r is `0.0`.
+- Mechanism:
+  - The first H2u attempt blocked target-query normalization but not the later composed-route gate, so the same bad rewrite reappeared downstream.
+  - The corrected H2u guard now blocks both target-query normalization and composed-route gating when the candidate replacement label is only licensed by negated or explanatory context.
+  - Current synthesis records `6` blocked guard interventions: `4` on H2t and `2` harmless blocks on H2s/H2q transfer rows.
+  - This sharpens the research claim from "target normalization can overreach" to "pipeline-order controller repairs need matched guard semantics across later routing helpers."
+- Reporting updates:
+  - publication evidence claim `C60_h2u_negation_guard_repairs_h2t_without_h2s_h2q_h2m_regression` records the current support level and remaining transfer-backtest caveat
+  - publication evidence ledger now has `60` claims and `387` sources with `0` missing sources
+  - publication readiness audit now has `291` checks, `284` blocking checks, `0` blocking failures, and status `paper_draft_ready`
+- Interpretation:
+  - H2u answers the immediate H2t regression question: a structural guard can preserve H2r's composed-route gains while preventing the negation-scope overreach.
+  - It does not yet prove global safety. The next transfer pass should cover H2k/H2l/H2f/H2b/H1x and then the older H1y/H1o/H1p family if the first pass stays clean.
+  - The next fresh hard slice should be H2v/H3, with separate rows for quoted negation, instructional negation, stale example captions, and genuine target negation.
+- Verification:
+  - `uv run pytest tests/test_h2u_negation_guard_synthesis.py tests/test_publication_evidence_ledger.py tests/test_publication_readiness_audit.py -q`
+  - `uv run python scripts/build_h2u_negation_guard_synthesis.py`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`

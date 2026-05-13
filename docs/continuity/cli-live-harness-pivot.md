@@ -151,7 +151,7 @@ The freshest MLX evidence is now H1h/H1i/H1g:
   - exact JSON copy `7 / 8`
   - visual selector paraphrase executable target `1 / 1`
 
-The freshest replay-shaped visual controller evidence is now H2t:
+The freshest replay-shaped visual controller evidence is now H2u:
 
 - H2j target-query normalization proved the repair can be controller-attributable rather than prompt-prose-attributable:
   - H2f: `10 / 10`
@@ -236,10 +236,19 @@ The freshest replay-shaped visual controller evidence is now H2t:
   - H2r-vs-H2e: `+0.20` strict exact-rate and `-0.10` executor-equivalence-rate
   - H2r-vs-H2p/H2o/H2j: `0.0` deltas
   - mechanism: `2` H2r raw-exact MLX calls are rewritten by target-query normalization from `metric panel`/`summary tile` to `training note`/`caption`
+- H2u is the negation-aware controller repair:
+  - synthesis: [`results/reports/h2u_negation_guard_synthesis/report.md`](../../results/reports/h2u_negation_guard_synthesis/report.md)
+  - figure: [`results/reports/h2u_negation_guard_synthesis/figures/h2u_negation_guard_transfer_gate.svg`](../../results/reports/h2u_negation_guard_synthesis/figures/h2u_negation_guard_transfer_gate.svg)
+  - H2t H2u live packet: [`results/tool_probe_replay_live/20260513T_h2t_overreach_independence_h2u_execute_v2`](../../results/tool_probe_replay_live/20260513T_h2t_overreach_independence_h2u_execute_v2)
+  - H2t H2u-vs-H2r comparison: [`results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h2t_v1`](../../results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h2t_v1)
+  - H2u reaches `10 / 10` strict and executor-equivalent on H2t, fixing both H2r negation-scope regressions.
+  - H2u improves H2t by `+0.20` exact-rate and executor-equivalence-rate versus H2r.
+  - H2u preserves H2s/H2q/H2m transfer at `26 / 26` strict and executor-equivalent with `0.0` aggregate exact-rate delta versus H2r.
+  - mechanism: the corrected repair guards both target-query normalization and composed-route gating when a candidate replacement label appears only in negated or explanatory scope.
 - next controller question:
-  - build H2u as negation-aware target-query normalization
-  - run H2u first on H2t, then transfer back across H2s/H2q/H2m/H2k/H2l/H2f/H2b/H1x
-  - keep packaged transfer paused until the controller regression is fixed or intentionally used as a realism baseline
+  - run H2u across the remaining H2r transfer-backtest surfaces: H2k/H2l/H2f/H2b/H1x, then the older H1y/H1o/H1p packet family if the first pass is clean
+  - design H2v/H3 to distinguish quoted negation, instructional negation, stale example captions, and genuine target negation
+  - keep packaged transfer paused until the replay-shaped guard is either broadly safe or intentionally used as a realism baseline
 
 ## Direction Reset
 

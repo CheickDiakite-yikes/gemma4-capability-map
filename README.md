@@ -101,6 +101,7 @@ Latest research restart point:
 - H2r now passes the current transfer backtest: `81 / 81` strict and executor-equivalent across nine transfer packets, `89 / 89` strict including H2q, and zero non-exact rows
 - H2s is executed as the fresh post-transfer holdout: frozen H2r reaches `10 / 10` strict and executor-equivalent, H2p and H2o each reach `3 / 10`, and H2j reaches `1 / 10`
 - H2t is now the fresh independence breaker: H2r/H2p/H2o/H2j tie at `8 / 10`, H2e is lower strict (`6 / 10`) but higher executor-equivalence (`9 / 10`), and the two H2r misses are raw-exact MLX outputs rewritten by controller target-query normalization into note/caption labels
+- H2u is now the current negation-aware controller repair: it guards both target-query normalization and composed-route gating, reaches `10 / 10` strict and executor-equivalent on H2t, and preserves `26 / 26` strict/executor-equivalent across H2s/H2q/H2m transfer checks
 
 The current source-of-truth comparison surface is the aligned exploratory `32 / 26` matrix:
 

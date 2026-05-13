@@ -91,6 +91,8 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 
 ![H2t overreach independence gate](../../results/reports/h2t_overreach_independence_synthesis/figures/h2t_overreach_independence_gate.svg)
 
+![H2u negation guard transfer gate](../../results/reports/h2u_negation_guard_synthesis/figures/h2u_negation_guard_transfer_gate.svg)
+
 ![H1m visual alias-repeat burden](../../results/reports/mlx_tool_contract_harnessing/figures/h1m_visual_alias_repeat_burden.svg)
 
 ![Visual hard-slice alias-transfer live replay gate](../../results/reports/mlx_tool_contract_harnessing/figures/visual_hard_slice_alias_transfer_live_replay_gate.svg)
