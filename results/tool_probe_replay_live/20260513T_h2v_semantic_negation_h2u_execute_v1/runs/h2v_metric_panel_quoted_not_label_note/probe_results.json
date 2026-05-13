@@ -1,0 +1,113 @@
+[
+  {
+    "case_id": "h2v_metric_panel_quoted_not_label_note",
+    "family": "h2v_quoted_negation_context",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "h2v-metric-panel-16001"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2v-metric-panel-quoted-note",
+          "target_query": "metric panel"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h2v-metric-panel-quoted-note",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "h2v-metric-panel-16001"
+          ],
+          "region_id": "h2v-metric-panel-16001",
+          "text_preview": "Escalations above target"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2v-metric-panel-quoted-note",
+          "target_query": "metric panel"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2v-metric-panel-quoted-note",
+          "target_query": "metric panel"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h2v-metric-panel-quoted-note\", \"target_query\": \"metric panel\"}}",
+    "runtime_metadata": {
+      "backend": "mlx",
+      "runtime_info": {
+        "backend": "mlx",
+        "runtime_posture": "mlx",
+        "requested_model": "google/gemma-4-E2B-it",
+        "effective_model": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_source": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_format": "mlx",
+        "runtime_device": "mlx",
+        "load_mode": "vision",
+        "configured_device": "auto",
+        "request_timeout_seconds": 300.0,
+        "tool_turn_directive_enabled": false,
+        "tool_prompt_contract_id": "",
+        "tool_catalog_profile_id": "visual_role_catalog_route_arbitration_residual_exactness_v20",
+        "service": {},
+        "partial_runtime": false,
+        "llama_cpp_error": null,
+        "llama_cpp_context_window": null
+      },
+      "visual_target_query_normalization_blocked": [
+        {
+          "from_tool": "extract_layout",
+          "from_arguments": {
+            "image_id": "img-h2v-metric-panel-quoted-note",
+            "target_query": "metric panel"
+          },
+          "prompt_state_label": "audit note",
+          "preserved_target_query": "metric panel",
+          "preserved_region_id": "h2v-metric-panel-16001",
+          "blocked_label": "audit note",
+          "blocked_region_id": "h2v-audit-note-16002",
+          "reason": "negation_scope_exact_layout_label"
+        }
+      ],
+      "visual_composed_route_gating_blocked": [
+        {
+          "from_tool": "extract_layout",
+          "from_arguments": {
+            "image_id": "img-h2v-metric-panel-quoted-note",
+            "target_query": "metric panel"
+          },
+          "preserved_target_query": "metric panel",
+          "preserved_region_id": "h2v-metric-panel-16001",
+          "blocked_label": "audit note",
+          "blocked_region_id": "h2v-audit-note-16002",
+          "reason": "negation_scope_exact_layout_label"
+        }
+      ]
+    },
+    "prompt_tokens": 1907,
+    "completion_tokens": 41,
+    "latency_ms": 8557
+  }
+]

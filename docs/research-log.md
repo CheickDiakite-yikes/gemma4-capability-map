@@ -5326,3 +5326,40 @@
 - Verification:
   - `uv run pytest tests/test_visual_hard_slice_live_stress_packet.py::test_visual_hard_slice_live_stress_packet_supports_h2v_semantic_negation_suite tests/test_visual_hard_slice_live_stress_packet.py::test_visual_hard_slice_live_stress_packet_supports_h2t_overreach_independence_suite -q`
   - `uv run python scripts/build_visual_hard_slice_live_stress_packet.py --suite h2v_semantic_negation_v23 --run-group-id 20260513T_h2v_semantic_negation_dry_run_v1`
+
+## 2026-05-13 - H2v Semantic Negation Breaks H2u Saturation
+
+- Ran the H2v semantic-negation packet live over the three relevant MLX controller profiles:
+  - H2j target-query normalization: [`results/tool_probe_replay_live/20260513T_h2v_semantic_negation_h2j_execute_v1`](../results/tool_probe_replay_live/20260513T_h2v_semantic_negation_h2j_execute_v1)
+  - H2r composed route gating: [`results/tool_probe_replay_live/20260513T_h2v_semantic_negation_h2r_execute_v1`](../results/tool_probe_replay_live/20260513T_h2v_semantic_negation_h2r_execute_v1)
+  - H2u negation guard: [`results/tool_probe_replay_live/20260513T_h2v_semantic_negation_h2u_execute_v1`](../results/tool_probe_replay_live/20260513T_h2v_semantic_negation_h2u_execute_v1)
+  - synthesis: [`results/reports/h2v_semantic_negation_synthesis/report.md`](../results/reports/h2v_semantic_negation_synthesis/report.md)
+  - figure: [`results/reports/h2v_semantic_negation_synthesis/figures/h2v_semantic_negation_gate.svg`](../results/reports/h2v_semantic_negation_synthesis/figures/h2v_semantic_negation_gate.svg)
+- Result:
+  - H2j reaches `3 / 10` strict and `4 / 10` executor-equivalent.
+  - H2r reaches `3 / 10` strict and `4 / 10` executor-equivalent, tying H2j with `0.0` exact/executor delta.
+  - H2u reaches `4 / 10` strict and `5 / 10` executor-equivalent.
+  - H2u improves over H2r and H2j by only `+0.10` exact-rate and `+0.10` executor-equivalence-rate.
+- Family split:
+  - quoted-negation context: H2u `1 / 2` strict
+  - instructional-negation context: H2u `2 / 2` strict
+  - stale-example negation context: H2u `0 / 2` strict
+  - genuine negated target: H2u `0 / 3` strict and `1 / 3` executor-equivalent
+  - clean control: H2u `1 / 1` strict
+- Mechanism:
+  - H2u's only strict gain over both H2r and H2j is `h2v_metric_panel_quoted_not_label_note`.
+  - The remaining H2u misses are not same-family transfer failures. They separate two harder semantic problems:
+    - stale/example context can still pull target queries toward old captions or example notes
+    - genuine negated values like `Not ready` and `Not applicable` need component-qualified target preservation, not negation suppression
+- Reporting updates:
+  - publication evidence claim `C61_h2v_semantic_negation_breaks_h2u_transfer_saturation` records the fresh holdout result
+  - publication evidence ledger now has `61` claims and `412` sources with `0` missing sources
+  - publication readiness audit now has `317` checks, `310` blocking checks, `0` blocking failures, and status `paper_draft_ready`
+- Interpretation:
+  - H2u remains valid as the H2t repair and current same-family transfer-positive candidate, but H2v blocks global promotion.
+  - The next proper slice is H2w semantic target preservation: distinguish negated context that should be ignored from genuine negated target values that must be kept, then rerun H2v before packaged workflow transfer.
+- Verification:
+  - `uv run pytest tests/test_h2v_semantic_negation_synthesis.py tests/test_publication_evidence_ledger.py tests/test_publication_readiness_audit.py -q`
+  - `uv run python scripts/build_h2v_semantic_negation_synthesis.py`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`

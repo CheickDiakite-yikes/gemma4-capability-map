@@ -1,0 +1,2 @@
+case_id,family,expected_call_count,actual_call_count,exact_match,executable_match,executor_target_match,expected_calls,actual_calls,expected_execution,actual_execution,latency_ms,prompt_tokens,completion_tokens
+h2v_summary_tile_quoted_not_label_caption,h2v_quoted_negation_context,1,0,False,False,False,"[{""name"": ""extract_layout"", ""arguments"": {""image_id"": ""img-h2v-summary-tile-quoted-caption"", ""target_query"": ""summary tile""}}]",[],"{""region_ids"": [""h2v-summary-tile-16011""]}",[],4081,1906,1

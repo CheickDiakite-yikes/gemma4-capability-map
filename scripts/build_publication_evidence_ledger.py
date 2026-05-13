@@ -3355,6 +3355,77 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C61_h2v_semantic_negation_breaks_h2u_transfer_saturation",
+        claim=(
+            "The H2v semantic-negation holdout breaks H2u's same-family transfer saturation and shows the current "
+            "negation-aware guard is helpful but incomplete: it handles instructional negation and one quoted-context "
+            "row, but fails stale-example context and genuine negated target values under strict exactness."
+        ),
+        status="supported_fresh_semantic_holdout_needs_h2w_repair",
+        evidence_strength="strong_internal_fresh_holdout",
+        primary_metric=(
+            "On H2v, H2u reaches 4/10 strict and 5/10 executor-equivalent, versus H2r and H2j at 3/10 strict "
+            "and 4/10 executor-equivalent. H2u improves by +0.10 exact-rate and +0.10 executor-equivalence-rate "
+            "over both controls, but has 6 strict non-exact rows: both stale-example rows and all three genuine "
+            "negated-target rows fail strict exactness."
+        ),
+        limitation=(
+            "H2v is a replay-shaped synthetic holdout, not yet a packaged workflow transfer test. It is strong "
+            "semantic boundary evidence for the controller helper, but not a broad GUI population estimate."
+        ),
+        next_test=(
+            "Build H2w as a semantic target-preservation repair that distinguishes negated context from genuine "
+            "negated values, then rerun H2v and a minimal transfer gate before any packaged-workflow port."
+        ),
+        sources=(
+            EvidenceSource(
+                "replay_packet",
+                "results/tool_probe_replay_packets/20260513T_h2v_semantic_negation_dry_run_v1",
+                "Fresh ten-case semantic-negation packet separating quoted, instructional, stale-example, genuine-value, and clean-control rows.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260513T_h2v_semantic_negation_h2j_execute_v1",
+                "H2j target-query-normalization control on H2v reaching 3/10 strict and 4/10 executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260513T_h2v_semantic_negation_h2r_execute_v1",
+                "H2r composed-route-gating incumbent on H2v tying H2j at 3/10 strict and 4/10 executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260513T_h2v_semantic_negation_h2u_execute_v1",
+                "H2u negation-guard candidate on H2v reaching 4/10 strict and 5/10 executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2u_vs_h2r_v1",
+                "H2u versus H2r comparison showing +0.10 exact and executor-equivalence deltas.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2u_vs_h2j_v1",
+                "H2u versus H2j comparison showing +0.10 exact and executor-equivalence deltas.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2r_vs_h2j_v1",
+                "H2r versus H2j comparison showing zero exact and executor-equivalence deltas.",
+            ),
+            EvidenceSource(
+                "replay_synthesis",
+                "results/reports/h2v_semantic_negation_synthesis/report.md",
+                "Dedicated H2v synthesis summarizing family-level splits, non-exact rows, controller interventions, and next H2w decision.",
+            ),
+            EvidenceSource(
+                "replay_synthesis_figure",
+                "results/reports/h2v_semantic_negation_synthesis/figures/h2v_semantic_negation_gate.svg",
+                "Figure summarizing H2j/H2r/H2u strict and executor-equivalent performance on H2v.",
+            ),
+        ),
+    ),
 )
 
 

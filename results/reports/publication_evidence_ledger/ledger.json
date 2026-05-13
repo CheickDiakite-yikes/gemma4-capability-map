@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-13T01:13:04.898997+00:00",
+    "generated_at": "2026-05-13T01:40:12.040765+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-    "claim_count": 60,
-    "evidence_source_count": 403,
+    "claim_count": 61,
+    "evidence_source_count": 412,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -65,7 +65,8 @@
       "C57_h2r_transfer_backtest_preserves_current_gates",
       "C58_h2s_fresh_holdout_confirms_h2r_composed_route_gating",
       "C59_h2t_overreach_independence_breaks_h2r_via_negation_scope_normalization",
-      "C60_h2u_negation_guard_repairs_h2t_without_h2s_h2q_h2m_regression"
+      "C60_h2u_negation_guard_repairs_h2t_without_h2s_h2q_h2m_regression",
+      "C61_h2v_semantic_negation_breaks_h2u_transfer_saturation"
     ]
   },
   "claims": [
@@ -668,6 +669,16 @@
       "limitation": "The transfer wave now covers H2s/H2q/H2m, H2k/H2l/H2f/H2b/H1x, and H1y/H1o/H1p, but not yet packaged workflow execution or fresh semantic cases that separate quoted negation, instructional negation, and genuine target negation.",
       "next_test": "Build a harder H2v/H3 packet that separates quoted negation, instructional negation, stale example captions, and genuine target negation, then run a packaged-workflow transfer gate.",
       "source_count": 26
+    },
+    {
+      "claim_id": "C61_h2v_semantic_negation_breaks_h2u_transfer_saturation",
+      "claim": "The H2v semantic-negation holdout breaks H2u's same-family transfer saturation and shows the current negation-aware guard is helpful but incomplete: it handles instructional negation and one quoted-context row, but fails stale-example context and genuine negated target values under strict exactness.",
+      "status": "supported_fresh_semantic_holdout_needs_h2w_repair",
+      "evidence_strength": "strong_internal_fresh_holdout",
+      "primary_metric": "On H2v, H2u reaches 4/10 strict and 5/10 executor-equivalent, versus H2r and H2j at 3/10 strict and 4/10 executor-equivalent. H2u improves by +0.10 exact-rate and +0.10 executor-equivalence-rate over both controls, but has 6 strict non-exact rows: both stale-example rows and all three genuine negated-target rows fail strict exactness.",
+      "limitation": "H2v is a replay-shaped synthetic holdout, not yet a packaged workflow transfer test. It is strong semantic boundary evidence for the controller helper, but not a broad GUI population estimate.",
+      "next_test": "Build H2w as a semantic target-preservation repair that distinguishes negated context from genuine negated values, then rerun H2v and a minimal transfer gate before any packaged-workflow port.",
+      "source_count": 9
     }
   ],
   "evidence_sources": [
@@ -3490,6 +3501,69 @@
       "artifact_type": "replay_synthesis_figure",
       "path": "results/reports/h2u_negation_guard_synthesis/figures/h2u_negation_guard_transfer_gate.svg",
       "purpose": "Figure summarizing H2u versus H2r exactness across H2t and the current transfer gates.",
+      "exists": true
+    },
+    {
+      "claim_id": "C61_h2v_semantic_negation_breaks_h2u_transfer_saturation",
+      "artifact_type": "replay_packet",
+      "path": "results/tool_probe_replay_packets/20260513T_h2v_semantic_negation_dry_run_v1",
+      "purpose": "Fresh ten-case semantic-negation packet separating quoted, instructional, stale-example, genuine-value, and clean-control rows.",
+      "exists": true
+    },
+    {
+      "claim_id": "C61_h2v_semantic_negation_breaks_h2u_transfer_saturation",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260513T_h2v_semantic_negation_h2j_execute_v1",
+      "purpose": "H2j target-query-normalization control on H2v reaching 3/10 strict and 4/10 executor-equivalent.",
+      "exists": true
+    },
+    {
+      "claim_id": "C61_h2v_semantic_negation_breaks_h2u_transfer_saturation",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260513T_h2v_semantic_negation_h2r_execute_v1",
+      "purpose": "H2r composed-route-gating incumbent on H2v tying H2j at 3/10 strict and 4/10 executor-equivalent.",
+      "exists": true
+    },
+    {
+      "claim_id": "C61_h2v_semantic_negation_breaks_h2u_transfer_saturation",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260513T_h2v_semantic_negation_h2u_execute_v1",
+      "purpose": "H2u negation-guard candidate on H2v reaching 4/10 strict and 5/10 executor-equivalent.",
+      "exists": true
+    },
+    {
+      "claim_id": "C61_h2v_semantic_negation_breaks_h2u_transfer_saturation",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2u_vs_h2r_v1",
+      "purpose": "H2u versus H2r comparison showing +0.10 exact and executor-equivalence deltas.",
+      "exists": true
+    },
+    {
+      "claim_id": "C61_h2v_semantic_negation_breaks_h2u_transfer_saturation",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2u_vs_h2j_v1",
+      "purpose": "H2u versus H2j comparison showing +0.10 exact and executor-equivalence deltas.",
+      "exists": true
+    },
+    {
+      "claim_id": "C61_h2v_semantic_negation_breaks_h2u_transfer_saturation",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2r_vs_h2j_v1",
+      "purpose": "H2r versus H2j comparison showing zero exact and executor-equivalence deltas.",
+      "exists": true
+    },
+    {
+      "claim_id": "C61_h2v_semantic_negation_breaks_h2u_transfer_saturation",
+      "artifact_type": "replay_synthesis",
+      "path": "results/reports/h2v_semantic_negation_synthesis/report.md",
+      "purpose": "Dedicated H2v synthesis summarizing family-level splits, non-exact rows, controller interventions, and next H2w decision.",
+      "exists": true
+    },
+    {
+      "claim_id": "C61_h2v_semantic_negation_breaks_h2u_transfer_saturation",
+      "artifact_type": "replay_synthesis_figure",
+      "path": "results/reports/h2v_semantic_negation_synthesis/figures/h2v_semantic_negation_gate.svg",
+      "purpose": "Figure summarizing H2j/H2r/H2u strict and executor-equivalent performance on H2v.",
       "exists": true
     }
   ],

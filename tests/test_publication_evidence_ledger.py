@@ -169,6 +169,9 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert claims["C60_h2u_negation_guard_repairs_h2t_without_h2s_h2q_h2m_regression"][
         "status"
     ] == "supported_current_full_transfer_needs_harder_semantic_holdout"
+    assert claims["C61_h2v_semantic_negation_breaks_h2u_transfer_saturation"][
+        "status"
+    ] == "supported_fresh_semantic_holdout_needs_h2w_repair"
     assert "7/8" in claims["C2_final_tool_directive_causal_for_protocol"]["primary_metric"]
     assert "8/8 strict and 8/8 executor-equivalent versus H2p at 3/8" in claims[
         "C56_h2r_composed_route_gating_solves_h2q_locally"
@@ -199,6 +202,12 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     ]["primary_metric"]
     assert "99/99" in claims[
         "C60_h2u_negation_guard_repairs_h2t_without_h2s_h2q_h2m_regression"
+    ]["primary_metric"]
+    assert "H2u reaches 4/10 strict and 5/10 executor-equivalent" in claims[
+        "C61_h2v_semantic_negation_breaks_h2u_transfer_saturation"
+    ]["primary_metric"]
+    assert "both stale-example rows and all three genuine negated-target rows" in claims[
+        "C61_h2v_semantic_negation_breaks_h2u_transfer_saturation"
     ]["primary_metric"]
     assert "v3 raw exact falls" in claims["C6_split_selector_wording_is_negative_evidence"]["primary_metric"]
     assert "schema-field hints reach 6/8 strict and 8/8 executor-equivalent" in claims[
@@ -1012,6 +1021,25 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
         row["claim_id"] == "C60_h2u_negation_guard_repairs_h2t_without_h2s_h2q_h2m_regression"
         and row["path"]
         == "results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h1p_v1"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C61_h2v_semantic_negation_breaks_h2u_transfer_saturation"
+        and row["path"] == "results/reports/h2v_semantic_negation_synthesis/report.md"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C61_h2v_semantic_negation_breaks_h2u_transfer_saturation"
+        and row["path"] == "results/tool_probe_replay_live/20260513T_h2v_semantic_negation_h2u_execute_v1"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C61_h2v_semantic_negation_breaks_h2u_transfer_saturation"
+        and row["path"]
+        == "results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2u_vs_h2r_v1"
         and row["exists"]
         for row in payload["evidence_sources"]
     )

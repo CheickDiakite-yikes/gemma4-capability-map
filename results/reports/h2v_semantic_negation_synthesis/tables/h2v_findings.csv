@@ -1,0 +1,7 @@
+finding_id,finding
+h2v_breaks_h2u_transfer_saturation,H2v breaks the prior H2u same-family transfer saturation: H2u reaches 4/10 strict and 5/10 executor-equivalent after H2u had preserved 99/99 strict/executor-equivalent on the earlier transfer set.
+h2u_negation_guard_help_is_real_but_small,"H2u improves over H2r by 0.10 strict and 0.10 executor-equivalence rate, and over H2j by 0.10 strict and 0.10 executor-equivalence rate."
+h2r_and_h2j_tie_on_h2v,"H2r ties H2j on H2v at 3/10 strict and 4/10 executor-equivalent, with 0.00 exact-rate delta. Composed route gating alone does not solve this semantic negation split."
+h2v_family_split_identifies_next_repair,"H2u solves instructional negation at 2/2 and the clean control, but reaches only 1/2 on quoted negation, 0/2 on stale examples, and 0/3 strict plus 1/3 executor-equivalent on genuine negated targets."
+h2u_fixed_case_is_one_quoted_context_row,The only strict H2u gain over both H2r and H2j is h2v_metric_panel_quoted_not_label_note; the remaining 6 H2u non-exact rows are not repaired by the current negation guard.
+next_h2w_should_preserve_semantic_targets,"The next candidate should distinguish negated context that must be ignored from negated values that are themselves the target, while also treating stale examples as old context even when the word not appears near a tempting label."

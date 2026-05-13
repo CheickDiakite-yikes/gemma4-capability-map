@@ -1,9 +1,9 @@
 {
   "summary": {
-    "generated_at": "2026-05-13T01:13:04.957499+00:00",
+    "generated_at": "2026-05-13T01:40:12.076151+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 307,
-    "blocking_check_count": 300,
+    "check_count": 317,
+    "blocking_check_count": 310,
     "blocking_failed_count": 0,
     "recommended_check_count": 7,
     "recommended_failed_count": 0,
@@ -29,7 +29,7 @@
       "check_id": "ledger_has_claims",
       "severity": "blocking",
       "passed": true,
-      "detail": "claim_count=60",
+      "detail": "claim_count=61",
       "path": ""
     },
     {
@@ -1867,6 +1867,69 @@
       "path": "results/reports/h2u_negation_guard_synthesis/figures/h2u_negation_guard_transfer_gate.svg"
     },
     {
+      "check_id": "h2v_semantic_negation_packet_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2v semantic-negation replay packet exists.",
+      "path": "results/tool_probe_replay_packets/20260513T_h2v_semantic_negation_dry_run_v1/summary.json"
+    },
+    {
+      "check_id": "h2v_semantic_negation_h2j_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2v H2j target-normalization control live replay exists.",
+      "path": "results/tool_probe_replay_live/20260513T_h2v_semantic_negation_h2j_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h2v_semantic_negation_h2r_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2v H2r composed-route incumbent live replay exists.",
+      "path": "results/tool_probe_replay_live/20260513T_h2v_semantic_negation_h2r_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h2v_semantic_negation_h2u_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2v H2u negation-guard live replay exists.",
+      "path": "results/tool_probe_replay_live/20260513T_h2v_semantic_negation_h2u_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h2v_semantic_negation_h2u_vs_h2r_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2v H2u versus H2r comparison exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2u_vs_h2r_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h2v_semantic_negation_h2u_vs_h2j_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2v H2u versus H2j comparison exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2u_vs_h2j_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h2v_semantic_negation_h2r_vs_h2j_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2v H2r versus H2j comparison exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2r_vs_h2j_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h2v_semantic_negation_synthesis_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2v semantic-negation synthesis report exists.",
+      "path": "results/reports/h2v_semantic_negation_synthesis/report.md"
+    },
+    {
+      "check_id": "h2v_semantic_negation_report_figure_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2v semantic-negation synthesis figure exists.",
+      "path": "results/reports/h2v_semantic_negation_synthesis/figures/h2v_semantic_negation_gate.svg"
+    },
+    {
       "check_id": "current_state_doc_exists",
       "severity": "blocking",
       "passed": true,
@@ -2138,6 +2201,13 @@
       "passed": true,
       "detail": "Reproduction script `build_h2u_negation_guard_synthesis.py` exists.",
       "path": "scripts/build_h2u_negation_guard_synthesis.py"
+    },
+    {
+      "check_id": "script_build_h2v_semantic_negation_synthesis.py_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Reproduction script `build_h2v_semantic_negation_synthesis.py` exists.",
+      "path": "scripts/build_h2v_semantic_negation_synthesis.py"
     },
     {
       "check_id": "script_compare_tool_directive_probes.py_exists",

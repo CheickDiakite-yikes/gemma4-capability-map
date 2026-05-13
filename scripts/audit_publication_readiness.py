@@ -2519,6 +2519,93 @@ def audit_publication_readiness(
             detail="H2u negation guard synthesis figure exists.",
         ),
         _check_path(
+            check_id="h2v_semantic_negation_packet_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_packets"
+            / "20260513T_h2v_semantic_negation_dry_run_v1"
+            / "summary.json",
+            detail="H2v semantic-negation replay packet exists.",
+        ),
+        _check_path(
+            check_id="h2v_semantic_negation_h2j_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260513T_h2v_semantic_negation_h2j_execute_v1"
+            / "summary.json",
+            detail="H2v H2j target-normalization control live replay exists.",
+        ),
+        _check_path(
+            check_id="h2v_semantic_negation_h2r_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260513T_h2v_semantic_negation_h2r_execute_v1"
+            / "summary.json",
+            detail="H2v H2r composed-route incumbent live replay exists.",
+        ),
+        _check_path(
+            check_id="h2v_semantic_negation_h2u_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260513T_h2v_semantic_negation_h2u_execute_v1"
+            / "summary.json",
+            detail="H2v H2u negation-guard live replay exists.",
+        ),
+        _check_path(
+            check_id="h2v_semantic_negation_h2u_vs_h2r_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260513T_h2v_semantic_negation_h2u_vs_h2r_v1"
+            / "live_replay_comparison.json",
+            detail="H2v H2u versus H2r comparison exists.",
+        ),
+        _check_path(
+            check_id="h2v_semantic_negation_h2u_vs_h2j_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260513T_h2v_semantic_negation_h2u_vs_h2j_v1"
+            / "live_replay_comparison.json",
+            detail="H2v H2u versus H2j comparison exists.",
+        ),
+        _check_path(
+            check_id="h2v_semantic_negation_h2r_vs_h2j_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260513T_h2v_semantic_negation_h2r_vs_h2j_v1"
+            / "live_replay_comparison.json",
+            detail="H2v H2r versus H2j comparison exists.",
+        ),
+        _check_path(
+            check_id="h2v_semantic_negation_synthesis_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "h2v_semantic_negation_synthesis" / "report.md",
+            detail="H2v semantic-negation synthesis report exists.",
+        ),
+        _check_path(
+            check_id="h2v_semantic_negation_report_figure_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "h2v_semantic_negation_synthesis"
+            / "figures"
+            / "h2v_semantic_negation_gate.svg",
+            detail="H2v semantic-negation synthesis figure exists.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",
@@ -2584,6 +2671,7 @@ def audit_publication_readiness(
         "build_h2s_fresh_composed_holdout_synthesis.py",
         "build_h2t_overreach_independence_synthesis.py",
         "build_h2u_negation_guard_synthesis.py",
+        "build_h2v_semantic_negation_synthesis.py",
         "compare_tool_directive_probes.py",
         "build_visual_hard_slice_design.py",
         "build_visual_hard_slice_replay_packet.py",

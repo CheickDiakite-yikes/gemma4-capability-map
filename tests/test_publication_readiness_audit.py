@@ -270,6 +270,15 @@ def test_publication_readiness_audit_writes_blocking_checks(tmp_path: Path) -> N
     assert checks["h2u_negation_guard_h1p_comparison_exists"]["passed"] is True
     assert checks["h2u_negation_guard_synthesis_exists"]["passed"] is True
     assert checks["h2u_negation_guard_report_figure_exists"]["passed"] is True
+    assert checks["h2v_semantic_negation_packet_exists"]["passed"] is True
+    assert checks["h2v_semantic_negation_h2j_live_exists"]["passed"] is True
+    assert checks["h2v_semantic_negation_h2r_live_exists"]["passed"] is True
+    assert checks["h2v_semantic_negation_h2u_live_exists"]["passed"] is True
+    assert checks["h2v_semantic_negation_h2u_vs_h2r_comparison_exists"]["passed"] is True
+    assert checks["h2v_semantic_negation_h2u_vs_h2j_comparison_exists"]["passed"] is True
+    assert checks["h2v_semantic_negation_h2r_vs_h2j_comparison_exists"]["passed"] is True
+    assert checks["h2v_semantic_negation_synthesis_exists"]["passed"] is True
+    assert checks["h2v_semantic_negation_report_figure_exists"]["passed"] is True
     assert checks["script_analyze_visual_hard_slice_exactness.py_exists"]["passed"] is True
     assert checks["script_analyze_packaged_replay_gap.py_exists"]["passed"] is True
     assert checks["script_analyze_h1n_alias_transfer_contract_split.py_exists"]["passed"] is True
@@ -298,6 +307,7 @@ def test_publication_readiness_audit_writes_blocking_checks(tmp_path: Path) -> N
     assert checks["script_build_h2s_fresh_composed_holdout_synthesis.py_exists"]["passed"] is True
     assert checks["script_build_h2t_overreach_independence_synthesis.py_exists"]["passed"] is True
     assert checks["script_build_h2u_negation_guard_synthesis.py_exists"]["passed"] is True
+    assert checks["script_build_h2v_semantic_negation_synthesis.py_exists"]["passed"] is True
     assert checks["script_run_visual_hard_slice_probe_packet.py_exists"]["passed"] is True
     assert checks["script_build_visual_hard_slice_replay_packet.py_exists"]["passed"] is True
     assert checks["v3_skipped_live_decision_exists"]["passed"] is True
