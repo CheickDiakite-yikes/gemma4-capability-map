@@ -1141,6 +1141,59 @@ def test_visual_hard_slice_live_stress_packet_supports_h2t_overreach_independenc
         assert _expected_call_reaches_oracle(case)
 
 
+def test_visual_hard_slice_live_stress_packet_supports_h2v_semantic_negation_suite(
+    tmp_path: Path,
+) -> None:
+    packet = SCRIPT.build_visual_hard_slice_live_stress_packet(
+        output_root=tmp_path / "replay_packets",
+        run_group_id="visual_stress_h2v_semantic_negation",
+        suite="h2v_semantic_negation_v23",
+    )
+
+    assert packet["summary"]["suite"] == "h2v_semantic_negation_v23"
+    assert packet["summary"]["case_count"] == 10
+    assert packet["summary"]["family_counts"] == {
+        "h2v_clean_negation_control": 1,
+        "h2v_genuine_negated_target": 3,
+        "h2v_instructional_negation_context": 2,
+        "h2v_quoted_negation_context": 2,
+        "h2v_stale_example_negation_context": 2,
+    }
+    assert packet["summary"]["failure_mode_counts"] == {
+        "argument_alias_or_decoy_risk": 10,
+    }
+    cases = {case["case_id"]: case for case in packet["replay_cases"]}
+    assert cases["h2v_metric_panel_quoted_not_label_note"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h2v-metric-panel-quoted-note",
+                "target_query": "metric panel",
+            },
+        }
+    ]
+    assert cases["h2v_not_ready_badge_genuine_value"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h2v-not-ready-badge",
+                "target_query": "status badge Not ready",
+            },
+        }
+    ]
+    assert cases["h2v_not_approved_toggle_genuine_value"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h2v-not-approved-toggle",
+                "target_query": "approval toggle Not approved",
+            },
+        }
+    ]
+    for case in packet["replay_cases"]:
+        assert _expected_call_reaches_oracle(case)
+
+
 def _expected_call_reaches_oracle(case: dict[str, object]) -> bool:
     tool_specs = [ToolSpec.model_validate(payload) for payload in case["tool_specs"]]  # type: ignore[index]
     executor = DeterministicExecutor(tool_specs=tool_specs)

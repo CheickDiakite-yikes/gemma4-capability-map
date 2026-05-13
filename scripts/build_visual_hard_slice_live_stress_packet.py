@@ -54,6 +54,7 @@ def parse_args() -> argparse.Namespace:
             "h2q_composed_surface_value_stale_v20",
             "h2s_fresh_composed_holdout_v21",
             "h2t_overreach_independence_v22",
+            "h2v_semantic_negation_v23",
         ],
         default="v1",
     )
@@ -240,6 +241,8 @@ def _stress_cases_for_suite(suite: str) -> list[ToolDirectiveProbeCase]:
         return _h2s_fresh_composed_holdout_cases_v21()
     if suite == "h2t_overreach_independence_v22":
         return _h2t_overreach_independence_cases_v22()
+    if suite == "h2v_semantic_negation_v23":
+        return _h2v_semantic_negation_cases_v23()
     raise ValueError(f"Unknown visual live stress suite: {suite}")
 
 
@@ -271,6 +274,7 @@ def _expected_call_payloads(
         "h2q_composed_surface_value_stale_v20",
         "h2s_fresh_composed_holdout_v21",
         "h2t_overreach_independence_v22",
+        "h2v_semantic_negation_v23",
     }:
         return [_oracle_visual_extract_call(case)]
     return [
@@ -4545,6 +4549,245 @@ def _h2t_overreach_independence_cases_v22() -> list[ToolDirectiveProbeCase]:
                 ],
             ),
             expected_execution={"region_ids": ["h2t-owner-field-clean-15091"]},
+        ),
+    ]
+
+
+def _h2v_semantic_negation_cases_v23() -> list[ToolDirectiveProbeCase]:
+    return [
+        ToolDirectiveProbeCase(
+            case_id="h2v_metric_panel_quoted_not_label_note",
+            family="h2v_quoted_negation_context",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2v-metric-panel-quoted-note"),
+                Message(
+                    role="user",
+                    content=(
+                        "Use the metric panel. The audit note quotes 'not the metric panel' from an old example; "
+                        "that quote is not the current target."
+                    ),
+                ),
+            ],
+            media=["img-h2v-metric-panel-quoted-note"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2v-metric-panel-quoted-note",
+                [
+                    _region("h2v-metric-panel-16001", "metric panel", "Escalations above target", area="panel"),
+                    _region("h2v-audit-note-16002", "audit note", "quoted old instruction from prior screenshot", area="note"),
+                    _region("h2v-metric-table-16003", "metric table", "Escalation rows", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2v-metric-panel-16001"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2v_summary_tile_quoted_not_label_caption",
+            family="h2v_quoted_negation_context",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2v-summary-tile-quoted-caption"),
+                Message(
+                    role="user",
+                    content=(
+                        "Use the summary tile. The caption quotes 'not the summary tile' from a stale example; "
+                        "the current target is still the tile."
+                    ),
+                ),
+            ],
+            media=["img-h2v-summary-tile-quoted-caption"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2v-summary-tile-quoted-caption",
+                [
+                    _region("h2v-summary-tile-16011", "summary tile", "Ready for review", area="tile"),
+                    _region("h2v-caption-16012", "caption", "quoted stale example from prior screenshot", area="caption"),
+                    _region("h2v-summary-note-16013", "summary note", "Ready details", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2v-summary-tile-16011"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2v_status_panel_do_not_use_note",
+            family="h2v_instructional_negation_context",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2v-status-panel-note"),
+                Message(
+                    role="user",
+                    content="Use the status panel. Do not use the status note even though it repeats Ready.",
+                ),
+            ],
+            media=["img-h2v-status-panel-note"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2v-status-panel-note",
+                [
+                    _region("h2v-status-tag-16021", "status tag Ready", "Ready", area="tag"),
+                    _region("h2v-status-panel-16022", "status panel", "Ready", area="panel"),
+                    _region("h2v-status-note-16023", "status note", "Ready current note", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2v-status-panel-16022"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2v_owner_field_do_not_use_memo",
+            family="h2v_instructional_negation_context",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2v-owner-field-memo"),
+                Message(
+                    role="user",
+                    content="Use the owner field for Nia. Do not use the owner memo below it.",
+                ),
+            ],
+            media=["img-h2v-owner-field-memo"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2v-owner-field-memo",
+                [
+                    _region("h2v-owner-field-16031", "owner field", "Nia", area="field"),
+                    _region("h2v-owner-memo-16032", "owner memo", "Nia owns next step", area="memo"),
+                    _region("h2v-owner-table-16033", "owner table", "Owner roster", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2v-owner-field-16031"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2v_review_tile_stale_caption_old_not_tile",
+            family="h2v_stale_example_negation_context",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2v-review-tile-stale-caption"),
+                Message(
+                    role="user",
+                    content=(
+                        "Use the current review tile. The stale caption says not the review tile, but that caption "
+                        "belongs to an old screenshot."
+                    ),
+                ),
+            ],
+            media=["img-h2v-review-tile-stale-caption"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2v-review-tile-stale-caption",
+                [
+                    _region("h2v-review-card-16041", "review card", "Review queue", area="card"),
+                    _region("h2v-review-tile-16042", "review tile", "Review queue", area="tile"),
+                    _region("h2v-stale-caption-16043", "stale caption", "old screenshot caption", area="caption"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2v-review-tile-16042"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2v_risk_lane_stale_example_not_lane",
+            family="h2v_stale_example_negation_context",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2v-risk-lane-stale-example"),
+                Message(
+                    role="user",
+                    content=(
+                        "Use the risk lane for High. The example note says not the risk lane, but it is marked "
+                        "as a stale example."
+                    ),
+                ),
+            ],
+            media=["img-h2v-risk-lane-stale-example"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2v-risk-lane-stale-example",
+                [
+                    _region("h2v-risk-chip-16051", "risk chip High", "High", area="chip"),
+                    _region("h2v-risk-lane-16052", "risk lane", "High", area="lane"),
+                    _region("h2v-example-note-16053", "example note", "stale example note", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2v-risk-lane-16052"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2v_not_ready_badge_genuine_value",
+            family="h2v_genuine_negated_target",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2v-not-ready-badge"),
+                Message(
+                    role="user",
+                    content=(
+                        "Use the Not ready status badge. Here Not ready is the displayed current value, not an "
+                        "instruction to avoid readiness badges."
+                    ),
+                ),
+            ],
+            media=["img-h2v-not-ready-badge"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2v-not-ready-badge",
+                [
+                    _region("h2v-status-badge-ready-16061", "status badge Ready", "Ready", area="badge"),
+                    _region("h2v-status-badge-not-ready-16062", "status badge Not ready", "Not ready", area="badge"),
+                    _region("h2v-readiness-note-16063", "readiness note", "Not ready until QA signs off", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2v-status-badge-not-ready-16062"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2v_not_applicable_chip_genuine_value",
+            family="h2v_genuine_negated_target",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2v-not-applicable-chip"),
+                Message(
+                    role="user",
+                    content="Use the Not applicable reason chip. The words Not applicable are the chip value.",
+                ),
+            ],
+            media=["img-h2v-not-applicable-chip"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2v-not-applicable-chip",
+                [
+                    _region("h2v-reason-chip-applicable-16071", "reason chip Applicable", "Applicable", area="chip"),
+                    _region("h2v-reason-chip-not-applicable-16072", "reason chip Not applicable", "Not applicable", area="chip"),
+                    _region("h2v-reason-note-16073", "reason note", "Not applicable because vendor data is absent", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2v-reason-chip-not-applicable-16072"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2v_not_approved_toggle_genuine_value",
+            family="h2v_genuine_negated_target",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2v-not-approved-toggle"),
+                Message(
+                    role="user",
+                    content="Use the Not approved toggle. Not approved is the current toggle value.",
+                ),
+            ],
+            media=["img-h2v-not-approved-toggle"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2v-not-approved-toggle",
+                [
+                    _region("h2v-approved-toggle-16081", "approval toggle Approved", "Approved", area="toggle"),
+                    _region("h2v-not-approved-toggle-16082", "approval toggle Not approved", "Not approved", area="toggle"),
+                    _region("h2v-approval-note-16083", "approval note", "Not approved by compliance", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2v-not-approved-toggle-16082"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2v_exception_notice_clean_control",
+            family="h2v_clean_negation_control",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2v-exception-notice-clean"),
+                Message(
+                    role="user",
+                    content="Use the exception notice in the current panel. The event log is supporting context.",
+                ),
+            ],
+            media=["img-h2v-exception-notice-clean"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2v-exception-notice-clean",
+                [
+                    _region("h2v-exception-notice-16091", "exception notice", "Exception opened", area="notice"),
+                    _region("h2v-event-log-16092", "event log", "Exception opened by Nia", area="log"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2v-exception-notice-16091"]},
         ),
     ]
 

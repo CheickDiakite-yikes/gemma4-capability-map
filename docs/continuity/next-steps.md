@@ -33,8 +33,9 @@ Execution order:
 25. Treat the two H2t H2r misses as controller-induced, not model-induced: raw MLX emitted `metric panel` and `summary tile`, then target-query normalization and composed-route gating rewrote them to `training note` and `caption`.
 26. Treat H2u as the current narrow repair: it adds a negation-aware guard across target-query normalization and composed-route gating, reaches `10 / 10` on H2t, and fixes the two H2t negation-scope rows.
 27. Treat H2u transfer as current-transfer-positive but not semantically complete: it preserves H2s/H2q/H2m at `26 / 26`, H2k/H2l/H2f/H2b/H1x at `39 / 39`, and H1y/H1o/H1p at `34 / 34`, for `99 / 99` total, but still needs H2v/H3 semantic negation and packaged-workflow transfer before global promotion.
-28. Score both strict exactness and executor-equivalence; do not collapse executor-valid paraphrases into failures when evaluating live usefulness.
-29. Keep packaged workflows paused for this line unless they preserve the same replay-shaped pressure; H1l/H1m already showed packaged visual surfaces can wash out the mechanism.
+28. Treat the H2v dry-run packet as the next live target: it separates quoted negation, instructional negation, stale-example captions, genuine negated targets, and a clean control without claiming model evidence yet.
+29. Score both strict exactness and executor-equivalence; do not collapse executor-valid paraphrases into failures when evaluating live usefulness.
+30. Keep packaged workflows paused for this line unless they preserve the same replay-shaped pressure; H1l/H1m already showed packaged visual surfaces can wash out the mechanism.
 
 Immediate suggested command:
 
@@ -44,6 +45,7 @@ uv run python scripts/build_h2r_transfer_backtest_synthesis.py
 uv run python scripts/build_h2s_fresh_composed_holdout_synthesis.py
 uv run python scripts/build_h2t_overreach_independence_synthesis.py
 uv run python scripts/build_h2u_negation_guard_synthesis.py
+uv run python scripts/build_visual_hard_slice_live_stress_packet.py --suite h2v_semantic_negation_v23 --run-group-id 20260513T_h2v_semantic_negation_dry_run_v1
 uv run python scripts/build_publication_evidence_ledger.py
 uv run python scripts/audit_publication_readiness.py
 rg -n "visual_composed_route_gating|visual_contextual_surface_alias_routing|visual_value_bearing_target_query_synthesis|visual_stale_selection_gate|refine_selection|target_query_normalization" src/gemma4_capability_map configs tests
@@ -51,7 +53,8 @@ rg -n "visual_composed_route_gating|visual_contextual_surface_alias_routing|visu
 
 Then validate H2u's remaining risk in small slices:
 
-- design H2v/H3 cases that separate quoted negation, instructional negation, old-example captions, and genuinely negated current targets
+- run H2u over the H2v semantic-negation packet, then compare against H2r and an H2e/H2j control
+- decide whether H3 needs extra semantic rows after the first H2v live pass
 - keep H2e as the executor-equivalence tradeoff control while testing H2u
 - if packaged transfer is chosen next, port H2q/H2s/H2t pressure into attributable workflow families without letting workflow scaffolding resolve the case before the model/controller sees it
 - use H2r transfer synthesis as the current incumbent transfer gate

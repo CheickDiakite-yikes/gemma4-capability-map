@@ -5302,3 +5302,27 @@
   - `uv run python scripts/build_h2u_negation_guard_synthesis.py`
   - `uv run python scripts/build_publication_evidence_ledger.py`
   - `uv run python scripts/audit_publication_readiness.py`
+
+## 2026-05-13 - H2v Semantic Negation Packet Designed
+
+- Built the next dry-run replay packet for the post-H2u frontier:
+  - packet: [`results/tool_probe_replay_packets/20260513T_h2v_semantic_negation_dry_run_v1`](../results/tool_probe_replay_packets/20260513T_h2v_semantic_negation_dry_run_v1)
+  - suite: `h2v_semantic_negation_v23`
+  - case count: `10`
+- Packet shape:
+  - quoted negation context: `2` rows where text like "not the metric panel" appears in quoted or stale context, while the current target remains the positive layout component
+  - instructional negation context: `2` rows where the user explicitly says not to use a note/memo and names the intended current component
+  - stale-example negation context: `2` rows where old captions/examples contain negated target language
+  - genuine negated targets: `3` rows where `Not ready`, `Not applicable`, or `Not approved` is the actual current target value
+  - clean control: `1` row without negation pressure
+- Harness-design note:
+  - The packet keeps oracle `extract_layout` calls exact. The semantic pressure lives in the prompt/context rather than in decoy region labels that would make the deterministic oracle ambiguous.
+  - No live model claim is made from this packet yet; it is a benchmark contract artifact for the next replay-live wave.
+- Next:
+  - Run H2u on H2v.
+  - Run H2r as the pre-negation-guard incumbent.
+  - Run H2e or H2j as a lower-helper control to separate route gating from negation semantics.
+  - Only after that, decide whether H3 needs additional semantic rows or whether to port the pressure into packaged workflows.
+- Verification:
+  - `uv run pytest tests/test_visual_hard_slice_live_stress_packet.py::test_visual_hard_slice_live_stress_packet_supports_h2v_semantic_negation_suite tests/test_visual_hard_slice_live_stress_packet.py::test_visual_hard_slice_live_stress_packet_supports_h2t_overreach_independence_suite -q`
+  - `uv run python scripts/build_visual_hard_slice_live_stress_packet.py --suite h2v_semantic_negation_v23 --run-group-id 20260513T_h2v_semantic_negation_dry_run_v1`

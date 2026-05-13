@@ -247,7 +247,8 @@ The freshest replay-shaped visual controller evidence is now H2u:
   - Current H2u broad transfer subtotal is `99 / 99` strict and executor-equivalent with `0.0` aggregate exact-rate delta versus H2r.
   - mechanism: the corrected repair guards both target-query normalization and composed-route gating when a candidate replacement label appears only in negated or explanatory scope.
 - next controller question:
-  - design H2v/H3 to distinguish quoted negation, instructional negation, stale example captions, and genuine target negation
+  - run the H2v dry-run packet, [`results/tool_probe_replay_packets/20260513T_h2v_semantic_negation_dry_run_v1`](../../results/tool_probe_replay_packets/20260513T_h2v_semantic_negation_dry_run_v1), to distinguish quoted negation, instructional negation, stale example captions, and genuine target negation
+  - compare H2u against H2r and an H2e/H2j control before adding new guard logic
   - port the same pressure into packaged workflow transfer so the CLI harness remains attributable to workflow families
   - keep packaged transfer paused only until the replay-shaped H2v/H3 guard semantics are explicit enough to avoid workflow scaffolding solving the case first
 
