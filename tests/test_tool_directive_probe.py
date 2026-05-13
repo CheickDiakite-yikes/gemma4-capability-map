@@ -871,6 +871,117 @@ def test_value_bearing_target_query_synthesis_preserves_contextual_label_repair(
     assert patched.runtime_metadata["visual_target_query_normalization"][0]["prompt_state_label"] == "error notice"
 
 
+def test_negation_aware_target_query_normalization_blocks_context_label_overwrite() -> None:
+    specs = build_default_registry().specs
+    case = ToolDirectiveProbeCase(
+        case_id="target-query-normalization-negation-scope-block",
+        family="visual",
+        messages=[
+            Message(role="system", content="visual_image_ids: img-h2t-metric"),
+            Message(
+                role="user",
+                content=(
+                    "Use the metric panel at the top. The annotation saying 'not the metric panel' "
+                    "is a training note about a prior screenshot, not the current target."
+                ),
+            ),
+        ],
+        media=["img-h2t-metric"],
+        tool_names=["extract_layout", "refine_selection"],
+        initial_state={
+            "images": {
+                "img-h2t-metric": {
+                    "local_layouts": [
+                        {"region_id": "metric-1", "label": "metric panel", "text": "Escalations above target"},
+                        {"region_id": "note-1", "label": "training note", "text": "old negative example"},
+                    ]
+                }
+            },
+        },
+    )
+    turn = ModelTurn(
+        raw_model_output="{}",
+        normalized_tool_call=[
+            ToolCall(
+                name="extract_layout",
+                arguments={"image_id": "img-h2t-metric", "target_query": "metric panel"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+    )
+
+    patched = _apply_visual_target_query_normalization(
+        turn=turn,
+        case=case,
+        tool_specs=[specs["extract_layout"], specs["refine_selection"]],
+        preserve_negated_exact_layout_targets=True,
+    )
+
+    assert patched.normalized_tool_call == turn.normalized_tool_call
+    blocked = patched.runtime_metadata["visual_target_query_normalization_blocked"][0]
+    assert blocked["prompt_state_label"] == "training note"
+    assert blocked["preserved_target_query"] == "metric panel"
+    assert blocked["reason"] == "negation_scope_exact_layout_label"
+    assert "visual_target_query_normalization" not in patched.runtime_metadata
+
+
+def test_negation_aware_value_bearing_synthesis_blocks_fallback_caption_overwrite() -> None:
+    specs = build_default_registry().specs
+    case = ToolDirectiveProbeCase(
+        case_id="value-bearing-target-query-synthesis-negation-scope-block",
+        family="visual",
+        messages=[
+            Message(role="system", content="visual_image_ids: img-h2t-summary"),
+            Message(
+                role="user",
+                content=(
+                    "Use the summary tile in the current image. The caption includes the phrase "
+                    "not the summary tile, but it is describing an old example."
+                ),
+            ),
+        ],
+        media=["img-h2t-summary"],
+        tool_names=["extract_layout", "refine_selection"],
+        initial_state={
+            "images": {
+                "img-h2t-summary": {
+                    "local_layouts": [
+                        {"region_id": "tile-1", "label": "summary tile", "text": "Ready for review"},
+                        {"region_id": "caption-1", "label": "caption", "text": "old negative example"},
+                    ]
+                }
+            },
+        },
+    )
+    turn = ModelTurn(
+        raw_model_output="{}",
+        normalized_tool_call=[
+            ToolCall(
+                name="extract_layout",
+                arguments={"image_id": "img-h2t-summary", "target_query": "summary tile"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+    )
+
+    patched = _apply_visual_value_bearing_target_query_synthesis(
+        turn=turn,
+        case=case,
+        tool_specs=[specs["extract_layout"], specs["refine_selection"]],
+        preserve_negated_exact_layout_targets=True,
+    )
+
+    assert patched.normalized_tool_call == turn.normalized_tool_call
+    blocked = patched.runtime_metadata["visual_target_query_normalization_blocked"][0]
+    assert blocked["prompt_state_label"] == "caption"
+    assert blocked["preserved_target_query"] == "summary tile"
+    assert blocked["reason"] == "negation_scope_exact_layout_label"
+    assert "visual_value_bearing_target_query_synthesis" not in patched.runtime_metadata
+    assert "visual_target_query_normalization" not in patched.runtime_metadata
+
+
 def test_value_bearing_target_query_synthesis_ignores_negated_longer_label() -> None:
     specs = build_default_registry().specs
     case = ToolDirectiveProbeCase(

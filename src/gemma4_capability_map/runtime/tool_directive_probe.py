@@ -195,16 +195,27 @@ def run_tool_directive_probe(
         if controls.enable_visual_stale_selection_gate:
             turn = _apply_visual_stale_selection_gate(turn=turn, case=case, tool_specs=tool_specs)
         if controls.enable_visual_target_query_normalization:
-            turn = _apply_visual_target_query_normalization(turn=turn, case=case, tool_specs=tool_specs)
+            turn = _apply_visual_target_query_normalization(
+                turn=turn,
+                case=case,
+                tool_specs=tool_specs,
+                preserve_negated_exact_layout_targets=controls.enable_visual_negation_aware_target_query_normalization,
+            )
         if controls.enable_visual_scoped_target_query_normalization:
             turn = _apply_visual_target_query_normalization(
                 turn=turn,
                 case=case,
                 tool_specs=tool_specs,
                 preserve_value_bearing_targets=True,
+                preserve_negated_exact_layout_targets=controls.enable_visual_negation_aware_target_query_normalization,
             )
         if controls.enable_visual_value_bearing_target_query_synthesis:
-            turn = _apply_visual_value_bearing_target_query_synthesis(turn=turn, case=case, tool_specs=tool_specs)
+            turn = _apply_visual_value_bearing_target_query_synthesis(
+                turn=turn,
+                case=case,
+                tool_specs=tool_specs,
+                preserve_negated_exact_layout_targets=controls.enable_visual_negation_aware_target_query_normalization,
+            )
         if controls.enable_visual_contextual_surface_alias_routing:
             turn = _apply_visual_contextual_surface_alias_routing(turn=turn, case=case, tool_specs=tool_specs)
         if controls.enable_visual_composed_route_gating:
@@ -456,6 +467,7 @@ def _apply_visual_target_query_normalization(
     case: ToolDirectiveProbeCase,
     tool_specs: list[ToolSpec],
     preserve_value_bearing_targets: bool = False,
+    preserve_negated_exact_layout_targets: bool = False,
 ) -> ModelTurn:
     tool_names = {tool.name for tool in tool_specs}
     if "extract_layout" not in tool_names or not turn.normalized_tool_call:
@@ -481,6 +493,19 @@ def _apply_visual_target_query_normalization(
         if scope_block is not None:
             patched_calls.append(call)
             blocked_rows.append(scope_block)
+            continue
+        negation_scope_block = (
+            _visual_target_query_normalization_negation_scope_block(
+                call=call,
+                case=case,
+                prompt_state_label=prompt_state_label,
+            )
+            if preserve_negated_exact_layout_targets
+            else None
+        )
+        if negation_scope_block is not None:
+            patched_calls.append(call)
+            blocked_rows.append(negation_scope_block)
             continue
         replacement = _visual_target_query_normalization_replacement(
             call=call,
@@ -547,11 +572,47 @@ def _visual_target_query_normalization_scope_block(
     return None
 
 
+def _visual_target_query_normalization_negation_scope_block(
+    *,
+    call: ToolCall,
+    case: ToolDirectiveProbeCase,
+    prompt_state_label: str,
+) -> dict[str, Any] | None:
+    if call.name != "extract_layout":
+        return None
+    target_query = str(call.arguments.get("target_query", "")).strip()
+    if not target_query or target_query == prompt_state_label:
+        return None
+
+    target_row = _visual_layout_row_by_label(case.initial_state, target_query)
+    prompt_row = _visual_layout_row_by_label(case.initial_state, prompt_state_label)
+    if target_row is None or prompt_row is None:
+        return None
+
+    user_text = " ".join(message.content for message in case.messages if message.role == "user").lower()
+    if not _visual_label_positively_requested(user_text=user_text, label=target_query):
+        return None
+    if not _visual_label_contextually_deprioritized(user_text=user_text, label=prompt_state_label):
+        return None
+
+    return {
+        "from_tool": call.name,
+        "from_arguments": call.arguments,
+        "prompt_state_label": prompt_state_label,
+        "preserved_target_query": target_query,
+        "preserved_region_id": target_row["region_id"],
+        "blocked_label": prompt_state_label,
+        "blocked_region_id": prompt_row["region_id"],
+        "reason": "negation_scope_exact_layout_label",
+    }
+
+
 def _apply_visual_value_bearing_target_query_synthesis(
     *,
     turn: ModelTurn,
     case: ToolDirectiveProbeCase,
     tool_specs: list[ToolSpec],
+    preserve_negated_exact_layout_targets: bool = False,
 ) -> ModelTurn:
     tool_names = {tool.name for tool in tool_specs}
     if "extract_layout" not in tool_names or not turn.normalized_tool_call:
@@ -564,6 +625,7 @@ def _apply_visual_value_bearing_target_query_synthesis(
     patched_calls: list[ToolCall] = []
     synthesis_rows: list[dict[str, Any]] = []
     normalization_rows: list[dict[str, Any]] = []
+    blocked_rows: list[dict[str, Any]] = []
     for call in turn.normalized_tool_call:
         synthesis = _visual_value_bearing_target_query_synthesis_replacement(
             call=call,
@@ -574,6 +636,19 @@ def _apply_visual_value_bearing_target_query_synthesis(
             replacement, synthesis_row = synthesis
             patched_calls.append(replacement)
             synthesis_rows.append(synthesis_row)
+            continue
+        negation_scope_block = (
+            _visual_target_query_normalization_negation_scope_block(
+                call=call,
+                case=case,
+                prompt_state_label=prompt_state_label,
+            )
+            if preserve_negated_exact_layout_targets
+            else None
+        )
+        if negation_scope_block is not None:
+            patched_calls.append(call)
+            blocked_rows.append(negation_scope_block)
             continue
         replacement = _visual_target_query_normalization_replacement(
             call=call,
@@ -593,13 +668,15 @@ def _apply_visual_value_bearing_target_query_synthesis(
             }
         )
 
-    if not synthesis_rows and not normalization_rows:
+    if not synthesis_rows and not normalization_rows and not blocked_rows:
         return turn
     metadata = dict(turn.runtime_metadata)
     if synthesis_rows:
         metadata["visual_value_bearing_target_query_synthesis"] = synthesis_rows
     if normalization_rows:
         metadata["visual_target_query_normalization"] = normalization_rows
+    if blocked_rows:
+        metadata["visual_target_query_normalization_blocked"] = blocked_rows
     return turn.model_copy(update={"normalized_tool_call": patched_calls, "runtime_metadata": metadata})
 
 
@@ -936,6 +1013,51 @@ def _visual_label_deprioritized(*, user_text: str, label: str) -> bool:
     for match in re.finditer(re.escape(label_lower), user_text):
         window = user_text[match.start() : match.end() + 96]
         if any(fragment in window for fragment in component_fragments):
+            return True
+    return False
+
+
+def _visual_label_positively_requested(*, user_text: str, label: str) -> bool:
+    label_lower = label.lower()
+    positive_fragments = (
+        f"use the {label_lower}",
+        f"use {label_lower}",
+        f"work from the {label_lower}",
+        f"work from {label_lower}",
+        f"select the {label_lower}",
+        f"select {label_lower}",
+        f"locate the {label_lower}",
+        f"locate {label_lower}",
+        f"find the {label_lower}",
+        f"find {label_lower}",
+        f"target the {label_lower}",
+        f"target {label_lower}",
+    )
+    return any(fragment in user_text for fragment in positive_fragments)
+
+
+def _visual_label_contextually_deprioritized(*, user_text: str, label: str) -> bool:
+    if _visual_label_deprioritized(user_text=user_text, label=label):
+        return True
+
+    label_lower = label.lower()
+    context_markers = (
+        "old example",
+        "old negative example",
+        "prior screenshot",
+        "previous screenshot",
+        "prior image",
+        "previous image",
+        "prior example",
+        "previous example",
+        "nearby context",
+        "not the current target",
+        "not current target",
+        "not the target",
+    )
+    for match in re.finditer(re.escape(label_lower), user_text):
+        window = user_text[match.start() : match.end() + 160]
+        if any(marker in window for marker in context_markers):
             return True
     return False
 

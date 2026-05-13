@@ -223,6 +223,10 @@ def _system_run_args(system_id: str, meta: dict[str, Any]) -> dict[str, Any]:
         "enable_visual_contextual_surface_alias_routing": (
             controls.enable_visual_contextual_surface_alias_routing
         ),
+        "enable_visual_composed_route_gating": controls.enable_visual_composed_route_gating,
+        "enable_visual_negation_aware_target_query_normalization": (
+            controls.enable_visual_negation_aware_target_query_normalization
+        ),
         "tool_prompt_contract_id": controls.tool_prompt_contract_id,
         "tool_catalog_profile_id": controls.tool_catalog_profile_id,
     }
