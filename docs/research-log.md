@@ -5273,3 +5273,32 @@
 - Next:
   - Run H2u on H1y/H1o/H1p.
   - Then design H2v/H3 to separate quoted negation, instructional negation, stale example captions, and genuine target negation.
+
+## 2026-05-13 - H2u Older Transfer Closure Reaches 99/99
+
+- Ran H2u over the older transfer family that remained after the first-pass broader gate:
+  - H1y: [`results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h1y_execute_v1`](../results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h1y_execute_v1)
+  - H1o: [`results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h1o_execute_v1`](../results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h1o_execute_v1)
+  - H1p: [`results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h1p_execute_v1`](../results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h1p_execute_v1)
+- Result:
+  - H1y reaches `10 / 10`, H1o reaches `12 / 12`, and H1p reaches `12 / 12` strict and executor-equivalent.
+  - All three H2u-vs-H2r older-transfer comparisons have `0.0` exact-rate and executor-equivalence-rate deltas.
+  - H2u now preserves `26 / 26` on H2s/H2q/H2m, `39 / 39` on H2k/H2l/H2f/H2b/H1x, and `34 / 34` on H1y/H1o/H1p, for a current broad transfer subtotal of `99 / 99`.
+- Mechanism:
+  - The older-family pass adds one harmless guard fire on `h1y_alert_s92_negated_toggle_decoy`, where composed-route gating is blocked from rewriting the exact current `alert t47` target toward a negated `alert s92` decoy.
+  - Current H2u synthesis records `8` blocked guard interventions: `4` on H2t and `4` transfer blocks.
+  - H2u has `0` non-exact rows across the packets summarized in the synthesis.
+- Reporting updates:
+  - H2u synthesis now covers `24` packet rows and `12` comparisons.
+  - Publication claim `C60_h2u_negation_guard_repairs_h2t_without_h2s_h2q_h2m_regression` now records the `99 / 99` transfer subtotal and narrows the caveat to harder semantic negation and packaged-workflow transfer.
+  - Publication evidence ledger now has `60` claims and `403` sources with `0` missing sources.
+  - Publication readiness audit now has `307` checks, `300` blocking checks, `0` blocking failures, and status `paper_draft_ready`.
+- Interpretation:
+  - H2u is no longer just H2t-positive plus first-pass-transfer-positive; it is current-transfer-positive across the replay packet family.
+  - The remaining scientific risk is not same-family transfer. It is semantic scope: quoted negation, instructional negation, stale example captions, and genuine target negation may need different guard semantics.
+  - The next proper slice is H2v/H3, followed by packaged workflow transfer only if the workflow family preserves the negation/decoy pressure instead of resolving it upstream.
+- Verification:
+  - `uv run pytest tests/test_h2u_negation_guard_synthesis.py tests/test_publication_evidence_ledger.py tests/test_publication_readiness_audit.py -q`
+  - `uv run python scripts/build_h2u_negation_guard_synthesis.py`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`

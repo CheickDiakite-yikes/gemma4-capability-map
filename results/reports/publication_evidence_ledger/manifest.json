@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-05-13T01:02:38.980035+00:00",
+  "generated_at": "2026-05-13T01:13:04.898997+00:00",
   "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
   "claim_count": 60,
-  "evidence_source_count": 397,
+  "evidence_source_count": 403,
   "missing_source_count": 0,
   "claim_ids": [
     "C1_controller_dependence_hidden_by_readiness",

@@ -1,6 +1,6 @@
 # H2u Negation Guard Synthesis
 
-Generated: `2026-05-13T01:02:36.139762+00:00`
+Generated: `2026-05-13T01:13:04.903872+00:00`
 
 ## Summary
 
@@ -8,9 +8,11 @@ H2u is the first repair after H2t exposed a controller-induced negation-scope re
 
 On H2t, H2u reaches `10 / 10` strict and `10 / 10` executor-equivalent, improving `0.20` exact-rate over H2r. It fixes `2` H2t rows.
 
-Transfer is clean on this wave: H2u preserves `26 / 26` strict exactness across H2s, H2q, and H2m, and all three H2r-vs-H2u comparisons have zero exact/executor-equivalence deltas. The guard fires on transfer `3` times without causing a miss.
+Transfer is clean on this wave: H2u preserves `26 / 26` strict exactness across H2s, H2q, and H2m, and all three H2r-vs-H2u comparisons have zero exact/executor-equivalence deltas. The guard fires on transfer `4` times without causing a miss.
 
-The broader first-pass transfer backtest is also clean: H2u preserves `39 / 39` strict exactness across H2k, H2l, H2f, H2b, and H1x. Combined with the initial H2s/H2q/H2m transfer gate, the current broad transfer subtotal is `65 / 65` with zero aggregate exact-rate delta versus H2r.
+The broader first-pass transfer backtest is also clean: H2u preserves `39 / 39` strict exactness across H2k, H2l, H2f, H2b, and H1x. Combined with the initial H2s/H2q/H2m transfer gate, this gives `65 / 65` before the older family.
+
+The older transfer closure is clean too: H2u preserves `34 / 34` strict exactness across H1y, H1o, and H1p. The current broad transfer subtotal is now `99 / 99` with zero aggregate exact-rate delta versus H2r.
 
 ![H2u negation guard transfer gate](figures/h2u_negation_guard_transfer_gate.svg)
 
@@ -36,6 +38,12 @@ The broader first-pass transfer backtest is also clean: H2u preserves `39 / 39` 
 | h2b_h2u_negation_guard | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_value_bearing_target_query_synthesis_visual_contextual_surface_alias_routing_visual_composed_route_gating_visual_negation_guard | results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h2b_execute_v1 | 5 | 5 | 1.0 | 5 | 1.0 |
 | h1x_h2r_composed_route_gating | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_value_bearing_target_query_synthesis_visual_contextual_surface_alias_routing_visual_composed_route_gating | results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h1x_execute_v1 | 8 | 8 | 1.0 | 8 | 1.0 |
 | h1x_h2u_negation_guard | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_value_bearing_target_query_synthesis_visual_contextual_surface_alias_routing_visual_composed_route_gating_visual_negation_guard | results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h1x_execute_v1 | 8 | 8 | 1.0 | 8 | 1.0 |
+| h1y_h2r_composed_route_gating | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_value_bearing_target_query_synthesis_visual_contextual_surface_alias_routing_visual_composed_route_gating | results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h1y_execute_v1 | 10 | 10 | 1.0 | 10 | 1.0 |
+| h1y_h2u_negation_guard | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_value_bearing_target_query_synthesis_visual_contextual_surface_alias_routing_visual_composed_route_gating_visual_negation_guard | results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h1y_execute_v1 | 10 | 10 | 1.0 | 10 | 1.0 |
+| h1o_h2r_composed_route_gating | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_value_bearing_target_query_synthesis_visual_contextual_surface_alias_routing_visual_composed_route_gating | results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h1o_execute_v1 | 12 | 12 | 1.0 | 12 | 1.0 |
+| h1o_h2u_negation_guard | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_value_bearing_target_query_synthesis_visual_contextual_surface_alias_routing_visual_composed_route_gating_visual_negation_guard | results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h1o_execute_v1 | 12 | 12 | 1.0 | 12 | 1.0 |
+| h1p_h2r_composed_route_gating | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_value_bearing_target_query_synthesis_visual_contextual_surface_alias_routing_visual_composed_route_gating | results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h1p_execute_v1 | 12 | 12 | 1.0 | 12 | 1.0 |
+| h1p_h2u_negation_guard | mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_value_bearing_target_query_synthesis_visual_contextual_surface_alias_routing_visual_composed_route_gating_visual_negation_guard | results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h1p_execute_v1 | 12 | 12 | 1.0 | 12 | 1.0 |
 
 ## Comparison Rows
 
@@ -50,6 +58,9 @@ The broader first-pass transfer backtest is also clean: H2u preserves `39 / 39` 
 | h2f_h2u_vs_h2r | results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h2f_v1 | 10 | 1.0 | 1.0 | 0.0 | 1.0 | 1.0 | 0.0 |
 | h2b_h2u_vs_h2r | results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h2b_v1 | 5 | 1.0 | 1.0 | 0.0 | 1.0 | 1.0 | 0.0 |
 | h1x_h2u_vs_h2r | results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h1x_v1 | 8 | 1.0 | 1.0 | 0.0 | 1.0 | 1.0 | 0.0 |
+| h1y_h2u_vs_h2r | results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h1y_v1 | 10 | 1.0 | 1.0 | 0.0 | 1.0 | 1.0 | 0.0 |
+| h1o_h2u_vs_h2r | results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h1o_v1 | 12 | 1.0 | 1.0 | 0.0 | 1.0 | 1.0 | 0.0 |
+| h1p_h2u_vs_h2r | results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h1p_v1 | 12 | 1.0 | 1.0 | 0.0 | 1.0 | 1.0 | 0.0 |
 
 ## Fixed Case Rows
 
@@ -69,6 +80,7 @@ The broader first-pass transfer backtest is also clean: H2u preserves `39 / 39` 
 | h2s_h2u_negation_guard | h2s | h2s_delivery_field_paused_toggle_switch_decoys | h2s_contextual_alias_decoy_overlap | visual_target_query_normalization_blocked | extract_layout | {"image_id":"img-h2s-delivery-field-paused","target_query":"delivery field"} | delivery field | h2s-delivery-field-14052 | paused toggle | h2s-paused-toggle-14051 | paused toggle | negation_scope_exact_layout_label |
 | h2q_h2u_negation_guard | h2q | h2q_mode_field_manual_switch_decoy | h2q_contextual_alias_decoy_overlap | visual_target_query_normalization_blocked | extract_layout | {"image_id":"img-h2q-mode-field","target_query":"mode field"} | mode field | h2q-mode-field-13052 | mode switch | h2q-mode-switch-13053 | mode switch | negation_scope_exact_layout_label |
 | h2k_h2u_negation_guard | h2k | h2k_alert_t47_archived_alert_s92_decoy | h2k_code_label_overlap | visual_composed_route_gating_blocked | extract_layout | {"image_id":"img-h2k-alert-t47","target_query":"alert t47"} | alert t47 | h2k-alert-t47-10072 | alert s92 | h2k-alert-s92-10071 |  | negation_scope_exact_layout_label |
+| h1y_h2u_negation_guard | h1y | h1y_alert_s92_negated_toggle_decoy | h1y_route_code_label | visual_composed_route_gating_blocked | extract_layout | {"image_id":"img-h1y-alert-s92","target_query":"alert s92"} | alert s92 | h1y-alert-s92-9852 | override toggle | h1y-alert-toggle-9851 |  | negation_scope_exact_layout_label |
 
 ## Non-Exact Rows
 
@@ -84,6 +96,7 @@ The broader first-pass transfer backtest is also clean: H2u preserves `39 / 39` 
 | h2u_repairs_h2t_negation_scope | H2u raises H2t from H2r's 8/10 strict to 10/10 strict, with delta 0.20 exact-rate and 0.20 executor-equivalence-rate. |
 | h2u_fix_is_pipeline_ordered | The repaired H2t rows are h2t_metric_panel_negation_scope_note, h2t_summary_tile_negation_scope_caption. H2u records 4 H2t blocked-guard interventions, covering both target normalization and composed-route gating. |
 | h2u_transfer_preserves_h2r | H2u preserves 26/26 strict exactness across H2s, H2q, and H2m, with zero exact-rate and executor-equivalence-rate deltas versus H2r on all three initial transfer checks. |
-| h2u_first_pass_transfer_preserves_h2r | H2u also preserves 39/39 strict exactness across H2k, H2l, H2f, H2b, and H1x, bringing the current broad transfer subtotal to 65/65 exact with zero aggregate exact-rate delta versus H2r. |
-| h2u_guard_fires_without_transfer_cost | H2u records 3 blocked transfer interventions outside H2t, but those rows remain exact. This suggests the guard is not merely inactive on transfer; it can fire conservatively without breaking prior wins. |
-| h2u_no_remaining_non_exact_rows | Across the H2u packets summarized here, H2u has 0 non-exact rows. The next risk is broader transfer coverage rather than this local H2t/H2s/H2q/H2m slice. |
+| h2u_first_pass_transfer_preserves_h2r | H2u also preserves 39/39 strict exactness across H2k, H2l, H2f, H2b, and H1x with zero aggregate exact-rate delta versus H2r. |
+| h2u_older_transfer_preserves_h2r | H2u preserves 34/34 strict exactness across the older H1y, H1o, and H1p family. Combined with H2s/H2q/H2m and H2k/H2l/H2f/H2b/H1x, the current broad transfer subtotal is 99/99 exact with zero aggregate exact-rate delta versus H2r. |
+| h2u_guard_fires_without_transfer_cost | H2u records 4 blocked transfer interventions outside H2t, but those rows remain exact. This suggests the guard is not merely inactive on transfer; it can fire conservatively without breaking prior wins. |
+| h2u_no_remaining_non_exact_rows | Across the H2u packets summarized here, H2u has 0 non-exact rows. The next risk is semantic negation generalization rather than same-family transfer coverage. |

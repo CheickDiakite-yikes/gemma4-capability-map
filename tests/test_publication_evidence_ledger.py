@@ -168,7 +168,7 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     ] == "supported_fresh_holdout_requires_h2u_negation_aware_normalization"
     assert claims["C60_h2u_negation_guard_repairs_h2t_without_h2s_h2q_h2m_regression"][
         "status"
-    ] == "supported_broad_transfer_first_pass_needs_older_transfer_and_harder_semantics"
+    ] == "supported_current_full_transfer_needs_harder_semantic_holdout"
     assert "7/8" in claims["C2_final_tool_directive_causal_for_protocol"]["primary_metric"]
     assert "8/8 strict and 8/8 executor-equivalent versus H2p at 3/8" in claims[
         "C56_h2r_composed_route_gating_solves_h2q_locally"
@@ -192,6 +192,12 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
         "C60_h2u_negation_guard_repairs_h2t_without_h2s_h2q_h2m_regression"
     ]["primary_metric"]
     assert "another 39/39 strict exactness" in claims[
+        "C60_h2u_negation_guard_repairs_h2t_without_h2s_h2q_h2m_regression"
+    ]["primary_metric"]
+    assert "34/34 across H1y/H1o/H1p" in claims[
+        "C60_h2u_negation_guard_repairs_h2t_without_h2s_h2q_h2m_regression"
+    ]["primary_metric"]
+    assert "99/99" in claims[
         "C60_h2u_negation_guard_repairs_h2t_without_h2s_h2q_h2m_regression"
     ]["primary_metric"]
     assert "v3 raw exact falls" in claims["C6_split_selector_wording_is_negative_evidence"]["primary_metric"]
@@ -993,6 +999,19 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
         row["claim_id"] == "C60_h2u_negation_guard_repairs_h2t_without_h2s_h2q_h2m_regression"
         and row["path"]
         == "results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h1x_v1"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C60_h2u_negation_guard_repairs_h2t_without_h2s_h2q_h2m_regression"
+        and row["path"] == "results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h1y_execute_v1"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C60_h2u_negation_guard_repairs_h2t_without_h2s_h2q_h2m_regression"
+        and row["path"]
+        == "results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h1p_v1"
         and row["exists"]
         for row in payload["evidence_sources"]
     )

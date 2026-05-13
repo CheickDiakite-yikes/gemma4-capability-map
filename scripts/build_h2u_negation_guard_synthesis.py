@@ -98,6 +98,30 @@ PACKET_SPECS: tuple[PacketSpec, ...] = (
         "h1x_h2u_negation_guard",
         ROOT / "results" / "tool_probe_replay_live" / "20260513T_h2u_negation_guard_on_h1x_execute_v1",
     ),
+    PacketSpec(
+        "h1y_h2r_composed_route_gating",
+        ROOT / "results" / "tool_probe_replay_live" / "20260512T_h2r_composed_route_gating_on_h1y_execute_v1",
+    ),
+    PacketSpec(
+        "h1y_h2u_negation_guard",
+        ROOT / "results" / "tool_probe_replay_live" / "20260513T_h2u_negation_guard_on_h1y_execute_v1",
+    ),
+    PacketSpec(
+        "h1o_h2r_composed_route_gating",
+        ROOT / "results" / "tool_probe_replay_live" / "20260512T_h2r_composed_route_gating_on_h1o_execute_v1",
+    ),
+    PacketSpec(
+        "h1o_h2u_negation_guard",
+        ROOT / "results" / "tool_probe_replay_live" / "20260513T_h2u_negation_guard_on_h1o_execute_v1",
+    ),
+    PacketSpec(
+        "h1p_h2r_composed_route_gating",
+        ROOT / "results" / "tool_probe_replay_live" / "20260512T_h2r_composed_route_gating_on_h1p_execute_v1",
+    ),
+    PacketSpec(
+        "h1p_h2u_negation_guard",
+        ROOT / "results" / "tool_probe_replay_live" / "20260513T_h2u_negation_guard_on_h1p_execute_v1",
+    ),
 )
 
 
@@ -165,11 +189,33 @@ COMPARISON_SPECS: tuple[ComparisonSpec, ...] = (
         / "tool_probe_replay_live_comparisons"
         / "20260513T_h2u_negation_guard_vs_h2r_on_h1x_v1",
     ),
+    ComparisonSpec(
+        "h1y_h2u_vs_h2r",
+        ROOT
+        / "results"
+        / "tool_probe_replay_live_comparisons"
+        / "20260513T_h2u_negation_guard_vs_h2r_on_h1y_v1",
+    ),
+    ComparisonSpec(
+        "h1o_h2u_vs_h2r",
+        ROOT
+        / "results"
+        / "tool_probe_replay_live_comparisons"
+        / "20260513T_h2u_negation_guard_vs_h2r_on_h1o_v1",
+    ),
+    ComparisonSpec(
+        "h1p_h2u_vs_h2r",
+        ROOT
+        / "results"
+        / "tool_probe_replay_live_comparisons"
+        / "20260513T_h2u_negation_guard_vs_h2r_on_h1p_v1",
+    ),
 )
 
 
 INITIAL_TRANSFER_LABELS = ("h2s", "h2q", "h2m")
 FIRST_PASS_TRANSFER_LABELS = ("h2k", "h2l", "h2f", "h2b", "h1x")
+OLDER_TRANSFER_LABELS = ("h1y", "h1o", "h1p")
 
 
 def build_h2u_negation_guard_synthesis(*, output_dir: str | Path = DEFAULT_OUTPUT_DIR) -> dict[str, Any]:
@@ -202,14 +248,20 @@ def build_h2u_negation_guard_synthesis(*, output_dir: str | Path = DEFAULT_OUTPU
     first_pass_transfer_packets = [
         _packet_by_profile(packet_rows, f"{label}_h2u_negation_guard") for label in FIRST_PASS_TRANSFER_LABELS
     ]
-    all_transfer_packets = initial_transfer_packets + first_pass_transfer_packets
+    older_transfer_packets = [
+        _packet_by_profile(packet_rows, f"{label}_h2u_negation_guard") for label in OLDER_TRANSFER_LABELS
+    ]
+    all_transfer_packets = initial_transfer_packets + first_pass_transfer_packets + older_transfer_packets
     initial_transfer_comparisons = [
         _comparison_by_label(comparison_rows, f"{label}_h2u_vs_h2r") for label in INITIAL_TRANSFER_LABELS
     ]
     first_pass_transfer_comparisons = [
         _comparison_by_label(comparison_rows, f"{label}_h2u_vs_h2r") for label in FIRST_PASS_TRANSFER_LABELS
     ]
-    all_transfer_comparisons = initial_transfer_comparisons + first_pass_transfer_comparisons
+    older_transfer_comparisons = [
+        _comparison_by_label(comparison_rows, f"{label}_h2u_vs_h2r") for label in OLDER_TRANSFER_LABELS
+    ]
+    all_transfer_comparisons = initial_transfer_comparisons + first_pass_transfer_comparisons + older_transfer_comparisons
     h2t_blocked_rows = [row for row in blocked_rows if row["slice"] == "h2t"]
     transfer_blocked_rows = [row for row in blocked_rows if row["slice"] != "h2t"]
     manifest = {
@@ -242,6 +294,15 @@ def build_h2u_negation_guard_synthesis(*, output_dir: str | Path = DEFAULT_OUTPU
         "h1x_h2u_exact_success_count": _packet_by_profile(packet_rows, "h1x_h2u_negation_guard")[
             "exact_success_count"
         ],
+        "h1y_h2u_exact_success_count": _packet_by_profile(packet_rows, "h1y_h2u_negation_guard")[
+            "exact_success_count"
+        ],
+        "h1o_h2u_exact_success_count": _packet_by_profile(packet_rows, "h1o_h2u_negation_guard")[
+            "exact_success_count"
+        ],
+        "h1p_h2u_exact_success_count": _packet_by_profile(packet_rows, "h1p_h2u_negation_guard")[
+            "exact_success_count"
+        ],
         "transfer_case_count": sum(int(row["case_count"]) for row in initial_transfer_packets),
         "transfer_exact_success_count": sum(int(row["exact_success_count"]) for row in initial_transfer_packets),
         "transfer_delta_exact_sum_vs_h2r": sum(float(row["delta_exact_rate"]) for row in initial_transfer_comparisons),
@@ -251,6 +312,11 @@ def build_h2u_negation_guard_synthesis(*, output_dir: str | Path = DEFAULT_OUTPU
         ),
         "first_pass_transfer_delta_exact_sum_vs_h2r": sum(
             float(row["delta_exact_rate"]) for row in first_pass_transfer_comparisons
+        ),
+        "older_transfer_case_count": sum(int(row["case_count"]) for row in older_transfer_packets),
+        "older_transfer_exact_success_count": sum(int(row["exact_success_count"]) for row in older_transfer_packets),
+        "older_transfer_delta_exact_sum_vs_h2r": sum(
+            float(row["delta_exact_rate"]) for row in older_transfer_comparisons
         ),
         "broad_transfer_case_count": sum(int(row["case_count"]) for row in all_transfer_packets),
         "broad_transfer_exact_success_count": sum(int(row["exact_success_count"]) for row in all_transfer_packets),
@@ -265,7 +331,7 @@ def build_h2u_negation_guard_synthesis(*, output_dir: str | Path = DEFAULT_OUTPU
             1 for row in blocked_rows if row["intervention_kind"] == "visual_composed_route_gating_blocked"
         ),
         "h2u_non_exact_count": sum(1 for row in non_exact_rows if row["profile_label"].endswith("h2u_negation_guard")),
-        "promotion_decision": "h2u_promotes_to_broader_transfer_backtest",
+        "promotion_decision": "h2u_promotes_to_harder_semantic_negation_holdout",
     }
     payload = {
         "manifest": manifest,
@@ -376,8 +442,16 @@ def _finding_rows(
         int(_packet_by_profile(packet_rows, f"{label}_h2u_negation_guard")["case_count"])
         for label in FIRST_PASS_TRANSFER_LABELS
     )
-    broad_transfer_exact = initial_transfer_exact + first_pass_transfer_exact
-    broad_transfer_cases = initial_transfer_cases + first_pass_transfer_cases
+    older_transfer_exact = sum(
+        int(_packet_by_profile(packet_rows, f"{label}_h2u_negation_guard")["exact_success_count"])
+        for label in OLDER_TRANSFER_LABELS
+    )
+    older_transfer_cases = sum(
+        int(_packet_by_profile(packet_rows, f"{label}_h2u_negation_guard")["case_count"])
+        for label in OLDER_TRANSFER_LABELS
+    )
+    broad_transfer_exact = initial_transfer_exact + first_pass_transfer_exact + older_transfer_exact
+    broad_transfer_cases = initial_transfer_cases + first_pass_transfer_cases + older_transfer_cases
     h2u_non_exact = [row for row in non_exact_rows if row["profile_label"].endswith("h2u_negation_guard")]
     h2t_fixed = [row for row in fixed_case_rows if row["comparison_label"] == "h2t_h2u_vs_h2r"]
     h2t_blocks = [row for row in blocked_rows if row["slice"] == "h2t"]
@@ -412,8 +486,16 @@ def _finding_rows(
             "finding_id": "h2u_first_pass_transfer_preserves_h2r",
             "finding": (
                 f"H2u also preserves {first_pass_transfer_exact}/{first_pass_transfer_cases} strict exactness across "
-                "H2k, H2l, H2f, H2b, and H1x, bringing the current broad transfer subtotal to "
-                f"{broad_transfer_exact}/{broad_transfer_cases} exact with zero aggregate exact-rate delta versus H2r."
+                "H2k, H2l, H2f, H2b, and H1x with zero aggregate exact-rate delta versus H2r."
+            ),
+        },
+        {
+            "finding_id": "h2u_older_transfer_preserves_h2r",
+            "finding": (
+                f"H2u preserves {older_transfer_exact}/{older_transfer_cases} strict exactness across the older "
+                "H1y, H1o, and H1p family. Combined with H2s/H2q/H2m and H2k/H2l/H2f/H2b/H1x, the current "
+                f"broad transfer subtotal is {broad_transfer_exact}/{broad_transfer_cases} exact with zero aggregate "
+                "exact-rate delta versus H2r."
             ),
         },
         {
@@ -428,7 +510,7 @@ def _finding_rows(
             "finding_id": "h2u_no_remaining_non_exact_rows",
             "finding": (
                 f"Across the H2u packets summarized here, H2u has {len(h2u_non_exact)} non-exact rows. "
-                "The next risk is broader transfer coverage rather than this local H2t/H2s/H2q/H2m slice."
+                "The next risk is semantic negation generalization rather than same-family transfer coverage."
             ),
         },
     ]
@@ -471,7 +553,15 @@ def _markdown(payload: dict[str, Any]) -> str:
             f"The broader first-pass transfer backtest is also clean: H2u preserves "
             f"`{manifest['first_pass_transfer_exact_success_count']} / {manifest['first_pass_transfer_case_count']}` "
             "strict exactness across H2k, H2l, H2f, H2b, and H1x. Combined with the initial H2s/H2q/H2m transfer "
-            f"gate, the current broad transfer subtotal is `{manifest['broad_transfer_exact_success_count']} / "
+            f"gate, this gives `{manifest['transfer_exact_success_count'] + manifest['first_pass_transfer_exact_success_count']} / "
+            f"{manifest['transfer_case_count'] + manifest['first_pass_transfer_case_count']}` before the older family."
+        ),
+        "",
+        (
+            f"The older transfer closure is clean too: H2u preserves "
+            f"`{manifest['older_transfer_exact_success_count']} / {manifest['older_transfer_case_count']}` strict "
+            "exactness across H1y, H1o, and H1p. The current broad transfer subtotal is now "
+            f"`{manifest['broad_transfer_exact_success_count']} / "
             f"{manifest['broad_transfer_case_count']}` with zero aggregate exact-rate delta versus H2r."
         ),
         "",
@@ -516,26 +606,30 @@ def _write_svg(path: Path, packet_rows: list[dict[str, Any]]) -> None:
         ("h2f_h2r_composed_route_gating", "h2f_h2u_negation_guard", "H2f", 10),
         ("h2b_h2r_composed_route_gating", "h2b_h2u_negation_guard", "H2b", 5),
         ("h1x_h2r_composed_route_gating", "h1x_h2u_negation_guard", "H1x", 8),
+        ("h1y_h2r_composed_route_gating", "h1y_h2u_negation_guard", "H1y", 10),
+        ("h1o_h2r_composed_route_gating", "h1o_h2u_negation_guard", "H1o", 12),
+        ("h1p_h2r_composed_route_gating", "h1p_h2u_negation_guard", "H1p", 12),
     ]
     by_profile = {row["profile_label"]: row for row in packet_rows}
-    width = 1120
+    width = 1450
     height = 390
     chart_left = 70
     chart_top = 78
     chart_height = 190
+    chart_right = 1370
     bar_width = 36
     group_gap = 34
     lines = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}" role="img" aria-labelledby="title desc">',
         '<title id="title">H2u negation guard transfer gate</title>',
-        '<desc id="desc">H2u improves H2t from exact rate 0.8 to 1.0 and ties H2r at 1.0 across the current transfer gates.</desc>',
+        '<desc id="desc">H2u improves H2t from exact rate 0.8 to 1.0 and ties H2r at 1.0 across the current transfer gates, including older H1y, H1o, and H1p.</desc>',
         f'<rect width="{width}" height="{height}" fill="#FFFFFF"/>',
         '<text x="32" y="38" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#111827">H2u repairs H2t without transfer regression</text>',
-        '<line x1="70" y1="268" x2="1050" y2="268" stroke="#111827" stroke-width="1"/>',
+        f'<line x1="70" y1="268" x2="{chart_right}" y2="268" stroke="#111827" stroke-width="1"/>',
     ]
     for tick in range(0, 6):
         y = chart_top + chart_height - tick * (chart_height / 5)
-        lines.append(f'<line x1="66" y1="{y:.1f}" x2="1050" y2="{y:.1f}" stroke="#E5E7EB" stroke-width="1"/>')
+        lines.append(f'<line x1="66" y1="{y:.1f}" x2="{chart_right}" y2="{y:.1f}" stroke="#E5E7EB" stroke-width="1"/>')
         lines.append(
             f'<text x="44" y="{y + 4:.1f}" font-family="Arial, sans-serif" font-size="11" fill="#6B7280">{tick / 5:.1f}</text>'
         )
@@ -562,10 +656,10 @@ def _write_svg(path: Path, packet_rows: list[dict[str, Any]]) -> None:
         lines.append(
             f'<text x="{x + 43}" y="300" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">{slice_label}</text>'
         )
-    lines.append('<rect x="786" y="326" width="12" height="12" fill="#9CA3AF"/>')
-    lines.append('<text x="806" y="337" font-family="Arial, sans-serif" font-size="12" fill="#374151">H2r</text>')
-    lines.append('<rect x="860" y="326" width="12" height="12" fill="#A16207"/>')
-    lines.append('<text x="880" y="337" font-family="Arial, sans-serif" font-size="12" fill="#374151">H2u</text>')
+    lines.append('<rect x="1118" y="326" width="12" height="12" fill="#9CA3AF"/>')
+    lines.append('<text x="1138" y="337" font-family="Arial, sans-serif" font-size="12" fill="#374151">H2r</text>')
+    lines.append('<rect x="1192" y="326" width="12" height="12" fill="#A16207"/>')
+    lines.append('<text x="1212" y="337" font-family="Arial, sans-serif" font-size="12" fill="#374151">H2u</text>')
     lines.append(
         '<text x="32" y="362" font-family="Arial, sans-serif" font-size="13" fill="#374151">H2u blocks negated-context rewrites in both target normalization and composed-route gating.</text>'
     )

@@ -262,6 +262,12 @@ def test_publication_readiness_audit_writes_blocking_checks(tmp_path: Path) -> N
     assert checks["h2u_negation_guard_h2b_comparison_exists"]["passed"] is True
     assert checks["h2u_negation_guard_h1x_transfer_exists"]["passed"] is True
     assert checks["h2u_negation_guard_h1x_comparison_exists"]["passed"] is True
+    assert checks["h2u_negation_guard_h1y_transfer_exists"]["passed"] is True
+    assert checks["h2u_negation_guard_h1y_comparison_exists"]["passed"] is True
+    assert checks["h2u_negation_guard_h1o_transfer_exists"]["passed"] is True
+    assert checks["h2u_negation_guard_h1o_comparison_exists"]["passed"] is True
+    assert checks["h2u_negation_guard_h1p_transfer_exists"]["passed"] is True
+    assert checks["h2u_negation_guard_h1p_comparison_exists"]["passed"] is True
     assert checks["h2u_negation_guard_synthesis_exists"]["passed"] is True
     assert checks["h2u_negation_guard_report_figure_exists"]["passed"] is True
     assert checks["script_analyze_visual_hard_slice_exactness.py_exists"]["passed"] is True

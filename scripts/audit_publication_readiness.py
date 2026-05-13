@@ -2442,6 +2442,66 @@ def audit_publication_readiness(
             detail="H2u transfer comparison on H1x exists.",
         ),
         _check_path(
+            check_id="h2u_negation_guard_h1y_transfer_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260513T_h2u_negation_guard_on_h1y_execute_v1"
+            / "summary.json",
+            detail="H2u older-transfer replay on H1y exists.",
+        ),
+        _check_path(
+            check_id="h2u_negation_guard_h1y_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260513T_h2u_negation_guard_vs_h2r_on_h1y_v1"
+            / "live_replay_comparison.json",
+            detail="H2u older-transfer comparison on H1y exists.",
+        ),
+        _check_path(
+            check_id="h2u_negation_guard_h1o_transfer_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260513T_h2u_negation_guard_on_h1o_execute_v1"
+            / "summary.json",
+            detail="H2u older-transfer replay on H1o exists.",
+        ),
+        _check_path(
+            check_id="h2u_negation_guard_h1o_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260513T_h2u_negation_guard_vs_h2r_on_h1o_v1"
+            / "live_replay_comparison.json",
+            detail="H2u older-transfer comparison on H1o exists.",
+        ),
+        _check_path(
+            check_id="h2u_negation_guard_h1p_transfer_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260513T_h2u_negation_guard_on_h1p_execute_v1"
+            / "summary.json",
+            detail="H2u older-transfer replay on H1p exists.",
+        ),
+        _check_path(
+            check_id="h2u_negation_guard_h1p_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260513T_h2u_negation_guard_vs_h2r_on_h1p_v1"
+            / "live_replay_comparison.json",
+            detail="H2u older-transfer comparison on H1p exists.",
+        ),
+        _check_path(
             check_id="h2u_negation_guard_synthesis_exists",
             severity="blocking",
             path=ROOT / "results" / "reports" / "h2u_negation_guard_synthesis" / "report.md",

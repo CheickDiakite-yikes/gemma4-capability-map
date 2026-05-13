@@ -243,13 +243,13 @@ The freshest replay-shaped visual controller evidence is now H2u:
   - H2t H2u-vs-H2r comparison: [`results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h2t_v1`](../../results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h2t_v1)
   - H2u reaches `10 / 10` strict and executor-equivalent on H2t, fixing both H2r negation-scope regressions.
   - H2u improves H2t by `+0.20` exact-rate and executor-equivalence-rate versus H2r.
-  - H2u preserves H2s/H2q/H2m transfer at `26 / 26` strict and executor-equivalent, then preserves H2k/H2l/H2f/H2b/H1x at another `39 / 39`.
-  - Current H2u broad transfer subtotal is `65 / 65` strict and executor-equivalent with `0.0` aggregate exact-rate delta versus H2r.
+  - H2u preserves H2s/H2q/H2m transfer at `26 / 26` strict and executor-equivalent, preserves H2k/H2l/H2f/H2b/H1x at another `39 / 39`, and closes H1y/H1o/H1p at `34 / 34`.
+  - Current H2u broad transfer subtotal is `99 / 99` strict and executor-equivalent with `0.0` aggregate exact-rate delta versus H2r.
   - mechanism: the corrected repair guards both target-query normalization and composed-route gating when a candidate replacement label appears only in negated or explanatory scope.
 - next controller question:
-  - run H2u across the older H1y/H1o/H1p packet family
   - design H2v/H3 to distinguish quoted negation, instructional negation, stale example captions, and genuine target negation
-  - keep packaged transfer paused until the replay-shaped guard is either broadly safe or intentionally used as a realism baseline
+  - port the same pressure into packaged workflow transfer so the CLI harness remains attributable to workflow families
+  - keep packaged transfer paused only until the replay-shaped H2v/H3 guard semantics are explicit enough to avoid workflow scaffolding solving the case first
 
 ## Direction Reset
 

@@ -1,9 +1,9 @@
 {
   "summary": {
-    "generated_at": "2026-05-13T01:02:41.976882+00:00",
+    "generated_at": "2026-05-13T01:13:04.957499+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 301,
-    "blocking_check_count": 294,
+    "check_count": 307,
+    "blocking_check_count": 300,
     "blocking_failed_count": 0,
     "recommended_check_count": 7,
     "recommended_failed_count": 0,
@@ -1809,6 +1809,48 @@
       "passed": true,
       "detail": "H2u transfer comparison on H1x exists.",
       "path": "results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h1x_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h2u_negation_guard_h1y_transfer_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2u older-transfer replay on H1y exists.",
+      "path": "results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h1y_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h2u_negation_guard_h1y_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2u older-transfer comparison on H1y exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h1y_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h2u_negation_guard_h1o_transfer_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2u older-transfer replay on H1o exists.",
+      "path": "results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h1o_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h2u_negation_guard_h1o_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2u older-transfer comparison on H1o exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h1o_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h2u_negation_guard_h1p_transfer_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2u older-transfer replay on H1p exists.",
+      "path": "results/tool_probe_replay_live/20260513T_h2u_negation_guard_on_h1p_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h2u_negation_guard_h1p_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2u older-transfer comparison on H1p exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h1p_v1/live_replay_comparison.json"
     },
     {
       "check_id": "h2u_negation_guard_synthesis_exists",

@@ -8,3 +8,6 @@ h2l_h2u_vs_h2r,results/tool_probe_replay_live_comparisons/20260513T_h2u_negation
 h2f_h2u_vs_h2r,results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h2f_v1,10,1.0,1.0,0.0,1.0,1.0,0.0
 h2b_h2u_vs_h2r,results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h2b_v1,5,1.0,1.0,0.0,1.0,1.0,0.0
 h1x_h2u_vs_h2r,results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h1x_v1,8,1.0,1.0,0.0,1.0,1.0,0.0
+h1y_h2u_vs_h2r,results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h1y_v1,10,1.0,1.0,0.0,1.0,1.0,0.0
+h1o_h2u_vs_h2r,results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h1o_v1,12,1.0,1.0,0.0,1.0,1.0,0.0
+h1p_h2u_vs_h2r,results/tool_probe_replay_live_comparisons/20260513T_h2u_negation_guard_vs_h2r_on_h1p_v1,12,1.0,1.0,0.0,1.0,1.0,0.0
