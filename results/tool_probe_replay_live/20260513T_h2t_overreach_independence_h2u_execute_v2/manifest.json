@@ -1,0 +1,35 @@
+{
+  "packet_run_id": "20260513T_h2t_overreach_independence_h2u_execute_v2",
+  "packet_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260513T_h2t_overreach_independence_h2u_execute_v2",
+  "source_packet_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260512T_h2t_overreach_independence_dry_run_v1",
+  "source_packet_run_id": "20260512T_h2t_overreach_independence_dry_run_v1",
+  "system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_stale_selection_gate_visual_value_bearing_target_query_synthesis_visual_contextual_surface_alias_routing_visual_composed_route_gating_visual_negation_guard",
+  "case_count": 10,
+  "execute": true,
+  "executed_count": 10,
+  "exact_count": 10,
+  "exact_rate": 1.0,
+  "executor_equivalence_evaluable_count": 10,
+  "executor_equivalence_count": 10,
+  "executor_equivalence_rate": 1.0,
+  "failure_mode_counts": {
+    "argument_alias_or_decoy_risk": 8,
+    "wrong_tool_or_stale_selection_risk": 2
+  },
+  "created_at": "2026-05-13T00:28:19.519228+00:00",
+  "registry_path": "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+  "case_ids": [
+    "h2t_current_selection_review_tile_refine_guard",
+    "h2t_current_selection_status_panel_refine_guard",
+    "h2t_result_drawer_low_score_badge_decoy",
+    "h2t_risk_lane_high_chip_decoy",
+    "h2t_stage_column_review_tag_decoy",
+    "h2t_metric_panel_negation_scope_note",
+    "h2t_summary_tile_negation_scope_caption",
+    "h2t_escalated_value_not_badge_component",
+    "h2t_result_badge_live_clean_control",
+    "h2t_owner_field_clean_control"
+  ],
+  "operator_surface": "rich_cli_exact_probe_replay_v1",
+  "entrypoint": "moonie-agent replay-live"
+}
