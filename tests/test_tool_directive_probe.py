@@ -1408,6 +1408,62 @@ def test_visual_composed_route_gating_preserves_exact_target_when_decoys_are_neg
     assert patched == turn
 
 
+def test_negation_aware_composed_route_gating_blocks_context_label_overwrite() -> None:
+    specs = build_default_registry().specs
+    case = ToolDirectiveProbeCase(
+        case_id="composed-negation-scope-block",
+        family="visual",
+        messages=[
+            Message(role="system", content="visual_image_ids: img-h2t-metric"),
+            Message(
+                role="user",
+                content=(
+                    "Use the metric panel at the top. The annotation saying 'not the metric panel' "
+                    "is a training note about a prior screenshot, not the current target."
+                ),
+            ),
+        ],
+        media=["img-h2t-metric"],
+        tool_names=["extract_layout", "refine_selection"],
+        initial_state={
+            "visual_executor_mode": "local",
+            "images": {
+                "img-h2t-metric": {
+                    "local_layouts": [
+                        {"region_id": "metric-1", "label": "metric panel", "text": "Escalations above target"},
+                        {"region_id": "note-1", "label": "training note", "text": "old negative example"},
+                    ]
+                }
+            },
+        },
+    )
+    turn = ModelTurn(
+        raw_model_output="{}",
+        normalized_tool_call=[
+            ToolCall(
+                name="extract_layout",
+                arguments={"image_id": "img-h2t-metric", "target_query": "metric panel"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+    )
+
+    patched = _apply_visual_composed_route_gating(
+        turn=turn,
+        case=case,
+        tool_specs=[specs["extract_layout"], specs["refine_selection"]],
+        preserve_negated_exact_layout_targets=True,
+    )
+
+    assert patched.normalized_tool_call == turn.normalized_tool_call
+    blocked = patched.runtime_metadata["visual_composed_route_gating_blocked"][0]
+    assert blocked["preserved_target_query"] == "metric panel"
+    assert blocked["blocked_label"] == "training note"
+    assert blocked["reason"] == "negation_scope_exact_layout_label"
+    assert "visual_composed_route_gating" not in patched.runtime_metadata
+
+
 def test_visual_composed_route_gating_preserves_field_target_when_switch_is_negated() -> None:
     specs = build_default_registry().specs
     case = ToolDirectiveProbeCase(

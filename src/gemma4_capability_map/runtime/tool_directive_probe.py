@@ -219,7 +219,12 @@ def run_tool_directive_probe(
         if controls.enable_visual_contextual_surface_alias_routing:
             turn = _apply_visual_contextual_surface_alias_routing(turn=turn, case=case, tool_specs=tool_specs)
         if controls.enable_visual_composed_route_gating:
-            turn = _apply_visual_composed_route_gating(turn=turn, case=case, tool_specs=tool_specs)
+            turn = _apply_visual_composed_route_gating(
+                turn=turn,
+                case=case,
+                tool_specs=tool_specs,
+                preserve_negated_exact_layout_targets=controls.enable_visual_negation_aware_target_query_normalization,
+            )
         rows.append(_score_probe_case(case, tool_specs, expected_calls, turn))
 
     summary = _summarize_probe(rows)
@@ -799,6 +804,7 @@ def _apply_visual_composed_route_gating(
     turn: ModelTurn,
     case: ToolDirectiveProbeCase,
     tool_specs: list[ToolSpec],
+    preserve_negated_exact_layout_targets: bool = False,
 ) -> ModelTurn:
     tool_names = {tool.name for tool in tool_specs}
     if "extract_layout" not in tool_names or not turn.normalized_tool_call:
@@ -806,7 +812,17 @@ def _apply_visual_composed_route_gating(
 
     patched_calls: list[ToolCall] = []
     route_rows: list[dict[str, Any]] = []
+    blocked_rows: list[dict[str, Any]] = []
     for call in turn.normalized_tool_call:
+        block = (
+            _visual_composed_route_gating_negation_scope_block(call=call, case=case)
+            if preserve_negated_exact_layout_targets
+            else None
+        )
+        if block is not None:
+            patched_calls.append(call)
+            blocked_rows.append(block)
+            continue
         routed = _visual_composed_route_gating_replacement(call=call, case=case)
         if routed is None:
             patched_calls.append(call)
@@ -815,11 +831,49 @@ def _apply_visual_composed_route_gating(
         patched_calls.append(replacement)
         route_rows.append(route_row)
 
-    if not route_rows:
+    if not route_rows and not blocked_rows:
         return turn
     metadata = dict(turn.runtime_metadata)
-    metadata["visual_composed_route_gating"] = route_rows
+    if route_rows:
+        metadata["visual_composed_route_gating"] = route_rows
+    if blocked_rows:
+        metadata["visual_composed_route_gating_blocked"] = blocked_rows
     return turn.model_copy(update={"normalized_tool_call": patched_calls, "runtime_metadata": metadata})
+
+
+def _visual_composed_route_gating_negation_scope_block(
+    *,
+    call: ToolCall,
+    case: ToolDirectiveProbeCase,
+) -> dict[str, Any] | None:
+    if call.name != "extract_layout":
+        return None
+    target_query = str(call.arguments.get("target_query", "")).strip()
+    if not target_query:
+        return None
+    target_row = _visual_layout_row_by_label(case.initial_state, target_query)
+    if target_row is None:
+        return None
+
+    requested = _visual_composed_requested_layout(case)
+    if requested is None or target_query == requested["label"]:
+        return None
+
+    user_text = " ".join(message.content for message in case.messages if message.role == "user").lower()
+    if not _visual_label_positively_requested(user_text=user_text, label=target_query):
+        return None
+    if not _visual_label_contextually_deprioritized(user_text=user_text, label=str(requested["label"])):
+        return None
+
+    return {
+        "from_tool": call.name,
+        "from_arguments": call.arguments,
+        "preserved_target_query": target_query,
+        "preserved_region_id": target_row["region_id"],
+        "blocked_label": requested["label"],
+        "blocked_region_id": requested["region_id"],
+        "reason": "negation_scope_exact_layout_label",
+    }
 
 
 def _visual_composed_route_gating_replacement(
