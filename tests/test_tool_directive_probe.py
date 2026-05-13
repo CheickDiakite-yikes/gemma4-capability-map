@@ -7,6 +7,7 @@ from gemma4_capability_map.runtime.tool_directive_probe import (
     ToolDirectiveProbeCase,
     _apply_visual_composed_route_gating,
     _apply_visual_contextual_surface_alias_routing,
+    _apply_visual_semantic_target_preservation,
     _apply_visual_stale_selection_gate,
     _apply_visual_target_query_normalization,
     _apply_visual_value_bearing_target_query_synthesis,
@@ -322,6 +323,37 @@ systems:
     assert result["manifest"]["research_controls"] == {
         "disable_tool_turn_directive": True,
         "enable_visual_composed_route_gating": True,
+    }
+
+
+def test_run_tool_directive_probe_records_visual_semantic_target_preservation_control(tmp_path: Path) -> None:
+    registry_path = tmp_path / "registry.yaml"
+    registry_path.write_text(
+        """
+systems:
+  heuristic_semantic_target_preservation:
+    backend: heuristic
+    reasoner: google/gemma-4-E2B-it
+    reasoner_max_new_tokens: 64
+    request_timeout_seconds: 30.0
+    research_controls:
+      disable_tool_turn_directive: true
+      enable_visual_semantic_target_preservation: true
+""".strip()
+        + "\n",
+        encoding="utf-8",
+    )
+    output_dir = tmp_path / "probe"
+    result = run_tool_directive_probe(
+        system_id="heuristic_semantic_target_preservation",
+        output_dir=output_dir,
+        registry_path=registry_path,
+        cases=build_tool_directive_probe_cases()[:1],
+    )
+
+    assert result["manifest"]["research_controls"] == {
+        "disable_tool_turn_directive": True,
+        "enable_visual_semantic_target_preservation": True,
     }
 
 
@@ -1027,6 +1059,202 @@ def test_value_bearing_target_query_synthesis_ignores_negated_longer_label() -> 
     assert patched.normalized_tool_call[0].arguments["target_query"] == "state tag"
     assert "visual_value_bearing_target_query_synthesis" not in patched.runtime_metadata
     assert patched.runtime_metadata["visual_target_query_normalization"][0]["prompt_state_label"] == "state tag"
+
+
+def test_semantic_target_preservation_ignores_stale_example_negation() -> None:
+    specs = build_default_registry().specs
+    case = ToolDirectiveProbeCase(
+        case_id="semantic-stale-example-negation",
+        family="visual",
+        messages=[
+            Message(role="system", content="visual_image_ids: img-review"),
+            Message(
+                role="user",
+                content=(
+                    "Use the current review tile. The stale caption says not the review tile, "
+                    "but that caption belongs to an old screenshot."
+                ),
+            ),
+        ],
+        media=["img-review"],
+        tool_names=["extract_layout", "refine_selection"],
+        initial_state={
+            "images": {
+                "img-review": {
+                    "local_layouts": [
+                        {"region_id": "card-1", "label": "review card", "text": "Review queue"},
+                        {"region_id": "tile-1", "label": "review tile", "text": "Review queue"},
+                        {"region_id": "caption-1", "label": "stale caption", "text": "old screenshot caption"},
+                    ]
+                }
+            },
+        },
+    )
+    turn = ModelTurn(
+        raw_model_output="{}",
+        normalized_tool_call=[
+            ToolCall(
+                name="extract_layout",
+                arguments={"image_id": "img-review", "target_query": "review tile"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+    )
+
+    patched = _apply_visual_value_bearing_target_query_synthesis(
+        turn=turn,
+        case=case,
+        tool_specs=[specs["extract_layout"], specs["refine_selection"]],
+        preserve_semantic_targets=True,
+    )
+
+    assert patched == turn
+
+
+def test_semantic_target_preservation_routes_invalid_selection_to_current_target() -> None:
+    specs = build_default_registry().specs
+    case = ToolDirectiveProbeCase(
+        case_id="semantic-stale-selection",
+        family="visual",
+        messages=[
+            Message(role="system", content="visual_image_ids: img-risk"),
+            Message(
+                role="user",
+                content="Use the risk lane for High. The example note says not the risk lane, but it is marked as a stale example.",
+            ),
+        ],
+        media=["img-risk"],
+        tool_names=["extract_layout", "refine_selection"],
+        initial_state={
+            "images": {
+                "img-risk": {
+                    "local_layouts": [
+                        {"region_id": "chip-1", "label": "risk chip High", "text": "High"},
+                        {"region_id": "lane-1", "label": "risk lane", "text": "High"},
+                        {"region_id": "note-1", "label": "example note", "text": "stale example note"},
+                    ]
+                }
+            },
+        },
+    )
+    turn = ModelTurn(
+        raw_model_output="{}",
+        normalized_tool_call=[
+            ToolCall(
+                name="refine_selection",
+                arguments={"selection_id": "img-risk", "filter_query": "High"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+    )
+
+    patched = _apply_visual_stale_selection_gate(
+        turn=turn,
+        case=case,
+        tool_specs=[specs["extract_layout"], specs["refine_selection"]],
+        preserve_semantic_targets=True,
+    )
+
+    assert patched.normalized_tool_call[0].arguments == {"image_id": "img-risk", "target_query": "risk lane"}
+    assert patched.runtime_metadata["visual_stale_selection_gate"][0]["to_arguments"]["target_query"] == "risk lane"
+
+
+def test_semantic_target_preservation_canonicalizes_inverted_negated_value() -> None:
+    specs = build_default_registry().specs
+    case = ToolDirectiveProbeCase(
+        case_id="semantic-inverted-negated-value",
+        family="visual",
+        messages=[
+            Message(role="system", content="visual_image_ids: img-status"),
+            Message(
+                role="user",
+                content=(
+                    "Use the Not ready status badge. Here Not ready is the displayed current value, "
+                    "not an instruction to avoid readiness badges."
+                ),
+            ),
+        ],
+        media=["img-status"],
+        tool_names=["extract_layout", "refine_selection"],
+        initial_state={
+            "images": {
+                "img-status": {
+                    "local_layouts": [
+                        {"region_id": "ready-1", "label": "status badge Ready", "text": "Ready"},
+                        {"region_id": "not-ready-1", "label": "status badge Not ready", "text": "Not ready"},
+                        {"region_id": "note-1", "label": "readiness note", "text": "Not ready until QA signs off"},
+                    ]
+                }
+            },
+        },
+    )
+    turn = ModelTurn(
+        raw_model_output="{}",
+        normalized_tool_call=[
+            ToolCall(
+                name="extract_layout",
+                arguments={"image_id": "img-status", "target_query": "Not ready"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+    )
+
+    patched = _apply_visual_value_bearing_target_query_synthesis(
+        turn=turn,
+        case=case,
+        tool_specs=[specs["extract_layout"], specs["refine_selection"]],
+        preserve_semantic_targets=True,
+    )
+
+    assert patched.normalized_tool_call[0].arguments["target_query"] == "status badge Not ready"
+    assert patched.runtime_metadata["visual_target_query_normalization"][0]["prompt_state_label"] == (
+        "status badge Not ready"
+    )
+
+
+def test_semantic_target_preservation_adds_no_call_visual_fallback() -> None:
+    specs = build_default_registry().specs
+    case = ToolDirectiveProbeCase(
+        case_id="semantic-no-call-fallback",
+        family="visual",
+        messages=[
+            Message(role="system", content="visual_image_ids: img-summary"),
+            Message(
+                role="user",
+                content=(
+                    "Use the summary tile. The caption quotes not the summary tile from a stale example; "
+                    "the current target is still the tile."
+                ),
+            ),
+        ],
+        media=["img-summary"],
+        tool_names=["extract_layout", "refine_selection"],
+        initial_state={
+            "images": {
+                "img-summary": {
+                    "local_layouts": [
+                        {"region_id": "tile-1", "label": "summary tile", "text": "Ready for review"},
+                        {"region_id": "caption-1", "label": "caption", "text": "quoted stale example"},
+                    ]
+                }
+            },
+        },
+    )
+    turn = ModelTurn(raw_model_output="I can answer directly.", normalized_tool_call=[])
+
+    patched = _apply_visual_semantic_target_preservation(
+        turn=turn,
+        case=case,
+        tool_specs=[specs["extract_layout"], specs["refine_selection"]],
+    )
+
+    assert patched.normalized_tool_call[0].arguments == {"image_id": "img-summary", "target_query": "summary tile"}
+    metadata = patched.runtime_metadata["visual_semantic_target_preservation"][0]
+    assert metadata["reason"] == "no_call_clear_visual_target"
+    assert metadata["preserved_target_query"] == "summary tile"
 
 
 def test_contextual_surface_alias_routing_rewrites_display_value_to_requested_surface_alias() -> None:
