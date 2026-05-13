@@ -2145,6 +2145,123 @@ def audit_publication_readiness(
             detail="H2s fresh composed holdout synthesis figure exists.",
         ),
         _check_path(
+            check_id="h2t_overreach_independence_packet_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_packets"
+            / "20260512T_h2t_overreach_independence_dry_run_v1"
+            / "summary.json",
+            detail="H2t overreach-independence dry-run packet exists.",
+        ),
+        _check_path(
+            check_id="h2t_overreach_independence_h2r_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260512T_h2t_overreach_independence_h2r_execute_v1"
+            / "summary.json",
+            detail="H2t frozen H2r live replay exists.",
+        ),
+        _check_path(
+            check_id="h2t_overreach_independence_h2e_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260512T_h2t_overreach_independence_h2e_execute_v1"
+            / "summary.json",
+            detail="H2t H2e control live replay exists.",
+        ),
+        _check_path(
+            check_id="h2t_overreach_independence_h2j_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260512T_h2t_overreach_independence_h2j_execute_v1"
+            / "summary.json",
+            detail="H2t H2j control live replay exists.",
+        ),
+        _check_path(
+            check_id="h2t_overreach_independence_h2o_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260512T_h2t_overreach_independence_h2o_execute_v1"
+            / "summary.json",
+            detail="H2t H2o control live replay exists.",
+        ),
+        _check_path(
+            check_id="h2t_overreach_independence_h2p_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260512T_h2t_overreach_independence_h2p_execute_v1"
+            / "summary.json",
+            detail="H2t H2p control live replay exists.",
+        ),
+        _check_path(
+            check_id="h2t_overreach_independence_h2r_vs_h2e_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260512T_h2t_overreach_independence_h2r_vs_h2e_v1"
+            / "live_replay_comparison.json",
+            detail="H2t H2r versus H2e comparison exists.",
+        ),
+        _check_path(
+            check_id="h2t_overreach_independence_h2r_vs_h2j_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260512T_h2t_overreach_independence_h2r_vs_h2j_v1"
+            / "live_replay_comparison.json",
+            detail="H2t H2r versus H2j comparison exists.",
+        ),
+        _check_path(
+            check_id="h2t_overreach_independence_h2r_vs_h2o_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260512T_h2t_overreach_independence_h2r_vs_h2o_v1"
+            / "live_replay_comparison.json",
+            detail="H2t H2r versus H2o comparison exists.",
+        ),
+        _check_path(
+            check_id="h2t_overreach_independence_h2r_vs_h2p_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260512T_h2t_overreach_independence_h2r_vs_h2p_v1"
+            / "live_replay_comparison.json",
+            detail="H2t H2r versus H2p comparison exists.",
+        ),
+        _check_path(
+            check_id="h2t_overreach_independence_synthesis_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "h2t_overreach_independence_synthesis" / "report.md",
+            detail="H2t overreach-independence synthesis report exists.",
+        ),
+        _check_path(
+            check_id="h2t_overreach_independence_report_figure_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "h2t_overreach_independence_synthesis"
+            / "figures"
+            / "h2t_overreach_independence_gate.svg",
+            detail="H2t overreach-independence synthesis figure exists.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",
@@ -2208,6 +2325,7 @@ def audit_publication_readiness(
         "build_h2q_composed_surface_value_stale_synthesis.py",
         "build_h2r_composed_route_gating_synthesis.py",
         "build_h2s_fresh_composed_holdout_synthesis.py",
+        "build_h2t_overreach_independence_synthesis.py",
         "compare_tool_directive_probes.py",
         "build_visual_hard_slice_design.py",
         "build_visual_hard_slice_replay_packet.py",

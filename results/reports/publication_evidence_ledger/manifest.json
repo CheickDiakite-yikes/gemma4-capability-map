@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-05-12T23:36:53.838661+00:00",
+  "generated_at": "2026-05-13T00:11:50.564825+00:00",
   "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-  "claim_count": 58,
-  "evidence_source_count": 365,
+  "claim_count": 59,
+  "evidence_source_count": 377,
   "missing_source_count": 0,
   "claim_ids": [
     "C1_controller_dependence_hidden_by_readiness",
@@ -62,6 +62,7 @@
     "C55_h2q_composed_surface_value_stale_breaks_h2p_saturation",
     "C56_h2r_composed_route_gating_solves_h2q_locally",
     "C57_h2r_transfer_backtest_preserves_current_gates",
-    "C58_h2s_fresh_holdout_confirms_h2r_composed_route_gating"
+    "C58_h2s_fresh_holdout_confirms_h2r_composed_route_gating",
+    "C59_h2t_overreach_independence_breaks_h2r_via_negation_scope_normalization"
   ]
 }

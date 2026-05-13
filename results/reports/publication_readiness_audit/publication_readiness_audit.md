@@ -9,7 +9,7 @@
 | --- | --- | ---: | --- | --- |
 | ledger_manifest_exists | blocking | True | Publication evidence ledger manifest exists. | results/reports/publication_evidence_ledger/manifest.json |
 | ledger_has_no_missing_sources | blocking | True | missing_source_count=0 |  |
-| ledger_has_claims | blocking | True | claim_count=58 |  |
+| ledger_has_claims | blocking | True | claim_count=59 |  |
 | ledger_includes_negative_results | blocking | True | At least one claim is explicitly labeled as negative-result evidence. |  |
 | tool_contract_report_has_current_tables | blocking | True | table_count=110 |  |
 | tool_contract_report_has_current_figures | blocking | True | figure_count=45 |  |
@@ -234,6 +234,18 @@
 | h2s_fresh_composed_holdout_h2r_vs_h2j_comparison_exists | blocking | True | H2s H2r versus H2j comparison exists. | results/tool_probe_replay_live_comparisons/20260512T_h2s_fresh_composed_holdout_h2r_vs_h2j_v1/live_replay_comparison.json |
 | h2s_fresh_composed_holdout_synthesis_exists | blocking | True | H2s fresh composed holdout synthesis report exists. | results/reports/h2s_fresh_composed_holdout_synthesis/report.md |
 | h2s_fresh_composed_holdout_report_figure_exists | blocking | True | H2s fresh composed holdout synthesis figure exists. | results/reports/h2s_fresh_composed_holdout_synthesis/figures/h2s_fresh_composed_holdout_gate.svg |
+| h2t_overreach_independence_packet_exists | blocking | True | H2t overreach-independence dry-run packet exists. | results/tool_probe_replay_packets/20260512T_h2t_overreach_independence_dry_run_v1/summary.json |
+| h2t_overreach_independence_h2r_live_exists | blocking | True | H2t frozen H2r live replay exists. | results/tool_probe_replay_live/20260512T_h2t_overreach_independence_h2r_execute_v1/summary.json |
+| h2t_overreach_independence_h2e_live_exists | blocking | True | H2t H2e control live replay exists. | results/tool_probe_replay_live/20260512T_h2t_overreach_independence_h2e_execute_v1/summary.json |
+| h2t_overreach_independence_h2j_live_exists | blocking | True | H2t H2j control live replay exists. | results/tool_probe_replay_live/20260512T_h2t_overreach_independence_h2j_execute_v1/summary.json |
+| h2t_overreach_independence_h2o_live_exists | blocking | True | H2t H2o control live replay exists. | results/tool_probe_replay_live/20260512T_h2t_overreach_independence_h2o_execute_v1/summary.json |
+| h2t_overreach_independence_h2p_live_exists | blocking | True | H2t H2p control live replay exists. | results/tool_probe_replay_live/20260512T_h2t_overreach_independence_h2p_execute_v1/summary.json |
+| h2t_overreach_independence_h2r_vs_h2e_comparison_exists | blocking | True | H2t H2r versus H2e comparison exists. | results/tool_probe_replay_live_comparisons/20260512T_h2t_overreach_independence_h2r_vs_h2e_v1/live_replay_comparison.json |
+| h2t_overreach_independence_h2r_vs_h2j_comparison_exists | blocking | True | H2t H2r versus H2j comparison exists. | results/tool_probe_replay_live_comparisons/20260512T_h2t_overreach_independence_h2r_vs_h2j_v1/live_replay_comparison.json |
+| h2t_overreach_independence_h2r_vs_h2o_comparison_exists | blocking | True | H2t H2r versus H2o comparison exists. | results/tool_probe_replay_live_comparisons/20260512T_h2t_overreach_independence_h2r_vs_h2o_v1/live_replay_comparison.json |
+| h2t_overreach_independence_h2r_vs_h2p_comparison_exists | blocking | True | H2t H2r versus H2p comparison exists. | results/tool_probe_replay_live_comparisons/20260512T_h2t_overreach_independence_h2r_vs_h2p_v1/live_replay_comparison.json |
+| h2t_overreach_independence_synthesis_exists | blocking | True | H2t overreach-independence synthesis report exists. | results/reports/h2t_overreach_independence_synthesis/report.md |
+| h2t_overreach_independence_report_figure_exists | blocking | True | H2t overreach-independence synthesis figure exists. | results/reports/h2t_overreach_independence_synthesis/figures/h2t_overreach_independence_gate.svg |
 | current_state_doc_exists | blocking | True | Continuity current-state doc exists. | docs/continuity/current-state.md |
 | next_steps_doc_exists | blocking | True | Continuity next-steps doc exists. | docs/continuity/next-steps.md |
 | research_log_exists | blocking | True | Research log exists. | docs/research-log.md |
@@ -271,6 +283,7 @@
 | script_build_h2q_composed_surface_value_stale_synthesis.py_exists | blocking | True | Reproduction script `build_h2q_composed_surface_value_stale_synthesis.py` exists. | scripts/build_h2q_composed_surface_value_stale_synthesis.py |
 | script_build_h2r_composed_route_gating_synthesis.py_exists | blocking | True | Reproduction script `build_h2r_composed_route_gating_synthesis.py` exists. | scripts/build_h2r_composed_route_gating_synthesis.py |
 | script_build_h2s_fresh_composed_holdout_synthesis.py_exists | blocking | True | Reproduction script `build_h2s_fresh_composed_holdout_synthesis.py` exists. | scripts/build_h2s_fresh_composed_holdout_synthesis.py |
+| script_build_h2t_overreach_independence_synthesis.py_exists | blocking | True | Reproduction script `build_h2t_overreach_independence_synthesis.py` exists. | scripts/build_h2t_overreach_independence_synthesis.py |
 | script_compare_tool_directive_probes.py_exists | blocking | True | Reproduction script `compare_tool_directive_probes.py` exists. | scripts/compare_tool_directive_probes.py |
 | script_build_visual_hard_slice_design.py_exists | blocking | True | Reproduction script `build_visual_hard_slice_design.py` exists. | scripts/build_visual_hard_slice_design.py |
 | script_build_visual_hard_slice_replay_packet.py_exists | blocking | True | Reproduction script `build_visual_hard_slice_replay_packet.py` exists. | scripts/build_visual_hard_slice_replay_packet.py |

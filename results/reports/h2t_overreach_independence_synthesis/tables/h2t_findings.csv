@@ -1,0 +1,7 @@
+finding_id,finding
+h2t_breaks_h2r_topline_saturation,"H2r reaches 8/10 strict and 8/10 executor-equivalent on H2t; H2p, H2o, and H2j also reach 8/10, 8/10, and 8/10."
+h2t_exposes_h2e_tradeoff,H2e reaches 6/10 strict and 9/10 executor-equivalent. H2r gains 0.20000000000000007 exact-rate versus H2e but loses -0.09999999999999998 executor-equivalence-rate.
+h2t_later_helpers_do_not_add_signal,H2r ties H2p on H2t with delta 0.0 exact-rate; the overreach signal is shared by target-query normalization and the later synthesis/routing stack.
+h2t_bad_normalization_is_controller_induced,H2r records 2 rows where the raw model emitted the expected target but controller normalization rewrote it to a prompt-state label. The H2r non-exact rows are 2 negation-scope cases.
+h2t_h2e_preserves_negation_scope,H2e has 0 negation-scope misses while H2r has 2; this isolates the regression to the normalization helper rather than Gemma's raw local MLX call on those rows.
+h2t_next_requires_h2u,H2t should promote an H2u intervention: target-query normalization must be negation-aware and must not rewrite an exact current-surface label to a note/caption label introduced only as context. H2r used 6 target normalizations on H2t.

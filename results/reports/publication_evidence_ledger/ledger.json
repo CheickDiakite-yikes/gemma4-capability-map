@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-12T23:36:53.838661+00:00",
+    "generated_at": "2026-05-13T00:11:50.564825+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-    "claim_count": 58,
-    "evidence_source_count": 365,
+    "claim_count": 59,
+    "evidence_source_count": 377,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -63,7 +63,8 @@
       "C55_h2q_composed_surface_value_stale_breaks_h2p_saturation",
       "C56_h2r_composed_route_gating_solves_h2q_locally",
       "C57_h2r_transfer_backtest_preserves_current_gates",
-      "C58_h2s_fresh_holdout_confirms_h2r_composed_route_gating"
+      "C58_h2s_fresh_holdout_confirms_h2r_composed_route_gating",
+      "C59_h2t_overreach_independence_breaks_h2r_via_negation_scope_normalization"
     ]
   },
   "claims": [
@@ -646,6 +647,16 @@
       "limitation": "H2s is still a replay-shaped synthetic visual holdout, not a broad packaged workflow or human GUI population. The clean result supports the mechanism but should next face H2t or packaged workflow transfer.",
       "next_test": "Build H2t with harder wording and overreach controls, or promote the same composed-route pressure into packaged visual workflows without losing attribution.",
       "source_count": 10
+    },
+    {
+      "claim_id": "C59_h2t_overreach_independence_breaks_h2r_via_negation_scope_normalization",
+      "claim": "The H2t overreach-independence holdout breaks H2r top-line saturation by exposing a controller-induced negation-scope target-normalization regression, not a raw local-MLX Gemma failure on the failed rows.",
+      "status": "supported_fresh_holdout_requires_h2u_negation_aware_normalization",
+      "evidence_strength": "strong_internal_fresh_holdout",
+      "primary_metric": "On H2t, H2r/H2p/H2o/H2j all reach 8/10 strict and 8/10 executor-equivalent; H2e reaches 6/10 strict but 9/10 executor-equivalent. H2r improves +0.20 strict exact-rate versus H2e but loses -0.10 executor-equivalence-rate, and the 2 H2r misses are raw-exact outputs rewritten by controller target-query normalization to note/caption labels.",
+      "limitation": "H2t is still a replay-shaped synthetic visual holdout. It cleanly identifies a controller tradeoff, but H2u must prove that negation-aware normalization preserves H2s/H2q/H2m gains before publication promotion.",
+      "next_test": "Build H2u as a negation-aware target-query normalization guard, then run transfer gates over H2t, H2s, H2q, H2m, H2k, H2l, H2f, H2b, and H1x.",
+      "source_count": 12
     }
   ],
   "evidence_sources": [
@@ -3202,6 +3213,90 @@
       "artifact_type": "replay_synthesis_figure",
       "path": "results/reports/h2s_fresh_composed_holdout_synthesis/figures/h2s_fresh_composed_holdout_gate.svg",
       "purpose": "Figure summarizing H2s exact-rate separation across H2j/H2o/H2p/H2r.",
+      "exists": true
+    },
+    {
+      "claim_id": "C59_h2t_overreach_independence_breaks_h2r_via_negation_scope_normalization",
+      "artifact_type": "replay_packet",
+      "path": "results/tool_probe_replay_packets/20260512T_h2t_overreach_independence_dry_run_v1",
+      "purpose": "Fresh H2t overreach-independence dry-run packet with negation-scope and low-score/value controls.",
+      "exists": true
+    },
+    {
+      "claim_id": "C59_h2t_overreach_independence_breaks_h2r_via_negation_scope_normalization",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260512T_h2t_overreach_independence_h2r_execute_v1",
+      "purpose": "Frozen H2r live replay on H2t reaching 8/10 strict and executor-equivalent with two bad normalization rows.",
+      "exists": true
+    },
+    {
+      "claim_id": "C59_h2t_overreach_independence_breaks_h2r_via_negation_scope_normalization",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260512T_h2t_overreach_independence_h2e_execute_v1",
+      "purpose": "H2e route-arbitration control on H2t reaching 6/10 strict and 9/10 executor-equivalent.",
+      "exists": true
+    },
+    {
+      "claim_id": "C59_h2t_overreach_independence_breaks_h2r_via_negation_scope_normalization",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260512T_h2t_overreach_independence_h2j_execute_v1",
+      "purpose": "H2j target-query normalization control tying H2r at 8/10 strict and executor-equivalent.",
+      "exists": true
+    },
+    {
+      "claim_id": "C59_h2t_overreach_independence_breaks_h2r_via_negation_scope_normalization",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260512T_h2t_overreach_independence_h2o_execute_v1",
+      "purpose": "H2o value-bearing synthesis control tying H2r at 8/10 strict and executor-equivalent.",
+      "exists": true
+    },
+    {
+      "claim_id": "C59_h2t_overreach_independence_breaks_h2r_via_negation_scope_normalization",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260512T_h2t_overreach_independence_h2p_execute_v1",
+      "purpose": "H2p contextual surface alias-routing control tying H2r at 8/10 strict and executor-equivalent.",
+      "exists": true
+    },
+    {
+      "claim_id": "C59_h2t_overreach_independence_breaks_h2r_via_negation_scope_normalization",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260512T_h2t_overreach_independence_h2r_vs_h2e_v1",
+      "purpose": "H2r versus H2e comparison showing +0.20 strict exact-rate and -0.10 executor-equivalence-rate.",
+      "exists": true
+    },
+    {
+      "claim_id": "C59_h2t_overreach_independence_breaks_h2r_via_negation_scope_normalization",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260512T_h2t_overreach_independence_h2r_vs_h2p_v1",
+      "purpose": "H2r versus H2p comparison showing zero delta on H2t.",
+      "exists": true
+    },
+    {
+      "claim_id": "C59_h2t_overreach_independence_breaks_h2r_via_negation_scope_normalization",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260512T_h2t_overreach_independence_h2r_vs_h2o_v1",
+      "purpose": "H2r versus H2o comparison showing zero delta on H2t.",
+      "exists": true
+    },
+    {
+      "claim_id": "C59_h2t_overreach_independence_breaks_h2r_via_negation_scope_normalization",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260512T_h2t_overreach_independence_h2r_vs_h2j_v1",
+      "purpose": "H2r versus H2j comparison showing zero delta on H2t.",
+      "exists": true
+    },
+    {
+      "claim_id": "C59_h2t_overreach_independence_breaks_h2r_via_negation_scope_normalization",
+      "artifact_type": "replay_synthesis",
+      "path": "results/reports/h2t_overreach_independence_synthesis/report.md",
+      "purpose": "Dedicated H2t synthesis summarizing controller overreach, bad-normalization rows, and the H2u next test.",
+      "exists": true
+    },
+    {
+      "claim_id": "C59_h2t_overreach_independence_breaks_h2r_via_negation_scope_normalization",
+      "artifact_type": "replay_synthesis_figure",
+      "path": "results/reports/h2t_overreach_independence_synthesis/figures/h2t_overreach_independence_gate.svg",
+      "purpose": "Figure summarizing H2t strict/executor tradeoff across H2e/H2j/H2o/H2p/H2r.",
       "exists": true
     }
   ],

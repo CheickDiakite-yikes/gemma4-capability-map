@@ -3111,6 +3111,92 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C59_h2t_overreach_independence_breaks_h2r_via_negation_scope_normalization",
+        claim=(
+            "The H2t overreach-independence holdout breaks H2r top-line saturation by exposing a controller-induced "
+            "negation-scope target-normalization regression, not a raw local-MLX Gemma failure on the failed rows."
+        ),
+        status="supported_fresh_holdout_requires_h2u_negation_aware_normalization",
+        evidence_strength="strong_internal_fresh_holdout",
+        primary_metric=(
+            "On H2t, H2r/H2p/H2o/H2j all reach 8/10 strict and 8/10 executor-equivalent; H2e reaches 6/10 "
+            "strict but 9/10 executor-equivalent. H2r improves +0.20 strict exact-rate versus H2e but loses "
+            "-0.10 executor-equivalence-rate, and the 2 H2r misses are raw-exact outputs rewritten by controller "
+            "target-query normalization to note/caption labels."
+        ),
+        limitation=(
+            "H2t is still a replay-shaped synthetic visual holdout. It cleanly identifies a controller tradeoff, "
+            "but H2u must prove that negation-aware normalization preserves H2s/H2q/H2m gains before publication "
+            "promotion."
+        ),
+        next_test=(
+            "Build H2u as a negation-aware target-query normalization guard, then run transfer gates over H2t, H2s, "
+            "H2q, H2m, H2k, H2l, H2f, H2b, and H1x."
+        ),
+        sources=(
+            EvidenceSource(
+                "replay_packet",
+                "results/tool_probe_replay_packets/20260512T_h2t_overreach_independence_dry_run_v1",
+                "Fresh H2t overreach-independence dry-run packet with negation-scope and low-score/value controls.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2t_overreach_independence_h2r_execute_v1",
+                "Frozen H2r live replay on H2t reaching 8/10 strict and executor-equivalent with two bad normalization rows.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2t_overreach_independence_h2e_execute_v1",
+                "H2e route-arbitration control on H2t reaching 6/10 strict and 9/10 executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2t_overreach_independence_h2j_execute_v1",
+                "H2j target-query normalization control tying H2r at 8/10 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2t_overreach_independence_h2o_execute_v1",
+                "H2o value-bearing synthesis control tying H2r at 8/10 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260512T_h2t_overreach_independence_h2p_execute_v1",
+                "H2p contextual surface alias-routing control tying H2r at 8/10 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2t_overreach_independence_h2r_vs_h2e_v1",
+                "H2r versus H2e comparison showing +0.20 strict exact-rate and -0.10 executor-equivalence-rate.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2t_overreach_independence_h2r_vs_h2p_v1",
+                "H2r versus H2p comparison showing zero delta on H2t.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2t_overreach_independence_h2r_vs_h2o_v1",
+                "H2r versus H2o comparison showing zero delta on H2t.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260512T_h2t_overreach_independence_h2r_vs_h2j_v1",
+                "H2r versus H2j comparison showing zero delta on H2t.",
+            ),
+            EvidenceSource(
+                "replay_synthesis",
+                "results/reports/h2t_overreach_independence_synthesis/report.md",
+                "Dedicated H2t synthesis summarizing controller overreach, bad-normalization rows, and the H2u next test.",
+            ),
+            EvidenceSource(
+                "replay_synthesis_figure",
+                "results/reports/h2t_overreach_independence_synthesis/figures/h2t_overreach_independence_gate.svg",
+                "Figure summarizing H2t strict/executor tradeoff across H2e/H2j/H2o/H2p/H2r.",
+            ),
+        ),
+    ),
 )
 
 

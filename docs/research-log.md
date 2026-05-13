@@ -537,6 +537,36 @@
   - `uv run python scripts/build_publication_evidence_ledger.py`
   - `uv run python scripts/audit_publication_readiness.py`
 
+## 2026-05-13 - H2t Overreach-Independence Breaks H2r Saturation
+
+- Added and synthesized the H2t overreach-independence result:
+  - synthesis script: [`scripts/build_h2t_overreach_independence_synthesis.py`](../scripts/build_h2t_overreach_independence_synthesis.py)
+  - synthesis report: [`results/reports/h2t_overreach_independence_synthesis/report.md`](../results/reports/h2t_overreach_independence_synthesis/report.md)
+  - figure: [`results/reports/h2t_overreach_independence_synthesis/figures/h2t_overreach_independence_gate.svg`](../results/reports/h2t_overreach_independence_synthesis/figures/h2t_overreach_independence_gate.svg)
+  - dry-run packet: [`results/tool_probe_replay_packets/20260512T_h2t_overreach_independence_dry_run_v1`](../results/tool_probe_replay_packets/20260512T_h2t_overreach_independence_dry_run_v1)
+  - live packets: [`H2r`](../results/tool_probe_replay_live/20260512T_h2t_overreach_independence_h2r_execute_v1), [`H2p`](../results/tool_probe_replay_live/20260512T_h2t_overreach_independence_h2p_execute_v1), [`H2o`](../results/tool_probe_replay_live/20260512T_h2t_overreach_independence_h2o_execute_v1), [`H2j`](../results/tool_probe_replay_live/20260512T_h2t_overreach_independence_h2j_execute_v1), [`H2e`](../results/tool_probe_replay_live/20260512T_h2t_overreach_independence_h2e_execute_v1)
+- Result:
+  - H2r/H2p/H2o/H2j all reach `8 / 10` strict and `8 / 10` executor-equivalent.
+  - H2e reaches `6 / 10` strict and `9 / 10` executor-equivalent.
+  - H2r gains `+0.20` strict exact-rate versus H2e, but loses `-0.10` executor-equivalence-rate.
+  - H2r has `6` target-query-normalization interventions and `2` bad-normalization rows.
+  - Across H2j/H2o/H2p/H2r there are `8` bad-normalization rows on the same two negation-scope cases.
+- Interpretation:
+  - H2t is the first fresh post-H2s discriminator that breaks H2r saturation.
+  - The failure is not raw local MLX Gemma on the two failed rows. The raw model emitted the expected `metric panel` and `summary tile` calls, then the controller rewrote them to `training note` and `caption`.
+  - H2e's higher executor-equivalence shows the tradeoff: earlier route arbitration is less strict on low-score/value cases, but avoids the negation-scope normalization regression.
+  - The next intervention should be H2u: target-query normalization must not rewrite an exact current layout label to a note/caption label that appears only in negated or explanatory context.
+- Reporting updates:
+  - publication evidence claim `C59_h2t_overreach_independence_breaks_h2r_via_negation_scope_normalization` now captures the result and limitation
+  - publication evidence ledger now tracks `59` claims and `377` evidence sources
+  - publication readiness audit now tracks `280` checks / `273` blocking checks / `0` blocking failures
+  - source-of-truth docs now point to H2u as the next controller move instead of H2t design
+- Verification:
+  - `uv run pytest tests/test_h2t_overreach_independence_synthesis.py -q`
+  - `uv run python scripts/build_h2t_overreach_independence_synthesis.py`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`
+
 ## 2026-05-12 - H2r Transfer Backtest Preserves Current Gates
 
 - Executed the H2r transfer/regression backtest after the local H2q repair:

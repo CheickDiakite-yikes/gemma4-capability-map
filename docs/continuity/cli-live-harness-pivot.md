@@ -151,7 +151,7 @@ The freshest MLX evidence is now H1h/H1i/H1g:
   - exact JSON copy `7 / 8`
   - visual selector paraphrase executable target `1 / 1`
 
-The freshest replay-shaped visual controller evidence is now H2s:
+The freshest replay-shaped visual controller evidence is now H2t:
 
 - H2j target-query normalization proved the repair can be controller-attributable rather than prompt-prose-attributable:
   - H2f: `10 / 10`
@@ -227,10 +227,19 @@ The freshest replay-shaped visual controller evidence is now H2s:
   - H2r-vs-H2p/H2o: `+0.70` strict and executor-equivalence delta
   - H2r-vs-H2j: `+0.90` strict and executor-equivalence delta
   - mechanism: `7` composed-route gates, `2` value-bearing syntheses, and `4` target-query normalizations
+- H2t is the fresh overreach-independence holdout:
+  - packet: [`results/tool_probe_replay_packets/20260512T_h2t_overreach_independence_dry_run_v1`](../../results/tool_probe_replay_packets/20260512T_h2t_overreach_independence_dry_run_v1)
+  - synthesis: [`results/reports/h2t_overreach_independence_synthesis/report.md`](../../results/reports/h2t_overreach_independence_synthesis/report.md)
+  - figure: [`results/reports/h2t_overreach_independence_synthesis/figures/h2t_overreach_independence_gate.svg`](../../results/reports/h2t_overreach_independence_synthesis/figures/h2t_overreach_independence_gate.svg)
+  - H2r/H2p/H2o/H2j: `8 / 10` strict and executor-equivalent
+  - H2e: `6 / 10` strict and `9 / 10` executor-equivalent
+  - H2r-vs-H2e: `+0.20` strict exact-rate and `-0.10` executor-equivalence-rate
+  - H2r-vs-H2p/H2o/H2j: `0.0` deltas
+  - mechanism: `2` H2r raw-exact MLX calls are rewritten by target-query normalization from `metric panel`/`summary tile` to `training note`/`caption`
 - next controller question:
-  - build H2t as a harder unseen composition holdout with H2r frozen, emphasizing overreach and current-but-wrong selection IDs
-  - or port H2q/H2s pressure into packaged visual workflow families if the next question is publication realism
-  - treat any H2t or packaged-transfer miss as new evidence before changing H2r
+  - build H2u as negation-aware target-query normalization
+  - run H2u first on H2t, then transfer back across H2s/H2q/H2m/H2k/H2l/H2f/H2b/H1x
+  - keep packaged transfer paused until the controller regression is fixed or intentionally used as a realism baseline
 
 ## Direction Reset
 

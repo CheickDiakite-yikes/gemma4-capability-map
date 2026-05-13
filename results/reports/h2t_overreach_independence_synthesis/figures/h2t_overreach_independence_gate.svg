@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="390" viewBox="0 0 880 390" role="img" aria-labelledby="title desc">
+<title id="title">H2t overreach independence gate</title>
+<desc id="desc">H2r, H2p, H2o, and H2j tie at exact rate 0.8, while H2e reaches exact rate 0.6 and executor-equivalence rate 0.9.</desc>
+<rect width="880" height="390" fill="#FFFFFF"/>
+<text x="32" y="38" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#111827">H2t breaks H2r by exposing normalization overreach</text>
+<line x1="92" y1="274" x2="810" y2="274" stroke="#111827" stroke-width="1"/>
+<line x1="86" y1="274.0" x2="810" y2="274.0" stroke="#E5E7EB" stroke-width="1"/>
+<text x="46" y="278.0" font-family="Arial, sans-serif" font-size="11" fill="#6B7280">0.0</text>
+<line x1="86" y1="234.8" x2="810" y2="234.8" stroke="#E5E7EB" stroke-width="1"/>
+<text x="46" y="238.8" font-family="Arial, sans-serif" font-size="11" fill="#6B7280">0.2</text>
+<line x1="86" y1="195.6" x2="810" y2="195.6" stroke="#E5E7EB" stroke-width="1"/>
+<text x="46" y="199.6" font-family="Arial, sans-serif" font-size="11" fill="#6B7280">0.4</text>
+<line x1="86" y1="156.4" x2="810" y2="156.4" stroke="#E5E7EB" stroke-width="1"/>
+<text x="46" y="160.4" font-family="Arial, sans-serif" font-size="11" fill="#6B7280">0.6</text>
+<line x1="86" y1="117.2" x2="810" y2="117.2" stroke="#E5E7EB" stroke-width="1"/>
+<text x="46" y="121.2" font-family="Arial, sans-serif" font-size="11" fill="#6B7280">0.8</text>
+<line x1="86" y1="78.0" x2="810" y2="78.0" stroke="#E5E7EB" stroke-width="1"/>
+<text x="46" y="82.0" font-family="Arial, sans-serif" font-size="11" fill="#6B7280">1.0</text>
+<rect x="92" y="156.4" width="58" height="117.6" fill="#1D4ED8"/>
+<rect x="154" y="97.6" width="58" height="176.4" fill="#9CA3AF"/>
+<text x="99" y="148.4" font-family="Arial, sans-serif" font-size="11" fill="#111827">6/10</text>
+<text x="162" y="89.6" font-family="Arial, sans-serif" font-size="11" fill="#111827">9/10</text>
+<text x="132" y="306" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">H2e</text>
+<rect x="254" y="117.2" width="58" height="156.8" fill="#0F766E"/>
+<rect x="316" y="117.2" width="58" height="156.8" fill="#9CA3AF"/>
+<text x="261" y="109.2" font-family="Arial, sans-serif" font-size="11" fill="#111827">8/10</text>
+<text x="324" y="109.2" font-family="Arial, sans-serif" font-size="11" fill="#111827">8/10</text>
+<text x="294" y="306" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">H2j</text>
+<rect x="416" y="117.2" width="58" height="156.8" fill="#115E59"/>
+<rect x="478" y="117.2" width="58" height="156.8" fill="#9CA3AF"/>
+<text x="423" y="109.2" font-family="Arial, sans-serif" font-size="11" fill="#111827">8/10</text>
+<text x="486" y="109.2" font-family="Arial, sans-serif" font-size="11" fill="#111827">8/10</text>
+<text x="456" y="306" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">H2o</text>
+<rect x="578" y="117.2" width="58" height="156.8" fill="#B45309"/>
+<rect x="640" y="117.2" width="58" height="156.8" fill="#9CA3AF"/>
+<text x="585" y="109.2" font-family="Arial, sans-serif" font-size="11" fill="#111827">8/10</text>
+<text x="648" y="109.2" font-family="Arial, sans-serif" font-size="11" fill="#111827">8/10</text>
+<text x="618" y="306" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">H2p</text>
+<rect x="740" y="117.2" width="58" height="156.8" fill="#7C2D12"/>
+<rect x="802" y="117.2" width="58" height="156.8" fill="#9CA3AF"/>
+<text x="747" y="109.2" font-family="Arial, sans-serif" font-size="11" fill="#111827">8/10</text>
+<text x="810" y="109.2" font-family="Arial, sans-serif" font-size="11" fill="#111827">8/10</text>
+<text x="780" y="306" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">H2r</text>
+<rect x="548" y="328" width="12" height="12" fill="#7C2D12"/>
+<text x="568" y="339" font-family="Arial, sans-serif" font-size="12" fill="#374151">strict exactness</text>
+<rect x="672" y="328" width="12" height="12" fill="#9CA3AF"/>
+<text x="692" y="339" font-family="Arial, sans-serif" font-size="12" fill="#374151">executor-equivalence</text>
+<text x="32" y="362" font-family="Arial, sans-serif" font-size="13" fill="#374151">H2t shows a controller tradeoff: later helpers keep low-score exactness but over-normalize note/caption negation rows.</text>
+</svg>
