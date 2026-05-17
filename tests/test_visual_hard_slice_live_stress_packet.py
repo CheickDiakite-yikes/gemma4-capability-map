@@ -1194,6 +1194,50 @@ def test_visual_hard_slice_live_stress_packet_supports_h2v_semantic_negation_sui
         assert _expected_call_reaches_oracle(case)
 
 
+def test_visual_hard_slice_live_stress_packet_supports_h2x_cli_semantic_pressure_suite(
+    tmp_path: Path,
+) -> None:
+    packet = SCRIPT.build_visual_hard_slice_live_stress_packet(
+        output_root=tmp_path / "replay_packets",
+        run_group_id="visual_stress_h2x_cli_semantic_pressure",
+        suite="h2x_cli_semantic_pressure_v24",
+    )
+
+    assert packet["summary"]["suite"] == "h2x_cli_semantic_pressure_v24"
+    assert packet["summary"]["case_count"] == 8
+    assert packet["summary"]["family_counts"] == {
+        "h2x_genuine_negated_target_value": 4,
+        "h2x_instructional_negation_context": 1,
+        "h2x_quoted_stale_negation_context": 2,
+        "h2x_stale_selection_negation_context": 1,
+    }
+    assert packet["summary"]["failure_mode_counts"] == {
+        "argument_alias_or_decoy_risk": 8,
+    }
+    cases = {case["case_id"]: case for case in packet["replay_cases"]}
+    assert cases["h2x_status_badge_quoted_not_badge_note"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h2x-status-badge-quote",
+                "target_query": "status badge",
+            },
+        }
+    ]
+    assert cases["h2x_not_ready_status_badge_value_before_component"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h2x-not-ready-status-badge",
+                "target_query": "status badge not ready",
+            },
+        }
+    ]
+    assert cases["h2x_risk_lane_stale_selection_not_lane"]["initial_state"]["visual_last_selection_id"] == "sel-stale"
+    for case in packet["replay_cases"]:
+        assert _expected_call_reaches_oracle(case)
+
+
 def _expected_call_reaches_oracle(case: dict[str, object]) -> bool:
     tool_specs = [ToolSpec.model_validate(payload) for payload in case["tool_specs"]]  # type: ignore[index]
     executor = DeterministicExecutor(tool_specs=tool_specs)

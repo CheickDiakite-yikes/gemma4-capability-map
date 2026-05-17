@@ -791,6 +791,62 @@ def test_planner_repairs_wrong_visual_target_query_for_form_tasks() -> None:
     assert "repaired_arguments:extract_layout" in notes
 
 
+def test_semantic_target_preservation_rewrites_generic_visual_fallback() -> None:
+    messages = [
+        Message(role="system", content="visual_image_ids: img-h2x-status-badge"),
+        Message(
+            role="user",
+            content=(
+                "Use the status badge. The review note quotes 'not the status badge' from an old screenshot; "
+                "that quote is not the current target."
+            ),
+        ),
+    ]
+
+    repaired, notes = plan_or_repair_tool_calls(
+        raw_output="No tool call.",
+        parsed_calls=[],
+        messages=messages,
+        media=["img-h2x-status-badge"],
+        tool_specs=[SPECS["extract_layout"], SPECS["refine_selection"], SPECS["read_region_text"]],
+        research_controls=ResearchControls(enable_visual_semantic_target_preservation=True),
+    )
+
+    assert repaired[0].name == "extract_layout"
+    assert repaired[0].arguments == {"image_id": "img-h2x-status-badge", "target_query": "status badge"}
+    assert "controller_fallback_planner" in notes
+
+
+def test_semantic_target_preservation_canonicalizes_value_before_component() -> None:
+    messages = [
+        Message(role="system", content="visual_image_ids: img-h2x-not-ready-badge"),
+        Message(
+            role="user",
+            content="Use the not ready status badge. Here not ready is the current displayed value.",
+        ),
+    ]
+
+    repaired, notes = plan_or_repair_tool_calls(
+        raw_output='{"name":"extract_layout","arguments":{"image_id":"img-h2x-not-ready-badge","target_query":"dashboard metric"}}',
+        parsed_calls=[
+            ToolCall(
+                name="extract_layout",
+                arguments={"image_id": "img-h2x-not-ready-badge", "target_query": "dashboard metric"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+        messages=messages,
+        media=["img-h2x-not-ready-badge"],
+        tool_specs=[SPECS["extract_layout"], SPECS["refine_selection"], SPECS["read_region_text"]],
+        research_controls=ResearchControls(enable_visual_semantic_target_preservation=True),
+    )
+
+    assert repaired[0].name == "extract_layout"
+    assert repaired[0].arguments == {"image_id": "img-h2x-not-ready-badge", "target_query": "status badge not ready"}
+    assert "repaired_arguments:extract_layout" in notes
+
+
 def test_planner_forces_stepwise_visual_control_for_multi_call_batch() -> None:
     messages = [
         Message(role="system", content="visual_image_ids: img-form-live-phone"),

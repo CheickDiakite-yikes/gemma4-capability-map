@@ -50,6 +50,33 @@ def test_runtime_cli_validates_and_filters_parallel_workflow(
     assert output["workflows"][0]["episode_id"] == "kwa_ops_live_parallel_audit_review_v1"
 
 
+def test_runtime_cli_validates_semantic_pressure_workflow(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+    tmp_path: Path,
+) -> None:
+    monkeypatch.setattr(runtime_cli, "LocalAgentRuntime", lambda: LocalAgentRuntime(results_root=tmp_path / "runtime"))
+    monkeypatch.setattr(
+        runtime_cli,
+        "parse_args",
+        lambda: runtime_cli.argparse.Namespace(
+            command="workflows",
+            lane="live_web_stress",
+            workflow_id="executive_semantic_target_pressure",
+            validate=True,
+        ),
+    )
+
+    runtime_cli.main()
+
+    output = json.loads(capsys.readouterr().out)
+    assert output["valid"] is True
+    assert output["validation_errors"] == []
+    assert output["workflow_count"] == 1
+    assert output["workflows"][0]["episode_id"] == "kwa_exec_live_semantic_target_pressure_v1"
+    assert "h2x_semantic_pressure" in output["workflows"][0]["tags"]
+
+
 def test_runtime_cli_lists_pending_approvals(monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str], tmp_path: Path) -> None:
     runtime = LocalAgentRuntime(results_root=tmp_path / "runtime")
     runtime.launch_session(

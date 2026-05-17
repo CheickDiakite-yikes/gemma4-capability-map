@@ -210,6 +210,12 @@ def _count_or_default(payload: Any, key: str, default: int) -> int:
 
 def _research_packet_renderable(payload: dict[str, Any]) -> Group:
     manifest = payload.get("manifest") or {}
+    candidate_contracts = ", ".join(
+        str(row.get("tool_prompt_contract_id", ""))
+        for row in payload.get("candidate_rows") or []
+        if str(row.get("tool_prompt_contract_id", ""))
+    )
+    failure_modes = ", ".join(str(key) for key in sorted((payload.get("failure_mode_counts") or {}).keys()))
     header = Table.grid(padding=(0, 1))
     header.add_column(style="bold")
     header.add_column()
@@ -221,11 +227,15 @@ def _research_packet_renderable(payload: dict[str, Any]) -> Group:
         header.add_row("Dry run", str(payload.get("dry_run", "")))
         header.add_row("Cases", str(payload.get("case_count", 0)))
         header.add_row("Commands", str(payload.get("command_count", 0)))
+        if failure_modes:
+            header.add_row("Failure modes", failure_modes)
     elif payload.get("packet_kind") == "tool-probe-replay-live":
         header.add_row("Execute", str(payload.get("execute", "")))
         header.add_row("Cases", str(payload.get("case_count", 0)))
         header.add_row("Executed", str(payload.get("executed_count", 0)))
         header.add_row("Exact rate", str(payload.get("exact_rate", 0.0)))
+        if failure_modes:
+            header.add_row("Failure modes", failure_modes)
     elif payload.get("packet_kind") == "tool-probe-replay-live-comparison":
         header.add_row("Baseline", str(payload.get("baseline_system_id", "")))
         header.add_row("Candidate", str(payload.get("candidate_system_id", "")))
@@ -240,6 +250,8 @@ def _research_packet_renderable(payload: dict[str, Any]) -> Group:
         header.add_row("Candidates", str(payload.get("candidate_count", 0)))
         header.add_row("Executed", str(payload.get("executed_count", 0)))
         header.add_row("Dry run", str(payload.get("dry_run_count", 0)))
+        if candidate_contracts:
+            header.add_row("Contracts", candidate_contracts)
 
     candidates = Table(title="Candidates")
     candidates.add_column("System")

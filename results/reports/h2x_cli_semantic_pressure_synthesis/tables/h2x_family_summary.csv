@@ -1,0 +1,17 @@
+profile_label,family,case_count,exact_success_count,exact_rate,executor_success_count,executor_rate
+h2x_h2u_negation_guard,h2x_genuine_negated_target_value,4,0,0.0,1,0.25
+h2x_h2u_negation_guard,h2x_instructional_negation_context,1,1,1.0,1,1.0
+h2x_h2u_negation_guard,h2x_quoted_stale_negation_context,2,2,1.0,2,1.0
+h2x_h2u_negation_guard,h2x_stale_selection_negation_context,1,0,0.0,0,0.0
+h2x_h2u_no_controller_fallback,h2x_genuine_negated_target_value,4,0,0.0,1,0.25
+h2x_h2u_no_controller_fallback,h2x_instructional_negation_context,1,1,1.0,1,1.0
+h2x_h2u_no_controller_fallback,h2x_quoted_stale_negation_context,2,2,1.0,2,1.0
+h2x_h2u_no_controller_fallback,h2x_stale_selection_negation_context,1,0,0.0,0,0.0
+h2x_h2w_semantic_target_preservation,h2x_genuine_negated_target_value,4,4,1.0,4,1.0
+h2x_h2w_semantic_target_preservation,h2x_instructional_negation_context,1,1,1.0,1,1.0
+h2x_h2w_semantic_target_preservation,h2x_quoted_stale_negation_context,2,2,1.0,2,1.0
+h2x_h2w_semantic_target_preservation,h2x_stale_selection_negation_context,1,1,1.0,1,1.0
+h2x_h2w_no_controller_fallback,h2x_genuine_negated_target_value,4,4,1.0,4,1.0
+h2x_h2w_no_controller_fallback,h2x_instructional_negation_context,1,1,1.0,1,1.0
+h2x_h2w_no_controller_fallback,h2x_quoted_stale_negation_context,2,2,1.0,2,1.0
+h2x_h2w_no_controller_fallback,h2x_stale_selection_negation_context,1,1,1.0,1,1.0

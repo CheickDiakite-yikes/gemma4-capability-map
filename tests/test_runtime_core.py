@@ -28,6 +28,9 @@ def test_runtime_lists_packaged_workflows_with_absolute_preview_assets(tmp_path:
     parallel_audit = next(workflow for workflow in runtime.list_workflows(lane="live_web_stress") if workflow["workflow_id"] == "ops_parallel_audit_review")
     assert parallel_audit["episode_id"] == "kwa_ops_live_parallel_audit_review_v1"
     assert "parallel_tool_calling" in parallel_audit["tags"]
+    semantic_pressure = next(workflow for workflow in runtime.list_workflows(lane="live_web_stress") if workflow["workflow_id"] == "executive_semantic_target_pressure")
+    assert semantic_pressure["episode_id"] == "kwa_exec_live_semantic_target_pressure_v1"
+    assert "h2x_semantic_pressure" in semantic_pressure["tags"]
 
 
 def test_packaged_workflow_registry_resolves_declared_episode_lanes() -> None:
@@ -150,6 +153,40 @@ def test_parallel_audit_live_sandbox_manifest_records_replay_attribution(tmp_pat
     ]
     assert manifest["live_web_policy"]["packaged_workflows_only"] is True
     assert manifest["allowed_write_roots"] == [str((Path(session.sandbox_root) / "output").resolve())]
+
+
+def test_semantic_pressure_live_sandbox_manifest_records_h2x_attribution(tmp_path: Path) -> None:
+    runtime = LocalAgentRuntime(results_root=tmp_path / "runtime")
+
+    session = runtime.launch_session(
+        workflow_id="executive_semantic_target_pressure",
+        system_id="oracle_gemma4_e2b",
+        lane="live_web_stress",
+        background=False,
+    )
+
+    manifest = json.loads(Path(session.sandbox_manifest_path).read_text(encoding="utf-8"))
+    assert session.status == SessionStatus.AWAITING_APPROVAL
+    assert manifest["entrypoint"] == "packaged_workflow"
+    assert manifest["workflow_id"] == "executive_semantic_target_pressure"
+    assert manifest["episode_id"] == "kwa_exec_live_semantic_target_pressure_v1"
+    assert manifest["source_replay_cases"] == [
+        "h2x_not_ready_status_badge_value_before_component",
+        "h2x_status_badge_quoted_not_badge_note",
+    ]
+    assert "h2x_semantic_pressure" in manifest["workflow_tags"]
+    assert "semantic_target_preservation" in manifest["episode_tags"]
+    assert manifest["artifact_targets"] == [
+        {
+            "artifact_id": "live_semantic_target_pressure_note",
+            "kind": "memo",
+            "path_or_target": "workspaces/exec-live-semantic-target-pressure/live_semantic_target_pressure_note.docx",
+        }
+    ]
+    assert manifest["live_web_policy"]["packaged_workflows_only"] is True
+    assert manifest["allowed_write_roots"] == [str((Path(session.sandbox_root) / "output").resolve())]
+    assert session.sandbox_policy_blocks
+    assert any(block["submission_gate"] == "approval_required" for block in session.sandbox_policy_blocks)
 
 
 def test_runtime_recovers_interrupted_sessions_on_startup(tmp_path: Path) -> None:

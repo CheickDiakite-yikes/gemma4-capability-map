@@ -59,6 +59,27 @@ TOOL_NAME_ALIASES = {
     "ocr_region": "read_region_text",
 }
 
+_VISUAL_COMPONENT_WORDS = {
+    "alert",
+    "badge",
+    "banner",
+    "caption",
+    "card",
+    "chip",
+    "field",
+    "lane",
+    "marker",
+    "memo",
+    "note",
+    "notice",
+    "panel",
+    "pill",
+    "tag",
+    "tile",
+    "toggle",
+    "switch",
+}
+
 
 def tool_catalog_text(tool_specs: list[ToolSpec], *, profile_id: str = "") -> str:
     if not tool_specs:
@@ -872,7 +893,13 @@ def _repair_or_passthrough_tool_call(
     research_controls: ResearchControls,
 ) -> tuple[ToolCall | None, list[str]]:
     if not research_controls.disable_argument_repair:
-        return _repair_tool_call(call, raw_output, context, tool_specs)
+        return _repair_tool_call(
+            call,
+            raw_output,
+            context,
+            tool_specs,
+            research_controls=research_controls,
+        )
 
     valid, _ = validate_tool_call(call, tool_specs)
     if valid and _passes_semantic_preconditions(call, context):
@@ -885,6 +912,8 @@ def _repair_tool_call(
     raw_output: str,
     context: dict[str, Any],
     tool_specs: list[ToolSpec],
+    *,
+    research_controls: ResearchControls,
 ) -> tuple[ToolCall | None, list[str]]:
     notes: list[str] = []
     repaired_name = _canonical_tool_name(call.name, tool_specs)
@@ -900,6 +929,10 @@ def _repair_tool_call(
         raw=call.raw,
     )
     inferred_arguments = _project_arguments_to_schema(_infer_arguments(context, repaired_name), schema_properties)
+    if research_controls.enable_visual_semantic_target_preservation:
+        semantic_target_query = _semantic_visual_target_query(context)
+        if repaired_name == "extract_layout" and semantic_target_query:
+            inferred_arguments["target_query"] = semantic_target_query
     valid, _ = validate_tool_call(candidate, tool_specs)
     override_valid_arguments = _should_override_valid_arguments(candidate, inferred_arguments, context)
     if valid and repaired_name == call.name and not override_valid_arguments and _passes_semantic_preconditions(candidate, context):
@@ -1057,7 +1090,37 @@ def _initial_calls(context: dict[str, Any], tool_specs: list[ToolSpec]) -> list[
 
     if "extract_layout" in tool_names and _contains_any(
         f"{user_text} {image_context}",
-        ["table", "form", "dashboard", "layout", "slide", "callout", "metric", "invoice", "validation", "error", "errors", "phone", "work authorization"],
+        [
+            "table",
+            "form",
+            "dashboard",
+            "layout",
+            "slide",
+            "callout",
+            "metric",
+            "invoice",
+            "validation",
+            "error",
+            "errors",
+            "phone",
+            "work authorization",
+            "badge",
+            "banner",
+            "caption",
+            "chip",
+            "field",
+            "lane",
+            "marker",
+            "memo",
+            "note",
+            "notice",
+            "panel",
+            "pill",
+            "tag",
+            "tile",
+            "toggle",
+            "switch",
+        ],
     ):
         return [_heuristic_call("extract_layout", _infer_arguments(context, "extract_layout"))]
 
@@ -1273,6 +1336,7 @@ def _planning_context(messages: list[Message], media: list[str]) -> dict[str, An
         "user_messages": [message.content for message in messages if message.role == "user"],
         "tool_feedback": tool_feedback,
         "latest_feedback": latest_feedback,
+        "latest_message_role": messages[-1].role if messages else "",
         "media": media,
     }
 
@@ -1534,6 +1598,54 @@ def _heuristic_call(tool_name: str, arguments: dict[str, Any], raw_hint: str = "
     return ToolCall(name=tool_name, arguments=arguments, source_format="heuristic", raw=raw)
 
 
+def _semantic_visual_target_query(context: dict[str, Any]) -> str:
+    user_text = " ".join(context.get("user_messages", [])).strip()
+    if not user_text:
+        return ""
+    normalized = re.sub(r"\s+", " ", user_text)
+    patterns = (
+        r"\b(?:use|select|locate|find|target|inspect|read)\s+(?:the\s+)?(?P<label>[^.;,\n]+)",
+        r"\b(?:current target|target|actual component|visible component|layout label|field label)\s+(?:is|is still|remains)\s+(?:the\s+)?(?P<label>[^.;,\n]+)",
+    )
+    for pattern in patterns:
+        match = re.search(pattern, normalized, flags=re.IGNORECASE)
+        if not match:
+            continue
+        candidate = _trim_semantic_visual_label(match.group("label"))
+        if candidate:
+            return candidate
+    return ""
+
+
+def _trim_semantic_visual_label(value: str) -> str:
+    lowered = value.strip().lower()
+    if not lowered:
+        return ""
+    lowered = re.split(
+        r"\b(?:but|because|even though|although|while|from|before|after|then|that|which|where|and read|and tell)\b",
+        lowered,
+        maxsplit=1,
+    )[0].strip()
+    lowered = re.sub(r"^(?:current|visible|actual|requested)\s+", "", lowered)
+    lowered = re.sub(r"\s+", " ", lowered).strip(" '\"`:-")
+    tokens = lowered.split()
+    if len(tokens) < 2:
+        return ""
+    if not any(token in _VISUAL_COMPONENT_WORDS for token in tokens):
+        return ""
+
+    component_index = max((index for index, token in enumerate(tokens) if token in _VISUAL_COMPONENT_WORDS), default=-1)
+    if component_index == -1:
+        return ""
+    if component_index == len(tokens) - 1 and component_index >= 2:
+        prefix = tokens[: component_index - 1]
+        role = tokens[component_index - 1]
+        component = tokens[component_index]
+        if prefix and prefix[0] in {"not", "no"}:
+            return " ".join([role, component, *prefix])
+    return lowered
+
+
 def _should_override_valid_arguments(call: ToolCall, inferred_arguments: dict[str, Any], context: dict[str, Any]) -> bool:
     if call.name == "search_events":
         provided_start = str(call.arguments.get("start_date", ""))
@@ -1775,7 +1887,7 @@ _VISUAL_FILTER_PATTERNS: tuple[tuple[str, tuple[str, ...]], ...] = (
     ("backlog", ("backlog",)),
     ("enablement ops", ("enablement ops",)),
     ("latest", ("latest issue first", "latest issues first", "latest form issue first", "latest form issues first")),
-    ("remaining", ("remaining items", "remaining item", "what remains", "what's left", "what is left", "remaining")),
+    ("remaining", ("remaining items", "remaining item")),
     ("latest action", ("latest action", "approval safe action", "approval-safe action")),
     ("email", ("email", "email issue", "email address")),
     ("white", ("white", "blanc", "blanche", "blanches")),
@@ -1884,11 +1996,13 @@ def _visual_loop_complete(context: dict[str, Any]) -> bool:
     latest_feedback = context.get("latest_feedback")
     if not isinstance(latest_feedback, dict):
         return False
+    if str(context.get("latest_message_role", "")) != "tool":
+        return False
     if str(latest_feedback.get("status", "")) != "pass":
         return False
     if str(latest_feedback.get("tool_name", "")) != "read_region_text":
         return False
-    return _next_visual_filter(context) == ""
+    return True
 
 
 def _parallel_audit_pending_calls(context: dict[str, Any], tool_specs: list[ToolSpec]) -> list[ToolCall]:

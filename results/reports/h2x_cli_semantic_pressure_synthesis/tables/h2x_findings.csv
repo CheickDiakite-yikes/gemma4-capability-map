@@ -1,0 +1,6 @@
+finding_id,finding
+h2x_breaks_h2u_topline_saturation,"H2x drops H2u to 3/8 strict and 4/8 executor-equivalent, exposing semantic target pressure hidden by earlier top-line saturation."
+h2w_repairs_h2x_without_fallback,"H2w reaches 8/8 strict and 8/8 executor-equivalent, with the no-fallback H2w profile also at 8/8."
+semantic_preservation_is_causal_not_fallback,H2w vs H2u gains 0.625 exact and 0.5 executor-equivalence; fallback is not the causal helper on this slice because enabling controller fallback changes H2u by 0.0 exact and H2w by 0.0 exact.
+h2x_mechanism_mix,"H2w fixes 5 H2u strict misses and records 1 semantic-preservation, 5 value-bearing target-query normalization, and 1 composed-route interventions."
+h2x_promotes_to_packaged_cli_gate,"H2w is exact across H2x families (h2x_genuine_negated_target_value 4/4, h2x_instructional_negation_context 1/1, h2x_quoted_stale_negation_context 2/2, h2x_stale_selection_negation_context 1/1). The packaged live workflow smoke also reaches an approval gate in the sandbox, so the next research move is a larger packaged H1 slice rather than another same-shape replay repair."

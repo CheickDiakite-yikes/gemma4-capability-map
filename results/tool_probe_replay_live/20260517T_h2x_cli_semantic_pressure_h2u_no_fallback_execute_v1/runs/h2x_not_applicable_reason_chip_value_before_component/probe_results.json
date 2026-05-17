@@ -1,0 +1,85 @@
+[
+  {
+    "case_id": "h2x_not_applicable_reason_chip_value_before_component",
+    "family": "h2x_genuine_negated_target_value",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "h2x-reason-chip-not-applicable-17052"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2x-not-applicable-reason-chip",
+          "target_query": "not Applicable"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h2x-not-applicable-reason-chip",
+          "selection_kind": "regions",
+          "count": 2,
+          "executor_mode": "local",
+          "region_ids": [
+            "h2x-reason-chip-not-applicable-17052",
+            "h2x-reason-note-17053"
+          ],
+          "region_id": "h2x-reason-chip-not-applicable-17052",
+          "text_preview": "Not applicable"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2x-not-applicable-reason-chip",
+          "target_query": "reason chip not applicable"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2x-not-applicable-reason-chip",
+          "target_query": "not Applicable"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h2x-not-applicable-reason-chip\", \"target_query\": \"not Applicable\"}}",
+    "runtime_metadata": {
+      "backend": "mlx",
+      "runtime_info": {
+        "backend": "mlx",
+        "runtime_posture": "mlx",
+        "requested_model": "google/gemma-4-E2B-it",
+        "effective_model": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_source": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_format": "mlx",
+        "runtime_device": "mlx",
+        "load_mode": "vision",
+        "configured_device": "auto",
+        "request_timeout_seconds": 300.0,
+        "tool_turn_directive_enabled": false,
+        "tool_prompt_contract_id": "",
+        "tool_catalog_profile_id": "visual_role_catalog_route_arbitration_residual_exactness_v20",
+        "service": {},
+        "partial_runtime": false,
+        "llama_cpp_error": null,
+        "llama_cpp_context_window": null
+      }
+    },
+    "prompt_tokens": 1893,
+    "completion_tokens": 41,
+    "latency_ms": 8562
+  }
+]

@@ -274,3 +274,24 @@ workflows:
     lane_episode_map:
       replayable_core: kwa_ops_parallel_audit_review_v1
       live_web_stress: kwa_ops_live_parallel_audit_review_v1
+
+  executive_semantic_target_pressure:
+    title: Semantic Target Pressure
+    subtitle: Preserve visual targets when stale negation and genuine negated values collide
+    description: Run the H2x semantic-pressure gate through the packaged CLI harness, preserving current visual targets across quoted stale negation and genuine displayed negated values.
+    role_family: executive_assistant
+    category: visual_review
+    preview_asset: data/assets/visual_dashboard.png
+    recommended_system_id: mlx_gemma4_e2b_reasoner_only
+    default_lane: replayable_core
+    supports_approval: true
+    tags:
+      - visual
+      - semantic_target_preservation
+      - quoted_negation
+      - genuine_negated_value
+      - tool_cli
+      - h2x_semantic_pressure
+    lane_episode_map:
+      replayable_core: kwa_exec_semantic_target_pressure_v1
+      live_web_stress: kwa_exec_live_semantic_target_pressure_v1

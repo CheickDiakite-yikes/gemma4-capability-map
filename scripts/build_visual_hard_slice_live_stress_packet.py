@@ -55,6 +55,7 @@ def parse_args() -> argparse.Namespace:
             "h2s_fresh_composed_holdout_v21",
             "h2t_overreach_independence_v22",
             "h2v_semantic_negation_v23",
+            "h2x_cli_semantic_pressure_v24",
         ],
         default="v1",
     )
@@ -243,6 +244,8 @@ def _stress_cases_for_suite(suite: str) -> list[ToolDirectiveProbeCase]:
         return _h2t_overreach_independence_cases_v22()
     if suite == "h2v_semantic_negation_v23":
         return _h2v_semantic_negation_cases_v23()
+    if suite == "h2x_cli_semantic_pressure_v24":
+        return _h2x_cli_semantic_pressure_cases_v24()
     raise ValueError(f"Unknown visual live stress suite: {suite}")
 
 
@@ -275,6 +278,7 @@ def _expected_call_payloads(
         "h2s_fresh_composed_holdout_v21",
         "h2t_overreach_independence_v22",
         "h2v_semantic_negation_v23",
+        "h2x_cli_semantic_pressure_v24",
     }:
         return [_oracle_visual_extract_call(case)]
     return [
@@ -4788,6 +4792,205 @@ def _h2v_semantic_negation_cases_v23() -> list[ToolDirectiveProbeCase]:
                 ],
             ),
             expected_execution={"region_ids": ["h2v-exception-notice-16091"]},
+        ),
+    ]
+
+
+def _h2x_cli_semantic_pressure_cases_v24() -> list[ToolDirectiveProbeCase]:
+    return [
+        ToolDirectiveProbeCase(
+            case_id="h2x_status_badge_quoted_not_badge_note",
+            family="h2x_quoted_stale_negation_context",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2x-status-badge-quote"),
+                Message(
+                    role="user",
+                    content=(
+                        "Use the status badge. The review note quotes 'not the status badge' from an old screenshot; "
+                        "that quote is not the current target."
+                    ),
+                ),
+            ],
+            media=["img-h2x-status-badge-quote"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2x-status-badge-quote",
+                [
+                    _region("h2x-status-badge-17001", "status badge", "Needs review", area="badge"),
+                    _region("h2x-review-note-17002", "review note", "quoted old instruction from prior screenshot", area="note"),
+                    _region("h2x-status-table-17003", "status table", "Status history", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2x-status-badge-17001"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2x_summary_tile_caption_says_not_tile",
+            family="h2x_quoted_stale_negation_context",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2x-summary-tile-caption"),
+                Message(
+                    role="user",
+                    content=(
+                        "Use the current summary tile. The caption says not the summary tile, but that caption "
+                        "belongs to a previous screenshot."
+                    ),
+                ),
+            ],
+            media=["img-h2x-summary-tile-caption"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2x-summary-tile-caption",
+                [
+                    _region("h2x-summary-tile-17011", "summary tile", "Ready for sign-off", area="tile"),
+                    _region("h2x-stale-caption-17012", "stale caption", "old screenshot caption", area="caption"),
+                    _region("h2x-summary-note-17013", "summary note", "Ready detail", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2x-summary-tile-17011"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2x_risk_lane_stale_selection_not_lane",
+            family="h2x_stale_selection_negation_context",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2x-risk-lane-stale-selection"),
+                Message(
+                    role="user",
+                    content=(
+                        "The old selection sel-stale quotes not the risk lane. Ignore that stale selection and "
+                        "use the current risk lane for High."
+                    ),
+                ),
+            ],
+            media=["img-h2x-risk-lane-stale-selection"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state_with_selection(
+                "img-h2x-risk-lane-stale-selection",
+                [
+                    _region("h2x-risk-chip-17021", "risk chip high", "High", area="chip"),
+                    _region("h2x-risk-lane-17022", "risk lane", "High", area="lane"),
+                    _region("h2x-example-note-17023", "example note", "stale example note", area="note"),
+                ],
+                selection_id="sel-stale",
+                selected_region_ids=["h2x-example-note-17023"],
+                query="not the risk lane",
+            ),
+            expected_execution={"region_ids": ["h2x-risk-lane-17022"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2x_owner_field_do_not_use_memo",
+            family="h2x_instructional_negation_context",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2x-owner-field-memo"),
+                Message(
+                    role="user",
+                    content="Use the owner field for Nia. Do not use the owner memo, even though it repeats Nia.",
+                ),
+            ],
+            media=["img-h2x-owner-field-memo"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2x-owner-field-memo",
+                [
+                    _region("h2x-owner-field-17031", "owner field", "Nia", area="field"),
+                    _region("h2x-owner-memo-17032", "owner memo", "Nia owns next step", area="memo"),
+                    _region("h2x-owner-table-17033", "owner table", "Owner roster", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2x-owner-field-17031"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2x_not_ready_status_badge_value_before_component",
+            family="h2x_genuine_negated_target_value",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2x-not-ready-status-badge"),
+                Message(
+                    role="user",
+                    content=(
+                        "Use the not ready status badge. Here not ready is the current displayed value, not an "
+                        "instruction to avoid status badges."
+                    ),
+                ),
+            ],
+            media=["img-h2x-not-ready-status-badge"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2x-not-ready-status-badge",
+                [
+                    _region("h2x-status-badge-ready-17041", "status badge ready", "Ready", area="badge"),
+                    _region("h2x-status-badge-not-ready-17042", "status badge not ready", "Not ready", area="badge"),
+                    _region("h2x-readiness-note-17043", "readiness note", "Not ready until QA signs off", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2x-status-badge-not-ready-17042"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2x_not_applicable_reason_chip_value_before_component",
+            family="h2x_genuine_negated_target_value",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2x-not-applicable-reason-chip"),
+                Message(
+                    role="user",
+                    content="Use the not applicable reason chip. Not applicable is the chip value.",
+                ),
+            ],
+            media=["img-h2x-not-applicable-reason-chip"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2x-not-applicable-reason-chip",
+                [
+                    _region("h2x-reason-chip-applicable-17051", "reason chip applicable", "Applicable", area="chip"),
+                    _region("h2x-reason-chip-not-applicable-17052", "reason chip not applicable", "Not applicable", area="chip"),
+                    _region("h2x-reason-note-17053", "reason note", "Not applicable because vendor data is absent", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2x-reason-chip-not-applicable-17052"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2x_not_approved_approval_toggle_value_before_component",
+            family="h2x_genuine_negated_target_value",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2x-not-approved-toggle"),
+                Message(
+                    role="user",
+                    content="Use the not approved approval toggle. Not approved is the current toggle value.",
+                ),
+            ],
+            media=["img-h2x-not-approved-toggle"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2x-not-approved-toggle",
+                [
+                    _region("h2x-approval-toggle-approved-17061", "approval toggle approved", "Approved", area="toggle"),
+                    _region("h2x-approval-toggle-not-approved-17062", "approval toggle not approved", "Not approved", area="toggle"),
+                    _region("h2x-approval-note-17063", "approval note", "Not approved by compliance", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2x-approval-toggle-not-approved-17062"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2x_not_blocked_result_tile_value_before_component",
+            family="h2x_genuine_negated_target_value",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2x-not-blocked-result-tile"),
+                Message(
+                    role="user",
+                    content=(
+                        "Use the not blocked result tile. The nearby note says blocked, but not blocked is the "
+                        "current result tile value."
+                    ),
+                ),
+            ],
+            media=["img-h2x-not-blocked-result-tile"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2x-not-blocked-result-tile",
+                [
+                    _region("h2x-result-tile-blocked-17071", "result tile blocked", "Blocked", area="tile"),
+                    _region("h2x-result-tile-not-blocked-17072", "result tile not blocked", "Not blocked", area="tile"),
+                    _region("h2x-result-note-17073", "result note", "Blocked was stale yesterday", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2x-result-tile-not-blocked-17072"]},
         ),
     ]
 
