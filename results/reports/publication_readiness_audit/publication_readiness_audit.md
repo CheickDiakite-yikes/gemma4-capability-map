@@ -9,7 +9,7 @@
 | --- | --- | ---: | --- | --- |
 | ledger_manifest_exists | blocking | True | Publication evidence ledger manifest exists. | results/reports/publication_evidence_ledger/manifest.json |
 | ledger_has_no_missing_sources | blocking | True | missing_source_count=0 |  |
-| ledger_has_claims | blocking | True | claim_count=63 |  |
+| ledger_has_claims | blocking | True | claim_count=64 |  |
 | ledger_includes_negative_results | blocking | True | At least one claim is explicitly labeled as negative-result evidence. |  |
 | tool_contract_report_has_current_tables | blocking | True | table_count=110 |  |
 | tool_contract_report_has_current_figures | blocking | True | figure_count=45 |  |
@@ -294,6 +294,17 @@
 | h2w_transfer_h2t_vs_h2u_comparison_exists | blocking | True | H2w versus H2u comparison on H2t transfer exists. | results/tool_probe_replay_live_comparisons/20260517T_h2w_semantic_target_preservation_vs_h2u_on_h2t_v1/live_replay_comparison.json |
 | h2w_transfer_h2t_vs_h2r_comparison_exists | blocking | True | H2w versus H2r comparison on H2t transfer exists. | results/tool_probe_replay_live_comparisons/20260517T_h2w_semantic_target_preservation_vs_h2r_on_h2t_v1/live_replay_comparison.json |
 | h2w_transfer_h1p_vs_h2u_comparison_exists | blocking | True | H2w versus H2u comparison on H1p transfer exists. | results/tool_probe_replay_live_comparisons/20260517T_h2w_semantic_target_preservation_vs_h2u_on_h1p_v1/live_replay_comparison.json |
+| h2x_cli_semantic_pressure_synthesis_exists | blocking | True | H2x CLI semantic-pressure synthesis report exists. | results/reports/h2x_cli_semantic_pressure_synthesis/report.md |
+| h2x_cli_semantic_pressure_report_figure_exists | blocking | True | H2x CLI semantic-pressure synthesis figure exists. | results/reports/h2x_cli_semantic_pressure_synthesis/figures/h2x_cli_semantic_pressure_gate.svg |
+| h2x_cli_semantic_pressure_packet_exists | blocking | True | H2x semantic-pressure replay packet exists. | results/tool_probe_replay_packets/20260517T_h2x_cli_semantic_pressure_dry_run_v1/summary.json |
+| h2x_cli_semantic_pressure_h2u_live_exists | blocking | True | H2x H2u live replay packet exists. | results/tool_probe_replay_live/20260517T_h2x_cli_semantic_pressure_h2u_execute_v1/summary.json |
+| h2x_cli_semantic_pressure_h2w_live_exists | blocking | True | H2x H2w live replay packet exists. | results/tool_probe_replay_live/20260517T_h2x_cli_semantic_pressure_h2w_execute_v1/summary.json |
+| h2x_cli_semantic_pressure_h2u_no_fallback_live_exists | blocking | True | H2x H2u no-fallback live replay packet exists. | results/tool_probe_replay_live/20260517T_h2x_cli_semantic_pressure_h2u_no_fallback_execute_v1/summary.json |
+| h2x_cli_semantic_pressure_h2w_no_fallback_live_exists | blocking | True | H2x H2w no-fallback live replay packet exists. | results/tool_probe_replay_live/20260517T_h2x_cli_semantic_pressure_h2w_no_fallback_execute_v1/summary.json |
+| h2x_cli_semantic_pressure_h2w_vs_h2u_comparison_exists | blocking | True | H2x H2w versus H2u comparison exists. | results/tool_probe_replay_live_comparisons/20260517T_h2x_cli_semantic_pressure_h2w_vs_h2u_v1/live_replay_comparison.json |
+| h2x_cli_semantic_pressure_h2u_no_fallback_comparison_exists | blocking | True | H2x H2u fallback-independence comparison exists. | results/tool_probe_replay_live_comparisons/20260517T_h2x_cli_semantic_pressure_h2u_no_fallback_vs_h2u_v1/live_replay_comparison.json |
+| h2x_cli_semantic_pressure_h2w_no_fallback_comparison_exists | blocking | True | H2x H2w fallback-independence comparison exists. | results/tool_probe_replay_live_comparisons/20260517T_h2x_cli_semantic_pressure_h2w_no_fallback_vs_h2w_v1/live_replay_comparison.json |
+| h2x_packaged_semantic_pressure_workflow_config_exists | blocking | True | Packaged H2x semantic-pressure workflow config exists. | configs/packaged_workflows.yaml |
 | current_state_doc_exists | blocking | True | Continuity current-state doc exists. | docs/continuity/current-state.md |
 | next_steps_doc_exists | blocking | True | Continuity next-steps doc exists. | docs/continuity/next-steps.md |
 | research_log_exists | blocking | True | Research log exists. | docs/research-log.md |
@@ -336,6 +347,7 @@
 | script_build_h2v_semantic_negation_synthesis.py_exists | blocking | True | Reproduction script `build_h2v_semantic_negation_synthesis.py` exists. | scripts/build_h2v_semantic_negation_synthesis.py |
 | script_build_h2w_semantic_target_preservation_synthesis.py_exists | blocking | True | Reproduction script `build_h2w_semantic_target_preservation_synthesis.py` exists. | scripts/build_h2w_semantic_target_preservation_synthesis.py |
 | script_build_h2w_transfer_backtest_synthesis.py_exists | blocking | True | Reproduction script `build_h2w_transfer_backtest_synthesis.py` exists. | scripts/build_h2w_transfer_backtest_synthesis.py |
+| script_build_h2x_cli_semantic_pressure_synthesis.py_exists | blocking | True | Reproduction script `build_h2x_cli_semantic_pressure_synthesis.py` exists. | scripts/build_h2x_cli_semantic_pressure_synthesis.py |
 | script_compare_tool_directive_probes.py_exists | blocking | True | Reproduction script `compare_tool_directive_probes.py` exists. | scripts/compare_tool_directive_probes.py |
 | script_build_visual_hard_slice_design.py_exists | blocking | True | Reproduction script `build_visual_hard_slice_design.py` exists. | scripts/build_visual_hard_slice_design.py |
 | script_build_visual_hard_slice_replay_packet.py_exists | blocking | True | Reproduction script `build_visual_hard_slice_replay_packet.py` exists. | scripts/build_visual_hard_slice_replay_packet.py |

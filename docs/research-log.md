@@ -5429,3 +5429,51 @@
 - Verification:
   - `uv run python scripts/build_h2w_transfer_backtest_synthesis.py`
   - `uv run pytest tests/test_h2w_transfer_backtest_synthesis.py -q`
+
+## 2026-05-17 - H2x CLI Semantic Pressure Separates Preservation From Fallback
+
+- Built the first packaged/CLI semantic-pressure gate after H2w transfer:
+  - dry-run packet: [`results/tool_probe_replay_packets/20260517T_h2x_cli_semantic_pressure_dry_run_v1`](../results/tool_probe_replay_packets/20260517T_h2x_cli_semantic_pressure_dry_run_v1)
+  - H2u live replay: [`results/tool_probe_replay_live/20260517T_h2x_cli_semantic_pressure_h2u_execute_v1`](../results/tool_probe_replay_live/20260517T_h2x_cli_semantic_pressure_h2u_execute_v1)
+  - H2w live replay: [`results/tool_probe_replay_live/20260517T_h2x_cli_semantic_pressure_h2w_execute_v1`](../results/tool_probe_replay_live/20260517T_h2x_cli_semantic_pressure_h2w_execute_v1)
+  - H2u no-fallback replay: [`results/tool_probe_replay_live/20260517T_h2x_cli_semantic_pressure_h2u_no_fallback_execute_v1`](../results/tool_probe_replay_live/20260517T_h2x_cli_semantic_pressure_h2u_no_fallback_execute_v1)
+  - H2w no-fallback replay: [`results/tool_probe_replay_live/20260517T_h2x_cli_semantic_pressure_h2w_no_fallback_execute_v1`](../results/tool_probe_replay_live/20260517T_h2x_cli_semantic_pressure_h2w_no_fallback_execute_v1)
+  - synthesis: [`results/reports/h2x_cli_semantic_pressure_synthesis/report.md`](../results/reports/h2x_cli_semantic_pressure_synthesis/report.md)
+  - figure: [`results/reports/h2x_cli_semantic_pressure_synthesis/figures/h2x_cli_semantic_pressure_gate.svg`](../results/reports/h2x_cli_semantic_pressure_synthesis/figures/h2x_cli_semantic_pressure_gate.svg)
+- Packet shape:
+  - `8` cases across stale quoted negation, stale selection, instructional negation, and genuine displayed negated values.
+  - H2x deliberately includes value-before-component labels such as `Not ready status badge`, `Not applicable reason chip`, and `Not approved approval toggle`.
+  - The packaged workflow entrypoint is `executive_semantic_target_pressure`, with replayable and live lanes mapped to the H2x families.
+- Result:
+  - H2u reaches `3 / 8` strict and `4 / 8` executor-equivalent.
+  - H2w reaches `8 / 8` strict and `8 / 8` executor-equivalent.
+  - H2w improves over H2u by `+0.625` exact-rate and `+0.50` executor-equivalence-rate.
+  - H2w fixes `5` H2u strict misses.
+- Fallback attribution:
+  - H2u no-fallback ties H2u at `3 / 8` strict and `4 / 8` executor-equivalent.
+  - H2w no-fallback ties H2w at `8 / 8` strict and executor-equivalent.
+  - Both fallback comparisons have `0.0` exact and executor-equivalence deltas.
+  - This makes H2x a semantic-preservation/target-normalization result, not a controller-fallback result.
+- Mechanism:
+  - H2w records `1` semantic-preservation intervention on quoted/stale context.
+  - H2w records `5` target-query-normalization interventions, mostly value-before-component canonicalizations.
+  - H2w records `1` composed-route intervention on stale selection and `1` composed-route block on negated context.
+- Runtime and corpus updates:
+  - Added `4` visual gold tasks for seeded and live semantic target pressure, bringing visual gold to `34` and total gold to `95`.
+  - Added one replayable and one live packaged KWA workflow, bringing KWA episodes to `34 / 28`.
+  - Added short no-fallback H2u/H2w model aliases for fallback-specific holdouts.
+  - Validated the packaged live workflow through the CLI sandbox path to an approval gate.
+- Reporting updates:
+  - publication evidence claim `C64_h2x_cli_semantic_pressure_separates_semantic_preservation_from_fallback` records the packaged/CLI gate
+  - publication evidence ledger now has `64` claims and `438` sources with `0` missing sources
+  - publication readiness audit now has `344` checks, `337` blocking checks, `0` blocking failures, and status `paper_draft_ready`
+- Interpretation:
+  - H2x breaks the top-line saturation in the right way: it makes semantic target preservation visible again under a packaged/CLI surface.
+  - The strongest current answer is not "add fallback"; it is "preserve the requested semantic target and canonicalize genuine displayed negated values into component-qualified labels."
+  - The next proper slice is a harder H1 packaged CLI semantic-pressure packet that scales H2x families without workflow scaffolding resolving the ambiguity upstream.
+- Verification:
+  - `uv run python scripts/build_h2x_cli_semantic_pressure_synthesis.py`
+  - `uv run pytest tests/test_h2x_cli_semantic_pressure_synthesis.py -q`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`
+  - `uv run pytest tests/test_publication_evidence_ledger.py tests/test_publication_readiness_audit.py -q`

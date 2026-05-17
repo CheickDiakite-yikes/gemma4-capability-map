@@ -264,10 +264,19 @@ The freshest replay-shaped visual controller evidence is now H2w:
   - mechanism: `4` semantic-preservation interventions, `3` component-qualified value canonicalizations, `1` stale-selection gate, and `1` composed-route block.
   - transfer: `109 / 109` strict and executor-equivalent across H2s/H2t/H2q/H2m/H2k/H2l/H2f/H2b/H1x/H1y/H1o/H1p; H2w ties H2u with `0` regressions and only improves over H2r on inherited H2t rows.
   - final H2v H2w evidence does not exercise the bounded no-call visual fallback; after transfer, that fallback risk should be tested in packaged workflows or harder CLI-live tasks.
+- H2x is the first packaged/CLI semantic-pressure gate:
+  - synthesis: [`results/reports/h2x_cli_semantic_pressure_synthesis/report.md`](../../results/reports/h2x_cli_semantic_pressure_synthesis/report.md)
+  - figure: [`results/reports/h2x_cli_semantic_pressure_synthesis/figures/h2x_cli_semantic_pressure_gate.svg`](../../results/reports/h2x_cli_semantic_pressure_synthesis/figures/h2x_cli_semantic_pressure_gate.svg)
+  - dry-run packet: [`results/tool_probe_replay_packets/20260517T_h2x_cli_semantic_pressure_dry_run_v1`](../../results/tool_probe_replay_packets/20260517T_h2x_cli_semantic_pressure_dry_run_v1)
+  - live packets: [`H2u`](../../results/tool_probe_replay_live/20260517T_h2x_cli_semantic_pressure_h2u_execute_v1), [`H2u no fallback`](../../results/tool_probe_replay_live/20260517T_h2x_cli_semantic_pressure_h2u_no_fallback_execute_v1), [`H2w`](../../results/tool_probe_replay_live/20260517T_h2x_cli_semantic_pressure_h2w_execute_v1), [`H2w no fallback`](../../results/tool_probe_replay_live/20260517T_h2x_cli_semantic_pressure_h2w_no_fallback_execute_v1)
+  - comparisons: [`H2w-vs-H2u`](../../results/tool_probe_replay_live_comparisons/20260517T_h2x_cli_semantic_pressure_h2w_vs_h2u_v1), [`H2u no-fallback-vs-H2u`](../../results/tool_probe_replay_live_comparisons/20260517T_h2x_cli_semantic_pressure_h2u_no_fallback_vs_h2u_v1), [`H2w no-fallback-vs-H2w`](../../results/tool_probe_replay_live_comparisons/20260517T_h2x_cli_semantic_pressure_h2w_no_fallback_vs_h2w_v1)
+  - H2u reaches `3 / 8` strict and `4 / 8` executor-equivalent; H2w reaches `8 / 8` on both metrics.
+  - no-fallback controls tie their full-controller rows with `0.0` exact and executor-equivalence deltas, so fallback is not causal on this H2x slice.
+  - packaged workflow `executive_semantic_target_pressure` now exists in replayable and live lanes, with sandbox-only and approval-required policy blocks as the live v1 entrypoint.
 - next controller question:
-  - port the same H2v/H2w semantic pressure into packaged workflow transfer only if the workflow avoids solving the ambiguity before model/controller selection
+  - expand H2x into a larger H1 packaged CLI semantic-pressure slice only if the workflow avoids solving the ambiguity before model/controller selection
   - add a bounded no-call fallback-specific holdout where the fallback must either fire correctly or abstain
-  - preserve the H2w transfer report as the current replay-shaped transfer gate
+  - preserve the H2w transfer report as the current replay-shaped transfer gate and H2x as the current packaged/CLI semantic-pressure gate
   - run local MLX transfer backtests sequentially or at very low concurrency; a four-way parallel H2w attempt hit a Metal GPU timeout before the sequential rerun completed cleanly
 
 ## Direction Reset

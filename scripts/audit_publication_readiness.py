@@ -2730,6 +2730,109 @@ def audit_publication_readiness(
             detail="H2w versus H2u comparison on H1p transfer exists.",
         ),
         _check_path(
+            check_id="h2x_cli_semantic_pressure_synthesis_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "h2x_cli_semantic_pressure_synthesis" / "report.md",
+            detail="H2x CLI semantic-pressure synthesis report exists.",
+        ),
+        _check_path(
+            check_id="h2x_cli_semantic_pressure_report_figure_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "h2x_cli_semantic_pressure_synthesis"
+            / "figures"
+            / "h2x_cli_semantic_pressure_gate.svg",
+            detail="H2x CLI semantic-pressure synthesis figure exists.",
+        ),
+        _check_path(
+            check_id="h2x_cli_semantic_pressure_packet_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_packets"
+            / "20260517T_h2x_cli_semantic_pressure_dry_run_v1"
+            / "summary.json",
+            detail="H2x semantic-pressure replay packet exists.",
+        ),
+        _check_path(
+            check_id="h2x_cli_semantic_pressure_h2u_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260517T_h2x_cli_semantic_pressure_h2u_execute_v1"
+            / "summary.json",
+            detail="H2x H2u live replay packet exists.",
+        ),
+        _check_path(
+            check_id="h2x_cli_semantic_pressure_h2w_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260517T_h2x_cli_semantic_pressure_h2w_execute_v1"
+            / "summary.json",
+            detail="H2x H2w live replay packet exists.",
+        ),
+        _check_path(
+            check_id="h2x_cli_semantic_pressure_h2u_no_fallback_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260517T_h2x_cli_semantic_pressure_h2u_no_fallback_execute_v1"
+            / "summary.json",
+            detail="H2x H2u no-fallback live replay packet exists.",
+        ),
+        _check_path(
+            check_id="h2x_cli_semantic_pressure_h2w_no_fallback_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260517T_h2x_cli_semantic_pressure_h2w_no_fallback_execute_v1"
+            / "summary.json",
+            detail="H2x H2w no-fallback live replay packet exists.",
+        ),
+        _check_path(
+            check_id="h2x_cli_semantic_pressure_h2w_vs_h2u_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260517T_h2x_cli_semantic_pressure_h2w_vs_h2u_v1"
+            / "live_replay_comparison.json",
+            detail="H2x H2w versus H2u comparison exists.",
+        ),
+        _check_path(
+            check_id="h2x_cli_semantic_pressure_h2u_no_fallback_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260517T_h2x_cli_semantic_pressure_h2u_no_fallback_vs_h2u_v1"
+            / "live_replay_comparison.json",
+            detail="H2x H2u fallback-independence comparison exists.",
+        ),
+        _check_path(
+            check_id="h2x_cli_semantic_pressure_h2w_no_fallback_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260517T_h2x_cli_semantic_pressure_h2w_no_fallback_vs_h2w_v1"
+            / "live_replay_comparison.json",
+            detail="H2x H2w fallback-independence comparison exists.",
+        ),
+        _check_path(
+            check_id="h2x_packaged_semantic_pressure_workflow_config_exists",
+            severity="blocking",
+            path=ROOT / "configs" / "packaged_workflows.yaml",
+            detail="Packaged H2x semantic-pressure workflow config exists.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",
@@ -2798,6 +2901,7 @@ def audit_publication_readiness(
         "build_h2v_semantic_negation_synthesis.py",
         "build_h2w_semantic_target_preservation_synthesis.py",
         "build_h2w_transfer_backtest_synthesis.py",
+        "build_h2x_cli_semantic_pressure_synthesis.py",
         "compare_tool_directive_probes.py",
         "build_visual_hard_slice_design.py",
         "build_visual_hard_slice_replay_packet.py",

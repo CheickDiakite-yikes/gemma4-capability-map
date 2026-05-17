@@ -26,6 +26,8 @@ H2t updates that conclusion: H2r is transfer-positive and H2s-positive, but not 
 
 H2w is the semantic repair for H2v. It adds semantic target preservation on top of H2u and reaches `10 / 10` strict and executor-equivalent on the same H2v packet. Relative to H2u, H2w fixes `6` strict misses with `+0.60` exact-rate and `+0.50` executor-equivalence-rate gains. The mechanism is mixed and attributable: `4` semantic-preservation interventions prevent stale/quoted context from hijacking the requested layout target, `3` target-query normalizations canonicalize genuine negated values into component-qualified labels, `1` stale-selection gate repairs the stale risk-lane row, and `1` composed-route block remains active. The follow-on H2w transfer backtest is clean: `109 / 109` strict and executor-equivalent across H2s/H2t/H2q/H2m/H2k/H2l/H2f/H2b/H1x/H1y/H1o/H1p, zero regressions versus H2u, and only the inherited H2t gain versus H2r. The remaining promotion risk is no longer replay-shaped transfer; it is whether packaged workflow or harder live CLI tasks preserve the same semantic pressure instead of resolving it upstream.
 
+H2x is the first CLI-first packaged semantic-pressure gate for that risk. It keeps stale quoted negation, stale selection, instructional negation, and genuine displayed negated values visible in an attributable workflow family. On H2x, H2u drops to `3 / 8` strict and `4 / 8` executor-equivalent, while H2w reaches `8 / 8` on both metrics. The no-fallback controls are the important attribution result: H2u no-fallback ties H2u, H2w no-fallback ties H2w, and all fallback deltas are `0.0`. This makes the current causal story sharper: semantic target preservation and component-qualified target normalization are doing the work on this slice, not broad fallback rescue.
+
 That means the next useful work is not broad leaderboard reruns or UI polish. It is a CLI-first, benchmark-backed harness loop around:
 
 - tool-call contract prompts
@@ -100,6 +102,8 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 ![H2w semantic target preservation gate](../../results/reports/h2w_semantic_target_preservation_synthesis/figures/h2w_semantic_target_preservation_gate.svg)
 
 ![H2w transfer backtest gate](../../results/reports/h2w_transfer_backtest_synthesis/figures/h2w_transfer_backtest_gate.svg)
+
+![H2x CLI semantic pressure gate](../../results/reports/h2x_cli_semantic_pressure_synthesis/figures/h2x_cli_semantic_pressure_gate.svg)
 
 ![H1m visual alias-repeat burden](../../results/reports/mlx_tool_contract_harnessing/figures/h1m_visual_alias_repeat_burden.svg)
 
@@ -228,6 +232,7 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 | [`H2v semantic negation synthesis`](../../results/reports/h2v_semantic_negation_synthesis/report.md) | Fresh semantic boundary report showing H2u is transfer-positive but not semantic-complete: stale-example context and genuine negated values still fail. |
 | [`H2w semantic target preservation synthesis`](../../results/reports/h2w_semantic_target_preservation_synthesis/report.md) | Local semantic repair report showing H2w repairs H2v to `10 / 10`, fixing `6` H2u strict misses with attributable semantic-preservation and component-qualified value canonicalization. |
 | [`H2w transfer backtest synthesis`](../../results/reports/h2w_transfer_backtest_synthesis/report.md) | Transfer/back-compat report showing H2w preserves `109 / 109` strict and executor-equivalent rows, ties H2u with zero regressions, and records the MLX low-concurrency runtime-posture lesson. |
+| [`H2x CLI semantic pressure synthesis`](../../results/reports/h2x_cli_semantic_pressure_synthesis/report.md) | Packaged/CLI semantic-pressure gate showing H2w repairs H2x from H2u's `3 / 8` strict and `4 / 8` executor-equivalent to `8 / 8`, while no-fallback controls have `0.0` deltas. |
 | [`H1p component-value diagnostic`](../../results/reports/visual_h1p_component_value_diagnostic/diagnostic.md) | Matrix diagnostic showing component-value guard v9 as the local H1p upper bound over argument hints, hybrid guard, and no-call rescue. |
 | [`H1p report table`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_h1p_live_replay_summary.csv) | Paper-facing summary table for H1p live replay comparisons against no-directive. |
 | [`H1q component-label guard synthesis`](../../results/reports/h1q_component_label_guard_transfer_synthesis/report.md) | Aggregate transfer synthesis showing v11 as the strongest current profile across H1n/H1o/H1p. |
@@ -1116,8 +1121,9 @@ Use this order before broad `32 / 26` reruns:
 9. H1h only after replay-live, raw probe, hard-slice, or less staged live evidence shows a mechanism-level change.
 10. Gemini CLI real execution only when the binary/run environment is explicitly meant to be part of the comparison.
 11. Treat H2v as the semantic boundary that broke H2u: H2u is transfer-positive but not semantic-complete because genuine negated values and stale-example context still fail.
-12. Treat H2w as replay-transfer-clean but not packaged-workflow-proven: it repairs H2v to `10 / 10` and preserves `109 / 109` strict/executor-equivalent on the current transfer/back-compat battery.
-13. Treat local MLX replay-live backtests as low-concurrency workloads unless proven otherwise; the H2w wave produced a Metal GPU timeout under four-way parallel replay but completed cleanly sequentially.
+12. Treat H2w as replay-transfer-clean and H2x-positive under packaged CLI semantic pressure: it repairs H2v to `10 / 10`, preserves `109 / 109` strict/executor-equivalent on the current transfer/back-compat battery, and reaches `8 / 8` on H2x while H2u stays at `3 / 8`.
+13. Treat H2x as fallback-independent evidence: H2u/H2w no-fallback controls tie their full-controller rows, so the current H2x gain is semantic-preservation-causal rather than fallback-causal.
+14. Treat local MLX replay-live backtests as low-concurrency workloads unless proven otherwise; the H2w wave produced a Metal GPU timeout under four-way parallel replay but completed cleanly sequentially.
 14. Runtime live-smoke packets after benchmark movement, to confirm the CLI operator path sees the same repair/fallback pattern.
 
 Acceptance criteria for a useful candidate:
@@ -1145,6 +1151,7 @@ uv run python scripts/run_visual_hard_slice_probe_packet.py --run-group-id <time
 uv run python scripts/build_h2v_semantic_negation_synthesis.py
 uv run python scripts/build_h2w_semantic_target_preservation_synthesis.py
 uv run python scripts/build_h2w_transfer_backtest_synthesis.py
+uv run python scripts/build_h2x_cli_semantic_pressure_synthesis.py
 uv run python scripts/build_mlx_tool_contract_report.py
 uv run python scripts/build_publication_evidence_ledger.py
 uv run python scripts/audit_publication_readiness.py

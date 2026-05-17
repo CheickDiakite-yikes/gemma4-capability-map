@@ -3552,6 +3552,88 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C64_h2x_cli_semantic_pressure_separates_semantic_preservation_from_fallback",
+        claim=(
+            "The H2x CLI semantic-pressure gate breaks H2u's apparent replay saturation and attributes the repair "
+            "to semantic target preservation rather than controller fallback."
+        ),
+        status="supported_packaged_cli_gate_fallback_independent",
+        evidence_strength="strong_internal_cli_gate",
+        primary_metric=(
+            "On H2x, H2u reaches 3/8 strict and 4/8 executor-equivalent while H2w reaches 8/8 strict and "
+            "8/8 executor-equivalent. H2w gains +0.625 exact-rate and +0.50 executor-equivalence-rate over H2u, "
+            "fixing 5 strict H2u misses. Matched no-fallback controls have 0.0 exact and executor-equivalence "
+            "deltas for both H2u and H2w."
+        ),
+        limitation=(
+            "H2x is an eight-case CLI/replay pressure gate plus packaged workflow scaffold, not a broad population "
+            "estimate. The live packaged smoke used the current local oracle/operator path, so publication should "
+            "treat it as harness-readiness evidence and still run the next larger H1 slice under local MLX."
+        ),
+        next_test=(
+            "Build a harder H1 packaged CLI slice that keeps stale quoted negation, stale selection, instructional "
+            "negation, and genuine displayed negated values visible across longer workflows, then rerun the remaining "
+            "controller-helper ablations sequentially on MLX."
+        ),
+        sources=(
+            EvidenceSource(
+                "replay_synthesis",
+                "results/reports/h2x_cli_semantic_pressure_synthesis/report.md",
+                "Dedicated H2x synthesis summarizing H2u/H2w, no-fallback controls, fixed rows, and intervention attribution.",
+            ),
+            EvidenceSource(
+                "replay_synthesis_figure",
+                "results/reports/h2x_cli_semantic_pressure_synthesis/figures/h2x_cli_semantic_pressure_gate.svg",
+                "Figure showing H2u and H2u-no-fallback below H2w and H2w-no-fallback on strict and executor-equivalent metrics.",
+            ),
+            EvidenceSource(
+                "tool_probe_replay_packet",
+                "results/tool_probe_replay_packets/20260517T_h2x_cli_semantic_pressure_dry_run_v1",
+                "Eight-case H2x replay packet mixing stale quoted negation, stale selection, instructional negation, and genuine negated displayed values.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260517T_h2x_cli_semantic_pressure_h2u_execute_v1",
+                "H2u live replay on H2x reaching 3/8 strict and 4/8 executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260517T_h2x_cli_semantic_pressure_h2w_execute_v1",
+                "H2w live replay on H2x reaching 8/8 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260517T_h2x_cli_semantic_pressure_h2u_no_fallback_execute_v1",
+                "H2u no-fallback live replay tying full H2u on H2x.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260517T_h2x_cli_semantic_pressure_h2w_no_fallback_execute_v1",
+                "H2w no-fallback live replay tying full H2w on H2x.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260517T_h2x_cli_semantic_pressure_h2w_vs_h2u_v1",
+                "Direct H2w-vs-H2u comparison showing +0.625 exact-rate and +0.50 executor-equivalence-rate deltas.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260517T_h2x_cli_semantic_pressure_h2u_no_fallback_vs_h2u_v1",
+                "Fallback holdout showing zero exact and executor-equivalence deltas for H2u.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260517T_h2x_cli_semantic_pressure_h2w_no_fallback_vs_h2w_v1",
+                "Fallback holdout showing zero exact and executor-equivalence deltas for H2w.",
+            ),
+            EvidenceSource(
+                "packaged_workflow_config",
+                "configs/packaged_workflows.yaml",
+                "Packaged `executive_semantic_target_pressure` workflow mapping H2x replayable and live lanes.",
+            ),
+        ),
+    ),
 )
 
 

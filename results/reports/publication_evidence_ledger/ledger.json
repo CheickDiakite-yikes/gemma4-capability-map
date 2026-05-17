@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-17T15:42:29.179958+00:00",
+    "generated_at": "2026-05-17T20:57:01.660201+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-    "claim_count": 63,
-    "evidence_source_count": 427,
+    "claim_count": 64,
+    "evidence_source_count": 438,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -68,7 +68,8 @@
       "C60_h2u_negation_guard_repairs_h2t_without_h2s_h2q_h2m_regression",
       "C61_h2v_semantic_negation_breaks_h2u_transfer_saturation",
       "C62_h2w_semantic_target_preservation_repairs_h2v",
-      "C63_h2w_transfer_backtest_preserves_current_gates"
+      "C63_h2w_transfer_backtest_preserves_current_gates",
+      "C64_h2x_cli_semantic_pressure_separates_semantic_preservation_from_fallback"
     ]
   },
   "claims": [
@@ -701,6 +702,16 @@
       "limitation": "The transfer wave is replay-shaped and local MLX only. It does not prove that packaged workflows will preserve the same stale/quoted/genuine-negation ambiguity, and the bounded no-call visual fallback was not exercised by the final H2v repair artifact.",
       "next_test": "Build a packaged workflow or harder CLI-live semantic-pressure gate that keeps the H2v/H2w ambiguity visible to the model/controller, plus a fallback-specific abstain-or-fire holdout.",
       "source_count": 9
+    },
+    {
+      "claim_id": "C64_h2x_cli_semantic_pressure_separates_semantic_preservation_from_fallback",
+      "claim": "The H2x CLI semantic-pressure gate breaks H2u's apparent replay saturation and attributes the repair to semantic target preservation rather than controller fallback.",
+      "status": "supported_packaged_cli_gate_fallback_independent",
+      "evidence_strength": "strong_internal_cli_gate",
+      "primary_metric": "On H2x, H2u reaches 3/8 strict and 4/8 executor-equivalent while H2w reaches 8/8 strict and 8/8 executor-equivalent. H2w gains +0.625 exact-rate and +0.50 executor-equivalence-rate over H2u, fixing 5 strict H2u misses. Matched no-fallback controls have 0.0 exact and executor-equivalence deltas for both H2u and H2w.",
+      "limitation": "H2x is an eight-case CLI/replay pressure gate plus packaged workflow scaffold, not a broad population estimate. The live packaged smoke used the current local oracle/operator path, so publication should treat it as harness-readiness evidence and still run the next larger H1 slice under local MLX.",
+      "next_test": "Build a harder H1 packaged CLI slice that keeps stale quoted negation, stale selection, instructional negation, and genuine displayed negated values visible across longer workflows, then rerun the remaining controller-helper ablations sequentially on MLX.",
+      "source_count": 11
     }
   ],
   "evidence_sources": [
@@ -3691,6 +3702,83 @@
       "artifact_type": "live_replay_comparison",
       "path": "results/tool_probe_replay_live_comparisons/20260517T_h2w_semantic_target_preservation_vs_h2u_on_h1p_v1",
       "purpose": "H2w versus H2u comparison on H1p showing zero transfer regression on the older component-value family.",
+      "exists": true
+    },
+    {
+      "claim_id": "C64_h2x_cli_semantic_pressure_separates_semantic_preservation_from_fallback",
+      "artifact_type": "replay_synthesis",
+      "path": "results/reports/h2x_cli_semantic_pressure_synthesis/report.md",
+      "purpose": "Dedicated H2x synthesis summarizing H2u/H2w, no-fallback controls, fixed rows, and intervention attribution.",
+      "exists": true
+    },
+    {
+      "claim_id": "C64_h2x_cli_semantic_pressure_separates_semantic_preservation_from_fallback",
+      "artifact_type": "replay_synthesis_figure",
+      "path": "results/reports/h2x_cli_semantic_pressure_synthesis/figures/h2x_cli_semantic_pressure_gate.svg",
+      "purpose": "Figure showing H2u and H2u-no-fallback below H2w and H2w-no-fallback on strict and executor-equivalent metrics.",
+      "exists": true
+    },
+    {
+      "claim_id": "C64_h2x_cli_semantic_pressure_separates_semantic_preservation_from_fallback",
+      "artifact_type": "tool_probe_replay_packet",
+      "path": "results/tool_probe_replay_packets/20260517T_h2x_cli_semantic_pressure_dry_run_v1",
+      "purpose": "Eight-case H2x replay packet mixing stale quoted negation, stale selection, instructional negation, and genuine negated displayed values.",
+      "exists": true
+    },
+    {
+      "claim_id": "C64_h2x_cli_semantic_pressure_separates_semantic_preservation_from_fallback",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260517T_h2x_cli_semantic_pressure_h2u_execute_v1",
+      "purpose": "H2u live replay on H2x reaching 3/8 strict and 4/8 executor-equivalent.",
+      "exists": true
+    },
+    {
+      "claim_id": "C64_h2x_cli_semantic_pressure_separates_semantic_preservation_from_fallback",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260517T_h2x_cli_semantic_pressure_h2w_execute_v1",
+      "purpose": "H2w live replay on H2x reaching 8/8 strict and executor-equivalent.",
+      "exists": true
+    },
+    {
+      "claim_id": "C64_h2x_cli_semantic_pressure_separates_semantic_preservation_from_fallback",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260517T_h2x_cli_semantic_pressure_h2u_no_fallback_execute_v1",
+      "purpose": "H2u no-fallback live replay tying full H2u on H2x.",
+      "exists": true
+    },
+    {
+      "claim_id": "C64_h2x_cli_semantic_pressure_separates_semantic_preservation_from_fallback",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260517T_h2x_cli_semantic_pressure_h2w_no_fallback_execute_v1",
+      "purpose": "H2w no-fallback live replay tying full H2w on H2x.",
+      "exists": true
+    },
+    {
+      "claim_id": "C64_h2x_cli_semantic_pressure_separates_semantic_preservation_from_fallback",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260517T_h2x_cli_semantic_pressure_h2w_vs_h2u_v1",
+      "purpose": "Direct H2w-vs-H2u comparison showing +0.625 exact-rate and +0.50 executor-equivalence-rate deltas.",
+      "exists": true
+    },
+    {
+      "claim_id": "C64_h2x_cli_semantic_pressure_separates_semantic_preservation_from_fallback",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260517T_h2x_cli_semantic_pressure_h2u_no_fallback_vs_h2u_v1",
+      "purpose": "Fallback holdout showing zero exact and executor-equivalence deltas for H2u.",
+      "exists": true
+    },
+    {
+      "claim_id": "C64_h2x_cli_semantic_pressure_separates_semantic_preservation_from_fallback",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260517T_h2x_cli_semantic_pressure_h2w_no_fallback_vs_h2w_v1",
+      "purpose": "Fallback holdout showing zero exact and executor-equivalence deltas for H2w.",
+      "exists": true
+    },
+    {
+      "claim_id": "C64_h2x_cli_semantic_pressure_separates_semantic_preservation_from_fallback",
+      "artifact_type": "packaged_workflow_config",
+      "path": "configs/packaged_workflows.yaml",
+      "purpose": "Packaged `executive_semantic_target_pressure` workflow mapping H2x replayable and live lanes.",
       "exists": true
     }
   ],

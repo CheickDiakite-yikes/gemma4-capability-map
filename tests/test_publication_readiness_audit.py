@@ -292,6 +292,17 @@ def test_publication_readiness_audit_writes_blocking_checks(tmp_path: Path) -> N
     assert checks["h2w_transfer_h2t_vs_h2u_comparison_exists"]["passed"] is True
     assert checks["h2w_transfer_h2t_vs_h2r_comparison_exists"]["passed"] is True
     assert checks["h2w_transfer_h1p_vs_h2u_comparison_exists"]["passed"] is True
+    assert checks["h2x_cli_semantic_pressure_synthesis_exists"]["passed"] is True
+    assert checks["h2x_cli_semantic_pressure_report_figure_exists"]["passed"] is True
+    assert checks["h2x_cli_semantic_pressure_packet_exists"]["passed"] is True
+    assert checks["h2x_cli_semantic_pressure_h2u_live_exists"]["passed"] is True
+    assert checks["h2x_cli_semantic_pressure_h2w_live_exists"]["passed"] is True
+    assert checks["h2x_cli_semantic_pressure_h2u_no_fallback_live_exists"]["passed"] is True
+    assert checks["h2x_cli_semantic_pressure_h2w_no_fallback_live_exists"]["passed"] is True
+    assert checks["h2x_cli_semantic_pressure_h2w_vs_h2u_comparison_exists"]["passed"] is True
+    assert checks["h2x_cli_semantic_pressure_h2u_no_fallback_comparison_exists"]["passed"] is True
+    assert checks["h2x_cli_semantic_pressure_h2w_no_fallback_comparison_exists"]["passed"] is True
+    assert checks["h2x_packaged_semantic_pressure_workflow_config_exists"]["passed"] is True
     assert checks["script_analyze_visual_hard_slice_exactness.py_exists"]["passed"] is True
     assert checks["script_analyze_packaged_replay_gap.py_exists"]["passed"] is True
     assert checks["script_analyze_h1n_alias_transfer_contract_split.py_exists"]["passed"] is True
@@ -323,6 +334,7 @@ def test_publication_readiness_audit_writes_blocking_checks(tmp_path: Path) -> N
     assert checks["script_build_h2v_semantic_negation_synthesis.py_exists"]["passed"] is True
     assert checks["script_build_h2w_semantic_target_preservation_synthesis.py_exists"]["passed"] is True
     assert checks["script_build_h2w_transfer_backtest_synthesis.py_exists"]["passed"] is True
+    assert checks["script_build_h2x_cli_semantic_pressure_synthesis.py_exists"]["passed"] is True
     assert checks["script_run_visual_hard_slice_probe_packet.py_exists"]["passed"] is True
     assert checks["script_build_visual_hard_slice_replay_packet.py_exists"]["passed"] is True
     assert checks["v3_skipped_live_decision_exists"]["passed"] is True
