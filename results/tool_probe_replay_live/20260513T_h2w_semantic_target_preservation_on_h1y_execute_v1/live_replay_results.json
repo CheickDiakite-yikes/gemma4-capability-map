@@ -1,0 +1,122 @@
+[
+  {
+    "case_id": "h1y_responsible_party_field_old_owner_memo_decoy",
+    "family": "h1y_route_stale_field",
+    "source_failure_mode": "wrong_tool_or_stale_selection_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260513T_h2w_semantic_target_preservation_on_h1y_execute_v1/runs/h1y_responsible_party_field_old_owner_memo_decoy"
+  },
+  {
+    "case_id": "h1y_escalation_contact_field_saved_summary_decoy",
+    "family": "h1y_route_stale_field",
+    "source_failure_mode": "wrong_tool_or_stale_selection_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260513T_h2w_semantic_target_preservation_on_h1y_execute_v1/runs/h1y_escalation_contact_field_saved_summary_decoy"
+  },
+  {
+    "case_id": "h1y_review_owner_field_previous_table_decoy",
+    "family": "h1y_route_stale_field",
+    "source_failure_mode": "wrong_tool_or_stale_selection_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260513T_h2w_semantic_target_preservation_on_h1y_execute_v1/runs/h1y_review_owner_field_previous_table_decoy"
+  },
+  {
+    "case_id": "h1y_lifecycle_state_tag_audit_value_decoy",
+    "family": "h1y_route_nonstandard_class",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260513T_h2w_semantic_target_preservation_on_h1y_execute_v1/runs/h1y_lifecycle_state_tag_audit_value_decoy"
+  },
+  {
+    "case_id": "h1y_operation_mode_toggle_note_value_decoy",
+    "family": "h1y_route_nonstandard_class",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260513T_h2w_semantic_target_preservation_on_h1y_execute_v1/runs/h1y_operation_mode_toggle_note_value_decoy"
+  },
+  {
+    "case_id": "h1y_alert_s92_negated_toggle_decoy",
+    "family": "h1y_route_code_label",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260513T_h2w_semantic_target_preservation_on_h1y_execute_v1/runs/h1y_alert_s92_negated_toggle_decoy"
+  },
+  {
+    "case_id": "h1y_badge_c08_table_value_decoy",
+    "family": "h1y_route_code_label",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260513T_h2w_semantic_target_preservation_on_h1y_execute_v1/runs/h1y_badge_c08_table_value_decoy"
+  },
+  {
+    "case_id": "h1y_status_pill_summary_value_holdout",
+    "family": "h1y_preserve_surface_value",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260513T_h2w_semantic_target_preservation_on_h1y_execute_v1/runs/h1y_status_pill_summary_value_holdout"
+  },
+  {
+    "case_id": "h1y_result_badge_comment_value_holdout",
+    "family": "h1y_preserve_surface_value",
+    "source_failure_mode": "argument_alias_or_decoy_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260513T_h2w_semantic_target_preservation_on_h1y_execute_v1/runs/h1y_result_badge_comment_value_holdout"
+  },
+  {
+    "case_id": "h1y_warning_tile_note_activation_decoy",
+    "family": "h1y_activation_no_call",
+    "source_failure_mode": "wrong_tool_or_stale_selection_risk",
+    "replay_failure_mode": "exact",
+    "replay_exact_match": true,
+    "replay_executable_match": true,
+    "replay_executor_equivalence_match": true,
+    "expected_call_count": 1,
+    "replay_actual_call_count": 1,
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260513T_h2w_semantic_target_preservation_on_h1y_execute_v1/runs/h1y_warning_tile_note_activation_decoy"
+  }
+]

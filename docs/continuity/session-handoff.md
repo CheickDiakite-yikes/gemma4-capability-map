@@ -22,7 +22,7 @@ Treat the older H1/HF and React notes below as historical context unless they ar
 
 Current strongest MLX result:
 
-- H2w semantic target preservation is the freshest visual harnessing result:
+- H2w semantic target preservation plus transfer backtesting is the freshest visual harnessing result:
   - H2e still reaches `5 / 5` on H2b and `8 / 8` on H1x, so route arbitration remains valid mechanism evidence.
   - Fresh H2f broke global H2e promotion: H2e and H2c tie at `6 / 10`, while no-directive is only `1 / 10`.
   - H2h component-identity negative examples are scoped positive but globally negative: `9 / 10` on H2f, then `3 / 5` on H2b and `6 / 8` on H1x.
@@ -68,8 +68,11 @@ Current strongest MLX result:
   - H2w semantic target preservation repairs H2v locally: `10 / 10` strict and `10 / 10` executor-equivalent.
   - H2w improves over H2u by `+0.60` exact-rate and `+0.50` executor-equivalence-rate, and over H2r/H2j by `+0.70` exact-rate and `+0.60` executor-equivalence-rate.
   - H2w fixes `6` H2u strict misses and reaches exactness in all H2v families: quoted negation, instructional negation, stale-example negation, genuine negated target, and clean control.
-  - H2w records `4` semantic-preservation interventions, `3` target-query normalizations for component-qualified genuine negated values, `1` stale-selection gate, and `1` composed-route block.
-  - H2w is not globally promoted yet: the next move is transfer backtesting across H2s/H2t/H2m/H2k/H2l/H2f/H2b/H1x/H1y/H1o/H1p before packaged workflow porting.
+  - H2w records `4` semantic-preservation interventions, `3` target-query normalizations for component-qualified genuine negated values, `1` stale-selection gate, and `1` composed-route block on H2v.
+  - H2w transfer/back-compat is now clean: `109 / 109` strict and executor-equivalent across H2s/H2t/H2q/H2m/H2k/H2l/H2f/H2b/H1x/H1y/H1o/H1p.
+  - H2w ties H2u on every H2w-vs-H2u transfer comparison with `0` strict regressions and only improves over H2r on the inherited H2t negation-scope rows.
+  - The H2w transfer run records additional controller activity without a transfer cost: `5` semantic-preservation interventions, `30` target-query normalizations, `7` stale-selection gates, and `4` composed-route blocks.
+  - H2w is replay-transfer-clean but not packaged-workflow-proven; the next move is preserving H2v/H2w semantic pressure inside packaged workflows or harder CLI-live tasks.
   - H2f synthesis: [`results/reports/h2f_route_arbitration_holdout_synthesis/report.md`](../../results/reports/h2f_route_arbitration_holdout_synthesis/report.md)
   - H2f figure: [`results/reports/h2f_route_arbitration_holdout_synthesis/figures/h2f_holdout_profile_bars.svg`](../../results/reports/h2f_route_arbitration_holdout_synthesis/figures/h2f_holdout_profile_bars.svg)
   - H2h tradeoff synthesis: [`results/reports/h2h_component_identity_tradeoff_synthesis/report.md`](../../results/reports/h2h_component_identity_tradeoff_synthesis/report.md)
@@ -134,9 +137,11 @@ Current strongest MLX result:
   - H2w figure: [`results/reports/h2w_semantic_target_preservation_synthesis/figures/h2w_semantic_target_preservation_gate.svg`](../../results/reports/h2w_semantic_target_preservation_synthesis/figures/h2w_semantic_target_preservation_gate.svg)
   - H2w H2v live packet: [`results/tool_probe_replay_live/20260513T_h2v_semantic_negation_h2w_execute_v1`](../../results/tool_probe_replay_live/20260513T_h2v_semantic_negation_h2w_execute_v1)
   - H2w comparisons: [`H2w-vs-H2u`](../../results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2w_vs_h2u_v1), [`H2w-vs-H2r`](../../results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2w_vs_h2r_v1), [`H2w-vs-H2j`](../../results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2w_vs_h2j_v1)
+  - H2w transfer synthesis: [`results/reports/h2w_transfer_backtest_synthesis/report.md`](../../results/reports/h2w_transfer_backtest_synthesis/report.md)
+  - H2w transfer figure: [`results/reports/h2w_transfer_backtest_synthesis/figures/h2w_transfer_backtest_gate.svg`](../../results/reports/h2w_transfer_backtest_synthesis/figures/h2w_transfer_backtest_gate.svg)
   - H2r H2q live packet: [`results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2q_execute_v2`](../../results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2q_execute_v2)
   - H2r comparison: [`H2r-vs-H2p`](../../results/tool_probe_replay_live_comparisons/20260512T_h2r_composed_route_gating_vs_h2p_on_h2q_v2)
-  - next restart move: run the H2w transfer backtest, then decide whether to port the same semantic pressure into packaged workflows.
+  - next restart move: port the same semantic pressure into packaged workflows or harder CLI-live tasks only if the workflow preserves the stale/quoted/genuine-negation ambiguity.
 - H1h proves the no-directive causal ordering across all ten live workflow families.
 - H1i compresses the worst H1h workflow families into the current fast loop.
 - contracted MLX on H1i is clean at readiness `0.97710`, strict/recovered `1.0 / 1.0`, raw clean `1.0`.
@@ -306,9 +311,9 @@ Current strongest MLX result:
 Current next loop:
 
 1. Treat H2u as the current tested negation-scope repair, not just a proposed follow-up: it fixes H2t and preserves H2s/H2q/H2m/H2k/H2l/H2f/H2b/H1x/H1y/H1o/H1p.
-2. Treat same-family H2u transfer as closed at `99 / 99`, but global H2w promotion as blocked until transfer backtesting.
+2. Treat same-family H2u transfer as closed at `99 / 99`, and H2w replay transfer as closed at `109 / 109`.
 3. Treat H2v as the current harder negation semantics gate and H2w as the local repair: quoted negation, instructional negation, stale example captions, and genuine target negation are separated rather than collapsed into one guard.
-4. Backtest H2w next around transfer safety, not another broad prose rule.
+4. Test H2w next around packaged workflow and harder CLI-live pressure, not another broad prose rule.
 5. Treat H1i, H1j, and H1k packaged packets as saturated or non-discriminating for current prompt-contract validation.
 6. Treat waves one through six as partial-gain or negative/composition evidence, not fixes.
 7. Treat `visual_role_catalog_argument_hints_v2` as the best exact candidate on the old focused visual replay, with the explicit caveat that it lost executable form-target recovery.

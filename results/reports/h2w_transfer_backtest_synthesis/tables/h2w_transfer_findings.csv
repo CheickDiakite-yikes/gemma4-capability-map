@@ -1,0 +1,6 @@
+finding_id,finding
+h2w_transfer_backtest_is_clean,H2w preserves 109/109 strict exactness and 109/109 executor equivalence across the 12-packet transfer/backward compatibility battery.
+h2w_ties_current_h2u_incumbent,"Against H2u, H2w has zero exact-rate and executor-equivalence-rate delta on every transfer packet (aggregate delta exact 0.0); there are 0 strict regressions."
+h2w_keeps_h2t_repair_vs_h2r,"Against H2r, H2w only changes the H2t slice: delta exact 0.19999999999999996 and executor-equivalence 0.19999999999999996. The fixed rows are h2t_metric_panel_negation_scope_note, h2t_summary_tile_negation_scope_caption."
+h2w_controller_activity_does_not_imply_transfer_cost,"The transfer runs record controller activity (5 semantic-preservation, 30 target-normalization, 7 stale-selection, and 4 blocked composed-route rows) while still leaving 0 non-exact H2w rows."
+h2w_runtime_posture_needs_low_concurrency,"The evidence also separates model/control quality from local runtime posture: a four-way parallel MLX replay attempt hit a Metal GPU timeout, while the sequential rerun completed cleanly. Future local MLX backtests should default to sequential or very-low-concurrency execution."

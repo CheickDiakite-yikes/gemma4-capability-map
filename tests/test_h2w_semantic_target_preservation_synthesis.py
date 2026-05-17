@@ -49,7 +49,7 @@ def test_h2w_semantic_target_preservation_synthesis_marks_repair_and_next_gate(t
     assert manifest["h2w_stale_selection_gate_count"] == 1
     assert manifest["h2w_composed_route_gating_blocked_count"] == 1
     assert manifest["h2w_all_families_exact"] is True
-    assert manifest["promotion_decision"] == "h2w_repairs_h2v_requires_transfer_backtest_before_packaged_workflows"
+    assert manifest["promotion_decision"] == "h2w_repairs_h2v_transfer_backtested_separately_before_packaged_workflows"
 
     fixed_cases = {
         row["case_id"]
@@ -81,7 +81,7 @@ def test_h2w_semantic_target_preservation_synthesis_marks_repair_and_next_gate(t
     findings = {row["finding_id"]: row["finding"] for row in payload["finding_rows"]}
     assert "repairs H2v" in findings["h2w_repairs_h2v_strict_and_executor"]
     assert "six H2u misses" not in findings["h2w_gain_is_causal_on_six_h2u_misses"]
-    assert "bounded no-call visual fallback" in findings["h2w_next_requires_transfer_backtest"]
+    assert "bounded no-call visual fallback" in findings["h2w_next_requires_packaged_semantic_pressure"]
 
     assert (tmp_path / "manifest.json").exists()
     assert (tmp_path / "synthesis.json").exists()

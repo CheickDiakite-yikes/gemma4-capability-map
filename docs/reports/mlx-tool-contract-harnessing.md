@@ -24,7 +24,7 @@ The sharpest new movement is in the visual catalog line. A catalog-only role pro
 
 H2t updates that conclusion: H2r is transfer-positive and H2s-positive, but not yet globally safe. On H2t, H2r/H2p/H2o/H2j tie at `8 / 10`, H2e reaches `6 / 10` strict and `9 / 10` executor-equivalent, and the two H2r misses are raw-exact MLX calls rewritten by target-query normalization from `metric panel` and `summary tile` to `training note` and `caption`. H2u is the first tested answer: it makes both target-query normalization and composed-route gating negation-aware, repairs H2t to `10 / 10`, and preserves `99 / 99` strict and executor-equivalent across the current H2s/H2q/H2m/H2k/H2l/H2f/H2b/H1x/H1y/H1o/H1p transfer subtotal. H2v then breaks the apparent saturation: H2u reaches `4 / 10` strict and `5 / 10` executor-equivalent, while H2r and H2j each reach `3 / 10` strict and `4 / 10` executor-equivalent. H2u helps by one quoted-negation row, but stale-example context and genuine negated targets remain unsolved under strict exactness.
 
-H2w is the local semantic repair for H2v. It adds semantic target preservation on top of H2u and reaches `10 / 10` strict and executor-equivalent on the same H2v packet. Relative to H2u, H2w fixes `6` strict misses with `+0.60` exact-rate and `+0.50` executor-equivalence-rate gains. The mechanism is mixed and attributable: `4` semantic-preservation interventions prevent stale/quoted context from hijacking the requested layout target, `3` target-query normalizations canonicalize genuine negated values into component-qualified labels, `1` stale-selection gate repairs the stale risk-lane row, and `1` composed-route block remains active. H2w is not yet a global promotion because the semantic selector and bounded no-call visual fallback need transfer backtesting across the older H2 and H1 packets.
+H2w is the semantic repair for H2v. It adds semantic target preservation on top of H2u and reaches `10 / 10` strict and executor-equivalent on the same H2v packet. Relative to H2u, H2w fixes `6` strict misses with `+0.60` exact-rate and `+0.50` executor-equivalence-rate gains. The mechanism is mixed and attributable: `4` semantic-preservation interventions prevent stale/quoted context from hijacking the requested layout target, `3` target-query normalizations canonicalize genuine negated values into component-qualified labels, `1` stale-selection gate repairs the stale risk-lane row, and `1` composed-route block remains active. The follow-on H2w transfer backtest is clean: `109 / 109` strict and executor-equivalent across H2s/H2t/H2q/H2m/H2k/H2l/H2f/H2b/H1x/H1y/H1o/H1p, zero regressions versus H2u, and only the inherited H2t gain versus H2r. The remaining promotion risk is no longer replay-shaped transfer; it is whether packaged workflow or harder live CLI tasks preserve the same semantic pressure instead of resolving it upstream.
 
 That means the next useful work is not broad leaderboard reruns or UI polish. It is a CLI-first, benchmark-backed harness loop around:
 
@@ -98,6 +98,8 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 ![H2v semantic negation gate](../../results/reports/h2v_semantic_negation_synthesis/figures/h2v_semantic_negation_gate.svg)
 
 ![H2w semantic target preservation gate](../../results/reports/h2w_semantic_target_preservation_synthesis/figures/h2w_semantic_target_preservation_gate.svg)
+
+![H2w transfer backtest gate](../../results/reports/h2w_transfer_backtest_synthesis/figures/h2w_transfer_backtest_gate.svg)
 
 ![H1m visual alias-repeat burden](../../results/reports/mlx_tool_contract_harnessing/figures/h1m_visual_alias_repeat_burden.svg)
 
@@ -222,6 +224,10 @@ That means the next useful work is not broad leaderboard reruns or UI polish. It
 | [`H2r transfer backtest synthesis`](../../results/reports/h2r_transfer_backtest_synthesis/report.md) | Transfer report showing H2r reaches `81 / 81` strict and executor-equivalent across transfer packets, `89 / 89` strict including H2q, ties H2j/H2e on H2b/H1x, and beats H2h on both regression gates. |
 | [`H2s fresh composed holdout synthesis`](../../results/reports/h2s_fresh_composed_holdout_synthesis/report.md) | Fresh frozen-H2r holdout showing H2r reaches `10 / 10` strict and executor-equivalent, while H2p/H2o each reach `3 / 10` and H2j reaches `1 / 10`; this is the positive holdout that motivated H2t. |
 | [`H2t overreach-independence synthesis`](../../results/reports/h2t_overreach_independence_synthesis/report.md) | Fresh independence holdout showing H2r/H2p/H2o/H2j tie at `8 / 10`, H2e reaches `6 / 10` strict and `9 / 10` executor-equivalent, and `2` H2r raw-exact calls are rewritten by target-query normalization into note/caption labels. |
+| [`H2u negation guard synthesis`](../../results/reports/h2u_negation_guard_synthesis/report.md) | Transfer-positive negation guard report showing H2u repairs H2t to `10 / 10` and preserves `99 / 99` across the current same-family transfer subtotal. |
+| [`H2v semantic negation synthesis`](../../results/reports/h2v_semantic_negation_synthesis/report.md) | Fresh semantic boundary report showing H2u is transfer-positive but not semantic-complete: stale-example context and genuine negated values still fail. |
+| [`H2w semantic target preservation synthesis`](../../results/reports/h2w_semantic_target_preservation_synthesis/report.md) | Local semantic repair report showing H2w repairs H2v to `10 / 10`, fixing `6` H2u strict misses with attributable semantic-preservation and component-qualified value canonicalization. |
+| [`H2w transfer backtest synthesis`](../../results/reports/h2w_transfer_backtest_synthesis/report.md) | Transfer/back-compat report showing H2w preserves `109 / 109` strict and executor-equivalent rows, ties H2u with zero regressions, and records the MLX low-concurrency runtime-posture lesson. |
 | [`H1p component-value diagnostic`](../../results/reports/visual_h1p_component_value_diagnostic/diagnostic.md) | Matrix diagnostic showing component-value guard v9 as the local H1p upper bound over argument hints, hybrid guard, and no-call rescue. |
 | [`H1p report table`](../../results/reports/mlx_tool_contract_harnessing/tables/visual_hard_slice_h1p_live_replay_summary.csv) | Paper-facing summary table for H1p live replay comparisons against no-directive. |
 | [`H1q component-label guard synthesis`](../../results/reports/h1q_component_label_guard_transfer_synthesis/report.md) | Aggregate transfer synthesis showing v11 as the strongest current profile across H1n/H1o/H1p. |
@@ -1110,8 +1116,9 @@ Use this order before broad `32 / 26` reruns:
 9. H1h only after replay-live, raw probe, hard-slice, or less staged live evidence shows a mechanism-level change.
 10. Gemini CLI real execution only when the binary/run environment is explicitly meant to be part of the comparison.
 11. Treat H2v as the semantic boundary that broke H2u: H2u is transfer-positive but not semantic-complete because genuine negated values and stale-example context still fail.
-12. Treat H2w as local positive evidence, not global promotion: it repairs H2v to `10 / 10`, but its semantic selector and bounded no-call visual fallback need transfer backtesting before packaged workflow transfer.
-13. Runtime live-smoke packets after benchmark movement, to confirm the CLI operator path sees the same repair/fallback pattern.
+12. Treat H2w as replay-transfer-clean but not packaged-workflow-proven: it repairs H2v to `10 / 10` and preserves `109 / 109` strict/executor-equivalent on the current transfer/back-compat battery.
+13. Treat local MLX replay-live backtests as low-concurrency workloads unless proven otherwise; the H2w wave produced a Metal GPU timeout under four-way parallel replay but completed cleanly sequentially.
+14. Runtime live-smoke packets after benchmark movement, to confirm the CLI operator path sees the same repair/fallback pattern.
 
 Acceptance criteria for a useful candidate:
 
@@ -1137,6 +1144,7 @@ uv run python scripts/build_visual_hard_slice_design.py
 uv run python scripts/run_visual_hard_slice_probe_packet.py --run-group-id <timestamp>_visual_hard_slice_probe --execute
 uv run python scripts/build_h2v_semantic_negation_synthesis.py
 uv run python scripts/build_h2w_semantic_target_preservation_synthesis.py
+uv run python scripts/build_h2w_transfer_backtest_synthesis.py
 uv run python scripts/build_mlx_tool_contract_report.py
 uv run python scripts/build_publication_evidence_ledger.py
 uv run python scripts/audit_publication_readiness.py

@@ -1,0 +1,13 @@
+slice,case_count,h2r_exact_success_count,h2u_exact_success_count,h2w_exact_success_count,h2r_executor_success_count,h2u_executor_success_count,h2w_executor_success_count,h2w_delta_exact_vs_h2u,h2w_delta_executor_vs_h2u,h2w_delta_exact_vs_h2r,h2w_delta_executor_vs_h2r
+h2t,10,8,10,10,8,10,10,0.0,0.0,0.19999999999999996,0.19999999999999996
+h2s,10,10,10,10,10,10,10,0.0,0.0,0.0,0.0
+h2q,8,8,8,8,8,8,8,0.0,0.0,0.0,0.0
+h2m,8,8,8,8,8,8,8,0.0,0.0,0.0,0.0
+h2k,8,8,8,8,8,8,8,0.0,0.0,0.0,0.0
+h2l,8,8,8,8,8,8,8,0.0,0.0,0.0,0.0
+h2f,10,10,10,10,10,10,10,0.0,0.0,0.0,0.0
+h2b,5,5,5,5,5,5,5,0.0,0.0,0.0,0.0
+h1x,8,8,8,8,8,8,8,0.0,0.0,0.0,0.0
+h1y,10,10,10,10,10,10,10,0.0,0.0,0.0,0.0
+h1o,12,12,12,12,12,12,12,0.0,0.0,0.0,0.0
+h1p,12,12,12,12,12,12,12,0.0,0.0,0.0,0.0

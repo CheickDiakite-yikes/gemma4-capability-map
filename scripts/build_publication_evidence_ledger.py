@@ -3433,7 +3433,7 @@ CLAIMS: tuple[Claim, ...] = (
             "stale negation context and canonicalizing genuine negated target values into component-qualified layout "
             "queries."
         ),
-        status="supported_h2v_repair_requires_transfer_backtest",
+        status="supported_h2v_repair_transfer_backtested_separately",
         evidence_strength="strong_internal_fresh_repair",
         primary_metric=(
             "On H2v, H2w reaches 10/10 strict and 10/10 executor-equivalent, versus H2u at 4/10 strict and "
@@ -3441,13 +3441,12 @@ CLAIMS: tuple[Claim, ...] = (
             "with 6 strict H2u misses fixed."
         ),
         limitation=(
-            "The repair is currently proven on H2v only. The helper includes a bounded no-call visual fallback and "
-            "a broader semantic label selector, so older transfer packets must be rerun before packaged-workflow "
-            "promotion."
+            "This claim is the local H2v repair claim. The older transfer packets are now covered by C63, but "
+            "packaged workflow execution and a fallback-specific abstain-or-fire holdout remain unproven."
         ),
         next_test=(
-            "Run an H2w transfer backtest on H2s/H2t/H2m/H2k/H2l/H2f/H2b/H1x/H1y/H1o/H1p, then decide whether "
-            "to port the control into packaged live CLI workflows."
+            "Port the H2v/H2w semantic pressure into packaged live CLI workflows only if the workflow preserves the "
+            "stale, quoted, and genuine-negation ambiguity."
         ),
         sources=(
             EvidenceSource(
@@ -3479,6 +3478,77 @@ CLAIMS: tuple[Claim, ...] = (
                 "replay_synthesis_figure",
                 "results/reports/h2w_semantic_target_preservation_synthesis/figures/h2w_semantic_target_preservation_gate.svg",
                 "Figure summarizing H2j/H2r/H2u/H2w strict and executor-equivalent performance on H2v.",
+            ),
+        ),
+    ),
+    Claim(
+        claim_id="C63_h2w_transfer_backtest_preserves_current_gates",
+        claim=(
+            "H2w semantic target preservation preserves the current replay-shaped transfer and backward-compatibility "
+            "gates after repairing H2v."
+        ),
+        status="supported_replay_transfer_clean_packaged_workflow_unproven",
+        evidence_strength="strong_internal_transfer_wave",
+        primary_metric=(
+            "H2w reaches 109/109 strict exactness and 109/109 executor-equivalence across "
+            "H2s/H2t/H2q/H2m/H2k/H2l/H2f/H2b/H1x/H1y/H1o/H1p. It ties H2u with zero exact/executor deltas on "
+            "every transfer comparison, has zero strict regressions versus H2u, and only improves over H2r on the "
+            "inherited H2t negation-scope rows."
+        ),
+        limitation=(
+            "The transfer wave is replay-shaped and local MLX only. It does not prove that packaged workflows will "
+            "preserve the same stale/quoted/genuine-negation ambiguity, and the bounded no-call visual fallback was "
+            "not exercised by the final H2v repair artifact."
+        ),
+        next_test=(
+            "Build a packaged workflow or harder CLI-live semantic-pressure gate that keeps the H2v/H2w ambiguity "
+            "visible to the model/controller, plus a fallback-specific abstain-or-fire holdout."
+        ),
+        sources=(
+            EvidenceSource(
+                "replay_synthesis",
+                "results/reports/h2w_transfer_backtest_synthesis/report.md",
+                "Dedicated H2w transfer synthesis summarizing 109/109 strict/executor preservation, comparisons, fixed rows, and runtime posture.",
+            ),
+            EvidenceSource(
+                "replay_synthesis_figure",
+                "results/reports/h2w_transfer_backtest_synthesis/figures/h2w_transfer_backtest_gate.svg",
+                "Figure summarizing H2r/H2u/H2w strict exactness across the twelve transfer/back-compat packets.",
+            ),
+            EvidenceSource(
+                "report_table",
+                "results/reports/h2w_transfer_backtest_synthesis/tables/h2w_transfer_packet_pairs.csv",
+                "Packet-pair table showing per-slice H2r, H2u, and H2w exact/executor counts and deltas.",
+            ),
+            EvidenceSource(
+                "report_table",
+                "results/reports/h2w_transfer_backtest_synthesis/tables/h2w_transfer_comparison_summary.csv",
+                "Comparison table showing H2w ties H2u on each transfer packet and only improves over H2r on H2t.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260513T_h2w_semantic_target_preservation_on_h2t_execute_v1",
+                "H2w transfer replay on H2t preserving the H2u repair and improving over H2r.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260513T_h2w_semantic_target_preservation_on_h1p_execute_v1",
+                "H2w transfer replay on the older H1p component-value holdout preserving 12/12 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260517T_h2w_semantic_target_preservation_vs_h2u_on_h2t_v1",
+                "H2w versus H2u comparison on H2t showing zero exact and executor-equivalence deltas.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260517T_h2w_semantic_target_preservation_vs_h2r_on_h2t_v1",
+                "H2w versus H2r comparison on H2t showing the inherited +0.20 exact and executor-equivalence deltas.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260517T_h2w_semantic_target_preservation_vs_h2u_on_h1p_v1",
+                "H2w versus H2u comparison on H1p showing zero transfer regression on the older component-value family.",
             ),
         ),
     ),

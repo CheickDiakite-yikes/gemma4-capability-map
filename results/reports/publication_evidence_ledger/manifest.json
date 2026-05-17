@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-05-13T02:06:28.054356+00:00",
+  "generated_at": "2026-05-17T15:42:29.179958+00:00",
   "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-  "claim_count": 62,
-  "evidence_source_count": 418,
+  "claim_count": 63,
+  "evidence_source_count": 427,
   "missing_source_count": 0,
   "claim_ids": [
     "C1_controller_dependence_hidden_by_readiness",
@@ -66,6 +66,7 @@
     "C59_h2t_overreach_independence_breaks_h2r_via_negation_scope_normalization",
     "C60_h2u_negation_guard_repairs_h2t_without_h2s_h2q_h2m_regression",
     "C61_h2v_semantic_negation_breaks_h2u_transfer_saturation",
-    "C62_h2w_semantic_target_preservation_repairs_h2v"
+    "C62_h2w_semantic_target_preservation_repairs_h2v",
+    "C63_h2w_transfer_backtest_preserves_current_gates"
   ]
 }

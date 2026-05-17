@@ -5399,3 +5399,33 @@
   - `uv run python scripts/build_h2w_semantic_target_preservation_synthesis.py`
   - `uv run python scripts/build_publication_evidence_ledger.py`
   - `uv run python scripts/audit_publication_readiness.py`
+
+## 2026-05-17 - H2w Transfer Backtest Preserves Current Gates
+
+- Ran H2w semantic target preservation across the current transfer/back-compat battery:
+  - H2s: [`results/tool_probe_replay_live/20260513T_h2w_semantic_target_preservation_on_h2s_execute_v1`](../results/tool_probe_replay_live/20260513T_h2w_semantic_target_preservation_on_h2s_execute_v1)
+  - H2t: [`results/tool_probe_replay_live/20260513T_h2w_semantic_target_preservation_on_h2t_execute_v1`](../results/tool_probe_replay_live/20260513T_h2w_semantic_target_preservation_on_h2t_execute_v1)
+  - H2q: [`results/tool_probe_replay_live/20260513T_h2w_semantic_target_preservation_on_h2q_execute_v1`](../results/tool_probe_replay_live/20260513T_h2w_semantic_target_preservation_on_h2q_execute_v1)
+  - H2m/H2k/H2l/H2f/H2b/H1x/H1y/H1o/H1p under the same `20260513T_h2w_semantic_target_preservation_on_*_execute_v1` naming pattern
+  - synthesis: [`results/reports/h2w_transfer_backtest_synthesis/report.md`](../results/reports/h2w_transfer_backtest_synthesis/report.md)
+  - figure: [`results/reports/h2w_transfer_backtest_synthesis/figures/h2w_transfer_backtest_gate.svg`](../results/reports/h2w_transfer_backtest_synthesis/figures/h2w_transfer_backtest_gate.svg)
+- Result:
+  - H2w reaches `109 / 109` strict exactness and `109 / 109` executor-equivalence across H2s/H2t/H2q/H2m/H2k/H2l/H2f/H2b/H1x/H1y/H1o/H1p.
+  - Excluding H2q, the transfer subtotal is `101 / 101` strict and executor-equivalent.
+  - H2w has `0` non-exact transfer rows and `0` strict regressions versus H2u.
+  - H2w ties H2u on every transfer comparison with aggregate exact-rate and executor-equivalence-rate deltas of `0.0`.
+  - Against H2r, H2w's only positive delta is the inherited H2t negation-scope repair: `+0.20` exact-rate and `+0.20` executor-equivalence-rate.
+- Mechanism:
+  - The transfer runs record `5` semantic-preservation interventions, `30` target-query-normalization interventions, `7` stale-selection gates, and `4` composed-route blocks.
+  - Those helper activations do not imply transfer cost on this replay-shaped packet family.
+- Runtime posture:
+  - A four-way parallel MLX replay attempt hit a Metal GPU timeout.
+  - The sequential rerun completed cleanly.
+  - Future local MLX transfer backtests should default to sequential or very-low-concurrency execution unless the runtime is explicitly hardened for parallel replay.
+- Interpretation:
+  - H2w is now replay-transfer-clean, not merely a local H2v repair.
+  - This does not prove packaged-workflow readiness. H1l/H1m already showed packaged workflow scaffolds can wash out hard replay pressure, so the next gate should preserve stale/quoted/genuine-negation ambiguity inside packaged workflows or harder CLI-live tasks.
+  - The bounded no-call visual fallback remains unexercised by the final H2v artifact and should get its own abstain-or-fire holdout if it becomes promotion-critical.
+- Verification:
+  - `uv run python scripts/build_h2w_transfer_backtest_synthesis.py`
+  - `uv run pytest tests/test_h2w_transfer_backtest_synthesis.py -q`

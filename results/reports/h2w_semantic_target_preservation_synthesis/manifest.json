@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-13T02:06:25.173676+00:00",
+  "generated_at": "2026-05-17T15:42:28.037213+00:00",
   "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h2w_semantic_target_preservation_synthesis",
   "packet_row_count": 4,
   "comparison_count": 3,
@@ -23,5 +23,5 @@
   "h2w_stale_selection_gate_count": 1,
   "h2w_composed_route_gating_blocked_count": 1,
   "h2w_all_families_exact": true,
-  "promotion_decision": "h2w_repairs_h2v_requires_transfer_backtest_before_packaged_workflows"
+  "promotion_decision": "h2w_repairs_h2v_transfer_backtested_separately_before_packaged_workflows"
 }

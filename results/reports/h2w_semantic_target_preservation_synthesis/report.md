@@ -1,6 +1,6 @@
 # H2w Semantic Target Preservation Synthesis
 
-Generated: `2026-05-13T02:06:25.173676+00:00`
+Generated: `2026-05-17T15:42:28.037213+00:00`
 
 ## Summary
 
@@ -9,6 +9,8 @@ H2w is the direct repair candidate for H2v. It adds semantic target preservation
 H2w reaches `10 / 10` strict and `10 / 10` executor-equivalent, versus H2u's `4 / 10` strict. The exact-rate gain over H2u is `0.6`.
 
 Mechanistically, H2w does not simply suppress the word `not`. It preserves current requested labels when negation belongs to stale context, canonicalizes value-before-surface phrases such as `Not ready status badge` to layout labels such as `status badge Not ready`. The control also has a bounded no-call visual fallback, but the final H2v H2w packet did not need to exercise it.
+
+The separate H2w transfer backtest now preserves `109 / 109` strict and executor-equivalent rows across the current transfer/back-compat battery. This H2v-local report should therefore be read together with `../h2w_transfer_backtest_synthesis/report.md`: transfer is clean, while packaged workflow semantic pressure remains unproven.
 
 ![H2w semantic target preservation gate](figures/h2w_semantic_target_preservation_gate.svg)
 
@@ -135,5 +137,5 @@ Mechanistically, H2w does not simply suppress the word `not`. It preserves curre
 | h2w_repairs_h2v_strict_and_executor | H2w repairs H2v from H2u's 4/10 strict and 5/10 executor-equivalent to 10/10 strict and executor-equivalent. |
 | h2w_gain_is_causal_on_six_h2u_misses | H2w fixes 6 strict H2u misses with a 0.6 exact-rate gain and 0.5 executor-equivalence gain. |
 | h2w_mechanism_splits_three_error_types | The H2w run records 4 semantic-preservation interventions, 3 component-qualified value canonicalizations, 1 stale-selection repair, and 1 negation-aware composed-route block. |
-| h2w_family_saturation_is_local_not_global | H2w reaches exactness across all H2v families (h2v_clean_negation_control 1/1, h2v_genuine_negated_target 3/3, h2v_instructional_negation_context 2/2, h2v_quoted_negation_context 2/2, h2v_stale_example_negation_context 2/2), but this is still a local holdout result until older H2s/H2t/H2m/H2k/H2l/H2f/H2b/H1x/H1y/H1o/H1p transfer packets are rerun. |
-| h2w_next_requires_transfer_backtest | The next step is a transfer backtest, not packaged-workflow promotion: H2w includes a bounded no-call visual fallback and a more permissive semantic label selector that need overreach checks. |
+| h2w_family_saturation_is_local_not_global | H2w reaches exactness across all H2v families (h2v_clean_negation_control 1/1, h2v_genuine_negated_target 3/3, h2v_instructional_negation_context 2/2, h2v_quoted_negation_context 2/2, h2v_stale_example_negation_context 2/2). The separate H2w transfer backtest is now clean, so the remaining promotion gap is packaged-workflow or harder CLI-live semantic pressure rather than same-family replay transfer. |
+| h2w_next_requires_packaged_semantic_pressure | The next step is packaged-workflow or harder CLI-live pressure, not another replay transfer pass: H2w includes a bounded no-call visual fallback and a more permissive semantic label selector that should be tested where workflow scaffolding cannot resolve the ambiguity upstream. |

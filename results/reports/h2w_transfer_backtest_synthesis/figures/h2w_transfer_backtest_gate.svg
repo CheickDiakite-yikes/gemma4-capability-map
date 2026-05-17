@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1480" height="420" viewBox="0 0 1480 420" role="img" aria-labelledby="title desc">
+<title id="title">H2w transfer backtest gate</title>
+<desc id="desc">H2w preserves exactness across twelve transfer and backward compatibility packets.</desc>
+<rect width="1480" height="420" fill="#FFFFFF"/>
+<text x="32" y="36" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#111827">H2w transfer/back-compat gate</text>
+<line x1="70" y1="279" x2="1358" y2="279" stroke="#111827" stroke-width="1"/>
+<line x1="64" y1="279.0" x2="1358" y2="279.0" stroke="#E5E7EB" stroke-width="1"/>
+<text x="28" y="283.0" font-family="Arial, sans-serif" font-size="11" fill="#6B7280">0.0</text>
+<line x1="64" y1="238.0" x2="1358" y2="238.0" stroke="#E5E7EB" stroke-width="1"/>
+<text x="28" y="242.0" font-family="Arial, sans-serif" font-size="11" fill="#6B7280">0.2</text>
+<line x1="64" y1="197.0" x2="1358" y2="197.0" stroke="#E5E7EB" stroke-width="1"/>
+<text x="28" y="201.0" font-family="Arial, sans-serif" font-size="11" fill="#6B7280">0.4</text>
+<line x1="64" y1="156.0" x2="1358" y2="156.0" stroke="#E5E7EB" stroke-width="1"/>
+<text x="28" y="160.0" font-family="Arial, sans-serif" font-size="11" fill="#6B7280">0.6</text>
+<line x1="64" y1="115.0" x2="1358" y2="115.0" stroke="#E5E7EB" stroke-width="1"/>
+<text x="28" y="119.0" font-family="Arial, sans-serif" font-size="11" fill="#6B7280">0.8</text>
+<line x1="64" y1="74.0" x2="1358" y2="74.0" stroke="#E5E7EB" stroke-width="1"/>
+<text x="28" y="78.0" font-family="Arial, sans-serif" font-size="11" fill="#6B7280">1.0</text>
+<rect x="70" y="115.0" width="22" height="164.0" fill="#2563EB"/>
+<rect x="96" y="74.0" width="22" height="205.0" fill="#7C3AED"/>
+<rect x="122" y="74.0" width="22" height="205.0" fill="#92400E"/>
+<text x="68" y="307" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#111827">H2T</text>
+<text x="66" y="326" font-family="Arial, sans-serif" font-size="11" fill="#374151">10/10</text>
+<rect x="174" y="74.0" width="22" height="205.0" fill="#2563EB"/>
+<rect x="200" y="74.0" width="22" height="205.0" fill="#7C3AED"/>
+<rect x="226" y="74.0" width="22" height="205.0" fill="#92400E"/>
+<text x="172" y="307" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#111827">H2S</text>
+<text x="170" y="326" font-family="Arial, sans-serif" font-size="11" fill="#374151">10/10</text>
+<rect x="278" y="74.0" width="22" height="205.0" fill="#2563EB"/>
+<rect x="304" y="74.0" width="22" height="205.0" fill="#7C3AED"/>
+<rect x="330" y="74.0" width="22" height="205.0" fill="#92400E"/>
+<text x="276" y="307" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#111827">H2Q</text>
+<text x="274" y="326" font-family="Arial, sans-serif" font-size="11" fill="#374151">8/8</text>
+<rect x="382" y="74.0" width="22" height="205.0" fill="#2563EB"/>
+<rect x="408" y="74.0" width="22" height="205.0" fill="#7C3AED"/>
+<rect x="434" y="74.0" width="22" height="205.0" fill="#92400E"/>
+<text x="380" y="307" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#111827">H2M</text>
+<text x="378" y="326" font-family="Arial, sans-serif" font-size="11" fill="#374151">8/8</text>
+<rect x="486" y="74.0" width="22" height="205.0" fill="#2563EB"/>
+<rect x="512" y="74.0" width="22" height="205.0" fill="#7C3AED"/>
+<rect x="538" y="74.0" width="22" height="205.0" fill="#92400E"/>
+<text x="484" y="307" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#111827">H2K</text>
+<text x="482" y="326" font-family="Arial, sans-serif" font-size="11" fill="#374151">8/8</text>
+<rect x="590" y="74.0" width="22" height="205.0" fill="#2563EB"/>
+<rect x="616" y="74.0" width="22" height="205.0" fill="#7C3AED"/>
+<rect x="642" y="74.0" width="22" height="205.0" fill="#92400E"/>
+<text x="588" y="307" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#111827">H2L</text>
+<text x="586" y="326" font-family="Arial, sans-serif" font-size="11" fill="#374151">8/8</text>
+<rect x="694" y="74.0" width="22" height="205.0" fill="#2563EB"/>
+<rect x="720" y="74.0" width="22" height="205.0" fill="#7C3AED"/>
+<rect x="746" y="74.0" width="22" height="205.0" fill="#92400E"/>
+<text x="692" y="307" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#111827">H2F</text>
+<text x="690" y="326" font-family="Arial, sans-serif" font-size="11" fill="#374151">10/10</text>
+<rect x="798" y="74.0" width="22" height="205.0" fill="#2563EB"/>
+<rect x="824" y="74.0" width="22" height="205.0" fill="#7C3AED"/>
+<rect x="850" y="74.0" width="22" height="205.0" fill="#92400E"/>
+<text x="796" y="307" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#111827">H2B</text>
+<text x="794" y="326" font-family="Arial, sans-serif" font-size="11" fill="#374151">5/5</text>
+<rect x="902" y="74.0" width="22" height="205.0" fill="#2563EB"/>
+<rect x="928" y="74.0" width="22" height="205.0" fill="#7C3AED"/>
+<rect x="954" y="74.0" width="22" height="205.0" fill="#92400E"/>
+<text x="900" y="307" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#111827">H1X</text>
+<text x="898" y="326" font-family="Arial, sans-serif" font-size="11" fill="#374151">8/8</text>
+<rect x="1006" y="74.0" width="22" height="205.0" fill="#2563EB"/>
+<rect x="1032" y="74.0" width="22" height="205.0" fill="#7C3AED"/>
+<rect x="1058" y="74.0" width="22" height="205.0" fill="#92400E"/>
+<text x="1004" y="307" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#111827">H1Y</text>
+<text x="1002" y="326" font-family="Arial, sans-serif" font-size="11" fill="#374151">10/10</text>
+<rect x="1110" y="74.0" width="22" height="205.0" fill="#2563EB"/>
+<rect x="1136" y="74.0" width="22" height="205.0" fill="#7C3AED"/>
+<rect x="1162" y="74.0" width="22" height="205.0" fill="#92400E"/>
+<text x="1108" y="307" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#111827">H1O</text>
+<text x="1106" y="326" font-family="Arial, sans-serif" font-size="11" fill="#374151">12/12</text>
+<rect x="1214" y="74.0" width="22" height="205.0" fill="#2563EB"/>
+<rect x="1240" y="74.0" width="22" height="205.0" fill="#7C3AED"/>
+<rect x="1266" y="74.0" width="22" height="205.0" fill="#92400E"/>
+<text x="1212" y="307" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#111827">H1P</text>
+<text x="1210" y="326" font-family="Arial, sans-serif" font-size="11" fill="#374151">12/12</text>
+<rect x="1110" y="350" width="18" height="12" fill="#2563EB"/>
+<text x="1134" y="361" font-family="Arial, sans-serif" font-size="12" fill="#374151">H2r strict exactness</text>
+<rect x="1110" y="370" width="18" height="12" fill="#7C3AED"/>
+<text x="1134" y="381" font-family="Arial, sans-serif" font-size="12" fill="#374151">H2u strict exactness</text>
+<rect x="1110" y="390" width="18" height="12" fill="#92400E"/>
+<text x="1134" y="401" font-family="Arial, sans-serif" font-size="12" fill="#374151">H2w strict exactness</text>
+</svg>

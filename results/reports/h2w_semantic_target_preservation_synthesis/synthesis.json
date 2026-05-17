@@ -1,6 +1,6 @@
 {
   "manifest": {
-    "generated_at": "2026-05-13T02:06:25.173676+00:00",
+    "generated_at": "2026-05-17T15:42:28.037213+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h2w_semantic_target_preservation_synthesis",
     "packet_row_count": 4,
     "comparison_count": 3,
@@ -24,7 +24,7 @@
     "h2w_stale_selection_gate_count": 1,
     "h2w_composed_route_gating_blocked_count": 1,
     "h2w_all_families_exact": true,
-    "promotion_decision": "h2w_repairs_h2v_requires_transfer_backtest_before_packaged_workflows"
+    "promotion_decision": "h2w_repairs_h2v_transfer_backtested_separately_before_packaged_workflows"
   },
   "packet_rows": [
     {
@@ -972,11 +972,11 @@
     },
     {
       "finding_id": "h2w_family_saturation_is_local_not_global",
-      "finding": "H2w reaches exactness across all H2v families (h2v_clean_negation_control 1/1, h2v_genuine_negated_target 3/3, h2v_instructional_negation_context 2/2, h2v_quoted_negation_context 2/2, h2v_stale_example_negation_context 2/2), but this is still a local holdout result until older H2s/H2t/H2m/H2k/H2l/H2f/H2b/H1x/H1y/H1o/H1p transfer packets are rerun."
+      "finding": "H2w reaches exactness across all H2v families (h2v_clean_negation_control 1/1, h2v_genuine_negated_target 3/3, h2v_instructional_negation_context 2/2, h2v_quoted_negation_context 2/2, h2v_stale_example_negation_context 2/2). The separate H2w transfer backtest is now clean, so the remaining promotion gap is packaged-workflow or harder CLI-live semantic pressure rather than same-family replay transfer."
     },
     {
-      "finding_id": "h2w_next_requires_transfer_backtest",
-      "finding": "The next step is a transfer backtest, not packaged-workflow promotion: H2w includes a bounded no-call visual fallback and a more permissive semantic label selector that need overreach checks."
+      "finding_id": "h2w_next_requires_packaged_semantic_pressure",
+      "finding": "The next step is packaged-workflow or harder CLI-live pressure, not another replay transfer pass: H2w includes a bounded no-call visual fallback and a more permissive semantic label selector that should be tested where workflow scaffolding cannot resolve the ambiguity upstream."
     }
   ]
 }

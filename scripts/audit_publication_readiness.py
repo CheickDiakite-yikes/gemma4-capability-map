@@ -2663,6 +2663,73 @@ def audit_publication_readiness(
             detail="H2w semantic-target-preservation synthesis figure exists.",
         ),
         _check_path(
+            check_id="h2w_transfer_backtest_synthesis_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "h2w_transfer_backtest_synthesis" / "report.md",
+            detail="H2w transfer backtest synthesis report exists.",
+        ),
+        _check_path(
+            check_id="h2w_transfer_backtest_report_figure_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "h2w_transfer_backtest_synthesis"
+            / "figures"
+            / "h2w_transfer_backtest_gate.svg",
+            detail="H2w transfer backtest synthesis figure exists.",
+        ),
+        _check_path(
+            check_id="h2w_transfer_h2t_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260513T_h2w_semantic_target_preservation_on_h2t_execute_v1"
+            / "summary.json",
+            detail="H2w transfer replay on H2t exists.",
+        ),
+        _check_path(
+            check_id="h2w_transfer_h1p_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260513T_h2w_semantic_target_preservation_on_h1p_execute_v1"
+            / "summary.json",
+            detail="H2w transfer replay on H1p exists.",
+        ),
+        _check_path(
+            check_id="h2w_transfer_h2t_vs_h2u_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260517T_h2w_semantic_target_preservation_vs_h2u_on_h2t_v1"
+            / "live_replay_comparison.json",
+            detail="H2w versus H2u comparison on H2t transfer exists.",
+        ),
+        _check_path(
+            check_id="h2w_transfer_h2t_vs_h2r_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260517T_h2w_semantic_target_preservation_vs_h2r_on_h2t_v1"
+            / "live_replay_comparison.json",
+            detail="H2w versus H2r comparison on H2t transfer exists.",
+        ),
+        _check_path(
+            check_id="h2w_transfer_h1p_vs_h2u_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260517T_h2w_semantic_target_preservation_vs_h2u_on_h1p_v1"
+            / "live_replay_comparison.json",
+            detail="H2w versus H2u comparison on H1p transfer exists.",
+        ),
+        _check_path(
             check_id="current_state_doc_exists",
             severity="blocking",
             path=ROOT / "docs" / "continuity" / "current-state.md",
@@ -2730,6 +2797,7 @@ def audit_publication_readiness(
         "build_h2u_negation_guard_synthesis.py",
         "build_h2v_semantic_negation_synthesis.py",
         "build_h2w_semantic_target_preservation_synthesis.py",
+        "build_h2w_transfer_backtest_synthesis.py",
         "compare_tool_directive_probes.py",
         "build_visual_hard_slice_design.py",
         "build_visual_hard_slice_replay_packet.py",

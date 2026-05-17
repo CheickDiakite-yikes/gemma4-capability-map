@@ -253,19 +253,22 @@ The freshest replay-shaped visual controller evidence is now H2w:
   - H2v comparisons: [`H2u-vs-H2r`](../../results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2u_vs_h2r_v1), [`H2u-vs-H2j`](../../results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2u_vs_h2j_v1), [`H2r-vs-H2j`](../../results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2r_vs_h2j_v1)
   - H2u reaches `4 / 10` strict and `5 / 10` executor-equivalent; H2r and H2j each reach `3 / 10` strict and `4 / 10` executor-equivalent.
   - H2u solves the instructional-negation rows and one quoted-context row, but misses stale-example context and all genuine negated-target rows under strict exactness.
-- H2w is the local semantic target-preservation repair:
+- H2w is the semantic target-preservation repair and current replay-transfer-clean candidate:
   - synthesis: [`results/reports/h2w_semantic_target_preservation_synthesis/report.md`](../../results/reports/h2w_semantic_target_preservation_synthesis/report.md)
   - figure: [`results/reports/h2w_semantic_target_preservation_synthesis/figures/h2w_semantic_target_preservation_gate.svg`](../../results/reports/h2w_semantic_target_preservation_synthesis/figures/h2w_semantic_target_preservation_gate.svg)
   - H2w live packet: [`results/tool_probe_replay_live/20260513T_h2v_semantic_negation_h2w_execute_v1`](../../results/tool_probe_replay_live/20260513T_h2v_semantic_negation_h2w_execute_v1)
   - H2w comparisons: [`H2w-vs-H2u`](../../results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2w_vs_h2u_v1), [`H2w-vs-H2r`](../../results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2w_vs_h2r_v1), [`H2w-vs-H2j`](../../results/tool_probe_replay_live_comparisons/20260513T_h2v_semantic_negation_h2w_vs_h2j_v1)
+  - transfer synthesis: [`results/reports/h2w_transfer_backtest_synthesis/report.md`](../../results/reports/h2w_transfer_backtest_synthesis/report.md)
+  - transfer figure: [`results/reports/h2w_transfer_backtest_synthesis/figures/h2w_transfer_backtest_gate.svg`](../../results/reports/h2w_transfer_backtest_synthesis/figures/h2w_transfer_backtest_gate.svg)
   - H2w reaches `10 / 10` strict and executor-equivalent, improving over H2u by `+0.60` strict exact-rate and `+0.50` executor-equivalence-rate.
   - mechanism: `4` semantic-preservation interventions, `3` component-qualified value canonicalizations, `1` stale-selection gate, and `1` composed-route block.
-  - final H2v H2w evidence does not exercise the bounded no-call visual fallback; the fallback remains a transfer-risk to backtest.
+  - transfer: `109 / 109` strict and executor-equivalent across H2s/H2t/H2q/H2m/H2k/H2l/H2f/H2b/H1x/H1y/H1o/H1p; H2w ties H2u with `0` regressions and only improves over H2r on inherited H2t rows.
+  - final H2v H2w evidence does not exercise the bounded no-call visual fallback; after transfer, that fallback risk should be tested in packaged workflows or harder CLI-live tasks.
 - next controller question:
-  - run H2w transfer backtests over H2s/H2t/H2m/H2k/H2l/H2f/H2b/H1x/H1y/H1o/H1p
-  - compare H2w against H2u and H2r on each transfer packet before adding packaged workflow pressure
-  - port the same pressure into packaged workflow transfer only after replay-shaped H2w semantics are explicit enough to avoid workflow scaffolding solving the case first
-  - keep packaged transfer paused until the semantic selector and bounded no-call fallback pass overreach checks
+  - port the same H2v/H2w semantic pressure into packaged workflow transfer only if the workflow avoids solving the ambiguity before model/controller selection
+  - add a bounded no-call fallback-specific holdout where the fallback must either fire correctly or abstain
+  - preserve the H2w transfer report as the current replay-shaped transfer gate
+  - run local MLX transfer backtests sequentially or at very low concurrency; a four-way parallel H2w attempt hit a Metal GPU timeout before the sequential rerun completed cleanly
 
 ## Direction Reset
 

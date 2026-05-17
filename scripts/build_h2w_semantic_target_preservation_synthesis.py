@@ -153,7 +153,7 @@ def build_h2w_semantic_target_preservation_synthesis(
             "visual_composed_route_gating_blocked",
         ),
         "h2w_all_families_exact": all(row["exact_success_count"] == row["case_count"] for row in h2w_families),
-        "promotion_decision": "h2w_repairs_h2v_requires_transfer_backtest_before_packaged_workflows",
+        "promotion_decision": "h2w_repairs_h2v_transfer_backtested_separately_before_packaged_workflows",
     }
     payload = {
         "manifest": manifest,
@@ -321,15 +321,17 @@ def _finding_rows(
         {
             "finding_id": "h2w_family_saturation_is_local_not_global",
             "finding": (
-                f"H2w reaches exactness across all H2v families ({family_exact}), but this is still a local holdout "
-                "result until older H2s/H2t/H2m/H2k/H2l/H2f/H2b/H1x/H1y/H1o/H1p transfer packets are rerun."
+                f"H2w reaches exactness across all H2v families ({family_exact}). The separate H2w transfer "
+                "backtest is now clean, so the remaining promotion gap is packaged-workflow or harder CLI-live "
+                "semantic pressure rather than same-family replay transfer."
             ),
         },
         {
-            "finding_id": "h2w_next_requires_transfer_backtest",
+            "finding_id": "h2w_next_requires_packaged_semantic_pressure",
             "finding": (
-                "The next step is a transfer backtest, not packaged-workflow promotion: H2w includes a bounded no-call "
-                "visual fallback and a more permissive semantic label selector that need overreach checks."
+                "The next step is packaged-workflow or harder CLI-live pressure, not another replay transfer pass: "
+                "H2w includes a bounded no-call visual fallback and a more permissive semantic label selector that "
+                "should be tested where workflow scaffolding cannot resolve the ambiguity upstream."
             ),
         },
     ]
@@ -362,6 +364,13 @@ def _markdown(payload: dict[str, Any]) -> str:
             "negation belongs to stale context, canonicalizes value-before-surface phrases such as `Not ready status "
             "badge` to layout labels such as `status badge Not ready`. The control also has a bounded no-call visual "
             "fallback, but the final H2v H2w packet did not need to exercise it."
+        ),
+        "",
+        (
+            "The separate H2w transfer backtest now preserves `109 / 109` strict and executor-equivalent rows across "
+            "the current transfer/back-compat battery. This H2v-local report should therefore be read together with "
+            "`../h2w_transfer_backtest_synthesis/report.md`: transfer is clean, while packaged workflow semantic "
+            "pressure remains unproven."
         ),
         "",
         "![H2w semantic target preservation gate](figures/h2w_semantic_target_preservation_gate.svg)",
