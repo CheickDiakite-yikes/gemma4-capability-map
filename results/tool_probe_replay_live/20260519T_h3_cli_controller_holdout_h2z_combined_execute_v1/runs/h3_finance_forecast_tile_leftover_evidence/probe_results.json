@@ -1,0 +1,83 @@
+[
+  {
+    "case_id": "h3_finance_forecast_tile_leftover_evidence",
+    "family": "h3_finance_stale_selection_paraphrase",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "h3-forecast-tile-19021"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "refine_selection",
+        "arguments": {
+          "selection_id": "sel-h3-forecast-memo",
+          "filter_query": "Q4"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-002",
+          "image_id": "img-h3-finance-forecast-tile",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "parent_selection_id": "sel-h3-forecast-memo",
+          "region_ids": [
+            "h3-forecast-memo-19022"
+          ]
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h3-finance-forecast-tile",
+          "target_query": "forecast tile"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "refine_selection",
+        "arguments": {
+          "selection_id": "sel-h3-forecast-memo",
+          "filter_query": "Q4"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"refine_selection\", \"arguments\": {\"selection_id\": \"sel-h3-forecast-memo\", \"filter_query\": \"Q4\"}}",
+    "runtime_metadata": {
+      "backend": "mlx",
+      "runtime_info": {
+        "backend": "mlx",
+        "runtime_posture": "mlx",
+        "requested_model": "google/gemma-4-E2B-it",
+        "effective_model": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_source": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_format": "mlx",
+        "runtime_device": "mlx",
+        "load_mode": "vision",
+        "configured_device": "auto",
+        "request_timeout_seconds": 300.0,
+        "tool_turn_directive_enabled": false,
+        "tool_prompt_contract_id": "",
+        "tool_catalog_profile_id": "visual_role_catalog_route_arbitration_residual_exactness_v20",
+        "service": {},
+        "partial_runtime": false,
+        "llama_cpp_error": null,
+        "llama_cpp_context_window": null
+      }
+    },
+    "prompt_tokens": 1799,
+    "completion_tokens": 37,
+    "latency_ms": 7134
+  }
+]

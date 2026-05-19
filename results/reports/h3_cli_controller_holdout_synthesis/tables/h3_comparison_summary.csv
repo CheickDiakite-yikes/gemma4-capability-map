@@ -1,0 +1,6 @@
+comparison_label,comparison_dir,shared_case_count,baseline_exact_rate,candidate_exact_rate,delta_exact_rate,baseline_executor_equivalence_rate,candidate_executor_equivalence_rate,delta_executor_equivalence_rate
+h3_h2z_stale_vs_h2w,results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h2z_stale_vs_h2w_v1,20,0.75,0.75,0.0,0.75,0.75,0.0
+h3_h2z_component_vs_h2w,results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h2z_component_vs_h2w_v1,20,0.75,0.75,0.0,0.75,0.75,0.0
+h3_h2z_combined_vs_h2w,results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h2z_combined_vs_h2w_v1,20,0.75,0.75,0.0,0.75,0.75,0.0
+h3_h2z_combined_vs_stale,results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h2z_combined_vs_stale_v1,20,0.75,0.75,0.0,0.75,0.75,0.0
+h3_h2z_combined_vs_component,results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h2z_combined_vs_component_v1,20,0.75,0.75,0.0,0.75,0.75,0.0

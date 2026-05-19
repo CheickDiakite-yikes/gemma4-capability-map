@@ -187,6 +187,9 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert claims["C66_h2z_boundary_ablation_closes_h2y_with_separable_controller_helpers"][
         "status"
     ] == "supported_boundary_ablation_requires_harder_holdout"
+    assert claims["C67_h3_cli_controller_holdout_blocks_h2z_global_promotion"][
+        "status"
+    ] == "supported_fresh_holdout_negative_global_promotion"
     assert "7/8" in claims["C2_final_tool_directive_causal_for_protocol"]["primary_metric"]
     assert "8/8 strict and 8/8 executor-equivalent versus H2p at 3/8" in claims[
         "C56_h2r_composed_route_gating_solves_h2q_locally"
@@ -259,6 +262,15 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     ]["primary_metric"]
     assert "not yet evidence that the combined helper should be globally promoted" in claims[
         "C66_h2z_boundary_ablation_closes_h2y_with_separable_controller_helpers"
+    ]["limitation"]
+    assert "all reach 15/20 strict exactness and 15/20 executor-equivalence" in claims[
+        "C67_h3_cli_controller_holdout_blocks_h2z_global_promotion"
+    ]["primary_metric"]
+    assert "0 fixed cases, and 0 H2z helper interventions" in claims[
+        "C67_h3_cli_controller_holdout_blocks_h2z_global_promotion"
+    ]["primary_metric"]
+    assert "varies workflow family" in claims[
+        "C67_h3_cli_controller_holdout_blocks_h2z_global_promotion"
     ]["limitation"]
     assert "v3 raw exact falls" in claims["C6_split_selector_wording_is_negative_evidence"]["primary_metric"]
     assert "schema-field hints reach 6/8 strict and 8/8 executor-equivalent" in claims[

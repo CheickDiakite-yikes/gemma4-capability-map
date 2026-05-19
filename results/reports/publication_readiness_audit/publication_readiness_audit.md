@@ -9,7 +9,7 @@
 | --- | --- | ---: | --- | --- |
 | ledger_manifest_exists | blocking | True | Publication evidence ledger manifest exists. | results/reports/publication_evidence_ledger/manifest.json |
 | ledger_has_no_missing_sources | blocking | True | missing_source_count=0 |  |
-| ledger_has_claims | blocking | True | claim_count=65 |  |
+| ledger_has_claims | blocking | True | claim_count=67 |  |
 | ledger_includes_negative_results | blocking | True | At least one claim is explicitly labeled as negative-result evidence. |  |
 | tool_contract_report_has_current_tables | blocking | True | table_count=110 |  |
 | tool_contract_report_has_current_figures | blocking | True | figure_count=45 |  |
@@ -324,6 +324,18 @@
 | h2z_combined_vs_h2w_comparison_exists | blocking | True | H2z combined versus H2w comparison exists. | results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h2z_combined_vs_h2w_v1/live_replay_comparison.json |
 | h2z_combined_vs_stale_comparison_exists | blocking | True | H2z combined versus stale-only comparison exists. | results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h2z_combined_vs_stale_v1/live_replay_comparison.json |
 | h2z_combined_vs_component_comparison_exists | blocking | True | H2z combined versus component-only comparison exists. | results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h2z_combined_vs_component_v1/live_replay_comparison.json |
+| h3_cli_controller_holdout_synthesis_exists | blocking | True | H3 CLI controller holdout synthesis report exists. | results/reports/h3_cli_controller_holdout_synthesis/report.md |
+| h3_cli_controller_holdout_report_figure_exists | blocking | True | H3 CLI controller holdout gate figure exists. | results/reports/h3_cli_controller_holdout_synthesis/figures/h3_cli_controller_holdout_gate.svg |
+| h3_cli_controller_holdout_packet_exists | blocking | True | H3 CLI controller holdout replay packet exists. | results/tool_probe_replay_packets/20260519T_h3_cli_controller_holdout_dry_run_v1/replay_cases.json |
+| h3_cli_controller_holdout_h2w_live_exists | blocking | True | H3 H2w live replay packet exists. | results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h2w_execute_v1/summary.json |
+| h3_cli_controller_holdout_h2z_stale_live_exists | blocking | True | H3 H2z stale-selection negation live replay packet exists. | results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h2z_stale_negation_execute_v1/summary.json |
+| h3_cli_controller_holdout_h2z_component_live_exists | blocking | True | H3 H2z negated-component preservation live replay packet exists. | results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h2z_negated_component_execute_v1/summary.json |
+| h3_cli_controller_holdout_h2z_combined_live_exists | blocking | True | H3 H2z combined live replay packet exists. | results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h2z_combined_execute_v1/summary.json |
+| h3_cli_controller_holdout_h2z_stale_vs_h2w_comparison_exists | blocking | True | H3 H2z stale-only versus H2w comparison exists. | results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h2z_stale_vs_h2w_v1/live_replay_comparison.json |
+| h3_cli_controller_holdout_h2z_component_vs_h2w_comparison_exists | blocking | True | H3 H2z component-only versus H2w comparison exists. | results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h2z_component_vs_h2w_v1/live_replay_comparison.json |
+| h3_cli_controller_holdout_h2z_combined_vs_h2w_comparison_exists | blocking | True | H3 H2z combined versus H2w comparison exists. | results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h2z_combined_vs_h2w_v1/live_replay_comparison.json |
+| h3_cli_controller_holdout_h2z_combined_vs_stale_comparison_exists | blocking | True | H3 H2z combined versus stale-only comparison exists. | results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h2z_combined_vs_stale_v1/live_replay_comparison.json |
+| h3_cli_controller_holdout_h2z_combined_vs_component_comparison_exists | blocking | True | H3 H2z combined versus component-only comparison exists. | results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h2z_combined_vs_component_v1/live_replay_comparison.json |
 | h2x_packaged_semantic_pressure_workflow_config_exists | blocking | True | Packaged H2x semantic-pressure workflow config exists. | configs/packaged_workflows.yaml |
 | current_state_doc_exists | blocking | True | Continuity current-state doc exists. | docs/continuity/current-state.md |
 | next_steps_doc_exists | blocking | True | Continuity next-steps doc exists. | docs/continuity/next-steps.md |
@@ -370,6 +382,7 @@
 | script_build_h2x_cli_semantic_pressure_synthesis.py_exists | blocking | True | Reproduction script `build_h2x_cli_semantic_pressure_synthesis.py` exists. | scripts/build_h2x_cli_semantic_pressure_synthesis.py |
 | script_build_h2y_scaled_cli_semantic_pressure_synthesis.py_exists | blocking | True | Reproduction script `build_h2y_scaled_cli_semantic_pressure_synthesis.py` exists. | scripts/build_h2y_scaled_cli_semantic_pressure_synthesis.py |
 | script_build_h2z_boundary_ablation_synthesis.py_exists | blocking | True | Reproduction script `build_h2z_boundary_ablation_synthesis.py` exists. | scripts/build_h2z_boundary_ablation_synthesis.py |
+| script_build_h3_cli_controller_holdout_synthesis.py_exists | blocking | True | Reproduction script `build_h3_cli_controller_holdout_synthesis.py` exists. | scripts/build_h3_cli_controller_holdout_synthesis.py |
 | script_compare_tool_directive_probes.py_exists | blocking | True | Reproduction script `compare_tool_directive_probes.py` exists. | scripts/compare_tool_directive_probes.py |
 | script_build_visual_hard_slice_design.py_exists | blocking | True | Reproduction script `build_visual_hard_slice_design.py` exists. | scripts/build_visual_hard_slice_design.py |
 | script_build_visual_hard_slice_replay_packet.py_exists | blocking | True | Reproduction script `build_visual_hard_slice_replay_packet.py` exists. | scripts/build_visual_hard_slice_replay_packet.py |

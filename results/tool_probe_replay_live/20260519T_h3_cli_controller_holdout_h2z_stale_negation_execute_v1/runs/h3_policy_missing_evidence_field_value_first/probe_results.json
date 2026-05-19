@@ -1,0 +1,99 @@
+[
+  {
+    "case_id": "h3_policy_missing_evidence_field_value_first",
+    "family": "h3_policy_label_order_inversion",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "h3-evidence-field-missing-19142"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h3-policy-missing-evidence-field",
+          "target_query": "evidence field missing"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h3-policy-missing-evidence-field",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "h3-evidence-field-missing-19142"
+          ],
+          "region_id": "h3-evidence-field-missing-19142",
+          "text_preview": "Missing"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h3-policy-missing-evidence-field",
+          "target_query": "evidence field missing"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h3-policy-missing-evidence-field",
+          "target_query": "evidence field missing"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h3-policy-missing-evidence-field\", \"target_query\": \"missing\"}}",
+    "runtime_metadata": {
+      "backend": "mlx",
+      "runtime_info": {
+        "backend": "mlx",
+        "runtime_posture": "mlx",
+        "requested_model": "google/gemma-4-E2B-it",
+        "effective_model": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_source": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_format": "mlx",
+        "runtime_device": "mlx",
+        "load_mode": "vision",
+        "configured_device": "auto",
+        "request_timeout_seconds": 300.0,
+        "tool_turn_directive_enabled": false,
+        "tool_prompt_contract_id": "",
+        "tool_catalog_profile_id": "visual_role_catalog_route_arbitration_residual_exactness_v20",
+        "service": {},
+        "partial_runtime": false,
+        "llama_cpp_error": null,
+        "llama_cpp_context_window": null
+      },
+      "visual_target_query_normalization": [
+        {
+          "from_tool": "extract_layout",
+          "from_arguments": {
+            "image_id": "img-h3-policy-missing-evidence-field",
+            "target_query": "missing"
+          },
+          "to_tool": "extract_layout",
+          "to_arguments": {
+            "image_id": "img-h3-policy-missing-evidence-field",
+            "target_query": "evidence field missing"
+          },
+          "prompt_state_label": "evidence field missing"
+        }
+      ]
+    },
+    "prompt_tokens": 1790,
+    "completion_tokens": 40,
+    "latency_ms": 5444
+  }
+]

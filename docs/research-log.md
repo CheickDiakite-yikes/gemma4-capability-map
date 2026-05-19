@@ -1,21 +1,41 @@
 # Research Log
 
-## 2026-05-19 - H3 CLI Controller Holdout Packet Authored
+## 2026-05-19 - H3 CLI Controller Holdout Scores a Negative Promotion Gate
 
 - Added a fresh `h3_cli_controller_holdout_v26` suite to [`scripts/build_visual_hard_slice_live_stress_packet.py`](../scripts/build_visual_hard_slice_live_stress_packet.py).
 - Generated the dry-run replay packet:
   - [`results/tool_probe_replay_packets/20260519T_h3_cli_controller_holdout_dry_run_v1`](../results/tool_probe_replay_packets/20260519T_h3_cli_controller_holdout_dry_run_v1)
+- Executed the H3 packet sequentially through H2w and all H2z factorial rows:
+  - H2w baseline: [`results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h2w_execute_v1`](../results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h2w_execute_v1)
+  - H2z stale-selection negation only: [`results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h2z_stale_negation_execute_v1`](../results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h2z_stale_negation_execute_v1)
+  - H2z negated-component preservation only: [`results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h2z_negated_component_execute_v1`](../results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h2z_negated_component_execute_v1)
+  - H2z combined: [`results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h2z_combined_execute_v1`](../results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h2z_combined_execute_v1)
 - Design:
   - `20` replay-live cases across `5` workflow families: finance stale-selection paraphrase, research stale-selection paraphrase, support negated-component syntax, policy label-order inversion, and mixed legal/recruiting/clinical/ops instructional negation.
   - `8` cases are stale-selection/routing risks and `12` are argument/alias/decoy risks.
   - The stale-selection cases intentionally vary the H2z trigger language away from exact H2y wording, using phrases such as archived selector, retired view, carry-over selection, shadow selection, and remembered selection.
   - The negated-value cases intentionally vary beyond `not ...` syntax, using inactive, disabled, unresolved, unassigned, paused, rejected, missing, and expired component values.
-- Research purpose:
-  - H2z closed the known H2y boundary; H3 asks whether the same helper concepts generalize under fresh workflow families, new state ordering, label-order inversion, and paraphrased stale-selection language.
-  - No model-result claim is attached yet. This is benchmark-design evidence and a ready live CLI packet, not a scored capability result.
+- Result:
+  - H2w, H2z stale-only, H2z component-only, and H2z combined all reach `15 / 20` strict and `15 / 20` executor-equivalent.
+  - every H2z-vs-H2w comparison has `0.0` strict/executor delta and `0` fixed cases
+  - the H2z-specific helpers record `0` stale-selection-negation and `0` negated-component-preservation interventions on H3
+  - the H2z combined residual is five cases: four stale-selection paraphrase rows and one broader negative-value syntax row
+- Research decision:
+  - H3 is a clean negative generalization boundary: H2z closed H2y, but does not transfer globally to fresh stale-origin paraphrases and negative-value syntax.
+  - Do not globally promote H2z. The next repair must broaden stale-origin paraphrase detection and negative-value target preservation, then rerun H2y/H2z plus H3 and transfer gates.
+- Reporting updates:
+  - H3 synthesis: [`results/reports/h3_cli_controller_holdout_synthesis/report.md`](../results/reports/h3_cli_controller_holdout_synthesis/report.md)
+  - H3 figure: [`results/reports/h3_cli_controller_holdout_synthesis/figures/h3_cli_controller_holdout_gate.svg`](../results/reports/h3_cli_controller_holdout_synthesis/figures/h3_cli_controller_holdout_gate.svg)
+  - new claim: `C67_h3_cli_controller_holdout_blocks_h2z_global_promotion`
+  - publication evidence ledger now has `67` claims, `470` sources, and `0` missing sources
+  - publication readiness audit now has `379` checks, `372` blocking checks, `0` blocking failures, and status `paper_draft_ready`
 - Verification:
   - `uv run pytest tests/test_visual_hard_slice_live_stress_packet.py::test_visual_hard_slice_live_stress_packet_supports_h3_cli_controller_holdout_suite -q`
   - `uv run python scripts/build_visual_hard_slice_live_stress_packet.py --suite h3_cli_controller_holdout_v26 --run-group-id 20260519T_h3_cli_controller_holdout_dry_run_v1 --replay-system-id mlx_gemma4_e2b_reasoner_only_h2z_boundary_combined`
+  - `uv run python scripts/build_h3_cli_controller_holdout_synthesis.py`
+  - `uv run pytest tests/test_h3_cli_controller_holdout_synthesis.py tests/test_publication_evidence_ledger.py tests/test_publication_readiness_audit.py -q`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`
 
 ## 2026-05-19 - H2z Boundary Ablation Closes H2y With Separable Controller Helpers
 

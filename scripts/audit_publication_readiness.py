@@ -3021,6 +3021,123 @@ def audit_publication_readiness(
             detail="H2z combined versus component-only comparison exists.",
         ),
         _check_path(
+            check_id="h3_cli_controller_holdout_synthesis_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "h3_cli_controller_holdout_synthesis" / "report.md",
+            detail="H3 CLI controller holdout synthesis report exists.",
+        ),
+        _check_path(
+            check_id="h3_cli_controller_holdout_report_figure_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "h3_cli_controller_holdout_synthesis"
+            / "figures"
+            / "h3_cli_controller_holdout_gate.svg",
+            detail="H3 CLI controller holdout gate figure exists.",
+        ),
+        _check_path(
+            check_id="h3_cli_controller_holdout_packet_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_packets"
+            / "20260519T_h3_cli_controller_holdout_dry_run_v1"
+            / "replay_cases.json",
+            detail="H3 CLI controller holdout replay packet exists.",
+        ),
+        _check_path(
+            check_id="h3_cli_controller_holdout_h2w_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260519T_h3_cli_controller_holdout_h2w_execute_v1"
+            / "summary.json",
+            detail="H3 H2w live replay packet exists.",
+        ),
+        _check_path(
+            check_id="h3_cli_controller_holdout_h2z_stale_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260519T_h3_cli_controller_holdout_h2z_stale_negation_execute_v1"
+            / "summary.json",
+            detail="H3 H2z stale-selection negation live replay packet exists.",
+        ),
+        _check_path(
+            check_id="h3_cli_controller_holdout_h2z_component_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260519T_h3_cli_controller_holdout_h2z_negated_component_execute_v1"
+            / "summary.json",
+            detail="H3 H2z negated-component preservation live replay packet exists.",
+        ),
+        _check_path(
+            check_id="h3_cli_controller_holdout_h2z_combined_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260519T_h3_cli_controller_holdout_h2z_combined_execute_v1"
+            / "summary.json",
+            detail="H3 H2z combined live replay packet exists.",
+        ),
+        _check_path(
+            check_id="h3_cli_controller_holdout_h2z_stale_vs_h2w_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260519T_h3_cli_controller_holdout_h2z_stale_vs_h2w_v1"
+            / "live_replay_comparison.json",
+            detail="H3 H2z stale-only versus H2w comparison exists.",
+        ),
+        _check_path(
+            check_id="h3_cli_controller_holdout_h2z_component_vs_h2w_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260519T_h3_cli_controller_holdout_h2z_component_vs_h2w_v1"
+            / "live_replay_comparison.json",
+            detail="H3 H2z component-only versus H2w comparison exists.",
+        ),
+        _check_path(
+            check_id="h3_cli_controller_holdout_h2z_combined_vs_h2w_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260519T_h3_cli_controller_holdout_h2z_combined_vs_h2w_v1"
+            / "live_replay_comparison.json",
+            detail="H3 H2z combined versus H2w comparison exists.",
+        ),
+        _check_path(
+            check_id="h3_cli_controller_holdout_h2z_combined_vs_stale_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260519T_h3_cli_controller_holdout_h2z_combined_vs_stale_v1"
+            / "live_replay_comparison.json",
+            detail="H3 H2z combined versus stale-only comparison exists.",
+        ),
+        _check_path(
+            check_id="h3_cli_controller_holdout_h2z_combined_vs_component_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260519T_h3_cli_controller_holdout_h2z_combined_vs_component_v1"
+            / "live_replay_comparison.json",
+            detail="H3 H2z combined versus component-only comparison exists.",
+        ),
+        _check_path(
             check_id="h2x_packaged_semantic_pressure_workflow_config_exists",
             severity="blocking",
             path=ROOT / "configs" / "packaged_workflows.yaml",
@@ -3098,6 +3215,7 @@ def audit_publication_readiness(
         "build_h2x_cli_semantic_pressure_synthesis.py",
         "build_h2y_scaled_cli_semantic_pressure_synthesis.py",
         "build_h2z_boundary_ablation_synthesis.py",
+        "build_h3_cli_controller_holdout_synthesis.py",
         "compare_tool_directive_probes.py",
         "build_visual_hard_slice_design.py",
         "build_visual_hard_slice_replay_packet.py",

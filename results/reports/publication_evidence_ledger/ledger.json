@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-19T22:28:18.832600+00:00",
+    "generated_at": "2026-05-19T22:56:45.061363+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-    "claim_count": 66,
-    "evidence_source_count": 458,
+    "claim_count": 67,
+    "evidence_source_count": 470,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -71,7 +71,8 @@
       "C63_h2w_transfer_backtest_preserves_current_gates",
       "C64_h2x_cli_semantic_pressure_separates_semantic_preservation_from_fallback",
       "C65_h2y_scaled_cli_semantic_pressure_exposes_h2w_boundary",
-      "C66_h2z_boundary_ablation_closes_h2y_with_separable_controller_helpers"
+      "C66_h2z_boundary_ablation_closes_h2y_with_separable_controller_helpers",
+      "C67_h3_cli_controller_holdout_blocks_h2z_global_promotion"
     ]
   },
   "claims": [
@@ -734,6 +735,16 @@
       "limitation": "H2z closes H2y, but H2y is a fixed internal replay-live slice. This is strong causal attribution on the known boundary, not yet evidence that the combined helper should be globally promoted without a harder fresh holdout or packaged workflow-family stress test.",
       "next_test": "Build a harder H1/H3 holdout that preserves H2y-style ambiguity while varying workflow family, state shape, label order, stale-selection phrasing, and negated component syntax.",
       "source_count": 10
+    },
+    {
+      "claim_id": "C67_h3_cli_controller_holdout_blocks_h2z_global_promotion",
+      "claim": "A fresh H3 CLI holdout blocks global H2z promotion: the helpers that closed H2y do not transfer to paraphrased stale-selection language and broader negative-value syntax.",
+      "status": "supported_fresh_holdout_negative_global_promotion",
+      "evidence_strength": "strong_internal_cli_holdout_negative",
+      "primary_metric": "On the fresh 20-case H3 packet, H2w, H2z stale-only, H2z component-only, and H2z combined all reach 15/20 strict exactness and 15/20 executor-equivalence. Every H2z-vs-H2w comparison has 0.0 exact and executor-equivalence deltas, 0 fixed cases, and 0 H2z helper interventions.",
+      "limitation": "H3 is still an internal replay-live CLI holdout, not a population estimate. It is strong promotion-gate evidence because it varies workflow family, stale-selection phrasing, state ordering, label ordering, and negative-value syntax after H2z closed H2y.",
+      "next_test": "Repair H3's five residual rows by broadening stale-origin paraphrase detection and negative-value target preservation, then rerun H2y/H2z, H3, and transfer gates before any global promotion.",
+      "source_count": 12
     }
   ],
   "evidence_sources": [
@@ -3941,6 +3952,90 @@
       "artifact_type": "live_replay_comparison",
       "path": "results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h2z_combined_vs_component_v1",
       "purpose": "H2z combined versus component-only comparison isolating the three stale-selection-negation cases.",
+      "exists": true
+    },
+    {
+      "claim_id": "C67_h3_cli_controller_holdout_blocks_h2z_global_promotion",
+      "artifact_type": "replay_synthesis",
+      "path": "results/reports/h3_cli_controller_holdout_synthesis/report.md",
+      "purpose": "Dedicated H3 synthesis showing H2w and H2z profiles tie at 15/20 with zero fixed cases.",
+      "exists": true
+    },
+    {
+      "claim_id": "C67_h3_cli_controller_holdout_blocks_h2z_global_promotion",
+      "artifact_type": "replay_synthesis_figure",
+      "path": "results/reports/h3_cli_controller_holdout_synthesis/figures/h3_cli_controller_holdout_gate.svg",
+      "purpose": "Figure showing that H3 blocks global H2z promotion by tying all profiles below saturation.",
+      "exists": true
+    },
+    {
+      "claim_id": "C67_h3_cli_controller_holdout_blocks_h2z_global_promotion",
+      "artifact_type": "tool_probe_replay_packet",
+      "path": "results/tool_probe_replay_packets/20260519T_h3_cli_controller_holdout_dry_run_v1",
+      "purpose": "Twenty-case H3 replay packet varying workflow family, stale-selection paraphrase, label order, and negative-value syntax.",
+      "exists": true
+    },
+    {
+      "claim_id": "C67_h3_cli_controller_holdout_blocks_h2z_global_promotion",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h2w_execute_v1",
+      "purpose": "H2w H3 live replay reaching 15/20 strict and executor-equivalent.",
+      "exists": true
+    },
+    {
+      "claim_id": "C67_h3_cli_controller_holdout_blocks_h2z_global_promotion",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h2z_stale_negation_execute_v1",
+      "purpose": "H2z stale-selection negation H3 live replay tying H2w at 15/20.",
+      "exists": true
+    },
+    {
+      "claim_id": "C67_h3_cli_controller_holdout_blocks_h2z_global_promotion",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h2z_negated_component_execute_v1",
+      "purpose": "H2z negated-component preservation H3 live replay tying H2w at 15/20.",
+      "exists": true
+    },
+    {
+      "claim_id": "C67_h3_cli_controller_holdout_blocks_h2z_global_promotion",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h2z_combined_execute_v1",
+      "purpose": "H2z combined H3 live replay tying H2w at 15/20 with five residual misses.",
+      "exists": true
+    },
+    {
+      "claim_id": "C67_h3_cli_controller_holdout_blocks_h2z_global_promotion",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h2z_stale_vs_h2w_v1",
+      "purpose": "H3 stale-only versus H2w comparison showing 0.0 deltas and zero fixed cases.",
+      "exists": true
+    },
+    {
+      "claim_id": "C67_h3_cli_controller_holdout_blocks_h2z_global_promotion",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h2z_component_vs_h2w_v1",
+      "purpose": "H3 component-only versus H2w comparison showing 0.0 deltas and zero fixed cases.",
+      "exists": true
+    },
+    {
+      "claim_id": "C67_h3_cli_controller_holdout_blocks_h2z_global_promotion",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h2z_combined_vs_h2w_v1",
+      "purpose": "H3 combined versus H2w comparison showing 0.0 deltas and zero fixed cases.",
+      "exists": true
+    },
+    {
+      "claim_id": "C67_h3_cli_controller_holdout_blocks_h2z_global_promotion",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h2z_combined_vs_stale_v1",
+      "purpose": "H3 combined versus stale-only comparison showing no additive gain.",
+      "exists": true
+    },
+    {
+      "claim_id": "C67_h3_cli_controller_holdout_blocks_h2z_global_promotion",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h2z_combined_vs_component_v1",
+      "purpose": "H3 combined versus component-only comparison showing no additive gain.",
       "exists": true
     }
   ],

@@ -3787,6 +3787,91 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C67_h3_cli_controller_holdout_blocks_h2z_global_promotion",
+        claim=(
+            "A fresh H3 CLI holdout blocks global H2z promotion: the helpers that closed H2y do not transfer "
+            "to paraphrased stale-selection language and broader negative-value syntax."
+        ),
+        status="supported_fresh_holdout_negative_global_promotion",
+        evidence_strength="strong_internal_cli_holdout_negative",
+        primary_metric=(
+            "On the fresh 20-case H3 packet, H2w, H2z stale-only, H2z component-only, and H2z combined all "
+            "reach 15/20 strict exactness and 15/20 executor-equivalence. Every H2z-vs-H2w comparison has "
+            "0.0 exact and executor-equivalence deltas, 0 fixed cases, and 0 H2z helper interventions."
+        ),
+        limitation=(
+            "H3 is still an internal replay-live CLI holdout, not a population estimate. It is strong promotion-gate "
+            "evidence because it varies workflow family, stale-selection phrasing, state ordering, label ordering, "
+            "and negative-value syntax after H2z closed H2y."
+        ),
+        next_test=(
+            "Repair H3's five residual rows by broadening stale-origin paraphrase detection and negative-value "
+            "target preservation, then rerun H2y/H2z, H3, and transfer gates before any global promotion."
+        ),
+        sources=(
+            EvidenceSource(
+                "replay_synthesis",
+                "results/reports/h3_cli_controller_holdout_synthesis/report.md",
+                "Dedicated H3 synthesis showing H2w and H2z profiles tie at 15/20 with zero fixed cases.",
+            ),
+            EvidenceSource(
+                "replay_synthesis_figure",
+                "results/reports/h3_cli_controller_holdout_synthesis/figures/h3_cli_controller_holdout_gate.svg",
+                "Figure showing that H3 blocks global H2z promotion by tying all profiles below saturation.",
+            ),
+            EvidenceSource(
+                "tool_probe_replay_packet",
+                "results/tool_probe_replay_packets/20260519T_h3_cli_controller_holdout_dry_run_v1",
+                "Twenty-case H3 replay packet varying workflow family, stale-selection paraphrase, label order, and negative-value syntax.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h2w_execute_v1",
+                "H2w H3 live replay reaching 15/20 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h2z_stale_negation_execute_v1",
+                "H2z stale-selection negation H3 live replay tying H2w at 15/20.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h2z_negated_component_execute_v1",
+                "H2z negated-component preservation H3 live replay tying H2w at 15/20.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h2z_combined_execute_v1",
+                "H2z combined H3 live replay tying H2w at 15/20 with five residual misses.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h2z_stale_vs_h2w_v1",
+                "H3 stale-only versus H2w comparison showing 0.0 deltas and zero fixed cases.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h2z_component_vs_h2w_v1",
+                "H3 component-only versus H2w comparison showing 0.0 deltas and zero fixed cases.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h2z_combined_vs_h2w_v1",
+                "H3 combined versus H2w comparison showing 0.0 deltas and zero fixed cases.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h2z_combined_vs_stale_v1",
+                "H3 combined versus stale-only comparison showing no additive gain.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h2z_combined_vs_component_v1",
+                "H3 combined versus component-only comparison showing no additive gain.",
+            ),
+        ),
+    ),
 )
 
 
