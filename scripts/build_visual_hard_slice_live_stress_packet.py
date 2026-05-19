@@ -57,6 +57,7 @@ def parse_args() -> argparse.Namespace:
             "h2v_semantic_negation_v23",
             "h2x_cli_semantic_pressure_v24",
             "h2y_scaled_cli_semantic_pressure_v25",
+            "h3_cli_controller_holdout_v26",
         ],
         default="v1",
     )
@@ -249,6 +250,8 @@ def _stress_cases_for_suite(suite: str) -> list[ToolDirectiveProbeCase]:
         return _h2x_cli_semantic_pressure_cases_v24()
     if suite == "h2y_scaled_cli_semantic_pressure_v25":
         return _h2y_scaled_cli_semantic_pressure_cases_v25()
+    if suite == "h3_cli_controller_holdout_v26":
+        return _h3_cli_controller_holdout_cases_v26()
     raise ValueError(f"Unknown visual live stress suite: {suite}")
 
 
@@ -283,6 +286,7 @@ def _expected_call_payloads(
         "h2v_semantic_negation_v23",
         "h2x_cli_semantic_pressure_v24",
         "h2y_scaled_cli_semantic_pressure_v25",
+        "h3_cli_controller_holdout_v26",
     }:
         return [_oracle_visual_extract_call(case)]
     return [
@@ -5383,6 +5387,334 @@ def _h2y_scaled_cli_semantic_pressure_cases_v25() -> list[ToolDirectiveProbeCase
     ]
 
 
+def _h3_cli_controller_holdout_cases_v26() -> list[ToolDirectiveProbeCase]:
+    return [
+        _h3_visual_case(
+            case_id="h3_finance_invoice_lock_archived_selector",
+            family="h3_finance_stale_selection_paraphrase",
+            image_id="img-h3-finance-invoice-lock",
+            user_text=(
+                "Archived selector sel-h3-invoice-log was carried over from billing history; start fresh on "
+                "the invoice lock chip."
+            ),
+            regions=[
+                _region("h3-invoice-log-19001", "invoice log", "Invoice lock mentioned in audit row", area="log"),
+                _region("h3-invoice-lock-chip-19002", "invoice lock chip", "Locked", area="chip"),
+                _region("h3-invoice-table-19003", "invoice table", "Locked invoices", area="table"),
+            ],
+            target_region_id="h3-invoice-lock-chip-19002",
+            selection_id="sel-h3-invoice-log",
+            selected_region_ids=["h3-invoice-log-19001"],
+            selection_query="invoice lock audit row",
+        ),
+        _h3_visual_case(
+            case_id="h3_finance_renewal_lane_retired_view",
+            family="h3_finance_stale_selection_paraphrase",
+            image_id="img-h3-finance-renewal-lane",
+            user_text=(
+                "Selection handle sel-h3-renewal-note belongs to a retired renewal view; current target is "
+                "the renewal lane."
+            ),
+            regions=[
+                _region("h3-renewal-table-19011", "renewal table", "Renewal queue", area="table"),
+                _region("h3-renewal-note-19012", "renewal note", "retired view note", area="note"),
+                _region("h3-renewal-lane-19013", "renewal lane", "High touch", area="lane"),
+            ],
+            target_region_id="h3-renewal-lane-19013",
+            selection_id="sel-h3-renewal-note",
+            selected_region_ids=["h3-renewal-note-19012"],
+            selection_query="renewal note from retired view",
+        ),
+        _h3_visual_case(
+            case_id="h3_finance_forecast_tile_leftover_evidence",
+            family="h3_finance_stale_selection_paraphrase",
+            image_id="img-h3-finance-forecast-tile",
+            user_text=(
+                "Selection sel-h3-forecast-memo is leftover evidence from planning; locate the forecast tile "
+                "for Q4."
+            ),
+            regions=[
+                _region("h3-forecast-tile-19021", "forecast tile", "Q4 delayed", area="tile"),
+                _region("h3-forecast-memo-19022", "forecast memo", "Q4 was discussed yesterday", area="memo"),
+                _region("h3-forecast-chart-19023", "forecast chart", "Quarterly forecast", area="chart"),
+            ],
+            target_region_id="h3-forecast-tile-19021",
+            selection_id="sel-h3-forecast-memo",
+            selected_region_ids=["h3-forecast-memo-19022"],
+            selection_query="forecast memo",
+        ),
+        _h3_visual_case(
+            case_id="h3_finance_approval_banner_remembered_selection",
+            family="h3_finance_stale_selection_paraphrase",
+            image_id="img-h3-finance-approval-banner",
+            user_text=(
+                "Remembered selection sel-h3-approval-comment is not the target for this screen; locate the "
+                "approval banner."
+            ),
+            regions=[
+                _region("h3-approval-comment-19031", "approval comment", "remembered approval discussion", area="comment"),
+                _region("h3-approval-table-19032", "approval table", "Approver roster", area="table"),
+                _region("h3-approval-banner-19033", "approval banner", "Approval blocked", area="banner"),
+            ],
+            target_region_id="h3-approval-banner-19033",
+            selection_id="sel-h3-approval-comment",
+            selected_region_ids=["h3-approval-comment-19031"],
+            selection_query="approval comment",
+        ),
+        _h3_visual_case(
+            case_id="h3_research_claim_panel_carryover_selection",
+            family="h3_research_stale_selection_paraphrase",
+            image_id="img-h3-research-claim-panel",
+            user_text=(
+                "Carry-over selection sel-h3-claim-footnote came from the literature appendix; use the claim "
+                "panel now."
+            ),
+            regions=[
+                _region("h3-claim-footnote-19041", "claim footnote", "Older evidence caveat", area="footnote"),
+                _region("h3-claim-panel-19042", "claim panel", "Causal claim pending replication", area="panel"),
+                _region("h3-claim-table-19043", "claim table", "Claim ledger", area="table"),
+            ],
+            target_region_id="h3-claim-panel-19042",
+            selection_id="sel-h3-claim-footnote",
+            selected_region_ids=["h3-claim-footnote-19041"],
+            selection_query="claim footnote",
+        ),
+        _h3_visual_case(
+            case_id="h3_research_evidence_badge_retired_selection",
+            family="h3_research_stale_selection_paraphrase",
+            image_id="img-h3-research-evidence-badge",
+            user_text=(
+                "Retired selection sel-h3-evidence-note references not evidence badge; current request is "
+                "evidence badge."
+            ),
+            regions=[
+                _region("h3-evidence-note-19051", "evidence note", "retired evidence warning", area="note"),
+                _region("h3-evidence-badge-19052", "evidence badge", "Replicated", area="badge"),
+                _region("h3-evidence-appendix-19053", "evidence appendix", "Replication sources", area="appendix"),
+            ],
+            target_region_id="h3-evidence-badge-19052",
+            selection_id="sel-h3-evidence-note",
+            selected_region_ids=["h3-evidence-note-19051"],
+            selection_query="not evidence badge",
+        ),
+        _h3_visual_case(
+            case_id="h3_research_method_card_shadow_selection",
+            family="h3_research_stale_selection_paraphrase",
+            image_id="img-h3-research-method-card",
+            user_text=(
+                "The shadow selection sel-h3-method-caption belongs to a discarded chart; locate the method card."
+            ),
+            regions=[
+                _region("h3-method-chart-19061", "method chart", "Ablation counts", area="chart"),
+                _region("h3-method-caption-19062", "method caption", "discarded chart caption", area="caption"),
+                _region("h3-method-card-19063", "method card", "Counterfactual replay", area="card"),
+            ],
+            target_region_id="h3-method-card-19063",
+            selection_id="sel-h3-method-caption",
+            selected_region_ids=["h3-method-caption-19062"],
+            selection_query="method caption",
+        ),
+        _h3_visual_case(
+            case_id="h3_research_ablation_tile_remembered_selection",
+            family="h3_research_stale_selection_paraphrase",
+            image_id="img-h3-research-ablation-tile",
+            user_text=(
+                "The remembered selection sel-h3-ablation-memo is background context only. Locate the ablation "
+                "tile."
+            ),
+            regions=[
+                _region("h3-ablation-memo-19071", "ablation memo", "Background ablation note", area="memo"),
+                _region("h3-ablation-tile-19072", "ablation tile", "Controller off", area="tile"),
+                _region("h3-ablation-board-19073", "ablation board", "Experiment board", area="board"),
+            ],
+            target_region_id="h3-ablation-tile-19072",
+            selection_id="sel-h3-ablation-memo",
+            selected_region_ids=["h3-ablation-memo-19071"],
+            selection_query="ablation memo",
+        ),
+        _h3_visual_case(
+            case_id="h3_support_inactive_alert_banner",
+            family="h3_support_negated_component_syntax",
+            image_id="img-h3-support-inactive-alert-banner",
+            user_text="Use inactive alert banner. Inactive is the displayed status.",
+            regions=[
+                _region("h3-alert-note-19081", "alert note", "Inactive because queue closed", area="note"),
+                _region("h3-alert-banner-active-19082", "alert banner active", "Active", area="banner"),
+                _region("h3-alert-banner-inactive-19083", "alert banner inactive", "Inactive", area="banner"),
+            ],
+            target_region_id="h3-alert-banner-inactive-19083",
+        ),
+        _h3_visual_case(
+            case_id="h3_support_disabled_escalation_toggle",
+            family="h3_support_negated_component_syntax",
+            image_id="img-h3-support-disabled-toggle",
+            user_text="Use disabled escalation toggle. Disabled is the current toggle value.",
+            regions=[
+                _region("h3-toggle-enabled-19091", "escalation toggle enabled", "Enabled", area="toggle"),
+                _region("h3-toggle-disabled-19092", "escalation toggle disabled", "Disabled", area="toggle"),
+                _region("h3-toggle-log-19093", "toggle log", "Disabled by policy", area="log"),
+            ],
+            target_region_id="h3-toggle-disabled-19092",
+        ),
+        _h3_visual_case(
+            case_id="h3_support_unresolved_ticket_badge",
+            family="h3_support_negated_component_syntax",
+            image_id="img-h3-support-unresolved-ticket-badge",
+            user_text="Use unresolved ticket badge. Unresolved is the badge value, not an instruction.",
+            regions=[
+                _region("h3-ticket-badge-resolved-19101", "ticket badge resolved", "Resolved", area="badge"),
+                _region("h3-ticket-note-19102", "ticket note", "Unresolved owner pending", area="note"),
+                _region("h3-ticket-badge-unresolved-19103", "ticket badge unresolved", "Unresolved", area="badge"),
+            ],
+            target_region_id="h3-ticket-badge-unresolved-19103",
+        ),
+        _h3_visual_case(
+            case_id="h3_support_unassigned_owner_field",
+            family="h3_support_negated_component_syntax",
+            image_id="img-h3-support-unassigned-owner-field",
+            user_text="Use unassigned owner field. Unassigned is the current owner field value.",
+            regions=[
+                _region("h3-owner-field-assigned-19111", "owner field assigned", "Assigned", area="field"),
+                _region("h3-owner-field-unassigned-19112", "owner field unassigned", "Unassigned", area="field"),
+                _region("h3-owner-table-19113", "owner table", "Unassigned tickets", area="table"),
+            ],
+            target_region_id="h3-owner-field-unassigned-19112",
+        ),
+        _h3_visual_case(
+            case_id="h3_policy_paused_state_pill_value_first",
+            family="h3_policy_label_order_inversion",
+            image_id="img-h3-policy-paused-state-pill",
+            user_text="Use paused state pill. Paused is the value on the component.",
+            regions=[
+                _region("h3-state-pill-active-19121", "state pill active", "Active", area="pill"),
+                _region("h3-state-pill-paused-19122", "state pill paused", "Paused", area="pill"),
+                _region("h3-state-memo-19123", "state memo", "Paused until legal review", area="memo"),
+            ],
+            target_region_id="h3-state-pill-paused-19122",
+        ),
+        _h3_visual_case(
+            case_id="h3_policy_rejected_approval_chip_value_first",
+            family="h3_policy_label_order_inversion",
+            image_id="img-h3-policy-rejected-approval-chip",
+            user_text="Use rejected approval chip. Rejected is the value to preserve.",
+            regions=[
+                _region("h3-approval-chip-approved-19131", "approval chip approved", "Approved", area="chip"),
+                _region("h3-approval-note-19132", "approval note", "Rejected in review log", area="note"),
+                _region("h3-approval-chip-rejected-19133", "approval chip rejected", "Rejected", area="chip"),
+            ],
+            target_region_id="h3-approval-chip-rejected-19133",
+        ),
+        _h3_visual_case(
+            case_id="h3_policy_missing_evidence_field_value_first",
+            family="h3_policy_label_order_inversion",
+            image_id="img-h3-policy-missing-evidence-field",
+            user_text="Use missing evidence field. Missing is the displayed field value.",
+            regions=[
+                _region("h3-evidence-field-present-19141", "evidence field present", "Present", area="field"),
+                _region("h3-evidence-field-missing-19142", "evidence field missing", "Missing", area="field"),
+                _region("h3-evidence-log-19143", "evidence log", "Missing source noted", area="log"),
+            ],
+            target_region_id="h3-evidence-field-missing-19142",
+        ),
+        _h3_visual_case(
+            case_id="h3_policy_expired_policy_banner_value_first",
+            family="h3_policy_label_order_inversion",
+            image_id="img-h3-policy-expired-banner",
+            user_text="Use expired policy banner. Expired is the banner value.",
+            regions=[
+                _region("h3-policy-banner-current-19151", "policy banner current", "Current", area="banner"),
+                _region("h3-policy-banner-expired-19152", "policy banner expired", "Expired", area="banner"),
+                _region("h3-policy-table-19153", "policy table", "Expired policies", area="table"),
+            ],
+            target_region_id="h3-policy-banner-expired-19152",
+        ),
+        _h3_visual_case(
+            case_id="h3_legal_contract_risk_badge_note_decoy",
+            family="h3_mixed_workflow_instructional_negation",
+            image_id="img-h3-legal-contract-risk-badge",
+            user_text="Use the contract risk badge. Do not use the risk note, even though it repeats High.",
+            regions=[
+                _region("h3-risk-note-19161", "risk note", "High risk clause summary", area="note"),
+                _region("h3-contract-risk-badge-19162", "contract risk badge", "High", area="badge"),
+                _region("h3-contract-table-19163", "contract table", "High risk contracts", area="table"),
+            ],
+            target_region_id="h3-contract-risk-badge-19162",
+        ),
+        _h3_visual_case(
+            case_id="h3_recruiting_candidate_stage_tile_table_decoy",
+            family="h3_mixed_workflow_instructional_negation",
+            image_id="img-h3-recruiting-stage-tile",
+            user_text="Use the candidate stage tile. Avoid the stage table row that also says Offer.",
+            regions=[
+                _region("h3-stage-table-19171", "stage table", "Offer candidates", area="table"),
+                _region("h3-stage-tile-19172", "candidate stage tile", "Offer", area="tile"),
+                _region("h3-stage-note-19173", "stage note", "Offer follow-up", area="note"),
+            ],
+            target_region_id="h3-stage-tile-19172",
+        ),
+        _h3_visual_case(
+            case_id="h3_clinical_triage_priority_chip_memo_decoy",
+            family="h3_mixed_workflow_instructional_negation",
+            image_id="img-h3-clinical-priority-chip",
+            user_text="Use the triage priority chip. Do not read the priority memo first.",
+            regions=[
+                _region("h3-priority-memo-19181", "priority memo", "Urgent triage note", area="memo"),
+                _region("h3-priority-chip-19182", "triage priority chip", "Urgent", area="chip"),
+                _region("h3-priority-board-19183", "priority board", "Urgent queue", area="board"),
+            ],
+            target_region_id="h3-priority-chip-19182",
+        ),
+        _h3_visual_case(
+            case_id="h3_ops_deployment_gate_panel_log_decoy",
+            family="h3_mixed_workflow_instructional_negation",
+            image_id="img-h3-ops-deployment-gate-panel",
+            user_text="Use the deployment gate panel. Do not target the gate log.",
+            regions=[
+                _region("h3-gate-log-19191", "gate log", "Gate blocked yesterday", area="log"),
+                _region("h3-gate-panel-19192", "deployment gate panel", "Gate open", area="panel"),
+                _region("h3-gate-table-19193", "deployment table", "Gate history", area="table"),
+            ],
+            target_region_id="h3-gate-panel-19192",
+        ),
+    ]
+
+
+def _h3_visual_case(
+    *,
+    case_id: str,
+    family: str,
+    image_id: str,
+    user_text: str,
+    regions: list[dict[str, Any]],
+    target_region_id: str,
+    selection_id: str | None = None,
+    selected_region_ids: list[str] | None = None,
+    selection_query: str = "",
+) -> ToolDirectiveProbeCase:
+    if selection_id:
+        state = _visual_state_with_selection(
+            image_id,
+            regions,
+            selection_id=selection_id,
+            selected_region_ids=selected_region_ids or [],
+            query=selection_query,
+        )
+    else:
+        state = _visual_state(image_id, regions)
+    return ToolDirectiveProbeCase(
+        case_id=case_id,
+        family=family,
+        messages=[
+            Message(role="system", content=f"visual_image_ids: {image_id}"),
+            Message(role="user", content=user_text),
+        ],
+        media=[image_id],
+        tool_names=["extract_layout", "refine_selection", "read_region_text"],
+        initial_state=state,
+        expected_execution={"region_ids": [target_region_id]},
+    )
+
+
 def _visual_state(image_id: str, local_layouts: list[dict[str, Any]]) -> dict[str, Any]:
     return {
         "visual_executor_mode": "local",
@@ -5462,6 +5794,8 @@ def _stress_failure_mode(family: str) -> str:
         "h2s_stale_surface_alias",
         "h2t_current_selection_guard",
         "h2y_stale_selection_negation_context",
+        "h3_finance_stale_selection_paraphrase",
+        "h3_research_stale_selection_paraphrase",
     }:
         return "wrong_tool_or_stale_selection_risk"
     return "argument_alias_or_decoy_risk"

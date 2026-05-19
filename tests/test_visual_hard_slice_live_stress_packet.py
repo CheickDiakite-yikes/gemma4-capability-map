@@ -1293,6 +1293,65 @@ def test_visual_hard_slice_live_stress_packet_supports_h2y_scaled_cli_semantic_p
         assert _expected_call_reaches_oracle(case)
 
 
+def test_visual_hard_slice_live_stress_packet_supports_h3_cli_controller_holdout_suite(
+    tmp_path: Path,
+) -> None:
+    packet = SCRIPT.build_visual_hard_slice_live_stress_packet(
+        output_root=tmp_path / "replay_packets",
+        run_group_id="visual_stress_h3_cli_controller_holdout",
+        suite="h3_cli_controller_holdout_v26",
+        replay_system_id="mlx_gemma4_e2b_reasoner_only_h2z_boundary_combined",
+    )
+
+    assert packet["summary"]["suite"] == "h3_cli_controller_holdout_v26"
+    assert packet["summary"]["replay_system_id"] == "mlx_gemma4_e2b_reasoner_only_h2z_boundary_combined"
+    assert packet["summary"]["case_count"] == 20
+    assert packet["summary"]["family_counts"] == {
+        "h3_finance_stale_selection_paraphrase": 4,
+        "h3_mixed_workflow_instructional_negation": 4,
+        "h3_policy_label_order_inversion": 4,
+        "h3_research_stale_selection_paraphrase": 4,
+        "h3_support_negated_component_syntax": 4,
+    }
+    assert packet["summary"]["failure_mode_counts"] == {
+        "argument_alias_or_decoy_risk": 12,
+        "wrong_tool_or_stale_selection_risk": 8,
+    }
+    cases = {case["case_id"]: case for case in packet["replay_cases"]}
+    assert cases["h3_finance_invoice_lock_archived_selector"]["initial_state"]["visual_last_selection_id"] == (
+        "sel-h3-invoice-log"
+    )
+    assert cases["h3_support_inactive_alert_banner"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h3-support-inactive-alert-banner",
+                "target_query": "alert banner inactive",
+            },
+        }
+    ]
+    assert cases["h3_policy_paused_state_pill_value_first"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h3-policy-paused-state-pill",
+                "target_query": "state pill paused",
+            },
+        }
+    ]
+    assert cases["h3_ops_deployment_gate_panel_log_decoy"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h3-ops-deployment-gate-panel",
+                "target_query": "deployment gate panel",
+            },
+        }
+    ]
+    for case in packet["replay_cases"]:
+        assert _expected_call_reaches_oracle(case)
+
+
 def _expected_call_reaches_oracle(case: dict[str, object]) -> bool:
     tool_specs = [ToolSpec.model_validate(payload) for payload in case["tool_specs"]]  # type: ignore[index]
     executor = DeterministicExecutor(tool_specs=tool_specs)

@@ -1,5 +1,22 @@
 # Research Log
 
+## 2026-05-19 - H3 CLI Controller Holdout Packet Authored
+
+- Added a fresh `h3_cli_controller_holdout_v26` suite to [`scripts/build_visual_hard_slice_live_stress_packet.py`](../scripts/build_visual_hard_slice_live_stress_packet.py).
+- Generated the dry-run replay packet:
+  - [`results/tool_probe_replay_packets/20260519T_h3_cli_controller_holdout_dry_run_v1`](../results/tool_probe_replay_packets/20260519T_h3_cli_controller_holdout_dry_run_v1)
+- Design:
+  - `20` replay-live cases across `5` workflow families: finance stale-selection paraphrase, research stale-selection paraphrase, support negated-component syntax, policy label-order inversion, and mixed legal/recruiting/clinical/ops instructional negation.
+  - `8` cases are stale-selection/routing risks and `12` are argument/alias/decoy risks.
+  - The stale-selection cases intentionally vary the H2z trigger language away from exact H2y wording, using phrases such as archived selector, retired view, carry-over selection, shadow selection, and remembered selection.
+  - The negated-value cases intentionally vary beyond `not ...` syntax, using inactive, disabled, unresolved, unassigned, paused, rejected, missing, and expired component values.
+- Research purpose:
+  - H2z closed the known H2y boundary; H3 asks whether the same helper concepts generalize under fresh workflow families, new state ordering, label-order inversion, and paraphrased stale-selection language.
+  - No model-result claim is attached yet. This is benchmark-design evidence and a ready live CLI packet, not a scored capability result.
+- Verification:
+  - `uv run pytest tests/test_visual_hard_slice_live_stress_packet.py::test_visual_hard_slice_live_stress_packet_supports_h3_cli_controller_holdout_suite -q`
+  - `uv run python scripts/build_visual_hard_slice_live_stress_packet.py --suite h3_cli_controller_holdout_v26 --run-group-id 20260519T_h3_cli_controller_holdout_dry_run_v1 --replay-system-id mlx_gemma4_e2b_reasoner_only_h2z_boundary_combined`
+
 ## 2026-05-19 - H2z Boundary Ablation Closes H2y With Separable Controller Helpers
 
 - Added two narrow H2z controller helpers on top of H2w:

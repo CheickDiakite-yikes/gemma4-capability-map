@@ -1,0 +1,166 @@
+{
+  "case_id": "h3_research_claim_panel_carryover_selection",
+  "family": "h3_research_stale_selection_paraphrase",
+  "messages": [
+    {
+      "role": "system",
+      "content": "visual_image_ids: img-h3-research-claim-panel",
+      "image_refs": []
+    },
+    {
+      "role": "user",
+      "content": "Carry-over selection sel-h3-claim-footnote came from the literature appendix; use the claim panel now.",
+      "image_refs": []
+    }
+  ],
+  "media": [
+    "img-h3-research-claim-panel"
+  ],
+  "tool_names": [
+    "extract_layout",
+    "refine_selection",
+    "read_region_text"
+  ],
+  "tool_specs": [
+    {
+      "name": "extract_layout",
+      "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "image_id": {
+            "type": "string"
+          },
+          "target_query": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "image_id",
+          "target_query"
+        ]
+      },
+      "tool_family": "function_call",
+      "tool_intent": "inspect"
+    },
+    {
+      "name": "refine_selection",
+      "description": "Refine a prior visual selection using a follow-up filter query.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "selection_id": {
+            "type": "string"
+          },
+          "filter_query": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "selection_id",
+          "filter_query"
+        ]
+      },
+      "tool_family": "function_call",
+      "tool_intent": "revise"
+    },
+    {
+      "name": "read_region_text",
+      "description": "Read the text inside a previously selected region.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "image_id": {
+            "type": "string"
+          },
+          "region_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "image_id",
+          "region_id"
+        ]
+      },
+      "tool_family": "function_call",
+      "tool_intent": "read"
+    }
+  ],
+  "initial_state": {
+    "visual_executor_mode": "local",
+    "images": {
+      "img-h3-research-claim-panel": {
+        "entities": [],
+        "layouts": [],
+        "local_layouts": [
+          {
+            "region_id": "h3-claim-footnote-19041",
+            "label": "claim footnote",
+            "text": "Older evidence caveat",
+            "attributes": {
+              "area": "footnote"
+            }
+          },
+          {
+            "region_id": "h3-claim-panel-19042",
+            "label": "claim panel",
+            "text": "Causal claim pending replication",
+            "attributes": {
+              "area": "panel"
+            }
+          },
+          {
+            "region_id": "h3-claim-table-19043",
+            "label": "claim table",
+            "text": "Claim ledger",
+            "attributes": {
+              "area": "table"
+            }
+          }
+        ]
+      }
+    },
+    "visual_selections": {
+      "sel-h3-claim-footnote": {
+        "image_id": "img-h3-research-claim-panel",
+        "selection_kind": "regions",
+        "items": [
+          {
+            "region_id": "h3-claim-footnote-19041",
+            "label": "claim footnote",
+            "text": "Older evidence caveat",
+            "attributes": {
+              "area": "footnote"
+            }
+          }
+        ],
+        "query": "claim footnote",
+        "parent_selection_id": null
+      }
+    },
+    "visual_last_selection_id": "sel-h3-claim-footnote",
+    "visual_selection_counter": 1
+  },
+  "expected_execution": {
+    "region_ids": [
+      "h3-claim-panel-19042"
+    ]
+  },
+  "expected_calls": [
+    {
+      "name": "extract_layout",
+      "arguments": {
+        "image_id": "img-h3-research-claim-panel",
+        "target_query": "claim panel"
+      }
+    }
+  ],
+  "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+  "source_failure_mode": "wrong_tool_or_stale_selection_risk",
+  "source_exact_match": false,
+  "source_executable_match": false,
+  "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+  "baseline_exact_match": "",
+  "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+  "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+}
