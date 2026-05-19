@@ -1,0 +1,13 @@
+profile_label,family,case_count,exact_success_count,exact_rate,executor_success_count,executor_rate
+h2y_h2w_semantic_target_preservation,h2y_genuine_negated_target_value,7,6,0.8571428571428571,6,0.8571428571428571
+h2y_h2w_semantic_target_preservation,h2y_instructional_negation_context,3,3,1.0,3,1.0
+h2y_h2w_semantic_target_preservation,h2y_quoted_stale_negation_context,3,3,1.0,3,1.0
+h2y_h2w_semantic_target_preservation,h2y_stale_selection_negation_context,3,0,0.0,0,0.0
+h2y_h2z_boundary_combined,h2y_genuine_negated_target_value,7,7,1.0,7,1.0
+h2y_h2z_boundary_combined,h2y_instructional_negation_context,3,3,1.0,3,1.0
+h2y_h2z_boundary_combined,h2y_quoted_stale_negation_context,3,3,1.0,3,1.0
+h2y_h2z_boundary_combined,h2y_stale_selection_negation_context,3,3,1.0,3,1.0
+h2y_h3a_boundary_combined,h2y_genuine_negated_target_value,7,7,1.0,7,1.0
+h2y_h3a_boundary_combined,h2y_instructional_negation_context,3,3,1.0,3,1.0
+h2y_h3a_boundary_combined,h2y_quoted_stale_negation_context,3,3,1.0,3,1.0
+h2y_h3a_boundary_combined,h2y_stale_selection_negation_context,3,3,1.0,3,1.0

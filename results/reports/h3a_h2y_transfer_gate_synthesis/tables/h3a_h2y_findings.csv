@@ -1,0 +1,6 @@
+finding_id,finding
+h3a_preserves_h2z_h2y_closure,"H3a reaches 16/16 strict and executor-equivalent on H2y, tying H2z at 16/16 with 0.0 exact-rate delta."
+h3a_retains_h2w_delta_on_h2y,"H3a retains the H2z boundary gain over H2w: H2w is 12/16, H3a is 16/16, and the strict/executor delta is 0.25."
+h3a_h2y_fixed_cases_match_h2z_boundary,"H3a fixes 4 H2w misses versus H2w on H2y: h2y_approval_field_stale_selection_not_field, h2y_escalation_lane_stale_selection_not_lane, h2y_exception_panel_stale_selection_not_panel, h2y_not_active_alert_banner_value_before_component."
+h3a_h2y_uses_original_h2z_helpers,H3a records 3 stale-selection negation interventions and 1 negated-component preservation interventions on H2y.
+h3a_new_helpers_do_not_overtrigger_on_h2y,"The H3a-specific helpers record 0 stale-paraphrase interventions and 0 negative-value interventions on H2y, so this first transfer gate does not show new-helper overreach."

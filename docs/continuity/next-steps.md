@@ -2,7 +2,7 @@
 
 ## Current Best Next Moves
 
-The next move is not another broad prompt-contract paragraph, not another H2e/H2j victory lap, and not more tuning on the H2q rows. H2w is transfer-clean at `109 / 109`, H2x showed semantic-preservation gains survive CLI pressure with fallback independence, and H2y scaled that pressure to a `16`-case boundary where H2w reached only `12 / 16`. H2z then ran the focused helper ablation that H2y demanded: stale-selection negation alone reaches `15 / 16`, negated-component target preservation alone reaches `13 / 16`, and the combined H2z row reaches `16 / 16` strict and executor-equivalent. H3 blocked global H2z promotion by tying H2w/H2z rows at `15 / 20`. H3a repaired that boundary: stale-selection paraphrase only reaches `19 / 20`, negative-value preservation only reaches `16 / 20`, and H3a combined reaches `20 / 20`, with helper traces matching the `4 + 1` residual split. The next move is transfer validation for H3a, followed by a harder H3b/H4 slice that can break new top-line saturation.
+The next move is not another broad prompt-contract paragraph, not another H2e/H2j victory lap, and not more tuning on the H2q rows. H2w is transfer-clean at `109 / 109`, H2x showed semantic-preservation gains survive CLI pressure with fallback independence, and H2y scaled that pressure to a `16`-case boundary where H2w reached only `12 / 16`. H2z then ran the focused helper ablation that H2y demanded: stale-selection negation alone reaches `15 / 16`, negated-component target preservation alone reaches `13 / 16`, and the combined H2z row reaches `16 / 16` strict and executor-equivalent. H3 blocked global H2z promotion by tying H2w/H2z rows at `15 / 20`. H3a repaired that boundary: stale-selection paraphrase only reaches `19 / 20`, negative-value preservation only reaches `16 / 20`, and H3a combined reaches `20 / 20`, with helper traces matching the `4 + 1` residual split. H3a also passes the first H2y transfer gate by tying H2z at `16 / 16` and preserving the `+0.25` H2w delta. The next move is broader transfer validation for H3a, followed by a harder H3b/H4 slice that can break new top-line saturation.
 
 Execution order:
 
@@ -45,13 +45,15 @@ Execution order:
 37. Keep broad packaged workflow reruns paused unless they preserve H2y/H2z-style pressure; H1l/H1m already showed packaged visual surfaces can wash out the mechanism.
 38. Treat H3 as the negative promotion gate that blocked H2z: it preserves H2y/H2z ambiguity while changing workflow family, state ordering, label-order syntax, stale-selection phrasing, and negated-value vocabulary, and it holds all H2w/H2z rows to `15 / 20`.
 39. Treat H3a as the current candidate controller posture, not yet the global default: it repairs H3 to `20 / 20` with stale-only `19 / 20`, negative-only `16 / 20`, and combined helper traces matching the five fixed cases.
-40. Run H3a transfer validation next: rerun H2y/H2z/H3 and the broader H2w-era transfer/back-compat set before promoting the row.
-41. Design the next harder H3b/H4 slice after transfer validation, with enough workflow and state diversity to break any new `20 / 20` top-line saturation.
+40. Treat the H3a H2y transfer gate as first positive regression evidence: H3a ties H2z at `16 / 16`, has `0.0` delta versus H2z, and keeps the `+0.25` gain over H2w.
+41. Run broader H3a transfer validation next: rerun H3 comparison and the broader H2w-era transfer/back-compat set before promoting the row.
+42. Design the next harder H3b/H4 slice after transfer validation, with enough workflow and state diversity to break any new `20 / 20` top-line saturation.
 
 Immediate suggested command:
 
 ```bash
 uv run python scripts/build_h3a_controller_repair_synthesis.py
+uv run python scripts/build_h3a_h2y_transfer_gate_synthesis.py
 uv run python scripts/build_publication_evidence_ledger.py
 uv run python scripts/audit_publication_readiness.py
 rg -n "h3a|stale_selection_paraphrase|negative_value_component|transfer_backtest|h2w_transfer" src/gemma4_capability_map tests scripts docs
@@ -59,8 +61,8 @@ rg -n "h3a|stale_selection_paraphrase|negative_value_component|transfer_backtest
 
 Then validate the H3a repair:
 
-- rerun H2y/H2z and H3 sequentially under H3a before promoting any new row
-- add a compact H3a transfer synthesis rather than only raw live packet folders
+- rerun H3 sequentially under H3a if the report needs a fresh same-code comparison artifact
+- broaden from H2y to the H2w-era transfer/back-compat set rather than stopping at one positive transfer gate
 - compare H3a against H2w/H2z on transfer gates using strict exactness, executor-equivalence, fixed cases, non-exact rows, and helper-trace counts
 - keep H2e as an executor-equivalence tradeoff control only if the new slice changes lower-level routing enough to need that baseline again
 - if packaged transfer is chosen next, port H2y/H2z pressure into attributable workflow families without letting workflow scaffolding resolve the case before the model/controller sees it

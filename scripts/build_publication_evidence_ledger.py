@@ -3958,6 +3958,70 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C69_h3a_preserves_h2z_h2y_transfer_gate",
+        claim=(
+            "H3a preserves the known H2z closure on the original H2y scaled CLI semantic-pressure gate while "
+            "retaining the H2w delta."
+        ),
+        status="supported_first_transfer_regression_gate",
+        evidence_strength="moderate_internal_cli_transfer_gate",
+        primary_metric=(
+            "On H2y, H2w reaches 12/16 strict and executor-equivalent, H2z combined reaches 16/16, and H3a "
+            "combined also reaches 16/16. H3a has 0.0 exact and executor-equivalence deltas versus H2z, +0.25 "
+            "deltas versus H2w, and fixes the same four H2w boundary misses."
+        ),
+        limitation=(
+            "This is only the first transfer-regression slice after H3a. It checks the H2y boundary that produced "
+            "H2z, but it does not yet cover the broader H2w transfer/back-compat packet set."
+        ),
+        next_test=(
+            "Extend H3a transfer validation to H3 rerun comparison, H2z single-helper controls if needed, and the "
+            "broader H2w-era transfer/back-compat matrix before global promotion."
+        ),
+        sources=(
+            EvidenceSource(
+                "replay_synthesis",
+                "results/reports/h3a_h2y_transfer_gate_synthesis/report.md",
+                "Dedicated H3a H2y transfer synthesis showing H3a ties H2z at 16/16 and retains the H2w delta.",
+            ),
+            EvidenceSource(
+                "replay_synthesis_figure",
+                "results/reports/h3a_h2y_transfer_gate_synthesis/figures/h3a_h2y_transfer_gate.svg",
+                "Figure showing H2w, H2z, and H3a on the H2y transfer gate.",
+            ),
+            EvidenceSource(
+                "tool_probe_replay_packet",
+                "results/tool_probe_replay_packets/20260519T_h2y_scaled_cli_semantic_pressure_dry_run_v1",
+                "Original 16-case H2y scaled CLI semantic-pressure packet.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h2w_execute_v1",
+                "H2w H2y live replay reaching 12/16 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h2z_combined_execute_v1",
+                "H2z combined H2y live replay reaching 16/16 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h3a_combined_execute_v1",
+                "H3a combined H2y live replay reaching 16/16 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h3a_combined_vs_h2z_combined_v1",
+                "H3a versus H2z H2y comparison showing 0.0 exact and executor-equivalence deltas.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h3a_combined_vs_h2w_v1",
+                "H3a versus H2w H2y comparison showing +0.25 exact and executor-equivalence deltas.",
+            ),
+        ),
+    ),
 )
 
 

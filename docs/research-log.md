@@ -1,5 +1,31 @@
 # Research Log
 
+## 2026-05-19 - H3a Passes First H2y Transfer Gate
+
+- Ran the first H3a transfer-regression slice on the original H2y scaled CLI semantic-pressure packet:
+  - H3a combined live packet: [`results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h3a_combined_execute_v1`](../results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h3a_combined_execute_v1)
+  - H3a-vs-H2z comparison: [`results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h3a_combined_vs_h2z_combined_v1`](../results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h3a_combined_vs_h2z_combined_v1)
+  - H3a-vs-H2w comparison: [`results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h3a_combined_vs_h2w_v1`](../results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h3a_combined_vs_h2w_v1)
+- Result:
+  - H2w on H2y: `12 / 16` strict and executor-equivalent
+  - H2z combined on H2y: `16 / 16` strict and executor-equivalent
+  - H3a combined on H2y: `16 / 16` strict and executor-equivalent
+  - H3a-vs-H2z delta: `0.0` strict exact-rate and `0.0` executor-equivalence-rate
+  - H3a-vs-H2w delta: `+0.25` strict exact-rate and `+0.25` executor-equivalence-rate
+  - H3a fixes the same four H2w H2y boundary rows as H2z, with `3` stale-selection-negation interventions and `1` negated-component-preservation intervention.
+  - The H3a-specific helpers record `0` stale-paraphrase interventions and `0` negative-value interventions on H2y, so this slice does not show new-helper overtriggering.
+- Research decision:
+  - H3a passes the first transfer gate and preserves the H2z H2y closure.
+  - This is still not global promotion. The next validation should broaden from the H2y boundary to H3 rerun comparison and the larger H2w-era transfer/back-compat set.
+- Reporting updates:
+  - H3a H2y transfer synthesis: [`results/reports/h3a_h2y_transfer_gate_synthesis/report.md`](../results/reports/h3a_h2y_transfer_gate_synthesis/report.md)
+  - H3a H2y figure: [`results/reports/h3a_h2y_transfer_gate_synthesis/figures/h3a_h2y_transfer_gate.svg`](../results/reports/h3a_h2y_transfer_gate_synthesis/figures/h3a_h2y_transfer_gate.svg)
+  - new claim: `C69_h3a_preserves_h2z_h2y_transfer_gate`
+- Verification:
+  - `uv run moonie-agent replay-live --packet-dir results/tool_probe_replay_packets/20260519T_h2y_scaled_cli_semantic_pressure_dry_run_v1 --system-id mlx_gemma4_e2b_reasoner_only_h3a_boundary_combined --output-dir results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h3a_combined_execute_v1 --execute --json`
+  - `uv run python scripts/build_h3a_h2y_transfer_gate_synthesis.py`
+  - `uv run pytest tests/test_h3a_h2y_transfer_gate_synthesis.py -q`
+
 ## 2026-05-19 - H3a Repairs H3 With Separable Controller Helpers
 
 - Added two H3a-only controller helpers on top of the existing H2w/H2z posture:

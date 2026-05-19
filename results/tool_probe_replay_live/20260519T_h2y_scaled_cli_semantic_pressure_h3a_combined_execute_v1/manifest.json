@@ -1,0 +1,41 @@
+{
+  "packet_run_id": "20260519T_h2y_scaled_cli_semantic_pressure_h3a_combined_execute_v1",
+  "packet_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h3a_combined_execute_v1",
+  "source_packet_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260519T_h2y_scaled_cli_semantic_pressure_dry_run_v1",
+  "source_packet_run_id": "20260519T_h2y_scaled_cli_semantic_pressure_dry_run_v1",
+  "system_id": "mlx_gemma4_e2b_reasoner_only_h3a_boundary_combined",
+  "case_count": 16,
+  "execute": true,
+  "executed_count": 16,
+  "exact_count": 16,
+  "exact_rate": 1.0,
+  "executor_equivalence_evaluable_count": 16,
+  "executor_equivalence_count": 16,
+  "executor_equivalence_rate": 1.0,
+  "failure_mode_counts": {
+    "argument_alias_or_decoy_risk": 13,
+    "wrong_tool_or_stale_selection_risk": 3
+  },
+  "created_at": "2026-05-19T23:28:58.682439+00:00",
+  "registry_path": "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+  "case_ids": [
+    "h2y_action_banner_quoted_not_banner_note",
+    "h2y_decision_panel_caption_says_not_panel",
+    "h2y_resolution_marker_old_quote_not_marker",
+    "h2y_escalation_lane_stale_selection_not_lane",
+    "h2y_exception_panel_stale_selection_not_panel",
+    "h2y_approval_field_stale_selection_not_field",
+    "h2y_reviewer_tag_do_not_use_memo",
+    "h2y_due_date_field_do_not_use_note",
+    "h2y_vendor_chip_do_not_use_table",
+    "h2y_not_replied_status_pill_value_before_component",
+    "h2y_not_sent_delivery_tag_value_before_component",
+    "h2y_not_required_approval_marker_value_before_component",
+    "h2y_not_active_alert_banner_value_before_component",
+    "h2y_not_escalated_risk_chip_value_before_component",
+    "h2y_not_available_owner_field_value_before_component",
+    "h2y_not_started_phase_tile_value_before_component"
+  ],
+  "operator_surface": "rich_cli_exact_probe_replay_v1",
+  "entrypoint": "moonie-agent replay-live"
+}

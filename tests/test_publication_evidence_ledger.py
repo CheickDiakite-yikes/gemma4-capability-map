@@ -190,6 +190,12 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert claims["C67_h3_cli_controller_holdout_blocks_h2z_global_promotion"][
         "status"
     ] == "supported_fresh_holdout_negative_global_promotion"
+    assert claims["C68_h3a_controller_repair_closes_h3_with_separable_helpers"][
+        "status"
+    ] == "supported_fresh_holdout_factorial_repair"
+    assert claims["C69_h3a_preserves_h2z_h2y_transfer_gate"][
+        "status"
+    ] == "supported_first_transfer_regression_gate"
     assert "7/8" in claims["C2_final_tool_directive_causal_for_protocol"]["primary_metric"]
     assert "8/8 strict and 8/8 executor-equivalent versus H2p at 3/8" in claims[
         "C56_h2r_composed_route_gating_solves_h2q_locally"
@@ -272,6 +278,18 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert "varies workflow family" in claims[
         "C67_h3_cli_controller_holdout_blocks_h2z_global_promotion"
     ]["limitation"]
+    assert "H3a combined reaches 20/20" in claims[
+        "C68_h3a_controller_repair_closes_h3_with_separable_helpers"
+    ]["primary_metric"]
+    assert "4 stale-paraphrase and 1 negative-value helper interventions" in claims[
+        "C68_h3a_controller_repair_closes_h3_with_separable_helpers"
+    ]["primary_metric"]
+    assert "H3a combined also reaches 16/16" in claims[
+        "C69_h3a_preserves_h2z_h2y_transfer_gate"
+    ]["primary_metric"]
+    assert "0.0 exact and executor-equivalence deltas versus H2z" in claims[
+        "C69_h3a_preserves_h2z_h2y_transfer_gate"
+    ]["primary_metric"]
     assert "v3 raw exact falls" in claims["C6_split_selector_wording_is_negative_evidence"]["primary_metric"]
     assert "schema-field hints reach 6/8 strict and 8/8 executor-equivalent" in claims[
         "C8_visual_hard_slice_targets_remaining_uncertainty"
@@ -1198,6 +1216,31 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
         row["claim_id"] == "C66_h2z_boundary_ablation_closes_h2y_with_separable_controller_helpers"
         and row["path"]
         == "results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h2z_combined_vs_h2w_v1"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C68_h3a_controller_repair_closes_h3_with_separable_helpers"
+        and row["path"] == "results/reports/h3a_controller_repair_synthesis/report.md"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C68_h3a_controller_repair_closes_h3_with_separable_helpers"
+        and row["path"] == "results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h3a_combined_execute_v1"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C69_h3a_preserves_h2z_h2y_transfer_gate"
+        and row["path"] == "results/reports/h3a_h2y_transfer_gate_synthesis/report.md"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C69_h3a_preserves_h2z_h2y_transfer_gate"
+        and row["path"]
+        == "results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h3a_combined_vs_h2z_combined_v1"
         and row["exists"]
         for row in payload["evidence_sources"]
     )

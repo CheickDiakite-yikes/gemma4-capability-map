@@ -9,7 +9,7 @@
 | --- | --- | ---: | --- | --- |
 | ledger_manifest_exists | blocking | True | Publication evidence ledger manifest exists. | results/reports/publication_evidence_ledger/manifest.json |
 | ledger_has_no_missing_sources | blocking | True | missing_source_count=0 |  |
-| ledger_has_claims | blocking | True | claim_count=68 |  |
+| ledger_has_claims | blocking | True | claim_count=69 |  |
 | ledger_includes_negative_results | blocking | True | At least one claim is explicitly labeled as negative-result evidence. |  |
 | tool_contract_report_has_current_tables | blocking | True | table_count=110 |  |
 | tool_contract_report_has_current_figures | blocking | True | figure_count=45 |  |
@@ -346,6 +346,11 @@
 | h3a_controller_repair_combined_vs_h2z_comparison_exists | blocking | True | H3a combined versus H2z comparison exists. | results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h3a_combined_vs_h2z_combined_v1/live_replay_comparison.json |
 | h3a_controller_repair_combined_vs_stale_comparison_exists | blocking | True | H3a combined versus stale-only comparison exists. | results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h3a_combined_vs_stale_v1/live_replay_comparison.json |
 | h3a_controller_repair_combined_vs_negative_comparison_exists | blocking | True | H3a combined versus negative-only comparison exists. | results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h3a_combined_vs_negative_v1/live_replay_comparison.json |
+| h3a_h2y_transfer_gate_synthesis_exists | blocking | True | H3a H2y transfer gate synthesis report exists. | results/reports/h3a_h2y_transfer_gate_synthesis/report.md |
+| h3a_h2y_transfer_gate_figure_exists | blocking | True | H3a H2y transfer gate figure exists. | results/reports/h3a_h2y_transfer_gate_synthesis/figures/h3a_h2y_transfer_gate.svg |
+| h3a_h2y_transfer_gate_live_exists | blocking | True | H3a combined H2y transfer live replay packet exists. | results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h3a_combined_execute_v1/summary.json |
+| h3a_h2y_transfer_gate_vs_h2z_comparison_exists | blocking | True | H3a H2y versus H2z comparison exists. | results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h3a_combined_vs_h2z_combined_v1/live_replay_comparison.json |
+| h3a_h2y_transfer_gate_vs_h2w_comparison_exists | blocking | True | H3a H2y versus H2w comparison exists. | results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h3a_combined_vs_h2w_v1/live_replay_comparison.json |
 | h2x_packaged_semantic_pressure_workflow_config_exists | blocking | True | Packaged H2x semantic-pressure workflow config exists. | configs/packaged_workflows.yaml |
 | current_state_doc_exists | blocking | True | Continuity current-state doc exists. | docs/continuity/current-state.md |
 | next_steps_doc_exists | blocking | True | Continuity next-steps doc exists. | docs/continuity/next-steps.md |
@@ -394,6 +399,7 @@
 | script_build_h2z_boundary_ablation_synthesis.py_exists | blocking | True | Reproduction script `build_h2z_boundary_ablation_synthesis.py` exists. | scripts/build_h2z_boundary_ablation_synthesis.py |
 | script_build_h3_cli_controller_holdout_synthesis.py_exists | blocking | True | Reproduction script `build_h3_cli_controller_holdout_synthesis.py` exists. | scripts/build_h3_cli_controller_holdout_synthesis.py |
 | script_build_h3a_controller_repair_synthesis.py_exists | blocking | True | Reproduction script `build_h3a_controller_repair_synthesis.py` exists. | scripts/build_h3a_controller_repair_synthesis.py |
+| script_build_h3a_h2y_transfer_gate_synthesis.py_exists | blocking | True | Reproduction script `build_h3a_h2y_transfer_gate_synthesis.py` exists. | scripts/build_h3a_h2y_transfer_gate_synthesis.py |
 | script_compare_tool_directive_probes.py_exists | blocking | True | Reproduction script `compare_tool_directive_probes.py` exists. | scripts/compare_tool_directive_probes.py |
 | script_build_visual_hard_slice_design.py_exists | blocking | True | Reproduction script `build_visual_hard_slice_design.py` exists. | scripts/build_visual_hard_slice_design.py |
 | script_build_visual_hard_slice_replay_packet.py_exists | blocking | True | Reproduction script `build_visual_hard_slice_replay_packet.py` exists. | scripts/build_visual_hard_slice_replay_packet.py |

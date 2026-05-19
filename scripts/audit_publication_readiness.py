@@ -3235,6 +3235,53 @@ def audit_publication_readiness(
             detail="H3a combined versus negative-only comparison exists.",
         ),
         _check_path(
+            check_id="h3a_h2y_transfer_gate_synthesis_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "h3a_h2y_transfer_gate_synthesis" / "report.md",
+            detail="H3a H2y transfer gate synthesis report exists.",
+        ),
+        _check_path(
+            check_id="h3a_h2y_transfer_gate_figure_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "h3a_h2y_transfer_gate_synthesis"
+            / "figures"
+            / "h3a_h2y_transfer_gate.svg",
+            detail="H3a H2y transfer gate figure exists.",
+        ),
+        _check_path(
+            check_id="h3a_h2y_transfer_gate_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260519T_h2y_scaled_cli_semantic_pressure_h3a_combined_execute_v1"
+            / "summary.json",
+            detail="H3a combined H2y transfer live replay packet exists.",
+        ),
+        _check_path(
+            check_id="h3a_h2y_transfer_gate_vs_h2z_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260519T_h2y_scaled_cli_semantic_pressure_h3a_combined_vs_h2z_combined_v1"
+            / "live_replay_comparison.json",
+            detail="H3a H2y versus H2z comparison exists.",
+        ),
+        _check_path(
+            check_id="h3a_h2y_transfer_gate_vs_h2w_comparison_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live_comparisons"
+            / "20260519T_h2y_scaled_cli_semantic_pressure_h3a_combined_vs_h2w_v1"
+            / "live_replay_comparison.json",
+            detail="H3a H2y versus H2w comparison exists.",
+        ),
+        _check_path(
             check_id="h2x_packaged_semantic_pressure_workflow_config_exists",
             severity="blocking",
             path=ROOT / "configs" / "packaged_workflows.yaml",
@@ -3314,6 +3361,7 @@ def audit_publication_readiness(
         "build_h2z_boundary_ablation_synthesis.py",
         "build_h3_cli_controller_holdout_synthesis.py",
         "build_h3a_controller_repair_synthesis.py",
+        "build_h3a_h2y_transfer_gate_synthesis.py",
         "compare_tool_directive_probes.py",
         "build_visual_hard_slice_design.py",
         "build_visual_hard_slice_replay_packet.py",
