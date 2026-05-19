@@ -21,6 +21,8 @@ class ResearchControls:
     enable_visual_composed_route_gating: bool = False
     enable_visual_negation_aware_target_query_normalization: bool = False
     enable_visual_semantic_target_preservation: bool = False
+    enable_visual_stale_selection_negation_guard: bool = False
+    enable_visual_negated_component_target_preservation: bool = False
     tool_prompt_contract_id: str = ""
     tool_catalog_profile_id: str = ""
 
@@ -54,6 +56,12 @@ class ResearchControls:
             ),
             enable_visual_semantic_target_preservation=bool(
                 payload.get("enable_visual_semantic_target_preservation", False)
+            ),
+            enable_visual_stale_selection_negation_guard=bool(
+                payload.get("enable_visual_stale_selection_negation_guard", False)
+            ),
+            enable_visual_negated_component_target_preservation=bool(
+                payload.get("enable_visual_negated_component_target_preservation", False)
             ),
             tool_prompt_contract_id=str(payload.get("tool_prompt_contract_id", "") or ""),
             tool_catalog_profile_id=str(payload.get("tool_catalog_profile_id", "") or ""),

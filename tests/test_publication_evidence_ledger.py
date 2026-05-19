@@ -184,6 +184,9 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert claims["C65_h2y_scaled_cli_semantic_pressure_exposes_h2w_boundary"][
         "status"
     ] == "supported_boundary_result_fallback_independent"
+    assert claims["C66_h2z_boundary_ablation_closes_h2y_with_separable_controller_helpers"][
+        "status"
+    ] == "supported_boundary_ablation_requires_harder_holdout"
     assert "7/8" in claims["C2_final_tool_directive_causal_for_protocol"]["primary_metric"]
     assert "8/8 strict and 8/8 executor-equivalent versus H2p at 3/8" in claims[
         "C56_h2r_composed_route_gating_solves_h2q_locally"
@@ -247,6 +250,15 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     ]["primary_metric"]
     assert "all three stale-selection negation rows remain wrong-tool failures" in claims[
         "C65_h2y_scaled_cli_semantic_pressure_exposes_h2w_boundary"
+    ]["limitation"]
+    assert "H2z stale-selection negation alone reaches 15/16" in claims[
+        "C66_h2z_boundary_ablation_closes_h2y_with_separable_controller_helpers"
+    ]["primary_metric"]
+    assert "H2z combined reaches 16/16 strict and 16/16 executor-equivalent" in claims[
+        "C66_h2z_boundary_ablation_closes_h2y_with_separable_controller_helpers"
+    ]["primary_metric"]
+    assert "not yet evidence that the combined helper should be globally promoted" in claims[
+        "C66_h2z_boundary_ablation_closes_h2y_with_separable_controller_helpers"
     ]["limitation"]
     assert "v3 raw exact falls" in claims["C6_split_selector_wording_is_negative_evidence"]["primary_metric"]
     assert "schema-field hints reach 6/8 strict and 8/8 executor-equivalent" in claims[
@@ -1155,6 +1167,25 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
         row["claim_id"] == "C65_h2y_scaled_cli_semantic_pressure_exposes_h2w_boundary"
         and row["path"]
         == "results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h2w_vs_h2u_v1"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C66_h2z_boundary_ablation_closes_h2y_with_separable_controller_helpers"
+        and row["path"] == "results/reports/h2z_boundary_ablation_synthesis/report.md"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C66_h2z_boundary_ablation_closes_h2y_with_separable_controller_helpers"
+        and row["path"] == "results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h2z_combined_execute_v1"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C66_h2z_boundary_ablation_closes_h2y_with_separable_controller_helpers"
+        and row["path"]
+        == "results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h2z_combined_vs_h2w_v1"
         and row["exists"]
         for row in payload["evidence_sources"]
     )

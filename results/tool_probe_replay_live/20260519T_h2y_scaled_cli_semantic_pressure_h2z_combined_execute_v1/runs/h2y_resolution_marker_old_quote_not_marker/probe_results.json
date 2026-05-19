@@ -1,0 +1,102 @@
+[
+  {
+    "case_id": "h2y_resolution_marker_old_quote_not_marker",
+    "family": "h2y_quoted_stale_negation_context",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "h2y-resolution-marker-18021"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2y-resolution-marker-quote",
+          "target_query": "resolution marker"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h2y-resolution-marker-quote",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "h2y-resolution-marker-18021"
+          ],
+          "region_id": "h2y-resolution-marker-18021",
+          "text_preview": "Resolved"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2y-resolution-marker-quote",
+          "target_query": "resolution marker"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2y-resolution-marker-quote",
+          "target_query": "resolution marker"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h2y-resolution-marker-quote\", \"target_query\": \"resolution marker\"}}",
+    "runtime_metadata": {
+      "backend": "mlx",
+      "runtime_info": {
+        "backend": "mlx",
+        "runtime_posture": "mlx",
+        "requested_model": "google/gemma-4-E2B-it",
+        "effective_model": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_source": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_format": "mlx",
+        "runtime_device": "mlx",
+        "load_mode": "vision",
+        "configured_device": "auto",
+        "request_timeout_seconds": 300.0,
+        "tool_turn_directive_enabled": false,
+        "tool_prompt_contract_id": "",
+        "tool_catalog_profile_id": "visual_role_catalog_route_arbitration_residual_exactness_v20",
+        "service": {},
+        "partial_runtime": false,
+        "llama_cpp_error": null,
+        "llama_cpp_context_window": null
+      },
+      "visual_semantic_target_preservation": [
+        {
+          "from_tool": "extract_layout",
+          "from_arguments": {
+            "image_id": "img-h2y-resolution-marker-quote",
+            "target_query": "resolution marker"
+          },
+          "to_tool": "extract_layout",
+          "to_arguments": {
+            "image_id": "img-h2y-resolution-marker-quote",
+            "target_query": "resolution marker"
+          },
+          "prompt_state_label": "resolution marker",
+          "preserved_target_query": "resolution marker",
+          "blocked_label": "audit memo",
+          "reason": "semantic_label_preserved_over_stale_context"
+        }
+      ]
+    },
+    "prompt_tokens": 1803,
+    "completion_tokens": 39,
+    "latency_ms": 21161
+  }
+]

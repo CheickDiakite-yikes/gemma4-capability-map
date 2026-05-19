@@ -1,5 +1,41 @@
 # Research Log
 
+## 2026-05-19 - H2z Boundary Ablation Closes H2y With Separable Controller Helpers
+
+- Added two narrow H2z controller helpers on top of H2w:
+  - `enable_visual_stale_selection_negation_guard` rewrites a still-current but explicitly rejected stale `selection_id` into a current-image `extract_layout` call when the latest user instruction marks that selection as stale/old/ignored.
+  - `enable_visual_negated_component_target_preservation` preserves labels such as `alert banner not active` when the model collapses the request to a short component query such as `alert`.
+- Executed the H2z factorial rows on the same H2y 16-case CLI replay-live packet:
+  - stale-selection negation only: [`results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h2z_stale_negation_execute_v1`](../results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h2z_stale_negation_execute_v1)
+  - negated-component preservation only: [`results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h2z_negated_component_execute_v1`](../results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h2z_negated_component_execute_v1)
+  - combined: [`results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h2z_combined_execute_v1`](../results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h2z_combined_execute_v1)
+- Result:
+  - H2w baseline on H2y: `12 / 16` strict and executor-equivalent
+  - H2z stale-selection negation only: `15 / 16` strict and executor-equivalent
+  - H2z negated-component preservation only: `13 / 16` strict and executor-equivalent
+  - H2z combined: `16 / 16` strict and executor-equivalent
+  - combined-vs-H2w delta: `+0.25` strict exact-rate and `+0.25` executor-equivalence-rate
+- Mechanism read:
+  - stale-selection negation alone fixes exactly the three H2w wrong-tool rows: `h2y_escalation_lane_stale_selection_not_lane`, `h2y_exception_panel_stale_selection_not_panel`, and `h2y_approval_field_stale_selection_not_field`
+  - negated-component preservation alone fixes exactly `h2y_not_active_alert_banner_value_before_component`
+  - the combined row records `3` `visual_stale_selection_negation_guard` interventions and `1` `visual_negated_component_target_preservation` intervention
+  - strict and executor-equivalence move together on all H2z deltas, so this is not an executor-only rescue
+- Reporting updates:
+  - H2z synthesis: [`results/reports/h2z_boundary_ablation_synthesis/report.md`](../results/reports/h2z_boundary_ablation_synthesis/report.md)
+  - H2z figure: [`results/reports/h2z_boundary_ablation_synthesis/figures/h2z_boundary_ablation_gate.svg`](../results/reports/h2z_boundary_ablation_synthesis/figures/h2z_boundary_ablation_gate.svg)
+  - comparisons: [`stale-vs-H2w`](../results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h2z_stale_vs_h2w_v1), [`component-vs-H2w`](../results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h2z_component_vs_h2w_v1), [`combined-vs-H2w`](../results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h2z_combined_vs_h2w_v1), [`combined-vs-stale`](../results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h2z_combined_vs_stale_v1), [`combined-vs-component`](../results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h2z_combined_vs_component_v1)
+  - new claim: `C66_h2z_boundary_ablation_closes_h2y_with_separable_controller_helpers`
+- Research decision:
+  - H2z is a strong causal boundary ablation, not a final global promotion.
+  - The next paper-quality move is a harder fresh holdout that varies workflow family, state shape, label order, stale-selection phrasing, and negated component syntax.
+  - Keep local MLX replay-live execution sequential or very-low-concurrency; the H2w/H2x/H2y history already showed parallel Metal pressure can timeout.
+- Verification:
+  - `uv run pytest tests/test_tool_directive_probe.py tests/test_prompt_contracts.py tests/test_h2z_boundary_ablation_synthesis.py -q`
+  - `uv run moonie-agent replay-live --packet-dir results/tool_probe_replay_packets/20260519T_h2y_scaled_cli_semantic_pressure_dry_run_v1 --system-id mlx_gemma4_e2b_reasoner_only_h2z_boundary_combined --output-dir results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h2z_combined_execute_v1 --execute --json`
+  - `uv run python scripts/build_h2z_boundary_ablation_synthesis.py`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`
+
 ## 2026-05-12 - H2s Fresh Composed Holdout Confirms Frozen H2r
 
 - Executed H2s as the first fresh unseen composed holdout after the H2r transfer backtest:

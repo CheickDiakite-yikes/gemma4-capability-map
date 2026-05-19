@@ -3711,6 +3711,82 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C66_h2z_boundary_ablation_closes_h2y_with_separable_controller_helpers",
+        claim=(
+            "The H2z boundary ablation shows that H2y's remaining failures are separable controller problems: "
+            "stale-selection negation and negated-component target preservation."
+        ),
+        status="supported_boundary_ablation_requires_harder_holdout",
+        evidence_strength="strong_internal_cli_factorial_ablation",
+        primary_metric=(
+            "On the same 16-case H2y packet, H2w reaches 12/16 strict and executor-equivalent, H2z stale-selection "
+            "negation alone reaches 15/16, H2z negated-component preservation alone reaches 13/16, and H2z combined "
+            "reaches 16/16 strict and 16/16 executor-equivalent. The combined row gains +0.25 exact-rate and +0.25 "
+            "executor-equivalence-rate over H2w."
+        ),
+        limitation=(
+            "H2z closes H2y, but H2y is a fixed internal replay-live slice. This is strong causal attribution on the "
+            "known boundary, not yet evidence that the combined helper should be globally promoted without a harder "
+            "fresh holdout or packaged workflow-family stress test."
+        ),
+        next_test=(
+            "Build a harder H1/H3 holdout that preserves H2y-style ambiguity while varying workflow family, state "
+            "shape, label order, stale-selection phrasing, and negated component syntax."
+        ),
+        sources=(
+            EvidenceSource(
+                "replay_synthesis",
+                "results/reports/h2z_boundary_ablation_synthesis/report.md",
+                "Dedicated H2z synthesis summarizing stale-only, component-only, combined, comparison, and intervention rows.",
+            ),
+            EvidenceSource(
+                "replay_synthesis_figure",
+                "results/reports/h2z_boundary_ablation_synthesis/figures/h2z_boundary_ablation_gate.svg",
+                "Figure showing the H2w, stale-only, component-only, and combined strict/executor-equivalence bars.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h2z_stale_negation_execute_v1",
+                "H2z stale-selection negation guard live replay reaching 15/16 on H2y.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h2z_negated_component_execute_v1",
+                "H2z negated-component target-preservation live replay reaching 13/16 on H2y.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h2z_combined_execute_v1",
+                "H2z combined live replay reaching 16/16 strict and executor-equivalent on H2y.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h2z_stale_vs_h2w_v1",
+                "H2z stale-only versus H2w comparison showing +0.1875 exact and executor-equivalence deltas.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h2z_component_vs_h2w_v1",
+                "H2z component-only versus H2w comparison showing +0.0625 exact and executor-equivalence deltas.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h2z_combined_vs_h2w_v1",
+                "H2z combined versus H2w comparison showing +0.25 exact and executor-equivalence deltas.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h2z_combined_vs_stale_v1",
+                "H2z combined versus stale-only comparison isolating the one component-preservation case.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h2z_combined_vs_component_v1",
+                "H2z combined versus component-only comparison isolating the three stale-selection-negation cases.",
+            ),
+        ),
+    ),
 )
 
 

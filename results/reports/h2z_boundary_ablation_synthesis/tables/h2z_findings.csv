@@ -1,0 +1,6 @@
+finding_id,finding
+h2z_closes_h2y_scaled_cli_boundary,"H2z combined reaches 16/16 strict and 16/16 executor-equivalent on H2y, up from H2w's 12/16."
+h2z_factorial_split_is_additive,Stale-selection negation alone reaches 15/16 and fixes 3 H2w cases; negated-component preservation alone reaches 13/16 and fixes 1 H2w case.
+h2z_specific_mechanism_counts_match_cases,The combined row records 3 stale-selection negation interventions and 1 negated-component target-preservation intervention.
+h2z_strict_and_executor_metrics_move_together,The H2z combined delta over H2w is 0.25 strict and 0.25 executor-equivalent; this is not an executor-only rescue.
+h2z_next_step_is_harder_holdout,"The combined row has 0 non-exact H2y rows, so this slice should not be overpromoted; the next scientific step is a harder H1/H3 holdout with new state, language, and workflow-family variation."

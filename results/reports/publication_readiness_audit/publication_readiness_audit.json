@@ -1,9 +1,9 @@
 {
   "summary": {
-    "generated_at": "2026-05-19T19:30:34.433724+00:00",
+    "generated_at": "2026-05-19T22:28:18.325970+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 355,
-    "blocking_check_count": 348,
+    "check_count": 366,
+    "blocking_check_count": 359,
     "blocking_failed_count": 0,
     "recommended_check_count": 7,
     "recommended_failed_count": 0,
@@ -2161,6 +2161,76 @@
       "path": "results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h2w_no_fallback_vs_h2w_v1/live_replay_comparison.json"
     },
     {
+      "check_id": "h2z_boundary_ablation_synthesis_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2z boundary ablation synthesis report exists.",
+      "path": "results/reports/h2z_boundary_ablation_synthesis/report.md"
+    },
+    {
+      "check_id": "h2z_boundary_ablation_report_figure_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2z boundary ablation synthesis figure exists.",
+      "path": "results/reports/h2z_boundary_ablation_synthesis/figures/h2z_boundary_ablation_gate.svg"
+    },
+    {
+      "check_id": "h2z_stale_selection_negation_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2z stale-selection negation live replay packet exists.",
+      "path": "results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h2z_stale_negation_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h2z_negated_component_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2z negated-component preservation live replay packet exists.",
+      "path": "results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h2z_negated_component_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h2z_combined_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2z combined live replay packet exists.",
+      "path": "results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h2z_combined_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h2z_stale_vs_h2w_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2z stale-only versus H2w comparison exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h2z_stale_vs_h2w_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h2z_component_vs_h2w_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2z component-only versus H2w comparison exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h2z_component_vs_h2w_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h2z_combined_vs_h2w_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2z combined versus H2w comparison exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h2z_combined_vs_h2w_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h2z_combined_vs_stale_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2z combined versus stale-only comparison exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h2z_combined_vs_stale_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h2z_combined_vs_component_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2z combined versus component-only comparison exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h2z_combined_vs_component_v1/live_replay_comparison.json"
+    },
+    {
       "check_id": "h2x_packaged_semantic_pressure_workflow_config_exists",
       "severity": "blocking",
       "passed": true,
@@ -2474,6 +2544,13 @@
       "passed": true,
       "detail": "Reproduction script `build_h2y_scaled_cli_semantic_pressure_synthesis.py` exists.",
       "path": "scripts/build_h2y_scaled_cli_semantic_pressure_synthesis.py"
+    },
+    {
+      "check_id": "script_build_h2z_boundary_ablation_synthesis.py_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Reproduction script `build_h2z_boundary_ablation_synthesis.py` exists.",
+      "path": "scripts/build_h2z_boundary_ablation_synthesis.py"
     },
     {
       "check_id": "script_compare_tool_directive_probes.py_exists",

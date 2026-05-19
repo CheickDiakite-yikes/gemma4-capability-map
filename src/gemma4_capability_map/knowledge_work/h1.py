@@ -227,6 +227,11 @@ def _system_run_args(system_id: str, meta: dict[str, Any]) -> dict[str, Any]:
         "enable_visual_negation_aware_target_query_normalization": (
             controls.enable_visual_negation_aware_target_query_normalization
         ),
+        "enable_visual_semantic_target_preservation": controls.enable_visual_semantic_target_preservation,
+        "enable_visual_stale_selection_negation_guard": controls.enable_visual_stale_selection_negation_guard,
+        "enable_visual_negated_component_target_preservation": (
+            controls.enable_visual_negated_component_target_preservation
+        ),
         "tool_prompt_contract_id": controls.tool_prompt_contract_id,
         "tool_catalog_profile_id": controls.tool_catalog_profile_id,
     }

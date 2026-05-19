@@ -2,7 +2,7 @@
 
 ## Current Best Next Moves
 
-The next move is not another broad prompt-contract paragraph, not another H2e/H2j victory lap, and not more tuning on the H2q rows. H1y/H1z showed that prompt/catalog prose alone did not solve stale selection-origin routing. H2a showed that a controller-side stale-selection gate is causal and transferable. H2b isolated residual exactness; H2c/H2d exposed the transfer tradeoff; H2e reconciled it. H2f then broke global H2e promotion, H2h repaired H2f but regressed H2b/H1x, and H2i showed conditional prompt prose did not preserve the H2f repair. H2j moved the useful repair into controller-visible target-query normalization. H2k/H2l/H2m then separated target-normalization benefit from value-bearing over-strip risk. H2n scoped the normalizer, H2o constructed value-bearing target queries, H2p routed contextual surface aliases, and H2q broke that stack under composed surface/value/stale pressure. H2r locally repaired H2q at `8 / 8`, passed transfer at `81 / 81` strict and executor-equivalent across nine transfer packets, and then passed fresh H2s at `10 / 10` strict and executor-equivalent with H2p/H2o at `3 / 10` and H2j at `1 / 10`. H2t broke H2r's apparent saturation: H2r/H2p/H2o/H2j tied at `8 / 10`, H2e reached `6 / 10` strict but `9 / 10` executor-equivalent, and the two H2r misses were raw-exact MLX calls overwritten by controller target-query normalization and then by composed-route gating. H2u fixed that pipeline-order failure: it reaches `10 / 10` on H2t, preserves `26 / 26` strict/executor-equivalent across H2s/H2q/H2m, preserves another `39 / 39` across H2k/H2l/H2f/H2b/H1x, and closes older H1y/H1o/H1p at `34 / 34`, for a current broad transfer subtotal of `99 / 99`. H2v then broke the apparent H2u saturation: H2u is `4 / 10` strict and `5 / 10` executor-equivalent, H2r and H2j are both `3 / 10` strict and `4 / 10` executor-equivalent. H2w repairs that H2v boundary locally at `10 / 10` strict and executor-equivalent, with `+0.60` exact-rate and `+0.50` executor-equivalence-rate gains over H2u. The H2w transfer backtest now preserves `109 / 109` strict and executor-equivalent across H2s/H2t/H2q/H2m/H2k/H2l/H2f/H2b/H1x/H1y/H1o/H1p, ties H2u with zero regression on every transfer comparison, and only improves over H2r on the inherited H2t rows. H2x then ports the same semantic pressure into the CLI-first packaged workflow line: H2u falls to `3 / 8` strict and `4 / 8` executor-equivalent, H2w reaches `8 / 8`, and both no-fallback controls have `0.0` deltas. H2y scales that gate to `16` cases: H2u reaches `4 / 16` strict and `5 / 16` executor-equivalent, H2w reaches `12 / 16`, and the no-fallback controls again tie their full-controller rows. The next move is a focused H2z helper ablation that keeps H2y replay pressure intact while isolating stale-selection negation and short component-query collapse.
+The next move is not another broad prompt-contract paragraph, not another H2e/H2j victory lap, and not more tuning on the H2q rows. H2w is transfer-clean at `109 / 109`, H2x showed semantic-preservation gains survive CLI pressure with fallback independence, and H2y scaled that pressure to a `16`-case boundary where H2w reached only `12 / 16`. H2z has now run the focused helper ablation that H2y demanded: stale-selection negation alone reaches `15 / 16`, negated-component target preservation alone reaches `13 / 16`, and the combined H2z row reaches `16 / 16` strict and executor-equivalent. The next move is a harder fresh H1/H3 holdout that keeps H2y-style ambiguity but changes workflow family, state shape, label order, stale-selection phrasing, and negated component syntax. Treat H2z as strong causal attribution on a known boundary, not as a global promotion.
 
 Execution order:
 
@@ -36,11 +36,13 @@ Execution order:
 28. Treat H2v as the current boundary packet: it separates quoted negation, instructional negation, stale-example captions, genuine negated targets, and a clean control; H2u improves by only one strict/executor case over H2r/H2j.
 29. Treat H2w as transfer-clean replay evidence and H2x/H2y-positive under CLI semantic pressure: it reaches `10 / 10` strict and executor-equivalent on H2v, fixes `6` H2u strict misses, records semantic-preservation and component-qualified value canonicalization, preserves `109 / 109` strict/executor-equivalent on transfer/back-compat, reaches `8 / 8` on H2x, and reaches `12 / 16` on H2y.
 30. Treat H2x as fallback-independent evidence: H2u and H2w no-fallback controls tie their full-controller rows, so the H2x gain is semantic-preservation-causal rather than fallback-causal on this slice.
-31. Treat H2y as the current boundary evidence: H2w fixes eight H2u strict misses but still fails all three stale-selection-negation rows and one short-query-collapse row.
-32. Treat fallback as deprioritized for the next slice: H2x and H2y both show `0.0` fallback deltas for H2u and H2w, so the next helper should target routing/target preservation rather than no-call rescue.
-33. Treat the H2w/H2x/H2y local MLX run history as runtime-posture evidence too: a four-way parallel MLX replay attempt hit a Metal GPU timeout, while sequential replay completed cleanly, so future local MLX backtests should default to sequential or very-low-concurrency execution.
-34. Score both strict exactness and executor-equivalence; do not collapse executor-valid paraphrases into failures when evaluating live usefulness.
-35. Keep broad packaged workflow reruns paused unless they preserve H2y-style pressure; H1l/H1m already showed packaged visual surfaces can wash out the mechanism.
+31. Treat H2y as the boundary evidence that motivated H2z: H2w fixed eight H2u strict misses but still failed all three stale-selection-negation rows and one short-query-collapse row.
+32. Treat H2z as the current causal closure of that boundary: stale-only fixes the three wrong-tool rows, component-only fixes the single `alert banner not active` row, and combined reaches `16 / 16`.
+33. Treat H2z as not yet globally promoted: it is a known-boundary closure and needs a harder fresh holdout before it becomes the default live CLI candidate.
+34. Treat fallback as deprioritized for the next slice: H2x and H2y both show `0.0` fallback deltas for H2u and H2w, and H2z moved strict/executor metrics through routing and target preservation, not fallback.
+35. Treat the H2w/H2x/H2y/H2z local MLX run history as runtime-posture evidence too: a four-way parallel MLX replay attempt hit a Metal GPU timeout, while sequential replay completed cleanly, so future local MLX backtests should default to sequential or very-low-concurrency execution.
+36. Score both strict exactness and executor-equivalence; do not collapse executor-valid paraphrases into failures when evaluating live usefulness.
+37. Keep broad packaged workflow reruns paused unless they preserve H2y/H2z-style pressure; H1l/H1m already showed packaged visual surfaces can wash out the mechanism.
 
 Immediate suggested command:
 
@@ -57,21 +59,21 @@ uv run python scripts/build_h2w_transfer_backtest_synthesis.py
 uv run python scripts/build_h2x_cli_semantic_pressure_synthesis.py
 uv run python scripts/build_visual_hard_slice_live_stress_packet.py --suite h2y_scaled_cli_semantic_pressure_v25 --run-group-id 20260519T_h2y_scaled_cli_semantic_pressure_dry_run_v1
 uv run python scripts/build_h2y_scaled_cli_semantic_pressure_synthesis.py
+uv run python scripts/build_h2z_boundary_ablation_synthesis.py
 uv run python scripts/build_publication_evidence_ledger.py
 uv run python scripts/audit_publication_readiness.py
 rg -n "visual_composed_route_gating|visual_contextual_surface_alias_routing|visual_value_bearing_target_query_synthesis|visual_stale_selection_gate|refine_selection|target_query_normalization" src/gemma4_capability_map configs tests
 ```
 
-Then validate H2y's remaining risk in a focused helper slice:
+Then build the next hard holdout:
 
-- add an H2z candidate that blocks stale `refine_selection` when the latest user instruction negates or rejects the stale selection context
-- add a second H2z candidate that preserves short-but-negated component targets such as `alert banner not active` instead of collapsing them to `alert`
-- rerun H2y with H2w, H2w-no-fallback, and the H2z candidate rows before any broader package promotion
-- keep a fallback-specific holdout only if the bounded no-call visual fallback becomes promotion-critical
-- keep H2e as an executor-equivalence tradeoff control only if H2w changes lower-level routing enough to need that baseline again
-- if packaged transfer is chosen next, port H2y/H2q/H2s/H2t pressure into attributable workflow families without letting workflow scaffolding resolve the case before the model/controller sees it
-- use H2r transfer synthesis as the current incumbent transfer gate
-- preserve H2a globally for stale-origin packets; H2k/H2l/H2m/H2p only show stale rescue is irrelevant on these slices, not that it should be removed everywhere
+- preserve the H2y/H2z ambiguity classes but author fresh cases with new labels, state layout order, stale-selection IDs, and negated component syntax
+- include workflow-family attribution so the report can say whether the helper works only on visual replay cases or transfers into packaged live CLI workflows
+- include an H2w baseline, H2z stale-only, H2z component-only, H2z combined, and a no-fallback control only if no-call rescue becomes active
+- keep H2e as an executor-equivalence tradeoff control only if the new slice changes lower-level routing enough to need that baseline again
+- if packaged transfer is chosen next, port H2y/H2z pressure into attributable workflow families without letting workflow scaffolding resolve the case before the model/controller sees it
+- use H2r/H2u/H2w transfer syntheses as incumbent transfer gates
+- preserve H2a globally for stale-origin packets; H2k/H2l/H2m/H2p only show stale rescue is irrelevant on those slices, not that it should be removed everywhere
 
 ## Immediate
 

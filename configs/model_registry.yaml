@@ -1959,6 +1959,106 @@ systems:
     input_cost_per_mtok: 0.0
     output_cost_per_mtok: 0.0
     color: "#451A03"
+  mlx_gemma4_e2b_reasoner_only_h2z_stale_selection_negation_guard:
+    display_name: Gemma 4 E2B (MLX 4-bit, H2z stale-selection negation guard)
+    short_label: Gemma 4 MLX H2z stale negation
+    provider: mlx-community
+    backend: mlx
+    deployment: local_reasoner_mlx
+    capability_family: reasoner_only_tool_catalog_profile_controller_gate_ablation
+    comparison_tier: research
+    publishable_default: false
+    executor_mode: local_reasoner
+    modality: multimodal
+    local: true
+    reasoner: google/gemma-4-E2B-it
+    router: ""
+    retriever: ""
+    reasoner_params_b: 27.0
+    total_params_b: 27.0
+    reasoner_max_new_tokens: 64
+    request_timeout_seconds: 300.0
+    run_timeout_seconds: 1800.0
+    research_controls:
+      disable_tool_turn_directive: true
+      tool_catalog_profile_id: visual_role_catalog_route_arbitration_residual_exactness_v20
+      enable_visual_stale_selection_gate: true
+      enable_visual_value_bearing_target_query_synthesis: true
+      enable_visual_contextual_surface_alias_routing: true
+      enable_visual_composed_route_gating: true
+      enable_visual_negation_aware_target_query_normalization: true
+      enable_visual_semantic_target_preservation: true
+      enable_visual_stale_selection_negation_guard: true
+    input_cost_per_mtok: 0.0
+    output_cost_per_mtok: 0.0
+    color: "#713F12"
+  mlx_gemma4_e2b_reasoner_only_h2z_negated_component_target_preservation:
+    display_name: Gemma 4 E2B (MLX 4-bit, H2z negated component target preservation)
+    short_label: Gemma 4 MLX H2z negated component
+    provider: mlx-community
+    backend: mlx
+    deployment: local_reasoner_mlx
+    capability_family: reasoner_only_tool_catalog_profile_controller_gate_ablation
+    comparison_tier: research
+    publishable_default: false
+    executor_mode: local_reasoner
+    modality: multimodal
+    local: true
+    reasoner: google/gemma-4-E2B-it
+    router: ""
+    retriever: ""
+    reasoner_params_b: 27.0
+    total_params_b: 27.0
+    reasoner_max_new_tokens: 64
+    request_timeout_seconds: 300.0
+    run_timeout_seconds: 1800.0
+    research_controls:
+      disable_tool_turn_directive: true
+      tool_catalog_profile_id: visual_role_catalog_route_arbitration_residual_exactness_v20
+      enable_visual_stale_selection_gate: true
+      enable_visual_value_bearing_target_query_synthesis: true
+      enable_visual_contextual_surface_alias_routing: true
+      enable_visual_composed_route_gating: true
+      enable_visual_negation_aware_target_query_normalization: true
+      enable_visual_semantic_target_preservation: true
+      enable_visual_negated_component_target_preservation: true
+    input_cost_per_mtok: 0.0
+    output_cost_per_mtok: 0.0
+    color: "#854D0E"
+  mlx_gemma4_e2b_reasoner_only_h2z_boundary_combined:
+    display_name: Gemma 4 E2B (MLX 4-bit, H2z stale negation + negated component preservation)
+    short_label: Gemma 4 MLX H2z boundary combined
+    provider: mlx-community
+    backend: mlx
+    deployment: local_reasoner_mlx
+    capability_family: reasoner_only_tool_catalog_profile_controller_gate_ablation
+    comparison_tier: research
+    publishable_default: false
+    executor_mode: local_reasoner
+    modality: multimodal
+    local: true
+    reasoner: google/gemma-4-E2B-it
+    router: ""
+    retriever: ""
+    reasoner_params_b: 27.0
+    total_params_b: 27.0
+    reasoner_max_new_tokens: 64
+    request_timeout_seconds: 300.0
+    run_timeout_seconds: 1800.0
+    research_controls:
+      disable_tool_turn_directive: true
+      tool_catalog_profile_id: visual_role_catalog_route_arbitration_residual_exactness_v20
+      enable_visual_stale_selection_gate: true
+      enable_visual_value_bearing_target_query_synthesis: true
+      enable_visual_contextual_surface_alias_routing: true
+      enable_visual_composed_route_gating: true
+      enable_visual_negation_aware_target_query_normalization: true
+      enable_visual_semantic_target_preservation: true
+      enable_visual_stale_selection_negation_guard: true
+      enable_visual_negated_component_target_preservation: true
+    input_cost_per_mtok: 0.0
+    output_cost_per_mtok: 0.0
+    color: "#4A2E0B"
   mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_route_arbitration_residual_exactness_visual_target_query_normalization_no_stale_selection_gate:
     display_name: Gemma 4 E2B (MLX 4-bit, no directive + route arbitration + target-query normalization/no stale-selection gate)
     short_label: Gemma 4 MLX target-query normalization/no stale gate

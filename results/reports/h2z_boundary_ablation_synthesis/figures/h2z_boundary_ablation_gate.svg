@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="360" viewBox="0 0 960 360" role="img" aria-labelledby="title desc">
+<title id="title">H2z boundary ablation gate</title>
+<desc id="desc">Stale-selection negation and negated-component target preservation close the H2y residual.</desc>
+<rect width="960" height="360" fill="#FFFFFF"/>
+<text x="32" y="34" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#111827">H2z turns the H2y residual into separable controller effects</text>
+<line x1="82" y1="254" x2="860" y2="254" stroke="#111827" stroke-width="1"/>
+<line x1="76" y1="254.0" x2="860" y2="254.0" stroke="#E5E7EB" stroke-width="1"/>
+<text x="38" y="258.0" font-family="Arial, sans-serif" font-size="11" fill="#6B7280">0.0</text>
+<line x1="76" y1="216.0" x2="860" y2="216.0" stroke="#E5E7EB" stroke-width="1"/>
+<text x="38" y="220.0" font-family="Arial, sans-serif" font-size="11" fill="#6B7280">0.2</text>
+<line x1="76" y1="178.0" x2="860" y2="178.0" stroke="#E5E7EB" stroke-width="1"/>
+<text x="38" y="182.0" font-family="Arial, sans-serif" font-size="11" fill="#6B7280">0.4</text>
+<line x1="76" y1="140.0" x2="860" y2="140.0" stroke="#E5E7EB" stroke-width="1"/>
+<text x="38" y="144.0" font-family="Arial, sans-serif" font-size="11" fill="#6B7280">0.6</text>
+<line x1="76" y1="102.0" x2="860" y2="102.0" stroke="#E5E7EB" stroke-width="1"/>
+<text x="38" y="106.0" font-family="Arial, sans-serif" font-size="11" fill="#6B7280">0.8</text>
+<line x1="76" y1="64.0" x2="860" y2="64.0" stroke="#E5E7EB" stroke-width="1"/>
+<text x="38" y="68.0" font-family="Arial, sans-serif" font-size="11" fill="#6B7280">1.0</text>
+<rect x="82" y="111.5" width="42" height="142.5" fill="#92400E"/>
+<rect x="132" y="111.5" width="42" height="142.5" fill="#92400E" opacity="0.45"/>
+<text x="84" y="103.5" font-family="Arial, sans-serif" font-size="12" fill="#111827">12/16</text>
+<text x="134" y="103.5" font-family="Arial, sans-serif" font-size="12" fill="#111827">12/16</text>
+<text x="74" y="282" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#111827">H2w</text>
+<rect x="270" y="75.9" width="42" height="178.1" fill="#713F12"/>
+<rect x="320" y="75.9" width="42" height="178.1" fill="#713F12" opacity="0.45"/>
+<text x="272" y="67.9" font-family="Arial, sans-serif" font-size="12" fill="#111827">15/16</text>
+<text x="322" y="67.9" font-family="Arial, sans-serif" font-size="12" fill="#111827">15/16</text>
+<text x="262" y="282" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#111827">H2z stale</text>
+<rect x="458" y="99.6" width="42" height="154.4" fill="#854D0E"/>
+<rect x="508" y="99.6" width="42" height="154.4" fill="#854D0E" opacity="0.45"/>
+<text x="460" y="91.6" font-family="Arial, sans-serif" font-size="12" fill="#111827">13/16</text>
+<text x="510" y="91.6" font-family="Arial, sans-serif" font-size="12" fill="#111827">13/16</text>
+<text x="450" y="282" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#111827">H2z component</text>
+<rect x="646" y="64.0" width="42" height="190.0" fill="#166534"/>
+<rect x="696" y="64.0" width="42" height="190.0" fill="#166534" opacity="0.45"/>
+<text x="648" y="56.0" font-family="Arial, sans-serif" font-size="12" fill="#111827">16/16</text>
+<text x="698" y="56.0" font-family="Arial, sans-serif" font-size="12" fill="#111827">16/16</text>
+<text x="638" y="282" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#111827">H2z combined</text>
+<rect x="720" y="304" width="18" height="12" fill="#166534"/>
+<text x="744" y="315" font-family="Arial, sans-serif" font-size="12" fill="#374151">strict</text>
+<rect x="720" y="324" width="18" height="12" fill="#166534" opacity="0.45"/>
+<text x="744" y="335" font-family="Arial, sans-serif" font-size="12" fill="#374151">executor-equivalent</text>
+</svg>

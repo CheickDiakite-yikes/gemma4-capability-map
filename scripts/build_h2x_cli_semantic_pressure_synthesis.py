@@ -83,6 +83,8 @@ INTERVENTION_KEYS = (
     "visual_value_bearing_target_query_synthesis",
     "visual_contextual_surface_alias_routing",
     "visual_composed_route_gating",
+    "visual_stale_selection_negation_guard",
+    "visual_negated_component_target_preservation",
     "visual_target_query_normalization_blocked",
     "visual_composed_route_gating_blocked",
 )

@@ -1,0 +1,6 @@
+comparison_label,comparison_dir,shared_case_count,baseline_exact_rate,candidate_exact_rate,delta_exact_rate,baseline_executor_equivalence_rate,candidate_executor_equivalence_rate,delta_executor_equivalence_rate
+h2z_stale_vs_h2w,results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h2z_stale_vs_h2w_v1,16,0.75,0.9375,0.1875,0.75,0.9375,0.1875
+h2z_component_vs_h2w,results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h2z_component_vs_h2w_v1,16,0.75,0.8125,0.0625,0.75,0.8125,0.0625
+h2z_combined_vs_h2w,results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h2z_combined_vs_h2w_v1,16,0.75,1.0,0.25,0.75,1.0,0.25
+h2z_combined_vs_stale,results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h2z_combined_vs_stale_v1,16,0.9375,1.0,0.0625,0.9375,1.0,0.0625
+h2z_combined_vs_component,results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h2z_combined_vs_component_v1,16,0.8125,1.0,0.1875,0.8125,1.0,0.1875

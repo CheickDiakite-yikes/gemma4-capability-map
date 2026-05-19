@@ -1,0 +1,81 @@
+[
+  {
+    "case_id": "h2y_exception_panel_stale_selection_not_panel",
+    "family": "h2y_stale_selection_negation_context",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "h2y-exception-panel-18041"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "refine_selection",
+        "arguments": {
+          "selection_id": "sel-h2y-exception-note",
+          "filter_query": "not the exception panel"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-002",
+          "image_id": "img-h2y-exception-panel-stale-selection",
+          "selection_kind": "regions",
+          "count": 0,
+          "executor_mode": "local",
+          "parent_selection_id": "sel-h2y-exception-note",
+          "region_ids": []
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2y-exception-panel-stale-selection",
+          "target_query": "exception panel"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "refine_selection",
+        "arguments": {
+          "selection_id": "sel-h2y-exception-note",
+          "filter_query": "not the exception panel"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"refine_selection\", \"arguments\": {\"selection_id\": \"sel-h2y-exception-note\", \"filter_query\": \"not the exception panel\"}}",
+    "runtime_metadata": {
+      "backend": "mlx",
+      "runtime_info": {
+        "backend": "mlx",
+        "runtime_posture": "mlx",
+        "requested_model": "google/gemma-4-E2B-it",
+        "effective_model": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_source": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_format": "mlx",
+        "runtime_device": "mlx",
+        "load_mode": "vision",
+        "configured_device": "auto",
+        "request_timeout_seconds": 300.0,
+        "tool_turn_directive_enabled": false,
+        "tool_prompt_contract_id": "",
+        "tool_catalog_profile_id": "visual_role_catalog_route_arbitration_residual_exactness_v20",
+        "service": {},
+        "partial_runtime": false,
+        "llama_cpp_error": null,
+        "llama_cpp_context_window": null
+      }
+    },
+    "prompt_tokens": 1805,
+    "completion_tokens": 40,
+    "latency_ms": 13807
+  }
+]

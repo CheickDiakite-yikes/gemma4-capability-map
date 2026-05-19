@@ -7,6 +7,7 @@ from gemma4_capability_map.runtime.tool_directive_probe import (
     ToolDirectiveProbeCase,
     _apply_visual_composed_route_gating,
     _apply_visual_contextual_surface_alias_routing,
+    _apply_visual_negated_component_target_preservation,
     _apply_visual_semantic_target_preservation,
     _apply_visual_stale_selection_gate,
     _apply_visual_target_query_normalization,
@@ -1165,6 +1166,74 @@ def test_semantic_target_preservation_routes_invalid_selection_to_current_target
     assert patched.runtime_metadata["visual_stale_selection_gate"][0]["to_arguments"]["target_query"] == "risk lane"
 
 
+def test_stale_selection_negation_guard_rewrites_current_but_rejected_selection() -> None:
+    specs = build_default_registry().specs
+    case = ToolDirectiveProbeCase(
+        case_id="stale-selection-negated-current",
+        family="visual",
+        messages=[
+            Message(role="system", content="visual_image_ids: img-escalation"),
+            Message(
+                role="user",
+                content=(
+                    "The stale selection sel-old-note says not the escalation lane. "
+                    "Ignore that old selection and use the current escalation lane for P1."
+                ),
+            ),
+        ],
+        media=["img-escalation"],
+        tool_names=["extract_layout", "refine_selection"],
+        initial_state={
+            "images": {
+                "img-escalation": {
+                    "local_layouts": [
+                        {"region_id": "chip-1", "label": "escalation chip p1", "text": "P1"},
+                        {"region_id": "lane-1", "label": "escalation lane", "text": "P1"},
+                        {"region_id": "note-1", "label": "old note", "text": "not the escalation lane"},
+                    ]
+                }
+            },
+            "visual_selections": {
+                "sel-old-note": {
+                    "image_id": "img-escalation",
+                    "selection_kind": "regions",
+                    "items": [{"region_id": "note-1", "label": "old note", "text": "not the escalation lane"}],
+                    "query": "not the escalation lane",
+                }
+            },
+            "visual_last_selection_id": "sel-old-note",
+        },
+    )
+    turn = ModelTurn(
+        raw_model_output="{}",
+        normalized_tool_call=[
+            ToolCall(
+                name="refine_selection",
+                arguments={"selection_id": "sel-old-note", "filter_query": "P1"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+    )
+
+    patched = _apply_visual_stale_selection_gate(
+        turn=turn,
+        case=case,
+        tool_specs=[specs["extract_layout"], specs["refine_selection"]],
+        preserve_semantic_targets=True,
+        reject_negated_current_selection=True,
+    )
+
+    assert patched.normalized_tool_call[0].name == "extract_layout"
+    assert patched.normalized_tool_call[0].arguments == {
+        "image_id": "img-escalation",
+        "target_query": "escalation lane",
+    }
+    metadata = patched.runtime_metadata["visual_stale_selection_negation_guard"][0]
+    assert metadata["replaced_selection_id"] == "sel-old-note"
+    assert metadata["reason"] == "negated_current_selection_to_requested_surface"
+
+
 def test_semantic_target_preservation_canonicalizes_inverted_negated_value() -> None:
     specs = build_default_registry().specs
     case = ToolDirectiveProbeCase(
@@ -1217,6 +1286,56 @@ def test_semantic_target_preservation_canonicalizes_inverted_negated_value() -> 
     assert patched.runtime_metadata["visual_target_query_normalization"][0]["prompt_state_label"] == (
         "status badge Not ready"
     )
+
+
+def test_negated_component_target_preservation_expands_short_component_query() -> None:
+    specs = build_default_registry().specs
+    case = ToolDirectiveProbeCase(
+        case_id="negated-component-short-query",
+        family="visual",
+        messages=[
+            Message(role="system", content="visual_image_ids: img-alert"),
+            Message(
+                role="user",
+                content="Use the not active alert banner. Not active is the displayed banner value.",
+            ),
+        ],
+        media=["img-alert"],
+        tool_names=["extract_layout", "refine_selection"],
+        initial_state={
+            "images": {
+                "img-alert": {
+                    "local_layouts": [
+                        {"region_id": "alert-1", "label": "alert banner active", "text": "Active"},
+                        {"region_id": "alert-2", "label": "alert banner not active", "text": "Not active"},
+                        {"region_id": "note-1", "label": "alert note", "text": "Not active after policy review"},
+                    ]
+                }
+            },
+        },
+    )
+    turn = ModelTurn(
+        raw_model_output="{}",
+        normalized_tool_call=[
+            ToolCall(
+                name="extract_layout",
+                arguments={"image_id": "img-alert", "target_query": "alert"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+    )
+
+    patched = _apply_visual_negated_component_target_preservation(
+        turn=turn,
+        case=case,
+        tool_specs=[specs["extract_layout"], specs["refine_selection"]],
+    )
+
+    assert patched.normalized_tool_call[0].arguments["target_query"] == "alert banner not active"
+    metadata = patched.runtime_metadata["visual_negated_component_target_preservation"][0]
+    assert metadata["blocked_label"] == "alert"
+    assert metadata["preserved_target_query"] == "alert banner not active"
 
 
 def test_semantic_target_preservation_adds_no_call_visual_fallback() -> None:
