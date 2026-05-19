@@ -85,6 +85,8 @@ INTERVENTION_KEYS = (
     "visual_composed_route_gating",
     "visual_stale_selection_negation_guard",
     "visual_negated_component_target_preservation",
+    "visual_stale_selection_paraphrase_guard",
+    "visual_negative_value_component_target_preservation",
     "visual_target_query_normalization_blocked",
     "visual_composed_route_gating_blocked",
 )

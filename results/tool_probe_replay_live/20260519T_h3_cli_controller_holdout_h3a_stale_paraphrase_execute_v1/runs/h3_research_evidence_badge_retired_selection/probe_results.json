@@ -1,0 +1,100 @@
+[
+  {
+    "case_id": "h3_research_evidence_badge_retired_selection",
+    "family": "h3_research_stale_selection_paraphrase",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "h3-evidence-badge-19052"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h3-research-evidence-badge",
+          "target_query": "evidence badge"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-002",
+          "image_id": "img-h3-research-evidence-badge",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "h3-evidence-badge-19052"
+          ],
+          "region_id": "h3-evidence-badge-19052",
+          "text_preview": "Replicated"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h3-research-evidence-badge",
+          "target_query": "evidence badge"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h3-research-evidence-badge",
+          "target_query": "evidence badge"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"refine_selection\", \"arguments\": {\"selection_id\": \"sel-h3-evidence-note\", \"filter_query\": \"evidence badge\"}}",
+    "runtime_metadata": {
+      "backend": "mlx",
+      "runtime_info": {
+        "backend": "mlx",
+        "runtime_posture": "mlx",
+        "requested_model": "google/gemma-4-E2B-it",
+        "effective_model": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_source": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_format": "mlx",
+        "runtime_device": "mlx",
+        "load_mode": "vision",
+        "configured_device": "auto",
+        "request_timeout_seconds": 300.0,
+        "tool_turn_directive_enabled": false,
+        "tool_prompt_contract_id": "",
+        "tool_catalog_profile_id": "visual_role_catalog_route_arbitration_residual_exactness_v20",
+        "service": {},
+        "partial_runtime": false,
+        "llama_cpp_error": null,
+        "llama_cpp_context_window": null
+      },
+      "visual_stale_selection_paraphrase_guard": [
+        {
+          "from_tool": "refine_selection",
+          "from_arguments": {
+            "selection_id": "sel-h3-evidence-note",
+            "filter_query": "evidence badge"
+          },
+          "to_tool": "extract_layout",
+          "to_arguments": {
+            "image_id": "img-h3-research-evidence-badge",
+            "target_query": "evidence badge"
+          },
+          "replaced_selection_id": "sel-h3-evidence-note",
+          "reason": "paraphrased_stale_selection_to_requested_surface"
+        }
+      ]
+    },
+    "prompt_tokens": 1797,
+    "completion_tokens": 37,
+    "latency_ms": 9477
+  }
+]

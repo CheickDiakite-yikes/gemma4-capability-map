@@ -3872,6 +3872,92 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C68_h3a_controller_repair_closes_h3_with_separable_helpers",
+        claim=(
+            "H3a repairs the fresh H3 controller holdout with separable stale-selection paraphrase and "
+            "negative-value component target-preservation helpers."
+        ),
+        status="supported_fresh_holdout_factorial_repair",
+        evidence_strength="strong_internal_cli_holdout_factorial",
+        primary_metric=(
+            "On the 20-case H3 packet, H2z combined reaches 15/20 strict and executor-equivalent, H3a stale-only "
+            "reaches 19/20, H3a negative-value-only reaches 16/20, and H3a combined reaches 20/20. The stale-only "
+            "row fixes four H2z misses, the negative-only row fixes one, and the combined row fixes all five with "
+            "4 stale-paraphrase and 1 negative-value helper interventions recorded."
+        ),
+        limitation=(
+            "H3a is still an internal replay-live CLI holdout repair, not an external benchmark population estimate. "
+            "It should be treated as a candidate controller posture until H2y/H2z/H3 and broader transfer/back-compat "
+            "rows are rerun."
+        ),
+        next_test=(
+            "Run the transfer regression gate for H3a across H2y, H2z, H3, and the current back-compat packet set; "
+            "then design the next harder H3b/H4 slice to break any new top-line saturation."
+        ),
+        sources=(
+            EvidenceSource(
+                "replay_synthesis",
+                "results/reports/h3a_controller_repair_synthesis/report.md",
+                "Dedicated H3a synthesis showing the 15/20 to 20/20 repair and the separable single-helper rows.",
+            ),
+            EvidenceSource(
+                "replay_synthesis_figure",
+                "results/reports/h3a_controller_repair_synthesis/figures/h3a_controller_repair_gate.svg",
+                "Figure showing H2z baseline, stale-only, negative-only, and combined H3a controller rows.",
+            ),
+            EvidenceSource(
+                "tool_probe_replay_packet",
+                "results/tool_probe_replay_packets/20260519T_h3_cli_controller_holdout_dry_run_v1",
+                "Twenty-case H3 replay packet used for the H3a controller repair experiment.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h2z_combined_execute_v1",
+                "H2z combined H3 baseline reaching 15/20 with five residual misses.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h3a_stale_paraphrase_execute_v1",
+                "H3a stale-selection paraphrase-only live replay reaching 19/20 and fixing four stale paraphrase misses.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h3a_negative_value_execute_v1",
+                "H3a negative-value preservation-only live replay reaching 16/20 and fixing the inactive alert banner miss.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h3a_combined_execute_v1",
+                "H3a combined live replay reaching 20/20 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h3a_stale_vs_h2z_combined_v1",
+                "H3a stale-only versus H2z comparison showing +0.20 exact and executor-equivalence deltas.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h3a_negative_vs_h2z_combined_v1",
+                "H3a negative-only versus H2z comparison showing +0.05 exact and executor-equivalence deltas.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h3a_combined_vs_h2z_combined_v1",
+                "H3a combined versus H2z comparison showing +0.25 exact and executor-equivalence deltas.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h3a_combined_vs_stale_v1",
+                "H3a combined versus stale-only comparison isolating the negative-value residual case.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h3a_combined_vs_negative_v1",
+                "H3a combined versus negative-only comparison isolating the four stale-selection paraphrase residual cases.",
+            ),
+        ),
+    ),
 )
 
 

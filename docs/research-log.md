@@ -1,5 +1,41 @@
 # Research Log
 
+## 2026-05-19 - H3a Repairs H3 With Separable Controller Helpers
+
+- Added two H3a-only controller helpers on top of the existing H2w/H2z posture:
+  - `enable_visual_stale_selection_paraphrase_guard` catches stale-origin phrasing such as retired view, archived selector, carry-over selection, shadow selection, and remembered selection.
+  - `enable_visual_negative_value_component_target_preservation` preserves broader negative/status-value component labels such as inactive, disabled, unresolved, unassigned, paused, rejected, missing, and expired.
+- Executed the H3 packet through the H3a factorial rows:
+  - stale-selection paraphrase only: [`results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h3a_stale_paraphrase_execute_v1`](../results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h3a_stale_paraphrase_execute_v1)
+  - negative-value preservation only: [`results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h3a_negative_value_execute_v1`](../results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h3a_negative_value_execute_v1)
+  - combined: [`results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h3a_combined_execute_v1`](../results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h3a_combined_execute_v1)
+- Result:
+  - H2z combined H3 baseline: `15 / 20` strict and executor-equivalent
+  - H3a stale-selection paraphrase only: `19 / 20` strict and executor-equivalent
+  - H3a negative-value preservation only: `16 / 20` strict and executor-equivalent
+  - H3a combined: `20 / 20` strict and executor-equivalent
+  - combined-vs-H2z delta: `+0.25` strict exact-rate and `+0.25` executor-equivalence-rate
+  - stale-only fixes exactly the four stale paraphrase H2z misses: `h3_finance_renewal_lane_retired_view`, `h3_finance_forecast_tile_leftover_evidence`, `h3_research_claim_panel_carryover_selection`, and `h3_research_evidence_badge_retired_selection`
+  - negative-only fixes exactly `h3_support_inactive_alert_banner`
+  - combined records `4` `visual_stale_selection_paraphrase_guard` interventions and `1` `visual_negative_value_component_target_preservation` intervention
+- Research decision:
+  - H3a turns the H3 negative gate into a clean factorial repair: the two residual mechanisms split cleanly, and strict/executor-equivalence move together.
+  - Do not globally promote H3a yet. Treat it as the next candidate controller posture and run H2y/H2z/H3 plus broader transfer/back-compat gates before calling it a default.
+  - The benchmark-reporting standard is now closer to the public SOTA table shape: every row needs a named benchmark family, a model/controller profile, strict and executor-equivalent scores, fixed-case deltas, and controller-helper trace attribution.
+- Reporting updates:
+  - H3a synthesis: [`results/reports/h3a_controller_repair_synthesis/report.md`](../results/reports/h3a_controller_repair_synthesis/report.md)
+  - H3a figure: [`results/reports/h3a_controller_repair_synthesis/figures/h3a_controller_repair_gate.svg`](../results/reports/h3a_controller_repair_synthesis/figures/h3a_controller_repair_gate.svg)
+  - comparisons: [`stale-vs-H2z`](../results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h3a_stale_vs_h2z_combined_v1), [`negative-vs-H2z`](../results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h3a_negative_vs_h2z_combined_v1), [`combined-vs-H2z`](../results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h3a_combined_vs_h2z_combined_v1), [`combined-vs-stale`](../results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h3a_combined_vs_stale_v1), [`combined-vs-negative`](../results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h3a_combined_vs_negative_v1)
+  - new claim: `C68_h3a_controller_repair_closes_h3_with_separable_helpers`
+  - publication evidence ledger now has `68` claims, `482` sources, and `0` missing sources
+  - publication readiness audit now has `390` checks, `383` blocking checks, `0` blocking failures, and status `paper_draft_ready`
+- Verification:
+  - `uv run moonie-agent replay-live --packet-dir results/tool_probe_replay_packets/20260519T_h3_cli_controller_holdout_dry_run_v1 --system-id mlx_gemma4_e2b_reasoner_only_h3a_negative_value_target_preservation --output-dir results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h3a_negative_value_execute_v1 --execute --json`
+  - `uv run python scripts/build_h3a_controller_repair_synthesis.py`
+  - `uv run pytest tests/test_h3a_controller_repair_synthesis.py -q`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`
+
 ## 2026-05-19 - H3 CLI Controller Holdout Scores a Negative Promotion Gate
 
 - Added a fresh `h3_cli_controller_holdout_v26` suite to [`scripts/build_visual_hard_slice_live_stress_packet.py`](../scripts/build_visual_hard_slice_live_stress_packet.py).

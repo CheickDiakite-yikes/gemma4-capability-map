@@ -9,7 +9,7 @@
 | --- | --- | ---: | --- | --- |
 | ledger_manifest_exists | blocking | True | Publication evidence ledger manifest exists. | results/reports/publication_evidence_ledger/manifest.json |
 | ledger_has_no_missing_sources | blocking | True | missing_source_count=0 |  |
-| ledger_has_claims | blocking | True | claim_count=67 |  |
+| ledger_has_claims | blocking | True | claim_count=68 |  |
 | ledger_includes_negative_results | blocking | True | At least one claim is explicitly labeled as negative-result evidence. |  |
 | tool_contract_report_has_current_tables | blocking | True | table_count=110 |  |
 | tool_contract_report_has_current_figures | blocking | True | figure_count=45 |  |
@@ -336,6 +336,16 @@
 | h3_cli_controller_holdout_h2z_combined_vs_h2w_comparison_exists | blocking | True | H3 H2z combined versus H2w comparison exists. | results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h2z_combined_vs_h2w_v1/live_replay_comparison.json |
 | h3_cli_controller_holdout_h2z_combined_vs_stale_comparison_exists | blocking | True | H3 H2z combined versus stale-only comparison exists. | results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h2z_combined_vs_stale_v1/live_replay_comparison.json |
 | h3_cli_controller_holdout_h2z_combined_vs_component_comparison_exists | blocking | True | H3 H2z combined versus component-only comparison exists. | results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h2z_combined_vs_component_v1/live_replay_comparison.json |
+| h3a_controller_repair_synthesis_exists | blocking | True | H3a controller repair synthesis report exists. | results/reports/h3a_controller_repair_synthesis/report.md |
+| h3a_controller_repair_report_figure_exists | blocking | True | H3a controller repair gate figure exists. | results/reports/h3a_controller_repair_synthesis/figures/h3a_controller_repair_gate.svg |
+| h3a_controller_repair_stale_live_exists | blocking | True | H3a stale-selection paraphrase live replay packet exists. | results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h3a_stale_paraphrase_execute_v1/summary.json |
+| h3a_controller_repair_negative_live_exists | blocking | True | H3a negative-value preservation live replay packet exists. | results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h3a_negative_value_execute_v1/summary.json |
+| h3a_controller_repair_combined_live_exists | blocking | True | H3a combined live replay packet exists. | results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h3a_combined_execute_v1/summary.json |
+| h3a_controller_repair_stale_vs_h2z_comparison_exists | blocking | True | H3a stale-only versus H2z comparison exists. | results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h3a_stale_vs_h2z_combined_v1/live_replay_comparison.json |
+| h3a_controller_repair_negative_vs_h2z_comparison_exists | blocking | True | H3a negative-only versus H2z comparison exists. | results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h3a_negative_vs_h2z_combined_v1/live_replay_comparison.json |
+| h3a_controller_repair_combined_vs_h2z_comparison_exists | blocking | True | H3a combined versus H2z comparison exists. | results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h3a_combined_vs_h2z_combined_v1/live_replay_comparison.json |
+| h3a_controller_repair_combined_vs_stale_comparison_exists | blocking | True | H3a combined versus stale-only comparison exists. | results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h3a_combined_vs_stale_v1/live_replay_comparison.json |
+| h3a_controller_repair_combined_vs_negative_comparison_exists | blocking | True | H3a combined versus negative-only comparison exists. | results/tool_probe_replay_live_comparisons/20260519T_h3_cli_controller_holdout_h3a_combined_vs_negative_v1/live_replay_comparison.json |
 | h2x_packaged_semantic_pressure_workflow_config_exists | blocking | True | Packaged H2x semantic-pressure workflow config exists. | configs/packaged_workflows.yaml |
 | current_state_doc_exists | blocking | True | Continuity current-state doc exists. | docs/continuity/current-state.md |
 | next_steps_doc_exists | blocking | True | Continuity next-steps doc exists. | docs/continuity/next-steps.md |
@@ -383,6 +393,7 @@
 | script_build_h2y_scaled_cli_semantic_pressure_synthesis.py_exists | blocking | True | Reproduction script `build_h2y_scaled_cli_semantic_pressure_synthesis.py` exists. | scripts/build_h2y_scaled_cli_semantic_pressure_synthesis.py |
 | script_build_h2z_boundary_ablation_synthesis.py_exists | blocking | True | Reproduction script `build_h2z_boundary_ablation_synthesis.py` exists. | scripts/build_h2z_boundary_ablation_synthesis.py |
 | script_build_h3_cli_controller_holdout_synthesis.py_exists | blocking | True | Reproduction script `build_h3_cli_controller_holdout_synthesis.py` exists. | scripts/build_h3_cli_controller_holdout_synthesis.py |
+| script_build_h3a_controller_repair_synthesis.py_exists | blocking | True | Reproduction script `build_h3a_controller_repair_synthesis.py` exists. | scripts/build_h3a_controller_repair_synthesis.py |
 | script_compare_tool_directive_probes.py_exists | blocking | True | Reproduction script `compare_tool_directive_probes.py` exists. | scripts/compare_tool_directive_probes.py |
 | script_build_visual_hard_slice_design.py_exists | blocking | True | Reproduction script `build_visual_hard_slice_design.py` exists. | scripts/build_visual_hard_slice_design.py |
 | script_build_visual_hard_slice_replay_packet.py_exists | blocking | True | Reproduction script `build_visual_hard_slice_replay_packet.py` exists. | scripts/build_visual_hard_slice_replay_packet.py |

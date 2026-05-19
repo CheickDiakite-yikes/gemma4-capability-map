@@ -1,0 +1,402 @@
+[
+  {
+    "case_id": "h3_finance_invoice_lock_archived_selector",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "-m",
+      "gemma4_capability_map.runtime.cli",
+      "replay-live",
+      "--packet-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260519T_h3_cli_controller_holdout_dry_run_v1",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h3a_stale_paraphrase_execute_v1",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_h3a_stale_selection_paraphrase_guard",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--case-id",
+      "h3_finance_invoice_lock_archived_selector",
+      "--execute"
+    ]
+  },
+  {
+    "case_id": "h3_finance_renewal_lane_retired_view",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "-m",
+      "gemma4_capability_map.runtime.cli",
+      "replay-live",
+      "--packet-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260519T_h3_cli_controller_holdout_dry_run_v1",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h3a_stale_paraphrase_execute_v1",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_h3a_stale_selection_paraphrase_guard",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--case-id",
+      "h3_finance_renewal_lane_retired_view",
+      "--execute"
+    ]
+  },
+  {
+    "case_id": "h3_finance_forecast_tile_leftover_evidence",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "-m",
+      "gemma4_capability_map.runtime.cli",
+      "replay-live",
+      "--packet-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260519T_h3_cli_controller_holdout_dry_run_v1",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h3a_stale_paraphrase_execute_v1",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_h3a_stale_selection_paraphrase_guard",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--case-id",
+      "h3_finance_forecast_tile_leftover_evidence",
+      "--execute"
+    ]
+  },
+  {
+    "case_id": "h3_finance_approval_banner_remembered_selection",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "-m",
+      "gemma4_capability_map.runtime.cli",
+      "replay-live",
+      "--packet-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260519T_h3_cli_controller_holdout_dry_run_v1",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h3a_stale_paraphrase_execute_v1",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_h3a_stale_selection_paraphrase_guard",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--case-id",
+      "h3_finance_approval_banner_remembered_selection",
+      "--execute"
+    ]
+  },
+  {
+    "case_id": "h3_research_claim_panel_carryover_selection",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "-m",
+      "gemma4_capability_map.runtime.cli",
+      "replay-live",
+      "--packet-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260519T_h3_cli_controller_holdout_dry_run_v1",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h3a_stale_paraphrase_execute_v1",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_h3a_stale_selection_paraphrase_guard",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--case-id",
+      "h3_research_claim_panel_carryover_selection",
+      "--execute"
+    ]
+  },
+  {
+    "case_id": "h3_research_evidence_badge_retired_selection",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "-m",
+      "gemma4_capability_map.runtime.cli",
+      "replay-live",
+      "--packet-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260519T_h3_cli_controller_holdout_dry_run_v1",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h3a_stale_paraphrase_execute_v1",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_h3a_stale_selection_paraphrase_guard",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--case-id",
+      "h3_research_evidence_badge_retired_selection",
+      "--execute"
+    ]
+  },
+  {
+    "case_id": "h3_research_method_card_shadow_selection",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "-m",
+      "gemma4_capability_map.runtime.cli",
+      "replay-live",
+      "--packet-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260519T_h3_cli_controller_holdout_dry_run_v1",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h3a_stale_paraphrase_execute_v1",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_h3a_stale_selection_paraphrase_guard",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--case-id",
+      "h3_research_method_card_shadow_selection",
+      "--execute"
+    ]
+  },
+  {
+    "case_id": "h3_research_ablation_tile_remembered_selection",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "-m",
+      "gemma4_capability_map.runtime.cli",
+      "replay-live",
+      "--packet-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260519T_h3_cli_controller_holdout_dry_run_v1",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h3a_stale_paraphrase_execute_v1",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_h3a_stale_selection_paraphrase_guard",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--case-id",
+      "h3_research_ablation_tile_remembered_selection",
+      "--execute"
+    ]
+  },
+  {
+    "case_id": "h3_support_inactive_alert_banner",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "-m",
+      "gemma4_capability_map.runtime.cli",
+      "replay-live",
+      "--packet-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260519T_h3_cli_controller_holdout_dry_run_v1",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h3a_stale_paraphrase_execute_v1",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_h3a_stale_selection_paraphrase_guard",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--case-id",
+      "h3_support_inactive_alert_banner",
+      "--execute"
+    ]
+  },
+  {
+    "case_id": "h3_support_disabled_escalation_toggle",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "-m",
+      "gemma4_capability_map.runtime.cli",
+      "replay-live",
+      "--packet-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260519T_h3_cli_controller_holdout_dry_run_v1",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h3a_stale_paraphrase_execute_v1",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_h3a_stale_selection_paraphrase_guard",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--case-id",
+      "h3_support_disabled_escalation_toggle",
+      "--execute"
+    ]
+  },
+  {
+    "case_id": "h3_support_unresolved_ticket_badge",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "-m",
+      "gemma4_capability_map.runtime.cli",
+      "replay-live",
+      "--packet-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260519T_h3_cli_controller_holdout_dry_run_v1",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h3a_stale_paraphrase_execute_v1",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_h3a_stale_selection_paraphrase_guard",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--case-id",
+      "h3_support_unresolved_ticket_badge",
+      "--execute"
+    ]
+  },
+  {
+    "case_id": "h3_support_unassigned_owner_field",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "-m",
+      "gemma4_capability_map.runtime.cli",
+      "replay-live",
+      "--packet-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260519T_h3_cli_controller_holdout_dry_run_v1",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h3a_stale_paraphrase_execute_v1",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_h3a_stale_selection_paraphrase_guard",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--case-id",
+      "h3_support_unassigned_owner_field",
+      "--execute"
+    ]
+  },
+  {
+    "case_id": "h3_policy_paused_state_pill_value_first",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "-m",
+      "gemma4_capability_map.runtime.cli",
+      "replay-live",
+      "--packet-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260519T_h3_cli_controller_holdout_dry_run_v1",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h3a_stale_paraphrase_execute_v1",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_h3a_stale_selection_paraphrase_guard",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--case-id",
+      "h3_policy_paused_state_pill_value_first",
+      "--execute"
+    ]
+  },
+  {
+    "case_id": "h3_policy_rejected_approval_chip_value_first",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "-m",
+      "gemma4_capability_map.runtime.cli",
+      "replay-live",
+      "--packet-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260519T_h3_cli_controller_holdout_dry_run_v1",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h3a_stale_paraphrase_execute_v1",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_h3a_stale_selection_paraphrase_guard",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--case-id",
+      "h3_policy_rejected_approval_chip_value_first",
+      "--execute"
+    ]
+  },
+  {
+    "case_id": "h3_policy_missing_evidence_field_value_first",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "-m",
+      "gemma4_capability_map.runtime.cli",
+      "replay-live",
+      "--packet-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260519T_h3_cli_controller_holdout_dry_run_v1",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h3a_stale_paraphrase_execute_v1",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_h3a_stale_selection_paraphrase_guard",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--case-id",
+      "h3_policy_missing_evidence_field_value_first",
+      "--execute"
+    ]
+  },
+  {
+    "case_id": "h3_policy_expired_policy_banner_value_first",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "-m",
+      "gemma4_capability_map.runtime.cli",
+      "replay-live",
+      "--packet-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260519T_h3_cli_controller_holdout_dry_run_v1",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h3a_stale_paraphrase_execute_v1",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_h3a_stale_selection_paraphrase_guard",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--case-id",
+      "h3_policy_expired_policy_banner_value_first",
+      "--execute"
+    ]
+  },
+  {
+    "case_id": "h3_legal_contract_risk_badge_note_decoy",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "-m",
+      "gemma4_capability_map.runtime.cli",
+      "replay-live",
+      "--packet-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260519T_h3_cli_controller_holdout_dry_run_v1",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h3a_stale_paraphrase_execute_v1",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_h3a_stale_selection_paraphrase_guard",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--case-id",
+      "h3_legal_contract_risk_badge_note_decoy",
+      "--execute"
+    ]
+  },
+  {
+    "case_id": "h3_recruiting_candidate_stage_tile_table_decoy",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "-m",
+      "gemma4_capability_map.runtime.cli",
+      "replay-live",
+      "--packet-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260519T_h3_cli_controller_holdout_dry_run_v1",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h3a_stale_paraphrase_execute_v1",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_h3a_stale_selection_paraphrase_guard",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--case-id",
+      "h3_recruiting_candidate_stage_tile_table_decoy",
+      "--execute"
+    ]
+  },
+  {
+    "case_id": "h3_clinical_triage_priority_chip_memo_decoy",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "-m",
+      "gemma4_capability_map.runtime.cli",
+      "replay-live",
+      "--packet-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260519T_h3_cli_controller_holdout_dry_run_v1",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h3a_stale_paraphrase_execute_v1",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_h3a_stale_selection_paraphrase_guard",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--case-id",
+      "h3_clinical_triage_priority_chip_memo_decoy",
+      "--execute"
+    ]
+  },
+  {
+    "case_id": "h3_ops_deployment_gate_panel_log_decoy",
+    "command": [
+      "/Users/cheickdiakite/Codex/moonie/.venv/bin/python3",
+      "-m",
+      "gemma4_capability_map.runtime.cli",
+      "replay-live",
+      "--packet-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260519T_h3_cli_controller_holdout_dry_run_v1",
+      "--output-dir",
+      "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_live/20260519T_h3_cli_controller_holdout_h3a_stale_paraphrase_execute_v1",
+      "--system-id",
+      "mlx_gemma4_e2b_reasoner_only_h3a_stale_selection_paraphrase_guard",
+      "--registry",
+      "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+      "--case-id",
+      "h3_ops_deployment_gate_panel_log_decoy",
+      "--execute"
+    ]
+  }
+]
