@@ -3282,6 +3282,49 @@ def audit_publication_readiness(
             detail="H3a H2y versus H2w comparison exists.",
         ),
         _check_path(
+            check_id="h3a_transfer_backtest_synthesis_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "h3a_transfer_backtest_synthesis" / "report.md",
+            detail="H3a broad transfer backtest synthesis report exists.",
+        ),
+        _check_path(
+            check_id="h3a_transfer_backtest_figure_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "h3a_transfer_backtest_synthesis"
+            / "figures"
+            / "h3a_transfer_backtest_gate.svg",
+            detail="H3a broad transfer backtest figure exists.",
+        ),
+        *[
+            _check_path(
+                check_id=f"h3a_transfer_{label}_live_exists",
+                severity="blocking",
+                path=ROOT
+                / "results"
+                / "tool_probe_replay_live"
+                / f"20260519T_h3a_boundary_combined_on_{label}_execute_v1"
+                / "summary.json",
+                detail=f"H3a broad transfer live replay packet for {label} exists.",
+            )
+            for label in ("h2t", "h2s", "h2q", "h2m", "h2k", "h2l", "h2f", "h2b", "h1x", "h1y", "h1o", "h1p")
+        ],
+        *[
+            _check_path(
+                check_id=f"h3a_transfer_{label}_vs_h2w_comparison_exists",
+                severity="blocking",
+                path=ROOT
+                / "results"
+                / "tool_probe_replay_live_comparisons"
+                / f"20260519T_h3a_boundary_combined_vs_h2w_on_{label}_v1"
+                / "live_replay_comparison.json",
+                detail=f"H3a broad transfer versus H2w comparison for {label} exists.",
+            )
+            for label in ("h2t", "h2s", "h2q", "h2m", "h2k", "h2l", "h2f", "h2b", "h1x", "h1y", "h1o", "h1p")
+        ],
+        _check_path(
             check_id="h2x_packaged_semantic_pressure_workflow_config_exists",
             severity="blocking",
             path=ROOT / "configs" / "packaged_workflows.yaml",
@@ -3362,6 +3405,7 @@ def audit_publication_readiness(
         "build_h3_cli_controller_holdout_synthesis.py",
         "build_h3a_controller_repair_synthesis.py",
         "build_h3a_h2y_transfer_gate_synthesis.py",
+        "build_h3a_transfer_backtest_synthesis.py",
         "compare_tool_directive_probes.py",
         "build_visual_hard_slice_design.py",
         "build_visual_hard_slice_replay_packet.py",

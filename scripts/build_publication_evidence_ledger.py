@@ -4022,6 +4022,61 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C70_h3a_preserves_h2w_transfer_backcompat_gate",
+        claim=(
+            "H3a preserves the broader H2w transfer and backward-compatibility battery while adding no H3a-specific "
+            "helper overtriggering on that battery."
+        ),
+        status="supported_broad_internal_transfer_gate",
+        evidence_strength="strong_internal_cli_transfer_backtest",
+        primary_metric=(
+            "Across H2s/H2t/H2q/H2m/H2k/H2l/H2f/H2b/H1x/H1y/H1o/H1p, H3a reaches 109/109 strict "
+            "and 109/109 executor-equivalent, ties H2w with 0.0 aggregate exact and executor deltas, has "
+            "0 strict regressions, 0 non-exact rows, and 0 H3a-specific helper interventions."
+        ),
+        limitation=(
+            "The backtest preserves the existing replay-shaped transfer battery; it does not create a new harder "
+            "holdout beyond H3 or prove capability under unrelated real-world benchmarks."
+        ),
+        next_test=(
+            "Design and execute a harder H3b/H4 slice that varies task family, state shape, stale-origin phrasing, "
+            "negative value vocabulary, and multi-step workflow pressure enough to break the new top-line saturation."
+        ),
+        sources=(
+            EvidenceSource(
+                "replay_synthesis",
+                "results/reports/h3a_transfer_backtest_synthesis/report.md",
+                "Dedicated H3a transfer backtest synthesis showing 109/109 strict and executor-equivalent.",
+            ),
+            EvidenceSource(
+                "replay_synthesis_figure",
+                "results/reports/h3a_transfer_backtest_synthesis/figures/h3a_transfer_backtest_gate.svg",
+                "Figure showing H3a tying H2w across all transfer slices.",
+            ),
+            EvidenceSource(
+                "replay_synthesis",
+                "results/reports/h2w_transfer_backtest_synthesis/report.md",
+                "Incumbent H2w transfer backtest used as the comparison gate.",
+            ),
+            *tuple(
+                EvidenceSource(
+                    "live_replay_packet",
+                    f"results/tool_probe_replay_live/20260519T_h3a_boundary_combined_on_{label}_execute_v1",
+                    f"H3a broad-transfer live replay packet for {label}.",
+                )
+                for label in ("h2t", "h2s", "h2q", "h2m", "h2k", "h2l", "h2f", "h2b", "h1x", "h1y", "h1o", "h1p")
+            ),
+            *tuple(
+                EvidenceSource(
+                    "live_replay_comparison",
+                    f"results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_{label}_v1",
+                    f"H3a versus H2w broad-transfer comparison for {label}.",
+                )
+                for label in ("h2t", "h2s", "h2q", "h2m", "h2k", "h2l", "h2f", "h2b", "h1x", "h1y", "h1o", "h1p")
+            ),
+        ),
+    ),
 )
 
 

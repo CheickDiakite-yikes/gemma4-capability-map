@@ -1,0 +1,101 @@
+[
+  {
+    "case_id": "h2q_result_tile_stale_selection_hint",
+    "family": "h2q_stale_surface_alias",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "h2q-current-result-tile-13062"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2q-result-tile-stale-selection",
+          "target_query": "result tile"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h2q-result-tile-stale-selection",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "h2q-current-result-tile-13062"
+          ],
+          "region_id": "h2q-current-result-tile-13062",
+          "text_preview": "Blocked"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2q-result-tile-stale-selection",
+          "target_query": "result tile"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2q-result-tile-stale-selection",
+          "target_query": "result tile"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"refine_selection\", \"arguments\": {\"selection_id\": \"sel-archived-result-badge\", \"filter_query\": \"Blocked\"}}",
+    "runtime_metadata": {
+      "backend": "mlx",
+      "runtime_info": {
+        "backend": "mlx",
+        "runtime_posture": "mlx",
+        "requested_model": "google/gemma-4-E2B-it",
+        "effective_model": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_source": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_format": "mlx",
+        "runtime_device": "mlx",
+        "load_mode": "vision",
+        "configured_device": "auto",
+        "request_timeout_seconds": 300.0,
+        "tool_turn_directive_enabled": false,
+        "tool_prompt_contract_id": "",
+        "tool_catalog_profile_id": "visual_role_catalog_route_arbitration_residual_exactness_v20",
+        "service": {},
+        "partial_runtime": false,
+        "llama_cpp_error": null,
+        "llama_cpp_context_window": null
+      },
+      "visual_composed_route_gating": [
+        {
+          "from_tool": "refine_selection",
+          "from_arguments": {
+            "selection_id": "sel-archived-result-badge",
+            "filter_query": "Blocked"
+          },
+          "to_tool": "extract_layout",
+          "to_arguments": {
+            "image_id": "img-h2q-result-tile-stale-selection",
+            "target_query": "result tile"
+          },
+          "requested_label": "result tile",
+          "requested_region_id": "h2q-current-result-tile-13062",
+          "reason": "stale_selection_to_requested_surface"
+        }
+      ]
+    },
+    "prompt_tokens": 1808,
+    "completion_tokens": 36,
+    "latency_ms": 6203
+  }
+]

@@ -1,0 +1,13 @@
+comparison_label,comparison_dir,shared_case_count,baseline_exact_rate,candidate_exact_rate,delta_exact_rate,baseline_executor_equivalence_rate,candidate_executor_equivalence_rate,delta_executor_equivalence_rate
+h2t_h3a_vs_h2w,results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h2t_v1,10,1.0,1.0,0.0,1.0,1.0,0.0
+h2s_h3a_vs_h2w,results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h2s_v1,10,1.0,1.0,0.0,1.0,1.0,0.0
+h2q_h3a_vs_h2w,results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h2q_v1,8,1.0,1.0,0.0,1.0,1.0,0.0
+h2m_h3a_vs_h2w,results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h2m_v1,8,1.0,1.0,0.0,1.0,1.0,0.0
+h2k_h3a_vs_h2w,results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h2k_v1,8,1.0,1.0,0.0,1.0,1.0,0.0
+h2l_h3a_vs_h2w,results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h2l_v1,8,1.0,1.0,0.0,1.0,1.0,0.0
+h2f_h3a_vs_h2w,results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h2f_v1,10,1.0,1.0,0.0,1.0,1.0,0.0
+h2b_h3a_vs_h2w,results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h2b_v1,5,1.0,1.0,0.0,1.0,1.0,0.0
+h1x_h3a_vs_h2w,results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h1x_v1,8,1.0,1.0,0.0,1.0,1.0,0.0
+h1y_h3a_vs_h2w,results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h1y_v1,10,1.0,1.0,0.0,1.0,1.0,0.0
+h1o_h3a_vs_h2w,results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h1o_v1,12,1.0,1.0,0.0,1.0,1.0,0.0
+h1p_h3a_vs_h2w,results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h1p_v1,12,1.0,1.0,0.0,1.0,1.0,0.0

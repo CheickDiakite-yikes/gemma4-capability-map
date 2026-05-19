@@ -196,6 +196,9 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert claims["C69_h3a_preserves_h2z_h2y_transfer_gate"][
         "status"
     ] == "supported_first_transfer_regression_gate"
+    assert claims["C70_h3a_preserves_h2w_transfer_backcompat_gate"][
+        "status"
+    ] == "supported_broad_internal_transfer_gate"
     assert "7/8" in claims["C2_final_tool_directive_causal_for_protocol"]["primary_metric"]
     assert "8/8 strict and 8/8 executor-equivalent versus H2p at 3/8" in claims[
         "C56_h2r_composed_route_gating_solves_h2q_locally"
@@ -289,6 +292,12 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     ]["primary_metric"]
     assert "0.0 exact and executor-equivalence deltas versus H2z" in claims[
         "C69_h3a_preserves_h2z_h2y_transfer_gate"
+    ]["primary_metric"]
+    assert "109/109 strict" in claims[
+        "C70_h3a_preserves_h2w_transfer_backcompat_gate"
+    ]["primary_metric"]
+    assert "0 H3a-specific helper interventions" in claims[
+        "C70_h3a_preserves_h2w_transfer_backcompat_gate"
     ]["primary_metric"]
     assert "v3 raw exact falls" in claims["C6_split_selector_wording_is_negative_evidence"]["primary_metric"]
     assert "schema-field hints reach 6/8 strict and 8/8 executor-equivalent" in claims[
@@ -1241,6 +1250,25 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
         row["claim_id"] == "C69_h3a_preserves_h2z_h2y_transfer_gate"
         and row["path"]
         == "results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h3a_combined_vs_h2z_combined_v1"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C70_h3a_preserves_h2w_transfer_backcompat_gate"
+        and row["path"] == "results/reports/h3a_transfer_backtest_synthesis/report.md"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C70_h3a_preserves_h2w_transfer_backcompat_gate"
+        and row["path"] == "results/tool_probe_replay_live/20260519T_h3a_boundary_combined_on_h1p_execute_v1"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C70_h3a_preserves_h2w_transfer_backcompat_gate"
+        and row["path"]
+        == "results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h2t_v1"
         and row["exists"]
         for row in payload["evidence_sources"]
     )

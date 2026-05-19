@@ -1,5 +1,39 @@
 # Research Log
 
+## 2026-05-19 - H3a Passes Broad H2w Transfer Backtest
+
+- Ran H3a combined sequentially across the full H2w-era transfer/back-compat battery:
+  - H2s/H2t/H2q/H2m/H2k/H2l/H2f/H2b/H1x/H1y/H1o/H1p
+  - representative live packet: [`results/tool_probe_replay_live/20260519T_h3a_boundary_combined_on_h2t_execute_v1`](../results/tool_probe_replay_live/20260519T_h3a_boundary_combined_on_h2t_execute_v1)
+  - representative tail packet: [`results/tool_probe_replay_live/20260519T_h3a_boundary_combined_on_h1p_execute_v1`](../results/tool_probe_replay_live/20260519T_h3a_boundary_combined_on_h1p_execute_v1)
+  - representative comparison: [`results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h2t_v1`](../results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h2t_v1)
+- Result:
+  - H2w incumbent transfer row: `109 / 109` strict and executor-equivalent
+  - H3a combined transfer row: `109 / 109` strict and executor-equivalent
+  - H3a-vs-H2w aggregate exact delta: `0.0`
+  - H3a-vs-H2w aggregate executor-equivalence delta: `0.0`
+  - strict regressions versus H2w: `0`
+  - H3a non-exact rows: `0`
+  - H3a-specific stale-paraphrase helper interventions: `0`
+  - H3a-specific negative-value helper interventions: `0`
+- Controller trace detail:
+  - H3a still records older, expected helper activity on the transfer battery: `5` semantic target preservation, `29` target-query normalization, `6` stale-selection gate, `1` value-bearing target synthesis, `2` contextual alias routing, `10` composed-route gating, and `4` blocked composed-route rows.
+  - That is the important paper-grade distinction: H3a does not merely preserve top-line success; the added H3a-specific helpers do not fire on the older transfer gate.
+- Research decision:
+  - H3a now has positive evidence on H3 repair, H2y transfer, and broad H2w transfer/back-compat.
+  - The next scientific move should not be more same-shaped transfer validation. It should be H3b/H4: a harder saturation breaker that deliberately stresses multi-step workflow pressure, stale-origin paraphrase, negative-value vocabulary, state-order changes, and controller trace attribution.
+- Reporting updates:
+  - H3a transfer synthesis: [`results/reports/h3a_transfer_backtest_synthesis/report.md`](../results/reports/h3a_transfer_backtest_synthesis/report.md)
+  - H3a transfer figure: [`results/reports/h3a_transfer_backtest_synthesis/figures/h3a_transfer_backtest_gate.svg`](../results/reports/h3a_transfer_backtest_synthesis/figures/h3a_transfer_backtest_gate.svg)
+  - new claim: `C70_h3a_preserves_h2w_transfer_backcompat_gate`
+  - publication evidence ledger now has `70` claims, `517` sources, and `0` missing sources
+  - publication readiness audit now has `423` checks, `416` blocking checks, `0` blocking failures, and status `paper_draft_ready`
+- Verification:
+  - `uv run python scripts/build_h3a_transfer_backtest_synthesis.py`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`
+  - `uv run pytest tests/test_h3a_transfer_backtest_synthesis.py -q`
+
 ## 2026-05-19 - H3a Passes First H2y Transfer Gate
 
 - Ran the first H3a transfer-regression slice on the original H2y scaled CLI semantic-pressure packet:

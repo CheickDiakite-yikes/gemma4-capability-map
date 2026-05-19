@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1420" height="420" viewBox="0 0 1420 420" role="img" aria-labelledby="title desc">
+<title id="title">H3a transfer backtest gate</title>
+<desc id="desc">H3a ties H2w across the 12-packet transfer and backward compatibility battery.</desc>
+<rect width="100%" height="100%" fill="#F8FAFC"/>
+<text x="32" y="36" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#111827">H3a preserves the H2w transfer gate</text>
+<text x="32" y="62" font-family="Arial, sans-serif" font-size="13" fill="#475569">Strict exact successes by packet. H3a and H2w tie on every slice.</text>
+<line x1="66" y1="286" x2="1384" y2="286" stroke="#CBD5E1" stroke-width="1"/>
+<rect x="66" y="111.0" width="28" height="175.0" rx="4" fill="#92400E"/>
+<rect x="101" y="111.0" width="28" height="175.0" rx="4" fill="#1D4ED8"/>
+<text x="96" y="306" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#334155">h2t</text>
+<text x="96" y="103.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="700" fill="#111827">10/10</text>
+<rect x="166" y="111.0" width="28" height="175.0" rx="4" fill="#92400E"/>
+<rect x="201" y="111.0" width="28" height="175.0" rx="4" fill="#1D4ED8"/>
+<text x="196" y="306" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#334155">h2s</text>
+<text x="196" y="103.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="700" fill="#111827">10/10</text>
+<rect x="266" y="146.0" width="28" height="140.0" rx="4" fill="#92400E"/>
+<rect x="301" y="146.0" width="28" height="140.0" rx="4" fill="#1D4ED8"/>
+<text x="296" y="306" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#334155">h2q</text>
+<text x="296" y="138.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="700" fill="#111827">8/8</text>
+<rect x="366" y="146.0" width="28" height="140.0" rx="4" fill="#92400E"/>
+<rect x="401" y="146.0" width="28" height="140.0" rx="4" fill="#1D4ED8"/>
+<text x="396" y="306" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#334155">h2m</text>
+<text x="396" y="138.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="700" fill="#111827">8/8</text>
+<rect x="466" y="146.0" width="28" height="140.0" rx="4" fill="#92400E"/>
+<rect x="501" y="146.0" width="28" height="140.0" rx="4" fill="#1D4ED8"/>
+<text x="496" y="306" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#334155">h2k</text>
+<text x="496" y="138.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="700" fill="#111827">8/8</text>
+<rect x="566" y="146.0" width="28" height="140.0" rx="4" fill="#92400E"/>
+<rect x="601" y="146.0" width="28" height="140.0" rx="4" fill="#1D4ED8"/>
+<text x="596" y="306" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#334155">h2l</text>
+<text x="596" y="138.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="700" fill="#111827">8/8</text>
+<rect x="666" y="111.0" width="28" height="175.0" rx="4" fill="#92400E"/>
+<rect x="701" y="111.0" width="28" height="175.0" rx="4" fill="#1D4ED8"/>
+<text x="696" y="306" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#334155">h2f</text>
+<text x="696" y="103.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="700" fill="#111827">10/10</text>
+<rect x="766" y="198.5" width="28" height="87.5" rx="4" fill="#92400E"/>
+<rect x="801" y="198.5" width="28" height="87.5" rx="4" fill="#1D4ED8"/>
+<text x="796" y="306" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#334155">h2b</text>
+<text x="796" y="190.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="700" fill="#111827">5/5</text>
+<rect x="866" y="146.0" width="28" height="140.0" rx="4" fill="#92400E"/>
+<rect x="901" y="146.0" width="28" height="140.0" rx="4" fill="#1D4ED8"/>
+<text x="896" y="306" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#334155">h1x</text>
+<text x="896" y="138.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="700" fill="#111827">8/8</text>
+<rect x="966" y="111.0" width="28" height="175.0" rx="4" fill="#92400E"/>
+<rect x="1001" y="111.0" width="28" height="175.0" rx="4" fill="#1D4ED8"/>
+<text x="996" y="306" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#334155">h1y</text>
+<text x="996" y="103.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="700" fill="#111827">10/10</text>
+<rect x="1066" y="76.0" width="28" height="210.0" rx="4" fill="#92400E"/>
+<rect x="1101" y="76.0" width="28" height="210.0" rx="4" fill="#1D4ED8"/>
+<text x="1096" y="306" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#334155">h1o</text>
+<text x="1096" y="68.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="700" fill="#111827">12/12</text>
+<rect x="1166" y="76.0" width="28" height="210.0" rx="4" fill="#92400E"/>
+<rect x="1201" y="76.0" width="28" height="210.0" rx="4" fill="#1D4ED8"/>
+<text x="1196" y="306" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#334155">h1p</text>
+<text x="1196" y="68.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="700" fill="#111827">12/12</text>
+<rect x="1030" y="34" width="16" height="16" fill="#92400E"/>
+<text x="1054" y="47" font-family="Arial, sans-serif" font-size="13" fill="#334155">H2w</text>
+<rect x="1110" y="34" width="16" height="16" fill="#1D4ED8"/>
+<text x="1134" y="47" font-family="Arial, sans-serif" font-size="13" fill="#334155">H3a</text>
+<text x="32" y="352" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#111827">Aggregate</text>
+<text x="32" y="376" font-family="Arial, sans-serif" font-size="13" fill="#334155">H3a strict/executor: 109 / 109. Delta vs H2w: 0.0 exact and 0.0 executor-equivalence.</text>
+</svg>

@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-05-19T23:32:13.968520+00:00",
+  "generated_at": "2026-05-19T23:53:20.888850+00:00",
   "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-  "claim_count": 69,
-  "evidence_source_count": 490,
+  "claim_count": 70,
+  "evidence_source_count": 517,
   "missing_source_count": 0,
   "claim_ids": [
     "C1_controller_dependence_hidden_by_readiness",
@@ -73,6 +73,7 @@
     "C66_h2z_boundary_ablation_closes_h2y_with_separable_controller_helpers",
     "C67_h3_cli_controller_holdout_blocks_h2z_global_promotion",
     "C68_h3a_controller_repair_closes_h3_with_separable_helpers",
-    "C69_h3a_preserves_h2z_h2y_transfer_gate"
+    "C69_h3a_preserves_h2z_h2y_transfer_gate",
+    "C70_h3a_preserves_h2w_transfer_backcompat_gate"
   ]
 }

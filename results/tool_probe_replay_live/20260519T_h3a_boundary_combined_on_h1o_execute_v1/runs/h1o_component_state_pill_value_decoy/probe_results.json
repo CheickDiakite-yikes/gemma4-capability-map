@@ -1,0 +1,84 @@
+[
+  {
+    "case_id": "h1o_component_state_pill_value_decoy",
+    "family": "h1o_component_value_boundary",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "h1o-state-pill-9202"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1o-component-state-pill",
+          "target_query": "state pill"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h1o-component-state-pill",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "h1o-state-pill-9202"
+          ],
+          "region_id": "h1o-state-pill-9202",
+          "text_preview": "On hold"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1o-component-state-pill",
+          "target_query": "state pill"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h1o-component-state-pill",
+          "target_query": "state pill"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h1o-component-state-pill\", \"target_query\": \"state pill\"}}",
+    "runtime_metadata": {
+      "backend": "mlx",
+      "runtime_info": {
+        "backend": "mlx",
+        "runtime_posture": "mlx",
+        "requested_model": "google/gemma-4-E2B-it",
+        "effective_model": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_source": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_format": "mlx",
+        "runtime_device": "mlx",
+        "load_mode": "vision",
+        "configured_device": "auto",
+        "request_timeout_seconds": 300.0,
+        "tool_turn_directive_enabled": false,
+        "tool_prompt_contract_id": "",
+        "tool_catalog_profile_id": "visual_role_catalog_route_arbitration_residual_exactness_v20",
+        "service": {},
+        "partial_runtime": false,
+        "llama_cpp_error": null,
+        "llama_cpp_context_window": null
+      }
+    },
+    "prompt_tokens": 1795,
+    "completion_tokens": 39,
+    "latency_ms": 7344
+  }
+]

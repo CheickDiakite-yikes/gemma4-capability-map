@@ -1,9 +1,9 @@
 {
   "summary": {
-    "generated_at": "2026-05-19T23:32:17.696870+00:00",
+    "generated_at": "2026-05-19T23:53:20.920802+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 396,
-    "blocking_check_count": 389,
+    "check_count": 423,
+    "blocking_check_count": 416,
     "blocking_failed_count": 0,
     "recommended_check_count": 7,
     "recommended_failed_count": 0,
@@ -29,7 +29,7 @@
       "check_id": "ledger_has_claims",
       "severity": "blocking",
       "passed": true,
-      "detail": "claim_count=69",
+      "detail": "claim_count=70",
       "path": ""
     },
     {
@@ -2420,6 +2420,188 @@
       "path": "results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h3a_combined_vs_h2w_v1/live_replay_comparison.json"
     },
     {
+      "check_id": "h3a_transfer_backtest_synthesis_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H3a broad transfer backtest synthesis report exists.",
+      "path": "results/reports/h3a_transfer_backtest_synthesis/report.md"
+    },
+    {
+      "check_id": "h3a_transfer_backtest_figure_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H3a broad transfer backtest figure exists.",
+      "path": "results/reports/h3a_transfer_backtest_synthesis/figures/h3a_transfer_backtest_gate.svg"
+    },
+    {
+      "check_id": "h3a_transfer_h2t_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H3a broad transfer live replay packet for h2t exists.",
+      "path": "results/tool_probe_replay_live/20260519T_h3a_boundary_combined_on_h2t_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h3a_transfer_h2s_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H3a broad transfer live replay packet for h2s exists.",
+      "path": "results/tool_probe_replay_live/20260519T_h3a_boundary_combined_on_h2s_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h3a_transfer_h2q_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H3a broad transfer live replay packet for h2q exists.",
+      "path": "results/tool_probe_replay_live/20260519T_h3a_boundary_combined_on_h2q_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h3a_transfer_h2m_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H3a broad transfer live replay packet for h2m exists.",
+      "path": "results/tool_probe_replay_live/20260519T_h3a_boundary_combined_on_h2m_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h3a_transfer_h2k_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H3a broad transfer live replay packet for h2k exists.",
+      "path": "results/tool_probe_replay_live/20260519T_h3a_boundary_combined_on_h2k_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h3a_transfer_h2l_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H3a broad transfer live replay packet for h2l exists.",
+      "path": "results/tool_probe_replay_live/20260519T_h3a_boundary_combined_on_h2l_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h3a_transfer_h2f_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H3a broad transfer live replay packet for h2f exists.",
+      "path": "results/tool_probe_replay_live/20260519T_h3a_boundary_combined_on_h2f_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h3a_transfer_h2b_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H3a broad transfer live replay packet for h2b exists.",
+      "path": "results/tool_probe_replay_live/20260519T_h3a_boundary_combined_on_h2b_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h3a_transfer_h1x_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H3a broad transfer live replay packet for h1x exists.",
+      "path": "results/tool_probe_replay_live/20260519T_h3a_boundary_combined_on_h1x_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h3a_transfer_h1y_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H3a broad transfer live replay packet for h1y exists.",
+      "path": "results/tool_probe_replay_live/20260519T_h3a_boundary_combined_on_h1y_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h3a_transfer_h1o_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H3a broad transfer live replay packet for h1o exists.",
+      "path": "results/tool_probe_replay_live/20260519T_h3a_boundary_combined_on_h1o_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h3a_transfer_h1p_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H3a broad transfer live replay packet for h1p exists.",
+      "path": "results/tool_probe_replay_live/20260519T_h3a_boundary_combined_on_h1p_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h3a_transfer_h2t_vs_h2w_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H3a broad transfer versus H2w comparison for h2t exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h2t_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h3a_transfer_h2s_vs_h2w_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H3a broad transfer versus H2w comparison for h2s exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h2s_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h3a_transfer_h2q_vs_h2w_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H3a broad transfer versus H2w comparison for h2q exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h2q_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h3a_transfer_h2m_vs_h2w_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H3a broad transfer versus H2w comparison for h2m exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h2m_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h3a_transfer_h2k_vs_h2w_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H3a broad transfer versus H2w comparison for h2k exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h2k_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h3a_transfer_h2l_vs_h2w_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H3a broad transfer versus H2w comparison for h2l exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h2l_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h3a_transfer_h2f_vs_h2w_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H3a broad transfer versus H2w comparison for h2f exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h2f_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h3a_transfer_h2b_vs_h2w_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H3a broad transfer versus H2w comparison for h2b exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h2b_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h3a_transfer_h1x_vs_h2w_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H3a broad transfer versus H2w comparison for h1x exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h1x_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h3a_transfer_h1y_vs_h2w_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H3a broad transfer versus H2w comparison for h1y exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h1y_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h3a_transfer_h1o_vs_h2w_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H3a broad transfer versus H2w comparison for h1o exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h1o_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h3a_transfer_h1p_vs_h2w_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H3a broad transfer versus H2w comparison for h1p exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h1p_v1/live_replay_comparison.json"
+    },
+    {
       "check_id": "h2x_packaged_semantic_pressure_workflow_config_exists",
       "severity": "blocking",
       "passed": true,
@@ -2761,6 +2943,13 @@
       "passed": true,
       "detail": "Reproduction script `build_h3a_h2y_transfer_gate_synthesis.py` exists.",
       "path": "scripts/build_h3a_h2y_transfer_gate_synthesis.py"
+    },
+    {
+      "check_id": "script_build_h3a_transfer_backtest_synthesis.py_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Reproduction script `build_h3a_transfer_backtest_synthesis.py` exists.",
+      "path": "scripts/build_h3a_transfer_backtest_synthesis.py"
     },
     {
       "check_id": "script_compare_tool_directive_probes.py_exists",

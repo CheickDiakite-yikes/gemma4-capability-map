@@ -1,0 +1,64 @@
+{
+  "created_at": "20260519T233800Z",
+  "system_id": "mlx_gemma4_e2b_reasoner_only_h3a_boundary_combined",
+  "backend": "mlx",
+  "reasoner": "google/gemma-4-E2B-it",
+  "case_count": 1,
+  "runtime_info": {
+    "backend": "mlx",
+    "runtime_posture": "mlx",
+    "requested_model": "google/gemma-4-E2B-it",
+    "effective_model": "mlx-community/gemma-4-e2b-it-4bit",
+    "model_source": "mlx-community/gemma-4-e2b-it-4bit",
+    "model_format": "mlx",
+    "runtime_device": "mlx",
+    "load_mode": "vision",
+    "configured_device": "auto",
+    "request_timeout_seconds": 300.0,
+    "tool_turn_directive_enabled": false,
+    "tool_prompt_contract_id": "",
+    "tool_catalog_profile_id": "visual_role_catalog_route_arbitration_residual_exactness_v20",
+    "service": {},
+    "partial_runtime": false,
+    "llama_cpp_error": null,
+    "llama_cpp_context_window": null
+  },
+  "research_controls": {
+    "disable_tool_turn_directive": true,
+    "enable_visual_stale_selection_gate": true,
+    "enable_visual_value_bearing_target_query_synthesis": true,
+    "enable_visual_contextual_surface_alias_routing": true,
+    "enable_visual_composed_route_gating": true,
+    "enable_visual_negation_aware_target_query_normalization": true,
+    "enable_visual_semantic_target_preservation": true,
+    "enable_visual_stale_selection_negation_guard": true,
+    "enable_visual_negated_component_target_preservation": true,
+    "enable_visual_stale_selection_paraphrase_guard": true,
+    "enable_visual_negative_value_component_target_preservation": true,
+    "tool_catalog_profile_id": "visual_role_catalog_route_arbitration_residual_exactness_v20"
+  },
+  "summary": {
+    "case_count": 1,
+    "exact_match_count": 1,
+    "exact_match_rate": 1.0,
+    "executable_evaluable_count": 1,
+    "executable_match_count": 1,
+    "executable_match_rate": 1.0,
+    "executor_equivalence_evaluable_count": 1,
+    "executor_equivalence_match_count": 1,
+    "executor_equivalence_match_rate": 1.0,
+    "family_summary": {
+      "h2s_stale_surface_alias": {
+        "cases": 1,
+        "exact": 1,
+        "executable_cases": 1,
+        "executable": 1,
+        "executor_equivalence_cases": 1,
+        "executor_equivalence": 1,
+        "exact_rate": 1.0,
+        "executable_rate": 1.0,
+        "executor_equivalence_rate": 1.0
+      }
+    }
+  }
+}

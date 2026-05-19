@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-19T23:32:13.968520+00:00",
+    "generated_at": "2026-05-19T23:53:20.888850+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-    "claim_count": 69,
-    "evidence_source_count": 490,
+    "claim_count": 70,
+    "evidence_source_count": 517,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -74,7 +74,8 @@
       "C66_h2z_boundary_ablation_closes_h2y_with_separable_controller_helpers",
       "C67_h3_cli_controller_holdout_blocks_h2z_global_promotion",
       "C68_h3a_controller_repair_closes_h3_with_separable_helpers",
-      "C69_h3a_preserves_h2z_h2y_transfer_gate"
+      "C69_h3a_preserves_h2z_h2y_transfer_gate",
+      "C70_h3a_preserves_h2w_transfer_backcompat_gate"
     ]
   },
   "claims": [
@@ -767,6 +768,16 @@
       "limitation": "This is only the first transfer-regression slice after H3a. It checks the H2y boundary that produced H2z, but it does not yet cover the broader H2w transfer/back-compat packet set.",
       "next_test": "Extend H3a transfer validation to H3 rerun comparison, H2z single-helper controls if needed, and the broader H2w-era transfer/back-compat matrix before global promotion.",
       "source_count": 8
+    },
+    {
+      "claim_id": "C70_h3a_preserves_h2w_transfer_backcompat_gate",
+      "claim": "H3a preserves the broader H2w transfer and backward-compatibility battery while adding no H3a-specific helper overtriggering on that battery.",
+      "status": "supported_broad_internal_transfer_gate",
+      "evidence_strength": "strong_internal_cli_transfer_backtest",
+      "primary_metric": "Across H2s/H2t/H2q/H2m/H2k/H2l/H2f/H2b/H1x/H1y/H1o/H1p, H3a reaches 109/109 strict and 109/109 executor-equivalent, ties H2w with 0.0 aggregate exact and executor deltas, has 0 strict regressions, 0 non-exact rows, and 0 H3a-specific helper interventions.",
+      "limitation": "The backtest preserves the existing replay-shaped transfer battery; it does not create a new harder holdout beyond H3 or prove capability under unrelated real-world benchmarks.",
+      "next_test": "Design and execute a harder H3b/H4 slice that varies task family, state shape, stale-origin phrasing, negative value vocabulary, and multi-step workflow pressure enough to break the new top-line saturation.",
+      "source_count": 27
     }
   ],
   "evidence_sources": [
@@ -4198,6 +4209,195 @@
       "artifact_type": "live_replay_comparison",
       "path": "results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h3a_combined_vs_h2w_v1",
       "purpose": "H3a versus H2w H2y comparison showing +0.25 exact and executor-equivalence deltas.",
+      "exists": true
+    },
+    {
+      "claim_id": "C70_h3a_preserves_h2w_transfer_backcompat_gate",
+      "artifact_type": "replay_synthesis",
+      "path": "results/reports/h3a_transfer_backtest_synthesis/report.md",
+      "purpose": "Dedicated H3a transfer backtest synthesis showing 109/109 strict and executor-equivalent.",
+      "exists": true
+    },
+    {
+      "claim_id": "C70_h3a_preserves_h2w_transfer_backcompat_gate",
+      "artifact_type": "replay_synthesis_figure",
+      "path": "results/reports/h3a_transfer_backtest_synthesis/figures/h3a_transfer_backtest_gate.svg",
+      "purpose": "Figure showing H3a tying H2w across all transfer slices.",
+      "exists": true
+    },
+    {
+      "claim_id": "C70_h3a_preserves_h2w_transfer_backcompat_gate",
+      "artifact_type": "replay_synthesis",
+      "path": "results/reports/h2w_transfer_backtest_synthesis/report.md",
+      "purpose": "Incumbent H2w transfer backtest used as the comparison gate.",
+      "exists": true
+    },
+    {
+      "claim_id": "C70_h3a_preserves_h2w_transfer_backcompat_gate",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260519T_h3a_boundary_combined_on_h2t_execute_v1",
+      "purpose": "H3a broad-transfer live replay packet for h2t.",
+      "exists": true
+    },
+    {
+      "claim_id": "C70_h3a_preserves_h2w_transfer_backcompat_gate",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260519T_h3a_boundary_combined_on_h2s_execute_v1",
+      "purpose": "H3a broad-transfer live replay packet for h2s.",
+      "exists": true
+    },
+    {
+      "claim_id": "C70_h3a_preserves_h2w_transfer_backcompat_gate",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260519T_h3a_boundary_combined_on_h2q_execute_v1",
+      "purpose": "H3a broad-transfer live replay packet for h2q.",
+      "exists": true
+    },
+    {
+      "claim_id": "C70_h3a_preserves_h2w_transfer_backcompat_gate",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260519T_h3a_boundary_combined_on_h2m_execute_v1",
+      "purpose": "H3a broad-transfer live replay packet for h2m.",
+      "exists": true
+    },
+    {
+      "claim_id": "C70_h3a_preserves_h2w_transfer_backcompat_gate",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260519T_h3a_boundary_combined_on_h2k_execute_v1",
+      "purpose": "H3a broad-transfer live replay packet for h2k.",
+      "exists": true
+    },
+    {
+      "claim_id": "C70_h3a_preserves_h2w_transfer_backcompat_gate",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260519T_h3a_boundary_combined_on_h2l_execute_v1",
+      "purpose": "H3a broad-transfer live replay packet for h2l.",
+      "exists": true
+    },
+    {
+      "claim_id": "C70_h3a_preserves_h2w_transfer_backcompat_gate",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260519T_h3a_boundary_combined_on_h2f_execute_v1",
+      "purpose": "H3a broad-transfer live replay packet for h2f.",
+      "exists": true
+    },
+    {
+      "claim_id": "C70_h3a_preserves_h2w_transfer_backcompat_gate",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260519T_h3a_boundary_combined_on_h2b_execute_v1",
+      "purpose": "H3a broad-transfer live replay packet for h2b.",
+      "exists": true
+    },
+    {
+      "claim_id": "C70_h3a_preserves_h2w_transfer_backcompat_gate",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260519T_h3a_boundary_combined_on_h1x_execute_v1",
+      "purpose": "H3a broad-transfer live replay packet for h1x.",
+      "exists": true
+    },
+    {
+      "claim_id": "C70_h3a_preserves_h2w_transfer_backcompat_gate",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260519T_h3a_boundary_combined_on_h1y_execute_v1",
+      "purpose": "H3a broad-transfer live replay packet for h1y.",
+      "exists": true
+    },
+    {
+      "claim_id": "C70_h3a_preserves_h2w_transfer_backcompat_gate",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260519T_h3a_boundary_combined_on_h1o_execute_v1",
+      "purpose": "H3a broad-transfer live replay packet for h1o.",
+      "exists": true
+    },
+    {
+      "claim_id": "C70_h3a_preserves_h2w_transfer_backcompat_gate",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260519T_h3a_boundary_combined_on_h1p_execute_v1",
+      "purpose": "H3a broad-transfer live replay packet for h1p.",
+      "exists": true
+    },
+    {
+      "claim_id": "C70_h3a_preserves_h2w_transfer_backcompat_gate",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h2t_v1",
+      "purpose": "H3a versus H2w broad-transfer comparison for h2t.",
+      "exists": true
+    },
+    {
+      "claim_id": "C70_h3a_preserves_h2w_transfer_backcompat_gate",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h2s_v1",
+      "purpose": "H3a versus H2w broad-transfer comparison for h2s.",
+      "exists": true
+    },
+    {
+      "claim_id": "C70_h3a_preserves_h2w_transfer_backcompat_gate",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h2q_v1",
+      "purpose": "H3a versus H2w broad-transfer comparison for h2q.",
+      "exists": true
+    },
+    {
+      "claim_id": "C70_h3a_preserves_h2w_transfer_backcompat_gate",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h2m_v1",
+      "purpose": "H3a versus H2w broad-transfer comparison for h2m.",
+      "exists": true
+    },
+    {
+      "claim_id": "C70_h3a_preserves_h2w_transfer_backcompat_gate",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h2k_v1",
+      "purpose": "H3a versus H2w broad-transfer comparison for h2k.",
+      "exists": true
+    },
+    {
+      "claim_id": "C70_h3a_preserves_h2w_transfer_backcompat_gate",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h2l_v1",
+      "purpose": "H3a versus H2w broad-transfer comparison for h2l.",
+      "exists": true
+    },
+    {
+      "claim_id": "C70_h3a_preserves_h2w_transfer_backcompat_gate",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h2f_v1",
+      "purpose": "H3a versus H2w broad-transfer comparison for h2f.",
+      "exists": true
+    },
+    {
+      "claim_id": "C70_h3a_preserves_h2w_transfer_backcompat_gate",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h2b_v1",
+      "purpose": "H3a versus H2w broad-transfer comparison for h2b.",
+      "exists": true
+    },
+    {
+      "claim_id": "C70_h3a_preserves_h2w_transfer_backcompat_gate",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h1x_v1",
+      "purpose": "H3a versus H2w broad-transfer comparison for h1x.",
+      "exists": true
+    },
+    {
+      "claim_id": "C70_h3a_preserves_h2w_transfer_backcompat_gate",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h1y_v1",
+      "purpose": "H3a versus H2w broad-transfer comparison for h1y.",
+      "exists": true
+    },
+    {
+      "claim_id": "C70_h3a_preserves_h2w_transfer_backcompat_gate",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h1o_v1",
+      "purpose": "H3a versus H2w broad-transfer comparison for h1o.",
+      "exists": true
+    },
+    {
+      "claim_id": "C70_h3a_preserves_h2w_transfer_backcompat_gate",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h1p_v1",
+      "purpose": "H3a versus H2w broad-transfer comparison for h1p.",
       "exists": true
     }
   ],

@@ -1,0 +1,6 @@
+finding_id,finding
+h3a_broad_transfer_backtest_is_clean,H3a reaches 109/109 strict exactness and 109/109 executor equivalence across the 12-packet H2w transfer/back-compat battery.
+h3a_ties_incumbent_h2w_transfer_gate,"H3a ties the incumbent H2w transfer row: H2w is 109/109, H3a is 109/109, and every per-slice exact/executor comparison has 0.0 delta."
+h3a_new_helpers_do_not_overtrigger_on_backcompat,"The H3a-specific helpers fire 0 times on this transfer battery. Older helper activity remains attributable through semantic preservation, target normalization, stale-selection gating, value-bearing synthesis, contextual alias routing, and composed-route gating traces."
+h3a_transfer_has_no_case_level_regressions,"The H3a-vs-H2w comparison set has 0 strict regressions, 0 strict fixes, and 0 H3a non-exact rows."
+h3a_still_needs_harder_saturation_breaker,This backtest removes a major regression concern but does not by itself prove global capability. The next scientific move is a harder H3b/H4 slice designed to break the new top-line saturation.
