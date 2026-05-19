@@ -38,6 +38,17 @@ _VISUAL_COMPONENT_WORDS = {
     "toggle",
     "switch",
 }
+_VISUAL_BASE_NEGATED_VALUE_WORDS = {"no", "not", "without"}
+_VISUAL_NEGATIVE_VALUE_WORDS = _VISUAL_BASE_NEGATED_VALUE_WORDS | {
+    "disabled",
+    "expired",
+    "inactive",
+    "missing",
+    "paused",
+    "rejected",
+    "unassigned",
+    "unresolved",
+}
 
 
 @dataclass(frozen=True)
@@ -220,6 +231,7 @@ def run_tool_directive_probe(
                 tool_specs=tool_specs,
                 preserve_semantic_targets=controls.enable_visual_semantic_target_preservation,
                 reject_negated_current_selection=controls.enable_visual_stale_selection_negation_guard,
+                reject_paraphrased_current_selection=controls.enable_visual_stale_selection_paraphrase_guard,
             )
         if controls.enable_visual_target_query_normalization:
             turn = _apply_visual_target_query_normalization(
@@ -246,11 +258,17 @@ def run_tool_directive_probe(
                 preserve_negated_exact_layout_targets=controls.enable_visual_negation_aware_target_query_normalization,
                 preserve_semantic_targets=controls.enable_visual_semantic_target_preservation,
             )
-        if controls.enable_visual_negated_component_target_preservation:
+        if (
+            controls.enable_visual_negated_component_target_preservation
+            or controls.enable_visual_negative_value_component_target_preservation
+        ):
             turn = _apply_visual_negated_component_target_preservation(
                 turn=turn,
                 case=case,
                 tool_specs=tool_specs,
+                preserve_negative_value_targets=(
+                    controls.enable_visual_negative_value_component_target_preservation
+                ),
             )
         if controls.enable_visual_contextual_surface_alias_routing:
             turn = _apply_visual_contextual_surface_alias_routing(turn=turn, case=case, tool_specs=tool_specs)
@@ -518,6 +536,7 @@ def _apply_visual_stale_selection_gate(
     tool_specs: list[ToolSpec],
     preserve_semantic_targets: bool = False,
     reject_negated_current_selection: bool = False,
+    reject_paraphrased_current_selection: bool = False,
 ) -> ModelTurn:
     tool_names = {tool.name for tool in tool_specs}
     if "extract_layout" not in tool_names or not turn.normalized_tool_call:
@@ -526,12 +545,14 @@ def _apply_visual_stale_selection_gate(
     patched_calls: list[ToolCall] = []
     gate_rows: list[dict[str, Any]] = []
     negation_rows: list[dict[str, Any]] = []
+    paraphrase_rows: list[dict[str, Any]] = []
     for call in turn.normalized_tool_call:
         replacement = _visual_stale_selection_replacement(
             call=call,
             case=case,
             preserve_semantic_targets=preserve_semantic_targets,
             reject_negated_current_selection=reject_negated_current_selection,
+            reject_paraphrased_current_selection=reject_paraphrased_current_selection,
         )
         if replacement is None:
             patched_calls.append(call)
@@ -540,16 +561,20 @@ def _apply_visual_stale_selection_gate(
         patched_calls.append(replacement_call)
         if row.get("reason") == "negated_current_selection_to_requested_surface":
             negation_rows.append(row)
+        elif row.get("reason") == "paraphrased_stale_selection_to_requested_surface":
+            paraphrase_rows.append(row)
         else:
             gate_rows.append(row)
 
-    if not gate_rows and not negation_rows:
+    if not gate_rows and not negation_rows and not paraphrase_rows:
         return turn
     metadata = dict(turn.runtime_metadata)
     if gate_rows:
         metadata["visual_stale_selection_gate"] = gate_rows
     if negation_rows:
         metadata["visual_stale_selection_negation_guard"] = negation_rows
+    if paraphrase_rows:
+        metadata["visual_stale_selection_paraphrase_guard"] = paraphrase_rows
     return turn.model_copy(update={"normalized_tool_call": patched_calls, "runtime_metadata": metadata})
 
 
@@ -795,33 +820,50 @@ def _apply_visual_negated_component_target_preservation(
     turn: ModelTurn,
     case: ToolDirectiveProbeCase,
     tool_specs: list[ToolSpec],
+    preserve_negative_value_targets: bool = False,
 ) -> ModelTurn:
     tool_names = {tool.name for tool in tool_specs}
     if "extract_layout" not in tool_names or not turn.normalized_tool_call:
         return turn
 
-    target_label = _visual_negated_component_target_label_from_state(case)
+    target_label = _visual_negated_component_target_label_from_state(
+        case,
+        include_negative_values=preserve_negative_value_targets,
+    )
     if not target_label:
         return turn
 
     patched_calls: list[ToolCall] = []
     preservation_rows: list[dict[str, Any]] = []
+    negative_value_rows: list[dict[str, Any]] = []
+    controller = (
+        "visual_negative_value_component_target_preservation"
+        if _visual_label_has_extended_negative_value(target_label)
+        else "visual_negated_component_target_preservation"
+    )
     for call in turn.normalized_tool_call:
         replacement = _visual_negated_component_target_preservation_replacement(
             call=call,
             target_label=target_label,
+            controller=controller,
         )
         if replacement is None:
             patched_calls.append(call)
             continue
         replacement_call, row = replacement
         patched_calls.append(replacement_call)
-        preservation_rows.append(row)
+        if controller == "visual_negative_value_component_target_preservation":
+            negative_value_rows.append(row)
+        else:
+            preservation_rows.append(row)
 
-    if not preservation_rows:
+    if not preservation_rows and not negative_value_rows:
         return turn
     metadata = dict(turn.runtime_metadata)
-    metadata["visual_negated_component_target_preservation"] = preservation_rows
+    if preservation_rows:
+        metadata["visual_negated_component_target_preservation"] = preservation_rows
+    if negative_value_rows:
+        metadata["visual_negative_value_component_target_preservation"] = negative_value_rows
     return turn.model_copy(update={"normalized_tool_call": patched_calls, "runtime_metadata": metadata})
 
 
@@ -829,6 +871,7 @@ def _visual_negated_component_target_preservation_replacement(
     *,
     call: ToolCall,
     target_label: str,
+    controller: str = "visual_negated_component_target_preservation",
 ) -> tuple[ToolCall, dict[str, Any]] | None:
     if call.name != "extract_layout":
         return None
@@ -843,7 +886,7 @@ def _visual_negated_component_target_preservation_replacement(
     payload = {
         "name": "extract_layout",
         "arguments": arguments,
-        "controller": "visual_negated_component_target_preservation",
+        "controller": controller,
         "from_target_query": target_query,
     }
     replacement = ToolCall(
@@ -859,7 +902,11 @@ def _visual_negated_component_target_preservation_replacement(
         "to_arguments": replacement.arguments,
         "preserved_target_query": target_label,
         "blocked_label": target_query,
-        "reason": "negated_value_component_query_preserved",
+        "reason": (
+            "negative_value_component_query_preserved"
+            if controller == "visual_negative_value_component_target_preservation"
+            else "negated_value_component_query_preserved"
+        ),
     }
 
 
@@ -1438,6 +1485,7 @@ def _visual_stale_selection_replacement(
     case: ToolDirectiveProbeCase,
     preserve_semantic_targets: bool = False,
     reject_negated_current_selection: bool = False,
+    reject_paraphrased_current_selection: bool = False,
 ) -> tuple[ToolCall, dict[str, Any]] | None:
     if call.name != "refine_selection":
         return None
@@ -1447,21 +1495,32 @@ def _visual_stale_selection_replacement(
     user_text = " ".join(message.content for message in case.messages if message.role == "user").lower()
     current_selection_ids = _visual_selection_ids(case.initial_state)
     selection_is_current = selection_id in current_selection_ids
-    if selection_is_current and not (
-        reject_negated_current_selection
-        and _selection_id_stale_or_negated_context(user_text=user_text, selection_id=selection_id)
-    ):
-        return None
+    stale_reason = ""
+    if selection_is_current:
+        if reject_negated_current_selection and _selection_id_stale_or_negated_context(
+            user_text=user_text,
+            selection_id=selection_id,
+        ):
+            stale_reason = "negated_current_selection_to_requested_surface"
+        elif reject_paraphrased_current_selection and _selection_id_stale_paraphrase_context(
+            user_text=user_text,
+            selection_id=selection_id,
+        ):
+            stale_reason = "paraphrased_stale_selection_to_requested_surface"
+        else:
+            return None
     image_id = _visual_image_id(case)
     target_query = _visual_target_label_from_state(case, preserve_semantic_targets=preserve_semantic_targets)
     if not image_id or not target_query:
         return None
-    reason = (
-        "negated_current_selection_to_requested_surface"
+    reason = stale_reason if selection_is_current else "missing_selection_to_layout_lookup"
+    controller = (
+        "visual_stale_selection_paraphrase_guard"
+        if reason == "paraphrased_stale_selection_to_requested_surface"
+        else "visual_stale_selection_negation_guard"
         if selection_is_current
-        else "missing_selection_to_layout_lookup"
+        else "visual_stale_selection_gate"
     )
-    controller = "visual_stale_selection_negation_guard" if selection_is_current else "visual_stale_selection_gate"
     payload = {
         "name": "extract_layout",
         "arguments": {
@@ -1508,6 +1567,33 @@ def _selection_id_stale_or_negated_context(*, user_text: str, selection_id: str)
     return False
 
 
+def _selection_id_stale_paraphrase_context(*, user_text: str, selection_id: str) -> bool:
+    selection = selection_id.lower()
+    if selection not in user_text:
+        return False
+    markers = (
+        "archived selector",
+        "background context only",
+        "belongs to a retired",
+        "came from",
+        "carried over",
+        "carry-over selection",
+        "discarded",
+        "from billing history",
+        "from planning",
+        "leftover evidence",
+        "remembered selection",
+        "retired selection",
+        "retired view",
+        "shadow selection",
+    )
+    for match in re.finditer(re.escape(selection), user_text):
+        window = user_text[max(0, match.start() - 96) : min(len(user_text), match.end() + 140)]
+        if any(marker in window for marker in markers):
+            return True
+    return False
+
+
 def _visual_selection_ids(initial_state: dict[str, Any]) -> set[str]:
     selections = initial_state.get("visual_selections", {})
     if not isinstance(selections, dict):
@@ -1544,12 +1630,16 @@ def _visual_semantic_target_label_from_state(case: ToolDirectiveProbeCase) -> st
     return sorted(candidates, key=lambda item: (-item[0], item[1]["source_index"]))[0][1]["label"]
 
 
-def _visual_negated_component_target_label_from_state(case: ToolDirectiveProbeCase) -> str:
+def _visual_negated_component_target_label_from_state(
+    case: ToolDirectiveProbeCase,
+    *,
+    include_negative_values: bool = False,
+) -> str:
     user_text = " ".join(message.content for message in case.messages if message.role == "user").lower()
     candidates: list[tuple[float, dict[str, Any]]] = []
     for row in _visual_layout_rows(case.initial_state):
         label = row["label"]
-        if not _visual_label_has_negated_value(label):
+        if not _visual_label_has_negated_value(label, include_negative_values=include_negative_values):
             continue
         phrases = _visual_negated_component_label_phrases(label)
         score = _visual_semantic_positive_score(user_text=user_text, phrases=phrases)
@@ -1563,15 +1653,23 @@ def _visual_negated_component_target_label_from_state(case: ToolDirectiveProbeCa
     return sorted(candidates, key=lambda item: (-item[0], item[1]["source_index"]))[0][1]["label"]
 
 
-def _visual_label_has_negated_value(label: str) -> bool:
+def _visual_label_has_negated_value(label: str, *, include_negative_values: bool = False) -> bool:
     tokens = label.lower().split()
     if not tokens:
         return False
+    negative_tokens = _VISUAL_NEGATIVE_VALUE_WORDS if include_negative_values else _VISUAL_BASE_NEGATED_VALUE_WORDS
     component_indices = [index for index, token in enumerate(tokens) if token in _VISUAL_COMPONENT_WORDS]
     if not component_indices:
-        return any(token in {"no", "not", "without"} for token in tokens)
+        return any(token in negative_tokens for token in tokens)
     value_tokens = tokens[component_indices[-1] + 1 :]
-    return any(token in {"no", "not", "without"} for token in value_tokens)
+    return any(token in negative_tokens for token in value_tokens)
+
+
+def _visual_label_has_extended_negative_value(label: str) -> bool:
+    return _visual_label_has_negated_value(label, include_negative_values=True) and not _visual_label_has_negated_value(
+        label,
+        include_negative_values=False,
+    )
 
 
 def _visual_negated_component_label_phrases(label: str) -> tuple[str, ...]:

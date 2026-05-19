@@ -1234,6 +1234,73 @@ def test_stale_selection_negation_guard_rewrites_current_but_rejected_selection(
     assert metadata["reason"] == "negated_current_selection_to_requested_surface"
 
 
+def test_stale_selection_paraphrase_guard_rewrites_retired_selection_language() -> None:
+    specs = build_default_registry().specs
+    case = ToolDirectiveProbeCase(
+        case_id="stale-selection-retired-paraphrase",
+        family="visual",
+        messages=[
+            Message(role="system", content="visual_image_ids: img-renewal"),
+            Message(
+                role="user",
+                content=(
+                    "Selection handle sel-renewal-note belongs to a retired renewal view; "
+                    "current target is the renewal lane."
+                ),
+            ),
+        ],
+        media=["img-renewal"],
+        tool_names=["extract_layout", "refine_selection"],
+        initial_state={
+            "images": {
+                "img-renewal": {
+                    "local_layouts": [
+                        {"region_id": "lane-1", "label": "renewal lane", "text": "Renewal due"},
+                        {"region_id": "note-1", "label": "renewal note", "text": "Old renewal note"},
+                    ]
+                }
+            },
+            "visual_selections": {
+                "sel-renewal-note": {
+                    "image_id": "img-renewal",
+                    "selection_kind": "regions",
+                    "items": [{"region_id": "note-1", "label": "renewal note", "text": "Old renewal note"}],
+                    "query": "renewal note",
+                }
+            },
+            "visual_last_selection_id": "sel-renewal-note",
+        },
+    )
+    turn = ModelTurn(
+        raw_model_output="{}",
+        normalized_tool_call=[
+            ToolCall(
+                name="refine_selection",
+                arguments={"selection_id": "sel-renewal-note", "filter_query": "latest"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+    )
+
+    patched = _apply_visual_stale_selection_gate(
+        turn=turn,
+        case=case,
+        tool_specs=[specs["extract_layout"], specs["refine_selection"]],
+        preserve_semantic_targets=True,
+        reject_paraphrased_current_selection=True,
+    )
+
+    assert patched.normalized_tool_call[0].name == "extract_layout"
+    assert patched.normalized_tool_call[0].arguments == {
+        "image_id": "img-renewal",
+        "target_query": "renewal lane",
+    }
+    metadata = patched.runtime_metadata["visual_stale_selection_paraphrase_guard"][0]
+    assert metadata["replaced_selection_id"] == "sel-renewal-note"
+    assert metadata["reason"] == "paraphrased_stale_selection_to_requested_surface"
+
+
 def test_semantic_target_preservation_canonicalizes_inverted_negated_value() -> None:
     specs = build_default_registry().specs
     case = ToolDirectiveProbeCase(
@@ -1336,6 +1403,54 @@ def test_negated_component_target_preservation_expands_short_component_query() -
     metadata = patched.runtime_metadata["visual_negated_component_target_preservation"][0]
     assert metadata["blocked_label"] == "alert"
     assert metadata["preserved_target_query"] == "alert banner not active"
+
+
+def test_negative_value_component_target_preservation_expands_status_value_query() -> None:
+    specs = build_default_registry().specs
+    case = ToolDirectiveProbeCase(
+        case_id="negative-value-component-query",
+        family="visual",
+        messages=[
+            Message(role="system", content="visual_image_ids: img-alert"),
+            Message(role="user", content="Use inactive alert banner. Inactive is the displayed status."),
+        ],
+        media=["img-alert"],
+        tool_names=["extract_layout", "refine_selection"],
+        initial_state={
+            "images": {
+                "img-alert": {
+                    "local_layouts": [
+                        {"region_id": "alert-1", "label": "alert banner active", "text": "Active"},
+                        {"region_id": "alert-2", "label": "alert banner inactive", "text": "Inactive"},
+                        {"region_id": "note-1", "label": "alert note", "text": "Inactive after policy review"},
+                    ]
+                }
+            },
+        },
+    )
+    turn = ModelTurn(
+        raw_model_output="{}",
+        normalized_tool_call=[
+            ToolCall(
+                name="extract_layout",
+                arguments={"image_id": "img-alert", "target_query": "alert inactive"},
+                source_format="json",
+                raw="{}",
+            )
+        ],
+    )
+
+    patched = _apply_visual_negated_component_target_preservation(
+        turn=turn,
+        case=case,
+        tool_specs=[specs["extract_layout"], specs["refine_selection"]],
+        preserve_negative_value_targets=True,
+    )
+
+    assert patched.normalized_tool_call[0].arguments["target_query"] == "alert banner inactive"
+    metadata = patched.runtime_metadata["visual_negative_value_component_target_preservation"][0]
+    assert metadata["blocked_label"] == "alert inactive"
+    assert metadata["preserved_target_query"] == "alert banner inactive"
 
 
 def test_semantic_target_preservation_adds_no_call_visual_fallback() -> None:

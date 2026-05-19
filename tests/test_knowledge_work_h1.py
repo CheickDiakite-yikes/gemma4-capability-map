@@ -1075,6 +1075,34 @@ def test_h2u_negation_guard_registry_row_preserves_h2r_stack() -> None:
     assert spec["enable_visual_negation_aware_target_query_normalization"] is True
 
 
+def test_h3a_boundary_combined_registry_row_preserves_repair_flags() -> None:
+    config = load_h1_slice(H1M_CONFIG_PATH)
+    registry = load_model_registry()
+
+    specs = build_h1_run_specs(
+        config,
+        registry,
+        lanes=["replayable_core"],
+        system_ids=["mlx_gemma4_e2b_reasoner_only_h3a_boundary_combined"],
+    )
+
+    assert len(specs) == 1
+    spec = specs[0]
+    assert spec["pipeline_name"] == "monolith"
+    assert spec["disable_tool_turn_directive"] is True
+    assert spec["tool_catalog_profile_id"] == "visual_role_catalog_route_arbitration_residual_exactness_v20"
+    assert spec["enable_visual_stale_selection_gate"] is True
+    assert spec["enable_visual_value_bearing_target_query_synthesis"] is True
+    assert spec["enable_visual_contextual_surface_alias_routing"] is True
+    assert spec["enable_visual_composed_route_gating"] is True
+    assert spec["enable_visual_negation_aware_target_query_normalization"] is True
+    assert spec["enable_visual_semantic_target_preservation"] is True
+    assert spec["enable_visual_stale_selection_negation_guard"] is True
+    assert spec["enable_visual_negated_component_target_preservation"] is True
+    assert spec["enable_visual_stale_selection_paraphrase_guard"] is True
+    assert spec["enable_visual_negative_value_component_target_preservation"] is True
+
+
 def test_h1f_ablation_specs_preserve_tool_directive_flags() -> None:
     config = load_h1_slice(H1F_CONFIG_PATH)
     registry = load_model_registry()
