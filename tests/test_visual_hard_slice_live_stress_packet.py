@@ -1238,6 +1238,61 @@ def test_visual_hard_slice_live_stress_packet_supports_h2x_cli_semantic_pressure
         assert _expected_call_reaches_oracle(case)
 
 
+def test_visual_hard_slice_live_stress_packet_supports_h2y_scaled_cli_semantic_pressure_suite(
+    tmp_path: Path,
+) -> None:
+    packet = SCRIPT.build_visual_hard_slice_live_stress_packet(
+        output_root=tmp_path / "replay_packets",
+        run_group_id="visual_stress_h2y_scaled_cli_semantic_pressure",
+        suite="h2y_scaled_cli_semantic_pressure_v25",
+    )
+
+    assert packet["summary"]["suite"] == "h2y_scaled_cli_semantic_pressure_v25"
+    assert packet["summary"]["case_count"] == 16
+    assert packet["summary"]["family_counts"] == {
+        "h2y_genuine_negated_target_value": 7,
+        "h2y_instructional_negation_context": 3,
+        "h2y_quoted_stale_negation_context": 3,
+        "h2y_stale_selection_negation_context": 3,
+    }
+    assert packet["summary"]["failure_mode_counts"] == {
+        "argument_alias_or_decoy_risk": 13,
+        "wrong_tool_or_stale_selection_risk": 3,
+    }
+    cases = {case["case_id"]: case for case in packet["replay_cases"]}
+    assert cases["h2y_action_banner_quoted_not_banner_note"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h2y-action-banner-quote",
+                "target_query": "action banner",
+            },
+        }
+    ]
+    assert cases["h2y_not_replied_status_pill_value_before_component"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h2y-not-replied-status-pill",
+                "target_query": "status pill not replied",
+            },
+        }
+    ]
+    assert cases["h2y_not_required_approval_marker_value_before_component"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h2y-not-required-approval-marker",
+                "target_query": "approval marker not required",
+            },
+        }
+    ]
+    stale_case = cases["h2y_escalation_lane_stale_selection_not_lane"]
+    assert stale_case["initial_state"]["visual_last_selection_id"] == "sel-h2y-old-note"
+    for case in packet["replay_cases"]:
+        assert _expected_call_reaches_oracle(case)
+
+
 def _expected_call_reaches_oracle(case: dict[str, object]) -> bool:
     tool_specs = [ToolSpec.model_validate(payload) for payload in case["tool_specs"]]  # type: ignore[index]
     executor = DeterministicExecutor(tool_specs=tool_specs)

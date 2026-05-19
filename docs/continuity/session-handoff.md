@@ -22,7 +22,7 @@ Treat the older H1/HF and React notes below as historical context unless they ar
 
 Current strongest MLX result:
 
-- H2x packaged/CLI semantic pressure is the freshest visual harnessing result:
+- H2y scaled CLI semantic pressure is the freshest visual harnessing result:
   - H2e still reaches `5 / 5` on H2b and `8 / 8` on H1x, so route arbitration remains valid mechanism evidence.
   - Fresh H2f broke global H2e promotion: H2e and H2c tie at `6 / 10`, while no-directive is only `1 / 10`.
   - H2h component-identity negative examples are scoped positive but globally negative: `9 / 10` on H2f, then `3 / 5` on H2b and `6 / 8` on H1x.
@@ -75,7 +75,15 @@ Current strongest MLX result:
   - H2x ports the semantic-pressure problem into the CLI-first packaged-workflow line: H2u reaches `3 / 8` strict and `4 / 8` executor-equivalent, while H2w reaches `8 / 8` strict and executor-equivalent.
   - H2x no-fallback controls tie their full-controller rows with `0.0` exact and executor-equivalence deltas, so fallback is not causal on this slice.
   - H2x records `1` semantic-preservation intervention, `5` target-query-normalization interventions, `1` composed-route intervention, and `1` composed-route block on the H2w row.
-  - H2w is replay-transfer-clean and H2x-positive under packaged CLI pressure; the next move is a larger H1 packaged CLI semantic-pressure slice that keeps stale quoted negation, stale selection, instructional negation, and genuine displayed negated values visible to the model/controller.
+  - H2y scales H2x into a `16`-case CLI semantic-pressure gate: H2u reaches `4 / 16` strict and `5 / 16` executor-equivalent, while H2w reaches `12 / 16` strict and executor-equivalent.
+  - H2y no-fallback controls again tie their full-controller rows with `0.0` exact and executor-equivalence deltas, so fallback remains non-causal on this harder slice.
+  - H2y fixes `8` H2u strict misses, but leaves `4` H2w boundary rows: all three stale-selection-negation rows still choose stale `refine_selection`, and `h2y_not_active_alert_banner_value_before_component` collapses the expected `alert banner not active` target into the short query `alert`.
+  - H2w is replay-transfer-clean and H2x/H2y-positive under CLI semantic pressure; the next move is a focused H2z helper ablation for stale-selection negation and short component-query collapse, not another same-shape H2w transfer rerun.
+  - H2y synthesis: [`results/reports/h2y_scaled_cli_semantic_pressure_synthesis/report.md`](../../results/reports/h2y_scaled_cli_semantic_pressure_synthesis/report.md)
+  - H2y figure: [`results/reports/h2y_scaled_cli_semantic_pressure_synthesis/figures/h2y_scaled_cli_semantic_pressure_gate.svg`](../../results/reports/h2y_scaled_cli_semantic_pressure_synthesis/figures/h2y_scaled_cli_semantic_pressure_gate.svg)
+  - H2y dry-run packet: [`results/tool_probe_replay_packets/20260519T_h2y_scaled_cli_semantic_pressure_dry_run_v1`](../../results/tool_probe_replay_packets/20260519T_h2y_scaled_cli_semantic_pressure_dry_run_v1)
+  - H2y live packets: [`H2u`](../../results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h2u_execute_v1), [`H2u no fallback`](../../results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h2u_no_fallback_execute_v1), [`H2w`](../../results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h2w_execute_v1), [`H2w no fallback`](../../results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h2w_no_fallback_execute_v1)
+  - H2y comparisons: [`H2w-vs-H2u`](../../results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h2w_vs_h2u_v1), [`H2u no-fallback-vs-H2u`](../../results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h2u_no_fallback_vs_h2u_v1), [`H2w no-fallback-vs-H2w`](../../results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h2w_no_fallback_vs_h2w_v1)
   - H2f synthesis: [`results/reports/h2f_route_arbitration_holdout_synthesis/report.md`](../../results/reports/h2f_route_arbitration_holdout_synthesis/report.md)
   - H2f figure: [`results/reports/h2f_route_arbitration_holdout_synthesis/figures/h2f_holdout_profile_bars.svg`](../../results/reports/h2f_route_arbitration_holdout_synthesis/figures/h2f_holdout_profile_bars.svg)
   - H2h tradeoff synthesis: [`results/reports/h2h_component_identity_tradeoff_synthesis/report.md`](../../results/reports/h2h_component_identity_tradeoff_synthesis/report.md)
@@ -145,9 +153,12 @@ Current strongest MLX result:
   - H2x synthesis: [`results/reports/h2x_cli_semantic_pressure_synthesis/report.md`](../../results/reports/h2x_cli_semantic_pressure_synthesis/report.md)
   - H2x figure: [`results/reports/h2x_cli_semantic_pressure_synthesis/figures/h2x_cli_semantic_pressure_gate.svg`](../../results/reports/h2x_cli_semantic_pressure_synthesis/figures/h2x_cli_semantic_pressure_gate.svg)
   - H2x live packets: [`H2u`](../../results/tool_probe_replay_live/20260517T_h2x_cli_semantic_pressure_h2u_execute_v1), [`H2u no fallback`](../../results/tool_probe_replay_live/20260517T_h2x_cli_semantic_pressure_h2u_no_fallback_execute_v1), [`H2w`](../../results/tool_probe_replay_live/20260517T_h2x_cli_semantic_pressure_h2w_execute_v1), [`H2w no fallback`](../../results/tool_probe_replay_live/20260517T_h2x_cli_semantic_pressure_h2w_no_fallback_execute_v1)
+  - H2y synthesis: [`results/reports/h2y_scaled_cli_semantic_pressure_synthesis/report.md`](../../results/reports/h2y_scaled_cli_semantic_pressure_synthesis/report.md)
+  - H2y figure: [`results/reports/h2y_scaled_cli_semantic_pressure_synthesis/figures/h2y_scaled_cli_semantic_pressure_gate.svg`](../../results/reports/h2y_scaled_cli_semantic_pressure_synthesis/figures/h2y_scaled_cli_semantic_pressure_gate.svg)
+  - H2y live packets: [`H2u`](../../results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h2u_execute_v1), [`H2u no fallback`](../../results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h2u_no_fallback_execute_v1), [`H2w`](../../results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h2w_execute_v1), [`H2w no fallback`](../../results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h2w_no_fallback_execute_v1)
   - H2r H2q live packet: [`results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2q_execute_v2`](../../results/tool_probe_replay_live/20260512T_h2r_composed_route_gating_on_h2q_execute_v2)
   - H2r comparison: [`H2r-vs-H2p`](../../results/tool_probe_replay_live_comparisons/20260512T_h2r_composed_route_gating_vs_h2p_on_h2q_v2)
-  - next restart move: port the same semantic pressure into packaged workflows or harder CLI-live tasks only if the workflow preserves the stale/quoted/genuine-negation ambiguity.
+  - next restart move: build the focused H2z helper ablation for stale-selection negation and short component-query collapse before any broader packaged promotion.
 - H1h proves the no-directive causal ordering across all ten live workflow families.
 - H1i compresses the worst H1h workflow families into the current fast loop.
 - contracted MLX on H1i is clean at readiness `0.97710`, strict/recovered `1.0 / 1.0`, raw clean `1.0`.

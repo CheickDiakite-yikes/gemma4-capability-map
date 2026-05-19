@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-17T20:57:01.660201+00:00",
+    "generated_at": "2026-05-19T19:30:32.420511+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-    "claim_count": 64,
-    "evidence_source_count": 438,
+    "claim_count": 65,
+    "evidence_source_count": 448,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -69,7 +69,8 @@
       "C61_h2v_semantic_negation_breaks_h2u_transfer_saturation",
       "C62_h2w_semantic_target_preservation_repairs_h2v",
       "C63_h2w_transfer_backtest_preserves_current_gates",
-      "C64_h2x_cli_semantic_pressure_separates_semantic_preservation_from_fallback"
+      "C64_h2x_cli_semantic_pressure_separates_semantic_preservation_from_fallback",
+      "C65_h2y_scaled_cli_semantic_pressure_exposes_h2w_boundary"
     ]
   },
   "claims": [
@@ -712,6 +713,16 @@
       "limitation": "H2x is an eight-case CLI/replay pressure gate plus packaged workflow scaffold, not a broad population estimate. The live packaged smoke used the current local oracle/operator path, so publication should treat it as harness-readiness evidence and still run the next larger H1 slice under local MLX.",
       "next_test": "Build a harder H1 packaged CLI slice that keeps stale quoted negation, stale selection, instructional negation, and genuine displayed negated values visible across longer workflows, then rerun the remaining controller-helper ablations sequentially on MLX.",
       "source_count": 11
+    },
+    {
+      "claim_id": "C65_h2y_scaled_cli_semantic_pressure_exposes_h2w_boundary",
+      "claim": "The H2y scaled CLI semantic-pressure gate confirms that H2w semantic target preservation is causal but not sufficient under larger packaged-style semantic pressure.",
+      "status": "supported_boundary_result_fallback_independent",
+      "evidence_strength": "strong_internal_cli_boundary_gate",
+      "primary_metric": "On H2y, H2u reaches 4/16 strict and 5/16 executor-equivalent while H2w reaches 12/16 strict and 12/16 executor-equivalent. H2w gains +0.50 exact-rate and +0.4375 executor-equivalence-rate over H2u and fixes 8 strict H2u misses. Matched no-fallback controls have 0.0 exact and executor-equivalence deltas for both H2u and H2w.",
+      "limitation": "H2y is still an internal CLI replay-live pressure gate, not a population estimate. It also shows H2w should not be globally promoted without another helper slice, because all three stale-selection negation rows remain wrong-tool failures and one value-before-component case collapses to a short component query.",
+      "next_test": "Run the next helper ablation on stale-selection negation and short component-query collapse, preserving the H2y families and the no-fallback controls.",
+      "source_count": 10
     }
   ],
   "evidence_sources": [
@@ -3779,6 +3790,76 @@
       "artifact_type": "packaged_workflow_config",
       "path": "configs/packaged_workflows.yaml",
       "purpose": "Packaged `executive_semantic_target_pressure` workflow mapping H2x replayable and live lanes.",
+      "exists": true
+    },
+    {
+      "claim_id": "C65_h2y_scaled_cli_semantic_pressure_exposes_h2w_boundary",
+      "artifact_type": "replay_synthesis",
+      "path": "results/reports/h2y_scaled_cli_semantic_pressure_synthesis/report.md",
+      "purpose": "Dedicated H2y synthesis summarizing H2u/H2w, no-fallback controls, unresolved boundary rows, and intervention attribution.",
+      "exists": true
+    },
+    {
+      "claim_id": "C65_h2y_scaled_cli_semantic_pressure_exposes_h2w_boundary",
+      "artifact_type": "replay_synthesis_figure",
+      "path": "results/reports/h2y_scaled_cli_semantic_pressure_synthesis/figures/h2y_scaled_cli_semantic_pressure_gate.svg",
+      "purpose": "Figure showing H2w's partial gain over H2u and matched no-fallback rows on the sixteen-case gate.",
+      "exists": true
+    },
+    {
+      "claim_id": "C65_h2y_scaled_cli_semantic_pressure_exposes_h2w_boundary",
+      "artifact_type": "tool_probe_replay_packet",
+      "path": "results/tool_probe_replay_packets/20260519T_h2y_scaled_cli_semantic_pressure_dry_run_v1",
+      "purpose": "Sixteen-case H2y replay packet scaling stale quoted negation, stale selection, instructional negation, and genuine negated values.",
+      "exists": true
+    },
+    {
+      "claim_id": "C65_h2y_scaled_cli_semantic_pressure_exposes_h2w_boundary",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h2u_execute_v1",
+      "purpose": "H2u live replay on H2y reaching 4/16 strict and 5/16 executor-equivalent.",
+      "exists": true
+    },
+    {
+      "claim_id": "C65_h2y_scaled_cli_semantic_pressure_exposes_h2w_boundary",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h2w_execute_v1",
+      "purpose": "H2w live replay on H2y reaching 12/16 strict and executor-equivalent while leaving four boundary rows.",
+      "exists": true
+    },
+    {
+      "claim_id": "C65_h2y_scaled_cli_semantic_pressure_exposes_h2w_boundary",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h2u_no_fallback_execute_v1",
+      "purpose": "H2u no-fallback live replay tying full H2u on H2y.",
+      "exists": true
+    },
+    {
+      "claim_id": "C65_h2y_scaled_cli_semantic_pressure_exposes_h2w_boundary",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h2w_no_fallback_execute_v1",
+      "purpose": "H2w no-fallback live replay tying full H2w on H2y.",
+      "exists": true
+    },
+    {
+      "claim_id": "C65_h2y_scaled_cli_semantic_pressure_exposes_h2w_boundary",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h2w_vs_h2u_v1",
+      "purpose": "Direct H2w-vs-H2u comparison showing +0.50 exact-rate and +0.4375 executor-equivalence-rate deltas.",
+      "exists": true
+    },
+    {
+      "claim_id": "C65_h2y_scaled_cli_semantic_pressure_exposes_h2w_boundary",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h2u_no_fallback_vs_h2u_v1",
+      "purpose": "Fallback holdout showing zero exact and executor-equivalence deltas for H2u on H2y.",
+      "exists": true
+    },
+    {
+      "claim_id": "C65_h2y_scaled_cli_semantic_pressure_exposes_h2w_boundary",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h2w_no_fallback_vs_h2w_v1",
+      "purpose": "Fallback holdout showing zero exact and executor-equivalence deltas for H2w on H2y.",
       "exists": true
     }
   ],

@@ -5477,3 +5477,51 @@
   - `uv run python scripts/build_publication_evidence_ledger.py`
   - `uv run python scripts/audit_publication_readiness.py`
   - `uv run pytest tests/test_publication_evidence_ledger.py tests/test_publication_readiness_audit.py -q`
+
+## 2026-05-19 - H2y Scaled CLI Semantic Pressure Exposes H2w Boundary
+
+- Built and executed the scaled H2y CLI semantic-pressure gate:
+  - dry-run packet: [`results/tool_probe_replay_packets/20260519T_h2y_scaled_cli_semantic_pressure_dry_run_v1`](../results/tool_probe_replay_packets/20260519T_h2y_scaled_cli_semantic_pressure_dry_run_v1)
+  - H2u live replay: [`results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h2u_execute_v1`](../results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h2u_execute_v1)
+  - H2w live replay: [`results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h2w_execute_v1`](../results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h2w_execute_v1)
+  - H2u no-fallback replay: [`results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h2u_no_fallback_execute_v1`](../results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h2u_no_fallback_execute_v1)
+  - H2w no-fallback replay: [`results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h2w_no_fallback_execute_v1`](../results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h2w_no_fallback_execute_v1)
+  - synthesis: [`results/reports/h2y_scaled_cli_semantic_pressure_synthesis/report.md`](../results/reports/h2y_scaled_cli_semantic_pressure_synthesis/report.md)
+  - figure: [`results/reports/h2y_scaled_cli_semantic_pressure_synthesis/figures/h2y_scaled_cli_semantic_pressure_gate.svg`](../results/reports/h2y_scaled_cli_semantic_pressure_synthesis/figures/h2y_scaled_cli_semantic_pressure_gate.svg)
+- Packet shape:
+  - `16` cases total.
+  - `3` quoted stale negation rows.
+  - `3` stale-selection negation rows.
+  - `3` instructional negation rows.
+  - `7` genuine displayed negated-value rows.
+  - The packet deliberately avoids layout text collisions that would make the deterministic oracle ambiguous; the semantic pressure lives in the user/stale-context wording.
+- Result:
+  - H2u reaches `4 / 16` strict and `5 / 16` executor-equivalent.
+  - H2w reaches `12 / 16` strict and `12 / 16` executor-equivalent.
+  - H2w improves over H2u by `+0.50` exact-rate and `+0.4375` executor-equivalence-rate.
+  - H2w fixes `8` H2u strict misses.
+- Fallback attribution:
+  - H2u no-fallback ties H2u at `4 / 16` strict and `5 / 16` executor-equivalent.
+  - H2w no-fallback ties H2w at `12 / 16` strict and executor-equivalent.
+  - Both no-fallback comparisons have `0.0` exact and executor-equivalence deltas.
+  - This makes H2y a semantic-preservation/target-normalization result, not a fallback result.
+- Boundary analysis:
+  - H2w still misses all three stale-selection-negation rows:
+    - `h2y_escalation_lane_stale_selection_not_lane`
+    - `h2y_exception_panel_stale_selection_not_panel`
+    - `h2y_approval_field_stale_selection_not_field`
+  - In each stale-selection-negation miss, the actual call is still `refine_selection` against a stale selection id.
+  - H2w also misses `h2y_not_active_alert_banner_value_before_component`, where the expected `target_query` is `alert banner not active` but the actual query collapses to `alert`.
+- Reporting updates:
+  - publication evidence claim `C65_h2y_scaled_cli_semantic_pressure_exposes_h2w_boundary` records the scaled CLI boundary result.
+  - publication evidence ledger now has `65` claims and `448` sources with `0` missing sources.
+  - publication readiness audit now has `355` checks, `348` blocking checks, `0` blocking failures, and status `paper_draft_ready`.
+- Interpretation:
+  - H2y confirms the core finding from H2x: semantic target preservation is causal under CLI semantic pressure.
+  - H2y also blocks global promotion of H2w. The remaining work is not fallback; it is stale-selection negation gating plus short component-query preservation.
+  - The next proper slice is an H2z helper ablation that keeps the H2y families fixed, runs H2w/H2w-no-fallback controls, and adds one or two tightly scoped candidates for the four unresolved boundary rows.
+- Verification:
+  - `uv run python scripts/build_h2y_scaled_cli_semantic_pressure_synthesis.py`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`
+  - `uv run pytest tests/test_h2y_scaled_cli_semantic_pressure_synthesis.py tests/test_publication_evidence_ledger.py tests/test_publication_readiness_audit.py -q`

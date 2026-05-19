@@ -1,0 +1,166 @@
+{
+  "case_id": "h2y_exception_panel_stale_selection_not_panel",
+  "family": "h2y_stale_selection_negation_context",
+  "messages": [
+    {
+      "role": "system",
+      "content": "visual_image_ids: img-h2y-exception-panel-stale-selection",
+      "image_refs": []
+    },
+    {
+      "role": "user",
+      "content": "The stale selection sel-h2y-exception-note says not the exception panel. Use the current exception panel instead.",
+      "image_refs": []
+    }
+  ],
+  "media": [
+    "img-h2y-exception-panel-stale-selection"
+  ],
+  "tool_names": [
+    "extract_layout",
+    "refine_selection",
+    "read_region_text"
+  ],
+  "tool_specs": [
+    {
+      "name": "extract_layout",
+      "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "image_id": {
+            "type": "string"
+          },
+          "target_query": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "image_id",
+          "target_query"
+        ]
+      },
+      "tool_family": "function_call",
+      "tool_intent": "inspect"
+    },
+    {
+      "name": "refine_selection",
+      "description": "Refine a prior visual selection using a follow-up filter query.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "selection_id": {
+            "type": "string"
+          },
+          "filter_query": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "selection_id",
+          "filter_query"
+        ]
+      },
+      "tool_family": "function_call",
+      "tool_intent": "revise"
+    },
+    {
+      "name": "read_region_text",
+      "description": "Read the text inside a previously selected region.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "image_id": {
+            "type": "string"
+          },
+          "region_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "image_id",
+          "region_id"
+        ]
+      },
+      "tool_family": "function_call",
+      "tool_intent": "read"
+    }
+  ],
+  "initial_state": {
+    "visual_executor_mode": "local",
+    "images": {
+      "img-h2y-exception-panel-stale-selection": {
+        "entities": [],
+        "layouts": [],
+        "local_layouts": [
+          {
+            "region_id": "h2y-exception-panel-18041",
+            "label": "exception panel",
+            "text": "Exception open",
+            "attributes": {
+              "area": "panel"
+            }
+          },
+          {
+            "region_id": "h2y-exception-note-18042",
+            "label": "exception note",
+            "text": "stale exception warning",
+            "attributes": {
+              "area": "note"
+            }
+          },
+          {
+            "region_id": "h2y-exception-log-18043",
+            "label": "exception log",
+            "text": "Exception timeline",
+            "attributes": {
+              "area": "log"
+            }
+          }
+        ]
+      }
+    },
+    "visual_selections": {
+      "sel-h2y-exception-note": {
+        "image_id": "img-h2y-exception-panel-stale-selection",
+        "selection_kind": "regions",
+        "items": [
+          {
+            "region_id": "h2y-exception-note-18042",
+            "label": "exception note",
+            "text": "stale exception warning",
+            "attributes": {
+              "area": "note"
+            }
+          }
+        ],
+        "query": "not the exception panel",
+        "parent_selection_id": null
+      }
+    },
+    "visual_last_selection_id": "sel-h2y-exception-note",
+    "visual_selection_counter": 1
+  },
+  "expected_execution": {
+    "region_ids": [
+      "h2y-exception-panel-18041"
+    ]
+  },
+  "expected_calls": [
+    {
+      "name": "extract_layout",
+      "arguments": {
+        "image_id": "img-h2y-exception-panel-stale-selection",
+        "target_query": "exception panel"
+      }
+    }
+  ],
+  "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+  "source_failure_mode": "wrong_tool_or_stale_selection_risk",
+  "source_exact_match": false,
+  "source_executable_match": false,
+  "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+  "baseline_exact_match": "",
+  "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+  "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+}

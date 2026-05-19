@@ -1,0 +1,44 @@
+{
+  "packet_run_id": "20260519T_h2y_scaled_cli_semantic_pressure_dry_run_v1",
+  "packet_dir": "/Users/cheickdiakite/Codex/moonie/results/tool_probe_replay_packets/20260519T_h2y_scaled_cli_semantic_pressure_dry_run_v1",
+  "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+  "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+  "replay_system_id": "mlx_gemma4_e2b_reasoner_only_no_tool_turn_directive_visual_role_catalog_schema_field_hints",
+  "suite": "h2y_scaled_cli_semantic_pressure_v25",
+  "case_count": 16,
+  "family_counts": {
+    "h2y_genuine_negated_target_value": 7,
+    "h2y_instructional_negation_context": 3,
+    "h2y_quoted_stale_negation_context": 3,
+    "h2y_stale_selection_negation_context": 3
+  },
+  "failure_mode_counts": {
+    "argument_alias_or_decoy_risk": 13,
+    "wrong_tool_or_stale_selection_risk": 3
+  },
+  "dry_run": true,
+  "executed_count": 0,
+  "created_at": "2026-05-19T19:12:57.031902+00:00",
+  "registry_path": "/Users/cheickdiakite/Codex/moonie/configs/model_registry.yaml",
+  "case_ids": [
+    "h2y_action_banner_quoted_not_banner_note",
+    "h2y_decision_panel_caption_says_not_panel",
+    "h2y_resolution_marker_old_quote_not_marker",
+    "h2y_escalation_lane_stale_selection_not_lane",
+    "h2y_exception_panel_stale_selection_not_panel",
+    "h2y_approval_field_stale_selection_not_field",
+    "h2y_reviewer_tag_do_not_use_memo",
+    "h2y_due_date_field_do_not_use_note",
+    "h2y_vendor_chip_do_not_use_table",
+    "h2y_not_replied_status_pill_value_before_component",
+    "h2y_not_sent_delivery_tag_value_before_component",
+    "h2y_not_required_approval_marker_value_before_component",
+    "h2y_not_active_alert_banner_value_before_component",
+    "h2y_not_escalated_risk_chip_value_before_component",
+    "h2y_not_available_owner_field_value_before_component",
+    "h2y_not_started_phase_tile_value_before_component"
+  ],
+  "operator_surface": "rich_cli_visual_hard_slice_live_stress_v1",
+  "entrypoint": "moonie-agent replay-live",
+  "purpose": "Repeat the visual hard-slice executor-alias and stale-selection mechanisms under fresh decoys before spending packaged H1 workflow budget."
+}

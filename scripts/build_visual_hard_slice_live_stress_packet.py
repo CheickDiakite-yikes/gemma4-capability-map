@@ -56,6 +56,7 @@ def parse_args() -> argparse.Namespace:
             "h2t_overreach_independence_v22",
             "h2v_semantic_negation_v23",
             "h2x_cli_semantic_pressure_v24",
+            "h2y_scaled_cli_semantic_pressure_v25",
         ],
         default="v1",
     )
@@ -246,6 +247,8 @@ def _stress_cases_for_suite(suite: str) -> list[ToolDirectiveProbeCase]:
         return _h2v_semantic_negation_cases_v23()
     if suite == "h2x_cli_semantic_pressure_v24":
         return _h2x_cli_semantic_pressure_cases_v24()
+    if suite == "h2y_scaled_cli_semantic_pressure_v25":
+        return _h2y_scaled_cli_semantic_pressure_cases_v25()
     raise ValueError(f"Unknown visual live stress suite: {suite}")
 
 
@@ -279,6 +282,7 @@ def _expected_call_payloads(
         "h2t_overreach_independence_v22",
         "h2v_semantic_negation_v23",
         "h2x_cli_semantic_pressure_v24",
+        "h2y_scaled_cli_semantic_pressure_v25",
     }:
         return [_oracle_visual_extract_call(case)]
     return [
@@ -4995,6 +4999,390 @@ def _h2x_cli_semantic_pressure_cases_v24() -> list[ToolDirectiveProbeCase]:
     ]
 
 
+def _h2y_scaled_cli_semantic_pressure_cases_v25() -> list[ToolDirectiveProbeCase]:
+    return [
+        ToolDirectiveProbeCase(
+            case_id="h2y_action_banner_quoted_not_banner_note",
+            family="h2y_quoted_stale_negation_context",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2y-action-banner-quote"),
+                Message(
+                    role="user",
+                    content=(
+                        "Use the action banner. The prior note quotes 'not the action banner' from an old capture; "
+                        "that quote is stale context."
+                    ),
+                ),
+            ],
+            media=["img-h2y-action-banner-quote"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2y-action-banner-quote",
+                [
+                    _region("h2y-action-banner-18001", "action banner", "Send update after approval", area="banner"),
+                    _region("h2y-prior-note-18002", "prior note", "quoted old instruction from yesterday", area="note"),
+                    _region("h2y-action-table-18003", "action table", "Action history", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2y-action-banner-18001"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2y_decision_panel_caption_says_not_panel",
+            family="h2y_quoted_stale_negation_context",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2y-decision-panel-caption"),
+                Message(
+                    role="user",
+                    content=(
+                        "Use the current decision panel. A caption says not the decision panel, but that caption "
+                        "belongs to a prior screenshot."
+                    ),
+                ),
+            ],
+            media=["img-h2y-decision-panel-caption"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2y-decision-panel-caption",
+                [
+                    _region("h2y-decision-panel-18011", "decision panel", "Approved for review", area="panel"),
+                    _region("h2y-stale-caption-18012", "stale caption", "old capture warning", area="caption"),
+                    _region("h2y-decision-note-18013", "decision note", "Approved detail", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2y-decision-panel-18011"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2y_resolution_marker_old_quote_not_marker",
+            family="h2y_quoted_stale_negation_context",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2y-resolution-marker-quote"),
+                Message(
+                    role="user",
+                    content=(
+                        "Find the resolution marker. The audit memo quotes not the resolution marker from a "
+                        "discarded view; the current marker is still the target."
+                    ),
+                ),
+            ],
+            media=["img-h2y-resolution-marker-quote"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2y-resolution-marker-quote",
+                [
+                    _region("h2y-resolution-marker-18021", "resolution marker", "Resolved", area="marker"),
+                    _region("h2y-audit-memo-18022", "audit memo", "discarded view warning", area="memo"),
+                    _region("h2y-resolution-card-18023", "resolution card", "Resolution details", area="card"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2y-resolution-marker-18021"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2y_escalation_lane_stale_selection_not_lane",
+            family="h2y_stale_selection_negation_context",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2y-escalation-lane-stale-selection"),
+                Message(
+                    role="user",
+                    content=(
+                        "The stale selection sel-h2y-old-note says not the escalation lane. Ignore that old "
+                        "selection and use the current escalation lane for P1."
+                    ),
+                ),
+            ],
+            media=["img-h2y-escalation-lane-stale-selection"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state_with_selection(
+                "img-h2y-escalation-lane-stale-selection",
+                [
+                    _region("h2y-escalation-chip-18031", "escalation chip p1", "P1", area="chip"),
+                    _region("h2y-escalation-lane-18032", "escalation lane", "P1", area="lane"),
+                    _region("h2y-old-note-18033", "old note", "stale lane warning", area="note"),
+                ],
+                selection_id="sel-h2y-old-note",
+                selected_region_ids=["h2y-old-note-18033"],
+                query="not the escalation lane",
+            ),
+            expected_execution={"region_ids": ["h2y-escalation-lane-18032"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2y_exception_panel_stale_selection_not_panel",
+            family="h2y_stale_selection_negation_context",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2y-exception-panel-stale-selection"),
+                Message(
+                    role="user",
+                    content=(
+                        "The stale selection sel-h2y-exception-note says not the exception panel. Use the current "
+                        "exception panel instead."
+                    ),
+                ),
+            ],
+            media=["img-h2y-exception-panel-stale-selection"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state_with_selection(
+                "img-h2y-exception-panel-stale-selection",
+                [
+                    _region("h2y-exception-panel-18041", "exception panel", "Exception open", area="panel"),
+                    _region("h2y-exception-note-18042", "exception note", "stale exception warning", area="note"),
+                    _region("h2y-exception-log-18043", "exception log", "Exception timeline", area="log"),
+                ],
+                selection_id="sel-h2y-exception-note",
+                selected_region_ids=["h2y-exception-note-18042"],
+                query="not the exception panel",
+            ),
+            expected_execution={"region_ids": ["h2y-exception-panel-18041"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2y_approval_field_stale_selection_not_field",
+            family="h2y_stale_selection_negation_context",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2y-approval-field-stale-selection"),
+                Message(
+                    role="user",
+                    content=(
+                        "Old selection sel-h2y-approval-memo says not the approval field. The requested current "
+                        "target is the approval field."
+                    ),
+                ),
+            ],
+            media=["img-h2y-approval-field-stale-selection"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state_with_selection(
+                "img-h2y-approval-field-stale-selection",
+                [
+                    _region("h2y-approval-field-18051", "approval field", "Manager approval pending", area="field"),
+                    _region("h2y-approval-memo-18052", "approval memo", "stale approval warning", area="memo"),
+                    _region("h2y-approval-table-18053", "approval table", "Approval roster", area="table"),
+                ],
+                selection_id="sel-h2y-approval-memo",
+                selected_region_ids=["h2y-approval-memo-18052"],
+                query="not the approval field",
+            ),
+            expected_execution={"region_ids": ["h2y-approval-field-18051"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2y_reviewer_tag_do_not_use_memo",
+            family="h2y_instructional_negation_context",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2y-reviewer-tag-memo"),
+                Message(
+                    role="user",
+                    content="Use the reviewer tag for Ada. Do not use the reviewer memo, even though it repeats Ada.",
+                ),
+            ],
+            media=["img-h2y-reviewer-tag-memo"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2y-reviewer-tag-memo",
+                [
+                    _region("h2y-reviewer-tag-18061", "reviewer tag", "Ada", area="tag"),
+                    _region("h2y-reviewer-memo-18062", "reviewer memo", "Ada owns review", area="memo"),
+                    _region("h2y-reviewer-table-18063", "reviewer table", "Reviewer roster", area="table"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2y-reviewer-tag-18061"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2y_due_date_field_do_not_use_note",
+            family="h2y_instructional_negation_context",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2y-due-date-field-note"),
+                Message(
+                    role="user",
+                    content="Use the due date field. Do not use the due date note, even though both mention Friday.",
+                ),
+            ],
+            media=["img-h2y-due-date-field-note"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2y-due-date-field-note",
+                [
+                    _region("h2y-due-date-field-18071", "due date field", "Friday", area="field"),
+                    _region("h2y-due-date-note-18072", "due date note", "Friday is a soft hold", area="note"),
+                    _region("h2y-date-card-18073", "date card", "Timeline", area="card"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2y-due-date-field-18071"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2y_vendor_chip_do_not_use_table",
+            family="h2y_instructional_negation_context",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2y-vendor-chip-table"),
+                Message(
+                    role="user",
+                    content="Use the vendor chip for Beta. Do not use the vendor table row that also mentions Beta.",
+                ),
+            ],
+            media=["img-h2y-vendor-chip-table"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2y-vendor-chip-table",
+                [
+                    _region("h2y-vendor-chip-18081", "vendor chip", "Beta", area="chip"),
+                    _region("h2y-vendor-table-18082", "vendor table", "Beta renewal", area="table"),
+                    _region("h2y-vendor-note-18083", "vendor note", "Vendor context", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2y-vendor-chip-18081"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2y_not_replied_status_pill_value_before_component",
+            family="h2y_genuine_negated_target_value",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2y-not-replied-status-pill"),
+                Message(
+                    role="user",
+                    content="Use the not replied status pill. Not replied is the current pill value.",
+                ),
+            ],
+            media=["img-h2y-not-replied-status-pill"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2y-not-replied-status-pill",
+                [
+                    _region("h2y-status-pill-replied-18091", "status pill replied", "Replied", area="pill"),
+                    _region("h2y-status-pill-not-replied-18092", "status pill not replied", "Not replied", area="pill"),
+                    _region("h2y-reply-note-18093", "reply note", "Not replied yet from vendor", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2y-status-pill-not-replied-18092"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2y_not_sent_delivery_tag_value_before_component",
+            family="h2y_genuine_negated_target_value",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2y-not-sent-delivery-tag"),
+                Message(
+                    role="user",
+                    content="Use the not sent delivery tag. Not sent is the current tag value.",
+                ),
+            ],
+            media=["img-h2y-not-sent-delivery-tag"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2y-not-sent-delivery-tag",
+                [
+                    _region("h2y-delivery-tag-sent-18101", "delivery tag sent", "Sent", area="tag"),
+                    _region("h2y-delivery-tag-not-sent-18102", "delivery tag not sent", "Not sent", area="tag"),
+                    _region("h2y-delivery-note-18103", "delivery note", "Not sent while approval is pending", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2y-delivery-tag-not-sent-18102"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2y_not_required_approval_marker_value_before_component",
+            family="h2y_genuine_negated_target_value",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2y-not-required-approval-marker"),
+                Message(
+                    role="user",
+                    content="Use the not required approval marker. Not required is the marker value.",
+                ),
+            ],
+            media=["img-h2y-not-required-approval-marker"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2y-not-required-approval-marker",
+                [
+                    _region("h2y-approval-marker-required-18111", "approval marker required", "Required", area="marker"),
+                    _region("h2y-approval-marker-not-required-18112", "approval marker not required", "Not required", area="marker"),
+                    _region("h2y-approval-note-18113", "approval note", "Not required after policy check", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2y-approval-marker-not-required-18112"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2y_not_active_alert_banner_value_before_component",
+            family="h2y_genuine_negated_target_value",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2y-not-active-alert-banner"),
+                Message(
+                    role="user",
+                    content="Use the not active alert banner. Not active is the displayed banner value.",
+                ),
+            ],
+            media=["img-h2y-not-active-alert-banner"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2y-not-active-alert-banner",
+                [
+                    _region("h2y-alert-banner-active-18121", "alert banner active", "Active", area="banner"),
+                    _region("h2y-alert-banner-not-active-18122", "alert banner not active", "Not active", area="banner"),
+                    _region("h2y-alert-note-18123", "alert note", "Not active after policy review", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2y-alert-banner-not-active-18122"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2y_not_escalated_risk_chip_value_before_component",
+            family="h2y_genuine_negated_target_value",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2y-not-escalated-risk-chip"),
+                Message(
+                    role="user",
+                    content="Use the not escalated risk chip. Not escalated is the chip value.",
+                ),
+            ],
+            media=["img-h2y-not-escalated-risk-chip"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2y-not-escalated-risk-chip",
+                [
+                    _region("h2y-risk-chip-escalated-18131", "risk chip escalated", "Escalated", area="chip"),
+                    _region("h2y-risk-chip-not-escalated-18132", "risk chip not escalated", "Not escalated", area="chip"),
+                    _region("h2y-risk-note-18133", "risk note", "Not escalated by support", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2y-risk-chip-not-escalated-18132"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2y_not_available_owner_field_value_before_component",
+            family="h2y_genuine_negated_target_value",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2y-not-available-owner-field"),
+                Message(
+                    role="user",
+                    content="Use the not available owner field. Not available is the current field value.",
+                ),
+            ],
+            media=["img-h2y-not-available-owner-field"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2y-not-available-owner-field",
+                [
+                    _region("h2y-owner-field-available-18141", "owner field available", "Available", area="field"),
+                    _region("h2y-owner-field-not-available-18142", "owner field not available", "Not available", area="field"),
+                    _region("h2y-owner-note-18143", "owner note", "Not available until Monday", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2y-owner-field-not-available-18142"]},
+        ),
+        ToolDirectiveProbeCase(
+            case_id="h2y_not_started_phase_tile_value_before_component",
+            family="h2y_genuine_negated_target_value",
+            messages=[
+                Message(role="system", content="visual_image_ids: img-h2y-not-started-phase-tile"),
+                Message(
+                    role="user",
+                    content="Use the not started phase tile. Not started is the current tile value.",
+                ),
+            ],
+            media=["img-h2y-not-started-phase-tile"],
+            tool_names=["extract_layout", "refine_selection", "read_region_text"],
+            initial_state=_visual_state(
+                "img-h2y-not-started-phase-tile",
+                [
+                    _region("h2y-phase-tile-started-18151", "phase tile started", "Started", area="tile"),
+                    _region("h2y-phase-tile-not-started-18152", "phase tile not started", "Not started", area="tile"),
+                    _region("h2y-phase-note-18153", "phase note", "Not started until kickoff", area="note"),
+                ],
+            ),
+            expected_execution={"region_ids": ["h2y-phase-tile-not-started-18152"]},
+        ),
+    ]
+
+
 def _visual_state(image_id: str, local_layouts: list[dict[str, Any]]) -> dict[str, Any]:
     return {
         "visual_executor_mode": "local",
@@ -5073,6 +5461,7 @@ def _stress_failure_mode(family: str) -> str:
         "h2q_stale_surface_alias",
         "h2s_stale_surface_alias",
         "h2t_current_selection_guard",
+        "h2y_stale_selection_negation_context",
     }:
         return "wrong_tool_or_stale_selection_risk"
     return "argument_alias_or_decoy_risk"

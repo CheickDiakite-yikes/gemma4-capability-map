@@ -1,0 +1,85 @@
+[
+  {
+    "case_id": "h2y_not_sent_delivery_tag_value_before_component",
+    "family": "h2y_genuine_negated_target_value",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": false,
+    "executable_match": false,
+    "executor_target_match": false,
+    "expected_execution": {
+      "region_ids": [
+        "h2y-delivery-tag-not-sent-18102"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2y-not-sent-delivery-tag",
+          "target_query": "not sent"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-001",
+          "image_id": "img-h2y-not-sent-delivery-tag",
+          "selection_kind": "regions",
+          "count": 2,
+          "executor_mode": "local",
+          "region_ids": [
+            "h2y-delivery-tag-not-sent-18102",
+            "h2y-delivery-note-18103"
+          ],
+          "region_id": "h2y-delivery-tag-not-sent-18102",
+          "text_preview": "Not sent"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2y-not-sent-delivery-tag",
+          "target_query": "delivery tag not sent"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h2y-not-sent-delivery-tag",
+          "target_query": "not sent"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h2y-not-sent-delivery-tag\", \"target_query\": \"not sent\"}}",
+    "runtime_metadata": {
+      "backend": "mlx",
+      "runtime_info": {
+        "backend": "mlx",
+        "runtime_posture": "mlx",
+        "requested_model": "google/gemma-4-E2B-it",
+        "effective_model": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_source": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_format": "mlx",
+        "runtime_device": "mlx",
+        "load_mode": "vision",
+        "configured_device": "auto",
+        "request_timeout_seconds": 300.0,
+        "tool_turn_directive_enabled": false,
+        "tool_prompt_contract_id": "",
+        "tool_catalog_profile_id": "visual_role_catalog_route_arbitration_residual_exactness_v20",
+        "service": {},
+        "partial_runtime": false,
+        "llama_cpp_error": null,
+        "llama_cpp_context_window": null
+      }
+    },
+    "prompt_tokens": 1794,
+    "completion_tokens": 41,
+    "latency_ms": 8561
+  }
+]

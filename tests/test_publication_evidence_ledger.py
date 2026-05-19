@@ -181,6 +181,9 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert claims["C64_h2x_cli_semantic_pressure_separates_semantic_preservation_from_fallback"][
         "status"
     ] == "supported_packaged_cli_gate_fallback_independent"
+    assert claims["C65_h2y_scaled_cli_semantic_pressure_exposes_h2w_boundary"][
+        "status"
+    ] == "supported_boundary_result_fallback_independent"
     assert "7/8" in claims["C2_final_tool_directive_causal_for_protocol"]["primary_metric"]
     assert "8/8 strict and 8/8 executor-equivalent versus H2p at 3/8" in claims[
         "C56_h2r_composed_route_gating_solves_h2q_locally"
@@ -236,6 +239,15 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
     assert "Matched no-fallback controls have 0.0 exact and executor-equivalence deltas" in claims[
         "C64_h2x_cli_semantic_pressure_separates_semantic_preservation_from_fallback"
     ]["primary_metric"]
+    assert "H2u reaches 4/16 strict and 5/16 executor-equivalent" in claims[
+        "C65_h2y_scaled_cli_semantic_pressure_exposes_h2w_boundary"
+    ]["primary_metric"]
+    assert "H2w reaches 12/16 strict and 12/16 executor-equivalent" in claims[
+        "C65_h2y_scaled_cli_semantic_pressure_exposes_h2w_boundary"
+    ]["primary_metric"]
+    assert "all three stale-selection negation rows remain wrong-tool failures" in claims[
+        "C65_h2y_scaled_cli_semantic_pressure_exposes_h2w_boundary"
+    ]["limitation"]
     assert "v3 raw exact falls" in claims["C6_split_selector_wording_is_negative_evidence"]["primary_metric"]
     assert "schema-field hints reach 6/8 strict and 8/8 executor-equivalent" in claims[
         "C8_visual_hard_slice_targets_remaining_uncertainty"
@@ -1124,6 +1136,25 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
         row["claim_id"] == "C64_h2x_cli_semantic_pressure_separates_semantic_preservation_from_fallback"
         and row["path"]
         == "results/tool_probe_replay_live_comparisons/20260517T_h2x_cli_semantic_pressure_h2u_no_fallback_vs_h2u_v1"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C65_h2y_scaled_cli_semantic_pressure_exposes_h2w_boundary"
+        and row["path"] == "results/reports/h2y_scaled_cli_semantic_pressure_synthesis/report.md"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C65_h2y_scaled_cli_semantic_pressure_exposes_h2w_boundary"
+        and row["path"] == "results/tool_probe_replay_live/20260519T_h2y_scaled_cli_semantic_pressure_h2w_execute_v1"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C65_h2y_scaled_cli_semantic_pressure_exposes_h2w_boundary"
+        and row["path"]
+        == "results/tool_probe_replay_live_comparisons/20260519T_h2y_scaled_cli_semantic_pressure_h2w_vs_h2u_v1"
         and row["exists"]
         for row in payload["evidence_sources"]
     )

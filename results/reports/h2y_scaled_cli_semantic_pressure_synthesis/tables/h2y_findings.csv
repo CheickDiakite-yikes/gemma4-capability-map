@@ -1,0 +1,6 @@
+finding_id,finding
+h2y_scales_h2x_pressure_and_breaks_h2w_saturation,"H2y expands H2x to 16 cases; H2u reaches 4/16 strict and 5/16 executor-equivalent, while H2w reaches 12/16 on both metrics."
+semantic_preservation_remains_causal_but_partial,"H2w fixes 8 H2u strict misses, gaining 0.5 exact rate and 0.4375 executor-equivalence rate, but leaves 3 stale-selection negation rows plus one value-before-component row unresolved."
+fallback_remains_non_causal_on_h2y,"No-fallback controls tie their full rows: H2u fallback delta is 0.0 exact/0.0 executor-equivalent, and H2w fallback delta is 0.0 exact/0.0 executor-equivalent."
+h2y_mechanism_mix_and_boundary,"H2w records 2 semantic-preservation interventions and 7 target-query normalizations. Its exact family profile is h2y_genuine_negated_target_value 6/7, h2y_instructional_negation_context 3/3, h2y_quoted_stale_negation_context 3/3, h2y_stale_selection_negation_context 0/3."
+next_helper_target_is_stale_selection_negation_and_short_component_value,"The unresolved H2w rows show stale selection IDs passing through as refine_selection calls and the `not active alert banner` value collapsing to the short component query `alert`; the next helper ablation should target those two mechanisms, not fallback."
