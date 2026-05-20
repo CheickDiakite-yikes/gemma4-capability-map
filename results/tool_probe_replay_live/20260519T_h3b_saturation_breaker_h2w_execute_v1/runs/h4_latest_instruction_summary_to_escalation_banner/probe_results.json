@@ -1,0 +1,97 @@
+[
+  {
+    "case_id": "h4_latest_instruction_summary_to_escalation_banner",
+    "family": "h4_latest_instruction_retention",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "h4-escalation-banner-20162"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "extract_layout",
+        "arguments": {
+          "image_id": "img-h4-latest-escalation",
+          "target_query": "escalation banner"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-002",
+          "image_id": "img-h4-latest-escalation",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "region_ids": [
+            "h4-escalation-banner-20162"
+          ],
+          "region_id": "h4-escalation-banner-20162",
+          "text_preview": "P1"
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h4-latest-escalation",
+          "target_query": "escalation banner"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "extract_layout",
+        "arguments": {
+          "image_id": "img-h4-latest-escalation",
+          "target_query": "escalation banner"
+        }
+      }
+    ],
+    "raw_model_output": "{\"tool_name\": \"extract_layout\", \"arguments\": {\"image_id\": \"img-h4-latest-escalation\", \"target_query\": \"escalation banner\"}}",
+    "runtime_metadata": {
+      "backend": "mlx",
+      "runtime_info": {
+        "backend": "mlx",
+        "runtime_posture": "mlx",
+        "requested_model": "google/gemma-4-E2B-it",
+        "effective_model": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_source": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_format": "mlx",
+        "runtime_device": "mlx",
+        "load_mode": "vision",
+        "configured_device": "auto",
+        "request_timeout_seconds": 300.0,
+        "tool_turn_directive_enabled": false,
+        "tool_prompt_contract_id": "",
+        "tool_catalog_profile_id": "visual_role_catalog_route_arbitration_residual_exactness_v20",
+        "service": {},
+        "partial_runtime": false,
+        "llama_cpp_error": null,
+        "llama_cpp_context_window": null
+      },
+      "visual_semantic_target_preservation": [
+        {
+          "from_tool": "",
+          "from_arguments": {},
+          "to_tool": "extract_layout",
+          "to_arguments": {
+            "image_id": "img-h4-latest-escalation",
+            "target_query": "escalation banner"
+          },
+          "preserved_target_query": "escalation banner",
+          "reason": "no_call_clear_visual_target"
+        }
+      ]
+    },
+    "prompt_tokens": 1915,
+    "completion_tokens": 40,
+    "latency_ms": 6834
+  }
+]
