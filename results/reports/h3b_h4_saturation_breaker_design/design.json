@@ -1,0 +1,175 @@
+{
+  "manifest": {
+    "generated_at": "2026-05-20T00:00:13.390907+00:00",
+    "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h3b_h4_saturation_breaker_design",
+    "phase": "h3b_h4_saturation_breaker_design",
+    "planned_family_count": 6,
+    "planned_case_count": 24,
+    "score_metric_count": 6,
+    "baseline_count": 5,
+    "external_alignment_count": 5,
+    "current_candidate": "mlx_gemma4_e2b_reasoner_only_h3a_boundary_combined",
+    "first_execution_packet": "h3b_saturation_breaker_v27",
+    "primary_decision_gate": "Score H3a before adding new helpers; promote no new controller unless it fixes a named family, has clean transfer/back-compat evidence, and leaves helper traces attributable.",
+    "publication_standard": "Every top-line score must be paired with controller-dependence, executor-equivalence, regression, family, and live artifact evidence."
+  },
+  "family_rows": [
+    {
+      "family_id": "h3b_unseen_stale_origin_paraphrase",
+      "planned_cases": 4,
+      "pressure_type": "controller_generalization",
+      "primary_axis": "stale selection origin language outside H3a marker set",
+      "expected_first_gate": "H3a combined versus H2w/H2z rows on the same packet",
+      "why_it_breaks_saturation": "H3a repaired archived, retired, remembered, shadow, carry-over, and leftover phrasing. This family uses unseen provenance language such as historical bookmark, decommissioned pane, orphaned cursor, and frozen snapshot while the stale selection id is present in state.",
+      "paper_role": "tests whether stale-selection repair learned a mechanism or memorized marker phrasing"
+    },
+    {
+      "family_id": "h3b_extended_negative_value_vocabulary",
+      "planned_cases": 4,
+      "pressure_type": "semantic_generalization",
+      "primary_axis": "negative-value target words outside current controller vocabulary",
+      "expected_first_gate": "H3a combined versus H3a negative-only and H2z component-only",
+      "why_it_breaks_saturation": "H3a covers inactive, disabled, unresolved, unassigned, paused, rejected, missing, and expired. This family uses values such as suppressed, withheld, revoked, and voided with same-value note/table decoys.",
+      "paper_role": "tests whether value preservation is lexical coverage or general target binding"
+    },
+    {
+      "family_id": "h3b_state_order_flip",
+      "planned_cases": 4,
+      "pressure_type": "order_sensitivity",
+      "primary_axis": "decoy comes before the target and carries a higher-overlap value",
+      "expected_first_gate": "H3a combined strict/executor with family-level trace counts",
+      "why_it_breaks_saturation": "Earlier packets often made the requested component directly recoverable from a label phrase. This family puts value-bearing decoys first and asks for the target after a state-order reversal.",
+      "paper_role": "separates target binding from row-order and first-match bias"
+    },
+    {
+      "family_id": "h3b_current_selection_stepwise_refine",
+      "planned_cases": 4,
+      "pressure_type": "workflow_state",
+      "primary_axis": "must use a current selection_id from prior tool state, not restart extraction",
+      "expected_first_gate": "H3a combined versus no-controller-fallback and no-controller-repair",
+      "why_it_breaks_saturation": "H2t protected current-selection refinement, while H3 focused on stale selection rejection. This family forces the controller to preserve the distinction under new current-selection language.",
+      "paper_role": "checks that stale-selection repair does not damage valid stateful CLI operation"
+    },
+    {
+      "family_id": "h4_latest_instruction_retention",
+      "planned_cases": 4,
+      "pressure_type": "instruction_order",
+      "primary_axis": "prior tool result plus latest user instruction retargets the visual operation",
+      "expected_first_gate": "H3a combined and H3a no-fallback, with strict latest-instruction deltas",
+      "why_it_breaks_saturation": "The frontier-model benchmark table the project is aiming toward emphasizes agentic, UI-control, and long-context behavior. This family turns that into a local replay contract by making the latest instruction override earlier visual context.",
+      "paper_role": "links local harness evidence to direction-following and UI-control benchmark claims"
+    },
+    {
+      "family_id": "h4_approval_stop_boundary",
+      "planned_cases": 4,
+      "pressure_type": "operator_safety",
+      "primary_axis": "must stop or request approval rather than continuing a packaged workflow step",
+      "expected_first_gate": "CLI live harness session events and approval artifacts, not a frontend surface",
+      "why_it_breaks_saturation": "Moonie is not just a single tool-call benchmark. This family introduces live-operator behavior: approval state, sandbox posture, and stop behavior must remain attributable to a workflow family.",
+      "paper_role": "moves from exact tool-call replay toward publishable live-agent safety evidence"
+    }
+  ],
+  "score_rows": [
+    {
+      "metric_id": "strict_exact",
+      "required": true,
+      "definition": "actual tool call array exactly equals the oracle call array",
+      "failure_signal": "argument, tool, or call-count mismatch",
+      "reporting_grain": "overall, family, case, comparison"
+    },
+    {
+      "metric_id": "executor_equivalence",
+      "required": true,
+      "definition": "actual execution reaches the expected target region or session state",
+      "failure_signal": "wrong target, invalid call, no call, or policy-state miss",
+      "reporting_grain": "overall, family, case, comparison"
+    },
+    {
+      "metric_id": "controller_trace",
+      "required": true,
+      "definition": "controller helper metadata attached to each repaired or preserved call",
+      "failure_signal": "score changes without helper attribution",
+      "reporting_grain": "helper kind, case, family, profile"
+    },
+    {
+      "metric_id": "regression_count",
+      "required": true,
+      "definition": "candidate misses a case that the baseline passed",
+      "failure_signal": "candidate strict false where baseline strict true",
+      "reporting_grain": "comparison, family, case"
+    },
+    {
+      "metric_id": "helper_overtrigger",
+      "required": true,
+      "definition": "new helper fires outside its intended family or on transfer rows where it should be silent",
+      "failure_signal": "nonzero unrelated helper interventions on transfer/back-compat batteries",
+      "reporting_grain": "helper kind, family, transfer packet"
+    },
+    {
+      "metric_id": "live_operator_artifact",
+      "required": true,
+      "definition": "CLI Rich/live run leaves inspectable manifest, summary, commands, case states, and run outputs",
+      "failure_signal": "unattributed live run or missing sandbox/session evidence",
+      "reporting_grain": "session, workflow family, replay packet"
+    }
+  ],
+  "baseline_rows": [
+    {
+      "baseline_label": "h2w_semantic_target_preservation",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_h2w_no_controller_fallback",
+      "role": "strong pre-H3a transfer/back-compat reference"
+    },
+    {
+      "baseline_label": "h2z_boundary_combined",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_h2z_boundary_combined",
+      "role": "shows whether H3a repairs are still needed on the new packet"
+    },
+    {
+      "baseline_label": "h3a_combined",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_h3a_boundary_combined",
+      "role": "current candidate to break before adding new helpers"
+    },
+    {
+      "baseline_label": "h3a_no_fallback",
+      "system_id": "mlx_gemma4_e2b_reasoner_only_h3a_boundary_combined_no_controller_fallback",
+      "role": "planned ablation row for fallback dependence once the registry row exists"
+    },
+    {
+      "baseline_label": "gemini_cli_external_reference",
+      "system_id": "gemini_cli_external_baseline",
+      "role": "non-replacement external operator reference for packaged workflow behavior"
+    }
+  ],
+  "external_alignment_rows": [
+    {
+      "external_benchmark": "Terminal-bench style",
+      "benchmark_group": "Coding / terminal agency",
+      "moonie_mapping": "CLI packaged workflow runs, replay-live commands, sandbox manifests, and session event traces",
+      "claim_boundary": "Moonie reports local Gemma harnessing quality, not Terminal-bench leaderboard parity"
+    },
+    {
+      "external_benchmark": "Toolathlon style",
+      "benchmark_group": "Agentic tool use",
+      "moonie_mapping": "strict tool-call, executor-equivalence, helper-causal ablations, and regression rows",
+      "claim_boundary": "Tool-use claims require helper attribution and no hidden controller-credit collapse"
+    },
+    {
+      "external_benchmark": "OSWorld-Verified style",
+      "benchmark_group": "UI control",
+      "moonie_mapping": "visual executor target contracts, stale/current selection state, and live CLI operator evidence",
+      "claim_boundary": "Local visual replay is a controlled UI-substrate proxy, not full desktop OS control"
+    },
+    {
+      "external_benchmark": "SWE-Bench / Terminal repair style",
+      "benchmark_group": "Recovered execution",
+      "moonie_mapping": "repaired versus strict correctness, fallback-causal deltas, and output usability records",
+      "claim_boundary": "Recovered success is separated from strict success in every table"
+    },
+    {
+      "external_benchmark": "Long-context direction-following style",
+      "benchmark_group": "Instruction retention",
+      "moonie_mapping": "latest-instruction override cases with prior tool state and stale provenance decoys",
+      "claim_boundary": "Claims are limited to packaged workflow/replay contexts until broader long-context runs exist"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+baseline_label,system_id,role
+h2w_semantic_target_preservation,mlx_gemma4_e2b_reasoner_only_h2w_no_controller_fallback,strong pre-H3a transfer/back-compat reference
+h2z_boundary_combined,mlx_gemma4_e2b_reasoner_only_h2z_boundary_combined,shows whether H3a repairs are still needed on the new packet
+h3a_combined,mlx_gemma4_e2b_reasoner_only_h3a_boundary_combined,current candidate to break before adding new helpers
+h3a_no_fallback,mlx_gemma4_e2b_reasoner_only_h3a_boundary_combined_no_controller_fallback,planned ablation row for fallback dependence once the registry row exists
+gemini_cli_external_reference,gemini_cli_external_baseline,non-replacement external operator reference for packaged workflow behavior

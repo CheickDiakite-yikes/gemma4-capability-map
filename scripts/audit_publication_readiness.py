@@ -3298,6 +3298,34 @@ def audit_publication_readiness(
             / "h3a_transfer_backtest_gate.svg",
             detail="H3a broad transfer backtest figure exists.",
         ),
+        _check_path(
+            check_id="h3b_h4_saturation_breaker_design_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "h3b_h4_saturation_breaker_design" / "report.md",
+            detail="H3b/H4 saturation-breaker benchmark design report exists.",
+        ),
+        _check_path(
+            check_id="h3b_h4_saturation_breaker_figure_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "h3b_h4_saturation_breaker_design"
+            / "figures"
+            / "h3b_h4_benchmark_pressure_map.svg",
+            detail="H3b/H4 saturation-breaker benchmark pressure figure exists.",
+        ),
+        _check_path(
+            check_id="h3b_h4_saturation_breaker_score_contract_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "h3b_h4_saturation_breaker_design"
+            / "tables"
+            / "h3b_h4_score_contract.csv",
+            detail="H3b/H4 score contract table exists.",
+        ),
         *[
             _check_path(
                 check_id=f"h3a_transfer_{label}_live_exists",
@@ -3406,6 +3434,7 @@ def audit_publication_readiness(
         "build_h3a_controller_repair_synthesis.py",
         "build_h3a_h2y_transfer_gate_synthesis.py",
         "build_h3a_transfer_backtest_synthesis.py",
+        "build_h3b_h4_saturation_breaker_design.py",
         "compare_tool_directive_probes.py",
         "build_visual_hard_slice_design.py",
         "build_visual_hard_slice_replay_packet.py",

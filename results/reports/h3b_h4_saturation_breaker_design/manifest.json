@@ -1,0 +1,14 @@
+{
+  "generated_at": "2026-05-20T00:00:13.390907+00:00",
+  "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/h3b_h4_saturation_breaker_design",
+  "phase": "h3b_h4_saturation_breaker_design",
+  "planned_family_count": 6,
+  "planned_case_count": 24,
+  "score_metric_count": 6,
+  "baseline_count": 5,
+  "external_alignment_count": 5,
+  "current_candidate": "mlx_gemma4_e2b_reasoner_only_h3a_boundary_combined",
+  "first_execution_packet": "h3b_saturation_breaker_v27",
+  "primary_decision_gate": "Score H3a before adding new helpers; promote no new controller unless it fixes a named family, has clean transfer/back-compat evidence, and leaves helper traces attributable.",
+  "publication_standard": "Every top-line score must be paired with controller-dependence, executor-equivalence, regression, family, and live artifact evidence."
+}

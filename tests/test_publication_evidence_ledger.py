@@ -1272,6 +1272,25 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
         and row["exists"]
         for row in payload["evidence_sources"]
     )
+    assert any(
+        row["claim_id"] == "C71_h3b_h4_saturation_breaker_design_sets_publication_grade_gate"
+        and row["status"] == "design_protocol_supported"
+        and "6 benchmark families" in row["primary_metric"]
+        for row in payload["claims"]
+    )
+    assert any(
+        row["claim_id"] == "C71_h3b_h4_saturation_breaker_design_sets_publication_grade_gate"
+        and row["path"] == "results/reports/h3b_h4_saturation_breaker_design/report.md"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C71_h3b_h4_saturation_breaker_design_sets_publication_grade_gate"
+        and row["path"]
+        == "results/reports/h3b_h4_saturation_breaker_design/tables/h3b_h4_score_contract.csv"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
 
     source_types = {row["artifact_type"] for row in payload["evidence_sources"]}
     assert "h1_ablation_packet" in source_types

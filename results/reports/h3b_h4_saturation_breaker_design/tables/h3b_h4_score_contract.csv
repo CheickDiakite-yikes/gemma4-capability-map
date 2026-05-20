@@ -1,0 +1,7 @@
+metric_id,required,definition,failure_signal,reporting_grain
+strict_exact,True,actual tool call array exactly equals the oracle call array,"argument, tool, or call-count mismatch","overall, family, case, comparison"
+executor_equivalence,True,actual execution reaches the expected target region or session state,"wrong target, invalid call, no call, or policy-state miss","overall, family, case, comparison"
+controller_trace,True,controller helper metadata attached to each repaired or preserved call,score changes without helper attribution,"helper kind, case, family, profile"
+regression_count,True,candidate misses a case that the baseline passed,candidate strict false where baseline strict true,"comparison, family, case"
+helper_overtrigger,True,new helper fires outside its intended family or on transfer rows where it should be silent,nonzero unrelated helper interventions on transfer/back-compat batteries,"helper kind, family, transfer packet"
+live_operator_artifact,True,"CLI Rich/live run leaves inspectable manifest, summary, commands, case states, and run outputs",unattributed live run or missing sandbox/session evidence,"session, workflow family, replay packet"

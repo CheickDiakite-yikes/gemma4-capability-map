@@ -1,0 +1,6 @@
+external_benchmark,benchmark_group,moonie_mapping,claim_boundary
+Terminal-bench style,Coding / terminal agency,"CLI packaged workflow runs, replay-live commands, sandbox manifests, and session event traces","Moonie reports local Gemma harnessing quality, not Terminal-bench leaderboard parity"
+Toolathlon style,Agentic tool use,"strict tool-call, executor-equivalence, helper-causal ablations, and regression rows",Tool-use claims require helper attribution and no hidden controller-credit collapse
+OSWorld-Verified style,UI control,"visual executor target contracts, stale/current selection state, and live CLI operator evidence","Local visual replay is a controlled UI-substrate proxy, not full desktop OS control"
+SWE-Bench / Terminal repair style,Recovered execution,"repaired versus strict correctness, fallback-causal deltas, and output usability records",Recovered success is separated from strict success in every table
+Long-context direction-following style,Instruction retention,latest-instruction override cases with prior tool state and stale provenance decoys,Claims are limited to packaged workflow/replay contexts until broader long-context runs exist

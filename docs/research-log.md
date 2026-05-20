@@ -1,5 +1,31 @@
 # Research Log
 
+## 2026-05-19 - H3b/H4 Saturation-Breaker Design Sets the Next Publication Gate
+
+- Added a generated H3b/H4 design artifact before implementing new helper logic:
+  - report: [`results/reports/h3b_h4_saturation_breaker_design/report.md`](../results/reports/h3b_h4_saturation_breaker_design/report.md)
+  - figure: [`results/reports/h3b_h4_saturation_breaker_design/figures/h3b_h4_benchmark_pressure_map.svg`](../results/reports/h3b_h4_saturation_breaker_design/figures/h3b_h4_benchmark_pressure_map.svg)
+  - score contract: [`results/reports/h3b_h4_saturation_breaker_design/tables/h3b_h4_score_contract.csv`](../results/reports/h3b_h4_saturation_breaker_design/tables/h3b_h4_score_contract.csv)
+- Design result:
+  - `6` benchmark families
+  - `24` planned cases
+  - `6` required score metrics: strict exactness, executor-equivalence, controller traces, regression counts, helper overtrigger checks, and live operator artifacts
+  - `5` baseline rows, including H3a combined and a Gemini CLI external-reference row
+  - `5` external benchmark-alignment rows mapping Terminal-bench, Toolathlon, OSWorld-Verified, SWE/terminal repair, and long-context direction-following styles into Moonie-local claim boundaries
+- Research decision:
+  - The next move is implementation and first-pass scoring of `h3b_saturation_breaker_v27`.
+  - Do not widen H3a helpers before scoring H3a on the new packet; the first value is the failure surface itself.
+  - Top-line scores must now be paired with family attribution, helper traces, regression rows, and live CLI artifacts, matching the publication-grade benchmark style we want without claiming external leaderboard parity.
+- Reporting updates:
+  - new claim: `C71_h3b_h4_saturation_breaker_design_sets_publication_grade_gate`
+  - publication evidence ledger now has `71` claims, `521` sources, and `0` missing sources
+  - publication readiness audit now has `427` checks, `420` blocking checks, `0` blocking failures, and status `paper_draft_ready`
+- Verification:
+  - `uv run python scripts/build_h3b_h4_saturation_breaker_design.py`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`
+  - `uv run pytest tests/test_h3b_h4_saturation_breaker_design.py tests/test_publication_evidence_ledger.py tests/test_publication_readiness_audit.py -q`
+
 ## 2026-05-19 - H3a Passes Broad H2w Transfer Backtest
 
 - Ran H3a combined sequentially across the full H2w-era transfer/back-compat battery:

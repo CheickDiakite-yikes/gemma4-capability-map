@@ -1,9 +1,9 @@
 {
   "summary": {
-    "generated_at": "2026-05-19T23:53:20.920802+00:00",
+    "generated_at": "2026-05-20T00:01:05.285940+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 423,
-    "blocking_check_count": 416,
+    "check_count": 427,
+    "blocking_check_count": 420,
     "blocking_failed_count": 0,
     "recommended_check_count": 7,
     "recommended_failed_count": 0,
@@ -2434,6 +2434,27 @@
       "path": "results/reports/h3a_transfer_backtest_synthesis/figures/h3a_transfer_backtest_gate.svg"
     },
     {
+      "check_id": "h3b_h4_saturation_breaker_design_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H3b/H4 saturation-breaker benchmark design report exists.",
+      "path": "results/reports/h3b_h4_saturation_breaker_design/report.md"
+    },
+    {
+      "check_id": "h3b_h4_saturation_breaker_figure_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H3b/H4 saturation-breaker benchmark pressure figure exists.",
+      "path": "results/reports/h3b_h4_saturation_breaker_design/figures/h3b_h4_benchmark_pressure_map.svg"
+    },
+    {
+      "check_id": "h3b_h4_saturation_breaker_score_contract_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H3b/H4 score contract table exists.",
+      "path": "results/reports/h3b_h4_saturation_breaker_design/tables/h3b_h4_score_contract.csv"
+    },
+    {
       "check_id": "h3a_transfer_h2t_live_exists",
       "severity": "blocking",
       "passed": true,
@@ -2950,6 +2971,13 @@
       "passed": true,
       "detail": "Reproduction script `build_h3a_transfer_backtest_synthesis.py` exists.",
       "path": "scripts/build_h3a_transfer_backtest_synthesis.py"
+    },
+    {
+      "check_id": "script_build_h3b_h4_saturation_breaker_design.py_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Reproduction script `build_h3b_h4_saturation_breaker_design.py` exists.",
+      "path": "scripts/build_h3b_h4_saturation_breaker_design.py"
     },
     {
       "check_id": "script_compare_tool_directive_probes.py_exists",

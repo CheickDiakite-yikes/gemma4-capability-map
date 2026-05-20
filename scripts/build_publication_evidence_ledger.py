@@ -4077,6 +4077,51 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C71_h3b_h4_saturation_breaker_design_sets_publication_grade_gate",
+        claim=(
+            "The next H3b/H4 phase is now defined as a saturation-breaking benchmark design with explicit family, "
+            "metric, baseline, and external-benchmark alignment contracts before new helper tuning."
+        ),
+        status="design_protocol_supported",
+        evidence_strength="paper_grade_design_artifact",
+        primary_metric=(
+            "The H3b/H4 design defines 6 benchmark families, 24 planned cases, 6 required score metrics, 5 baseline "
+            "rows, and 5 external benchmark-alignment rows. The required score contract includes strict exactness, "
+            "executor-equivalence, controller traces, regression counts, helper overtrigger checks, and live operator "
+            "artifact checks."
+        ),
+        limitation=(
+            "This is a design and gating claim, not an executed result. It should not be read as evidence that H3a "
+            "fails or passes the H3b/H4 packet until the packet and live runs are executed."
+        ),
+        next_test=(
+            "Implement the H3b saturation-breaker replay packet, score H3a before adding new helpers, then compare "
+            "against H2w/H2z and controller-ablation rows with family-level helper traces."
+        ),
+        sources=(
+            EvidenceSource(
+                "design_protocol",
+                "results/reports/h3b_h4_saturation_breaker_design/report.md",
+                "H3b/H4 saturation-breaker design report with families, metrics, baselines, and benchmark alignment.",
+            ),
+            EvidenceSource(
+                "design_protocol_figure",
+                "results/reports/h3b_h4_saturation_breaker_design/figures/h3b_h4_benchmark_pressure_map.svg",
+                "Figure showing the planned H3b/H4 benchmark pressure families.",
+            ),
+            EvidenceSource(
+                "design_protocol_table",
+                "results/reports/h3b_h4_saturation_breaker_design/tables/h3b_h4_score_contract.csv",
+                "Required score contract for strict, executor, controller, regression, overtrigger, and live evidence.",
+            ),
+            EvidenceSource(
+                "reproduction_script",
+                "scripts/build_h3b_h4_saturation_breaker_design.py",
+                "Script that regenerates the H3b/H4 saturation-breaker design artifacts.",
+            ),
+        ),
+    ),
 )
 
 

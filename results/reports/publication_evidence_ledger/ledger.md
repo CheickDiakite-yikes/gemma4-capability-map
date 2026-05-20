@@ -4,9 +4,9 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 
 ## Manifest
 
-- generated_at: `2026-05-19T23:53:20.888850+00:00`
-- claim_count: `70`
-- evidence_source_count: `517`
+- generated_at: `2026-05-20T00:01:05.291019+00:00`
+- claim_count: `71`
+- evidence_source_count: `521`
 - missing_source_count: `0`
 
 ## Claims
@@ -83,6 +83,7 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C68_h3a_controller_repair_closes_h3_with_separable_helpers | supported_fresh_holdout_factorial_repair | strong_internal_cli_holdout_factorial | On the 20-case H3 packet, H2z combined reaches 15/20 strict and executor-equivalent, H3a stale-only reaches 19/20, H3a negative-value-only reaches 16/20, and H3a combined reaches 20/20. The stale-only row fixes four H2z misses, the negative-only row fixes one, and the combined row fixes all five with 4 stale-paraphrase and 1 negative-value helper interventions recorded. | H3a is still an internal replay-live CLI holdout repair, not an external benchmark population estimate. It should be treated as a candidate controller posture until H2y/H2z/H3 and broader transfer/back-compat rows are rerun. | Run the transfer regression gate for H3a across H2y, H2z, H3, and the current back-compat packet set; then design the next harder H3b/H4 slice to break any new top-line saturation. |
 | C69_h3a_preserves_h2z_h2y_transfer_gate | supported_first_transfer_regression_gate | moderate_internal_cli_transfer_gate | On H2y, H2w reaches 12/16 strict and executor-equivalent, H2z combined reaches 16/16, and H3a combined also reaches 16/16. H3a has 0.0 exact and executor-equivalence deltas versus H2z, +0.25 deltas versus H2w, and fixes the same four H2w boundary misses. | This is only the first transfer-regression slice after H3a. It checks the H2y boundary that produced H2z, but it does not yet cover the broader H2w transfer/back-compat packet set. | Extend H3a transfer validation to H3 rerun comparison, H2z single-helper controls if needed, and the broader H2w-era transfer/back-compat matrix before global promotion. |
 | C70_h3a_preserves_h2w_transfer_backcompat_gate | supported_broad_internal_transfer_gate | strong_internal_cli_transfer_backtest | Across H2s/H2t/H2q/H2m/H2k/H2l/H2f/H2b/H1x/H1y/H1o/H1p, H3a reaches 109/109 strict and 109/109 executor-equivalent, ties H2w with 0.0 aggregate exact and executor deltas, has 0 strict regressions, 0 non-exact rows, and 0 H3a-specific helper interventions. | The backtest preserves the existing replay-shaped transfer battery; it does not create a new harder holdout beyond H3 or prove capability under unrelated real-world benchmarks. | Design and execute a harder H3b/H4 slice that varies task family, state shape, stale-origin phrasing, negative value vocabulary, and multi-step workflow pressure enough to break the new top-line saturation. |
+| C71_h3b_h4_saturation_breaker_design_sets_publication_grade_gate | design_protocol_supported | paper_grade_design_artifact | The H3b/H4 design defines 6 benchmark families, 24 planned cases, 6 required score metrics, 5 baseline rows, and 5 external benchmark-alignment rows. The required score contract includes strict exactness, executor-equivalence, controller traces, regression counts, helper overtrigger checks, and live operator artifact checks. | This is a design and gating claim, not an executed result. It should not be read as evidence that H3a fails or passes the H3b/H4 packet until the packet and live runs are executed. | Implement the H3b saturation-breaker replay packet, score H3a before adding new helpers, then compare against H2w/H2z and controller-ablation rows with family-level helper traces. |
 
 ## Evidence Sources
 
@@ -605,3 +606,7 @@ This ledger maps paper-level claims to packet-backed evidence and known limitati
 | C70_h3a_preserves_h2w_transfer_backcompat_gate | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h1y_v1 | H3a versus H2w broad-transfer comparison for h1y. |
 | C70_h3a_preserves_h2w_transfer_backcompat_gate | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h1o_v1 | H3a versus H2w broad-transfer comparison for h1o. |
 | C70_h3a_preserves_h2w_transfer_backcompat_gate | live_replay_comparison | True | results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h1p_v1 | H3a versus H2w broad-transfer comparison for h1p. |
+| C71_h3b_h4_saturation_breaker_design_sets_publication_grade_gate | design_protocol | True | results/reports/h3b_h4_saturation_breaker_design/report.md | H3b/H4 saturation-breaker design report with families, metrics, baselines, and benchmark alignment. |
+| C71_h3b_h4_saturation_breaker_design_sets_publication_grade_gate | design_protocol_figure | True | results/reports/h3b_h4_saturation_breaker_design/figures/h3b_h4_benchmark_pressure_map.svg | Figure showing the planned H3b/H4 benchmark pressure families. |
+| C71_h3b_h4_saturation_breaker_design_sets_publication_grade_gate | design_protocol_table | True | results/reports/h3b_h4_saturation_breaker_design/tables/h3b_h4_score_contract.csv | Required score contract for strict, executor, controller, regression, overtrigger, and live evidence. |
+| C71_h3b_h4_saturation_breaker_design_sets_publication_grade_gate | reproduction_script | True | scripts/build_h3b_h4_saturation_breaker_design.py | Script that regenerates the H3b/H4 saturation-breaker design artifacts. |

@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-19T23:53:20.888850+00:00",
+    "generated_at": "2026-05-20T00:01:05.291019+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-    "claim_count": 70,
-    "evidence_source_count": 517,
+    "claim_count": 71,
+    "evidence_source_count": 521,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -75,7 +75,8 @@
       "C67_h3_cli_controller_holdout_blocks_h2z_global_promotion",
       "C68_h3a_controller_repair_closes_h3_with_separable_helpers",
       "C69_h3a_preserves_h2z_h2y_transfer_gate",
-      "C70_h3a_preserves_h2w_transfer_backcompat_gate"
+      "C70_h3a_preserves_h2w_transfer_backcompat_gate",
+      "C71_h3b_h4_saturation_breaker_design_sets_publication_grade_gate"
     ]
   },
   "claims": [
@@ -778,6 +779,16 @@
       "limitation": "The backtest preserves the existing replay-shaped transfer battery; it does not create a new harder holdout beyond H3 or prove capability under unrelated real-world benchmarks.",
       "next_test": "Design and execute a harder H3b/H4 slice that varies task family, state shape, stale-origin phrasing, negative value vocabulary, and multi-step workflow pressure enough to break the new top-line saturation.",
       "source_count": 27
+    },
+    {
+      "claim_id": "C71_h3b_h4_saturation_breaker_design_sets_publication_grade_gate",
+      "claim": "The next H3b/H4 phase is now defined as a saturation-breaking benchmark design with explicit family, metric, baseline, and external-benchmark alignment contracts before new helper tuning.",
+      "status": "design_protocol_supported",
+      "evidence_strength": "paper_grade_design_artifact",
+      "primary_metric": "The H3b/H4 design defines 6 benchmark families, 24 planned cases, 6 required score metrics, 5 baseline rows, and 5 external benchmark-alignment rows. The required score contract includes strict exactness, executor-equivalence, controller traces, regression counts, helper overtrigger checks, and live operator artifact checks.",
+      "limitation": "This is a design and gating claim, not an executed result. It should not be read as evidence that H3a fails or passes the H3b/H4 packet until the packet and live runs are executed.",
+      "next_test": "Implement the H3b saturation-breaker replay packet, score H3a before adding new helpers, then compare against H2w/H2z and controller-ablation rows with family-level helper traces.",
+      "source_count": 4
     }
   ],
   "evidence_sources": [
@@ -4398,6 +4409,34 @@
       "artifact_type": "live_replay_comparison",
       "path": "results/tool_probe_replay_live_comparisons/20260519T_h3a_boundary_combined_vs_h2w_on_h1p_v1",
       "purpose": "H3a versus H2w broad-transfer comparison for h1p.",
+      "exists": true
+    },
+    {
+      "claim_id": "C71_h3b_h4_saturation_breaker_design_sets_publication_grade_gate",
+      "artifact_type": "design_protocol",
+      "path": "results/reports/h3b_h4_saturation_breaker_design/report.md",
+      "purpose": "H3b/H4 saturation-breaker design report with families, metrics, baselines, and benchmark alignment.",
+      "exists": true
+    },
+    {
+      "claim_id": "C71_h3b_h4_saturation_breaker_design_sets_publication_grade_gate",
+      "artifact_type": "design_protocol_figure",
+      "path": "results/reports/h3b_h4_saturation_breaker_design/figures/h3b_h4_benchmark_pressure_map.svg",
+      "purpose": "Figure showing the planned H3b/H4 benchmark pressure families.",
+      "exists": true
+    },
+    {
+      "claim_id": "C71_h3b_h4_saturation_breaker_design_sets_publication_grade_gate",
+      "artifact_type": "design_protocol_table",
+      "path": "results/reports/h3b_h4_saturation_breaker_design/tables/h3b_h4_score_contract.csv",
+      "purpose": "Required score contract for strict, executor, controller, regression, overtrigger, and live evidence.",
+      "exists": true
+    },
+    {
+      "claim_id": "C71_h3b_h4_saturation_breaker_design_sets_publication_grade_gate",
+      "artifact_type": "reproduction_script",
+      "path": "scripts/build_h3b_h4_saturation_breaker_design.py",
+      "purpose": "Script that regenerates the H3b/H4 saturation-breaker design artifacts.",
       "exists": true
     }
   ],

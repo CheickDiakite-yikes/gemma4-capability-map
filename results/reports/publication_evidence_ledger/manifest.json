@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-05-19T23:53:20.888850+00:00",
+  "generated_at": "2026-05-20T00:01:05.291019+00:00",
   "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-  "claim_count": 70,
-  "evidence_source_count": 517,
+  "claim_count": 71,
+  "evidence_source_count": 521,
   "missing_source_count": 0,
   "claim_ids": [
     "C1_controller_dependence_hidden_by_readiness",
@@ -74,6 +74,7 @@
     "C67_h3_cli_controller_holdout_blocks_h2z_global_promotion",
     "C68_h3a_controller_repair_closes_h3_with_separable_helpers",
     "C69_h3a_preserves_h2z_h2y_transfer_gate",
-    "C70_h3a_preserves_h2w_transfer_backcompat_gate"
+    "C70_h3a_preserves_h2w_transfer_backcompat_gate",
+    "C71_h3b_h4_saturation_breaker_design_sets_publication_grade_gate"
   ]
 }
