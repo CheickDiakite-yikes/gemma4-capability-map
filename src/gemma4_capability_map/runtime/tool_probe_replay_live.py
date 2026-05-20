@@ -423,6 +423,8 @@ def _failure_mode(row: dict[str, Any]) -> str:
     actual_count = int(row.get("actual_call_count") or 0)
     if actual_count == 0:
         return "no_tool_call"
+    if expected_count == 0:
+        return "unexpected_tool_call"
     if expected_count != actual_count:
         return "call_count_mismatch"
     expected_calls = row.get("expected_calls") or []

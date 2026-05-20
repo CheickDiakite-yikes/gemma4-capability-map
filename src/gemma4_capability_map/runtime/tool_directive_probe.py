@@ -214,7 +214,7 @@ def run_tool_directive_probe(
     rows = []
     for case in selected_cases:
         tool_specs = [tool_specs_by_name[name] for name in case.tool_names]
-        expected_calls = case.expected_calls or plan_tool_calls(case.messages, case.media, tool_specs)
+        expected_calls = _expected_calls_for_case(case, tool_specs)
         turn = runner.generate(
             messages=case.messages,
             media=case.media,
@@ -463,6 +463,7 @@ def _score_probe_case(
     )
     executor_target_match = _score_executor_target_case(
         case=case,
+        actual_calls=turn.normalized_tool_call,
         actual_execution=actual_execution,
     )
     expected_payload = [{"name": call.name, "arguments": call.arguments} for call in expected_calls]
@@ -485,6 +486,14 @@ def _score_probe_case(
         "completion_tokens": turn.completion_tokens,
         "latency_ms": turn.latency_ms,
     }
+
+
+def _expected_calls_for_case(case: ToolDirectiveProbeCase, tool_specs: list[ToolSpec]) -> list[ToolCall]:
+    if case.expected_execution.get("no_tool_call") is True:
+        return []
+    if case.expected_calls:
+        return case.expected_calls
+    return plan_tool_calls(case.messages, case.media, tool_specs)
 
 
 def _apply_visual_semantic_target_preservation(
@@ -2003,6 +2012,13 @@ def _score_executable_case(
     tool_specs: list[ToolSpec],
     actual_calls: list[ToolCall],
 ) -> tuple[bool | None, list[dict[str, Any]]]:
+    if case.expected_execution.get("no_tool_call") is True:
+        if not actual_calls:
+            return True, []
+        if not case.initial_state:
+            return False, []
+        execution = _execute_calls(case.initial_state, tool_specs, actual_calls)
+        return False, execution
     if not case.initial_state:
         return None, []
     if not actual_calls:
@@ -2018,8 +2034,11 @@ def _score_executable_case(
 def _score_executor_target_case(
     *,
     case: ToolDirectiveProbeCase,
+    actual_calls: list[ToolCall],
     actual_execution: list[dict[str, Any]],
 ) -> bool | None:
+    if case.expected_execution.get("no_tool_call") is True:
+        return not actual_calls
     if not case.initial_state or not case.expected_execution:
         return None
     if not actual_execution:
@@ -2099,6 +2118,8 @@ def _probe_failure_mode(row: dict[str, Any]) -> str:
     actual_calls = row.get("actual_calls") or []
     if not actual_calls:
         return "no_tool_call"
+    if not expected_calls:
+        return "unexpected_tool_call"
     if len(actual_calls) != len(expected_calls):
         return "call_count_mismatch"
     expected_names = [str(call.get("name", "")) for call in expected_calls]
