@@ -1,9 +1,9 @@
 {
   "summary": {
-    "generated_at": "2026-05-20T00:01:05.285940+00:00",
+    "generated_at": "2026-05-20T00:27:41.975439+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_readiness_audit",
-    "check_count": 427,
-    "blocking_check_count": 420,
+    "check_count": 436,
+    "blocking_check_count": 429,
     "blocking_failed_count": 0,
     "recommended_check_count": 7,
     "recommended_failed_count": 0,
@@ -29,7 +29,7 @@
       "check_id": "ledger_has_claims",
       "severity": "blocking",
       "passed": true,
-      "detail": "claim_count=70",
+      "detail": "claim_count=71",
       "path": ""
     },
     {
@@ -2455,6 +2455,62 @@
       "path": "results/reports/h3b_h4_saturation_breaker_design/tables/h3b_h4_score_contract.csv"
     },
     {
+      "check_id": "h3b_saturation_breaker_synthesis_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H3b executed saturation-breaker synthesis report exists.",
+      "path": "results/reports/h3b_saturation_breaker_synthesis/report.md"
+    },
+    {
+      "check_id": "h3b_saturation_breaker_figure_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H3b saturation-breaker family-pressure figure exists.",
+      "path": "results/reports/h3b_saturation_breaker_synthesis/figures/h3b_saturation_breaker_family_pressure.svg"
+    },
+    {
+      "check_id": "h3b_saturation_breaker_h3a_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Corrected H3a live replay packet on H3b exists.",
+      "path": "results/tool_probe_replay_live/20260519T_h3b_saturation_breaker_h3a_execute_v2/summary.json"
+    },
+    {
+      "check_id": "h3b_saturation_breaker_h2z_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2z baseline live replay packet on H3b exists.",
+      "path": "results/tool_probe_replay_live/20260519T_h3b_saturation_breaker_h2z_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h3b_saturation_breaker_h2w_live_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H2w baseline live replay packet on H3b exists.",
+      "path": "results/tool_probe_replay_live/20260519T_h3b_saturation_breaker_h2w_execute_v1/summary.json"
+    },
+    {
+      "check_id": "h3b_saturation_breaker_h2z_vs_h2w_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H3b live replay comparison `h2z_vs_h2w` exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h3b_saturation_breaker_h2z_vs_h2w_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h3b_saturation_breaker_h3a_vs_h2z_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H3b live replay comparison `h3a_vs_h2z` exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h3b_saturation_breaker_h3a_vs_h2z_v1/live_replay_comparison.json"
+    },
+    {
+      "check_id": "h3b_saturation_breaker_h3a_vs_h2w_comparison_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "H3b live replay comparison `h3a_vs_h2w` exists.",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h3b_saturation_breaker_h3a_vs_h2w_v1/live_replay_comparison.json"
+    },
+    {
       "check_id": "h3a_transfer_h2t_live_exists",
       "severity": "blocking",
       "passed": true,
@@ -2978,6 +3034,13 @@
       "passed": true,
       "detail": "Reproduction script `build_h3b_h4_saturation_breaker_design.py` exists.",
       "path": "scripts/build_h3b_h4_saturation_breaker_design.py"
+    },
+    {
+      "check_id": "script_build_h3b_saturation_breaker_synthesis.py_exists",
+      "severity": "blocking",
+      "passed": true,
+      "detail": "Reproduction script `build_h3b_saturation_breaker_synthesis.py` exists.",
+      "path": "scripts/build_h3b_saturation_breaker_synthesis.py"
     },
     {
       "check_id": "script_compare_tool_directive_probes.py_exists",

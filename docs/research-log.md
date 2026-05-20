@@ -1,5 +1,42 @@
 # Research Log
 
+## 2026-05-19 - H3b Breaks Current Controller-Ladder Saturation
+
+- Implemented and executed the H3b saturation-breaker packet:
+  - packet: [`results/tool_probe_replay_packets/20260519T_h3b_saturation_breaker_dry_run_v1`](../results/tool_probe_replay_packets/20260519T_h3b_saturation_breaker_dry_run_v1)
+  - H3a live result: [`results/tool_probe_replay_live/20260519T_h3b_saturation_breaker_h3a_execute_v2`](../results/tool_probe_replay_live/20260519T_h3b_saturation_breaker_h3a_execute_v2)
+  - H2z baseline: [`results/tool_probe_replay_live/20260519T_h3b_saturation_breaker_h2z_execute_v1`](../results/tool_probe_replay_live/20260519T_h3b_saturation_breaker_h2z_execute_v1)
+  - H2w baseline: [`results/tool_probe_replay_live/20260519T_h3b_saturation_breaker_h2w_execute_v1`](../results/tool_probe_replay_live/20260519T_h3b_saturation_breaker_h2w_execute_v1)
+  - synthesis: [`results/reports/h3b_saturation_breaker_synthesis/report.md`](../results/reports/h3b_saturation_breaker_synthesis/report.md)
+- Result:
+  - H2w: `11 / 24` strict and `14 / 24` executor-equivalent
+  - H2z: `11 / 24` strict and `14 / 24` executor-equivalent
+  - H3a: `11 / 24` strict and `14 / 24` executor-equivalent
+  - H2z-vs-H2w, H3a-vs-H2z, and H3a-vs-H2w all have `0.0` exact and executor-equivalence deltas
+- Family read for H3a:
+  - unseen stale-origin paraphrase: `4 / 4` strict and executor-equivalent
+  - extended negative-value vocabulary: `0 / 4` strict, `1 / 4` executor-equivalent
+  - state-order flip: `3 / 4` strict and executor-equivalent
+  - current-selection stepwise refine: `2 / 4` strict, `4 / 4` executor-equivalent
+  - latest-instruction retention: `2 / 4` strict and executor-equivalent
+  - approval-stop boundary: `0 / 4` strict and executor-equivalent
+- Harness correction:
+  - replay-live now preserves serialized no-tool expectations instead of re-planning an expected default tool call
+  - approval-stop misses are now scored as `unexpected_tool_call`, not executor-equivalent paraphrases
+- Research decision:
+  - H3b is a successful saturation breaker: current H2w/H2z/H3a helpers do not explain progress on this slice.
+  - Do not tune old H3a helpers next. Build named H4 approval/latest-instruction controls and H3c semantic-generalization controls, then only add helpers that repair a named family and survive transfer/overtrigger checks.
+- Reporting updates:
+  - new claim: `C72_h3b_saturation_breaker_breaks_current_controller_ladder`
+  - publication evidence ledger now has `72` claims, `532` sources, and `0` missing sources
+  - publication readiness audit now has `436` checks, `429` blocking checks, `0` blocking failures, and status `paper_draft_ready`
+- Verification:
+  - `uv run moonie-agent replay-live --packet-dir results/tool_probe_replay_packets/20260519T_h3b_saturation_breaker_dry_run_v1 --system-id mlx_gemma4_e2b_reasoner_only_h3a_boundary_combined --output-dir results/tool_probe_replay_live/20260519T_h3b_saturation_breaker_h3a_execute_v2 --execute --json`
+  - `uv run python scripts/build_h3b_saturation_breaker_synthesis.py`
+  - `uv run python scripts/build_publication_evidence_ledger.py`
+  - `uv run python scripts/audit_publication_readiness.py`
+  - `uv run pytest tests/test_h3b_saturation_breaker_synthesis.py tests/test_tool_probe_replay_live.py tests/test_publication_evidence_ledger.py tests/test_publication_readiness_audit.py -q`
+
 ## 2026-05-19 - H3b/H4 Saturation-Breaker Design Sets the Next Publication Gate
 
 - Added a generated H3b/H4 design artifact before implementing new helper logic:

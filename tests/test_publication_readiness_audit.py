@@ -358,6 +358,14 @@ def test_publication_readiness_audit_writes_blocking_checks(tmp_path: Path) -> N
     assert checks["h3b_h4_saturation_breaker_design_exists"]["passed"] is True
     assert checks["h3b_h4_saturation_breaker_figure_exists"]["passed"] is True
     assert checks["h3b_h4_saturation_breaker_score_contract_exists"]["passed"] is True
+    assert checks["h3b_saturation_breaker_synthesis_exists"]["passed"] is True
+    assert checks["h3b_saturation_breaker_figure_exists"]["passed"] is True
+    assert checks["h3b_saturation_breaker_h3a_live_exists"]["passed"] is True
+    assert checks["h3b_saturation_breaker_h2z_live_exists"]["passed"] is True
+    assert checks["h3b_saturation_breaker_h2w_live_exists"]["passed"] is True
+    assert checks["h3b_saturation_breaker_h2z_vs_h2w_comparison_exists"]["passed"] is True
+    assert checks["h3b_saturation_breaker_h3a_vs_h2z_comparison_exists"]["passed"] is True
+    assert checks["h3b_saturation_breaker_h3a_vs_h2w_comparison_exists"]["passed"] is True
     assert checks["h2x_packaged_semantic_pressure_workflow_config_exists"]["passed"] is True
     assert checks["script_analyze_visual_hard_slice_exactness.py_exists"]["passed"] is True
     assert checks["script_analyze_packaged_replay_gap.py_exists"]["passed"] is True
@@ -398,6 +406,7 @@ def test_publication_readiness_audit_writes_blocking_checks(tmp_path: Path) -> N
     assert checks["script_build_h3a_h2y_transfer_gate_synthesis.py_exists"]["passed"] is True
     assert checks["script_build_h3a_transfer_backtest_synthesis.py_exists"]["passed"] is True
     assert checks["script_build_h3b_h4_saturation_breaker_design.py_exists"]["passed"] is True
+    assert checks["script_build_h3b_saturation_breaker_synthesis.py_exists"]["passed"] is True
     assert checks["script_run_visual_hard_slice_probe_packet.py_exists"]["passed"] is True
     assert checks["script_build_visual_hard_slice_replay_packet.py_exists"]["passed"] is True
     assert checks["v3_skipped_live_decision_exists"]["passed"] is True

@@ -1,0 +1,6 @@
+finding_id,finding
+h3b_breaks_h3a_saturation,"H3b drops the current H3a candidate to 11/24 strict and 14/24 executor-equivalent, breaking the prior H3/H2y/back-compat top-line saturation."
+current_controller_ladder_has_zero_h3b_delta,"H2w, H2z, and H3a all score 11/24 strict and 14/24 executor-equivalent; H3a-vs-H2w delta is 0.0 exact and 0.0 executor."
+h3b_family_surface_is_not_uniform,"Family scores show where the new pressure lives: h3b_current_selection_stepwise_refine 2/4 strict, 4/4 executor; h3b_extended_negative_value_vocabulary 0/4 strict, 1/4 executor; h3b_state_order_flip 3/4 strict, 3/4 executor; h3b_unseen_stale_origin_paraphrase 4/4 strict, 4/4 executor; h4_approval_stop_boundary 0/4 strict, 0/4 executor; h4_latest_instruction_retention 2/4 strict, 2/4 executor."
+approval_stop_is_a_true_live_operator_boundary,"The four approval-stop rows are now scored as 4 unexpected-tool-call failures with zero executor credit, after replay-live was fixed to preserve serialized no-tool expectations."
+old_h3a_helpers_do_not_explain_h3b,"H3a records 7 controller intervention rows on H3b, including 0 negative-value preservation interventions, but those do not move aggregate score versus H2w/H2z. The next helpers should target new mechanisms, not tune the old ladder."

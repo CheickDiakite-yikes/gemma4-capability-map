@@ -4122,6 +4122,88 @@ CLAIMS: tuple[Claim, ...] = (
             ),
         ),
     ),
+    Claim(
+        claim_id="C72_h3b_saturation_breaker_breaks_current_controller_ladder",
+        claim=(
+            "The executed H3b saturation-breaker packet breaks the current H2w/H2z/H3a top-line saturation and "
+            "shows zero aggregate gain from the current controller ladder on the harder slice."
+        ),
+        status="executed_cli_live_supported",
+        evidence_strength="paper_grade_live_replay_with_controls",
+        primary_metric=(
+            "On the 24-case H3b packet, H2w, H2z, and H3a all score 11/24 strict exact and 14/24 "
+            "executor-equivalent. H2z-vs-H2w, H3a-vs-H2z, and H3a-vs-H2w comparisons all have 0.0 exact and "
+            "executor-equivalence deltas. H3a family scores are 4/4 unseen stale-origin paraphrase, 0/4 extended "
+            "negative-value vocabulary, 3/4 state-order flip, 2/4 current-selection refine, 2/4 latest-instruction "
+            "retention, and 0/4 approval-stop boundary."
+        ),
+        limitation=(
+            "The H3b packet is still an internal replay-live slice, not an external benchmark population estimate. "
+            "It should be read as strong mechanistic evidence about local Gemma harness failure modes, not a "
+            "leaderboard-style claim."
+        ),
+        next_test=(
+            "Design H4 approval/latest-instruction controls and H3c semantic-generalization controls, then add "
+            "no-fallback or helper-specific ablations only after a named family-level repair exists."
+        ),
+        sources=(
+            EvidenceSource(
+                "synthesis_report",
+                "results/reports/h3b_saturation_breaker_synthesis/report.md",
+                "H3b saturation-breaker synthesis report with packet rows, family rows, taxonomy, and findings.",
+            ),
+            EvidenceSource(
+                "synthesis_figure",
+                "results/reports/h3b_saturation_breaker_synthesis/figures/h3b_saturation_breaker_family_pressure.svg",
+                "H3b family-pressure figure for H3a strict and executor-equivalent outcomes.",
+            ),
+            EvidenceSource(
+                "synthesis_table",
+                "results/reports/h3b_saturation_breaker_synthesis/tables/h3b_failure_taxonomy.csv",
+                "Failure taxonomy table showing exact, argument mismatch, executable paraphrase, wrong-tool, and unexpected-tool-call counts.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260519T_h3b_saturation_breaker_h3a_execute_v2",
+                "Corrected H3a live replay packet on H3b after no-tool expectation preservation.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260519T_h3b_saturation_breaker_h2z_execute_v1",
+                "H2z baseline live replay packet on the same H3b cases.",
+            ),
+            EvidenceSource(
+                "live_replay_packet",
+                "results/tool_probe_replay_live/20260519T_h3b_saturation_breaker_h2w_execute_v1",
+                "H2w baseline live replay packet on the same H3b cases.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260519T_h3b_saturation_breaker_h3a_vs_h2w_v1",
+                "H3a versus H2w zero-delta comparison on H3b.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260519T_h3b_saturation_breaker_h3a_vs_h2z_v1",
+                "H3a versus H2z zero-delta comparison on H3b.",
+            ),
+            EvidenceSource(
+                "live_replay_comparison",
+                "results/tool_probe_replay_live_comparisons/20260519T_h3b_saturation_breaker_h2z_vs_h2w_v1",
+                "H2z versus H2w zero-delta comparison on H3b.",
+            ),
+            EvidenceSource(
+                "reproduction_script",
+                "scripts/build_h3b_saturation_breaker_synthesis.py",
+                "Script that regenerates the H3b saturation-breaker synthesis artifacts.",
+            ),
+            EvidenceSource(
+                "runtime_contract",
+                "src/gemma4_capability_map/runtime/tool_directive_probe.py",
+                "Runtime scorer preserves serialized no-tool expectations and marks unexpected tool calls as failures.",
+            ),
+        ),
+    ),
 )
 
 

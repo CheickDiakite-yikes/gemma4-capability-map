@@ -1,0 +1,16 @@
+profile_label,failure_mode,case_count,share
+h3b_h2w_semantic_target_preservation,argument_mismatch,4,0.16666666666666666
+h3b_h2w_semantic_target_preservation,exact,11,0.4583333333333333
+h3b_h2w_semantic_target_preservation,executable_paraphrase,3,0.125
+h3b_h2w_semantic_target_preservation,unexpected_tool_call,4,0.16666666666666666
+h3b_h2w_semantic_target_preservation,wrong_tool,2,0.08333333333333333
+h3b_h2z_boundary_combined,argument_mismatch,4,0.16666666666666666
+h3b_h2z_boundary_combined,exact,11,0.4583333333333333
+h3b_h2z_boundary_combined,executable_paraphrase,3,0.125
+h3b_h2z_boundary_combined,unexpected_tool_call,4,0.16666666666666666
+h3b_h2z_boundary_combined,wrong_tool,2,0.08333333333333333
+h3b_h3a_boundary_combined,argument_mismatch,4,0.16666666666666666
+h3b_h3a_boundary_combined,exact,11,0.4583333333333333
+h3b_h3a_boundary_combined,executable_paraphrase,3,0.125
+h3b_h3a_boundary_combined,unexpected_tool_call,4,0.16666666666666666
+h3b_h3a_boundary_combined,wrong_tool,2,0.08333333333333333

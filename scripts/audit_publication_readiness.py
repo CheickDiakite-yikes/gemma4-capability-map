@@ -3326,6 +3326,66 @@ def audit_publication_readiness(
             / "h3b_h4_score_contract.csv",
             detail="H3b/H4 score contract table exists.",
         ),
+        _check_path(
+            check_id="h3b_saturation_breaker_synthesis_exists",
+            severity="blocking",
+            path=ROOT / "results" / "reports" / "h3b_saturation_breaker_synthesis" / "report.md",
+            detail="H3b executed saturation-breaker synthesis report exists.",
+        ),
+        _check_path(
+            check_id="h3b_saturation_breaker_figure_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "reports"
+            / "h3b_saturation_breaker_synthesis"
+            / "figures"
+            / "h3b_saturation_breaker_family_pressure.svg",
+            detail="H3b saturation-breaker family-pressure figure exists.",
+        ),
+        _check_path(
+            check_id="h3b_saturation_breaker_h3a_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260519T_h3b_saturation_breaker_h3a_execute_v2"
+            / "summary.json",
+            detail="Corrected H3a live replay packet on H3b exists.",
+        ),
+        _check_path(
+            check_id="h3b_saturation_breaker_h2z_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260519T_h3b_saturation_breaker_h2z_execute_v1"
+            / "summary.json",
+            detail="H2z baseline live replay packet on H3b exists.",
+        ),
+        _check_path(
+            check_id="h3b_saturation_breaker_h2w_live_exists",
+            severity="blocking",
+            path=ROOT
+            / "results"
+            / "tool_probe_replay_live"
+            / "20260519T_h3b_saturation_breaker_h2w_execute_v1"
+            / "summary.json",
+            detail="H2w baseline live replay packet on H3b exists.",
+        ),
+        *[
+            _check_path(
+                check_id=f"h3b_saturation_breaker_{label}_comparison_exists",
+                severity="blocking",
+                path=ROOT
+                / "results"
+                / "tool_probe_replay_live_comparisons"
+                / f"20260519T_h3b_saturation_breaker_{label}_v1"
+                / "live_replay_comparison.json",
+                detail=f"H3b live replay comparison `{label}` exists.",
+            )
+            for label in ("h2z_vs_h2w", "h3a_vs_h2z", "h3a_vs_h2w")
+        ],
         *[
             _check_path(
                 check_id=f"h3a_transfer_{label}_live_exists",
@@ -3435,6 +3495,7 @@ def audit_publication_readiness(
         "build_h3a_h2y_transfer_gate_synthesis.py",
         "build_h3a_transfer_backtest_synthesis.py",
         "build_h3b_h4_saturation_breaker_design.py",
+        "build_h3b_saturation_breaker_synthesis.py",
         "compare_tool_directive_probes.py",
         "build_visual_hard_slice_design.py",
         "build_visual_hard_slice_replay_packet.py",

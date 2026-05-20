@@ -1,9 +1,9 @@
 {
   "manifest": {
-    "generated_at": "2026-05-20T00:01:05.291019+00:00",
+    "generated_at": "2026-05-20T00:27:41.977269+00:00",
     "output_dir": "/Users/cheickdiakite/Codex/moonie/results/reports/publication_evidence_ledger",
-    "claim_count": 71,
-    "evidence_source_count": 521,
+    "claim_count": 72,
+    "evidence_source_count": 532,
     "missing_source_count": 0,
     "claim_ids": [
       "C1_controller_dependence_hidden_by_readiness",
@@ -76,7 +76,8 @@
       "C68_h3a_controller_repair_closes_h3_with_separable_helpers",
       "C69_h3a_preserves_h2z_h2y_transfer_gate",
       "C70_h3a_preserves_h2w_transfer_backcompat_gate",
-      "C71_h3b_h4_saturation_breaker_design_sets_publication_grade_gate"
+      "C71_h3b_h4_saturation_breaker_design_sets_publication_grade_gate",
+      "C72_h3b_saturation_breaker_breaks_current_controller_ladder"
     ]
   },
   "claims": [
@@ -789,6 +790,16 @@
       "limitation": "This is a design and gating claim, not an executed result. It should not be read as evidence that H3a fails or passes the H3b/H4 packet until the packet and live runs are executed.",
       "next_test": "Implement the H3b saturation-breaker replay packet, score H3a before adding new helpers, then compare against H2w/H2z and controller-ablation rows with family-level helper traces.",
       "source_count": 4
+    },
+    {
+      "claim_id": "C72_h3b_saturation_breaker_breaks_current_controller_ladder",
+      "claim": "The executed H3b saturation-breaker packet breaks the current H2w/H2z/H3a top-line saturation and shows zero aggregate gain from the current controller ladder on the harder slice.",
+      "status": "executed_cli_live_supported",
+      "evidence_strength": "paper_grade_live_replay_with_controls",
+      "primary_metric": "On the 24-case H3b packet, H2w, H2z, and H3a all score 11/24 strict exact and 14/24 executor-equivalent. H2z-vs-H2w, H3a-vs-H2z, and H3a-vs-H2w comparisons all have 0.0 exact and executor-equivalence deltas. H3a family scores are 4/4 unseen stale-origin paraphrase, 0/4 extended negative-value vocabulary, 3/4 state-order flip, 2/4 current-selection refine, 2/4 latest-instruction retention, and 0/4 approval-stop boundary.",
+      "limitation": "The H3b packet is still an internal replay-live slice, not an external benchmark population estimate. It should be read as strong mechanistic evidence about local Gemma harness failure modes, not a leaderboard-style claim.",
+      "next_test": "Design H4 approval/latest-instruction controls and H3c semantic-generalization controls, then add no-fallback or helper-specific ablations only after a named family-level repair exists.",
+      "source_count": 11
     }
   ],
   "evidence_sources": [
@@ -4437,6 +4448,83 @@
       "artifact_type": "reproduction_script",
       "path": "scripts/build_h3b_h4_saturation_breaker_design.py",
       "purpose": "Script that regenerates the H3b/H4 saturation-breaker design artifacts.",
+      "exists": true
+    },
+    {
+      "claim_id": "C72_h3b_saturation_breaker_breaks_current_controller_ladder",
+      "artifact_type": "synthesis_report",
+      "path": "results/reports/h3b_saturation_breaker_synthesis/report.md",
+      "purpose": "H3b saturation-breaker synthesis report with packet rows, family rows, taxonomy, and findings.",
+      "exists": true
+    },
+    {
+      "claim_id": "C72_h3b_saturation_breaker_breaks_current_controller_ladder",
+      "artifact_type": "synthesis_figure",
+      "path": "results/reports/h3b_saturation_breaker_synthesis/figures/h3b_saturation_breaker_family_pressure.svg",
+      "purpose": "H3b family-pressure figure for H3a strict and executor-equivalent outcomes.",
+      "exists": true
+    },
+    {
+      "claim_id": "C72_h3b_saturation_breaker_breaks_current_controller_ladder",
+      "artifact_type": "synthesis_table",
+      "path": "results/reports/h3b_saturation_breaker_synthesis/tables/h3b_failure_taxonomy.csv",
+      "purpose": "Failure taxonomy table showing exact, argument mismatch, executable paraphrase, wrong-tool, and unexpected-tool-call counts.",
+      "exists": true
+    },
+    {
+      "claim_id": "C72_h3b_saturation_breaker_breaks_current_controller_ladder",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260519T_h3b_saturation_breaker_h3a_execute_v2",
+      "purpose": "Corrected H3a live replay packet on H3b after no-tool expectation preservation.",
+      "exists": true
+    },
+    {
+      "claim_id": "C72_h3b_saturation_breaker_breaks_current_controller_ladder",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260519T_h3b_saturation_breaker_h2z_execute_v1",
+      "purpose": "H2z baseline live replay packet on the same H3b cases.",
+      "exists": true
+    },
+    {
+      "claim_id": "C72_h3b_saturation_breaker_breaks_current_controller_ladder",
+      "artifact_type": "live_replay_packet",
+      "path": "results/tool_probe_replay_live/20260519T_h3b_saturation_breaker_h2w_execute_v1",
+      "purpose": "H2w baseline live replay packet on the same H3b cases.",
+      "exists": true
+    },
+    {
+      "claim_id": "C72_h3b_saturation_breaker_breaks_current_controller_ladder",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h3b_saturation_breaker_h3a_vs_h2w_v1",
+      "purpose": "H3a versus H2w zero-delta comparison on H3b.",
+      "exists": true
+    },
+    {
+      "claim_id": "C72_h3b_saturation_breaker_breaks_current_controller_ladder",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h3b_saturation_breaker_h3a_vs_h2z_v1",
+      "purpose": "H3a versus H2z zero-delta comparison on H3b.",
+      "exists": true
+    },
+    {
+      "claim_id": "C72_h3b_saturation_breaker_breaks_current_controller_ladder",
+      "artifact_type": "live_replay_comparison",
+      "path": "results/tool_probe_replay_live_comparisons/20260519T_h3b_saturation_breaker_h2z_vs_h2w_v1",
+      "purpose": "H2z versus H2w zero-delta comparison on H3b.",
+      "exists": true
+    },
+    {
+      "claim_id": "C72_h3b_saturation_breaker_breaks_current_controller_ladder",
+      "artifact_type": "reproduction_script",
+      "path": "scripts/build_h3b_saturation_breaker_synthesis.py",
+      "purpose": "Script that regenerates the H3b saturation-breaker synthesis artifacts.",
+      "exists": true
+    },
+    {
+      "claim_id": "C72_h3b_saturation_breaker_breaks_current_controller_ladder",
+      "artifact_type": "runtime_contract",
+      "path": "src/gemma4_capability_map/runtime/tool_directive_probe.py",
+      "purpose": "Runtime scorer preserves serialized no-tool expectations and marks unexpected tool calls as failures.",
       "exists": true
     }
   ],

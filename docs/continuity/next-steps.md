@@ -2,7 +2,7 @@
 
 ## Current Best Next Moves
 
-The next move is not another broad prompt-contract paragraph, not another H2e/H2j victory lap, and not more tuning on the H2q rows. H2w is transfer-clean at `109 / 109`, H2x showed semantic-preservation gains survive CLI pressure with fallback independence, and H2y scaled that pressure to a `16`-case boundary where H2w reached only `12 / 16`. H2z then ran the focused helper ablation that H2y demanded: stale-selection negation alone reaches `15 / 16`, negated-component target preservation alone reaches `13 / 16`, and the combined H2z row reaches `16 / 16` strict and executor-equivalent. H3 blocked global H2z promotion by tying H2w/H2z rows at `15 / 20`. H3a repaired that boundary: stale-selection paraphrase only reaches `19 / 20`, negative-value preservation only reaches `16 / 20`, and H3a combined reaches `20 / 20`, with helper traces matching the `4 + 1` residual split. H3a also passes the H2y transfer gate by tying H2z at `16 / 16`, preserving the `+0.25` H2w delta, and now preserving the broader H2w-era transfer/back-compat gate at `109 / 109` with `0` strict regressions and `0` H3a-specific helper overtriggers. The H3b/H4 design now defines the harder benchmark target: `6` families, `24` planned cases, strict/executor/controller/regression/overtrigger/live-artifact metrics, and an external-benchmark alignment table. The next move is to implement and execute `h3b_saturation_breaker_v27`.
+The next move is not another broad prompt-contract paragraph, not another H2e/H2j victory lap, and not more tuning on the H2q rows. H2w is transfer-clean at `109 / 109`, H2x showed semantic-preservation gains survive CLI pressure with fallback independence, and H2y scaled that pressure to a `16`-case boundary where H2w reached only `12 / 16`. H2z then ran the focused helper ablation that H2y demanded: stale-selection negation alone reaches `15 / 16`, negated-component target preservation alone reaches `13 / 16`, and the combined H2z row reaches `16 / 16` strict and executor-equivalent. H3 blocked global H2z promotion by tying H2w/H2z rows at `15 / 20`. H3a repaired that boundary, passed H2y transfer, and preserved the broad H2w-era back-compat gate at `109 / 109`. H3b then broke the current ladder: H2w, H2z, and H3a all reach `11 / 24` strict and `14 / 24` executor-equivalent, with `0.0` exact/executor deltas across all three comparisons. The next move is to target the mechanisms H3b exposed: approval-stop/no-tool behavior, latest-instruction retention after prior tool state, and broader negative-value semantic binding.
 
 Execution order:
 
@@ -47,8 +47,9 @@ Execution order:
 39. Treat H3a as the current candidate controller posture: it repairs H3 to `20 / 20` with stale-only `19 / 20`, negative-only `16 / 20`, and combined helper traces matching the five fixed cases.
 40. Treat the H3a H2y transfer gate as first positive regression evidence: H3a ties H2z at `16 / 16`, has `0.0` delta versus H2z, and keeps the `+0.25` gain over H2w.
 41. Treat the broad H3a transfer backtest as positive regression evidence: H3a reaches `109 / 109`, ties H2w with aggregate exact/executor deltas `0.0`, records `0` strict regressions, and records `0` H3a-specific helper interventions on the H2w-era transfer/back-compat set.
-42. Treat the H3b/H4 design as the current execution contract: it defines `6` families, `24` planned cases, `6` score metrics, and baseline rows before any new helper tuning.
-43. Implement the `h3b_saturation_breaker_v27` replay packet and score H3a first, before adding or widening controller helpers.
+42. Treat the H3b/H4 design as the execution contract that produced the current breaker: it defined `6` families, `24` planned cases, `6` score metrics, and baseline rows before any new helper tuning.
+43. Treat the executed H3b synthesis as the new boundary: H2w, H2z, and H3a all tie at `11 / 24` strict and `14 / 24` executor-equivalent; current-ladder deltas are `0.0`; approval-stop is a true no-tool failure family, not an executor-equivalent paraphrase.
+44. Next, design H4 approval/latest-instruction controls and H3c semantic-generalization controls before adding any new controller helper.
 
 Immediate suggested command:
 
@@ -57,16 +58,19 @@ uv run python scripts/build_h3a_controller_repair_synthesis.py
 uv run python scripts/build_h3a_h2y_transfer_gate_synthesis.py
 uv run python scripts/build_h3a_transfer_backtest_synthesis.py
 uv run python scripts/build_h3b_h4_saturation_breaker_design.py
+uv run python scripts/build_h3b_saturation_breaker_synthesis.py
 uv run python scripts/build_publication_evidence_ledger.py
 uv run python scripts/audit_publication_readiness.py
-rg -n "h3b_saturation_breaker|h3b|h4|stale_selection_paraphrase|negative_value_component|semantic_pressure|transfer_backtest" src/gemma4_capability_map tests scripts docs
+rg -n "h3b_saturation_breaker|unexpected_tool_call|approval_stop|latest_instruction|negative_value_component|semantic_pressure|transfer_backtest" src/gemma4_capability_map tests scripts docs
 ```
 
-Then implement the H3b saturation-breaker packet:
+Then build the next breaker/repair slice:
 
-- preserve H3a as the incumbent candidate row while making the next packet hard enough to produce failures
-- start with replay-live exactness and controller traces before adding the H4 approval/stop live-operator family
-- mix multi-step packaged workflow pressure with replay-live exactness so workflow scaffolding cannot solve the case before the model/controller sees it
+- preserve H3b as the incumbent failure surface and H3a as the current candidate row
+- start with replay-live exactness and controller traces for one named failure family, not broad helper widening
+- add approval-stop/no-tool rows that require stopping or requesting approval, and make them fail on any unexpected tool call
+- add latest-instruction rows where prior tool state tempts stale `refine_selection`, but the newest instruction requires fresh extraction
+- add semantic-generalization rows for negative values beyond the current lexical set, then test whether any helper repairs transfer without overtriggering
 - require per-family attribution: strict exactness, executor-equivalence, fixed cases, non-exact rows, raw model output, and helper trace counts
 - keep H2e as an executor-equivalence tradeoff control only if the new slice changes lower-level routing enough to need that baseline again
 - use H2r/H2u/H2w/H3a transfer syntheses as incumbent transfer gates

@@ -1291,6 +1291,26 @@ def test_publication_evidence_ledger_writes_claims_and_sources(tmp_path: Path) -
         and row["exists"]
         for row in payload["evidence_sources"]
     )
+    assert any(
+        row["claim_id"] == "C72_h3b_saturation_breaker_breaks_current_controller_ladder"
+        and row["status"] == "executed_cli_live_supported"
+        and "11/24 strict exact" in row["primary_metric"]
+        and "0.0 exact" in row["primary_metric"]
+        for row in payload["claims"]
+    )
+    assert any(
+        row["claim_id"] == "C72_h3b_saturation_breaker_breaks_current_controller_ladder"
+        and row["path"] == "results/reports/h3b_saturation_breaker_synthesis/report.md"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
+    assert any(
+        row["claim_id"] == "C72_h3b_saturation_breaker_breaks_current_controller_ladder"
+        and row["path"]
+        == "results/tool_probe_replay_live_comparisons/20260519T_h3b_saturation_breaker_h3a_vs_h2w_v1"
+        and row["exists"]
+        for row in payload["evidence_sources"]
+    )
 
     source_types = {row["artifact_type"] for row in payload["evidence_sources"]}
     assert "h1_ablation_packet" in source_types
