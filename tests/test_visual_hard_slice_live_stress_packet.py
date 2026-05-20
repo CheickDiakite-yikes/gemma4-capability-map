@@ -1352,6 +1352,70 @@ def test_visual_hard_slice_live_stress_packet_supports_h3_cli_controller_holdout
         assert _expected_call_reaches_oracle(case)
 
 
+def test_visual_hard_slice_live_stress_packet_supports_h3b_saturation_breaker_suite(
+    tmp_path: Path,
+) -> None:
+    packet = SCRIPT.build_visual_hard_slice_live_stress_packet(
+        output_root=tmp_path / "replay_packets",
+        run_group_id="visual_stress_h3b_saturation_breaker",
+        suite="h3b_saturation_breaker_v27",
+        replay_system_id="mlx_gemma4_e2b_reasoner_only_h3a_boundary_combined",
+    )
+
+    assert packet["summary"]["suite"] == "h3b_saturation_breaker_v27"
+    assert packet["summary"]["replay_system_id"] == "mlx_gemma4_e2b_reasoner_only_h3a_boundary_combined"
+    assert packet["summary"]["case_count"] == 24
+    assert packet["summary"]["family_counts"] == {
+        "h3b_current_selection_stepwise_refine": 4,
+        "h3b_extended_negative_value_vocabulary": 4,
+        "h3b_state_order_flip": 4,
+        "h3b_unseen_stale_origin_paraphrase": 4,
+        "h4_approval_stop_boundary": 4,
+        "h4_latest_instruction_retention": 4,
+    }
+    assert packet["summary"]["failure_mode_counts"] == {
+        "approval_or_stop_boundary_risk": 4,
+        "argument_alias_or_decoy_risk": 8,
+        "wrong_tool_or_stale_selection_risk": 12,
+    }
+    cases = {case["case_id"]: case for case in packet["replay_cases"]}
+    assert cases["h3b_chargeback_panel_historical_bookmark"]["initial_state"]["visual_last_selection_id"] == (
+        "sel-h3b-chargeback-log"
+    )
+    assert cases["h3b_status_badge_suppressed_value"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h3b-status-suppressed",
+                "target_query": "status badge suppressed",
+            },
+        }
+    ]
+    assert cases["h3b_current_review_cluster_refine_to_panel"]["expected_calls"] == [
+        {
+            "name": "refine_selection",
+            "arguments": {
+                "selection_id": "sel-h3b-review-current",
+                "filter_query": "panel",
+            },
+        }
+    ]
+    assert cases["h4_latest_instruction_invoice_to_hold_panel"]["expected_calls"] == [
+        {
+            "name": "extract_layout",
+            "arguments": {
+                "image_id": "img-h4-latest-hold",
+                "target_query": "hold panel",
+            },
+        }
+    ]
+    assert cases["h4_stop_pending_approval_deploy_switch"]["expected_calls"] == []
+    assert cases["h4_stop_pending_approval_deploy_switch"]["expected_execution"] == {"no_tool_call": True}
+    for case in packet["replay_cases"]:
+        if case["expected_calls"]:
+            assert _expected_call_reaches_oracle(case)
+
+
 def _expected_call_reaches_oracle(case: dict[str, object]) -> bool:
     tool_specs = [ToolSpec.model_validate(payload) for payload in case["tool_specs"]]  # type: ignore[index]
     executor = DeterministicExecutor(tool_specs=tool_specs)

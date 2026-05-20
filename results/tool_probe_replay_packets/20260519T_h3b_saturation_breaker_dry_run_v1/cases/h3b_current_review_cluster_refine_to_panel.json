@@ -1,0 +1,187 @@
+{
+  "case_id": "h3b_current_review_cluster_refine_to_panel",
+  "family": "h3b_current_selection_stepwise_refine",
+  "messages": [
+    {
+      "role": "system",
+      "content": "visual_image_ids: img-h3b-current-review",
+      "image_refs": []
+    },
+    {
+      "role": "tool",
+      "content": "{\"tool_name\":\"extract_layout\",\"status\":\"pass\",\"arguments\":{\"image_id\":\"img-h3b-current-review\",\"target_query\":\"current surfaces\"},\"output\":{\"selection_id\":\"sel-h3b-review-current\",\"image_id\":\"img-h3b-current-review\",\"selection_kind\":\"regions\",\"count\":3,\"region_ids\":[\"h3b-review-chip-20121\",\"h3b-review-panel-20122\",\"h3b-review-note-20123\"]}}",
+      "image_refs": []
+    },
+    {
+      "role": "user",
+      "content": "From the current selection_id sel-h3b-review-current, narrow to the review panel. Do not restart extraction; the selection came from the last passing tool result.",
+      "image_refs": []
+    }
+  ],
+  "media": [
+    "img-h3b-current-review"
+  ],
+  "tool_names": [
+    "extract_layout",
+    "refine_selection",
+    "read_region_text"
+  ],
+  "tool_specs": [
+    {
+      "name": "extract_layout",
+      "description": "Extract a layout region such as a table, callout, validation error, or metric panel from an image.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "image_id": {
+            "type": "string"
+          },
+          "target_query": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "image_id",
+          "target_query"
+        ]
+      },
+      "tool_family": "function_call",
+      "tool_intent": "inspect"
+    },
+    {
+      "name": "refine_selection",
+      "description": "Refine a prior visual selection using a follow-up filter query.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "selection_id": {
+            "type": "string"
+          },
+          "filter_query": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "selection_id",
+          "filter_query"
+        ]
+      },
+      "tool_family": "function_call",
+      "tool_intent": "revise"
+    },
+    {
+      "name": "read_region_text",
+      "description": "Read the text inside a previously selected region.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "image_id": {
+            "type": "string"
+          },
+          "region_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "image_id",
+          "region_id"
+        ]
+      },
+      "tool_family": "function_call",
+      "tool_intent": "read"
+    }
+  ],
+  "initial_state": {
+    "visual_executor_mode": "local",
+    "images": {
+      "img-h3b-current-review": {
+        "entities": [],
+        "layouts": [],
+        "local_layouts": [
+          {
+            "region_id": "h3b-review-chip-20121",
+            "label": "review chip",
+            "text": "Ready",
+            "attributes": {
+              "area": "chip"
+            }
+          },
+          {
+            "region_id": "h3b-review-panel-20122",
+            "label": "review panel",
+            "text": "Ready",
+            "attributes": {
+              "area": "panel"
+            }
+          },
+          {
+            "region_id": "h3b-review-note-20123",
+            "label": "review note",
+            "text": "Ready detail",
+            "attributes": {
+              "area": "note"
+            }
+          }
+        ]
+      }
+    },
+    "visual_selections": {
+      "sel-h3b-review-current": {
+        "image_id": "img-h3b-current-review",
+        "selection_kind": "regions",
+        "items": [
+          {
+            "region_id": "h3b-review-chip-20121",
+            "label": "review chip",
+            "text": "Ready",
+            "attributes": {
+              "area": "chip"
+            }
+          },
+          {
+            "region_id": "h3b-review-panel-20122",
+            "label": "review panel",
+            "text": "Ready",
+            "attributes": {
+              "area": "panel"
+            }
+          },
+          {
+            "region_id": "h3b-review-note-20123",
+            "label": "review note",
+            "text": "Ready detail",
+            "attributes": {
+              "area": "note"
+            }
+          }
+        ],
+        "query": "current surfaces",
+        "parent_selection_id": null
+      }
+    },
+    "visual_last_selection_id": "sel-h3b-review-current",
+    "visual_selection_counter": 1
+  },
+  "expected_execution": {
+    "region_ids": [
+      "h3b-review-panel-20122"
+    ]
+  },
+  "expected_calls": [
+    {
+      "name": "refine_selection",
+      "arguments": {
+        "selection_id": "sel-h3b-review-current",
+        "filter_query": "panel"
+      }
+    }
+  ],
+  "source_system_id": "designed_visual_hard_slice_live_stress_v1",
+  "source_failure_mode": "wrong_tool_or_stale_selection_risk",
+  "source_exact_match": false,
+  "source_executable_match": false,
+  "baseline_system_id": "mlx_gemma4_e2b_reasoner_only",
+  "baseline_exact_match": "",
+  "live_entrypoint_status": "visual_hard_slice_live_stress_packet_v1",
+  "live_entrypoint_note": "Designed replay-shaped stress cases for moonie-agent replay-live; no model evidence is claimed until executed."
+}
