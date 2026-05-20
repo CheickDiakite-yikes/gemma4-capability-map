@@ -1,0 +1,83 @@
+[
+  {
+    "case_id": "h3b_current_lane_cluster_refine_to_lane",
+    "family": "h3b_current_selection_stepwise_refine",
+    "expected_call_count": 1,
+    "actual_call_count": 1,
+    "exact_match": true,
+    "executable_match": true,
+    "executor_target_match": true,
+    "expected_execution": {
+      "region_ids": [
+        "h3b-support-lane-20142"
+      ]
+    },
+    "actual_execution": [
+      {
+        "step": 1,
+        "selected_tool": "refine_selection",
+        "arguments": {
+          "selection_id": "sel-h3b-lane-current",
+          "filter_query": "lane"
+        },
+        "validator_result": "pass",
+        "output": {
+          "selection_id": "sel-002",
+          "image_id": "img-h3b-current-lane",
+          "selection_kind": "regions",
+          "count": 1,
+          "executor_mode": "local",
+          "parent_selection_id": "sel-h3b-lane-current",
+          "region_ids": [
+            "h3b-support-lane-20142"
+          ]
+        },
+        "error": null
+      }
+    ],
+    "expected_calls": [
+      {
+        "name": "refine_selection",
+        "arguments": {
+          "selection_id": "sel-h3b-lane-current",
+          "filter_query": "lane"
+        }
+      }
+    ],
+    "actual_calls": [
+      {
+        "name": "refine_selection",
+        "arguments": {
+          "selection_id": "sel-h3b-lane-current",
+          "filter_query": "lane"
+        }
+      }
+    ],
+    "raw_model_output": "{\"name\": \"refine_selection\", \"arguments\": {\"selection_id\": \"sel-h3b-lane-current\", \"filter_query\": \"lane\"}}",
+    "runtime_metadata": {
+      "backend": "mlx",
+      "runtime_info": {
+        "backend": "mlx",
+        "runtime_posture": "mlx",
+        "requested_model": "google/gemma-4-E2B-it",
+        "effective_model": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_source": "mlx-community/gemma-4-e2b-it-4bit",
+        "model_format": "mlx",
+        "runtime_device": "mlx",
+        "load_mode": "vision",
+        "configured_device": "auto",
+        "request_timeout_seconds": 300.0,
+        "tool_turn_directive_enabled": false,
+        "tool_prompt_contract_id": "",
+        "tool_catalog_profile_id": "visual_role_catalog_route_arbitration_residual_exactness_v20",
+        "service": {},
+        "partial_runtime": false,
+        "llama_cpp_error": null,
+        "llama_cpp_context_window": null
+      }
+    },
+    "prompt_tokens": 1932,
+    "completion_tokens": 37,
+    "latency_ms": 7113
+  }
+]
